@@ -57,5 +57,3 @@ traci.vehicle.setStopParameter(vehicle_id, 0, "expected", "p0 p1")
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 traci.close()
-
-
