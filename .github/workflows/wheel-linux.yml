@@ -105,14 +105,11 @@ jobs:
     - name: Running meta tests and cleaning up
       run: |
         tests/runTests.sh -b ci -v ci -ts meta
-        python -m pip uninstall -y eclipse-sumo
         sed -i '/SUMO_HOME/d' $GITHUB_ENV
 
     - name: Running libsumo tests
       run: |
-        python -m pip install manylinux-wheels/sumolib-*.whl manylinux-wheels/traci-*.whl
-        PYTHON_VERSION=${{ matrix.python_version }}
-        python -m pip install manylinux-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
+        python -m pip install -f manylinux-wheels libsumo
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
