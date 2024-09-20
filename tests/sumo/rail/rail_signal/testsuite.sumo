@@ -148,3 +148,6 @@ siding_deadlock
 
 # siding cannot be used because the trains are too long
 sidingShort_deadlock
+
+# siding does not prevent deadlock because it doesn't have a signal
+sidingShort_noSignal
