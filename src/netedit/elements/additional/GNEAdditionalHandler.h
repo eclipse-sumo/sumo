@@ -297,11 +297,14 @@ public:
      * @param[in] filename The path to the output file.
      * @param[in] name E2 detector name
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     void buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                                const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                                const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                                 const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief builds a microscopic calibrator over a lane

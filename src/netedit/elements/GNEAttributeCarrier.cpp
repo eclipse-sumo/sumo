@@ -2546,6 +2546,17 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
