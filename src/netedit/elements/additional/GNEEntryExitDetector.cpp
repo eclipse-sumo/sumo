@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
-    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), 0, 0, {}, "", {}, {}, "", "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }

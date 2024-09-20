@@ -42,12 +42,15 @@ public:
      * @param[in] pos position of the detector on the lane
      * @param[in] filename The path to the output file.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E1 Instant detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
     GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename,
-                                    const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos,
+                                    const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                                    const std::string& detectPersons, const std::string& name, const bool friendlyPos,
                                     const Parameterised::Map& parameters);
 
     /// @brief Destructor

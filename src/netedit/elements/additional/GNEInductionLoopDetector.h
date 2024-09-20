@@ -44,12 +44,15 @@ public:
      * @param[in] filename The path to the output file.
      * @param[in] name E1 detector name
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime SUMOTime, const std::string& filename,
-                             const std::vector<std::string>& vehicleTypes, const std::string& name, bool friendlyPos,
-                             const Parameterised::Map& parameters);
+    GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename,
+                             const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                             const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEInductionLoopDetector();

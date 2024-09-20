@@ -41,7 +41,7 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, GUIIconSubSys::getIcon(GUIIcon::E2),
-                0, 0, {}, "", {}, "", false, Parameterised::Map()),
+                0, 0, {}, "", {}, {}, "", "", false, Parameterised::Map()),
             myEndPositionOverLane(0),
             myTimeThreshold(0),
             mySpeedThreshold(0),
@@ -52,12 +52,13 @@ myJamThreshold(0) {
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
-        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
-        SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold,
+        double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
                 pos, freq, {
     lane
-}, filename, vehicleTypes, name, friendlyPos, parameters),
+}, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters),
 myEndPositionOverLane(pos + length),
 myTimeThreshold(timeThreshold),
 mySpeedThreshold(speedThreshold),
@@ -67,10 +68,11 @@ myTrafficLight(trafficLight) {
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
-        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
-        double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold,
+        double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
-                pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
+                pos, freq, lanes, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -272,8 +274,8 @@ void
 GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check drawing conditions
     if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) &&
-         myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-         !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+            myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);
         // get detail level

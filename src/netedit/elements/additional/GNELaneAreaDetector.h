@@ -45,16 +45,21 @@ public:
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq, const std::string& trafficLight,
-                        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-                        double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters);
+    GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const double length, const SUMOTime freq,
+                        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+                        const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
+                        const bool show, const Parameterised::Map& parameters);
 
     /**@brief Constructor for Multi-Lane detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -66,16 +71,21 @@ public:
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq, const std::string& trafficLight,
-                        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold,
-                        bool friendlyPos, const Parameterised::Map& parameters);
+    GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
+                        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+                        const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
+                        const bool show, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNELaneAreaDetector();

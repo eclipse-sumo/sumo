@@ -37,18 +37,20 @@
 
 GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
     GNEDetector("", net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1INSTANT),
-                0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+                0, 0, {}, "", {}, {}, "", "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-        const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net,
+        const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+        const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1INSTANT),
                 pos, 0, {
     lane
-}, filename, vehicleTypes, name, friendlyPos, parameters) {
+}, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -140,7 +142,7 @@ void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E1InstantExaggeration = getExaggeration(s);
         // get detail level

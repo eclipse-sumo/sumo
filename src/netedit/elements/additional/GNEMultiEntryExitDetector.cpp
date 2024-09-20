@@ -39,9 +39,9 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
 }
 
 
-GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq,
-        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
-        double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) :
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
+        const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+        const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3EXIT), name, {}, {}, {}, {}, {}, {}),
               Parameterised(parameters),
               myPosition(pos),
