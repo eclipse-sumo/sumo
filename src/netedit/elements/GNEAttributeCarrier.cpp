@@ -2154,7 +2154,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2231,7 +2232,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2331,7 +2333,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2417,7 +2420,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2553,7 +2557,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
