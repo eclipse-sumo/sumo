@@ -151,3 +151,6 @@ sidingShort_deadlock
 
 # siding does not prevent deadlock because it doesn't have a signal
 sidingShort_noSignal
+
+# siding does not prevent deadlock because it doesn't have a signal. one more layer of signals outside the siding
+sidingShort_noSignal2
