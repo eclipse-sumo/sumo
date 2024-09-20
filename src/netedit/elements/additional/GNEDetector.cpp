@@ -308,11 +308,11 @@ GNEDetector::isDetectorValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEDetector::writeDetectorValues(OutputDevice& device) const {
-    if (myAdditionalName.size() > 0) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
     if (myPeriod > 0) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
+    }
+    if (myAdditionalName.size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
