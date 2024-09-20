@@ -154,3 +154,6 @@ sidingShort_noSignal
 
 # siding does not prevent deadlock because it doesn't have a signal. one more layer of signals outside the siding
 sidingShort_noSignal2
+
+# reduce number of "parallel" driveways
+driveway_variants
