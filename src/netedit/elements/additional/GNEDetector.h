@@ -149,34 +149,8 @@ public:
     /// @name inherited from GNEAttributeCarrier
     /// @{
 
-    /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
-
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
-
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
-
-    /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
-
-    /* @brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -208,6 +182,35 @@ protected:
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
 
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getDetectorAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getDetectorAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setDetectorAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isDetectorValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set attribute after validation
+    void setDetectorAttribute(SumoXMLAttr key, const std::string& value);
+
     /// @brief draw E1 shape
     void drawE1Shape(const GUIVisualizationSettings::Detail d, const double exaggeration,
                      const RGBColor& mainColor, const RGBColor& secondColor) const;
@@ -221,9 +224,6 @@ protected:
                             const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
 private:
-    /// @brief set attribute after validation
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
     /// @brief set move shape
     virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
 

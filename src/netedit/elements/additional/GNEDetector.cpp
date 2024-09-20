@@ -22,6 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
@@ -174,6 +175,191 @@ GNEDetector::getPopUpID() const {
 std::string
 GNEDetector::getHierarchyName() const {
     return getTagStr();
+}
+
+
+std::string
+GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return getMicrosimID();
+        case SUMO_ATTR_LANE:
+            return getParentLanes().front()->getID();
+        case SUMO_ATTR_POSITION:
+            return toString(myPositionOverLane);
+        case SUMO_ATTR_PERIOD:
+            if (myPeriod == SUMOTime_MAX_PERIOD) {
+                return "";
+            } else {
+                return time2string(myPeriod);
+            }
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
+        case SUMO_ATTR_FILE:
+            return myFilename;
+        case SUMO_ATTR_VTYPES:
+            return toString(myVehicleTypes);
+        case SUMO_ATTR_NEXT_EDGES:
+            return toString(myNextEdges);
+        case SUMO_ATTR_DETECT_PERSONS:
+            return toString(myDetectPersons);
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_PARAMETERS:
+            return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double
+GNEDetector::getDetectorAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            return myPositionOverLane;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_NAME:
+        case SUMO_ATTR_FILE:
+        case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_NEXT_EDGES:
+        case SUMO_ATTR_DETECT_PERSONS:
+        case SUMO_ATTR_FRIENDLY_POS:
+        case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+
+bool
+GNEDetector::isDetectorValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidDetectorID(value);
+        case SUMO_ATTR_LANE:
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
+                return true;
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_POSITION:
+            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        case SUMO_ATTR_PERIOD:
+            if (value.empty()) {
+                return true;
+            } else {
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
+        case SUMO_ATTR_FILE:
+            return SUMOXMLDefinitions::isValidFilename(value);
+        case SUMO_ATTR_VTYPES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+            }
+        case SUMO_ATTR_NEXT_EDGES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfNetIDs(value);
+            }
+        case SUMO_ATTR_DETECT_PERSONS:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::PersonModeValues.hasString(value);
+            }
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
+        case GNE_ATTR_PARAMETERS:
+            return areParametersValid(value);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            // update microsimID
+            setAdditionalID(value);
+            break;
+        case SUMO_ATTR_LANE:
+            replaceAdditionalParentLanes(value);
+            break;
+        case SUMO_ATTR_POSITION:
+            myPositionOverLane = parse<double>(value);
+            break;
+        case SUMO_ATTR_PERIOD:
+            if (value.empty()) {
+                myPeriod = SUMOTime_MAX_PERIOD;
+            } else {
+                myPeriod = string2time(value);
+            }
+            break;
+        case SUMO_ATTR_FILE:
+            myFilename = value;
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
+            break;
+        case SUMO_ATTR_VTYPES:
+            myVehicleTypes = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_NEXT_EDGES:
+            myNextEdges = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_DETECT_PERSONS:
+            myDetectPersons = value;
+            break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
+        case GNE_ATTR_PARAMETERS:
+            setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 

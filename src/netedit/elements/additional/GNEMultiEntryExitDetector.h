@@ -176,11 +176,20 @@ protected:
     /// @brief attribute vehicle types
     std::vector<std::string> myVehicleTypes;
 
+    /// @brief next edges
+    std::vector<std::string> myNextEdges;
+
+    /// @brief detect persons
+    std::string myDetectPersons;
+
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold = 0;
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
     double mySpeedThreshold = 0;
+
+    /// @brie open entry
+    bool myOpenEntry = false;
 
     /// @brief flag for enable/disable expected arrival
     bool myExpectedArrival = false;

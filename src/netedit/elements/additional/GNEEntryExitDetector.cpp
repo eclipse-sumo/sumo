@@ -173,24 +173,10 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEEntryExitDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return getParentAdditionals().front()->getID();
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
-        case GNE_ATTR_SHIFTLANEINDEX:
-            return "";
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getDetectorAttribute(key);
     }
 }
 
@@ -209,17 +195,12 @@ GNEEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
 void
 GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setDetectorAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -227,20 +208,11 @@ GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GN
 bool
 GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-            return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
-        case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, false) != nullptr);
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setDetectorAttribute(key, value);
+            break;
     }
 }
 
@@ -363,33 +335,12 @@ GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings::Detail d,
 void
 GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-            replaceAdditionalParentLanes(value);
-            break;
-        case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            break;
         case GNE_ATTR_PARENT:
             replaceAdditionalParent(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, 0);
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
-        case GNE_ATTR_SHIFTLANEINDEX:
-            shiftLaneIndex();
-            break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setDetectorAttribute(key, value);
+            break;
     }
 }
 

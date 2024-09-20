@@ -178,19 +178,22 @@ public:
 
 protected:
     /// @brief end position over lane (only for Multilane E2 detectors)
-    double myEndPositionOverLane;
+    double myEndPositionOverLane = 0;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
-    SUMOTime myTimeThreshold;
+    SUMOTime myTimeThreshold = 0;
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
-    double mySpeedThreshold;
+    double mySpeedThreshold = 0;
 
     /// @brief The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
-    double myJamThreshold;
+    double myJamThreshold = 0;
 
     /// @brief Traffic light vinculated with this E2 Detector
     std::string myTrafficLight;
+
+    /// @brief show or hidde detector in sumo-gui
+    bool myShow = true;
 
 private:
     /// @brief draw E2 detector
