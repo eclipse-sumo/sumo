@@ -2252,7 +2252,7 @@ NBEdgeCont::removeLanesByWidth(NBDistrictCont& dc, const double minWidth) {
             }
             idx++;
         }
-        if (indices.size() == edge->getNumLanes()) {
+        if ((int)indices.size() == edge->getNumLanes()) {
             toRemove.insert(edge);
         } else {
             for (const int i : indices) {

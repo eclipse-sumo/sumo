@@ -294,7 +294,7 @@ MEVehicle::resumeFromStopping() {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
         }
         myPastStops.push_back(stop.pars);
-        myPastStops.back().routeIndex = stop.edge - myRoute->begin();
+        myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         if (myAmRegisteredAsWaiting && (stop.triggered || stop.containerTriggered || stop.joinTriggered)) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaiting = false;

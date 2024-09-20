@@ -7230,7 +7230,7 @@ MSVehicle::resumeFromStopping() {
             myState.myPosLat = 0;
         }
         myPastStops.push_back(stop.pars);
-        myPastStops.back().routeIndex = stop.edge - myRoute->begin();
+        myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         myStops.pop_front();
         myStopDist = std::numeric_limits<double>::max();
         // do not count the stopping time towards gridlock time.

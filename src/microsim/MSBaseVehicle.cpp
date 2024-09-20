@@ -288,9 +288,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             // avoid superfluous waypoints for first and last edge
             const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = (stops.back() == sink
-                    && myArrivalPos >= lastPos
-                    && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
-                    && (stops.size() > 1 || skipFirst));
+                                   && myArrivalPos >= lastPos
+                                   && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
+                                   && (stops.size() > 1 || skipFirst));
 
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
@@ -1412,7 +1412,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                    + "' set to end at " + time2string(stop.getUntil())
                    + " earlier than arrival at " + time2string(stop.pars.arrival) + ".";
     }
-    setSkips(stop, myStops.size());
+    setSkips(stop, (int)myStops.size());
     myStops.insert(iter, stop);
     //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
     //    << " routeIndex=" << (stop.edge - myRoute->begin())
@@ -1431,7 +1431,7 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
         MSRouteIterator itPrev;
         double prevEndPos;
         if (prevActiveStops > 0) {
-            assert(myStops.size() >= prevActiveStops);
+            assert((int)myStops.size() >= prevActiveStops);
             auto prevStopIt = myStops.begin();
             std::advance(prevStopIt, prevActiveStops - 1);
             const MSStop& prev = *prevStopIt;
@@ -1456,7 +1456,7 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
         }
         if (foundSkips > 0) {
             //std::cout << "   foundSkips=" << foundSkips << "\n";
-            const_cast<SUMOVehicleParameter::Stop&>(stop.pars).index = myPastStops.size() + prevActiveStops + foundSkips;
+            const_cast<SUMOVehicleParameter::Stop&>(stop.pars).index = (int)myPastStops.size() + prevActiveStops + foundSkips;
         }
     }
 }

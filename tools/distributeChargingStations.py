@@ -174,7 +174,7 @@ def main(options):
               (totalChargingPoints, totalCapacity, totalChargingPoints/totalCapacity*100 if totalCapacity > 0 else 0))
     csIndex = 0
     rootParking = None
-    with open(options.outFile, 'w') as outf:
+    with sumolib.openz(options.outFile, 'w') as outf:
         rootCharging = sumolib.xml.create_document("additional")
         rootParking = sumolib.xml.create_document("additional") if options.outParkingFile else rootCharging
         for unusedParking in unusedParkings:
@@ -184,11 +184,13 @@ def main(options):
         checkEdges = True
         if options.includeExisting and totalExistingCount >= totalChargingPoints:
             if options.verbose:
-                print("Charging stations loaded from files %s already fulfil the requested number of charging points." % options.addFiles)
+                print("Charging stations loaded from files %s already fulfil the requested number of charging points."
+                      % options.addFiles)
             checkEdges = False
 
         for edge, parkingAreas in edge2parkingArea.items():
-            if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0) or not checkEdges:
+            if ((checkSelection and not edge.isSelected()) or len(parkingAreas) == 0
+                    or (options.skipEquippedEdges and edge2chargingPointCount.get(edge, 0) > 0) or not checkEdges):
                 if options.verbose:
                     print("Skip edge %s" % str(edge.getID()))
                 if len(parkingAreas) > 0:
