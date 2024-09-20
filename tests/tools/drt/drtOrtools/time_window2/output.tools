@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -42,8 +41,8 @@ hard time window for node 3: [200, 600]
 hard time window for node 4: [1, 600]
 hard time window for node 5: [1, 600]
  Add waiting time constraints...
-reservation 0 has a maximum (hard) pickup time at 900
-reservation 1 has a maximum (hard) pickup time at 900
+reservation 0 has a maximum (hard) pickup time at 190
+reservation 1 has a maximum (hard) pickup time at 1100
 ## Done
  Set solution heuristic...
 Start solving the problem.
