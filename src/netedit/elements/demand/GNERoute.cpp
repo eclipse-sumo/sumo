@@ -382,35 +382,12 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNERoute::computePathElement() {
-    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        // get parent vehicle
-        const GNEDemandElement* parentVehicle = getParentDemandElements().at(0);
-        // declare lane vector
-        std::vector<GNELane*> lanes;
-        // get first and last path lane
-        GNELane* firstLane = parentVehicle->getFirstPathLane();
-        GNELane* lastLane = parentVehicle->getLastPathLane();
-        // insert first vehicle lane
-        if (firstLane) {
-            lanes.push_back(firstLane);
-        }
-        // add middle lanes
-        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
-        }
-        // insert last vehicle lane
-        if (lastLane) {
-            lanes.push_back(lastLane);
-        }
-        // calculate consecutive path using vClass of vehicle parent
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, lanes);
-    } else {
-        // calculate path using SVC_PASSENGER
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
-        // if path is empty, then calculate path again using SVC_IGNORING
-        if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
-        }
+    const auto vClass = myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED ? getVClass() : SVC_PASSENGER;
+    // calculate path
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, vClass, getParentEdges());
+    // if path is empty, then calculate path again using SVC_IGNORING
+    if (!myNet->getPathManager()->isPathValid(this)) {
+        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
     }
 }
 
