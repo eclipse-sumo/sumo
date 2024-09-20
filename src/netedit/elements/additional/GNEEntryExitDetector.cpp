@@ -61,9 +61,8 @@ GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
-    }
+    // write common detector parameters
+    writeDetectorValues(device);
     // write parameters
     writeParams(device);
     device.closeTag();
@@ -211,8 +210,7 @@ GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, false) != nullptr);
         default:
-            setDetectorAttribute(key, value);
-            break;
+            return isDetectorValid(key, value);
     }
 }
 

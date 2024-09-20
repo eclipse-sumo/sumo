@@ -87,9 +87,6 @@ void
 GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
     // continue depending of E2 type
     if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
@@ -100,17 +97,11 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
         device.writeAttr(SUMO_ATTR_ENDPOS, myEndPositionOverLane);
     }
+    // write common detector parameters
+    writeDetectorValues(device);
+    // write specific attributes
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
-    }
-    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
-        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
-    }
-    if (myFilename.size() > 0) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
-    }
-    if (myVehicleTypes.size() > 0) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
     }
     if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, mySpeedThreshold);
@@ -121,8 +112,8 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, mySpeedThreshold);
     }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    if (getAttribute(SUMO_ATTR_SHOW_DETECTOR) != myTagProperty.getDefaultValue(SUMO_ATTR_SHOW_DETECTOR)) {
+        device.writeAttr(SUMO_ATTR_SHOW_DETECTOR, myShow);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);

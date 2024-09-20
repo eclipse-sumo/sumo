@@ -149,8 +149,34 @@ public:
     /// @name inherited from GNEAttributeCarrier
     /// @{
 
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
+
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
+
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -162,10 +188,10 @@ public:
 
 protected:
     /// @brief position of detector over Lane
-    double myPositionOverLane;
+    double myPositionOverLane = 0;
 
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    SUMOTime myPeriod;
+    SUMOTime myPeriod = 0;
 
     /// @brief The path to the output file
     std::string myFilename;
@@ -180,7 +206,7 @@ protected:
     std::string myDetectPersons;
 
     /// @brief Flag for friendly position
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
 
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
@@ -208,6 +234,11 @@ protected:
      */
     bool isDetectorValid(SumoXMLAttr key, const std::string& value);
 
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeDetectorValues(OutputDevice& device) const;
+
     /// @brief set attribute after validation
     void setDetectorAttribute(SumoXMLAttr key, const std::string& value);
 
@@ -224,6 +255,9 @@ protected:
                             const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
 private:
+    /// @brief set attribute after validation
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
     /// @brief set move shape
     virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
 

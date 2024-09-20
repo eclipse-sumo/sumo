@@ -307,6 +307,32 @@ GNEDetector::isDetectorValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
+GNEDetector::writeDetectorValues(OutputDevice& device) const {
+    if (myAdditionalName.size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    if (myPeriod > 0) {
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
+    }
+    if (myFilename.size() > 0) {
+        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
+    if (myVehicleTypes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+    }
+    if (myNextEdges.size() > 0) {
+        device.writeAttr(SUMO_ATTR_NEXT_EDGES, myNextEdges);
+    }
+    if ((myDetectPersons.size() > 0) && (myDetectPersons != SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE))) {
+        device.writeAttr(SUMO_ATTR_DETECT_PERSONS, myDetectPersons);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    }
+}
+
+
+void
 GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
