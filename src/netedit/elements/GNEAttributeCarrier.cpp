@@ -2147,6 +2147,17 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
@@ -2213,6 +2224,17 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)"),
@@ -2237,6 +2259,12 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
                                               TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
                                               "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHOW_DETECTOR,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Show detector in sumo-gui"),
+                                              "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_MULTI_LANE_AREA_DETECTOR;
@@ -2296,6 +2324,17 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)"),
@@ -2322,6 +2361,11 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHOW_DETECTOR,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Show detector in sumo-gui"),
+                                              "1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_ENTRY_EXIT_DETECTOR;
     {
@@ -2366,6 +2410,23 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_OPEN_ENTRY,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("If set to true, no error will be reported if vehicles leave the detector without first entering it"),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s"),
@@ -2383,7 +2444,6 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Whether no warning should be issued when a vehicle arrives within the detector area."),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
     }
     currentTag = SUMO_TAG_DET_ENTRY;
     {
