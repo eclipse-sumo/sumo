@@ -1,0 +1,4 @@
+Warning: Ambiguity in turnarounds computation at junction 'C'.
+Warning: Ambiguity in turnarounds computation at junction 'D'.
+Warning: Could not find bidi-connection for edge ':C_1'
+Warning: Could not find bidi-connection for edge ':C_3'

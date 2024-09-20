@@ -200,3 +200,6 @@ ticket15111
 
 # custom node shape projected twice
 ticket15137
+
+# net has superfluous edge, bidi connections not found 
+ticket15514

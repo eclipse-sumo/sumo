@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-20 08:02:38 by Eclipse SUMO netconvert Version v1_20_0+2076-4c716cf2e71
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-a"/>
+
+    <connection from="-b" to="-a" fromLane="0" toLane="0"/>
+
+    <connection from="-c" to="c" fromLane="0" toLane="0" uncontrolled="1"/>
+
+    <connection from="-c2" to="-b" fromLane="0" toLane="0"/>
+    <connection from="-c2" to="c2" fromLane="0" toLane="0" uncontrolled="1"/>
+
+    <connection from="-d" to="-c2" fromLane="0" toLane="0"/>
+    <connection from="-d" to="-c" fromLane="0" toLane="0"/>
+
+    <connection from="-e" to="-d" fromLane="0" toLane="0"/>
+
+    <connection from="a" to="b" fromLane="0" toLane="0"/>
+
+    <connection from="b" to="c" fromLane="0" toLane="0" uncontrolled="1"/>
+
+    <connection from="c" to="d" fromLane="0" toLane="0" uncontrolled="1"/>
+
+    <connection from="c2" to="d" fromLane="0" toLane="0" uncontrolled="1"/>
+
+    <connection from="d" to="e" fromLane="0" toLane="0"/>
+
+    <connection from="e"/>
+
+</connections>

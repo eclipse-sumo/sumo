@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-20 08:02:38 by Eclipse SUMO netconvert Version v1_20_0+2076-4c716cf2e71
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-a" from="B" to="A" name="5500F-MFE" priority="3" numLanes="1" speed="33.33" spreadType="center" length="148.00" allow="rail" distance="-15368.00" bidi="a"/>
+    <edge id="-b" from="C" to="B" name="5500F-MFE" priority="3" numLanes="1" speed="33.33" spreadType="center" length="185.00" allow="rail" distance="-15700.00" bidi="b"/>
+    <edge id="-c" from="D" to="C" name="5500S-MFE" priority="1" numLanes="1" speed="27.78" spreadType="center" length="1.00" allow="rail" distance="15700.00" bidi="c"/>
+    <edge id="-c2" from="D" to="C" name="5500F-MFE" priority="3" numLanes="1" speed="33.33" spreadType="center" length="1.00" allow="rail" distance="-15700.00" bidi="c2"/>
+    <edge id="-d" from="E" to="D" name="5500F-M_421" priority="4" numLanes="1" speed="33.33" spreadType="center" length="1.00" allow="rail" distance="-15700.00" bidi="d"/>
+    <edge id="-e" from="F" to="E" name="5500F-M_421" priority="3" numLanes="1" speed="38.89" spreadType="center" length="700.00" allow="rail" distance="-15700.00" bidi="e"/>
+    <edge id="a" from="A" to="B" name="5500S-MFE" priority="0" numLanes="1" speed="27.78" spreadType="center" length="148.00" allow="rail" distance="15368.00" bidi="-a"/>
+    <edge id="b" from="B" to="C" name="5500S-MFE" priority="0" numLanes="1" speed="27.78" spreadType="center" length="185.00" allow="rail" distance="15516.00" bidi="-b"/>
+    <edge id="c" from="C" to="D" name="5500S-MFE" priority="1" numLanes="1" speed="27.78" spreadType="center" length="1.00" allow="rail" distance="15700.00" bidi="-c"/>
+    <edge id="c2" from="C" to="D" name="5500F-MFE" priority="0" numLanes="1" speed="33.33" spreadType="center" length="1.00" allow="rail" distance="-15700.00" bidi="-c2"/>
+    <edge id="d" from="D" to="E" name="5500S-MFE" priority="0" numLanes="1" speed="27.78" spreadType="center" length="1.00" allow="rail" distance="15700.00" bidi="-d"/>
+    <edge id="e" from="E" to="F" name="5500S-M_421" priority="0" numLanes="1" speed="27.78" spreadType="center" length="700.00" allow="rail" distance="15700.00" bidi="-e"/>
+</edges>
