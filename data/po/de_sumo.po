@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-19 16:24+0000\n"
+"PO-Revision-Date: 2024-09-21 12:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5452,15 +5452,15 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:344
 msgid "Error while adding a journey for person '%': %"
-msgstr ""
+msgstr "Fehler beim Hinzufügen einer Reise von Person '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:378
 msgid "Error while switching to a new journey for person '%': %"
-msgstr ""
+msgstr "Fehler beim Übergang zu einer neuen Reise von Person '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:409
 msgid "Error during iteration %: %"
-msgstr ""
+msgstr "Fehler im Schritt %: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:572
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
@@ -5533,12 +5533,14 @@ msgstr "Fehler bei der Generierung der Geometrie: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1133
 msgid "Error while adding waiting set for % on '%': %"
-msgstr ""
+msgstr "Fehler beim Hinzufügen einer Warteaktivität für % auf '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1183
 msgid ""
 "Adapting geometry repulsion default values for jupedsim timestep of 0.02."
 msgstr ""
+"Anpassung der Geometrieabstoßkraftstandardwerte an den JuPedSim-Zeitschritt "
+"von 0.02."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1229
 msgid "Error creating the pedestrian model: %"
@@ -5569,6 +5571,8 @@ msgstr " zwischen Kante '%' und Kante '%'"
 #: src/microsim/transportables/MSPModel_Striping.cpp:1528
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
+"Die Person '%' bemerkt auf dem Fußweg von Kante '%' nach '%' eine "
+"Unterbrechung%, zur Zeit=%."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1831
 msgid "Disconnected walk for person '%'."
@@ -5591,6 +5595,8 @@ msgid ""
 "Vehicle '%' exceeds containerCapacity % when placing triggered container "
 "'%', time=%"
 msgstr ""
+"Das Fahrzeug '%' überschreitet seine Containerkapazität % mit dem zu "
+"ladenden, ausgelösten Container '%', zur Zeit=%"
 
 #: src/microsim/transportables/MSStageTrip.cpp:154
 msgid ""
@@ -5705,7 +5711,7 @@ msgstr "Attribut % der Ladestation mit der ID='%' ist ungültig (%)."
 
 #: src/microsim/trigger/MSChargingStation.cpp:71
 msgid "ChargingStation with ID='%' doesn't have a valid position (% < %)."
-msgstr ""
+msgstr "Die Ladestation mit ID='%' hat keine gültige Position (% < %)."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
