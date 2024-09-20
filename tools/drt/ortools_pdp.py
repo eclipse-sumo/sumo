@@ -378,7 +378,8 @@ def add_waiting_time_constraints(data: orToolsDataModel.ORToolsDataModel,
     for request in data.pickups_deliveries:
         pickup_index = manager.NodeToIndex(request.from_node)
         reservation_time = request.reservation.reservationTime
-        maximum_pickup_time = round(reservation_time + global_waiting_time)
+        requested_pickup_time = request.get_earliest_pickup() or reservation_time
+        maximum_pickup_time = round(request.get_dropoff_latest() or (requested_pickup_time + global_waiting_time))
         # add hard constraint for new reservations
         if request.is_new():
             if verbose:
