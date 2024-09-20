@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-19 08:40+0000\n"
+"PO-Revision-Date: 2024-09-20 11:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8966,7 +8966,7 @@ msgstr "L'arco '%' non tocca il nodo '%'."
 #: src/netimport/NIXMLConnectionsHandler.cpp:421
 #, c-format
 msgid "Crossing at controlled node '%' must be prioritized"
-msgstr ""
+msgstr "Il passaggio pedonale del nodo controllato '%' deve essere prioritario"
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:426
 msgid "Unable to project shape for crossing at node '%'."
@@ -8983,7 +8983,7 @@ msgstr ""
 #: src/netimport/NIXMLConnectionsHandler.cpp:478
 #, c-format
 msgid "Edge '%' for walkingArea at node '%' is not known."
-msgstr ""
+msgstr "L'arco '%' per l'area pedonale nel nodo '%' è sconosciuta."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:504
 msgid "Unable to project shape for walkingArea at node '%'."
@@ -11608,7 +11608,7 @@ msgstr ""
 #: src/utils/options/OptionsCont.cpp:175
 #, c-format
 msgid "No option with the name '%' exists."
-msgstr ""
+msgstr "Non esiste nessun'opzione con il nome '%'."
 
 #: src/utils/options/OptionsCont.cpp:192
 #, c-format
@@ -11616,43 +11616,49 @@ msgid ""
 "Please note that '%' is deprecated.\n"
 " Use '%' instead."
 msgstr ""
+"Nota che '%' è obsoleto.\n"
+" Usa '%' al suo posto."
 
 #: src/utils/options/OptionsCont.cpp:388
 #, c-format
 msgid "The file list for '%' is empty."
-msgstr ""
+msgstr "L'elenco file per '%' è vuoto."
 
 #: src/utils/options/OptionsCont.cpp:394
 msgid "File '%' is not accessible (%)."
-msgstr ""
+msgstr "Il file '%' non è accessibile (%)."
 
 #: src/utils/options/OptionsCont.cpp:397
 msgid "Empty file name given; ignoring."
-msgstr ""
+msgstr "Il nome del file dato è vuoto; va ignorato."
 
 #: src/utils/options/OptionsCont.cpp:418
 msgid "Option '%' needs option '%'."
-msgstr ""
+msgstr "L'opzione '%' necessita l'opzione '%'."
 
 #: src/utils/options/OptionsCont.cpp:432
 msgid ""
 "A value for the option '%' was already set.\n"
 " Possible synonymes: "
 msgstr ""
+"Un valore è già stato impostasto per l'opzione '%'.\n"
+" Sinonimi possibili: "
 
 #: src/utils/options/OptionsCont.cpp:621 src/utils/options/OptionsCont.cpp:642
 msgid " Build features: "
-msgstr ""
+msgstr " Caratteristische del build: "
 
 #: src/utils/options/OptionsCont.cpp:625
 msgid ""
 " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
 "legal/epl-v20.html>"
 msgstr ""
+" Licenza EPL-2.0: Eclipse Public License Versione 2 <https://eclipse.org/"
+"legal/epl-v20.html>"
 
 #: src/utils/options/OptionsCont.cpp:626
 msgid " Use --help to get the list of options."
-msgstr ""
+msgstr " Usa --help per accedere all'elenco di opzioni."
 
 #: src/utils/options/OptionsCont.cpp:673
 msgid "Could not save configuration to '%'"
