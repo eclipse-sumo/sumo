@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- E1 A -->
-    <inductionLoop id="E1_A" lane="EdgeCenter1_1" pos="21.71" period="120.00" name="DetectorA" file="fileA.txt" vTypes="Type1 Type2 Type3" friendlyPos="0">
+    <inductionLoop id="E1_A" lane="EdgeCenter1_1" pos="21.71" period="120.00" name="DetectorA" file="fileA.txt" nextEdges="EdgeCenter0" detectPersons="walkBackward" vTypes="Type1 Type2 Type3" friendlyPos="0">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </inductionLoop>
 
     <!-- E1 B -->
-    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10" period="90.00" name="DetectorB" file="fileB.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
+    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10" period="90.00" name="DetectorB" file="fileB.txt" nextEdges="edge3" detectPersons="car" vTypes="Type4 Type5 Type6" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

@@ -895,7 +895,9 @@ class E1:
         name = 7
         file = 8
         vTypes = 9
-        friendlyPos = 10
+        nextEdges = 10
+        detectPersons = 11
+        friendlyPos = 13
 
     class inspect:
         id = 1
@@ -906,16 +908,20 @@ class E1:
         name = 6
         file = 7
         vTypes = 8
-        friendlyPos = 9
-        parameters = 12
+        nextEdges = 9
+        detectPersons = 10
+        friendlyPos = 12
+        parameters = 15
 
     class inspectSelection:
         period = 1
         name = 2
         file = 3
         vTypes = 4
-        friendlyPos = 5
-        parameters = 8
+        nextEdges = 5
+        detectPersons = 6
+        friendlyPos = 8
+        parameters = 11
 
 # E2
 
@@ -929,10 +935,12 @@ class E2:
         name = 9
         file = 10
         vTypes = 11
-        timeThreshold = 12
-        speedThreshold = 13
-        jamThreshold = 14
-        friendlyPos = 15
+        nextEdges = 12
+        detectPersons = 13
+        timeThreshold = 15
+        speedThreshold = 16
+        jamThreshold = 17
+        friendlyPos = 18
 
     class inspect:
         id = 1
@@ -945,11 +953,13 @@ class E2:
         name = 8
         file = 9
         vTypes = 10
-        timeThreshold = 11
-        speedThreshold = 12
-        jamThreshold = 13
-        friendlyPos = 14
-        parameters = 17
+        nextEdges = 11
+        detectPersons = 12
+        timeThreshold = 14
+        speedThreshold = 15
+        jamThreshold = 16
+        friendlyPos = 17
+        parameters = 20
 
     class inspectSelection:
         length = 1
@@ -958,11 +968,13 @@ class E2:
         name = 4
         file = 5
         vTypes = 6
-        timeThreshold = 7
-        speedThreshold = 8
-        jamThreshold = 9
-        friendlyPos = 10
-        parameters = 13
+        nextEdges = 7
+        detectPersons = 8
+        timeThreshold = 10
+        speedThreshold = 11
+        jamThreshold = 12
+        friendlyPos = 13
+        parameters = 16
 
 # E2Multilane
 
@@ -975,10 +987,12 @@ class E2Multilane:
         name = 8
         file = 9
         vTypes = 10
-        timeThreshold = 11
-        speedThreshold = 12
-        jamThreshold = 13
-        friendlyPos = 14
+        nextEdges = 11
+        detectPersons = 12
+        timeThreshold = 14
+        speedThreshold = 15
+        jamThreshold = 16
+        friendlyPos = 17
 
     class inspect:
         id = 1
@@ -990,11 +1004,13 @@ class E2Multilane:
         name = 7
         file = 8
         vTypes = 9
-        timeThreshold = 10
-        speedThreshold = 11
-        jamThreshold = 12
-        friendlyPos = 13
-        parameters = 16
+        nextEdges = 10
+        detectPersons = 11
+        timeThreshold = 13
+        speedThreshold = 14
+        jamThreshold = 15
+        friendlyPos = 16
+        parameters = 19
 
     class inspectSelection:
         period = 1
@@ -1002,11 +1018,13 @@ class E2Multilane:
         name = 3
         file = 4
         vTypes = 5
-        timeThreshold = 6
-        speedThreshold = 7
-        jamThreshold = 8
-        friendlyPos = 9
-        parameters = 12
+        nextEdges = 6
+        detectPersons = 7
+        timeThreshold = 9
+        speedThreshold = 10
+        jamThreshold = 11
+        friendlyPos = 12
+        parameters = 15
 
 # E3
 
@@ -1018,9 +1036,11 @@ class E3:
         name = 7
         file = 8
         vTypes = 9
-        timeThreshold = 10
-        speedThreshold = 11
-        expectArrival = 12
+        nextEdges = 10
+        detectPersons = 11
+        timeThreshold = 13
+        speedThreshold = 14
+        expectArrival = 15
 
     class inspect:
         id = 1
@@ -1029,20 +1049,24 @@ class E3:
         name = 4
         file = 5
         vTypes = 6
-        timeThreshold = 7
-        speedThreshold = 8
-        expectArrival = 9
-        parameters = 12
+        nextEdges = 7
+        detectPersons = 8
+        timeThreshold = 10
+        speedThreshold = 11
+        expectArrival = 12
+        parameters = 15
 
     class inspectSelection:
         period = 1
         name = 2
         file = 3
         vTypes = 4
-        timeThreshold = 5
-        speedThreshold = 6
-        expectArrival = 7
-        parameters = 10
+        nextEdges = 5
+        detectPersons = 6
+        timeThreshold = 8
+        speedThreshold = 9
+        expectArrival = 10
+        parameters = 13
 
 # entryExit
 
@@ -1074,7 +1098,9 @@ class E1Instant:
         name = 6
         file = 7
         vTypes = 8
-        friendlyPos = 9
+        nextEdges = 9
+        detectPersons = 10
+        friendlyPos = 12
 
     class inspect:
         id = 1
@@ -1084,15 +1110,19 @@ class E1Instant:
         name = 5
         file = 6
         vTypes = 7
-        friendlyPos = 8
-        parameters = 11
+        nextEdges = 8
+        detectPersons = 9
+        friendlyPos = 11
+        parameters = 14
 
     class inspectSelection:
         name = 1
         file = 2
         vTypes = 3
-        friendlyPos = 4
-        parameters = 7
+        nextEdges = 4
+        detectPersons = 5
+        friendlyPos = 7
+        parameters = 10
 
 # calibrator
 

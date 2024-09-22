@@ -2,14 +2,14 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- E2 Multi A -->
-    <laneAreaDetector id="multiLaneAreaDetector_0" name="nameA" lanes="Edge0_1 Edge1_1 Edge2_1" pos="10.00" period="100.00" file="fileA.txt" vTypes="type1 type2 type3" endPos="20.00" friendlyPos="true">
+    <laneAreaDetector id="multiLaneAreaDetector_0" name="nameA" lanes="Edge0_1 Edge1_1 Edge2_1" pos="10.00" period="100.00" file="fileA.txt" nextEdges="EdgeCenter0" detectPersons="walkBackward" vTypes="type1 type2 type3" endPos="20.00" friendlyPos="true">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </laneAreaDetector>
 
     <!-- E2 Multi B -->
-    <laneAreaDetector id="multiLaneAreaDetector_1" name="nameB" lanes="Edge3_1 Edge4_1 Edge5_1" pos="5.00" period="200.00" file="fileB.xml" vTypes="type4 type5 type6" endPos="15.00" friendlyPos="true">
+    <laneAreaDetector id="multiLaneAreaDetector_1" name="nameB" lanes="Edge3_1 Edge4_1 Edge5_1" pos="5.00" period="200.00" file="fileB.xml" nextEdges="edge3" detectPersons="car" vTypes="type4 type5 type6" endPos="15.00" friendlyPos="true">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

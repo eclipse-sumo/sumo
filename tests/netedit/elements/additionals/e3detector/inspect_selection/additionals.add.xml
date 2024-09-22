@@ -1,7 +1,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- E3 A -->
-    <entryExitDetector id="entryExitDetector_A" period="100.00" file="fileA.txt" name="A" timeThreshold="1.00" speedThreshold="1.39" expectArrival="true" pos="-6.00,10.00">
+    <entryExitDetector id="entryExitDetector_A" period="100.00" file="fileA.txt" name="A" nextEdges="EdgeCenter0" detectPersons="walkBackward" vTypes="type1 type2 type3" timeThreshold="1.00" speedThreshold="1.39" expectArrival="true" pos="-6.00,10.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
@@ -10,7 +10,7 @@
     </entryExitDetector>
 
     <!-- E3 B -->
-    <entryExitDetector id="entryExitDetector_B" period="120.00" file="fileB.txt" name="B" timeThreshold="2.00" speedThreshold="3.39" expectArrival="false" pos="6.00,10.00">
+    <entryExitDetector id="entryExitDetector_B" period="120.00" file="fileB.txt" name="B" timeThreshold="2.00" speedThreshold="3.39" nextEdges="edge3" detectPersons="car" vTypes="type4 type5 type6" expectArrival="false" pos="6.00,10.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>
