@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-24 11:16:02 by Eclipse SUMO netedit Version v1_20_0+1389-768a687f255
+<!-- generated on 2024-09-22 16:29:21 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="customID" lanes="Edge3_1 Edge4_1 Edge5_1" pos="25.50" endPos="28.00" period="300.00" file="customID.xml"/>
     <laneAreaDetector id="e2_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="23.00" endPos="30.00" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_1" lanes="Edge3_1 Edge4_1 Edge5_1" pos="25.50" endPos="28.00" period="300.00" file="e2_1.xml"/>
 </additional>

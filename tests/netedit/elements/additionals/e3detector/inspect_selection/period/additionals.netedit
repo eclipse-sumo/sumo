@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-24 14:24:01 by Eclipse SUMO netedit Version v1_20_0+1389-768a687f255
+<!-- generated on 2024-09-22 16:32:56 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,14 +15,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <entryExitDetector id="entryExitDetector_A" name="A" pos="-6.00,10.00" period="50.00" file="fileA.txt" expectArrival="1">
+    <entryExitDetector id="entryExitDetector_A" name="A" pos="-6.00,10.00" period="50.00" file="fileA.txt" vTypes="type1 type2 type3" expectArrival="1">
         <detEntry lane="EdgeCenter0_0" pos="5.00"/>
         <detExit lane="EdgeCenter0_0" pos="25.00"/>
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </entryExitDetector>
-    <entryExitDetector id="entryExitDetector_B" name="B" pos="6.00,10.00" period="50.00" file="fileB.txt" timeThreshold="2000" speedThreshold="3.39">
+    <entryExitDetector id="entryExitDetector_B" name="B" pos="6.00,10.00" period="50.00" file="fileB.txt" vTypes="type4 type5 type6" timeThreshold="2000" speedThreshold="3.39">
         <detEntry lane="EdgeCenter1_0" pos="10.00"/>
         <detExit lane="EdgeCenter1_0" pos="30.00"/>
         <param key="KeyB1" value="valueB1"/>

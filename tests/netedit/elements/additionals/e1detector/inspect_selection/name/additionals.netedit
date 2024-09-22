@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-21 15:46:59 by Eclipse SUMO netedit Version v1_20_0+0745-4885fc9a1a0
+<!-- generated on 2024-09-22 16:32:04 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="E1_A" name="customName" lane="EdgeCenter1_1" pos="21.71" period="120.00" file="fileA.txt" vTypes="Type1 Type2 Type3">
+    <inductionLoop id="E1_A" lane="EdgeCenter1_1" pos="21.71" period="120.00" name="customName" file="fileA.txt" vTypes="Type1 Type2 Type3" nextEdges="EdgeCenter0" detectPersons="walkBackward">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </inductionLoop>
-    <inductionLoop id="E1_B" name="customName" lane="EdgeCenter0_1" pos="10.00" period="90.00" file="fileB.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
+    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10.00" period="90.00" name="customName" file="fileB.txt" vTypes="Type4 Type5 Type6" nextEdges="edge3" detectPersons="car" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

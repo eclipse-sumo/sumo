@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-24 13:47:08 by Eclipse SUMO netedit Version v1_20_0+1389-768a687f255
+<!-- generated on 2024-09-22 16:36:49 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="15.00" file="multiLaneAreaDetector_0.xml"/>
-    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="15.00" tl="Junction2" file="multiLaneAreaDetector_2.xml"/>
+    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="15.00" period="9223372036854774.00" file="multiLaneAreaDetector_0.xml"/>
+    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="15.00" period="9223372036854774.00" file="multiLaneAreaDetector_2.xml" tl="Junction2"/>
 </additional>

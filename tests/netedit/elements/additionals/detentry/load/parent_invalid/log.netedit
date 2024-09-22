@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a entryExitDetector.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jul080311.2100\netedit.gui\elements\additionals\detentry\load\parent_invalid\additionals.add.xml failed.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found  '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found  '').
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.22Sep162749.6447/netedit.gui/elements/additionals/detentry/load/parent_invalid/additionals.add.xml failed.
