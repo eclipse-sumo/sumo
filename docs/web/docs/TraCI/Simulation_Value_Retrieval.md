@@ -265,7 +265,7 @@ Some further messages require additional parameters.
 <td><p>find route (0x86)</p></td>
 <td><p>compound, see below</p></td>
 <td><p>compound, see below</p></td>
-<td><p>Reads origin and destination edge together with some vehicle paramters and computes the currently fastest driving route for the vehicle (for pedestrians / passengers use find intermodal route).</p></td>
+<td><p>Reads origin and destination edge together with some vehicle parameters and computes the currently fastest driving route for the vehicle (for pedestrians / passengers use find intermodal route).</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-findRoute">findRoute</a></p></td>
 </tr>
 <tr class="even">
