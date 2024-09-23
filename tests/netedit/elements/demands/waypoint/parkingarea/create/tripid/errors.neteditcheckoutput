@@ -1,3 +1,0 @@
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.69, offset=4.99), time=20.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=2.04), time=21.00.
-Warning: Invalid departPos -1.00 given for vehicle 'vehicle_0'. Inserting at lane end instead.

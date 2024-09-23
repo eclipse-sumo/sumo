@@ -1,4 +1,4 @@
 Warning: Vehicle 'splitB' to split from vehicle 'vehicle_1' is not known. time=17.00.
 Warning: Vehicle 'splitA' to split from vehicle 'vehicle_0' is not known. time=19.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.52, offset=6.66), time=20.00.
+Warning: Vehicle 'vehicle_0' aborts stop.
 Warning: Vehicle 'vehicle_1' teleports beyond arrival edge 'Edge5', time=99.00.

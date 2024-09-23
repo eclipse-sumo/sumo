@@ -4,52 +4,38 @@ Warning: Vehicle 'splitB' to split from vehicle 'flow_1.1' is not known. time=19
 Warning: Vehicle 'flow_1.1' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.2' is not known. time=23.00.
 Warning: Vehicle 'flow_1.2' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
-Warning: Vehicle 'flow_1.2' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-4.89, offset=4.13), time=25.00.
+Warning: Vehicle 'flow_1.2' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.3' is not known. time=26.00.
 Warning: Vehicle 'flow_1.3' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
-Warning: Vehicle 'flow_1.3' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-8.97, offset=7.53), time=27.00.
+Warning: Vehicle 'flow_1.3' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.4' is not known. time=31.00.
-Warning: Vehicle 'flow_1.4' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.40, offset=0.31), time=31.00.
-Warning: Vehicle 'flow_1.4' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.4' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.5' is not known. time=35.00.
-Warning: Vehicle 'flow_1.5' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.30, offset=6.01), time=35.00.
-Warning: Vehicle 'flow_1.5' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.5' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.6' is not known. time=37.00.
-Warning: Vehicle 'flow_1.6' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.54, offset=4.11), time=37.00.
-Warning: Vehicle 'flow_1.6' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.6' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.7' is not known. time=42.00.
-Warning: Vehicle 'flow_1.7' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.46, offset=5.56), time=42.00.
-Warning: Vehicle 'flow_1.7' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.7' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.8' is not known. time=45.00.
-Warning: Vehicle 'flow_1.8' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.08, offset=0.29), time=45.00.
-Warning: Vehicle 'flow_1.8' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.8' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.9' is not known. time=49.00.
-Warning: Vehicle 'flow_1.9' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.49, offset=2.31), time=49.00.
-Warning: Vehicle 'flow_1.9' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.9' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.10' is not known. time=53.00.
-Warning: Vehicle 'flow_1.10' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-10.79, offset=0.78), time=53.00.
-Warning: Vehicle 'flow_1.10' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.10' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.11' is not known. time=58.00.
-Warning: Vehicle 'flow_1.11' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.09, offset=5.45), time=58.00.
-Warning: Vehicle 'flow_1.11' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.11' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.12' is not known. time=62.00.
-Warning: Vehicle 'flow_1.12' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.85, offset=7.30), time=62.00.
-Warning: Vehicle 'flow_1.12' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.12' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.13' is not known. time=65.00.
-Warning: Vehicle 'flow_1.13' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.13, offset=2.89), time=65.00.
-Warning: Vehicle 'flow_1.13' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.13' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.14' is not known. time=70.00.
-Warning: Vehicle 'flow_1.14' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.69, offset=10.72), time=70.00.
-Warning: Vehicle 'flow_1.14' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.14' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.15' is not known. time=73.00.
-Warning: Vehicle 'flow_1.15' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-13.35, offset=10.57), time=73.00.
-Warning: Vehicle 'flow_1.15' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.15' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.16' is not known. time=77.00.
-Warning: Vehicle 'flow_1.16' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.11, offset=7.67), time=77.00.
-Warning: Vehicle 'flow_1.16' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.16' aborts stop.
 Warning: Vehicle 'splitB' to split from vehicle 'flow_1.17' is not known. time=81.00.
-Warning: Vehicle 'flow_1.17' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.48, offset=10.23), time=81.00.
-Warning: Vehicle 'flow_1.17' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
+Warning: Vehicle 'flow_1.17' aborts stop.
 Warning: Teleporting vehicle 'flow_0.0'; waited too long (wrong lane), lane='Edge0_1', time=312.00.
 Warning: Vehicle 'flow_0.0' ends teleporting on edge 'Edge2', time=312.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.0' is not known. time=317.00.
@@ -89,52 +75,19 @@ Warning: Teleporting vehicle 'flow_0.7'; waited too long (wrong lane), lane='Edg
 Warning: Vehicle 'flow_0.7' ends teleporting on edge 'Edge2', time=2447.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.7' is not known. time=2453.00.
 Warning: Vehicle 'flow_0.7' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.8' is not known. time=2463.00.
-Warning: Vehicle 'flow_0.8' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'flow_0.7' teleports beyond arrival edge 'Edge2', time=2523.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.9' is not known. time=2530.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.10' is not known. time=2531.00.
+Warning: Teleporting vehicle 'flow_0.8'; waited too long (wrong lane), lane='Edge0_1', time=2751.00.
+Warning: Vehicle 'flow_0.8' ends teleporting on edge 'Edge2', time=2751.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.8' is not known. time=2758.00.
+Warning: Vehicle 'flow_0.8' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
+Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2828.00.
+Warning: Teleporting vehicle 'flow_0.9'; waited too long (wrong lane), lane='Edge0_1', time=3056.00.
+Warning: Vehicle 'flow_0.9' ends teleporting on edge 'Edge2', time=3056.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.9' is not known. time=3062.00.
 Warning: Vehicle 'flow_0.9' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
+Warning: Vehicle 'flow_0.9' teleports beyond arrival edge 'Edge2', time=3132.00.
+Warning: Teleporting vehicle 'flow_0.10'; waited too long (wrong lane), lane='Edge0_1', time=3362.00.
+Warning: Vehicle 'flow_0.10' ends teleporting on edge 'Edge2', time=3362.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.10' is not known. time=3367.00.
 Warning: Vehicle 'flow_0.10' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2534.00.
-Warning: Vehicle 'flow_0.9' teleports beyond arrival edge 'Edge2', time=2600.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.11' is not known. time=2607.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.12' is not known. time=2608.00.
-Warning: Vehicle 'flow_0.11' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.12' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=2611.00.
-Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=2677.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.13' is not known. time=2685.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.14' is not known. time=2686.00.
-Warning: Vehicle 'flow_0.13' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.14' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=2709.00.
-Warning: Vehicle 'flow_0.13' teleports beyond arrival edge 'Edge2', time=2755.00.
-Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=2756.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.15' is not known. time=2762.00.
-Warning: Vehicle 'flow_0.15' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.16' is not known. time=2764.00.
-Warning: Vehicle 'flow_0.16' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=2832.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.17' is not known. time=2839.00.
-Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=2839.00.
-Warning: Vehicle 'flow_0.17' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'flow_0.17' teleports beyond arrival edge 'Edge2', time=2909.00.
-Warning: Vehicle 'flow_1.0' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.1' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.10' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.11' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.12' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.13' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.14' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.15' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.16' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.17' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.2' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.3' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.4' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.5' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.6' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.7' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.8' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.9' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=3437.00.
