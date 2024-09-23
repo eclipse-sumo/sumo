@@ -60,10 +60,6 @@ netedit.changeDefaultValue(netedit.attrs.route.create.id, "r_0")
 # press enter to create route
 netedit.typeEnter()
 
-# try to create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # set valid ID
 netedit.changeDefaultValue(netedit.attrs.route.create.id, "customID")
 

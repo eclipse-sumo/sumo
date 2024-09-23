@@ -4,4 +4,5 @@ Error: Invalid flow id ''.
 Error: flow cannot be created
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
 Error: flow cannot be created
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140549.3605/netedit.gui/elements/demands/flow_taz/load/id/routes.rou.xml failed.
+Error: There is another flowTAZs with the same ID='flow_valid'.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Sep113550.28992\netedit.gui\elements\demands\flow_taz\load\id\routes.rou.xml failed.

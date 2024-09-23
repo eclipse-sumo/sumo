@@ -53,14 +53,16 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <trip id="trip_0" from="Edge0" to="Edge2" depart="20.00"/>
+    <vType id="bus" vClass="bus"/>
 
-    <trip id="trip_1" from="Edge0" to="Edge2" via="" depart="20.00"/>
+    <trip id="trip_0" type="bus" from="Edge0" to="Edge2" depart="20.00" via=""/>
 
-    <trip id="trip_2" from="Edge0" to="Edge2" via="dummyEdge" depart="20.00"/>
+    <trip id="trip_1" type="bus" from="Edge0" to="Edge2" depart="20.00" via="dummyEdge"/>
 
-    <trip id="trip_3" from="Edge0" to="Edge2" via="" depart="20.00"/>
+    <trip id="trip_2" type="bus" from="Edge0" to="Edge2" depart="20.00" via="Edge0"/>
 
-    <trip id="trip_4" from="Edge0" to="Edge2" via="EdgeCenter1" depart="20.00"/>
+    <trip id="trip_3" type="bus" from="Edge0" to="Edge2" depart="20.00" via="Edge2"/>
+
+    <trip id="trip_4" type="bus" from="Edge0" to="Edge2" depart="20.00" via="Edge5"/>
 
 </routes>

@@ -580,7 +580,7 @@ class elements:
             y = 405
 
         class vehicleTAZ:
-            x = 525
+            x = 565
             y = 230
 
         class person:

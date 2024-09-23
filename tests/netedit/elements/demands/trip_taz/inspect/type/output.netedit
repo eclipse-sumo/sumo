@@ -2,9 +2,9 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 trip (from-to TAZs)
-TestFunctions: Clicked over position 822 - 328
-TestFunctions: Clicked over position 1034 - 345
-TestFunctions: Clicked over position 829 - 398
+TestFunctions: Clicked over position 861 - 399
+TestFunctions: Clicked over position 1012 - 400
+TestFunctions: Clicked over position 869 - 398
 
 ;;;;
 dummyVType

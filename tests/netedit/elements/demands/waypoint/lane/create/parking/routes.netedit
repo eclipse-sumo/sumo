@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-22 16:12:02 by Eclipse SUMO netedit Version v1_20_0+1736-e39e4a74e3e
+<!-- generated on 2024-09-23 14:05:33 by Eclipse SUMO netedit Version v1_20_0+2110-7ad600a6490
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="routeFlow" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="30.00" endPos="40.00" duration="60.00" speed="13.89"/>
-        <stop lane="Edge2_1" startPos="30.00" endPos="40.00" duration="60.00" speed="13.89"/>
+        <stop lane="Edge2_1" startPos="30.00" endPos="40.00" duration="60.00" parking="1" speed="13.89"/>
     </flow>
 </routes>

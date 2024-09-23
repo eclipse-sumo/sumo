@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-15 14:28:17 by Eclipse SUMO netedit Version v1_20_0+1589-3f8920e39d3
+<!-- generated on 2024-09-23 10:32:51 by Eclipse SUMO netedit Version v1_20_0+2105-e48921eeff4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="bus" vClass="bus"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_2" begin="20.00" from="Edge0" to="Edge2" via="Edge0" end="500.00" number="100"/>
-    <flow id="flow_3" begin="20.00" from="Edge0" to="Edge2" via="Edge2" end="500.00" number="100"/>
-    <flow id="flow_4" begin="20.00" from="Edge0" to="Edge2" via="Edge5" end="500.00" number="100"/>
+    <flow id="flow_2" type="bus" begin="20.00" from="Edge0" to="Edge2" via="Edge0" end="500.00" number="100"/>
+    <flow id="flow_3" type="bus" begin="20.00" from="Edge0" to="Edge2" via="Edge2" end="500.00" number="100"/>
+    <flow id="flow_4" type="bus" begin="20.00" from="Edge0" to="Edge2" via="Edge5" end="500.00" number="100"/>
 </routes>

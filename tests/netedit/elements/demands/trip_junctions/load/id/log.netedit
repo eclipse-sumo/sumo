@@ -5,4 +5,5 @@ Error: Invalid trip id ''.
 Error: trip cannot be created
 Error: Invalid trip id 'id with spaces'. Contains invalid characters.
 Error: trip cannot be created
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140540.3274/netedit.gui/elements/demands/trip_junctions/load/id/routes.rou.xml failed.
+Error: There is another tripJunctions with the same ID='trip_valid'.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Sep113550.28992\netedit.gui\elements\demands\trip_junctions\load\id\routes.rou.xml failed.

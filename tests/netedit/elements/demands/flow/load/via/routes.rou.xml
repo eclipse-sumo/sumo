@@ -53,14 +53,16 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <flow id="flow_0" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via=""/>
+    <vType id="bus" vClass="bus"/>
 
-    <flow id="flow_1" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="dummyEdge"/>
+    <flow id="flow_0" type="bus" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via=""/>
 
-    <flow id="flow_2" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge0"/>
+    <flow id="flow_1" type="bus" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="dummyEdge"/>
 
-    <flow id="flow_3" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge2"/>
+    <flow id="flow_2" type="bus" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge0"/>
 
-    <flow id="flow_4" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge5"/>
+    <flow id="flow_3" type="bus" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge2"/>
+
+    <flow id="flow_4" type="bus" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge5"/>
 
 </routes>
