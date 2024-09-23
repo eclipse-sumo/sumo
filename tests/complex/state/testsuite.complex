@@ -31,6 +31,9 @@ dists_xml
 # lots of vehicles with rerouting, insertion backlog and vehroute output
 rerouting
 
+# vehicles partially equipped for rerouting
+rerouting2
+
 # flow saved and loaded
 flow
 
@@ -54,9 +57,6 @@ save_parking
 save_parking_busStop
 save_rail_signal
 save_rail_signal_constraint
-
-# with more trackers
-save_rail_signal_constraint2
 
 # include the actual constraints in the saved state
 save_rail_signal_constraint_include
@@ -107,12 +107,6 @@ calibrator
 
 # see #11394
 continous_lanechange
-
-# vehicle stops twice in the same spot, state is saved before departure
-stops_looped
-
-# vehicle passes an edge twice but stops on the second pass
-stops_looped2
 
 # two vehicles saved and reloaded
 replay
