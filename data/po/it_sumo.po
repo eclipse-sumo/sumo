@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-21 12:41+0000\n"
+"PO-Revision-Date: 2024-09-23 12:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11209,52 +11209,58 @@ msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"
 msgstr ""
+"Scrivi valori temporali come ora:minuto:secondo oppure giorno:ora:minuto:"
+"secondo invece di secondi"
 
 #: src/utils/common/UtilExceptions.h:43 src/utils/xml/XMLSubSys.cpp:175
 msgid "Process Error"
-msgstr ""
+msgstr "Errore di processo"
 
 #: src/utils/common/UtilExceptions.h:72
 msgid "Empty Data"
-msgstr ""
+msgstr "Dati vuoti"
 
 #: src/utils/common/UtilExceptions.h:99
 msgid "Invalid Number Format %"
-msgstr ""
+msgstr "Formato numerico invalido %"
 
 #: src/utils/common/UtilExceptions.h:112
 msgid "Invalid Time Format %"
-msgstr ""
+msgstr "Formato temporale invalido %"
 
 #: src/utils/common/UtilExceptions.h:125
 msgid "Invalid Bool Format %"
-msgstr ""
+msgstr "Formato booleano invalido %"
 
 #: src/utils/common/UtilExceptions.h:137
 msgid "Out Of Bounds"
-msgstr ""
+msgstr "Fuori dei limiti"
 
 #: src/utils/common/UtilExceptions.h:151
 msgid "Unknown Element"
-msgstr ""
+msgstr "Elemento sconosciuto"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:82
 #: src/utils/distribution/Distribution_Parameterized.cpp:84
 #: src/utils/distribution/Distribution_Parameterized.cpp:100
 msgid "Invalid format of distribution parameterized"
-msgstr ""
+msgstr "Formato invalido per una distribuzione con parametri"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:170
 msgid "minimum value % larger than maximum %"
-msgstr ""
+msgstr "valore minimo % maggiore del valore massimo %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:173
 msgid "minimum value % too large for distribution with mean % and deviation %"
 msgstr ""
+"valore minimo % troppo grande per una distribuzione con una media di % e una "
+"deviazione di %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:176
 msgid "maximum value % too small for distribution with mean % and deviation %"
 msgstr ""
+"valore massimo % troppo piccolo per una distribuzione con una media di % e "
+"una deviazione di %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:179
 msgid ""
