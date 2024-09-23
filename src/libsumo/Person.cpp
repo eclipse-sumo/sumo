@@ -725,9 +725,6 @@ Person::appendWalkingStage(const std::string& personID, const std::vector<std::s
     if (arrivalPos < 0) {
         arrivalPos += edges.back()->getLength();
     }
-    if (speed < 0) {
-        speed = p->getMaxSpeed();
-    }
     MSStoppingPlace* bs = nullptr;
     if (stopID != "") {
         bs = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
