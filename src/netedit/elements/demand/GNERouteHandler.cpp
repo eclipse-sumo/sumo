@@ -1375,9 +1375,14 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
 bool
 GNERouteHandler::isVehicleIdDuplicated(const std::string& id) {
     // declare vehicle tags vector
-    const std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_TRIP_TAZS,
-                                                 GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW, SUMO_TAG_FLOW, SUMO_TAG_FLOW, GNE_TAG_FLOW_JUNCTIONS
-                                                };
+    const std::vector<SumoXMLTag> vehicleTags = {
+        SUMO_TAG_VEHICLE, GNE_TAG_FLOW_ROUTE,
+        SUMO_TAG_TRIP, SUMO_TAG_FLOW,                       // over edges
+        SUMO_TAG_VEHICLE, GNE_TAG_FLOW_ROUTE,               // over route
+        GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE,  // over embedded routes
+        GNE_TAG_TRIP_TAZS, GNE_TAG_FLOW_TAZS,               // over TAZs
+        GNE_TAG_TRIP_JUNCTIONS, GNE_TAG_FLOW_JUNCTIONS      // over junctions
+    };
     for (const auto& vehicleTag : vehicleTags) {
         if (!checkDuplicatedDemandElement(vehicleTag, id)) {
             writeError(TLF("There is another % with the same ID='%'.", toString(vehicleTag), id));
@@ -1402,7 +1407,8 @@ GNERouteHandler::isViaAttributeValid(const std::vector<std::string>& via) {
 
 bool
 GNERouteHandler::isPersonIdDuplicated(const std::string& id) {
-    for (SumoXMLTag personTag : std::vector<SumoXMLTag>({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW})) {
+    const std::vector<SumoXMLTag> personTags = std::vector<SumoXMLTag>({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    for (const auto& personTag : personTags) {
         if (!checkDuplicatedDemandElement(personTag, id)) {
             writeError(TLF("There is another % with the same ID='%'.", toString(personTag), id));
             return true;
@@ -1414,7 +1420,8 @@ GNERouteHandler::isPersonIdDuplicated(const std::string& id) {
 
 bool
 GNERouteHandler::isContainerIdDuplicated(const std::string& id) {
-    for (SumoXMLTag containerTag : std::vector<SumoXMLTag>({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW})) {
+    const std::vector<SumoXMLTag> containerTags = std::vector<SumoXMLTag>({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    for (const auto& containerTag : containerTags) {
         if (!checkDuplicatedDemandElement(containerTag, id)) {
             writeError(TLF("There is another % with the same ID='%'.", toString(containerTag), id));
             return true;
