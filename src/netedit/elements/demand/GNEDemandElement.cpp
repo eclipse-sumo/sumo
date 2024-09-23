@@ -382,7 +382,7 @@ GNEDemandElement::isPathElementSelected() const {
 
 bool
 GNEDemandElement::isValidDemandElementID(const std::string& value) const {
-    if (value == getID()) {
+    if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
         return (myNet->getAttributeCarriers()->retrieveDemandElement(myTagProperty.getTag(), value, false) == nullptr);
