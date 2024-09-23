@@ -8,7 +8,7 @@ Although SUMO offers output regarding emissions and energy/fuel usage, by defaul
 Charging stations for battery electric vehicles have been introduced with the [battery device](../Models/Electric.md#defining_electric_vehicles).
 
 The stationfinder device lets equipped vehicles monitor their energy buffer (currently battery only) when traveling and reroute to nearby
-charging stations in case they won't make it to their destinations otherwise. Optionally, vehicles can break down due to low battery charge.
+charging stations in case they won't make it to their destinations otherwise. Vehicles can break down due to low battery charge (see `rescueAction` parameter).
 
 !!! note
     As of SUMO 1.21 the device implementation works only for vehicles with a battery device.
