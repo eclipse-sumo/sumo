@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-23 12:31+0000\n"
+"PO-Revision-Date: 2024-09-24 06:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9751,15 +9751,15 @@ msgstr "Scrivi linee di trasporto pubblico in FILE"
 
 #: src/netwrite/NWFrame.cpp:111
 msgid "Clean-up pt stops that are not served by any line"
-msgstr ""
+msgstr "Rimuovi fermate di trasporto pubblico servite da nessuna linea"
 
 #: src/netwrite/NWFrame.cpp:114
 msgid "Writes parking areas to FILE"
-msgstr ""
+msgstr "Scrivi parcheggi in FILE"
 
 #: src/netwrite/NWFrame.cpp:117
 msgid "Analyze topology of the railway network"
-msgstr ""
+msgstr "Analizza la topologia della rete ferroviaria"
 
 #: src/netwrite/NWFrame.cpp:121
 msgid ""
@@ -9805,7 +9805,7 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:189
 msgid "Writing network"
-msgstr ""
+msgstr "Scrittura della rete"
 
 #: src/netwrite/NWWriter_DlrNavteq.cpp:92
 msgid ""
