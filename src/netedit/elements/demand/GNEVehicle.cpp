@@ -1849,38 +1849,39 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
     // generate new vehicle ID
     const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
     const std::string newVehicleID = net->getAttributeCarriers()->generateDemandElementID(originalVehicle->getTagProperty().getTag());
+    // extract vehicle parameters and update ID
+    auto newVehicleParameters = originalVehicle->getSUMOVehicleParameter();
+    newVehicleParameters.id = newVehicleID;
     // create vehicle using vehicleParameters
     if (originalVehicle->getTagProperty().vehicleRoute()) {
         newRoute = new GNERoute(net, newRouteID, originalVehicle->getParentDemandElements().at(1));
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
                                     originalVehicle->getParentDemandElements().at(0), newRoute,
-                                    originalVehicle->getSUMOVehicleParameter());
+                                    newVehicleParameters);
     } else if (originalVehicle->getTagProperty().vehicleRouteEmbedded()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
                                     originalVehicle->getParentDemandElements().at(0),
-                                    originalVehicle->getSUMOVehicleParameter());
+                                    newVehicleParameters);
         newEmbeddedRoute = new GNERoute(net, newVehicle, originalVehicle->getChildDemandElements().front());
     } else if (originalVehicle->getTagProperty().vehicleEdges()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
                                     originalVehicle->getParentDemandElements().at(0),
                                     originalVehicle->getParentEdges().front(),
                                     originalVehicle->getParentEdges().back(),
-                                    originalVehicle->getSUMOVehicleParameter());
+                                    newVehicleParameters);
     } else if (originalVehicle->getTagProperty().vehicleJunctions()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
                                     originalVehicle->getParentDemandElements().at(0),
                                     originalVehicle->getParentJunctions().front(),
                                     originalVehicle->getParentJunctions().back(),
-                                    originalVehicle->getSUMOVehicleParameter());
+                                    newVehicleParameters);
     } else if (originalVehicle->getTagProperty().vehicleTAZs()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
                                     originalVehicle->getParentDemandElements().at(0),
                                     originalVehicle->getParentAdditionals().front(),
                                     originalVehicle->getParentAdditionals().back(),
-                                    originalVehicle->getSUMOVehicleParameter());
+                                    newVehicleParameters);
     }
-    // set new ID
-    newVehicle->setAttribute(SUMO_ATTR_ID, newVehicleID);
     // add new vehicle
     undoList->begin(originalVehicle, TLF("copy % '%'", newVehicle->getTagStr(), newVehicleID));
     if (newRoute) {
