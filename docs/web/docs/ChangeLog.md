@@ -53,13 +53,13 @@ title: ChangeLog
   - Fixed bug where parking rerouter does not reroute occupants #15276
   - Fixed crash when using rerouters on vehicles with stops and looped routes #15290
   - Fixed low insertion speed for `departSpeed="max"` with waypoint #15308
-  - Fixed nondeterministc order of constraint trackers in saved state #15406
+  - Fixed nondeterministic order of constraint trackers in saved state #15406
   - Fixed infinite loop if rerouter interval end < begin #15416
   - Fixed bug where vType-param "device.rerouting.probability" could not be used to prevent rerouting #15288
-  - Fixed nondeterministc order of constraint trackers in saved state #15406
+  - Fixed nondeterministic order of constraint trackers in saved state #15406
   - edgeData output now excludes non-driving lanes from laneDensity computation #15383
   - rerouter closingReroute now preserves all existing stops when computing new route #14610
-  - Fixed invalid emergency stop message for waypoint at route end #15485 
+  - Fixed invalid emergency stop message for waypoint at route end #15485
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -80,7 +80,7 @@ title: ChangeLog
   - Matsim import now handles node ids with unusual characters #15196
   - Fixed crash during opendrive import with boundary filter #15243
   - Fixed crash when using tlLayout="alternateOneWay" with crossings #14027
-  - Connections from the same edge to the same target edge that cross over each other are now recognized as being in conflict. #15257 
+  - Connections from the same edge to the same target edge that cross over each other are now recognized as being in conflict. #15257
 
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
@@ -100,7 +100,7 @@ title: ChangeLog
   - Fixed crash when joining edges with crossings #15073 (regression in 1.20.0)
   - Fixed crash when removing junction with crossing in loaded network #15112 (regression in 1.20.0)
   - Additional objects no longer disappear at certain zoom levels #15104 (regression in 1.20.0)
-  - Fixed invalid dotted contour around calibrators #15138 (regression in 1.20.0)  
+  - Fixed invalid dotted contour around calibrators #15138 (regression in 1.20.0)
   - Fixed click detection to rerouter/vaporizer and stoppingPlace symbols #15280 (regression in 1.20.0)
   - Fixed coloring of selected Persons and containers #15254 (regression in 1.20.0)
   - Fixed crash when creating tranships with different speed #15339 (regression in 1.20.0)
@@ -140,7 +140,7 @@ title: ChangeLog
   - Target highlighting in person and container modes now works when mouse is over another person / container #14803
   - Fixed slow-down when loading many polygons #14600
   - Fixed junction merging with active grid #15483
-  - Can now load laneAreaDetector defined with endPos #14683 
+  - Can now load laneAreaDetector defined with endPos #14683
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -159,7 +159,7 @@ title: ChangeLog
   - Improved clickable message log in translated GUI #14759
   - Added warning if breakpoint file does not exist #3424
   - Fixed centering on riding person when vehicle exaggeration is active #15397
-  - Fixed inconsistent rendering of walkingarea shape depending on zoom #15424 
+  - Fixed inconsistent rendering of walkingarea shape depending on zoom #15424
 
 - meso
   - Fixed invalid segment properties when an edge does not allow passenger cars #15020
@@ -175,7 +175,7 @@ title: ChangeLog
   - Fixed crash when calling vehicle.getDrivingDistance2D in meso #15404
   - vehicle.getLeader retrieval now works beyond 3000m if subsequent edges have only 1 lane (i.e. for railways) #15418
   - subscribeContext when used without varIDs now uses the default attributes of the target domain. #15430
-  - vehicle.getLanePosition is now working for a parked vehicle #15450 
+  - vehicle.getLanePosition is now working for a parked vehicle #15450
 
 - tools
   - osmGet.py: Fixed error downloading data from servers that do not provide gzipped data. #15105 (regression in 1.20.0)
@@ -184,7 +184,7 @@ title: ChangeLog
   - traceExporter.py: fixed inconsistent trj-output #14925
   - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988
   - mapDetectors.py: No longer writes invalid lane pos #15117
-  - createScreenshotSequence.py: Now works with the same key frame settings in a row #15352 
+  - createScreenshotSequence.py: Now works with the same key frame settings in a row #15352
 
 ### Enhancements
 
@@ -208,7 +208,7 @@ title: ChangeLog
   - Added GLOSA options to increase or reduce safety. #15152
   - Added vType-attribute `jmStopSignWait` to customize required waiting time at stop sign #15163
   - Actuated traffic lights now support phase attributes `earlyTarget="DEFAULT"` and `finalTarget="DEFAULT"`. This simplifies combining default switching rules (gap based) with custom conditions #14669
-  - chargingStation default power is now 22kW (instead of 0) #15144  
+  - chargingStation default power is now 22kW (instead of 0) #15144
   - Added warning for unusual distribution definitions #15146
   - fcd-output now contains the vtype for pedestrians #15210
   - Added option **--chargingstations-output.aggregated ** to write output that is more compact #15240
@@ -223,18 +223,18 @@ title: ChangeLog
   - Convert-to-roundabout function now sets roundabout edge properties based on incoming edges #15069
   - Hotkey <kbd>ESC</kbd> + <kbd>SHIFT</kbd> can be used to clear the selection regardless of editing mode #14481
   - Making person/container plan wider on mouse-over #15337
-  - Now Showing junctions while creating person and container plans #15345 
+  - Now Showing junctions while creating person and container plans #15345
 
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
   - Different color schemes are now supported when calibrating colors to the data (recalibrate rainbow) #12483
   - Improved rendering speed on right-click #15035
   - Reduce width of lane parameter dialog (by adding linebreaks) #15051
-  - POI attribute `width` can now be used to configure POI size (in m) #15444  
+  - POI attribute `width` can now be used to configure POI size (in m) #15444
 
 - meso
   - vType attribute `jmTimeGapMinor` is now considered when running with option **--meso-junction-control** #15171
-  - depart and arrival lanes are now part of tripinfo output #7680 
+  - depart and arrival lanes are now part of tripinfo output #7680
 
 - netconvert
   - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
@@ -255,21 +255,20 @@ title: ChangeLog
   - Fixed missing leader/follower information in lanechange output after forced change. #14912
   - chargingStation attributes can now be modified #12772
   - Added functions `edge.getBidiEdge` and `lane.getBidiLane` #15186
-  - Added functions `getMass` and `setMass` to the vehicle, person and vehicletype dommains #15258
+  - Added functions `getMass` and `setMass` to the vehicle, person and vehicletype domains #15258
   - Added person stages now support all stopping places and not only busStops #15281
   - Meso simulation now supports functions `vehicle.getSegmentIndex` and `vehicle.getSegmentID` #14681
   - Meso simulation with option **--meso-lane-queue** now supports `vehicle.getLaneIndex` #15341
-  
 
 - tools
   - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
-  - plotXMLAttributes.py: added option **--robust-parser** which handles files without linebreak after each element #15340 
+  - plotXMLAttributes.py: added option **--robust-parser** which handles files without linebreak after each element #15340
   - gtfs2pt.py: Now warns if no valid GTFS inside the network boundaries has been found #14876
   - addStops2Routes.py: Can now create waypoints by setting option **--speed**. #14895
   - traceExporter.py now supports options **-c** and **-C** for loading and saving configuration files #14934
   - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609
   - generateRailSignalConstraints.py: Added option **--abort-unordered.keep-actual** which keeps stops after a detected overtaking as valid if they have started/ended values #15065
-  - generateRailSignalConstraints.py: Added option **--all-inactive** for setting all constraints as inactive #15312 
+  - generateRailSignalConstraints.py: Added option **--all-inactive** for setting all constraints as inactive #15312
   - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025
   - mapDetectors.py: Option **--max-radius** can now be used to configure maximum mapping radius #15118
   - mapDetectors.py: Can now handle CSV with BOM #15116
@@ -287,7 +286,7 @@ title: ChangeLog
 - DEFAULT_CONTAINERTYPE now uses vClass `container` #15092
 - parkingArea default roadsideCapacity is 1 (instead of 0) if no space definitions are given #15264
 - plotting tools can now handle Matplotlib versions suffix like ".post1" #15372
-- Fixed invalid characters in documentation command examples #15441 
+- Fixed invalid characters in documentation command examples #15441
 
 ## Version 1.20.0 (07.05.2024)
 
@@ -456,7 +455,7 @@ title: ChangeLog
   - A personFlow with `depart="triggered"` can now be distributed over a flow of vehicles #14806
   - vTypes and parkingAreas now support attribute 'parkingBadges' to control access #14482
   - personInfo (in tripinfo-output) now include data that aggregates over all stages of the plan #14823
-  - tranship to stopping place other than containerStop can now be defined #15399 
+  - tranship to stopping place other than containerStop can now be defined #15399
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -477,7 +476,7 @@ title: ChangeLog
   - Reduced exaggerated size of long vehicles (i.e. trains) when zoomed out. Issue #14423
   - Reduced the number of bike markings being rendered to increase realism and reduce clutter. #14545
   - Airways now have their own default color #14813
-  - Added more information to stop info in vehicle parameter dialog #15395 
+  - Added more information to stop info in vehicle parameter dialog #15395
 
 - netconvert
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
