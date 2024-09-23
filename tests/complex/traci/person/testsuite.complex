@@ -39,3 +39,6 @@ start_in_vehicle
 
 # define a ride to differnt kinds of stopping places
 appendDrivingStage_stoppingPlaces
+
+# see #15518
+setSpeedFactor
