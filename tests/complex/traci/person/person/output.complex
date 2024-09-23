@@ -97,7 +97,7 @@ remaining stages for 'newPerson' remaining plan before jump
 prio stages for 'newPerson' past plan
   -4: Stage(type=0, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=0.0, departPos=INVALID, arrivalPos=225.05, description=waiting (awaiting departure))
   -3: Stage(type=2, edges=('3si', '2si'), travelTime=7.0, cost=INVALID, length=54.527739398485096, depart=0.0, departPos=225.05, arrivalPos=215.05, description=walking)
-  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=232.8563442186168, description=waiting (last stage removed))
+  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=233.63697864047845, description=waiting (last stage removed))
   -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', ':0_10'), travelTime=10.0, cost=INVALID, length=14.117827939065641, depart=7.0, departPos=INVALID, arrivalPos=9.06782793906563, description=driving)
 remaining stages for 'newPerson' remaining plan after jump
   0: Stage(type=1, edges=(':0_10',), travelTime=0.0, cost=INVALID, length=0.0, depart=17.0, departPos=INVALID, arrivalPos=9.06782793906563, description=waiting (last stage removed))
