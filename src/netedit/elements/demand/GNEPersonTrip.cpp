@@ -215,7 +215,12 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key);
+    switch (key) {
+        case SUMO_ATTR_WALKFACTOR:
+            return myWalkFactor;
+        default:
+            return getPlanAttributeDouble(key);
+    }
 }
 
 
