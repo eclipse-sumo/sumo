@@ -37,12 +37,12 @@ traci.person.add(pID, "SC", 0, traci.constants.DEPARTFLAG_NOW)
 traci.person.appendWalkingStage(pID, ["SC"], arrivalPos="-20")
 
 while traci.simulation.getMinExpectedNumber() > 0:
-    
+
     if traci.simulation.getTime() == 10:
         traci.person.setSpeedFactor(pID, 0.5)
     elif traci.simulation.getTime() == 20:
         traci.person.setSpeedFactor(pID, 2)
-    
+
     traci.simulationStep()
-    
+
 traci.close()

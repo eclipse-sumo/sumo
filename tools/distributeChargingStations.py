@@ -170,10 +170,10 @@ def main(options):
 
     # iterate edges with parkingArea groups and randomly select a charging point count
     totalChargingPoints = math.floor(totalCapacity * options.probability * options.density)
-    totalExistingCount = sum(edge2chargingPointCount.values())
     if options.verbose:
         print("Charging points to distribute using a density of %.2f: %.0f on %.0f parking spaces (%.2f%%)" %
-              (options.density, totalChargingPoints, totalCapacity, totalChargingPoints/totalCapacity*100 if totalCapacity > 0 else 0))
+              (options.density, totalChargingPoints, totalCapacity,
+               totalChargingPoints/totalCapacity*100 if totalCapacity > 0 else 0))
     csIndex = 0
     rootParking = None
     with sumolib.openz(options.outFile, 'w') as outf:
@@ -184,7 +184,8 @@ def main(options):
         unchangedParkings = []
         unvisitedEdges = []
         for edge, parkingAreas in edge2parkingArea.items():
-            if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0):
+            if ((checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or
+                (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0)):
                 if len(parkingAreas) > 0:
                     unchangedParkings.extend([pa[0] for pa in parkingAreas])
                 continue
@@ -200,7 +201,7 @@ def main(options):
             parkingAreas = edge2parkingArea[selectedEdge]
             capacities = [p[1] for p in parkingAreas]
             parkingSum = sum(capacities)
-            chargingPointDiscount = edge2chargingPointCount[selectedEdge] if options.includeExisting and selectedEdge in edge2chargingPointCount else 0
+            chargingPointDiscount = edge2chargingPointCount[selectedEdge] if options.includeExisting and selectedEdge in edge2chargingPointCount else 0  # noqa
             wishedChargingPointCount = max(0, math.floor(options.density * parkingSum) - chargingPointDiscount)
             if parkingSum < options.min:
                 assignBalance -= wishedChargingPointCount
@@ -229,7 +230,8 @@ def main(options):
             if options.entireParkings:
                 closestCapacityIndex = min(range(len(capacities)), key=lambda i: abs(
                     capacities[i]-remainingChargingPoints))
-                addChargingStation(options, rootCharging, rootParking, selectedEdge, parkingAreas[closestCapacityIndex][0],
+                addChargingStation(options, rootCharging, rootParking, selectedEdge,
+                                   parkingAreas[closestCapacityIndex][0],
                                    capacities[closestCapacityIndex], "%s%d" % (options.prefix, csIndex))
                 csIndex += 1
                 remainingChargingPoints = 0
