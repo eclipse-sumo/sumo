@@ -1,10 +1,10 @@
 Error: Attribute 'file' is missing in definition of entryExitDetector 'entryExitDetector_0'.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detEntry' must be defined within the definition of a 'e3Detector.
+Error: 'detExit' must be defined within the definition of a 'e3Detector.
 Error: Could not build entryExitDetector with ID 'entryExitDetector_1' in netedit; Filename is invalid.
 Error: Could not build detEntry in netedit; entryExitDetector 'entryExitDetector_1' doesn't exist.
 Error: Could not build detExit in netedit; entryExitDetector 'entryExitDetector_1' doesn't exist.
 Error: Attribute 'file' in definition of entryExitDetector 'entryExitDetector_2' is empty.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detEntry' must be defined within the definition of a 'e3Detector.
+Error: 'detExit' must be defined within the definition of a 'e3Detector.
 Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141214.28645/netedit.gui/elements/additionals/e3detector/load/file/additionals.add.xml failed.

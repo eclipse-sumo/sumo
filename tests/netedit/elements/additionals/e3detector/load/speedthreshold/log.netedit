@@ -1,6 +1,6 @@
 Error: Attribute 'speedThreshold' in definition of entryExitDetector 'entryExitDetector_1' Invalid Number Format (double) dummySpeedThreshold.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detEntry' must be defined within the definition of a 'e3Detector.
+Error: 'detExit' must be defined within the definition of a 'e3Detector.
 Error: Could not build entryExitDetector with ID 'entryExitDetector_2' in netedit; Attribute speedThreshold cannot be negative.
 Error: Could not build detEntry in netedit; entryExitDetector 'entryExitDetector_2' doesn't exist.
 Error: Could not build detExit in netedit; entryExitDetector 'entryExitDetector_2' doesn't exist.

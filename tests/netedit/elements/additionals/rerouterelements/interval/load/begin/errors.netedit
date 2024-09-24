@@ -1,7 +1,7 @@
 Error: Attribute 'begin' is missing in definition of a interval.
-Error: 'closingReroute' must be defined within the definition of a 'interval' (found '').
+Error: 'closingReroute' must be defined within the definition of a 'interval'.
 Error: Attribute 'begin' in definition of a interval is not a valid time value.
-Error: 'closingReroute' must be defined within the definition of a 'interval' (found '').
+Error: 'closingReroute' must be defined within the definition of a 'interval'.
 Error: Could not build interval with ID 'rerouter_0' in netedit; begin is greater than end.
 Error: Attempted to retrieve non-existant rerouter interval
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141222.28750/netedit.gui/elements/additionals/rerouterelements/interval/load/begin/additionals.add.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Sep153819.29868\netedit.gui\elements\additionals\rerouterelements\interval\load\begin\additionals.add.xml failed.

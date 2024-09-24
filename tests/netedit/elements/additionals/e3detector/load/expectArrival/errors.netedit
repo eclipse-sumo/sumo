@@ -1,4 +1,4 @@
 Error: Attribute 'expectArrival' in definition of entryExitDetector 'entryExitDetector_1' Invalid Bool Format dummy.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detEntry' must be defined within the definition of a 'e3Detector.
+Error: 'detExit' must be defined within the definition of a 'e3Detector.
 Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141214.28645/netedit.gui/elements/additionals/e3detector/load/expectArrival/additionals.add.xml failed.
