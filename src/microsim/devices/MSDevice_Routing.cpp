@@ -355,7 +355,9 @@ void
 MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myPeriod;
-    rebuildRerouteCommand();
+    if (myHolder.hasDeparted()) {
+        rebuildRerouteCommand();
+    }
 }
 
 
