@@ -1,1 +1,1 @@
-Warning: Invalid to container stop 'dummy' used in persontrip: junction->containerstop of person 'p_0'
+Warning: Invalid to container stop 'dummy' used in ride: junction->containerstop of person 'p_0'

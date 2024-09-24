@@ -43,13 +43,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTrip.edge.edge mode
+# go to ride.edge.edge mode
 netedit.personPlanMode()
 
-# go to personTrip.edge.edge mode
-netedit.changePersonPlanMode("personTrip")
+# go to ride.edge.edge mode
+netedit.changePersonPlanMode("ride")
 
-# create personTrip.edge.edge
+# create ride.edge.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
@@ -62,13 +62,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspect.modes, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.ride.edge.edge.inspect.modes, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspect.modes, "", False)
+netedit.modifyAttribute(netedit.attrs.ride.edge.edge.inspect.modes, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspect.modes, "car", False)
+netedit.modifyAttribute(netedit.attrs.ride.edge.edge.inspect.modes, "car", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

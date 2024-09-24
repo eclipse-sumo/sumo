@@ -1,1 +1,1 @@
-Warning: Invalid to train stop 'dummy' used in persontrip: taz->trainstop of person 'p_0'
+Warning: Invalid to train stop 'dummy' used in ride: taz->trainstop of person 'p_0'

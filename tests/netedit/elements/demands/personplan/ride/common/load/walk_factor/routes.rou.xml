@@ -7,21 +7,21 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" walkFactor="dummy"/>
+        <ride to="Edge2" walkFactor="dummy"/>
     </person>
 
     <person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" walkFactor="-7"/>
+        <ride to="Edge2" walkFactor="-7"/>
     </person>
 
 	<person id="p_2" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" walkFactor="6"/>
+        <ride to="Edge2" walkFactor="6"/>
     </person>
 
 	<person id="p_3" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" walkFactor="12.14"/>
+        <ride to="Edge2" walkFactor="12.14"/>
     </person>
 </routes>

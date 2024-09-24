@@ -1,3 +1,3 @@
 Error: Attribute 'id' is missing in definition of a parkingArea.
-Error: 'space' must be defined within the definition of a 'parkingArea'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Sep145256.25068\netedit.gui\elements\additionals\parkingspace\load\invalid_parent\additionals.add.xml failed.
+Error: 'space' must be defined within the definition of a 'parkingArea' (found  '').
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_24Sep152204.37981/netedit.gui/elements/additionals/parkingspace/load/invalid_parent/additionals.add.xml failed.

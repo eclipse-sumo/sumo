@@ -1,1 +1,1 @@
-Warning: Invalid to bus stop 'dummy' used in persontrip: containerstop->busstop of person 'p_0'
+Warning: Invalid to bus stop 'dummy' used in ride: containerstop->busstop of person 'p_0'

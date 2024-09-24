@@ -20,14 +20,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </person>
     <person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2"/>
+        <ride to="Edge2"/>
     </person>
     <person id="p_2" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" walkFactor="6.00"/>
+        <ride to="Edge2" walkFactor="6.00"/>
     </person>
     <person id="p_3" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" walkFactor="12.14"/>
+        <ride to="Edge2" walkFactor="12.14"/>
     </person>
 </routes>

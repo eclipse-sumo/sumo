@@ -9,6 +9,6 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" vTypes="customType"/>
+        <ride to="Edge2" vTypes="customType"/>
     </person>
 </routes>

@@ -7,7 +7,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" busStop="busStopA"/>
-        <personTrip toJunction="Junction3"/>
-        <personTrip toJunction="Junction5"/>
+        <ride toJunction="Junction3"/>
+        <ride toJunction="Junction5"/>
     </person>
 </routes>

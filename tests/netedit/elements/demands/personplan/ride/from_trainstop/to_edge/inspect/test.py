@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainSto
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTrip.busStop.edge mode
+# go to ride.busStop.edge mode
 netedit.personPlanMode()
 
-# go to personTrip.busStop.edge mode
-netedit.changePersonPlanMode("personTrip")
+# go to ride.busStop.edge mode
+netedit.changePersonPlanMode("ride")
 
-# create personTrip.busStop.edge
+# create ride.busStop.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # press enter to create route
@@ -63,16 +63,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdgeBike0Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.busStop.edge.inspect.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspect.arrivalPos, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.busStop.edge.inspect.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspect.arrivalPos, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.busStop.edge.inspect.arrivalPos, "-6", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspect.arrivalPos, "-6", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.busStop.edge.inspect.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspect.arrivalPos, "2.5", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

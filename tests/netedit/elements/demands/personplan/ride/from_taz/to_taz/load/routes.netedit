@@ -20,6 +20,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </person>
     <person id="p_1" depart="0.00">
         <walk from="Edge0" toTaz="taz_red"/>
-        <personTrip toTaz="taz_green"/>
+        <ride toTaz="taz_green"/>
     </person>
 </routes>

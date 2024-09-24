@@ -44,17 +44,17 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTrip.busStop.busStop mode
+# go to ride.busStop.busStop mode
 netedit.personPlanMode()
 
-# go to personTrip.busStop.busStop mode
-netedit.changePersonPlanMode("personTrip")
+# go to ride.busStop.busStop mode
+netedit.changePersonPlanMode("ride")
 
-# create personTrip.busStop.busStop
+# create ride.busStop.busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.busStop.create.lines, "custom line")
+netedit.changeDefaultValue(netedit.attrs.ride.busStop.busStop.create.lines, "custom line")
 
 # press enter to create route
 netedit.typeEnter()

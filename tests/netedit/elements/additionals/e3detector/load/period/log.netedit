@@ -1,7 +1,7 @@
 Error: Attribute 'period' in definition of entryExitDetector 'entryExitDetector_0' is not a valid time value.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector.
-Error: 'detExit' must be defined within the definition of a 'e3Detector.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found  '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found  '').
 Error: Could not build entryExitDetector with ID 'entryExitDetector_1' in netedit; Attribute period cannot be negative.
 Error: Could not build detEntry in netedit; entryExitDetector 'entryExitDetector_1' doesn't exist.
 Error: Could not build detExit in netedit; entryExitDetector 'entryExitDetector_1' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141214.28645/netedit.gui/elements/additionals/e3detector/load/period/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_24Sep152204.37981/netedit.gui/elements/additionals/e3detector/load/period/additionals.add.xml failed.

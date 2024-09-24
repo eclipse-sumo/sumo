@@ -3463,21 +3463,222 @@ class personTrip:
                 group = 5
 
 
-class rideEdgeEdge:
-    class create:
-        arrivalPos = 8
-        lines = 9
-        group = 10
+class ride:
+    class edge:
+        class edge:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
 
-    class inspect:
-        arrivalPos = 1
-        lines = 2
-        group = 3
+            class inspect:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+                walkFactor = 5
+                group = 6
 
-    class inspectSelection:
-        arrivalPos = 1
-        lines = 2
-        group = 3
+            class inspectSelection:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+                walkFactor = 5
+                group = 6
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+    class busStop:
+        class edge:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+                walkFactor = 5
+                group = 6
+
+            class inspectSelection:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+                walkFactor = 5
+                group = 6
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+    class junction:
+        class edge:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+                walkFactor = 5
+                group = 6
+
+            class inspectSelection:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+                walkFactor = 5
+                group = 6
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+                walkFactor = 12
+                group = 13
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+                walkFactor = 4
+                group = 5
 
 
 class rideEdgeBusStop:

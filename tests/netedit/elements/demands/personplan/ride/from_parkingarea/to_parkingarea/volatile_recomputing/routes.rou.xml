@@ -7,7 +7,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" parkingArea="parkingAreaA"/>
-        <personTrip parkingArea="parkingAreaB"/>
-        <personTrip parkingArea="parkingAreaA"/>
+        <ride parkingArea="parkingAreaB"/>
+        <ride parkingArea="parkingAreaA"/>
     </person>
 </routes>

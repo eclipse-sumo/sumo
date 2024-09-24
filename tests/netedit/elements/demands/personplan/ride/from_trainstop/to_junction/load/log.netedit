@@ -1,1 +1,1 @@
-Warning: Invalid to junction 'dummy' used in persontrip: trainstop->junction of person 'p_0'
+Warning: Invalid to junction 'dummy' used in ride: trainstop->junction of person 'p_0'

@@ -1,1 +1,1 @@
-Warning: Invalid to bus stop 'dummy' used in persontrip: parkingarea->busstop of person 'p_0'
+Warning: Invalid to bus stop 'dummy' used in ride: parkingarea->busstop of person 'p_0'

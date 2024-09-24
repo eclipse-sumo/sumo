@@ -44,23 +44,23 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.charging
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTrip.busStop.edge mode
+# go to ride.busStop.edge mode
 netedit.personPlanMode()
 
-# go to personTrip.busStop.edge mode
-netedit.changePersonPlanMode("personTrip")
+# go to ride.busStop.edge mode
+netedit.changePersonPlanMode("ride")
 
-# create personTrip.busStop.edge
+# create ride.busStop.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.edge.create.arrivalPos, "dummy")
+netedit.changeDefaultValue(netedit.attrs.ride.busStop.edge.create.arrivalPos, "dummy")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.edge.create.arrivalPos, "12.5")
+netedit.changeDefaultValue(netedit.attrs.ride.busStop.edge.create.arrivalPos, "12.5")
 
 # press enter to create route
 netedit.typeEnter()

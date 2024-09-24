@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-25 16:32:38 by Eclipse SUMO netedit Version v1_20_0+1754-33bf3f82bf7
+<!-- generated on 2024-09-24 15:09:22 by Eclipse SUMO netedit Version v1_20_0+2123-51451a3b31f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <personTrip from="Edge0" to="Edge0"/>
-        <personTrip containerStop="containerStopB"/>
+        <ride containerStop="containerStopB"/>
     </person>
 </routes>

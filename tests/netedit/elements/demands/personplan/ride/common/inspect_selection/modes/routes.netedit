@@ -21,10 +21,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip to="Edge2" arrivalPos="37.00" modes="car" lines="Line1" vTypes="type1" walkFactor="4.00" group="groupA"/>
+        <ride to="Edge2" arrivalPos="37.00" modes="car" lines="Line1" vTypes="type1" walkFactor="4.00" group="groupA"/>
     </person>
     <person id="p_1" depart="0.00">
         <walk from="EdgeBike0" to="EdgeCenter0"/>
-        <personTrip to="Edge5" arrivalPos="11.00" modes="car" lines="Line2" vTypes="type2" walkFactor="5.50" group="groupB"/>
+        <ride to="Edge5" arrivalPos="11.00" modes="car" lines="Line2" vTypes="type2" walkFactor="5.50" group="groupB"/>
     </person>
 </routes>
