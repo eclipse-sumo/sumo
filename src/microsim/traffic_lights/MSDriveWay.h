@@ -292,6 +292,8 @@ protected:
 
     bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const;
 
+    bool isFoeOrSubFoe(const MSDriveWay* foe) const;
+
     void cleanupPointersToSelf(const std::vector<MSDriveWay*> others);
 
     /// @brief return logicID_linkIndex

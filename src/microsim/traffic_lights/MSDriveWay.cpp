@@ -41,6 +41,7 @@
 #define MAX_SIGNAL_WARNINGS 10
 
 #define DRIVEWAY_SANITY_CHECK
+//#define SUBDRIVEWAY_WARN_NOCONFLICT
 
 //#define DEBUG_BUILD_DRIVEWAY
 //#define DEBUG_BUILD_SUBDRIVEWAY
@@ -273,9 +274,9 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
             return false;
         }
     }
-    if (deadlockLaneOccupied(closest.first)) {
-        return false;
-    }
+    //if (deadlockLaneOccupied(closest.first)) {
+    //    return false;
+    //}
     myActive = closest.first;
     return true;
 }
@@ -320,15 +321,21 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
             if (foeDriveWay.conflictLaneOccupied(false, foe.first) ||
                     foeDriveWay.deadlockLaneOccupied(nullptr, false) ||
                     !foeRS->constraintsAllow(foe.first) ||
-                    !overlap(foeDriveWay)) {
+                    !overlap(foeDriveWay) ||
+                    !isFoeOrSubFoe(&foeDriveWay) ||
+                    canUseSiding(veh.first, &foeDriveWay)) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4) {
                     if (foeDriveWay.conflictLaneOccupied(false, foe.first)) {
                         std::cout << "     foe blocked\n";
                     } else if (!foeRS->constraintsAllow(foe.first)) {
                         std::cout << "     foe constrained\n";
-                    } else {
+                    } else if (!overlap(foeDriveWay)) {
                         std::cout << "     no overlap\n";
+                    } else if (!isFoeOrSubFoe(&foeDriveWay)) {
+                        std::cout << "     foeDW=" << foeDriveWay.getID() << " is not a foe to " << getID() << "\n";
+                    } else if (canUseSiding(veh.first, &foeDriveWay)) {
+                        std::cout << "     use siding\n";
                     }
                 }
 #endif
@@ -354,6 +361,20 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
                 }
             }
             return yield;
+        }
+    }
+    return false;
+}
+
+
+bool
+MSDriveWay::isFoeOrSubFoe(const MSDriveWay* foe) const {
+    if (std::find(myFoes.begin(), myFoes.end(), foe) != myFoes.end()) {
+        return true;
+    }
+    for (const MSDriveWay* sub : foe->mySubDriveWays) {
+        if (isFoeOrSubFoe(sub)) {
+            return true;
         }
     }
     return false;
@@ -499,25 +520,33 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     }
                 }
             }
-            if (MSRailSignal::storeVehicles() && store) {
-                for (SUMOVehicle* foe : foeDW->myTrains) {
-                    MSRailSignal::blockingVehicles().push_back(foe);
-                }
-                MSRailSignal::blockingDriveWays().push_back(foeDW);
-            }
-            for (const SUMOVehicle* foe : foeDW->myTrains) {
-                occupied.push_back(const_cast<MSEdge*>(foe->getEdge()));
-                MSEdge* bidi = const_cast<MSEdge*>(foe->getEdge()->getBidiEdge());
-                if (bidi != nullptr) {
-                    occupied.push_back(bidi);
-                }
-                /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
-            }
             bool useSiding = canUseSiding(ego, foeDW);
+            if (ego->isSelected()) {
+                auto it = mySidings.find(foeDW);
+                int numSidings = 0;
+                if (it != mySidings.end()) {
+                    numSidings = it->second.size();
+                }
+                std::cout << SIMTIME << " " << getID() << " ego=" << ego->getID() << " foeDW=" << foeDW->getID() << " myFoes=" << toString(myFoes) << " useSiding=" << useSiding << " numSidings=" << numSidings << "\n";
+            }
             if (useSiding) {
                 //std::cout << SIMTIME << " " << getID() << " ego=" << ego->getID() << " foeDW=" << foeDW->getID() << " myFoes=" << toString(myFoes) << "\n";
                 continue;
             } else {
+                if (MSRailSignal::storeVehicles() && store) {
+                    for (SUMOVehicle* foe : foeDW->myTrains) {
+                        MSRailSignal::blockingVehicles().push_back(foe);
+                    }
+                    MSRailSignal::blockingDriveWays().push_back(foeDW);
+                }
+                for (const SUMOVehicle* foe : foeDW->myTrains) {
+                    occupied.push_back(const_cast<MSEdge*>(foe->getEdge()));
+                    MSEdge* bidi = const_cast<MSEdge*>(foe->getEdge()->getBidiEdge());
+                    if (bidi != nullptr) {
+                        occupied.push_back(bidi);
+                    }
+                    /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
+                }
                 return true;
             }
         } else if (foeDW != this && isDepartDriveway() && !foeDW->isDepartDriveway()) {
@@ -963,7 +992,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                             //myProtectingSwitches.push_back(ili.viaLink);
                             const MSEdge* const bidiNext = bidi->getNextNormal();
                             myCoreSize = (int)myRoute.size();
-                            if (MSRailSignalControl::getInstance().getUsedEdges().count(bidiNext) == 0) {
+                            if (MSRailSignalControl::getInstance().getUsedEdges().count(bidiNext) == 0 && false) {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
                                 if (gDebugFlag4) {
                                     std::cout << "      abort: found protecting switch " << ili.viaLink->getDescription() << "\n";
@@ -1669,7 +1698,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " failed\n";
 #endif
+#ifdef SUBDRIVEWAY_WARN_NOCONFLICT
             WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
+#endif
         }
         return false;
     }
