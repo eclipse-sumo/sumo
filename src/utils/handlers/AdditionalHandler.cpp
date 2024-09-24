@@ -1924,7 +1924,11 @@ AdditionalHandler::checkParent(const SumoXMLTag currentTag, const std::vector<Su
             (parentTags.size() > 0) &&
             (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
         const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
-        writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), toString(parentTags.front()), toString(parent->getTag()), id));
+        if (id.empty()) {
+            writeError(TLF("'%' must be defined within the definition of a '%'.", toString(currentTag), toString(parentTags.front())));
+        } else {
+            writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), toString(parentTags.front()), toString(parent->getTag()), id));
+        }
         ok = false;
     }
 }
