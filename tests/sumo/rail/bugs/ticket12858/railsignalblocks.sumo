@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-11 11:38:15 by Eclipse SUMO sumo Version v1_20_0+0560-666cfc249e9
+<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -126,12 +126,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="1007_0" to="1006_0"/>
     </railSignal>
     <departJunction id="3">
-        <driveWay id="3.d0" vehicle="v_0" edges="1003 1002 1031 1001 1000 1013 1012 1034 1017 1033 1011 1051 1052 1075 1058 1077 1053 1054 1043 1044 1072 1047 1048" core="2">
+        <driveWay id="3.d0" vehicle="v_0" edges="1003 1002 1031 1001 1000 1013 1012 1034 1017 1033 1011 1051 1052 1075 1058 1077 1053 1054 1043 1044 1072 1047 1048">
             <forward lanes="1003_0"/>
-            <bidi lanes="1045_0 1071_0"/>
+            <bidi lanes="1045_0 1071_0"
+                    deadlockCheck="1044_0 1043_0 1054_0 1053_0 1077_0 1058_0 1075_0 1052_0 1051_0 1011_0 1033_0 1017_0 1034_0 1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0 1068_0 1073_0 1084_0 1066_0 1081_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="32_1"/>
-            <conflictLinks signals=""/>
+            <protectingSwitches links="32_1 37_0"/>
+            <conflictLinks signals="28_0"/>
             <foes driveWays="3.d0"/>
         </driveWay>
     </departJunction>

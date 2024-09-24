@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-24 11:58:09 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -140,12 +140,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="TR0">
-        <driveWay id="TR0.d1" vehicle="rail2" edges="-T15 -T14 -T13 -T12 -T11 -T10 T3" core="2">
+        <driveWay id="TR0.d1" vehicle="rail2" edges="-T15 -T14 -T13 -T12 -T11 -T10">
             <forward lanes="-T15_0"/>
-            <bidi lanes="T15_0 :E_1_0 T14_0 :W2_3_0"/>
+            <bidi lanes="T15_0 :E_1_0 T14_0 :W2_3_0"
+                    deadlockCheck="T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals=""/>
+            <protectingSwitches links="W2_3"/>
+            <conflictLinks signals="A_0"/>
             <foes driveWays="TR0.d1"/>
         </driveWay>
     </departJunction>

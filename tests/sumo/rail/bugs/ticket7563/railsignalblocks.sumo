@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,14 +40,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="gneE0_0" to=":A_0_0">
-            <driveWay id="A.0" vehicle="" edges="gneE1 gneE1.100 gneE2 gneE5 gneE6">
+            <driveWay id="A.0" vehicle="v0" edges="gneE1 gneE1.100 gneE2 gneE5 gneE6">
                 <forward lanes=":A_0_0 gneE1_0 :gneJ8_1_0 gneE1.100_0"/>
                 <bidi lanes="gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"
                     deadlockCheck="gneE8_0 :C_0_0 gneE7_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links="gneJ3_0"/>
                 <conflictLinks signals="C_0"/>
-                <foes driveWays="A.0 C.0.1 gneJ7.d1"/>
+                <foes driveWays="A.0 C.0.0 gneJ7.d1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="B.0 C.0.0 gneJ7.d1"/>
+                <foes driveWays="B.0 C.0.1 gneJ7.d1"/>
             </driveWay>
             <subDriveWay id="B.0.0" vehicle="" edges="gneE2 gneE5">
                 <forward lanes=":B_1_0 gneE2_0 :gneJ3_2_0 gneE5_0 :C_1_0"/>
@@ -76,11 +76,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="A_0"/>
                 <foes driveWays="A.0 B.0.0 C.0 gneJ9.d2"/>
             </driveWay>
-            <subDriveWay id="C.0.0" vehicle="" edges="gneE8 gneE9">
-                <forward lanes=":C_0_0 gneE8_0 :gneJ3_0_0 gneE9_0 :B_0_0"/>
-            </subDriveWay>
-            <subDriveWay id="C.0.1" vehicle="" edges="gneE8 gneE9 gneE10">
+            <subDriveWay id="C.0.0" vehicle="" edges="gneE8 gneE9 gneE10">
                 <forward lanes=":C_0_0 gneE8_0 :gneJ3_0_0 gneE9_0 :B_0_0 gneE10_0"/>
+            </subDriveWay>
+            <subDriveWay id="C.0.1" vehicle="" edges="gneE8 gneE9">
+                <forward lanes=":C_0_0 gneE8_0 :gneJ3_0_0 gneE9_0 :B_0_0"/>
             </subDriveWay>
         </link>
     </railSignal>

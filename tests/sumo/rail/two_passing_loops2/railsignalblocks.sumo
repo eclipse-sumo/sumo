@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-12 12:31:30 by Eclipse SUMO sumo Version v1_20_0+0566-a4ebdc7926d
+<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -77,7 +77,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="T9_0_0" to=":w2_1_0">
-            <driveWay id="w2.0" vehicle="" edges="T11_0 T12_0 T13_0 T14_0 T15_0 T16_0 T17_0 T18_0">
+            <driveWay id="w2.0" vehicle="rail1" edges="T11_0 T12_0 T13_0 T14_0 T15_0 T16_0 T17_0 T18_0">
                 <forward lanes=":w2_1_0 T11_0_0 :A.F_1_0 T12_0_0 :B.A_1_0 T13_0_0"/>
                 <bidi lanes="T11_1_0 :A.F_0_0 T12_1_0 :B.A_0_0 T13_1_0 :w3_0_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_0_0"
                     deadlockCheck="T17_1_0 :B.F_0_0 T18_1_0"/>
@@ -86,13 +86,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="w3_1 w4_0"/>
                 <foes driveWays="e2.d1 w2.0 w2.2 w3.1 w4.1"/>
             </driveWay>
-            <driveWay id="w2.2" vehicle="rail1" edges="T11_0 T12_0 T13_0 T4_0 T5_0 T6_0 T17_0 T18_0" core="6">
+            <driveWay id="w2.2" vehicle="rail1" edges="T11_0 T12_0 T13_0 T4_0 T5_0 T6_0 T17_0 T18_0">
                 <forward lanes=":w2_1_0 T11_0_0 :A.F_1_0 T12_0_0 :B.A_1_0 T13_0_0"/>
-                <bidi lanes="T11_1_0 :A.F_0_0 T12_1_0 :B.A_0_0 T13_1_0 :w3_1_0 T4_1_0 :B.P1_0_0 T5_1_0 :B.N1_0_0 T6_1_0 :w4_1_0"/>
+                <bidi lanes="T11_1_0 :A.F_0_0 T12_1_0 :B.A_0_0 T13_1_0 :w3_1_0 T4_1_0 :B.P1_0_0 T5_1_0 :B.N1_0_0 T6_1_0 :w4_1_0"
+                    deadlockCheck="T17_1_0 :B.F_0_0 T18_1_0"/>
                 <flank lanes=":w3_0_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="w3_0"/>
-                <foes driveWays="w2.0 w2.2 w3.1"/>
+                <conflictLinks signals="w3_0 w4_1"/>
+                <foes driveWays="e2.d1 w2.0 w2.2 w3.1"/>
+                <sidings foe="e2.d1">
+                    <siding start="T4_0" end="T6_0" length="829.14"/>
+                </sidings>
             </driveWay>
         </link>
     </railSignal>
@@ -109,17 +113,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
         <link linkIndex="1" from="T4_1_0" to=":w3_1_0"/>
         <link linkIndex="2" from="T13_0_0" to=":w3_2_0">
-            <driveWay id="w3.2" vehicle="rail3" edges="T4_0 T5_0 T6_0 T17_0 T18_0" core="3">
+            <driveWay id="w3.2" vehicle="rail3" edges="T4_0 T5_0 T6_0 T17_0 T18_0">
                 <forward lanes=":w3_2_0 T4_0_0 :B.P1_1_0 T5_0_0 :B.N1_1_0 T6_0_0"/>
-                <bidi lanes=":w3_1_0 T4_1_0 :B.P1_0_0 T5_1_0 :B.N1_0_0 T6_1_0 :w4_1_0"/>
+                <bidi lanes=":w3_1_0 T4_1_0 :B.P1_0_0 T5_1_0 :B.N1_0_0 T6_1_0 :w4_1_0"
+                    deadlockCheck="T17_1_0 :B.F_0_0 T18_1_0"/>
                 <flank lanes=":w3_0_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="w3_0"/>
+                <conflictLinks signals="w3_0 w4_1"/>
                 <foes driveWays="w3.2"/>
             </driveWay>
         </link>
         <link linkIndex="3" from="T13_0_0" to=":w3_3_0">
-            <driveWay id="w3.0" vehicle="" edges="T14_0 T15_0 T16_0 T17_0 T18_0">
+            <driveWay id="w3.0" vehicle="rail1" edges="T14_0 T15_0 T16_0 T17_0 T18_0">
                 <forward lanes=":w3_3_0 T14_0_0 :B.P2_1_0 T15_0_0 :B.N2_1_0 T16_0_0"/>
                 <bidi lanes=":w3_0_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_0_0"
                     deadlockCheck="T17_1_0 :B.F_0_0 T18_1_0"/>
@@ -172,7 +177,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":w4_2_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="w2_1 w3_3 w4_2"/>
-            <foes driveWays="e2.d1 w2.0 w3.0 w4.0 w4.2"/>
+            <foes driveWays="e2.d1 w2.0 w2.2 w3.0 w4.0 w4.2"/>
+            <sidings foe="w2.2">
+                <siding start="T16_1" end="T14_1" length="813.44"/>
+            </sidings>
         </driveWay>
     </departJunction>
     <departJunction id="e1">

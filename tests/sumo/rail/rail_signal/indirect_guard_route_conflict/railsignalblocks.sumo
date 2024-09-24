@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-24 11:58:09 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,11 +41,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="B.A">
         <link linkIndex="0" from="T12_0_0" to=":B.A_1_0">
-            <driveWay id="B.A.0" vehicle="rail2" edges="T13_0 T14_0 T15_0 T16_0 T17_0 T18_0" core="4">
+            <driveWay id="B.A.0" vehicle="rail2" edges="T13_0 T14_0 T15_0 T16_0 T17_0 T18_0">
                 <forward lanes=":B.A_1_0 T13_0_0 :w3_2_0 T14_0_0 :B.P2_1_0 T15_0_0"/>
-                <bidi lanes=":B.A_0_0 T13_1_0 :w3_1_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0"/>
+                <bidi lanes=":B.A_0_0 T13_1_0 :w3_1_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0"
+                    deadlockCheck="T17_1_0 :B.F_0_0 T18_1_0"/>
                 <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
-                <protectingSwitches links=""/>
+                <protectingSwitches links="w4_1"/>
                 <conflictLinks signals="B.P1_0"/>
                 <foes driveWays="B.A.0 B.N2.d1 B.P2.0.0"/>
             </driveWay>
@@ -91,11 +92,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="A">
-        <driveWay id="A.d0" vehicle="rail2" edges="T12_0 T13_0 T14_0 T15_0 T16_0 T17_0 T18_0" core="5">
+        <driveWay id="A.d0" vehicle="rail2" edges="T12_0 T13_0 T14_0 T15_0 T16_0 T17_0 T18_0">
             <forward lanes="T12_0_0"/>
-            <bidi lanes="T12_1_0 :B.A_0_0 T13_1_0 :w3_1_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0"/>
+            <bidi lanes="T12_1_0 :B.A_0_0 T13_1_0 :w3_1_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0"
+                    deadlockCheck="T17_1_0 :B.F_0_0 T18_1_0"/>
             <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
-            <protectingSwitches links=""/>
+            <protectingSwitches links="w4_1"/>
             <conflictLinks signals="B.P1_0"/>
             <foes driveWays="A.d0 B.N2.d1 B.P2.0"/>
         </driveWay>

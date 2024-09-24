@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,11 +46,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="J5">
         <link linkIndex="0" from="-E5_0" to=":J5_0_0">
-            <driveWay id="J5.0" vehicle="v_1" edges="-E4 -E8 -E7 -E6 -E0" core="4">
+            <driveWay id="J5.0" vehicle="v_1" edges="-E4 -E8 -E7 -E6 -E0">
                 <forward lanes=":J5_0_0 -E4_0 :J4_0_0 -E8_0 :J8_0_0 -E7_0"/>
-                <bidi lanes=":J5_1_0 E4_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"/>
+                <bidi lanes=":J5_1_0 E4_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"
+                    deadlockCheck="E0_0"/>
                 <flank lanes=":J4_2_0 E30_0 :J9_1_0"/>
-                <protectingSwitches links=""/>
+                <protectingSwitches links="J1_3"/>
                 <conflictLinks signals="J9_0"/>
                 <foes driveWays="J5.0 J5.1.1 J9.0.0"/>
             </driveWay>
@@ -101,24 +102,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="J6">
-        <driveWay id="J6.d1" vehicle="v_1" edges="-E5 -E4 -E8 -E7 -E6 -E0" core="5">
+        <driveWay id="J6.d1" vehicle="v_1" edges="-E5 -E4 -E8 -E7 -E6 -E0">
             <forward lanes="-E5_0"/>
-            <bidi lanes="E5_0 :J5_1_0 E4_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"/>
+            <bidi lanes="E5_0 :J5_1_0 E4_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"
+                    deadlockCheck="E0_0"/>
             <flank lanes=":J4_2_0 E30_0 :J9_1_0"/>
-            <protectingSwitches links=""/>
+            <protectingSwitches links="J1_3"/>
             <conflictLinks signals="J9_0"/>
             <foes driveWays="J6.d1 J9.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="J0">
-        <driveWay id="J0.d0" vehicle="" edges="E0 E3 E30 E4 E5">
+        <driveWay id="J0.d0" vehicle="v_0" edges="E0 E3 E30 E4 E5">
             <forward lanes="E0_0 :J1_2_0 E3_0"/>
             <bidi lanes="-E0_0 :J1_1_0 -E3.50_0 :J9_0_0 -E3_0 :J4_1_0"
                     deadlockCheck="-E4_0 :J5_0_0 -E5_0"/>
             <flank lanes=":J1_0_0 -E6_0 :J7_0_0"/>
             <protectingSwitches links="J4_1"/>
             <conflictLinks signals="J5_0 J7_0"/>
-            <foes driveWays="J0.d0 J5.1 J7.0"/>
+            <foes driveWays="J0.d0 J5.1 J6.d1 J7.0"/>
+            <sidings foe="J6.d1">
+                <siding start="E3" end="E3" length="94.64"/>
+            </sidings>
         </driveWay>
         <subDriveWay id="J0.d0.0" vehicle="" edges="E0">
             <forward lanes="E0_0"/>

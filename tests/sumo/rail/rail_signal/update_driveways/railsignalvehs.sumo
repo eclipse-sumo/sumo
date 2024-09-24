@@ -29,11 +29,11 @@
     </driveWay>
     <subDriveWay id="J5.d1.0">
         <entry id="v2" time="1049.00" reason="0"/>
-        <exit id="v2" time="1090.00" reason="1"/>
+        <exit id="v2" time="1099.00" reason="1"/>
     </subDriveWay>
     <subDriveWay id="J5.d1.1">
         <entry id="v2" time="1049.00" reason="0"/>
-        <exit id="v2" time="1099.00" reason="1"/>
+        <exit id="v2" time="1090.00" reason="1"/>
     </subDriveWay>
 </departJunction>
 <departJunction id="J0">

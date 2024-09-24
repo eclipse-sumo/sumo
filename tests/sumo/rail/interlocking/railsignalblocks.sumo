@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
-            <driveWay id="gneJ2.0" vehicle="" edges="gneE3 gneE4">
+            <driveWay id="gneJ2.0" vehicle="RB1" edges="gneE3 gneE4">
                 <forward lanes=":gneJ2_1_0 gneE3_0"/>
                 <bidi lanes="-gneE3_0 :gneJ3_0_0"
                     deadlockCheck="-gneE4_0"/>
@@ -134,12 +134,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="gneJ10">
-        <driveWay id="gneJ10.d2" vehicle="RB2" edges="-gneE8 -gneE7 gneE4" core="2">
+        <driveWay id="gneJ10.d2" vehicle="RB2" edges="-gneE8 -gneE7 gneE4">
             <forward lanes="-gneE8_0 :gneJ8_1_0 -gneE7_0"/>
-            <bidi lanes="gneE8_0 :gneJ8_0_0 gneE7_0 :gneJ3_1_0"/>
+            <bidi lanes="gneE8_0 :gneJ8_0_0 gneE7_0 :gneJ3_1_0"
+                    deadlockCheck="-gneE4_0"/>
             <flank lanes=""/>
             <protectingSwitches links=""/>
-            <conflictLinks signals=""/>
+            <conflictLinks signals="gneJ3_1"/>
             <foes driveWays="gneJ10.d2"/>
         </driveWay>
     </departJunction>
