@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-30 08:09+0000\n"
+"PO-Revision-Date: 2024-09-24 07:30+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2235 src/gui/GUIApplicationWindow.cpp:2236
@@ -10686,15 +10686,15 @@ msgstr "agregar reroute de cerrado en '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1052
 msgid "add dest prob reroute in '"
-msgstr ""
+msgstr "agregar reroute probabilístico de destino en '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1080
 msgid "add parking area reroute in '"
-msgstr ""
+msgstr "agregar reroute de zona de estacionamiento en '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1108
 msgid "add route prob reroute in '"
-msgstr ""
+msgstr "agregar reroute probabilístico de ruta en '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1145
 msgid "add route probe '"
@@ -13511,6 +13511,8 @@ msgstr "Crear relación TAZ"
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
 msgstr ""
+"Haga clic en la zona de análisis de tráfico (TAZ) de origen y destino ("
+"confirme usando la tecla <ENTER>)"
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
