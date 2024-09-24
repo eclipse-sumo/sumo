@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-30 08:09+0000\n"
+"PO-Revision-Date: 2024-09-24 07:30+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -236,7 +236,7 @@ msgstr "Agregar detectores de origen a la salida de validación"
 
 #: src/dfrouter/RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
-msgstr ""
+msgstr "Inferir valores de flujo faltantes desde arriba o abajo (¡no funciona!)"
 
 #: src/dfrouter/RODFFrame.cpp:127
 msgid "Switches to highway-mode"
@@ -335,6 +335,8 @@ msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
 msgstr ""
+"Intentar determinar más entradas a un detector intermedio al calcular las "
+"probabilidades de división"
 
 #: src/dfrouter/RODFFrame.cpp:205
 msgid "Scale factor for flows"
@@ -418,7 +420,7 @@ msgstr " % detectores sumidero"
 #: src/dfrouter/RODFNet.cpp:145
 #, c-format
 msgid " % in-between detectors"
-msgstr ""
+msgstr " % detectores intermedios"
 
 #: src/dfrouter/RODFNet.cpp:146
 #, c-format
@@ -546,19 +548,19 @@ msgstr "Escribiendo emitters"
 
 #: src/dfrouter/dfrouter_main.cpp:210
 msgid "Writing emitter pois"
-msgstr "Escribir puntos de interés emisores"
+msgstr "Escribiendo puntos de interés emisores"
 
 #: src/dfrouter/dfrouter_main.cpp:217
 msgid "Writing speed triggers"
-msgstr "Escribir activadores de velocidad"
+msgstr "Escribiendo activadores de velocidad"
 
 #: src/dfrouter/dfrouter_main.cpp:224
 msgid "Writing validation detectors"
-msgstr "Escribir detectores de validación"
+msgstr "Escribiendo detectores de validación"
 
 #: src/dfrouter/dfrouter_main.cpp:231
 msgid "Writing highway end rerouter"
-msgstr ""
+msgstr "Escribiendo rerouter de fin de autopista"
 
 #: src/dfrouter/dfrouter_main.cpp:251
 msgid "Builds vehicle routes for SUMO using detector values."
@@ -1141,6 +1143,7 @@ msgstr "Usar STR como definición de línea de tiempo de 24 horas"
 #: src/marouter/ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
 msgstr ""
+"Mantener los flujos de tráfico de todos los intervalos de tiempo en la red"
 
 #: src/marouter/ROMAFrame.cpp:172
 msgid "Choose a assignment method: incremental, UE or SUE"
@@ -1167,6 +1170,7 @@ msgstr ""
 #: src/marouter/ROMAFrame.cpp:184
 msgid "Penalize existing routes with FLOAT to find secondary routes"
 msgstr ""
+"Penalizar las rutas existentes con FLOAT, para encontrar rutas secundarias"
 
 #: src/marouter/ROMAFrame.cpp:188
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
@@ -1311,6 +1315,8 @@ msgstr ""
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
 msgstr ""
+"El vehículo '%' ignora la parada desencadenada en el carril '%' debido a "
+"restricciones de capacidad."
 
 #: src/mesosim/MEVehicle.cpp:390 src/microsim/MSVehicle.cpp:1706
 #, c-format
@@ -1318,6 +1324,8 @@ msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
 "constraints."
 msgstr ""
+"El vehículo '%' ignora la parada desencadenada por un contenedor en el "
+"carril '%' debido a restricciones de capacidad."
 
 #: src/mesosim/MEVehicle.cpp:557
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
@@ -1366,6 +1374,8 @@ msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr ""
+"El vehículo se está moviendo más allá del cruce e ingresará a una arista "
+"sucesora"
 
 #: src/microsim/MSBaseVehicle.cpp:593
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
@@ -1450,10 +1460,12 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:1912
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
+"no se encontró una ruta desde la arista '%' hacia la arista de parada '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1700 src/microsim/MSBaseVehicle.cpp:1921
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
+"no se encontró una ruta desde la arista de parada '%' hacia la arista '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1712 src/microsim/MSBaseVehicle.cpp:1935
 msgid ""
@@ -4533,7 +4545,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:129
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
-msgstr ""
+msgstr "Estrategia no válida para device.stationfinder.chargingStrategy '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:139
 msgid "Invalid device.stationfinder.rescueAction '%'."
