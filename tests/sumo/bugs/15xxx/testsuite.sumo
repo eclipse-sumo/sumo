@@ -22,6 +22,9 @@ ticket15263
 # crash on rerouting with lane change prohibitions
 ticket15390
 
+# freeze on invalid interval end
+ticket15416
+
 # exceeding the speedLimit
 ticket15435
 

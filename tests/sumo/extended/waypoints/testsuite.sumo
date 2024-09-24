@@ -45,3 +45,6 @@ fast_short
 
 # allow high departSpeed when starting at a waypoint
 departSpeed
+
+waypoint_before_stop
+waypoint_before_stop2
