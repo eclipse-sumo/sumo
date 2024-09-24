@@ -21,6 +21,7 @@
 from __future__ import print_function
 import sys
 import os
+from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
@@ -30,6 +31,8 @@ def get_options():
     op = sumolib.options.ArgumentParser()
     op.add_argument("root", category="input", type=op.file,
                     help="root directory of tests to analyze")
+    op.add_argument("--variant", action="store_true", default=False,
+                    help="check whether the test is orphaned in the given suite variant")
     op.add_argument("--fix", action="store_true", default=False,
                     help="automatically append missing tests to test suites")
     return op.parse_args()
@@ -40,7 +43,7 @@ numFixed = 0
 
 for root, dirs, files in os.walk(options.root):
     numSuites = 0
-    known_tests = set()
+    known_variant_tests = defaultdict(lambda : set())
     suites = []
     for fname in files:
         if fname.startswith("testsuite."):
@@ -49,9 +52,13 @@ for root, dirs, files in os.walk(options.root):
                 for line in s:
                     line = line.strip()
                     if line and not line.startswith("#"):
-                        known_tests.add(line)
+                        known_variant_tests[fname].add(line)
     if suites:
         orphaned = []
+        mainSuite = sorted(suites)[0]
+        if options.variant:
+            mainSuite = options.variant
+        known_tests = known_variant_tests[mainSuite]
         for d in dirs:
             if d in ["filter_files", "data"]:
                 continue
@@ -61,7 +68,6 @@ for root, dirs, files in os.walk(options.root):
         if orphaned and options.fix:
             numFixed += len(orphaned)
             # suite with shortest name is the main one
-            mainSuite = sorted(suites)[0]
             with open(os.path.join(root, mainSuite), "a") as s:
                 for t in orphaned:
                     print("\n", file=s)
