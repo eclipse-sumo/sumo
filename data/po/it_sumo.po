@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-24 14:15+0000\n"
+"PO-Revision-Date: 2024-09-25 07:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9846,38 +9846,42 @@ msgstr ""
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr ""
+"L'opzione \"proj.plain-geo\" viene ignorata perché non è stato definito "
+"nessuna conversione geografica"
 
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr ""
+"Carica zone di assegnazione del traffico (distretti; anche da reti) da uno o "
+"più FILE"
 
 #: src/od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
-msgstr ""
+msgstr "Scrive definizioni di corse in FILE"
 
 #: src/od2trips_main.cpp:105
 msgid "Writes flow definitions into FILE"
-msgstr ""
+msgstr "Scrive definizioni di flussi in FILE"
 
 #: src/od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
-msgstr ""
+msgstr "Scrive flussi probabilistici invece di quelli a distanza uniforme"
 
 #: src/od2trips_main.cpp:111
 msgid "Writes pedestrians instead of vehicles"
-msgstr ""
+msgstr "Scrive pedoni al posto di veicoli"
 
 #: src/od2trips_main.cpp:114
 msgid "Writes persontrips instead of vehicles"
-msgstr ""
+msgstr "Scrive corse di persone al posto di veicoli"
 
 #: src/od2trips_main.cpp:117
 msgid "Add modes attribute to personTrips"
-msgstr ""
+msgstr "Aggiungi l'attributo \"modes\" alle corse di persone"
 
 #: src/od2trips_main.cpp:124
 msgid "Writes trips between junctions"
-msgstr ""
+msgstr "Scrivi corse tra incroci"
 
 #: src/od2trips_main.cpp:129 src/router/ROFrame.cpp:116
 msgid "Defines the begin time; Previous trips will be discarded"
