@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-24 06:31+0000\n"
+"PO-Revision-Date: 2024-09-24 14:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10665,32 +10665,39 @@ msgstr "L'arco '%' è sconnesso dall'arco '%' del veicolo '%'."
 #: src/router/RORouteHandler.cpp:204
 msgid "Triggered departure for person '%' requires starting with a ride."
 msgstr ""
+"La partenza generata della persona #%' richiede di iniziare con un passaggio."
 
 #: src/router/RORouteHandler.cpp:206
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
+"La partenza generata del contenitore '%' richiede di iniziare con una "
+"spedizione."
 
 #: src/router/RORouteHandler.cpp:228
 #, c-format
 msgid "Found % outside container element"
-msgstr ""
+msgstr "Incontrato % fuori di elementi di contenitori"
 
 #: src/router/RORouteHandler.cpp:352
 msgid "No probability for route %, using default."
 msgstr ""
+"Nessuna probabilità indicata per l'itinerario %, allora viene usato il "
+"valore standard."
 
 #: src/router/RORouteHandler.cpp:507
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
 msgstr ""
+"I codici identificativi delle distribuzione di itinerari interne vengono "
+"ignorati (vehicle '%')."
 
 #: src/router/RORouteHandler.cpp:623
 msgid "Discarding person '%' because her plan is empty"
-msgstr ""
+msgstr "Omissione della persona '%' a causa del suo piano vuoto"
 
 #: src/router/RORouteHandler.cpp:650
 msgid "Discarding personFlow '%' because their plan is empty"
-msgstr ""
+msgstr "Omissione del flusso di persone '%' a causa del piano vuoto"
 
 #: src/router/RORouteHandler.cpp:658
 #, c-format
@@ -11577,7 +11584,7 @@ msgstr ""
 
 #: src/utils/iodevices/OutputDevice.cpp:88
 msgid "No port number given."
-msgstr ""
+msgstr "Non è stato indicato il numero di porta."
 
 #: src/utils/iodevices/OutputDevice.cpp:163
 msgid "Error on closing output devices."
