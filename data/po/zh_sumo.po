@@ -6961,19 +6961,19 @@ msgstr "將产生的转向车道的长度設定为 FLOAT"
 
 #: src/netgen/NGFrame.cpp:53
 msgid ""
-"Apply random spatial perturbation in x direction according the the given "
+"Apply random spatial perturbation in x direction according to the given "
 "distribution"
 msgstr "根据给定的分配,在 x 方向使用随机空间扰动"
 
 #: src/netgen/NGFrame.cpp:55
 msgid ""
-"Apply random spatial perturbation in y direction according the the given "
+"Apply random spatial perturbation in y direction according to the given "
 "distribution"
 msgstr "根据给定的分配,在 y 方向使用随机空间扰动"
 
 #: src/netgen/NGFrame.cpp:57
 msgid ""
-"Apply random spatial perturbation in z direction according the the given "
+"Apply random spatial perturbation in z direction according to the given "
 "distribution"
 msgstr "根据给定的分配,在 z 方向使用随机空间扰动"
 
@@ -9719,7 +9719,7 @@ msgid "No trip table output file (-o) or flow-output is specified."
 msgstr "沒有指定行程表(trip table)输出文件 (-o) 或流量输出(flow-output)。"
 
 #: src/od2trips_main.cpp:205
-msgid "Only one of the the options 'pedestrians' and 'persontrips' may be set."
+msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
 msgstr "只能设定选项 'pedestrians' 和 'persontrips' 其中之一。"
 
 #: src/od2trips_main.cpp:248

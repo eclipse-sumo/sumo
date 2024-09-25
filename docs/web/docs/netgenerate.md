@@ -135,9 +135,9 @@ the offsets given).
 |--------|-------------|
 | **--turn-lanes** {{DT_INT}} | Generate INT left-turn lanes; *default:* **0** |
 | **--turn-lanes.length** {{DT_FLOAT}} | Set the length of generated turning lanes to FLOAT; *default:* **20** |
-| **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according the the given distribution; *default:* **0** |
-| **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according the the given distribution; *default:* **0** |
-| **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according the the given distribution; *default:* **0** |
+| **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according to the given distribution; *default:* **0** |
+| **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according to the given distribution; *default:* **0** |
+| **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according to the given distribution; *default:* **0** |
 | **--bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
 | **--random-lanenumber** {{DT_BOOL}} | Draw lane numbers randomly from [1,default.lanenumber]; *default:* **false** |
 | **--random-priority** {{DT_BOOL}} | Draw edge priority randomly from [1,default.priority]; *default:* **false** |

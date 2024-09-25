@@ -7885,7 +7885,7 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:53
 msgid ""
-"Apply random spatial perturbation in x direction according the the given "
+"Apply random spatial perturbation in x direction according to the given "
 "distribution"
 msgstr ""
 "Eine zufällige räumliche Störung in x-Richtung gemäß der angegebenen "
@@ -7893,7 +7893,7 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:55
 msgid ""
-"Apply random spatial perturbation in y direction according the the given "
+"Apply random spatial perturbation in y direction according to the given "
 "distribution"
 msgstr ""
 "Eine zufällige räumliche Störung in y-Richtung gemäß der angegebenen "
@@ -7901,7 +7901,7 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:57
 msgid ""
-"Apply random spatial perturbation in z direction according the the given "
+"Apply random spatial perturbation in z direction according to the given "
 "distribution"
 msgstr ""
 "Eine zufällige räumliche Störung in z-Richtung gemäß der angegebenen "
@@ -10879,7 +10879,7 @@ msgstr ""
 "spezifiziert."
 
 #: src/od2trips_main.cpp:205
-msgid "Only one of the the options 'pedestrians' and 'persontrips' may be set."
+msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
 msgstr ""
 "Nur eine der Optionen 'pedestrians' und 'persontrips' darf angewendet werden."
 

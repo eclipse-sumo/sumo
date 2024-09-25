@@ -50,11 +50,11 @@ NGFrame::fillOptions() {
     oc.addDescription("turn-lanes.length", "Processing", TL("Set the length of generated turning lanes to FLOAT"));
 
     oc.doRegister("perturb-x", new Option_String("0"));
-    oc.addDescription("perturb-x", "Processing", TL("Apply random spatial perturbation in x direction according the the given distribution"));
+    oc.addDescription("perturb-x", "Processing", TL("Apply random spatial perturbation in x direction according to the given distribution"));
     oc.doRegister("perturb-y", new Option_String("0"));
-    oc.addDescription("perturb-y", "Processing", TL("Apply random spatial perturbation in y direction according the the given distribution"));
+    oc.addDescription("perturb-y", "Processing", TL("Apply random spatial perturbation in y direction according to the given distribution"));
     oc.doRegister("perturb-z", new Option_String("0"));
-    oc.addDescription("perturb-z", "Processing", TL("Apply random spatial perturbation in z direction according the the given distribution"));
+    oc.addDescription("perturb-z", "Processing", TL("Apply random spatial perturbation in z direction according to the given distribution"));
 
     oc.doRegister("bidi-probability", new Option_Float(1));
     oc.addSynonyme("bidi-probability", "rand-bidi-probability", true);

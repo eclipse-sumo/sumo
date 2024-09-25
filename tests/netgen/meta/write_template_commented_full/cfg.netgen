@@ -204,13 +204,13 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according to the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according to the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according to the given distribution -->
         <perturb-z value="0" type="STR"/>
 
         <!-- Defines the probability to build a reverse edge -->

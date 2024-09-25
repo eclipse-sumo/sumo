@@ -11405,7 +11405,7 @@ class Shortestrouter(Process):
                             groupnames = ['options'], 
                             perm='rw', 
                             name = 'Mode constant', 
-                            info = 'The Mode constant is multiplied with the the distance of each edge if vehicle has exclusive access.',
+                            info = 'The Mode constant is multiplied with the distance of each edge if vehicle has exclusive access.',
                             ))
                             
         self.dist_modespecific = attrsman.add(cm.AttrConf( 'dist_modespecific',kwargs.get('dist_modespecific',5.0),
@@ -11478,7 +11478,7 @@ class Fastestrouter(Process):
                             groupnames = ['options'], 
                             perm='rw', 
                             name = 'Mode constant', 
-                            info = 'The Mode constant is multiplied with the the distance of each edge if vehicle has exclusive access.',
+                            info = 'The Mode constant is multiplied with the distance of each edge if vehicle has exclusive access.',
                             ))
                             
         self.time_modespecific = attrsman.add(cm.AttrConf( 'time_modespecific',kwargs.get('time_modespecific',0.0),

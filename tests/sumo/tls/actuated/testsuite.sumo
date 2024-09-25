@@ -64,7 +64,7 @@ green_minor_uncontrolled2
 # test handling of junction with custom link indices (only part of the state is used)
 unused_indices
 
-# test for moving detector upstream when the the lane that is incoming to the intersection is too short.
+# test for moving detector upstream when the lane that is incoming to the intersection is too short.
 short_lane
 
 # network contains a static traffic light, load actuated as additional program (new default) with linkMinDur constraints

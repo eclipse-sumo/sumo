@@ -529,7 +529,7 @@ class Test_Shapes(unittest.TestCase):
     def test_h004_lane_shape_2d(self):
         """Get an internal lane and its shape.
 
-        Shape should not be influenced by the incluldeJunc parameter
+        Shape should not be influenced by the included Junction parameter
 
         Use left cross of the H for this test.
 
@@ -553,7 +553,7 @@ class Test_Shapes(unittest.TestCase):
         # there must be at least two shape points
         self.assertTrue(len(result_lane_shape_without_junc) >= 2)
 
-        # each shape point should be somewhat close the the junction
+        # each shape point should be somewhat close to the junction
         # and on the same z-level
 
         for shape_point in result_lane_shape_without_junc:
@@ -564,7 +564,7 @@ class Test_Shapes(unittest.TestCase):
     def test_h004_lane_shape_3d(self):
         """Get an internal lane and its shape.
 
-        Shape should not be influenced by the incluldeJunc parameter
+        Shape should not be influenced by the included Junction parameter
 
         Use left cross of the H for this test.
 
@@ -588,7 +588,7 @@ class Test_Shapes(unittest.TestCase):
         # there must be at least two shape points
         self.assertTrue(len(result_lane_shape_without_junc) >= 2)
 
-        # each shape point should be somewhat close the the junction
+        # each shape point should be somewhat close to the junction
         # and on the same z-level
 
         for shape_point in result_lane_shape_without_junc:
@@ -733,7 +733,7 @@ class Test_Shapes(unittest.TestCase):
         There was only one shape point defined in the edge.xml
         The coord of the from and to node where not included
         (since this is optional
-        - the counder direction does inclued them - see below)
+        - the counder direction does included them - see below)
 
         2d version.
         """
@@ -809,7 +809,7 @@ class Test_Shapes(unittest.TestCase):
         There was only one shape point defined in the edge.xml
         The coord of the from and to node where not included
         (since this is optional
-        - the counder direction does inclued them - see below)
+        - the counder direction does included them - see below)
 
         3d version.
         """

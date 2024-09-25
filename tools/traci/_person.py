@@ -186,7 +186,7 @@ class PersonDomain(VTypeDomain):
 
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> stage
-        Returns the the nth stage object (type simulation.Stage)
+        Returns the nth stage object (type simulation.Stage)
         Attribute type of this object has the following meaning:
           0 for not-yet-departed
           1 for waiting

@@ -135,13 +135,13 @@ Processing Options:
   --turn-lanes.length FLOAT            Set the length of generated turning
                                         lanes to FLOAT
   --perturb-x STR                      Apply random spatial perturbation in x
-                                        direction according the the given
+                                        direction according to the given
                                         distribution
   --perturb-y STR                      Apply random spatial perturbation in y
-                                        direction according the the given
+                                        direction according to the given
                                         distribution
   --perturb-z STR                      Apply random spatial perturbation in z
-                                        direction according the the given
+                                        direction according to the given
                                         distribution
   --bidi-probability FLOAT             Defines the probability to build a
                                         reverse edge

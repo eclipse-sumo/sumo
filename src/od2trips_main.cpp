@@ -202,7 +202,7 @@ checkOptions() {
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
-        WRITE_ERROR(TL("Only one of the the options 'pedestrians' and 'persontrips' may be set."));
+        WRITE_ERROR(TL("Only one of the Options 'pedestrians' and 'persontrips' may be set."));
         ok = false;
     }
     //

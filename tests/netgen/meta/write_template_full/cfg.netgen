@@ -84,9 +84,9 @@
     <processing>
         <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
         <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
-        <perturb-x value="0" type="STR" help="Apply random spatial perturbation in x direction according the the given distribution"/>
-        <perturb-y value="0" type="STR" help="Apply random spatial perturbation in y direction according the the given distribution"/>
-        <perturb-z value="0" type="STR" help="Apply random spatial perturbation in z direction according the the given distribution"/>
+        <perturb-x value="0" type="STR" help="Apply random spatial perturbation in x direction according to the given distribution"/>
+        <perturb-y value="0" type="STR" help="Apply random spatial perturbation in y direction according to the given distribution"/>
+        <perturb-z value="0" type="STR" help="Apply random spatial perturbation in z direction according to the given distribution"/>
         <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
         <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
         <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
