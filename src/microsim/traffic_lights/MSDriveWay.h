@@ -279,6 +279,8 @@ protected:
 
     bool isFoeOrSubFoe(const MSDriveWay* foe) const;
 
+    static bool hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe);
+
     static bool isSwitch(const MSLink* link);
 
     void cleanupPointersToSelf(const std::vector<MSDriveWay*> others);

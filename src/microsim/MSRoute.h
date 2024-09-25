@@ -44,6 +44,7 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
+class MSLane;
 class MSRoute;
 class OutputDevice;
 

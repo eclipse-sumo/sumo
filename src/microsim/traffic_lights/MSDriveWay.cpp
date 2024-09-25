@@ -23,6 +23,7 @@
 
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/common/StringUtils.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
@@ -467,45 +468,16 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
 #endif
             if (foeDW->myTrains.size() == 1) {
                 SUMOVehicle* foe = *foeDW->myTrains.begin();
-                std::string joinVehicle = "";
-                if (ego != nullptr && !MSGlobals::gUseMesoSim) {
-                    const SUMOVehicleParameter::Stop* stop = ego->getNextStopParameter();
-                    if (stop != nullptr) {
-                        joinVehicle = stop->join;
+                if (foe == ego) {
+#ifdef DEBUG_SIGNALSTATE
+                    if (gDebugFlag4) {
+                        std::cout << "    ignore ego as foe '" << Named::getIDSecure(ego) << "\n";
                     }
+#endif
+                    continue;
                 }
-                if (joinVehicle != "") {
-#ifdef DEBUG_SIGNALSTATE
-                    if (gDebugFlag4 || DEBUG_COND_DW) {
-                        std::cout << "  joinVehicle=" << joinVehicle << "\n";
-                    }
-#endif
-                    if (foe->getID() == joinVehicle && foe->isStopped()) {
-#ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4 || DEBUG_COND_DW) {
-                            std::cout << "    ignore join-target '" << joinVehicle << "\n";
-                        }
-#endif
-                        continue;
-                    }
-                }
-                if (ego != nullptr) {
-                    if (foe == ego) {
-#ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4) {
-                            std::cout << "    ignore ego as foe '" << ego->getID() << "\n";
-                        }
-#endif
-                        continue;
-                    }
-                    if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
-#ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4 || DEBUG_COND_DW) {
-                            std::cout << "    ignore " << foe->getID() << " for which ego is join-target\n";
-                        }
-#endif
-                        continue;
-                    }
+                if (hasJoin(ego, foe)) {
+                    continue;
                 }
             }
             bool useSiding = canUseSiding(ego, foeDW);
@@ -569,6 +541,50 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
     }
     return false;
 }
+
+
+bool
+MSDriveWay::hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe) {
+    if (ego != nullptr && !MSGlobals::gUseMesoSim) {
+        std::string joinVehicle = "";
+        const SUMOVehicleParameter::Stop* stop = ego->getNextStopParameter();
+        if (stop != nullptr) {
+            joinVehicle = stop->join;
+        }
+        if (joinVehicle == "" && !ego->hasDeparted() && ego->getStops().size() > 1) {
+            // check one more stop
+            auto it = ego->getStops().begin();
+            std::advance(it, 1);
+            joinVehicle = it->pars.join;
+        }
+        if (joinVehicle != "") {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4 || DEBUG_COND_DW) {
+                std::cout << "  joinVehicle=" << joinVehicle << "\n";
+            }
+#endif
+            if (foe->getID() == joinVehicle && foe->isStopped()) {
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4 || DEBUG_COND_DW) {
+                    std::cout << "    ignore join-target '" << joinVehicle << "\n";
+                }
+#endif
+                return true;
+            }
+        }
+
+        if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4 || DEBUG_COND_DW) {
+                std::cout << "    ignore " << foe->getID() << " for which ego is join-target\n";
+            }
+#endif
+            return true;
+        }
+    }
+    return false;
+}
+
 
 bool
 MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const {
