@@ -34,6 +34,9 @@ rerouting
 # vehicles partially equipped for rerouting
 rerouting2
 
+# vehicles skip stop edges along looped routes (require stop attribute index) and reroute after finishing the stop (which affects the index value).
+rerouting_looped_stops
+
 # flow saved and loaded
 flow
 
@@ -113,6 +116,7 @@ continous_lanechange
 
 # vehicle stops twice in the same spot, state is saved before departure
 stops_looped
+
 # vehicle passes an edge twice but stops on the second pass
 stops_looped2
 
