@@ -61,7 +61,7 @@ title: FAQ
   other people about SUMO.
 - Answer questions on the [sumo-user mailing list](Contact.md)
   whenever you know the answer
-- Contribute to this wiki ([contact us](Contact.md), so we can
+- Contribute to this documentation ([contact us](Contact.md), so we can
   give you editing rights)
 - Create a video tutorial and tell us about it
 - Join us at the annual [SUMO User Conference](https://eclipse.dev/sumo/conference/)
@@ -146,11 +146,11 @@ be your problem. 32bit-applications may only use 2GB of RAM. Use the
 work with larger files. If this does not fix the crash, please report
 this as a bug [as explained below](#how_do_i_report_erroneous_behavior_of_a_sumo_application).
 
-### Why does SUMO not behave as documented in this wiki?
+### Why does SUMO not behave as documented here?
 
-This wiki documents the behavior of the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
-close the the [latest release](Downloads.md) (differences are
-explicitly listed in the [ChangeLog](ChangeLog.md). If you are
+This documentation refers to the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
+close the [latest release](Downloads.md) (differences are
+explicitly listed in the [ChangeLog](ChangeLog.md)). If you are
 using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#older_releases_and_alternative_download). Note that we do
 not back-port bugfixes to older version of SUMO. If possible you should
 always use the latest version of SUMO.
