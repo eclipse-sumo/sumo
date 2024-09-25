@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-19 08:51:10 by Eclipse SUMO sumo Version v1_20_0+2048-31af531e001
+<!-- generated on 2024-09-25 11:57:09 by Eclipse SUMO sumo Version v1_20_0+2138-4520b1603e4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -141,7 +141,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="66.80" savings="-59.97" replacedOnEdge="B0B1" replacedOnIndex="21" reason="parkB0B1:parkingAreaReroute" replacedAtTime="179.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2A2 A2A3 A3B3 B3B2 B2B1 B1B0 B0A0 A0A1 A1B1 B1B0 B0B1 B1B0 B0A0 A0A1" routeLength="2413.83"/>
             <route cost="64.29" savings="-25.09" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2A2 A2A3 A3B3 B3B2 B2B1 B1B0 B0A0 A0A1 A1B1 B1B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0A0 A0A1" exitTimes="25.00 32.00 41.00 51.00 59.00 66.00 74.00 82.00 89.00 97.00 104.00 113.00 120.00 127.00 134.00 141.00 149.00 156.00 163.00 171.00 179.00 186.00 194.00 -1 -1 -1 -1 -1 -1"/>
         </routeDistribution>
-        <stop parkingArea="parkC1C2" index="1" duration="3600.00" started="201.00" ended="-1"/>
+        <stop parkingArea="parkC1C2" duration="3600.00" started="201.00" ended="-1"/>
     </vehicle>
 
 </routes>
