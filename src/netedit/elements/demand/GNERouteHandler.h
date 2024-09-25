@@ -288,6 +288,9 @@ protected:
     /// @brief remove overwritten demand element
     void overwriteDemandElement();
 
+    /// @brief write error "invalid negative element"
+    void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const SumoXMLAttr attribute);
+
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;

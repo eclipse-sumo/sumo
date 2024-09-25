@@ -616,9 +616,9 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
-        WRITE_WARNING(TL("invalid person parent"));
+        WRITE_ERROR(TL("invalid person parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for personTrip"));
+        WRITE_ERROR(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
         GNEDemandElement* personTrip = new GNEPersonTrip(myNet, tagIcon.first, tagIcon.second, personParent, planParents,
@@ -649,9 +649,13 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
-        WRITE_WARNING(TL("invalid person parent"));
+        WRITE_ERROR(TL("invalid person parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for personTrip"));
+        WRITE_ERROR(TL("invalid combination for personTrip"));
+    } else if (speed < 0) {
+        writeErrorInvalidNegativeValue(SUMO_TAG_WALK, SUMO_ATTR_SPEED);
+    } else if (duration < 0) {
+        writeErrorInvalidNegativeValue(SUMO_TAG_WALK, SUMO_ATTR_DURATION);
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
         GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
@@ -681,9 +685,9 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
-        WRITE_WARNING(TL("invalid person parent"));
+        writeError(TL("invalid person parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for ride"));
+        writeError(TL("invalid combination for ride"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build ride
         GNEDemandElement* ride = new GNERide(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines, group);
@@ -767,9 +771,9 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
-        WRITE_WARNING(TL("invalid container parent"));
+        WRITE_ERROR(TL("invalid container parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for personTrip"));
+        WRITE_ERROR(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build transport
         GNEDemandElement* transport = new GNETransport(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines, group);
@@ -799,11 +803,13 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
-        WRITE_WARNING(TL("invalid container parent"));
+        WRITE_ERROR(TL("invalid container parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for personTrip"));
+        WRITE_ERROR(TL("invalid combination for personTrip"));
+    } else if (speed < 0) {
+        writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, SUMO_ATTR_SPEED);
     } else if (duration < 0) {
-        WRITE_WARNING(TL("tranship's duration cannot be negative"));
+        writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, SUMO_ATTR_DURATION);
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build tranship
         GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
@@ -835,9 +841,9 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
-        WRITE_WARNING(TL("invalid person parent"));
+        WRITE_ERROR(TL("invalid person parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for person stop"));
+        WRITE_ERROR(TL("invalid combination for person stop"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person stop
         GNEDemandElement* stopPlan = new GNEStopPlan(myNet, tagIcon.first, tagIcon.second, personParent, planParents,
@@ -869,9 +875,9 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
-        WRITE_WARNING(TL("invalid container parent"));
+        WRITE_ERROR(TL("invalid container parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
-        WRITE_WARNING(TL("invalid combination for containerStop"));
+        WRITE_ERROR(TL("invalid combination for containerStop"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build container stop
         GNEDemandElement* stopPlan = new GNEStopPlan(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
@@ -900,7 +906,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     const auto objParent = sumoBaseObject->getParentSumoBaseObject();
     // continue depending of objParent
     if (objParent == nullptr) {
-        WRITE_WARNING(TL("Stops needs a parent"));
+        WRITE_ERROR(TL("Stops needs a parent"));
     } else if ((objParent->getTag() == SUMO_TAG_PERSON) || (objParent->getTag() == SUMO_TAG_PERSONFLOW)) {
         buildPersonStop(sumoBaseObject, planParameters, stopParameters.endPos,
                         stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos, stopParameters.parametersSet);
@@ -2401,6 +2407,12 @@ GNERouteHandler::overwriteDemandElement() {
         // reset pointer
         myDemandToOverwrite = nullptr;
     }
+}
+
+
+void
+GNERouteHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const SumoXMLAttr attribute) {
+    writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("Attribute % cannot be negative.", toString(attribute)));
 }
 
 /****************************************************************************/
