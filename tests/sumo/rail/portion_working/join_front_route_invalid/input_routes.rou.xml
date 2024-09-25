@@ -50,6 +50,6 @@
     </vehicle>
     <vehicle id="t1" type="continuingTrain" depart="30">
         <route edges="d b c c2"/>
-        <stop edge="b" startPos="50" endPos="250" duration="5.00" triggered="join"/>
+        <stop edge="b" startPos="50" endPos="250" duration="6.00" triggered="join"/>
     </vehicle>
 </routes>
