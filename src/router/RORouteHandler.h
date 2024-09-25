@@ -220,7 +220,7 @@ protected:
     /// @brief The begin time
     const SUMOTime myBegin;
 
-    /// @brief whether to keep the the vtype distribution in output
+    /// @brief whether to keep the vtype distribution in output
     const bool myKeepVTypeDist;
 
     /// @brief whether input is read all at once (no sorting check is necessary)

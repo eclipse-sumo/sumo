@@ -169,7 +169,7 @@ public:
     double getWaitingPositionOnLane(MSTransportable* t) const;
 
 
-    /** @brief For vehicles at the stop this gives the the actual stopping
+    /** @brief For vehicles at the stop this gives the actual stopping
      *         position of the vehicle. For all others the last free stopping position
      *
      */
@@ -181,7 +181,7 @@ public:
         return (int)myWaitingTransportables.size();
     }
 
-    /** @brief Returns the tranportables waiting on this stop
+    /** @brief Returns the transportables waiting on this stop
      */
     std::vector<const MSTransportable*> getTransportables() const;
 

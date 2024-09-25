@@ -67,7 +67,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2str.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2str throws an
      *  EmptyData-exception which is passed.
@@ -81,7 +81,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      *
@@ -98,7 +98,7 @@ public:
     /**
      * @brief Returns the double-value of the named attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2double.
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2double throws an
      *  EmptyData-exception which is passed.
@@ -115,7 +115,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list.
+     * Tries to retrieve the attribute from the attribute list.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      * @param[in] id The name of the attribute to return the value of
      * @param[in] def The default value to return if the attribute is not in attributes

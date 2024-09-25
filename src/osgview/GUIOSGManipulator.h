@@ -54,7 +54,7 @@ public:
     osg::Matrixd getMatrix() const override;
     /// @brief Get the position of the manipulator as a inverse matrix of the manipulator, typically used as a model view matrix.
     osg::Matrixd getInverseMatrix() const override;
-    /// @brief Note the the current manipulator mode in the HUD
+    /// @brief Note the current manipulator mode in the HUD
     void updateHUDText();
 protected:
     void centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;

@@ -53,7 +53,7 @@ public:
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * this uses the maximumSafeStopSpeed
      * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @param[in] gap2pred The (net) distance to the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
@@ -64,7 +64,7 @@ public:
      * this uses the maximumSafeFollowSpeed
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @param[in] pred The leading vehicle (LEADER)
      * @return EGO's safe speed

@@ -308,7 +308,7 @@ private:
 
     /** @brief Returns the opposite direction of the given edge
      *
-     * Because the opposite direction edge may be split, not the the plain opposite
+     * Because the opposite direction edge may be split, not the plain opposite
      *  edge, the one which name is obtained by adding/removing the leading '-', is returned,
      *  but its continuation until the named node.
      *
@@ -372,12 +372,12 @@ private:
         /** @brief Position of the according db within the file
          *
          * Set to -1 in the constructor, and reset to the position while
-         *  scaning the file if the according db was found */
+         *  scanning the file if the according db was found */
         long position;
 
         /** @brief The column names
          *
-         * Set while scaning the file if the according db was found */
+         * Set while scanning the file if the according db was found */
         std::string pattern;
 
     };

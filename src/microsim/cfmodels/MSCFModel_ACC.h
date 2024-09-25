@@ -61,7 +61,7 @@ public:
     /** @brief Computes the vehicle's safe speed (no dawdling)
     * @param[in] veh The vehicle (EGO)
     * @param[in] speed The vehicle's speed
-    * @param[in] gap2pred The (netto) distance to the LEADER
+    * @param[in] gap2pred The (net) distance to the LEADER
     * @param[in] predSpeed The speed of LEADER
     * @return EGO's safe speed
     * @see MSCFModel::ffeV
@@ -72,7 +72,7 @@ public:
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
     * @param[in] veh The vehicle (EGO)
-    * @param[in] gap2pred The (netto) distance to the the obstacle
+    * @param[in] gap2pred The (net) distance to the obstacle
     * @return EGO's safe speed for approaching a non-moving obstacle
     * @see MSCFModel::ffeS
     * @todo generic Interface, models can call for the values they need
@@ -91,7 +91,7 @@ public:
      * @param[in] veh The vehicle (EGO)
      * @param[in] pred The leader vehicle, for obtaining other values
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
