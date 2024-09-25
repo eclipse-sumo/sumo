@@ -7,7 +7,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <personTrip toTaz="taz_green"/>
-        <personTrip toTaz="taz_red"/>
+        <walk toTaz="taz_green"/>
+        <walk toTaz="taz_red"/>
     </person>
 </routes>

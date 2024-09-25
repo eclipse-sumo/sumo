@@ -1,1 +1,1 @@
-Warning: Invalid to junction 'dummy' used in persontrip: parkingarea->junction of person 'p_0'
+Warning: Invalid to junction 'dummy' used in walk: parkingarea->junction of person 'p_0'

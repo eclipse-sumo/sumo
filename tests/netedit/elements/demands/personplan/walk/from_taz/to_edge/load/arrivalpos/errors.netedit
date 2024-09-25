@@ -1,2 +1,2 @@
-Error: Attribute 'arrivalPos' in definition of a personTrip Invalid Number Format (double) dummy.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.3_from_04Sep132052.2576\netedit.gui\elements\demands\personplan\persontrip\from_taz\to_edge\load\arrivalpos\routes.rou.xml failed.
+Error: Attribute 'arrivalPos' in definition of a walk Invalid Number Format (double) dummy.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.3_from_04Sep132052.2576\netedit.gui\elements\demands\personplan\walk\from_taz\to_edge\load\arrivalpos\routes.rou.xml failed.

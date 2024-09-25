@@ -1,1 +1,1 @@
-Warning: Invalid to charging station 'dummy' used in persontrip: trainstop->chargingstation of person 'p_0'
+Warning: Invalid to charging station 'dummy' used in walk: trainstop->chargingstation of person 'p_0'

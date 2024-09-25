@@ -1,1 +1,1 @@
-Warning: Invalid to edge 'dummy' used in persontrip: parkingarea->edge of person 'p_0'
+Warning: Invalid to edge 'dummy' used in walk: parkingarea->edge of person 'p_0'

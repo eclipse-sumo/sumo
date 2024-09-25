@@ -7,11 +7,11 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" toJunction="Junction1"/>
-        <personTrip containerStop="dummy"/>
+        <walk containerStop="dummy"/>
     </person>
 
     <person id="p_1" depart="0.00">
         <walk from="Edge0" toJunction="Junction1"/>
-        <personTrip containerStop="containerStopA"/>
+        <walk containerStop="containerStopA"/>
     </person>
 </routes>

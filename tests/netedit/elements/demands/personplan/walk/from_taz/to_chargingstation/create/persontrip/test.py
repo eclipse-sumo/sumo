@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTrip.chargingStation.chargingStation mode
+# go to walk.chargingStation.chargingStation mode
 netedit.personPlanMode()
 
-# go to personTrip.chargingStation.chargingStation mode
-netedit.changePersonPlanMode("personTrip")
+# go to walk.chargingStation.chargingStation mode
+netedit.changePersonPlanMode("walk")
 
-# create personTrip.chargingStation.chargingStation
+# create walk.chargingStation.chargingStation
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # press enter to create route

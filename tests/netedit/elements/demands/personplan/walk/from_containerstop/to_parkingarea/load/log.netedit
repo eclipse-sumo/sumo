@@ -1,1 +1,1 @@
-Warning: Invalid to parking area 'dummy' used in persontrip: containerstop->parkingarea of person 'p_0'
+Warning: Invalid to parking area 'dummy' used in walk: containerstop->parkingarea of person 'p_0'

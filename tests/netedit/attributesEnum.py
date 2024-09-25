@@ -3611,16 +3611,153 @@ class ride:
                 lines = 2
                 group = 3
 
-class walkEdgeEdge:
-    class create:
-        arrivalPos = 8
+class walk:
+    class edge:
+        class edge:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
 
-    class inspect:
-        arrivalPos = 1
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
 
-    class inspectSelection:
-        arrivalPos = 1
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
 
+        class busStop:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+    class busStop:
+        class edge:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+    class junction:
+        class edge:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                speed = 9
+                duration = 10
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+                duration = 3
 
 class walkEdges:
     class create:

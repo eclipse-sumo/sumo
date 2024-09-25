@@ -1,0 +1,3 @@
+Error: Attribute 'duration' in definition of a walk is not a valid time value.
+Error: Could not build walk in netedit; Attribute duration cannot be negative.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Sep162442.16860\netedit.gui\elements\demands\personplan\walk\common\load\duration\routes.rou.xml failed.

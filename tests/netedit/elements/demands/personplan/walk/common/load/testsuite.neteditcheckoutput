@@ -1,9 +1,5 @@
-vtypes
+speed
 
-modes
+duration
 
-lines
-
-group
-
-walk_factor
+duration_speed

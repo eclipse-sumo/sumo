@@ -1,1 +1,1 @@
-Warning: Invalid to edge 'dummy' used in persontrip: busstop->edge of person 'p_0'
+Warning: Invalid to edge 'dummy' used in walk: busstop->edge of person 'p_0'

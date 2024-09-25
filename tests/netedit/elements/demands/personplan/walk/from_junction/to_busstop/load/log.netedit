@@ -1,1 +1,1 @@
-Warning: Invalid to bus stop 'dummy' used in persontrip: junction->busstop of person 'p_0'
+Warning: Invalid to bus stop 'dummy' used in walk: junction->busstop of person 'p_0'

@@ -7,7 +7,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" chargingStation="chargingStationA"/>
-        <personTrip containerStop="containerStopB"/>
-        <personTrip containerStop="containerStopA"/>
+        <walk containerStop="containerStopB"/>
+        <walk containerStop="containerStopA"/>
     </person>
 </routes>

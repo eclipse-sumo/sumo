@@ -1,1 +1,1 @@
-Warning: Invalid to TAZ 'dummy' used in persontrip: parkingarea->taz of person 'p_0'
+Warning: Invalid to TAZ 'dummy' used in walk: parkingarea->taz of person 'p_0'
