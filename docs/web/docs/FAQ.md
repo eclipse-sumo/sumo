@@ -394,7 +394,7 @@ and simply type `git pull`.
 
 ### Is there further documentation on Git?
 
-  There is the [Git book](https://git-scm.com/book/) and the [GitHub help](https://help.github.com/) is also worth reading.
+  There is the [Git book](https://git-scm.com/book/en/v2) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
 
