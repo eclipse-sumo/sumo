@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
+<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":s1_0_0 TL1_1_0"/>
                 <bidi lanes=":s1_1_0 TL1_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="s1.0"/>
             </driveWay>
@@ -64,7 +63,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":s3_0_0 t4_1_0 :w1_0_0 t3_1_0 :s2_0_0 t2_1_0"/>
                 <bidi lanes=":s3_1_0 t4_0_0 :w1_3_0 t3_0_0 :s2_1_0 t2_0_0 :s1_1_0 TL1_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="s3.0"/>
             </driveWay>
@@ -82,7 +80,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":s6_1_0 t9_0_0 :w2_2_0 t10_0_0 :s7_1_0 t11_0_0"/>
                 <bidi lanes=":s6_0_0 t9_1_0 :w2_1_0 t10_1_0 :s7_0_0 t11_1_0 :s8_0_0 TR2_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="s6.0"/>
             </driveWay>
@@ -97,7 +94,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":s8_1_0 TR2_0_0"/>
                 <bidi lanes=":s8_0_0 TR2_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="s8.0"/>
             </driveWay>
@@ -108,7 +104,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="TL2_0_0 :s5_1_0 t8_0_0"/>
             <bidi lanes="TL2_1_0 :s5_0_0 t8_1_0 :s6_0_0 t9_1_0 :w2_1_0 t10_1_0 :s7_0_0 t11_1_0 :s8_0_0 TR2_1_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="e3.d0"/>
         </driveWay>
@@ -118,7 +113,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="TR1_1_0 :s4_0_0 t5_1_0"/>
             <bidi lanes="TR1_0_0 :s4_1_0 t5_0_0 :s3_1_0 t4_0_0 :w1_3_0 t3_0_0 :s2_1_0 t2_0_0 :s1_1_0 TL1_0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="e2.d1"/>
         </driveWay>

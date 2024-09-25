@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 13:01:41 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
+<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":11_1_0 T24_0_0"/>
                 <bidi lanes="T24_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="11.0"/>
             </driveWay>
@@ -63,7 +62,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":A_0_0 T18_1_0 :w7_1_0 T29_1_0 :w8_1_0 T19_1_0 :P1_0_0 T20_1_0 :N1_0_0 T21_1_0 :w9_1_0"
                     deadlockCheck="T30_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="G_0 P2_0 P3_0"/>
                 <foes driveWays="A.0 G.2 P1.0.0 P2.0.1 P3.0.1"/>
             </driveWay>
@@ -82,7 +80,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":B_0_0 T5_1_0 :w1_0_0 T6_1_0 :w2_0_0 T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0"
                     deadlockCheck="T30_1_0 :w10_0_0 T25_1_0 :G_0_0 T26_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="F_0 G_0 P3_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.2 G.0 G.1 P2.0.0 P2.1.0 P3.0.0 e5.d3 e5.d5"/>
             </driveWay>
@@ -97,7 +94,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":B_0_0 T5_1_0 :w1_0_0 T6_1_0 :w2_0_0 T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0"
                     deadlockCheck="T30_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="F_0 G_0 P3_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.2 G.0 G.1 P2.0.0 P2.1.0 P3.0.0"/>
             </driveWay>
@@ -116,7 +112,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="T28_0_0 :w5_2_0 T10_0_0 :w4_3_0 T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0"
                     deadlockCheck="T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 G_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.1.0 F.2 G.0 G.1 N2.0.0 N2.1.1"/>
             </driveWay>
@@ -131,7 +126,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="T28_0_0 :w5_3_0 T4_0_0 :N3_1_0 T3_0_0 :P3_1_0 T2_0_0 :w3_3_0"
                     deadlockCheck="T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="F.0.1 F.1 F.2.1"/>
             </driveWay>
@@ -143,7 +137,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="T28_0_0 :w5_2_0 T10_0_0 :w4_3_0 T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0"
                     deadlockCheck="T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 G_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.1.0 F.2 G.0 G.1 N2.0.0 N2.1.1 e1.d0 e1.d4"/>
             </driveWay>
@@ -162,7 +155,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":G_1_0 T25_0_0 :w10_1_0 T30_0_0 :w9_3_0 T15_0_0 :w4_2_0 T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0"
                     deadlockCheck="T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 F_0 N1_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.2 G.0 G.1 G.2.0 N1.0.0 N2.0.2 N2.1.0 e1.d0 e1.d4"/>
             </driveWay>
@@ -177,7 +169,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":G_1_0 T25_0_0 :w10_1_0 T30_0_0 :w9_3_0 T15_0_0 :w4_2_0 T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0"
                     deadlockCheck="T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="A_0 B_0 F_0 N1_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.2 G.0 G.1 G.2.0 N1.0.0 N2.0.2 N2.1.0 e3.d2"/>
                 <sidings foe="e3.d2">
@@ -195,7 +186,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":G_1_0 T25_0_0 :w10_1_0 T30_0_0 :w9_2_0 T21_0_0 :N1_1_0 T20_0_0 :P1_1_0 T19_0_0 :w8_2_0"
                     deadlockCheck="T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="A_0 N2_0"/>
                 <foes driveWays="A.0 G.0.1 G.1.1 G.2 N1.0.0 N2.0.2 N2.1.0 e3.d2"/>
             </driveWay>
@@ -213,7 +203,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":N1_1_0 T21_0_0 :w9_2_0 T30_0_0 :w10_2_0 T22_0_0 :w11_0_0 T23_0_0"/>
                 <bidi lanes=":N1_0_0 T21_1_0 :w9_1_0 T30_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="G_0 N2_0"/>
                 <foes driveWays="G.0.1 G.1.1 G.2.1 N1.0 N2.0.1 N2.1"/>
             </driveWay>
@@ -228,7 +217,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_1_0 T25_0_0 :G_1_0 T26_0_0"/>
                 <bidi lanes=":N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0 :w10_0_0 T25_1_0 :G_0_0 T26_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="F_0 N1_0"/>
                 <foes driveWays="F.0.0 F.2.0 G.0.0 G.1.0 G.2.0 N1.0.0 N2.0 N2.1.0 e5.d3 e5.d5 e5.d6"/>
             </driveWay>
@@ -245,7 +233,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_2_0 T22_0_0 :w11_0_0 T23_0_0"/>
                 <bidi lanes=":N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="F_0 G_0 N1_0"/>
                 <foes driveWays="F.0.0 F.2.0 G.0.0 G.1.0 G.2.0 N1.0 N2.0.1 N2.1"/>
             </driveWay>
@@ -266,7 +253,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":P1_0_0 T19_1_0 :w8_1_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0 T17_1_0"/>
                 <bidi lanes=":P1_1_0 T19_0_0 :w8_2_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="P2_0 P3_0"/>
                 <foes driveWays="A.0.1 P1.0 P2.0 P3.0 e3.d2"/>
             </driveWay>
@@ -281,7 +267,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":P2_0_0 T7_1_0 :w3_1_0 T27_1_0 :w2_1_0 T14_1_0 :w8_0_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0 T17_1_0"/>
                 <bidi lanes=":P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 P1_0 P3_0"/>
                 <foes driveWays="A.0.0 B.0.0 B.1.0 P1.0 P2.0 P2.1.1 P3.0 e3.d2"/>
             </driveWay>
@@ -295,7 +280,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":P2_0_0 T7_1_0 :w3_1_0 T27_1_0 :w2_0_0 T6_1_0 :w1_0_0 T5_1_0 :B_0_0 T1_1_0"/>
                 <bidi lanes=":P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="P3_0"/>
                 <foes driveWays="B.0.0 B.1.0 P2.0.0 P2.1 P3.0.0 e1.d0 e1.d4"/>
             </driveWay>
@@ -313,7 +297,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":P3_0_0 T2_1_0 :w3_0_0 T27_1_0 :w2_1_0 T14_1_0 :w8_0_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0 T17_1_0"/>
                 <bidi lanes=":P3_1_0 T2_0_0 :w3_3_0 T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 P1_0 P2_0"/>
                 <foes driveWays="A.0.0 B.0.1 B.1.1 P1.0 P2.0 P2.1.1 P3.0 e3.d2"/>
             </driveWay>
@@ -330,7 +313,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="T12_1_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="e2.d1"/>
         </driveWay>
@@ -341,7 +323,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T17_1_0 :A_0_0 T18_1_0 :w7_1_0"
                     deadlockCheck="T29_1_0 :w8_1_0 T19_1_0 :P1_0_0 T20_1_0 :N1_0_0 T21_1_0 :w9_1_0 T30_1_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="G_0 P1_0 P2_0 P3_0"/>
             <foes driveWays="G.2 P1.0 P2.0 P3.0 e3.d2"/>
         </driveWay>
@@ -352,7 +333,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T1_1_0 :B_0_0 T5_1_0 :w1_0_0 T6_1_0 :w2_0_0"
                     deadlockCheck="T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0 :w10_0_0 T25_1_0 :G_0_0 T26_1_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="F_0 G_0 P2_0"/>
             <foes driveWays="F.2 G.0 P2.1 e1.d0 e1.d4 e5.d3"/>
         </driveWay>
@@ -361,7 +341,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T1_1_0 :B_0_0 T5_1_0 :w1_0_0 T6_1_0 :w2_0_0"
                     deadlockCheck="T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="F_0 G_0 P2_0"/>
             <foes driveWays="F.2 G.0 P2.1 e1.d0 e1.d4"/>
         </driveWay>
@@ -372,7 +351,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T26_0_0 :G_1_0 T25_0_0 :w10_1_0"
                     deadlockCheck="T30_0_0 :w9_3_0 T15_0_0 :w4_2_0 T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="B_0 N2_0"/>
             <foes driveWays="B.0 N2.0 e1.d0 e5.d3 e5.d5 e5.d6"/>
         </driveWay>
@@ -381,7 +359,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T26_0_0 :G_1_0 T25_0_0 :w10_1_0"
                     deadlockCheck="T30_0_0 :w9_3_0 T15_0_0 :w4_2_0 T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="B_0 N2_0"/>
             <foes driveWays="B.0 N2.0 e5.d3 e5.d5 e5.d6"/>
         </driveWay>
@@ -390,7 +367,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T26_0_0 :G_1_0 T25_0_0 :w10_1_0"
                     deadlockCheck="T30_0_0 :w9_2_0 T21_0_0 :N1_1_0 T20_0_0 :P1_1_0 T19_0_0 :w8_2_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="N2_0"/>
             <foes driveWays="N2.0 e5.d3 e5.d5 e5.d6"/>
         </driveWay>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
+<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":gneJ1_0_0 -gneE0_0 :gneJ0_0_0 -gneE6_0"/>
                 <bidi lanes="gneE0_0 :gneJ0_1_0 gneE6_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="gneJ1.1 gneJ7.d0"/>
             </driveWay>
@@ -61,7 +60,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":gneJ1_1_0 gneE1_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="gneJ1.0"/>
             </driveWay>
@@ -73,7 +71,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":gneJ2_0_0 gneE2_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="gneJ2.1"/>
             </driveWay>
@@ -84,7 +81,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="-gneE3_0 :gneJ3_0_0"
                     deadlockCheck="-gneE4_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ3_0"/>
                 <foes driveWays="gneJ2.0 gneJ3.1 gneJ5.d1"/>
             </driveWay>
@@ -96,7 +92,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":gneJ3_0_0 -gneE3_0"/>
                 <bidi lanes=":gneJ3_3_0 gneE3_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ2_1"/>
                 <foes driveWays="gneJ2.0 gneJ3.1"/>
             </driveWay>
@@ -107,7 +102,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":gneJ3_2_0 gneE4_0"/>
                 <bidi lanes=":gneJ3_1_0 -gneE4_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="gneJ3.0 gneJ3.2 gneJ5.d1"/>
             </driveWay>
@@ -117,7 +111,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":gneJ3_3_0 gneE4_0"/>
                 <bidi lanes=":gneJ3_0_0 -gneE4_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="gneJ3.0 gneJ3.2 gneJ5.d1"/>
             </driveWay>
@@ -128,7 +121,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="-gneE4_0"/>
             <bidi lanes="gneE4_0 :gneJ3_3_0 gneE3_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="gneJ2_1 gneJ3_2"/>
             <foes driveWays="gneJ2.0 gneJ3.0 gneJ3.2 gneJ5.d1"/>
         </driveWay>
@@ -139,7 +131,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="gneE8_0 :gneJ8_0_0 gneE7_0 :gneJ3_1_0"
                     deadlockCheck="-gneE4_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="gneJ3_1"/>
             <foes driveWays="gneJ10.d2"/>
         </driveWay>
@@ -149,7 +140,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="gneE6_0 :gneJ0_1_0 gneE0_0"/>
             <bidi lanes="-gneE6_0 :gneJ0_0_0 -gneE0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="gneJ1_0"/>
             <foes driveWays="gneJ1.1 gneJ7.d0"/>
         </driveWay>

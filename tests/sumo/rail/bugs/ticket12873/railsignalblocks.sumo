@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
+<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":J5_1_0 E4_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"
                     deadlockCheck="E0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="J9_0"/>
                 <foes driveWays="J5.0 J5.1.1 J9.0.0"/>
             </driveWay>
@@ -62,7 +61,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":J5_0_0 -E4_0 :J4_1_0 -E3_0 :J9_0_0 -E3.50_0 :J1_1_0 -E0_0"/>
                 <bidi lanes=":J5_1_0 E4_0 :J4_2_0 E30_0 :J9_1_0 E3_0 :J1_2_0 E0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="J7_0"/>
                 <foes driveWays="J0.d0 J5.0.0 J5.1 J7.0 J9.0.0"/>
             </driveWay>
@@ -80,7 +78,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":J7_0_0 -E6_0 :J1_0_0 -E0_0"/>
                 <bidi lanes=":J7_1_0 E6_0 :J1_3_0 E0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals="J5_0"/>
                 <foes driveWays="J0.d0.0 J5.1 J7.0"/>
             </driveWay>
@@ -92,7 +89,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":J9_1_0 E30_0 :J4_2_0 E4_0 :J5_1_0 E5_0"/>
                 <bidi lanes=":J9_0_0 -E3_0 :J4_1_0 -E4_0 :J5_0_0 -E5_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J5.0.0 J5.1.0 J6.d1 J9.0"/>
             </driveWay>
@@ -107,7 +103,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="E5_0 :J5_1_0 E4_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"
                     deadlockCheck="E0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="J9_0"/>
             <foes driveWays="J6.d1 J9.0"/>
         </driveWay>
@@ -118,7 +113,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-E0_0 :J1_1_0 -E3.50_0 :J9_0_0 -E3_0 :J4_1_0"
                     deadlockCheck="-E4_0 :J5_0_0 -E5_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
             <conflictLinks signals="J5_0 J7_0"/>
             <foes driveWays="J0.d0 J5.1 J6.d1 J7.0"/>
             <sidings foe="J6.d1">
