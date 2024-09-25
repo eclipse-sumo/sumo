@@ -254,16 +254,6 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
     if (foeDriveWayOccupied(true, closest.first, occupied)) {
         return false;
     }
-//    for (MSLink* link : myProtectingSwitches) {
-//        if (!findProtection(closest, link)) {
-//#ifdef DEBUG_SIGNALSTATE
-//            if (gDebugFlag4) {
-//                std::cout << "  no protection at switch " << link->getDescription() << "\n";
-//            }
-//#endif
-//            return false;
-//        }
-//    }
     for (MSLink* foeLink : myConflictLinks) {
         if (hasLinkConflict(closest, foeLink)) {
 #ifdef DEBUG_SIGNALSTATE
@@ -274,9 +264,6 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
             return false;
         }
     }
-    //if (deadlockLaneOccupied(closest.first)) {
-    //    return false;
-    //}
     myActive = closest.first;
     return true;
 }
@@ -644,69 +631,6 @@ MSDriveWay::deadlockLaneOccupied(const SUMOVehicle* ego, bool store) const {
 
 
 bool
-MSDriveWay::findProtection(const Approaching& veh, MSLink* link) const {
-    double flankApproachingDist = std::numeric_limits<double>::max();
-    if (link->getApproaching().size() > 0) {
-        Approaching closest = link->getClosest();
-        flankApproachingDist = closest.second.dist;
-    }
-#ifdef DEBUG_FIND_PROTECTION
-    if (gDebugFlag4) {
-        std::cout << SIMTIME << " findProtection for link=" << link->getDescription() << " flankApproachingDist=" << flankApproachingDist << "\n";
-    }
-#endif
-    for (MSLink* l2 : link->getLaneBefore()->getLinkCont()) {
-        if (l2->getLane() != link->getLane()) {
-#ifdef DEBUG_FIND_PROTECTION
-            if (gDebugFlag4) {
-                std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane())
-                          << " occupied=" << (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) << "\n";
-            }
-#endif
-            if (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) {
-#ifdef DEBUG_FIND_PROTECTION
-                if (gDebugFlag4) {
-                    std::cout << "   protection from internal=" << l2->getViaLane()->getID() << "\n";
-                }
-#endif
-                return true;
-            }
-            if (l2->getApproaching().size() > 0) {
-                Approaching closest2 = l2->getClosest();
-                if (closest2.second.dist < flankApproachingDist) {
-#ifdef DEBUG_FIND_PROTECTION
-                    if (gDebugFlag4) {
-                        std::cout << "   protection from veh=" << closest2.first->getID() << "\n";
-                    }
-#endif
-                    return true;
-                }
-            }
-        }
-    }
-    if (link->getApproaching().size() == 0) {
-        return true;
-    } else {
-        // find protection further upstream
-        MSDriveWay tmp(link, "tmp", true);
-        const MSLane* before = link->getLaneBefore();
-        tmp.myFlank.push_back(before);
-        LaneVisitedMap visited;
-        for (auto ili : before->getIncomingLanes()) {
-            tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited, ili.viaLink, tmp.myFlank);
-        }
-        tmp.myConflictLanes = tmp.myFlank;
-        tmp.myRoute = myRoute;
-        tmp.myCoreSize = myCoreSize;
-        MSEdgeVector occupied;
-        if (gDebugFlag4) std::cout << SIMTIME << " tmpDW flank=" << toString(tmp.myFlank)
-            << " protSwitch=" << MSRailSignal::describeLinks(tmp.myProtectingSwitches)
-                << " cLinks=" << MSRailSignal::describeLinks(tmp.myConflictLinks) << "\n";
-        return tmp.reserve(veh, occupied);
-    }
-}
-
-bool
 MSDriveWay::overlap(const MSDriveWay& other) const {
     for (int i = 0; i < myCoreSize; i++) {
         for (int j = 0; j < other.myCoreSize; j++) {
@@ -842,14 +766,6 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
         od.closeTag();
         od.openTag("flank");
         od.writeAttr(SUMO_ATTR_LANES, toString(myFlank));
-        od.closeTag();
-
-        od.openTag("protectingSwitches");
-        std::vector<std::string> links;
-        for (MSLink* link : myProtectingSwitches) {
-            links.push_back(getJunctionLinkID(link));
-        }
-        od.writeAttr("links", joinToStringSorting(links, " "));
         od.closeTag();
 
         od.openTag("conflictLinks");
@@ -998,8 +914,6 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                             continue;
                         }
                         if (link->getViaLaneOrLane() != bidi) {
-                            // this switch is special beause it still lies on the current route
-                            //myProtectingSwitches.push_back(ili.viaLink);
                             const MSEdge* const bidiNext = bidi->getNextNormal();
                             myCoreSize = (int)myRoute.size();
                             if (MSRailSignalControl::getInstance().getUsedEdges().count(bidiNext) == 0 && false) {
@@ -1300,7 +1214,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                   << "\n    bidiEx=" << toString(dw->myBidiExtended)
                   << "\n    flank=" << toString(dw->myFlank)
                   << "\n    flankSwitch=" << MSRailSignal::describeLinks(std::vector<MSLink*>(flankSwitches.begin(), flankSwitches.end()))
-                  << "\n    protSwitch=" << MSRailSignal::describeLinks(dw->myProtectingSwitches)
                   << "\n    coreSize=" << dw->myCoreSize
                   << "\n";
     }

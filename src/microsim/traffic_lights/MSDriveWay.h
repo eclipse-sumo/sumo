@@ -97,9 +97,6 @@ public:
     /// @brief attempt reserve this driveway for the given vehicle
     bool reserve(const Approaching& closest, MSEdgeVector& occupied);
 
-    /// @brief find protection for the given vehicle  starting at a switch
-    bool findProtection(const Approaching& veh, MSLink* link) const;
-
     /// @brief Write block items for this driveway
     void writeBlocks(OutputDevice& od) const;
     void writeBlockVehicles(OutputDevice& od) const;
@@ -118,10 +115,6 @@ public:
 
     const std::vector<MSLink*>& getConflictLinks() const {
         return myConflictLinks;
-    }
-
-    const std::vector<MSLink*>& getProtectingSwitchesBidi() const {
-        return myProtectingSwitchesBidi;
     }
 
     int getNumericalID() const {
@@ -210,14 +203,6 @@ protected:
 
     /// @brief the lanes that must be clear of trains before this signal can switch to green
     std::vector<const MSLane*> myConflictLanes;
-
-    /* @brief the list of (first) switches that could give protection from oncoming/flanking vehicles
-     * if any of them fails to do so, upstream search must be performed
-     * until protection or conflict is found
-     */
-    std::vector<MSLink*> myProtectingSwitches;
-    /// @brief subset of myProtectingSwitches that protects from oncoming trains
-    std::vector<MSLink*> myProtectingSwitchesBidi;
 
     /* The conflict links for this block
      * Conflict resolution must be performed if vehicles are approaching the
