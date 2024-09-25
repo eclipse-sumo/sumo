@@ -1044,13 +1044,21 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
 bool
 MSDriveWay::isSwitch(const MSLink* link) {
     for (const MSLink* other : link->getLaneBefore()->getNormalPredecessorLane()->getLinkCont()) {
-        if (other != link && !other->isTurnaround()) {
+        if (other->getLane() != link->getLane() && !other->isTurnaround()) {
             return true;
         }
     }
     for (auto ili : link->getLane()->getIncomingLanes()) {
         if (ili.viaLink != link && !ili.viaLink->isTurnaround()) {
             return true;
+        }
+    }
+    const MSLane* bidi = link->getLane()->getBidiLane();
+    if (bidi != nullptr) {
+        for (const MSLink* other : bidi->getLinkCont()) {
+            if (other->getLane() != link->getLaneBefore()->getNormalPredecessorLane()->getBidiLane() && !other->isTurnaround()) {
+                return true;
+            }
         }
     }
     return false;
@@ -1137,23 +1145,57 @@ MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, s
 }
 
 void
-MSDriveWay::findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink, std::vector<const MSLane*>& flank) {
+MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<const MSLane*>& flank) {
 #ifdef DEBUG_CHECK_FLANKS
-    std::cout << "  findFlankProtection link=" << link->getDescription() << " length=" << length << " origLink=" << origLink->getDescription() << "\n";
+    std::cout << "  findFlankProtection link=" << link->getDescription() << " origLink=" << origLink->getDescription() << "\n";
 #endif
-    if (link->getTLLogic() != nullptr) {
+    if (link->getCorrespondingEntryLink()->getTLLogic() != nullptr) {
+        MSLink* entry = const_cast<MSLink*>(link->getCorrespondingEntryLink());
         // guarded by signal
 #ifdef DEBUG_CHECK_FLANKS
-        std::cout << "   flank guarded by " << link->getTLLogic()->getID() << "\n";
+        std::cout << "   flank guarded by " << entry->getTLLogic()->getID() << "\n";
 #endif
         // @note, technically it's enough to collect links from foe driveways
         // but this also adds "unused" conflict links which may aid comprehension
-        myConflictLinks.push_back(link);
-        addFoes(link);
+        myConflictLinks.push_back(entry);
+        addFoes(entry);
+
+    } else if (isSwitch(link)) {
+        auto it = mySwitchDriveWays.find(link);
+        if (it != mySwitchDriveWays.end()) {
+#ifdef DEBUG_ADD_FOES
+            std::cout << "driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
+#endif
+            for (MSDriveWay* foe : it->second) {
+                if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "   foe=" << foe->myID
+                        << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
+                        << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
+#endif
+                    myFoes.push_back(foe);
+                } else {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "   cand=" << foe->myID
+                        << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
+                        << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
+#endif
+                }
+            }
+        }
+
     } else {
-        addSwitchFoes(link);
+        const MSLane* lane = link->getLaneBefore();
+        MSLink* cand = nullptr;
+        for (auto ili : lane->getIncomingLanes()) {
+            if (!ili.viaLink->isTurnaround()) {
+                cand = ili.viaLink;
+            }
+        }
+        if (cand != nullptr) {
+            findFlankProtection(cand, origLink, flank);
+        }
     }
-    myMaxFlankLength = MAX2(myMaxFlankLength, length);
 }
 
 
@@ -1207,7 +1249,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
             std::cout << " fsLink=" << fsLink->getDescription() << "\n";
         }
 #endif
-        dw->findFlankProtection(fsLink, 0, visited, fsLink, dw->myFlank);
+        dw->findFlankProtection(fsLink, fsLink, dw->myFlank);
     }
     std::set<MSLink*> flankSwitchesBidiExtended;
     dw->checkFlanks(link, dw->myBidiExtended, visited, false, flankSwitchesBidiExtended);
@@ -1217,7 +1259,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
             std::cout << " fsLinkExtended=" << link->getDescription() << "\n";
         }
 #endif
-        dw->findFlankProtection(link, 0, visited, link, dw->myBidiExtended);
+        dw->findFlankProtection(link, link, dw->myBidiExtended);
     }
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
     const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && OptionsCont::getOptions().getBool("railsignal-moving-block"));
@@ -1336,19 +1378,18 @@ MSDriveWay::getClickableTLLinkID(const MSLink* link) {
 
 std::string
 MSDriveWay::formatVisitedMap(const LaneVisitedMap& visited) {
-    //std::vector<const MSLane*> lanes(visited.size(), nullptr);
-    //for (auto item : visited) {
-    //    lanes[item.second] = item.first;
-    //}
-    //for (auto it = lanes.begin(); it != lanes.end();) {
-    //    if (*it == nullptr) {
-    //        it = lanes.erase(it);
-    //    } else {
-    //        it++;
-    //    }
-    //}
-    //return toString(lanes);
-    return "Placeholder";
+    std::vector<const MSLane*> lanes(visited.size(), nullptr);
+    for (auto item : visited) {
+        lanes[item.second] = item.first;
+    }
+    for (auto it = lanes.begin(); it != lanes.end();) {
+        if (*it == nullptr) {
+            it = lanes.erase(it);
+        } else {
+            it++;
+        }
+    }
+    return toString(lanes);
 }
 
 
@@ -1414,33 +1455,6 @@ MSDriveWay::addFoes(const MSLink* link) {
                 std::cout << "   foe=" << foe->myID << "\n";
 #endif
                 myFoes.push_back(foe);
-            }
-        }
-    }
-}
-
-
-void
-MSDriveWay::addSwitchFoes(const MSLink* link) {
-#ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
-#endif
-    auto it = mySwitchDriveWays.find(link);
-    if (it != mySwitchDriveWays.end()) {
-        for (MSDriveWay* foe : it->second) {
-            if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
-#ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->myID
-                    << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
-                    << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
-#endif
-                myFoes.push_back(foe);
-            } else {
-#ifdef DEBUG_ADD_FOES
-                std::cout << "   cand=" << foe->myID
-                    << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
-                    << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
-#endif
             }
         }
     }
