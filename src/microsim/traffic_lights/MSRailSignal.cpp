@@ -175,7 +175,8 @@ MSRailSignal::updateCurrentPhase() {
                 state[li.myLink->getTLIndex()] = 'r';
             } else {
                 const MSDriveWay& driveway = *li.myDriveways.front();
-                if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
+                MSEdgeVector occupied;
+                if (driveway.foeDriveWayOccupied(true, nullptr, occupied) || driveway.foeDriveWayApproached()) {
 #ifdef DEBUG_SIGNALSTATE
                     if (gDebugFlag4) {
                         std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.getRoute()) << ")\n";
@@ -546,7 +547,7 @@ MSRailSignal::storeTraCIVehicles(int linkIndex) {
         constraintsAllow(closest.first);
     } else if (li.myDriveways.size() > 0) {
         li.myDriveways.front()->conflictLaneOccupied();
-        li.myDriveways.front()->conflictLinkApproached();
+        li.myDriveways.front()->foeDriveWayApproached();
     }
     myStoreVehicles = false;
 }

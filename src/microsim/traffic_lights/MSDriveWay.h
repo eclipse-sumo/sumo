@@ -91,8 +91,8 @@ public:
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
     bool foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
 
-    /// @brief Whether any of the conflict links have approaching vehicles
-    bool conflictLinkApproached() const;
+    /// @brief whether any of my Foes is being approached
+    bool foeDriveWayApproached() const;
 
     /// @brief attempt reserve this driveway for the given vehicle
     bool reserve(const Approaching& closest, MSEdgeVector& occupied);
@@ -293,6 +293,8 @@ protected:
     bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const;
 
     bool isFoeOrSubFoe(const MSDriveWay* foe) const;
+
+    static bool isSwitch(const MSLink* link);
 
     void cleanupPointersToSelf(const std::vector<MSDriveWay*> others);
 
