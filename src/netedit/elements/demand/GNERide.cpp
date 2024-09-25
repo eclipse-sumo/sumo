@@ -154,23 +154,7 @@ GNERide::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNERide::computePathElement() {
-    // get first and last path lanes
-    const auto firstPathLane = getFirstPathLane();
-    const auto lastPathLane = getLastPathLane();
-    // continue depending of pathLane
-    if (firstPathLane && lastPathLane) {
-        // calculate path
-        myNet->getPathManager()->calculatePath(this, SVC_PASSENGER, firstPathLane, lastPathLane);
-        // check if calculate ignoring path
-        if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculatePath(this, SVC_IGNORING, firstPathLane, lastPathLane);
-        }
-    } else {
-        // reset path
-        myNet->getPathManager()->removePath(this);
-    }
-    // update geometry
-    updateGeometry();
+    computePlanPathElement();
 }
 
 
