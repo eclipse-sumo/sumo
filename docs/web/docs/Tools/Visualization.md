@@ -850,7 +850,7 @@ sumo-gui -n NET --edgedata-files FILE --step-length 3600 --end 24:0:0
 To visualize the flow on an intersection with line widths according to the amount of traffic, the tool [route2poly.py](../Tools/Routes.md#route2polypy) can be used.
 
 1. Use [netedit](../Netedit/index.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
-2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according the the polygon width.
+2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according to the polygon width.
 
         route2poly.py NET routes.rou.xml -o flows.poly.xml --filter-output.file sel.txt --scale-width 0.01 --internal --spread 1 --hue cycle
 

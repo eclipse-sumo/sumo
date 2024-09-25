@@ -251,7 +251,7 @@ The attributes used within such definitions are:
 | Attribute Name | Value Type  | Description            |
 | -------------- | ----------- | ---------------------------------------------------------------------------------------------- |
 | **id**         | id (string) | The id of a new route to assign; the id must be the id of a previously loaded route                                                                          |
-| probability    | float       | The the probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
+| probability    | float       | The probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
 
 ### Repeated public transport routes
 

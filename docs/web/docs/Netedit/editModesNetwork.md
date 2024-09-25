@@ -55,7 +55,7 @@ Connections can be inspected through inspection of their **from** lane or its co
 
 ### Changing connections
 
-When a new junction is created, or their edges are modified, a set of new connections is automatically created. But netedit allows also to customize the connections of a lane using the connection mode. When a source lane is selected in connection mode all outgoing lanes at the junction are colored according the the categories below:
+When a new junction is created, or their edges are modified, a set of new connections is automatically created. But netedit allows also to customize the connections of a lane using the connection mode. When a source lane is selected in connection mode all outgoing lanes at the junction are colored according to the categories below:
 
 | Legend                                                  | Meaning                                    | Result of left-click                                 |
 | ------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------- |

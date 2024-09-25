@@ -28,7 +28,7 @@ To delay output (i.e. until some warm-up time has passed), the option **--device
 ## Generated Output
 
 !!! caution
-    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+    Please note that the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
 	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 The emission output is a xml-file containing the emission values for

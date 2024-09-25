@@ -1671,7 +1671,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
             }
             if (leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
-                // compute distance between vehicles on the the superimposition of both lanes
+                // compute distance between vehicles on the superimposition of both lanes
                 // where the crossing point is the common point
                 double gap;
                 bool fromLeft = true;

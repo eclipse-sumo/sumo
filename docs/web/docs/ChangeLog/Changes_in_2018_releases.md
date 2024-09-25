@@ -553,7 +553,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     the same *linkIndex* value). Issue #4094
 
     !!! caution
-        The the signal states for the edited junction must be checked by the user
+        The signal states for the edited junction must be checked by the user
 
   - Width, height and diagonal size of a rectangle selection are now
     shown in the status bar. This can be used to measure distances.

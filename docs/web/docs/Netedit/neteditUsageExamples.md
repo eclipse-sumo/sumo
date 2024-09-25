@@ -246,7 +246,7 @@ There is also another solution in case you want to add special lanes to your edg
 
 1. create a network with two lanes in each direction (on the road that should have a TWLT)
 2. select all edges that belong to that road using *select mode*
-3. switch to *move mode*, enter the value of -1.6 in the the 'shift value' input field and press 'Apply shift value' (or hit <kbd>enter</kbd>)
+3. switch to *move mode*, enter the value of -1.6 in the 'shift value' input field and press 'Apply shift value' (or hit <kbd>enter</kbd>)
   - explanation: This makes it so that the inside lanes in both directions are directly on top of each other
 4. go to inspect mode and inspect the selection of edges
 5. activate the 'isBidi' checkbox

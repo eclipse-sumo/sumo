@@ -4242,7 +4242,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 
         // ensure that bidi-edges exist for all further edges
         // and that no stops will be skipped when reversing
-        // and that the the train will not be on top of a red rail signal after reversal
+        // and that the train will not be on top of a red rail signal after reversal
         const MSLane* bidi = myLane->getBidiLane();
         int view = 2;
         for (MSLane* further : myFurtherLanes) {

@@ -145,8 +145,8 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     myEnergyCharged(0),           // Initially the energy charged is zero
     myCircuitCurrent(NAN),        // Initially the current is unknown
     myCircuitVoltage(NAN),        // Initially the voltage is unknown as well
-    myMaxBatteryCharge(NAN),      // Initial maximum of the the battery energy during the simulation is unknown
-    myMinBatteryCharge(NAN),      // Initial minimum of the the battery energy during the simulation is unknown
+    myMaxBatteryCharge(NAN),      // Initial maximum of the battery energy during the simulation is unknown
+    myMinBatteryCharge(NAN),      // Initial minimum of the battery energy during the simulation is unknown
     myTotalEnergyConsumed(0),     // No energy spent yet
     myTotalEnergyRegenerated(0),  // No energy regenerated
     myTotalEnergyWasted(0),       // No energy wasted on resistors

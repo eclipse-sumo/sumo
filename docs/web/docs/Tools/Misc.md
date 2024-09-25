@@ -99,7 +99,7 @@ to work. It provides the following options:
 - **--output-file**: The new additional file with charging station and parking area definitions
 - **--output-parking-file**: Additional output file where parking area definitions are separated from charging stations
 - **--include-existing**: Consider existing charging stations from additional files in the computation of needed ones using **--probability** and **--density** and output them again
-- **--skip-equipped-edges**: Place new charging stations only on edges which do not yet have one (given the definitions loaded with **--add-files**) 
+- **--skip-equipped-edges**: Place new charging stations only on edges which do not yet have one (given the definitions loaded with **--add-files**)
 - **--only-roadside**: Only consider roadside parking to place charging stations (cannot be used together with **--only-parking-lot**)
 - **--only-parking-lot**: Only consider parking lot spaces to place charging stations (cannot be used together with **--only-roadside**)
 - **--entire-parkings**: Select only one parking area per edge which fits best the wanted number of charging points

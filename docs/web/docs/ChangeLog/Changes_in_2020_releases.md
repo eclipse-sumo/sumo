@@ -394,7 +394,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - [attributeStats.py](../Tools/Output.md#attributestatspy) now supports option **--precision** to control output precision. Issue #7238
   - Improved [cutRoutes.py](../Tools/Routes.md#cutroutespy) for use with person plans. Issue #6027, #7384
   - Added new tool [addStopDelay.py](../Tools/Routes.md#addstopdelaypy) to add random stop delays to a route file. Issue #5209
-  - [routeSampler.py](../Tools/Turns.md#routesamplerpy): Now supports option **--weighted**. This causes routes to be sampled according to their probability. The probability can either be specified explicitly using route attribute 'probability' or implicitly if the same sequence of edges appears multiple times in the the route input. Issue #7501
+  - [routeSampler.py](../Tools/Turns.md#routesamplerpy): Now supports option **--weighted**. This causes routes to be sampled according to their probability. The probability can either be specified explicitly using route attribute 'probability' or implicitly if the same sequence of edges appears multiple times in the route input. Issue #7501
 
 ### Other
 - Simulation

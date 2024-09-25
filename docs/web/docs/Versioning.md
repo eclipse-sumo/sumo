@@ -8,7 +8,7 @@ SUMO has version numbers in many places, namely
 
 - the release version (visible in releases when calling `sumo -V` or in the about dialog of the GUI applications), something like 1.6.0
 - the developer version (visible in the same places for a nightly build or a self compiled developer version), something like v1_6_0+1520-cb474809f6
-- the network version (visible in the the beginning of every .net.xml as `<net version="1.0" ...`)
+- the network version (visible in the beginning of every .net.xml as `<net version="1.0" ...`)
 - the TraCI version returned by TraCI's or libsumo's [getVersion](TraCI/Control-related_commands.md) command
 
 ## Release version

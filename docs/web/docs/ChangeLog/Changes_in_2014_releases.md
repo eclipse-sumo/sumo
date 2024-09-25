@@ -526,7 +526,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Reworked drawing of trains to have more realistic [carriage lengths](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#visualization).
     Also some busses are drawn with flexible segments now.
   - The vehicle parameter dialog now lists the maximum speed of the
-    vehicle's type and the the time headway to the vehicle's current
+    vehicle's type and the time headway to the vehicle's current
     leader
   - added vehicle coloring mode *by time headway*
   - Traffic light colors now distinguish between *green major* (code

@@ -76,7 +76,7 @@ the following formats:
 - any input files may be combined
 - "plain XML" files will be applied last and can be used to patch/update previously loaded elements
 - multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
-- To merge nodes and edges which occupy the same location but have different ids, the the options **--junctions.join-same --edges.join** can be set
+- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same --edges.join** can be set
 
 ## Export
 

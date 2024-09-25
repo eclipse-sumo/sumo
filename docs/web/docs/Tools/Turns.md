@@ -258,7 +258,7 @@ until all counting locations have reached their measured count or there are no v
 
 ### Weighted Sampling
 
-By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probability can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by:
+By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probability can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the route input. Sampling will be performed iteratively by:
 
 1. selecting a random viable route sampled by probability
 

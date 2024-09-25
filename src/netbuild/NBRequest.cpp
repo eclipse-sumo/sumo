@@ -1014,7 +1014,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
             return true;
         }
         // if the link must respond it could also be due to a tlsConflict. This
-        // must not carry over the the off-state response so we continue with
+        // must not carry over the off-state response so we continue with
         // the regular check
     }
     // get the indices

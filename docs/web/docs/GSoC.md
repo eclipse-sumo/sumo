@@ -146,7 +146,7 @@ We do not have an IRC channel
     -----------------------------------
     What programming experience do you have so far (languages, operating systems, compilers)?
     Have you worked on an open source project(s) before, and which one(s)?
-    What is your connection the the traffic simulation community
+    What is your connection to the traffic simulation community
     Have you ever built SUMO from source?
 
 ## Who will be your backup organization administrator?
@@ -173,7 +173,7 @@ sickness or other emergencies we have backup mentors.
 
 ## What steps will you take to encourage students to interact with your project's community before, during and after the program?
 
-We assume that our students already have some connections to the the
+We assume that our students already have some connections to the
 traffic simulation community. Before the program we will encourage
 interested parties to discuss and refine project ideas via our mailing
 list, blog and personal communication. During the program we will seek

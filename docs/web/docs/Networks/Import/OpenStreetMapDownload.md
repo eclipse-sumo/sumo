@@ -117,7 +117,7 @@ download the area.
 
 ## Obtaining an area Id
 
-Copy the following query into the input box on the the [OSM Overpass API
+Copy the following query into the input box on the [OSM Overpass API
 query page](https://www.overpass-api.de/query_form.html). Replace
 *Berlin* by the city name of your choice and click the accompanying
 button "Explore".
