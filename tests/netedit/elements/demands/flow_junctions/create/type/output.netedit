@@ -4,10 +4,10 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to junctions)
 blue
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 custom_vType
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

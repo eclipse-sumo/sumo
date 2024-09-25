@@ -401,8 +401,8 @@ class elements:
         y = 38
 
     class junction3:
-        x = 154
-        y = 35
+        x = 155
+        y = 45
 
     class junction4:
         x = 159

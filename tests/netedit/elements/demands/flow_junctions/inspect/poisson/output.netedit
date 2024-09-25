@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to junctions)
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 TestFunctions: Clicked over position 463 - 573
 dummyTerminate
 poisson

@@ -4,16 +4,16 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 trip (from-to junctions)
 dummyContainerNumber
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 -12
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 3.5
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 13
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
