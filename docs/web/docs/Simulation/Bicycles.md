@@ -159,7 +159,9 @@ In reality, left-turning bicycles may move in two stages:
 1. move straight across, and then
 2. turn 90° left and then move straight across
 
-By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Netedit/editModesNetwork.md#edit_connections). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../Netedit/editModesNetwork.md#edit_connections).
+By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. To change this behavior, connection attribute `indirect="true"` may be set by the user.
+
+If fine grained control of the the geometry of the indirect left turn is needed, it is also possible to set [custom shapes for these internal lanes](../Netedit/editModesNetwork.md#edit_connections). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../Netedit/editModesNetwork.md#edit_connections).
 
 To define a controlled indirect turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic light according to the 'linkIndex' attribute of the connection.
 The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/editModesNetwork.md#edit_connections). The easiest setup is to copy the linkIndex that controls the movement of vehicles (or pedestrians) going straight from right to left. In addition, parallel waiting of bicycles/motorpads in front of an intersection can be achieved by activating the [Sublane-Model](../Simulation/SublaneModel.md).
