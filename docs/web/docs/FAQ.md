@@ -219,7 +219,7 @@ you may appear to be lazy).
   - read the documentation
   - check out the [Tutorials](Tutorials/index.md)
   - do a web search (past questions and answers from the mailing list can be found by google)
-  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_in_this_wiki)
+  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_here)
 - Do not ask the same thing twice in a short span of time. If you are
 in a hurry and cannot get an answer, try to change your question
 according to the above suggestions.
