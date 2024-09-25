@@ -1238,7 +1238,7 @@ By defining attribute 'speed' with a positive value, the stop definition is turn
 Special handling of other attributes:
 
 - the 'duration' value is ignored
-- the 'triggered' value is not compatible with waypoints and will trigger an errr
+- the 'triggered' value is not compatible with waypoints and will trigger an error
 - when the 'until' value is set, vehicles may stop when reaching a waypoint too early
 
 ## Jumps
