@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-25 07:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11041,16 +11041,18 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
-msgstr ""
+msgstr "Non ho potuto impostare il locale a '%'."
 
 #: src/utils/common/MsgHandler.cpp:295
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr ""
+"La variabile d'ambiente SUMO_HOME non è stata impostata e per cui i messaggi "
+"localizzati non sono stati trovati."
 
 #: src/utils/common/MsgHandler.cpp:301
 msgid "Could not find localized messages."
-msgstr ""
+msgstr "I messaggi localizzati non sono stati trovati."
 
 #: src/utils/common/MsgHandler.cpp:310
 msgid "Warning: "
@@ -11078,23 +11080,25 @@ msgstr "Conversione invalida da string a doubles (valore vuoto)"
 
 #: src/utils/common/Parameterised.cpp:208
 msgid "Invalid format of parameter (%)"
-msgstr ""
+msgstr "Formato invalido di parametro (%)"
 
 #: src/utils/common/Parameterised.cpp:233
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr ""
+"Formato invalido dell'attributo '%'. L'attributo deve iniziare con una "
+"lettera"
 
 #: src/utils/common/Parameterised.cpp:240
 msgid "Invalid format of attribute (%)"
-msgstr ""
+msgstr "Formato invalido di attributo (%)"
 
 #: src/utils/common/RandHelper.cpp:65
 msgid "Initialises the random number generator with the current system time"
-msgstr ""
+msgstr "Inizia il generatore di numeri casuali con l'ora attuale del sistema"
 
 #: src/utils/common/RandHelper.cpp:69
 msgid "Initialises the random number generator with the given value"
-msgstr ""
+msgstr "Inizia il generatore di numeri casuali con il valore dato"
 
 #: src/utils/common/SUMOVehicleClass.cpp:199
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
