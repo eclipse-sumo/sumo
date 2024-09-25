@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-23 12:31+0000\n"
+"PO-Revision-Date: 2024-09-25 13:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4652,7 +4652,7 @@ msgstr "Die maximale Ladegeschwindigkeit der Fahrzeugbatterie"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:77
 msgid "Type of energy transfer"
-msgstr ""
+msgstr "Art der Energieübertragung"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:79
 msgid ""
@@ -4677,18 +4677,24 @@ msgid ""
 "Share of stopping time of the next independently planned stop to use for "
 "charging instead"
 msgstr ""
+"Anteil der Haltedauer am nächsten unabhängig geplanten Halt, die für einen "
+"Ladevorgang genutzt werden kann"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:87
 msgid ""
 "Maximum distance in meters from the original stop to be replaced by the "
 "charging stop"
 msgstr ""
+"Maximale Entfernung in Metern vom ursprünglichen, durch den Ladevorgang zu "
+"ersetzenden Halt"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:89
 msgid ""
 "Set a charging strategy to alter time and charging load from the set: [none, "
 "balanced, latest]"
 msgstr ""
+"Eine sich auf Ladezeit und Ladeleistung auswirkende Ladestrategie auswählen "
+"aus: [none, balanced, latest]"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:129
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
@@ -4711,6 +4717,8 @@ msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
 msgstr ""
+"Fahrzeug '%' wurde nach zu langer Wartezeit vor einer Ladestation zur Zeit % "
+"umgeleitet."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:236
 msgid ""
@@ -4737,14 +4745,17 @@ msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
 msgstr ""
+"Es ist keine Ladestation verfügbar, wohin das Fahrzeug '%' zur Zeit % "
+"teleportiert werden kann. Deshalb wird das Fahrzeug entfernt."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:558
 msgid "The charging rate limit of vehicle '%' is lifted at time=%"
 msgstr ""
+"Die Ladeleistungsbegrenzung des Fahrzeugs '%' wird zur Zeit % aufgehoben"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:560
 msgid "The charging rate of vehicle '%' is limited to % at time=%"
-msgstr ""
+msgstr "Die Ladeleistung des Fahrzeugs '%' wird auf % begrenzt (zur Zeit=%)"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:612
 msgid "Parameter '%' is not supported for device of type '%'"
@@ -12031,17 +12042,17 @@ msgstr "Eine Kante in der Route '%' ist nicht bekannt!"
 
 #: src/utils/common/LinearApproxHelpers.cpp:34
 msgid "Cannot determine the minimum value from an empty map."
-msgstr ""
+msgstr "Aus einer leeren Map kann kein Minimum gebildet werden."
 
 #: src/utils/common/LinearApproxHelpers.cpp:49
 msgid "Cannot determine the maximum value from an empty map."
-msgstr ""
+msgstr "Aus einer leeren Map kann kein Maximum gebildet werden."
 
 #: src/utils/common/LinearApproxHelpers.cpp:100
 #: src/utils/common/LinearApproxHelpers.cpp:133
 #, c-format
 msgid "Mismatching data rows of % axis and % height values."
-msgstr ""
+msgstr "Nicht übereinstimmende Datenreihen aus % Achsen- und % Höhenwerten."
 
 #: src/utils/common/MapMatcher.h:59
 msgid "Cannot convert geo-positions because the network has no geo-reference"
@@ -12294,7 +12305,7 @@ msgstr "Ungültiges Format einer parametrisierten Verteilung"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:170
 msgid "minimum value % larger than maximum %"
-msgstr ""
+msgstr "minimaler Wert % größer als Maximum %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:173
 msgid "minimum value % too large for distribution with mean % and deviation %"
@@ -12467,12 +12478,16 @@ msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
+"'pos', 'endPos' and 'length' können nicht gemeinsam in der Definition eines "
+"Fahrstreifendetektors genutzt werden."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1021
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
+"Ein einzelner Fahrstreifendetektor benötigt zwei Parameter aus 'pos', "
+"'endPos' und 'length'."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1309
 msgid "Calibrators need either an edge or a lane"
