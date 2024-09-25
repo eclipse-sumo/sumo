@@ -276,6 +276,8 @@ protected:
 
     bool isFoeOrSubFoe(const MSDriveWay* foe) const;
 
+    void addSwitchFoes(MSLink* link);
+
     static bool hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe);
 
     static bool isSwitch(const MSLink* link);

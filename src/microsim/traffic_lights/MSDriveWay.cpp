@@ -1159,41 +1159,56 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<cons
         // but this also adds "unused" conflict links which may aid comprehension
         myConflictLinks.push_back(entry);
         addFoes(entry);
-
-    } else if (isSwitch(link)) {
-        auto it = mySwitchDriveWays.find(link);
-        if (it != mySwitchDriveWays.end()) {
-#ifdef DEBUG_ADD_FOES
-            std::cout << "driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
-#endif
-            for (MSDriveWay* foe : it->second) {
-                if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
-#ifdef DEBUG_ADD_FOES
-                    std::cout << "   foe=" << foe->myID
-                        << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
-                        << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
-#endif
-                    myFoes.push_back(foe);
-                } else {
-#ifdef DEBUG_ADD_FOES
-                    std::cout << "   cand=" << foe->myID
-                        << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
-                        << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
-#endif
-                }
-            }
-        }
-
     } else {
         const MSLane* lane = link->getLaneBefore();
-        MSLink* cand = nullptr;
+        std::vector<MSLink*> predLinks;
         for (auto ili : lane->getIncomingLanes()) {
             if (!ili.viaLink->isTurnaround()) {
-                cand = ili.viaLink;
+                predLinks.push_back(ili.viaLink);
             }
         }
-        if (cand != nullptr) {
-            findFlankProtection(cand, origLink, flank);
+        if (predLinks.size() > 1) {
+            // this is a switch
+#ifdef DEBUG_ADD_FOES
+            std::cout << "    predecessors of " << link->getDescription() << " isSwitch\n";
+#endif
+            for (MSLink* pred : predLinks) {
+                addSwitchFoes(pred);
+            }
+        } else if (predLinks.size() == 1) {
+            if (isSwitch(link)) {
+                addSwitchFoes(link);
+            } else {
+                // continue upstream via single predecessor
+                findFlankProtection(predLinks.front(), origLink, flank);
+            }
+        }
+    }
+}
+
+
+void
+MSDriveWay::addSwitchFoes(MSLink* link) {
+    auto it = mySwitchDriveWays.find(link);
+    if (it != mySwitchDriveWays.end()) {
+#ifdef DEBUG_ADD_FOES
+        std::cout << "   driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
+#endif
+        for (MSDriveWay* foe : it->second) {
+            if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
+#ifdef DEBUG_ADD_FOES
+                std::cout << "   foe=" << foe->myID
+                    << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
+                    << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
+#endif
+                myFoes.push_back(foe);
+            } else {
+#ifdef DEBUG_ADD_FOES
+                std::cout << "   cand=" << foe->myID
+                    << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
+                    << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
+#endif
+            }
         }
     }
 }
