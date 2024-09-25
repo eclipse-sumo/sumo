@@ -120,6 +120,9 @@ parking_insertion
 # one route ends within the block and another train starts within the block
 end_depart_within
 
+# test flank search beyond route end
+end_within
+
 # a driveway is updated after being used
 update_driveways
 
