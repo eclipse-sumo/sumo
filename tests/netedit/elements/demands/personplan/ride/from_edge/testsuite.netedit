@@ -1,8 +1,8 @@
 to_edge
 
-to_junction
+#to_junction
 
-to_taz
+#to_taz
 
 to_busstop
 

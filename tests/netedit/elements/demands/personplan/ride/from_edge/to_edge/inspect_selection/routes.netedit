@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-13 16:36:49 by Eclipse SUMO netedit Version v1_20_0+1847-f2d10a7c7c6
+<!-- generated on 2024-09-25 11:17:35 by Eclipse SUMO netedit Version v1_20_0+2137-60cbe378df7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,10 +21,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <ride to="Edge2" arrivalPos="2.50" modes="public" lines="Line1" vTypes="type1"/>
+        <ride to="Edge2" arrivalPos="2.50" lines="Line1"/>
     </person>
     <person id="p_1" depart="0.00">
         <walk from="EdgeBike0" to="EdgeCenter0"/>
-        <ride to="Edge5" arrivalPos="2.50" modes="car" lines="Line2" vTypes="type2"/>
+        <ride to="Edge5" arrivalPos="2.50" lines="Line2"/>
     </person>
 </routes>

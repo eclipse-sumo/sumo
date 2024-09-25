@@ -2,9 +2,9 @@ common
 
 from_edge
 
-from_junction
+#from_junction
 
-from_taz
+#from_taz
 
 from_busstop
 
