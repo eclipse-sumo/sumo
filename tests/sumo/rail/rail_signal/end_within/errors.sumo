@@ -1,4 +1,1 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'v0'; frontal collision with vehicle 'v1', lane='E2_0', gap=-1.00, time=52.00 stage=move.
-Warning: Vehicle 'v0' skips stop on lane '-E21_0' time=52.00.
-Warning: Vehicle 'v0' ends teleporting on edge '-E1', time=52.00.

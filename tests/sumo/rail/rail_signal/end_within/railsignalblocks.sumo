@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 23:09:20 by Eclipse SUMO sumo Version v1_20_0+0599-d2a552c3abe
+<!-- generated on 2024-09-25 23:56:18 by Eclipse SUMO sumo Version v1_20_0+0600-54c3f033709
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,12 +45,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes="E1_0 E2_0"/>
                 <bidi lanes="-E1_0 -E21_0"/>
                 <flank lanes=""/>
-                <conflictLinks signals=""/>
-                <foes driveWays="J1.0 J2.d2.0"/>
+                <conflictLinks signals="J4_0"/>
+                <foes driveWays="J1.0 J4.0.0"/>
             </driveWay>
-            <subDriveWay id="J1.0.0" vehicle="" edges="E1">
-                <forward lanes="E1_0"/>
-            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="J4">
@@ -60,22 +57,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="E3_0 E2.200_0 E2.100_0 E2_0 E1_0 E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J2.d2 J4.0"/>
+                <foes driveWays="J0.d1 J1.0 J4.0"/>
             </driveWay>
+            <subDriveWay id="J4.0.0" vehicle="" edges="-E3 -E2 -E20 -E21 -E1">
+                <forward lanes="-E3_0 -E2_0 -E20_0 -E21_0 -E1_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
-    <departJunction id="J2">
-        <driveWay id="J2.d2" vehicle="v0" edges="-E1 -E0">
-            <forward lanes="-E1_0 -E0_0"/>
-            <bidi lanes="E1_0 E0_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals=""/>
-            <foes driveWays="J0.d1 J1.0.0 J2.d2 J4.0"/>
-        </driveWay>
-        <subDriveWay id="J2.d2.0" vehicle="" edges="-E1">
-            <forward lanes="-E1_0"/>
-        </subDriveWay>
-    </departJunction>
     <departJunction id="J5">
         <driveWay id="J5.d0" vehicle="v0" edges="-E4 -E3 -E2 -E20 -E21 -E1 -E0">
             <forward lanes="-E4_0"/>
@@ -91,8 +79,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="E0_0"/>
             <bidi lanes="-E0_0 -E1_0 -E21_0"/>
             <flank lanes=""/>
-            <conflictLinks signals=""/>
-            <foes driveWays="J0.d1 J2.d2"/>
+            <conflictLinks signals="J4_0"/>
+            <foes driveWays="J0.d1 J4.0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
