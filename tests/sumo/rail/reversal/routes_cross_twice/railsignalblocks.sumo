@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-24 11:58:09 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes="c_0 d_0 e_0 f_0 g_0 -g_0 -f_0"/>
                 <bidi lanes="-c_0 -d_0 -e_0 -f_0 -g_0 g_0 f_0 e_0"
                     deadlockCheck="d_0 c2_0 b2_0 a2_0"/>
-                <flank lanes="-e2_0 c2_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B2_0 E2_0"/>
                 <foes driveWays="B.0 B2.0.0 E.0.0 E2.0.0 gneJ5.d1"/>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes="c2_0 d_0 e2_0 f2_0 g2_0 -g2_0 -f2_0"/>
                 <bidi lanes="-c2_0 -d_0 -e2_0 -f2_0 -g2_0 g2_0 f2_0 e2_0"
                     deadlockCheck="d_0 c_0 b_0 a_0"/>
-                <flank lanes="-e_0 c_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 E_0"/>
                 <foes driveWays="B.0.1 B2.0 E.0.1 E2.0.1 gneJ1.d0"/>
@@ -87,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="E.0" vehicle="t0" edges="-e -d -c2 -b2 -a2">
                 <forward lanes="-e_0 -d_0 -c2_0 -b2_0 -a2_0"/>
                 <bidi lanes="e_0 d_0 c2_0 b2_0 a2_0"/>
-                <flank lanes="-e2_0 c_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 E2_0"/>
                 <foes driveWays="B.0.0 B2.0.0 E.0 E2.0.1 gneJ5.d1"/>
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="E2.0" vehicle="t1" edges="-e2 -d -c -b -a">
                 <forward lanes="-e2_0 -d_0 -c_0 -b_0 -a_0"/>
                 <bidi lanes="e2_0 d_0 c_0 b_0 a_0"/>
-                <flank lanes="-e_0 c2_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B2_0 E_0"/>
                 <foes driveWays="B.0.1 B2.0.1 E.0.0 E2.0 gneJ1.d0"/>
@@ -122,9 +122,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ1.d0" vehicle="t0" edges="a b c d e f g -g -f -e -d -c2 -b2 -a2">
             <forward lanes="a_0 b_0"/>
             <bidi lanes="-a_0 -b_0 -c_0"
-                    deadlockCheck="-d_0 -e_0 -f_0 -g_0 g_0 f_0 e_0 d_0 c2_0 b2_0 a2_0 -e2_0"/>
+                    deadlockCheck="-d_0 -e_0 -f_0 -g_0 g_0 f_0 e_0 d_0 c2_0 b2_0 a2_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="J2_1"/>
+            <protectingSwitches links=""/>
             <conflictLinks signals="B2_0 E2_0"/>
             <foes driveWays="E2.0 gneJ1.d0 gneJ5.d1"/>
             <sidings foe="gneJ5.d1">
@@ -136,9 +136,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ5.d1" vehicle="t1" edges="a2 b2 c2 d e2 f2 g2 -g2 -f2 -e2 -d -c -b -a">
             <forward lanes="a2_0 b2_0"/>
             <bidi lanes="-a2_0 -b2_0 -c2_0"
-                    deadlockCheck="-d_0 -e2_0 -f2_0 -g2_0 g2_0 f2_0 e2_0 d_0 c_0 b_0 a_0 -e_0"/>
+                    deadlockCheck="-d_0 -e2_0 -f2_0 -g2_0 g2_0 f2_0 e2_0 d_0 c_0 b_0 a_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="J2_0"/>
+            <protectingSwitches links=""/>
             <conflictLinks signals="B_0 E_0"/>
             <foes driveWays="E.0 gneJ1.d0 gneJ5.d1"/>
             <sidings foe="gneJ1.d0">

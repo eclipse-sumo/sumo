@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-24 11:58:09 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J2.0" vehicle="t_0" edges="E2 E3 E4 E7">
                 <forward lanes="E2_0 E3_0 E4_0 E7_0"/>
                 <bidi lanes="-E2_0 -E3_0 -E4_0 -E7_0"/>
-                <flank lanes="E6_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J2.0 J4.0.0 J4.1.0 J5.0 J5.1 J8.d1 J8.d2"/>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J4.0" vehicle="t_1" edges="-E3 -E6">
                 <forward lanes="-E3_0 -E6_0"/>
                 <bidi lanes="E3_0 E6_0"/>
-                <flank lanes="E2_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="J2_0"/>
                 <foes driveWays="J2.0.1 J4.0 J4.1.2"/>
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J4.1" vehicle="t_2" edges="-E3 -E2 -E1 -E5">
                 <forward lanes="-E3_0 -E2_0 -E1_0 -E5_0"/>
                 <bidi lanes="E3_0 E2_0 E1_0 E5_0"/>
-                <flank lanes="E0_0 E6_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J0.d0 J2.0.1 J4.0.0 J4.1"/>
@@ -93,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J5.0" vehicle="t_1" edges="-E4 -E3 -E6">
                 <forward lanes="-E4_0"/>
                 <bidi lanes="E4_0 E3_0 E6_0"/>
-                <flank lanes="E2_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="J2_0"/>
                 <foes driveWays="J2.0.0 J5.0 J5.1"/>
@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J5.1" vehicle="t_2" edges="-E4 -E3 -E2 -E1 -E5">
                 <forward lanes="-E4_0"/>
                 <bidi lanes="E4_0 E3_0 E2_0 E1_0 E5_0"/>
-                <flank lanes="E0_0 E6_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J0.d0 J2.0.0 J5.0 J5.1"/>
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="J8.d1" vehicle="t_1" edges="-E7 -E4 -E3 -E6">
             <forward lanes="-E7_0"/>
             <bidi lanes="E7_0 E4_0 E3_0 E6_0"/>
-            <flank lanes="E2_0"/>
+            <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals="J2_0"/>
             <foes driveWays="J2.0 J8.d1 J8.d2"/>
@@ -120,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="J8.d2" vehicle="t_2" edges="-E7 -E4 -E3 -E2 -E1 -E5">
             <forward lanes="-E7_0"/>
             <bidi lanes="E7_0 E4_0 E3_0 E2_0 E1_0 E5_0"/>
-            <flank lanes="E0_0 E6_0"/>
+            <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="J0.d0 J2.0 J8.d1 J8.d2"/>
@@ -131,8 +131,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <forward lanes="E0_0 E1_0"/>
             <bidi lanes="-E0_0 -E1_0 -E2_0"
                     deadlockCheck="-E3_0 -E4_0 -E7_0"/>
-            <flank lanes="E5_0"/>
-            <protectingSwitches links="J3_1"/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
             <conflictLinks signals="J4_0 J5_0"/>
             <foes driveWays="J0.d0 J4.1.1 J5.1 J8.d2"/>
         </driveWay>

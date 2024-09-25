@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"
                     deadlockCheck="gneE8_0 :C_0_0 gneE7_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links="gneJ3_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="C_0"/>
                 <foes driveWays="A.0 C.0.0 gneJ7.d1"/>
             </driveWay>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="C.0" vehicle="v1" edges="gneE8 gneE9 gneE10 gneE11 gneE12">
                 <forward lanes=":C_0_0 gneE8_0 :gneJ3_0_0 gneE9_0 :B_0_0 gneE10_0 :gneJ8_0_0 gneE11_0 :gneJ9_0_0 gneE12_0"/>
                 <bidi lanes=":C_1_0 gneE5_0 :gneJ3_2_0 gneE2_0 :B_1_0 gneE1.100_0"/>
-                <flank lanes=":gneJ8_1_0 gneE1_0 :A_0_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
                 <foes driveWays="A.0 B.0.0 C.0 gneJ9.d2"/>
@@ -98,8 +98,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ9.d2" vehicle="v2" edges="gneE12">
             <forward lanes="gneE12_0"/>
             <bidi lanes=""/>
-            <flank lanes=":gneJ9_0_0 gneE11_0 :gneJ8_0_0 gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"/>
-            <protectingSwitches links="gneJ3_0"/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
             <conflictLinks signals="C_0"/>
             <foes driveWays="C.0 gneJ9.d2"/>
         </driveWay>
@@ -108,7 +108,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ7.d1" vehicle="v1" edges="gneE7 gneE8 gneE9 gneE10">
             <forward lanes="gneE7_0"/>
             <bidi lanes="gneE6_0 :C_1_0 gneE5_0 :gneJ3_2_0 gneE2_0 :B_1_0 gneE1.100_0"/>
-            <flank lanes=":gneJ8_1_0 gneE1_0 :A_0_0"/>
+            <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals="A_0"/>
             <foes driveWays="A.0 B.0 gneJ7.d1"/>

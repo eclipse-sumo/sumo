@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-14 23:08:02 by Eclipse SUMO sumo Version v1_20_0+0489-d33cee02165
+<!-- generated on 2024-09-25 13:01:41 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,11 +44,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="105.00">
+    <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="104.00">
         <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
     </vehicle>
 
-    <vehicle id="rail2" type="REDosto7" depart="40.00" departLane="0" departSpeed="38.89" speedFactor="1.0000" arrival="184.00">
+    <vehicle id="rail2" type="REDosto7" depart="40.00" departLane="0" departSpeed="38.89" speedFactor="1.0000" arrival="183.00">
         <route edges="T17_0 T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0"/>
     </vehicle>
 

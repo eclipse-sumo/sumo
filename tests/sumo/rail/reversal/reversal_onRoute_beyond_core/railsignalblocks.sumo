@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-24 11:58:09 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":J1_0_0 -E1_0 :J2_1_0 -E5_0 :J6_0_0 -E6_0 :J7_0_0 -E7_0 :J4_1_0"
                     deadlockCheck="-E4_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links="J4_1"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="J3_0 J7_0"/>
                 <foes driveWays="J0.d0 J1.0 J3.0"/>
                 <sidings foe="J0.d0">
@@ -73,10 +73,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J3.0" vehicle="v_0" edges="-E2 -E1 -E0">
                 <forward lanes=":J3_0_0 -E2_0 :J2_0_0 -E1_0"/>
                 <bidi lanes=":J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
-                <flank lanes=":J2_1_0 -E5_0 :J6_0_0 -E6_0 :J7_0_0 -E7_0 :J4_1_0"/>
-                <protectingSwitches links="J4_1"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J1.0.0 J3.0"/>
+                <foes driveWays="J0.d0 J1.0.0 J3.0"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="E2_0" to=":J3_1_0"/>
@@ -87,9 +87,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes=":J7_1_0 E7_0 :J4_2_0 E4_0 :J5_0_0 -E4_0 :J4_0_0 -E3_0"/>
                 <bidi lanes=":J7_0_0 -E7_0 :J4_1_0 -E4_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0"
                     deadlockCheck="E1_0 :J1_1_0 E0_0"/>
-                <flank lanes=":J4_3_0 E3_0 :J3_1_0"/>
-                <protectingSwitches links="J2_3"/>
-                <conflictLinks signals="J1_1 J3_1"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="J1_1"/>
                 <foes driveWays="J0.d0 J7.0"/>
                 <sidings foe="J0.d0">
                     <siding start="-E3" end="-E3" length="144.64"/>
@@ -103,9 +103,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_1_0 -E5_0 :J6_0_0 -E6_0 :J7_0_0 -E7_0 :J4_1_0"
                     deadlockCheck="-E4_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="J2_3 J4_1"/>
-            <conflictLinks signals="J1_1 J7_0"/>
-            <foes driveWays="J0.d0 J1.1"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals="J1_1 J3_0 J7_0"/>
+            <foes driveWays="J0.d0 J1.1 J3.0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

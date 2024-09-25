@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-24 11:58:10 by Eclipse SUMO sumo Version v1_20_0+0589-6b92b54fcff
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="A.0" vehicle="train" edges="b c">
                 <forward lanes=":A_2_0 b_0 :B_2_0 c_0"/>
                 <bidi lanes=":A_1_0 -b_0 :B_1_0 -c_0"/>
-                <flank lanes=":A_3_0 d_0 :B_0_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0"/>
                 <foes driveWays="A.0 B.0.0"/>
@@ -58,7 +58,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="B.0" vehicle="train2" edges="-b -d">
                 <forward lanes=":B_0_0 -b_0 :A_0_0 -d_0"/>
                 <bidi lanes=":B_3_0 b_0 :A_3_0 d_0"/>
-                <flank lanes=":A_2_0 :B_1_0 -c_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
                 <foes driveWays="A.0.0 B.0"/>
@@ -72,9 +72,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ7.d1" vehicle="train2" edges="-e -b -d">
             <forward lanes="-e_0"/>
             <bidi lanes="e_0 :B_3_0"
-                    deadlockCheck="b_0 :A_3_0 d_0 :A_2_0"/>
+                    deadlockCheck="b_0 :A_3_0 d_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="B_3"/>
+            <protectingSwitches links=""/>
             <conflictLinks signals="A_0"/>
             <foes driveWays="A.0.0 gneJ7.d1"/>
         </driveWay>
@@ -83,11 +83,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ0.d0" vehicle="train" edges="a b c">
             <forward lanes="a_0"/>
             <bidi lanes="-a_0 :A_1_0"
-                    deadlockCheck="-b_0 :B_1_0 -c_0 :B_0_0"/>
+                    deadlockCheck="-b_0 :B_1_0 -c_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="A_1"/>
+            <protectingSwitches links=""/>
             <conflictLinks signals="B_0"/>
-            <foes driveWays="gneJ0.d0"/>
+            <foes driveWays="B.0.0 gneJ0.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

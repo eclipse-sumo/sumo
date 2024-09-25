@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,9 +48,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="cluster_gneJ19_gneJ21.1" vehicle="RE2" edges="gneE15">
                 <forward lanes=":cluster_gneJ19_gneJ21_0_0 gneE15_0"/>
                 <bidi lanes=""/>
-                <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="cluster_gneJ19_gneJ21_1"/>
+                <conflictLinks signals=""/>
                 <foes driveWays="cluster_gneJ19_gneJ21.1"/>
             </driveWay>
         </link>
@@ -58,7 +58,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="cluster_gneJ19_gneJ21.0" vehicle="RE1" edges="gneE16">
                 <forward lanes=":cluster_gneJ19_gneJ21_1_0 gneE16_0"/>
                 <bidi lanes="-gneE16_0"/>
-                <flank lanes=":gneJ22_0_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ22_0"/>
                 <foes driveWays="cluster_gneJ19_gneJ21.0 gneJ22.1"/>
@@ -82,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="gneJ22.1" vehicle="RE2" edges="-gneE16">
                 <forward lanes=":gneJ22_0_0 -gneE16_0"/>
                 <bidi lanes="gneE16_0"/>
-                <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="cluster_gneJ19_gneJ21_1"/>
                 <foes driveWays="cluster_gneJ19_gneJ21.0 gneJ22.1"/>
@@ -92,9 +92,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="gneJ22.0" vehicle="RE1" edges="gneE17">
                 <forward lanes=":gneJ22_1_0 gneE17_0"/>
                 <bidi lanes=""/>
-                <flank lanes=":gneJ22_0_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ22_0"/>
+                <conflictLinks signals=""/>
                 <foes driveWays="gneJ22.0"/>
             </driveWay>
         </link>

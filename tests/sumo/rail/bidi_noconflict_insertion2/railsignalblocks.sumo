@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
+<!-- generated on 2024-09-25 08:34:08 by Eclipse SUMO sumo Version v1_20_0+0591-aafbbd9b23b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,8 +43,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J13.0" vehicle="t_1" edges="-E11 -E10 -E9 -E8">
                 <forward lanes=":J13_0_0 -E11_0 :J12_1_0 -E10_0 :J11_0_0 -E9_0 :J10_0_0 -E8_0"/>
                 <bidi lanes=":J13_1_0 E11_0 :J12_2_0 E10_0 :J11_1_0 E9_0 :J10_1_0 E8_0"/>
-                <flank lanes=":J12_3_0 -E18_0 :J17_2_0"/>
-                <protectingSwitches links="J17_2"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J13.0"/>
             </driveWay>
@@ -55,8 +55,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="J14.d1" vehicle="t_1" edges="-E12 -E11 -E10 -E9 -E8">
             <forward lanes="-E12_0"/>
             <bidi lanes="E12_0 :J13_1_0 E11_0 :J12_2_0 E10_0 :J11_1_0 E9_0 :J10_1_0 E8_0"/>
-            <flank lanes=":J12_3_0 -E18_0 :J17_2_0"/>
-            <protectingSwitches links="J17_2"/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="J14.d1"/>
         </driveWay>
@@ -65,8 +65,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="J15.d0" vehicle="t_0" edges="E13 E14 E15 E16 E17">
             <forward lanes="E13_0 :J16_1_0 E14_0 :J17_3_0 E15_0 :J18_1_0 E16_0 :J19_1_0 E17_0"/>
             <bidi lanes="-E13_0 :J16_0_0 -E14_0 :J17_0_0 -E15_0 :J18_0_0 -E16_0 :J19_0_0 -E17_0"/>
-            <flank lanes=":J17_1_0 E18_0 :J12_0_0"/>
-            <protectingSwitches links="J12_0"/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="J15.d0"/>
         </driveWay>
