@@ -35,7 +35,7 @@ class Detectorflows(cm.BaseObjman):
     def __init__(self, ident='detectorflows', demand=None,  name='Detector flows',
                  info='Flows measured by detectors, which can be used to generate vehicle routes using the DFRouter.',
                  **kwargs):
-        print 'Detectorflows.__init__', name, kwargs
+        print('Detectorflows.__init__', name, kwargs)
 
         self._init_objman(ident=ident,
                           parent=demand,
@@ -77,7 +77,7 @@ class Detectorflows(cm.BaseObjman):
                 # more result attributes can be added ex. heavy duty flows
             ])
 
-            for attrname, kwargs in attrinfos.iteritems():
+            for attrname, kwargs in attrinfos.items():
                 edgeresults.add_resultattr(attrname, **kwargs)
 
         # reset Detector flow attributes
@@ -197,7 +197,7 @@ class Detectors(am.ArrayObjman):
 
         ids = self.get_ids()
         for id_detect, point, phi in zip(ids, self.coords[ids], self.directions[ids]/180.0*np.pi+np.pi/2.0):
-            print '  Detector id_detect', id_detect, 'point', point
+            print('  Detector id_detect', id_detect, 'point', point)
             ids_edge_target, dists = get_closest_edge(point,  n_best=n_targetedge,
                                                       d_max=d_max,
                                                       is_ending=True,
@@ -206,15 +206,15 @@ class Detectors(am.ArrayObjman):
                                                       accesslevels=accesslevels
                                                       )
 
-            print '    ids_edge_target', ids_edge_target
-            print '    dists', dists
+            print('    ids_edge_target', ids_edge_target)
+            print('    dists', dists)
 
             if is_check_direction:
                 id_edge_found = -1
                 i = 0
                 n = len(ids_edge_target)
                 while (id_edge_found < 0) & (i < n):
-                    print '    check ids_edge', ids_edge_target[i], dists[i]
+                    print('    check ids_edge', ids_edge_target[i], dists[i])
                     dist_point_edge, segment = get_dist_point_to_edge(point, ids_edge_target[i],
                                                                       is_ending=True,
                                                                       is_detect_initial=False,
@@ -235,9 +235,9 @@ class Detectors(am.ArrayObjman):
             if id_edge_found >= 0:
                 # select lane
                 ids_lane = edges.ids_lanes[id_edge_found]
-                print '  id_edge_found', id_edge_found, 'ids_lane', edges.ids_lanes[id_edge_found]
+                print('  id_edge_found', id_edge_found, 'ids_lane', edges.ids_lanes[id_edge_found])
                 ids_lane_access = ids_lane[lanes.get_laneindexes_allowed(ids_lane, id_mode)]
-                print '  ids_lane_access', ids_lane_access
+                print('  ids_lane_access', ids_lane_access)
 
                 if len(ids_lane_access) > 0:
                     if is_edgedetectors:
@@ -253,7 +253,7 @@ class Detectors(am.ArrayObjman):
         #    <detectorDefinition id="<DETECTOR_ID>" lane="<LANE_ID>" pos="<POS>"/>
         #    ... further detectors ...
         # </detectors>
-        print 'Detectors.write_xml'
+        print('Detectors.write_xml')
         fd.write(xm.begin('detectors', indent))
 
         ids = self.get_ids()
@@ -265,7 +265,7 @@ class Detectors(am.ArrayObjman):
             self.positions[ids],
         ):
 
-            print '  write id_detector', id_detector, 'ids_lane', ids_lane
+            print('  write id_detector', id_detector, 'ids_lane', ids_lane)
             if ids_lane is not None:
                 ind_lane = 0
                 for id_lane in ids_lane:
@@ -397,7 +397,7 @@ class Flowmeasurements(am.ArrayObjman):
 
         f.write('Detector'+sep+'Time'+sep+'qPKW'+sep+'qLKW'+sep+'vPKW'+sep+'vLKW'+'\n')
         #ids_flow = self.select_ids(self.flows_passenger.get_value()>=0)
-        print '  flows_passenger', self.flows_passenger.get_value()
+        print('  flows_passenger', self.flows_passenger.get_value())
         ids_flow = self.get_ids()
         for id_detector, t, flow_passenger, flow_heavyduty, speed_passenger, speed_heavyduty in \
             zip(
@@ -410,11 +410,11 @@ class Flowmeasurements(am.ArrayObjman):
 
             ids_lane = detectors.ids_lanes[id_detector]
             if (ids_lane is not None) & (flow_passenger >= 0):
-                print '  id_detector', id_detector, 't', t, 'flow_passenger', flow_passenger, len(ids_lane)
+                print('  id_detector', id_detector, 't', t, 'flow_passenger', flow_passenger, len(ids_lane))
 
                 n_lane = len(ids_lane)
                 for ind_lane, passengerflow_lane, heavyflow_lane in\
-                    zip(xrange(n_lane),
+                    zip(range(n_lane),
                         self.distribute_passengerflow_over_lanes(ids_lane, flow_passenger),
                         self.distribute_heavyflow_over_lanes(ids_lane, flow_heavyduty)
                         ):
@@ -529,7 +529,7 @@ class Flowmeasurements(am.ArrayObjman):
         # myDet1;0;10;2;100;80
         # ... further entries ...
 
-        print 'import_csv', filepath
+        print('import_csv', filepath)
         ind_col = 0
         cols = f.readline().strip()
         ind_col = 0
@@ -652,14 +652,14 @@ class Flowmeasurements(am.ArrayObjman):
         scenario.net.export_netxml()
 
         ids_mode = self.get_modes()
-        print 'turnflows_to_routes', ids_mode  # scenario.net.modes.get_ids()
-        print '  cmloptions', cmloptions
+        print('turnflows_to_routes', ids_mode)  # scenario.net.modes.get_ids()
+        print('  cmloptions', cmloptions)
 
         # route for all modes and read in routes
         for id_mode in ids_mode:
             # write flow and turns xml file for this mode
             time_start, time_end = self.export_flows_and_turns(flowfilepath, turnfilepath, id_mode)
-            print '  time_start, time_end =', time_start, time_end
+            print('  time_start, time_end =', time_start, time_end)
             if time_end > time_start:  # means there exist some flows for this mode
                 cmd = 'jtrrouter --route-files=%s --turn-ratio-files=%s --net-file=%s --output-file=%s --begin %s --end %s %s'\
                     % (P+flowfilepath+P,
@@ -677,7 +677,7 @@ class Flowmeasurements(am.ArrayObjman):
                         os.remove(routefilepath)
 
             else:
-                print 'jtrroute: no flows generated for id_mode', id_mode
+                print('jtrroute: no flows generated for id_mode', id_mode)
 
         # self.simfiles.set_modified_data('rou',True)
         # self.simfiles.set_modified_data('trip',True)
@@ -686,7 +686,7 @@ class Flowmeasurements(am.ArrayObjman):
 
 class DetectorMatcher(Process):
     def __init__(self, ident, detectors,  logger=None, **kwargs):
-        print 'DetectorMatcher.__init__'
+        print('DetectorMatcher.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -703,12 +703,12 @@ class DetectorMatcher(Process):
 
         self.modename = attrsman.add(cm.AttrConf('modename', kwargs.get('modename', 'passenger'),
                                                  groupnames=['options'],
-                                                 choices=net.modes.names.get_indexmap().keys(),
+                                                 choices=list(net.modes.names.get_indexmap().keys()),
                                                  name='Mode name',
                                                  info='Matched lanes must be accessible at least for this mode.',
                                                  ))
 
-        print 'net.modes.names.get_indexmap().keys()', net.modes.names.get_indexmap().keys(),  self.modename
+        print('net.modes.names.get_indexmap().keys()', list(net.modes.names.get_indexmap().keys()),  self.modename)
 
         self.is_edgedetectors = attrsman.add(cm.AttrConf('is_edgedetectors', kwargs.get('is_edgedetectors', False),
                                                          groupnames=['options'],
@@ -756,7 +756,7 @@ class DetectorMatcher(Process):
                                               ))
 
     def do(self):
-        print 'DetectorMatcher.do'
+        print('DetectorMatcher.do')
         self.parent.match_detectors_to_lane(modename=self.modename,
                                             is_edgedetectors=self.is_edgedetectors,
                                             is_check_direction=self.is_check_direction,
@@ -946,8 +946,8 @@ class DFRouter(CmlMixin, Process):
         if self.is_export_network:
             scenario.net.export_netxml()
 
-        print 'DFRouter.do'
-        print '  cmloptions', cmloptions
+        print('DFRouter.do')
+        print('  cmloptions', cmloptions)
 
         # dfrouter --net-file bonet190614_ms_dflows.net --routes-output bonet190614_ms_dflows.rou.xml --emitters-output vehicles.xml --detector-files detectors.xml --measure-files bonet190614_ms_dflows.dflows2.csv
         cmd = cmloptions + ' --net-file %s --detector-files %s --measure-files %s --routes-output %s --emitters-output %s'\

@@ -26,7 +26,7 @@ import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
 
 
-from netconvert import *
+from .netconvert import *
 from coremodules.misc.shapeformat import guess_utm_from_coord
 
 
@@ -36,9 +36,9 @@ def import_nx(graphx, net, projparams=''):
     """
 
     for id_node_sumo, nbrsdict in graphx.adjacency():
-        print '  id_node_sumo', id_node_sumo
-        for nbr, eattr in nbrsdict.items():
-            print '    nbr, eattr', nbr, eattr
+        print('  id_node_sumo', id_node_sumo)
+        for nbr, eattr in list(nbrsdict.items()):
+            print('    nbr, eattr', nbr, eattr)
 
     if projparams == "":
         projparams_target = guess_utm_from_coord()
@@ -51,7 +51,7 @@ class OxImporter(Process):
                  info='Import of network imported with the help of osmnx.',
                  logger=None, **kwargs):
 
-        print 'OxImporter.__init__'
+        print('OxImporter.__init__')
 
         self._init_common(ident,
                           parent=scenario,
@@ -96,7 +96,7 @@ class OxImporter(Process):
         return self.parent
 
     def do(self):
-        print self.ident+'.do'
+        print(self.ident+'.do')
 
         net = self.get_scenario().net
         projparams_target = net.get_projparams()

@@ -18,7 +18,7 @@
 
 from agilepy.lib_base.processes import Process, CmlMixin, ff, call, P, filepathlist_to_filepathstring, Options
 from coremodules.scenario.scenario import load_scenario
-from results import Simresults
+from .results import Simresults
 from coremodules.network.network import SumoIdsConf
 import agilepy.lib_base.xmlman as xm
 import agilepy.lib_base.arrayman as am
@@ -51,7 +51,7 @@ try:
 
 
 except:
-    print 'WARNING: No module traci in syspath. Please provide SUMO_HOME.'
+    print('WARNING: No module traci in syspath. Please provide SUMO_HOME.')
 
     traci = None
 
@@ -896,7 +896,7 @@ class Sumo(CmlMixin, Process):
         Called by run after is_ready verification
         """
 
-        print 'do... '
+        print('do... ')
 
         scenario = self.parent
 
@@ -1047,10 +1047,10 @@ class Sumo(CmlMixin, Process):
         )
 
         if self._cmlfilepath is None:
-            print '  call run_cml'
+            print('  call run_cml')
             return self.run_cml(cml=self.get_cml())
         else:
-            print '  do not simulate but write cml to', self._cmlfilepath
+            print('  do not simulate but write cml to', self._cmlfilepath)
             f = open(self._cmlfilepath, "w+")
             f.write(self.get_cml()+'\n')
 
@@ -1065,7 +1065,7 @@ class Sumo(CmlMixin, Process):
         """
         Imports simulation resuts into results object.
         """
-        print 'import_results'
+        print('import_results')
 
         # first a dict is created with available dataname as key
         # and filepath as value
@@ -1125,7 +1125,7 @@ class Sumo(CmlMixin, Process):
             p = P
         else:
             p = ''
-        print 'get_cml p=%s=' % p
+        print('get_cml p=%s=' % p)
         # print '  self.configfilepath=%s='%self.configfilepath
         # print '  self.logfilepath=%s='%self.logfilepath
         if self.guimode is 'nogui':
@@ -1249,7 +1249,7 @@ class SumoTraci(Sumo):
     def run_cml(self, cml):
         scenario = self.parent
         cmllist = cml.split(' ')
-        print 'SumoTraci.run_cml', cmllist
+        print('SumoTraci.run_cml', cmllist)
         traci.start(cmllist)
 
         simplaconfig = self.parent.simulation.simplaconfig
@@ -1259,7 +1259,7 @@ class SumoTraci(Sumo):
         self.simtime = self.simtime_start
         self.duration = 1.0+self.simtime_end-self.simtime_start
         self.get_attrsman().status.set('running')
-        print '  traci started', self.get_attrsman().status.get()
+        print('  traci started', self.get_attrsman().status.get())
         simobjects = []
 
         for simobj in self.parent.simulation.get_simobjects():
@@ -1288,10 +1288,10 @@ class SumoTraci(Sumo):
     def step(self):
         # called interactively
         # when gui it is called through the timer function
-        print 79*'='
-        print "simstep", self.simtime, self.simtime_end, self.simtime >= self.simtime_end
+        print(79*'=')
+        print("simstep", self.simtime, self.simtime_end, self.simtime >= self.simtime_end)
         traci.simulationStep()
-        for i in xrange(len(self.simobjects)):
+        for i in range(len(self.simobjects)):
             # for time_last, time_sample, simfunc in self.simobjects:
             time_last, time_sample, simfunc = self.simobjects[i]
             # print '  simfunc',simfunc,'time_last',time_last,'dt',self.simtime-time_last,'sim?',self.simtime-time_last > time_sample
@@ -1303,18 +1303,18 @@ class SumoTraci(Sumo):
 
         if self.simtime >= self.simtime_end:  # | (not (traci.simulation.getMinExpectedNumber() > 0)):
             #   if self.simtime >= self.simtime_end:
-            print '    end of simulation reached at', self.simtime
+            print('    end of simulation reached at', self.simtime)
             return self.finish_sim()
 
         self.simtime += self.time_step
 
     def finish_sim(self):
-        print 'finish_sim'
+        print('finish_sim')
         # for demandobj in self.parent.demand.get_demandobjects():
         #    print '  finish_sim',demandobj.ident
         #    #demandobj.finish_sim(self) # why not for sim objects?
         traci.close()
-        print '    traci closed.'
+        print('    traci closed.')
         self.get_attrsman().status.set('success')
 
         simplaconfig = self.parent.simulation.simplaconfig
@@ -1841,13 +1841,13 @@ class Duaiterate(CmlMixin, Sumo):  # attention, CmlMixin overrides Sumo
                 # print '  new since 1.8.0 ?'
                 # print '    workdirpath',self.workdirpath,'step_last',step_last
                 resultdir = os.path.join(self.workdirpath, str(step_last))
-                print '    resultdir', resultdir
+                print('    resultdir', resultdir)
                 filename = self.parent.get_rootfilename() + "_%03d.rou.xml" % (self.get_last_step(),)
-                print '    filename', filename
+                print('    filename', filename)
                 #routefilepath_final = os.path.join(self.workdirpath, str(step_last),'.'.join(self.routefilepath.split('.')[:-2]) + "_%03d.rou.xml"%(step_last,))
                 routefilepath_final = os.path.join(resultdir, filename)
 
-            print '  load routes from file ', routefilepath_final
+            print('  load routes from file ', routefilepath_final)
             if os.path.isfile(routefilepath_final):
                 scenario.demand.import_routes_xml(routefilepath_final)
 
@@ -1867,15 +1867,15 @@ class Duaiterate(CmlMixin, Sumo):  # attention, CmlMixin overrides Sumo
                             os.remove(os.path.join(self.workdirpath, filename))
 
                 else:  # new since 1.8.0 ?'
-                    for step in xrange(self.step_first, step_last):
+                    for step in range(self.step_first, step_last):
                         filepath = os.path.join(self.workdirpath, str(step))
-                        print '  delete dir', filepath
+                        print('  delete dir', filepath)
                         if os.path.isdir(filepath):
                             # print '    delete now'
                             try:
                                 shutil.rmtree(filepath)
                             except OSError as e:
-                                print("Error: %s - %s." % (e.filename, e.strerror))
+                                print(("Error: %s - %s." % (e.filename, e.strerror)))
 
             return True
 
@@ -1886,7 +1886,7 @@ class Duaiterate(CmlMixin, Sumo):  # attention, CmlMixin overrides Sumo
         """
         Imports simulation resuts into results object.
         """
-        print 'import_results'
+        print('import_results')
 
         # currently nothing is imported in results only routs are
         # reimported in trip database

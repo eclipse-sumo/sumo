@@ -28,15 +28,15 @@ from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
 from coremodules.network import routing
 from coremodules.demand import demand
 
-import mapmatching
+from . import mapmatching
 
 
 #import results_mpl as results_mpl
 try:
-    import results_mpl as results_mpl
+    from . import results_mpl as results_mpl
     is_mpl = True  # we have matplotlib support
 except:
-    print "WARNING: python matplotlib package not installed, no matplotlib plots."
+    print("WARNING: python matplotlib package not installed, no matplotlib plots.")
     is_mpl = False
 
 
@@ -284,7 +284,7 @@ class WxGui(ModuleGui):
         and reset widgets. For exampe enable/disable widgets
         dependent on the availability of data. 
         """
-        print 'MapmatchingWxGui.refresh_widgets'
+        print('MapmatchingWxGui.refresh_widgets')
         scenario = self.get_scenario()
         is_refresh = False
         if self._scenario != scenario:
@@ -303,7 +303,7 @@ class WxGui(ModuleGui):
 
         if is_refresh | self._is_needs_refresh:
             self._is_needs_refresh = False
-            print '  is_refresh', is_refresh, self._is_needs_refresh
+            print('  is_refresh', is_refresh, self._is_needs_refresh)
             neteditor = self.get_neteditor()
             #canvas = self.get_canvas()
             drawing = self.get_drawing()  # canvas.get_drawing()
@@ -947,7 +947,7 @@ class WxGui(ModuleGui):
         """
         Export edge results to shape file.
         """
-        print 'on_nodes_to_shapefile'
+        print('on_nodes_to_shapefile')
         scenario = self._mapmatching.get_scenario()
         dirpath = scenario.get_workdirpath()
         #defaultFile = scenario.get_rootfilename()+'.edgeres.shp'
@@ -971,7 +971,7 @@ class WxGui(ModuleGui):
         """
         Export GPS points to shapefile.
         """
-        print 'on_points_to_shapefile'
+        print('on_points_to_shapefile')
         scenario = self._mapmatching.get_scenario()
         dirpath = scenario.get_workdirpath()
         defaultFile = scenario.get_rootfilename()+'.points.shp'
@@ -1707,7 +1707,7 @@ class WxGui(ModuleGui):
             self._mainframe.refresh_moduleguis()
             self._is_needs_refresh = True
             self.refresh_widgets()
-            print '  set browser to', self.get_scenario().net.ptstops
+            print('  set browser to', self.get_scenario().net.ptstops)
             self._mainframe.browse_obj(self.get_scenario().net.ptstops)
 
     def on_gtfsservicegenerate(self, event=None):
@@ -1738,7 +1738,7 @@ class WxGui(ModuleGui):
             # apply current widget values to scenario instance
             dlg.apply()
             dlg.Destroy()
-            print '  set browser to', self.get_scenario().demand.ptlines
+            print('  set browser to', self.get_scenario().demand.ptlines)
             self._mainframe.browse_obj(self.get_scenario().demand.ptlines)
             # self._mainframe.refresh_moduleguis()
             #self._is_needs_refresh = True
