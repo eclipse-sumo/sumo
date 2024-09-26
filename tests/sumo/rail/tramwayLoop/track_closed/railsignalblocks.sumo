@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 23:56:18 by Eclipse SUMO sumo Version v1_20_0+0600-54c3f033709
+<!-- generated on 2024-09-26 22:58:51 by Eclipse SUMO sumo Version v1_20_0+0608-d1da7d7d312
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -230,9 +230,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </subDriveWay>
             <subDriveWay id="s22.1.1" vehicle="" edges="T26_0 T44_0">
                 <forward lanes=":s22_0_0 T26_0_0 :w4_1_0 T44_0_0"/>
-            </subDriveWay>
-            <subDriveWay id="s22.1.2" vehicle="" edges="T26_0 T44_0 T36_0 T37_0 Tdepot_0">
-                <forward lanes=":s22_0_0 T26_0_0 :w4_1_0 T44_0_0 :w5_2_0 T36_0_0 :s29_1_0 T37_0_0 :w9_4_0 Tdepot_0_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -465,7 +462,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T44_0_0 :w4_2_0 T41_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s22_0"/>
-            <foes driveWays="e1.d0 e1.d1.0 s22.1.2"/>
+            <foes driveWays="e1.d0 e1.d1.0"/>
         </driveWay>
         <subDriveWay id="e1.d0.0" vehicle="" edges="Tdepot_1">
             <forward lanes="Tdepot_1_0"/>
@@ -475,7 +472,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="Tdepot_0_0 :w9_1_0 T38_0_0 :s30_0_0 T39_1_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s22_0"/>
-            <foes driveWays="e1.d0.0 e1.d1 s22.1.2"/>
+            <foes driveWays="e1.d0.0 e1.d1"/>
         </driveWay>
         <subDriveWay id="e1.d1.0" vehicle="" edges="Tdepot_1">
             <forward lanes="Tdepot_1_0"/>

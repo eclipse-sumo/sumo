@@ -3,17 +3,13 @@
         <driveWay id="A.0">
             <entry id="t0" time="4.00" reason="1"/>
             <exit id="t0" time="29.00" reason="1"/>
-            <entry id="t2" time="168.00" reason="1"/>
-            <exit id="t2" time="193.00" reason="1"/>
+            <entry id="t2" time="142.00" reason="1"/>
+            <exit id="t2" time="192.00" reason="1"/>
         </driveWay>
         <driveWay id="A.1">
             <entry id="t1" time="32.00" reason="1"/>
             <exit id="t1" time="139.00" reason="1"/>
         </driveWay>
-        <subDriveWay id="A.1.0">
-            <entry id="t1" time="32.00" reason="1"/>
-            <exit id="t1" time="164.00" reason="9"/>
-        </subDriveWay>
     </link>
 </railSignal>
 <railSignal id="C">
@@ -24,8 +20,8 @@
         <driveWay id="D.0">
             <entry id="t0" time="26.00" reason="1"/>
             <exit id="t0" time="102.00" reason="1"/>
-            <entry id="t2" time="190.00" reason="1"/>
-            <exit id="t2" time="266.00" reason="1"/>
+            <entry id="t2" time="188.00" reason="1"/>
+            <exit id="t2" time="265.00" reason="1"/>
         </driveWay>
         <driveWay id="D.1">
             <entry id="t1" time="131.00" reason="1"/>
@@ -43,8 +39,8 @@
             <exit id="t0" time="109.00" reason="9"/>
             <entry id="t1" time="156.00" reason="1"/>
             <exit id="t1" time="164.00" reason="9"/>
-            <entry id="t2" time="258.00" reason="1"/>
-            <exit id="t2" time="273.00" reason="9"/>
+            <entry id="t2" time="257.00" reason="1"/>
+            <exit id="t2" time="272.00" reason="9"/>
         </driveWay>
     </link>
 </railSignal>
@@ -52,8 +48,8 @@
     <driveWay id="J0.d0">
         <entry id="t0" time="0.00" reason="0"/>
         <exit id="t0" time="8.00" reason="1"/>
-        <entry id="t2" time="164.00" reason="0"/>
-        <exit id="t2" time="172.00" reason="1"/>
+        <entry id="t2" time="49.00" reason="0"/>
+        <exit id="t2" time="159.00" reason="1"/>
     </driveWay>
     <driveWay id="J0.d1">
         <entry id="t1" time="8.00" reason="0"/>
