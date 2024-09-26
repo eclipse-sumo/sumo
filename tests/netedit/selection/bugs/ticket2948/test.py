@@ -37,15 +37,15 @@ netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 # select chain mode
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
-# create a circular road
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# create square
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 netedit.cancelEdge()
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # go to select mode
 netedit.selectMode()
@@ -57,13 +57,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect set of junctions
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 
 # Set all Junctions as traffic lighs
 netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "traffic_light", True)
 
 # inspect set of edges
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA, offsetX=100)
 
 # change all speed of edges
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20", False)

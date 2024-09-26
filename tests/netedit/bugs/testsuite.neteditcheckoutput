@@ -6,12 +6,6 @@ revision24081
 # loading a net.xml with prohibitions and deleting edges fails
 ticket1711
 
-# warm about unsaved additionals
-ticket2593
-
-# netedit crash due selection of multiple edges and junctions
-ticket2948
-
 # crash on opening lefthand network
 ticket3900
 

@@ -1,28 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-26 14:30:34 by Eclipse SUMO netedit Version v1_20_0+2157-7cbf65e8f91
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<!-- generated on 2024-09-26 14:52:50 by Eclipse SUMO netedit Version v1_20_0+2157-7cbf65e8f91
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\bugs\ticket2948\net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\net.net.xml"/>
+        <output-file value="D:\SUMO\tests\netedit\bugs\ticket2948\net.net.xml"/>
     </output>
 
     <processing>
@@ -42,23 +28,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
-
-    <netedit>
-        <ignore-supermode-question value="true"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\gui-settings.xml"/>
-        <window-size value="1280, 720"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Sep142855.892\netedit.gui\bugs\ticket1711\log.txt"/>
-    </report>
 
 </neteditConfiguration>
 -->
@@ -81,11 +50,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="-25.00" y="0.00" incLanes="" intLanes="" shape="-25.00,0.00"/>
-    <junction id="J1" type="dead_end" x="0.00" y="25.00" incLanes="" intLanes="" shape="0.00,25.00"/>
-    <junction id="J2" type="dead_end" x="0.00" y="-25.00" incLanes="" intLanes="" shape="0.00,-25.00"/>
-    <junction id="J3" type="dead_end" x="25.00" y="0.00" incLanes="" intLanes="" shape="25.00,0.00"/>
-    <junction id="Junction5" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00"/>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

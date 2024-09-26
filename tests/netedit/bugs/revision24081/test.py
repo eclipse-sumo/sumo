@@ -35,10 +35,10 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change position of node (Crash was here)
-netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "25.00,50.00", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00,10.00", False)
 
 # Check undo
 netedit.undo(referencePosition, 1)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-26 15:46:17 by Eclipse SUMO netconvert Version v1_20_0+1435-1a04e9422c6
+<!-- generated on 2024-07-26 15:46:18 by Eclipse SUMO netconvert Version v1_20_0+1435-1a04e9422c6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <node-files value="net.nod.xml"/>
         <edge-files value="net.edg.xml"/>
         <connection-files value="net.con.xml"/>
+        <tllogic-files value="net.tll.xml"/>
     </input>
 
     <output>
@@ -26,9 +27,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <output-file value="net.net.xml"/>
     </output>
 
-    <junctions>
-        <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
-    </junctions>
+    <projection>
+        <proj value="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    </projection>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
 
 </netconvertConfiguration>
