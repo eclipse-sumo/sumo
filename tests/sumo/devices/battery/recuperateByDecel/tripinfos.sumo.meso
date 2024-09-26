@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:36 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2024-09-26 14:42:55 by Eclipse SUMO sumo Version v1_20_0+2163-b3a702dda2d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,32 +52,42 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="flow.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="40.32" departDelay="0.00" arrival="27.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="40.32" duration="27.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_flow.0 emissions_flow.0 battery_flow.0" vType="PKW" speedFactor="1.12" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="323.199961"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.1" depart="1.00" departLane="beg_0" departPos="0.00" departSpeed="31.55" departDelay="0.00" arrival="35.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="31.55" duration="34.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_flow.1 emissions_flow.1 battery_flow.1" vType="PKW" speedFactor="0.88" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="219.388005"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.2" depart="2.00" departLane="beg_0" departPos="0.00" departSpeed="36.75" departDelay="0.00" arrival="36.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="31.55" duration="34.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.20" rerouteNo="0" devices="tripinfo_flow.2 emissions_flow.2 battery_flow.2" vType="PKW" speedFactor="1.02" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="226.017578"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.3" depart="3.00" departLane="beg_0" departPos="0.00" departSpeed="41.67" departDelay="0.00" arrival="36.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="31.55" duration="33.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.06" rerouteNo="0" devices="tripinfo_flow.3 emissions_flow.3 battery_flow.3" vType="PKW" speedFactor="1.17" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="234.955600"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.4" depart="4.00" departLane="beg_0" departPos="0.00" departSpeed="38.18" departDelay="0.00" arrival="37.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="31.55" duration="33.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.17" rerouteNo="0" devices="tripinfo_flow.4 emissions_flow.4 battery_flow.4" vType="PKW" speedFactor="1.06" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="241.018818"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.5" depart="5.00" departLane="beg_0" departPos="0.00" departSpeed="23.83" departDelay="0.00" arrival="50.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="23.83" duration="45.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_flow.5 emissions_flow.5 battery_flow.5" vType="PKW" speedFactor="0.66" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="149.118814"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.6" depart="6.00" departLane="beg_0" departPos="0.00" departSpeed="27.65" departDelay="0.00" arrival="51.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="23.83" duration="45.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="17.00" rerouteNo="0" devices="tripinfo_flow.6 emissions_flow.6 battery_flow.6" vType="PKW" speedFactor="1.09" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="152.053774"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.7" depart="7.00" departLane="beg_0" departPos="0.00" departSpeed="27.79" departDelay="0.00" arrival="51.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="23.83" duration="44.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="5.24" rerouteNo="0" devices="tripinfo_flow.7 emissions_flow.7 battery_flow.7" vType="PKW" speedFactor="0.77" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="154.990560"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.8" depart="8.00" departLane="beg_0" departPos="0.00" departSpeed="31.53" departDelay="0.00" arrival="51.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="23.83" duration="43.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="9.21" rerouteNo="0" devices="tripinfo_flow.8 emissions_flow.8 battery_flow.8" vType="PKW" speedFactor="0.88" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="159.322595"/>
+        <battery depleted="0"/>
     </tripinfo>
     <tripinfo id="flow.9" depart="9.00" departLane="beg_0" departPos="0.00" departSpeed="25.70" departDelay="0.00" arrival="52.00" arrivalLane="beg_0" arrivalPos="1000.00" arrivalSpeed="23.83" duration="43.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.99" rerouteNo="0" devices="tripinfo_flow.9 emissions_flow.9 battery_flow.9" vType="PKW" speedFactor="0.71" vaporized="">
         <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="159.569920"/>
+        <battery depleted="0"/>
     </tripinfo>
 </tripinfos>
