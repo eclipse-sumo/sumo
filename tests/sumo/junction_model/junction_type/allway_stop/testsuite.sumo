@@ -21,3 +21,6 @@ stopLineGap
 # lane has a stopOffset
 stopOffset
 pedCrossing
+
+# re-purposing allway_stop to mimic a toll station
+toll_station
