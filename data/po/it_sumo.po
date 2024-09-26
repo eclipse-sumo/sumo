@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-25 09:23+0000\n"
+"PO-Revision-Date: 2024-09-26 08:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6862,19 +6862,20 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2293
 msgid "Could not build joined tls '%'."
-msgstr ""
+msgstr "Il semaforo combinato '%' non poteva essere costruito."
 
 #: src/netbuild/NBNodeCont.cpp:2338
 msgid "Could not build guessed, joined tls."
-msgstr ""
+msgstr "Una combinazione indovinata di semafori non poteva essere costruito."
 
 #: src/netbuild/NBNodeCont.cpp:2461
 msgid "Could not build a joined tls."
-msgstr ""
+msgstr "Un semaforo combinato non poteva essere costruito."
 
 #: src/netbuild/NBNodeCont.cpp:2478
 msgid "Building a tl-logic for junction '%' twice is not possible."
 msgstr ""
+"Non è possibile creare una logica di semaforo due volte per l'incrocio '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2560 src/netbuild/NBNodeCont.cpp:2652
 msgid "-----------------------------------------------------"
@@ -6882,15 +6883,15 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2561
 msgid "Summary:"
-msgstr ""
+msgstr "Riassunto:"
 
 #: src/netbuild/NBNodeCont.cpp:2619
 msgid " Node type statistics:"
-msgstr ""
+msgstr " Statistiche di tipi di nodi:"
 
 #: src/netbuild/NBNodeCont.cpp:2648
 msgid " Network boundaries:"
-msgstr ""
+msgstr " Limiti della rete:"
 
 #: src/netbuild/NBNodeCont.cpp:2681
 msgid "Attempt to rename node using existing id '%'"
