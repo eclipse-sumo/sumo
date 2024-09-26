@@ -119,6 +119,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
+    myDepletedCount(0),
     myVehicleStopped(0) {  // Initially the vehicle is stopped and the corresponding variable is 0
 
     if (maximumBatteryCapacity < 0) {
@@ -206,6 +207,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
 
         // saturate between 0 and myMaximumBatteryCapacity [Wh]
         if (myConsum > getActualBatteryCapacity() && getActualBatteryCapacity() > 0 && getMaximumBatteryCapacity() > 0) {
+            myDepletedCount++;
             WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted, time=%."), veh.getID(), time2string(SIMSTEP));
         }
 
@@ -572,6 +574,16 @@ MSDevice_Battery::notifyParking() {
     // @note: only charing is performed but no energy is consumed
     notifyMove(myHolder, myHolder.getPositionOnLane(), myHolder.getPositionOnLane(), myHolder.getSpeed());
     myConsum = 0;
+}
+
+
+void
+MSDevice_Battery::generateOutput(OutputDevice* tripinfoOut) const {
+    if (tripinfoOut != nullptr) {
+        tripinfoOut->openTag("battery");
+        tripinfoOut->writeAttr("depleted", toString(myDepletedCount));
+        tripinfoOut->closeTag();
+    }
 }
 
 

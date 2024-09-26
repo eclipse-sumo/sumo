@@ -107,6 +107,9 @@ public:
     /// @brief called to update state for parking vehicles
     void notifyParking();
 
+    /// @brief Called on vehicle deletion to extend tripinfo
+    void generateOutput(OutputDevice* tripinfoOut) const;
+
 private:
     /** @brief Constructor
     *
@@ -249,6 +252,9 @@ protected:
 
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
+
+    /// @brief Count how many times the vehicle experienced a depleted battery
+    int myDepletedCount;
 
     /// @brief whether to track fuel consumption instead of electricity
     bool myTrackFuel;
