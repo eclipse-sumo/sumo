@@ -122,7 +122,7 @@ with the attributes as following
 
 | Name         | Type | Description                                                                        |
 | ------------ | ---- | ---------------------------------------------------------------------------------- |
-| `depleted`   | mg   | The times the vehicle wanted to consume more energy than the battery could provide |
+| `depleted`   | -   | The times the vehicle wanted to consume more energy than the battery could provide |
 
 
 ## Output for vehicles that have not arrived at simulation end
