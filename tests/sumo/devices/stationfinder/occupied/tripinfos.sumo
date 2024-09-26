@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-13 11:54:30 by Eclipse SUMO sumo Version v1_14_1+12904-9fb330c926c
+<!-- generated on 2024-09-26 10:41:13 by Eclipse SUMO sumo Version v1_14_1+14996-47cf6512255
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -42,10 +42,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.stationfinder.emptyThreshold value="0"/>
     </battery>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="veh0" depart="0.00" departLane="D2_0" departPos="18.10" departSpeed="0.00" departDelay="0.00" arrival="410.00" arrivalLane="D7_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="410.00" routeLength="3982.70" waitingTime="0.00" waitingCount="0" stopTime="109.00" timeLoss="13.71" rerouteNo="1" devices="tripinfo_veh0 stationfinder_veh0 battery_veh0" vType="ElectricVehicle1" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="veh1" depart="6.00" departLane="D2_0" departPos="18.10" departSpeed="0.00" departDelay="3.00" arrival="486.00" arrivalLane="D7_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="480.00" routeLength="3982.70" waitingTime="5.00" waitingCount="1" stopTime="168.00" timeLoss="25.11" rerouteNo="2" devices="tripinfo_veh1 stationfinder_veh1 battery_veh1" vType="ElectricVehicle1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="veh0" depart="0.00" departLane="D2_0" departPos="18.10" departSpeed="0.00" departDelay="0.00" arrival="410.00" arrivalLane="D7_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="410.00" routeLength="3982.70" waitingTime="0.00" waitingCount="0" stopTime="109.00" timeLoss="13.71" rerouteNo="1" devices="tripinfo_veh0 stationfinder_veh0 battery_veh0" vType="ElectricVehicle1" speedFactor="1.00" vaporized="">
+        <battery depleted="1"/>
+    </tripinfo>
+    <tripinfo id="veh1" depart="6.00" departLane="D2_0" departPos="18.10" departSpeed="0.00" departDelay="3.00" arrival="486.00" arrivalLane="D7_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="480.00" routeLength="3982.70" waitingTime="5.00" waitingCount="1" stopTime="168.00" timeLoss="25.11" rerouteNo="2" devices="tripinfo_veh1 stationfinder_veh1 battery_veh1" vType="ElectricVehicle1" speedFactor="1.00" vaporized="">
+        <battery depleted="0"/>
+    </tripinfo>
 </tripinfos>
