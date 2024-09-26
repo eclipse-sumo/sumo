@@ -184,8 +184,8 @@ def main(options):
         unchangedParkings = []
         unvisitedEdges = []
         for edge, parkingAreas in edge2parkingArea.items():
-            if ((checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or
-                (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0)):
+            if  ((checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or
+                 (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0)):
                 if len(parkingAreas) > 0:
                     unchangedParkings.extend([pa[0] for pa in parkingAreas])
                 continue

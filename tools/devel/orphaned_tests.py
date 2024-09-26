@@ -43,7 +43,7 @@ numFixed = 0
 
 for root, dirs, files in os.walk(options.root):
     numSuites = 0
-    known_variant_tests = defaultdict(lambda : set())
+    known_variant_tests = defaultdict(lambda: set())
     suites = []
     for fname in files:
         if fname.startswith("testsuite."):
