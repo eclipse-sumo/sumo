@@ -149,6 +149,9 @@ siding_both_ways4
 # siding cannot be used because it is already occupied
 siding_deadlock
 
+# driveway should be usable despite occupied siding if the other side is still usable
+siding_occupied_advance
+
 # siding cannot be used because the trains are too long
 sidingShort_deadlock
 
