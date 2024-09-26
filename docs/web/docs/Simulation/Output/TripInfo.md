@@ -67,13 +67,14 @@ values would not be known.
 ### Devices
 
 Single devices may choose to add further output to the tripinfo file.
-This is currently the case for the "emissions" device which is
-instantiated using one of the options **--device.emissions.probability** {{DT_FLOAT}} or **--device.emissions.explicit** [***<ID\>\[,<ID\>\]\****](../../Basics/Notation.md#referenced_data_types). The written emissions depend
+
+#### Emissions
+
+The "emissions" device instantiated using one of the options **--device.emissions.probability** {{DT_FLOAT}} or **--device.emissions.explicit** [***<ID\>\[,<ID\>\]\****](../../Basics/Notation.md#referenced_data_types). The written emissions depend
 on the chosen emission class of the vehicle (see [Definition of Vehicles,
 Vehicle Types, and
 Routes](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-and [Models/Emissions](../../Models/Emissions.md)). The output
-contains the sum of all emissions/consumption generated/consumed by the
+and [Models/Emissions](../../Models/Emissions.md)) contributes to the tripinfo output. It provides the sum of all emissions/consumption generated/consumed by the
 vehicle during its journey.
 
 This adds the following line:
@@ -99,6 +100,30 @@ with units as following
 | `NOx_abs`  | mg   | The complete amount of NO<sub>x</sub> emitted by the vehicle during the trip |
 | `fuel_abs` | mg   | The complete amount of fuel the vehicle used during the trip                 |
 | `electricity_abs` | Wh   | The complete amount of electricity the vehicle used during the trip   |
+
+#### Battery
+
+The ["battery" device](../../Models/Electric.md) contributes to the tripinfo output how many times the vehicle encountered its battery depleted during its journey.
+Vehicles can be forced to stop due to lack of energy using the ["stationfinder" device](../Stationfinder.md) or may recuperate energy while braking and then deplete the battery again.
+
+This adds the following line:
+
+```xml
+<tripinfos>
+    <tripinfo id="<VEHICLE_ID>" ... vtype="<VEHICLE_TYPE_ID>">
+        <battery depleted="..."/>
+    </tripinfo>
+    ... information about further vehicles ...
+
+</tripinfos>
+```
+
+with the attributes as following
+
+| Name         | Type | Description                                                                        |
+| ------------ | ---- | ---------------------------------------------------------------------------------- |
+| `depleted`   | mg   | The times the vehicle wanted to consume more energy than the battery could provide |
+
 
 ## Output for vehicles that have not arrived at simulation end
 By default, tripinfo-output is only written on vehicle arrival. This means vehicles that have not arrived at simulation end (i.e. due to option **--end**) generate no output.
