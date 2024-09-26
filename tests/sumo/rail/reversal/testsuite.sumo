@@ -92,3 +92,6 @@ bidiDepart_reversal
 
 # invalid conflict 
 routes_cross_twice
+
+# invalid subDriveway construction
+two_double_reversals
