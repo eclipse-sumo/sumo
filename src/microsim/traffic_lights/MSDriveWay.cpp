@@ -56,13 +56,12 @@
 //#define DEBUG_MOVEREMINDER
 //#define DEBUG_MATCH
 
-#define DEBUG_COND DEBUG_HELPER(this)
-//#define DEBUG_HELPER(obj) ((obj)->isSelected())
+#define DEBUG_HELPER(obj) ((obj) != nullptr && (obj)->isSelected())
 //#define DEBUG_HELPER(obj) ((obj)->getID() == "")
-#define DEBUG_HELPER(obj) (true)
+//#define DEBUG_HELPER(obj) (true)
 
 //#define DEBUG_COND_DW (dw->myNumericalID == 5)
-#define DEBUG_COND_DW (true)
+#define DEBUG_COND_DW (false)
 
 // ===========================================================================
 // static value definitions
@@ -258,8 +257,8 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
     for (MSLink* foeLink : myConflictLinks) {
         if (hasLinkConflict(closest, foeLink)) {
 #ifdef DEBUG_SIGNALSTATE
-            if (gDebugFlag4) {
-                std::cout << "  linkConflict with " << getTLLinkID(foeLink) << "\n";
+            if (gDebugFlag4 || DEBUG_HELPER(closest.first)) {
+                std::cout << getID() << " linkConflict with " << getTLLinkID(foeLink) << "\n";
             }
 #endif
             return false;
@@ -465,7 +464,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
     for (const MSDriveWay* foeDW : myFoes) {
         if (!foeDW->myTrains.empty()) {
 #ifdef DEBUG_SIGNALSTATE
-            if (gDebugFlag4 || DEBUG_COND_DW) {
+            if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
                 std::cout << SIMTIME << " " << getID() << " foeDriveWay " << foeDW->getID() << " occupied ego=" << Named::getIDSecure(ego) << " foeVeh=" << toString(foeDW->myTrains) << "\n";
             }
 #endif
@@ -473,7 +472,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 SUMOVehicle* foe = *foeDW->myTrains.begin();
                 if (foe == ego) {
 #ifdef DEBUG_SIGNALSTATE
-                    if (gDebugFlag4) {
+                    if (gDebugFlag4 || DEBUG_HELPER(ego)) {
                         std::cout << "    ignore ego as foe '" << Named::getIDSecure(ego) << "\n";
                     }
 #endif
@@ -484,20 +483,17 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
             }
             bool useSiding = canUseSiding(ego, foeDW);
-            if (ego != nullptr && ego->isSelected()) {
-                auto it = mySidings.find(foeDW);
-                int numSidings = 0;
-                if (it != mySidings.end()) {
-                    numSidings = it->second.size();
-                }
-                std::cout << SIMTIME << " " << getID() << " ego=" << ego->getID() << " foeDW=" << foeDW->getID() << " myFoes=" << toString(myFoes) << " useSiding=" << useSiding << " numSidings=" << numSidings << "\n";
-            }
-            if (useSiding) {
 #ifdef DEBUG_SIGNALSTATE
-                if (gDebugFlag4 || DEBUG_COND_DW) {
-                    std::cout << "    useSiding\n";
+                if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
+                    auto it = mySidings.find(foeDW);
+                    int numSidings = 0;
+                    if (it != mySidings.end()) {
+                        numSidings = it->second.size();
+                    }
+                    std::cout << "  useSiding=" << useSiding << " numSidings=" << numSidings << "\n";
                 }
 #endif
+            if (useSiding) {
                 continue;
             } else {
                 if (MSRailSignal::storeVehicles() && store) {
@@ -526,7 +522,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                         if (foeDW->match(foe->getRoute(), firstIt)) {
                             bool useSiding = canUseSiding(ego, foeDW);
 #ifdef DEBUG_SIGNALSTATE
-                            if (gDebugFlag4 || DEBUG_COND_DW) {
+                            if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
                                 std::cout << SIMTIME << " " << getID() << " blocked by " << foeDW->getID() << " (approached by " << foe->getID() << ") useSiding=" << useSiding << "\n";
                             }
 #endif
@@ -619,7 +615,7 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
                         // possibly the foe vehicle
                         // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation
 #ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4 || DEBUG_COND_DW) {
+                        if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
                             std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
                                 << " foeVeh=" << toString(foe->myTrains)
                                 << " sidingEnd=" << sidingEnd->getID() << " sidingApproach=" << sidingApproach->getID() << " approaching=" << toString(sidingApproach->myTrains) << "\n";
