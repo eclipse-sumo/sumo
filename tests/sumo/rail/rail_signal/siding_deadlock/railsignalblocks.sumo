@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 23:56:18 by Eclipse SUMO sumo Version v1_20_0+0600-54c3f033709
+<!-- generated on 2024-09-26 11:52:17 by Eclipse SUMO sumo Version v1_20_0+0602-6a9d97ef19c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="C2_0 F_0"/>
-                <foes driveWays="A.0 A.d2 B.d4 C.d6 C2.0.0 G.d1"/>
+                <foes driveWays="A.0 C2.0.0 G.d1"/>
                 <sidings foe="G.d1">
                     <siding start="c" end="d" length="194.64"/>
                 </sidings>
@@ -66,13 +66,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":C2_1_0 c2_0 :B_3_0 b_0 :A_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.0.0 A.d2.0 C2.0 J0.d0"/>
+                <foes driveWays="A.0.0 C2.0 J0.d0"/>
             </driveWay>
             <subDriveWay id="C2.0.0" vehicle="" edges="-c2 -b">
                 <forward lanes=":C2_0_0 -c2_0 :B_0_0 -b_0 :A_0_0"/>
-            </subDriveWay>
-            <subDriveWay id="C2.0.1" vehicle="" edges="-c2 -b">
-                <forward lanes=":C2_0_0 -c2_0 :B_0_0 -b_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -83,13 +80,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":D_0_0 -e_0 :E_1_0 -f_0 :F_0_0 -g_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="D.0 F.0.0 F.d3.0 G.d1"/>
+                <foes driveWays="D.0 F.0.0 G.d1"/>
             </driveWay>
             <subDriveWay id="D.0.0" vehicle="" edges="e f">
                 <forward lanes=":D_1_0 e_0 :E_2_0 f_0 :F_1_0"/>
-            </subDriveWay>
-            <subDriveWay id="D.0.1" vehicle="" edges="e f">
-                <forward lanes=":D_1_0 e_0 :E_2_0 f_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -104,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="D.0.0 D2.d7 E.d5 F.0 F.d3 J0.d0"/>
+                <foes driveWays="D.0.0 F.0 J0.d0"/>
                 <sidings foe="J0.d0">
                     <siding start="-e2" end="-d2" length="234.07"/>
                 </sidings>
@@ -114,42 +108,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </subDriveWay>
         </link>
     </railSignal>
-    <departJunction id="D2">
-        <driveWay id="D2.d7" vehicle="t3" edges="-d2 -c2 -b -a">
-            <forward lanes="-d2_0"/>
-            <bidi lanes="d2_0 :C2_1_0 c2_0 :B_3_0"
-                    deadlockCheck="b_0 :A_1_0 a_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="F_0"/>
-            <foes driveWays="D2.d7 E.d5 F.0 F.d3"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="E">
-        <driveWay id="E.d5" vehicle="t3" edges="-e2 -d2 -c2 -b -a">
-            <forward lanes="-e2_0 :D2_0_0 -d2_0"/>
-            <bidi lanes="e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0"
-                    deadlockCheck="b_0 :A_1_0 a_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="F_0"/>
-            <foes driveWays="D2.d7 E.d5 F.0 F.d3"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="F">
-        <driveWay id="F.d3" vehicle="t3" edges="-f -e2 -d2 -c2 -b -a">
-            <forward lanes="-f_0 :E_0_0 -e2_0 :D2_0_0 -d2_0"/>
-            <bidi lanes="f_0 :E_3_0 e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0"
-                    deadlockCheck="b_0 :A_1_0 a_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="A_0 D_0 F_0"/>
-            <foes driveWays="D.0.1 D2.d7 E.d5 F.0 F.d3 J0.d0"/>
-            <sidings foe="J0.d0">
-                <siding start="-e2" end="-d2" length="234.07"/>
-            </sidings>
-        </driveWay>
-        <subDriveWay id="F.d3.0" vehicle="" edges="-f">
-            <forward lanes="-f_0"/>
-        </subDriveWay>
-    </departJunction>
     <departJunction id="G">
         <driveWay id="G.d1" vehicle="t1" edges="-g -f -e2 -d2 -c2 -b -a">
             <forward lanes="-g_0"/>
@@ -174,42 +132,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <sidings foe="G.d1">
                 <siding start="c" end="d" length="194.64"/>
             </sidings>
-        </driveWay>
-    </departJunction>
-    <departJunction id="A">
-        <driveWay id="A.d2" vehicle="t2" edges="b c d e f g">
-            <forward lanes="b_0 :B_2_0 c_0 :C_1_0 d_0"/>
-            <bidi lanes="-b_0 :B_1_0 -c_0 :C_0_0 -d_0 :D_0_0 -e_0 :E_1_0"
-                    deadlockCheck="-f_0 :F_0_0 -g_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="A_0 C2_0 F_0"/>
-            <foes driveWays="A.0 A.d2 B.d4 C.d6 C2.0.1 G.d1"/>
-            <sidings foe="G.d1">
-                <siding start="c" end="d" length="194.64"/>
-            </sidings>
-        </driveWay>
-        <subDriveWay id="A.d2.0" vehicle="" edges="b">
-            <forward lanes="b_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="B">
-        <driveWay id="B.d4" vehicle="t2" edges="c d e f g">
-            <forward lanes="c_0 :C_1_0 d_0"/>
-            <bidi lanes="-c_0 :C_0_0 -d_0 :D_0_0 -e_0 :E_1_0"
-                    deadlockCheck="-f_0 :F_0_0 -g_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="A_0"/>
-            <foes driveWays="A.0 A.d2 B.d4 C.d6"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="C">
-        <driveWay id="C.d6" vehicle="t2" edges="d e f g">
-            <forward lanes="d_0"/>
-            <bidi lanes="-d_0 :D_0_0 -e_0 :E_1_0"
-                    deadlockCheck="-f_0 :F_0_0 -g_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="A_0"/>
-            <foes driveWays="A.0 A.d2 B.d4 C.d6"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
