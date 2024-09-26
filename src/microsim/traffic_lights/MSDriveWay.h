@@ -272,7 +272,7 @@ protected:
         return myOrigin == nullptr;
     };
 
-    bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const;
+    bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool recurse=true) const;
 
     bool isFoeOrSubFoe(const MSDriveWay* foe) const;
 

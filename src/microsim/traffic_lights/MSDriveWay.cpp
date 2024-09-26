@@ -274,7 +274,7 @@ bool
 MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
     if (gDebugFlag4) {
-        std::cout << "   checkLinkConflict foeLink=" << getTLLinkID(foeLink) << "\n";
+        std::cout << "   checkLinkConflict foeLink=" << getTLLinkID(foeLink) << " ego=" << Named::getIDSecure(veh.first) << "\n";
     }
 #endif
     if (foeLink->getApproaching().size() > 0) {
@@ -284,6 +284,9 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
             std::cout << "     approaching foe=" << foe.first->getID() << "\n";
         }
 #endif
+        if (foe.first == veh.first) {
+            return false;
+        }
         const MSTrafficLightLogic* foeTLL = foeLink->getTLLogic();
         assert(foeTLL != nullptr);
         const MSRailSignal* constFoeRS = dynamic_cast<const MSRailSignal*>(foeTLL);
@@ -463,7 +466,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
         if (!foeDW->myTrains.empty()) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4 || DEBUG_COND_DW) {
-                std::cout << SIMTIME << " foeDriveWay " << foeDW->getID() << " occupied ego=" << Named::getIDSecure(ego) << " foeVeh=" << toString(foeDW->myTrains) << "\n";
+                std::cout << SIMTIME << " " << getID() << " foeDriveWay " << foeDW->getID() << " occupied ego=" << Named::getIDSecure(ego) << " foeVeh=" << toString(foeDW->myTrains) << "\n";
             }
 #endif
             if (foeDW->myTrains.size() == 1) {
@@ -587,12 +590,47 @@ MSDriveWay::hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe) {
 
 
 bool
-MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const {
+MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool recurse) const {
     auto it = mySidings.find(foe);
     if (it != mySidings.end()) {
         for (auto siding : it->second) {
+            // assume siding is usuable when computing state for unapproached signal (ego == nullptr)
             if (ego == nullptr || siding.length >= ego->getLength()) {
-                // assume siding is usuable when computing state for unapproached signal
+                // if the siding is already "reserved" by another vehicle we cannot use it here
+                const MSEdge* sidingEnd = myRoute[siding.end];
+                for (MSDriveWay* sidingApproach : myEndingDriveways[sidingEnd]) {
+                    if (!sidingApproach->myTrains.empty()) {
+                        // possibly the foe vehicle can use the other part of the siding
+                        if (recurse) {
+                            const SUMOVehicle* foeVeh = nullptr;
+                            if (!foe->myTrains.empty()) {
+                                foeVeh = *foe->myTrains.begin();
+                            } else if (foe->myOrigin != nullptr && foe->myOrigin->getApproaching().size() > 0) {
+                                foeVeh = foe->myOrigin->getClosest().first;
+                            }
+                            if (foeVeh == nullptr) {
+                                WRITE_WARNINGF("Invalid call to canUseSiding dw=% foe=% ego=% time=%", getID(), foe->getID(), Named::getIDSecure(ego), time2string(SIMSTEP));
+                                continue;
+                            }
+                            if (foe->canUseSiding(foeVeh, this, false)) {
+                                continue;
+                            }
+                        }
+                        // possibly the foe vehicle
+                        // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4 || DEBUG_COND_DW) {
+                            std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
+                                << " foeVeh=" << toString(foe->myTrains)
+                                << " sidingEnd=" << sidingEnd->getID() << " sidingApproach=" << sidingApproach->getID() << " approaching=" << toString(sidingApproach->myTrains) << "\n";
+                        }
+#endif
+                        return false;
+                    }
+                }
+                //std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
+                //    << " foeVeh=" << toString(foe->myTrains)
+                //    << " sidingEnd=" << sidingEnd->getID() << "usable\n";
                 return true;
             }
         }
@@ -1749,7 +1787,8 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
 #ifdef DEBUG_BUILD_SIDINGS
                 std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
 #endif
-                mySidings[foe].push_back(Siding(i + 1, start, length));
+                auto& foeSidings = mySidings[foe];
+                foeSidings.insert(foeSidings.begin(), Siding(i + 1, start, length));
                 start = -1;
                 length = 0;
                 foeSearchBeg = itFind;
