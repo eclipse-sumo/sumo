@@ -1701,17 +1701,32 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             return true;
         }
     }
+    std::vector<const MSLane*> forward(myForward.begin(), myForward.begin() + subSize);
+    std::vector<const MSEdge*> route;
+    for (const MSLane* lane : forward) {
+        if (lane->isNormal()) {
+            route.push_back(&lane->getEdge());
+        }
+    }
+    if (myRoute.size() > route.size()) {
+        // route continues. make sure the subDriveway does not end with a reversal
+        const MSEdge* lastNormal = route.back();
+        const MSEdge* nextNormal = myRoute[route.size()];
+        if (lastNormal->getBidiEdge() == nextNormal) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID()
+                << " lastNormal=" << lastNormal->getID() << " nextNormal=" << nextNormal->getID() << " endWithReversal\n";
+#endif
+            return false;
+        }
+    }
     MSDriveWay* sub = new MSDriveWay(myOrigin, getID() + "." + toString(mySubDriveWays.size()));
     sub->myLane = myLane;
     sub->myIsSubDriveway = true;
-    myLane->addMoveReminder(sub);
-    sub->myForward.insert(sub->myForward.begin(), myForward.begin(), myForward.begin() + subSize);
-    for (const MSLane* lane : sub->myForward) {
-        if (lane->isNormal()) {
-            sub->myRoute.push_back(&lane->getEdge());
-        }
-    }
+    sub->myForward = forward;
+    sub->myRoute = route;
     sub->myCoreSize = sub->myRoute.size();
+    myLane->addMoveReminder(sub);
 
     // copy trains that are currently on this driveway (and associated entry events)
     for (SUMOVehicle* veh : myTrains) {
