@@ -61,7 +61,7 @@
 //#define DEBUG_HELPER(obj) (true)
 
 //#define DEBUG_COND_DW (dw->myNumericalID == 5)
-#define DEBUG_COND_DW (false)
+#define DEBUG_COND_DW (true)
 
 // ===========================================================================
 // static value definitions
@@ -1102,7 +1102,7 @@ MSDriveWay::isSwitch(const MSLink* link) {
 void
 MSDriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes, std::set<MSLink*>& flankSwitches) const {
 #ifdef DEBUG_CHECK_FLANKS
-    std::cout << " checkFlanks lanes=" << toString(lanes) << "\n  visited=" << formatVisitedMap(visited) << " allFoes=" << allFoes << "\n";
+    std::cout << " checkFlanks lanes=" << toString(lanes) << " allFoes=" << allFoes << "\n";
 #endif
     const MSLink* reverseOriginLink = originLink != nullptr && originLink->getLane()->getBidiLane() != nullptr && originLink->getLaneBefore()->getBidiLane() != nullptr
                                       ? originLink->getLane()->getBidiLane()->getLinkTo(originLink->getLaneBefore()->getBidiLane())
@@ -1427,6 +1427,8 @@ MSDriveWay::getClickableTLLinkID(const MSLink* link) {
 
 std::string
 MSDriveWay::formatVisitedMap(const LaneVisitedMap& visited) {
+    UNUSED_PARAMETER(visited);
+    /*
     std::vector<const MSLane*> lanes(visited.size(), nullptr);
     for (auto item : visited) {
         lanes[item.second] = item.first;
@@ -1439,6 +1441,8 @@ MSDriveWay::formatVisitedMap(const LaneVisitedMap& visited) {
         }
     }
     return toString(lanes);
+    */
+    return "dummy";
 }
 
 
