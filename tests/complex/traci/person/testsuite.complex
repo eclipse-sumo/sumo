@@ -42,3 +42,6 @@ appendDrivingStage_stoppingPlaces
 
 # see #15518
 setSpeedFactor
+
+# see #15527
+setSpeedFactor2
