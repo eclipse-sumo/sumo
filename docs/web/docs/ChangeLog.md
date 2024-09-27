@@ -60,6 +60,8 @@ title: ChangeLog
   - edgeData output now excludes non-driving lanes from laneDensity computation #15383
   - rerouter closingReroute now preserves all existing stops when computing new route #14610
   - Fixed invalid emergency stop message for waypoint at route end #15485
+  - Fixed bug where taxi disappears during dispatch #15508
+  - Fixed crash when loading state related to rerouting device assignment #15517 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -89,6 +91,8 @@ title: ChangeLog
   - Fixed Crash during undo-redo of stops/waypoints over stoppingPlaces #15249 (regression in 1.19.0)
   - Fixed crash when editing person and container types for a selection #15255 (regression in 1.19.0)
   - Fixed junction highlighting on hovering in edge mode #15413 (regression in 1.19.0)
+  - Fixed invalid "embededRoute" element in view #15492 (regression in 1.19.0)
+  - Vehicle type attribute dialog: guiShape combobox is now working with default vClass #14859  (regression in 1.19.0)
   - Fixed invalid tls link indices #14949 (regression in 1.20.0)
   - Fixed inspecting and selecting elements in data mode #14999 (regression in 1.20.0)
   - Fixed bug where additionals were not saved when saving a NeteditConfig #14739 (regression in 1.20.0)
@@ -105,6 +109,8 @@ title: ChangeLog
   - Fixed coloring of selected Persons and containers #15254 (regression in 1.20.0)
   - Fixed crash when creating tranships with different speed #15339 (regression in 1.20.0)
   - Fixed crash related to invalid endOffset #15317 (regression in 1.20.0)
+  - Fixed invalid coloring for lane change prohibition #15099 (regression in 1.20.0)
+  - Fixed highlighting during POIs and parkingSpace movement #15509, #15512 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
   - Fixed invalid NEMA controller when changing type from static #15007
@@ -141,6 +147,7 @@ title: ChangeLog
   - Fixed slow-down when loading many polygons #14600
   - Fixed junction merging with active grid #15483
   - Can now load laneAreaDetector defined with endPos #14683
+  - Copy template now copies the changeLeft/changeRight attributes #15507 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -176,6 +183,8 @@ title: ChangeLog
   - vehicle.getLeader retrieval now works beyond 3000m if subsequent edges have only 1 lane (i.e. for railways) #15418
   - subscribeContext when used without varIDs now uses the default attributes of the target domain. #15430
   - vehicle.getLanePosition is now working for a parked vehicle #15450
+  - Setting stop parameter "expected" now works #15486
+  - Setting speedFactor now works for walking stages added with appendStage and appendWalkingStage #15518, #15527
 
 - tools
   - osmGet.py: Fixed error downloading data from servers that do not provide gzipped data. #15105 (regression in 1.20.0)
@@ -213,6 +222,8 @@ title: ChangeLog
   - fcd-output now contains the vtype for pedestrians #15210
   - Added option **--chargingstations-output.aggregated ** to write output that is more compact #15240
   - vType attribute `jmAllwayStopWait` can now be used to customize required waiting time at allwayStop #15428
+  - time-to-teleport.disconnected may now be higher than time-to-teleport #15494
+  - Stop attribute `index` can now be used to encode stopping on a later edge of a looped route #15503 
 
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
@@ -224,6 +235,7 @@ title: ChangeLog
   - Hotkey <kbd>ESC</kbd> + <kbd>SHIFT</kbd> can be used to clear the selection regardless of editing mode #14481
   - Making person/container plan wider on mouse-over #15337
   - Now Showing junctions while creating person and container plans #15345
+  - Added detectPersons to InductionLoop attributes #15515 
 
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
@@ -287,6 +299,7 @@ title: ChangeLog
 - parkingArea default roadsideCapacity is 1 (instead of 0) if no space definitions are given #15264
 - plotting tools can now handle Matplotlib versions suffix like ".post1" #15372
 - Fixed invalid characters in documentation command examples #15441
+- Fixed inconsistent argument name in libsumo function Vehicle.moveTo #15304 
 
 ## Version 1.20.0 (07.05.2024)
 
