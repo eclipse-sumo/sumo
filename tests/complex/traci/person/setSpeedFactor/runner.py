@@ -34,7 +34,7 @@ traci.start([sumolib.checkBinary("sumo"),
              ] + sys.argv[1:])
 pID = "p1"
 traci.person.add(pID, "SC", 0, traci.constants.DEPARTFLAG_NOW)
-traci.person.appendWalkingStage(pID, ["SC"], arrivalPos="-20")
+traci.person.appendWalkingStage(pID, ["SC"], arrivalPos=-20)
 
 while traci.simulation.getMinExpectedNumber() > 0:
 
