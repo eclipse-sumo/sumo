@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-26 08:47+0000\n"
+"PO-Revision-Date: 2024-09-27 12:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8976,11 +8976,11 @@ msgstr ""
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:439
 msgid "Crossing with edges '%' already exists at node '%'."
-msgstr ""
+msgstr "Il passaggio pedonale attraverso gli archi '%' al nodo '%' esiste già."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:472
 msgid "No edges specified for walkingArea at node '%'."
-msgstr ""
+msgstr "Non sono state specificati archi per l'area pedonale nel nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:478
 #, c-format
@@ -8989,11 +8989,13 @@ msgstr "L'arco '%' per l'area pedonale nel nodo '%' è sconosciuta."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:504
 msgid "Unable to project shape for walkingArea at node '%'."
-msgstr ""
+msgstr "La forma dell'area pedonale nel nodo '%' non poteva essere proiettata."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Si è prodotto un codice identificativo di arco raddoppiato ('%'); si assume "
+"che è desiderato sovrascriverlo."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:227
 #, c-format
