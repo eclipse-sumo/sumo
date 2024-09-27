@@ -15,12 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="E2_A" lane="EdgeCenter0_0" pos="5.00" length="5.00" period="9223372036854774.00" name="A" file="fileA.txt" vTypes="Type1 Type2 Type3" tl="gneJ0">
+    <laneAreaDetector id="E2_A" lane="EdgeCenter0_0" pos="5.00" length="5.00" period="9223372036854774.00" name="A" file="fileA.txt" vTypes="Type1 Type2 Type3" tl="Junction2">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </laneAreaDetector>
-    <laneAreaDetector id="E2_B" lane="EdgeCenter0_0" pos="15.00" length="5.00" period="9223372036854774.00" name="B" file="fileB.txt" vTypes="Type4 Type5 Type6" tl="gneJ1" timeThreshold="3.49" speedThreshold="3.49" jamThreshold="3.49">
+    <laneAreaDetector id="E2_B" lane="EdgeCenter0_0" pos="15.00" length="5.00" period="9223372036854774.00" name="B" file="fileB.txt" vTypes="Type4 Type5 Type6" tl="Junction1" timeThreshold="3.49" speedThreshold="3.49" jamThreshold="3.49">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

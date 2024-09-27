@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2De
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.tl, ";;;%%%;;", True)
 
 # Change parameter period with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.tl, "gneJ0", True)
+netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.tl, "Junction2", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

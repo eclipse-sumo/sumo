@@ -20,7 +20,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </inductionLoop>
-    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10.00" period="90.00" name="DetectorB" file="myOwnOutput.txt" vTypes="Type4 Type5 Type6" nextEdges="edge3" detectPersons="car" friendlyPos="1">
+    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10.00" period="90.00" name="DetectorB" file="myOwnOutput.txt" vTypes="Type4 Type5 Type6" nextEdges="Edge3" detectPersons="car" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

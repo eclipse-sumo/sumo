@@ -941,6 +941,7 @@ class E2:
         speedThreshold = 16
         jamThreshold = 17
         friendlyPos = 18
+        show = 19
 
     class inspect:
         id = 1
@@ -959,7 +960,8 @@ class E2:
         speedThreshold = 15
         jamThreshold = 16
         friendlyPos = 17
-        parameters = 20
+        show = 18
+        parameters = 21
 
     class inspectSelection:
         length = 1
@@ -974,7 +976,8 @@ class E2:
         speedThreshold = 11
         jamThreshold = 12
         friendlyPos = 13
-        parameters = 16
+        show = 14
+        parameters = 17
 
 # E2Multilane
 
@@ -993,6 +996,7 @@ class E2Multilane:
         speedThreshold = 15
         jamThreshold = 16
         friendlyPos = 17
+        show = 18
 
     class inspect:
         id = 1
@@ -1010,7 +1014,8 @@ class E2Multilane:
         speedThreshold = 14
         jamThreshold = 15
         friendlyPos = 16
-        parameters = 19
+        show = 17
+        parameters = 20
 
     class inspectSelection:
         period = 1
@@ -1024,7 +1029,8 @@ class E2Multilane:
         speedThreshold = 10
         jamThreshold = 11
         friendlyPos = 12
-        parameters = 15
+        show = 13
+        parameters = 16
 
 # E3
 

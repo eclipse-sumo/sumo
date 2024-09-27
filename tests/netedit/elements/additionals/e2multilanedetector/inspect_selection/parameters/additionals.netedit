@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-22 16:37:16 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
+<!-- generated on 2024-09-27 16:34:17 by Eclipse SUMO netedit Version v1_20_0+2214-f4e6675d1ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,13 +16,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="10.00" endPos="20.00" period="100.00" name="nameA" file="fileA.txt" vTypes="type1 type2 type3" nextEdges="EdgeCenter0" detectPersons="walkBackward" friendlyPos="1">
-        <param key="KeyA1" value="valueA1"/>
-        <param key="KeyA2" value="valueA3"/>
-        <param key="KeyA3" value="valueA2"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </laneAreaDetector>
-    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="Edge3_1 Edge4_1 Edge5_1" pos="5.00" endPos="15.00" period="200.00" name="nameB" file="fileB.xml" vTypes="type4 type5 type6" nextEdges="edge3" detectPersons="car" friendlyPos="1">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB2" value="valueB3"/>
-        <param key="KeyB3" value="valueB2"/>
+    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="Edge3_1 Edge4_1 Edge5_1" pos="5.00" endPos="15.00" period="200.00" name="nameB" file="fileB.xml" vTypes="type4 type5 type6" nextEdges="Edge3" detectPersons="car" friendlyPos="1">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </laneAreaDetector>
 </additional>

@@ -42,7 +42,7 @@
     </route>
 
     <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_1">
-        <stop lane="Edge5_0" startPos="2.00" friendlyPos="1" posLat="20.00" endPos="5.00" duration="60.00" until="20.00" extension="20.00" parking="0" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB"/>
+        <stop lane="Edge5_1" startPos="2.00" friendlyPos="1" posLat="20.00" endPos="5.00" duration="60.00" until="20.00" extension="20.00" parking="0" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB"/>
     </route>
 
     <vehicle id="vehicle_0" depart="0.00" route="route_0"/>

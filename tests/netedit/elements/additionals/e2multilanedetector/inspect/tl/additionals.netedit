@@ -15,5 +15,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="e2_0" lanes="Edge0_1 Edge1_1" pos="23.00" endPos="17.00" period="300.00" file="e2_0.xml" tl="gneJ1"/>
+    <laneAreaDetector id="e2_0" lanes="Edge0_1 Edge1_1" pos="23.00" endPos="17.00" period="300.00" file="e2_0.xml" tl="Junction1"/>
 </additional>

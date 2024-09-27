@@ -7,7 +7,7 @@
     </inductionLoop>
 
     <!-- E1 B -->
-    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10" period="90.00" name="DetectorB" file="fileB.txt" nextEdges="edge3" detectPersons="car" vTypes="Type4 Type5 Type6" friendlyPos="1">
+    <inductionLoop id="E1_B" lane="EdgeCenter0_1" pos="10" period="90.00" name="DetectorB" file="fileB.txt" nextEdges="Edge3" detectPersons="car" vTypes="Type4 Type5 Type6" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

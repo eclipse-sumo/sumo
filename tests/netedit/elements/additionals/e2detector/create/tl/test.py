@@ -41,7 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.E2.create.tl, ";;;;$$$")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid tl
-netedit.changeDefaultValue(netedit.attrs.E2.create.tl, "gneJ0")
+netedit.changeDefaultValue(netedit.attrs.E2.create.tl, "Junction2")
 
 # create E2 with valid tl
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)

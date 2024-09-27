@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Mu
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.tl, ";;;;", True)
 
 # Change parameter Frequency with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.tl, "gneJ1", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.tl, "Junction1", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

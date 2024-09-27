@@ -10,7 +10,7 @@
     </entryExitDetector>
 
     <!-- E3 B -->
-    <entryExitDetector id="entryExitDetector_B" period="120.00" file="fileB.txt" name="B" timeThreshold="2.00" speedThreshold="3.39" nextEdges="edge3" detectPersons="car" vTypes="type4 type5 type6" expectArrival="false" pos="6.00,10.00">
+    <entryExitDetector id="entryExitDetector_B" period="120.00" file="fileB.txt" name="B" timeThreshold="2.00" speedThreshold="3.39" nextEdges="Edge3" detectPersons="car" vTypes="type4 type5 type6" expectArrival="false" pos="6.00,10.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

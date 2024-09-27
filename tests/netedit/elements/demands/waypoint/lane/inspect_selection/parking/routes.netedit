@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-15 20:46:48 by Eclipse SUMO netedit Version v1_20_0+1847-f2d10a7c7c6
+<!-- generated on 2024-09-27 15:19:45 by Eclipse SUMO netedit Version v1_20_0+2214-f4e6675d1ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,7 +19,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop lane="Edge2_1" startPos="30.00" endPos="40.00" posLat="10.00" duration="70.00" until="12.00" extension="10.00" parking="1" permitted="A B" tripId="tripA" line="lineA" speed="10.00" actType="walking"/>
     </route>
     <route id="route_1" edges="Edge3 Edge4 Edge5" color="yellow">
-        <stop lane="Edge5_0" startPos="2.00" endPos="5.00" posLat="20.00" duration="60.00" until="20.00" extension="20.00" parking="1" permitted="C D" tripId="tripB" line="lineB" speed="22.50" friendlyPos="1" actType="singing"/>
+        <stop lane="Edge5_1" startPos="2.00" endPos="5.00" posLat="20.00" duration="60.00" until="20.00" extension="20.00" parking="1" permitted="C D" tripId="tripB" line="lineB" speed="22.50" friendlyPos="1" actType="singing"/>
     </route>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00" route="route_0"/>

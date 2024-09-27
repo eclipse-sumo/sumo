@@ -20,7 +20,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </laneAreaDetector>
-    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="Edge3_1 Edge4_1 Edge5_1" pos="5.00" endPos="15.00" period="200.00" name="nameB" file="fileB.xml" vTypes="type4 type5 type6" nextEdges="edge3" detectPersons="car" friendlyPos="1" jamThreshold="1.39">
+    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="Edge3_1 Edge4_1 Edge5_1" pos="5.00" endPos="15.00" period="200.00" name="nameB" file="fileB.xml" vTypes="type4 type5 type6" nextEdges="Edge3" detectPersons="car" friendlyPos="1" jamThreshold="1.39">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

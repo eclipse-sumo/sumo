@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2De
 netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "%%%;:..&&%$%$", True)
 
 # Change parameter tl with a duplicated value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "gneJ0", True)
+netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "Junction2", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
