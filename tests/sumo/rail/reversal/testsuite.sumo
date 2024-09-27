@@ -68,6 +68,7 @@ insertion_before_reversal
 
 # second train ends before reversal
 insertion_before_reversal2
+insertion_before_reversal3
 
 # the leading train reverse and the follower train ends right before the reversal
 follower_ends_before_reversal
