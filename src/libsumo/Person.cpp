@@ -630,8 +630,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (arrivalPos < 0) {
                 arrivalPos += edges.back()->getLength();
             }
-            double speed = p->getMaxSpeed();
-            return new MSStageWalking(p->getID(), edges, bs, -1, speed, p->getArrivalPos(), arrivalPos, MSPModel::UNSPECIFIED_POS_LAT);
+            return new MSStageWalking(p->getID(), edges, bs, -1, -1, p->getArrivalPos(), arrivalPos, MSPModel::UNSPECIFIED_POS_LAT);
         }
 
         case STAGE_WAITING: {
