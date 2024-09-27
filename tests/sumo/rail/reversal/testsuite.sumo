@@ -95,3 +95,6 @@ routes_cross_twice
 
 # invalid subDriveway construction
 two_double_reversals
+
+# invalid subDriveway construction
+reversal_after_common_block
