@@ -51,10 +51,10 @@ netedit.typeTwoKeys('alt', 'n')
 netedit.rebuildNetwork()
 
 # inspect central node in new position
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left, offsetX=80)
 
 # change position with a valid value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00, 15.00", True)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00, 15.00", False)
 
 # rebuild network
 netedit.rebuildNetwork()

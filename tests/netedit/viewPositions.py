@@ -312,9 +312,9 @@ class elements:
         x = 850
         y = 222
 
-    # class edge1_dataMode:
-    #   x = 850
-    #   y = 222 + 30
+    class edge1_dataMode:
+        x = 850
+        y = 222 + 30
 
     class edge2Ped:
         x = 463

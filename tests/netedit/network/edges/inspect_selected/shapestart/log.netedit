@@ -1,0 +1,24 @@
+Warning: Found angle of 109.83 degrees at edge '-E2', segment 0.
+Warning: Found angle of 179.27 degrees at edge 'E1', segment 0.
+Warning: Found sharp turn with radius 0.25 at the start of edge 'E1'.
+Warning: Found angle of 116.57 degrees at edge 'EdgeExternTop', segment 0.
+Warning: Shape for junction 'J0' has distance 38.55 to its given position.
+Warning: Shape for junction 'J4' has distance 50.71 to its given position.
+Warning: Shape for junction 'J5' has distance 38.75 to its given position.
+Warning: Invalid endOffset 6.00 at lane 'E2_0' with length 0.20 (startOffset 0.00).
+Warning: Invalid endOffset 6.00 at lane 'E2_1' with length 0.20 (startOffset 0.00).
+Warning: Speed of straight connection '-E1_1->E1_1' reduced by 10.79 due to turning radius of 15.41 (length=40.05, angle=168.91).
+Warning: Speed of straight connection 'EdgeExternTop_0->EdgeExternBot_0' reduced by 9.89 due to turning radius of 2.91 (length=2.27, angle=75.28).
+Warning: Speed of straight connection 'EdgeExternBot_0->EdgeExternTop_0' reduced by 9.51 due to turning radius of 3.49 (length=3.58, angle=90.00).
+Warning: Found angle of 109.83 degrees at edge '-E2', segment 0.
+Warning: Found angle of 179.27 degrees at edge 'E1', segment 0.
+Warning: Found sharp turn with radius 0.25 at the start of edge 'E1'.
+Warning: Shape for junction 'J0' has distance 38.55 to its given position.
+Warning: Shape for junction 'J4' has distance 50.71 to its given position.
+Warning: Invalid endOffset 6.00 at lane 'E2_0' with length 0.20 (startOffset 0.00).
+Warning: Invalid endOffset 6.00 at lane 'E2_1' with length 0.20 (startOffset 0.00).
+Warning: Speed of straight connection '-E1_1->E1_1' reduced by 10.79 due to turning radius of 15.41 (length=40.05, angle=168.91).
+Warning: Speed of straight connection 'EdgeExternTop_0->EdgeExternBot_0' reduced by 9.89 due to turning radius of 2.91 (length=2.27, angle=75.28).
+Warning: 6 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 6 total messages of type: Shape for junction '%' has distance % to its given position.
+Warning: 6 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

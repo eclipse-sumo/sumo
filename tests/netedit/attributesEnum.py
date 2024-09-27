@@ -261,7 +261,7 @@ class lane:
         stopOffset = 15
         stopOffsetExceptionButton = 16
         stopOffsetException = 17
-        parameters = 20
+        parameters = 18
 
     class inspectSelection:
         speed = 1
@@ -3611,6 +3611,7 @@ class ride:
                 lines = 2
                 group = 3
 
+
 class walk:
     class edge:
         class edge:
@@ -3758,6 +3759,7 @@ class walk:
                 arrivalPos = 1
                 speed = 2
                 duration = 3
+
 
 class walkEdges:
     class create:

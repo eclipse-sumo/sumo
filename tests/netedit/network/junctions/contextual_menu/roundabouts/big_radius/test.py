@@ -59,5 +59,8 @@ netedit.redo(referencePosition, 1)
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
+# type space
+netedit.typeSpace()
+
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 09:51:31 by Eclipse SUMO netedit Version v1_20_0+1072-1293678f938
+<!-- generated on 2024-09-27 11:55:50 by Eclipse SUMO netedit Version v1_20_0+2172-1b857258f91
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\net.net.xml"/>
     </output>
 
     <processing>
@@ -48,16 +48,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.01Jul094540.5535/netedit.gui/network/lanes/select_vtypes/disallowed/army/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep115453.3312\netedit.gui\network\lanes\select_vtypes\disallowed\army\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -65,57 +65,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-60.00,-30.00,60.00,30.00" projParameter="!"/>
-
-    <edge id=":J38_0" function="internal">
-        <lane id=":J38_0_0" index="0" disallow="army" speed="3.65" length="4.67" shape="-35.00,1.60 -36.20,0.80 -36.60,0.00 -36.20,-0.80 -35.00,-1.60"/>
-    </edge>
-    <edge id=":J39_0" function="internal">
-        <lane id=":J39_0_0" index="0" disallow="army" speed="3.65" length="4.67" shape="35.00,-1.60 36.20,-0.80 36.60,0.00 36.20,0.80 35.00,1.60"/>
-    </edge>
-    <edge id=":JunctionExtern0_0" function="internal">
-        <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
-    </edge>
-    <edge id=":JunctionExtern1_0" function="internal">
-        <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
-    </edge>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,0.00,60.00,0.00" origBoundary="-60.00,-30.00,60.00,30.00" projParameter="!"/>
 
     <edge id="-E44" from="J39" to="J38" priority="-1">
-        <lane id="-E44_0" index="0" disallow="army" speed="13.89" length="70.00" shape="35.00,4.80 -35.00,4.80"/>
-        <lane id="-E44_1" index="1" speed="13.89" length="70.00" shape="35.00,1.60 -35.00,1.60"/>
+        <lane id="-E44_0" index="0" disallow="army" speed="13.89" length="70.00" shape="35.00,1.60 -35.00,1.60"/>
     </edge>
     <edge id="E44" from="J38" to="J39" priority="-1">
-        <lane id="E44_0" index="0" speed="13.89" length="70.00" shape="-35.00,-4.80 35.00,-4.80"/>
-        <lane id="E44_1" index="1" disallow="army" speed="13.89" length="70.00" shape="-35.00,-1.60 35.00,-1.60"/>
-    </edge>
-    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
-        <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
-    </edge>
-    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00">
-        <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
+        <lane id="E44_0" index="0" disallow="army" speed="13.89" length="70.00" shape="-35.00,-1.60 35.00,-1.60"/>
     </edge>
 
-    <junction id="J38" type="priority" x="-35.00" y="0.00" incLanes="-E44_0 -E44_1" intLanes=":J38_0_0" shape="-35.00,0.00 -35.00,6.40 -35.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-    <junction id="J39" type="priority" x="35.00" y="0.00" incLanes="E44_0 E44_1" intLanes=":J39_0_0" shape="35.00,0.00 35.00,-6.40 35.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-    <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-    <junction id="JunctionExtern1" type="priority" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes=":JunctionExtern1_0_0" shape="60.00,0.00 60.00,-3.00 60.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-
-    <connection from="-E44" to="E44" fromLane="1" toLane="1" via=":J38_0_0" dir="t" state="M"/>
-    <connection from="E44" to="-E44" fromLane="1" toLane="1" via=":J39_0_0" dir="t" state="M"/>
-    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
-    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
-
-    <connection from=":J38_0" to="E44" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":J39_0" to="-E44" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
+    <junction id="J38" type="dead_end" x="-35.00" y="0.00" incLanes="-E44_0" intLanes="" shape="-35.00,0.00 -35.00,3.20 -35.00,0.00"/>
+    <junction id="J39" type="dead_end" x="35.00" y="0.00" incLanes="E44_0" intLanes="" shape="35.00,0.00 35.00,-3.20 35.00,0.00"/>
+    <junction id="JunctionExtern0" type="dead_end" x="-60.00" y="0.00" incLanes="" intLanes="" shape="-60.00,0.00"/>
+    <junction id="JunctionExtern1" type="dead_end" x="60.00" y="0.00" incLanes="" intLanes="" shape="60.00,0.00"/>
 
 </net>

@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 14:49:50 by Eclipse SUMO netedit Version v1_15_0+1986-45defa09f05
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2024-09-27 10:43:52 by Eclipse SUMO netedit Version v1_20_0+2172-1b857258f91
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\additionals.add.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\routes.rou.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\net.net.xml"/>
+        <output.street-names value="true"/>
     </output>
 
     <processing>
@@ -32,156 +44,124 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\gui-settings.xml"/>
-        <window-size value="936, 697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\shapeend\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapeend\log.txt"/>
     </report>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="6.08" length="7.74" shape="-1.60,3.20 -1.30,1.10 -0.40,-0.40 1.10,-1.30 3.20,-1.60"/>
+    <edge id=":J2_0" function="internal">
+        <lane id=":J2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="4.78" length="8.79" width="2.00" shape="-24.11,16.80 -30.11,17.04 -29.37,17.48 -29.11,17.95 -29.32,18.44 -30.02,18.95"/>
     </edge>
-    <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" speed="3.90" length="2.58" shape="3.20,1.60 2.50,1.70 2.00,2.00 1.70,2.50 1.60,3.20"/>
+    <edge id=":J3_0" function="internal">
+        <lane id=":J3_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.02" length="18.36" width="2.00" shape="27.95,16.17 33.94,16.50 32.98,18.06 29.95,21.39 26.86,24.57 25.73,25.69"/>
     </edge>
-    <edge id=":gneJ0_2" function="internal">
-        <lane id=":gneJ0_2_0" index="0" speed="3.65" length="1.30" shape="3.20,1.60 2.12,0.88"/>
+    <edge id=":J4_0" function="internal">
+        <lane id=":J4_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="36.21" width="2.00" shape="28.10,13.58 33.43,16.33 8.53,-0.77"/>
     </edge>
-    <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="3.37" shape="2.12,0.88 2.00,0.80 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
+    <edge id=":J5_0" function="internal">
+        <lane id=":J5_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="8.57" length="29.32" width="2.00" shape="8.53,-0.77 8.69,-0.66 -16.05,-16.00"/>
     </edge>
-    <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="3.90" length="2.58" shape="48.40,3.20 48.30,2.50 48.00,2.00 47.50,1.70 46.80,1.60"/>
+    <edge id=":JunctionExtern0_0" function="internal">
+        <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.93" length="2.69" width="3.00" shape="-46.50,0.65 -46.57,-0.29 -46.78,-0.96 -47.13,-1.37 -47.62,-1.50"/>
     </edge>
-    <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" speed="6.08" length="7.74" shape="46.80,-1.60 48.90,-1.30 50.40,-0.40 51.30,1.10 51.60,3.20"/>
-    </edge>
-    <edge id=":gneJ1_2" function="internal">
-        <lane id=":gneJ1_2_0" index="0" speed="3.65" length="1.44" shape="46.80,-1.60 48.00,-0.80"/>
-    </edge>
-    <edge id=":gneJ1_3" function="internal">
-        <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
-    </edge>
-    <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="40.68" shape="36.55,21.20 19.86,16.34 7.94,12.46 0.78,9.58 -1.60,7.69"/>
-    </edge>
-    <edge id=":gneJ2_1" function="internal">
-        <lane id=":gneJ2_1_0" index="0" speed="4.47" length="6.99" shape="37.42,18.12 35.31,17.66 34.32,16.77 34.44,15.43 35.67,13.66"/>
-    </edge>
-    <edge id=":gneJ2_2" function="internal">
-        <lane id=":gneJ2_2_0" index="0" speed="11.81" length="35.37" shape="1.60,7.69 3.70,10.58 10.01,12.02 20.53,11.99 35.25,10.49"/>
-        <lane id=":gneJ2_2_1" index="1" speed="12.11" length="37.27" shape="1.60,7.69 3.73,11.99 10.12,14.42 20.77,14.98 35.67,13.66"/>
-    </edge>
-    <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="8.87" length="21.38" shape="51.60,3.84 51.55,12.19 51.35,19.00 50.94,23.54 50.26,25.06"/>
-        <lane id=":gneJ3_0_1" index="1" speed="8.22" length="18.18" shape="51.60,3.84 51.66,7.14 51.72,13.39 51.61,19.40 51.13,21.98"/>
-    </edge>
-    <edge id=":gneJ3_2" function="internal">
-        <lane id=":gneJ3_2_0" index="0" speed="8.77" length="15.51" shape="35.45,10.47 41.12,9.41 45.16,7.95 47.59,6.10 48.40,3.84"/>
-    </edge>
-    <edge id=":gneJ3_3" function="internal">
-        <lane id=":gneJ3_3_0" index="0" speed="7.80" length="25.39" shape="35.87,13.64 42.81,10.00 47.67,10.18 50.44,14.17 51.13,21.98"/>
+    <edge id=":JunctionExtern1_0" function="internal">
+        <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="6.25" length="2.26" width="3.00" shape="46.22,0.87 46.00,1.42 46.13,1.86 46.37,2.34 46.50,3.00"/>
     </edge>
 
-    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="43.60" shape="3.20,-1.60 46.80,-1.60"/>
+    <edge id="-E1" from="J3" to="J2" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="25.00,25.00 34.00,15.50 1.03,16.81">
+        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane id="-E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="24.27,24.31 31.58,16.60 -24.02,18.80"/>
+        <lane id="-E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="25.73,25.69 36.42,14.40 -24.11,16.80"/>
+        <param key="Key1B" value="Value1B"/>
+        <param key="Key2B" value="Value2B"/>
+        <param key="Key3B" value="Value3B"/>
     </edge>
-    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
+    <edge id="-E2" from="J5" to="J4" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="30.00,-20.00 25.00,-15.00 -25.00,-15.00 34.00,15.50">
+        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane id="-E2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-14.39,-14.00 -20.89,-14.00 29.02,11.80"/>
+        <lane id="-E2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-16.05,-16.00 -29.11,-16.00 28.10,13.58"/>
+        <param key="Key1B" value="Value1B"/>
+        <param key="Key2B" value="Value2B"/>
+        <param key="Key3B" value="Value3B"/>
     </edge>
-    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1" shape="0.00,20.00 34.00,15.50">
-        <lane id="gneE2_0" index="0" speed="13.89" length="0.20" shape="35.25,10.49 35.45,10.47"/>
-        <lane id="gneE2_1" index="1" speed="13.89" length="0.20" shape="35.67,13.66 35.87,13.64"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" shape="-30.00,0.00 34.00,15.50">
+        <lane id="E0_0" index="0" speed="13.89" length="58.31" shape="-29.62,-1.56 27.05,12.17"/>
     </edge>
-    <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1" shape="50.00,20.00 34.00,15.50">
-        <lane id="gneE3_0" index="0" speed="13.89" length="14.24" shape="50.26,25.06 36.55,21.20"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="14.24" shape="51.13,21.98 37.42,18.12"/>
+    <edge id="E1" from="J2" to="J3" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="-31.41,18.59 -25.00,15.00 25.00,15.00 34.00,15.50">
+        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane id="E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.12,16.72 -25.26,14.00 25.03,14.00 28.06,14.17"/>
+        <lane id="E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.02,18.95 -24.74,16.00 24.97,16.00 27.95,16.17"/>
+        <param key="Key1B" value="Value1B"/>
+        <param key="Key2B" value="Value2B"/>
+        <param key="Key3B" value="Value3B"/>
     </edge>
-    <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
-        <lane id="gneE4_0" index="0" speed="13.89" length="0.64" shape="48.40,3.84 48.40,3.20"/>
+    <edge id="E2" from="J4" to="J5" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="-25.00,-25.00 34.00,15.50">
+        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane id="E2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="9.66,-2.42 9.74,-2.36"/>
+        <lane id="E2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="8.53,-0.77 8.61,-0.71"/>
+        <param key="Key1B" value="Value1B"/>
+        <param key="Key2B" value="Value2B"/>
+        <param key="Key3B" value="Value3B"/>
     </edge>
-    <edge id="gneE5" from="gneJ1" to="gneJ3" priority="1">
-        <lane id="gneE5_0" index="0" speed="13.89" length="0.64" shape="51.60,3.20 51.60,3.84"/>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 34.00,15.50">
+        <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-47.62,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,0.48 46.22,0.87"/>
     </edge>
-    <edge id="gneE8" from="gneJ2" to="gneJ0" priority="1">
-        <lane id="gneE8_0" index="0" speed="13.89" length="4.49" shape="-1.60,7.69 -1.60,3.20"/>
-    </edge>
-    <edge id="gneE9" from="gneJ0" to="gneJ2" priority="1">
-        <lane id="gneE9_0" index="0" speed="13.89" length="4.49" shape="1.60,3.20 1.60,7.69"/>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 34.00,15.50">
+        <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="46.50,3.00 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,0.65"/>
     </edge>
 
-    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE8_0 gneE1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_3_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">
-        <request index="0" response="000" foes="100" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="001" foes="001" cont="1"/>
+    <junction id="J0" type="dead_end" x="-30.00" y="0.00" incLanes="" intLanes="" shape="-30.00,0.00 -29.25,-3.11"/>
+    <junction id="J1" type="dead_end" x="30.00" y="0.00" incLanes="E0_0" intLanes="" shape="27.43,10.62 26.68,13.73"/>
+    <junction id="J2" type="priority" x="-30.00" y="20.00" incLanes="-E1_0 -E1_1" intLanes=":J2_0_0" shape="-29.96,20.07 -31.92,16.57 -30.00,20.04 -30.16,16.04">
+        <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE4_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_3_0" shape="46.80,3.20 53.20,3.20 52.49,-0.36 51.60,-1.60 50.36,-2.49 48.76,-3.02 46.80,-3.20">
-        <request index="0" response="000" foes="100" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="001" foes="001" cont="1"/>
+    <junction id="J3" type="priority" x="30.00" y="20.00" incLanes="E1_0 E1_1" intLanes=":J3_0_0" shape="26.45,26.38 23.55,23.62 34.11,13.50 33.89,17.50 32.25,19.98 30.29,22.23 28.30,24.41 26.83,25.97">
+        <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_2_1" shape="36.12,22.74 37.85,16.58 37.97,14.98 37.13,8.63 3.20,7.69 -3.20,7.69 1.17,11.14 6.63,13.45 14.27,16.16 24.10,19.25">
-        <request index="0" response="0000" foes="0000" cont="0"/>
-        <request index="1" response="1100" foes="1100" cont="0"/>
-        <request index="2" response="0000" foes="0010" cont="0"/>
-        <request index="3" response="0000" foes="0010" cont="0"/>
+    <junction id="J4" type="priority" x="-30.00" y="-20.00" incLanes="-E2_0 -E2_1" intLanes=":J4_0_0" shape="32.97,17.22 35.23,13.92 34.81,13.67">
+        <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 gneE2_0 gneE2_1" intLanes=":gneJ3_0_0 :gneJ3_0_1 :gneJ3_2_0 :gneJ3_3_0" shape="53.20,3.84 46.80,3.84 45.28,5.99 43.39,6.93 40.74,7.76 37.33,8.51 33.16,9.16 34.00,15.50 51.56,20.44 49.83,26.60 51.70,24.49 52.36,21.39 52.83,16.91 53.11,11.06">
-        <request index="0" response="0000" foes="1000" cont="0"/>
-        <request index="1" response="0000" foes="1000" cont="0"/>
-        <request index="2" response="0000" foes="0000" cont="0"/>
-        <request index="3" response="0011" foes="0011" cont="0"/>
+    <junction id="J5" type="priority" x="30.00" y="-20.00" incLanes="E2_0 E2_1" intLanes=":J5_0_0" shape="-14.62,-20.30 -16.88,-17.00 -13.57,-13.00 -10.93,-13.20 -9.42,-13.81 -9.04,-14.82 -9.77,-16.24 -11.63,-18.07">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-47.35,0.00 -48.00,-3.65 -48.00,-3.00 -45.00,4.29 -45.26,1.91 -45.59,1.07 -46.05,0.48 -46.63,0.12">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="JunctionExtern1" type="priority" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes=":JunctionExtern1_0_0" shape="47.45,1.74 45.00,-0.00 48.00,6.00">
+        <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":gneJ0_3_0" type="internal" x="2.12" y="0.88" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
-    <junction id=":gneJ1_3_0" type="internal" x="48.00" y="-0.80" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
+    <connection from="-E1" to="E1" fromLane="1" toLane="1" via=":J2_0_0" dir="t" state="M"/>
+    <connection from="-E2" to="E2" fromLane="1" toLane="1" via=":J4_0_0" dir="s" state="M"/>
+    <connection from="E1" to="-E1" fromLane="1" toLane="1" via=":J3_0_0" dir="r" state="M"/>
+    <connection from="E2" to="-E2" fromLane="1" toLane="1" via=":J5_0_0" dir="l" state="M"/>
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="l" state="M"/>
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="s" state="M"/>
 
-    <connection from="gneE0" to="gneE5" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="M"/>
-    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_2_0" dir="t" state="m"/>
-    <connection from="gneE1" to="gneE9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="r" state="M"/>
-    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
-    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_2_0" dir="r" state="M"/>
-    <connection from="gneE2" to="gneE3" fromLane="1" toLane="1" via=":gneJ3_3_0" dir="t" state="m"/>
-    <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
-    <connection from="gneE3" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="t" state="m"/>
-    <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="r" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_0_0" dir="l" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" keepClear="0" via=":gneJ3_0_1" dir="l" state="M"/>
-    <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" keepClear="0" via=":gneJ0_0_0" dir="l" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" keepClear="0" via=":gneJ2_2_0" dir="r" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" keepClear="0" via=":gneJ2_2_1" dir="r" state="M"/>
-
-    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ0_2" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_3_0" dir="t" state="m"/>
-    <connection from=":gneJ0_3" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ1_1" to="gneE5" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="t" state="m"/>
-    <connection from=":gneJ1_3" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":gneJ2_0" to="gneE8" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":gneJ2_2" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ2_2" to="gneE2" fromLane="1" toLane="1" dir="r" state="M"/>
-    <connection from=":gneJ3_0" to="gneE3" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ3_0" to="gneE3" fromLane="1" toLane="1" dir="l" state="M"/>
-    <connection from=":gneJ3_2" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ3_3" to="gneE3" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":J2_0" to="E1" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":J3_0" to="-E1" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":J4_0" to="E2" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":J5_0" to="-E2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>
