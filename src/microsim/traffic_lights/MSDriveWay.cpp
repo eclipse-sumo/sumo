@@ -1671,9 +1671,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     }
     if (subLast < 0) {
         if (foe->myTerminateRoute) {
-            if (bidiBlockedByEnd(*foe) && bidiBlockedByEnd(*this) && foe->forwardEndOnRoute(this)) {
-            //if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
+            if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
                 foe->myFoes.push_back(this);
+                // foe will get the sidings
+                addSidings(foe, true);
                 myUpdateDelete.push_back(foe);
             }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
@@ -1812,8 +1813,22 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
 #ifdef DEBUG_BUILD_SIDINGS
                 std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
 #endif
-                auto& foeSidings = addToFoe ? foe->mySidings[this] : mySidings[foe];
-                foeSidings.insert(foeSidings.begin(), Siding(i + 1, start, length));
+                if (addToFoe) {
+                    auto& foeSidings = foe->mySidings[this];
+                    // indices must be mapped onto foe route;
+                    const MSEdge* first = myRoute[i + 1];
+                    auto itFirst = std::find(foe->myRoute.begin(), foe->myRoute.end(), first);
+                    if (itFirst != foe->myRoute.end()) {
+                        const MSEdge* last = myRoute[start];
+                        auto itLast = std::find(itFirst, foe->myRoute.end(), last);
+                        if (itLast != foe->myRoute.end()) {
+                            foeSidings.insert(foeSidings.begin(), Siding(itFirst - foe->myRoute.begin(), itLast - foe->myRoute.begin(), length));
+                        }
+                    }
+                } else {
+                    auto& foeSidings = mySidings[foe];
+                    foeSidings.insert(foeSidings.begin(), Siding(i + 1, start, length));
+                }
                 start = -1;
                 length = 0;
                 foeSearchBeg = itFind;
