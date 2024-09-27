@@ -1,2 +1,2 @@
 Error: There is already a TAZ rel defined between 'taz_0' and 'taz_1'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jul121801.7032\netedit.gui\dataelements\tazreldata\load\duplicated\datas.dat.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Sep142130.11343/netedit.gui/elements/datas/tazreldata/load/duplicated/datas.dat.xml failed.

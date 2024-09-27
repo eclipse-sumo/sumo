@@ -1,5 +1,5 @@
 Error: attribute name expected
- In file 'C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\dataelements\tazreldata\load\attributes_invalid\datas.dat.xml'
+ In file '/home/palcraft/.texttest/tmp/netedit.gui.27Sep142130.11343/netedit.gui/elements/datas/tazreldata/load/attributes_invalid/datas.dat.xml'
  At line/column 62/46.
 
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\dataelements\tazreldata\load\attributes_invalid\datas.dat.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Sep142130.11343/netedit.gui/elements/datas/tazreldata/load/attributes_invalid/datas.dat.xml failed.
