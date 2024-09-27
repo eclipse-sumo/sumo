@@ -1366,6 +1366,11 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                 dw->buildSubFoe(foe, movingBlock);
             }
             if (dw->bidiBlockedByEnd(*foe)) {
+#ifdef DEBUG_ADD_FOES
+                if (DEBUG_COND_DW) {
+                    std::cout << " addFoeCheckSiding " << foe->getID() << "\n";
+                }
+#endif
                 dw->addFoeCheckSiding(foe);
                 foe->myUpdateDelete.push_back(dw);
             } else  {
@@ -1664,7 +1669,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     }
     if (subLast < 0) {
         if (foe->myTerminateRoute) {
-            // assume the bidi conflict is resolved by leaving the network
+            if (bidiBlockedByEnd(*foe) && bidiBlockedByEnd(*this) && foe->forwardEndOnRoute(this)) {
+                foe->myFoes.push_back(this);
+                myUpdateDelete.push_back(foe);
+            }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " terminates\n";
 #endif
@@ -1831,6 +1839,12 @@ MSDriveWay::hasRS(const MSEdge* cur, const MSEdge* next) {
     return false;
 }
 
+
+bool
+MSDriveWay::forwardEndOnRoute(const MSDriveWay* foe) const {
+    const MSEdge* foeForwardEnd = &foe->myForward.back()->getNormalPredecessorLane()->getEdge();
+    return std::find(myRoute.begin(), myRoute.end(), foeForwardEnd) != myRoute.end();
+}
 
 void
 MSDriveWay::addConflictLink(const MSLink* link) {
