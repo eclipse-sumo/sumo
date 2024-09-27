@@ -1,0 +1,34 @@
+# both sides of a siding are used in both directions
+siding_both_ways
+
+# both sides of a siding are used in both directions.
+# Check that all other foes are checked even after a usable siding is found for one foe.
+siding_both_ways_addTrain
+
+# both sides of a siding are used in both directions but the "wrong" way is only used by stumps
+siding_both_ways2
+
+# both sides of a siding are used in both directions but the "wrong" way is only used by stumps.
+# 
+# One of the driveways doesn't have the terminateRoute flag.
+siding_both_ways3
+
+# both sides of a siding are used in both directions but the "wrong" way is only used by stumps.
+# 
+# both  driveways don't have the terminateRoute flag.
+siding_both_ways4
+
+# siding cannot be used because it is already occupied
+siding_deadlock
+
+# driveway should be usable despite occupied siding if the other side is still usable
+siding_occupied_advance
+
+# siding cannot be used because the trains are too long
+sidingShort_deadlock
+
+# siding does not prevent deadlock because it doesn't have a signal
+siding_noSignal
+
+# siding does not prevent deadlock because it doesn't have a signal. one more layer of signals outside the siding
+siding_noSignal2

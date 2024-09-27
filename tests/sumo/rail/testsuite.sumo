@@ -1,6 +1,9 @@
 # tests for rail signals
 rail_signal
 
+# test for conflicts and deadlocks involving a siding
+siding
+
 # trams driving in a loop servicing stops
 tramwayLoop
 
