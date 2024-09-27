@@ -1360,7 +1360,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                     std::cout << " setting " << dw->getID() << " as foe of " << foe->getID() << "\n";
                 }
 #endif
-                foe->addFoeCheckSiding(dw);
+                foe->myFoes.push_back(dw);
+                foe->addSidings(dw);
                 dw->myUpdateDelete.push_back(foe);
             } else {
                 dw->buildSubFoe(foe, movingBlock);
@@ -1371,7 +1372,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                     std::cout << " addFoeCheckSiding " << foe->getID() << "\n";
                 }
 #endif
-                dw->addFoeCheckSiding(foe);
+                dw->myFoes.push_back(foe);
+                dw->addSidings(foe);
                 foe->myUpdateDelete.push_back(dw);
             } else  {
                 foe->buildSubFoe(dw, movingBlock);
@@ -1670,6 +1672,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     if (subLast < 0) {
         if (foe->myTerminateRoute) {
             if (bidiBlockedByEnd(*foe) && bidiBlockedByEnd(*this) && foe->forwardEndOnRoute(this)) {
+            //if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
                 foe->myFoes.push_back(this);
                 myUpdateDelete.push_back(foe);
             }
@@ -1759,8 +1762,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 }
 
 void
-MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
-    myFoes.push_back(foe);
+MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     const MSEdge* foeEndBidi = foe->myForward.back()->getEdge().getBidiEdge();
     int forwardNormals = 0;
     for (auto lane : foe->myForward) {
@@ -1810,7 +1812,7 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
 #ifdef DEBUG_BUILD_SIDINGS
                 std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
 #endif
-                auto& foeSidings = mySidings[foe];
+                auto& foeSidings = addToFoe ? foe->mySidings[this] : mySidings[foe];
                 foeSidings.insert(foeSidings.begin(), Siding(i + 1, start, length));
                 start = -1;
                 length = 0;

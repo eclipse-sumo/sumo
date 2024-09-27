@@ -248,8 +248,8 @@ protected:
     /// @brief add all driveWays that start at the given link as foes
     void addFoes(const MSLink* link);
 
-    /// @brief add foe and update sidings
-    void addFoeCheckSiding(MSDriveWay* foe);
+    /// @brief add sidings for the given foe
+    void addSidings(MSDriveWay* foe, bool addToFoe = false);
 
     /// @brief derive foe driveways based on myBidi or myBidiExtended
     void addBidiFoes(const MSRailSignal* ownSignal, bool extended);
