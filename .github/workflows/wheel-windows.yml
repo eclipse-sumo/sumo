@@ -179,10 +179,9 @@ jobs:
       run: |
         $env:TEXTTEST_CI_APPS = "-ts meta"
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
-        python -m pip uninstall -y eclipse-sumo
 
     - name: Installing libsumo
-      run: python -m pip install --user -f python-wheels libsumo
+      run: python -m pip install -f python-wheels libsumo
 
     - name: Running libsumo tests
       run: |
