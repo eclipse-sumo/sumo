@@ -7621,7 +7621,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         // fix stops
         while (pastStops > 0) {
             myPastStops.push_back(myStops.front().pars);
-            myPastStops.back().routeIndex = myStops.front().edge - myRoute->begin();
+            myPastStops.back().routeIndex = (int)(myStops.front().edge - myRoute->begin());
             myStops.pop_front();
             pastStops--;
         }
