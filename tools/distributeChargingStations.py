@@ -184,8 +184,8 @@ def main(options):
         unchangedParkings = []
         unvisitedEdges = []
         for edge, parkingAreas in edge2parkingArea.items():
-            if  ((checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or
-                 (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0)):
+            if ((checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or
+                    (options.skipEquippedEdges and edge2chargingPointCount.get(edge, 0) > 0)):
                 if len(parkingAreas) > 0:
                     unchangedParkings.extend([pa[0] for pa in parkingAreas])
                 continue
@@ -201,7 +201,7 @@ def main(options):
             parkingAreas = edge2parkingArea[selectedEdge]
             capacities = [p[1] for p in parkingAreas]
             parkingSum = sum(capacities)
-            chargingPointDiscount = edge2chargingPointCount[selectedEdge] if options.includeExisting and selectedEdge in edge2chargingPointCount else 0  # noqa
+            chargingPointDiscount = edge2chargingPointCount.get(selectedEdge, 0) if options.includeExisting else 0
             wishedChargingPointCount = max(0, math.floor(options.density * parkingSum) - chargingPointDiscount)
             if parkingSum < options.min:
                 assignBalance -= wishedChargingPointCount
