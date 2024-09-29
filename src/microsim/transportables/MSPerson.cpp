@@ -197,6 +197,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                                                         trainExit, platformEntry);
                 }
             }
+            newStage->setTrip(prior->getTrip());
             myStep = myPlan->insert(myStep, newStage);
             return true;
         }

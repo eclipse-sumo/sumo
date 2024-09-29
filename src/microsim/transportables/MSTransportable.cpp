@@ -308,7 +308,6 @@ MSTransportable::abortStage(SUMOTime step) {
 }
 
 
-
 void
 MSTransportable::appendStage(MSStage* stage, int next) {
     // myStep is invalidated upon modifying myPlan
