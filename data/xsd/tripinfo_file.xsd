@@ -20,6 +20,7 @@
                 <xsd:element minOccurs="0" ref="emissions"/>
                 <xsd:element minOccurs="0" ref="taxi"/>
                 <xsd:element minOccurs="0" ref="bluelight"/>
+                <xsd:element minOccurs="0" ref="battery"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
@@ -89,6 +90,12 @@
 
     <xsd:element name="bluelight">
         <xsd:complexType>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="battery">
+        <xsd:complexType>
+            <xsd:attribute name="depleted" use="required" type="xsd:nonNegativeInteger"/>
         </xsd:complexType>
     </xsd:element>
 
