@@ -180,13 +180,17 @@ jobs:
         $env:TEXTTEST_CI_APPS = "-ts meta"
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
-    - name: Installing libsumo
-      run: python -m pip install -f python-wheels libsumo
+    - name: Installing libsumo in virtualenv
+      run: |
+        python -m venv testenv
+        testenv\Scripts\activate
+        python -m pip install -f python-wheels texttest libsumo
 
     - name: Running libsumo tests
       run: |
+        testenv\Scripts\activate
         $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
+        tests\runCiTests.bat testenv\Scripts\texttestc.py
 
     - name: Compressing test results
       if: failure()
