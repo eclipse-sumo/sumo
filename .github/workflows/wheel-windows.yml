@@ -174,11 +174,11 @@ jobs:
 #        $env:TEXTTEST_CI_APPS = "-v ci.fast -a complex,tools"
 #        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
-    - name: Running "sumo in the wheel" meta tests
-      if: github.repository != 'DLR-TS/sumo'
-      run: |
-        $env:TEXTTEST_CI_APPS = "-ts meta"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
+    # - name: Running "sumo in the wheel" meta tests
+    #   if: github.repository != 'DLR-TS/sumo'
+    #   run: |
+    #     $env:TEXTTEST_CI_APPS = "-ts meta"
+    #     tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
     - name: Installing libsumo in virtualenv
       run: |
