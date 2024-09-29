@@ -163,7 +163,7 @@ jobs:
       run: |
         python -m pip install texttest
         python -m pip install -f python-wheels eclipse_sumo
-      # python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
+        python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
@@ -174,24 +174,20 @@ jobs:
 #        $env:TEXTTEST_CI_APPS = "-v ci.fast -a complex,tools"
 #        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
-    # - name: Running "sumo in the wheel" meta tests
-    #   if: github.repository != 'DLR-TS/sumo'
-    #   run: |
-    #     $env:TEXTTEST_CI_APPS = "-ts meta"
-    #     tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
-
-    - name: Installing libsumo in virtualenv
+    - name: Running "sumo in the wheel" meta tests
+      if: github.repository != 'DLR-TS/sumo'
       run: |
-        python -m venv testenv
-        testenv\Scripts\activate
-        python -m pip install -f python-wheels texttest libsumo
-      # python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
+        $env:TEXTTEST_CI_APPS = "-ts meta"
+        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
+
+    - name: Installing libsumo
+      run: python -m pip install -f python-wheels libsumo
 
     - name: Running libsumo tests
+      if: matrix.python_version == '3.12'
       run: |
-        testenv\Scripts\activate
         $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
-        tests\runCiTests.bat testenv\Scripts\texttestc.py
+        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
     - name: Compressing test results
       if: failure()
