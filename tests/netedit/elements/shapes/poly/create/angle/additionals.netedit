@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-25 16:15:26 by Eclipse SUMO netedit Version v1_20_0+0844-105c6274a82
+<!-- generated on 2024-09-30 14:03:31 by Eclipse SUMO netedit Version v1_20_0+2196-16dc4404725
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poly id="po_0" color="red" fill="0" layer="0.00" shape="16.000000,10.000000 16.000000,22.000000 6.000000,22.000000 6.000000,10.000000 16.000000,10.000000" angle="365.00"/>
-    <poly id="po_1" color="red" fill="0" layer="0.00" shape="-4.000000,10.000000 -4.000000,22.000000 -14.000000,22.000000 -14.000000,10.000000 -4.000000,10.000000" angle="-5.00"/>
-    <poly id="po_2" color="red" fill="0" layer="0.00" shape="-2.000000,12.000000 -2.000000,22.000000 -12.000000,22.000000 -12.000000,12.000000 -2.000000,12.000000" angle="5.00"/>
+    <poly id="po_0" color="red" fill="0" layer="0.00" shape="-4.000000,10.000000 -4.000000,20.000000 -14.000000,20.000000 -14.000000,10.000000 -4.000000,10.000000" angle="365.00"/>
+    <poly id="po_1" color="red" fill="0" layer="0.00" shape="16.000000,10.000000 16.000000,20.000000 6.000000,20.000000 6.000000,10.000000 16.000000,10.000000" angle="-5.00"/>
+    <poly id="po_2" color="red" fill="0" layer="0.00" shape="16.000000,0.000000 16.000000,10.000000 6.000000,10.000000 6.000000,0.000000 16.000000,0.000000" angle="5.00"/>
 </additional>

@@ -9,23 +9,23 @@ TestFunctions: Clicked over position 508.0 - 201.0
 TestFunctions: Clicked over position 508.0 - 301
 TestFunctions: Clicked over position 608 - 301
 365
-TestFunctions: Clicked over position 954 - 301
-TestFunctions: Clicked over position 954 - 201.0
-TestFunctions: Clicked over position 854.0 - 201.0
-TestFunctions: Clicked over position 854.0 - 301
-TestFunctions: Clicked over position 954 - 301
--5
 TestFunctions: Clicked over position 763 - 301
 TestFunctions: Clicked over position 763 - 201.0
 TestFunctions: Clicked over position 663.0 - 201.0
 TestFunctions: Clicked over position 663.0 - 301
 TestFunctions: Clicked over position 763 - 301
+-5
+TestFunctions: Clicked over position 954 - 301
+TestFunctions: Clicked over position 954 - 201.0
+TestFunctions: Clicked over position 854.0 - 201.0
+TestFunctions: Clicked over position 854.0 - 301
+TestFunctions: Clicked over position 954 - 301
 5
-TestFunctions: Clicked over position 786 - 298
-TestFunctions: Clicked over position 786 - 198.0
-TestFunctions: Clicked over position 686.0 - 198.0
-TestFunctions: Clicked over position 686.0 - 298
-TestFunctions: Clicked over position 786 - 298
+TestFunctions: Clicked over position 954 - 401
+TestFunctions: Clicked over position 954 - 301.0
+TestFunctions: Clicked over position 854.0 - 301.0
+TestFunctions: Clicked over position 854.0 - 401
+TestFunctions: Clicked over position 954 - 401
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 11:35:05 by Eclipse SUMO netedit Version v1_20_0+1570-be37c078262
+<!-- generated on 2024-09-30 13:38:33 by Eclipse SUMO netedit Version v1_20_0+2196-16dc4404725
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poi id="POI_1" type="typeA" color="red" layer="202.00" name="nameA" lon="-0.000180" lat="0.000090" angle="18.00" imgFile="fileA" width="20.00" height="15.00">
+    <poi id="POI_1" type="typeA" color="red" layer="2.00" name="nameA" lon="-0.000180" lat="0.000090" angle="18.00" imgFile="fileA" width="20.00" height="15.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </poi>
-    <poi id="POI_2" type="typeA" color="blue" layer="202.00" name="nameB" lon="0.001440" lat="0.000900" angle="21.00" imgFile="fileB" width="19.00" height="32.00">
+    <poi id="POI_2" type="typeA" color="blue" layer="2.00" name="nameB" lon="0.001440" lat="0.000900" angle="21.00" imgFile="fileB" width="19.00" height="32.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

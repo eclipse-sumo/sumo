@@ -34,19 +34,20 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeElement("poiLane")
 
-# create poiLane
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+# create POILane
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
-# go to move mode
+# change to move mode
 netedit.moveMode()
 
 # move
-netedit.moveElement(referencePosition, netedit.positions.elements.edge1, netedit.positions.elements.movementRadius)
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.edgeCenter1,
+                              netedit.positions.elements.movementRadius)
 
-# Check undo redo
+# Check undos and redos
 netedit.checkUndoRedo(referencePosition)
 
-# save Netedit config
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit

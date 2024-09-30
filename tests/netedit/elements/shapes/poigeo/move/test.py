@@ -34,8 +34,8 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeElement("poiGeo")
 
-# create poi
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# create poiGeo
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # change color to white (To see icon)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "white")
@@ -49,14 +49,19 @@ netedit.changeDefaultValue(netedit.attrs.poiGeo.create.height, "10")
 # change imgfile (valid)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.imgFile, "berlin_icon.ico")
 
-# create poi
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# create poiGeo
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
 # go to move mode
 netedit.moveMode()
 
 # move
-netedit.moveElement(referencePosition, netedit.positions.tmp, netedit.positions.elements.movementRadius)
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.additionals.shapeC,
+                              netedit.positions.elements.movementRadius)
+
+# move
+netedit.moveElement(referencePosition, netedit.positions.elements.additionals.shapeD,
+                    netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
