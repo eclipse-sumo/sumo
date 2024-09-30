@@ -660,7 +660,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     secondaryShape(false),
     lefthand(false),
-    disableLaneIcons(false) {
+    disableLaneIcons(false),
+    myIgnoreHideByZoom(false) {
     // init defaults depending of netedit or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();
@@ -678,8 +679,124 @@ GUIVisualizationSettings::checkDrawJunction(const Boundary& b, const bool select
         return true;
     } else if (junctionSize.constantSizeSelected && selected) {
         return true;
+    } else if (drawLinkTLIndex.showText && drawLinkTLIndex.constSize) {
+        return true;
+    } else if (drawLinkJunctionIndex.showText && drawLinkJunctionIndex.constSize) {
+        return true;
+    } else if (junctionID.showText && junctionID.constSize) {
+        return true;
+    } else if (junctionName.showText && junctionName.constSize) {
+        return true;
+    } else if (internalJunctionName.showText && internalJunctionName.constSize) {
+        return true;
+    } else if (tlsPhaseIndex.showText && tlsPhaseIndex.constSize) {
+        return true;
+    } else if (tlsPhaseName.showText && tlsPhaseName.constSize) {
+        return true;
     } else {
         return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawEdge(const Boundary& b) const {
+    if (disableHideByZoom) {
+        return true;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else {
+        return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
+    }
+}
+
+
+void
+GUIVisualizationSettings::updateIgnoreHideByZoom() {
+    // general
+    if (disableHideByZoom) {
+        myIgnoreHideByZoom = true;
+        // junctions
+    } else if (junctionSize.constantSize && junctionSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (drawLinkTLIndex.showText && drawLinkTLIndex.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (drawLinkJunctionIndex.showText && drawLinkJunctionIndex.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (junctionID.showText && junctionID.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (junctionName.showText && junctionName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (internalJunctionName.showText && internalJunctionName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (tlsPhaseIndex.showText && tlsPhaseIndex.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (tlsPhaseName.showText && tlsPhaseName.constSize) {
+        myIgnoreHideByZoom = true;
+        // edges
+    } else if (edgeName.showText) {
+        myIgnoreHideByZoom = true;
+    } else if (internalEdgeName.showText && internalEdgeName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (cwaEdgeName.showText && cwaEdgeName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (streetName.showText && streetName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (edgeValue.showText && edgeValue.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (edgeScaleValue.showText && edgeScaleValue.constSize) {
+        myIgnoreHideByZoom = true;
+        // additionals
+    } else if (addSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (addSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (addName.showText && addName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (addFullName.showText && addFullName.constSize) {
+        myIgnoreHideByZoom = true;
+        // POIs
+    } else if (poiSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (poiSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (poiName.showText && poiName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (poiType.showText && poiType.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (poiText.showText && poiText.constSize) {
+        myIgnoreHideByZoom = true;
+        // vehicles
+    } else if (vehicleSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleName.showText && vehicleName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleValue.showText && vehicleValue.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleScaleValue.showText && vehicleScaleValue.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleText.showText && vehicleText.constSize) {
+        myIgnoreHideByZoom = true;
+        // persons
+    } else if (personSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (personSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (personName.showText && personName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (personValue.showText && personValue.constSize) {
+        myIgnoreHideByZoom = true;
+        // containers
+    } else if (containerSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (containerSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (containerName.showText && containerName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else {
+        myIgnoreHideByZoom = false;
     }
 }
 
@@ -688,9 +805,15 @@ bool
 GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
     } else if (addSize.constantSize) {
         return true;
     } else if (addSize.constantSizeSelected && selected) {
+        return true;
+    } else if (addName.showText && addName.constSize) {
+        return true;
+    } else if (addFullName.showText && addFullName.constSize) {
         return true;
     } else {
         return d <= GUIVisualizationSettings::Detail::Additionals;
@@ -702,9 +825,15 @@ bool
 GUIVisualizationSettings::checkDrawPoly(const Boundary& b, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
     } else if (polySize.constantSize) {
         return true;
     } else if (polySize.constantSizeSelected && selected) {
+        return true;
+    } else if (polyName.showText && polyName.constSize) {
+        return true;
+    } else if (polyType.showText && polyType.constSize) {
         return true;
     } else {
         return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
@@ -716,9 +845,17 @@ bool
 GUIVisualizationSettings::checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
     } else if (poiSize.constantSize) {
         return true;
     } else if (poiSize.constantSizeSelected && selected) {
+        return true;
+    } else if (poiName.showText && poiName.constSize) {
+        return true;
+    } else if (poiType.showText && poiType.constSize) {
+        return true;
+    } else if (poiText.showText && poiText.constSize) {
         return true;
     } else if ((w > 0) && (h > 0)) {
         return (scale * MAX2(w, h)) > BoundarySizeDrawing;
@@ -732,9 +869,19 @@ bool
 GUIVisualizationSettings::checkDrawVehicle(const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
     } else if (vehicleSize.constantSize) {
         return true;
     } else if (vehicleSize.constantSizeSelected && selected) {
+        return true;
+    } else if (vehicleName.showText && vehicleName.constSize) {
+        return true;
+    } else if (vehicleValue.showText && vehicleValue.constSize) {
+        return true;
+    } else if (vehicleScaleValue.showText && vehicleScaleValue.constSize) {
+        return true;
+    } else if (vehicleText.showText && vehicleText.constSize) {
         return true;
     } else {
         return d <= GUIVisualizationSettings::Detail::Additionals;
@@ -746,9 +893,15 @@ bool
 GUIVisualizationSettings::checkDrawPerson(const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
     } else if (personSize.constantSize) {
         return true;
     } else if (personSize.constantSizeSelected && selected) {
+        return true;
+    } else if (personName.showText && personName.constSize) {
+        return true;
+    } else if (personValue.showText && personValue.constSize) {
         return true;
     } else {
         return d <= GUIVisualizationSettings::Detail::Additionals;
@@ -760,9 +913,13 @@ bool
 GUIVisualizationSettings::checkDrawContainer(const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
     } else if (containerSize.constantSize) {
         return true;
     } else if (containerSize.constantSizeSelected && selected) {
+        return true;
+    } else if (containerName.showText && containerName.constSize) {
         return true;
     } else {
         return d <= GUIVisualizationSettings::Detail::Additionals;
@@ -2542,27 +2699,6 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
     // fmod round towards zero which is not want we want for negative numbers
     viewAngle = fmod(viewAngle, 360);
     return (viewAngle > 90 && viewAngle < 270);
-}
-
-
-bool
-GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
-    if (drawForViewObjectsHandler) {
-        return true;
-    } else if (disableHideByZoom) {
-        return true;
-    } else if (
-        vehicleSize.constantSize || vehicleSize.constantSizeSelected ||
-        personSize.constantSize || personSize.constantSizeSelected ||
-        containerSize.constantSize || containerSize.constantSizeSelected ||
-        junctionSize.constantSize || junctionSize.constantSizeSelected ||
-        addSize.constantSize || addSize.constantSizeSelected ||
-        poiSize.constantSize || poiSize.constantSizeSelected ||
-        polySize.constantSize || polySize.constantSizeSelected) {
-        return true;
-    } else {
-        return (scale * MAX2(w, h)) > BoundarySizeDrawing;
-    }
 }
 
 

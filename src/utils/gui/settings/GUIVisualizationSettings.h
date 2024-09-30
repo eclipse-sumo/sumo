@@ -626,6 +626,12 @@ public:
     /// @brief check if draw junction
     bool checkDrawJunction(const Boundary& b, const bool selected) const;
 
+    /// @brief check if draw edge
+    bool checkDrawEdge(const Boundary& b) const;
+
+    /// @brief update ignore hide by zoom (call BEFORE drawing all elements).
+    void updateIgnoreHideByZoom();
+
     /// @brief check if draw additionals
     bool checkDrawAdditional(Detail d, const bool selected) const;
 
@@ -687,9 +693,6 @@ public:
 
     /// @brief return wether the text was flipped for reading at the given angle
     bool flippedTextAngle(double objectAngle) const;
-
-    /// @brief check if draw element depending of boundarySize
-    bool checkBoundarySizeDrawing(const double w, const double h) const;
 
     /// @brief return the detail level
     Detail getDetailLevel(const double exaggeration) const;
@@ -767,7 +770,7 @@ public:
     /// @brief Information whether rails shall be drawn
     bool showRails;
 
-    // Setting bundles for optional drawing names with size and color
+    /// @brief Setting bundles for optional drawing names with size and color
     GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue, edgeScaleValue;
 
     /// @brief flag to show or hide connectors
@@ -1123,6 +1126,10 @@ public:
 
     /// @brief constant for boundary size drawing (20 for slow computers, 10 for quick computers)
     double BoundarySizeDrawing = 15;
+
+protected:
+    /// @brief flag for ignore hide by zoom (used if we're drawing elements with constant size, their ID/name/etc. texts, etc.)
+    bool myIgnoreHideByZoom;
 
 private:
     /// @brief set copy constructor private

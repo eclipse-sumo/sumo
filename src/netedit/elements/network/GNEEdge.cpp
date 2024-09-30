@@ -699,7 +699,7 @@ GNEEdge::getOppositeEdges() const {
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // check drawing boundary selection and size boundary
-    if (checkDrawingBoundarySelection() && s.checkBoundarySizeDrawing(myEdgeBoundary.getWidth(), myEdgeBoundary.getHeight())) {
+    if (checkDrawingBoundarySelection() && s.checkDrawEdge(myEdgeBoundary)) {
         // draw boundary
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get detail level from the first lane
