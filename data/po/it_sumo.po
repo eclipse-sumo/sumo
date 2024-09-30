@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-27 12:19+0000\n"
+"PO-Revision-Date: 2024-09-30 11:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10875,7 +10875,7 @@ msgstr ""
 #: src/tools/emissionsDrivingCycle_main.cpp:184
 #, c-format
 msgid "Unknown attribute '%' to write in output."
-msgstr ""
+msgstr "Attributo sconosciuto '%' da scrivere in uscita."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:213
 msgid ""
@@ -10884,24 +10884,24 @@ msgstr ""
 
 #: src/tools/emissionsDrivingCycle_main.cpp:225
 msgid "Vehicle type is not unique."
-msgstr ""
+msgstr "Il tipo di veicolo non è unico."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:229
 #, c-format
 msgid "Vehicle type '%' is not defined."
-msgstr ""
+msgstr "Il tipo di veicolo '%' non è stato definito."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:253
 msgid "Unreadable file '%'."
-msgstr ""
+msgstr "File illeggibile '%' ."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:284
 msgid "Missing an entry in line '%'."
-msgstr ""
+msgstr "Manca una voce in linea '%'."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:286
 msgid "Not numeric entry in line '%'."
-msgstr ""
+msgstr "Voce non numerica in linea '%'."
 
 #: src/tools/emissionsMap_main.cpp:54
 msgid "Writing map of '%' into '%'."
