@@ -714,7 +714,7 @@ class DetectorMatcher(Process):
                                                          groupnames=['options'],
                                                          name='One detector per edge',
                                                          info="""If True, it is assumed that there is only one detector per edge
-                            and detected edge flows will be distributed accross accessible lanes according to some heuristics.
+                            and detected edge flows will be distributed across accessible lanes according to some heuristics.
                             If False then each detector is matched to one lane. This is somewhat risky and requires a good 
                             geometrical coincidence between detector position and lane. 
                             """,

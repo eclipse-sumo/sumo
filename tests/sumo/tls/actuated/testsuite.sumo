@@ -52,7 +52,7 @@ partialy_green_lane_uncontrollable
 joined_sequential
 
 # joined traffic light with detectors on sequential lanes.
-# detectors should not be moved accross signals (#10837)
+# detectors should not be moved across signals (#10837)
 joined_sequential2
 
 # links with green minor should not be used for actuation

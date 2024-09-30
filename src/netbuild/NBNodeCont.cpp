@@ -1064,9 +1064,9 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) 
     }
     for (NBNode* n : cluster) {
         for (NBEdge* edge : n->getOutgoingEdges()) {
-            // we must track the edge length accross geometry like nodes
-            // Also, intersecions that are geometry-like
-            // from the perspective of passenger traffic should be tracked accross
+            // we must track the edge length across geometry like nodes
+            // Also, intersections that are geometry-like
+            // from the perspective of passenger traffic should be tracked across
             std::vector<NBNode*> passed;
             double length = 0;
             NBEdge* cur = edge;

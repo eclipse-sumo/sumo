@@ -540,7 +540,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
         #self.id_mode_ped = net.modes.get_id_mode("pedestrian")
         #self.id_mode_car = net.modes.get_id_mode("passenger")
 
-        print '\n  generate routes accross the TLS'
+        print '\n  generate routes across the TLS'
         #costs = edges.get_times( id_mode = self.id_mode_car , is_check_lanes = True, speed_max = None)
         # use bus here so we can route also on reserved lanes
         costs = edges.get_times(id_mode=self.id_mode_bus, is_check_lanes=True, speed_max=None)
@@ -603,7 +603,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                     if len(routes) == 1:  # single valid route confirmed
                         route = routes[0]
-                        # costs are now only the peace of route accross the junction
+                        # costs are now only the peace of route across the junction
                         costs_major = routecosts[0]
 
                     else:
@@ -1369,7 +1369,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
             print '*'
             return
 
-        # do not block accross cycleped edges
+        # do not block across cycleped edges
         if lanes.ids_mode[ids_fromlane_tls[ind_con_block]] not in self.ids_cycleped:
             # to lane is a normal road
             if edges.lengths[lanes.ids_edge[id_fromlane]] < self.length_min_notls:

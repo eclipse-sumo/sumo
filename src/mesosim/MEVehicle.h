@@ -96,17 +96,17 @@ public:
 
     /** @brief Returns the vehicle's estimated speed assuming no delays
      * @return The vehicle's estimated speed
-     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     * @note This is only an upper bound. The speed will be lower if the preceding vehicle is delayed
      */
     double getSpeed() const;
 
     /** @brief Returns the vehicle's estimated average speed on the segment assuming no further delays
      * @return The vehicle's estimated average speed
-     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     * @note This is only an upper bound. The speed will be lower if the preceding vehicle is delayed
      */
     double getAverageSpeed() const;
 
-    /// @brief Returns the vehicle's estimated speed after driving accross the link
+    /// @brief Returns the vehicle's estimated speed after driving across the link
     double estimateLeaveSpeed(const MSLink* link) const;
 
 
@@ -136,7 +136,7 @@ public:
      */
     bool moveRoutePointer();
 
-    /** @brief Returns whether this vehicle has already arived
+    /** @brief Returns whether this vehicle has already arrived
      * (reached the arrivalPosition on its final edge)
      */
     bool hasArrived() const;
