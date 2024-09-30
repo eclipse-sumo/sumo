@@ -15,3 +15,7 @@ from_containerstop
 from_chargingstation
 
 from_parkingarea
+
+route
+
+edges
