@@ -459,7 +459,7 @@ protected:
 
     /// @brief calculate contour for polygons
     void calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                  const double exaggeration, const bool contouredShape) const;
+                                  const double exaggeration, const bool filledShape) const;
 
     /// @}
 

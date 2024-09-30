@@ -62,7 +62,7 @@ GNEContour::getContourBoundary() const {
 
 
 void
-GNEContour::clearContour() {
+GNEContour::clearContour() const {
     for (int i = 0; i < 3; i++) {
         myDottedGeometries->at(i).clearDottedGeometry();
     }

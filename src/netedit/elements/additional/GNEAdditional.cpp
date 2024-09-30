@@ -1015,9 +1015,9 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
 
 void
 GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const double exaggeration, const bool contouredShape) const {
-    // calculate contour depenidng of contoured shape
-    if (contouredShape) {
+                                        const double exaggeration, const bool filledShape) const {
+    // calculate contour depending of contoured shape
+    if (filledShape) {
         myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), 1);
     } else {
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,

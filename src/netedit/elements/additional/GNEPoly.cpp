@@ -341,7 +341,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        calculateContourPolygons(s, d, polyExaggeration, (getFill() || myAdditionalGeometry.getShape().isClosed()));
+        calculateContourPolygons(s, d, polyExaggeration, getFill());
     }
 }
 
@@ -745,6 +745,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
+            myAdditionalContour.clearContour();
             break;
         case SUMO_ATTR_LINEWIDTH:
             myLineWidth = parse<double>(value);

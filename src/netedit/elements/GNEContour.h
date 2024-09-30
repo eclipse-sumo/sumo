@@ -47,7 +47,7 @@ public:
     Boundary getContourBoundary() const;
 
     /// @brief void clear contour
-    void clearContour();
+    void clearContour() const;
 
     /// @brief calculate contours
     /// @{
