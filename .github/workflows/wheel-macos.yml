@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14]
+        os: [macos-13, macos-14]
         python_version: [3.8, 3.9, '3.10', 3.11, 3.12]
         exclude:
           - os: macos-14
@@ -71,8 +71,8 @@ jobs:
         python3 -m build --wheel
         python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
         python3 -m build --wheel tools -o dist
-        if [[ "${{ matrix.python_version }}" != "3.8" ]]; then rm dist/eclipse_sumo-*; fi
-        if [[ "${{ matrix.python_version }}" == "3.8" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`; fi
+        if [[ "${{ matrix.python_version }}" != "3.12" ]]; then rm dist/eclipse_sumo-*; fi
+        if [[ "${{ matrix.python_version }}" == "3.12" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp312-cp312/py2.py3-none/'`; fi
 
     - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v4
@@ -88,13 +88,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14]
-        python_version: [3.8, 3.9, '3.10', 3.11, 3.12]
-        # exclude:
-        #   - os: macos-14
-        #     python_version: 3.8
-        #   - os: macos-14
-        #     python_version: 3.9
+        os: [macos-13, macos-14, macos-15]
+        python_version: ['3.10', 3.11, 3.12]
+        include:
+          - os: macos-13
+            python_version: 3.8
+          - os: macos-13
+            python_version: 3.9
     runs-on: ${{ matrix.os }}
 
     steps:
