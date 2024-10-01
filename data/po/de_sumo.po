@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-26 08:47+0000\n"
+"PO-Revision-Date: 2024-10-01 10:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -10988,7 +10988,7 @@ msgstr "Ungültige Perioden-Definition '%'."
 
 #: src/od/ODMatrix.cpp:483
 msgid "Broken factor: '%'."
-msgstr "Gebrochener Faktor: '%'."
+msgstr "Ungültiger Faktor: '%'."
 
 #: src/od/ODMatrix.cpp:517
 #, c-format
