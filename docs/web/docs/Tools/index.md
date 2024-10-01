@@ -48,7 +48,7 @@ For scripts in other subdirectories of tools you have to replace xml in this exa
 
 ## Using tools from netedit
 
-Since version 1.17.0, netedit supports calling many tools via configuration dialog by using the 'Tools' menu. For a demonstration, see the [SUMO 2023 Confererence tutorial](../Tutorials/index.md#sumo_user_conference_tutorials).
+Since version 1.17.0, netedit supports calling many tools via configuration dialog by using the 'Tools' menu. For a demonstration, see the [SUMO 2023 Conference tutorial](../Tutorials/index.md#sumo_user_conference_tutorials).
 
 # Tools by category
 
@@ -78,7 +78,6 @@ analysis zones (TAZ) aka districts
     using VISUM data
 - *[net](Net.md)* - tools for working with networks
 (mainly SUMO-networks)
-- *projects* - additional tools used by our projects
 - *[route](Routes.md)* - tools for working with routes
 - *[shapes](Shapes.md)* - tools for working with shapes
 (PoIs and polygons)
