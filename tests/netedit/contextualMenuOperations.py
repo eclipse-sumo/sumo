@@ -476,6 +476,12 @@ class vehicles:
         subMenuAPosition = 1
         subMenuBPosition = 0
 
+    # transform vehicles over TAZs
+    class transformTAZs:
+        mainMenuPosition = 12
+        subMenuAPosition = 1
+        subMenuBPosition = 0
+
     # transform persons
     class transformPerson:
         mainMenuPosition = 11

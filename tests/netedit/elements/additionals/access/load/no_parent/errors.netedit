@@ -1,2 +1,2 @@
-Error: 'access' must be defined within the definition of a 'busStop' (found rootFile '').
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_24Sep152204.37981/netedit.gui/elements/additionals/access/load/no_parent/additionals.add.xml failed.
+Error: 'access' must be defined within the definition of a 'busStop'.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct142054.16744\netedit.gui\elements\additionals\access\load\no_parent\additionals.add.xml failed.

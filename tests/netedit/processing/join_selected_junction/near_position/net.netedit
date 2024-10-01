@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-08 14:24:24 by Eclipse SUMO netedit Version v1_20_0+1547-9928acb1c8e
+<!-- generated on 2024-10-01 14:09:40 by Eclipse SUMO netedit Version v1_20_0+2204-fb162b24262
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\net.net.xml"/>
     </output>
 
     <processing>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
@@ -49,43 +49,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Aug142321.30324\netedit.gui\processing\join_selected_junction\near_position\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_01Oct135809.11164\netedit.gui\processing\join_selected_junction\near_position\log.txt"/>
     </report>
 
 </neteditConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <edge id=":J2_w0" function="walkingarea">
-        <lane id=":J2_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-8.20,20.00 -10.20,20.00 0.20,20.00 -1.80,20.00"/>
-    </edge>
-    <edge id=":J3_w0" function="walkingarea">
-        <lane id=":J3_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-3.20,20.00 -5.20,20.00 5.20,20.00 3.20,20.00"/>
-    </edge>
-    <edge id=":J4_w0" function="walkingarea">
-        <lane id=":J4_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="3.20,-20.00 5.20,-20.00 -5.20,-20.00 -3.20,-20.00"/>
-    </edge>
-    <edge id=":J6_w0" function="walkingarea">
-        <lane id=":J6_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-1.80,-20.00 0.20,-20.00 -10.20,-20.00 -8.20,-20.00"/>
-    </edge>
-    <edge id=":J7_w0" function="walkingarea">
-        <lane id=":J7_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-30.00,-3.20 -30.00,-5.20 -30.00,5.20 -30.00,3.20"/>
-    </edge>
-    <edge id=":J9_w0" function="walkingarea">
-        <lane id=":J9_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="25.00,3.20 25.00,5.20 25.00,-5.20 25.00,-3.20"/>
-    </edge>
     <edge id=":JunctionExtern0_0" function="internal">
         <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
     </edge>
@@ -193,24 +175,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":clusterJ0_J1_29" function="internal">
         <lane id=":clusterJ0_J1_29_0" index="0" disallow="pedestrian" speed="8.00" length="14.19" shape="-12.20,-1.60 -8.35,-1.05 -5.60,0.60 -3.95,3.35 -3.40,7.20"/>
-    </edge>
-    <edge id=":clusterJ0_J1_w0" function="walkingarea">
-        <lane id=":clusterJ0_J1_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.24" width="2.00" shape="-12.20,3.20 -12.20,5.20 -10.20,7.20 -8.20,7.20 -8.31,5.98 -8.64,4.98 -9.20,4.20 -9.98,3.64 -10.98,3.31"/>
-    </edge>
-    <edge id=":clusterJ0_J1_w1" function="walkingarea">
-        <lane id=":clusterJ0_J1_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.40" width="2.00" shape="-1.80,7.20 0.20,7.20 -5.20,7.20 -3.20,7.20"/>
-    </edge>
-    <edge id=":clusterJ0_J1_w2" function="walkingarea">
-        <lane id=":clusterJ0_J1_w2_0" index="0" allow="pedestrian" speed="2.78" length="4.24" width="2.00" shape="3.20,7.20 5.20,7.20 7.20,5.20 7.20,3.20 5.98,3.31 4.98,3.64 4.20,4.20 3.64,4.98 3.31,5.98"/>
-    </edge>
-    <edge id=":clusterJ0_J1_w3" function="walkingarea">
-        <lane id=":clusterJ0_J1_w3_0" index="0" allow="pedestrian" speed="2.78" length="4.24" width="2.00" shape="7.20,-3.20 7.20,-5.20 5.20,-7.20 3.20,-7.20 3.31,-5.98 3.64,-4.98 4.20,-4.20 4.98,-3.64 5.98,-3.31"/>
-    </edge>
-    <edge id=":clusterJ0_J1_w4" function="walkingarea">
-        <lane id=":clusterJ0_J1_w4_0" index="0" allow="pedestrian" speed="2.78" length="3.40" width="2.00" shape="-3.20,-7.20 -5.20,-7.20 0.20,-7.20 -1.80,-7.20"/>
-    </edge>
-    <edge id=":clusterJ0_J1_w5" function="walkingarea">
-        <lane id=":clusterJ0_J1_w5_0" index="0" allow="pedestrian" speed="2.78" length="4.24" width="2.00" shape="-8.20,-7.20 -10.20,-7.20 -12.20,-5.20 -12.20,-3.20 -10.98,-3.31 -9.98,-3.64 -9.20,-4.20 -8.64,-4.98 -8.31,-5.98"/>
     </edge>
 
     <edge id="-E1" from="J2" to="clusterJ0_J1" priority="-1" shape="-5.00,20.00 -5.00,0.00">
@@ -388,28 +352,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":clusterJ0_J1_28" to="E2" fromLane="0" toLane="1" dir="L" state="M"/>
     <connection from=":clusterJ0_J1_29" to="E1" fromLane="0" toLane="1" dir="l" state="M"/>
 
-    <connection from=":J2_w0" to="-E1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E1" to=":J2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J3_w0" to="-E2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E2" to=":J3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J4_w0" to="-E3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E3" to=":J4_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J6_w0" to="-E4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E4" to=":J6_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J7_w0" to="-E5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E5" to=":J7_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J9_w0" to="-E7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E7" to=":J9_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":clusterJ0_J1_w0" to="E5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E1" to=":clusterJ0_J1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":clusterJ0_J1_w1" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E2" to=":clusterJ0_J1_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":clusterJ0_J1_w2" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E7" to=":clusterJ0_J1_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":clusterJ0_J1_w3" to="E7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E3" to=":clusterJ0_J1_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":clusterJ0_J1_w4" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E4" to=":clusterJ0_J1_w4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":clusterJ0_J1_w5" to="E4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E5" to=":clusterJ0_J1_w5" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

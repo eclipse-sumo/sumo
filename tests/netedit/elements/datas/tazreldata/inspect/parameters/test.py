@@ -41,15 +41,15 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create TAZRelData
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect TAZRelData
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.data.TAZRelBot)
 
 # check double parameters
 netedit.checkDoubleParameters(referencePosition, netedit.attrs.TAZRelData.inspect.parameters, False, 0, 30)

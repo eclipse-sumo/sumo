@@ -1,4 +1,4 @@
 Error: Attribute 'type' in definition of container 'c_1' is empty.
 Error: Invalid vehicle type 'dummyType' used in container 'c_2'.
-Warning: invalid container parent
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.29Aug101900.2192/netedit.gui/elements/demands/container/load/type/routes.rou.xml failed.
+Error: invalid container parent
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct141646.5524\netedit.gui\elements\demands\container\load\type\routes.rou.xml failed.

@@ -58,7 +58,7 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="dataSetB" begin="0.00" end="3600.00">
-        <tazRelation from="taz_0" to="taz_1" key1="value1" key2="value2"/>
-        <tazRelation from="taz_0" to="taz_1" key1="value2" key2="value3"/>
+        <tazRelation from="taz_green" to="taz_red" key1="value1" key2="value2"/>
+        <tazRelation from="taz_green" to="taz_red" key1="value2" key2="value3"/>
     </interval>
 </meandata>

@@ -626,3 +626,14 @@ class elements:
         class planStopBusStop:
             x = 250
             y = -5
+
+    # data elements (for inspect, delete, etc.)
+    class data:
+
+        class TAZRelTop:
+            x = 630
+            y = 238
+
+        class TAZRelBot:
+            x = 650
+            y = 255

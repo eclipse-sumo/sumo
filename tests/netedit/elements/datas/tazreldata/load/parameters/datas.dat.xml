@@ -58,7 +58,7 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="newDataSet" begin="0.00" end="3600.00">
-        <tazRelation from="taz_0" to="taz_1">
+        <tazRelation from="taz_green" to="taz_red">
             <!-- valid generic parameter (valid) -->
             <param key="key1" value="1"/>
 

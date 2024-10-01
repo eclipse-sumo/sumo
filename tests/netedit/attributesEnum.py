@@ -281,24 +281,6 @@ class lane:
         stopOffsetException = 15
         parameters = 18
 
-    class contextualMenu:
-        duplicateLane = 1
-        setCustomLaneShape = 2
-        resetCustomLaneShape = 3
-        resetOppositeLaneShape = 4
-        addRestrictedLane = 3
-        removeRestrictedLane = 4
-        transformRestrictedLane = 4
-
-    class restrictedLanes:
-        sidewalk = 1
-        bikelane = 2
-        buslane = 3
-        greenvergeFront = 4
-        greenvergeBack = 4
-
-    contextualMenuLane = 11
-
 # connection
 
 
@@ -1044,9 +1026,10 @@ class E3:
         vTypes = 9
         nextEdges = 10
         detectPersons = 11
-        timeThreshold = 13
-        speedThreshold = 14
-        expectArrival = 15
+        openEntry = 13
+        timeThreshold = 14
+        speedThreshold = 15
+        expectArrival = 16
 
     class inspect:
         id = 1
@@ -1057,10 +1040,11 @@ class E3:
         vTypes = 6
         nextEdges = 7
         detectPersons = 8
-        timeThreshold = 10
-        speedThreshold = 11
-        expectArrival = 12
-        parameters = 15
+        openEntry = 10
+        timeThreshold = 11
+        speedThreshold = 12
+        expectArrival = 13
+        parameters = 16
 
     class inspectSelection:
         period = 1
@@ -1069,10 +1053,11 @@ class E3:
         vTypes = 4
         nextEdges = 5
         detectPersons = 6
-        timeThreshold = 8
-        speedThreshold = 9
-        expectArrival = 10
-        parameters = 13
+        openEntry = 8
+        timeThreshold = 9
+        speedThreshold = 10
+        expectArrival = 11
+        parameters = 14
 
 # entryExit
 
@@ -1684,20 +1669,6 @@ class trip:
         depart = 17
         parameters = 20
 
-    class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        routeFlowEmbedded = 4
-        flow = 5
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 9
-    transformTo = 10
-
 # trip (from-to junctions)
 
 
@@ -1763,21 +1734,6 @@ class tripJunction:
         depart = 17
         parameters = 20
 
-    class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        routeFlowEmbedded = 4
-        trip = 5
-        flow = 6
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 8
-    transformTo = 9
-
 # trip (from-to TAZs)
 
 
@@ -1842,16 +1798,6 @@ class tripTAZ:
         insertionChecks = 16
         depart = 17
         parameters = 20
-
-    class transform:
-        flow = 1
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 8
-    transformTo = 9
 
 # vehicle (over route)
 
@@ -1919,20 +1865,6 @@ class vehicle:
         depart = 17
         parameters = 20
 
-    class transform:
-        vehicleEmbedded = 1
-        routeFlow = 2
-        routeFlowEmbedded = 3
-        trip = 4
-        flow = 5
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 9
-    transformTo = 10
-
 # vehicle (embedded route)
 
 
@@ -1997,20 +1929,6 @@ class vehicleEmbedded:
         insertionChecks = 16
         depart = 17
         parameters = 20
-
-    class transform:
-        vehicle = 1
-        routeFlow = 2
-        routeFlowEmbedded = 3
-        trip = 4
-        flow = 5
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 9
-    transformTo = 10
 
 # flow (from-to edges)
 
@@ -2093,20 +2011,6 @@ class flow:
         spacingOption = 25
         parameters = 25
 
-    class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        routeFlowEmbedded = 4
-        trip = 5
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 9
-    transformTo = 10
-
 # flow (from-to junctions)
 
 
@@ -2187,21 +2091,6 @@ class flowJunction:
         spacingOption = 25
         parameters = 25
 
-    class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        routeFlowEmbedded = 4
-        trip = 5
-        flow = 6
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 8
-    transformTo = 9
-
 # flow (from-to TAZs)
 
 
@@ -2281,16 +2170,6 @@ class flowTAZ:
         terminateOption = 24
         spacingOption = 25
         parameters = 25
-
-    class transform:
-        trip = 1
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 8
-    transformTo = 9
 
 # flow (over route)
 
@@ -2373,20 +2252,6 @@ class routeFlow:
         spacingOption = 25
         parameters = 25
 
-    class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlowEmbedded = 3
-        trip = 4
-        flow = 5
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 9
-    transformTo = 10
-
 # flow (embedded route)
 
 
@@ -2466,20 +2331,6 @@ class flowEmbedded:
         terminateOption = 24
         spacingOption = 25
         parameters = 25
-
-    class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        trip = 4
-        flow = 5
-
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 9
-    transformTo = 10
 
 # stop over bus stop
 
@@ -3202,8 +3053,6 @@ class person:
         depart = 6
         parameters = 9
 
-    transformTo = 8
-
 
 class personFlow:
     class create:
@@ -3245,8 +3094,6 @@ class personFlow:
         terminateOption = 13
         spacingOption = 14
         parameters = 16
-
-    transformTo = 8
 
 # PersonPlans
 
@@ -3817,8 +3664,6 @@ class container:
         depart = 6
         parameters = 9
 
-    transformTo = 8
-
 
 class containerFlow:
     class create:
@@ -3860,8 +3705,6 @@ class containerFlow:
         terminateOption = 13
         spacingOption = 14
         parameters = 16
-
-    transformTo = 8
 
 # PersonPlans
 
