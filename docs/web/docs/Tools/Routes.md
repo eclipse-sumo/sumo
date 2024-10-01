@@ -114,6 +114,17 @@ python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml
 
 Filtering stopping places is also supported by setting the options **--additional-input** and **--stops-output**.
 
+# cutTrips.py
+
+This script cuts down trips from a large scenario to a sub-scenario.
+Only trips that start and end in the sub-scenario network are kept
+(this differs from [cutRoutes.py](#cutroutes.py) which also keeps routes passing through the
+sub-scenario network).
+
+```python
+python tools/route/cutRoutes.py --trips-output output.rou.xml cut.net.xml orig.rou.xml
+```
+
 # splitRouteFiles.py
 
 This script splits a list of route files (e.g. coming from [duarouter](../duarouter.md))
