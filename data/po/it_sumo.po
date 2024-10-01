@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-01 10:55+0000\n"
+"PO-Revision-Date: 2024-10-01 14:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11511,11 +11511,11 @@ msgstr ""
 
 #: src/utils/handlers/DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
-msgstr ""
+msgstr "Gli elementi di dati non possono caricare attributi come parametri"
 
 #: src/utils/handlers/MeanDataHandler.cpp:54
 msgid "MeanData elements cannot load attributes as params"
-msgstr ""
+msgstr "Gli elementi MeanData non possono caricare attributi come parametri"
 
 #: src/utils/handlers/RouteHandler.cpp:410
 msgid ""
