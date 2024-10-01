@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-01 14:08+0000\n"
+"PO-Revision-Date: 2024-10-01 15:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3081,41 +3081,44 @@ msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:1225
 msgid "The chargingStation '%' is not known%."
-msgstr ""
+msgstr "La stazione di ricarica '%' è sconosciuta%."
 
 #: src/microsim/MSRouteHandler.cpp:1232
 msgid "The overhead wire segment '%' is not known%."
-msgstr ""
+msgstr "Il segmento di catenaria '%' è sconosciuto%."
 
 #: src/microsim/MSRouteHandler.cpp:1236
 msgid "Invalid stop definition%."
-msgstr ""
+msgstr "Definizione di fermata invalida%."
 
 #: src/microsim/MSRouteHandler.cpp:1284
 msgid "The edge '%' for a stop is not known%."
-msgstr ""
+msgstr "L'arco '%' di una fermata è sconosciuto%."
 
 #: src/microsim/MSRouteHandler.cpp:1298
 msgid "The lane '%' for a stop is not known%."
-msgstr ""
+msgstr "La corsia '%' di una fermata è sconosciuta%."
 
 #: src/microsim/MSRouteHandler.cpp:1330
 msgid "Could not map stop position '%' to the network%."
-msgstr ""
+msgstr "Non ho potuto assegnare la posizione di fermata '%' nella rete%."
 
 #: src/microsim/MSRouteHandler.cpp:1347
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
 msgstr ""
+"Una fermata deve essere posizionata su una fermata di autobus, una stazione "
+"di ricarica, un segmento di catenaria, una fermata di contenitori, un "
+"parcheggio, un'arco oppure una corsia%."
 
 #: src/microsim/MSRouteHandler.cpp:1358
 msgid "Deprecated attribute 'pos' in description of stop%."
-msgstr ""
+msgstr "Attributo obsoleto 'pos' nella descrizione della fermata%."
 
 #: src/microsim/MSRouteHandler.cpp:1366
 msgid "Invalid start or end position for stop on %'%."
-msgstr ""
+msgstr "Posizione iniziale o terminale invalida per la fermata su %'%."
 
 #: src/microsim/MSRouteHandler.cpp:1380
 msgid "Disconnected plan for % '%' (%!=%)."
