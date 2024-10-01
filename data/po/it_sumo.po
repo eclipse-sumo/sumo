@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-30 11:39+0000\n"
+"PO-Revision-Date: 2024-10-01 10:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9987,12 +9987,16 @@ msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
 msgstr ""
+"Non si trovano archi di sorgente e di scarico differenti per l'origine '%' e "
+"la destinazione '%'."
 
 #: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
 msgstr ""
+"La densità di flusso di % veicoli al secondo non può essere rappresentata da "
+"una semplice probabilità. Invece verrà usato la distanza uniforme."
 
 #: src/od/ODMatrix.cpp:442
 msgid "End of file while reading %."
@@ -10004,28 +10008,28 @@ msgstr ""
 
 #: src/od/ODMatrix.cpp:483
 msgid "Broken factor: '%'."
-msgstr ""
+msgstr "Fattore invalido: '%'."
 
 #: src/od/ODMatrix.cpp:517
 #, c-format
 msgid "Missing line with % district names."
-msgstr ""
+msgstr "Manca una linea con % nomi di distretti."
 
 #: src/od/ODMatrix.cpp:527
 msgid "Missing line for district %."
-msgstr ""
+msgstr "Manca la linea del distretto %."
 
 #: src/od/ODMatrix.cpp:541
 msgid "More entries than districts found."
-msgstr ""
+msgstr "Sono stati trovati più voci che distretti."
 
 #: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
-msgstr ""
+msgstr "Numero di veicolo invalido in linea '%'."
 
 #: src/od/ODMatrix.cpp:592
 msgid "Missing at least one information in line '%'."
-msgstr ""
+msgstr "Manca almeno una informazione in linea '%'."
 
 #: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
 msgid "Could not open '%'."
@@ -10056,32 +10060,35 @@ msgstr ""
 
 #: src/osgview/GUIOSGBuilder.cpp:471 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
-msgstr ""
+msgstr "Non ho potuto caricare '%'."
 
 #: src/osgview/GUIOSGBuilder.cpp:491
 msgid "Loaded decal '%' with bounding box % %."
 msgstr ""
+"L'immagine di sfondo '%' con riquadro di delimitazione % % è stata caricata."
 
 #: src/osgview/GUIOSGBuilder.cpp:597
 msgid "Could not load '%'. The model is replaced by a cone shape."
 msgstr ""
+"Non ho potuto caricare '%'. Il modello verrà sostituito con una forma di "
+"cono."
 
 #: src/osgview/GUIOSGManipulator.cpp:257
 #, c-format
 msgid "Currently in % camera mode. Press [F] to switch."
-msgstr ""
+msgstr "Attualmente in modo camera %. Premi [F] per cambiarlo."
 
 #: src/osgview/GUIOSGView.cpp:167
 msgid "Could not load traffic light files."
-msgstr ""
+msgstr "Non ho potuto caricare dei file di semafori."
 
 #: src/osgview/GUIOSGView.cpp:442
 msgid "Invalid link index in '%'."
-msgstr ""
+msgstr "Indice di collegamento invalido in '%'."
 
 #: src/osgview/GUIOSGView.cpp:444
 msgid "Unknown traffic light in '%'."
-msgstr ""
+msgstr "Semaforo sconosciuto in '%'."
 
 #: src/osgview/GUIOSGView.cpp:980
 msgid "(No projection defined)"
@@ -10100,7 +10107,7 @@ msgstr "Incapace di eseguire la proiezione del poligono '%'."
 
 #: src/polyconvert/PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
-msgstr ""
+msgstr "Manca il codice identificativo in '%'"
 
 #: src/polyconvert/PCLoaderArcView.cpp:234
 #: src/polyconvert/PCLoaderArcView.cpp:267
