@@ -176,7 +176,7 @@ When not all vehicles are equipped with an **fcd**-device, other vehicles and pe
 - **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage_mileage_chainage) information to the output
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md))
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.
-- **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and carfollowmodel parameters as well as arbitrary user-define values)
+- **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and car-following model parameters as well as arbitrary user-define values)
 - **--fcd-output.attributes ATTR1,ATTR2,...** restrict / extend written attributes to the given list to customize output (can be any combination of the attributes above). The value **all** enables all attributes.
 
 ## NOTES
