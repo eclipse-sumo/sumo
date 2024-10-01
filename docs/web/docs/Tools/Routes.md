@@ -118,7 +118,7 @@ Filtering stopping places is also supported by setting the options **--additiona
 
 This script cuts down trips from a large scenario to a sub-scenario.
 Only trips that start and end in the sub-scenario network are kept
-(this differs from [cutRoutes.py](#cutroutes.py) which also keeps routes passing through the
+(this differs from [cutRoutes.py](#cutroutespy) which also keeps routes passing through the
 sub-scenario network).
 
 ```python
