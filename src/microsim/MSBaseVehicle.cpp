@@ -15,6 +15,7 @@
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Mon, 8 Nov 2010
 ///
 // A base class for vehicle implementations
@@ -276,6 +277,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
     std::set<int> jumps;
+
     if (myParameter->via.size() == 0) {
         double firstPos = -1;
         double lastPos = -1;
@@ -291,7 +293,6 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                                    && myArrivalPos >= lastPos
                                    && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
                                    && (stops.size() > 1 || skipFirst));
-
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << Named::getIDSecure(getLane())
@@ -345,6 +346,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             source = stopEdge;
             continue;
         }
+        //if (source == stopEdge) {
+        //    edges.push_back(source);
+        //    continue;
+        //}
         router.computeLooped(source, stopEdge, this, t, into, silent);
         //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " target=" << (*s)->getID() << " edges=" << toString(into) << "\n";
         if (into.size() > 0) {
@@ -1080,6 +1085,7 @@ MSBaseVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& error
     }
     MSStop& first = myStops.front();
     SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(first.pars);
+    std::string oldStopEdgeID = first.lane->getEdge().getID();
     // merge subsequent duplicate stops equals to parking area
     for (std::list<MSStop>::iterator iter = ++myStops.begin(); iter != myStops.end();) {
         if (iter->parkingarea == parkingArea) {
@@ -1096,6 +1102,13 @@ MSBaseVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& error
     first.edge = myRoute->end(); // will be patched in replaceRoute
     first.lane = &parkingArea->getLane();
     first.parkingarea = parkingArea;
+
+    // patch via edges
+    std::string newStopEdgeID = parkingArea->getLane().getEdge().getID();
+    if (myParameter->via.size() > 0 && myParameter->via.front() != newStopEdgeID) {
+        myParameter->via.erase(myParameter->via.begin());
+        myParameter->via.insert(myParameter->via.begin(), newStopEdgeID);
+    }
     return true;
 }
 
