@@ -1,4 +1,3 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vaporizer id="EdgeCenter0" begin="5.00" end="20.00"/>
-    <vaporizer id="EdgeCenter1" begin="5.00" end="20.00"/>
 </additional>

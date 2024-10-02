@@ -28,32 +28,41 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# go to additional mode
+netedit.additionalMode()
+
+# select vaporizer
+netedit.changeElement("vaporizer")
+
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+
+# create vaporizer
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+
+# Change to delete
+netedit.deleteMode()
+
+# inspect first vaporizer
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
+
+# Check undo
+netedit.undo(referencePosition, 2)
+
 # Change to delete
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
 
-# delete loaded vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete lane with the loaded vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# Check undo
-netedit.undo(referencePosition, 1)
-
-# Change to delete
-netedit.deleteMode()
-
-# disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
-# try to delete lane with the  loaded vaporizer (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# try to delete lane with the second loaded vaporizer (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # wait warning
 netedit.waitDeleteWarning()
+
+# check redo
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
