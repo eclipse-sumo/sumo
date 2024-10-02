@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-02 12:18+0000\n"
+"PO-Revision-Date: 2024-10-02 12:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7579,30 +7579,33 @@ msgstr "La lunghezza standard di una fermata ferroviaria in FLOAT m"
 
 #: src/netimport/NIFrame.cpp:222
 msgid "Specify custom rules for importing railway signals"
-msgstr ""
+msgstr "Specifica regole personalizzate per importare segnali ferroviari"
 
 #: src/netimport/NIFrame.cpp:226
 msgid "Whether additional attributes shall be imported"
-msgstr ""
+msgstr "Se si devono importare attributi addizionali"
 
 #: src/netimport/NIFrame.cpp:230
 msgid ""
 "List of additional attributes that shall be imported from OSM via osm.all-"
 "attributes (set 'all' to import all)"
 msgstr ""
+"Elenco di attributi addizionali che devono essere importati da OSM "
+"attraverso osm.all-attributes (imposta a 'all' per importare tutti gli "
+"attributi)"
 
 #: src/netimport/NIFrame.cpp:233
 msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
-msgstr ""
+msgstr "Il limite di velocità da impostare laddove in realtà non ce n'è uno"
 
 #: src/netimport/NIFrame.cpp:237
 msgid "The edge lengths given in the MATSIM-file will be kept"
-msgstr ""
+msgstr "Le lunghezze degli archi verranno mantenute come date nel file MATSIM"
 
 #: src/netimport/NIFrame.cpp:240
 msgid "The lane number will be computed from the capacity"
-msgstr ""
+msgstr "Il numero di corsie verrà derivato dalla capacità"
 
 #: src/netimport/NIFrame.cpp:246
 msgid "Read edge ids from column STR"
