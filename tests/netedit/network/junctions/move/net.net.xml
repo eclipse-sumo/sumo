@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 10:13:11 by Eclipse SUMO netedit Version v1_20_0+1821-fef78581e33
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-10-02 13:13:53 by Eclipse SUMO netconvert Version v1_20_0+2211-a70841d223d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\move\net.net.xml"/>
+        <node-files value=".\netedit\network\junctions\move\net.nod.xml"/>
+        <edge-files value=".\netedit\network\junctions\move\net.edg.xml"/>
+        <connection-files value=".\netedit\network\junctions\move\net.con.xml"/>
+        <tllogic-files value=".\netedit\network\junctions\move\net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\network\junctions\move\net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value=".\netedit\network\junctions\move\net.net.xml"/>
     </output>
 
+    <projection>
+        <proj value="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    </projection>
+
     <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
-    <junctions>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
-    </junctions>
+    <report>
+        <verbose value="true"/>
+    </report>
 
-    <pedestrian>
-        <walkingareas value="1"/>
-    </pedestrian>
-
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
@@ -189,22 +196,22 @@
     </tlLogic>
 
     <junction id="J0" type="traffic_light" x="0.00" y="0.00" incLanes="-E2_0 -E2_1 -E1_0 -E1_1 -E3_0 -E3_1 -E0_0 -E0_1 :J0_w1_0 :J0_w2_0 :J0_w3_0 :J0_w0_0" intLanes=":J0_12_0 :J0_1_0 :J0_13_0 :J0_14_0 :J0_4_0 :J0_15_0 :J0_16_0 :J0_7_0 :J0_17_0 :J0_18_0 :J0_10_0 :J0_19_0 :J0_c0_0 :J0_c1_0 :J0_c2_0 :J0_c3_0" shape="-5.20,7.20 5.20,7.20 5.42,6.09 5.70,5.70 6.09,5.42 6.59,5.26 7.20,5.20 7.20,-5.20 6.09,-5.42 5.70,-5.70 5.42,-6.09 5.26,-6.59 5.20,-7.20 -5.20,-7.20 -5.42,-6.09 -5.70,-5.70 -6.09,-5.42 -6.59,-5.26 -7.20,-5.20 -7.20,5.20 -6.09,5.42 -5.70,5.70 -5.42,6.09 -5.26,6.59">
-        <request index="0"  response="1000000000000000" foes="1001000100010000" cont="1"/>
-        <request index="1"  response="0000101000100000" foes="0101111100110000" cont="0"/>
-        <request index="2"  response="0010100111100000" foes="0011110111110000" cont="1"/>
-        <request index="3"  response="0001000010000000" foes="0011100010000000" cont="1"/>
-        <request index="4"  response="0000000110000111" foes="1010100110000111" cont="0"/>
-        <request index="5"  response="0100011110000110" foes="0110111110000110" cont="1"/>
-        <request index="6"  response="0010000000000000" foes="0110010000000100" cont="1"/>
-        <request index="7"  response="0000100000101000" foes="0101110000111100" cont="0"/>
-        <request index="8"  response="1000100000100011" foes="1100110000110111" cont="1"/>
-        <request index="9"  response="0100000000000010" foes="1100000000100010" cont="1"/>
-        <request index="10" response="0000000111000110" foes="1010000111100110" cont="0"/>
-        <request index="11" response="0001000110111110" foes="1001000110111110" cont="1"/>
-        <request index="12" response="0000000010000111" foes="0000100010001111" cont="0"/>
-        <request index="13" response="0000010000111000" foes="0000010001111100" cont="0"/>
-        <request index="14" response="0000000111000010" foes="0000001111100010" cont="0"/>
-        <request index="15" response="0000111000010000" foes="0000111100010001" cont="0"/>
+        <request index="0"  response="1001000000000000" foes="1001000100010000" cont="1"/>
+        <request index="1"  response="0101101000100000" foes="0101111100110000" cont="0"/>
+        <request index="2"  response="0011100111100000" foes="0011110111110000" cont="1"/>
+        <request index="3"  response="0011000010000000" foes="0011100010000000" cont="1"/>
+        <request index="4"  response="1010000110000111" foes="1010100110000111" cont="0"/>
+        <request index="5"  response="0110011110000110" foes="0110111110000110" cont="1"/>
+        <request index="6"  response="0110000000000000" foes="0110010000000100" cont="1"/>
+        <request index="7"  response="0101100000101000" foes="0101110000111100" cont="0"/>
+        <request index="8"  response="1100100000100011" foes="1100110000110111" cont="1"/>
+        <request index="9"  response="1100000000000010" foes="1100000000100010" cont="1"/>
+        <request index="10" response="1010000111000110" foes="1010000111100110" cont="0"/>
+        <request index="11" response="1001000110111110" foes="1001000110111110" cont="1"/>
+        <request index="12" response="0000000000000000" foes="0000100010001111" cont="0"/>
+        <request index="13" response="0000000000000000" foes="0000010001111100" cont="0"/>
+        <request index="14" response="0000000000000000" foes="0000001111100010" cont="0"/>
+        <request index="15" response="0000000000000000" foes="0000111100010001" cont="0"/>
     </junction>
     <junction id="J1" type="dead_end" x="-25.00" y="0.00" incLanes="E0_0 E0_1" intLanes="" shape="-25.00,0.00 -25.00,5.20 -25.00,0.00"/>
     <junction id="J2" type="dead_end" x="25.00" y="0.00" incLanes="E1_0 E1_1" intLanes="" shape="25.00,0.00 25.00,-5.20 25.00,0.00"/>
@@ -233,10 +240,10 @@
     <connection from="-E1" to="E0" fromLane="1" toLane="1" via=":J0_4_0" tl="J0" linkIndex="4" dir="s" state="o"/>
     <connection from="-E1" to="E3" fromLane="1" toLane="1" via=":J0_5_0" tl="J0" linkIndex="5" dir="l" state="o"/>
     <connection from="-E2" to="E0" fromLane="1" toLane="1" via=":J0_0_0" tl="J0" linkIndex="0" dir="r" state="o"/>
-    <connection from="-E2" to="E3" fromLane="1" toLane="1" via=":J0_1_0" tl="J0" linkIndex="1" dir="s" state="O"/>
+    <connection from="-E2" to="E3" fromLane="1" toLane="1" via=":J0_1_0" tl="J0" linkIndex="1" dir="s" state="o"/>
     <connection from="-E2" to="E1" fromLane="1" toLane="1" via=":J0_2_0" tl="J0" linkIndex="2" dir="l" state="o"/>
     <connection from="-E3" to="E1" fromLane="1" toLane="1" via=":J0_6_0" tl="J0" linkIndex="6" dir="r" state="o"/>
-    <connection from="-E3" to="E2" fromLane="1" toLane="1" via=":J0_7_0" tl="J0" linkIndex="7" dir="s" state="O"/>
+    <connection from="-E3" to="E2" fromLane="1" toLane="1" via=":J0_7_0" tl="J0" linkIndex="7" dir="s" state="o"/>
     <connection from="-E3" to="E0" fromLane="1" toLane="1" via=":J0_8_0" tl="J0" linkIndex="8" dir="l" state="o"/>
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
@@ -268,16 +275,16 @@
     <connection from=":J0_c1" to=":J0_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J0_c2" to=":J0_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J0_c3" to=":J0_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J0_w0" to=":J0_c3" fromLane="0" toLane="0" tl="J0" linkIndex="15" dir="s" state="m"/>
+    <connection from=":J0_w0" to=":J0_c3" fromLane="0" toLane="0" tl="J0" linkIndex="15" dir="s" state="M"/>
     <connection from=":J0_w0" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E2" to=":J0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J0_w1" to=":J0_c0" fromLane="0" toLane="0" tl="J0" linkIndex="12" dir="s" state="m"/>
+    <connection from=":J0_w1" to=":J0_c0" fromLane="0" toLane="0" tl="J0" linkIndex="12" dir="s" state="M"/>
     <connection from=":J0_w1" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E1" to=":J0_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J0_w2" to=":J0_c1" fromLane="0" toLane="0" tl="J0" linkIndex="13" dir="s" state="m"/>
+    <connection from=":J0_w2" to=":J0_c1" fromLane="0" toLane="0" tl="J0" linkIndex="13" dir="s" state="M"/>
     <connection from=":J0_w2" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E3" to=":J0_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J0_w3" to=":J0_c2" fromLane="0" toLane="0" tl="J0" linkIndex="14" dir="s" state="m"/>
+    <connection from=":J0_w3" to=":J0_c2" fromLane="0" toLane="0" tl="J0" linkIndex="14" dir="s" state="M"/>
     <connection from=":J0_w3" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E0" to=":J0_w3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J1_w0" to="-E0" fromLane="0" toLane="0" dir="s" state="M"/>

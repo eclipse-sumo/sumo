@@ -1330,6 +1330,19 @@ def moveElementHorizontal(referencePosition, originalPosition, radius):
              originalPosition.y, originalPosition.x + radius.left, originalPosition.y)
 
 
+def moveElementVertical(referencePosition, originalPosition, radius):
+    """
+    @brief move element in vertical
+    """
+    # move element
+    if (radius.up != 0):
+        dragDrop(referencePosition, originalPosition.x, originalPosition.y,
+                 originalPosition.x, originalPosition.y + radius.up)
+    if (radius.down != 0):
+        dragDrop(referencePosition, originalPosition.x, originalPosition.y + radius.up,
+                 originalPosition.x, originalPosition.y + radius.down)
+
+
 def moveElement(referencePosition, originalPosition, radius):
     """
     @brief move element

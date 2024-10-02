@@ -47,7 +47,7 @@ netedit.protectElements(referencePosition)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # delete node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.top)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.up)
 
 # rebuild network
 netedit.rebuildNetwork()

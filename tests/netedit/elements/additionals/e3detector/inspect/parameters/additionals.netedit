@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-22 16:34:13 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
+<!-- generated on 2024-10-02 08:55:57 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,5 +18,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <entryExitDetector id="e3_0" pos="-6.00,10.00" period="300.00" file="e3_0.xml">
         <detExit lane="EdgeCenter1_1" pos="21.71"/>
         <detEntry lane="Edge2_1" pos="28.75"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </entryExitDetector>
 </additional>

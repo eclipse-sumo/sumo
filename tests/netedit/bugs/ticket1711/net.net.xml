@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-26 14:24:51 by Eclipse SUMO netedit Version v1_20_0+2157-7cbf65e8f91
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-10-02 11:37:56 by Eclipse SUMO netconvert Version v1_20_0+2211-a70841d223d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\bugs\ticket1711\net.net.xml"/>
+        <node-files value=".\netedit\bugs\ticket1711\net.nod.xml"/>
+        <edge-files value=".\netedit\bugs\ticket1711\net.edg.xml"/>
+        <connection-files value=".\netedit\bugs\ticket1711\net.con.xml"/>
+        <tllogic-files value=".\netedit\bugs\ticket1711\net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\SUMO\tests\netedit\bugs\ticket1711\net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value=".\netedit\bugs\ticket1711\net.net.xml"/>
     </output>
 
+    <projection>
+        <proj value="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    </projection>
+
     <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
-    </junctions>
+    <report>
+        <verbose value="true"/>
+    </report>
 
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
-
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -125,4 +133,6 @@
     <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
 
+    <prohibition prohibitor="1->2" prohibited="3->4"/>
+    <prohibition prohibitor="5->6" prohibited="7->8"/>
 </net>

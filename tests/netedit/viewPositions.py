@@ -91,6 +91,7 @@ class network:
 
     class junction:
 
+        # top left
         class positionA:
             x = 257
             y = 424
@@ -99,6 +100,7 @@ class network:
             x = 308
             y = 377
 
+        # top right
         class positionB:
             x = 734
             y = 426
@@ -107,6 +109,7 @@ class network:
             x = 691
             y = 384
 
+        # bot right
         class positionC:
             x = 737
             y = 42
@@ -115,6 +118,7 @@ class network:
             x = 691
             y = 90
 
+        # bot left
         class positionD:
             x = 259
             y = 42
@@ -123,11 +127,29 @@ class network:
             x = 309
             y = 92
 
+        # middle left
+        class positionE:
+            x = 256
+            y = 235
+
+        # middle right
+        class positionF:
+            x = 739
+            y = 235
+
         class cross:
 
             class center:
                 x = 498
                 y = 236
+            
+            class up:
+                x = 495
+                y = 23
+
+            class down:
+                x = 495
+                y = 441
 
             class left:
                 x = 278
@@ -136,14 +158,6 @@ class network:
             class right:
                 x = 706
                 y = 232
-
-            class top:
-                x = 495
-                y = 23
-
-            class bot:
-                x = 495
-                y = 441
 
         class merge:
 
@@ -224,6 +238,20 @@ class network:
         class botRight:
             x = 520
             y = 320
+
+        class move:
+            
+            class top:
+                x = 500
+                y = 217
+
+            class bot:
+                x = 500
+                y = 256
+
+            class geometryPointTop:
+                x = 497
+                y = 43
 
     class crossing:
 
@@ -430,6 +458,14 @@ class elements:
         down = 0
         left = 0
         right = 190
+
+    class movementEdgeTop:
+        up = -180
+        down = 0
+
+    class movementEdgeBot:
+        up = 0
+        down = 180
 
     # additional (for inspect, delete, etc.)
     class additionals:

@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-18 14:43:53 by Eclipse SUMO netedit Version v1_20_0+1303-cbc4b3552ac
+<!-- generated on 2024-10-02 11:57:44 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\lanes\load\width\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\net.net.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -25,13 +42,34 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115418.15416\netedit.gui\network\lanes\load\width\log.txt"/>
+    </report>
+
 </neteditConfiguration>
 -->
 
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="2" speed="13.89" disallow="pedestrian">
+        <lane index="0" width="12.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="E1" from="J3" to="J4" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
     <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
 </edges>

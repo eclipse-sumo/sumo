@@ -39,11 +39,11 @@ netedit.changeEditMode(netedit.attrs.modes.network.grid)
 
 # Create two nodes without grid
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.top)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.up)
 
 # Create two nodes with grid
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.bot)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.down)
 
 # Create two nodes with grid
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)

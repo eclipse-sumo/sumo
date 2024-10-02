@@ -28,21 +28,33 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# Change to create mode
+netedit.createEdgeMode()
+
+# select two-way mode
+netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionF)
+
 # go to select mode
 netedit.selectMode()
 
-# select both junctions
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionF)
 
-# change to move mode
+# rebuild network
 netedit.moveMode()
 
-# move all
-netedit.moveElement(referencePosition, 145, 230, 145, 413)
+# move
+netedit.moveElementVertical(referencePosition, netedit.positions.network.junction.positionE,
+                            netedit.positions.elements.movementEdgeTop)
 
-# Check undos and redos
+# Check undo and redo
 netedit.checkUndoRedo(referencePosition)
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 09:41:20 by Eclipse SUMO netedit Version v1_20_0+1821-fef78581e33
+<!-- generated on 2024-10-02 13:09:46 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\merge\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\junctions\move\net.net.xml"/>
     </input>
 
     <processing>
@@ -23,7 +23,7 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="1"/>
     </pedestrian>
 
 </neteditConfiguration>
@@ -44,23 +44,10 @@
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
     </edge>
-    <edge id="-E3" from="J5" to="J4" priority="-1" numLanes="2" speed="13.89">
+    <edge id="-E3" from="J4" to="J0" priority="-1" numLanes="2" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
     </edge>
-    <edge id="-E4" from="J6" to="J5" priority="-1" numLanes="2" speed="13.89">
-        <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian"/>
-    </edge>
-    <edge id="-E5" from="J7" to="J6" priority="-1" numLanes="2" speed="13.89">
-        <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian"/>
-    </edge>
-    <edge id="-E6" from="J4" to="J7" priority="-1" numLanes="2" speed="13.89">
-        <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian"/>
-    </edge>
-    <edge id="-E7" from="J9" to="J8" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="E0" from="J0" to="J1" priority="-1" numLanes="2" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
@@ -73,23 +60,10 @@
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
     </edge>
-    <edge id="E3" from="J4" to="J5" priority="-1" numLanes="2" speed="13.89">
+    <edge id="E3" from="J0" to="J4" priority="-1" numLanes="2" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
     </edge>
-    <edge id="E4" from="J5" to="J6" priority="-1" numLanes="2" speed="13.89">
-        <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian"/>
-    </edge>
-    <edge id="E5" from="J6" to="J7" priority="-1" numLanes="2" speed="13.89">
-        <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian"/>
-    </edge>
-    <edge id="E6" from="J7" to="J4" priority="-1" numLanes="2" speed="13.89">
-        <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian"/>
-    </edge>
-    <edge id="E7" from="J8" to="J9" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
     <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
 </edges>

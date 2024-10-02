@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 15:53:07 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2024-06-11 15:05:50 by Eclipse SUMO netedit Version v1_20_0+0353-d865fbd950c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\edges\move/net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
     </input>
-
-    <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\edges\move/net"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -19,6 +15,7 @@
     </processing>
 
     <junctions>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -32,16 +29,6 @@
 </configuration>
 -->
 
-<tlLogics version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
-    <tlLogic id="gneJ0" type="static" programID="0" offset="0">
-        <phase duration="87" state="G"/>
-        <phase duration="3"  state="y"/>
-    </tlLogic>
-    <tlLogic id="gneJ1" type="static" programID="0" offset="0">
-        <phase duration="87" state="G"/>
-        <phase duration="3"  state="y"/>
-    </tlLogic>
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
 
-    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" tl="gneJ1" linkIndex="0"/>
-    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" tl="gneJ0" linkIndex="0"/>
 </tlLogics>
