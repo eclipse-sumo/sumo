@@ -73,7 +73,7 @@ def main():
             if obj.id in created:
                 traci.poi.setPosition(obj.id, obj.x, obj.y)
             else:
-                traci.poi.add(obj.id, obj.x, obj.y, (255, 0, 0, 255))
+                traci.poi.add(obj.id, obj.x, obj.y, (255, 0, 0, 255), layer=340)
                 created.add(obj.id)
             for a, v in obj.getAttributes():
                 if a == 'x' or a == 'y' or a == 'id':
