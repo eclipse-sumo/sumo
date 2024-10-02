@@ -466,7 +466,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         // Check if ID has to be generated
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, lane->getParentEdge()->getID());
-        } else if (tagProperties.hasAttribute(SUMO_ATTR_ID)) {
+        } else if (tagProperties.hasAttribute(SUMO_ATTR_ID) && !myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
