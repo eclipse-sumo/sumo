@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-02 12:46+0000\n"
+"PO-Revision-Date: 2024-10-02 14:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3341,6 +3341,8 @@ msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
 msgstr ""
+"Il tipo di veicolo '%' contiene gli attributi 'mass' e 'vehicleMass' allo "
+"stesso tempo. L'attributo 'mass' viene preferito."
 
 #: src/microsim/MSVehicleType.cpp:325
 #, c-format
@@ -3349,18 +3351,25 @@ msgid ""
 "the 'mass' attribute (for the empty mass) and the 'loading' parameter, if "
 "needed."
 msgstr ""
+"Il tipo di veicolo contiene il parametro 'vehicleMass' obsoleto. invece "
+"utilizza l'attributo 'mass' per indicare la massa vuota e il parametro "
+"loading' se necessario."
 
 #: src/microsim/MSVehicleType.cpp:337
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr ""
+"Il valore di 'emergencyDecel' (%) dovrebbe essere maggiore di 'decel' (%) "
+"per il tipo di veicolo '%'."
 
 #: src/microsim/MSVehicleType.cpp:340
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
 msgstr ""
+"Il valore di 'emergencyDecel' (%) è inferiore a 'apparentDecel' (%) per il "
+"tipo di veicolo '%' che può causare collisioni."
 
 #: src/microsim/MSVehicleType.cpp:462
 #, c-format
@@ -3402,7 +3411,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:86
 msgid "Unknown train type: %. Exiting!"
-msgstr ""
+msgstr "Tipo di treno sconosciuto: %. Uscita!"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:114
 msgid ""
@@ -4033,50 +4042,56 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:4039
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.range'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di veicolo 'ssm.range'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4045
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.range'."
-msgstr ""
+msgstr "Valore invalido del parametro di tipo di veicolo 'ssm.range'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4050
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.range', quindi viene "
+"usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4066
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di veicolo 'ssm.mdrac.prt'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4072
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "Valore invalido del parametro di tipo di veicolo 'ssm.mdrac.prt'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4077
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.mdrac.prt', quindi "
+"viene usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4095
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
-msgstr ""
+msgstr "Valore invalido del parametro di veicolo 'ssm.extratime'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4101
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
-msgstr ""
+msgstr "Valore invalido del parametro di tipo di veicolo 'ssm.extratime'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4106
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.extratime', quindi "
+"viene usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4112
 #, c-format
@@ -11605,7 +11620,7 @@ msgstr ""
 
 #: src/utils/handlers/TemplateHandler.cpp:67
 msgid "Could not load template '%'."
-msgstr ""
+msgstr "Non ho potuto caricare il modello '%'."
 
 #: src/utils/iodevices/OutputDevice.cpp:88
 msgid "No port number given."
@@ -11613,42 +11628,46 @@ msgstr "Non è stato indicato il numero di porta."
 
 #: src/utils/iodevices/OutputDevice.cpp:163
 msgid "Error on closing output devices."
-msgstr ""
+msgstr "Errore nel chiudere gli dispositivi di uscita."
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
-msgstr ""
+msgstr "Non è stato possibile dirottare l'uscita verso il dispositivo NUL (%)."
 
 #: src/utils/options/Option.cpp:352
 #, c-format
 msgid "'%' is not a valid float."
-msgstr ""
+msgstr "'%' non è un numero in virgola mobile valido."
 
 #: src/utils/options/Option.cpp:386
 #, c-format
 msgid "'%' is not a valid bool."
-msgstr ""
+msgstr "'%' non è un booleano valido."
 
 #: src/utils/options/Option.cpp:446
 msgid ""
 "Please note that using ';' as list separator is deprecated and not accepted "
 "anymore."
 msgstr ""
+"Nota che l'uso di ';' come separatore tra entrate di elenchi è obsoleto e "
+"non viene più accettato."
 
 #: src/utils/options/Option.cpp:456
 #, c-format
 msgid "'%' is not a valid integer vector."
-msgstr ""
+msgstr "'%' non è un vettore di numeri interi valido."
 
 #: src/utils/options/OptionsCont.cpp:66
 msgid ""
 "Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2024 Deutsches Zentrum für Luft- und Raumfahrt (DLR) e "
+"altri; https://sumo.dlr.de"
 
 #: src/utils/options/OptionsCont.cpp:152
 msgid "Internal request for unknown option '%'!"
-msgstr ""
+msgstr "Richiesta interna dell'opzione sconosciuta '%'!"
 
 #: src/utils/options/OptionsCont.cpp:175
 #, c-format
