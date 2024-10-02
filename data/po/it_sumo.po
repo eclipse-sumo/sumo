@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-01 15:36+0000\n"
+"PO-Revision-Date: 2024-10-02 12:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8976,6 +8976,7 @@ msgstr "Il passaggio pedonale del nodo controllato '%' deve essere prioritario"
 #: src/netimport/NIXMLConnectionsHandler.cpp:426
 msgid "Unable to project shape for crossing at node '%'."
 msgstr ""
+"La forma del passaggio pedonale nel nodo '%' non poteva essere proiettata."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:439
 msgid "Crossing with edges '%' already exists at node '%'."
@@ -9016,7 +9017,7 @@ msgstr ""
 
 #: src/netimport/NIXMLEdgesHandler.cpp:403
 msgid "Lane index is larger than number of lanes (edge '%')."
-msgstr ""
+msgstr "L'indice di corsie è maggiore del numero di corsie (arco '%')."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:447
 msgid "Unable to project coordinates for lane '%'."
@@ -9053,16 +9054,16 @@ msgstr ""
 #: src/netimport/NIXMLEdgesHandler.cpp:674
 #, c-format
 msgid "Duplicate edge '%' occurred."
-msgstr ""
+msgstr "Si è prodotto un'arco '%' raddoppiato."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:683
 msgid "An important information is missing in edge '%'."
-msgstr ""
+msgstr "Manca un'informazione importante nell'arco '%'."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:705
 #, c-format
 msgid "Unknown edge '%' in roundabout."
-msgstr ""
+msgstr "Arco '%' sconosciuto in una rotatoria."
 
 #: src/netimport/NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
