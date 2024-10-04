@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-02 14:17+0000\n"
+"PO-Revision-Date: 2024-10-05 13:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3322,10 +3322,12 @@ msgstr "Il veicolo '%' salta la fermata sulla corsia '%' ore=%."
 #: src/microsim/MSVehicle.cpp:7570
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr ""
+"Errore: Lo stato contiene dei veicoli invalidi (potrebbe trattarsi di uno "
+"stato mesoscopico)!"
 
 #: src/microsim/MSVehicle.cpp:7601
 msgid "Action steps are out of sync for loaded vehicle '%'."
-msgstr ""
+msgstr "I passi di azione del veicolo caricato '%' non sono sincronizzati."
 
 #: src/microsim/MSVehicleControl.cpp:524
 msgid "Vehicle '%' aborted waiting %."
@@ -6603,11 +6605,11 @@ msgstr "Calcolo delle priorità"
 
 #: src/netbuild/NBNetBuilder.cpp:507
 msgid "Computing approached edges"
-msgstr ""
+msgstr "Calcolo di archi entranti"
 
 #: src/netbuild/NBNetBuilder.cpp:512
 msgid "Guessing and setting roundabouts"
-msgstr ""
+msgstr "Indovinare e impostare le rotatorie"
 
 #: src/netbuild/NBNetBuilder.cpp:515
 msgid " Guessed % roundabout(s)."
@@ -6615,15 +6617,15 @@ msgstr " Indovinate % rotatorie."
 
 #: src/netbuild/NBNetBuilder.cpp:521
 msgid "Computing approaching lanes"
-msgstr ""
+msgstr "Calcolo delle corsie entranti"
 
 #: src/netbuild/NBNetBuilder.cpp:525
 msgid "Dividing of lanes on approached lanes"
-msgstr ""
+msgstr "Suddivisione di corsie su corsie entranti"
 
 #: src/netbuild/NBNetBuilder.cpp:531
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "Indovinare il bordo della rete"
 
 #: src/netbuild/NBNetBuilder.cpp:534
 #, c-format
@@ -6632,15 +6634,15 @@ msgstr " Indovinati % nodi di bordo."
 
 #: src/netbuild/NBNetBuilder.cpp:539
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "Processo delle inversioni a u"
 
 #: src/netbuild/NBNetBuilder.cpp:557
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "Verifica ulteriore dei finali di corsie"
 
 #: src/netbuild/NBNetBuilder.cpp:579
 msgid "Joining traffic light nodes"
-msgstr ""
+msgstr "Combinazione di nodi con semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:586
 msgid "Computing traffic light control information"
