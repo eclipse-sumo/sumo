@@ -129,7 +129,7 @@ myDet1;0;10;2;100;80
 ... further entries ...
 ```
 
-This means the first time has to name the entries (columns). Their order
+This means the first line contains the header with the column names. Their order
 is not of importance, but at least the following columns must be
 included:
 
@@ -147,6 +147,10 @@ The following columns may optionally be included:
   within this time period
 - vLKW: The average speed of transport vehicles that drove over the
   detector within this time period in km/h
+
+!!! caution
+    Using a different separator character or changing the name of an obligatory column will make dfrouter skip the data.
+
 
 !!! caution
     [dfrouter](../dfrouter.md) assumes that counts are given once per minute. To handle data with a different granularity, option **--time-step SECONDS** must be used.
