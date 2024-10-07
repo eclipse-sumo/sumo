@@ -1017,6 +1017,10 @@ NBOwnTLDef::patchNEMAStateForCrossings(const std::string& state,
     //std::cout << " patchNEMAStateForCrossings green=" << greenEdge->getID() << " other=" << Named::getIDSecure(otherChosen) << " end=" << Named::getIDSecure(end) << " all=" << toString(all) << "\n";
 
     EdgeVector::const_iterator end = std::find(all.begin(), all.end(), endEdge);
+    if (end == all.end()) {
+        // at least prevent an infinite loop
+        end = start;
+    }
     auto it = start;
     NBContHelper::nextCCW(all, it);
     for (; it != end; NBContHelper::nextCCW(all, it)) {
