@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-07 11:12+0000\n"
+"PO-Revision-Date: 2024-10-08 13:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -303,7 +303,7 @@ msgstr "Moltiplica tempi del flusso con TIME per ottenere degli secondi"
 
 #: src/dfrouter/RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr "Detrae TIME secondi dai tempi (graduati) del flusso"
+msgstr "Detrae TIME secondi dai tempi (ridimensionati) del flusso"
 
 #: src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
@@ -7492,56 +7492,63 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
-msgstr ""
+msgstr "Mostra errori nei collegamenti mentre vengono analizzati"
 
 #: src/netimport/NIFrame.cpp:154
 msgid "Continue on unknown edge types"
-msgstr ""
+msgstr "Ignora tipi di arco sconosciuti"
 
 #: src/netimport/NIFrame.cpp:157
 msgid "vmax is parsed as given in km/h"
-msgstr ""
+msgstr "la velocità massima viene interpretata come km/h"
 
 #: src/netimport/NIFrame.cpp:160
 msgid ""
 "Use YYYY-MM-DD date to determine the readiness of features under construction"
 msgstr ""
+"Utilizza data in formato AAAA-MM-GG per stabilire la disponibilità di "
+"oggetti in costruzione"
 
 #: src/netimport/NIFrame.cpp:163
 msgid "Remove all z-data"
-msgstr ""
+msgstr "Rimuovi tutti gli dati z"
 
 #: src/netimport/NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
-msgstr ""
+msgstr "Rimuovi l'elenco di chiavi da tutti gli parametri"
 
 #: src/netimport/NIFrame.cpp:169
 msgid ""
 "List vehicle classes that may ignore lane changing restrictions ('all' "
 "discards all restrictions)"
 msgstr ""
+"Elenca le classi di veicoli autorizzati di ignorare le restrizioni di cambio "
+"corsia ('all' rimuove tutte le restrizioni)"
 
 #: src/netimport/NIFrame.cpp:173
 msgid "Whether lane widths shall be ignored."
-msgstr ""
+msgstr "Se le larghezze di corsie devono essere ignorate."
 
 #: src/netimport/NIFrame.cpp:178
 msgid "If edge shapes do not end at the node positions, extend them"
 msgstr ""
+"Estendi le forme degli archi se questi non terminano alla posizione dei nodi"
 
 #: src/netimport/NIFrame.cpp:182
 msgid "Skips the check for duplicate nodes and edges"
-msgstr ""
+msgstr "Ometti il controllo di nodi e archi raddoppiati"
 
 #: src/netimport/NIFrame.cpp:185
 msgid "Imports elevation data"
-msgstr ""
+msgstr "Importa dati di altezza"
 
 #: src/netimport/NIFrame.cpp:188
 msgid ""
 "Reconstruct (relative) elevation based on layer data. Each layer is raised "
 "by FLOAT m"
 msgstr ""
+"Ricostruisci l'altezza (relativo) basata su dati di livello. Ogni livello è "
+"alzato di FLOAT m"
 
 #: src/netimport/NIFrame.cpp:191
 #, c-format
@@ -7549,6 +7556,9 @@ msgid ""
 "Maximum grade threshold in % at 50km/h when reconstructing elevation based "
 "on layer data. The value is scaled according to road speed."
 msgstr ""
+"Valore soglia per la pendenza massima in % alla velocità di 50km/h usato per "
+"ricostruire l'altezza basandosi su dati di livello. Il valore viene "
+"ridimensionato con la velocità."
 
 #: src/netimport/NIFrame.cpp:194
 msgid "Whether one-way roads should be spread to the side instead of centered"
