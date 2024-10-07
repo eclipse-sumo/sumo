@@ -21,6 +21,9 @@ siding_both_ways4
 # siding cannot be used because it is already occupied
 siding_deadlock
 
+# siding cannot be used because it is already occupied, vehicle routes start or end in the siding
+siding_deadlock2
+
 # driveway should be usable despite occupied siding if the other side is still usable
 siding_occupied_advance
 
