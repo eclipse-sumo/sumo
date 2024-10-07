@@ -47,3 +47,6 @@ loop_4veh2
 
 # collision (caused by rail-signal triggered rerouting)
 loop_4veh3
+
+# deadlock
+triangle_6veh
