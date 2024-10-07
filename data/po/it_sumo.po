@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-05 13:15+0000\n"
+"PO-Revision-Date: 2024-10-07 11:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7815,23 +7815,23 @@ msgstr ""
 #: src/netimport/NIImporter_ArcView.cpp:138
 #: src/polyconvert/PCLoaderArcView.cpp:139
 msgid "Could not open shape description '%'."
-msgstr ""
+msgstr "Non ho potuto aprire la descrizione della forma '%'."
 
 #: src/netimport/NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
-msgstr ""
+msgstr "Manca il campo '%' (street-id)."
 
 #: src/netimport/NIImporter_ArcView.cpp:198
 msgid "Needed field '%' (from node id) is missing."
-msgstr ""
+msgstr "Manca il campo '%' (codice identificativo del nodo di origine)."
 
 #: src/netimport/NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (to node id) is missing."
-msgstr ""
+msgstr "Manca il campo '%' (codice identificativo del nodo di destinazione)."
 
 #: src/netimport/NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
-msgstr ""
+msgstr "Tipo sconosciuto '%' dell'arco '%'"
 
 #: src/netimport/NIImporter_ArcView.cpp:233
 #, c-format
@@ -7867,21 +7867,21 @@ msgstr ""
 #: src/netimport/NIImporter_ArcView.cpp:304
 #, c-format
 msgid "Node '%' could not be added"
-msgstr ""
+msgstr "Il nodo '%' non poteva essere aggiunto"
 
 #: src/netimport/NIImporter_ArcView.cpp:312
 #, c-format
 msgid "Edge '%' connects identical nodes, skipping."
-msgstr ""
+msgstr "L'arco '%' collega nodi identifici e perciò va omesso."
 
 #: src/netimport/NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '%' is not unique."
-msgstr ""
+msgstr "L'arco '%' non è unico."
 
 #: src/netimport/NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
-msgstr ""
+msgstr "L'arco '%' non è unico. Va ribattezzato in '%'."
 
 #: src/netimport/NIImporter_ArcView.cpp:357
 msgid "Could not create edge '%'. An edge with the same id already exists."
@@ -7941,19 +7941,19 @@ msgstr "Caricamento delle restrizioni temporali"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "Valore non numerico del stato intermedio nel nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "Valore non numerico del numero di geometrie nel nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "Valore non numerico per la coordinata x nel nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "Valore non numerico per la coordinata y nel nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:230
 #: src/netimport/NIImporter_VISUM.cpp:321
@@ -10080,7 +10080,7 @@ msgstr ""
 
 #: src/od/ODMatrix.cpp:749
 msgid "Broken time line definition: missing a value in '%'."
-msgstr ""
+msgstr "Definizione di sequenza temporale invalida: manca un valore in '%'."
 
 #: src/osgview/GUIOSGBuilder.cpp:471 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -10983,15 +10983,15 @@ msgstr ""
 
 #: src/tools/emissionsMap_main.cpp:107
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
-msgstr ""
+msgstr "Definisce la pendenza minima della mappa da generare (in gradi)."
 
 #: src/tools/emissionsMap_main.cpp:109
 msgid "Defines the maximum slope boundary of the map to generate (in deg)."
-msgstr ""
+msgstr "Definisce la pendenza massima della mappa da generare (in gradi)."
 
 #: src/tools/emissionsMap_main.cpp:111
 msgid "Defines the slope step size (in deg)."
-msgstr ""
+msgstr "Definisce la lunghezza del passo di pendenza (in gradi)."
 
 #: src/tools/emissionsMap_main.cpp:116
 msgid ""
