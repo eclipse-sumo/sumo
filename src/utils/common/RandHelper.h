@@ -21,12 +21,14 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <cassert>
 #include <vector>
 #include <map>
 #include <random>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 
 // ===========================================================================
@@ -234,6 +236,12 @@ public:
         }
     }
 
+    template<class T>
+    static void shuffle(std::vector<T>& v, SumoRNG* rng = nullptr) {
+        for (int i = (int)(v.size() - 1); i > 0; --i) {
+            std::swap(*(v.begin() + i), *(v.begin() + rand(i, rng)));
+        }
+    }
 
 protected:
     /// @brief the default random number generator to use

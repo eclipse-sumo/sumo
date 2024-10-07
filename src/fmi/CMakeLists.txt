@@ -73,8 +73,11 @@ add_dependencies(prepfmi libsumofmi2)
 
 # native zip seems to work better
 FIND_PROGRAM(ZIP_EXECUTABLE zip)
+if (NOT VERBOSE_SUB)
+    set(ZIP_OPTS "-q")
+endif ()
 if (ZIP_EXECUTABLE)
-  add_custom_target(fmi ALL WORKING_DIRECTORY "${ZIP_BUILD_FOLDER_NAME}" COMMAND "${ZIP_EXECUTABLE}" -r "${CMAKE_SOURCE_DIR}/bin/${ZIP_BUILD_FOLDER_NAME}$<$<CONFIG:Debug>:D>-${PLATFORM_FOLDER_NAME}.fmu" .)
+  add_custom_target(fmi ALL WORKING_DIRECTORY "${ZIP_BUILD_FOLDER_NAME}" COMMAND "${ZIP_EXECUTABLE}" ${ZIP_OPTS} -r "${CMAKE_SOURCE_DIR}/bin/${ZIP_BUILD_FOLDER_NAME}$<$<CONFIG:Debug>:D>-${PLATFORM_FOLDER_NAME}.fmu" .)
 else()
   add_custom_target(fmi ALL COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/${ZIP_BUILD_FOLDER_NAME}$<$<CONFIG:Debug>:D>-${PLATFORM_FOLDER_NAME}.fmu" --format=zip ".")
 endif()

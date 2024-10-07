@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-04 11:03:29 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\selection\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-E0" to="E1" fromLane="1" toLane="1"/>
+
+    <connection from="-E1" to="E0" fromLane="1" toLane="1"/>
+
+    <connection from="-E10" to="E4" fromLane="0" toLane="1"/>
+
+    <connection from="-E11" to="-E10" fromLane="0" toLane="0"/>
+    <connection from="-E11" to="E12" fromLane="0" toLane="1"/>
+
+    <connection from="-E12" to="E11" fromLane="1" toLane="0"/>
+    <connection from="-E12" to="-E10" fromLane="1" toLane="0"/>
+
+    <connection from="-E2" to="-E1" fromLane="0" toLane="1"/>
+    <connection from="-E2" to="-E8" fromLane="0" toLane="0"/>
+
+    <connection from="-E4" to="E10" fromLane="0" toLane="0"/>
+
+    <connection from="-E5" to="-E0" fromLane="0" toLane="1"/>
+    <connection from="-E5" to="-E4" fromLane="0" toLane="0"/>
+
+    <connection from="-E6" to="-E5" fromLane="0" toLane="0" keepClear="0"/>
+
+    <connection from="-E7" to="-E9" fromLane="0" toLane="1"/>
+    <connection from="-E7" to="-E6" fromLane="0" toLane="0"/>
+
+    <connection from="-E8" to="-E7" fromLane="0" toLane="0"/>
+
+    <connection from="-E9" to="-E12" fromLane="1" toLane="1"/>
+
+    <connection from="E0" to="-E4" fromLane="1" toLane="0"/>
+    <connection from="E0" to="E5" fromLane="1" toLane="1"/>
+
+    <connection from="E1" to="-E8" fromLane="1" toLane="0"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="1"/>
+
+    <connection from="E10" to="E12" fromLane="0" toLane="1"/>
+    <connection from="E10" to="E11" fromLane="0" toLane="0"/>
+
+    <connection from="E11" to="-E2" fromLane="0" toLane="0" keepClear="0"/>
+
+    <connection from="E12" to="E9" fromLane="1" toLane="1"/>
+
+    <connection from="E2" to="-E11" fromLane="1" toLane="0" keepClear="0"/>
+
+    <connection from="E4" to="E5" fromLane="0" toLane="0"/>
+    <connection from="E4" to="E5" fromLane="1" toLane="1"/>
+    <connection from="E4" to="-E0" fromLane="1" toLane="1"/>
+
+    <connection from="E5" to="E6" fromLane="1" toLane="0" keepClear="0"/>
+
+    <connection from="E6" to="E7" fromLane="0" toLane="0"/>
+    <connection from="E6" to="-E9" fromLane="0" toLane="1"/>
+
+    <connection from="E7" to="E8" fromLane="0" toLane="1"/>
+
+    <connection from="E8" to="E2" fromLane="0" toLane="0"/>
+    <connection from="E8" to="E2" fromLane="1" toLane="1"/>
+    <connection from="E8" to="-E1" fromLane="1" toLane="1"/>
+
+    <connection from="E9" to="-E6" fromLane="1" toLane="0"/>
+    <connection from="E9" to="E7" fromLane="1" toLane="0"/>
+
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0"/>
+
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
+
+    <crossing node="J0" edges="-E12 E12" priority="1" width="4.00" linkIndex="4" outlineShape="3.20,7.20 -3.20,7.20 -7.20,3.20 -7.20,5.20 -5.20,7.20 -3.20,7.20 -7.20,3.20 7.20,3.20 5.98,3.31 4.98,3.64 4.20,4.20 3.64,4.98 3.31,5.98"/>
+    <crossing node="J0" edges="E1 -E1" priority="1" width="4.00" linkIndex="5" outlineShape="7.20,-3.20 7.20,3.30 3.20,7.20 5.20,7.20 7.20,5.20 7.20,3.20 3.20,7.20 3.20,-7.20 3.31,-5.98 3.64,-4.98 4.20,-4.20 4.98,-3.64 5.98,-3.31"/>
+    <crossing node="J0" edges="E9 -E9" priority="1" width="4.00" linkIndex="6" outlineShape="-3.20,-7.20 3.20,-7.20 7.20,-3.20 7.20,-5.20 5.20,-7.20 3.20,-7.20 7.20,-3.20 -7.20,-3.20 -5.98,-3.31 -4.98,-3.64 -4.20,-4.20 -3.64,-4.98 -3.31,-5.98"/>
+    <crossing node="J0" edges="E0 -E0" priority="1" width="4.00" linkIndex="7" outlineShape="-7.20,3.20 -7.20,-3.30 -3.20,-7.20 -5.20,-7.20 -7.20,-5.20 -7.20,-3.20 -3.20,-7.20 -3.20,7.20 -3.31,5.98 -3.64,4.98 -4.20,4.20 -4.98,3.64 -5.98,3.31"/>
+</connections>

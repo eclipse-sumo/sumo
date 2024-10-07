@@ -46,9 +46,18 @@ public:
     static std::string getName(const std::string& stopID);
     static int getVehicleCount(const std::string& stopID);
     static std::vector<std::string> getVehicleIDs(const std::string& stopID);
+    static double getChargingPower(const std::string& stopID);
+    static double getEfficiency(const std::string& stopID);
+    static double getChargeDelay(const std::string& stopID);
+    static int getChargeInTransit(const std::string& stopID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
+
+    static void setChargingPower(const std::string& stopID, double chargingpower);
+    static void setEfficiency(const std::string& stopID, double efficiency);
+    static void setChargeDelay(const std::string& stopID, double delay);
+    static void setChargeInTransit(const std::string& stopID, bool value);
 
 #ifndef LIBTRACI
 #ifndef SWIG

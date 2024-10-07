@@ -1,0 +1,12 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+
+    <vehicle id="v0" type="t0" depart="30">
+        <route edges="SC CN NC CS SC CN">
+            <stop edge="SC" duration="50"/>
+            <stop edge="NC" duration="50"/>
+            <stop edge="SC" duration="50"/>
+        </route>
+    </vehicle>
+
+</routes>

@@ -17,7 +17,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
 ///
-// Chargin Station for Electric vehicles
+// Charging Station for Electric vehicles
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -61,7 +61,7 @@ public:
     /// @brief destructor
     ~MSChargingStation();
 
-    /// @brief Get charging station's charging power in the
+    /// @brief Get charging station's charging power
     double getChargingPower(bool usingFuel) const;
 
     /// @brief Get efficiency of the charging station
@@ -84,6 +84,18 @@ public:
      */
     const MSParkingArea* getParkingArea() const;
 
+    /// @brief set charging station's charging power
+    void setChargingPower(double chargingPower);
+
+    /// @brief set efficiency of the charging station
+    void setEfficiency(double efficiency);
+
+    /// @brief set charging delay of the charging station
+    void setChargeDelay(SUMOTime delay);
+
+    /// @brief set charging in transit
+    void setChargeInTransit(bool value);
+
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
 
@@ -105,6 +117,9 @@ public:
 
     /// @brief write charging station values
     void writeChargingStationOutput(OutputDevice& output);
+
+    /// @brief write ungrouped output (flush data after writing)
+    void writeAggregatedChargingStationOutput(OutputDevice& output);
 
 protected:
 
@@ -168,13 +183,13 @@ protected:
     SUMOTime myWaitingTime = 0;
 
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
-    bool myChargingVehicle;
+    bool myChargingVehicle = false;
 
     /// @brief total energy charged by this charging station
     double myTotalCharge = 0;
 
     /// @brief parkingArea the charging station is placed on
-    const MSParkingArea* myParkingArea;
+    const MSParkingArea* myParkingArea = nullptr;
 
     /// @brief map with the charges of this charging station (key = vehicleID)
     std::map<std::string, std::vector<Charge> > myChargeValues;

@@ -1,0 +1,3 @@
+Warning: parkingArea 'ParkAreaA'on lane 'a_0' forbids access because vehicle 'foreigner' does not provide any valid badge.
+Warning: Vehicle 'resident' has multiple stops on segment 'a:2', time=54.63 (stop-output will be merged).
+Warning: Vehicle 'guest' has multiple stops on segment 'a:2', time=59.63 (stop-output will be merged).

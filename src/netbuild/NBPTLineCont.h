@@ -38,6 +38,8 @@ public:
     /// @brief insert new line
     bool insert(NBPTLine* ptLine);
 
+    NBPTLine*  retrieve(const std::string& lineID);
+
     const std::map<std::string, NBPTLine*>& getLines() const {
         return myPTLines;
     }

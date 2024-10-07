@@ -151,4 +151,9 @@ RandHelper::randExp(double rate, SumoRNG* rng) {
     return -log(rand(rng)) / rate;
 }
 
+// template<class T>
+// void RandHelper::shuffle(const std::vector<T>& v) {
+//     std::shuffle(v.begin(), v.end(), rng);
+// }
+
 /****************************************************************************/

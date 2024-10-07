@@ -160,6 +160,7 @@ class GNEDataSet;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
+class GNETAZRelData;
 
 // ===========================================================================
 // classes and structs definitions
@@ -234,6 +235,15 @@ struct GNEViewNetHelper {
         /// @brief filter (remove) lanes
         void filterLanes();
 
+        /// @brief filter (remove) polys and POIs
+        void filterShapes();
+
+        /// @brief filter (remove) additionals
+        void filterAdditionals(const bool includeStoppigPlaces, const bool includeTAZs);
+
+        /// @brief filter (remove) demand elements
+        void filterDemandElements(const bool includeRoutes);
+
         /// @brief filter locked elements (except the ignoreFilter)
         void filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter = {});
 
@@ -297,6 +307,9 @@ struct GNEViewNetHelper {
         /// @brief get edge rel data element or a pointer to nullptr
         GNEEdgeRelData* getEdgeRelDataElementFront() const;
 
+        /// @brief get TAZ rel data element or a pointer to nullptr
+        GNETAZRelData* getTAZRelDataElementFront() const;
+
         /// @brief get vector with GL objects
         const std::vector<GUIGlObject*>& getGLObjects() const;
 
@@ -308,6 +321,12 @@ struct GNEViewNetHelper {
 
         /// @brief get vector with edges
         const std::vector<GNEEdge*>& getEdges() const;
+
+        /// @brief get vector with TAZs
+        const std::vector<GNETAZ*>& getTAZs() const;
+
+        /// @brief get vector with additionals
+        const std::vector<GNEAdditional*>& getAdditionals() const;
 
         /// @brief get vector with Demand Elements
         const std::vector<GNEDemandElement*>& getDemandElements() const;
@@ -379,6 +398,9 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the edge relation datas
             std::vector<GNEEdgeRelData*> edgeRelDatas;
+
+            /// @brief vector with the TAZ relation datas
+            std::vector<GNETAZRelData*> TAZRelDatas;
 
         private:
             /// @brief Invalidated copy constructor.
@@ -1029,7 +1051,10 @@ struct GNEViewNetHelper {
         void finishMoveSingleElement();
 
         /// @brief check if there are moving elements
-        bool isMovingElements() const;
+        bool isCurrentlyMovingSingleElement() const;
+
+        /// @brief get moved element
+        GNEMoveElement* getMovedElement() const;
 
     protected:
         /// @brief calculate offset
@@ -1043,7 +1068,7 @@ struct GNEViewNetHelper {
         Position myRelativeClickedPosition;
 
         /// @brief move operations
-        std::vector<GNEMoveOperation*> myMoveOperations;
+        GNEMoveOperation* myMoveOperation = nullptr;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
@@ -1074,7 +1099,7 @@ struct GNEViewNetHelper {
         double getEdgeOffset() const;
 
         /// @brief check if there are moving elements
-        bool isMovingElements() const;
+        bool isCurrentlyMovingMultipleElements() const;
 
     protected:
         /// @brief calculate move offset
@@ -1409,7 +1434,7 @@ struct GNEViewNetHelper {
         void stopEditCustomShape();
 
         /// @brief save edited shape
-        void commitEditedShape();
+        void commitShapeEdited();
 
         /// @brief pointer to edited network element
         GNENetworkElement* getEditedNetworkElement() const;
@@ -1423,7 +1448,6 @@ struct GNEViewNetHelper {
 
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
-
     };
 
     /// @brief struct for pack all variables and functions related with Block Icon

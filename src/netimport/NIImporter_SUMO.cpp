@@ -87,7 +87,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)),
       myGeomAvoidOverlap(true),
       myJunctionsHigherSpeed(false),
-      myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")) {
+      myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")),
+      myJunctionsMinimalShape(OptionsCont::getOptions().getBool("junctions.minimal-shape")),
+      myJunctionsEndpointShape(OptionsCont::getOptions().getBool("junctions.endpoint-shape")) {
 }
 
 
@@ -341,6 +343,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isWriteable("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
+    if (oc.isWriteable("junctions.minimal-shape") && oc.getBool("junctions.minimal-shape") != myJunctionsMinimalShape) {
+        oc.set("junctions.minimal-shape", toString(myJunctionsMinimalShape));
+    }
+    if (oc.isWriteable("junctions.endpoint-shape") && oc.getBool("junctions.endpoint-shape") != myJunctionsEndpointShape) {
+        oc.set("junctions.endpoint-shape", toString(myJunctionsEndpointShape));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNINGF(TL("Deprecated vehicle class(es) '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
@@ -360,10 +368,11 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 if (!edges.empty()) {
                     node->addCrossing(edges, crossing.width, crossing.priority,
-                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true);
+                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true, &crossing);
                 }
             }
         }
+        myNetBuilder.setHaveNetworkCrossings(myPedestrianCrossings.size() > 0);
         // add walking area custom shapes
         for (const auto& item : myWACustomShapes) {
             std::string nodeID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(item.first);
@@ -445,6 +454,8 @@ NIImporter_SUMO::myStartElement(int element,
             myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVERLAP, nullptr, ok, myGeomAvoidOverlap);
             myJunctionsHigherSpeed = attrs.getOpt<bool>(SUMO_ATTR_HIGHER_SPEED, nullptr, ok, myJunctionsHigherSpeed);
             myInternalJunctionsVehicleWidth = attrs.getOpt<double>(SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH, nullptr, ok, myInternalJunctionsVehicleWidth);
+            myJunctionsMinimalShape = attrs.getOpt<bool>(SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE, nullptr, ok, myJunctionsMinimalShape);
+            myJunctionsEndpointShape = attrs.getOpt<bool>(SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE, nullptr, ok, myJunctionsEndpointShape);
             // derived
             const OptionsCont& oc = OptionsCont::getOptions();
             myChangeLefthand = !oc.isDefault("lefthand") && (oc.getBool("lefthand") != myAmLefthand);
@@ -643,6 +654,8 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
         crossings.back().width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), ok);
+        myLastParameterised.pop_back();
+        myLastParameterised.push_back(&crossings.back());
         if (myCurrentLane->customShape) {
             crossings.back().customShape = myCurrentLane->shape;
             NBNetBuilder::transformCoordinates(crossings.back().customShape, true, myLocation);
@@ -792,6 +805,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         // internal junction connection
         return;
     }
+
     Connection conn;
     conn.toEdgeID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
     int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
@@ -801,7 +815,11 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
     conn.indirectLeft = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
     conn.edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "");
-    conn.contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, nullptr, ok, NBEdge::UNSPECIFIED_CONTPOS);
+    double contPos = NBEdge::UNSPECIFIED_CONTPOS;
+    if (OptionsCont::getOptions().isSet("default.connection.cont-pos")) {
+        contPos = OptionsCont::getOptions().getFloat("default.connection.cont-pos");
+    }
+    conn.contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, nullptr, ok, contPos);
     conn.visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
     std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, "", false);
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "", false);

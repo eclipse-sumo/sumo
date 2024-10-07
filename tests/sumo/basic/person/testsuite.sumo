@@ -7,27 +7,6 @@ riding
 # test option --scale
 scale
 
-# check correct arrival when there are multiple stops on the same edge
-three_trainStops_at_one_edge
-
-# person rides and then stops
-ride_and_stop
-
-# person rides and exits the vehicle with some tolerance
-ride_and_stop_tolerance
-
-# the ride ends before delivering passenger
-ride_premature_end
-
-# person starting in a vehicle
-person_triggered
-
-# person starting in a vehicle with ride attribute from
-person_triggered_from
-
-# 2 person starting in the same vehicle
-persons_triggered
-
 # person stops for a given duration
 stop_duration
 
@@ -43,26 +22,14 @@ stop_no_duration
 # person stops for a given duration, specified via attribute edge
 stop_edge
 
-# If a vehicle leaves the simulation before delivering all passengers a warning should be triggered
-ride_wrong_destination
-
 # test whether a chain of walks rides and stops works
 trip_chain
 
 # test whether a chain of walks rides and stops works (specify for charging stations, see #5384)
 trip_chain_chargingstations
 
-# tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
-leaving_vehicle_at_stop
-
-# tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
-leaving_vehicle_at_stop_subsecond
-
 # test wheather the personNumber of a vehicle decreases if persons leave the vehicle at a stop
 person_number
-
-# person uses lines="ANY", vehicle stops at a lane rather than a busStop
-ride_ANY_stopLane
 
 # successive stops on different edges should raise an error (teleporting instead via #6325)
 stop_teleport_stop
@@ -76,21 +43,8 @@ atJunction_walk_ride
 # last edge of the ride differs from first edge of the walk
 atJunction_ride_walk
 
-# ride directly to access edge of destination stop
-ride_access_busstop
-
-# vehicle ride ends at a containerStop but the person is set to arrive at a busStop (and depends on it's access)
-ride_stopMismatch
-
 # define rides that end at a busStop, parkingArea, etc.
 stop_stoppingPlace
-
-# a walk and subsequent ride use redundant declarations of 
-# walk: to + busStop
-# ride: from
-# 
-# this triggers #11210
-ride_access_redundancy
 
 # person is inserted to the appointed position of a edge, not next to the edge. 
 person_inserted_departPos

@@ -27,6 +27,7 @@
 #include <bitset>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomHelper.h>
@@ -47,6 +48,7 @@
 #include <microsim/MSLink.h>
 #include <microsim/MSStop.h>
 #include <microsim/MSParkingArea.h>
+#include <microsim/MSTrainHelper.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
@@ -59,7 +61,6 @@
 #include <microsim/devices/MSDevice_Battery.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
-
 #include "GUIVehicle.h"
 #include "GUIPerson.h"
 #include "GUIContainer.h"
@@ -154,6 +155,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getParameter().repetitionProbability > 0) {
         ret->mkItem(TL("insertion probability"), false, getParameter().repetitionProbability);
     }
+    if (getParameter().poissonRate > 0) {
+        ret->mkItem(TL("poisson rate"), false, getParameter().poissonRate);
+    }
     ret->mkItem(TL("stop info"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
     ret->mkItem(TL("line"), false, myParameter->line);
     ret->mkItem(TL("CO2 [mg/s]"), true,
@@ -179,6 +183,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
     ret->mkItem(TL("lcState right"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
     ret->mkItem(TL("lcState left"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
+    ret->mkItem(TL("parking badges"), false, joinToString(getParkingBadges(), " "));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem(TL("lcState center"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateCenter));
@@ -197,6 +202,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getRelativeStateOfCharge));
         ret->mkItem(TL("currently charging [Wh]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChargedEnergy));
+        ret->mkItem(TL("maximum charge rate [W]"), true,
+                    new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getMaxChargeRate));
     }
     if (isElecHybrid) {
         ret->mkItem(TL("present electric current [A]"), true,
@@ -309,61 +316,22 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
 
 void
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
-    const bool s2 = s.secondaryShape;
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
     const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
                                  * s.vehicleScaler.getScheme().getColor(getScaleValue(s, s.vehicleScaler.getActive())));
-    const double totalLength = getVType().getLength();
-    double upscaleLength = exaggeration;
-    if (exaggeration > 1 && totalLength > 5) {
-        // reduce the length/width ratio because this is not useful at high zoom
-        const double widthLengthFactor = totalLength / 5;
-        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
-        upscaleLength /= shrinkFactor;
-    }
-    const double locomotiveLength = getVehicleType().getParameter().locomotiveLength * upscaleLength;
     if (exaggeration == 0) {
         return;
     }
-    const double defaultLength = getVehicleType().getParameter().carriageLength * upscaleLength;
-    const double carriageGap = getVehicleType().getParameter().carriageGap * upscaleLength;
-    const double length = totalLength * upscaleLength;
-    const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
-    GLHelper::popMatrix(); // undo initial translation and rotation
-    const double xCornerCut = 0.3 * exaggeration;
-    const double yCornerCut = 0.4 * exaggeration;
-    // round to closest integer
-    const int numCarriages = MAX2(1, 1 + (int)((length - locomotiveLength) / (defaultLength + carriageGap) + 0.5));
-    assert(numCarriages > 0);
-    double carriageLengthWithGap = length / numCarriages;
-    double carriageLength = carriageLengthWithGap - carriageGap;
-    double firstCarriageLength = carriageLength;
-    if (defaultLength != locomotiveLength && numCarriages > 1) {
-        firstCarriageLength = locomotiveLength;
-        carriageLengthWithGap = (length - locomotiveLength) / (numCarriages - 1);
-        carriageLength = carriageLengthWithGap - carriageGap;
-    }
-    const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1
-                                       || (getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
+    // bool reversed =
+    MSTrainHelper trainHelper(this, isReversed() && s.drawReversed, s.secondaryShape, exaggeration, s.vehicleQuality);
+    const int numCarriages = trainHelper.getNumCarriages();
+    const int firstPassengerCarriage = trainHelper.getFirstPassengerCarriage();
     const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER) && numCarriages > 1 ? 1 : 0;
     const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER ? 0 : 1;
     const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage - noPersonsBackCarriages));
     const int containersPerCarriage = (int)ceil(getVType().getContainerCapacity() / (numCarriages - firstContainerCarriage));
-    // lane on which the carriage front is situated
-    MSLane* lane = myLane;
-    int furtherIndex = 0;
-    // lane on which the carriage back is situated
-    MSLane* backLane = myLane;
-    int backFurtherIndex = furtherIndex;
-    // offsets of front and back
-    double carriageOffset = myState.pos();
-    if (getLaneChangeModel().isOpposite()) {
-        // @note this still produces some artifacts while not fully on the current lane
-        carriageOffset = MIN2(carriageOffset + getLength(), lane->getLength());
-    }
-    double carriageBackOffset = carriageOffset - firstCarriageLength;
-    // handle seats
+    // Handle seats.
     int requiredSeats = getNumPassengers();
     int requiredPositions = getNumContainers();
     if (requiredSeats > 0) {
@@ -372,65 +340,24 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     if (requiredPositions > 0) {
         myContainerPositions.clear();
     }
+    GLHelper::popMatrix(); // undo initial translation and rotation
+    const double xCornerCut = 0.3 * exaggeration;
+    const double yCornerCut = 0.4 * trainHelper.getUpscaleLength();
     Position front, back;
-    double angle = 0.;
-    // position parking vehicle beside the road or track
-    const double lateralOffset = (isParking() && getNextStopParameter()->posLat == INVALID_DOUBLE
-                                  ? (getLane()->getWidth() * (MSGlobals::gLefthand ? -1 : 1))
-                                  : -getLateralPositionOnLane());
-
-    // draw individual carriages
-    double curCLength = firstCarriageLength;
-    int firstCarriageNo = 0;  // default case - we're going forwards
-    const bool reversed = drawReversed(s) || getLaneChangeModel().isOpposite();
-    if (reversed) {
-        firstCarriageNo = numCarriages - 1;
-        if (numCarriages > 1) {
-            carriageBackOffset = carriageOffset - carriageLength;
-        }
-    }
-
-    //std::cout << SIMTIME << " veh=" << getID() << " curCLength=" << curCLength << " loc=" << locomotiveLength << " car=" << carriageLength << " tlen=" << totalLength << " len=" << length << "\n";
+    double angle = 0.0;
+    double curCLength = trainHelper.getFirstCarriageLength();
+    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
     for (int i = 0; i < numCarriages; ++i) {
-        if (i == firstCarriageNo) {
-            curCLength = firstCarriageLength;
-            if (firstCarriageNo > 0) {
-                // previous loop iteration has adjusted backpos for a normal carriage so have to correct
-                carriageBackOffset += carriageLengthWithGap;
-                carriageBackOffset -= firstCarriageLength + carriageGap;
-            }
-        } else {
-            curCLength = carriageLength;
-        }
-        while (carriageOffset < 0) {
-            MSLane* prev = getPreviousLane(lane, furtherIndex);
-            if (prev != lane) {
-                carriageOffset += prev->getLength();
-            } else {
-                // no lane available for drawing.
-                carriageOffset = 0;
-            }
-            lane = prev;
-        }
-        while (carriageBackOffset < 0) {
-            MSLane* prev = getPreviousLane(backLane, backFurtherIndex);
-            if (prev != backLane) {
-                carriageBackOffset += prev->getLength();
-            } else {
-                // no lane available for drawing.
-                carriageBackOffset = 0;
-            }
-            backLane = prev;
-        }
-        front = lane->getShape(s2).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(s2), lateralOffset);
-        back = backLane->getShape(s2).positionAtOffset(carriageBackOffset * lane->getLengthGeometryFactor(s2), lateralOffset);
+        front = carriages[i]->front;
+        back = carriages[i]->back;
         if (front == back) {
-            // no place for drawing available
+            // No place for drawing available.
             continue;
         }
         const double drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
         // if we are in reverse 'first' carriages are drawn last so the >= test doesn't work
+        const bool reversed = trainHelper.isReversed();
         if (reversed) {
             if (i <= numCarriages - firstPassengerCarriage) {
                 computeSeats(back, front, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
@@ -446,14 +373,30 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                 computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
             }
         }
+        curCLength = (i == trainHelper.getFirstCarriageNo() ? trainHelper.getFirstCarriageLength() : trainHelper.getCarriageLength());
         GLHelper::pushMatrix();
-        glTranslated(front.x(), front.y(), getType());
+        if (s.trueZ) {
+            glTranslated(front.x(), front.y(), front.z() + 1);
+        } else {
+            glTranslated(front.x(), front.y(), getType());
+        }
         glRotated(angle, 0, 0, 1);
-        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth() * exaggeration, curCLength)) {
+        double halfWidth = trainHelper.getHalfWidth();
+        std::string imgFile = getVType().getImgFile();
+        if (asImage && i != trainHelper.getFirstCarriageNo()) {
+            if (getVType().getParameter().hasParameter("carriageImages")) {
+                std::vector<std::string> imgFiles = StringTokenizer(getVType().getParameter().getParameter("carriageImages", ""), ",").getVector();
+                if (imgFiles.size() > 0) {
+                    const int carIndex = trainHelper.isReversed() ? numCarriages - i : i;
+                    imgFile = imgFiles[MIN2((int)imgFiles.size() - 1, carIndex - 1)];
+                }
+            }
+        }
+        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, imgFile, this, getVType().getWidth() * exaggeration, curCLength)) {
             switch (getVType().getGuiShape()) {
                 case SUMOVehicleShape::TRUCK_SEMITRAILER:
                 case SUMOVehicleShape::TRUCK_1TRAILER:
-                    if (i == firstCarriageNo) {  // at the moment amReversed is only ever set for rail - so has no impact in this call
+                    if (i == trainHelper.getFirstCarriageNo()) {  // at the moment amReversed is only ever set for rail - so has no impact in this call
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, 0, false, reversed);
                     } else {
                         GLHelper::setColor(current);
@@ -461,7 +404,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     }
                     break;
                 default: {
-                    if (i == firstCarriageNo) {
+                    if (i == trainHelper.getFirstCarriageNo()) {
                         GLHelper::setColor(darker);
                     } else {
                         GLHelper::setColor(current);
@@ -478,7 +421,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     glVertex2d(halfWidth - xCornerCut, 0);
                     glEnd();
                     // indicate front of the head of the train
-                    if (i == firstCarriageNo) {
+                    if (i == trainHelper.getFirstCarriageNo()) {
                         glTranslated(0, 0, 0.1);
                         glColor3d(0, 0, 0);
                         glBegin(GL_TRIANGLE_FAN);
@@ -500,12 +443,14 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             }
         }
         GLHelper::popMatrix();
-        carriageOffset -= (curCLength + carriageGap);
-        carriageBackOffset -= carriageLengthWithGap;
     }
     if (getVType().getGuiShape() == SUMOVehicleShape::RAIL_CAR) {
         GLHelper::pushMatrix();
-        glTranslated(front.x(), front.y(), getType());
+        if (s.trueZ) {
+            glTranslated(front.x(), front.y(), front.z() + 1);
+        } else {
+            glTranslated(front.x(), front.y(), getType());
+        }
         glRotated(angle, 0, 0, 1);
         drawAction_drawVehicleBlinker(curCLength);
         drawAction_drawVehicleBrakeLight(curCLength);
@@ -517,7 +462,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     glTranslated(front.x(), front.y(), getType());
     const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
     glRotated(degAngle, 0, 0, 1);
-    glScaled(exaggeration, upscaleLength, 1);
+    glScaled(exaggeration, trainHelper.getUpscaleLength(), 1);
     if (mySeatPositions.size() == 0) {
         mySeatPositions.push_back(Seat(back, DEG2RAD(angle)));
     }
@@ -781,61 +726,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r
         }
     }
     drawStopLabels(s, noLoop, col);
-    drawParkingInfo(s, col);
-}
-
-
-MSLane*
-GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
-    if (furtherIndex < (int)myFurtherLanes.size()) {
-        return myFurtherLanes[furtherIndex++];
-    } else {
-        // try to use route information
-        int routeIndex = getRoutePosition();
-        bool resultInternal;
-        if (MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks()) {
-            if (myLane->isInternal()) {
-                if (furtherIndex % 2 == 0) {
-                    routeIndex -= (furtherIndex + 0) / 2;
-                    resultInternal = false;
-                } else {
-                    routeIndex -= (furtherIndex + 1) / 2;
-                    resultInternal = false;
-                }
-            } else {
-                if (furtherIndex % 2 != 0) {
-                    routeIndex -= (furtherIndex + 1) / 2;
-                    resultInternal = false;
-                } else {
-                    routeIndex -= (furtherIndex + 2) / 2;
-                    resultInternal = true;
-                }
-            }
-        } else {
-            routeIndex -= furtherIndex;
-            resultInternal = false;
-        }
-        furtherIndex++;
-        if (routeIndex >= 0) {
-            if (resultInternal) {
-                const MSEdge* prevNormal = myRoute->getEdges()[routeIndex];
-                for (MSLane* cand : prevNormal->getLanes()) {
-                    for (MSLink* link : cand->getLinkCont()) {
-                        if (link->getLane() == current) {
-                            if (link->getViaLane() != nullptr) {
-                                return link->getViaLane();
-                            } else {
-                                return const_cast<MSLane*>(link->getLaneBefore());
-                            }
-                        }
-                    }
-                }
-            } else {
-                return myRoute->getEdges()[routeIndex]->getLanes()[0];
-            }
-        }
-    }
-    return current;
+    drawParkingInfo(s);
+    drawChargingInfo(s);
 }
 
 
@@ -859,19 +751,33 @@ GUIVehicle::getStopInfo() const {
     }
     if (myStops.front().pars.triggered) {
         result += ", triggered";
-    } else if (myStops.front().pars.containerTriggered) {
+    }
+    if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
-    } else if (myStops.front().pars.collision) {
+    }
+    if (myStops.front().pars.collision) {
         result += ", collision";
-    } else if (myStops.front().pars.until != -1) {
+    }
+    if (myStops.front().pars.arrival != -1) {
+        result += ", arrival=" + time2string(myStops.front().pars.arrival);
+    }
+    if (myStops.front().pars.started != -1) {
+        result += ", started=" + time2string(myStops.front().pars.started);
+    }
+    if (myStops.front().pars.until != -1) {
         result += ", until=" + time2string(myStops.front().pars.until);
-    } else {
-        result += ", duration=" + time2string(myStops.front().duration);
+    }
+    if (myStops.front().pars.extension != -1) {
+        result += ", extension=" + time2string(myStops.front().pars.extension);
+    }
+    if (!myStops.front().pars.permitted.empty()) {
+        result += ", permitted=" + toString(myStops.front().pars.permitted);
     }
     if (myStops.front().pars.actType != "") {
         result += ", actType=" + myStops.front().pars.actType;
     }
-    return result;
+    result += ", duration=" + time2string(myStops.front().duration);
+    return StringUtils::wrapText(result, 60);
 }
 
 
@@ -879,6 +785,7 @@ void
 GUIVehicle::selectBlockingFoes() const {
     double dist = myLane->getLength() - getPositionOnLane();
 #ifdef DEBUG_FOES
+    gDebugFlag1 = true;
     std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
 #endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
@@ -894,7 +801,7 @@ GUIVehicle::selectBlockingFoes() const {
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
-                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this);
+                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << "     closed due to:\n";
@@ -914,7 +821,7 @@ GUIVehicle::selectBlockingFoes() const {
                     parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                          getVehicleType().getLength(), getImpatience(),
                                          getCarFollowModel().getMaxDecel(),
-                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this);
+                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
@@ -926,11 +833,12 @@ GUIVehicle::selectBlockingFoes() const {
             }
         }
         for (const auto& item : blockingFoes) {
-            gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            if (item->isVehicle()) {
+                gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            } else {
+                gSelected.select(static_cast<const GUIPerson*>(item)->getGlID());
+            }
         }
-#ifdef DEBUG_FOES
-        gDebugFlag1 = true;
-#endif
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
 #ifdef DEBUG_FOES
         gDebugFlag1 = false;

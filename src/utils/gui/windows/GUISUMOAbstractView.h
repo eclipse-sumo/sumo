@@ -58,6 +58,19 @@ class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
 class GUILane;
 
+/// @brief comparator for resolving clicks
+struct ComparatorClickPriority {
+    bool operator()(const GUIGlObject* const a, const GUIGlObject* const b) const {
+        if (a->getClickPriority() == b->getClickPriority()) {
+            // sorty by GUIGlID as second criterion to simplify
+            // duplicate removal
+            return a->getGlID() > b->getGlID();
+        } else {
+            return a->getClickPriority() > b->getClickPriority();
+        }
+    }
+};
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -177,6 +190,9 @@ public:
     /// @brief hook to react on change in visualization settings
     virtual long  onVisualizationChange(FXObject*, FXSelector, void*);
 
+    /// @brief filter out duplicate and forbidden objects
+    std::vector<GUIGlObject*> filterContextObjects(const std::vector<GUIGlObject*>& objects);
+
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor(const FXEvent* ev);
 
@@ -246,12 +262,7 @@ public:
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
-                                   bool hide = false, double hideThreshold = 0,
-                                   bool hide2 = false, double hideThreshold2 = 0) {
-        UNUSED_PARAMETER(hide);
-        UNUSED_PARAMETER(hideThreshold);
-        UNUSED_PARAMETER(hide2);
-        UNUSED_PARAMETER(hideThreshold2);
+            const GUIVisualizationRainbowSettings& /*rs*/) {
     }
 
     /// @brief return list of loaded edgeData attributes
@@ -530,6 +541,9 @@ protected:
 
     /// @brief open popup dialog
     void openPopupDialog();
+
+    /// @brief helper function for buildColorRainbow
+    void buildMinMaxRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, const GUIVisualizationRainbowSettings& rs, double minValue, double maxValue, bool hasMissingData);
 
     /// @brief applies gl-transformations to fit the Boundary given by myChanger onto the canvas.
     /// If fixRatio is true, this boundary will be enlarged to prevent anisotropic stretching.

@@ -1,0 +1,18 @@
+TraCITestClient output file. Date: Thu Jun 13 09:31:25 2024
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=69 varID=152 objID=xxx
+.. Answered with error to command (69), [description: chargingStation 'xxx' is not known]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

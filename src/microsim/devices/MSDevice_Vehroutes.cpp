@@ -193,8 +193,12 @@ MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
 
 void
 MSDevice_Vehroutes::notifyStopEnded() {
-    const SUMOVehicleParameter::Stop& stop = myHolder.getStops().front().pars;
+    SUMOVehicleParameter::Stop stop = myHolder.getStops().front().pars;
     const bool closeLater = myWriteStopPriorEdges || mySaveExits;
+    if (mySaveExits) {
+        // prevent duplicate output
+        stop.parametersSet &=  ~(STOP_STARTED_SET | STOP_ENDED_SET);
+    }
     stop.write(myStopOut, !closeLater);
     if (myWriteStopPriorEdges) {
         // calculate length

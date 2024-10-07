@@ -154,6 +154,8 @@ configuration:
 | **--save-state.transportables** {{DT_BOOL}} | Save person and container states (experimental); *default:* **false** |
 | **--save-state.constraints** {{DT_BOOL}} | Save rail signal constraints; *default:* **false** |
 | **--save-state.precision** {{DT_INT}} | Write internal state values with the given precision (default 2); *default:* **2** |
+| **--pedestrian.jupedsim.wkt** {{DT_FILE}} | The filename to output the JuPedSim network as WKT |
+| **--pedestrian.jupedsim.wkt.geo** {{DT_BOOL}} | Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat); *default:* **false** |
 
 ### Time
 
@@ -235,8 +237,15 @@ configuration:
 | **--pedestrian.striping.legacy-departposlat** {{DT_BOOL}} | Interpret departPosLat for walks in legacy style; *default:* **false** |
 | **--pedestrian.striping.walkingarea-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the walkingarea; *default:* **4** |
 | **--pedestrian.jupedsim.step-length** {{DT_TIME}} | The update interval of the JuPedSim simulation (in seconds); *default:* **0.01** |
-| **--pedestrian.jupedsim.exit-tolerance** {{DT_FLOAT}} | The distance to the destination point considered as arrival (in meters); *default:* **1** |
+| **--pedestrian.jupedsim.exit-tolerance** {{DT_FLOAT}} | The distance to accept the JuPedSim arrival point (in meters); *default:* **1** |
+| **--pedestrian.jupedsim.model** {{DT_STR}} | The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed'); *default:* **CollisionFreeSpeed** |
+| **--pedestrian.jupedsim.strength-neighbor-repulsion** {{DT_FLOAT}} | The neighbor repulsion strength of the JuPedSim model; *default:* **8** |
+| **--pedestrian.jupedsim.range-neighbor-repulsion** {{DT_FLOAT}} | The neighbor repulsion range of the JuPedSim model (in meters); *default:* **0.1** |
+| **--pedestrian.jupedsim.strength-geometry-repulsion** {{DT_FLOAT}} | The geometry repulsion strength of the JuPedSim model; *default:* **5** |
+| **--pedestrian.jupedsim.range-geometry-repulsion** {{DT_FLOAT}} | The geometry repulsion range of the JuPedSim model (in meters); *default:* **0.02** |
 | **--ride.stop-tolerance** {{DT_FLOAT}} | Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops; *default:* **10** |
+| **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
+| **--mapmatch.junctions** {{DT_BOOL}} | Match positions to junctions instead of edges; *default:* **false** |
 | **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
 
 ### Routing
@@ -268,6 +277,7 @@ configuration:
 | **--device.rerouting.adaptation-steps** {{DT_INT}} | The number of steps for moving average weight of prior edge weights; *default:* **180** |
 | **--device.rerouting.adaptation-interval** {{DT_TIME}} | The interval for updating the edge weights; *default:* **1** |
 | **--device.rerouting.with-taz** {{DT_BOOL}} | Use zones (districts) as routing start- and endpoints; *default:* **false** |
+| **--device.rerouting.mode** {{DT_STR}} | Set routing flags (8 ignores temporary blockages); *default:* **0** |
 | **--device.rerouting.init-with-loaded-weights** {{DT_BOOL}} | Use weight files given with option --weight-files for initializing edge weights; *default:* **false** |
 | **--device.rerouting.threads** {{DT_INT}} | The number of parallel execution threads used for rerouting; *default:* **0** |
 | **--device.rerouting.synchronize** {{DT_BOOL}} | Let rerouting happen at the same time for all vehicles; *default:* **false** |
@@ -373,7 +383,7 @@ configuration:
 | **--device.ssm.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'ssm' device; *default:* **-1** |
 | **--device.ssm.explicit** {{DT_STR_LIST}} | Assign a 'ssm' device to named vehicles |
 | **--device.ssm.deterministic** {{DT_BOOL}} | The 'ssm' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC')) |
+| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC')) |
 | **--device.ssm.thresholds** {{DT_STR}} | Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. |
 | **--device.ssm.trajectories** {{DT_BOOL}} | Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).; *default:* **false** |
 | **--device.ssm.range** {{DT_FLOAT}} | Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced.; *default:* **50** |
@@ -508,6 +518,14 @@ configuration:
 | **--device.friction.stdDev** {{DT_FLOAT}} | The measurement noise parameter which can be applied to the friction device; *default:* **0.1** |
 | **--device.friction.offset** {{DT_FLOAT}} | The measurement offset parameter which can be applied to the friction device -> e.g. to force false measurements; *default:* **0** |
 
+### Fcd Replay Device
+| Option | Description |
+|--------|-------------|
+| **--device.fcd-replay.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'fcd-replay' device; *default:* **-1** |
+| **--device.fcd-replay.explicit** {{DT_STR_LIST}} | Assign a 'fcd-replay' device to named vehicles |
+| **--device.fcd-replay.deterministic** {{DT_BOOL}} | The 'fcd-replay' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.fcd-replay.file** {{DT_FILE}} | FCD file to read |
+
 ### Traci Server
 | Option | Description |
 |--------|-------------|
@@ -570,7 +588,7 @@ configuration:
 
 # Loading order of input files
 
-Sumo loads it's input files in the following order
+Sumo loads its input files in the following order
 
 - net-file
 - additional-files
@@ -625,12 +643,12 @@ The additional file always needs a top level tag with arbitrary name
 
 ```xml
 <additional>
-    <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
-    <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
+    <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
+    <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
 
-    <busStop id="station1" lane="foo_0" startPos="5" endPos="20"/>
+    <busStop id="station1" lane="foo_0" startPos="5" endPos="20"/>
 
-    <vType id="bus" maxSpeed="20" length="12"/>
+    <vType id="bus" maxSpeed="20" length="12"/>
 </additional>
 ```
 

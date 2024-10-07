@@ -49,6 +49,7 @@
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <router/ROFrame.h>
 #include <router/ROLoader.h>
@@ -180,30 +181,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         router = new DijkstraRouter<ROEdge, ROVehicle>(
             ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttFunction, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
     }
-    int carWalk = 0;
-    for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
-        if (opt == "parkingAreas") {
-            carWalk |= ROIntermodalRouter::Network::PARKING_AREAS;
-        } else if (opt == "ptStops") {
-            carWalk |= ROIntermodalRouter::Network::PT_STOPS;
-        } else if (opt == "allJunctions") {
-            carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS;
-        }
-    }
-    for (const std::string& opt : oc.getStringVector("persontrip.transfer.taxi-walk")) {
-        if (opt == "ptStops") {
-            carWalk |= ROIntermodalRouter::Network::TAXI_DROPOFF_PT;
-        } else if (opt == "allJunctions") {
-            carWalk |= ROIntermodalRouter::Network::TAXI_DROPOFF_ANYWHERE;
-        }
-    }
-    for (const std::string& opt : oc.getStringVector("persontrip.transfer.walk-taxi")) {
-        if (opt == "ptStops") {
-            carWalk |= ROIntermodalRouter::Network::TAXI_PICKUP_PT;
-        } else if (opt == "allJunctions") {
-            carWalk |= ROIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE;
-        }
-    }
+    const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc);
     double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
 
     RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;

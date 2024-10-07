@@ -61,7 +61,7 @@ private:
     /// @brief write transportable
     static void writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
                                    bool filter, bool shapeFilter, bool inRadius,
-                                   SumoXMLTag tag, bool useGeo, bool elevation, long long int mask);
+                                   SumoXMLTag tag, bool useGeo, bool elevation, SumoXMLAttrMask mask);
 
     static bool isVisible(const SUMOVehicle* veh);
     static bool hasOwnOutput(const SUMOVehicle* veh, bool filter, bool shapeFilter, bool isInRadius = false);

@@ -64,7 +64,7 @@ public:
     void write(OutputDevice& device);
     void addWayNode(long long int way, long long int node);
 
-    void setMyNumOfStops(int numStops);
+    void setNumOfStops(int numStops, int missingBefore, int missingAfter);
 
     /// @brief get line reference (not unique)
     const std::string& getRef() const {
@@ -107,6 +107,14 @@ public:
         myName = name;
     }
 
+    void setRef(const std::string& line) {
+        myRef = line;
+    }
+
+    void setPeriod(int intervalS) {
+        myInterval = intervalS / 60;
+    }
+
     inline const std::vector<std::string>& getWays() const {
         return myWays;
     }
@@ -141,4 +149,6 @@ public:
 private:
 
     int myNumOfStops;
+    int myMissingStopsBefore;
+    int myMissingStopsAfter;
 };

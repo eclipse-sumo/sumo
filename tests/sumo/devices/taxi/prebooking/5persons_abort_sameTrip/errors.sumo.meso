@@ -1,0 +1,6 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Person 'p.1' aborted waiting for taxi at edge 'B2C2'.
+Warning: Person 'p.2' aborted waiting for taxi at edge 'B2C2'.
+Warning: Person 'p.3' aborted waiting for taxi at edge 'B2C2'.
+Warning: Person 'p.4' aborted waiting for taxi at edge 'B2C2'.
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.

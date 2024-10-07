@@ -59,6 +59,12 @@ public:
      */
     SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return the fuel type
+     */
+    std::string getFuel(const SUMOEmissionClass c) const;
+
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity
@@ -75,7 +81,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+    double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
      * @param[in] c the emission class
@@ -95,7 +101,25 @@ private:
     * @param[in] v The vehicle's current velocity
     * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
     */
-    double getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v) const;
+    double getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower, const double ratedPower) const;
+
+    /** @brief Returns the total power needed.
+     * @param[in] currCep the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return the total power needed
+     */
+    double calcPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* param) const;
+
+    /** @brief Returns the power without auxiliaries.
+     * @param[in] currCep the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return the power without auxiliaries
+     */
+    double calcWheelPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /// @brief the index of the next class
     int myIndex;

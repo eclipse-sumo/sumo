@@ -3,7 +3,7 @@ Skipped until: 0.00
 Calculating new lookup table.
 Saving new matrix to 'landmarks.csv'.
 DijkstraRouter answered 1436 queries and explored 164.84 edges on average.
-DijkstraRouter spent 0.04s answering queries (0.03ms on average).
-AStarRouter answered 1 queries and explored 91.00 edges on average.
-AStarRouter spent 0.00s answering queries (1.00ms on average).
+DijkstraRouter spent 0.02s answering queries (0.01ms on average).
+AStarRouter answered 1 queries and explored 59.00 edges on average.
+AStarRouter spent 0.00s answering queries (0.00ms on average).
 Success.

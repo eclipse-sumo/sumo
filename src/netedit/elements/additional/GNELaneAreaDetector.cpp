@@ -41,41 +41,41 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, GUIIconSubSys::getIcon(GUIIcon::E2),
-                0, 0, {}, "", {}, "", false, Parameterised::Map()),
-            myEndPositionOverLane(0),
-            myTimeThreshold(0),
-            mySpeedThreshold(0),
-myJamThreshold(0) {
+                0, 0, {}, "", {}, {}, "", "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
-        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
-        SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold,
+        double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
                 pos, freq, {
     lane
-}, filename, vehicleTypes, name, friendlyPos, parameters),
+}, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters),
 myEndPositionOverLane(pos + length),
 myTimeThreshold(timeThreshold),
 mySpeedThreshold(speedThreshold),
 myJamThreshold(jamThreshold),
-myTrafficLight(trafficLight) {
+myTrafficLight(trafficLight),
+myShow(show) {
 }
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
-        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
-        double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold,
+        double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
-                pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
+                pos, freq, lanes, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
-    myTrafficLight(trafficLight) {
+    myTrafficLight(trafficLight),
+    myShow(show) {
 }
 
 
@@ -87,9 +87,6 @@ void
 GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
     // continue depending of E2 type
     if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
@@ -100,17 +97,11 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
         device.writeAttr(SUMO_ATTR_ENDPOS, myEndPositionOverLane);
     }
+    // write common detector parameters
+    writeDetectorValues(device);
+    // write specific attributes
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
-    }
-    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
-        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
-    }
-    if (myFilename.size() > 0) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
-    }
-    if (myVehicleTypes.size() > 0) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
     }
     if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, mySpeedThreshold);
@@ -121,8 +112,8 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, mySpeedThreshold);
     }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    if (getAttribute(SUMO_ATTR_SHOW_DETECTOR) != myTagProperty.getDefaultValue(SUMO_ATTR_SHOW_DETECTOR)) {
+        device.writeAttr(SUMO_ATTR_SHOW_DETECTOR, myShow);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
@@ -271,14 +262,15 @@ GNELaneAreaDetector::updateGeometry() {
 void
 GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check drawing conditions
-    if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+    if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) &&
+            myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E2Exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw E2
             drawE2(s, d, E2Exaggeration);
             // draw lock icon
@@ -341,7 +333,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             E2Geometry = segment->getLane()->getLaneGeometry();
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw E2 partial
             drawE2PartialLane(s, d, segment, offsetFront, E2Geometry, E2Exaggeration);
             // draw additional ID
@@ -373,7 +365,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         const GUIGeometry& E2Geometry = connectionExist ? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
                                         GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw E2 partial
             drawE2PartialJunction(s, d, onlyContour, offsetFront, E2Geometry, E2Exaggeration);
             // draw dotted contour
@@ -388,48 +380,26 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
 std::string
 GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return getMicrosimID();
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
             return parseIDs(getParentLanes());
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_STARTPOS:
             return toString(myPositionOverLane);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPositionOverLane);
-        case SUMO_ATTR_PERIOD:
-            if (myPeriod == SUMOTime_MAX_PERIOD) {
-                return "";
-            } else {
-                return time2string(myPeriod);
-            }
         case SUMO_ATTR_TLID:
             return myTrafficLight;
         case SUMO_ATTR_LENGTH:
             return toString(myEndPositionOverLane - myPositionOverLane);
-        case SUMO_ATTR_NAME:
-            return myAdditionalName;
-        case SUMO_ATTR_FILE:
-            return myFilename;
-        case SUMO_ATTR_VTYPES:
-            return toString(myVehicleTypes);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return toString(myJamThreshold);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
-        case GNE_ATTR_SHIFTLANEINDEX:
-            return "";
+        case SUMO_ATTR_SHOW_DETECTOR:
+            return toString(myShow);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getDetectorAttribute(key);
     }
 }
 
@@ -437,14 +407,12 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
 double
 GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            return myPositionOverLane;
         case SUMO_ATTR_LENGTH:
             return (myEndPositionOverLane - myPositionOverLane);
         case SUMO_ATTR_ENDPOS:
             return myEndPositionOverLane;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getDetectorAttributeDouble(key);
     }
 }
 
@@ -452,28 +420,19 @@ GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
 void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
-        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_TLID:
         case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_NAME:
-        case SUMO_ATTR_FILE:
-        case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
-        case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_SHIFTLANEINDEX:
+        case SUMO_ATTR_SHOW_DETECTOR:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setDetectorAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -481,14 +440,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
 bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidDetectorID(NamespaceIDs::laneAreaDetectors, value);
-        case SUMO_ATTR_LANE:
-            if (value.empty()) {
-                return false;
-            } else {
-                return canParse<std::vector<GNELane*> >(myNet, value, false);
-            }
         case SUMO_ATTR_LANES:
             if (value.empty()) {
                 return false;
@@ -498,45 +449,23 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_POSITION:
-            return canParse<double>(value);
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
-        case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                return true;
-            } else {
-                return (canParse<double>(value) && (parse<double>(value) >= 0));
-            }
         case SUMO_ATTR_TLID:
             // temporal
             return SUMOXMLDefinitions::isValidNetID(value);
         case SUMO_ATTR_LENGTH:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
-        case SUMO_ATTR_NAME:
-            return SUMOXMLDefinitions::isValidAttribute(value);
-        case SUMO_ATTR_FILE:
-            return SUMOXMLDefinitions::isValidFilename(value);
-        case SUMO_ATTR_VTYPES:
-            if (value.empty()) {
-                return true;
-            } else {
-                return SUMOXMLDefinitions::isValidListOfTypeID(value);
-            }
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return canParse<SUMOTime>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
-        case SUMO_ATTR_FRIENDLY_POS:
+        case SUMO_ATTR_SHOW_DETECTOR:
             return canParse<bool>(value);
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isDetectorValid(key, value);
     }
 }
 
@@ -671,33 +600,14 @@ GNELaneAreaDetector::drawE2PartialJunction(const GUIVisualizationSettings& s, co
 void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            // update microsimID
-            setAdditionalID(value);
-            break;
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
             replaceAdditionalParentLanes(value);
-            break;
-        case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value);
-            // update geometry (except for template)
-            if (getParentLanes().size() > 0) {
-                updateGeometry();
-            }
             break;
         case SUMO_ATTR_ENDPOS:
             myEndPositionOverLane = parse<double>(value);
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
-            }
-            break;
-        case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                myPeriod = SUMOTime_MAX_PERIOD;
-            } else {
-                myPeriod = string2time(value);
             }
             break;
         case SUMO_ATTR_TLID:
@@ -710,15 +620,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateGeometry();
             }
             break;
-        case SUMO_ATTR_NAME:
-            myAdditionalName = value;
-            break;
-        case SUMO_ATTR_FILE:
-            myFilename = value;
-            break;
-        case SUMO_ATTR_VTYPES:
-            myVehicleTypes = parse<std::vector<std::string> >(value);
-            break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = TIME2STEPS(parse<double>(value));
             break;
@@ -728,24 +629,12 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             myJamThreshold = parse<double>(value);
             break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
-        case GNE_ATTR_SHIFTLANEINDEX:
-            shiftLaneIndex();
+        case SUMO_ATTR_SHOW_DETECTOR:
+            myShow = parse<bool>(value);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setDetectorAttribute(key, value);
+            break;
     }
 }
 

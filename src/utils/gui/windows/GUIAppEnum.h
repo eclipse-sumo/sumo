@@ -43,6 +43,8 @@ enum {
     MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,
     /// @brief hotkey for mode connecting lanes AND container
     MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
+    /// @brief hotkey for setting a breakpoint
+    MID_HOTKEY_B_BREAKPOINT,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
     MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
@@ -159,7 +161,8 @@ enum {
     MID_HOTKEY_ALT_9_TOGGLEEDITOPTION,
     /// @brief Main window closes
     MID_HOTKEY_ALT_F4_CLOSE,
-
+    /// @brief hotkey for setting a breakpoint ahead of the current time
+    MID_HOTKEY_ALT_B_BREAKPOINT_EARLY,
     /// @}
 
     /// @name shift + hotkeys
@@ -269,6 +272,8 @@ enum {
     MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
     /// @brief focus upper element of current frame (only used in netedit)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
+    /// @brief clear selection
+    MID_HOTKEY_SHIFT_ESC_CLEARSELECTION,
 
     /// @}
 
@@ -448,6 +453,8 @@ enum {
     MID_COPY_NAME,
     /// @brief Copy typed object name - popup entry
     MID_COPY_TYPED_NAME,
+    /// @brief Copy test coordinates
+    MID_COPY_TEST_COORDINATES,
     /// @brief Copy edge name (for lanes only)
     MID_COPY_EDGE_NAME,
     /// @brief Copy cursor position - popup entry
@@ -638,7 +645,8 @@ enum {
     MID_SIMPLE_VIEW_SAVE_DECALS_XML,
     /// @brief For the clear-decals - button
     MID_SIMPLE_VIEW_CLEAR_DECALS,
-
+    /// @brief For changing rainbow style
+    MID_SIMPLE_VIEW_RAINBOW_CHANGE,
     /// @}
 
     ///@brief help button
@@ -1299,6 +1307,28 @@ enum {
 
     /// @}
 
+    /// @name GNEPoly messages
+    /// @{
+
+    /// @brief simplify shape edited geometry
+    MID_GNE_SHAPEEDITED_SIMPLIFY,
+    /// @brief straighten shape edited geometry
+    MID_GNE_SHAPEEDITED_STRAIGHTEN,
+    /// @brief close opened shape edited
+    MID_GNE_SHAPEEDITED_CLOSE,
+    /// @brief open closed shape edited
+    MID_GNE_SHAPEEDITED_OPEN,
+    /// @brief Set a vertex of shape edited as first vertex
+    MID_GNE_SHAPEEDITED_SET_FIRST_POINT,
+    /// @brief delete geometry point in shape edited
+    MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT,
+    /// @brief reset shape
+    MID_GNE_SHAPEEDITED_RESET,
+    /// @brief finish editing shape edited
+    MID_GNE_SHAPEEDITED_FINISH,
+
+    /// @}
+
     /// @name GNEPOI messages
     /// @{
 
@@ -1572,6 +1602,8 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
+    /// @brief force save elements (using for saving netedit and sumo configs)
+    MID_GNE_FORCESAVE,
 
     /// @}
 

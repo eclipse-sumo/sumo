@@ -1,0 +1,4 @@
+--osm-files osm.xml
+--railway.topology.repair
+--no-internal-links
+--osm.railsignals ALL

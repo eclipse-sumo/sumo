@@ -235,7 +235,7 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"));
+    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"));
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", TL("Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."));
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
@@ -958,6 +958,11 @@ MSDevice_SSM::determineConflictPoint(EncounterApproachInfo& eInfo) {
             || type == ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_COLLISION) {
         // Both vehicles have already past the conflict entry.
+        if (e->size() == 0) {
+            eInfo.conflictPoint = e->ego->getPosition();
+            WRITE_WARNINGF(TL("SSM device of vehicle '%' encountered an unexpected conflict with foe % at time=%. Please review your vehicle behavior settings."), e->egoID, e->foeID, time2string(SIMSTEP));
+            return;
+        }
         assert(e->size() > 0); // A new encounter should not be created if both vehicles already entered the conflict area
         eInfo.conflictPoint = e->conflictPointSpan.back();
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
@@ -2907,6 +2912,10 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         }
         MSLane* const nextNonInternalLane = *laneIter;
         const MSLink* const link = foeLane->getLinkTo(nextNonInternalLane);
+        if (link == nullptr) {
+            // encountered incomplete route
+            return nullptr;
+        }
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
         assert(foeLane == 0 || foeLane->isInternal());

@@ -16,7 +16,9 @@
 # @author  Robert Hilbrich
 # @date    2019
 
-# If we are behind a firewall we cannot install from the CentOS repos but we can use pip via the proxy
+# This script builds the wheels inside a docker container.
+# An example call could look like: docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build_config/build_wheels.sh
+# If we are behind a firewall (HTTPS_PROXY is set) we cannot install from the CentOS repos but we can use pip via the proxy
 if test $# -ge 1; then
     export HTTPS_PROXY=$1
 fi
@@ -60,6 +62,9 @@ for py in /opt/python/cp3[1789]*; do
     $py/bin/python -m build --wheel tools -o dist
     auditwheel repair dist/libsumo*.whl
 done
-rm -rf tools/*.egg-info tools/build_config/*.egg-info tools/build tools/libsumo/data pyproject.toml setup.py tools/setup.py
-chmod 777 dist wheelhouse
-chmod -R a+w _skbuild
+# clean up all temporary files except for _skbuild
+rm -rf tools/*.egg-info tools/build_config/*.egg-info tools/build tools/libsumo/data pyproject.toml setup.py tools/setup.py data/locale
+find tools -name __pycache__ | xargs rm -rf
+# the resulting wheels are in wheelhouse but we keep also the dist and the _skbuild dir for inspection
+# we make everything writable so that others can clean up
+chmod -R a+w _skbuild dist wheelhouse

@@ -830,9 +830,9 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glTranslated(0, 0, 0.1);
         glBegin(GL_QUADS);
         glVertex2d(textX, topi + fontHeight * bgShift);
-        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2., topi + fontHeight * bgShift);
-        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2., topi + fontHeight * (1. + bgShift));
-        glVertex2d(textX, topi + fontHeight * (1. + bgShift));
+        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2.1, topi + fontHeight * bgShift);
+        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2.1, topi + fontHeight * (0.8 + bgShift));
+        glVertex2d(textX, topi + fontHeight * (0.8 + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
         GLHelper::drawText(text, Position(textX + textDir * textXShift, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
@@ -842,7 +842,18 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     if (StringUtils::startsWith(name, "by ")) {
         name = name.substr(3);
     }
-    GLHelper::drawText(name, Position(textX + textDir * 0.04, -0.8), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
+    const double topN = -0.8;
+    const double bgShift = 0.0;
+    GLHelper::setColor(RGBColor::WHITE);
+    glTranslated(0, 0, 0.1);
+    glBegin(GL_QUADS);
+    glVertex2d(textX + textDir * 0.04,                                                   topN + fontHeight * bgShift - 0.01);
+    glVertex2d(textX + textDir * 0.04 - textDir * fontWidth * (double)name.size() / 2.3, topN + fontHeight * bgShift - 0.01);
+    glVertex2d(textX + textDir * 0.04 - textDir * fontWidth * (double)name.size() / 2.3, topN + fontHeight * (0.8 + bgShift));
+    glVertex2d(textX + textDir * 0.04,                                                   topN + fontHeight * (0.8 + bgShift));
+    glEnd();
+    glTranslated(0, 0, -0.1);
+    GLHelper::drawText(name, Position(textX + textDir * 0.04, topN), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
 
     GLHelper::popMatrix();
     // restore matrices
@@ -1183,7 +1194,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
             myPopupPosition = Position::INVALID;
             myPopup->handle(this, FXSEL(SEL_COMMAND, MID_CURSORDIALOG_FRONT), nullptr);
             destroyPopup();
-        } else if (myPopup->shown() == false) {
+        } else if (!myPopup->shown()) {
             destroyPopup();
         }
     }
@@ -1207,6 +1218,18 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
     return 1;
 }
 
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::filterContextObjects(const std::vector<GUIGlObject*>& objects) {
+    // assume input is sorted with ComparatorClickPriority
+    std::vector<GUIGlObject*> result;
+    for (GUIGlObject* o : objects) {
+        if (o->getClickPriority() != GUIGlObject::INVALID_PRIORITY && (result.empty() || result.back() != o)) {
+            result.push_back(o);
+        }
+    }
+    return result;
+}
+
 
 void
 GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
@@ -1216,63 +1239,21 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
     const bool altKeyPressed = ((ev->state & ALTMASK) != 0);
     // check if SUMO is enabled, initialised and Make OpenGL context current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
-        // get all objects under cusor
         auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
-        // filter elements
-        std::vector<GUIGlObject*> filteredObjectsUnderCursor;
-        std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
-        std::vector<GUIGlObject*> filteredTLSUnderCursor;
-        for (const auto& GLObject : objectsUnderCursor) {
-            if (GLObject->getType() == GLO_EDGE) {
-                // avoid edges
-                continue;
-            }
-            if (std::find(filteredObjectsUnderCursor.begin(), filteredObjectsUnderCursor.end(), GLObject) != filteredObjectsUnderCursor.end()) {
-                // avoid duplicated lanes
-                continue;
-            }
-            if ((GLObject->getType() == GLO_VEHICLE) || (GLObject->getType() == GLO_TRIP) ||
-                    (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW) ||
-                    (GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW) ||
-                    (GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
-                // filter vehicles, person and containers
-                filteredVehiclesUnderCursor.push_back(GLObject);
-            }
-            if (GLObject->getType() == GLO_TLLOGIC) {
-                // filter TLSs
-                filteredTLSUnderCursor.push_back(GLObject);
-            }
-            filteredObjectsUnderCursor.push_back(GLObject);
-        }
-        // filter internal lanes
-        filteredObjectsUnderCursor = filterInternalLanes(filteredObjectsUnderCursor);
-        // remove duplicated elements using an unordered set
-        auto itDuplicated = filteredObjectsUnderCursor.begin();
-        std::unordered_set<GUIGlObject*> unorderedSet;
-        for (auto itElement = filteredObjectsUnderCursor.begin(); itElement != filteredObjectsUnderCursor.end(); itElement++) {
-            if (unorderedSet.insert(*itElement).second) {
-                *itDuplicated++ = *itElement;
-            }
-        }
-        filteredObjectsUnderCursor.erase(itDuplicated, filteredObjectsUnderCursor.end());
-        // continue depending of number of objects
-        if (filteredObjectsUnderCursor.empty()) {
-            // if filteredObjectsUnderCursor, inspect net
-            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()}, true);
-        } else if (altKeyPressed) {
-            // inspect all objects under cusror
-            openObjectDialog(filteredObjectsUnderCursor, false);
-        } else if (filteredVehiclesUnderCursor.size() > 0) {
-            // inspect only vehicles
-            openObjectDialog(filteredVehiclesUnderCursor, true);
-        } else if (filteredTLSUnderCursor.size() > 0) {
-            // inspect only TLSs
-            openObjectDialog(filteredTLSUnderCursor, true);
+        if (objectsUnderCursor.empty()) {
+            myPopup = GUIGlObjectStorage::gIDStorage.getNetObject()->getPopUpMenu(*myApp, *this);
         } else {
-            // inspect objects under cursor
-            openObjectDialog(filteredObjectsUnderCursor, true);
+            std::sort(objectsUnderCursor.begin(), objectsUnderCursor.end(), ComparatorClickPriority());
+            std::vector<GUIGlObject*> filtered = filterContextObjects(objectsUnderCursor);
+            if (filtered.size() > 1 && (altKeyPressed
+                                        || filtered[0]->getClickPriority() == filtered[1]->getClickPriority())) {
+                // open dialog for picking among objects (without duplicates)
+                myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, filtered);
+            } else {
+                myPopup = objectsUnderCursor.front()->getPopUpMenu(*myApp, *this);
+            }
         }
-        // Make OpenGL context non current
+        openPopupDialog();
         makeNonCurrent();
     }
 }
@@ -1956,6 +1937,67 @@ GUISUMOAbstractView::setDelay(double delay) {
 void
 GUISUMOAbstractView::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
     myApp->setBreakpoints(breakpoints);
+}
+
+
+void
+GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme,
+                                        const GUIVisualizationRainbowSettings& rs, double minValue, double maxValue, bool hasMissingData) {
+    if (rs.hideMin && rs.hideMax && minValue == std::numeric_limits<double>::infinity()) {
+        minValue = rs.minThreshold;
+        maxValue = rs.maxThreshold;
+    }
+    if (rs.fixRange) {
+        if (rs.hideMin) {
+            minValue = rs.minThreshold;
+        }
+        if (rs.hideMax) {
+            maxValue = rs.maxThreshold;
+        }
+    }
+    if (minValue != std::numeric_limits<double>::infinity()) {
+        scheme.clear();
+        // add new thresholds
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL
+                || hasMissingData) {
+            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
+        }
+        if (rs.hideMin && !rs.fixRange) {
+            const double rawRange = maxValue - minValue;
+            minValue = MAX2(rs.minThreshold + MIN2(1.0, rawRange / 100.0), minValue);
+            scheme.addColor(RGBColor(204, 204, 204), rs.minThreshold);
+        }
+        if (rs.hideMax && !rs.fixRange) {
+            const double rawRange = maxValue - minValue;
+            maxValue = MIN2(rs.maxThreshold - MIN2(1.0, rawRange / 100.0), maxValue);
+            scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);
+        }
+        const double range = maxValue - minValue;
+        scheme.addColor(rs.colors.front(), minValue);
+        const int steps = (int)rs.colors.size() - 1;
+        if (rs.setNeutral) {
+            const int steps1 = steps / 2;
+            const int steps2 = steps - steps1;
+            const double range1 = rs.neutralThreshold - minValue;
+            const double range2 = maxValue - rs.neutralThreshold;
+            for (int i = 1; i < steps1; i++) {
+                scheme.addColor(rs.colors[i], (minValue + range1 * i / steps1));
+            }
+            scheme.addColor(rs.colors[steps1], rs.neutralThreshold);
+            for (int i = 1; i < steps2; i++) {
+                scheme.addColor(rs.colors[steps1 + i], (rs.neutralThreshold + range2 * i / steps2));
+            }
+        } else {
+            for (int i = 1; i < steps; i++) {
+                scheme.addColor(rs.colors[i], (minValue + range * i / steps));
+            }
+        }
+        scheme.addColor(rs.colors.back(), maxValue);
+    }
 }
 
 

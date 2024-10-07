@@ -13,6 +13,7 @@
 # @file    miscutils.py
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2012-05-08
 
 from __future__ import absolute_import
@@ -169,7 +170,7 @@ class priorityDictionary(dict):
         dict.__setitem__(self, key, val)
         heap = self.__heap
         if len(heap) > 2 * len(self):
-            self.__heap = [(v, k) for k, v in self.iteritems()]
+            self.__heap = [(v, k) for k, v in self.items()]
             self.__heap.sort()  # builtin sort likely faster than O(n) heapify
         else:
             newPair = (val, key)
@@ -294,10 +295,10 @@ def openz(fileOrURL, mode="r", **kwargs):
     """
     Opens transparently files, URLs and gzipped files for reading and writing.
     Special file names "stdout" and "stderr" are handled as well.
-    Also enforces UTF8 on text output / input.
+    Also enforces UTF8 on text output / input and should handle BOMs in input.
     Should be compatible with python 2 and 3.
     """
-    encoding = kwargs.get("encoding", "utf8")
+    encoding = kwargs.get("encoding", "utf8" if "w" in mode else "utf-8-sig")
     try:
         if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
             return io.BytesIO(urlopen(fileOrURL).read())
@@ -317,10 +318,28 @@ def openz(fileOrURL, mode="r", **kwargs):
             if sys.version_info[0] < 3:
                 return codecs.getreader('utf-8')(gzip.open(fileOrURL))
             return gzip.open(fileOrURL, mode="rt", encoding=encoding)
-    except OSError:
-        pass
-    except IOError:
-        pass
+    except OSError as e:
+        if kwargs.get("printErrors"):
+            print(e, file=sys.stderr)
+    except IOError as e:
+        if kwargs.get("printErrors"):
+            print(e, file=sys.stderr)
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
     return io.open(fileOrURL, mode=mode, encoding=encoding)
+
+
+def short_names(filenames, noEmpty):
+    if len(filenames) == 1:
+        return filenames
+    reversedNames = [''.join(reversed(f)) for f in filenames]
+    prefix = os.path.commonprefix(filenames)
+    suffix = os.path.commonprefix(reversedNames)
+    prefixLen = len(prefix)
+    suffixLen = len(suffix)
+    shortened = [f[prefixLen:-suffixLen] for f in filenames]
+    if noEmpty and any([not f for f in shortened]):
+        # make longer to avoid empty file names
+        base = os.path.basename(prefix)
+        shortened = [base + f for f in shortened]
+    return shortened

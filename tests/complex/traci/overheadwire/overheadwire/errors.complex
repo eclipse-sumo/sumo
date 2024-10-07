@@ -1,0 +1,1 @@
+Warning: The vType 'trolleybus' has a 'vehicleMass' parameter, which is deprecated. Please use the 'mass' attribute (for the empty mass) and the 'loading' parameter, if needed.

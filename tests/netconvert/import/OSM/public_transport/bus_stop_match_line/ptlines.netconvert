@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  2 22:42:03 2020 by Eclipse SUMO netconvert Version v1_5_0+0332-f6eec0d7a2
+<!-- generated on 2024-03-18 19:31:12 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,20 +31,19 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="6745867" line="3" type="bus" vClass="bus" completeness="0.09">
+    <ptLine id="6745867" line="3" type="bus" vClass="bus" completeness="0.09" missingBefore="28" missingAfter="1">
         <route edges="172556825#0 172556825#1 172556825#2 172556825#3 417820331"/>
         <busStop id="4526257459" name="变电所"/>
         <busStop id="4526257472" name="谢二矿"/>
         <busStop id="4526257479" name="夏郢孜"/>
     </ptLine>
-    <ptLine id="6748062" line="6" type="bus" vClass="bus" completeness="0.08">
+    <ptLine id="6748062" line="6" type="bus" vClass="bus" completeness="0.08" missingBefore="1" missingAfter="33">
         <route edges="456567144 417820309#0 417820309#1 417820309#2"/>
         <busStop id="4526257478" name="夏郢孜"/>
         <busStop id="4526257471" name="谢二矿"/>

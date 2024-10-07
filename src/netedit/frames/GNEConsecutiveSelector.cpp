@@ -193,7 +193,7 @@ void
 GNEConsecutiveSelector::updateLaneColors() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->resetCandidateFlags();
         }
     }
@@ -201,7 +201,7 @@ GNEConsecutiveSelector::updateLaneColors() {
     if (myLanePath.size() > 0 && (myShowCandidateLanes->getCheck() == TRUE)) {
         // first mark all lanes as invalid
         for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-            for (const auto& lane : edge.second.second->getLanes()) {
+            for (const auto& lane : edge.second->getLanes()) {
                 lane->setConflictedCandidate(true);
             }
         }
@@ -419,7 +419,7 @@ void
 GNEConsecutiveSelector::clearPath() {
     // reset all flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->resetCandidateFlags();
         }
     }

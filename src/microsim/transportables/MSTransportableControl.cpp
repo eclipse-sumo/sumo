@@ -61,22 +61,19 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
     myHaveNewWaiting(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     MSNet* const net = MSNet::getInstance();
+    myMovementModel = myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
     if (isPerson) {
-        const std::string model = oc.getString("pedestrian.model");
-        myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
+        const std::string& model = oc.getString("pedestrian.model");
         if (model == "striping") {
             myMovementModel = new MSPModel_Striping(oc, net);
 #ifdef JPS_VERSION
         } else if (model == "jupedsim") {
             myMovementModel = new MSPModel_JuPedSim(oc, net);
 #endif
-        } else if (model == "nonInteracting") {
-            myMovementModel = myNonInteractingModel;
-        } else {
+        } else if (model != "nonInteracting") {
+            delete myNonInteractingModel;
             throw ProcessError(TLF("Unknown pedestrian model '%'", model));
         }
-    } else {
-        myMovementModel = myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
     }
     if (oc.isSet("vehroute-output")) {
         myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("vehroute-output");
@@ -89,6 +86,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         OutputDevice::createDeviceByOption("personinfo-output", "tripinfos", "tripinfo_file.xsd");
     }
     myAbortWaitingTimeout = string2time(oc.getString("time-to-teleport.ride"));
+    myMaxTransportableNumber = isPerson ? oc.getInt("max-num-persons") : -1;
 }
 
 
@@ -201,9 +199,16 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (auto it = transportables.begin(); it != transportables.end();) {
             MSTransportable* t = *it;
+            if (myMaxTransportableNumber > 0 && myRunningNumber >= myMaxTransportableNumber) {
+                TransportableVector& nextStep = myWaiting4Departure[time + DELTA_T];
+                nextStep.insert(nextStep.begin(), transportables.begin(), transportables.end());
+                transportables.clear();
+                break;
+            }
             it = transportables.erase(it);
             myWaitingForDepartureNumber--;
             const bool isPerson = t->isPerson();
+            t->setDeparted(time);
             if (t->proceed(net, time)) {
                 myRunningNumber++;
                 MSNet::getInstance()->informTransportableStateListener(t,
@@ -271,7 +276,7 @@ MSTransportableControl::hasAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle) 
 
 
 bool
-MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration) {
+MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration, MSTransportable* const force) {
     bool ret = false;
     const auto wait = myWaiting4Vehicle.find(edge);
     if (wait != myWaiting4Vehicle.end()) {
@@ -279,17 +284,17 @@ MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle,
         TransportableVector& transportables = wait->second;
         for (TransportableVector::iterator i = transportables.begin(); i != transportables.end();) {
             MSTransportable* const t = *i;
-            if (t->isWaitingFor(vehicle)
-                    && vehicle->allowsBoarding(t)
-                    && timeToLoadNext - DELTA_T <= currentTime
-                    && vehicle->isStoppedInRange(t->getEdgePos(), MSGlobals::gStopTolerance)) {
+            if (t->isWaitingFor(vehicle) && (t == force ||
+                                             (vehicle->allowsBoarding(t)
+                                              && timeToLoadNext - DELTA_T <= currentTime
+                                              && vehicle->isStoppedInRange(t->getEdgePos(), MSGlobals::gStopTolerance)))) {
                 edge->removeTransportable(t);
                 vehicle->addTransportable(t);
                 if (myAbortWaitingTimeout >= 0) {
                     t->setAbortWaiting(-1);
                 }
                 if (timeToLoadNext >= 0) { // meso does not have loading times
-                    const SUMOTime loadingDuration = vehicle->getVehicleType().getLoadingDuration(t->isPerson());
+                    const SUMOTime loadingDuration = (SUMOTime)((double)vehicle->getVehicleType().getLoadingDuration(t->isPerson()) * t->getVehicleType().getBoardingFactor());
                     //update the time point at which the next transportable can be loaded on the vehicle
                     if (timeToLoadNext > currentTime - DELTA_T) {
                         timeToLoadNext += loadingDuration;

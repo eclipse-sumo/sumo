@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-30 09:17:00 by Eclipse SUMO sumo Version v1_12_0+1760-67fbbcd
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-09-04 11:37:38 by Eclipse SUMO sumo Version v1_20_0+1864-ce7940e5e49
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <net-file value="simulation/loadState/railSignal/input_net.net.xml"/>
+        <route-files value="simulation/loadState/railSignal/input_routes.rou.xml"/>
     </input>
 
     <output>
         <save-state.times value="25"/>
-        <save-state.files value="input_state.xml"/>
+        <save-state.files value="simulation/loadState/railSignal/input_state.xml"/>
     </output>
 
     <report>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1760-67fbbcd" time="25.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1864-ce7940e5e49" time="25.00" type="micro">
     <route id="!t0!var#1" state="0" edges="a b c d e"/>
     <route id="!t1!var#1" state="0" edges="a b c d e"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="train" length="45.00" maxSpeed="8.00" vClass="rail">
+        <param key="carriageLength" value="10.00"/>
         <param key="carriageLength" value="10"/>
     </vType>
     <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" distance="200.2 1" speedFactor="1.0000" reroute="1" state="262162 0 2 45.10 0 0.00 24000 0 0" pos="36.90 92.00 8.00" speed="8.00 8.00" angle="90.00" posLat="0.00" waitingTime="100000 0">

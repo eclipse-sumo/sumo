@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-08-31 10:48:24 by Eclipse SUMO duarouter Version v1_18_0+1121-ec4e1191913
+<!-- generated on 2024-04-29 13:52:19 by Eclipse SUMO duarouter Version v1_19_0+1975-c861cc8fbcc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,305 +41,305 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vType id="v1.1" probability="0.50" sigma="0"/>
     <vehicle id="2.0" type="v1.1" depart="30.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vType id="v1.2" probability="0.50" sigma="0"/>
     <vehicle id="2.1" type="v1.2" depart="32.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.2" type="v1.2" depart="34.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.3" type="v1.1" depart="36.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.4" type="v1.2" depart="38.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.5" type="v1.1" depart="40.00">
-        <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+        <routeDistribution last="0">
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.6" type="v1.2" depart="42.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.7" type="v1.2" depart="44.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.8" type="v1.1" depart="46.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.9" type="v1.2" depart="48.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.10" type="v1.2" depart="50.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.11" type="v1.2" depart="52.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.12" type="v1.2" depart="54.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.13" type="v1.1" depart="56.00">
-        <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+        <routeDistribution last="0">
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.14" type="v1.1" depart="58.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vType id="v2.1" probability="0.50" sigma="0"/>
     <vehicle id="2.15" type="v2.1" depart="60.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.16" type="v1.1" depart="62.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.17" type="v1.2" depart="64.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.18" type="v1.1" depart="66.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.19" type="v1.2" depart="68.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.20" type="v1.1" depart="70.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.21" type="v1.2" depart="72.00">
-        <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+        <routeDistribution last="0">
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vType id="v2.2" probability="0.50" sigma="0"/>
     <vehicle id="2.22" type="v2.2" depart="74.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.23" type="v2.1" depart="76.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.24" type="v2.1" depart="78.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.25" type="v1.1" depart="80.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.26" type="v1.2" depart="82.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.27" type="v1.1" depart="84.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.28" type="v1.1" depart="86.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.29" type="v1.1" depart="88.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.30" type="v1.2" depart="90.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.31" type="v1.1" depart="92.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.32" type="v2.2" depart="94.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.33" type="v1.1" depart="96.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.34" type="v1.2" depart="98.00">
-        <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+        <routeDistribution last="0">
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.35" type="v1.1" depart="100.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.36" type="v1.1" depart="102.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.37" type="v1.1" depart="104.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.38" type="v1.2" depart="106.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.39" type="v2.2" depart="108.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.40" type="v1.1" depart="110.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.41" type="v1.1" depart="112.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.42" type="v1.1" depart="114.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.43" type="v1.2" depart="116.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.44" type="v1.1" depart="118.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.45" type="v2.1" depart="120.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.46" type="v1.1" depart="122.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.47" type="v1.2" depart="124.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.48" type="v1.2" depart="126.00">
         <routeDistribution last="1">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2.49" type="v1.2" depart="128.00">
         <routeDistribution last="0">
-            <route cost="35.97" probability="0.50833256" edges="beg end"/>
-            <route cost="107.91" probability="0.49166744" edges="beg middle end"/>
+            <route cost="35.97" probability="0.58257021" edges="beg end"/>
+            <route cost="107.91" probability="0.41742979" edges="beg middle end"/>
         </routeDistribution>
     </vehicle>
 </routes>

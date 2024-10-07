@@ -163,6 +163,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |chargeDelay|SUMOTime|Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins *default:* **0.00**|
 |chargeType|discrete string|Battery charging type *default:* **normal**|
 |waitingTime|SUMOTime|Waiting time before start charging *default:* **900.00**|
+|parkingArea|string|Parking area the charging station is located|
 
 ## parkingArea
 | Attribute | Type | Description |
@@ -173,6 +174,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |endPos|unique string|The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m|
 |departPos|string|Lane position in that vehicle must depart when leaves parkingArea|
 |name|string|Name of parkingArea|
+|acceptedBadges|list of strings|Accepted badges to access this parkingArea|
 |roadsideCapacity|non-negative integer| The number of parking spaces for road-side parking *default:* **0**|
 |onRoad|boolean|If set, vehicles will park on the road lane and thereby reducing capacity *default:* **0**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
@@ -219,7 +221,7 @@ child element of [parkingArea](#parkingarea)
 |vTypes|list of strings|Space separated list of vehicle type ids to consider|
 |timeThreshold|SUMOTime|The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) *default:* **1.00**|
 |speedThreshold|non-negative float|The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s *default:* **1.39**|
-|jamThreshold|non-negative float|The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam) in m *default:* **10.00**|
+|jamThreshold|non-negative float|The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam in m *default:* **10.00**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |lanes|list of unique strings|The sequence of lane ids in which the detector shall be laid on|
 |endPos|unique float|The end position on the lane the detector shall be laid on in meters|
@@ -343,6 +345,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |timeThreshold|SUMOTime|The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold) *default:* **0.00**|
 |vTypes|list of strings|The list of vehicle types that shall be affected by this rerouter (empty to affect all types)|
 |off|boolean|Whether the router should be inactive initially (and switched on in the gui) *default:* **0**|
+|optional|boolean|If rerouter is optional *default:* **0**|
 
 ### interval
 child element of [rerouter](#rerouter)
@@ -553,6 +556,7 @@ also child element of [calibrator](#calibrator)
 |guiShape|discrete string|How this vehicle is rendered|
 |width|non-negative float|The vehicle's width [m] (only used for drawing) *default:* **1.8**|
 |height|non-negative float|The vehicle's height [m] (only used for drawing) *default:* **1.5**|
+|parkingBadges|list of strings|The parking badges assigned to the vehicle|
 |imgFile|filename|Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)|
 |laneChangeModel|discrete string|The model used for changing lanes *default:* **default**|
 |carFollowModel|discrete string|The model used for car-following *default:* **Krauss**|
@@ -712,6 +716,7 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |extension|SUMOTime|If set to a non-negative time value, then the stop duration can be extended at most by the extension value in seconds *default:* **0**|
 |triggered|discrete string|Whether a person or container or both may end the stop *default:* **false**|
 |expected|list of strings|List of elements that must board the vehicle before it may continue|
+|join|string|Joins this train to another upon reaching the stop|
 |permitted|list of strings|List of elements that can board the vehicle before it may continue|
 |parking|discrete string|Whether the vehicle stops on the road or beside *default:* **false**|
 |actType|string|Activity displayed for stopped person in GUI and output files|
@@ -719,6 +724,7 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |line|string|New line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)|
 |onDemand|boolean|Whether the stop may be skipped if no passengers wants to embark or disembark *default:* **0**|
 |jump|SUMOTime|transfer time if there shall be a jump from this stop to the next route edge *default:* **-1**|
+|split|string|Splits the train upon reaching the stop|
 |busStop|list of unique strings|BusStop associated with this stop|
 |trainStop|list of unique strings|TrainStop associated with this stop|
 |containerStop|list of unique strings|ContainerStop associated with this stop|
@@ -763,9 +769,9 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |disallow|list of vClasses|Explicitly disallows the given vehicle classes (not given will be allowed)|
 |spreadType|discrete string|The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization) *default:* **right**|
 |priority|integer|The priority of the edge *default:* **-1**|
-|width|non-negative float|Lane width for all lanes of this edge in meters (used for visualization) *default:* **-1**|
-|sidewalkWidth|float|The width of the sidewalk that should be added as an additional lane|
-|bikeLaneWidth|float|The width of the bike lane that should be added as an additional lane|
+|width|string|Lane width for all lanes of this edge in meters (used for visualization) *default:* **default**|
+|sidewalkWidth|string|The width of the sidewalk that should be added as an additional lane *default:* **default**|
+|bikeLaneWidth|string|The width of the bike lane that should be added as an additional lane *default:* **default**|
 
 ## laneType
 | Attribute | Type | Description |
@@ -773,7 +779,7 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |speed|non-negative float|The maximum speed allowed on the lane in m/s *default:* **13.89**|
 |allow|list of vClasses|Explicitly allows the given vehicle classes (not given will be not allowed) *default:* **all**|
 |disallow|list of vClasses|Explicitly disallows the given vehicle classes (not given will be allowed)|
-|width|non-negative float|Lane width for all lanes of this type in meters (used for visualization) *default:* **-1**|
+|width|string|Lane width for all lanes of this type in meters (used for visualization) *default:* **default**|
 
 ## routeDistribution
 | Attribute | Type | Description |

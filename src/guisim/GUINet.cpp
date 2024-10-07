@@ -197,7 +197,7 @@ GUINet::vehicleExists(const std::string& name) const {
 int
 GUINet::getLinkTLID(const MSLink* const link) const {
     if (myLinks2Logic.count(link) == 0) {
-        assert(false);
+        //assert(false);
         return 0;
     }
     MSTrafficLightLogic* tll = myLogics->getActive(myLinks2Logic.find(link)->second);

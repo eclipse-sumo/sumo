@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-02 18:49:03 by Eclipse SUMO netedit Version v1_17_0+0652-1215d8ae5cd
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType accel="1.0" decel="5.0" id="ElectricVehicle1" emissionClass="Energy" mass="1600" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+        <param key="device.battery.capacity" value="35000"/>
+        <param key="device.battery.maxPower" value="100000"/>
+        <param key="device.battery.chargeLevel" value="1700"/>
+        <param key="rotatingMass" value="30"/>
+        <param key="frontSurfaceArea" value="2.2"/>
+        <param key="airDragCoefficient" value="0.33"/>
+        <param key="radialDragCoefficient" value="0"/>
+        <param key="rollDragCoefficient" value="0.01"/>
+        <param key="constantPowerIntake" value="40"/>
+        <param key="propulsionEfficiency" value="0.8"/>
+        <param key="recuperationEfficiency" value="0.8"/>
+    </vType>
+
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="veh_tow" type="ElectricVehicle1" depart="5" departPos="280" departSpeed="max" arrival="347.00">
+        <route edges="D1D2 D2C2 C2B2"/>
+        <param key="device.stationfinder.rescueAction" value="tow"/>
+        <param key="device.stationfinder.rescueTime" value="5"/>
+    </vehicle>
+
+
+</routes>

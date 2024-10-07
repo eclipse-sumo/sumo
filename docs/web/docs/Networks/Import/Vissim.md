@@ -11,7 +11,7 @@ short. A usage example for [netconvert](../../netconvert.md)'s Vissim
 import may look like:
 
 ```
-netconvert --vissim-file=<VISSIM_FILE> --output-file=MySUMOFile.net.xml
+netconvert --vissim-file=<VISSIM_FILE> --output-file=MySUMOFile.net.xml
 ```
 
 Vissim-networks do possibly not contain explicit definitions of an

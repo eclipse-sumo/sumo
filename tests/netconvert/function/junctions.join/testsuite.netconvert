@@ -66,3 +66,6 @@ rail_crossing
 
 # all sidewalks are modelled as extra edges
 footpaths_around
+
+# do not join appendages of multiple short edges between side roads
+noisy_fringe

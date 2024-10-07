@@ -281,6 +281,37 @@ public:
         FXTextField* myFloatTextField = nullptr;
     };
 
+    /// @brief input float
+    class InputTime : public InputOption {
+
+    public:
+        /// @brief constructor
+        InputTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                   const std::string& name, const std::string& description, const std::string& defaultValue);
+
+        /// @brief update option
+        void updateOption();
+
+        /// @brief restore option
+        void restoreOption();
+
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
+        /// @brief get value
+        std::string getValue() const;
+
+        /// @brief parse float xx to xx.00
+        std::string parseTime(const std::string& value) const;
+
+        /// @brief text field
+        FXTextField* myTimeTextField = nullptr;
+    };
+
     /// @brief input filename
     class InputFilename : public InputOption {
         /// @brief FOX-declaration

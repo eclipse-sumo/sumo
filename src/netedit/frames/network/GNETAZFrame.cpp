@@ -1362,7 +1362,7 @@ void
 GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModule() {
     // iterate over all edges and restore color
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->setSpecialColor(nullptr);
         }
     }
@@ -1375,9 +1375,9 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     const std::vector<RGBColor>& scaledColors = GNEViewNetHelper::getRainbowScaledColors();
     // start painting all edges in gray
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        if (!edge.second.second->isAttributeCarrierSelected()) {
+        if (!edge.second->isAttributeCarrierSelected()) {
             // set candidate color (in this case, gray)
-            for (const auto lane : edge.second.second->getLanes()) {
+            for (const auto lane : edge.second->getLanes()) {
                 lane->setSpecialColor(&myEdgeDefaultColor);
             }
         }
@@ -1557,7 +1557,7 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
             // iterate over edges
             for (const auto& edge : edges) {
                 // first check if edge owns a TAZEge
-                if (myCurrentTAZ->isTAZEdge(edge) == false) {
+                if (!myCurrentTAZ->isTAZEdge(edge)) {
                     // create new TAZ Sources/Sinks
                     addOrRemoveTAZMember(edge);
                 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-06 10:21:50 by Eclipse SUMO netconvert Version v1_18_0+0132-90cec37
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-401012.56,-5810429.63" convBoundary="0.00,0.00,212.39,226.12" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -182,13 +182,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origTo" value="5641118086"/>
     </edge>
     <edge id="6" from="14" to="13" name="Dörpfeldstraße" priority="10" type="highway.tertiary" shape="75.49,183.47 1.62,140.41" bidi="2">
-        <lane id="6_0" index="0" allow="pedestrian" speed="8.33" length="78.73" width="3.00" shape="65.66,186.88 -2.36,147.23">
+        <lane id="6_0" index="0" allow="pedestrian" speed="8.33" length="78.74" width="3.00" shape="65.66,186.88 -2.36,147.23">
             <param key="origId" value="178028204"/>
         </lane>
-        <lane id="6_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="78.73" shape="67.22,184.20 -0.80,144.55">
+        <lane id="6_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="78.74" shape="67.22,184.20 -0.80,144.55">
             <param key="origId" value="178028204"/>
         </lane>
-        <lane id="6_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="78.73" shape="68.83,181.44 0.81,141.79">
+        <lane id="6_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="78.74" shape="68.83,181.44 0.81,141.79">
             <param key="origId" value="178028204"/>
         </lane>
         <param key="origFrom" value="5641118083"/>
@@ -211,7 +211,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrrrryyyyrrrrryyyyy"/>
     </tlLogic>
 
-    <junction id="10" type="priority" x="212.39" y="0.00" incLanes="0_0 0_1" intLanes=":10_0_0" shape="212.39,-0.00 208.24,-3.13 212.39,0.00">
+    <junction id="10" type="priority" x="212.39" y="0.00" incLanes="0_0 0_1" intLanes=":10_0_0" shape="212.39,0.00 208.24,-3.13 212.39,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="11" type="priority" x="143.04" y="223.11" incLanes="1_0 1_1 1_2" intLanes=":11_0_0" shape="143.83,221.72 146.88,216.32 142.25,224.50">

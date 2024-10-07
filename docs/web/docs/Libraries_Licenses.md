@@ -114,7 +114,7 @@ won't work
 ### [Open Scene Graph](https://www.openscenegraph.org/) - 3D Graphics Toolkit
 
 - [OpenSceneGraph Public
-  License](https://www.openscenegraph.org/images/LICENSE.txt)
+  License](https://openscenegraph.github.io/openscenegraph.io/about/license.html)
 
 ### [FFmpeg](https://ffmpeg.org/) - Multimedia Library
 
@@ -132,6 +132,10 @@ won't work
 
 Please note that the tools needed for processing the translation files (so for compiling SUMO)
 are distributed under GPL and are not part of the SUMO download.
+
+### [{fmt}](https://fmt.dev) - Formatting library
+
+- [​MIT License](https://github.com/fmtlib/fmt/blob/master/LICENSE)
 
 
 ## Data and Documentation

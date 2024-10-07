@@ -383,7 +383,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front(), TL("change multiple attributes"));
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front(), TL("change ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" attribute"));
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front(), TLF("change % attribute", myACAttr.getTagPropertyParent().getTagStr()));
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
@@ -427,7 +427,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             }
         }
         // Write Warning in console if we're in testing mode
-        WRITE_DEBUG(TL("Value '") + newVal + TL("' for attribute ") + myACAttr.getAttrStr() + TL(" of ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" isn't valid"));
+        WRITE_DEBUG(TLF("Value '%' for attribute % of % isn't valid", newVal, myACAttr.getAttrStr(), myACAttr.getTagPropertyParent().getTagStr()));
     }
     return 1;
 }
@@ -477,17 +477,19 @@ GNEFrameAttributeModules::AttributesEditorRow::stripWhitespaceAfterComma(const s
 
 bool
 GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::vector<GNEAttributeCarrier*>& inspectedACs, const std::string& newVal) const {
+    auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     // check if we're editing junction position
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
-        GNEJunction* movedJunction = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(inspectedACs.front()->getID());
+        GNEJunction* movedJunction = viewNet->getNet()->getAttributeCarriers()->retrieveJunction(inspectedACs.front()->getID());
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction
-        for (const auto& junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        for (const auto& targetjunction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
             // check distance position
-            if ((junction.second.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                    myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second.second)) {
+            if ((targetjunction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
+                    viewNet->askMergeJunctions(movedJunction, targetjunction.second)) {
+                viewNet->getNet()->mergeJunctions(movedJunction, targetjunction.second, viewNet->getUndoList());
                 return true;
             }
         }
@@ -879,7 +881,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
                 // overwrite value if attribute is disabled (used by LinkIndex)
-                if (attributeEnabled == false) {
+                if (!attributeEnabled) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // for types, the following attributes must be always enabled
@@ -990,7 +992,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                     attributeEnabled = true;
                 }
                 // overwrite value if attribute is disabled (used by LinkIndex)
-                if (attributeEnabled == false) {
+                if (!attributeEnabled) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered

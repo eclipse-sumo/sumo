@@ -123,6 +123,10 @@ MESegment::MESegment(const std::string& id,
             usableLanes++;
         }
     }
+    if (usableLanes == 0) {
+        // cars won't drive here. Give sensible tau values capacity for the ignored classes
+        usableLanes = 1;
+    }
     if (multiQueue) {
         if (next == nullptr) {
             for (const MSEdge* const edge : parent.getSuccessors()) {
@@ -478,7 +482,8 @@ MESegment::isOpen(const MEVehicle* veh) const {
                       << " override=" << limitedControlOverride(link)
                       << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                                                     veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
+                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                                                    0, nullptr, false, veh)
                       << " et=" << veh->getEventTime()
                       << " v=" << veh->getSpeed()
                       << " vLeave=" << veh->estimateLeaveSpeed(link)
@@ -499,7 +504,8 @@ MESegment::isOpen(const MEVehicle* veh) const {
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                             veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime()));
+                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                            0, nullptr, false, veh));
 }
 
 
@@ -616,9 +622,9 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     }
     assert(veh->getEdge() == &getEdge());
     // route continues
-    const double maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
-    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     Queue& q = myQueues[qIdx];
+    const double maxSpeedOnEdge = veh->getEdge()->getLanes()[qIdx]->getVehicleMaxSpeed(veh);
+    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
     const SUMOTime stopTime = veh->checkStop(time);
@@ -719,18 +725,23 @@ MESegment::newArrival(const MEVehicle* const v, double newSpeed, SUMOTime curren
     // since speed is only an upper bound pos may be to optimistic
     const double pos = MIN2(myLength, STEPS2TIME(currentTime - v->getLastEntryTime()) * v->getSpeed());
     // traveltime may not be 0
-    return currentTime + MAX2(TIME2STEPS((myLength - pos) / newSpeed), SUMOTime(1));
+    double tt = (myLength - pos) / MAX2(newSpeed, MESO_MIN_SPEED);
+    return currentTime + MAX2(TIME2STEPS(tt), SUMOTime(1));
 }
 
 
 void
-MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh) {
+MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh, int qIdx) {
     recomputeJamThreshold(jamThresh);
     //myTau_length = MAX2(MESO_MIN_SPEED, newSpeed) * myEdge.getLanes().size() / TIME2STEPS(1);
+    int i = 0;
     for (const Queue& q : myQueues) {
         if (q.size() != 0) {
-            setSpeedForQueue(newSpeed, currentTime, q.getBlockTime(), q.getVehicles());
+            if (qIdx == -1 || qIdx == i) {
+                setSpeedForQueue(newSpeed, currentTime, q.getBlockTime(), q.getVehicles());
+            }
         }
+        i++;
     }
 }
 

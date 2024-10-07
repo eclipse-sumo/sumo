@@ -171,7 +171,7 @@ NBNodeCont::extract(NBNode* node, bool remember) {
 
 
 // ----------- Adapting the input
-void
+int
 NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
     int no = 0;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
@@ -180,6 +180,7 @@ NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLo
     if (no != 0) {
         WRITE_WARNING(toString(no) + " self-looping edge(s) removed.");
     }
+    return no;
 }
 
 
@@ -234,8 +235,9 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
 }
 
 
-void
+int
 NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
+    int numRemovedEdges = 0;
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
     const std::vector<std::string>& edgeNames = ec.getAllNames();
     for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
@@ -307,6 +309,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
                 NBNode* fromNode = (*roadIt)->getFromNode();
                 NBNode* toNode = (*roadIt)->getToNode();
                 ec.erase(dc, *roadIt);
+                numRemovedEdges++;
                 if (fromNode->getIncomingEdges().size() == 0 && fromNode->getOutgoingEdges().size() == 0) {
                     // Node is empty; can be removed
                     erase(fromNode);
@@ -319,10 +322,11 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
             WRITE_WARNINGF(TL("Removed a road without junctions: %."), warningString);
         }
     }
+    return numRemovedEdges;
 }
 
 
-void
+int
 NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops) {
     myRailComponents.clear();
     std::vector<std::set<NBEdge*> > components;
@@ -405,10 +409,11 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
     if (foundComponents > 1) {
         WRITE_MESSAGEF(TL("Found % components and removed % (% edges)."), toString(foundComponents), toString(numRemoved), toString(toRemove.size()));
     }
+    return (int)toRemove.size();
 }
 
 
-void
+int
 NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc) {
     std::set<std::string> stopEdges;
     for (const auto& item : sc.getStops()) {
@@ -446,6 +451,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
     if (numRemoved > 0) {
         WRITE_MESSAGEF(TL("Removed % railway components (% edges)."), toString(numRemoved), toString(numRemovedEdges));
     }
+    return numRemoved;
 }
 
 
@@ -578,7 +584,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
 #ifdef DEBUG_JOINJUNCTIONS
                 if (DEBUGCOND(s)) {
                     std::cout << "generateNodeClusters: consider s=" << s->getID()
-                              << " clusterNode=" << n->getID() << " edge=" << e->getID() << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
+                              << " clusterNode=" << n->getID() << " edge=" << e->getID() << " dist=" << dist << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
                 }
 #endif
                 if (railAndPeds && n->getType() != SumoXMLNodeType::RAIL_CROSSING) {
@@ -635,8 +641,13 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                     continue;
                 }
                 if (length + dist < maxDist) {
-                    if (s->geometryLike()) {
-                        toProc.emplace_back(s, dist + length);
+                    // don't add long "boring" appendages but always join the whole rail crossing or tls
+                    const bool trueGeomLike = s->geometryLike();
+                    if (trueGeomLike || geometryLikeForClass(s, SVC_VULNERABLE | SVC_DELIVERY)) {
+                        const bool hasTLS = n->isTrafficLight() || s->isTrafficLight();
+                        const double fullLength = e->getGeometry().length2D();
+                        const double length2 = bothCrossing || hasTLS || trueGeomLike ? length : fullLength;
+                        toProc.emplace_back(s, dist + length2);
                     } else {
                         toProc.emplace_back(s, 0.);
                     }
@@ -651,6 +662,28 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
 #endif
         into.push_back(c);
     }
+}
+
+
+bool
+NBNodeCont::geometryLikeForClass(const NBNode* n, SVCPermissions ignored) {
+    EdgeVector allowedIn;
+    EdgeVector allowedOut;
+    for (NBEdge* e : n->getIncomingEdges()) {
+        if ((e->getPermissions() & ~ignored) != 0) {
+            allowedIn.push_back(e);
+        }
+    }
+    for (NBEdge* e : n->getOutgoingEdges()) {
+        if ((e->getPermissions() & ~ignored) != 0) {
+            allowedOut.push_back(e);
+        }
+    }
+    if (allowedIn.size() > 0 && allowedOut.size() > 0) {
+        //std::cout << n->getID() << " geometryLikeForClass=" << n->geometryLike(allowedIn, allowedOut) << " in=" << toString(allowedIn) << " out=" << toString(allowedOut) << "\n";
+        return n->geometryLike(allowedIn, allowedOut);
+    }
+    return true;
 }
 
 
@@ -775,12 +808,12 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         std::string origCluster = joinNamedToString(cluster, ',');
         // remove nodes that can be eliminated by geometry.remove
-        pruneClusterFringe(cluster);
+        pruneClusterFringe(cluster, maxDist);
         if (cluster.size() < 2) {
             continue;
         }
         // remove nodes that are part of a bypass lane (typically for turning right without waiting at a traffic light)
-        pruneSlipLaneNodes(cluster);
+        pruneSlipLaneNodes(cluster, maxDist);
         if (cluster.size() < 2) {
             WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "slip lane");
             continue;
@@ -799,7 +832,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 std::cout << "   try to reduce to 4-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
             }
 #endif
-            if (reduceToCircle(cluster, 4, cluster)) {
+            if (reduceToCircle(cluster, 4, cluster, maxDist)) {
                 feasible = feasibleCluster(cluster, ptStopEnds, maxDist, reason);
                 if (feasible) {
                     WRITE_WARNINGF(TL("Reducing junction cluster % (%)."), origCluster, origReason);
@@ -813,7 +846,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             }
 #endif
             origCluster = joinNamedToString(cluster, ',');
-            if (reduceToCircle(cluster, 2, cluster)) {
+            if (reduceToCircle(cluster, 2, cluster, maxDist)) {
                 feasible = feasibleCluster(cluster, ptStopEnds, maxDist, reason);
                 if (feasible) {
                     WRITE_WARNINGF(TL("Reducing junction cluster % (%)."), origCluster, origReason);
@@ -828,12 +861,12 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         // after pruning long edges we have to recheck
         if (numPruned > 0) {
-            pruneClusterFringe(cluster);
+            pruneClusterFringe(cluster, maxDist);
             if (cluster.size() < 2) {
                 WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "long edge");
                 continue;
             }
-            pruneSlipLaneNodes(cluster);
+            pruneSlipLaneNodes(cluster, maxDist);
             if (cluster.size() < 2) {
                 WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "slip lane");
                 continue;
@@ -919,7 +952,7 @@ NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLight
 }
 
 void
-NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
+NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
 #ifdef DEBUG_JOINJUNCTIONS
     if (gDebugFlag1) {
         std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
@@ -927,6 +960,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
 #endif
     // iteratively remove the fringe
     bool pruneFringe = true;
+    bool pruneNoisyFringe = false;
     // collect nodes that shall be joined due to distance but are not connected
     // to the cluster for passenger traffic
     while (pruneFringe) {
@@ -963,7 +997,12 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
                 if (cluster.count(neighbor) == 0) {
                     if ((e->getPermissions() & SVC_PASSENGER) != 0
                             || isRailway(e->getPermissions()) // join railway crossings
-                            || clusterDist <= pedestrianFringeThreshold
+                            || (clusterDist <= pedestrianFringeThreshold
+                                && (!pruneNoisyFringe
+                                    || isForVulnerableModes(e->getPermissions())
+                                    // permit joining small opposite merges
+                                    || getDiameter(cluster) < maxDist
+                                    || cluster.size() == 2))
                             || touchingCluster) {
                         outsideNeighbors.insert(neighbor);
                     }
@@ -978,6 +1017,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
                                            << " touching=" << touchingCluster
                                            << " out=" << joinNamedToString(outsideNeighbors, ',')
                                            << " in=" << joinNamedToString(clusterNeighbors, ',')
+                                           << " dia=" << getDiameter(cluster)
                                            << "\n";
 #endif
             if (clusterNeighbors.size() == 0
@@ -993,9 +1033,25 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
 #endif
             }
         }
+        if (!pruneFringe && !pruneNoisyFringe) {
+            // run once more and prune more things (with a look at cluster size)
+            pruneFringe = true;
+            pruneNoisyFringe = true;
+
+        }
     }
 }
 
+double
+NBNodeCont::getDiameter(const NodeSet& cluster) {
+    double result = 0;
+    for (const NBNode* n1 : cluster) {
+        for (const NBNode* n2 : cluster) {
+            result = MAX2(result, n1->getPosition().distanceTo2D(n2->getPosition()));
+        }
+    }
+    return result;
+}
 
 int
 NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) {
@@ -1008,9 +1064,9 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) 
     }
     for (NBNode* n : cluster) {
         for (NBEdge* edge : n->getOutgoingEdges()) {
-            // we must track the edge length accross geometry like nodes
-            // Also, intersecions that are geometry-like
-            // from the perspective of passenger traffic should be tracked accross
+            // we must track the edge length across geometry like nodes
+            // Also, intersections that are geometry-like
+            // from the perspective of passenger traffic should be tracked across
             std::vector<NBNode*> passed;
             double length = 0;
             NBEdge* cur = edge;
@@ -1089,7 +1145,7 @@ NBNodeCont::getClusterNeighbors(const NBNode* n, double longThreshold, NodeSet& 
 
 
 void
-NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
+NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster, double maxDist) const {
 #ifdef DEBUG_JOINJUNCTIONS
     if (gDebugFlag1) {
         std::cout << "pruning slip-lanes at cluster=" << joinNamedToString(cluster, ' ') << "\n";
@@ -1286,7 +1342,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
             std::cout << "   removed " << numRemoved << " nodes from cluster: " << joinNamedToString(toRemove, ' ') << "\n";
         }
 #endif
-        pruneClusterFringe(cluster);
+        pruneClusterFringe(cluster, maxDist);
     }
 }
 
@@ -1583,7 +1639,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
 
 
 bool
-NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands) const {
+NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, double maxDist, std::vector<NBNode*> cands) const {
     //std::cout << "reduceToCircle  cs=" << circleSize << " cands=" << toString(cands, ',') << " startNodes=" << joinNamedToString(startNodes, ',') << "\n";
     assert(circleSize >= 2);
     if ((int)cands.size() == circleSize) {
@@ -1591,7 +1647,7 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
             // cluster found
             NodeSet candCluster;
             candCluster.insert(cands.begin(), cands.end());
-            pruneClusterFringe(candCluster);
+            pruneClusterFringe(candCluster, maxDist);
             const bool feasible = (int)candCluster.size() == circleSize;
             if (feasible) {
                 cluster.clear();
@@ -1613,11 +1669,11 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
         if (e != nullptr) {
             cands.push_back(e->getFromNode());
             startNodes.erase(e->getFromNode());
-            if (reduceToCircle(cluster, circleSize, startNodes, cands)) {
+            if (reduceToCircle(cluster, circleSize, startNodes, maxDist, cands)) {
                 return true;
             } else {
                 // try another start node
-                return reduceToCircle(cluster, circleSize, startNodes);
+                return reduceToCircle(cluster, circleSize, startNodes, maxDist);
             }
         }
     } else {
@@ -1627,7 +1683,7 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
         if (e != nullptr) {
             std::vector<NBNode*> cands2(cands);
             cands2.push_back(e->getToNode());
-            if (reduceToCircle(cluster, circleSize, startNodes, cands2)) {
+            if (reduceToCircle(cluster, circleSize, startNodes, maxDist, cands2)) {
                 return true;
             }
         }
@@ -1917,6 +1973,19 @@ NBNodeCont::registerJoinedCluster(const NodeSet& cluster) {
         ids.insert(n->getID());
     }
     myJoinedClusters.push_back(ids);
+}
+
+void
+NBNodeCont::registerJoinedCluster(const std::set<std::string>& cluster) {
+    myJoinedClusters.push_back(cluster);
+}
+
+void
+NBNodeCont::unregisterJoinedCluster(const std::set<std::string>& cluster) {
+    auto it = std::find(myJoinedClusters.begin(), myJoinedClusters.end(), cluster);
+    if (it != myJoinedClusters.end()) {
+        myJoinedClusters.erase(it);
+    }
 }
 
 

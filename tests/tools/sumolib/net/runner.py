@@ -34,6 +34,7 @@ def printSorted(d):
 
 
 net = sumolib.net.readNet(sys.argv[1], withInternal=True, withLatestPrograms=True)
+print("version:", net.getVersion())
 lane = net.getLane("SC_0")
 lane2 = net.getLane("CN_0")
 print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([li.getID() for li in lane2.getIncoming()]))))

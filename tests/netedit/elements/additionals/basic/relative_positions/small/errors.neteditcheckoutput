@@ -1,0 +1,7 @@
+Warning: No flow intervals in calibrator 'ca_0'.
+Error: The position of calibrator 'ca_1' lies beyond the lane's '-E0_2' length.
+Warning: The given position (=35) for detector 'e2_0' does not lie on the given lane '-E0_2' with length 1 (adjusting to new position 0.9
+Warning: Cannot build detector of length 10 because no further continuation lane was found for lane '-E0_2'! Truncated detector at length 0.1.
+Warning: Adjusted detector positioning to meet requirement length >= 0.10. New position is [0.90,1.00]
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Quitting (on error).

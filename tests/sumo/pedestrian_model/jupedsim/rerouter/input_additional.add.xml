@@ -6,20 +6,20 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
     <trainStop id="ts_0" lane="E0_0" startPos="248.23" endPos="358.23">
-        <access lane="E1_0" pos="doors"/>
+        <access lane="E1_0" pos="carriage"/>
     </trainStop>
 
     <rerouter id="rerouter" edges="E1" pos="160" optional="1">
         <interval begin="0" end="86400">
             <viaProbReroute id="E3" probability="1"/>
         </interval>
-   </rerouter>
+    </rerouter>
 
     <rerouter id="rerouter2" edges="E1" pos="120" optional="1">
         <interval begin="0" end="86400">
             <viaProbReroute id="E2" probability="1"/>
         </interval>
-   </rerouter>
+    </rerouter>
 
     <edgeData id="ed0" file="aggregated.xml" writeAttributes="entered arrived" detectPersons="walk"/>
 

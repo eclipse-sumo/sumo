@@ -33,6 +33,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/router/IntermodalNetwork.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -186,7 +187,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                 if (rate <= 0) {
                     return handleVehicleError(hardFail, flowParameter, "Invalid rate parameter for exponentially distributed period in the definition of " + toString(tag) + " '" + id + "'.");
                 }
-                flowParameter->repetitionOffset = -TIME2STEPS(rate);
+                flowParameter->poissonRate = rate;
                 poissonFlow = true;
             } else {
                 flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
@@ -696,6 +697,39 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
             }
         }
     }
+    // parse parking access rights
+    if (attrs.hasAttribute(SUMO_ATTR_PARKING_BADGES)) {
+        bool ok = true;
+        std::vector<std::string> badges = attrs.get<std::vector<std::string>>(SUMO_ATTR_PARKING_BADGES, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        } else {
+            ret->parametersSet |= VEHPARS_PARKING_BADGES_SET;
+            ret->parkingBadges = badges;
+        }
+    }
+    // parse modes (transportables only)
+    ret->modes = 0;
+    if (attrs.hasAttribute(SUMO_ATTR_MODES)) {
+        bool ok = true;
+        const std::string modeString = attrs.get<std::string>(SUMO_ATTR_MODES, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        } else {
+            std::string errorMsg;
+            if (!SUMOVehicleParameter::parsePersonModes(modeString, toString(tag), ret->id, ret->modes, errorMsg)) {
+                handleVehicleError(true, ret, errorMsg);
+            }
+        }
+    }
+    // parse usable vehicle types (transportables only)
+    if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
+        bool ok = true;
+        ret->vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        }
+    }
     // parse speed (only used by calibrators flow)
     // also used by vehicle in saved state but this is parsed elsewhere
     if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {
@@ -815,8 +849,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             }
         }
         // validate speed distribution
-        std::string error;
-        if (!vType->speedFactor.isValid(error)) {
+        const std::string& error = vType->speedFactor.isValid();
+        if (error != "") {
             return handleVehicleTypeError(hardFail, vType, "Invalid speed distribution when parsing vType '" + vType->id + "' (" + error + ")");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)) {
@@ -1072,6 +1106,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_SPEEDFACTOR_PREMATURE_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_BOARDING_FACTOR)) {
+            bool ok = true;
+            const double bf = attrs.get<double>(SUMO_ATTR_BOARDING_FACTOR, id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (bf < 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_BOARDING_FACTOR) + " must be equal or greater than 0");
+            } else {
+                vType->boardingFactor = bf;
+                vType->parametersSet |= VTYPEPARS_BOARDING_FACTOR_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);
@@ -1122,6 +1168,16 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_MANEUVER_ANGLE_TIMES_SET;
             } else {
                 return handleVehicleTypeError(hardFail, vType, "Invalid manoeuver angle times map for vType '" + vType->id + "'");
+            }
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_PARKING_BADGES)) {
+            bool ok = true;
+            std::vector<std::string> badges = attrs.get<std::vector<std::string>>(SUMO_ATTR_PARKING_BADGES, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else {
+                vType->parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
+                vType->parkingBadges = badges;
             }
         }
         // try to parse Car Following Model params
@@ -1214,6 +1270,8 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     return false;
                 }
                 // add parsedCFMAttribute to cfParameter
+                into->cfParameter[it] = parsedCFMAttribute;
+            } else if (it == SUMO_ATTR_SPEED_TABLE || it == SUMO_ATTR_TRACTION_TABLE || it == SUMO_ATTR_RESISTANCE_TABLE) {
                 into->cfParameter[it] = parsedCFMAttribute;
             } else if (it == SUMO_ATTR_CF_IDM_STEPPING) {
                 // declare a int in wich save CFM int attribute
@@ -1395,6 +1453,15 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         // Rail
         std::set<SumoXMLAttr> railParams(genericParams);
         railParams.insert(SUMO_ATTR_TRAIN_TYPE);
+        railParams.insert(SUMO_ATTR_SPEED_TABLE);
+        railParams.insert(SUMO_ATTR_TRACTION_TABLE);
+        railParams.insert(SUMO_ATTR_RESISTANCE_TABLE);
+        railParams.insert(SUMO_ATTR_MASSFACTOR);
+        railParams.insert(SUMO_ATTR_MAXPOWER);
+        railParams.insert(SUMO_ATTR_MAXTRACTION);
+        railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT);
+        railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR);
+        railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
         // ACC
@@ -1702,6 +1769,56 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
 bool
 SUMOVehicleParserHelper::isInternalRouteID(const std::string& id) {
     return id.substr(0, 1) == "!";
+}
+
+
+int
+SUMOVehicleParserHelper::parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi) {
+    int carWalk = 0;
+    for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
+        if (opt == "parkingAreas") {
+            carWalk |= ModeChangeOptions::PARKING_AREAS;
+        } else if (opt == "ptStops") {
+            carWalk |= ModeChangeOptions::PT_STOPS;
+        } else if (opt == "allJunctions") {
+            carWalk |= ModeChangeOptions::ALL_JUNCTIONS;
+        } else {
+            WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+        }
+    }
+    const StringVector taxiDropoff = oc.getStringVector("persontrip.transfer.taxi-walk");
+    const StringVector taxiPickup = oc.getStringVector("persontrip.transfer.walk-taxi");
+    if (taxiDropoff.empty() && hasTaxi) {
+        carWalk |= ModeChangeOptions::TAXI_DROPOFF_ANYWHERE;
+    } else {
+        for (const std::string& opt : taxiDropoff) {
+            if (opt == "parkingAreas") {
+                carWalk |= ModeChangeOptions::TAXI_DROPOFF_PARKING_AREAS;
+            } else if (opt == "ptStops") {
+                carWalk |= ModeChangeOptions::TAXI_DROPOFF_PT;
+            } else if (opt == "allJunctions") {
+                carWalk |= ModeChangeOptions::TAXI_DROPOFF_ANYWHERE;
+            } else {
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+            }
+        }
+    }
+    if (taxiPickup.empty() && hasTaxi) {
+        carWalk |= ModeChangeOptions::TAXI_PICKUP_ANYWHERE;
+    } else {
+        for (const std::string& opt : taxiPickup) {
+            if (opt == "parkingAreas") {
+                carWalk |= ModeChangeOptions::TAXI_PICKUP_PARKING_AREAS;
+            } else if (opt == "ptStops") {
+                carWalk |= ModeChangeOptions::TAXI_PICKUP_PT;
+            } else if (opt == "allJunctions") {
+                carWalk |= ModeChangeOptions::TAXI_PICKUP_ANYWHERE;
+            } else {
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+            }
+        }
+    }
+    return carWalk;
 }
 
 

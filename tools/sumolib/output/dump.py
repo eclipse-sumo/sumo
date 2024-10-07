@@ -44,7 +44,7 @@ class DumpReader(handler.ContentHandler):
         if name == 'interval':
             self._beginTime = float(attrs['begin'])
             self._intervalBegins.append(self._beginTime)
-            for a in self._attrsToCollect.itervalues():
+            for a in self._attrsToCollect.values():
                 self._values[a].append(collections.defaultdict(int))
         if name == 'edge' or name == 'lane':
             id = attrs['id']

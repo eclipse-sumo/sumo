@@ -31,36 +31,24 @@
 // method definitions
 // ===========================================================================
 
-GNETransport*
-GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent,
-                             GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-                             GNEAdditional* toContainerStop, double arrivalPosition) {
-    // declare icon an tag
-    const auto iconTag = getTransportTagIcon(fromEdge, toEdge, fromContainerStop, toContainerStop);
-    // declare containers
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (fromEdge) {
-        edges.push_back(fromEdge);
-    } else if (fromContainerStop) {
-        additionals.push_back(fromContainerStop);
-    }
-    if (toEdge) {
-        edges.push_back(toEdge);
-    } else if (toContainerStop) {
-        additionals.push_back(toContainerStop);
-    }
-    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, edges, additionals, arrivalPosition);
-}
-
-
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+                           const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
+GNEDemandElementPlan(this, -1, arrivalPosition),
+myLines(lines),
+myGroup(group) {
 }
 
 
@@ -81,15 +69,17 @@ GNETransport::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETransport::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    // first write origin stop (if this element starts in a stoppingPlace)
+    writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_TRANSPORT);
-    // write plan attributes
-    writePlanAttributes(device);
-    // write lines
+    writeLocationAttributes(device);
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
-    // close tag
+    if (myGroup.size() > 0) {
+        device.writeAttr(SUMO_ATTR_GROUP, myGroup);
+    }
     device.closeTag();
 }
 
@@ -196,6 +186,8 @@ GNETransport::getAttribute(SumoXMLAttr key) const {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_GROUP:
+            return myGroup;
         default:
             return getPlanAttribute(key);
     }
@@ -218,6 +210,7 @@ void
 GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_GROUP:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -233,6 +226,8 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_GROUP:
+            return true;
         default:
             return isPlanValid(key, value);
     }
@@ -273,6 +268,9 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
+        case SUMO_ATTR_GROUP:
+            myGroup = value;
+            break;
         default:
             setPlanAttribute(key, value);
             break;
@@ -295,15 +293,6 @@ GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undo
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                           const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
-                           double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {containerParent}, {}),
-GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 /****************************************************************************/

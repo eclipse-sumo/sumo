@@ -33,6 +33,7 @@
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/Command.h>
 #include <microsim/MSRouterDefs.h>
 
 
@@ -72,6 +73,15 @@ public:
     /// @brief Definition of the internal vehicles map iterator
     typedef std::map<std::string, SUMOVehicle*>::const_iterator constVehIt;
 
+    /// @brief possible origins of a vehicle definition
+    enum VehicleDefinitionSource {
+        ROUTEFILE,
+        STATE,
+        TRIGGER,
+        LIBSUMO,
+        OTHER
+    };
+
 public:
     /// @brief Constructor
     MSVehicleControl();
@@ -92,12 +102,12 @@ public:
      * @param[in] route The route of this vehicle
      * @param[in] type The type of this vehicle
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
-     * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
+     * @param[in] source whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
     virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, ConstMSRoutePtr route,
                                       MSVehicleType* type,
-                                      const bool ignoreStopErrors, const bool fromRouteFile = true,
+                                      const bool ignoreStopErrors, const VehicleDefinitionSource source = ROUTEFILE,
                                       bool addRouteStops = true);
     /// @}
 
@@ -139,7 +149,10 @@ public:
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      * @todo Isn't this quite insecure?
      */
-    virtual void deleteVehicle(SUMOVehicle* v, bool discard = false);
+    virtual void deleteVehicle(SUMOVehicle* v, bool discard = false, bool wasKept = false);
+
+    /** @brief when a vehicle is kept after arrival, schedule later deletion **/
+    void deleteKeptVehicle(SUMOVehicle* veh);
 
     void fixVehicleCounts() {
         myLoadedVehNo++;
@@ -569,7 +582,7 @@ private:
     bool isPendingRemoval(SUMOVehicle* veh);
 
 protected:
-    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops);
+    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops, const VehicleDefinitionSource source);
 
 private:
     /// @name Vehicle statistics (always accessible)
@@ -636,6 +649,18 @@ protected:
 
 
 private:
+    class DeleteKeptVehicle : public Command {
+    public:
+        DeleteKeptVehicle(SUMOVehicle* veh) : myVehicle(veh) {};
+        ~DeleteKeptVehicle() {};
+        SUMOTime execute(SUMOTime currentTime);
+    private:
+        SUMOVehicle* myVehicle;
+    private:
+        /// @brief Invalidated assignment operator.
+        DeleteKeptVehicle& operator=(const DeleteKeptVehicle&) = delete;
+    };
+
     /// @name Vehicle type container
     /// @{
 
@@ -660,6 +685,8 @@ private:
 
     /// @brief The scaling factor (especially for inc-dua)
     double myScale;
+
+    SUMOTime myKeepTime;
 
     /// @brief The maximum speed factor for all vehicles in the network
     double myMaxSpeedFactor;

@@ -173,6 +173,9 @@ public:
         return (int)myLanes->size();
     }
 
+    /// @brief return the number of lanes that permit non-weak modes if the edge allows non weak modes and the number of lanes otherwise
+    int getNumDrivingLanes() const;
+
     /// @brief return total number of vehicles on this edges lanes or segments
     int getVehicleNumber() const;
 
@@ -224,7 +227,7 @@ public:
      * @return The lanes that may be used to reach the given edge, nullptr if no such lanes exist
      */
     const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
-            SUMOVehicleClass vclass = SVC_IGNORING) const;
+            SUMOVehicleClass vclass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
 
 
@@ -388,7 +391,7 @@ public:
      * @param[in] vClass The vClass for which to restrict the successors
      * @return The eligible following edges
      */
-    const MSConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const MSConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -563,6 +566,11 @@ public:
      */
     MSLane* getDepartLane(MSVehicle& veh) const;
 
+    /* @brief get the rightmost lane that allows the given vClass or nullptr
+     * @param[in] defaultFirst Whether the first lane should be returned if all lanes are forbidden
+     */
+    MSLane* getFirstAllowed(SUMOVehicleClass vClass, bool defaultFirst = false) const;
+
     /// @brief consider given departLane parameter (only for validating speeds)
     MSLane* getDepartLaneMeso(SUMOVehicle& veh) const;
 
@@ -606,8 +614,12 @@ public:
             return false;
         }
         const SUMOVehicleClass svc = vehicle->getVClass();
-        return (myCombinedPermissions & svc) != svc;
+        return (vehicle->ignoreTransientPermissions()
+                ? (myOriginalCombinedPermissions & svc) != svc
+                : (myCombinedPermissions & svc) != svc);
     }
+
+    bool hasTransientPermissions() const;
 
     /** @brief Returns whether this edge has restriction parameters forbidding the given vehicle to pass it
      * The restriction mechanism is not implemented yet for the microsim, so it always returns false.
@@ -672,7 +684,7 @@ public:
     /** @brief Sets a new maximum speed for all lanes (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      */
-    void setMaxSpeed(double val) const;
+    void setMaxSpeed(double val, double jamThreshold = -1);
 
     /** @brief Sets a new friction coefficient COF for all lanes [*later to be (used by TraCI and MSCalibrator)*]
     * @param[in] val the new coefficient in [0..1]
@@ -734,6 +746,9 @@ public:
     bool isFringe() const {
         return myAmFringe;
     }
+
+    /// @brief return whether this edge prohibits changing for the given vClass when starting on the given lane index
+    bool hasChangeProhibitions(SUMOVehicleClass svc, int index) const;
 
     /// @brief whether this lane is selected in the GUI
     virtual bool isSelected() const {
@@ -915,14 +930,24 @@ protected:
 
     /// @brief Associative container from vehicle class to allowed-lanes.
     AllowedLanesCont myAllowed;
+    AllowedLanesCont myOrigAllowed;
 
     /// @brief From target edge to lanes allowed to be used to reach it
     AllowedLanesByTarget myAllowedTargets;
+    AllowedLanesByTarget myOrigAllowedTargets;
 
     /// @brief The intersection of lane permissions for this edge
     SVCPermissions myMinimumPermissions = SVCAll;
     /// @brief The union of lane permissions for this edge
     SVCPermissions myCombinedPermissions = 0;
+
+    /// @brief The original intersection of lane permissions for this edge (before temporary modifications)
+    SVCPermissions myOriginalMinimumPermissions = SVCAll;
+    /// @brief The original union of lane permissions for this edge (before temporary modifications)
+    SVCPermissions myOriginalCombinedPermissions;
+
+    /// @brief whether transient permission changes were applied to this edge or a predecessor
+    bool myHaveTransientPermissions;
     /// @}
 
     /// @brief the other taz-connector if this edge isTazConnector, otherwise nullptr
@@ -989,6 +1014,7 @@ protected:
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, MSConstEdgePairVector> myClassesViaSuccessorMap;
+    mutable std::map<SUMOVehicleClass, MSConstEdgePairVector> myOrigClassesViaSuccessorMap;
 
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;

@@ -47,6 +47,7 @@
 #include <microsim/devices/MSDevice_Bluelight.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
+#include "MSLCM_LC2013_CC.h"
 #include "MSLCM_SL2015.h"
 #include "MSAbstractLaneChangeModel.h"
 
@@ -86,6 +87,8 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
             return new MSLCM_DK2008(v);
         case LaneChangeModel::LC2013:
             return new MSLCM_LC2013(v);
+        case LaneChangeModel::LC2013_CC:
+            return new MSLCM_LC2013_CC(v);
         case LaneChangeModel::SL2015:
             return new MSLCM_SL2015(v);
         case LaneChangeModel::DEFAULT:
@@ -304,7 +307,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         myLaneChangeDirection = direction;
         setManeuverDist((target->getWidth() + source->getWidth()) * 0.5 * direction);
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
-        myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
+        myVehicle.switchOnSignal(((direction == 1) != MSGlobals::gLefthand) ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         if (myLCOutput) {
             memorizeGapsAtLCInit();
         }
@@ -845,9 +848,11 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
         // LC won't be completed if vehicle stands
         double maneuverDist = remainingManeuverDist;
         const double vModel = computeSpeedLat(maneuverDist, maneuverDist, urgent);
-        if (vModel > 0) {
+        double result = D / vModel;
+        // make sure that the vehicle isn't braking to a stop during the manuever
+        if (vModel > SUMO_const_haltingSpeed && (vModel + myVehicle.getAcceleration() * result) > SUMO_const_haltingSpeed ) {
             // unless the model tells us something different
-            return D / vModel;
+            return result;
         } else {
             return -1;
         }

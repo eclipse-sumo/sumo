@@ -23,6 +23,19 @@
 3_arm_service_entering
 3_arm_unprioritized
 3_arm_unprioritized2
+3_arm_prioritized
+
+# test for #14731
+3_arm_slanted_1sw_missing
+
+# test for #14731
+3_arm_slanted_1sw_missing2
+
+# test for #14731
+3_arm_slanted_1sw_missing3
+
+# second sidewalk on the left side should raise a warning
+3_no_crossings_invalid_sidewalks
 
 # 4 arm junction with crossings on all sides and custom tl indices
 sumonet_customTLIndex
@@ -68,3 +81,6 @@ custom_tll
 
 # railway crossing with pedestrian crossings
 rail_crossing
+
+# see #15136
+custom_shape_proj

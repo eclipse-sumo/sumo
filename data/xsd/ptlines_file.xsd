@@ -33,6 +33,8 @@
         <xsd:attribute name="vClass" type="xsd:string"/>
         <xsd:attribute name="period" type="floatType"/>
         <xsd:attribute name="nightService" type="xsd:string"/>
+        <xsd:attribute name="missingBefore" type="nonNegativeIntType"/>
+        <xsd:attribute name="missingAfter" type="nonNegativeIntType"/>
     </xsd:complexType>
 
     <xsd:complexType name="ptLineStopType">

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-22 07:05:05 by Eclipse SUMO polyconvert Version v1_18_0+1732-f768a4560e8
+<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO polyconvert Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
@@ -102,4 +102,4 @@
         <language value="C" type="STR" help="Language to use in messages"/>
     </report>
 
-</configuration>
+</polyconvertConfiguration>

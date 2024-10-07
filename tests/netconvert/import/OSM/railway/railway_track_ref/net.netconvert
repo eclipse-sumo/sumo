@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:25 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-398643.52,-5812598.13" convBoundary="0.00,0.00,170.24,180.36" origBoundary="13.504552,52.454147,13.510902,52.457892" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
 
     <edge id="136703829" from="1499711591" to="326320601" priority="19" type="railway.light_rail" spreadType="center" shape="0.00,162.19 13.18,146.98 59.33,95.72 83.55,69.88 107.50,43.04 127.17,21.38 147.52,0.00">
-        <lane id="136703829_0" index="0" allow="rail_urban" speed="27.78" length="219.26" shape="0.00,162.19 13.18,146.98 59.33,95.72 83.55,69.88 107.50,43.04 127.17,21.38 147.52,0.00"/>
+        <lane id="136703829_0" index="0" allow="rail_urban" speed="27.78" length="219.26" shape="-0.00,162.19 13.18,146.98 59.33,95.72 83.55,69.88 107.50,43.04 127.17,21.38 147.52,0.00"/>
         <param key="railway:track_ref" value="3"/>
     </edge>
     <edge id="136703832" from="1499711610" to="261745121" priority="19" type="railway.light_rail" spreadType="center" shape="10.90,168.97 31.65,147.00 116.17,53.57 128.55,40.04 147.83,18.86 156.85,8.95">

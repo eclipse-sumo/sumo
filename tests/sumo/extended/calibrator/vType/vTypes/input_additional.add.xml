@@ -1,0 +1,28 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="truck" sigma="0" vClass="truck"/>
+
+    <calibrator id="calibtest" edge="beg2" pos="0" output="detector.xml" vTypes="truck">
+        <route id="c1" edges="beg2"/>
+        <!-- 10 vehs in 100s -->
+        <flow type="truck" begin="0"   end="100" route="c1" vehsPerHour="360"/>
+        <!-- 31 vehs in 200s -->
+        <flow type="truck" begin="200" end="400" route="c1" vehsPerHour="558"/>
+        <!-- 100 vehs in 300s -->
+        <flow type="truck" begin="400" end="700" route="c1" vehsPerHour="1200"/>
+
+        <!-- 10 vehs in 100s -->
+        <flow type="truck" begin="2000" end="2100" route="c1" vehsPerHour="360"/>
+        <!-- 31 vehs in 200s -->
+        <flow type="truck" begin="2200" end="2400" route="c1" vehsPerHour="558"/>
+        <!-- 100 vehs in 300s -->
+        <flow type="truck" begin="2400" end="2700" route="c1" vehsPerHour="1200"/>
+    </calibrator>
+
+    <laneData id="expect10vehs"  begin="0"    end="100"  file="aggregated_25.xml"/>
+    <laneData id="expect31vehs"  begin="200"  end="400"  file="aggregated_25.xml"/>
+    <laneData id="expect100vehs" begin="400"  end="700"  file="aggregated_25.xml"/>
+    <laneData id="expect10vehs"  begin="2000" end="2100" file="aggregated_25.xml"/>
+    <laneData id="expect31vehs"  begin="2200" end="2400" file="aggregated_25.xml"/>
+    <laneData id="expect100vehs" begin="2400" end="2700" file="aggregated_25.xml"/>
+</additional>

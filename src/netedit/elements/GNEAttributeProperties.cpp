@@ -112,6 +112,10 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
             throw FormatException("invalid range");
         }
     }
+    // check that unique attributes aren't copyables
+    if (isUnique() && isCopyable()) {
+        throw FormatException("Unique attributes aren't copyables");
+    }
 #endif // DEBUG
 }
 
@@ -470,6 +474,12 @@ GNEAttributeProperties::isFlowDefinition() const {
 bool
 GNEAttributeProperties::hasAutomaticID() const {
     return (myAttributeProperty & AUTOMATICID) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isCopyable() const {
+    return (myAttributeProperty & COPYABLE) != 0;
 }
 
 /****************************************************************************/

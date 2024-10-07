@@ -307,6 +307,12 @@ GNEInternalLane::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNEInternalLane::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

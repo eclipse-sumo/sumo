@@ -18,6 +18,7 @@
 /// @author  Walter Bamberger
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    July 2010
 ///
 // Location and schedules of a work position: linked with one adult
@@ -81,7 +82,7 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
         }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 9.00am --" << std::endl;
-    return 900;
+    return 32400;
 }
 
 
@@ -97,7 +98,7 @@ AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
         }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 5.00pm --" << std::endl;
-    return 1700;
+    return 61200;
 }
 
 

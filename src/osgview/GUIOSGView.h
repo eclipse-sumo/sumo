@@ -75,11 +75,11 @@ public:
     /// @brief Used osg::NodeSet groups
     enum NodeSetGroup {
         /// @brief semi-transparent domes around user-placed TLS models
-        NODESET_TLSDOMES,
+        NODESET_TLSDOMES = 1,
         /// @brief markers above lanes showing the signal state of the corresponding tlIndex
-        NODESET_TLSLINKMARKERS,
+        NODESET_TLSLINKMARKERS = 2,
         /// @brief auto-generated TLS models
-        NODESET_TLSMODELS,
+        NODESET_TLSMODELS = 4,
     };
 
     /**

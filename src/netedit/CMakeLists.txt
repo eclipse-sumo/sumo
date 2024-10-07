@@ -93,9 +93,8 @@ add_dependencies(generate-templates-h sumo netgenerate)
 
 # create CMake custom command that generates templates.h file (OUTPUT) giving as argument python executable (PYTHON_EXECUTABLE),
 # the python script <SUMO>/tools/build_config/templates.py (<SUMO/src/netedit>/../../tools/build_config/templates.py) and the sumo binary
-# the LSAN_OPTIONS are only relevant for the clang build but should not hurt others
 add_custom_command(OUTPUT templates.h
-                   COMMAND ${CMAKE_COMMAND} -E env LSAN_OPTIONS=suppressions=${CMAKE_CURRENT_SOURCE_DIR}/../../build_config/clang_memleak_suppressions.txt ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build_config/templates.py $<TARGET_FILE:sumo> $<TARGET_FILE:netgenerate>
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build_config/templates.py $<TARGET_FILE:sumo> $<TARGET_FILE:netgenerate>
                    DEPENDS sumo netgenerate
                    )
 

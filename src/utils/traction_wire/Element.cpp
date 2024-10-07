@@ -74,7 +74,7 @@ void Element::setPowerWanted(double powerWantedIn) {
     this->powerWanted = powerWantedIn;
 }
 double Element::getVoltage() {
-    if (this->isenabled == false) {
+    if (!this->isenabled) {
         return DBL_MAX;
     }
     if (getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
@@ -83,7 +83,7 @@ double Element::getVoltage() {
     return this->pNode->getVoltage() - this->nNode->getVoltage();
 }
 double Element::getCurrent() {
-    if (this->isenabled == false) {
+    if (!this->isenabled) {
         return DBL_MAX;
     }
     switch (this->type) {

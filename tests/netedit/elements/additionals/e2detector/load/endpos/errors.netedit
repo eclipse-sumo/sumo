@@ -1,0 +1,4 @@
+Error: A single lane area detector requires two parameters of those 'pos', 'endPos' and 'length'.
+Error: Attribute 'endPos' in definition of laneAreaDetector 'E2_02' Invalid Number Format (double) dummyPosition.
+Error: Could not build laneAreaDetector with ID 'E2_04' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Sep143029.30324\netedit.gui\elements\additionals\e2detector\load\endpos\additionals.add.xml failed.

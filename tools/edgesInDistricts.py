@@ -195,14 +195,14 @@ if __name__ == "__main__":
     if len(nets) > 1:
         print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for " +
               "taz only.")
-    reader = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
+    dec = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
     for tf in tazFiles:
         parse(tf, polyReader)
     if options.verbose:
         print("Calculating")
-    reader.computeWithin(polyReader.getPolygons(), options)
+    dec.computeWithin(polyReader.getPolygons(), options)
     if options.verbose:
         print("Writing results")
-    reader.writeResults(options)
+    dec.writeResults(options)

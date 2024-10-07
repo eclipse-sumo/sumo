@@ -28,6 +28,9 @@ braking_leader_spaceGap
 # No maxDecel given, low changeRate, only space gap specified
 without_maxDecel_slow_spacegap
 
+# No maxDecel given, low changeRate, only space gap specified. ACC model increases gap differently than Krauss, but it holds up qualitatively. (lower stepLength for ACC in this test)
+without_maxDecel_slow_spacegap_ACC
+
 # Giving a smaller time headway than the original should trigger a warning
 warning_smaller_headway
 

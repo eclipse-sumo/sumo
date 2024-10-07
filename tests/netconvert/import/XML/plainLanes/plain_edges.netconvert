@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-12 13:11:01 by Eclipse SUMO netconvert Version v1_15_0+1595-d32acb9
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89">
         <lane index="0" speed="13.89" shape="110.40,95.20 200.00,95.20"/>
         <lane index="1" speed="13.89" shape="110.40,98.40 200.00,98.40"/>

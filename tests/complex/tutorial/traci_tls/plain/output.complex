@@ -1,18 +1,17 @@
-***Starting server on port 37207 ***
-Loading net-file from 'data/cross.net.xml' ... done (8ms).
-Loading additional-files from 'data/cross.det.xml' ... done (1ms).
+***Starting server on port 59809 ***
+Loading net-file from 'data/cross.net.xml' ... done (2ms).
+Loading additional-files from 'data/cross.det.xml' ... done (0ms).
 Loading done.
-Simulation version v1_11_0+0462-d030828f8b9 started with time: 0.00.
-Simulation ended at time: 3740.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 3740.00.
 Reason: TraCI requested termination.
-Performance: 
- Duration: 4.99s
- TraCI-Duration: 3.61s
- Real time factor: 749.649
- UPS: 22163.760273
-Vehicles: 
+Performance:
+ Duration: 1.23s
+ TraCI-Duration: 0.78s
+ Real time factor: 3038.18
+ UPS: 90000.000000
+Vehicles:
  Inserted: 768
  Running: 0
  Waiting: 0
-
  Retrying in 1 seconds

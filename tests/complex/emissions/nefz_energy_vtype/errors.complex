@@ -1,0 +1,2 @@
+Warning: Vehicle type 'soulEV65' uses the Energy model with parameter 'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead.
+Warning: Vehicle type 'soulEV65' uses the Energy model with parameter 'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead.

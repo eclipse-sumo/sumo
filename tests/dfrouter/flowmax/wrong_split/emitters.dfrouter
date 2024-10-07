@@ -1,4 +1,64 @@
-<additional>
-   <emitter id="source_MQ_1to2"  pos="5" objectid="1to2_0" friendlyPos="x" file="emitter_MQ_1to2.def.xml"/>
-   <emitter id="source_MQ_6to7"  pos="5" objectid="6to7_0" friendlyPos="x" file="emitter_MQ_6to7.def.xml"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-21 09:43:17 by Eclipse SUMO dfrouter Version v1_19_0+0930-c55738c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_detectors.det.xml"/>
+        <measure-files value="input_flows.txt"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" speedFactor="2.00"/>
+    <routeDistribution id="MQ_1to2">
+        <route refId="1to2_to_9to10" probability="0.50"/>
+        <route refId="1to2_to_4to5" probability="0.50"/>
+    </routeDistribution>
+    <vehicle id="MQ_1to2.0" depart="0.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_4to5"/>
+    <vehicle id="MQ_1to2.1" depart="6.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_4to5"/>
+    <vehicle id="MQ_1to2.2" depart="12.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_9to10"/>
+    <vehicle id="MQ_1to2.3" depart="18.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_9to10"/>
+    <vehicle id="MQ_1to2.4" depart="24.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_4to5"/>
+    <vehicle id="MQ_1to2.5" depart="30.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_9to10"/>
+    <vehicle id="MQ_1to2.6" depart="36.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_4to5"/>
+    <vehicle id="MQ_1to2.7" depart="42.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_9to10"/>
+    <vehicle id="MQ_1to2.8" depart="48.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_4to5"/>
+    <vehicle id="MQ_1to2.9" depart="54.00" departLane="0" departPos="5.00" departSpeed="27.78" route="1to2_to_4to5"/>
+    <routeDistribution id="MQ_6to7">
+        <route refId="6to7_to_9to10" probability="1.00"/>
+    </routeDistribution>
+    <vehicle id="MQ_6to7.0" depart="0.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.1" depart="6.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.2" depart="12.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.3" depart="18.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.4" depart="24.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.5" depart="30.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.6" depart="36.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.7" depart="42.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.8" depart="48.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
+    <vehicle id="MQ_6to7.9" depart="54.00" departLane="0" departPos="5.00" departSpeed="27.78" route="6to7_to_9to10"/>
 </additional>

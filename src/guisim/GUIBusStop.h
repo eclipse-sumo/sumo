@@ -82,7 +82,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors);
+    bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);
 
     /// @name inherited from GUIGlObject
     //@{
@@ -121,6 +121,9 @@ public:
 
     /// @brief Returns the street name
     const std::string getOptionalName() const;
+
+    /// @brief Formats the last free pos value
+    double getCroppedLastFreePos() const;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

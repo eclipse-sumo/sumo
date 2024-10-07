@@ -425,6 +425,9 @@ public:
     /// @brief called if the user hits backspace
     long onCmdBackspace(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user hits key combination for clear selection
+    long onCmdClearSelectionShortcut(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits key combination for focus on frame
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 

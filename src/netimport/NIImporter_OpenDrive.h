@@ -733,7 +733,7 @@ protected:
      */
     static void computeShapes(std::map<std::string, OpenDriveEdge*>& edges);
 
-    static bool hasNonLinearElevation(OpenDriveEdge& e);
+    static bool hasNonLinearElevation(const OpenDriveEdge& e);
 
     /// transform Poly3 into a list of offsets, adding intermediate points to geom if needed
     static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id);
@@ -771,10 +771,10 @@ protected:
     static void writeRoadObjects(const OpenDriveEdge* e);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry openDriveTags[];
+    static SequentialStringBijection::Entry openDriveTags[];
 
     /// The names of openDrive-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry openDriveAttrs[];
+    static SequentialStringBijection::Entry openDriveAttrs[];
 
     class LaneSorter {
     public:

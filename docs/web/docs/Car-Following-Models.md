@@ -9,7 +9,7 @@ in [sumo](sumo.md). It is still a stub and needs be expanded.
 
 ## Links
 
-- [Publications on car-following models](Publications.md#car-following_models)
+- [Publications on car-following models](Publications.md#publications_using_sumo)
 - [How to implement a new car-following model](Developer/How_To/Car-Following_Model.md)
 - [More implementation notes on car-following models](Developer/Implementation_Notes/Vehicle_Models.md)
 
@@ -40,7 +40,7 @@ model reaction times and also in order to reduce computational demand
 and thus speed up the simulation.
 
 !!! note
-    The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has it's action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
+    The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has its action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
 
 ### tau
 

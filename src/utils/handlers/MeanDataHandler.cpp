@@ -144,13 +144,14 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 
 bool
 MeanDataHandler::isErrorCreatingElement() const {
-    return true;
+    return myErrorCreatingElement;
 }
 
 
 void
 MeanDataHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
+    myErrorCreatingElement = true;
 }
 
 

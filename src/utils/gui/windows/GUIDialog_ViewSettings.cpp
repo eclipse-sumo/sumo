@@ -183,6 +183,10 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myPOISizePanel;
     delete myPolySizePanel;
     delete myAddSizePanel;
+    // delete rainbow panels
+    delete myEdgeRainbowPanel;
+    delete myJunctionRainbowPanel;
+    delete myDataRainbowPanel;
 }
 
 
@@ -215,6 +219,7 @@ GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) {
 
 long
 GUIDialog_ViewSettings::onCmdOk(FXObject*, FXSelector, void*) {
+    getApp()->reg().writeIntEntry("SETTINGS", "comboRows", (int)myComboRows->getValue());
     hide();
     return 1;
 }
@@ -292,8 +297,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
         myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
         myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
         myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
-        myDataColorRainbowCheck->setCheck(mySettings->dataValueHideCheck);
-        myDataColorRainbowThreshold->setValue(mySettings->dataValueHideThreshold);
+        myDataRainbowPanel->update(mySettings->dataValueRainBow);
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -315,10 +319,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
-    myLaneColorRainbowCheck->setCheck(mySettings->edgeValueHideCheck);
-    myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
-    myLaneColorRainbowCheck2->setCheck(mySettings->edgeValueHideCheck2);
-    myLaneColorRainbowThreshold2->setValue(mySettings->edgeValueHideThreshold2);
+    myDisableHideByZoom->setCheck(mySettings->disableHideByZoom);
+    myEdgeRainbowPanel->update(mySettings->edgeValueRainBow);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -333,6 +335,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myScaleLength->setCheck(mySettings->scaleLength);
     myDrawReversed->setCheck(mySettings->drawReversed);
     myShowParkingInfo->setCheck(mySettings->showParkingInfo);
+    myShowChargingInfo->setCheck(mySettings->showChargingInfo);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
@@ -362,6 +365,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myTLSPhaseIndexPanel->update(mySettings->tlsPhaseIndex);
     myTLSPhaseNamePanel->update(mySettings->tlsPhaseName);
     myJunctionSizePanel->update(mySettings->junctionSize);
+    myJunctionRainbowPanel->update(mySettings->junctionValueRainBow);
 
     myAddNamePanel->update(mySettings->addName);
     myAddFullNamePanel->update(mySettings->addFullName);
@@ -382,6 +386,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myDrawCrossingsAndWalkingAreas->setCheck(mySettings->drawCrossingsAndWalkingareas);
     myDither->setCheck(mySettings->dither);
     myFPS->setCheck(mySettings->fps);
+    myTrueZ->setCheck(mySettings->trueZ);
     myDrawBoundaries->setCheck(mySettings->drawBoundaries);
     myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
     myDisableDottedContours->setCheck(mySettings->disableDottedContours);
@@ -583,6 +588,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
     tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
+    tmpSettings.disableHideByZoom = (myDisableHideByZoom->getCheck() != FALSE);
     if (sender == myParamKey) {
         if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
             tmpSettings.edgeParam = myParamKey->getText().text();
@@ -620,10 +626,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     } else if (sender == myMeanDataID) {
         tmpSettings.edgeDataID = myMeanDataID->getText().text();
     }
-    tmpSettings.edgeValueHideCheck = (myLaneColorRainbowCheck->getCheck() != FALSE);
-    tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
-    tmpSettings.edgeValueHideCheck2 = (myLaneColorRainbowCheck2->getCheck() != FALSE);
-    tmpSettings.edgeValueHideThreshold2 = myLaneColorRainbowThreshold2->getValue();
+    tmpSettings.edgeValueRainBow = myEdgeRainbowPanel->getSettings();
     tmpSettings.laneWidthExaggeration = myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = myLaneMinWidthDialer->getValue();
 
@@ -638,6 +641,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.scaleLength = (myScaleLength->getCheck() != FALSE);
     tmpSettings.drawReversed = (myDrawReversed->getCheck() != FALSE);
     tmpSettings.showParkingInfo = (myShowParkingInfo->getCheck() != FALSE);
+    tmpSettings.showChargingInfo = (myShowChargingInfo->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
@@ -667,6 +671,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.tlsPhaseIndex = myTLSPhaseIndexPanel->getSettings();
     tmpSettings.tlsPhaseName = myTLSPhaseNamePanel->getSettings();
     tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
+    tmpSettings.junctionValueRainBow = myJunctionRainbowPanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
     tmpSettings.addFullName = myAddFullNamePanel->getSettings();
@@ -690,8 +695,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.dataValue = myDataValuePanel->getSettings();
         tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
         tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
-        tmpSettings.dataValueHideCheck = (myDataColorRainbowCheck->getCheck() != FALSE);
-        tmpSettings.dataValueHideThreshold = myDataColorRainbowThreshold->getValue();
+        tmpSettings.dataValueRainBow = myDataRainbowPanel->getSettings();
     }
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
@@ -699,6 +703,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawCrossingsAndWalkingareas = (myDrawCrossingsAndWalkingAreas->getCheck() != FALSE);
     tmpSettings.dither = (myDither->getCheck() != FALSE);
     tmpSettings.fps = (myFPS->getCheck() != FALSE);
+    tmpSettings.trueZ = (myTrueZ->getCheck() != FALSE);
     tmpSettings.drawBoundaries = (myDrawBoundaries->getCheck() != FALSE);
     tmpSettings.forceDrawForRectangleSelection = (myForceDrawForRectangleSelection->getCheck() != FALSE);
     tmpSettings.disableDottedContours = (myDisableDottedContours->getCheck() != FALSE);
@@ -716,17 +721,14 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.skyColor = MFXUtils::getRGBColor(mySkyColor->getRGBA());
 
     // lanes (colors)
-    if (sender == myLaneColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
-                                    myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue(),
-                                    myLaneColorRainbowCheck2->getCheck() != FALSE, myLaneColorRainbowThreshold2->getValue());
+    if (sender == myEdgeRainbowPanel->myColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE, myEdgeRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
-    } else if (sender == myJunctionColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
+    } else if (sender == myJunctionRainbowPanel->myColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION, myJunctionRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
-    } else if (sender == myDataColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
-                                    myDataColorRainbowCheck->getCheck() != FALSE, myDataColorRainbowThreshold->getValue());
+    } else if (myDataRainbowPanel && sender == myDataRainbowPanel->myColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA, myDataRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
@@ -1359,14 +1361,14 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     if (mySettings->getLaneEdgeScheme().isFixed()) {
-        myLaneColorRainbow->disable();
+        myEdgeRainbowPanel->myColorRainbow->disable();
     } else {
-        myLaneColorRainbow->enable();
+        myEdgeRainbowPanel->myColorRainbow->enable();
     }
     if (mySettings->junctionColorer.getScheme().isFixed()) {
-        myJunctionColorRainbow->disable();
+        myJunctionRainbowPanel->myColorRainbow->disable();
     } else {
-        myJunctionColorRainbow->enable();
+        myJunctionRainbowPanel->myColorRainbow->enable();
     }
     std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
     std::string activeScaleSchemeName = myLaneEdgeScaleMode->getText().text();
@@ -1673,10 +1675,67 @@ GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel
 }
 
 
+GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
+    FXComposite* parent,
+    GUIDialog_ViewSettings* target,
+    const GUIVisualizationRainbowSettings& settings) {
+    FXMatrix* matrixRainbow = new FXMatrix(parent, 9, GUIDesignViewSettingsMatrix3);
+    myColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, target, MID_SIMPLE_VIEW_COLORCHANGE,
+                     (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myRainbowStyle = new MFXComboBoxIcon(matrixRainbow, 5, false, 10, target, MID_SIMPLE_VIEW_RAINBOW_CHANGE, GUIDesignViewSettingsComboBox1);
+    for (auto item : GUIVisualizationSettings::RAINBOW_SCHEMES) {
+        myRainbowStyle->appendIconItem(item.first.c_str());
+    }
+    myHideMinCheck = new FXCheckButton(matrixRainbow, TL("min"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myHideMinCheck->setCheck(settings.hideMin);
+    myMinThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myMinThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+    myMinThreshold->setValue(settings.minThreshold);
+    myHideMaxCheck = new FXCheckButton(matrixRainbow, TL("max"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myHideMaxCheck->setCheck(settings.hideMax);
+    myMaxThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myMaxThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+    myMaxThreshold->setValue(settings.maxThreshold);
+    mySetNeutral = new FXCheckButton(matrixRainbow, TL("center"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    mySetNeutral->setCheck(settings.setNeutral);
+    myNeutralThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myNeutralThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+    myNeutralThreshold->setValue(settings.neutralThreshold);
+    myFixRange = new FXCheckButton(matrixRainbow, TL("fix range"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myFixRange->setCheck(settings.fixRange);
+}
+
+
+GUIVisualizationRainbowSettings
+GUIDialog_ViewSettings::RainbowPanel::getSettings() {
+    GUIVisualizationRainbowSettings res(myHideMinCheck->getCheck() != FALSE,
+                                        myMinThreshold->getValue(),
+                                        myHideMaxCheck->getCheck() != FALSE,
+                                        myMaxThreshold->getValue(),
+                                        mySetNeutral->getCheck() != FALSE,
+                                        myNeutralThreshold->getValue(),
+                                        myFixRange->getCheck() != FALSE);
+    std::string sName = myRainbowStyle->getItemText(myRainbowStyle->getCurrentItem());
+    res.colors = GUIVisualizationSettings::RAINBOW_SCHEMES[sName];
+    return res;
+}
+
+
+void
+GUIDialog_ViewSettings::RainbowPanel::update(const GUIVisualizationRainbowSettings& settings) {
+    myHideMinCheck->setCheck(settings.hideMin);
+    myMinThreshold->setValue(settings.minThreshold);
+    myHideMaxCheck->setCheck(settings.hideMax);
+    myMaxThreshold->setValue(settings.maxThreshold);
+    mySetNeutral->setCheck(settings.setNeutral);
+    myNeutralThreshold->setValue(settings.neutralThreshold);
+    myFixRange->setCheck(settings.fixRange);
+}
+
 void
 GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
-    mySchemeName = new MFXComboBoxIcon(horizontalFrame, 20, true, GUIDesignComboBoxVisibleItemsSmall,
+    mySchemeName = new MFXComboBoxIcon(horizontalFrame, 20, true, GUIDesignComboBoxVisibleItemsMedium,
                                        this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
     for (const auto& name : gSchemeStorage.getNames()) {
         const int index = mySchemeName->appendIconItem(name.c_str());
@@ -1762,17 +1821,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     myParamKey->disable();
 
     // rainbow settings
-    FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
-    myLaneColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                         (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-    myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, TL("hide below"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myLaneColorRainbowThreshold = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-    myLaneColorRainbowThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
-    myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
-    myLaneColorRainbowCheck2 = new FXCheckButton(matrixRainbow, TL("hide above"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myLaneColorRainbowThreshold2 = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-    myLaneColorRainbowThreshold2->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
-    myLaneColorRainbowThreshold2->setValue(mySettings->edgeValueHideThreshold2);
+    myEdgeRainbowPanel = new RainbowPanel(verticalFrameColor, this, mySettings->edgeValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     //  ... scale settings
@@ -1820,6 +1869,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
 
     myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowRails->setCheck(mySettings->showRails);
+
     mySpreadSuperposed = new FXCheckButton(matrixLanes, TL("Spread bidirectional railways/roads"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySpreadSuperposed->setHelpText(TL("Make both directional edges for a bidirectional railways or roads visible"));
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
@@ -1918,6 +1968,8 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myScaleLength->setCheck(mySettings->scaleLength);
     myShowParkingInfo = new FXCheckButton(matrixShow, TL("Show parking info"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowParkingInfo->setCheck(mySettings->showParkingInfo);
+    myShowChargingInfo = new FXCheckButton(matrixShow, TL("Show charging info"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowChargingInfo->setCheck(mySettings->showChargingInfo);
     myDrawReversed = new FXCheckButton(matrixShow, TL("Draw reversed vehicles in reverse"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myDrawReversed->setCheck(mySettings->drawReversed);
     //new FXLabel(matrixShow, " ", nullptr, GUIDesignViewSettingsLabel1);
@@ -1975,10 +2027,14 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     myShowPedestrianNetwork = new FXCheckButton(m105, TL("Show JuPedSim pedestrian network"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowPedestrianNetwork->setCheck(mySettings->showPedestrianNetwork);
     myPedestrianNetworkColor = new FXColorWell(m105, MFXUtils::getFXColor(mySettings->pedestrianNetworkColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+#ifdef JPS_VERSION
     if (mySettings->netedit) {
+#endif
         myShowPedestrianNetwork->disable();
         myPedestrianNetworkColor->disable();
+#ifdef JPS_VERSION
     }
+#endif
 }
 
 
@@ -2034,8 +2090,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
     myJunctionColorInterpolation = new FXCheckButton(m41, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
 
     myJunctionColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
-    myJunctionColorRainbow = GUIDesigns::buildFXButton(verticalFrame, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                             (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myJunctionRainbowPanel = new RainbowPanel(verticalFrame, this, mySettings->junctionValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* m42 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
@@ -2256,12 +2311,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     mySettings->dataColorer.fill(*myDataColorMode);
 
     // rainbow settings
-    FXMatrix* m113 = new FXMatrix(verticalFrame2, 3, GUIDesignViewSettingsMatrix3);
-    myDataColorRainbow = GUIDesigns::buildFXButton(m113, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                         (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-    myDataColorRainbowCheck = new FXCheckButton(m113, TL("hide below threshold"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-    myDataColorRainbowThreshold->setRange(-100000000, 100000000);
+    myDataRainbowPanel = new RainbowPanel(verticalFrame2, this, mySettings->dataValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* m112 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
@@ -2306,14 +2356,25 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
 
+    FXMatrix* m80 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myTrueZ = new FXCheckButton(m80, "Draw all objects at their true Z-level", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myTrueZ->setCheck(mySettings->trueZ);
+    FXMatrix* m81 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    new FXLabel(m81, TL("Combobox max rows"), nullptr, GUIDesignViewSettingsLabel1);
+    myComboRows = new FXRealSpinner(m81, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myComboRows->setValue(GUIDesignComboBoxVisibleItemsLarge);
     FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myDither = new FXCheckButton(m82, TL("Dither"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myDither->setCheck(mySettings->dither);
+    myDisableHideByZoom = new FXCheckButton(m82, TL("Disable hide by zoom"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDisableHideByZoom->setHelpText(TL("Disable hiding edges with high zoom out"));
+    myDisableHideByZoom->setCheck(mySettings->disableHideByZoom);
     FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myFPS = new FXCheckButton(m83, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myFPS->setCheck(mySettings->fps);
+    myDither = new FXCheckButton(m83, TL("Dither"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDither->setCheck(mySettings->dither);
     FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myDrawBoundaries = new FXCheckButton(m84, TL("Draw boundaries"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myFPS = new FXCheckButton(m84, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myFPS->setCheck(mySettings->fps);
+    FXMatrix* m85 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myDrawBoundaries = new FXCheckButton(m85, TL("Draw boundaries"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myDrawBoundaries->setCheck(mySettings->drawBoundaries);
     FXMatrix* m86 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myForceDrawForRectangleSelection = new FXCheckButton(m86, TL("Force draw for rectangle selection"), this, MID_SIMPLE_VIEW_COLORCHANGE);

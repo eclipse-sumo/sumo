@@ -46,12 +46,17 @@ while not vehHasLeft:
         route = traci.vehicle.getRoute(vehID)
 
     if vehHasArrived:
-        remainingDist = traci.vehicle.getDrivingDistance(vehID, route[-1], 0.0)
+        target = route[-1]
+        remainingDist = traci.vehicle.getDrivingDistance(vehID, target, 0.0)
         currentEdge = traci.vehicle.getRoadID(vehID)
         vehHasLeft = currentEdge == route[-1]
-
-        if not vehHasLeft:
-            resultList.append((str(step), currentEdge, route[-1], str(remainingDist)))
+        resultList.append((str(step), currentEdge, target, str(remainingDist)))
+        target = ":gneJ1_2"
+        remainingDist = traci.vehicle.getDrivingDistance(vehID, target, 0.0)
+        resultList.append((str(step), currentEdge, target, str(remainingDist)))
+        target = ":gneJ1_3"
+        remainingDist = traci.vehicle.getDrivingDistance(vehID, target, 0.0)
+        resultList.append((str(step), currentEdge, target, str(remainingDist)))
     step += 1
     traci.simulationStep()
 traci.close()

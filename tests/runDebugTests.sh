@@ -26,7 +26,7 @@ if test x"$SUMO_HOME" = x; then
 fi
 cd $OLDDIR
 # for clang sanitizer tests
-export LSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_memleak_suppressions.txt
+export LSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_memleak_suppressions.txt,print_suppressions=0
 export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_ubsan_suppressions.txt
 
 export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygenD"

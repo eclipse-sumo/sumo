@@ -118,7 +118,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
 | **--street-sign-output** {{DT_FILE}} | Writes street signs as POIs to FILE |
-| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
 
 ### Processing
 
@@ -135,9 +135,9 @@ the offsets given).
 |--------|-------------|
 | **--turn-lanes** {{DT_INT}} | Generate INT left-turn lanes; *default:* **0** |
 | **--turn-lanes.length** {{DT_FLOAT}} | Set the length of generated turning lanes to FLOAT; *default:* **20** |
-| **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according the the given distribution; *default:* **0** |
-| **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according the the given distribution; *default:* **0** |
-| **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according the the given distribution; *default:* **0** |
+| **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according to the given distribution; *default:* **0** |
+| **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according to the given distribution; *default:* **0** |
+| **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according to the given distribution; *default:* **0** |
 | **--bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
 | **--random-lanenumber** {{DT_BOOL}} | Draw lane numbers randomly from [1,default.lanenumber]; *default:* **false** |
 | **--random-priority** {{DT_BOOL}} | Draw edge priority randomly from [1,default.priority]; *default:* **false** |
@@ -162,6 +162,7 @@ the offsets given).
 | **--offset.z** {{DT_FLOAT}} | Adds FLOAT to net z-positions; *default:* **0** |
 | **--flip-y-axis** {{DT_BOOL}} | Flips the y-coordinate along zero; *default:* **false** |
 | **--roundabouts.guess** {{DT_BOOL}} | Enable roundabout-guessing; *default:* **true** |
+| **--roundabouts.guess.max-length** {{DT_FLOAT}} | Structures with a circumference above FLOAT threshold are not classified as roundabout; *default:* **3500** |
 | **--roundabouts.visibility-distance** {{DT_FLOAT}} | Default visibility when approaching a roundabout; *default:* **9** |
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
 | **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **true** |
@@ -172,7 +173,7 @@ the offsets given).
 
 ### Building Defaults
 
-See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#Node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
+See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
 
 | Option | Description |
 |--------|-------------|
@@ -287,6 +288,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
 | **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (ignoring edge overlap); *default:* **false** |
+| **--junctions.endpoint-shape** {{DT_BOOL}} | Build junction shapes based on edge endpoints (ignoring edge overlap); *default:* **false** |
 | **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |

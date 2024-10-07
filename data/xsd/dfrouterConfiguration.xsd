@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO dfrouter Version v1_18_0+2421-58d8177730f
+<!-- generated on 2024-06-12 07:53:53 by Eclipse SUMO dfrouter Version v1_20_0+0443-233e48e5c88
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="dfrouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO duarouter Version v1_18_0+2421-58d8177730f
+<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO duarouter Version v1_20_0+0443-233e48e5c88
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="duarouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -80,6 +80,7 @@
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>

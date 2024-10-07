@@ -205,7 +205,8 @@ GNETAZ::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -219,7 +220,11 @@ void
 GNETAZ::updateGeometry() {
     // just update geometry
     myAdditionalGeometry.updateGeometry(myShape);
-    // update geometry of TAZRelDatas
+    // update geometry of child plan elements
+    for (const auto& demandElements : getChildDemandElements()) {
+        demandElements->updateGeometry();
+    }
+    // update geometry of childTAZRelDatas
     for (const auto& TAZRelData : getChildGenericDatas()) {
         TAZRelData->updateGeometry();
     }
@@ -302,16 +307,18 @@ GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+            GUIPolygon::checkDraw(s, this, this)) {
+        // draw boundary
+        const auto boundary = getCenteringBoundary();
+        GLHelper::drawBoundary(s, boundary);
         // get exaggeration
         const double TAZExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(TAZExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawPoly(boundary, isAttributeCarrierSelected())) {
             // Obtain constants
             const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
@@ -404,7 +411,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // draw demand element children
         drawDemandElementChildren(s);
         // calculate contour
-        calculateContourPolygons(s, d, TAZExaggeration, true);
+        calculateContourPolygons(s, d, TAZExaggeration, getFill());
         // calculate contour for TAZ Center
         myTAZCenterContour.calculateContourCircleShape(s, d, this, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
     }
@@ -509,6 +516,8 @@ GNETAZ::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_CENTER:
             return myTAZCenter;
+        case GNE_ATTR_TAZ_CENTROID:
+            return myShape.getCentroid();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -702,6 +711,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
+            myAdditionalContour.clearContour();
             break;
         case SUMO_ATTR_EDGES:
             break;

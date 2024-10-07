@@ -13,7 +13,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    macrOutput.py
-# @author  Amirhosein Karbasi
+# @author  Amir hossein Karbasi
 # @author  Mirko Barthauer
 # @date    2021-04-20
 

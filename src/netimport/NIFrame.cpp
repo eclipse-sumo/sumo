@@ -168,6 +168,10 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.doRegister("ignore-change-restrictions", new Option_StringVector(StringVector({"authority"})));
     oc.addDescription("ignore-change-restrictions", "Formats", TL("List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions)"));
 
+    oc.doRegister("ignore-widths", new Option_Bool(false));
+    oc.addSynonyme("ignore-widths", "opendrive.ignore-widths", false);
+    oc.addDescription("ignore-widths", "Formats", TL("Whether lane widths shall be ignored."));
+
     // register xml options
     oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
     oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);
@@ -213,6 +217,9 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("osm.stop-output.length.tram", "Formats", TL("The default length of a tram stop in FLOAT m"));
     oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
     oc.addDescription("osm.stop-output.length.train", "Formats", TL("The default length of a train stop in FLOAT m"));
+
+    oc.doRegister("osm.railsignals", new Option_StringVector(StringVector({ "DEFAULT"})));
+    oc.addDescription("osm.railsignals", "Formats", TL("Specify custom rules for importing railway signals"));
 
     oc.doRegister("osm.all-attributes", new Option_Bool(false));
     oc.addSynonyme("osm.all-attributes", "osm.all-tags");
@@ -350,8 +357,6 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
     oc.addDescription("opendrive.import-all-lanes", "Formats", TL("Imports all lane types"));
-    oc.doRegister("opendrive.ignore-widths", new Option_Bool(false));
-    oc.addDescription("opendrive.ignore-widths", "Formats", TL("Whether lane widths shall be ignored."));
     oc.doRegister("opendrive.curve-resolution", new Option_Float(2.0));
     oc.addDescription("opendrive.curve-resolution", "Formats", TL("The geometry resolution in m when importing curved geometries as line segments."));
     oc.doRegister("opendrive.advance-stopline", new Option_Float(0.0));
@@ -457,8 +462,12 @@ NIFrame::checkOptions(OptionsCont& oc) {
         oc.setDefault("osm.all-attributes", "true");
     }
     if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
-        WRITE_WARNING(TL("It is recommend to use option osm.crossings with osm.sidewalks"));
+        WRITE_WARNING(TL("It is recommended to use option osm.crossings with osm.sidewalks"));
     }
+    if (oc.isSet("shapefile-prefix") && !oc.isDefault("shapefile.name")) {
+        oc.setDefault("output.street-names", "true");
+    }
+
     return ok;
 }
 

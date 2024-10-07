@@ -469,7 +469,7 @@ Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair
         return libsumo::INVALID_DOUBLE_VALUE;
     }
     MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, roadPos1.first, roadPos2.first);
 }
 
 
@@ -537,6 +537,12 @@ SUMOVehicleParameter::Stop
 Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
     SUMOVehicleParameter::Stop newStop;
+    try {
+        checkTimeBounds(duration);
+        checkTimeBounds(until);
+    } catch (ProcessError&) {
+        throw TraCIException("Duration or until parameter exceed the time value range.");
+    }
     newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
     newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
     newStop.index = STOP_INDEX_FIT;
@@ -1454,7 +1460,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                     break;
                 }
             }
-            if (onRoute == false) {
+            if (!onRoute) {
                 // search backward
                 for (int i = routePosition - 1; i >= 0; i--) {
                     const MSEdge* cand = currentRoute[i];
@@ -1744,7 +1750,9 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
 #ifdef DEBUG_MOVEXY
             std::cout << SIMTIME << "    prev=" << Named::getIDSecure(prev) << " cand=" << Named::getIDSecure(cand) << " internal=" << Named::getIDSecure(internalCand) << "\n";
 #endif
-            findCloserLane(internalCand, pos, vClass, bestDistance, lane);
+            if (findCloserLane(internalCand, pos, vClass, bestDistance, lane)) {
+                routeOffset = i - 1;
+            }
             prev = internalCand;
         }
         if (findCloserLane(cand, pos, vClass, bestDistance, lane)) {
@@ -1792,7 +1800,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         }
     }
 
-    assert(lane != 0);
+    assert(lane != nullptr);
     // quit if no solution was found, reporting a failure
     if (lane == nullptr) {
 #ifdef DEBUG_MOVEXY

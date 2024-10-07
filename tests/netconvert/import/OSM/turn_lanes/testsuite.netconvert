@@ -1,0 +1,17 @@
+# import turn-lane information
+turn-lanes
+
+# import turn-lane information merge_to_right
+turn-lanes2
+
+# i.e. turn:bus:lanes
+turn-lanes_restricted
+
+# i.e. turn:bus:lanes
+turn-lanes_restricted2
+
+# import turn-lane information
+turn-lanes_lefthand
+
+# one target for the turn-lanes isn't accessible to passenger traffic (by default typemap rules)
+service_target

@@ -406,6 +406,9 @@ public:
          */
         void initPhaseTable();
 
+        /// @brief clear phase thable
+        void clearPhaseTable();
+
         /// @brief change phase value (state, name, next, etc.)
         bool changePhaseValue(const int col, const int row, const std::string& value);
 
@@ -645,7 +648,7 @@ private:
     /// @brief module for load/Save TLS Programs
     GNETLSEditorFrame::TLSFile* myTLSFile = nullptr;
 
-    /// @brief the internal lanes belonging the the current junction indexed by their tl-index
+    /// @brief the internal lanes belonging to the current junction indexed by their tl-index
     std::map<int, std::vector<GNEInternalLane*> > myInternalLanes;
 
     /// @brief the traffic light definition being edited

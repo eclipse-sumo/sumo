@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:02 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2024-02-29 13:55:51 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,14 +29,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391777.54,-5819454.48" convBoundary="0.00,0.00,519.81,191.11" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -59,7 +58,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="3_0" index="0" allow="ship" speed="2.78" length="347.45" width="7.00" shape="474.52,5.01 452.65,3.52 418.54,8.91 271.24,32.82 239.18,37.39 226.25,42.75"/>
     </edge>
 
-    <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.00,191.11 5.22,195.78 0.00,191.11"/>
+    <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.00,191.11 5.22,195.78 -0.00,191.11"/>
     <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="229.02,61.14 227.88,47.18 227.59,45.98 222.24,33.04 212.29,37.35 204.71,40.87 198.29,43.89 191.78,46.68 183.97,49.50 173.61,52.63 177.39,66.11 187.84,63.54 195.94,62.28 202.89,61.86 209.91,61.83 218.22,61.74">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="110000" foes="111000"/>

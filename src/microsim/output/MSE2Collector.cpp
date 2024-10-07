@@ -261,9 +261,9 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
     myStartPos = snap(myStartPos, myFirstLane->getLength() - POSITION_EPS, POSITION_EPS);
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     myEndPos = snap(myEndPos, POSITION_EPS, POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     recalculateDetectorLength();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -775,7 +775,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
 #endif
     // notifyEnter() should only be called for lanes of the detector
     assert(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) != myLanes.end());
-    assert(veh.getLane() == enteredLane);
+    assert(veh.getLane() == enteredLane || !veh.isVehicle());
 
     // vehicles must be kept if the "inductionloop" wants to detect passeengers
     if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
@@ -1556,16 +1556,16 @@ MSE2Collector::getEstimateQueueLength() const {
         return -1;
     }
 
-    double distance = std::numeric_limits<double>::max();
+    double distance = 0;
     double realDistance = 0;
     bool flowing =  true;
     for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
             it != myVehicleInfos.end(); it++) {
         if (it->second->onDetector) {
-            distance = MIN2(it->second->lastPos, distance);
             //  double distanceTemp = myLane->getLength() - distance;
-            if (it->second->lastSpeed <= 0.5) {
-                realDistance = distance - it->second->length + it->second->minGap;
+            if (it->second->lastSpeed <= myJamHaltingSpeedThreshold) {
+                distance = MAX2(it->second->distToDetectorEnd, distance);
+                realDistance = distance + it->second->length;
                 flowing = false;
             }
             //            DBG(
@@ -1584,7 +1584,7 @@ MSE2Collector::getEstimateQueueLength() const {
     if (flowing) {
         return 0;
     } else {
-        return myLane->getLength() - realDistance;
+        return realDistance;
     }
 }
 

@@ -1,0 +1,12 @@
+
+[Reported by Windows at 08Aug15:45:01]
+search_string:Warning: Ignoring invalid access from non-pedestrian lane
+search_file:errors
+full_description:#5893
+brief_description:#5893
+
+[Reported by Windows at 08Aug15:45:24]
+search_string:Warning: Ignoring invalid access from non-pedestrian lane
+search_file:errors
+full_description:See #5893
+brief_description:#5893

@@ -3,13 +3,13 @@ Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading done.
 Simulation version v1_14_1+0331-153d228 started with time: 0.00.
-Simulation ended at time: 3000.00
+Simulation ended at time: 3000.00.
 Reason: The final simulation step has been reached.
-Performance: 
+Performance:
  Duration: 3.10s
  Real time factor: 966.495
  UPS: 237253.543814
-Vehicles: 
+Vehicles:
  Inserted: 301 (Loaded: 600)
  Running: 301
  Waiting: 299
@@ -21,4 +21,3 @@ Statistics (avg of 301):
  TimeLoss: 384.76
  DepartDelay: 403.37
  DepartDelayWaiting: 2550.00
-

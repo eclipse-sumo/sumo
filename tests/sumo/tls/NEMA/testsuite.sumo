@@ -33,3 +33,9 @@ multiple_edges_per_phase
 
 # test for #12989
 red_transfer
+
+# test for #14474
+crossings
+
+# test for #14502
+crossings_stayRed

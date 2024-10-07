@@ -36,7 +36,7 @@ with the stopping time in seconds.
 
 ## Intermodal Collisions
 
-The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions. Instead, intermodal collisiosn raise warning by default.
+The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions. Instead, intermodal collisions raise warning by default.
 
 The behavior can be changed by setting the options **--intermodal-collision.action** and **--intermodal-collision.stoptime** which work like the vehicle-on-vehicle collision options described above.
 
@@ -64,11 +64,14 @@ size (default 1s) when using the default Krauss model.
   *driverstate*-device](../Driver_State.md)
 - The [carFollowModel EIDM](../Car-Following-Models/EIDM.md) natively includes [parameters for driving errors](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters) that can be used to provoke dangerous situations and collisions
 - Disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes) and then configure insertion with high speed and small gap
+- *carFollowModel.ignoreIDs*: ignores all foes with the given ids  (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_carfollowmodel_parameters))
+- *carFollowModel.ignoreTypes*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_carfollowmodel_parameters))
 
 ### Collisions related to lane-changing
 Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
 
 Side collisions can be caused by
+
 - configuring lateral imperfection with vType parameter *lcSigma*
 - allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)

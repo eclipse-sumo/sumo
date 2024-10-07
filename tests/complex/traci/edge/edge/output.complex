@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -27,6 +28,8 @@ personIds ('p0',)
 waiting time 0.0
 angle (with default relative position) 270.0
 angle (with some relative position) 270.0
+fromJunction 2
+toJunction m2
 checking occupancy with unicode id 0.02012072434607646
 traveltime after adaption 61.61141152545303
 adaptedTraveltime after adaption 42.0

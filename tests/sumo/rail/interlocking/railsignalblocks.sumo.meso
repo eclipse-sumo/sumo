@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-02 08:45:54 by Eclipse SUMO sumo Version v1_15_0+0714-4818e7c
+<!-- generated on 2024-03-13 08:42:12 by Eclipse SUMO sumo Version v1_19_0+1242-31df3b22fbb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -84,7 +84,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="-gneE3_0 -gneE4_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_3"/>
+                <conflictLinks signals=""/>
             </driveWay>
         </link>
     </railSignal>
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="gneE3_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_3 gneJ2_1 gneJ3_2"/>
+                <conflictLinks signals="gneJ2_1 gneJ3_2"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="-gneE4_0" to="gneE7_0"/>
@@ -105,18 +105,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="-gneE4_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_5 gneJ3_4"/>
+                <conflictLinks signals="gneJ3_3"/>
             </driveWay>
         </link>
-        <link linkIndex="3" from="-gneE7_0" to="-gneE3_0"/>
-        <link linkIndex="4" from="gneE3_0" to="gneE7_0"/>
-        <link linkIndex="5" from="gneE3_0" to="gneE4_0">
+        <link linkIndex="3" from="gneE3_0" to="gneE4_0">
             <driveWay edges="gneE4">
                 <forward lanes="gneE4_0"/>
                 <bidi lanes="-gneE4_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_2 gneJ3_3"/>
+                <conflictLinks signals="gneJ3_2"/>
             </driveWay>
         </link>
     </railSignal>

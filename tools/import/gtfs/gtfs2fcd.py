@@ -77,7 +77,7 @@ def time2sec(s):
 
 
 def get_merged_data(options):
-    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False))
+    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
     routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
     gtfsZip.fp.close()
 
@@ -181,7 +181,7 @@ def main(options):
             os.makedirs(options.gpsdat)
         for mode in modes:
             if mode in seenModes:
-                traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name,
+                traceExporter.main(['--base-date', '0', '-i', fcdFile[mode].name,
                                     '--gpsdat-output', os.path.join(options.gpsdat, "gpsdat_%s.csv" % mode)])
     if dataAvailable(options):
         gtfs2osm.write_vtypes(options, seenModes)

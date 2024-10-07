@@ -26,3 +26,9 @@ cappedNormal_speed
 
 # see #9777
 minimal
+
+# automatically set speedDev to 0 when only speedFactor is given
+speedFactor_without_speedDev
+
+# automatically set speedDev to 0 when only speedFactor is given
+speedFactor_with_speedDev

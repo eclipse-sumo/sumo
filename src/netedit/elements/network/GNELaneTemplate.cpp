@@ -109,6 +109,12 @@ GNELaneTemplate::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNELaneTemplate::getAttributePositionVector(SumoXMLAttr key) const {
+    return myLane->getAttributePositionVector(key);
+}
+
+
 void
 GNELaneTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("cannot be called in templates");

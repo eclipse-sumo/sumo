@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-15 12:20:03 by Eclipse SUMO netedit Version 1.20.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="delivery" guiShape="bus" maxSpeed="10" color="1,1,0" personCapacity="50" boardingDuration=".5" >
+            <param key="carriageDoors" value="2"/>
+    </vType>
+
+    <vType id="tube" vClass="rail_urban" guiShape="rail" maxSpeed="25" color="0,1,1" length="103" personCapacity="684">
+		<param key="carriageLength" value="17.4"/>
+   		<param key="frontSeatPos" value="3.5"/>
+        <param key="carriageDoors" value="4"/>
+    </vType>
+
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="E0_0" startPos="10" endPos="60" friendlyPos="true"/>
+    <busStop id="bs_1" lane="E1_0" startPos="200" endPos="250" friendlyPos="true"/>
+    <busStop id="bs_2" lane="E2_0" startPos="200" endPos="250" friendlyPos="true"/>
+    <busStop id="bs_3" lane="E6_0" startPos="200" endPos="250" friendlyPos="true"/>
+    <trainStop id="ts_0" lane="E3_0" startPos="10" endPos="70"/>
+    <trainStop id="ts_1" lane="E4_0" startPos="310" endPos="370" friendlyPos="true">
+        <access lane="E1_0" pos="335"/>
+    </trainStop>
+    <trainStop id="ts_3" lane="E5_0" startPos="210" endPos="270"/>
+
+</additional>

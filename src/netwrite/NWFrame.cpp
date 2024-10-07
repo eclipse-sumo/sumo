@@ -123,7 +123,7 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     // register opendrive options
     oc.doRegister("opendrive-output.straight-threshold", new Option_Float(0.00000001)); // matching the angular output precision in NWWriter_OpenDrive
-    oc.addDescription("opendrive-output.straight-threshold", "Output", TL("Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"));
+    oc.addDescription("opendrive-output.straight-threshold", "Output", TL("Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees"));
 
     if (!forNetgen) {
         oc.doRegister("opendrive-output.lefthand-left", new Option_Bool(false));

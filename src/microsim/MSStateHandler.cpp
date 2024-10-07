@@ -461,6 +461,7 @@ MSStateHandler::closeVehicle() {
         }
         v->setChosenSpeedFactor(myAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR));
         v->loadState(*myAttrs, myOffset);
+
         if (v->hasDeparted()) {
             // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
             MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
@@ -473,6 +474,10 @@ MSStateHandler::closeVehicle() {
                 MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VehicleState::NEWROUTE, "loadState");
             }
             vc.handleTriggeredDepart(v, false);
+            if (v->hasArrived()) {
+                // state was created with active option --keep-after-arrival
+                vc.deleteKeptVehicle(v);
+            }
         }
         while (!myDeviceAttrs.empty()) {
             const std::string attrID = myDeviceAttrs.back()->getString(SUMO_ATTR_ID);

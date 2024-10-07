@@ -54,7 +54,7 @@ public:
         myTurnaround(nullptr),
         myIsVirtual(true),
         myMaxLength(turnStart->getLength() - REVERSAL_SLACK),
-        myStartLength(turnStart->getLength()) {
+        myStartLength(turnStart->getLength() - REVERSAL_SLACK) {
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
     }
 
@@ -192,7 +192,7 @@ public:
             for (const E* edge : myReplacementEdges) {
                 into.push_back(edge);
                 nPushed++;
-                seen += edge->getLength();
+                seen += edge->getLength() - REVERSAL_SLACK;
                 //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
                 if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
                     break;
@@ -233,7 +233,8 @@ public:
         return myOriginal != nullptr && myOriginal->restricts(vehicle);
     }
 
-    const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+    const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
+        UNUSED_PARAMETER(ignoreTransientPermissions); // @todo this should be changed (somewhat hidden by #14756)
         if (vClass == SVC_IGNORING || myOriginal == nullptr || myOriginal->isTazConnector()) { // || !MSNet::getInstance()->hasPermissions()) {
             return myViaSuccessors;
         }

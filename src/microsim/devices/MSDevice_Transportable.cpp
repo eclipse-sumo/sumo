@@ -104,6 +104,46 @@ MSDevice_Transportable::anyLeavingAtStop(const MSStop& stop) const {
     return false;
 }
 
+
+void
+MSDevice_Transportable::transferAtSplitOrJoin(MSBaseVehicle* otherVeh) {
+    const MSStop& stop = myHolder.getNextStop();
+    for (auto it = myTransportables.begin(); it != myTransportables.end();) {
+        MSTransportable* t = *it;
+        if (t->getNumRemainingStages() > 1) {
+            MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(t->getCurrentStage());
+            if (stage->canLeaveVehicle(t, myHolder, stop)) {
+                MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
+                if (stage2 && stage2->isWaitingFor(otherVeh)) {
+                    it = myTransportables.erase(it);
+                    // proceeding registers t as waiting on edge
+                    t->proceed(MSNet::getInstance(), SIMSTEP);
+                    MSTransportableControl& tc = (t->isPerson() ?
+                                                  MSNet::getInstance()->getPersonControl() :
+                                                  MSNet::getInstance()->getContainerControl());
+                    tc.abortWaitingForVehicle(t);
+                    t->getEdge()->removeTransportable(t);
+                    otherVeh->addTransportable(t);
+                    stage2->setVehicle(otherVeh);
+                    continue;
+                }
+            }
+        }
+        it++;
+    }
+}
+
+
+bool
+MSDevice_Transportable::willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) {
+    if (joinVeh && t->getNumRemainingStages() > 1) {
+        MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
+        return stage2->isWaitingFor(joinVeh);
+    }
+    return false;
+}
+
+
 bool
 MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double newPos, double newSpeed) {
     SUMOVehicle& veh = myHolder;
@@ -120,11 +160,12 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
         if (veh.isStopped()) {
             myStopped = true;
             MSStop& stop = veh.getNextStop();
+            const MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
             const SUMOTime boardingDuration = veh.getVehicleType().getLoadingDuration(!myAmContainer);
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
-                if (stage->canLeaveVehicle(transportable, myHolder, stop)) {
+                if (stage->canLeaveVehicle(transportable, myHolder, stop) && !willTransferAtJoin(transportable, joinVeh)) {
                     SUMOTime& timeForNext = myAmContainer ? stop.timeToLoadNextContainer : stop.timeToBoardNextPerson;
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr && timeForNext == 0 && !MSGlobals::gUseMesoSim) {
@@ -142,13 +183,14 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
 
                     SUMOTime arrivalTime = currentTime;
                     if (MSGlobals::gUseMesoSim) {
+                        // no boarding / unboarding time in meso
                         arrivalTime += 1;
                     } else {
-                        // no boarding / unboarding time in meso
+                        const SUMOTime boardingTime = (SUMOTime)((double)boardingDuration * transportable->getVehicleType().getBoardingFactor());
                         if (timeForNext > currentTime - DELTA_T) {
-                            timeForNext += boardingDuration;
+                            timeForNext += boardingTime;
                         } else {
-                            timeForNext = currentTime + boardingDuration;
+                            timeForNext = currentTime + boardingTime;
                         }
                     }
                     //ensure that vehicle stops long enough for deboarding

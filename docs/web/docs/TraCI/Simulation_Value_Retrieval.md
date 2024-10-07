@@ -265,7 +265,7 @@ Some further messages require additional parameters.
 <td><p>find route (0x86)</p></td>
 <td><p>compound, see below</p></td>
 <td><p>compound, see below</p></td>
-<td><p>Reads origin and destination edge together with some vehicle paramters and computes the currently fastest driving route for the vehicle (for pedestrians / passengers use find intermodal route).</p></td>
+<td><p>Reads origin and destination edge together with some vehicle parameters and computes the currently fastest driving route for the vehicle (for pedestrians / passengers use find intermodal route).</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-findRoute">findRoute</a></p></td>
 </tr>
 <tr class="even">
@@ -450,3 +450,25 @@ The following parameters can be retrieved. They are not for a specific device ho
 - device.tripinfo.transportStatistics.taxi
 - device.tripinfo.transportStatistics.bike
 - device.tripinfo.transportStatistics.aborted
+
+### Statistics Parameter Retrieval
+
+The retrievable values are those described at [statistic-output](../Simulation/Output/StatisticOutput.md) as applicable to the current simulation time.
+
+- stats.vehicles.loaded
+- stats.vehicles.inserted
+- stats.vehicles.running
+- stats.vehicles.waiting
+- stats.teleports.total
+- stats.teleports.jam
+- stats.teleports.yield
+- stats.teleports.wrongLane
+- stats.safety.collisions
+- stats.safety.emergencyStops
+- stats.safety.emergencyBraking
+- stats.persons.loaded
+- stats.persons.running
+- stats.persons.jammed
+- stats.personTeleports.total
+- stats.personTeleports.abortWait
+- stats.personTeleports.wrongDest

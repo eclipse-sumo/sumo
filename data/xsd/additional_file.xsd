@@ -258,7 +258,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="source" type="xsd:string" use="required"/>
+        <xsd:attribute name="source" type="xsd:string" use="optional"/>
         <xsd:attribute name="dest" type="xsd:string" use="required"/>
         <xsd:attribute name="saveDetectors" type="boolType" use="optional"/>
         <xsd:attribute name="saveConditions" type="boolType" use="optional"/>
@@ -365,8 +365,8 @@
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>
-                    <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
-                    <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>
+                    <xsd:attribute name="begin" type="timeType" use="required"/>
+                    <xsd:attribute name="end" type="timeType" use="required"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:choice>
@@ -506,6 +506,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="doors"/>
+                    <xsd:enumeration value="carriage"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>
@@ -540,6 +541,7 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="departPos" type="floatType" use="optional"/>
         <xsd:attribute name="lefthand" type="boolType" use="optional"/>
+        <xsd:attribute name="acceptedBadges" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="parkingSpaceType">
@@ -566,8 +568,10 @@
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
-        <xsd:attribute name="pos" type="floatType" use="required"/>
+        <xsd:attribute name="node" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pos" type="floatType" use="optional"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="local" type="boolType" use="optional"/>
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
@@ -635,8 +639,11 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value=""/>
+                    <xsd:enumeration value="pin"/>
+                    <xsd:enumeration value="tree"/>
                     <xsd:enumeration value="hotel"/>
-                    <xsd:enumeration value="nature"/>
+                    <xsd:enumeration value="fuel"/>
+                    <xsd:enumeration value="charging_station"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>

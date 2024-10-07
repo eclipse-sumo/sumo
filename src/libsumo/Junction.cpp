@@ -26,6 +26,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
@@ -67,6 +68,26 @@ Junction::getPosition(const std::string& junctionID, const bool includeZ) {
 TraCIPositionVector
 Junction::getShape(const std::string& junctionID) {
     return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape());
+}
+
+
+const std::vector<std::string>
+Junction::getIncomingEdges(const std::string& junctionID) {
+    std::vector<std::string> result;
+    for (const MSEdge* edge : getJunction(junctionID)->getIncoming()) {
+        result.push_back(edge->getID());
+    }
+    return result;
+}
+
+
+const std::vector<std::string>
+Junction::getOutgoingEdges(const std::string& junctionID) {
+    std::vector<std::string> result;
+    for (const MSEdge* edge : getJunction(junctionID)->getOutgoing()) {
+        result.push_back(edge->getID());
+    }
+    return result;
 }
 
 
@@ -145,6 +166,10 @@ Junction::handleVariable(const std::string& objID, const int variable, VariableW
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case INCOMING_EDGES:
+            return wrapper->wrapStringList(objID, variable, getIncomingEdges(objID));
+        case OUTGOING_EDGES:
+            return wrapper->wrapStringList(objID, variable, getOutgoingEdges(objID));
         case libsumo::VAR_PARAMETER_WITH_KEY:
             paramData->readUnsignedByte();
             return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));

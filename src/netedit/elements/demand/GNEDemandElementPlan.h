@@ -24,6 +24,8 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNEPlanParents.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -43,42 +45,35 @@ class GNEDemandElementPlan {
 
 public:
     /// @brief get the walk tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-            const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-            const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
     /// @brief get the personTrip tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-            const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
     /// @brief get the ride tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
     /// @brief get the transport tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
+    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
     /// @brief get the tranship tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-            const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
-            const GNEAdditional* toContainerStop);
+    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
     /// @brief get the person stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditional* busStop,
-            const GNEAdditional* trainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
     /// @brief get the container stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop);
+    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
 
 protected:
-    /// @brief variable used for draw contours
+    /// @brief variable used for draw central contour
     GNEContour myPlanContour;
+
+    /// @brief variable used for draw contour end
+    GNEContour myPlanContourEnd;
+
+    /// @brief plan boundary
+    Boundary myPlanBoundary;
 
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition);
@@ -89,7 +84,10 @@ protected:
     GNEMoveOperation* getPlanMoveOperation();
 
     /// @brief write plan element common attributes
-    void writePlanAttributes(OutputDevice& device) const;
+    void writeLocationAttributes(OutputDevice& device) const;
+
+    /// @brief write initial stop stage if plan starts at a stopping place
+    void writeOriginStop(OutputDevice& device) const;
 
     /// @brief Returns an own popup-menu
     GUIGLObjectPopupMenu* getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
@@ -114,8 +112,11 @@ protected:
     /// @brief update pre-computed geometry information
     void updatePlanGeometry();
 
-    /// @brief get centering boundaryt
+    /// @brief get plan centering boundary
     Boundary getPlanCenteringBoundary() const;
+
+    /// @brief update plan centering boundary
+    void updatePlanCenteringBoundary(const bool updateGrid);
 
     /// @brief Returns position of additional in view
     Position getPlanPositionInView() const;
@@ -186,6 +187,9 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief get end position radius
+    double getEndPosRadius(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool drawHalfWidth) const;
+
     /// @brief draw from arrow
     void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
 
@@ -193,7 +197,10 @@ private:
     void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
 
     /// @brief draw to arrow
-    void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
+    void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const;
+
+    /// @brief replace plan parent
+    bool replacePlanParent(const std::string& newParentID);
 
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;

@@ -1,0 +1,3 @@
+--osm-files osm.xml
+--osm.turn-lanes
+--no-internal-links

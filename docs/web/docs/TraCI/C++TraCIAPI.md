@@ -57,9 +57,9 @@ In this operating mode, the full TraCI-API is supported. Example input
 files typically look like:
 
 ```
-repeat 50 simstep2 0
-setvalue 0xc4 0x31 veh0 <string> e_vo0
-simstep2 200
+repeat 50 simstep2 0
+setvalue 0xc4 0x31 veh0 <string> e_vo0
+simstep2 200
 ```
 
 This mode is meant for testing the server side and is unsuitable for
@@ -70,8 +70,8 @@ building a control program that mixes TraCI calls with custom code.
 In this mode the client library itself is used. Example code looks like:
 
 ```cpp
-SUMOTime t = simulation.getCurrentTime();
-std::vector<std::string> = edge.getIDList();
+SUMOTime t = simulation.getCurrentTime();
+std::vector<std::string> = edge.getIDList();
 ```
 
 ## Example Code
@@ -100,12 +100,12 @@ int main(int argc, char* argv[]) {
 ### compiling (make sure SUMO_HOME is set)
 
 ```
-g++ -o test -I$SUMO_HOME/src TraCIAPITest.cpp $SUMO_HOME/src/utils/traci/TraCIAPI.cpp $SUMO_HOME/src/foreign/tcpip/socket.cpp $SUMO_HOME/src/foreign/tcpip/storage.cpp
+g++ -o test -I$SUMO_HOME/src TraCIAPITest.cpp $SUMO_HOME/src/utils/traci/TraCIAPI.cpp $SUMO_HOME/src/foreign/tcpip/socket.cpp $SUMO_HOME/src/foreign/tcpip/storage.cpp
 ```
 
 ### running
 
 ```
-sumo -c test.sumocfg --remote-port 1337 &
+sumo -c test.sumocfg --remote-port 1337 &
 ./test
 ```

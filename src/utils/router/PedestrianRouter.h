@@ -93,9 +93,10 @@ public:
         }
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _IntermodalEdge*> intoPed;
+        const bool silent = allEdges; // no warning is needed when called from MSPModel_Striping
         const bool success = myInternalRouter->compute(myPedNet->getDepartConnector(from),
                              myPedNet->getArrivalConnector(to),
-                             &trip, msTime, intoPed);
+                             &trip, msTime, intoPed, silent);
         double time = 0.;
         if (success) {
             for (const _IntermodalEdge* pedEdge : intoPed) {

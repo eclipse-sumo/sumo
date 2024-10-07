@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 17:18:04 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+<!-- generated on 2024-04-11 10:27:17 by Eclipse SUMO sumo Version v1_19_0+1774-c2740415b91
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,6 +37,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="v_0" type="t_0" lane="WC_0" pos="67.43" parking="0" started="15.00" ended="35.00" initialPersons="0" loadedPersons="20" unloadedPersons="0" initialContainers="0" loadedContainers="10" unloadedContainers="0" busStop="bs_0"/>
-    <stopinfo id="v_0" type="t_0" lane="CE_0" pos="71.18" parking="0" started="52.00" ended="72.00" initialPersons="20" loadedPersons="0" unloadedPersons="20" initialContainers="10" loadedContainers="0" unloadedContainers="10" busStop="bs_1"/>
+    <stopinfo id="v_0" type="t_0" lane="WC_0" pos="67.43" parking="0" started="15.00" ended="35.00" busStop="bs_0" initialPersons="0" loadedPersons="20" unloadedPersons="0" initialContainers="0" loadedContainers="10" unloadedContainers="0"/>
+    <stopinfo id="v_0" type="t_0" lane="CE_0" pos="71.18" parking="0" started="52.00" ended="72.00" busStop="bs_1" initialPersons="20" loadedPersons="0" unloadedPersons="20" initialContainers="10" loadedContainers="0" unloadedContainers="10"/>
 </stops>

@@ -54,7 +54,7 @@ class NBTrafficLightLogicCont;
  * @todo One day, one should rethink the order of parsing. Now, the handler
  *  is able to load edges, using information from the types, first, and extending
  *  them by given information. In addition, if the read edge is already known,
- *  it's values are also used. Then, defining vehicles allowed per lane, and
+ *  its values are also used. Then, defining vehicles allowed per lane, and
  *  additional edge split definitions add some further complexity. This all
  *  works somehow for most of our use cases, but it's definitely not as consistent
  *  that everything what seems to be possible would also work appropriately.

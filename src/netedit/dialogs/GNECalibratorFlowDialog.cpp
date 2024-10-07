@@ -139,7 +139,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     initChanges();
 
     // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
+    if (!myUpdatingElement) {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
 
@@ -157,7 +157,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string operation2 = myUpdatingElement ? ("updated") : ("created");
     std::string parentTagString = myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
     std::string tagString = myEditedAdditional->getTagStr();
-    if (myCalibratorFlowValid == false) {
+    if (!myCalibratorFlowValid) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning dialog box

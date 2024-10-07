@@ -173,14 +173,6 @@ protected:
     /// @}
 
 
-    /// @name Helper methods for parsing parameters
-    /// @{
-    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required = false);
-    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required = false);
-    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required = false);
-    static SUMOTime getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required = false);
-    /// @}
-
 private:
     /// @brief vehicles which explicitly carry a device, sorted by device, first
     static std::map<std::string, std::set<std::string> > myExplicitIDs;

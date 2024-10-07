@@ -67,6 +67,9 @@ public:
     /// @brief Returns the maximum value of this distribution
     double getMax() const;
 
+    /// @brief Returns the minimum value of this distribution
+    double getMin() const;
+
     /// @brief Returns the parameters of this distribution
     std::vector<double>& getParameter();
 
@@ -74,7 +77,7 @@ public:
     const std::vector<double>& getParameter() const;
 
     /// @brief check whether the distribution is valid
-    bool isValid(std::string& error);
+    const std::string isValid() const;
 
     /// @brief Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;

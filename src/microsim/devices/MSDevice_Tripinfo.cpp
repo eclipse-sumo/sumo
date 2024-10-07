@@ -36,6 +36,7 @@
 #include "MSDevice_Tripinfo.h"
 
 #define NOT_ARRIVED TIME2STEPS(-1)
+#define STATE_EMPTY_ARRIVALLANE "NONE"
 
 
 // ===========================================================================
@@ -240,6 +241,8 @@ MSDevice_Tripinfo::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notificat
         if (!MSGlobals::gUseMesoSim) {
             myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myDepartPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
+        } else {
+            myDepartLane = veh.getEdge()->getFirstAllowed(veh.getVClass(), true)->getID();
         }
         myDepartSpeed = veh.getSpeed();
         myRouteLength = -veh.getPositionOnLane();
@@ -261,6 +264,8 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         if (!MSGlobals::gUseMesoSim) {
             myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myArrivalPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
+        } else {
+            myArrivalLane = veh.getEdge()->getFirstAllowed(veh.getVClass(), true)->getID();
         }
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
@@ -411,7 +416,7 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
             if (tripinfoOut != nullptr) {
                 for (MSVehicleDevice* const dev : d->myHolder.getDevices()) {
                     if (typeid(*dev) == typeid(MSDevice_Tripinfo) || typeid(*dev) == typeid(MSDevice_Vehroutes)) {
-                        // tripinfo is special and vehroute has it's own write-unfinished option
+                        // tripinfo is special and vehroute has its own write-unfinished option
                         continue;
                     }
                     dev->generateOutput(tripinfoOut);
@@ -773,6 +778,16 @@ MSDevice_Tripinfo::getParameter(const std::string& key) const {
         return toString(myWaitingCount);
     } else if (key == toString(SUMO_ATTR_STOPTIME)) {
         return toString(STEPS2TIME(myStoppingTime));
+    } else if (key == toString(SUMO_ATTR_ARRIVALTIME)) {
+        return toString(STEPS2TIME(myArrivalTime));
+    } else if (key == toString(SUMO_ATTR_ARRIVALLANE)) {
+        return toString(myArrivalLane);
+    } else if (key == toString(SUMO_ATTR_ARRIVALPOS)) {
+        return toString(myArrivalPos);
+    } else if (key == toString(SUMO_ATTR_ARRIVALPOS_LAT)) {
+        return toString(myArrivalPosLat);
+    } else if (key == toString(SUMO_ATTR_ARRIVALSPEED)) {
+        return toString(myArrivalSpeed);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -880,11 +895,14 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
         out.openTag(SUMO_TAG_DEVICE);
         out.writeAttr(SUMO_ATTR_ID, getID());
         std::ostringstream internals;
+        internals << myDepartLane << " ";
         if (!MSGlobals::gUseMesoSim) {
-            internals << myDepartLane << " " << myDepartPosLat << " ";
+            internals << myDepartPosLat << " ";
         }
+        std::string state_arrivalLane = myArrivalLane == "" ? STATE_EMPTY_ARRIVALLANE : myArrivalLane;
         internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
-        internals << myStoppingTime << " " << myParkingStarted;
+        internals << myStoppingTime << " " << myParkingStarted << " ";
+        internals << myArrivalTime << " " << state_arrivalLane << " " << myArrivalPos << " " << myArrivalPosLat << " " << myArrivalSpeed;
         out.writeAttr(SUMO_ATTR_STATE, internals.str());
         out.closeTag();
     }
@@ -894,11 +912,16 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
 void
 MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myDepartLane;
     if (!MSGlobals::gUseMesoSim) {
-        bis >> myDepartLane >> myDepartPosLat;
+        bis >> myDepartPosLat;
     }
     bis >> myDepartSpeed >> myRouteLength >> myWaitingTime >> myAmWaiting >> myWaitingCount;
     bis >> myStoppingTime >> myParkingStarted;
+    bis >> myArrivalTime >> myArrivalLane >> myArrivalPos >> myArrivalPosLat >> myArrivalSpeed;
+    if (myArrivalLane == STATE_EMPTY_ARRIVALLANE) {
+        myArrivalLane = "";
+    }
 }
 
 

@@ -33,7 +33,7 @@ public class MultiClient2 {
 
         try {
 
-            SumoTraciConnection conn = new SumoTraciConnection(9999);
+            SumoTraciConnection conn = new SumoTraciConnection(9998);
             conn.setOrder(2);
 
             for (int i = 0; i < 3600; i++) {

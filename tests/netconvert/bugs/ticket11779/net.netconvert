@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-07 17:50:31 by Eclipse SUMO netconvert Version v1_14_1+1517-7c4eae2
+<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-459083.72,-5255432.35" convBoundary="0.00,0.00,612.59,258.29" origBoundary="8.370932,47.273043,8.707403,47.488999" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -383,7 +383,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="94576278" type="dead_end" x="442.62" y="0.00" incLanes="-684478253#1_0 -684478253#1_1" intLanes="" shape="442.62,-0.00 436.79,-4.23 439.71,-2.11"/>
+    <junction id="94576278" type="dead_end" x="442.62" y="0.00" incLanes="-684478253#1_0 -684478253#1_1" intLanes="" shape="442.62,0.00 436.79,-4.23 439.71,-2.11"/>
 
     <junction id=":247434898_6_0" type="internal" x="400.65" y="49.17" incLanes=":247434898_5_0 684478253#0_0 684478253#0_1" intLanes=":247434898_1_0 :247434898_2_0 :247434898_3_0"/>
     <junction id=":305255404_6_0" type="internal" x="90.19" y="223.37" incLanes=":305255404_5_0 684478255#0_0 684478255#0_1" intLanes=":305255404_1_0 :305255404_2_0 :305255404_3_0"/>

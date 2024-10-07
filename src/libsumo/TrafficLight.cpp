@@ -170,6 +170,12 @@ TrafficLight::getNextSwitch(const std::string& tlsID) {
     return STEPS2TIME(Helper::getTLS(tlsID).getActive()->getNextSwitchTime());
 }
 
+
+double
+TrafficLight::getSpentDuration(const std::string& tlsID) {
+    return STEPS2TIME(Helper::getTLS(tlsID).getActive()->getSpentDuration());
+}
+
 int
 TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
     MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
@@ -997,6 +1003,8 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
             return wrapper->wrapDouble(objID, variable, getPhaseDuration(objID));
         case TL_NEXT_SWITCH:
             return wrapper->wrapDouble(objID, variable, getNextSwitch(objID));
+        case TL_SPENT_DURATION:
+            return wrapper->wrapDouble(objID, variable, getSpentDuration(objID));
         case TL_CONTROLLED_JUNCTIONS:
             return wrapper->wrapStringList(objID, variable, getControlledJunctions(objID));
         case libsumo::VAR_PARAMETER:

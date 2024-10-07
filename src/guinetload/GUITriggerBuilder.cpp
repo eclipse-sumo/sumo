@@ -82,6 +82,7 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<st
 void
 GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     const std::vector<std::string>& lines,
+                                    const std::vector<std::string>& badges,
                                     MSLane* lane,
                                     double frompos, double topos,
                                     unsigned int capacity,
@@ -90,7 +91,7 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     const std::string& departPos,
                                     bool lefthand) {
     assert(myParkingArea == 0);
-    GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand);
+    GUIParkingArea* stop = new GUIParkingArea(id, lines, badges, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand);
     if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
@@ -103,9 +104,10 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit,
-                                        SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) {
-    GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
-            chargeInTransit, chargeDelay, chargeType, waitingTime);
+                                        SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
+    GUIChargingStation* chargingStation = (parkingArea == nullptr) ? new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
+                                          chargeInTransit, chargeDelay, chargeType, waitingTime) : new GUIChargingStation(id, parkingArea, name, chargingPower, efficiency,
+                                                  chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");

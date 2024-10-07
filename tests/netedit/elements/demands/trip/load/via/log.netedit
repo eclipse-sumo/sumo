@@ -1,0 +1,3 @@
+Error: Attribute 'via' in definition of trip 'trip_0' is empty.
+Error: Via edge 'dummyEdge' doesn't exist.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Sep103029.21184\netedit.gui\elements\demands\trip\load\via\routes.rou.xml failed.

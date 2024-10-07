@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-15 16:19:11 by Eclipse SUMO netedit Version v1_19_0+1328-b3d883f94db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <additional-files value="/localdata1/debug/_person_personTrip_early_pt/input_additional.add.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-50.00,100.00" convBoundary="0.00,100.00,100.00,200.00" origBoundary="50.00,-100.00,250.00,100.00" projParameter="!"/>
+
+    <edge id=":2_0" function="internal">
+        <lane id=":2_0_0" index="0" disallow="pedestrian" speed="24.90" length="2.58" shape="100.00,98.40 100.70,98.50 101.20,98.80 101.50,99.30 101.60,100.00"/>
+    </edge>
+    <edge id=":3_0" function="internal">
+        <lane id=":3_0_0" index="0" disallow="pedestrian" speed="19.90" length="2.58" shape="-1.60,100.00 -1.50,99.30 -1.20,98.80 -0.70,98.50 0.00,98.40"/>
+    </edge>
+    <edge id=":4_0" function="internal">
+        <lane id=":4_0_0" index="0" disallow="pedestrian" speed="18.90" length="2.58" shape="101.60,200.00 101.50,200.70 101.20,201.20 100.70,201.50 100.00,201.60"/>
+    </edge>
+    <edge id=":5_0" function="internal">
+        <lane id=":5_0_0" index="0" disallow="pedestrian" speed="13.90" length="2.58" shape="0.00,201.60 -0.70,201.50 -1.20,201.20 -1.50,200.70 -1.60,200.00"/>
+    </edge>
+
+    <edge id="a" from="3" to="2" priority="-1">
+        <lane id="a_0" index="0" disallow="pedestrian" speed="25.90" length="100.00" shape="0.00,98.40 100.00,98.40"/>
+    </edge>
+    <edge id="b" from="2" to="4" priority="-1">
+        <lane id="b_0" index="0" disallow="pedestrian" speed="23.90" length="100.00" shape="101.60,100.00 101.60,200.00"/>
+    </edge>
+    <edge id="c" from="4" to="5" priority="-1">
+        <lane id="c_0" index="0" disallow="pedestrian" speed="13.90" length="100.00" shape="100.00,201.60 0.00,201.60"/>
+    </edge>
+    <edge id="d" from="5" to="3" priority="-1">
+        <lane id="d_0" index="0" disallow="pedestrian" speed="13.90" length="100.00" shape="-1.60,200.00 -1.60,100.00"/>
+    </edge>
+
+    <junction id="2" type="priority" x="100.00" y="100.00" incLanes="a_0" intLanes=":2_0_0" shape="100.00,100.00 103.20,100.00 100.00,96.80">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3" type="priority" x="0.00" y="100.00" incLanes="d_0" intLanes=":3_0_0" shape="-3.20,100.00 0.00,100.00 0.00,96.80">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="4" type="priority" x="100.00" y="200.00" incLanes="b_0" intLanes=":4_0_0" shape="103.20,200.00 100.00,200.00 100.00,203.20">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="5" type="priority" x="0.00" y="200.00" incLanes="c_0" intLanes=":5_0_0" shape="0.00,203.20 0.00,200.00 -3.20,200.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="a" to="b" fromLane="0" toLane="0" via=":2_0_0" dir="l" state="M"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" via=":4_0_0" dir="l" state="M"/>
+    <connection from="c" to="d" fromLane="0" toLane="0" via=":5_0_0" dir="l" state="M"/>
+    <connection from="d" to="a" fromLane="0" toLane="0" via=":3_0_0" dir="l" state="M"/>
+
+    <connection from=":2_0" to="b" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":3_0" to="a" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":4_0" to="c" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":5_0" to="d" fromLane="0" toLane="0" dir="l" state="M"/>
+
+</net>

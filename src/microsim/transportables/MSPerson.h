@@ -68,7 +68,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
-                             const double arrivalPos, const double dist, const bool isExit,
+                             const double arrivalPos, const double arrivalPosLat, const double dist, const bool isExit,
                              const Position& startPos, const Position& endPos);
 
         /// destructor
@@ -165,7 +165,7 @@ public:
     bool isJammed() const;
 
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
-    void reroute(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
+    void replaceWalk(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
 
     /** @class Influencer

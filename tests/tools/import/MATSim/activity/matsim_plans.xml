@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+
+<population desc="population written from streaming">
+
+	<attributes>
+		<attribute name="coordinateReferenceSystem" class="java.lang.String">     
+            EPSG:25832
+        </attribute>
+	</attributes>
+
+
+<!-- ====================================================================== -->
+
+	<person id="100300">
+		<plan selected="yes">
+			<activity type="home_25200" x="732605.95" y="5691004.5" end_time="07:01:00" >
+			</activity>
+			<leg mode="pt">
+				<attributes>
+					<attribute name="routingMode" class="java.lang.String">pt</attribute>
+				</attributes>
+			</leg>
+			<activity type="leisure_600" x="733045.0" y="5691859.83" start_time="07:03:00" max_dur="00:02:45" >
+			</activity>
+			<leg mode="pt">
+				<attributes>
+					<attribute name="routingMode" class="java.lang.String">pt</attribute>
+				</attributes>
+			</leg>
+			<activity type="other_3600" x="733473.91" y="5692288.74" start_time="07:14:11" max_dur="00:59:48" end_time="08:13:59" >
+			</activity>
+			<leg mode="pt">
+				<attributes>
+					<attribute name="routingMode" class="java.lang.String">pt</attribute>
+				</attributes>
+			</leg>
+			<activity type="leisure_600" x="733045.0" y="5691859.83" start_time="08:22:25" max_dur="00:06:35" >
+			</activity>
+			<leg mode="pt">
+				<attributes>
+					<attribute name="routingMode" class="java.lang.String">pt</attribute>
+				</attributes>
+			</leg>
+			<activity type="leisure_12000" x="734776.15" y="5693810.93" start_time="08:48:00" end_time="12:07:00" >
+			</activity>
+			<leg mode="pt">
+				<attributes>
+					<attribute name="routingMode" class="java.lang.String">pt</attribute>
+				</attributes>
+			</leg>
+			<activity type="leisure_6000" x="735531.13" y="5693076.83" start_time="12:18:00" end_time="14:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+<!-- ====================================================================== -->
+
+</population>

@@ -40,6 +40,7 @@ GUIViewObjectsHandler::clearSelectedElements() {
     mySortedSelectedObjects.clear();
     mySelectedObjects.clear();
     // reset marked elements
+    myMergingJunctions.clear();
     markedEdge = nullptr;
     markedLane = nullptr;
     markedTAZ = nullptr;
@@ -411,6 +412,47 @@ GUIViewObjectsHandler::updateFrontElement(const GUIGlObject* GLObject) {
     if (frontElement.object) {
         mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(frontElement);
     }
+}
+
+
+void
+GUIViewObjectsHandler::isolateEdgeGeometryPoints() {
+    // declare object container for edge
+    ObjectContainer edgeWithGeometryPoints(nullptr);
+    // check if there are edges with geometry points in mySortedSelectedObjects
+    for (auto& elementLayer : mySortedSelectedObjects) {
+        for (auto element : elementLayer.second) {
+            if ((element.object->getType() == GLO_EDGE) && (element.geometryPoints.size() > 0)) {
+                edgeWithGeometryPoints = element;
+            }
+        }
+    }
+    // continue if something was found
+    if (edgeWithGeometryPoints.object != nullptr) {
+        // clear all selected objects
+        mySortedSelectedObjects.clear();
+        // add edge with geometry points as front element
+        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(edgeWithGeometryPoints);
+    }
+}
+
+
+const std::vector<const GNEJunction*>&
+GUIViewObjectsHandler::getMergingJunctions() const {
+    return myMergingJunctions;
+}
+
+
+bool
+GUIViewObjectsHandler::addMergingJunctions(const GNEJunction* junction) {
+    // avoid insert duplicated junctions
+    for (const auto mergingJunctions : myMergingJunctions) {
+        if (mergingJunctions == junction) {
+            return false;
+        }
+    }
+    myMergingJunctions.push_back(junction);
+    return true;
 }
 
 /****************************************************************************/

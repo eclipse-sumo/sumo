@@ -125,5 +125,15 @@ junction_name
 # use stored option in network (#4397)
 internalJunctionVehicleWidth
 
+# build minimal junction shapes
+minimal-shape
+
+# build junctions based on (custom) edge endpoints
+endpoint-shape
+
 # load bidi attribute from input network
 bidi
+no_internal_lanes_add_crossings
+
+# network has a NEMA junction
+NEMA

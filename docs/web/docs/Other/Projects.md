@@ -67,7 +67,7 @@ Development of guidance for decision-makers
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth
   integration of automated vehicles in traffic systems
-- [VITAL](https://www.dlr.de/fs/en/desktopdefault.aspx/tabid-10704/20365_read-42579/):
+- [VITAL](https://verkehrsforschung.dlr.de/de/projekte/vital-verkehrsabhaengig-intelligente-steuerung-von-lichtsignalanlagen):
   innovative traffic light control with V2X Communication.
 - [VABENE](https://verkehrsforschung.dlr.de/en/projects/vabene). SUMO simulates and predicts
   large-scale traffic for disaster and public event management
@@ -79,7 +79,7 @@ Development of guidance for decision-makers
   intermodal routing engine
 - [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
-- [VEU](https://www.dlr.de/VEU/). In this project, SUMO is used to
+- [VEU](https://web.archive.org/web/20220802080754/https://verkehrsforschung.dlr.de/de/projekte/veu). In this project, SUMO is used to
   simulated the traffic of Berlin
 - [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo) Cooperative Self-Organizing
   System for low Carbon Mobility at low Penetration Rates
@@ -89,16 +89,16 @@ CO2 Assessment Methodology for ICT in Transport
 Addresses the environmental footprint in the transport sector by developing a new approach for pro-active demand-responsive management of traffic
 - [iTetris](https://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
-- [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
-- [ORINOKO](https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
+- [Delphi](https://elib.dlr.de/62187/): a joint web decision support application for real time traffic situation analysis and prognosis, information exchange and cooperation
+- [ORINOKO](https://web.archive.org/web/20220710041841/https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
 - [Soccer2006](https://web.archive.org/web/20150705081516/https://www.dlr.de/desktopdefault.aspx/tabid-1296):
   Traffic prognosis during the FIFA-WorldCup 2006
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
-- [TrafficTower](https://www.dlr.de/fs/desktopdefault.aspx/tabid-1237/5441_read-12154/):
+- [TrafficTower](https://www.dlr.de/en/research-and-transfer/research-infrastructure/traffic-tower-en):
   A virtual traffic management centre
-- [INVENT](https://www.invent-online.de/): Evaluation of modern traffic
+- [INVENT](https://web.archive.org/web/20070310215410/http://www.invent-online.de/de/projekte.html): Evaluation of modern traffic
   management approaches
 - [OIS](https://web.archive.org/web/20040826034935/https://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
@@ -107,7 +107,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/https://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
-- [MENDEL](https://www.busundbahn.de/fileadmin/user_upload/Dossiers/Elektrobusse/DNV_2019_12_Naumann_FA_WA.pdf) modeling electric
+- [MENDEL](https://ikt-em-projekte.de/projekte/mendel-minimal-belastung-elektrischer-netze/) modeling electric
   buses and optimizing charging with respect to grid load
 
 ## At other Institutions
@@ -145,13 +145,13 @@ Addresses the environmental footprint in the transport sector by developing a ne
   examples.
   publications: [Piorkowski, Raya, Lugo, Papadimitratos, Grossglauser,
   Hubaux
-  2007](../Publications.md#piorkowskirayalugopapadimitratosgrossglauserhubaux2007)
+  2007](../Publications.md#publications_using_sumo)
 - [Veins - "Vehicles in Network Simulation"](https://veins.car2x.org/)
   by Christoph Sommer from the Department of Computer Science,
   University of Erlangen, Germany
-  publications: [Sommer, Yao, German, Dressler, 2008](../Publications.md#sommeryaogermandressler2008), [Sommer,
+  publications: [Sommer, Yao, German, Dressler, 2008](../Publications.md#publications_using_sumo), [Sommer,
   Yao, German, Dressler, 2008
-  (2)](../Publications.md#sommeryaogermandressler2008_2)
+  (2)](../Publications.md#publications_using_sumo)
 - "Assessment of traffic regulation policies for the minimization of
   pollutants emissions"
   by Mauro Bianchi at [CEFRIEL](https://www.cefriel.it/), Italy.
@@ -183,18 +183,18 @@ Addresses the environmental footprint in the transport sector by developing a ne
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,
-  2005](../Publications.md#cottinghamdaviesberesford2005)
+  2005](../Publications.md#publications_using_sumo)
 - GPS-Route by Stefan Edelkamp, Shahidd Jabar and Tilman Mehrer (supervisors)
   from the University of Dortmund, Germany
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
-  publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#edelkampjabarmehrer2005)
-- [Rapid Generation of Realistic Simulation for VANET](http://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
+  publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#publications_using_sumo)
+- [Rapid Generation of Realistic Simulation for VANET](https://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
   by Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan from the University
   of New South Wales, Sydney, Australia
   many thanks for extending SUMO\!
   publications: [Karnadi, Mo, Lan,
-  2005](../Publications.md#karnadimolan2005)
+  2005](../Publications.md#publications_using_sumo)
 - ["iTranSIM - Simulation-based Vehicle
   Location"](https://www.cs.tcd.ie/publications/tech-reports/reports.07/TCD-CS-2007-56.pdf)
   by Tino Morenz; Master thesis; 2008

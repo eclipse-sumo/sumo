@@ -91,3 +91,9 @@ actuated
 
 # test saving and load vehicles added by calibrator
 calibrator
+
+# vehicle stops twice in the same spot, state is saved before departure
+stops_looped
+
+# vehicle passes an edge twice but stops on the second pass
+stops_looped2

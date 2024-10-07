@@ -156,9 +156,6 @@ public:
     /// @brief return GNEJunction neighbours
     std::vector<GNEJunction*> getJunctionNeighbours() const;
 
-    /// @brief check if junction is currently in grid
-    bool isJunctionInGrid() const;
-
     /// @brief add incoming GNEEdge
     void addIncomingGNEEdge(GNEEdge* edge);
 
@@ -202,6 +199,12 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -305,9 +308,6 @@ protected:
     /// @brief edge boundary
     Boundary myJunctionBoundary;
 
-    /// @brief flag for check if junction is currently in grid
-    bool myJunctionInGrid = true;
-
     /// @brief drawing toggle (used to avoid double draws)
     int* myDrawingToggle;
 
@@ -356,7 +356,7 @@ protected:
 
 private:
     /// @brief check if draw junction as bubble
-    bool drawAsBubble(const GUIVisualizationSettings& s) const;
+    bool drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const;
 
     /// @brief draw junction as bubble
     void drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -373,7 +373,7 @@ private:
     void drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw junction name
-    void drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawJunctionName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction childs
     void drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;

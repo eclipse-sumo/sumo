@@ -858,7 +858,7 @@ class Shapedata(am.ArrayObjman):
     def export_shapefile(self, filepath=None):
         """
         Exports shape data into given file.
-        If no file is given, the the default file path will be selected.
+        If no file is given, the default file path will be selected.
         """
         # https://code.google.com/p/pyshp/
         print '\nexport_shapefile', filepath

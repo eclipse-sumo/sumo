@@ -35,16 +35,15 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
+                           netedit.positions.selection.rectangleMediumB)
 
 # remove elements
 netedit.deleteSelectedItems()
 
 # check undo redo
-netedit.checkUndoRedo(referencePosition)
-
-# undo deletion again (all must be selected)
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

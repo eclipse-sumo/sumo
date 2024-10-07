@@ -49,8 +49,8 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/output/MSStopOut.h>
 #include <utils/common/RandHelper.h>
-#include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
+#include "MSFrame.h"
 
 
 // ===========================================================================
@@ -133,6 +133,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emission-output.step-scaled", new Option_Bool(false));
     oc.addDescription("emission-output.step-scaled", "Output", TL("Write emission values scaled to the step length rather than as per-second values"));
+    oc.doRegister("emission-output.attributes", new Option_StringVector());
+    oc.addDescription("emission-output.attributes", "Output", TL("List attributes that should be included in the emission output"));
 
     oc.doRegister("battery-output", new Option_FileName());
     oc.addDescription("battery-output", "Output", TL("Save the battery values of each vehicle"));
@@ -148,6 +150,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("chargingstations-output", new Option_FileName());
     oc.addDescription("chargingstations-output", "Output", TL("Write data of charging stations"));
+    oc.doRegister("chargingstations-output.aggregated", new Option_Bool(false));
+    oc.addDescription("chargingstations-output.aggregated", "Output", TL("Write aggregated charging event data instead of single time steps"));
 
     oc.doRegister("overheadwiresegments-output", new Option_FileName());
     oc.addDescription("overheadwiresegments-output", "Output", TL("Write data of overhead wire segments"));
@@ -397,8 +401,14 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.mingap-factor", new Option_Float(-1));
     oc.addDescription("collision.mingap-factor", "Processing", TL("Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"));
 
+    oc.doRegister("keep-after-arrival", new Option_String("0", "TIME"));
+    oc.addDescription("keep-after-arrival", "Processing", TL("After a vehicle arrives, keep it in memory for the given TIME (for TraCI access)"));
+
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", TL("Delay vehicle insertion to stay within the given maximum number"));
+
+    oc.doRegister("max-num-persons", new Option_Integer(-1));
+    oc.addDescription("max-num-persons", "Processing", TL("Delay person insertion to stay within the given maximum number"));
 
     oc.doRegister("max-num-teleports", new Option_Integer(-1));
     oc.addDescription("max-num-teleports", "Processing", TL("Abort the simulation if the given maximum number of teleports is exceeded"));
@@ -519,6 +529,9 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'remote']"));
 
+    oc.doRegister("pedestrian.timegap-crossing", new Option_Float(2.));
+    oc.addDescription("pedestrian.timegap-crossing", "Processing", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
+
     oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.64));
     oc.addDescription("pedestrian.striping.stripe-width", "Processing", TL("Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'"));
 
@@ -550,14 +563,38 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
     oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
+#ifdef JPS_VERSION
     oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
     oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
-
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
-    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to accept the JuPedSim arrival point (in meters)"));
+    oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeed"));
+    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim ('CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"));
+    oc.doRegister("pedestrian.jupedsim.strength-neighbor-repulsion", new Option_Float(8.));
+    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The neighbor repulsion strength of the JuPedSim model"));
+    oc.doRegister("pedestrian.jupedsim.range-neighbor-repulsion", new Option_Float(.1));
+    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Processing", TL("The neighbor repulsion range of the JuPedSim model (in meters)"));
+    oc.doRegister("pedestrian.jupedsim.strength-geometry-repulsion", new Option_Float(5.));
+    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Processing", TL("The geometry repulsion strength of the JuPedSim model"));
+    oc.doRegister("pedestrian.jupedsim.range-geometry-repulsion", new Option_Float(.02));
+    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Processing", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
+    oc.doRegister("pedestrian.jupedsim.wkt", new Option_FileName());
+    oc.addDescription("pedestrian.jupedsim.wkt", "Output", TL("The filename to output the JuPedSim network as WKT"));
+    oc.doRegister("pedestrian.jupedsim.wkt.geo", new Option_Bool(false));
+    oc.addDescription("pedestrian.jupedsim.wkt.geo", "Output", TL("Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"));
+    oc.doRegister("pedestrian.jupedsim.py", new Option_FileName());
+    oc.addDescription("pedestrian.jupedsim.py", "Output", TL("The filename to output the JuPedSim setup as Python script"));
+#endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
     oc.addDescription("ride.stop-tolerance", "Processing", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
+
+    oc.doRegister("mapmatch.distance", new Option_Float(100));
+    oc.addDescription("mapmatch.distance", "Processing", TL("Maximum distance when mapping input coordinates (fromXY etc.) to the road network"));
+
+    oc.doRegister("mapmatch.junctions", new Option_Bool(false));
+    oc.addDescription("mapmatch.junctions", "Processing", TL("Match positions to junctions instead of edges"));
+
 
     // generic routing options
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
@@ -572,6 +609,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("weights.tls-penalty", new Option_Float(0));
     oc.addDescription("weights.tls-penalty", "Routing", TL("Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights"));
+
+    oc.doRegister("weights.turnaround-penalty", new Option_Float(5.0));
+    oc.addDescription("weights.turnaround-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for turnaround internal lanes"));
 
     oc.doRegister("weights.priority-factor", new Option_Float(0));
     oc.addDescription("weights.priority-factor", "Routing", TL("Consider edge priorities in addition to travel times, weighted by factor"));
@@ -731,6 +771,9 @@ MSFrame::fillOptions() {
     oc.doRegister("alternative-net-file", 'N', new Option_FileName());
     oc.addDescription("alternative-net-file", "GUI Only", TL("Load a secondary road network for abstract visualization from FILE"));
 
+    oc.doRegister("selection-file", new Option_FileName());
+    oc.addDescription("selection-file", "GUI Only", TL("Load pre-selected elements from FILE"));
+
     oc.doRegister("demo", 'D', new Option_Bool(false));
     oc.addDescription("demo", "GUI Only", TL("Restart the simulation after ending (demo mode)"));
 
@@ -873,7 +916,7 @@ MSFrame::checkOptions() {
         }
     }
     if (string2time(oc.getString("step-length")) <= 0) {
-        WRITE_ERROR(TL("the minimum step-length is 0.001"));
+        WRITE_ERROR(TL("the minimum step-length is 0.001."));
         ok = false;
     }
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
@@ -912,7 +955,7 @@ MSFrame::checkOptions() {
         ok = false;
     }
     if (oc.getBool("mesosim") && (oc.getFloat("lateral-resolution") > 0 || string2time(oc.getString("lanechange.duration")) > 0)) {
-        WRITE_ERROR(TL("Sublane dynamics are not supported by mesoscopic simulation"));
+        WRITE_ERROR(TL("Sublane dynamics are not supported by mesoscopic simulation."));
         ok = false;
     }
     if (oc.getBool("ignore-accidents")) {
@@ -960,7 +1003,7 @@ MSFrame::checkOptions() {
             try {
                 StringUtils::toDouble(val);
             } catch (NumberFormatException&) {
-                WRITE_ERRORF(TL("Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'"), val);
+                WRITE_ERRORF(TL("Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'."), val);
                 ok = false;
             }
         }
@@ -988,7 +1031,7 @@ MSFrame::checkOptions() {
         ok = false;
     }
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
-        WRITE_WARNING(TL("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results"));
+        WRITE_WARNING(TL("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results."));
     }
     if (oc.getString("game.mode") != "tls" && oc.getString("game.mode") != "drt") {
         WRITE_ERROR(TL("game.mode must be one of ['tls', 'drt']"));
@@ -998,11 +1041,20 @@ MSFrame::checkOptions() {
     if (oc.isSet("persontrip.transfer.car-walk")) {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions") {
-                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' or 'allJunctions'."), opt);
                 ok = false;
             }
         }
     }
+
+#ifdef JPS_VERSION
+    const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
+    const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
+    if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
+        WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
+        ok = false;
+    }
+#endif
 
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions(oc);
@@ -1078,6 +1130,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
     MSGlobals::gMinorPenalty = oc.getFloat("weights.minor-penalty");
     MSGlobals::gTLSPenalty = oc.getFloat("weights.tls-penalty");
+    MSGlobals::gTurnaroundPenalty = oc.getFloat("weights.turnaround-penalty");
 
     MSGlobals::gModelParkingManoeuver = oc.getBool("parking.maneuver");
 

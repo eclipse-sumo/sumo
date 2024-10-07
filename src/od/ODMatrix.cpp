@@ -127,9 +127,9 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
 
 
 bool
-ODMatrix::add(const std::string& id, const SUMOTime depart,
-              const std::string& fromTaz, const std::string& toTaz,
-              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
+ODMatrix::add(const SUMOVehicleParameter& veh, bool originIsEdge, bool destinationIsEdge) {
+    const std::string fromTaz = veh.fromTaz;
+    const std::string toTaz = veh.toTaz;
     if (myMissingDistricts.count(fromTaz) > 0 || myMissingDistricts.count(toTaz) > 0) {
         myNumLoaded += 1.;
         myNumDiscarded += 1.;
@@ -139,17 +139,17 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     std::vector<ODCell*>& odList = myShortCut[std::make_pair(fromTaz, toTaz)];
     ODCell* cell = nullptr;
     for (std::vector<ODCell*>::const_reverse_iterator c = odList.rbegin(); c != odList.rend(); ++c) {
-        if ((*c)->begin <= depart && (*c)->end > depart && (*c)->vehicleType == vehicleType) {
+        if ((*c)->begin <= veh.depart && (*c)->end > veh.depart && (*c)->vehicleType == veh.vtypeid) {
             cell = *c;
             break;
         }
     }
     if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
-        const int intervalIdx = (int)(depart / interval);
+        const int intervalIdx = (int)(veh.depart / interval);
         // single vehicles are already scaled
         if (add(1., std::make_pair(intervalIdx * interval, (intervalIdx + 1) * interval),
-                fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge, true)) {
+                fromTaz, toTaz, veh.vtypeid, originIsEdge, destinationIsEdge, true)) {
             cell = myContainer.back();
             odList.push_back(cell);
         } else {
@@ -159,7 +159,7 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
         myNumLoaded += 1.;
         cell->vehicleNumber += 1.;
     }
-    cell->departures[depart].push_back(id);
+    cell->departures[veh.depart].push_back(veh);
     return true;
 }
 

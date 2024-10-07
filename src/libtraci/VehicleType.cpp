@@ -171,6 +171,12 @@ VehicleType::getHeight(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getMass(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_MASS, typeID);
+}
+
+
 libsumo::TraCIColor
 VehicleType::getColor(const std::string& typeID) {
     return Dom::getCol(libsumo::VAR_COLOR, typeID);
@@ -281,6 +287,12 @@ VehicleType::setWidth(const std::string& typeID, double width) {
 void
 VehicleType::setHeight(const std::string& typeID, double height) {
     Dom::setDouble(libsumo::VAR_HEIGHT, typeID, height);
+}
+
+
+void
+VehicleType::setMass(const std::string& typeID, double mass) {
+    Dom::setDouble(libsumo::VAR_MASS, typeID, mass);
 }
 
 

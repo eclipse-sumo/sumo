@@ -500,6 +500,18 @@ value is also shown in the table.
   <td><p>Returns the time difference between the planned and the actual departure</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDepartDelay">getDepartDelay</a></p></td>
 </tr>
+  <tr class="odd">
+<td><p>segment id (0xa1)</p></td>
+<td><p>string</p></td>
+<td><p><Returns the id of the segment on which the vehicle is driving (mesosim)/p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSegmentID">getSegmentID</a></p></td>
+</tr>
+<tr class="even">
+  <td><p>segment index (0xa2)</p></td>
+  <td><p>int</p></td>
+  <td><p>Returns the index of the segment on which the vehicle is driving (mesosim)</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSegmentIndex">getDepartSegmentIndex</a></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -765,7 +777,7 @@ call](../TraCI/GenericParameters.md#get_parameter).
 
 - device.battery.energyConsumed
 - device.battery.energyCharged
-- device.battery.actualBatteryCapacity
+- device.battery.chargeLevel
 - device.battery.maximumBatteryCapacity
 - device.battery.chargingStationId
 - device.battery.vehicleMass
@@ -800,6 +812,29 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.tripinfo.waitingTime (total waiting time)
 - device.tripinfo.waitingCount
 - device.tripinfo.stopTime (total stopping time)
+- device.tripinfo.arrivalTime (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalLane (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalPos (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalPosLat (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalSpeed (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.toc.state
+- device.toc.holder
+- device.toc.hasDynamicToC
+- device.toc.manualType
+- device.toc.automatedType
+- device.toc.initialAwareness
+- device.toc.lcAbstinence
+- device.toc.currentAwareness
+- device.toc.dynamicToCThreshold
+- device.toc.dynamicMRMProbability
+- device.toc.mrmKeepRight
+- device.toc.mrmSafeSpot
+- device.toc.mrmSafeSpotDuration
+- device.toc.maxPreparationAccel
+- device.toc.ogNewTimeHeadway
+- device.toc.ogNewSpaceHeadway
+- device.toc.ogChangeRate
+- device.toc.ogMaxDecel
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)

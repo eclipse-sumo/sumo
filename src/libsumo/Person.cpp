@@ -183,7 +183,7 @@ Person::filterReservation(int onlyNew, const Reservation* res, std::vector<libsu
         return false;
     }
     std::vector<std::string> personIDs;
-    for (MSTransportable* p : res->persons) {
+    for (const MSTransportable* p : res->persons) {
         personIDs.push_back(p->getID());
     }
     std::sort(personIDs.begin(), personIDs.end());
@@ -314,8 +314,8 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         }
         case MSStageType::WAITING: {
             auto* waitingStage = (MSStageWaiting*) stage;
-            if (waitingStage->getDuration() > 0) {
-                result.travelTime = STEPS2TIME(waitingStage->getDuration());
+            if (waitingStage->getPlannedDuration() > 0) {
+                result.travelTime = STEPS2TIME(waitingStage->getPlannedDuration());
             }
             break;
         }
@@ -469,6 +469,12 @@ Person::getHeight(const std::string& personID) {
 }
 
 
+double
+Person::getMass(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMass();
+}
+
+
 int
 Person::getPersonCapacity(const std::string& personID) {
     return getPerson(personID)->getVehicleType().getPersonCapacity();
@@ -572,15 +578,9 @@ MSStage*
 Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
     MSStoppingPlace* bs = nullptr;
     if (!stage.destStop.empty()) {
-        bs = MSNet::getInstance()->getStoppingPlace(stage.destStop, SUMO_TAG_BUS_STOP);
+        bs = MSNet::getInstance()->getStoppingPlace(stage.destStop);
         if (bs == nullptr) {
-            bs = MSNet::getInstance()->getStoppingPlace(stage.destStop, SUMO_TAG_PARKING_AREA);
-            if (bs == nullptr) {
-                throw TraCIException("Invalid stopping place id '" + stage.destStop + "' for person: '" + personID + "'");
-            } else {
-                // parkingArea is not a proper arrival place
-                bs = nullptr;
-            }
+            throw TraCIException("Invalid stopping place id '" + stage.destStop + "' for person: '" + personID + "'");
         }
     }
     switch (stage.type) {
@@ -609,7 +609,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
                     arrivalPos = to->getLength();
                 }
             }
-            return new MSStageDriving(nullptr, to, bs, arrivalPos, StringTokenizer(stage.line).getVector());
+            return new MSStageDriving(nullptr, to, bs, arrivalPos, 0.0, StringTokenizer(stage.line).getVector());
         }
 
         case STAGE_WALKING: {
@@ -630,8 +630,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (arrivalPos < 0) {
                 arrivalPos += edges.back()->getLength();
             }
-            double speed = p->getMaxSpeed();
-            return new MSStageWalking(p->getID(), edges, bs, -1, speed, p->getArrivalPos(), arrivalPos, MSPModel::UNSPECIFIED_POS_LAT);
+            return new MSStageWalking(p->getID(), edges, bs, -1, -1, p->getArrivalPos(), arrivalPos, MSPModel::UNSPECIFIED_POS_LAT);
         }
 
         case STAGE_WAITING: {
@@ -681,12 +680,12 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
     }
     MSStoppingPlace* bs = nullptr;
     if (stopID != "") {
-        bs = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
+        bs = MSNet::getInstance()->getStoppingPlace(stopID);
         if (bs == nullptr) {
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSStageDriving(nullptr, edge, bs, edge->getLength() - NUMERICAL_EPS, StringTokenizer(lines).getVector()));
+    p->appendStage(new MSStageDriving(nullptr, edge, bs, edge->getLength() - NUMERICAL_EPS, 0.0, StringTokenizer(lines).getVector()));
 }
 
 
@@ -724,9 +723,6 @@ Person::appendWalkingStage(const std::string& personID, const std::vector<std::s
     }
     if (arrivalPos < 0) {
         arrivalPos += edges.back()->getLength();
-    }
-    if (speed < 0) {
-        speed = p->getMaxSpeed();
     }
     MSStoppingPlace* bs = nullptr;
     if (stopID != "") {
@@ -800,7 +796,7 @@ Person::rerouteTraveltime(const std::string& personID) {
         // @note: maybe this should be done automatically by the router
         newEdges.insert(newEdges.begin(), from);
     }
-    p->reroute(newEdges, departPos, firstIndex, nextIndex);
+    p->replaceWalk(newEdges, departPos, firstIndex, nextIndex);
 }
 
 
@@ -1060,6 +1056,12 @@ Person::setWidth(const std::string& personID, double width) {
 void
 Person::setHeight(const std::string& personID, double height) {
     getPerson(personID)->getSingularType().setHeight(height);
+}
+
+
+void
+Person::setMass(const std::string& personID, double mass) {
+    getPerson(personID)->getSingularType().setMass(mass);
 }
 
 

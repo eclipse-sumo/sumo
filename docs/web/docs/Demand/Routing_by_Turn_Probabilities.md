@@ -14,8 +14,8 @@ parameter must be supplied:
 A call may look like this:
 
 ```
-jtrrouter --route-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
-  --output-file=MySUMORoutes.rou.xml --begin <UINT> --end <UINT>
+jtrrouter --route-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
+  --output-file=MySUMORoutes.rou.xml --begin <UINT> --end <UINT>
 ```
 
 !!! note

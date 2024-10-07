@@ -99,21 +99,17 @@ jobs:
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
       run: |
-        python -m pip install -r tools/req_ci.txt
-        python -m pip install -r tools/requirements.txt
+        python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         tests/runTests.sh -b ci -v ci.fast
 
     - name: Running meta tests and cleaning up
       run: |
         tests/runTests.sh -b ci -v ci -ts meta
-        python -m pip uninstall -y eclipse-sumo
         sed -i '/SUMO_HOME/d' $GITHUB_ENV
 
     - name: Running libsumo tests
       run: |
-        python -m pip install manylinux-wheels/sumolib-*.whl manylinux-wheels/traci-*.whl
-        PYTHON_VERSION=${{ matrix.python_version }}
-        python -m pip install manylinux-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
+        python -m pip install -f manylinux-wheels libsumo
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
@@ -134,7 +130,7 @@ jobs:
   # publishing wheels
   ###################
   publish-wheels:
-    if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
+    if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
     needs: [test-wheels]
     runs-on: ubuntu-latest
     permissions:

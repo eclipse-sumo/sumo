@@ -71,7 +71,7 @@ the script can merge this information with the GTFS data.
 
 In general there are three types of data
 we can extract from GTFS: schedules (in minute precision for every vehicle), stop locations (geo coordinates),
-and routes (geo coordinates of the travelled streets), where the latter is optional. The GTFS file should be in
+and routes (geo coordinates of the traveled streets), where the latter is optional. The GTFS file should be in
 zip format and contain at least `routes.txt`, `stops.txt`, `stop_times.txt`, `trips.txt`, `calendar.txt` and `calendar_dates.txt`.
 If your GTFS data has a (non-empty) `shapes.txt` file it also has route information.
 For the rest of the tutorial, we will assume that you always want to import at least the schedules from GTFS.

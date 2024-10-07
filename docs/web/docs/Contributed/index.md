@@ -31,7 +31,7 @@ supported.
 
 - [LiSuM](../Tools/LiSuM.md)
 
-    a middleware that couples [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO to simulate real-world
+    a middleware that couples [LISA+](https://www.schlothauer.de/software-lisa) and SUMO to simulate real-world
     traffic light controllers and execute real-world traffic control software within SUMO.
 
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/SUMOActivityGen.md)

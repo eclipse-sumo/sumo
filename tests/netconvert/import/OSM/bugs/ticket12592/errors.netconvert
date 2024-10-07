@@ -40,10 +40,6 @@ Warning: Found sharp turn with radius 2.17 at the start of edge '-360264845'.
 Warning: Found sharp turn with radius 3.21 at the start of edge '-420450643'.
 Warning: Found sharp turn with radius 1.33 at the end of edge '-420450643'.
 Warning: Edge '957112906' is not connected to outgoing edges at junction '8116258616'.
-Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
-Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
-Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
-Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
 Warning: 17 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 10 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 32 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.

@@ -1,12 +1,6 @@
-Warning: Lane '4_1' is not connected from any incoming edge at junction 'Center'.
-Warning: Edge '8' is not connected to outgoing edges at junction 'Center'.
-Warning: could not prohibit 8->UNKNOWN by UNKNOWN->4
-Warning: 1 of 4 prohibitions were not build.
-Warning: could not prohibit UNKNOWN->UNKNOWN by UNKNOWN->UNKNOWN
-Warning: 2 of 6 prohibitions were not build.
-Warning: could not prohibit UNKNOWN->1 by 5->UNKNOWN
-Warning: could not prohibit UNKNOWN->UNKNOWN by UNKNOWN->UNKNOWN
-Warning: 4 of 8 prohibitions were not build.
-Warning: 4 of 8 prohibitions were not build.
-Warning: 4 of 10 prohibitions were not build.
-Warning: 4 of 10 prohibitions were not build.
+Warning: Lane '2_0' is not connected from any incoming edge at junction 'Junction5'.
+Warning: Lane '4_0' is not connected from any incoming edge at junction 'Junction5'.
+Warning: Lane '6_0' is not connected from any incoming edge at junction 'Junction5'.
+Warning: Lane '8_0' is not connected from any incoming edge at junction 'Junction5'.
+Warning: Lane '4_0' is not connected from any incoming edge at junction 'Junction5'.
+Warning: 13 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

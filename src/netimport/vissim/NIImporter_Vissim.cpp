@@ -116,7 +116,7 @@
 // ===========================================================================
 // static variables
 // ===========================================================================
-StringBijection<int>::Entry NIImporter_Vissim::vissimTags[] = {
+SequentialStringBijection::Entry NIImporter_Vissim::vissimTags[] = {
     { "network",          NIImporter_Vissim::VISSIM_TAG_NETWORK },
     { "lanes",            NIImporter_Vissim::VISSIM_TAG_LANES },
     { "lane",             NIImporter_Vissim::VISSIM_TAG_LANE },
@@ -154,7 +154,7 @@ StringBijection<int>::Entry NIImporter_Vissim::vissimTags[] = {
 };
 
 
-StringBijection<int>::Entry NIImporter_Vissim::vissimAttrs[] = {
+SequentialStringBijection::Entry NIImporter_Vissim::vissimAttrs[] = {
     { "no",             NIImporter_Vissim::VISSIM_ATTR_NO }, //id
     { "name",           NIImporter_Vissim::VISSIM_ATTR_NAME },
     { "x",              NIImporter_Vissim::VISSIM_ATTR_X },
@@ -307,7 +307,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
         // FIXME: a length = 0 PosVec seems fatal -> segfault
         double length(geom.length());
 
-        if (isConnector == false) {
+        if (!isConnector) {
             // Add Edge
             std::vector<double> laneWidths;
             for (std::string& w : myElemData["width"]) {

@@ -256,8 +256,8 @@ public:
         return *this;
     }
 
-    inline bool useAttribute(const SumoXMLAttr attr, long long int attributeMask) const {
-        return (attributeMask & ((long long int)1 << attr)) != 0;
+    inline bool useAttribute(const SumoXMLAttr attr, SumoXMLAttrMask attributeMask) const {
+        return attributeMask.test(attr);
     }
 
     /** @brief writes a named attribute unless filtered
@@ -271,6 +271,14 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
         assert((int)attr <= 63);
         if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
+            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        }
+        return *this;
+    }
+    template <typename T>
+    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, SumoXMLAttrMask attributeMask) {
+        assert((int)attr <= (int)attributeMask.size());
+        if (attributeMask.none() || useAttribute(attr, attributeMask)) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         }
         return *this;
@@ -325,7 +333,7 @@ public:
      *
      * @param[in] msg The msg to write to the device
      */
-    void inform(const std::string& msg, const char progress = 0);
+    void inform(const std::string& msg, const bool progress = false);
 
 
     /** @brief Abstract output operator

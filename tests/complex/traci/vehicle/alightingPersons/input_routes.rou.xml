@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <route id="r1" edges="SC CN NC CS">
+        <stop busStop="stop_SC" until="50" duration="8"/>
+        <stop busStop="stop_NC" until="100" duration="8"/>
+        <stop busStop="stop_CS" until="150" duration="8"/>
+    </route>
+    <vehicle id="bus" type="bus" line="B7" depart="0" route="r1"/>
+    <personFlow id="pSC" begin="0" end="1" number="5" departPos="-15">
+       <ride from="SC" busStop="stop_CS" lines="bus"/>
+   </personFlow>
+    <personFlow id="pNC" begin="0" end="1" number="3" departPos="-15">
+       <ride from="NC" busStop="stop_CS" lines="bus"/>
+   </personFlow>
+</routes>

@@ -119,6 +119,8 @@
     #pragma warning(disable: 4371)
     /* Disable potential exception in C function warnings */
     #pragma warning(disable: 5039)
+    /* Disable constructor is not implicitly called */
+    #pragma warning(disable: 4582)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
@@ -173,17 +175,20 @@
 /* defined if ffmpeg is available */
 #cmakedefine HAVE_FFMPEG
 
+/* defined if fmt is available */
+#cmakedefine HAVE_FMT
+
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
-
-/* defined if libintl is available */
-#cmakedefine HAVE_INTL
 
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
+
+/* defined if libintl is available */
+#cmakedefine HAVE_INTL
 
 /* defined and set to version if JuPedSim is available */
 #cmakedefine JPS_VERSION @JPS_VERSION@
@@ -204,7 +209,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.19.0"
+    #define VERSION_STRING "1.20.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

@@ -113,62 +113,8 @@ public:
     /// @brief add from to stoppingPlace
     bool addStoppingPlace(GNEAdditional* stoppingPlace);
 
-    /// @brief get consecutive edge
-    const std::vector<GNEEdge*> getConsecutiveEdges() const;
-
-    /// @brief get consecutive edge IDs
-    const std::vector<std::string> getConsecutiveEdgeIDs() const;
-
-    /// @brief get from edge
-    GNEEdge* getFromEdge() const;
-
-    /// @brief get to edge
-    GNEEdge* getToEdge() const;
-
-    /// @brief get from junction
-    GNEJunction* getFromJunction() const;
-
-    /// @brief get to junction
-    GNEJunction* getToJunction() const;
-
-    /// @brief get from TAZ
-    GNEAdditional* getFromTAZ() const;
-
-    /// @brief get to TAZ
-    GNEAdditional* getToTAZ() const;
-
-    /// @brief get from bus stop
-    GNEAdditional* getFromBusStop() const;
-
-    /// @brief get to bus stop
-    GNEAdditional* getToBusStop() const;
-
-    /// @brief get from train stop
-    GNEAdditional* getFromTrainStop() const;
-
-    /// @brief get to train stop
-    GNEAdditional* getToTrainStop() const;
-
-    /// @brief get from container stop
-    GNEAdditional* getFromContainerStop() const;
-
-    /// @brief get to container stop
-    GNEAdditional* getToContainerStop() const;
-
-    /// @brief get route
-    GNEDemandElement* getRoute() const;
-
-    /// @brief get edge
-    GNEEdge* getEdge() const;
-
-    /// @brief get busStop
-    GNEAdditional* getBusStop() const;
-
-    /// @brief get trainStop
-    GNEAdditional* getTrainStop() const;
-
-    /// @brief get containerStop
-    GNEAdditional* getContainerStop() const;
+    /// @brief get plan parameters
+    const CommonXMLStructure::PlanParameters& getPlanParameteres() const;
 
     /// @brief get clicked position over lane
     double getClickedPositionOverLane() const;
@@ -212,21 +158,15 @@ protected:
         CONSECUTIVE_EDGES   = 1 << 0,   // Plan is placed over consecutive edges
         ROUTE               = 1 << 1,   // Plan is placed over a single route
         EDGE                = 1 << 2,   // Plan is placed over a single edge
-        BUSSTOP             = 1 << 3,   // Plan is placed over a single busStop
-        TRAINSTOP           = 1 << 4,   // Plan is placed over a single trainStop
-        CONTAINERSTOP       = 1 << 5,   // Plan is placed over a single containerStop
-        START_EDGE          = 1 << 6,   // Plan begins in edge
-        START_TAZ           = 1 << 7,   // Plan begins in TAZ
-        START_JUNCTION      = 1 << 8,   // Plan begins in junction
-        START_BUSSTOP       = 1 << 9,   // Plan begins in busStop
-        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
-        START_CONTAINERSTOP = 1 << 11,  // Plan begins in containerStop
-        END_EDGE            = 1 << 12,  // Plan ends in edge
-        END_TAZ             = 1 << 13,  // Plan ends in TAZ
-        END_JUNCTION        = 1 << 14,  // Plan ends in junction
-        END_BUSSTOP         = 1 << 15,  // Plan ends in busStop
-        END_TRAINSTOP       = 1 << 16,  // Plan ends in trainStop
-        END_CONTAINERSTOP   = 1 << 17,  // Plan ends in containerStop
+        STOPPINGPLACE       = 1 << 3,   // Plan is placed over a stoppingPlace
+        START_EDGE          = 1 << 4,   // Plan begins in edge
+        START_TAZ           = 1 << 5,   // Plan begins in TAZ
+        START_JUNCTION      = 1 << 6,   // Plan begins in junction
+        START_STOPPINGPLACE = 1 << 7,   // Plan begins in busStop
+        END_EDGE            = 1 << 8,   // Plan ends in edge
+        END_TAZ             = 1 << 9,   // Plan ends in TAZ
+        END_JUNCTION        = 1 << 10,  // Plan ends in junction
+        END_STOPPINGPLACE   = 1 << 11,  // Plan ends in stoppingPlace
     };
 
     /// @brief clear edges
@@ -247,41 +187,8 @@ protected:
     /// @brief previous person plan element
     const GNEDemandElement* myPreviousPlanElement = nullptr;
 
-    /// @brief vector with consecutive edges
-    std::vector<GNEEdge*> myConsecutiveEdges;
-
-    /// @brief from edge
-    GNEEdge* myFromEdge = nullptr;
-
-    /// @brief to edge
-    GNEEdge* myToEdge = nullptr;
-
-    /// @brief from junction
-    GNEJunction* myFromJunction = nullptr;
-
-    /// @brief to junction
-    GNEJunction* myToJunction = nullptr;
-
-    /// @brief from TAZ
-    GNEAdditional* myFromTAZ = nullptr;
-
-    /// @brief to TAZ
-    GNEAdditional* myToTAZ = nullptr;
-
-    /// @brief from StoppingPlace
-    GNEAdditional* myFromStoppingPlace = nullptr;
-
-    /// @brief to StoppingPlace
-    GNEAdditional* myToStoppingPlace = nullptr;
-
-    /// @brief route
-    GNEDemandElement* myRoute = nullptr;
-
-    /// @brief ege
-    GNEEdge* myEdge = nullptr;
-
-    /// @brief stoppingPlace
-    GNEAdditional* myStoppingPlace = nullptr;
+    /// @brief plan parameters
+    CommonXMLStructure::PlanParameters myPlanParameteres;
 
     /// @brief clicked position over lane
     double myClickedPositionOverLane = 0;

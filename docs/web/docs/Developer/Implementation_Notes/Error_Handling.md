@@ -76,30 +76,30 @@ ProcessError has really one set.
 
 ```
 int
-main(int argc, char **argv)
+main(int argc, char **argv)
 {
-    // initialise return code
-    int ret = 0;
-    ... make uncritical initialisation ...
-    try {
-       ... do some critical stuff ...
-    } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-        // set return code to "failure"
-        ret = 1;
-#ifndef _DEBUG
-    } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
-        // set return code to "failure"
-        ret = 1;
+    // initialise return code
+    int ret = 0;
+    ... make uncritical initialisation ...
+    try {
+       ... do some critical stuff ...
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        // set return code to "failure"
+        ret = 1;
+#ifndef _DEBUG
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        // set return code to "failure"
+        ret = 1;
 #endif
-    }
-    ... clean up ...
-    // return the return code
-    return ret;
+    }
+    ... clean up ...
+    // return the return code
+    return ret;
 }
 ```
 

@@ -1,0 +1,15 @@
+<additionals>
+
+    <!-- non valid angle, (dummy) -->
+    <poi id="POI_0" color="green" layer="0.00" x="30.00" y="30.00" width="5.00" height="5.00" imgFile="berlin_icon.ico" angle="dummyAngle"/>
+
+    <!-- valid angle, > 360 -->
+    <poi id="POI_1" color="green" layer="0.00" x="30.00" y="30.00" width="5.00" height="5.00" imgFile="berlin_icon.ico" angle="500"/>
+
+    <!-- valid angle, < 0 -->
+    <poi id="POI_2" color="blue" layer="0.00" x="30.00" y="40.00" width="5.00" height="5.00" imgFile="berlin_icon.ico" angle="-30"/>
+
+    <!-- valid angle -->
+    <poi id="POI_3" color="blue" layer="0.00" x="30.00" y="40.00" width="5.00" height="5.00" imgFile="berlin_icon.ico" angle="13"/>
+
+</additionals>

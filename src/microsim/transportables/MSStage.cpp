@@ -44,18 +44,22 @@ const double MSStage::ROADSIDE_OFFSET(3);
 /* -------------------------------------------------------------------------
  * MSStage - methods
  * ----------------------------------------------------------------------- */
-MSStage::MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group) :
+MSStage::MSStage(MSStageType type, const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos,
+                 const double arrivalPosLat, const std::string& group) :
     myDestination(destination),
     myDestinationStop(toStop),
     myArrivalPos(arrivalPos),
+    myArrivalPosLat(arrivalPosLat),
     myDeparted(-1),
     myArrived(-1),
     myType(type),
     myGroup(group),
+    myCosts(-1),
     myParametersSet(0)
 {}
 
 MSStage::~MSStage() {}
+
 
 const MSEdge*
 MSStage::getDestination() const {
@@ -79,6 +83,13 @@ double
 MSStage::getEdgePos(SUMOTime /* now */) const {
     return myArrivalPos;
 }
+
+
+double
+MSStage::getEdgePosLat(SUMOTime /* now */) const {
+    return myArrivalPosLat;
+}
+
 
 int
 MSStage::getDirection() const {
@@ -122,6 +133,29 @@ SUMOTime
 MSStage::getArrived() const {
     return myArrived;
 }
+
+
+SUMOTime
+MSStage::getDuration() const {
+    return myArrived >= 0 ? myArrived - myDeparted : SUMOTime_MAX;
+}
+
+
+SUMOTime
+MSStage::getTravelTime() const {
+    return getDuration();
+}
+
+SUMOTime
+MSStage::getWaitingTime() const {
+    return 0;
+}
+
+SUMOTime
+MSStage::getTimeLoss(const MSTransportable* /*transportable*/) const {
+    return 0;
+}
+
 
 const std::string
 MSStage::setArrived(MSNet* /* net */, MSTransportable* /* transportable */, SUMOTime now, const bool /* vehicleArrived */) {

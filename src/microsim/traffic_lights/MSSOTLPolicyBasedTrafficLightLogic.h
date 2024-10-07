@@ -30,7 +30,7 @@
  * @brief A self-organizing traffic light logic based on a particular policy
  *
  * This traffic light logic is used to wrap the logic of a self-organizing
- * low-level policy into a functional traffic light logic. It's role is to
+ * low-level policy into a functional traffic light logic. Its role is to
  * use a low-level policy without an high-level policy to command it.
  */
 

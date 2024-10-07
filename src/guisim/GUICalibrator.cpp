@@ -263,16 +263,21 @@ GUICalibrator::GUICalibrator(MSCalibrator* calibrator) :
     GUIGlObject_AbstractAdd(GLO_CALIBRATOR, calibrator->getID(), GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR)),
     myCalibrator(calibrator),
     myShowAsKMH(true) {
-    const std::vector<MSLane*>& destLanes = calibrator->myEdge->getLanes();
-    const MSLane* lane = calibrator->myLane;
-    const double pos = calibrator->myPos;
-    for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-        if (lane == nullptr || (*i) == lane) {
-            const PositionVector& v = (*i)->getShape();
-            myFGPositions.push_back(v.positionAtOffset(pos));
-            myBoundary.add(v.positionAtOffset(pos));
-            myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+    if (calibrator->getEdge() != nullptr) {
+        const std::vector<MSLane*>& destLanes = calibrator->getEdge()->getLanes();
+        const MSLane* lane = calibrator->getLane();
+        const double pos = calibrator->myPos;
+        for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
+            if (lane == nullptr || (*i) == lane) {
+                const PositionVector& v = (*i)->getShape();
+                myFGPositions.push_back(v.positionAtOffset(pos));
+                myBoundary.add(v.positionAtOffset(pos));
+                myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+            }
         }
+    }
+    if (calibrator->myNode != nullptr) {
+        myBoundary.add(calibrator->myNode->getPosition());
     }
 }
 

@@ -136,12 +136,26 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 
 double
+MSCFModel_IDM::insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const {
+    // we want to insert the vehicle in an equilibrium state
+    double result = MSCFModel::insertionStopSpeed(veh, speed, gap);
+    int i = 0;
+    while (result - speed < -ACCEL2SPEED(myDecel) && ++i < 10) {
+        speed = result;
+        result = MSCFModel::insertionStopSpeed(veh, speed, gap);
+    }
+    return result;
+}
+
+
+double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;
     }
     double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    //std::cout << SIMTIME << " stopSpeed speed=" << speed << " gap=" << gap << " decel=" << decel << " result=" << result << "\n";
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";

@@ -1,10 +1,10 @@
 Warning: Ignoring junction logic for junction 'Dn24'.
 Warning: Missing yellow phase in tlLogic 'K0001', program '0' for tl-index 3 when switching to phase 0.
 Warning: Missing green phase in tlLogic 'K0001', program '0' for tl-index 0.
-Warning: Vehicle 'type05.0' left e3Detector 'tt_fc09' without entering it.
-Warning: Vehicle 'type05.0' left e3Detector 'tt_fc09' without entering it.
-Warning: Vehicle 'type01.0' left e3Detector 'tt_fc09' without entering it.
-Warning: Vehicle 'type01.0' left e3Detector 'tt_fc09' without entering it.
-Warning: Vehicle 'type07.0' arrived inside e3Detector 'tt_fc09'.
-Warning: Vehicle 'type08m.0' arrived inside e3Detector 'tt_fc09'.
-Warning: Vehicle 'type08.0' arrived inside e3Detector 'tt_fc09'.
+Warning: Vehicle 'type05.0' left e3Detector 'tt_fc09' without entering it, time=20.70.
+Warning: Vehicle 'type05.0' left e3Detector 'tt_fc09' without entering it, time=21.10.
+Warning: Vehicle 'type01.0' left e3Detector 'tt_fc09' without entering it, time=33.20.
+Warning: Vehicle 'type01.0' left e3Detector 'tt_fc09' without entering it, time=33.80.
+Warning: Vehicle 'type07.0' arrived inside e3Detector 'tt_fc09', time=61.00.
+Warning: Vehicle 'type08m.0' arrived inside e3Detector 'tt_fc09', time=68.90.
+Warning: Vehicle 'type08.0' arrived inside e3Detector 'tt_fc09', time=72.00.

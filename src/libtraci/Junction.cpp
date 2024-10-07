@@ -61,6 +61,18 @@ Junction::getShape(const std::string& junctionID) {
 }
 
 
+const std::vector<std::string>
+Junction::getIncomingEdges(const std::string& junctionID) {
+    return Dom::getStringVector(libsumo::INCOMING_EDGES, junctionID);
+}
+
+
+const std::vector<std::string>
+Junction::getOutgoingEdges(const std::string& junctionID) {
+    return Dom::getStringVector(libsumo::OUTGOING_EDGES, junctionID);
+}
+
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(Junction, JUNCTION)
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
 

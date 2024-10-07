@@ -68,7 +68,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(const std::string& description, MSLane* const lane = 0, const bool doAdd = true);
+    MSMoveReminder(const std::string& description, MSLane* const lane = nullptr, const bool doAdd = true);
 
 
     /** @brief Destructor
@@ -120,7 +120,9 @@ public:
         /// @brief The vehicle got removed via the GUI
         NOTIFICATION_VAPORIZED_GUI,
         /// @brief The vehicle got vaporized with a vaporizer
-        NOTIFICATION_VAPORIZED_VAPORIZER
+        NOTIFICATION_VAPORIZED_VAPORIZER,
+        /// @brief The vehicle got removed via stationfinder device
+        NOTIFICATION_VAPORIZED_BREAKDOWN
     };
 
 
@@ -149,7 +151,7 @@ public:
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
-     * from it's reminder-container.
+     * from its reminder-container.
      *
      * @param[in] veh Vehicle that asks this reminder.
      * @param[in] oldPos Position before move.
@@ -202,7 +204,7 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = nullptr) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(reason);
@@ -223,7 +225,7 @@ public:
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
-     * from it's reminder-container.
+     * from its reminder-container.
      *
      * @param[in] veh Vehicle that asks this reminder.
      * @param[in] frontOnLane time the front of the vehicle spent on the lane.
@@ -281,7 +283,7 @@ protected:
 #endif
 
 private:
-    std::map<SUMOTrafficObject*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
+    std::map<long long int, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
 
 
 private:

@@ -136,9 +136,16 @@ MELoop::checkCar(MEVehicle* veh) {
     if (nextEntry == leaveTime) {
         return;
     }
-    if (!veh->isStopped() && MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
-        teleportVehicle(veh, toSegment);
-        return;
+    const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
+    const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected;
+    if (!veh->isStopped() && (r1 || r3)) {
+            const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
+                    && veh->succEdge(1) != nullptr
+                    && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr);
+        if ((r1 && !disconnected) || (r3 && disconnected)) {
+            teleportVehicle(veh, toSegment);
+            return;
+        }
     }
     if (veh->getBlockTime() == SUMOTime_MAX && !veh->isStopped()) {
         veh->setBlockTime(leaveTime);
@@ -148,7 +155,8 @@ MELoop::checkCar(MEVehicle* veh) {
         SUMOTime newEventTime = MAX3(toSegment->getEventTime() + 1, leaveTime + 1, leaveTime + myFullRecheckInterval);
         if (MSGlobals::gTimeToGridlock > 0) {
             // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
-            newEventTime = MAX2(MIN2(newEventTime, veh->getBlockTime() + MSGlobals::gTimeToGridlock + 1), leaveTime + DELTA_T);
+            const SUMOTime recheck = MSGlobals::gTimeToTeleportDisconnected >= 0 ? MIN2(MSGlobals::gTimeToGridlock, MSGlobals::gTimeToTeleportDisconnected) : MSGlobals::gTimeToGridlock;
+            newEventTime = MAX2(MIN2(newEventTime, veh->getBlockTime() + recheck + 1), leaveTime + DELTA_T);
         }
         veh->setEventTime(newEventTime);
     } else {

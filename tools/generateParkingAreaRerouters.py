@@ -164,6 +164,8 @@ class ReroutersGeneration(object):
         else:
             sequence = xml_tree
         for child in sequence:
+            if child.tag != "parkingArea":
+                continue
             self._parking_areas[child.attrib['id']] = child.attrib
 
             laneID = child.attrib['lane']

@@ -167,8 +167,8 @@ GNENetworkSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
     switch (myNetworkElementType) {
         case Type::EDGE:
             for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-                if (edge.second.second->isAttributeCarrierSelected()) {
-                    myList->appendItem(edge.first.c_str(), edge.second.second->getACIcon());
+                if (edge.second->isAttributeCarrierSelected()) {
+                    myList->appendItem(edge.first.c_str(), edge.second->getACIcon());
                 }
             }
             break;

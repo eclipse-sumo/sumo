@@ -79,6 +79,11 @@ public:
 
     std::string getStageSummary(const bool isPerson) const;
 
+    std::vector<SUMOVehicle*> getVehicles(MSVehicleControl& vehControl, MSTransportable* transportable, const MSEdge* origin);
+
+    const std::string reroute(const SUMOTime time, MSTransportableRouter& router, MSTransportable* const transportable,
+                              MSStage* previous, const MSEdge* origin, const MSEdge* destination, std::vector<MSStage*>& stages);
+
     /// logs end of the step
     const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 
@@ -98,6 +103,15 @@ public:
     void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const {
         UNUSED_PARAMETER(os);
         UNUSED_PARAMETER(transportable);
+    }
+
+    /// @brief trip doesn't participate in plan summary
+    SUMOTime getDuration() const {
+        return 0;
+    }
+
+    SUMOTime getTravelTime() const {
+        return 0;
     }
 
     /** @brief Called on writing vehroute output

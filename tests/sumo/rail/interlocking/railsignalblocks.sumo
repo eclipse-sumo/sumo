@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-01 00:37:13 by Eclipse SUMO sumo Version v1_15_0+0683-3c2629d
+<!-- generated on 2024-03-13 08:41:42 by Eclipse SUMO sumo Version v1_19_0+1242-31df3b22fbb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,8 +48,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
             <driveWay edges="-gneE0 -gneE6">
                 <forward lanes=":gneJ1_0_0 -gneE0_0 :gneJ0_0_0 -gneE6_0"/>
-                <bidi lanes="gneE0_0 gneE6_0"/>
-                <flank lanes=":gneJ0_1_0 gneE6_0"/>
+                <bidi lanes="gneE0_0 :gneJ0_1_0 gneE6_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
@@ -75,12 +75,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
-            <driveWay edges="gneE3">
+            <driveWay edges="gneE3 gneE4">
                 <forward lanes=":gneJ2_1_0 gneE3_0"/>
-                <bidi lanes="-gneE3_0"/>
-                <flank lanes=":gneJ3_0_0 :gneJ3_3_0"/>
+                <bidi lanes="-gneE3_0 :gneJ3_0_0"
+                    deadlockCheck="-gneE4_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_0 gneJ3_3"/>
+                <conflictLinks signals="gneJ3_0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -88,31 +89,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
             <driveWay edges="-gneE3">
                 <forward lanes=":gneJ3_0_0 -gneE3_0"/>
-                <bidi lanes="gneE3_0"/>
-                <flank lanes=":gneJ3_3_0 :gneJ2_1_0 :gneJ3_2_0"/>
+                <bidi lanes=":gneJ3_3_0 gneE3_0"/>
+                <flank lanes=":gneJ2_1_0 :gneJ3_2_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_3 gneJ2_1 gneJ3_2"/>
+                <conflictLinks signals="gneJ2_1 gneJ3_2"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0"/>
         <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
             <driveWay edges="gneE4">
                 <forward lanes=":gneJ3_2_0 gneE4_0"/>
-                <bidi lanes="-gneE4_0"/>
-                <flank lanes=":gneJ3_5_0 :gneJ3_4_0"/>
+                <bidi lanes=":gneJ3_1_0 -gneE4_0"/>
+                <flank lanes=":gneJ3_3_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_5 gneJ3_4"/>
+                <conflictLinks signals="gneJ3_3"/>
             </driveWay>
         </link>
-        <link linkIndex="3" from="-gneE7_0" to=":gneJ3_3_0"/>
-        <link linkIndex="4" from="gneE3_0" to=":gneJ3_4_0"/>
-        <link linkIndex="5" from="gneE3_0" to=":gneJ3_5_0">
+        <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
             <driveWay edges="gneE4">
-                <forward lanes=":gneJ3_5_0 gneE4_0"/>
-                <bidi lanes="-gneE4_0"/>
-                <flank lanes=":gneJ3_2_0 :gneJ3_3_0"/>
+                <forward lanes=":gneJ3_3_0 gneE4_0"/>
+                <bidi lanes=":gneJ3_0_0 -gneE4_0"/>
+                <flank lanes=":gneJ3_2_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_2 gneJ3_3"/>
+                <conflictLinks signals="gneJ3_2"/>
             </driveWay>
         </link>
     </railSignal>

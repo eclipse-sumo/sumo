@@ -133,8 +133,11 @@ enum class SUMOVehicleShape {
  * @arg [7] Transport Truck
  * @arg [8] Bicycle
  * @arg [9] Pedestrian
+ *
+ * enum type decleration to work around visual studio non-compliance
+ * see https://gist.github.com/NTimmons/a7229b1dacf8280be2292ebd6b2b8b5d#file-enum-h
  */
-enum SUMOVehicleClass {
+enum SUMOVehicleClass : int64_t {
     /// @brief vehicles ignoring classes
     SVC_IGNORING = 0,
 
@@ -198,21 +201,31 @@ enum SUMOVehicleClass {
     /// @brief is an arbitrary ship
     SVC_SHIP = 1 << 23,
 
+    SVC_CONTAINER = 1 << 24,
+    SVC_CABLE_CAR = 1 << 25,
+    SVC_SUBWAY = 1 << 26,
+    SVC_AIRCRAFT = 1 << 27,
+    SVC_WHEELCHAIR = 1 << 28,
+    SVC_SCOOTER = 1 << 29,
+    SVC_DRONE = 1 << 30,
+
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1 << 24,
+    SVC_CUSTOM1 = (long long int)1 << 31,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 25,
+    SVC_CUSTOM2 = (long long int)1 << 32,
     //@}
 
     /// @brief classes which drive on tracks
-    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM | SVC_SUBWAY | SVC_CABLE_CAR,
     /// @brief public transport
-    SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES,
+    SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES | SVC_CABLE_CAR | SVC_AIRCRAFT,
     /// @brief classes which drive on roads
     SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY
-                        | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE),
+                        | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE
+                        | SVC_WHEELCHAIR | SVC_SCOOTER),
     /// @brief classes which (normally) do not drive on normal roads
-    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
+    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP | SVC_AIRCRAFT | SVC_DRONE | SVC_CONTAINER,
+    SVC_VULNERABLE = SVC_PEDESTRIAN | SVC_WHEELCHAIR | SVC_BICYCLE | SVC_SCOOTER
 };
 
 extern const SUMOVehicleClass SUMOVehicleClass_MAX;
@@ -221,7 +234,7 @@ extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
 
 /// @brief bitset where each bit declares whether a certain SVC may use this edge/lane
-typedef int SVCPermissions;
+typedef long long int SVCPermissions;
 
 /// @brief all VClasses are allowed
 extern const SVCPermissions SVCAll;
@@ -235,6 +248,9 @@ extern const SVCPermissions SVC_UNSPECIFIED;
  * @see PollutantsInterface
  */
 typedef int SUMOEmissionClass;
+
+/// @brief emission class not specified
+extern const SUMOEmissionClass EMISSION_CLASS_UNSPECIFIED;
 
 // ===========================================================================
 // Stop Offsets
@@ -320,7 +336,7 @@ extern SUMOVehicleClass getVehicleClassID(const std::string& name);
  * @param[in] name The name of the abstract vehicle class
  * @return The OR'ed combination of base enum values
  */
-extern int getVehicleClassCompoundID(const std::string& name);
+extern SVCPermissions getVehicleClassCompoundID(const std::string& name);
 
 /** @brief Parses the given definition of allowed vehicle classes into the given containers
  * Deprecated classes go into a separate container.
@@ -345,6 +361,13 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
  * @param[in] classesS The names vector to parse
  */
 extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);
+
+/** @brief Interprets disallowed vehicles depending on network version
+ * @param[in] disallowed The values found in the disallow attribute
+ * @param[in] networkVersion The version of the network from which the disallow value was loaded
+ * @return The (possibly) extended set of disallowed classes
+ */
+extern SVCPermissions extraDisallowed(SVCPermissions disallowed, const MMVersion& networkVersion);
 
 /// @brief negate the given permissions and ensure that only relevant bits are set
 extern SVCPermissions invertPermissions(SVCPermissions permissions);
@@ -374,43 +397,55 @@ extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
 /// @brief Checks whether the given string contains only known vehicle shape
 extern bool canParseVehicleShape(const std::string& shape);
 
-/** @brief Returns whether an edge with the given permission is a railway edge
+/** @brief Returns whether an edge with the given permissions is a railway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a railway edge
  */
 extern bool isRailway(SVCPermissions permissions);
 
-/** @brief Returns whether an edge with the given permission is a tram edge
+/** @brief Returns whether an edge with the given permissions is a tram edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a tram edge
  */
 extern bool isTram(SVCPermissions permissions);
 
-/** @brief Returns whether an edge with the given permission is a bicycle edge
+/** @brief Returns whether an edge with the given permissions is a bicycle edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a bicycle edge
  */
 extern bool isBikepath(SVCPermissions permissions);
 
-/** @brief Returns whether an edge with the given permission is a waterway edge
+/** @brief Returns whether an edge with the given permissions is a waterway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a waterway edge
  */
 extern bool isWaterway(SVCPermissions permissions);
 
-/** @brief Returns whether an edge with the given permission is a forbidden edge
+/** @brief Returns whether an edge with the given permissions is an airway edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is an airway edge
+ */
+extern bool isAirway(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permissions is a forbidden edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is forbidden
  */
 extern bool isForbidden(SVCPermissions permissions);
 
-/** @brief Returns whether an edge with the given permission is a sidewalk
+/** @brief Returns whether an edge with the given permissions is a sidewalk
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a sidewalk
  */
 extern bool isSidewalk(SVCPermissions permissions);
 
-/** @brief Returns whether an edge with the given permission forbids vehicles
+/** @brief Returns whether an edge with the given permissions allows only vulnerable road users
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge allows only a (non-empty) subset of SVC_PEDESTRIAN, SVC_WHEELCHAIR, SVC_BICYCLE, SVC_SCOOTER
+ */
+extern bool isForVulnerableModes(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permissions forbids vehicles
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is forbidden for vehicles
  */

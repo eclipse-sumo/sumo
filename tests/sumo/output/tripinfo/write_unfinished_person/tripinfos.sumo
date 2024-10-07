@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-28 19:21:03 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<!-- generated on 2024-05-05 23:37:01 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,15 +44,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="car" depart="120.00" departLane="4/1to3/1_0" departPos="5.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="30.00" routeLength="226.48" waitingTime="0.00" waitingCount="0" stopTime="3.00" timeLoss="3.35" rerouteNo="1" devices="tripinfo_car routing_car person_car" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
-    <personinfo id="ride_not_finished" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="ride_not_finished" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="121.00" timeLoss="-1" traveltime="-1">
         <stop duration="3.00" arrival="3.00" arrivalPos="3.00" actType="waiting"/>
         <ride waitingTime="121.00" vehicle="car" depart="124.00" arrival="-1" arrivalPos="-1" duration="26.00" routeLength="226.48" timeLoss="-1"/>
     </personinfo>
-    <personinfo id="ride_not_started" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="ride_not_started" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="147.00" timeLoss="-1" traveltime="-1">
         <stop duration="3.00" arrival="3.00" arrivalPos="0.00" actType="waiting"/>
         <ride waitingTime="147.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
-    <personinfo id="walk_not_finshed" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="walk_not_finshed" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="0.00" timeLoss="0.00" traveltime="-1">
         <walk depart="0.00" departPos="0.00" arrival="-1" arrivalPos="-1" duration="150.00" routeLength="-1" timeLoss="0.00" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

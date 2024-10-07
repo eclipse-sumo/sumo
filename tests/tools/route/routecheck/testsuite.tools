@@ -47,3 +47,9 @@ empty_vclass_test_routes_shorter
 
 # Tests for importing routes with an empty vehicle class (previous was longer)
 empty_vclass_test_routes_longer
+
+
+bus_test_routes_false
+
+
+passenger_test_routes_false

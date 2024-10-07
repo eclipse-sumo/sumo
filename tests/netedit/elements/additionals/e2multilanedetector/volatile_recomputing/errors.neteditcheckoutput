@@ -1,0 +1,3 @@
+Error: Lanes 'EdgeExternTop_0' and 'EdgeExternBot_0' are not consecutive in definition of e2Detector 'e2_0'
+Error: Lanes 'EdgeExternBot_0' and 'EdgeExternTop_0' are not consecutive in definition of e2Detector 'e2_1'
+Quitting (on error).

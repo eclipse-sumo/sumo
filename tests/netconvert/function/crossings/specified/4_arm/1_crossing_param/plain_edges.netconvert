@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-03 11:16:34 by Eclipse SUMO netconvert Version v1_20_0+0973-8acbc06c732
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="3.00"/>
+        <lane index="1" disallow="all" width="1.50"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+</edges>

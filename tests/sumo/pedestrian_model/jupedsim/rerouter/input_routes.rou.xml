@@ -13,7 +13,6 @@
         <ride from="E0" trainStop="ts_0" lines="v_0"/>
         <walk to="E1">
             <param key="rerouter" value="nearest"/>
-            <param key="pushParam" value="1"/>
         </walk>
         <walk to="E4"/>
     </personFlow>

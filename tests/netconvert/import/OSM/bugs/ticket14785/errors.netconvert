@@ -1,0 +1,9 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4613110').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '19002403').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '165416919').
+Warning: Converting invalid rail_crossing to priority junction '1828018031'.
+Warning: Converting invalid rail_crossing to priority junction '1828018034'.
+Warning: The rail crossing '1840326416' does not have any roads.
+Warning: The rail crossing '1840326419' does not have any roads.
+Warning: The traffic light 'cluster_1275468905_5397577489' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'cluster_1275468905_5397577489'

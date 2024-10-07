@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:08:08.226648 by matsim_importPlans.py v1_13_0+1343-240e5d48340
-  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml-->
+<!-- generated on 2024-02-27 17:41:10.704778 by matsim_importPlans.py v1_19_0+1057-c5d8ddd
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+-->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="car" vClass="passenger"/>
@@ -9,20 +10,20 @@
 
     <trip id="10040_1_0" depart="triggered" from="576273431" to="52799758" type="car"/>
     <person id="10040_1" depart="0:0:0">
-        <stop lane="576273431_0" until="02:47:20" actType="h"/>
+        <stop edge="576273431" until="02:47:20" actType="h"/>
         <ride lines="10040_1_0" to="52799758"/>
-        <stop lane="52799758_0" until="24:0:0" actType="h"/>
+        <stop edge="52799758" until="24:0:0" actType="h"/>
     </person>
     <trip id="10280_1_0" depart="triggered" from="576273431" to="52799758" type="car"/>
     <person id="10280_1" depart="0:0:0">
-        <stop lane="576273431_0" until="02:51:20" actType="h"/>
+        <stop edge="576273431" until="02:51:20" actType="h"/>
         <ride lines="10280_1_0" to="52799758"/>
-        <stop lane="52799758_0" until="24:0:0" actType="h"/>
+        <stop edge="52799758" until="24:0:0" actType="h"/>
     </person>
     <trip id="10280_2_0" depart="triggered" from="576273431" to="52799758" type="car"/>
     <person id="10280_2" depart="0:0:0">
-        <stop lane="576273431_0" until="02:51:20" actType="h"/>
+        <stop edge="576273431" until="02:51:20" actType="h"/>
         <ride lines="10280_2_0" to="52799758"/>
-        <stop lane="52799758_0" until="24:0:0" actType="h"/>
+        <stop edge="52799758" until="24:0:0" actType="h"/>
     </person>
 </routes>

@@ -20,6 +20,7 @@
                 <xsd:element minOccurs="0" ref="emissions"/>
                 <xsd:element minOccurs="0" ref="taxi"/>
                 <xsd:element minOccurs="0" ref="bluelight"/>
+                <xsd:element minOccurs="0" ref="battery"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
@@ -92,6 +93,12 @@
         </xsd:complexType>
     </xsd:element>
 
+    <xsd:element name="battery">
+        <xsd:complexType>
+            <xsd:attribute name="depleted" use="required" type="xsd:nonNegativeInteger"/>
+        </xsd:complexType>
+    </xsd:element>
+
     <xsd:element name="personinfo">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
@@ -104,6 +111,10 @@
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
             <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+            <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="waitingTime" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="timeLoss" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="traveltime" type="timeTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -117,6 +128,10 @@
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
+            <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="waitingTime" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="timeLoss" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="traveltime" type="timeTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 

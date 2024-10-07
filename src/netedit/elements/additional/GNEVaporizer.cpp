@@ -137,14 +137,14 @@ GNEVaporizer::getParentName() const {
 
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double vaporizerExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(vaporizerExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // declare colors
             RGBColor vaporizerColor, centralLineColor;
             // set colors
@@ -197,11 +197,14 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
+            // draw dotted contours
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            mySymbolBaseContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
-        // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true, 0);
+        // calculate contours
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.vaporizerSize,
+                s.additionalSettings.vaporizerSize, 0, 0, 0, vaporizerExaggeration);
+        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, true, true, 0);
     }
 }
 

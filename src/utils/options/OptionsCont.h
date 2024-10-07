@@ -731,9 +731,6 @@ private:
     /// @brief A map from deprecated options to a bool indicating whether we warned about deprecation
     mutable std::map<std::string, bool> myDeprecatedSynonymes;
 
-    /// @brief Information whether we should always include license information in file headers
-    bool myWriteLicense;
-
     /// @brief invalid copy constructor
     OptionsCont(const OptionsCont& s) = delete;
 

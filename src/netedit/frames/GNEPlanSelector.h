@@ -67,14 +67,8 @@ public:
     /// @brief check if mark junctions with dotted contours
     bool markJunctions() const;
 
-    /// @brief check if mark busStops with dotted contours
-    bool markBusStops() const;
-
-    /// @brief check if mark trainStops with dotted contours
-    bool markTrainStops() const;
-
-    /// @brief check if mark containerStops with dotted contours
-    bool markContainerStops() const;
+    /// @brief check if mark stoppingPlaces with dotted contours
+    bool markStoppingPlaces() const;
 
     /// @brief check if mark TAZs with dotted contours
     bool markTAZs() const;

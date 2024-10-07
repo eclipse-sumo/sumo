@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-20 16:21:40 by Eclipse SUMO netconvert Version v1_14_1+1158-b2c06f8f8ab
+<!-- generated on 2024-02-22 13:27:18 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </busStop>
     <busStop id="1864168419" name="Betriebshof Lichtenberg" lane="175857462#0_0" startPos="262.96" endPos="287.96" friendlyPos="true" lines="21 37"/>
     <busStop id="1864168423" name="Ev. Krankenhaus KEH" lane="30706183#0#0_0" startPos="528.39" endPos="553.39" friendlyPos="true" lines="M8 37">
-        <access lane="-7540867#0_0" pos="79.59" length="158.38" friendlyPos="1"/>
+        <access lane="-7540867#0_0" pos="78.09" length="158.38" friendlyPos="1"/>
         <access lane="120371689_0" pos="0.00" length="224.46" friendlyPos="1"/>
         <access lane="176050302_0" pos="0.00" length="28.60" friendlyPos="1"/>
         <access lane="645946448#1_0" pos="76.52" length="208.84" friendlyPos="1"/>
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="2480027318" name="Bernhard-Bästlein-Straße" lane="-43115510#0_0" startPos="22.64" endPos="47.64" friendlyPos="true" lines="M8 21"/>
     <busStop id="276002421" name="Bernhard-Bästlein-Straße" lane="43115510#0_0" startPos="22.90" endPos="47.90" friendlyPos="true" lines="M8 21"/>
     <busStop id="30695361" name="Ev. Krankenhaus KEH" lane="175857481_0" startPos="237.10" endPos="262.10" friendlyPos="true" lines="M8 37">
-        <access lane="-7540867#0_0" pos="79.59" length="143.90" friendlyPos="1"/>
+        <access lane="-7540867#0_0" pos="78.09" length="143.90" friendlyPos="1"/>
         <access lane="120371689_0" pos="0.00" length="186.04" friendlyPos="1"/>
         <access lane="176050302_0" pos="14.22" length="10.61" friendlyPos="1"/>
         <access lane="645946448#1_0" pos="76.52" length="198.74" friendlyPos="1"/>

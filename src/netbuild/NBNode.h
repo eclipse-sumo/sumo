@@ -142,6 +142,8 @@ public:
         EdgeVector edges;
         /// @brief The crossing's shape
         PositionVector shape;
+        /// @brief The outline shape for this crossing
+        PositionVector outlineShape;
         /// @brief This crossing's width
         double customWidth;
         /// @brief This crossing's width
@@ -681,6 +683,9 @@ public:
      */
     void buildWalkingAreas(int cornerDetail, double joinMinDist);
 
+    /// @brief build crossing outlines after walkingareas are finished
+    void buildCrossingOutlines();
+
     /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings if wished
     void buildCrossingsAndWalkingAreas();
 
@@ -713,7 +718,7 @@ public:
 
     /// @brief add a pedestrian crossing to this node
     NBNode::Crossing* addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
-                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
+                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false, const Parameterised* params = nullptr);
 
     /// @brief add custom shape for walkingArea
     void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape, double width);
@@ -814,6 +819,10 @@ public:
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 
+    inline bool isTrafficLight() const {
+        return isTrafficLight(myType);
+    }
+
     /// @brief check if node is a simple continuation
     bool isSimpleContinuation(bool checkLaneNumbers = true, bool checkWidth = false) const;
 
@@ -876,7 +885,7 @@ private:
     void recheckVClassConnections(NBEdge* currentOutgoing);
 
     /// @brief get the reduction in driving lanes at this junction
-    void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;
+    void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& inEnd, int& outOffset, int& outEnd, int& reduction) const;
 
     /// @brief check whether this edge has extra lanes on the right side
     int addedLanesRight(NBEdge* out, int addedLanes) const;
@@ -889,6 +898,9 @@ private:
 
     /// @brief detect explict rail turns with potential geometry problem
     static bool isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing);
+
+    /// @brief geometry helper that cuts the first shape where bordered by the other two
+    PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def);
 
 private:
     /// @brief The position the node lies at

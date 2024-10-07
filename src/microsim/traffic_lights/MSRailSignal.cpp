@@ -423,7 +423,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
     }
     for (int i = ego->getParameter().departEdge; i <= endIndex - 1; i++) {
         const MSEdge* e = edges[i];
-        if (e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        if (e->isNormal() && e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
             const MSEdge* e2 = edges[i + 1];
             for (MSLane* lane : e->getLanes()) {
                 for (MSLink* link : lane->getLinkCont()) {
@@ -435,7 +435,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                 // init driveway
                                 li.getDriveWay(ego);
                                 if (update && rs->isActive()) {
-                                    // vehicle may have rerouted it's intial trip
+                                    // vehicle may have rerouted its intial trip
                                     // after the states have been set
                                     // @note: This is a hack because it could lead to invalid tls-output
                                     // (it's still an improvement over switching based on default driveways)
@@ -984,6 +984,14 @@ MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, boo
 #endif
                         continue;
                     }
+                    if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore " << foe->getID() << " for which ego is join-target\n";
+                        }
+#endif
+                        continue;
+                    }
                 }
             }
             if (myStoreVehicles && store) {
@@ -1335,6 +1343,13 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             if (next != end) {
                 // no connection found, jump to next route edge
                 toLane = (*next)->getLanes()[0];
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                if (gDebugFlag4) {
+                    std::cout << "      abort: turn-around or jump\n";
+                }
+#endif
+                myFoundReversal = true;
+                return;
             } else {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
                 if (gDebugFlag4) {

@@ -7,7 +7,6 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|high
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '26634503').
 Warning: Discarding way '26634505' because it has only 1 node(s)
 Warning: Discarding way '26634509' because it has only 1 node(s)
-Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '102831828').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '118641211').
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '219014585').
 Warning: PT line in relation 1136882 with no stops ignored. Probably OSM file is incomplete.

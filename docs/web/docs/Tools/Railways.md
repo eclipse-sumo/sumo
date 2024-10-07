@@ -20,7 +20,7 @@ When two vehicles stop subsequently at the same busStop (trainStop) and they rea
 via different routes, the switch where both routes merge is identified and a
 constraint is created for the rail signals that guard this merging switch:
     The vehicle B that arrives at the stop later, must wait (at its signal Y)
-    for the vehicle A that arrives first (to pass it's respective signal X)
+    for the vehicle A that arrives first (to pass its respective signal X)
     This uses the 'arrival' attribute of the vehicle stops
 
 A complication arises if the signal of the first vehicle is passed by other
@@ -29,7 +29,7 @@ larger number of passing vehicles within the simulation (controlled by the
 limit attribute). The script attempts to determine the necessary limit value by
 identifying all vehicles that pass the signal X en route to other stops between
 the time A and B reach their respective signals (counting backwards from the
-next stop based on "arrival". To account for delays the
+next stop based on "arrival"). To account for delays the
 options --delay and --limit can be used to override the limit values
 
 A more complicated case arises when the next stop after the merging switch differs for
@@ -39,7 +39,7 @@ a "virtual" intermediateStop directly after the switch to "normalize" the input.
 
 ### 2. insertionPredecessor
 Whenever a vehicle B departs at a stop (assumed to coincide with the "until"
-attribute of it's first stop), the prior train A that leaves this stop is
+attribute of its first stop), the prior train A that leaves this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 insertion of B until train A has passed the next signal that lies beyond the
 stop.
@@ -60,7 +60,7 @@ go second.
 
 ### 3. foeInsertion
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
-attribute of it's first stop), the latter train B that enters this stop is
+attribute of its first stop), the latter train B that enters this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 B from entering the section with the stop until A has passed the next signal that lies beyond the
 stop.

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-17 15:13:35 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <additional-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\additionals.add.xml"/>
+        <route-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\routes.rou.xml"/>
+        <data-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\datas.dat.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="clusterJ15_J16_J18_J19" type="static" programID="0" offset="0">
+        <phase duration="37" state="GrGrrGrG"/>
+        <phase duration="5"  state="GrGrrrrr"/>
+        <phase duration="3"  state="yryrrrrr"/>
+        <phase duration="37" state="rGrGGrGr"/>
+        <phase duration="5"  state="rGrGrrrr"/>
+        <phase duration="3"  state="ryryrrrr"/>
+    </tlLogic>
+
+    <connection from="E14" to="E17" fromLane="1" toLane="1" tl="clusterJ15_J16_J18_J19" linkIndex="0"/>
+    <connection from="E16" to="E19" fromLane="1" toLane="1" tl="clusterJ15_J16_J18_J19" linkIndex="3"/>
+    <connection from="E18" to="E21" fromLane="1" toLane="1" tl="clusterJ15_J16_J18_J19" linkIndex="2"/>
+    <connection from="E20" to="E15" fromLane="1" toLane="1" tl="clusterJ15_J16_J18_J19" linkIndex="1"/>
+</tlLogics>

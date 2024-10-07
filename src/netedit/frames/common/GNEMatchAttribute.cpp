@@ -99,17 +99,17 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     // get tags for the given element set
     std::vector<GNETagProperties> tagPropertiesStrings;
     if (type == (GNEElementSet::Type::NETWORK)) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT, false);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT, false);
     } else if (type == GNEElementSet::Type::SHAPE) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::SHAPE, false);
     } else if (type == GNEElementSet::Type::TAZ) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT, false);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, true);
     } else if (type == GNEElementSet::Type::GENERICDATA) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
     } else {
         throw ProcessError(TL("Unknown set"));
     }
@@ -385,7 +385,11 @@ GNEMatchAttribute::updateAttribute() {
         // check attrIndex
         if (attrIndex == -1) {
             myMatchAttrComboBox->setCurrentItem(0);
-            myCurrentAttribute = tagProperty.begin()->getAttr();
+            if (tagProperty.getNumberOfAttributes() > 0) {
+                myCurrentAttribute = tagProperty.begin()->getAttr();
+            } else {
+                myCurrentAttribute = GNE_ATTR_PARENT;
+            }
         } else {
             myMatchAttrComboBox->setCurrentItem(attrIndex);
         }

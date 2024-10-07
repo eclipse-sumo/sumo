@@ -26,8 +26,8 @@ import sumolib
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
-                "publicTransport": ["--keep-edges.by-vclass", "passenger,bus,tram,rail_urban,rail"],
-                "road": ["--remove-edges.by-vclass", "tram,rail_urban,rail_electric,bicycle,pedestrian"],
+                "publicTransport": ["--keep-edges.by-vclass", "passenger,bus,tram,rail_urban,subway,cable_car,rail"],
+                "road": ["--remove-edges.by-vclass", "tram,rail_urban,subway,cable_car,rail_electric,bicycle,pedestrian"],  # noqa
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
@@ -96,7 +96,7 @@ def build(args=None, bindir=None):
     if options.netconvert_typemap:
         netconvertOpts += ["-t", options.netconvert_typemap]
     netconvertOpts += options.netconvert_options.strip().split(',') + ['--osm-files']
-    polyconvertOpts = ([polyconvert] + options.polyconvert_options.split(',') +
+    polyconvertOpts = ([polyconvert] + options.polyconvert_options.strip().split(',') +
                        ['--type-file', options.typemap, '--osm-files'])
 
     prefix = options.oldapi_prefix

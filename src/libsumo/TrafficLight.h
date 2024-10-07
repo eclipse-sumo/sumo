@@ -53,6 +53,7 @@ public:
     static std::string getPhaseName(const std::string& tlsID);
     static double getPhaseDuration(const std::string& tlsID);
     static double getNextSwitch(const std::string& tlsID);
+    static double getSpentDuration(const std::string& tlsID);
     static int getServedPersonCount(const std::string& tlsID, int index);
     static std::vector<std::string> getBlockingVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<std::string> getRivalVehicles(const std::string& tlsID, int linkIndex);

@@ -122,13 +122,14 @@ void
 GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-            (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalGeometry.getShapeRotations().size() > 0)) {
+        (myAdditionalGeometry.getShape().size() > 0) &&
+        (myAdditionalGeometry.getShapeRotations().size() > 0)) {
         // Obtain exaggeration of the draw
         const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
         // get detail level
         const auto d = s.getDetailLevel(VSSExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw variable speed sign symbol
             drawVSSSymbol(s, d, VSSExaggeration);
             // draw parent and child lines

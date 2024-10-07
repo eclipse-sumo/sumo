@@ -193,6 +193,12 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     oc.doRegister("weights.minor-penalty", new Option_Float(1.5));
     oc.addDescription("weights.minor-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for minor-link internal lanes"));
 
+    oc.doRegister("weights.tls-penalty", new Option_Float(0));
+    oc.addDescription("weights.tls-penalty", "Processing", TL("Apply the given time penalty when computing routing costs across a traffic light"));
+
+    oc.doRegister("weights.turnaround-penalty", new Option_Float(5.0));
+    oc.addDescription("weights.turnaround-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for turnaround internal lanes"));
+
     if (!isMA) {
         // register defaults options
         oc.doRegister("departlane", new Option_String());
@@ -213,9 +219,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
         oc.doRegister("arrivalspeed", new Option_String());
         oc.addDescription("arrivalspeed", "Defaults", TL("Assigns a default arrival speed"));
 
-        oc.doRegister("defaults-override", new Option_Bool(false));
-        oc.addDescription("defaults-override", "Defaults", TL("Defaults will override given values"));
     }
+    oc.doRegister("defaults-override", new Option_Bool(false));
+    oc.addDescription("defaults-override", "Defaults", TL("Defaults will override given values"));
 
     // register report options
     oc.doRegister("stats-period", new Option_Integer(-1));

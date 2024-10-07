@@ -48,15 +48,18 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSTrainHelper.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
+#include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GUIBaseVehicle.h"
+#include "GUIChargingStation.h"
 #include "GUIPerson.h"
 #include "GUIContainer.h"
 #include "GUINet.h"
@@ -436,7 +439,11 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     Position p1 = pos;
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
     const double length = getVType().getLength();
-    glTranslated(p1.x(), p1.y(), getType());
+    if (s.trueZ) {
+        glTranslated(p1.x(), p1.y(), p1.z() + 1);
+    } else {
+        glTranslated(p1.x(), p1.y(), getType());
+    }
     glRotated(degAngle, 0, 0, 1);
     RGBColor col = setColor(s);
     // scale
@@ -449,13 +456,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glTranslated((s.laneWidthExaggeration - 1) * -offsetFromLeftBorder / 2, 0, 0);
     }
 
-    double upscaleLength = upscale;
-    if (upscale > 1 && length > 5 && s.vehicleQuality != 4) {
-        // reduce the length/width ratio because this is not useful at high zoom
-        const double widthLengthFactor = length / 5;
-        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
-        upscaleLength /= shrinkFactor;
-    }
+    double upscaleLength = MSTrainHelper::getUpscaleLength(upscale, length, getVType().getWidth(), s.vehicleQuality);
     glScaled(upscale, upscaleLength, 1);
     /*
         MSLaneChangeModel::DK2004 &m2 = static_cast<MSLaneChangeModel::DK2004&>(veh->getLaneChangeModel());
@@ -642,8 +643,9 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         int requiredSeats = getNumPassengers();
         int requiredContainerPositions = getNumContainers();
         const Position back = (p1 + Position(-scaledLength * upscaleLength, 0)).rotateAround2D(angle, p1);
-        computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions);
-        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions);
+        double extraOffset = scaledLength * 0.15;
+        computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions, extraOffset);
+        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions, extraOffset);
     }
 
     GLHelper::popMatrix();
@@ -1031,9 +1033,9 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
 }
 
 void
-GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& /*col*/) const {
+GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s) const {
     if (s.showParkingInfo) {
-        const MSBaseVehicle::ParkingMemory* pm = myVehicle.getParkingMemory();
+        const StoppingPlaceMemory* pm = myVehicle.getParkingMemory();
         if (pm != nullptr) {
             for (auto item : *pm) {
                 const GUIParkingArea* pa = dynamic_cast<const GUIParkingArea*>(item.first);
@@ -1048,6 +1050,27 @@ GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColo
                     const double dist = 0.4 * (s.vehicleText.scaledSize(s.scale) + s.vehicleValue.scaledSize(s.scale));
                     Position shift(0, -dist);
                     GLHelper::drawTextSettings(s.vehicleText, item.second.score, pa->getSignPos() + shift, s.scale, s.angle, 1.0);
+                }
+            }
+        }
+    }
+}
+
+void
+GUIBaseVehicle::drawChargingInfo(const GUIVisualizationSettings& s) const {
+    if (s.showChargingInfo) {
+        const StoppingPlaceMemory* pm = myVehicle.getChargingMemory();
+        if (pm != nullptr) {
+            for (auto item : *pm) {
+                const GUIChargingStation* cs = dynamic_cast<const GUIChargingStation*>(item.first);
+                if (item.second.blockedAtTime >= 0) {
+                    std::string seenAgo = time2string(SIMSTEP - item.second.blockedAtTime);
+                    GLHelper::drawTextSettings(s.vehicleValue, seenAgo, cs->getSignPos(), s.scale, s.angle, 1.0);
+                }
+                if (item.second.score != "") {
+                    const double dist = 0.4 * (s.vehicleText.scaledSize(s.scale) + s.vehicleValue.scaledSize(s.scale));
+                    Position shift(0, -dist);
+                    GLHelper::drawTextSettings(s.vehicleText, item.second.score, cs->getSignPos() + shift, s.scale, s.angle, 1.0);
                 }
             }
         }
@@ -1116,7 +1139,8 @@ GUIBaseVehicle::drawReversed(const GUIVisualizationSettings& s) const {
 
 bool
 GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
-    if (getVType().getParameter().carriageLength > 0) {
+    if (getVType().getParameter().carriageLength > 0 &&
+            (!myVehicle.isParking() || myVehicle.getNextStop().parkingarea == nullptr || myVehicle.getNextStop().parkingarea->parkOnRoad())) {
         drawAction_drawCarriageClass(s, asImage);
         return true;
     } else {
@@ -1158,7 +1182,7 @@ GUIBaseVehicle::getDeviceDescription() {
 
 
 void
-GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const {
+GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into, double extraOffset) const {
     if (requiredSeats <= 0) {
         return;
     }
@@ -1167,9 +1191,10 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
     const double vehWidth = getVType().getSeatingWidth() * exaggeration;
     const double length = front.distanceTo2D(back);
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
-    const double rowOffset = MAX2(1.0, (length - getVType().getFrontSeatPos() - 1)) / ceil((double)maxSeats / rowSize);
+    const double frontSeatPos = getVType().getFrontSeatPos() + extraOffset;
+    const double rowOffset = MAX2(1.0, (length - frontSeatPos - 1)) / ceil((double)maxSeats / rowSize);
     const double sideOffset = (rowSize - 1) / 2.0 * seatOffset;
-    double rowPos = getVType().getFrontSeatPos() - rowOffset;
+    double rowPos = frontSeatPos - rowOffset;
     double angle = back.angleTo2D(front);
     const int fillDirection = MSGlobals::gLefthand ? -1 : 1;
     //if (myVehicle.getID() == "v0") std::cout << SIMTIME << " seatOffset=" << seatOffset << " max=" << maxSeats << " ex=" << exaggeration << " req=" << requiredSeats << " rowSize=" << rowSize << " sideOffset=" << sideOffset << " front=" << front << " back=" << back << " a=" << angle << " da=" << RAD2DEG(angle) << "\n";

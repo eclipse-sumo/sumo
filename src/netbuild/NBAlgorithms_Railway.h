@@ -66,7 +66,7 @@ public:
 
         void addSuccessor(Track* track);
         const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc = SVC_IGNORING) const;
-        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc = SVC_IGNORING) const;
+        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
         const std::string& getID() const {
             return id;
@@ -105,9 +105,9 @@ public:
         Track& operator=(const Track&) = delete;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
+    static std::set<NBNode*> getRailNodes(NBEdgeCont& ec, bool verbose = false);
 
 private:
-    static std::set<NBNode*> getRailNodes(NBEdgeCont& ec, bool verbose = false);
     static std::set<NBNode*> getBrokenRailNodes(NBEdgeCont& ec, bool verbose = false);
 
     /// @brief filter out rail edges among all edges of a the given node
@@ -163,4 +163,12 @@ public:
 
 private:
     static int guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength);
+    static bool canBeSignal(const NBNode* node);
+};
+
+class NBRailwayGeometryHelper {
+
+public:
+    static int straigthenCorrdidor(NBEdgeCont& ec, double maxAngle);
+
 };

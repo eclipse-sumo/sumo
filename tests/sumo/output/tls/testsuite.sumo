@@ -9,3 +9,6 @@ cross3ltl_savetlsswitchstates
 
 # Plain test for a basic example with a simple tls program output
 cross3ltl_savetlsprogram
+
+# don't specify source junction, thus saving all
+allJunctions_savetlsswitchstates

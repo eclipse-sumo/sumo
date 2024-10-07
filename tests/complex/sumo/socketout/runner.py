@@ -31,10 +31,10 @@ PORT = 8088
 sumoBinary = sumolib.checkBinary('sumo')
 
 
-def main(bailOut=False):
+def main(bailOut=False, family=socket.AF_INET):
     sys.stdout.flush()
     # create an INET, STREAMing socket
-    serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    serversocket = socket.socket(family, socket.SOCK_STREAM)
     serversocket.bind(("localhost", PORT))
     serversocket.listen(5)
     clientsocket, _ = serversocket.accept()
@@ -60,6 +60,10 @@ def main(bailOut=False):
 threading.Thread(target=main).start()
 time.sleep(1)
 subprocess.call([sumoBinary, "sumo.sumocfg"])
+
+threading.Thread(target=lambda: main(family=socket.AF_INET6)).start()
+time.sleep(1)
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "-a", "input_additional2.add.xml"])
 
 threading.Thread(target=lambda: main(True)).start()
 time.sleep(1)

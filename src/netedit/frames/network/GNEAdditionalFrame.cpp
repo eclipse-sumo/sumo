@@ -96,10 +96,10 @@ GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent
             addTLString(TL("-Requires at least one Entry\n and one Exit"));
     // E3 Entry
     myHelpMap[SUMO_TAG_DET_ENTRY] = addTLString(TL("-Requires EntryExitDetector\n parent\n")) +
-                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
+                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n or by selecting from list"));
     // E3 Exit
     myHelpMap[SUMO_TAG_DET_EXIT] = addTLString(TL("-Requires EntryExitDetector\n parent\n")) +
-                                   addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
+                                   addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n or by selecting from list"));
 }
 
 
@@ -269,7 +269,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
             // fill netedit attributes
             if (myNeteditAttributes->getNeteditAttributesAndValues(myBaseAdditional, nullptr)) {
                 // Check if ID has to be generated
-                if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+                if (tagProperty.hasAttribute(SUMO_ATTR_ID)) {
                     myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
                 }
                 // add lane IDs
@@ -280,7 +280,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                 // parse common attributes
                 if (buildAdditionalCommonAttributes(tagProperty)) {
                     // show warning dialogbox and stop check if input parameters are valid
-                    if (myAdditionalAttributes->areValuesValid() == false) {
+                    if (!myAdditionalAttributes->areValuesValid()) {
                         myAdditionalAttributes->showWarningMessage();
                     } else {
                         // declare additional handler
@@ -466,7 +466,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         // Check if ID has to be generated
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, lane->getParentEdge()->getID());
-        } else if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+        } else if (tagProperties.hasAttribute(SUMO_ATTR_ID) && !myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
@@ -504,7 +504,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         // Get attribute lane
         myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, lane->getID());
         // Check if ID has to be generated
-        if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+        if (tagProperties.hasAttribute(SUMO_ATTR_ID) && !myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
@@ -566,7 +566,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         return false;
     }
     // Check if ID has to be generated
-    if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_ID)) {
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
     }
     // Obtain position as the clicked position over view
@@ -600,7 +600,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         }
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areValuesValid() == false) {
+    if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
         return false;
     } else {

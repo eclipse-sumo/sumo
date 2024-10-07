@@ -141,7 +141,7 @@ def main(options):
                     if fnmatch.fnmatch(candID, stopID):
                         stopIDs.append(candID)
             else:
-                print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
+                print("No vehicle stops at busStop '%s' found" % stopID, file=sys.stderr)
 
         for stopID in stopIDs:
             times += [t + [stopID] for t in stopTimes[stopID]]

@@ -60,6 +60,8 @@ print("personIds", traci.edge.getLastStepPersonIDs(edgeID))
 print("waiting time", traci.edge.getWaitingTime(edgeID))
 print("angle (with default relative position)", traci.edge.getAngle(edgeID))
 print("angle (with some relative position)", traci.edge.getAngle(edgeID, 10))
+print("fromJunction", traci.edge.getFromJunction(edgeID))
+print("toJunction", traci.edge.getToJunction(edgeID))
 # testing unicode
 print("checking occupancy with unicode id",
       traci.edge.getLastStepOccupancy(str(edgeID)))

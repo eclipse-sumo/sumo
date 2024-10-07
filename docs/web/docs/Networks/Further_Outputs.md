@@ -58,7 +58,7 @@ complete public transport network.
 ## Information on Joined Junctions
 
 The option **--junctions.join-output** {{DT_FILE}} causes a file to be written that specifies the junctions
-which were joined (usualy due to option **--junctions.join**). The resulting output file is
+which were joined (usually due to option **--junctions.join**). The resulting output file is
 suitable for loading with the **--node-files** option.
 
 ## Street Signs
@@ -104,7 +104,7 @@ as [OSM](../Networks/Import/OpenStreetMap.md) or
 [OpenDRIVE](../Networks/Import/OpenDRIVE.md) are included in the
 generated *.net.xml* file.
 
-When reading or writing OpenDRIVE networks, the option **--output.original-names** {{DT_BOOL}} [writtes
+When reading or writing OpenDRIVE networks, the option **--output.original-names** {{DT_BOOL}} [writes
 additional data for mapping between sumo-ids and OpenDRIVE-ids into the
 generated
 networks](../Networks/Import/OpenDRIVE.md#referencing_original_ids).

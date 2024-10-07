@@ -92,7 +92,7 @@ void
 GNEContainerPlanFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second.second->resetCandidateFlags();
+        edge.second->resetCandidateFlags();
     }
     // enable undo/redo
     myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
@@ -133,13 +133,13 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ViewObjec
     if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
             (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
-    } else if (myPlanSelector->markContainerStops() && viewObjects.getAdditionalFront() &&
+    } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
                (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
-    } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {
-        return myPlanCreator->addEdge(viewObjects.getLaneFront());
     } else if (myPlanSelector->markJunctions() && viewObjects.getJunctionFront()) {
         return myPlanCreator->addJunction(viewObjects.getJunctionFront());
+    } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {
+        return myPlanCreator->addEdge(viewObjects.getLaneFront());
     } else if (myPlanSelector->markTAZs() && viewObjects.getTAZFront()) {
         return myPlanCreator->addTAZ(viewObjects.getTAZFront());
     } else {

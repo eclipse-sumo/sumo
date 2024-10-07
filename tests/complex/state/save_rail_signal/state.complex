@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-28 16:17:21 by Eclipse SUMO sumo Version v1_14_1+0593-392bf46
+<!-- generated on 2024-05-23 07:58:10 by Eclipse SUMO sumo Version v1_20_0+0169-4ce15c2abcc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,13 +26,13 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_14_1+0593-392bf46" time="30.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0169-4ce15c2abcc" time="30.00" type="micro">
     <route id="!train" state="0" edges="a b e"/>
     <route id="!train2" state="0" edges="-e -b -d"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
     <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" distance="305.03 0" speedFactor="1.0000" state="18 0 2 20.10 0 0.00 29000 0 0" pos="117.88 97.88 13.89" speed="13.89 13.89" angle="45.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="20.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="20.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <stop lane="-e_0" startPos="135.86" endPos="136.06" duration="100.00"/>
     </vehicle>
     <lane id="e_0">

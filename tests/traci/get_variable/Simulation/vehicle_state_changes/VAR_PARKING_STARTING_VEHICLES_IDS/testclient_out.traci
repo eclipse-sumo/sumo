@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
+TraCITestClient output file. Date: Sun Sep  8 08:53:18 2024
 
 
 -> Command sent: <SimulationStep>:
@@ -7,8 +7,7 @@ TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
 -> Command sent: <GetVariable>:
   domID=171 varID=109 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
- ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [  ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
@@ -21,8 +20,7 @@ TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
 -> Command sent: <GetVariable>:
   domID=171 varID=109 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
- ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [  ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
@@ -35,8 +33,7 @@ TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
 -> Command sent: <GetVariable>:
   domID=171 varID=109 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
- ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [  ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
@@ -49,22 +46,7 @@ TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
 -> Command sent: <GetVariable>:
   domID=171 varID=109 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
-"0" ]
-
--> Command sent: <GetVariable>:
-  domID=164 varID=86 objID=0
-.. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1073741824.00
-
--> Command sent: <SimulationStep>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <GetVariable>:
-  domID=171 varID=109 objID=0
-.. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
- ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ "0" ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
@@ -77,8 +59,20 @@ TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
 -> Command sent: <GetVariable>:
   domID=171 varID=109 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
- ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [  ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=109 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [  ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
@@ -91,8 +85,7 @@ TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
 -> Command sent: <GetVariable>:
   domID=171 varID=109 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [ 
- ]
+  CommandID=187  VariableID=109  ObjectID=0 valueDataType=14 string list value: [  ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0

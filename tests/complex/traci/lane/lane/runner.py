@@ -79,6 +79,8 @@ traci.lane.setChangePermissions(centerLaneID, ['passenger'], traci.constants.LAN
 print("allowed to change to the right after setChangePermissions",
       traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
 
+print("loaded permissions", traci.lane.getAllowed(
+    "1fi_0"), traci.lane.getDisallowed("1fi_0"))
 traci.lane.setAllowed(laneID, ["taxi"])
 print("after setAllowed", traci.lane.getAllowed(
     laneID), traci.lane.getDisallowed(laneID))

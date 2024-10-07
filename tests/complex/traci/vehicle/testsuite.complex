@@ -56,6 +56,9 @@ distance_after_reroute
 # test retrieval of upcoming traffic lights
 nextTLS
 
+# test retrieval of upcoming traffic lights
+nextTLS_parking
+
 # test retrieval of upcoming links
 getNextLinks
 
@@ -106,6 +109,9 @@ setSpeedFactor_IDM
 getFollower
 getLeader
 
+# different setup w.r.t. junction leader
+getLeader2
+
 # test access to driverstate parameters
 driverstate
 
@@ -126,3 +132,21 @@ tripinfoRetrieval
 
 # retrieving TLS info with multiple links
 getNextTLS
+
+# get numbr of alighting persons at the next stop
+alightingPersons
+
+# check handling of stops (#14789)
+changeTarget
+
+# retrieve vehicle information after arrival
+keepAfterArrival
+
+# retrieve vehicle information after arrival with state saving and loading
+keepAfterArrival_state
+
+# handle default duration argument (#14904)
+setStop_default_state
+
+# test meso-specific functions
+meso

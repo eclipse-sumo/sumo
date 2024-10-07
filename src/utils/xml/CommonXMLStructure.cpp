@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include "CommonXMLStructure.h"
@@ -28,6 +29,230 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// CommonXMLStructure::PlanParameters - methods
+// ---------------------------------------------------------------------------
+
+CommonXMLStructure::PlanParameters::PlanParameters() {}
+
+
+CommonXMLStructure::PlanParameters::PlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+        const SUMOSAXAttributes& attrs, bool& parsedOk) {
+    // get plan parent ID (first check if exist!)
+    const auto planParentID = sumoBaseObject->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ID)?
+                              sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID).c_str() : "";
+    // edges
+    fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, planParentID, parsedOk, "");
+    toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, planParentID, parsedOk, "");
+    if (toEdge.empty()) {
+        toEdge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, planParentID, parsedOk, "");
+    }
+    consecutiveEdges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, planParentID, parsedOk);
+    // junctions
+    fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, planParentID, parsedOk, "");
+    toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, planParentID, parsedOk, "");
+    // TAZs
+    fromTAZ = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TAZ, planParentID, parsedOk, "");
+    toTAZ = attrs.getOpt<std::string>(SUMO_ATTR_TO_TAZ, planParentID, parsedOk, "");
+    // bus stops
+    fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, planParentID, parsedOk, "");
+    toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, planParentID, parsedOk, "");
+    // train stops
+    fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, planParentID, parsedOk, "");
+    toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, planParentID, parsedOk, "");
+    // container stops
+    fromContainerStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_CONTAINERSTOP, planParentID, parsedOk, "");
+    toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, planParentID, parsedOk, "");
+    // charging stations
+    fromChargingStation = attrs.getOpt<std::string>(GNE_ATTR_FROM_CHARGINGSTATION, planParentID, parsedOk, "");
+    toChargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, planParentID, parsedOk, "");
+    // parking areas
+    fromParkingArea = attrs.getOpt<std::string>(GNE_ATTR_FROM_PARKINGAREA, planParentID, parsedOk, "");
+    toParkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, planParentID, parsedOk, "");
+    // routes
+    fromRoute = attrs.getOpt<std::string>(GNE_ATTR_FROM_ROUTE, planParentID, parsedOk, "");
+    toRoute = attrs.getOpt<std::string>(SUMO_ATTR_ROUTE, planParentID, parsedOk, "");
+    // update from attributes
+    updateFromAttributes(sumoBaseObject);
+}
+
+
+void
+CommonXMLStructure::PlanParameters::clear() {
+    fromJunction.clear();
+    toJunction.clear();
+    fromEdge.clear();
+    toEdge.clear();
+    fromTAZ.clear();
+    toTAZ.clear();
+    fromBusStop.clear();
+    toBusStop.clear();
+    fromTrainStop.clear();
+    toTrainStop.clear();
+    fromContainerStop.clear();
+    toContainerStop.clear();
+    fromChargingStation.clear();
+    toChargingStation.clear();
+    fromParkingArea.clear();
+    toParkingArea.clear();
+    consecutiveEdges.clear();
+    fromRoute.clear();
+    toRoute.clear();
+}
+
+
+bool
+CommonXMLStructure::PlanParameters::isSingleEdgePlan() const {
+    if (fromEdge.empty()) {
+        return false;
+    } else {
+        return getNumberOfDefinedParameters() == 1;
+    }
+}
+
+
+int
+CommonXMLStructure::PlanParameters::getNumberOfDefinedParameters() const {
+    return (int)consecutiveEdges.size() +
+           (fromJunction.empty() ? 0 : 1) +
+           (toJunction.empty() ? 0 : 1) +
+           (fromEdge.empty() ? 0 : 1) +
+           (toEdge.empty() ? 0 : 1) +
+           (fromTAZ.empty() ? 0 : 1) +
+           (toTAZ.empty() ? 0 : 1) +
+           (fromBusStop.empty() ? 0 : 1) +
+           (toBusStop.empty() ? 0 : 1) +
+           (fromTrainStop.empty() ? 0 : 1) +
+           (toTrainStop.empty() ? 0 : 1) +
+           (fromContainerStop.empty() ? 0 : 1) +
+           (toContainerStop.empty() ? 0 : 1) +
+           (fromChargingStation.empty() ? 0 : 1) +
+           (toChargingStation.empty() ? 0 : 1) +
+           (fromParkingArea.empty() ? 0 : 1) +
+           (toParkingArea.empty() ? 0 : 1) +
+           (fromRoute.empty() ? 0 : 1) +
+           (toRoute.empty() ? 0 : 1);
+}
+
+
+const CommonXMLStructure::SumoBaseObject*
+CommonXMLStructure::PlanParameters::getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // first check if object exist
+    if (sumoBaseObject == nullptr) {
+        return nullptr;
+    }
+    // check if object has parent
+    const CommonXMLStructure::SumoBaseObject* parentObject = sumoBaseObject->getParentSumoBaseObject();
+    if (parentObject == nullptr) {
+        return nullptr;
+    }
+    // check number of children
+    if (parentObject->getSumoBaseObjectChildren().size() < 2) {
+        return nullptr;
+    }
+    // search position of the given plan obj in the parent children
+    const auto objIterator = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), sumoBaseObject);
+    // if obj is the first plan of person/container parent, then return null. If not, return previous object
+    if (objIterator == parentObject->getSumoBaseObjectChildren().begin()) {
+        return nullptr;
+    } else {
+        return *(objIterator - 1);
+    }
+}
+
+
+void
+CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) {
+    // check if previous plan object was defined but not the from
+    const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
+    if (previousPlanObj) {
+        // ge previous plan parameters
+        const auto previousPlanParameters = previousPlanObj->getPlanParameters();
+        if (!previousPlanParameters.toEdge.empty()) {
+            // edge (to)
+            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanParameters.toEdge);
+            fromEdge = previousPlanParameters.toEdge;
+        } else if (!previousPlanParameters.consecutiveEdges.empty()) {
+            // consecutive edge
+            resetPreviousFromAttributes(previousPlanObj, "consecutive edge", previousPlanParameters.consecutiveEdges.back());
+            fromEdge = previousPlanParameters.consecutiveEdges.back();
+        } else if (!previousPlanParameters.toRoute.empty()) {
+            // route
+            resetPreviousFromAttributes(previousPlanObj, "route edge", previousPlanParameters.toRoute);
+            fromRoute = previousPlanParameters.toRoute;
+        } else if (!previousPlanParameters.toJunction.empty()) {
+            // junction
+            resetPreviousFromAttributes(previousPlanObj, "junction", previousPlanParameters.toJunction);
+            fromJunction = previousPlanParameters.toJunction;
+        } else if (!previousPlanParameters.toTAZ.empty()) {
+            // TAZ
+            resetPreviousFromAttributes(previousPlanObj, "TAZ", previousPlanParameters.toTAZ);
+            fromTAZ = previousPlanParameters.toTAZ;
+        } else if (!previousPlanParameters.toBusStop.empty()) {
+            // busStop
+            resetPreviousFromAttributes(previousPlanObj, "bus stop", previousPlanParameters.toBusStop);
+            fromBusStop = previousPlanParameters.toBusStop;
+        } else if (!previousPlanParameters.toTrainStop.empty()) {
+            // trainStop
+            resetPreviousFromAttributes(previousPlanObj, "train stop", previousPlanParameters.toTrainStop);
+            fromTrainStop = previousPlanParameters.toTrainStop;
+        } else if (!previousPlanParameters.toContainerStop.empty()) {
+            // containerStop
+            resetPreviousFromAttributes(previousPlanObj, "container stop", previousPlanParameters.toContainerStop);
+            fromContainerStop = previousPlanParameters.toContainerStop;
+        } else if (!previousPlanParameters.toChargingStation.empty()) {
+            // chargingStation
+            resetPreviousFromAttributes(previousPlanObj, "charging station", previousPlanParameters.toChargingStation);
+            fromChargingStation = previousPlanParameters.toChargingStation;
+        } else if (!previousPlanParameters.toParkingArea.empty()) {
+            // parkingArea
+            resetPreviousFromAttributes(previousPlanObj, "parking area", previousPlanParameters.toParkingArea);
+            fromParkingArea = previousPlanParameters.toParkingArea;
+        }
+    }
+}
+
+
+void
+CommonXMLStructure::PlanParameters::resetPreviousFromAttributes(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
+        const std::string& newType, const std::string& newId) const {
+    if (!fromEdge.empty()) {
+        writeIgnoringMessage(previousPlanObj, "edge", fromEdge, newType, newId);
+    }
+    if (!fromJunction.empty()) {
+        writeIgnoringMessage(previousPlanObj, "junction", fromJunction, newType, newId);
+    }
+    if (!fromTAZ.empty()) {
+        writeIgnoringMessage(previousPlanObj, "TAZ", fromTAZ, newType, newId);
+    }
+    if (!fromBusStop.empty()) {
+        writeIgnoringMessage(previousPlanObj, "bus stop", fromBusStop, newType, newId);
+    }
+    if (!fromTrainStop.empty()) {
+        writeIgnoringMessage(previousPlanObj, "train stop", fromTrainStop, newType, newId);
+    }
+    if (!fromContainerStop.empty()) {
+        writeIgnoringMessage(previousPlanObj, "container stop", fromContainerStop, newType, newId);
+    }
+    if (!fromChargingStation.empty()) {
+        writeIgnoringMessage(previousPlanObj, "charging station", fromChargingStation, newType, newId);
+    }
+    if (!fromParkingArea.empty()) {
+        writeIgnoringMessage(previousPlanObj, "parking area", fromParkingArea, newType, newId);
+    }
+}
+
+
+void
+CommonXMLStructure::PlanParameters::writeIgnoringMessage(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
+        const std::string& oldType, const std::string& oldId, const std::string& newType, const std::string& newId) const {
+    WRITE_WARNING(TLF("Ignoring from % '%' used in % '%' and using instead the previous end element % '%'",
+                      oldType, oldId,
+                      toString(previousPlanObj->getParentSumoBaseObject()->getTag()),
+                      previousPlanObj->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID),
+                      newType, newId));
+}
 
 // ---------------------------------------------------------------------------
 // CommonXMLStructure::SumoBaseObject - methods
@@ -315,6 +540,12 @@ CommonXMLStructure::SumoBaseObject::getParameters() const {
 }
 
 
+const CommonXMLStructure::PlanParameters&
+CommonXMLStructure::SumoBaseObject::getPlanParameters() const {
+    return myPlanParameters;
+}
+
+
 const std::vector<CommonXMLStructure::SumoBaseObject*>&
 CommonXMLStructure::SumoBaseObject::getSumoBaseObjectChildren() const {
     return mySumoBaseObjectChildren;
@@ -442,6 +673,21 @@ CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr
 
 
 void
+CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
+    // check if we have to insert in vType, vehicle or stop parameters
+    if (myDefinedVehicleTypeParameter) {
+        myVehicleTypeParameter.setParameter(key, value);
+    } else if (myDefinedVehicleParameter) {
+        myVehicleParameter.setParameter(key, value);
+    } else if (myDefinedStopParameter) {
+        myStopParameter.setParameter(key, value);
+    } else {
+        myParameters[key] = value;
+    }
+}
+
+
+void
 CommonXMLStructure::SumoBaseObject::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
 }
@@ -503,19 +749,9 @@ CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter:
 
 
 void
-CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
-    // check if we have to insert in vType, vehicle or stop parameters
-    if (myDefinedVehicleTypeParameter) {
-        myVehicleTypeParameter.setParameter(key, value);
-    } else if (myDefinedVehicleParameter) {
-        myVehicleParameter.setParameter(key, value);
-    } else if (myDefinedStopParameter) {
-        myStopParameter.setParameter(key, value);
-    } else {
-        myParameters[key] = value;
-    }
+CommonXMLStructure::SumoBaseObject::setPlanParameters(const CommonXMLStructure::PlanParameters& planParameters) {
+    myPlanParameters = planParameters;
 }
-
 
 void
 CommonXMLStructure::SumoBaseObject::addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject) {

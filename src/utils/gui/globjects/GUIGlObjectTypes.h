@@ -72,64 +72,72 @@ enum GUIGlObjectType {
 
     /// @brief reserved GLO type for packing all additionals elements
     GLO_ADDITIONALELEMENT = 100,
+    /// @brief reserved GLO type for packing all StoppingPlace elements
+    GLO_STOPPING_PLACE = 101,
     /// @brief a busStop
-    GLO_BUS_STOP = 101,
+    GLO_BUS_STOP = 102,
+    /// @brief a trainStop
+    GLO_TRAIN_STOP = 103,
     /// @brief a containerStop
-    GLO_CONTAINER_STOP = 102,
+    GLO_CONTAINER_STOP = 104,
     /// @brief a chargingStation
-    GLO_CHARGING_STATION = 103,
+    GLO_CHARGING_STATION = 105,
     /// @brief a ParkingArea
-    GLO_PARKING_AREA = 104,
+    GLO_PARKING_AREA = 106,
+    /// @brief reserved GLO type for packing all StoppingPlace elements
+    GLO_STOPPING_PLACE_LAST = 107,
     /// @brief a ParkingSpace
-    GLO_PARKING_SPACE = 105,
+    GLO_PARKING_SPACE = 108,
     /// @brief a E1 detector
-    GLO_E1DETECTOR = 106,
+    GLO_E1DETECTOR = 109,
     /// @brief a E1 detector
-    GLO_E1DETECTOR_ME = 107,
+    GLO_E1DETECTOR_ME = 110,
     /// @brief a E1 detector
-    GLO_E1DETECTOR_INSTANT = 108,
+    GLO_E1DETECTOR_INSTANT = 111,
     /// @brief a E2 detector
-    GLO_E2DETECTOR = 109,
+    GLO_E2DETECTOR = 112,
     /// @brief a E3 detector
-    GLO_E3DETECTOR = 110,
+    GLO_E3DETECTOR = 113,
     /// @brief a DetEntry detector
-    GLO_DET_ENTRY = 111,
+    GLO_DET_ENTRY = 114,
     /// @brief a DetExit detector
-    GLO_DET_EXIT = 112,
+    GLO_DET_EXIT = 115,
     /// @brief a Rerouter
-    GLO_REROUTER = 113,
+    GLO_REROUTER = 116,
     /// @brief a rerouter interval
-    GLO_REROUTER_INTERVAL = 114,
+    GLO_REROUTER_INTERVAL = 117,
     /// @brief a closing reroute
-    GLO_REROUTER_CLOSINGREROUTE = 115,
+    GLO_REROUTER_CLOSINGREROUTE = 118,
     /// @brief a closing lane reroute
-    GLO_REROUTER_CLOSINGLANEREROUTE = 116,
+    GLO_REROUTER_CLOSINGLANEREROUTE = 119,
     /// @brief a parking area reroute
-    GLO_REROUTER_PARKINGAREAREROUTE = 117,
+    GLO_REROUTER_PARKINGAREAREROUTE = 120,
     /// @brief a destination probability reroute
-    GLO_REROUTER_DESTPROBREROUTE = 118,
+    GLO_REROUTER_DESTPROBREROUTE = 121,
     /// @brief a route probability reroute
-    GLO_REROUTER_ROUTEPROBREROUTE = 119,
+    GLO_REROUTER_ROUTEPROBREROUTE = 122,
     /// @brief a Rerouter over edge
-    GLO_REROUTER_EDGE = 120,
+    GLO_REROUTER_EDGE = 123,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 121,
+    GLO_VSS = 124,
     /// @brief a Variable Speed Sign step
-    GLO_VSS_STEP = 122,
+    GLO_VSS_STEP = 125,
     /// @brief a Calibrator
-    GLO_CALIBRATOR = 123,
+    GLO_CALIBRATOR = 126,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 124,
+    GLO_ROUTEPROBE = 127,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 125,
+    GLO_VAPORIZER = 128,
     /// @brief a Acces
-    GLO_ACCESS = 126,
+    GLO_ACCESS = 129,
     /// @brief reserved GLO type for packing all wire elements
     GLO_WIRE = 140,
     /// @brief a segment of an overhead line
     GLO_OVERHEAD_WIRE_SEGMENT = 141,
     /// @brief a segment of an overhead line
     GLO_TRACTIONSUBSTATION = 142,
+    /// @brief reserved GLO type for packing all additionals elements
+    GLO_ADDITIONALELEMENT_LAST = 189,
 
     /// @}
 
@@ -149,6 +157,8 @@ enum GUIGlObjectType {
     GLO_JPS_WALKABLEAREA = 203,
     /// @brief obstacles
     GLO_JPS_OBSTACLE = 204,
+    /// @brief reserved GLO type to pack shapes
+    GLO_SHAPE_LAST = 299,
 
     /// @}
 
@@ -251,9 +261,6 @@ enum GUIGlObjectType {
     /// @brief Lock icon (used in netedit)
     GLO_LOCKICON = 1000,
 
-    /// @brief text element (used in netedit)
-    GLO_TEXTNAME = 1010,
-
     /// @brief geometry point (used in netedit)
     GLO_GEOMETRYPOINT = 1020,
 
@@ -265,6 +272,9 @@ enum GUIGlObjectType {
 
     /// @brief temporal shape (used in netedit)
     GLO_TEMPORALSHAPE = 1050,
+
+    /// @brief text element (used in netedit)
+    GLO_TEXTNAME = 1055,
 
     /// @brief rectangle selection shape (used in netedit)
     GLO_RECTANGLESELECTION = 1060,

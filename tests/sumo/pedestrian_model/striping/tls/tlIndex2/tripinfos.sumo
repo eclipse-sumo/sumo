@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-08 23:25:41 by Eclipse SUMO sumo Version v1_15_0+0056-02dd159
+<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,10 +38,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="EW" depart="10.00" type="ped" speedFactor="1.00">
+    <personinfo id="EW" depart="10.00" type="ped" speedFactor="1.00" duration="66.00" waitingTime="0.00" timeLoss="12.50" traveltime="66.00">
         <walk depart="10.00" departPos="82.25" arrival="76.00" arrivalPos="43.62" duration="66.00" routeLength="74.31" timeLoss="12.50" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="WE" depart="10.00" type="ped" speedFactor="1.00">
+    <personinfo id="WE" depart="10.00" type="ped" speedFactor="1.00" duration="86.00" waitingTime="0.00" timeLoss="32.50" traveltime="86.00">
         <walk depart="10.00" departPos="5.00" arrival="96.00" arrivalPos="43.62" duration="86.00" routeLength="74.31" timeLoss="32.50" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

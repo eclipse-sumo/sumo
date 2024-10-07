@@ -22,14 +22,16 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/emissions/CharacteristicMap.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVTypeParameter;
+
 
 // ===========================================================================
 // class definitions
@@ -42,6 +44,9 @@ class EnergyParams {
 public:
     /// @brief Constructor
     EnergyParams(const SUMOVTypeParameter* typeParams = nullptr);
+
+    /// @brief Constructor
+    EnergyParams(const SUMOEmissionClass c);
 
     /// @brief Constructor
     EnergyParams(const EnergyParams* secondaryParams) : mySecondaryParams(secondaryParams) {}
@@ -63,6 +68,7 @@ public:
     void setDouble(SumoXMLAttr attr, double value);
 
     double getDouble(SumoXMLAttr attr) const;
+    double getDoubleOptional(SumoXMLAttr attr, const double def) const;
 
     /**@brief Returns the value for a given key
      * @param[in] key The key to ask for

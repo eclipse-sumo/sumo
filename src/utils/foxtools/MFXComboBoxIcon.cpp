@@ -99,7 +99,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     myButton = new FXMenuButton(this, FXString::null, NULL, myPane, FRAME_RAISED | FRAME_THICK | MENUBUTTON_DOWN | MENUBUTTON_ATTACH_RIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
     myButton->setXOffset(border);
     myButton->setYOffset(border);
-    flags &= ~FLAG_UPDATE;  // Never GUI update
+    flags &= ~(FXuint)FLAG_UPDATE;  // Never GUI update
 
 }
 
@@ -187,7 +187,7 @@ MFXComboBoxIcon::layout() {
         myNoItemsLabel->resize(width, height);
     }
     myPane->resize(width, myPane->getDefaultHeight());
-    flags &= ~FLAG_DIRTY;
+    flags &= ~(FXuint)FLAG_DIRTY;
 }
 
 
@@ -309,7 +309,6 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 void
 MFXComboBoxIcon::removeItem(FXint index) {
     const auto isCurrent = myList->isItemCurrent(index);
-    myList->removeItem(index);
     if (isCurrent == TRUE) {
         if ((index > 0) && (index < (int)myList->getNumItems())) {
             setCurrentItem(index - 1);
@@ -317,6 +316,7 @@ MFXComboBoxIcon::removeItem(FXint index) {
             setCurrentItem(0);
         }
     }
+    myList->removeItem(index);
     recalc();
 }
 

@@ -61,6 +61,25 @@ Parameterised::updateParameters(const Parameterised::Map& mapArg) {
 }
 
 
+void
+Parameterised::mergeParameters(const Parameterised::Map& mapArg, const std::string separator, bool uniqueValues) {
+    for (const auto& keyValue : mapArg) {
+        if (hasParameter(keyValue.first)) {
+            bool append = true;
+            if (uniqueValues) {
+                if (getParameter(keyValue.first) == keyValue.second) {
+                    append = false;
+                }
+            }
+            if (append) {
+                setParameter(keyValue.first, getParameter(keyValue.first) + separator + keyValue.second);
+            }
+        } else {
+            setParameter(keyValue.first, keyValue.second);
+        }
+    }
+}
+
 bool
 Parameterised::hasParameter(const std::string& key) const {
     return myMap.find(key) != myMap.end();

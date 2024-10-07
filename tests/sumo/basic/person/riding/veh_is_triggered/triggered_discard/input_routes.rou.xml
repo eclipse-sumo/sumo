@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="blocker" depart="0.00" from="WC" to="CE">
+        <stop lane="WC_0" endPos="8" duration="100"/>
+    </trip>
+    <trip id="v0" depart="triggered" from="WC" to="CE"/>
+    <person id="p0" depart="0.00">
+        <ride from="WC" to="CE" lines="v0"/>
+    </person>
+</routes>

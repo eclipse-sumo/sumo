@@ -1,3 +1,3 @@
-Error: Unknown vehicle class 'error-vclass1' encountered.
-Error: Unknown vehicle class 'error-vclass2' encountered.
-Error: Unknown vehicle class 'error-vclass3' encountered.
+Warning: Unknown vehicle class 'error-vclass1' ignored.
+Warning: Unknown vehicle class 'error-vclass2' ignored.
+Warning: Unknown vehicle class 'error-vclass3' ignored.

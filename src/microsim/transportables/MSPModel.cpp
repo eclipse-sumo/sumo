@@ -51,7 +51,7 @@ const double MSPModel::RANDOM_POS_LAT(-std::numeric_limits<double>::max());
 // MSPModel method definitions
 // ===========================================================================
 int
-MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
+MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route, int& passedEdges) {
     const MSJunction* junction = nullptr;
     for (ConstMSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
         const MSEdge* edge = *it;
@@ -66,6 +66,7 @@ MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
             }
         }
         junction = dir == FORWARD ? edge->getToJunction() : edge->getFromJunction();
+        passedEdges++;
     }
     return dir;
 }

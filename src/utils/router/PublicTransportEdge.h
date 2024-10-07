@@ -112,7 +112,12 @@ public:
                 //    << " minASec=" << minArrivalSec << " travelTime=" << minArrivalSec - time << "\n";
             }
         }
-        return STEPS2TIME(minArrival - step);
+        if (minArrival != SUMOTime_MAX) {
+            return STEPS2TIME(minArrival - step);
+        } else {
+            // indicate failure
+            return std::numeric_limits<double>::max();
+        }
     }
 
     double getIntended(const double time, std::string& intended) const {

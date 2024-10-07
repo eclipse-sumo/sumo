@@ -92,7 +92,7 @@ public:
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
@@ -103,7 +103,7 @@ public:
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @param[in] gap2pred The (net) distance to the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
@@ -131,12 +131,22 @@ public:
      * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
     double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
+    /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
+     *         due to acceleration capabilities and previous speeds.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap The (net) distance to the obstacle
+     * @return EGO's safe speed for approaching a non-moving obstacle at insertion
+     * @see stopSpeed() and insertionFollowSpeed()
+     *
+     */
+    double insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const;
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
      * @param[in] veh The vehicle itself, for obtaining other values

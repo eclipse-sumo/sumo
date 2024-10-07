@@ -117,7 +117,7 @@ public:
      *
      * @return whether the next section could be parsed successfully
      */
-    bool parseSection(int element);
+    bool parseSection(SumoXMLTag element);
 
 private:
     /// @brief Local Schema Resolver

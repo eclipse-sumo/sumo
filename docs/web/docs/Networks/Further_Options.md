@@ -19,7 +19,7 @@ respectively.
 
 Normally, turnarounds are added as a possible edge continuations and
 play an important role during network building (see
-[Publications\#Krajzewicz_et_al2005_2](../Publications.md#krajzewicz_et_al2005_2)).
+[Publications\#Krajzewicz_et_al2005_2](../Publications.md#publications_using_sumo)).
 Still, one may want not to add them. In this cases, it is possible to
 disallow their appending using option **--no-turnarounds**.
 
@@ -32,7 +32,7 @@ no meaning (maybe besides the additional possibility to make a U-turn)
 and may be removed. The removal of such nodes increases the simulation
 speed due to a smaller number of edges to process during each time step.
 To remove such nodes and join the incoming and outgoing edges use **--geometry.remove**. The
-removal of nodes preserves the geometry of edges by ading a further
+removal of nodes preserves the geometry of edges by adding a further
 geometry point at the removed node's position.
 
 ## Using Edges' maximum Speed Definitions in km/h
@@ -58,7 +58,7 @@ using **--tls.unset**. Both options assume to get a list of node names divided b
 as parameter. The behavior when a node is in both lists is undefined.
 
 During the computation of tls-logics among other information we have to
-guess the duration of the phases. The options **--tls.greent.time** and **--tls.yellow.time** allow you to give
+guess the duration of the phases. The options **--tls.green.time** and **--tls.yellow.time** allow you to give
 the durations of green and yellow lights. Both options assume the
 duration in seconds as an int. The duration of having red is dependent
 on the number of other phases and their green and yellow phase

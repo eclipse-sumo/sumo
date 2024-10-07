@@ -30,6 +30,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/distribution/RandomDistributor.h>
 #include <microsim/MSMoveReminder.h>
+#include "MSStoppingPlaceRerouter.h"
 
 
 // ===========================================================================
@@ -58,7 +59,7 @@ class MSParkingArea;
  */
 class MSTriggeredRerouter :
     public Named, public MSMoveReminder,
-    public SUMOSAXHandler {
+    public SUMOSAXHandler, MSStoppingPlaceRerouter {
 
     friend class GUIEdge; // dynamic instantiation
 
@@ -77,7 +78,7 @@ public:
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
-    typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
+    //typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
 
     /**
      * @struct RerouteInterval
@@ -103,7 +104,8 @@ public:
         /// The permissions to use
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
-        RandomDistributor<ParkingAreaVisible> parkProbs;
+        //RandomDistributor<ParkingAreaVisible> parkProbs;
+        RandomDistributor<MSStoppingPlaceRerouter::StoppingPlaceVisible> parkProbs;
         /// The edge probs are vias and not destinations
         bool isVia = false;
     };
@@ -182,10 +184,36 @@ public:
         return myPosition;
     }
 
-    static double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight);
+    /// @brief Return the number of occupied places of the ParkingArea
+    double getStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
 
-    static MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
-            SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
+    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
+
+    /// @brief Return the number of places the ParkingArea provides
+    double getStoppingPlaceCapacity(MSStoppingPlace* parkingArea);
+
+    /// @brief store the blocked ParkingArea in the vehicle
+    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* parkingArea, bool blocked);
+
+    /// @brief store the score of the ParkingArea in the vehicle
+    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* parkingArea, const std::string& score);
+
+    /// @brief reset all stored ParkingArea scores for this vehicle
+    void resetStoppingPlaceScores(SUMOVehicle& veh);
+
+    /// @brief get the time the ParkingArea was considered full from this vehicle
+    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* parkingArea, bool local);
+
+    /// @brief ask how many times already the vehicle has been rerouted to another stopping place
+    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh);
+
+    /// @brief update the number of reroutes for the vehicle
+    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value);
+
+    /// @brief search for an alternative ParkingArea
+    MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
+                                      SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
 
     /// @brief return all rerouter instances
     static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
@@ -194,6 +222,14 @@ public:
 
     /// @brief issues warning for incomplete parkingReroute relationships
     static void checkParkingRerouteConsistency();
+
+    /// @brief provide default values for evaluation components
+    static double getEvalDefaultWeight(std::string& paramName) {
+        if (paramName == "") {
+            return 1.;
+        }
+        return 0.;
+    }
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -227,18 +263,6 @@ protected:
     bool applies(const SUMOTrafficObject& obj) const;
 
     static bool affected(const std::set<SUMOTrafficObject::NumericalID>& edgeIndices, const MSEdgeVector& closed);
-
-    typedef std::map<std::string, double> ParkingParamMap_t;
-    typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
-
-    /// determine attributes of candiate parking area for scoring
-    static bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
-                              MSParkingArea* pa, double paOccupancy, double prob,
-                              SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-                              MSParkingAreaMap_t& parkAreas,
-                              std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
-                              std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
-                              ParkingParamMap_t& maxValues);
 
 protected:
     /// @brief edges where vehicles are notified

@@ -83,6 +83,9 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ViewObjectsSelector& getViewObjectsSelector() const;
 
+    /// @brief get move single element values
+    const GNEViewNetHelper::MoveSingleElementModul& getMoveSingleElementValues() const;
+
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
 
@@ -103,8 +106,7 @@ public:
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                           bool hide = false, double hideThreshold = 0,
-                           bool hide2 = false, double hideThreshold2 = 0);
+                           const GUIVisualizationRainbowSettings& rs);
 
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
@@ -236,6 +238,9 @@ public:
     /// @brief apply template to edge
     long onCmdEgeApplyTemplate(FXObject*, FXSelector, void*);
 
+    /// @name specific of shape edited
+    /// @{
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
@@ -253,6 +258,36 @@ public:
 
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
+
+    /// @}
+
+    /// @name specific of shape edited
+    /// @{
+    /// @brief simply shape edited
+    long onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief straight shape edited
+    long onCmdStraightenShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief close opened shape edited
+    long onCmdCloseShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief open closed shape edited
+    long onCmdOpenShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief set first geometry point in shape edited
+    long onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief delete the closes geometry point in shape edited
+    long onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief reset shape edited
+    long onCmdResetShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief finish shape edited
+    long onCmdFinishShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @}
 
     /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
@@ -535,7 +570,7 @@ public:
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
     /// @brief check if an element is being moved
-    bool isMovingElement() const;
+    bool isCurrentlyMovingElements() const;
 
     /// @brief check if given element is locked (used for drawing select and delete contour)
     bool checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const;
@@ -568,7 +603,10 @@ public:
     bool showJunctionAsBubbles() const;
 
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
-    bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
+    bool checkMergeJunctions();
+
+    /// @brief ask merge junctions
+    bool askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction);
 
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
@@ -787,6 +825,9 @@ private:
 
     /// @brief try to retrieve a TAZ at popup position
     GNETAZ* getTAZAtPopupPosition();
+
+    /// @brief try to retreive a edited shape at popup position
+    GNENetworkElement* getShapeEditedAtPopupPosition();
 
     /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);

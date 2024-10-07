@@ -164,3 +164,26 @@ TEST(StringUtils, test_toBool) {
     EXPECT_THROW(StringUtils::toBool("Trari"), BoolFormatException);
     EXPECT_THROW(StringUtils::toBool("yessir"), BoolFormatException);
 }
+
+TEST(StringUtils, test_parseDist) {
+    EXPECT_EQ(0., StringUtils::parseDist("0"));
+    EXPECT_EQ(1., StringUtils::parseDist("1"));
+    EXPECT_EQ(1., StringUtils::parseDist("1m"));
+    EXPECT_EQ(1., StringUtils::parseDist("1 m"));
+    EXPECT_EQ(1000., StringUtils::parseDist("1 km"));
+    EXPECT_THROW(StringUtils::parseDist(""), EmptyData);
+    EXPECT_THROW(StringUtils::parseDist("1xm"), NumberFormatException);
+}
+
+TEST(StringUtils, test_parseSpeed) {
+    EXPECT_EQ(0., StringUtils::parseSpeed("0"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("1m/s"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("1 m/s"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6 km/h"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6 kmh"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6 kmph"));
+    EXPECT_DOUBLE_EQ(1.609344 / 3.6, StringUtils::parseSpeed("1 mph"));
+    EXPECT_THROW(StringUtils::parseSpeed(""), EmptyData);
+    EXPECT_THROW(StringUtils::parseSpeed("1xm"), NumberFormatException);
+}

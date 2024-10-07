@@ -46,7 +46,7 @@ public class MultiClient1 {
             conn.addOption("num-clients", "2");
 
             //start Traci Server
-            conn.runServer(9999);
+            conn.runServer(9998);
             conn.setOrder(1);
 
             int lastPhase = -1;

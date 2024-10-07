@@ -9,7 +9,9 @@ copy_test_path:three_split.net.xml
 copy_test_path:motorway.net.xml
 copy_test_path:lefthand.net.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes.rou.xml.gz
 copy_test_path:input_routes2.rou.xml
+copy_test_path:input_routes3.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
 copy_test_path:input_additional3.add.xml
@@ -101,6 +103,7 @@ ssm:ssm.xml
 ssm2:ssm_ego.xml
 png:out.png
 png2:out2.png
+wkt:wkt.txt
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -108,6 +111,8 @@ output:Building Contraction Hierarchy{[->]}Simulation ended
 output:ms answering queries
 output:--python-script
 output:--osg-view{LINES 2}
+output:--pedestrian.jupedsim.model{LINES 5}
+output:--pedestrian.jupedsim{LINES 2}
 output:movereminder-output{LINES 2}
 output:Simulation.*started with{REPLACE Simulation started with}
 calibrator_log:<!--{[->]}-->
@@ -171,7 +176,7 @@ c2x_transmitted_info:<!--{[->]}-->
 c2x_vehicle_in_range:<!--{[->]}-->
 c2x_saved_info_freq:<!--{[->]}-->
 c2x_edge_near_info:<!--{[->]}-->
-errors:Leaked object at 
+errors:Leaked object at
 errors:\*\*\* \d+ leaks found
 errors:delete: freed
 errors:warning: debug_new used with placement new
@@ -190,6 +195,8 @@ cfg:<python-script
 cfg:embedded python
 cfg:osg-view
 cfg:OpenSceneGraph
+cfg:pedestrian.jupedsim
+cfg:JuPedSim
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->

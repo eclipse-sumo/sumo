@@ -250,7 +250,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DETECT_PERSONS:
             return toString(myDetectPersons);
         case SUMO_ATTR_WRITE_ATTRIBUTES:
-            return toString(myWrittenAttributes);
+            return joinToString(myWrittenAttributes, " ");
         case SUMO_ATTR_EDGES:
             return toString(myEdges);
         case SUMO_ATTR_EDGESFILE:

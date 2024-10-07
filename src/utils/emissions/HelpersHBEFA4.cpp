@@ -10109,6 +10109,12 @@ HelpersHBEFA4::getFuel(const SUMOEmissionClass c) const {
     if (name.find("_diesel_") != std::string::npos) {
         fuel = "Diesel";
     }
+    if (name.find("_BEV") != std::string::npos) {
+        fuel = "Electricity";
+    }
+    if (name.find("_PHEV") != std::string::npos) {
+        fuel = "Hybrid" + fuel;
+    }
     return fuel;
 }
 

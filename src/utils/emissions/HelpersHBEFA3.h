@@ -83,14 +83,15 @@ public:
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
      * As the functions are defining emissions in g/hour, the function's result is normed
-     *  by 3.6 (seconds in an hour/1000) yielding mg/s. For fuel ml/s is returned.
-     *  Negative acceleration results directly in zero emission.
+     *  by 3.6 (seconds in an hour/1000) yielding mg/s. For fuel ml/s is returned if volumetric fuel has been requested.
+     *  Coasting and an engine which is off by the given param result directly in zero emission.
      *
      * @param[in] c emission class for the function parameters to use
      * @param[in] e the type of emission (CO, CO2, ...)
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
      * @param[in] slope The road's slope at vehicle's position [deg]
+     * @param[in] param parameter of the emission model (only used for the coasting deceleration and to determine whether the engine is off)
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {

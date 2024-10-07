@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'VehicleClosedAlready'; waited too long (wrong lane), lane='middle_0', time=346.00.
+Warning: Vehicle 'VehicleClosedAlready' ends teleporting on edge 'end', time=365.00.

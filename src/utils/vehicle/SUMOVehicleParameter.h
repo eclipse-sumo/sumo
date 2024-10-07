@@ -71,9 +71,11 @@ const int VEHPARS_ARRIVALEDGE_SET = 2 << 26;
 const int VEHPARS_CALIBRATORSPEED_SET = 2 << 27;
 const int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 28;
 const int VEHPARS_CFMODEL_PARAMS_SET = 2 << 29;
+const int VEHPARS_PARKING_BADGES_SET = 2 << 30;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
+const int STOP_INDEX_REPEAT = -3;
 
 const int STOP_START_SET = 1;
 const int STOP_END_SET = 2;
@@ -171,6 +173,8 @@ enum class DepartPosDefinition {
     RANDOM_FREE,
     /// @brief The position may be chosen freely in a polygon defined by a taz
     RANDOM_LOCATION,
+    /// @brief depart position for a split vehicle is in front of the continuing vehicle
+    SPLIT_FRONT,
     /// @brief depart position is endPos of first stop
     STOP
 };
@@ -351,10 +355,13 @@ public:
          */
         void write(OutputDevice& dev, const bool close = true, const bool writeTagAndParents = true) const;
 
+        /// @brief return list of stopping place ids
+        std::vector<std::string> getStoppingPlaceIDs() const;
+
         /// @brief write trigger attribute
         std::vector<std::string> getTriggers() const;
 
-        /// @brief The edge to stop at (used only in netedit)
+        /// @brief The edge to stop at
         std::string edge;
 
         /// @brief The lane to stop at
@@ -392,6 +399,9 @@ public:
 
         /// @brief The maximum time extension for boarding / loading
         SUMOTime extension = -1;
+
+        /// @brief The earliest pickup time for a taxi stop
+        SUMOTime waitUntil = -1;
 
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered = false;
@@ -456,11 +466,17 @@ public:
         /// @brief at which position in the stops list
         int index = 0;
 
+        /// @brief at which position within the route (only used for state saving)
+        mutable int routeIndex = 0;
+
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 
         /// @brief Whether this stop was triggered by a collision
         bool collision = false;
+
+        /// @brief Whether this stop was triggered by a car failure / mechanical problem / lack of energy
+        bool breakDown = false;
 
         /// @brief return flags as per Vehicle::getStops
         int getFlags() const;
@@ -748,6 +764,9 @@ public:
     /// @brief The probability for emitting a vehicle per second
     double repetitionProbability;
 
+    /// @brief The rate for emitting vehicles with a poisson distribution
+    double poissonRate;
+
     /// @brief The time at which the flow ends (only needed when using repetitionProbability)
     SUMOTime repetitionEnd;
 
@@ -767,6 +786,15 @@ public:
 
     /// @brief List of the via-edges the vehicle must visit
     mutable std::vector<std::string> via;
+
+    /// @brief The parking access rights
+    std::vector<std::string> parkingBadges;
+
+    /// @brief The modes a person or container can use
+    SVCPermissions modes;
+
+    /// @brief The types of usable (auto-generated) vehicles for a person / container
+    std::string vTypes;
 
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     int personNumber;

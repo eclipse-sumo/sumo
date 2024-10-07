@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-03 08:27:29 by Eclipse SUMO sumo Version v1_12_0+1070-699fcf0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-09-29 18:01:53 by Eclipse SUMO sumo Version v1_20_0+2188-0471f363612
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -26,14 +26,10 @@
     </report>
 
     <traci_server>
-        <remote-port value="49605"/>
+        <remote-port value="60417"/>
     </traci_server>
 
-    <gui_only>
-        <tracker-interval value="0.5"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">

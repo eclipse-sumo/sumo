@@ -146,7 +146,7 @@ FileHelpers::getConfigurationRelative(const std::string& configPath, const std::
 bool
 FileHelpers::isSocket(const std::string& name) {
     const std::string::size_type colonPos = name.find(":");
-    return (colonPos != std::string::npos) && (colonPos > 1);
+    return (colonPos != std::string::npos) && (colonPos > 1 || name[0] == '[');
 }
 
 

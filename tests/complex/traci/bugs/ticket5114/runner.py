@@ -50,4 +50,30 @@ print("getDistanceRoad (2nd internal to normal):",
 print("getDistanceRoad (2nd internal to 1st internal):",
       traci.simulation.getDistanceRoad(":gneJ5_7", 5, ":gneJ5_4", 5, isDriving=True))
 
+traci.route.add("r", ["gneE4", "-gneE2"])
+traci.vehicletype.setMaxSpeed("DEFAULT_VEHTYPE", 1)
+traci.vehicle.add("v", "r")
+traci.simulationStep()
+
+print("getDrivingDistance (no connection):",
+      traci.vehicle.getDrivingDistance("v", "gneE1", 100))
+print("getDrivingDistance (normal to normal):",
+      traci.vehicle.getDrivingDistance("v", "-gneE2", 50))
+print("getDrivingDistance (normal to 1st internal):",
+      traci.vehicle.getDrivingDistance("v", ":gneJ5_4", 5))
+print("getDrivingDistance (normal to 2nd internal):",
+      traci.vehicle.getDrivingDistance("v", ":gneJ5_7", 5))
+while traci.vehicle.getRoadID("v") != ":gneJ5_4":
+    traci.simulationStep()
+print("getDrivingDistance (1st internal to normal):",
+      traci.vehicle.getDrivingDistance("v", "-gneE2", 50))
+print("getDrivingDistance (1st internal to 2nd internal):",
+      traci.vehicle.getDrivingDistance("v", ":gneJ5_7", 5))
+while traci.vehicle.getRoadID("v") != ":gneJ5_7":
+    traci.simulationStep()
+print("getDrivingDistance (2nd internal to normal):",
+      traci.vehicle.getDrivingDistance("v", "-gneE2", 50))
+print("getDrivingDistance (2nd internal to 1st internal):",
+      traci.vehicle.getDrivingDistance("v", ":gneJ5_4", 5))
+
 traci.close()

@@ -58,7 +58,7 @@ modeled using the HBEFA3 based model).
 # Pollutants / Measurements covered by models
 
 !!! caution
-    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+    Please note that the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
 	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 <table class="tg">
@@ -212,13 +212,13 @@ files)](../Tutorials/Trace_File_Generation.md) using this tool is
 available.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<span style="float: right; margin-top: -5px;"><a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project
-<a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="float: right; margin-top: -5px;"><a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project
-<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

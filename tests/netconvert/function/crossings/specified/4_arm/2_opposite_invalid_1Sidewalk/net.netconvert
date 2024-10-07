@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-09 11:55:02 by Eclipse SUMO netconvert Version v1_13_0+0698-01b4dc2
+<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -133,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_12_0 :C_13_0 :C_13_1 :C_19_0" shape="90.40,107.90 106.40,107.90 106.57,107.07 106.77,106.77 107.07,106.57 107.44,106.44 107.90,106.40 107.90,93.60 107.07,93.43 106.77,93.23 106.57,92.93 106.44,92.56 106.40,92.10 93.60,92.10 93.08,92.93 92.43,93.23 91.51,93.43 90.34,93.56 88.90,93.60 88.90,106.40 89.73,106.57 90.03,106.77 90.23,107.07 90.36,107.44">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_12_0 :C_13_0 :C_13_1 :C_19_0" shape="90.40,107.90 106.40,107.90 106.57,107.07 106.78,106.77 107.07,106.57 107.44,106.44 107.90,106.40 107.90,93.60 107.07,93.43 106.77,93.22 106.57,92.93 106.44,92.56 106.40,92.10 93.60,92.10 93.08,92.93 92.43,93.23 91.51,93.43 90.34,93.56 88.90,93.60 88.90,106.40 89.73,106.57 90.03,106.78 90.23,107.07 90.36,107.44">
         <request index="0"  response="0000000000000000" foes="0000000001100000" cont="0"/>
         <request index="1"  response="1000000010000000" foes="1111100011100000" cont="0"/>
         <request index="2"  response="1000000010000000" foes="1111100011100000" cont="0"/>

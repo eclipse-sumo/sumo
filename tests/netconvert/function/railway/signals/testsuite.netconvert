@@ -7,3 +7,6 @@ sharp_angle
 # generate signal at edge with glitched geometry
 sharp_angle_bidi
 discard
+
+# guess rail signals from loaded stops
+guess.by-stops

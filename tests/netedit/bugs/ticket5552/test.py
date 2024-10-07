@@ -32,12 +32,12 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select junctions
-netedit.leftClick(referencePosition, 439, 244)
-netedit.leftClick(referencePosition, 498, 174)
-netedit.leftClick(referencePosition, 558, 174)
-netedit.leftClick(referencePosition, 562, 274)
-netedit.leftClick(referencePosition, 501, 296)
-netedit.leftClick(referencePosition, 438, 299)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # join junctions
 netedit.joinSelectedJunctions()

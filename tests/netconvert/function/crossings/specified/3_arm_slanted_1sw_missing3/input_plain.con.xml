@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-22 17:31:18 by Eclipse SUMO netconvert Version v1_19_0+1898-54937ed31f8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="137.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-138" to="138" fromLane="2" toLane="2"/>
+
+    <connection from="-348" to="-138" fromLane="1" toLane="1"/>
+    <connection from="-348" to="-138" fromLane="2" toLane="2"/>
+    <connection from="-348" to="348" fromLane="3" toLane="3"/>
+
+    <connection from="138" to="348" fromLane="1" toLane="2"/>
+    <connection from="138" to="348" fromLane="2" toLane="3"/>
+    <connection from="138" to="-138" fromLane="2" toLane="2"/>
+
+    <connection from="333" to="348" fromLane="1" toLane="1"/>
+    <connection from="333" to="348" fromLane="2" toLane="2"/>
+    <connection from="333" to="-138" fromLane="3" toLane="2"/>
+
+    <connection from="348" to="-348" fromLane="3" toLane="3"/>
+
+    <crossing node="137" edges="-138 138" priority="0" width="4.00" outlineShape="1047.30,1822.87 1054.61,1833.38 1050.42,1834.37 1055.75,1835.02 1054.66,1833.46 1051.32,1835.66 1044.02,1825.15 1043.02,1823.39 1043.53,1824.02 1044.45,1824.19 1045.71,1823.81 1047.30,1822.87"/>
+    <crossing node="137" edges="348 -348" priority="0" width="4.00" outlineShape="1023.67,1818.00 1042.75,1820.15 1042.68,1822.00 1042.94,1823.29 1043.53,1824.02 1044.33,1824.17 1042.31,1824.13 1023.23,1821.98 1022.49,1821.90 1022.74,1821.58 1023.31,1820.07 1023.67,1818.00"/>
+    <crossing node="137" edges="333" priority="0" width="4.00" outlineShape="1012.94,1829.79 1018.54,1821.87 1019.85,1822.71 1021.01,1822.89 1021.98,1822.52 1022.29,1822.13 1021.75,1824.26 1016.21,1832.10 1017.45,1830.34 1055.75,1835.02 1054.61,1833.38 1048.33,1836.84 1041.78,1838.68 1034.97,1838.89 1027.89,1837.48 1020.55,1834.45 1012.94,1829.79"/>
+</connections>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:08:08.398363 by matsim_importPlans.py v1_13_0+1343-240e5d48340
-  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml-->
+<!-- generated on 2024-02-27 17:41:11.038911 by matsim_importPlans.py v1_19_0+1057-c5d8ddd
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+-->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="car" vClass="passenger"/>
@@ -12,11 +13,11 @@
     <person id="1000001" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="25516_0" until="17:53:00" actType="home_91800.0"/>
+        <stop edge="25516" until="17:53:00" actType="home_91800.0"/>
         <ride lines="1000001_0" to="102599"/>
-        <stop lane="102599_0" until="19:48:02" actType="other_1200.0"/>
+        <stop edge="102599" until="19:48:02" actType="other_1200.0"/>
         <ride lines="1000001_1" to="25516"/>
-        <stop lane="25516_0" until="24:0:0" actType="home_91800.0"/>
+        <stop edge="25516" until="24:0:0" actType="home_91800.0"/>
     </person>
     <trip id="100004901_0" depart="triggered" from="139046" to="47949" type="bicycle"/>
     <trip id="100004901_1" depart="triggered" from="47949" to="12958" type="bicycle"/>
@@ -24,13 +25,13 @@
     <person id="100004901" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="139046_0" until="05:58:44" actType="home_54600.0"/>
+        <stop edge="139046" until="05:58:44" actType="home_54600.0"/>
         <ride lines="100004901_0" to="47949"/>
-        <stop lane="47949_0" until="14:41:48" actType="work_39000.0"/>
+        <stop edge="47949" until="14:41:48" actType="work_39000.0"/>
         <ride lines="100004901_1" to="12958"/>
-        <stop lane="12958_0" until="16:06:37" actType="shopping_600.0"/>
+        <stop edge="12958" until="16:06:37" actType="shopping_600.0"/>
         <ride lines="100004901_2" to="139046"/>
-        <stop lane="139046_0" until="24:0:0" actType="home_54600.0"/>
+        <stop edge="139046" until="24:0:0" actType="home_54600.0"/>
     </person>
     <trip id="100029801_0" depart="triggered" from="12466" to="93716" type="bicycle"/>
     <trip id="100029801_2" depart="triggered" from="93716" to="135726" type="bicycle"/>
@@ -38,15 +39,15 @@
     <person id="100029801" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="12466_0" until="07:11:00" actType="home_67800.0"/>
+        <stop edge="12466" until="07:11:00" actType="home_67800.0"/>
         <ride lines="100029801_0" to="93716"/>
-        <stop lane="93716_0" until="13:00:00" actType="work_20400.0"/>
+        <stop edge="93716" until="13:00:00" actType="work_20400.0"/>
         <walk to="93716"/>
-        <stop lane="93716_0" until="14:01:22" actType="leisure_3600.0"/>
+        <stop edge="93716" until="14:01:22" actType="leisure_3600.0"/>
         <ride lines="100029801_2" to="135726"/>
-        <stop lane="135726_0" until="15:34:52" actType="shopping_3000.0"/>
+        <stop edge="135726" until="15:34:52" actType="shopping_3000.0"/>
         <ride lines="100029801_3" to="12466"/>
-        <stop lane="12466_0" until="24:0:0" actType="home_67800.0"/>
+        <stop edge="12466" until="24:0:0" actType="home_67800.0"/>
     </person>
     <vehicle id="10000001_1" depart="triggered" type="car">
         <route edges="144395 13185 110920 110771 110773 13324 110367 110369 143404 98098 143528 111248 111278 111280 143420 143410 131204 133161 13679 93161 26733 26730 46537 41913 134075"/>
@@ -75,39 +76,39 @@
     <person id="10000001" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="144395_0" until="09:17:00" actType="home_77400.0"/>
-        <stop lane="144395_0" until="09:23:50" actType="car interaction"/>
+        <stop edge="144395" until="09:17:00" actType="home_77400.0"/>
+        <stop edge="144395" until="09:23:50" actType="car interaction"/>
         <ride lines="10000001_1" to="134075"/>
-        <stop lane="134075_0" until="09:33:13" actType="car interaction"/>
-        <stop lane="134075_0" until="09:41:19" actType="shopping_600.0"/>
-        <stop lane="134075_0" until="09:44:25" actType="car interaction"/>
+        <stop edge="134075" until="09:33:13" actType="car interaction"/>
+        <stop edge="134075" until="09:41:19" actType="shopping_600.0"/>
+        <stop edge="134075" until="09:44:25" actType="car interaction"/>
         <ride lines="10000001_4" to="77361"/>
-        <stop lane="77361_0" until="10:01:49" actType="car interaction"/>
-        <stop lane="77361_0" until="10:28:06" actType="other_600.0"/>
-        <stop lane="77361_0" until="10:42:23" actType="car interaction"/>
+        <stop edge="77361" until="10:01:49" actType="car interaction"/>
+        <stop edge="77361" until="10:28:06" actType="other_600.0"/>
+        <stop edge="77361" until="10:42:23" actType="car interaction"/>
         <ride lines="10000001_7" to="31841"/>
-        <stop lane="31841_0" until="11:24:07" actType="car interaction"/>
-        <stop lane="31841_0" until="12:18:39" actType="shopping_3000.0"/>
-        <stop lane="31841_0" until="12:19:11" actType="car interaction"/>
+        <stop edge="31841" until="11:24:07" actType="car interaction"/>
+        <stop edge="31841" until="12:18:39" actType="shopping_3000.0"/>
+        <stop edge="31841" until="12:19:11" actType="car interaction"/>
         <ride lines="10000001_10" to="144395"/>
-        <stop lane="144395_0" until="12:34:07" actType="car interaction"/>
-        <stop lane="144395_0" until="13:25:57" actType="home_3000.0"/>
-        <stop lane="144395_0" until="13:32:47" actType="car interaction"/>
+        <stop edge="144395" until="12:34:07" actType="car interaction"/>
+        <stop edge="144395" until="13:25:57" actType="home_3000.0"/>
+        <stop edge="144395" until="13:32:47" actType="car interaction"/>
         <ride lines="10000001_13" to="106140"/>
-        <stop lane="106140_0" until="14:00:41" actType="car interaction"/>
-        <stop lane="106140_0" until="14:15:59" actType="other_600.0"/>
-        <stop lane="106140_0" until="14:24:17" actType="car interaction"/>
+        <stop edge="106140" until="14:00:41" actType="car interaction"/>
+        <stop edge="106140" until="14:15:59" actType="other_600.0"/>
+        <stop edge="106140" until="14:24:17" actType="car interaction"/>
         <ride lines="10000001_16" to="144395"/>
-        <stop lane="144395_0" until="14:51:26" actType="car interaction"/>
-        <stop lane="144395_0" until="15:15:16" actType="home_1200.0"/>
-        <stop lane="144395_0" until="15:22:06" actType="car interaction"/>
+        <stop edge="144395" until="14:51:26" actType="car interaction"/>
+        <stop edge="144395" until="15:15:16" actType="home_1200.0"/>
+        <stop edge="144395" until="15:22:06" actType="car interaction"/>
         <ride lines="10000001_19" to="73077"/>
-        <stop lane="73077_0" until="15:46:52" actType="car interaction"/>
-        <stop lane="73077_0" until="16:11:42" actType="shopping_1200.0"/>
-        <stop lane="73077_0" until="16:13:32" actType="car interaction"/>
+        <stop edge="73077" until="15:46:52" actType="car interaction"/>
+        <stop edge="73077" until="16:11:42" actType="shopping_1200.0"/>
+        <stop edge="73077" until="16:13:32" actType="car interaction"/>
         <ride lines="10000001_22" to="144395"/>
-        <stop lane="144395_0" until="16:36:55" actType="car interaction"/>
-        <stop lane="144395_0" until="24:0:0" actType="home_77400.0"/>
+        <stop edge="144395" until="16:36:55" actType="car interaction"/>
+        <stop edge="144395" until="24:0:0" actType="home_77400.0"/>
     </person>
     <vehicle id="100002101_1" depart="triggered" type="car">
         <route edges="71096 71097 10104 79146 26688 79151 79155 105719 20964 85694 71145 71099 71142 653 59689 121588 76770 12478 75008 75011 75012 75009 12938 62232 69343 12926 12936 62433 155519 58634 104746 104748 104750 132264 132262 12868 57967 112457 12844 12854 73994 1202 54573 43581"/>
@@ -127,27 +128,27 @@
     <person id="100002101" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="71096_0" until="08:07:04" actType="home_36000.0"/>
-        <stop lane="71096_0" until="08:09:41" actType="car interaction"/>
+        <stop edge="71096" until="08:07:04" actType="home_36000.0"/>
+        <stop edge="71096" until="08:09:41" actType="car interaction"/>
         <ride lines="100002101_1" to="43581"/>
-        <stop lane="43581_0" until="08:30:11" actType="car interaction"/>
-        <stop lane="43581_0" until="09:52:53" actType="shopping_4200.0"/>
-        <stop lane="43581_0" until="10:00:08" actType="car interaction"/>
+        <stop edge="43581" until="08:30:11" actType="car interaction"/>
+        <stop edge="43581" until="09:52:53" actType="shopping_4200.0"/>
+        <stop edge="43581" until="10:00:08" actType="car interaction"/>
         <ride lines="100002101_4" to="66911"/>
-        <stop lane="66911_0" until="10:14:10" actType="car interaction"/>
-        <stop lane="66911_0" until="18:46:06" actType="work_41400.0"/>
-        <stop lane="66911_0" until="18:47:12" actType="car interaction"/>
+        <stop edge="66911" until="10:14:10" actType="car interaction"/>
+        <stop edge="66911" until="18:46:06" actType="work_41400.0"/>
+        <stop edge="66911" until="18:47:12" actType="car interaction"/>
         <ride lines="100002101_7" to="91737"/>
-        <stop lane="91737_0" until="18:51:54" actType="car interaction"/>
-        <stop lane="91737_0" until="20:00:23" actType="shopping_5400.0"/>
-        <stop lane="91737_0" until="20:03:52" actType="car interaction"/>
+        <stop edge="91737" until="18:51:54" actType="car interaction"/>
+        <stop edge="91737" until="20:00:23" actType="shopping_5400.0"/>
+        <stop edge="91737" until="20:03:52" actType="car interaction"/>
         <ride lines="100002101_10" to="131398"/>
-        <stop lane="131398_0" until="20:19:16" actType="car interaction"/>
-        <stop lane="131398_0" until="20:20:19" actType="leisure_1200.0"/>
-        <stop lane="131398_0" until="20:21:22" actType="car interaction"/>
+        <stop edge="131398" until="20:19:16" actType="car interaction"/>
+        <stop edge="131398" until="20:20:19" actType="leisure_1200.0"/>
+        <stop edge="131398" until="20:21:22" actType="car interaction"/>
         <ride lines="100002101_13" to="71096"/>
-        <stop lane="71096_0" until="20:55:31" actType="car interaction"/>
-        <stop lane="71096_0" until="24:0:0" actType="home_36000.0"/>
+        <stop edge="71096" until="20:55:31" actType="car interaction"/>
+        <stop edge="71096" until="24:0:0" actType="home_36000.0"/>
     </person>
     <vehicle id="100002901_1" depart="triggered" type="car">
         <route edges="49491 46698 46689 1710 46951 46696 46697 46693 46694 49642 69392 69393 69394 69410 33416 33406 47939 49881 142884 142862 29325 29298 120660 78527 78532 85135 78510 78516 78530 84978 86140 78536 115895 155031 78549 78546 93721 29902 87561 87563 93709 87550 87557 87548 17430 42813 76699 76701 76703 132401 36929 132458 36894 36932 68357 68347 132450 78229 78227 36878 36880 6157 6153 139141 26084 105796 139115 50465 85109 105791 60666 69368 139804 139801 19446 69511 98297 105789 2517 50451 100202 100203 100199 93805 2502 105077 105070 134080 134079"/>
@@ -170,31 +171,31 @@
     <person id="100002901" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="49491_0" until="08:10:44" actType="home_48600.0"/>
-        <stop lane="49491_0" until="08:12:55" actType="car interaction"/>
+        <stop edge="49491" until="08:10:44" actType="home_48600.0"/>
+        <stop edge="49491" until="08:12:55" actType="car interaction"/>
         <ride lines="100002901_1" to="134079"/>
-        <stop lane="134079_0" until="08:58:36" actType="car interaction"/>
-        <stop lane="134079_0" until="09:00:58" actType="work_1200.0"/>
-        <stop lane="134079_0" until="09:03:20" actType="car interaction"/>
+        <stop edge="134079" until="08:58:36" actType="car interaction"/>
+        <stop edge="134079" until="09:00:58" actType="work_1200.0"/>
+        <stop edge="134079" until="09:03:20" actType="car interaction"/>
         <ride lines="100002901_4" to="69348"/>
-        <stop lane="69348_0" until="09:09:40" actType="car interaction"/>
-        <stop lane="69348_0" until="10:03:30" actType="other_1800.0"/>
-        <stop lane="69348_0" until="10:21:29" actType="car interaction"/>
+        <stop edge="69348" until="09:09:40" actType="car interaction"/>
+        <stop edge="69348" until="10:03:30" actType="other_1800.0"/>
+        <stop edge="69348" until="10:21:29" actType="car interaction"/>
         <ride lines="100002901_7" to="139127"/>
-        <stop lane="139127_0" until="10:33:57" actType="car interaction"/>
-        <stop lane="139127_0" until="17:28:01" actType="work_28200.0"/>
-        <stop lane="139127_0" until="17:50:00" actType="car interaction"/>
+        <stop edge="139127" until="10:33:57" actType="car interaction"/>
+        <stop edge="139127" until="17:28:01" actType="work_28200.0"/>
+        <stop edge="139127" until="17:50:00" actType="car interaction"/>
         <ride lines="100002901_10" to="113591"/>
-        <stop lane="113591_0" until="18:01:50" actType="car interaction"/>
-        <stop lane="113591_0" until="18:56:06" actType="other_2400.0"/>
-        <stop lane="113591_0" until="19:12:33" actType="car interaction"/>
+        <stop edge="113591" until="18:01:50" actType="car interaction"/>
+        <stop edge="113591" until="18:56:06" actType="other_2400.0"/>
+        <stop edge="113591" until="19:12:33" actType="car interaction"/>
         <ride lines="100002901_13" to="83838"/>
-        <stop lane="83838_0" until="19:37:22" actType="car interaction"/>
-        <stop lane="83838_0" until="19:39:25" actType="other_600.0"/>
-        <stop lane="83838_0" until="19:41:28" actType="car interaction"/>
+        <stop edge="83838" until="19:37:22" actType="car interaction"/>
+        <stop edge="83838" until="19:39:25" actType="other_600.0"/>
+        <stop edge="83838" until="19:41:28" actType="car interaction"/>
         <ride lines="100002901_16" to="49491"/>
-        <stop lane="49491_0" until="20:24:22" actType="car interaction"/>
-        <stop lane="49491_0" until="24:0:0" actType="home_48600.0"/>
+        <stop edge="49491" until="20:24:22" actType="car interaction"/>
+        <stop edge="49491" until="24:0:0" actType="home_48600.0"/>
     </person>
     <vehicle id="100003501_1" depart="triggered">
         <route edges="121589 139046 122340 154788 10092 114790 57850 57769 57767 154768 58888 105758 58875 54580 64388 53405 3979 66958 149400 54564 43470 72339 149804 71058 151885 94171 157222 132348 132336 157197 94262 30548 157224 157223"/>
@@ -207,19 +208,19 @@
     <person id="100003501" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="121589_0" until="13:59:00" actType="home_82200.0"/>
-        <stop lane="121589_0" until="14:04:37" actType="ride interaction"/>
+        <stop edge="121589" until="13:59:00" actType="home_82200.0"/>
+        <stop edge="121589" until="14:04:37" actType="ride interaction"/>
         <ride lines="100003501_1" to="157223"/>
-        <stop lane="157223_0" until="14:18:06" actType="ride interaction"/>
-        <stop lane="157223_0" until="15:12:42" actType="other_3000.0"/>
-        <stop lane="157223_0" until="15:14:18" actType="ride interaction"/>
+        <stop edge="157223" until="14:18:06" actType="ride interaction"/>
+        <stop edge="157223" until="15:12:42" actType="other_3000.0"/>
+        <stop edge="157223" until="15:14:18" actType="ride interaction"/>
         <ride lines="100003501_4" to="121589"/>
-        <stop lane="121589_0" until="15:29:19" actType="ride interaction"/>
-        <stop lane="121589_0" until="17:00:56" actType="home_5400.0"/>
+        <stop edge="121589" until="15:29:19" actType="ride interaction"/>
+        <stop edge="121589" until="17:00:56" actType="home_5400.0"/>
         <ride lines="100003501_6" to="155518"/>
-        <stop lane="155518_0" until="17:22:46" actType="leisure_600.0"/>
+        <stop edge="155518" until="17:22:46" actType="leisure_600.0"/>
         <ride lines="100003501_7" to="121589"/>
-        <stop lane="121589_0" until="24:0:0" actType="home_82200.0"/>
+        <stop edge="121589" until="24:0:0" actType="home_82200.0"/>
     </person>
     <vehicle id="100008001_1" depart="triggered" type="car">
         <route edges="57849 114789 10093 154787 122341 139047 121590 26702 139043 139055 30475 59913 48414 69340 99898 99905 99903 99901 99911 99909 4133 135480 4140 105771 8498 141028 4138 47077 135726 71973 21132 2386 102456 2388 157803 79543 130212 130208 157801 79540 7884 7896 157736 2391 2396 2480 16251 71895 12958"/>
@@ -239,27 +240,27 @@
     <person id="100008001" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="57849_0" until="08:44:00" actType="home_50400.0"/>
-        <stop lane="57849_0" until="08:48:35" actType="car interaction"/>
+        <stop edge="57849" until="08:44:00" actType="home_50400.0"/>
+        <stop edge="57849" until="08:48:35" actType="car interaction"/>
         <ride lines="100008001_1" to="12958"/>
-        <stop lane="12958_0" until="09:26:09" actType="car interaction"/>
-        <stop lane="12958_0" until="11:09:00" actType="other_8400.0"/>
-        <stop lane="12958_0" until="11:25:58" actType="car interaction"/>
+        <stop edge="12958" until="09:26:09" actType="car interaction"/>
+        <stop edge="12958" until="11:09:00" actType="other_8400.0"/>
+        <stop edge="12958" until="11:25:58" actType="car interaction"/>
         <ride lines="100008001_4" to="140643"/>
-        <stop lane="140643_0" until="12:35:00" actType="car interaction"/>
-        <stop lane="140643_0" until="18:29:00" actType="work_20400.0"/>
-        <stop lane="140643_0" until="18:31:01" actType="car interaction"/>
+        <stop edge="140643" until="12:35:00" actType="car interaction"/>
+        <stop edge="140643" until="18:29:00" actType="work_20400.0"/>
+        <stop edge="140643" until="18:31:01" actType="car interaction"/>
         <ride lines="100008001_7" to="85511"/>
-        <stop lane="85511_0" until="18:50:52" actType="car interaction"/>
-        <stop lane="85511_0" until="19:08:23" actType="other_1200.0"/>
-        <stop lane="85511_0" until="19:09:54" actType="car interaction"/>
+        <stop edge="85511" until="18:50:52" actType="car interaction"/>
+        <stop edge="85511" until="19:08:23" actType="other_1200.0"/>
+        <stop edge="85511" until="19:09:54" actType="car interaction"/>
         <ride lines="100008001_10" to="68700"/>
-        <stop lane="68700_0" until="19:26:21" actType="car interaction"/>
-        <stop lane="68700_0" until="20:34:06" actType="other_4200.0"/>
-        <stop lane="68700_0" until="20:35:51" actType="car interaction"/>
+        <stop edge="68700" until="19:26:21" actType="car interaction"/>
+        <stop edge="68700" until="20:34:06" actType="other_4200.0"/>
+        <stop edge="68700" until="20:35:51" actType="car interaction"/>
         <ride lines="100008001_13" to="57849"/>
-        <stop lane="57849_0" until="21:15:06" actType="car interaction"/>
-        <stop lane="57849_0" until="24:0:0" actType="home_50400.0"/>
+        <stop edge="57849" until="21:15:06" actType="car interaction"/>
+        <stop edge="57849" until="24:0:0" actType="home_50400.0"/>
     </person>
     <vehicle id="100008501_1" depart="triggered" type="car">
         <route edges="142111 117738 19790 12926 12936 62433 155519 58634 104746 24400 63643 154755 105758 58875 54580 64388 53405 3979 66958 149400 54564 43470 72339 137705 137682 70761 94692 94694 95017 149805 151542 151552 12554 43336 115900 12430 84816 84828 98147 76362 53044 94117 44605 94282 44655 55801 44622 142213 103858 47330 47332 44634 49596 44728 5127 44480 5130 141607 141606"/>
@@ -285,35 +286,35 @@
     <person id="100008501" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="142111_0" until="06:56:00" actType="home_43800.0"/>
-        <stop lane="142111_0" until="07:00:31" actType="car interaction"/>
+        <stop edge="142111" until="06:56:00" actType="home_43800.0"/>
+        <stop edge="142111" until="07:00:31" actType="car interaction"/>
         <ride lines="100008501_1" to="141606"/>
-        <stop lane="141606_0" until="07:25:23" actType="car interaction"/>
-        <stop lane="141606_0" until="10:09:00" actType="work_7200.0"/>
-        <stop lane="141606_0" until="10:11:09" actType="car interaction"/>
+        <stop edge="141606" until="07:25:23" actType="car interaction"/>
+        <stop edge="141606" until="10:09:00" actType="work_7200.0"/>
+        <stop edge="141606" until="10:11:09" actType="car interaction"/>
         <ride lines="100008501_4" to="103892"/>
-        <stop lane="103892_0" until="10:24:50" actType="car interaction"/>
-        <stop lane="103892_0" until="10:59:18" actType="leisure_1800.0"/>
-        <stop lane="103892_0" until="11:00:46" actType="car interaction"/>
+        <stop edge="103892" until="10:24:50" actType="car interaction"/>
+        <stop edge="103892" until="10:59:18" actType="leisure_1800.0"/>
+        <stop edge="103892" until="11:00:46" actType="car interaction"/>
         <ride lines="100008501_7" to="86283"/>
-        <stop lane="86283_0" until="11:27:25" actType="car interaction"/>
-        <stop lane="86283_0" until="12:38:14" actType="leisure_4200.0"/>
-        <stop lane="86283_0" until="12:41:03" actType="car interaction"/>
+        <stop edge="86283" until="11:27:25" actType="car interaction"/>
+        <stop edge="86283" until="12:38:14" actType="leisure_4200.0"/>
+        <stop edge="86283" until="12:41:03" actType="car interaction"/>
         <ride lines="100008501_10" to="140861"/>
-        <stop lane="140861_0" until="13:10:23" actType="car interaction"/>
-        <stop lane="140861_0" until="18:24:00" actType="work_20400.0"/>
-        <stop lane="140861_0" until="18:25:25" actType="car interaction"/>
+        <stop edge="140861" until="13:10:23" actType="car interaction"/>
+        <stop edge="140861" until="18:24:00" actType="work_20400.0"/>
+        <stop edge="140861" until="18:25:25" actType="car interaction"/>
         <ride lines="100008501_13" to="118793"/>
-        <stop lane="118793_0" until="18:50:55" actType="car interaction"/>
-        <stop lane="118793_0" until="19:21:12" actType="leisure_1800.0"/>
-        <stop lane="118793_0" until="19:21:29" actType="car interaction"/>
+        <stop edge="118793" until="18:50:55" actType="car interaction"/>
+        <stop edge="118793" until="19:21:12" actType="leisure_1800.0"/>
+        <stop edge="118793" until="19:21:29" actType="car interaction"/>
         <ride lines="100008501_16" to="68036"/>
-        <stop lane="68036_0" until="20:10:58" actType="car interaction"/>
-        <stop lane="68036_0" until="20:21:12" actType="shopping_600.0"/>
-        <stop lane="68036_0" until="20:21:26" actType="car interaction"/>
+        <stop edge="68036" until="20:10:58" actType="car interaction"/>
+        <stop edge="68036" until="20:21:12" actType="shopping_600.0"/>
+        <stop edge="68036" until="20:21:26" actType="car interaction"/>
         <ride lines="100008501_19" to="142111"/>
-        <stop lane="142111_0" until="21:30:06" actType="car interaction"/>
-        <stop lane="142111_0" until="24:0:0" actType="home_43800.0"/>
+        <stop edge="142111" until="21:30:06" actType="car interaction"/>
+        <stop edge="142111" until="24:0:0" actType="home_43800.0"/>
     </person>
     <vehicle id="100008701_1" depart="triggered" type="car">
         <route edges="49642 69392 93726 93716 120662 41353 41350 41620 88169 88171 69407 4137 21193 105772 4141 135481 121594 28867 28835 146684 4183 4169 125062 146536 112479 82408 82099 27047 4893 82089 109812 63563 16992 16988 36051 63556 63554 16950 157147 10554 128391 82071 157144 140040 140031 14622 69219 79465 98630 21102 63918 63920 21098 113297 63934 63940 132624 86357 86707 137429 63929 63923 86360 25214 68214 128383 68212 12947 68620 21043 103268 103267"/>
@@ -327,20 +328,20 @@
     <person id="100008701" depart="0:0:0">
         <param key="home-activity-zone" value="brandenburg"/>
         <param key="subpopulation" value="person"/>
-        <stop lane="49642_0" until="10:09:18" actType="home_48000.0"/>
-        <stop lane="49642_0" until="10:14:14" actType="car interaction"/>
+        <stop edge="49642" until="10:09:18" actType="home_48000.0"/>
+        <stop edge="49642" until="10:14:14" actType="car interaction"/>
         <ride lines="100008701_1" to="103267"/>
-        <stop lane="103267_0" until="11:07:35" actType="car interaction"/>
-        <stop lane="103267_0" until="19:01:33" actType="work_35400.0"/>
-        <stop lane="103267_0" until="19:02:57" actType="car interaction"/>
+        <stop edge="103267" until="11:07:35" actType="car interaction"/>
+        <stop edge="103267" until="19:01:33" actType="work_35400.0"/>
+        <stop edge="103267" until="19:02:57" actType="car interaction"/>
         <ride lines="100008701_4" to="12958"/>
-        <stop lane="12958_0" until="19:45:04" actType="car interaction"/>
-        <stop lane="12958_0" until="21:10:57" actType="leisure_5400.0"/>
+        <stop edge="12958" until="19:45:04" actType="car interaction"/>
+        <stop edge="12958" until="21:10:57" actType="leisure_5400.0"/>
         <walk to="12958"/>
-        <stop lane="12958_0" until="21:33:58" actType="shopping_600.0"/>
-        <stop lane="12958_0" until="21:49:40" actType="car interaction"/>
+        <stop edge="12958" until="21:33:58" actType="shopping_600.0"/>
+        <stop edge="12958" until="21:49:40" actType="car interaction"/>
         <ride lines="100008701_8" to="49642"/>
-        <stop lane="49642_0" until="22:10:25" actType="car interaction"/>
-        <stop lane="49642_0" until="24:0:0" actType="home_48000.0"/>
+        <stop edge="49642" until="22:10:25" actType="car interaction"/>
+        <stop edge="49642" until="24:0:0" actType="home_48000.0"/>
     </person>
 </routes>

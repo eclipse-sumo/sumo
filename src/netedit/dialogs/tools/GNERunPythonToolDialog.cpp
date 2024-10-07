@@ -26,7 +26,7 @@
 
 #include "GNERunPythonToolDialog.h"
 
-#define MARGING 4
+#define MARGIN 4
 
 // ===========================================================================
 // FOX callback mapping

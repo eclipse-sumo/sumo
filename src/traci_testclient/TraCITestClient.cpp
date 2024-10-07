@@ -594,7 +594,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double x = inMsg.readDouble();
         double y = inMsg.readDouble();
         double z = inMsg.readDouble();
-        answerLog << " Position3DValue: " << std::endl;
+        answerLog << " Position3DValue:";
         answerLog << " x: " << x << " y: " << y
                   << " z: " << z << std::endl;
     } else if (valueDataType == libsumo::POSITION_ROADMAP) {
@@ -606,10 +606,10 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
                   << " laneId=" << laneId << std::endl;
     } else if (valueDataType == libsumo::TYPE_STRING) {
         std::string s = inMsg.readString();
-        answerLog << " string value: " << s << std::endl;
+        answerLog << " string value: " << (s.empty() ? "''" : s) << std::endl;
     } else if (valueDataType == libsumo::TYPE_STRINGLIST) {
         std::vector<std::string> s = inMsg.readStringList();
-        answerLog << " string list value: [ " << std::endl;
+        answerLog << " string list value: [ ";
         for (std::vector<std::string>::iterator i = s.begin(); i != s.end(); ++i) {
             if (i != s.begin()) {
                 answerLog << ", ";
@@ -619,7 +619,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " ]" << std::endl;
     } else if (valueDataType == libsumo::TYPE_COMPOUND) {
         int no = inMsg.readInt();
-        answerLog << " compound value with " << no << " members: [ " << std::endl;
+        answerLog << " compound value with " << no << " members: [";
         for (int i = 0; i < no; ++i) {
             int currentValueDataType = inMsg.readUnsignedByte();
             answerLog << " valueDataType=" << currentValueDataType;
@@ -1001,6 +1001,7 @@ TraCITestClient::testAPI() {
     walkEdges.push_back("e_m5");
     person.appendWalkingStage("p1", walkEdges, -20);
     simulationStep();
+    answerLog << "    getEdges before rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
     person.rerouteTraveltime("p1");
     answerLog << "    getEdges after rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
 

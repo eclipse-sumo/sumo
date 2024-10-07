@@ -351,7 +351,7 @@ Listing 1.7 and the traffic simulation can then be carried out with the
 use of the following command:
 
 ```
-sumo –c quickstart.sumocfg
+sumo –c quickstart.sumocfg
 ```
 
 ### sumo-gui

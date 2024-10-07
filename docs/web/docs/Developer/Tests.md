@@ -26,7 +26,7 @@ We use [TextTest](https://texttest.org/) 4.x as our testing environment which
 is Python based and currently available for Python 3. To install
 it on Linux / MacOS, you can open a terminal and type:
 
-`pip3 install texttest`
+`pip3 install texttest`
 
 For a "naked" python installation, the following may be needed to allow TextTest to work:
 
@@ -57,9 +57,9 @@ Common options added to the personal config file
 to collapse the static test suites on program start. E.g.:
 
 ```
-   diff_program:meld
-   view_program:geany
-   static_collapse_suites:1
+   diff_program:meld
+   view_program:geany
+   static_collapse_suites:1
 ```
 
 ## Recommended python packages
@@ -67,11 +67,11 @@ to collapse the static test suites on program start. E.g.:
 There are several packages being used by the tools under test. So if you want to run
 the "tools" and/or "complex" tests please do
 
-`pip3 install -r {{SUMO}}/tools/requirements.txt`
+`pip3 install -r $SUMO_HOME/tools/requirements.txt -r $SUMO_HOME/tools/req_dev.txt`
 
 # Running the Tests
 
-Within the  `{{SUMO}}/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
+Within the  `$SUMO_HOME/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
 [TextTest](https://texttest.org/) with our test suites. `runAllTests.bat` (Windows) or `runTests.sh` (Linux, macOS)
 starts TextTest for testing all applications located in the folder,
 `runNetconvertTests.bat` (Windows) will only show tests for netconvert,
@@ -93,15 +93,15 @@ To add a test suite for a new application, you have to perform the
 following steps. For the examples below we'll use "polyconvert" as the
 example application.
 
-- go to {{SUMO}}*/tests*
+- go to `$SUMO_HOME/tests`
 - copy one of the **run...Tests.bat**-files and rename it properly
   (**runPolyconvertTests.bat** in our case); change the name of the
   application within it. In our case the resulting file will look as
   this:
 
 ```
-call %~dp0\testEnv.bat %1
-start %TEXTTESTPY% -a polyconvert
+call %~dp0\testEnv.bat %1
+start %TEXTTESTPY% -a polyconvert
 ```
 
 - add the application to the list of applications that are tested each
@@ -110,13 +110,13 @@ night by
     was added:
 
 ```
-export POLYCONVERT_BINARY="$SUMO_BINDIR/polyconvert"
+export POLYCONVERT_BINARY="$SUMO_BINDIR/polyconvert"
 ```
 
 - adding it to **testEnv.bat**; in our case, the following line was added:
 
 ```
-set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
+set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
 ```
 
 - build a test folder for the application, named as the application
@@ -144,7 +144,7 @@ copy_test_path:input_net.net.xml
 config:config.cfg
 log:log.txt
 [run_dependent_text]
-output:polyconvert.exe{REPLACE polyconvert}
+output:polyconvert.exe{REPLACE polyconvert}
 net:Version
 ```
 

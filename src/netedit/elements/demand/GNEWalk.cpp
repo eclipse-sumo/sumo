@@ -33,58 +33,24 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk*
-GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
-                   GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                   GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-                   std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition) {
-    // declare icon an tag
-    const auto iconTag = getWalkTagIcon(edgeList, route, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
-                                        fromBusStop, toBusStop, fromTrainStop, toTrainStop);
-    // declare containers
-    std::vector<GNEDemandElement*> demandElements = {personParent};
-    std::vector<GNEJunction*> junctions;
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (edgeList.size() > 0) {
-        edges = edgeList;
-    } else if (route) {
-        demandElements.push_back(route);
-    } else {
-        if (fromEdge) {
-            edges.push_back(fromEdge);
-        } else if (fromTAZ) {
-            additionals.push_back(fromTAZ);
-        } else if (fromJunction) {
-            junctions.push_back(fromJunction);
-        } else if (fromBusStop) {
-            additionals.push_back(fromBusStop);
-        } else if (fromTrainStop) {
-            additionals.push_back(fromTrainStop);
-        }
-        if (toEdge) {
-            edges.push_back(toEdge);
-        } else if (toTAZ) {
-            additionals.push_back(toTAZ);
-        } else if (toJunction) {
-            junctions.push_back(toJunction);
-        } else if (toBusStop) {
-            additionals.push_back(toBusStop);
-        } else if (toTrainStop) {
-            additionals.push_back(toTrainStop);
-        }
-    }
-    return new GNEWalk(net, iconTag.first, iconTag.second, demandElements, junctions, edges, additionals, arrivalPosition);
-}
-
-
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+                 const double arrivalPosition, const double speed, const SUMOTime duration) :
+    GNEDemandElement(personParent, net, GLO_WALK, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
+GNEDemandElementPlan(this, -1, arrivalPosition),
+mySpeed(speed),
+myDuration(duration) {
 }
 
 
@@ -105,11 +71,19 @@ GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    // first write origin stop (if this element starts in a stoppingPlace)
+    writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_WALK);
-    // write plan attributes
-    writePlanAttributes(device);
-    // close tag
+    writeLocationAttributes(device);
+    // speed
+    if ((mySpeed > 0) && (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED))) {
+        device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
+    // duration
+    if (toString(myDuration) != myTagProperty.getDefaultValue(SUMO_ATTR_DURATION)) {
+        device.writeAttr(SUMO_ATTR_DURATION, time2string(myDuration));
+    }
     device.closeTag();
 }
 
@@ -220,13 +194,33 @@ GNEWalk::getLastPathLane() const {
 
 std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
-    return getPlanAttribute(key);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            if (mySpeed == 0) {
+                return "";
+            } else {
+                return toString(mySpeed);
+            }
+        case SUMO_ATTR_DURATION:
+            if (myDuration == 0) {
+                return "";
+            } else {
+                return time2string(myDuration);
+            }
+        default:
+            return getPlanAttribute(key);
+    }
 }
 
 
 double
 GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return mySpeed;
+        default:
+            return getPlanAttributeDouble(key);
+    }
 }
 
 
@@ -238,13 +232,28 @@ GNEWalk::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    setPlanAttribute(key, value, undoList);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_DURATION:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            setPlanAttribute(key, value, undoList);
+            break;
+    }
 }
 
 
 bool
 GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
-    return isPlanValid(key, value);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_DURATION:
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
+        default:
+            return isPlanValid(key, value);
+    }
 }
 
 
@@ -277,7 +286,25 @@ GNEWalk::getACParametersMap() const {
 
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setPlanAttribute(key, value);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            if (value.empty()) {
+                mySpeed = 0;
+            } else {
+                mySpeed = GNEAttributeCarrier::parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_DURATION:
+            if (value.empty()) {
+                mySpeed = 0;
+            } else {
+                myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
+            }
+            break;
+        default:
+            setPlanAttribute(key, value);
+            break;
+    }
 }
 
 
@@ -296,14 +323,6 @@ GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*>& parents, const std::vector<GNEJunction*>& junctions,
-                 const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition) :
-    GNEDemandElement(parents.front(), net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, parents, {}),
-GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 /****************************************************************************/

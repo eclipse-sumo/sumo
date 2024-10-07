@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 29 10:23:58 2019 by Eclipse SUMO duarouter Version v1_3_1+1197-f313815
+<!-- generated on 2024-03-15 15:42:58 by Eclipse SUMO duarouter Version v1_19_0+1326-34858f54bfc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -15,9 +20,8 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
-        <alternatives-output value="routes.rou.alt.xml"/>
+        <write-license value="true"/>
     </output>
 
     <report>
@@ -30,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00">
-        <stop busStop="stopA_S" duration="0.10"/>
+        <stop busStop="stopA_S" duration="0.10"/> <!-- A  -->
         <walk edges="accessA" busStop="stopA_W"/> <!-- A -->
     </person>
     <person id="p1" depart="100.00" departPos="100.00">

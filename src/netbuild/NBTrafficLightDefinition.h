@@ -349,6 +349,8 @@ public:
      * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
     virtual void initNeedsContRelation() const;
 
+    virtual void initRightOnRedConflicts() const;
+
     ///@brief Returns the maximum index controlled by this traffic light and assigned to a connection
     virtual int getMaxIndex() = 0;
 
@@ -374,6 +376,10 @@ public:
 
     /// @brief perform optional final checks
     virtual void finalChecks() const {}
+
+    /// @brief processing parameter for rail signal edges and nodes
+    static const std::string OSM_DIRECTION;
+    static const std::string OSM_SIGNAL_DIRECTION;
 
 protected:
     /// @brief id for temporary definitions
@@ -470,5 +476,6 @@ protected:
 private:
     static std::set<NBEdge*> collectReachable(EdgeVector outer, const EdgeVector& within, bool checkControlled);
 
+    static bool railSignalUncontrolled(const NBEdge* in, const NBEdge* out);
 
 };

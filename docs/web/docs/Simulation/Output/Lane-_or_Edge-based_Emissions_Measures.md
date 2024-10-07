@@ -61,7 +61,7 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 ### Value Descriptions
 
 !!! caution
-    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+    Please note that the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
 	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 | Name                | Type                 | Description                     |

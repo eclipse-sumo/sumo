@@ -1,5 +1,12 @@
 Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 18
-Warning: Vehicle 'veh.42' collision with person 'pEW.18', lane='WC_0', gap=-1.31, time=375.00, stage=laneChange.
-Warning: Vehicle 'veh.55' collision with person 'pWE.51', lane=':C_9_0', gap=-9.52, time=587.00, stage=laneChange.
-Warning: Vehicle 'veh.59' collision with person 'pWE.51', lane='CEa_0', gap=-1.27, time=618.00, stage=move.
-Warning: Vehicle 'veh.75' collision with person 'pEW.71', lane='WC.48_0', gap=-1.88, time=749.00, stage=laneChange.
+Warning: Vehicle 'veh.24' collision with person 'pWE.18', lane='WC.48_0', gap=-4.47, time=256.00, stage=laneChange.
+Warning: Vehicle 'veh.31' collision with person 'pWE.29', lane='WC_0', gap=-9.91, time=294.00, stage=laneChange.
+Warning: Vehicle 'veh.25' collision with person 'pWE.23', lane=':C_9_0', gap=-10.06, time=317.00, stage=laneChange.
+Warning: Vehicle 'veh.32' collision with person 'pEW.18', lane='WC.48_0', gap=-8.31, time=352.00, stage=laneChange.
+Warning: Vehicle 'veh.48' collision with person 'pEW.41', lane='WC.48_0', gap=-2.64, time=461.00, stage=laneChange.
+Warning: Vehicle 'veh.71' collision with person 'pWE.69', lane='WC.48_0', gap=-7.95, time=725.00, stage=laneChange.
+Warning: Vehicle 'veh.72' collision with person 'pWE.69', lane='WC.48_0', gap=-9.36, time=734.00, stage=laneChange.
+Warning: Vehicle 'veh.76' collision with person 'pEW.71', lane='WC_0', gap=-8.48, time=754.00, stage=laneChange.
+Warning: Vehicle 'veh.90' collision with person 'pWE.87', lane='WC.48_0', gap=-0.84, time=914.00, stage=laneChange.
+Warning: Vehicle 'veh.91' collision with person 'pEW.95', lane='WC.48_0', gap=-9.24, time=927.00, stage=laneChange.
+Warning: Vehicle 'veh.93' collision with person 'pEW.95', lane='WC_0', gap=-1.16, time=933.00, stage=laneChange.

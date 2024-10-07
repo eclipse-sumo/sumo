@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 16:54:08 by Eclipse SUMO netconvert Version v1_13_0+1503-9394720
+<!-- generated on 2024-02-29 13:56:03 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="43.24,165.42" convBoundary="0.00,0.00,176.31,213.15" origBoundary="-43.24,-165.42,133.08,47.73" projParameter="!"/>
 
@@ -87,12 +87,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="2" from="0" to="2-end" name="Arm 1" priority="-1" type="1" spreadType="center" shape="85.30,92.55 76.61,87.46 0.00,31.36">
         <lane id="2_0" index="0" speed="13.89" length="105.02" width="3.00" shape="85.30,92.55 76.61,87.46 0.00,31.36"/>
     </edge>
-    <edge id="3" from="3-begin" to="0" name="Arm 2" priority="-1" type="1" spreadType="center" shape="169.74,213.15 124.16,129.64 121.46,124.69 115.41,117.42">
+    <edge id="3" from="3-begin" to="0" name="Arm 2" priority="-1" type="1" spreadType="center" shape="169.74,213.15 124.16,129.64 121.46,124.69 115.40,117.42">
         <lane id="3_0" index="0" speed="13.89" length="113.25" width="3.00" shape="167.11,214.59 121.53,131.07 118.97,126.38 111.14,117.00"/>
         <lane id="3_1" index="1" speed="13.89" length="113.25" width="3.00" shape="169.74,213.15 124.16,129.64 121.46,124.69 113.47,115.11"/>
         <lane id="3_2" index="2" speed="13.89" length="113.25" width="3.00" shape="172.38,211.71 126.80,128.20 123.95,122.99 115.80,113.22"/>
     </edge>
-    <edge id="4" from="0" to="4-end" name="Arm 2" priority="-1" type="1" spreadType="center" shape="119.09,110.56 125.98,119.07 176.31,209.54">
+    <edge id="4" from="0" to="4-end" name="Arm 2" priority="-1" type="1" spreadType="center" shape="119.08,110.56 125.98,119.07 176.31,209.54">
         <lane id="4_0" index="0" speed="13.89" length="114.48" width="3.00" shape="120.25,109.62 127.23,118.23 177.62,208.81"/>
         <lane id="4_1" index="1" speed="13.89" length="114.48" width="3.00" shape="117.92,111.50 124.74,119.91 175.00,210.27"/>
     </edge>
@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="5_1" index="1" speed="13.89" length="104.80" width="3.00" shape="175.74,4.67 122.24,70.97 111.79,87.56"/>
         <lane id="5_2" index="2" speed="13.89" length="104.80" width="3.00" shape="173.40,2.79 119.79,69.23 109.25,85.97"/>
     </edge>
-    <edge id="6" from="0" to="6-end" name="Arm 3" priority="-1" type="1" spreadType="center" shape="105.78,83.78 111.24,75.11 112.76,73.15 169.87,0.00">
+    <edge id="6" from="0" to="6-end" name="Arm 3" priority="-1" type="1" spreadType="center" shape="105.78,83.78 111.23,75.11 112.76,73.15 169.87,0.00">
         <lane id="6_0" index="0" speed="13.89" length="105.53" width="3.00" shape="104.51,82.98 110.01,74.25 111.58,72.23 168.69,-0.92"/>
         <lane id="6_1" index="1" speed="13.89" length="105.53" width="3.00" shape="107.05,84.58 112.46,75.97 113.95,74.07 171.05,0.92"/>
     </edge>

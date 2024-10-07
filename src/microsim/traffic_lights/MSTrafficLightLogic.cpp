@@ -98,6 +98,7 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
     }
 }
 
+
 SUMOTime
 MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
     if (myTLLogic->getDefaultCycleTime() == DELTA_T) {
@@ -200,9 +201,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
-                if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
-                }
+                WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
                 break;
             }
         }
@@ -512,6 +511,12 @@ MSTrafficLightLogic::isSelected() const {
 void
 MSTrafficLightLogic::activateProgram() {
     myAmActive = true;
+    // updated the traffic light logic stored in the link
+    for (const LinkVector& currGroup : myLinks) {
+        for (MSLink* link: currGroup) {
+            link->setTLLogic(this);
+        }
+    }
 }
 
 

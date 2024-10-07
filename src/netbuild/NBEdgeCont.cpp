@@ -78,7 +78,7 @@ void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.getFloat("keep-edges.min-speed");
-    myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
+    myRemoveEdgesAfterLoading = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {
         NBHelpers::loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep);
@@ -201,22 +201,32 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
 
 bool
 NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
-    // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
-    if (edge->getSpeed() < myEdgesMinSpeed) {
-        return true;
-    }
-    // check whether the edge is a named edge to keep
-    if (!myRemoveEdgesAfterJoining && myEdges2Keep.size() != 0) {
-        if (myEdges2Keep.count(edge->getID()) == 0) {
-            // explicit whitelisting may be combined additively with other filters
-            if (myVehicleClasses2Keep == 0 && myVehicleClasses2Remove == 0
-                    && myTypes2Keep.size() == 0 && myTypes2Remove.size() == 0
-                    && myPruningBoundary.size() == 0) {
-                return true;
+    if (!myRemoveEdgesAfterLoading) {
+        // check whether the edge is a named edge to keep
+        if (myEdges2Keep.size() != 0) {
+            if (myEdges2Keep.count(edge->getID()) == 0) {
+                // explicit whitelisting may be combined additively with other filters
+                if (myVehicleClasses2Keep == 0 && myVehicleClasses2Remove == 0
+                        && myTypes2Keep.size() == 0 && myTypes2Remove.size() == 0
+                        && myPruningBoundary.size() == 0) {
+                    return true;
+                }
+            } else {
+                // explicit whitelisting overrides other filters
+                return false;
             }
-        } else {
-            // explicit whitelisting overrides other filters
-            return false;
+        }
+        // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
+        if (edge->getSpeed() < myEdgesMinSpeed) {
+            return true;
+        }
+        // check whether the edge shall be removed because it does not allow any of the wished classes
+        if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
+            return true;
+        }
+        // check whether the edge shall be removed due to allowing unwished classes only
+        if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
+            return true;
         }
     }
     // check whether the edge is a named edge to remove
@@ -224,14 +234,6 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
         if (myEdges2Remove.count(edge->getID()) != 0) {
             return true;
         }
-    }
-    // check whether the edge shall be removed because it does not allow any of the wished classes
-    if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
-        return true;
-    }
-    // check whether the edge shall be removed due to allowing unwished classes only
-    if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
-        return true;
     }
     // check whether the edge shall be removed because it does not have one of the requested types
     if (myTypes2Keep.size() != 0) {
@@ -320,7 +322,7 @@ NBEdgeCont::retrievePossiblySplit(const std::string& id, bool downstream) const 
     // NOTE: (TODO) for multiply split edges (e.g. 15[0][0]) one could try recursion
     if ((retrieve(id + "[0]") != nullptr) && (retrieve(id + "[1]") != nullptr)) {
         // Edge was split during the netbuilding process
-        if (downstream == true) {
+        if (downstream) {
             return retrieve(id + "[1]");
         } else {
             return retrieve(id + "[0]");
@@ -710,7 +712,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
             throw ProcessError(TL("Could not set connection!"));
         }
     }
-    if (myRemoveEdgesAfterJoining) {
+    if (myRemoveEdgesAfterLoading) {
         if (myEdges2Keep.count(edge->getID()) != 0) {
             myEdges2Keep.insert(one->getID());
             myEdges2Keep.insert(two->getID());
@@ -763,7 +765,7 @@ NBEdgeCont::getAllNames() const {
 
 
 // ----- Adapting the input
-void
+int
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
     EdgeVector toRemove;
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
@@ -777,6 +779,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
     for (EdgeVector::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
         erase(dc, *j);
     }
+    return (int)toRemove.size();
 }
 
 
@@ -816,13 +819,13 @@ NBEdgeCont::reduceGeometries(const double minDist) {
 
 
 void
-NBEdgeCont::checkGeometries(const double maxAngle, const double minRadius, bool fix, bool fixRailways, bool silent) {
+NBEdgeCont::checkGeometries(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool fixRailways, bool silent) {
     if (maxAngle > 0 || minRadius > 0) {
         for (auto& item : myEdges) {
             if (isSidewalk(item.second->getPermissions()) || isForbidden(item.second->getPermissions())) {
                 continue;
             }
-            item.second->checkGeometry(maxAngle, minRadius, fix || (fixRailways && isRailway(item.second->getPermissions())), silent);
+            item.second->checkGeometry(maxAngle, fixAngle, minRadius, fix || (fixRailways && isRailway(item.second->getPermissions())), silent);
         }
     }
 }
@@ -922,6 +925,26 @@ NBEdgeCont::recheckLanes() {
                     edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
                 }
             }
+        }
+        // check for matching bidi lane shapes (at least for the simple case of 1-lane edges)
+        const NBEdge* bidi = edge->getBidiEdge();
+        if (bidi != nullptr && edge->getNumLanes() == 1 && bidi->getNumLanes() == 1 && edge->getID() < bidi->getID()) {
+            edge->getLaneStruct(0).shape = bidi->getLaneStruct(0).shape.reverse();
+        }
+
+        // check for valid offset and speed
+        const double startOffset = edge->isBidiRail() ? edge->getTurnDestination(true)->getEndOffset() : 0;
+        int i = 0;
+        for (const NBEdge::Lane& l : edge->getLanes()) {
+            if (startOffset + l.endOffset > edge->getLength()) {
+                WRITE_WARNINGF(TL("Invalid endOffset % at lane '%' with length % (startOffset %)."),
+                               toString(l.endOffset), edge->getLaneID(i), toString(l.shape.length()), toString(startOffset));
+            } else if (l.speed < 0.) {
+                WRITE_WARNINGF(TL("Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."), toString(l.speed), edge->getLaneID(i));
+            } else if (l.speed == 0.) {
+                WRITE_WARNINGF(TL("Lane '%' has a maximum allowed speed of 0."), edge->getLaneID(i));
+            }
+            i++;
         }
     }
 }
@@ -1411,7 +1434,12 @@ NBEdgeCont::guessRoundabouts() {
                 std::cout << " formFactor=" << formFactor(loopEdges) << "\n";
             }
 #endif
-            if (formFactor(loopEdges) > 0.6) {
+            double loopLength = 0;
+            for (const NBEdge* const le : loopEdges) {
+                loopLength += le->getLoadedLength();
+            }
+            if (formFactor(loopEdges) > 0.6
+                    && loopLength < OptionsCont::getOptions().getFloat("roundabouts.guess.max-length")) {
                 // collected edges are marked in markRoundabouts
                 EdgeSet guessed(loopEdges.begin(), loopEdges.end());
                 if (loadedRoundaboutEdges.count(loopEdges.front()) != 0) {
@@ -1490,8 +1518,32 @@ NBEdgeCont::extractRoundabouts() {
 }
 
 
+void
+NBEdgeCont::cleanupRoundabouts() {
+    // only loaded roundabouts are of concern here since guessing comes later
+    std::set<EdgeSet> validRoundabouts;
+    std::set<NBEdge*> validEdges;
+    for (auto item : myEdges) {
+        validEdges.insert(item.second);
+    }
+    for (EdgeSet roundabout : myRoundabouts) {
+        EdgeSet validRoundabout;
+        for (NBEdge* cand : roundabout) {
+            if (validEdges.count(cand) != 0) {
+                validRoundabout.insert(cand);
+            }
+        }
+        if (validRoundabout.size() > 0) {
+            validRoundabouts.insert(validRoundabout);
+        }
+    }
+    myRoundabouts = validRoundabouts;
+}
+
+
 double
 NBEdgeCont::formFactor(const EdgeVector& loopEdges) {
+    // A circle (which maximizes area per circumference) has a formfactor of 1, non-circular shapes have a smaller value
     PositionVector points;
     for (EdgeVector::const_iterator it = loopEdges.begin(); it != loopEdges.end(); ++it) {
         points.append((*it)->getGeometry());
@@ -2137,5 +2189,87 @@ NBEdgeCont::getUsedTypes() const {
     }
     return result;
 }
+
+
+int
+NBEdgeCont::removeEdgesBySpeed(NBDistrictCont& dc) {
+    EdgeSet toRemove;
+    for (auto item : myEdges) {
+        NBEdge* edge = item.second;
+        // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
+        if (edge->getSpeed() < myEdgesMinSpeed) {
+            toRemove.insert(edge);
+        }
+    }
+    int numRemoved = 0;
+    for (NBEdge* edge : toRemove) {
+        // explicit whitelist overrides removal
+        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
+            extract(dc, edge);
+            numRemoved++;
+        }
+    }
+    return numRemoved;
+}
+
+
+int
+NBEdgeCont::removeEdgesByPermissions(NBDistrictCont& dc) {
+    EdgeSet toRemove;
+    for (auto item : myEdges) {
+        NBEdge* edge = item.second;
+        // check whether the edge shall be removed because it does not allow any of the wished classes
+        if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
+            toRemove.insert(edge);
+        }
+        // check whether the edge shall be removed due to allowing unwished classes only
+        if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
+            toRemove.insert(edge);
+        }
+    }
+    int numRemoved = 0;
+    for (NBEdge* edge : toRemove) {
+        // explicit whitelist overrides removal
+        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
+            extract(dc, edge);
+            numRemoved++;
+        }
+    }
+    return numRemoved;
+}
+
+
+int
+NBEdgeCont::removeLanesByWidth(NBDistrictCont& dc, const double minWidth) {
+    EdgeSet toRemove;
+    for (auto item : myEdges) {
+        NBEdge* const edge = item.second;
+        std::vector<int> indices;
+        int idx = 0;
+        for (const auto& lane : edge->getLanes()) {
+            if (lane.width != NBEdge::UNSPECIFIED_WIDTH && lane.width < minWidth) {
+                indices.push_back(idx);
+            }
+            idx++;
+        }
+        if ((int)indices.size() == edge->getNumLanes()) {
+            toRemove.insert(edge);
+        } else {
+            for (const int i : indices) {
+                edge->deleteLane(i, false, true);
+            }
+        }
+    }
+    int numRemoved = 0;
+    for (NBEdge* edge : toRemove) {
+        // explicit whitelist overrides removal
+        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
+            extract(dc, edge);
+            numRemoved++;
+        }
+    }
+    return numRemoved;
+}
+
 
 /****************************************************************************/

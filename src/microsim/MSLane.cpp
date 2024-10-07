@@ -21,6 +21,7 @@
 /// @author  Christoph Sommer
 /// @author  Mario Krumnow
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    Mon, 05 Mar 2001
 ///
 // Representation of a lane in the micro simulation
@@ -52,6 +53,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <mesosim/MELoop.h>
 #include "MSNet.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -245,7 +247,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
                SVCPermissions permissions,
                SVCPermissions changeLeft, SVCPermissions changeRight,
                int index, bool isRampAccel,
-               const std::string& type) :
+               const std::string& type,
+               const PositionVector& outlineShape) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width),
@@ -262,6 +265,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myCanonicalSuccessorLane(nullptr),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0),
     myBruttoVehicleLengthSumToRemove(0), myNettoVehicleLengthSumToRemove(0),
+    myRecalculateBruttoSum(false),
     myLeaderInfo(width, nullptr, 0.),
     myFollowerInfo(width, nullptr, 0.),
     myLeaderInfoTime(SUMOTime_MIN),
@@ -282,6 +286,9 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
     assert(myRNGs.size() > 0);
     myRNGIndex = numericalID % myRNGs.size();
+    if (outlineShape.size() > 0) {
+        myOutlineShape = new PositionVector(outlineShape);
+    }
 }
 
 
@@ -289,6 +296,7 @@ MSLane::~MSLane() {
     for (MSLink* const l : myLinks) {
         delete l;
     }
+    delete myOutlineShape;
 }
 
 
@@ -691,6 +699,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
             FALLTHROUGH;
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
+        case DepartPosDefinition::SPLIT_FRONT:
         default:
             if (pars.departProcedure == DepartDefinition::SPLIT) {
                 pos = getLength();
@@ -699,7 +708,11 @@ MSLane::insertVehicle(MSVehicle& veh) {
                 for (AnyVehicleIterator it = anyVehiclesBegin(); it != end; ++it) {
                     const MSVehicle* cand = *it;
                     if (cand->isStopped() && cand->getNextStopParameter()->split == veh.getID()) {
-                        pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        if (pars.departPosProcedure == DepartPosDefinition::SPLIT_FRONT) {
+                            pos = cand->getPositionOnLane() + cand->getVehicleType().getMinGap() + veh.getLength();
+                        } else {
+                            pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        }
                         break;
                     }
                 }
@@ -848,10 +861,17 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         const MSStop& nextStop = aVehicle->getNextStop();
         if (nextStop.lane == this) {
             std::stringstream msg;
-            msg << "scheduled stop on lane '" << myID << "' too close";
-            const double distToStop = nextStop.pars.endPos - pos;
-            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE)),
-                             patchSpeed, msg.str(), InsertionCheck::STOP)) {
+            double distToStop, safeSpeed;
+            if (nextStop.pars.speed > 0) {
+                msg << "scheduled waypoint on lane '" << myID << "' too close";
+                distToStop = MAX2(0.0, nextStop.pars.startPos - pos);
+                safeSpeed = cfModel.freeSpeed(aVehicle, speed, distToStop, nextStop.pars.speed, true, MSCFModel::CalcReason::FUTURE);
+            } else {
+                msg << "scheduled stop on lane '" << myID << "' too close";
+                distToStop = nextStop.pars.endPos - pos;
+                safeSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE);
+            }
+            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, safeSpeed), patchSpeed, msg.str(), InsertionCheck::STOP)) {
                 // we may not drive with the given velocity - we cannot stop at the stop
                 return false;
             }
@@ -945,7 +965,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // traffic light never turns 'G'?
                 errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
-            const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
+            const double laneStopOffset = MAX2(getVehicleStopOffset(aVehicle),
+                                               aVehicle->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+            const double remaining = seen - laneStopOffset;
             auto dsp = aVehicle->getParameter().departSpeedProcedure;
             const bool patchSpeedSpecial = patchSpeed || dsp == DepartSpeedDefinition::DESIRED || dsp == DepartSpeedDefinition::LIMIT;
             // patchSpeed depends on the presence of vehicles for these procedures. We never want to abort them here
@@ -978,6 +1000,19 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
 #endif
             break;
+        } else if (nextLane->isInternal()) {
+            double tmp = 0;
+            bool dummyReq = true;
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "checking linkLeader for lane '" << nextLane->getID() << "'\n";
+                gDebugFlag1 = true;
+            }
+#endif
+            aVehicle->checkLinkLeader(*link, nextLane, seen, nullptr, speed, tmp, tmp, dummyReq);
+#ifdef DEBUG_INSERTION
+            gDebugFlag1 = false;
+#endif
         }
         // get the next used lane (including internal)
         nextLane = (*link)->getViaLaneOrLane();
@@ -1329,6 +1364,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                 gap -= (leader->getLength() + leader->getBrakeGap(true));
             }
             if (gap < 0) {
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(veh)) {
+                    std::cout << "    leader=" << leader->getID() << " bPos=" << leader->getBackPositionOnLane(this) << " gap=" << gap << "\n";
+                }
+#endif
                 if ((veh->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
                     return INVALID_SPEED;
                 } else {
@@ -1949,15 +1989,17 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (collider->ignoreCollision() || victim->ignoreCollision()) {
         return;
     }
-    std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
-                                  || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
-                                 ?  "frontal collision"
-                                 : (isInternal() ? "junction collision" : "collision"));
+    const std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
+                                        || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
+                                       ?  "frontal" : (isInternal() ? "junction" : "collision"));
+    const std::string collisionText = collisionType == "frontal" ? TL("frontal collision") :
+                                      (collisionType == "junction" ? TL("junction collision") : TL("collision"));
+
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
         std::swap(collider, victim);
     }
-    std::string prefix = "Vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
+    std::string prefix = TLF("Vehicle '%'; % with vehicle '%", collider->getID(), collisionText, victim->getID());
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
             return;
@@ -2014,12 +2056,12 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
             case COLLISION_ACTION_WARN:
                 break;
             case COLLISION_ACTION_TELEPORT:
-                prefix = "Teleporting vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
+                prefix = TLF("Teleporting vehicle '%'; % with vehicle '%", collider->getID(), collisionText, victim->getID());
                 toRemove.insert(collider);
                 toTeleport.insert(collider);
                 break;
             case COLLISION_ACTION_REMOVE: {
-                prefix = "Removing " + collisionType + " participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                prefix = TLF("Removing % participants: vehicle '%', vehicle '%", collisionText, collider->getID(), victim->getID());
                 bool removeCollider = true;
                 bool removeVictim = true;
                 removeVictim = !(victim->hasInfluencer() && victim->getInfluencer()->isRemoteAffected(timestep));
@@ -2032,12 +2074,12 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                 }
                 if (!removeVictim) {
                     if (!removeCollider) {
-                        prefix = "Keeping remote-controlled " + collisionType + " participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                        prefix = TLF("Keeping remote-controlled % participants: vehicle '%', vehicle '%", collisionText, collider->getID(), victim->getID());
                     } else {
-                        prefix = "Removing " + collisionType + " participant: vehicle '" + collider->getID() + "', keeping remote-controlled vehicle '" + victim->getID();
+                        prefix = TLF("Removing % participant: vehicle '%', keeping remote-controlled vehicle '%", collisionText, collider->getID(), victim->getID());
                     }
                 } else if (!removeCollider) {
-                    prefix = "Keeping remote-controlled " + collisionType + " participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
+                    prefix = TLF("Keeping remote-controlled % participant: vehicle '%', removing vehicle '%", collisionText, collider->getID(), victim->getID());
                 }
                 break;
             }
@@ -2045,19 +2087,11 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                 break;
         }
     }
-    if (collisionType == "frontal collision") {
-        collisionType = "frontal";
-    } else if (collisionType == "junction collision") {
-        collisionType = "junction";
-    }
     const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
     if (newCollision) {
-        WRITE_WARNING(prefix
-                      + "', lane='" + getID()
-                      + "', gap=" + toString(gap)
-                      + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
-                      + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                      + " stage=" + stage + ".");
+        WRITE_WARNINGF(prefix + "', lane='%', gap=%%, time=%, stage=%.",
+                       getID(), toString(gap), (MSGlobals::gSublane ? TL(", latGap=") + toString(latGap) : ""),
+                       time2string(timestep), stage);
         MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->getVehicleControl().registerCollision(myCollisionAction == COLLISION_ACTION_TELEPORT);
@@ -2196,6 +2230,12 @@ MSLane::executeMovements(const SUMOTime t) {
             // vehicle started to park
             MSVehicleTransfer::getInstance()->add(t, veh);
             myParkingVehicles.insert(veh);
+        } else if (veh->brokeDown()) {
+            veh->resumeFromStopping();
+            WRITE_WARNINGF(TL("Removing vehicle '%' after breaking down, lane='%', time=%."),
+                           veh->getID(), veh->getLane()->getID(), time2string(t));
+            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_BREAKDOWN);
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         } else if (veh->isJumping()) {
             // vehicle jumps to next route edge
             MSVehicleTransfer::getInstance()->add(t, veh);
@@ -2207,6 +2247,7 @@ MSLane::executeMovements(const SUMOTime t) {
                            veh->getID(), getID(), time2string(t));
             MSNet::getInstance()->getVehicleControl().registerCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
+
         } else if (veh->collisionStopTime() == 0) {
             veh->resumeFromStopping();
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
@@ -2242,15 +2283,18 @@ MSLane::executeMovements(const SUMOTime t) {
         const SUMOTime tttb = firstNotStopped->getVehicleType().getParameter().getTimeToTeleportBidi(MSGlobals::gTimeToTeleportBidi);
         if (ttt > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || tttb > 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
-            const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt;
+            const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
+                    && firstNotStopped->succEdge(1) != nullptr
+                    && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr);
+
+            const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt && !disconnected;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
                             && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
-                            && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane;
-            const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
-                            && firstNotStopped->succEdge(1) != nullptr
-                            && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
+                            && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane
+                            && !disconnected;
+            const bool r3 = disconnected && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected;
             const bool r4 = !r1 && !r2 && !r3 && tttb > 0
-                            && firstNotStopped->getWaitingTime() > tttb && getBidiLane();
+                            && firstNotStopped->getWaitingTime() > tttb && getBidiLane() && !disconnected;
             if (r1 || r2 || r3 || r4) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
@@ -2292,6 +2336,12 @@ MSLane::executeMovements(const SUMOTime t) {
 
 
 void
+MSLane::markRecalculateBruttoSum() {
+    myRecalculateBruttoSum = true;
+}
+
+
+void
 MSLane::updateLengthSum() {
     myBruttoVehicleLengthSum -= myBruttoVehicleLengthSumToRemove;
     myNettoVehicleLengthSum -= myNettoVehicleLengthSumToRemove;
@@ -2301,6 +2351,12 @@ MSLane::updateLengthSum() {
         // avoid numerical instability
         myBruttoVehicleLengthSum = 0;
         myNettoVehicleLengthSum = 0;
+    } else if (myRecalculateBruttoSum) {
+        myBruttoVehicleLengthSum = 0;
+        for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
+            myBruttoVehicleLengthSum += (*i)->getVehicleType().getLengthWithGap();
+        }
+        myRecalculateBruttoSum = false;
     }
 }
 
@@ -2483,6 +2539,11 @@ MSLane::isCrossing() const {
     return myEdge->isCrossing();
 }
 
+bool
+MSLane::isWalkingArea() const {
+    return myEdge->isWalkingArea();
+}
+
 
 MSVehicle*
 MSLane::getLastFullVehicle() const {
@@ -2625,11 +2686,18 @@ MSLane::getEntryLink() const {
 
 
 void
-MSLane::setMaxSpeed(double val, bool byVSS, bool byTraCI) {
+MSLane::setMaxSpeed(double val, bool byVSS, bool byTraCI, double jamThreshold) {
     myMaxSpeed = val;
     mySpeedByVSS = byVSS;
     mySpeedByTraCI = byTraCI;
     myEdge->recalcCache();
+    if (MSGlobals::gUseMesoSim) {
+        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*myEdge);
+        while (first != nullptr) {
+            first->setSpeed(val, SIMSTEP, jamThreshold, myIndex);
+            first = first->getNextSegment();
+        }
+    }
 }
 
 
@@ -2860,6 +2928,17 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
+        if (nextLane->isLinkEnd(link) && view < veh.getRoute().size() - veh.getRoutePosition()) {
+            const MSEdge* nextEdge = *(veh.getCurrentRouteEdge() + view);
+            if (nextEdge->getNumLanes() == 1) {
+                // lanes are unambiguous on the next route edge, continue beyond bestLaneConts
+                for (link = nextLane->getLinkCont().begin(); link < nextLane->getLinkCont().end(); link++) {
+                    if ((*link)->getLane() == nextEdge->getLanes().front()) {
+                        break;
+                    }
+                }
+            }
+        }
         if (nextLane->isLinkEnd(link)) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
@@ -2898,6 +2977,11 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                 }
                 if (gap < shortestGap) {
                     shortestGap = gap;
+                    if (ll.vehAndGap.second < 0 && !MSGlobals::gComputeLC) {
+                        // can always continue up to the stop line or crossing point
+                        // @todo: figure out whether this should also impact lane changing
+                        ll.vehAndGap.second = MAX2(seen - nextLane->getLength(), ll.distToCrossing);
+                    }
                     result = ll.vehAndGap;
                 }
             }
@@ -4493,6 +4577,12 @@ MSLane::getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const
         }
     }
     return getLength() - lengths;
+}
+
+
+bool
+MSLane::allowsVehicleClass(SUMOVehicleClass vclass, int routingMode) const {
+    return (((routingMode & libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) ? myOriginalPermissions : myPermissions) & vclass) == vclass;
 }
 
 /****************************************************************************/

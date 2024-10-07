@@ -196,7 +196,6 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             if (myLatLonRadioButton->getCheck() == TRUE) {
                 geoPos.swapXY();
             }
-            GeoConvHelper::getFinal().x2cartesian_const(geoPos);
             // add lon/lat
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, geoPos.x());
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, geoPos.y());
@@ -208,6 +207,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
                 Boundary centerPosition;
+                GeoConvHelper::getFinal().x2cartesian_const(geoPos);
                 centerPosition.add(geoPos);
                 centerPosition = centerPosition.grow(10);
                 myShapeFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
@@ -277,7 +277,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             case GNE_TAG_POIGEO:
                 return processClickPOIGeo(clickedPosition, viewObjects);
             case GNE_TAG_POILANE:
-                return processClickPOILanes(clickedPosition, viewObjects);
+                return processClickPOILanes(viewObjects);
             case SUMO_TAG_POLY:
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
@@ -429,7 +429,7 @@ GNEShapeFrame::processClickPolygons(const Position& clickedPosition, bool& updat
 bool
 GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     }
@@ -460,7 +460,7 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
 bool
 GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     }
@@ -492,14 +492,14 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEView
 
 
 bool
-GNEShapeFrame::processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // abort if lane is nullptr
     if (viewObjects.getLaneFront() == nullptr) {
         WRITE_WARNING(TL("POILane can be only placed over lanes"));
         return false;
     }
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     }
@@ -516,7 +516,7 @@ GNEShapeFrame::processClickPOILanes(const Position& clickedPosition, const GNEVi
     // obtain Lane
     myBaseShape->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
     // obtain position over lane
-    myBaseShape->addDoubleAttribute(SUMO_ATTR_POSITION, viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(clickedPosition));
+    myBaseShape->addDoubleAttribute(SUMO_ATTR_POSITION, viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / viewObjects.getLaneFront()->getLengthGeometryFactor());
     // add shape
     addShape();
     // refresh shape attributes

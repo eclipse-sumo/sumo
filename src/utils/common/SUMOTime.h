@@ -31,7 +31,7 @@
 // type definitions
 // ===========================================================================
 typedef long long int SUMOTime;
-#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
+#define SUMOTime_MAX (std::numeric_limits<SUMOTime>::max() - 1000)
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
 #define SUMOTime_MAX_PERIOD (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)
 
@@ -79,3 +79,6 @@ std::string elapsedMs2string(long long int t);
 
 /// @brief check if given SUMOTime is multiple of the step length
 bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT = DELTA_T, SUMOTime begin = 0);
+
+/// @brief check the valid SUMOTime range of double input and throw an error if out of bounds
+void checkTimeBounds(const double time);

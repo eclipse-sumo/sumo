@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 13:18:47 by Eclipse SUMO sumo Version v1_17_0+0835-aca5534
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-09-19 08:15:27 by Eclipse SUMO sumo Version v1_20_0+2048-31af531e001
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,7 +30,7 @@
         <device.taxi.idle-algorithm value="randomCircling"/>
     </taxi_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -96,7 +96,7 @@
             <route replacedOnEdge="D2E2" replacedOnIndex="55" reason="taxi:idling:randomCircling" replacedAtTime="984.00" probability="0" edges="A2B2 B2B1 B1A1 A1A2 A2B2 B2C2 C2C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1D2 D2D1 D1D0 D0C0 C0D0 D0D1 D1E1 E1E0 E0E1 E1D1 D1D0 D0D1 D1D0 D0D1 D1E1 E1E0 E0F0 F0F1 F1F2 F2E2 E2E1 E1E0 E0E1 E1E0 E0D0 D0C0 C0B0 B0B1 B1C1 C1B1 B1B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0B0 B0C0 C0C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2"/>
             <route edges="A2B2 B2B1 B1A1 A1A2 A2B2 B2C2 C2C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1D2 D2D1 D1D0 D0C0 C0D0 D0D1 D1E1 E1E0 E0E1 E1D1 D1D0 D0D1 D1D0 D0D1 D1E1 E1E0 E0F0 F0F1 F1F2 F2E2 E2E1 E1E0 E0E1 E1E0 E0D0 D0C0 C0B0 B0B1 B1C1 C1B1 B1B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0B0 B0C0 C0C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1"/>
         </routeDistribution>
-        <stop lane="A2B2_1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="A2B2_1" index="1" permitted="p0" actType="pickup p0 (0)"/>
         <stop lane="B2C2_1" actType="dropOff p0 (0)"/>
     </vehicle>
 

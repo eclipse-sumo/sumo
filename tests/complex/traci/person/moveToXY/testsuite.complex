@@ -35,6 +35,6 @@ leaveRoute
 # move person to an edge not on it's route via walkingareas that only have incoming or outgoing edges
 leaveRoute_walkingarea
 
-# move person accross a busy road between junctions
+# move person across a busy road between junctions
 leaveRoute_jaywalk
 matchThreshold

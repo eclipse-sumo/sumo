@@ -57,8 +57,8 @@ MSDevice_Friction::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevi
     if (equippedByDefaultAssignmentOptions(oc, "friction", v, false)) {
         // build the device
         MSDevice_Friction* device = new MSDevice_Friction(v, "friction_" + v.getID(),
-                getFloatParam(v, oc, "friction.stdDev", .1, false), // stdDev noise deviation
-                getFloatParam(v, oc, "friction.offset", 0., false)); // static offset
+                v.getFloatParam("device.friction.stdDev"), // stdDev noise deviation
+                v.getFloatParam("device.friction.offset")); // static offset
         into.push_back(device);
     }
 }

@@ -348,7 +348,9 @@ public:
 
     void drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const;
 
-    void drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const;
+    void drawParkingInfo(const GUIVisualizationSettings& s) const;
+
+    void drawChargingInfo(const GUIVisualizationSettings& s) const;
     /// @}
 
     const MSBaseVehicle& getVehicle() {
@@ -381,7 +383,7 @@ protected:
     bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, double scaledLength, bool asImage = false) const;
 
     /// @brief add seats to mySeatPositions and update requiredSeats
-    void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const;
+    void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into, double extraOffset = 0) const;
 
     /// @brief whether to reverse trains in their reversed state
     bool drawReversed(const GUIVisualizationSettings& s) const;

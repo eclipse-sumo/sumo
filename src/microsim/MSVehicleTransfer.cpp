@@ -171,8 +171,11 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 }
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_TELEPORT);
                 i = vehInfos.erase(i);
+            } else if (desc.myJumping) {
+                // try again later
+                ++i;
             } else {
-                // vehicle is visible while show-route is active. Make it's state more obvious
+                // vehicle is visible while show-route is active. Make its state more obvious
                 desc.myVeh->computeAngle();
                 desc.myVeh->setLateralPositionOnLane(-desc.myVeh->getLane()->getWidth() / 2);
                 desc.myVeh->invalidateCachedPosition();

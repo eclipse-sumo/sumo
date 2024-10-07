@@ -1,7 +1,22 @@
-<configuration>
-    <node-files value="cross.nod.xml"/>
-    <edge-files value="cross.edg.xml"/>
-    <connection-files value="cross.con.xml"/>
-    <output value="cross.net.xml"/>
-    <no-turnarounds value="true"/>
-</configuration>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-13 07:10:21 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
+-->
+
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="cross.nod.xml"/>
+        <edge-files value="cross.edg.xml"/>
+        <connection-files value="cross.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="cross.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>

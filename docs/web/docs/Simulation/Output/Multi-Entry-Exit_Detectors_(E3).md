@@ -60,6 +60,7 @@ The complete list of attributes is:
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |
 | expectArrival  | bool        | Whether no warning should be issued when a vehicle arrives within the detector area. *default: false*. |
 | vTypes         | string      | space separated list of vehicle type ids to consider, "" means all; default "".       |
+| nextEdges      | stringList  | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*)  |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 
 ## Generated Output
@@ -93,7 +94,7 @@ in the following table.
 | id                                | id                   | The id of the detector                                                                                                                                                                                        |
 | meanTravelTime                    | s                    | The time vehicles needed to pass the area (the crossing of the vehicle front counts). Averaged over all vehicles which left the detector completely during the interval duration.                             |
 | meanOverlapTravelTime             | s                    | The time vehicles needed to pass the area (any time a part of the vehicle was in the detection range counts). Averaged over all vehicles that have left the detector completely during the interval duration. |
-| meanSpeed                         | m/s                  | The mean speed of vehicles that have passed the area. Averaged over the interval and vehicles.                                                                                                                |
+| meanSpeed                         | m/s                  | The mean speed of vehicles that have passed the area. Averaged over the interval and vehicles (also known as time-mean speed)                                                                                                          |
 | meanHaltsPerVehicle               | \#                   | The number of halts of vehicles that have passed the area. Averaged over all vehicles that have left the detector during the interval duration.                                                               |
 | meanTimeLoss                      | s                    | The average time loss for all vehicles that have passed the area.                                                                                                                                             |
 | vehicleSum                        | \#                   | The number of vehicles that have left the area during the interval.                                                                                                                                           |

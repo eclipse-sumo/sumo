@@ -1,0 +1,3 @@
+Error: Could not build calibrator 'calibrator01' in netedit; routeProbe '%%$%$$$' doesn't exist.
+Error: Attribute 'routeProbe' in definition of calibrator 'calibrator02' is empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.25Jul095344.27555/netedit.gui/elements/additionals/calibrator/load/routeprobe/additionals.add.xml failed.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-10-23 20:43:22 by Eclipse SUMO netgenerate Version v1_18_0+2224-9463baa5d5c
+<!-- generated on 2024-09-12 14:47:37 by Eclipse SUMO netgenerate Version v1_20_0+1963-cf76c26275c
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -192,7 +192,7 @@
         <!-- Writes street signs as POIs to FILE -->
         <street-sign-output value="" type="FILE"/>
 
-        <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
+        <!-- Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
     </output>
@@ -204,13 +204,13 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according to the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according to the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according to the given distribution -->
         <perturb-z value="0" type="STR"/>
 
         <!-- Defines the probability to build a reverse edge -->
@@ -284,6 +284,9 @@
 
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
+
+        <!-- Structures with a circumference above FLOAT threshold are not classified as roundabout -->
+        <roundabouts.guess.max-length value="3500" type="FLOAT"/>
 
         <!-- Default visibility when approaching a roundabout -->
         <roundabouts.visibility-distance value="9" type="FLOAT"/>
@@ -359,6 +362,9 @@
 
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>
+
+        <!-- Whether/where connections should have an internal junction -->
+        <default.connection.cont-pos value="-1" type="FLOAT"/>
 
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
@@ -501,6 +507,9 @@
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
         <keep-edges.in-geo-boundary value="" type="STR[]"/>
 
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
+
     </edge_removal>
 
     <unregulated_nodes>
@@ -593,6 +602,9 @@
 
         <!-- Build junctions with minimal shapes (ignoring edge overlap) -->
         <junctions.minimal-shape value="false" type="BOOL"/>
+
+        <!-- Build junction shapes based on edge endpoints (ignoring edge overlap) -->
+        <junctions.endpoint-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
         <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>
@@ -707,4 +719,4 @@
 
     </random_number>
 
-</configuration>
+</netgenerateConfiguration>

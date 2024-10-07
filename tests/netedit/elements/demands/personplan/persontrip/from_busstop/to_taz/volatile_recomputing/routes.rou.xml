@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-13 11:06:19 by Eclipse SUMO netedit Version v1_20_0+1572-9c1b555e765
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00">
+        <walk from="Edge0" busStop="busStopA"/>
+        <personTrip toTaz="taz_red"/>
+        <personTrip toTaz="taz_green"/>
+    </person>
+</routes>

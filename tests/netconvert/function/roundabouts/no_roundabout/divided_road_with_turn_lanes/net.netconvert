@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:49 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2024-02-29 13:56:09 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -27,13 +32,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392703.18,-5819257.60" convBoundary="0.00,0.00,331.63,290.75" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -69,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="-778474597" from="848552964" to="61057727" priority="-2" spreadType="center">
         <lane id="-778474597_0" index="0" speed="13.89" length="34.80" shape="-1.60,258.46 21.85,244.97"/>
-        <lane id="-778474597_1" index="1" speed="13.89" length="34.80" shape="0.00,261.23 23.44,247.75"/>
+        <lane id="-778474597_1" index="1" speed="13.89" length="34.80" shape="-0.00,261.23 23.44,247.75"/>
         <lane id="-778474597_2" index="2" speed="13.89" length="34.80" shape="1.60,264.00 25.04,250.52"/>
     </edge>
     <edge id="-778474599" from="848552965" to="817135712" priority="-2" spreadType="center">
@@ -227,7 +231,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="850831077" type="dead_end" x="331.63" y="90.40" incLanes="" intLanes="" shape="329.12,86.31 334.14,94.49"/>
-    <junction id="851117110" type="dead_end" x="292.99" y="0.00" incLanes="-782340477_0" intLanes="" shape="292.99,0.00 291.16,-2.62 292.99,0.00"/>
+    <junction id="851117110" type="dead_end" x="292.99" y="0.00" incLanes="-782340477_0" intLanes="" shape="292.99,-0.00 291.16,-2.62 292.99,0.00"/>
 
     <connection from="-53517343" to="-778474594" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="-53517343" to="-778474594" fromLane="0" toLane="2" dir="l" state="m"/>

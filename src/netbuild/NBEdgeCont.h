@@ -319,8 +319,9 @@ public:
     /** @brief Removes unwished edges (not in keep-edges)
      * @param[in, opt. changed] dc The district container needed to remove edges
      * @todo Recheck usage; check whether keep-edges.postload is really useful
+     * @return The number of removed edges
      */
-    void removeUnwishedEdges(NBDistrictCont& dc);
+    int removeUnwishedEdges(NBDistrictCont& dc);
 
     /** @brief Splits edges into multiple if they have a complex geometry
      *
@@ -344,7 +345,7 @@ public:
      * @param[in] fix Whether to prune geometry points to avoid sharp turns at start and end
      * @see NBEdge::checkGeometry
      */
-    void checkGeometries(const double maxAngle, const double minRadius, bool fix, bool fixRailways, bool silent = false);
+    void checkGeometries(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool fixRailways, bool silent = false);
     /// @}
 
     /// @name processing methods
@@ -470,6 +471,9 @@ public:
      * @return The number of found roundabouts
      */
     int extractRoundabouts();
+
+    // brief ensure myRoundabouts only holds valid edges
+    void cleanupRoundabouts();
 
     /** @brief Returns whether the edge with the id was ignored during parsing
      * @return Whether the edge with the id was ignored during parsing
@@ -607,6 +611,11 @@ public:
 
     /// @brief return all edge types in used
     std::set<std::string> getUsedTypes() const;
+
+    /// @brief return number of edges removed
+    int removeEdgesBySpeed(NBDistrictCont& dc);
+    int removeEdgesByPermissions(NBDistrictCont& dc);
+    int removeLanesByWidth(NBDistrictCont& dc, const double minWidth);
 
 private:
     /// @brief compute the form factor for a loop of edges
@@ -748,8 +757,8 @@ private:
     /// @brief The minimum speed an edge may have in order to be kept (default: -1)
     double myEdgesMinSpeed;
 
-    /// @brief Whether edges shall be joined first, then removed
-    bool myRemoveEdgesAfterJoining;
+    /// @brief Whether edges shall be joined and patched first, then removed
+    bool myRemoveEdgesAfterLoading;
 
     /// @brief Set of ids of edges which shall explicitly be kept
     std::set<std::string> myEdges2Keep;

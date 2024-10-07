@@ -170,7 +170,7 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
-        f = sumolib.xml._open(routesIn)
+        f = sumolib.openz(routesIn)
         while True:
             pos = f.tell()
             line = f.readline()

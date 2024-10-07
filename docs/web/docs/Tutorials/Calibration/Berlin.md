@@ -105,7 +105,7 @@ sensors and from the simulation are compared.
 ## References
 
 - \[1\]
-  <https://www.dlr.de/fs/en/desktopdefault.aspx/tabid-1237/5441_read-11863/>
+  <https://www.dlr.de/en/research-and-transfer/research-infrastructure/urban-traffic-research-laboratory-utralab>
   last visited 07 February 2012
 - \[2\] Bundesanstalt für Straßenverkehrswesen (2002): Technische
   Lieferbedingungen für Streckenstationen. Bundesministerium für

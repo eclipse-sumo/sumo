@@ -47,14 +47,17 @@ public:
     Reservation* addReservation(MSTransportable* person,
                                 SUMOTime reservationTime,
                                 SUMOTime pickupTime,
+                                SUMOTime earliestPickupTime,
                                 const MSEdge* from, double fromPos,
+                                const MSStoppingPlace* fromStop,
                                 const MSEdge* to, double toPos,
+                                const MSStoppingPlace* toStop,
                                 std::string group,
                                 const std::string& line,
                                 int maxCapacity,
                                 int maxContainerCapacity) override;
 
-    /// @brief remove person from reservation. If the whole reservation is removed, return it's id
+    /// @brief remove person from reservation. If the whole reservation is removed, return its id
     std::string removeReservation(MSTransportable* person,
                                   const MSEdge* from, double fromPos,
                                   const MSEdge* to, double toPos,

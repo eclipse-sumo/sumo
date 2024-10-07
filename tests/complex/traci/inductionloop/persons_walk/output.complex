@@ -10,7 +10,7 @@ meanSpeed -1.0
 vehIDs ()
 occupancy 0.0
 meanLength -1.0
-timeSinceDet 3.0
+timeSinceDet 3603.0
 vehData []
 position 10.0
 laneID 2fi_0
@@ -26,7 +26,7 @@ step 5
 step=6.0 occ=0.0 num=0 detVehs=() vehData=[]
 step=7.0 occ=0.0 num=0 detVehs=() vehData=[]
 step=8.0 occ=0.0 num=0 detVehs=() vehData=[]
-step=9.0 occ=15.3643084322 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 8.521728591621951, 8.675371675943941, 'DEFAULT_PEDTYPE')]
+step=9.0 occ=15.364308432199003 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 8.521728591621951, 8.675371675943941, 'DEFAULT_PEDTYPE')]
 step=10.0 occ=0.0 num=0 detVehs=() vehData=[]
 step=11.0 occ=0.0 num=0 detVehs=() vehData=[]
 step=12.0 occ=0.0 num=0 detVehs=() vehData=[]

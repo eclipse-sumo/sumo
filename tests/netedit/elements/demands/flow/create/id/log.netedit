@@ -1,0 +1,3 @@
+Error: Attribute 'id' in definition of a flow is empty.
+Error: Invalid flow id ''.
+Error: flow cannot be created

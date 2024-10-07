@@ -1,0 +1,9 @@
+Warning: Invalid pedestrian topology: crossing ':J0_c3' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':J0_c3' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':J0_c1' across [E1] has no target.
+Warning: Invalid pedestrian topology: crossing ':J0_c1' across [E1] has no target.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Unused state in tlLogic 'J0', program '0' at tl-index 1

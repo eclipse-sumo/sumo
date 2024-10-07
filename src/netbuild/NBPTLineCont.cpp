@@ -66,6 +66,15 @@ NBPTLineCont::insert(NBPTLine* ptLine) {
 }
 
 
+NBPTLine*
+NBPTLineCont::retrieve(const std::string& lineID) {
+    if (myPTLines.count(lineID) == 0) {
+        return nullptr;
+    } else {
+        return myPTLines[lineID];
+    }
+}
+
 void
 NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
     for (auto& item : myPTLines) {
@@ -303,8 +312,6 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
     NBNode* last = nullptr;
     std::vector<NBEdge*> prevWayEdges;
     std::vector<NBEdge*> prevWayMinusEdges;
-    prevWayEdges.clear();
-    prevWayMinusEdges.clear();
     std::vector<NBEdge*> currentWayEdges;
     std::vector<NBEdge*> currentWayMinusEdges;
     for (auto it3 = pTLine->getWays().begin(); it3 != pTLine->getWays().end(); it3++) {
@@ -332,7 +339,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
             int i = 0;
             while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false)) {
-                    currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
+                    currentWayMinusEdges.insert(currentWayMinusEdges.end() - foundReverse,
                                                 cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
                     foundReverse++;
                 }
@@ -352,8 +359,10 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
                       << " done=" << toString(edges)
                       << " first=" << Named::getIDSecure(first)
                       << " last=" << Named::getIDSecure(last)
-                      << " +=" << toString(currentWayEdges)
-                      << " -=" << toString(currentWayMinusEdges)
+                      << "\n    +=" << toString(currentWayEdges)
+                      << "\n    -=" << toString(currentWayMinusEdges)
+                      << "\n   p+=" << toString(prevWayEdges)
+                      << "\n   p-=" << toString(prevWayMinusEdges)
                       << "\n";
         }
 #endif
@@ -470,6 +479,8 @@ void
 NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     std::map<std::string, SUMOVehicleClass> types;
     types["bus"] = SVC_BUS;
+    types["minibus"] = SVC_BUS;
+    types["trolleybus"] = SVC_BUS;
     types["tram"] = SVC_TRAM;
     types["train"] = SVC_RAIL;
     types["subway"] = SVC_RAIL_URBAN;

@@ -65,7 +65,7 @@ The generated file look like this:
     Additional attributes of the vehicle are also included if they were set.
 
 !!! note
-    Only finished trips are saved in the vehroute file as default. With the option **-vehroute-output.write-unfinished** unfinished trips can be saved as well. They can be identified in the file when (1) the option --vehroute-output.exit-times is set to true: the started and ended values are -1.; or (2) the option --vehroute-output.route-length is set to true: the routeLength value = -1; If following walks exist, their routeLengths will be still reported.
+    Only finished trips are saved in the vehroute file as default. With the option **--vehroute-output.write-unfinished** unfinished trips can be saved as well. They can be identified in the file when (1) the option **--vehroute-output.exit-times** is set to true: the started and ended values are -1.; or (2) the option **--vehroute-output.route-length** is set to true: the routeLength value = -1; If following walks exist, their routeLengths will be still reported.
 
 Both the previous and the final routes are complete, that means that
 they contain all the edges the vehicle was meant to pass as long as the
@@ -103,7 +103,7 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
 - **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the vehroute output
 - **--vehroute-output.stop-edges**:   Include information about edges between stops
-- **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had it's departSpeed set)
+- **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had its departSpeed set)
 - **--vehroute-output.internal**:   Include internal edges in the output. Note, that such routes are not suitable for being loaded by sumo or duarouter!
 
 ## Visualization example

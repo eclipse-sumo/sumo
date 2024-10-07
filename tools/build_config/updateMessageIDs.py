@@ -137,13 +137,15 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
                 for occurrence, lineNr in entry.occurrences:
                     if occurrence not in fileReplaceCommands:
                         fileReplaceCommands[occurrence] = []
-                    fileReplaceCommands[occurrence].append((entry.msgid, entry.msgstr, int(lineNr)))
+                    # newline conversion between polib and source code
+                    fileReplaceCommands[occurrence].append((entry.msgid.replace(
+                        "\n", "\\n"), entry.msgstr.replace("\n", "\\n"), int(lineNr)))
                     replaceIDs.append(entry)
 
         # apply the changes to the source code
         for sourceFile, replaceCommands in fileReplaceCommands.items():
             lines = []
-            with io.open(sourceFile, "r", encoding="utf-8") as f:
+            with io.open(os.path.join(SUMO_HOME, sourceFile), "r", encoding="utf-8") as f:
                 lines.extend([line for line in f])
             lineCount = len(lines)
             updated = False
@@ -153,7 +155,7 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
                     updated = True
             if updated:
                 print("\tUpdate %s" % sourceFile)
-                with io.open(sourceFile, "w", encoding="utf-8", newline="\n") as f:
+                with io.open(os.path.join(SUMO_HOME, sourceFile), "w", encoding="utf-8", newline="\n") as f:
                     f.writelines(lines)
 
         # change the msgid in other language files accordingly

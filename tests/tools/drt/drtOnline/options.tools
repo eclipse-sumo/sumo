@@ -1,2 +1,2 @@
---sumocfg sim.sumocfg --verbose --end-time 1500
+--sumocfg sim.sumocfg --verbose --end-time 1500 --seed 42
 tools/drt/drtOnline.py

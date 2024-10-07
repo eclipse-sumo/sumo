@@ -31,14 +31,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select all edges that allow passengers
-netedit.selectItems("Network", "edge", "allow", "passenger")
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
+                           netedit.positions.selection.rectangleMediumB)
 
 # save selection
 netedit.saveSelection()
 
 # check undo-redo
-netedit.checkUndoRedo(referencePosition)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

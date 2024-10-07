@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-08 09:55:54 by Eclipse SUMO netedit Version v1_20_0+0031-89c194ad221
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="beg" from="J0" to="J1" priority="-1">
+        <lane id="beg_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 96.00,-1.60"/>
+    </edge>
+    <edge id="detour" from="J1" to="J2" priority="-1" shape="100.00,0.00 100.00,100.00 200.00,100.00 200.00,0.00">
+        <lane id="detour_0" index="0" speed="13.89" length="300.00" shape="101.60,4.00 101.60,98.40 198.40,98.40 198.40,4.00"/>
+    </edge>
+    <edge id="end" from="J2" to="J3" priority="-1">
+        <lane id="end_0" index="0" speed="13.89" length="100.00" shape="204.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="middle" from="J1" to="J2" priority="-1">
+        <lane id="middle_0" index="0" speed="13.89" length="100.00" shape="107.20,-1.60 192.80,-1.60"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="J1" type="priority" x="100.00" y="0.00" incLanes="beg_0" intLanes="" shape="100.00,4.00 103.20,4.00 103.64,1.78 104.20,1.00 104.98,0.44 105.98,0.11 107.20,0.00 107.20,-3.20 96.00,-3.20 96.00,0.00 98.22,0.44 99.00,1.00 99.56,1.78 99.89,2.78">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J2" type="priority" x="200.00" y="0.00" incLanes="detour_0 middle_0" intLanes="" shape="196.80,4.00 200.00,4.00 200.44,1.78 201.00,1.00 201.78,0.44 202.78,0.11 204.00,0.00 204.00,-3.20 192.80,-3.20 192.80,0.00 195.02,0.44 195.80,1.00 196.36,1.78 196.69,2.78">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="J3" type="dead_end" x="300.00" y="0.00" incLanes="end_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="detour" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="detour" to="end" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

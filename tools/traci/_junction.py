@@ -42,3 +42,17 @@ class JunctionDomain(Domain):
         List of 2D positions (cartesian) describing the geometry.
         """
         return self._getUniversal(tc.VAR_SHAPE, junctionID)
+
+    def getIncomingEdges(self, junctionID):
+        """getIncomingEdges(string) -> list(string)
+
+        Returns the ids of the edges that end at this junction
+        """
+        return self._getUniversal(tc.INCOMING_EDGES, junctionID)
+
+    def getOutgoingEdges(self, junctionID):
+        """getOutgoingEdges(string) -> list(string)
+
+        Returns the ids of the edges that start at this junction
+        """
+        return self._getUniversal(tc.OUTGOING_EDGES, junctionID)

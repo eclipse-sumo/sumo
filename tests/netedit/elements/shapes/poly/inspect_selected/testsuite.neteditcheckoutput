@@ -1,0 +1,35 @@
+# all test check also the undo-redo of modifications and save the into a file
+# edit color
+color
+
+# edit fill
+fill
+
+# edit linewidth
+linewidth
+
+# edit layer
+layer
+
+# edit type
+type
+
+name
+
+# edit imgfile
+imgfile
+
+# edit relative path
+relativepath
+
+# edit angle
+angle
+
+# edit use geo
+geo_use
+
+# edit parameters
+parameters
+
+# edit close shape
+closeshape

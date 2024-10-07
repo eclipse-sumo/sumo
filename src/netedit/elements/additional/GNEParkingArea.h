@@ -44,6 +44,7 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] departPos lane position in that vehicle must depart when leaves parkingArea
      * @param[in] name Name of ParkingArea
+     * @param[in] badges names which grant access to the parkingArea
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] roadSideCapacity road side capacity of ParkingArea
      * @param[in] width ParkingArea's length
@@ -53,7 +54,8 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                   const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity,
+                   const std::string& departPos, const std::string& name, const std::vector<std::string>& badges,
+                   const bool friendlyPosition, const int roadSideCapacity,
                    const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
                    const Parameterised::Map& parameters);
 
@@ -159,6 +161,9 @@ protected:
 
     /// @brief lefthand
     bool myLefthand;
+
+    /// @brief The list of badges that allow accessing the parkingArea
+    std::vector<std::string> myAcceptedBadges;
 
     /// @brief vector with GNELotSpaceDefinition
     std::vector<GNELotSpaceDefinition> myLotSpaceDefinitions;

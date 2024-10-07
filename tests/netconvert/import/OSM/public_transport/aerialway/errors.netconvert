@@ -13,3 +13,7 @@ Warning: Converting invalid rail_crossing to priority junction '4351304133'.
 Warning: Converting invalid rail_crossing to priority junction '7282990174'.
 Warning: Edge '-329301843#0' is not connected to outgoing edges at junction '3361686498'.
 Warning: Lane '-329301843#1_0' is not connected from any incoming edge at junction '3361686496'.
+Warning: Could not determine direction for line '7520265' at stop '3361686496'.
+Warning: Could not determine direction for line '7520266' at stop '3361686496'.
+Warning: Could not determine direction for line '7520266' at stop '3361686497'.
+Warning: Could not determine direction for line '7520266' at stop '3361686498'.

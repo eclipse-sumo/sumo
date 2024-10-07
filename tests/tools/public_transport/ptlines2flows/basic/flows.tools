@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-14 11:11:38.651685 by ptlines2flows.py v1_17_0+0279-4ba7adb
+<!-- generated on 2024-04-03 00:58:52.433136 by ptlines2flows.py v1_19_0+1649-d62985f5c41
 <configuration>
     <net-file value="net.net.xml"/>
     <ptlines-file value="ptlines.xml"/>
@@ -14,13 +14,13 @@
     <vType id="bus" vClass="bus"/>
     <vType id="tram" vClass="tram"/>
     <vType id="train" vClass="rail"/>
-    <vType id="subway" vClass="rail_urban"/>
+    <vType id="subway" vClass="subway"/>
     <vType id="light_rail" vClass="rail_urban"/>
     <vType id="monorail" vClass="rail_urban"/>
     <vType id="trolleybus" vClass="bus"/>
     <vType id="minibus" vClass="bus"/>
     <vType id="share_taxi" vClass="taxi"/>
-    <vType id="aerialway" vClass="rail_urban" length="2.5" width="2" personCapacity="4"/>
+    <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
     <vType id="ferry" vClass="ship"/>
     <route id="bus_104:0" color="red" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
         <stop busStop="3959807221" duration="20" until="35.0"/> <!-- Kolonnenbrücke -->

@@ -17,7 +17,7 @@ All files mentioned here can be found in the repository at [{{SUMO}}/tests/compl
 
 # Description
 
-Models for vehicle movement usually have several parameters which control the behaviour of the vehicle. Their default values are usually set based on assumptions or measures or by adapting them to a given data
+Models for vehicle movement usually have several parameters which control the behavior of the vehicle. Their default values are usually set based on assumptions or measures or by adapting them to a given data
 set. When moving to a different scenario, they often have to be re-adapted so as to be valid. Due to this, calibration is a crucial step in preparing a traffic simulation scenario.
 
 This tutorial shows one possibility to calibrate a car-following model
@@ -140,7 +140,7 @@ complicated:
 In order to perform the calibration, you need to call only:
 
 ```
-python runner.py
+python runner.py
 ```
 
 This is what it is doing:
@@ -162,9 +162,9 @@ This is what it is doing:
 For each calibration step, the following output should appear:
 
 ```
-# simulation with: vMax:22.000 aMax:2.000 bMax:2.000 lCar:5.000 sigA:0.500 tTau:1.500
-Loading configuration... done.
-#### yields rmse: 212.6411
+# simulation with: vMax:22.000 aMax:2.000 bMax:2.000 lCar:5.000 sigA:0.500 tTau:1.500
+Loading configuration... done.
+#### yields rmse: 212.6411
 ```
 
 Of course, the values differ between the steps. 80 iterations need about

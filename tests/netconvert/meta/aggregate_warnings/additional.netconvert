@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 22 16:06:05 2018 by Eclipse SUMO netconvert Version 6fb88ac
+<!-- generated on 2024-04-26 08:58:44 by Eclipse SUMO netconvert Version v1_19_0+1942-af64547e310
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -23,21 +28,29 @@ SPDX-License-Identifier: EPL-2.0
         <proj.utm value="true"/>
     </projection>
 
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
     <tls_building>
         <tls.discard-simple value="true"/>
         <tls.guess-signals value="true"/>
     </tls_building>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
-        <geometry.remove value="true"/>
-        <roundabouts.guess value="true"/>
         <junctions.join value="true"/>
-    </processing>
+    </junctions>
+
+    <formats>
+        <ignore-widths value="true"/>
+    </formats>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="2"/>
     </report>
 
 </configuration>
@@ -122,8 +135,8 @@ SPDX-License-Identifier: EPL-2.0
     <parkingArea id="143308532#8" lane="143308532#8_1" startPos="5" endPos="-5" roadsideCapacity="21"/>
     <parkingArea id="143308532#9" lane="143308532#9_1" startPos="5" endPos="-5" roadsideCapacity="1"/>
     <parkingArea id="143308542#0" lane="143308542#0_1" startPos="5" endPos="-5" roadsideCapacity="1"/>
-    <parkingArea id="143308542#1" lane="143308542#1_1" startPos="5" endPos="-5" roadsideCapacity="13"/>
-    <parkingArea id="143308542#3" lane="143308542#3_1" startPos="5" endPos="-5" roadsideCapacity="6"/>
+    <parkingArea id="143308542#1" lane="143308542#1_1" startPos="5" endPos="-5" roadsideCapacity="11"/>
+    <parkingArea id="143308542#3" lane="143308542#3_1" startPos="5" endPos="-5" roadsideCapacity="5"/>
     <parkingArea id="143308542#4" lane="143308542#4_1" startPos="5" endPos="-5" roadsideCapacity="7"/>
     <parkingArea id="143308542#5" lane="143308542#5_1" startPos="5" endPos="-5" roadsideCapacity="28"/>
     <parkingArea id="143308542#6" lane="143308542#6_1" startPos="5" endPos="-5" roadsideCapacity="29"/>
@@ -131,8 +144,8 @@ SPDX-License-Identifier: EPL-2.0
     <parkingArea id="143308546#2" lane="143308546#2_1" startPos="5" endPos="-5" roadsideCapacity="28"/>
     <parkingArea id="143308546#3" lane="143308546#3_1" startPos="5" endPos="-5" roadsideCapacity="2"/>
     <parkingArea id="143308546#4" lane="143308546#4_1" startPos="5" endPos="-5" roadsideCapacity="2"/>
-    <parkingArea id="143308546#6" lane="143308546#6_1" startPos="5" endPos="-5" roadsideCapacity="6"/>
-    <parkingArea id="143308546#8" lane="143308546#8_1" startPos="5" endPos="-5" roadsideCapacity="6"/>
+    <parkingArea id="143308546#6" lane="143308546#6_1" startPos="5" endPos="-5" roadsideCapacity="5"/>
+    <parkingArea id="143308546#8" lane="143308546#8_1" startPos="5" endPos="-5" roadsideCapacity="5"/>
     <parkingArea id="143308546#9" lane="143308546#9_1" startPos="5" endPos="-5" roadsideCapacity="5"/>
     <parkingArea id="143308546#10" lane="143308546#10_1" startPos="5" endPos="-5" roadsideCapacity="1"/>
     <parkingArea id="143308562#0" lane="143308562#0_1" startPos="5" endPos="-5" roadsideCapacity="7"/>

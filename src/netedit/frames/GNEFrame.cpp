@@ -69,7 +69,7 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
     myHeaderLeftFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrame);
     myHeaderLeftFrame->hide();
 
-    // Create titel frame
+    // Create title frame
     myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), nullptr, GUIDesignLabelFrameInformation);
 
     // Create frame for right elements of header (By default unused)
@@ -131,10 +131,10 @@ GNEFrame::hide() {
 
 void
 GNEFrame::setFrameWidth(const int newWidth) {
-    // set scroll windows size (minus MARGING)
-    myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
+    // set scroll windows size (minus MARGIN)
+    myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMargin - DEFAULT_SPACING - 1);
     // calculate new contentWidth
-    int contentWidth = (newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1 - 15);
+    int contentWidth = (newWidth - GUIDesignFrameAreaMargin - DEFAULT_SPACING - 1 - 15);
     // adjust contents frame
     myContentFrame->setWidth(contentWidth);
     // set size of all contents frame children
@@ -234,7 +234,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TL("Opening HelpAttributes dialog for tag '") + AC->getTagProperty().getTagStr() + TL("' showing ") + toString(AC->getTagProperty().getNumberOfAttributes()) + TL(" attributes"));
+    WRITE_DEBUG(TLF("Opening HelpAttributes dialog for tag '%' showing % attributes", AC->getTagProperty().getTagStr(), toString(AC->getTagProperty().getNumberOfAttributes())));
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -250,13 +250,13 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
 
 void
 GNEFrame::updateFrameAfterUndoRedo() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+    // this function has to be reimplemented in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
 }
 
 
 void
 GNEFrame::frameWidthUpdated() {
-    // this function can be reimplemente in all child frames
+    // this function can be reimplemented in all child frames
 }
 
 // ---------------------------------------------------------------------------
@@ -265,44 +265,44 @@ GNEFrame::frameWidthUpdated() {
 
 void
 GNEFrame::tagSelected() {
-    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
+    // this function has to be reimplemented in all child frames that uses a GNETagSelector module
 }
 
 
 void
 GNEFrame::demandElementSelected() {
-    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
+    // this function has to be reimplemented in all child frames that uses a DemandElementSelector
 }
 
 
 bool
 GNEFrame::shapeDrawed() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+    // this function has to be reimplemented in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
     return false;
 }
 
 
 void
 GNEFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-    // this function has to be reimplemente in all child frames that uses a AttributeEditor modul
+    // this function has to be reimplemented in all child frames that uses a AttributeEditor module
 }
 
 
 void
 GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemente in all child frames that uses a GNEAttributesCreator editor with extended attributes
+    // this function has to be reimplemented in all child frames that uses a GNEAttributesCreator editor with extended attributes
 }
 
 
 void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
-    // this function has to be reimplemente in all child frames that uses a GNEOverlappedInspection
+    // this function has to be reimplemented in all child frames that uses a GNEOverlappedInspection
 }
 
 
 bool
 GNEFrame::createPath(const bool /*useLastRoute*/) {
-    // this function has to be reimplemente in all child frames that uses a path or consecutiveLanePath
+    // this function has to be reimplemented in all child frames that uses a path or consecutiveLanePath
     return false;
 }
 

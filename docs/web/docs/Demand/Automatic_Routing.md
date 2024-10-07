@@ -41,13 +41,16 @@ The options related to this routing are:
 | **--device.rerouting.adaptation-steps** {{DT_INT}}    | 180            | The number of adaptation steps for averaging (enable for values > 0).                     |
 | **--device.rerouting.with-taz**                  | false          | Use [traffic assignment zones (TAZ/districts)](../Demand/Importing_O/D_Matrices.md#describing_the_taz) as routing end points                        |
 | **--device.rerouting.init-with-loaded-weights**  | false          | Use option **--weight-files** for initializing the edge weights at simulation start           |
+| **--device.rerouting.mode**  | 0          | configure handling of [temporary obstructions](../Simulation/Routing.md#handling_of_temporary_obstructions)    |
+
+
 
 Please note that if a vehicle gets a routing device only rerouting *before insertion* is active by default.
 In order to activate periodic rerouting en route set **--device.rerouting.period**.
 
 # Edge weights
 
-If the routing is enabled for any vehicles, the average travel times in
+If the routing is enabled for any vehicle, the average travel times in
 the net are collected for all edges. If a vehicle needs to be routed
 (either because it gets inserted or because a repeated route choice was
 enabled via the ".period" option) it chooses the fastest route to its
@@ -66,7 +69,7 @@ interval may be altered using the ".adaptation-interval" option.
 By setting the option **--device.rerouting.adaptation-weight** {{DT_FLOAT}} the travel speed of each edge is computed as
 
 ```
-FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
+FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
 ```
 
 This averaging takes place with the period set by **--device.rerouting.adaptation-interval**.
@@ -86,7 +89,7 @@ To understand the evolution of edge weights during the simulation it can
 be helpful to look at the values in detail:
 
 - used road coloring *by routing device assumed speed* in
-  [sumo-gui](../sumo-gui.md#changing_the_appearance.2Fvisualisation_of_the_simulation)
+  [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
 - use option **--device.rerouting.output** {{DT_FILE}} to get the raw numbers
 - use [TraCI function
   ''vehicle.getParameter("device.rerouting.edge:EDGEID")](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
@@ -119,8 +122,9 @@ The following parameters are supported as child elements of a `<vType>`, `<vehic
 
 - device.rerouting.period
 - device.rerouting.pre-period
-- device.rerouting.proability
+- device.rerouting.probability
 - device.rerouting.deterministic
+- device.rerouting.mode
 - has.rerouting.device
 
 

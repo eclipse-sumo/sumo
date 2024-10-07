@@ -116,7 +116,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
     // load relations to see which additional ways may be relevant
     Relations relations;
     RelationsMap additionalWays;
-    RelationsHandler relationsHandler(additionalWays, relations, withAttributes, *m);
+    std::set<long long int> innerEdges;
+    RelationsHandler relationsHandler(additionalWays, relations, innerEdges, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing relations from osm-file '" + *file + "'");
@@ -148,6 +149,12 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             for (auto it = rel->myWays.begin(); it != rel->myWays.end();) {
                 if (edges.count(*it) == 0 || edges[*it]->myCurrentNodes.empty()) {
                     it = rel->myWays.erase(it);
+                } else if (innerEdges.count(*it) > 0) {
+                    // @note: it would be a good idea to merge inner shapes but
+                    // it's difficult since there may be more than one
+                    // independent inner shape
+                    edges[*it]->standalone = true;
+                    it = rel->myWays.erase(it);
                 } else {
                     numNodes += (int)edges[*it]->myCurrentNodes.size();
                     it++;
@@ -164,71 +171,41 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             e->myIsClosed = false;
             e->standalone = true;
 
-            std::set<long long int> remaining(rel->myWays.begin(), rel->myWays.end());
-            PCOSMEdge* minEdge = edges[rel->myWays.front()];
-            e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
-            Position prev(convertNodePosition(nodes[minEdge->myCurrentNodes.back()]));
-            minEdge->standalone = false;
-            remaining.erase(minEdge->id);
+            std::vector<std::vector<long long int> > snippets;
+            for (const long long int wayID : rel->myWays) {
+                PCOSMEdge* edge = edges[wayID];
+                snippets.push_back(edge->myCurrentNodes);
+            }
+            double maxDist = 0.;
             bool ok = true;
-            while (!remaining.empty()) {
-                // assemble in an order that greedily reduces jump size
-                double minDist = std::numeric_limits<double>::max();
-                bool minFront = false;
-                for (long long int wayID : remaining) {
-                    PCOSMEdge* part = edges[wayID];
-                    Position frontPos(convertNodePosition(nodes.find(part->myCurrentNodes.front())->second));
-                    const double frontDist = prev.distanceTo2D(frontPos);
-                    Position backPos(convertNodePosition(nodes.find(part->myCurrentNodes.back())->second));
-                    const double backDist = prev.distanceTo2D(backPos);
-                    if (frontDist < minDist) {
-                        minDist = frontDist;
-                        minEdge = part;
-                        minFront = true;
-                    }
-                    if (backDist < minDist) {
-                        minDist = backDist;
-                        minEdge = part;
-                        minFront = false;
-                    }
-                }
-                if (minDist > mergeRelationsThreshold) {
-                    double length = 0.;
-                    for (long long int wayID : remaining) {
-                        PCOSMEdge* part = edges[wayID];
-                        Position last(Position::INVALID);
-                        for (long long int nodeID : part->myCurrentNodes) {
-                            Position nodePos(convertNodePosition(nodes[nodeID]));
-                            if (last != Position::INVALID) {
-                                length += last.distanceTo2D(nodePos);
-                            }
-                            last = nodePos;
-                        }
-                        if (part->myIsClosed) {
-                            length += last.distanceTo2D(convertNodePosition(nodes[part->myCurrentNodes.front()]));
-                        }
-                    }
-                    if (length > mergeRelationsThreshold) {
-                        WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m to way '%')\n Total length of remaining ways: %m."),
-                                       rel->id, e->name, minDist, minEdge->id, length);
-                        ok = false;
-                    }
+            while (snippets.size() > 1) {
+                maxDist = MAX2(maxDist, mergeClosest(nodes, snippets));
+                if (maxDist > mergeRelationsThreshold) {
+                    ok = false;
                     break;
                 }
-                if (minFront) {
-                    e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
-                    prev = convertNodePosition(nodes[minEdge->myCurrentNodes.back()]);
-                } else {
-                    e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.rbegin(), minEdge->myCurrentNodes.rend());
-                    prev = convertNodePosition(nodes[minEdge->myCurrentNodes.front()]);
-                }
-                minEdge->standalone = false;
-                remaining.erase(minEdge->id);
             }
             if (ok) {
+                e->myCurrentNodes = snippets.front();
                 edges[e->id] = e;
-                WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)"), toString(rel->id), e->name);
+                double frontBackDist = 0;
+                if (e->myCurrentNodes.front() != e->myCurrentNodes.back()) {
+                    // should be filled
+                    const Position posFront = convertNodePosition(nodes[e->myCurrentNodes.front()]);
+                    const Position posBack = convertNodePosition(nodes[e->myCurrentNodes.back()]);
+                    frontBackDist = posFront.distanceTo2D(posBack);
+                    if (frontBackDist < mergeRelationsThreshold) {
+                        e->myCurrentNodes.push_back(e->myCurrentNodes.front());
+                        frontBackDist = 0;
+                    }
+                }
+                std::string frontBackMsg = "";
+                if (frontBackDist > 0) {
+                    frontBackMsg = TLF(", (front-to-back dist: %)", frontBackDist);
+                }
+                WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)%"), toString(rel->id), e->name, frontBackMsg);
             } else {
+                WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m)."), rel->id, rel->name, maxDist)
                 delete e;
                 // export ways by themselves
                 for (long long int wayID : rel->myWays) {
@@ -239,7 +216,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
         }
     }
 
-    // instatiate polygons
+    // instantiate polygons
     for (EdgeMap::iterator i = edges.begin(); i != edges.end(); ++i) {
         PCOSMEdge* e = (*i).second;
         if (e->myAttributes.size() == 0) {
@@ -251,7 +228,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             continue;
         }
         if (e->myCurrentNodes.size() == 0) {
-            WRITE_ERRORF(TL("Polygon '%' has no shape."), toString(e->id));
+            WRITE_WARNINGF(TL("Polygon '%' has no shape."), toString(e->id));
             continue;
         }
         // compute shape
@@ -268,14 +245,17 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
         // add as many polygons as keys match defined types
         int index = 0;
         std::string unknownPolyType = "";
+        bool isInner = mergeRelationsThreshold >= 0 && innerEdges.count(e->id) != 0 && tm.has("inner");
         for (std::map<std::string, std::string>::iterator it = e->myAttributes.begin(); it != e->myAttributes.end(); ++it) {
             const std::string& key = it->first;
             const std::string& value = it->second;
             const std::string fullType = key + "." + value;
             if (tm.has(key + "." + value)) {
-                index = addPolygon(e, vec, tm.get(fullType), fullType, index, useName, toFill, ignorePruning, withAttributes);
+                auto def = tm.get(isInner ? "inner" : fullType);
+                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes);
             } else if (tm.has(key)) {
-                index = addPolygon(e, vec, tm.get(key), fullType, index, useName, toFill, ignorePruning, withAttributes);
+                auto def = tm.get(isInner ? "inner" : key);
+                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes);
             } else if (MyKeysToInclude.count(key) > 0) {
                 unknownPolyType = fullType;
             }
@@ -350,10 +330,11 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         const bool closedShape = vec.front() == vec.back();
         const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
         const std::string id = def.prefix + (useName && edge->name != "" ? edge->name : toString(edge->id)) + idSuffix;
+        bool fill = def.allowFill == PCTypeMap::Filltype::FORCE || (def.allowFill == PCTypeMap::Filltype::FILL && closedShape);
         SUMOPolygon* poly = new SUMOPolygon(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, vec, false, def.allowFill && closedShape, 1, def.layer);
+            def.color, vec, false, fill, 1, def.layer);
         if (withAttributes) {
             poly->updateParameters(edge->myAttributes);
         }
@@ -460,11 +441,13 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 PCLoaderOSM::RelationsHandler::RelationsHandler(RelationsMap& additionalWays,
         Relations& relations,
+        std::set<long long int>& innerEdges,
         bool withAttributes,
         MsgHandler& errorHandler) :
     SUMOSAXHandler("osm - file"),
     myAdditionalWays(additionalWays),
     myRelations(relations),
+    myInnerEdges(innerEdges),
     myWithAttributes(withAttributes),
     myErrorHandler(errorHandler),
     myCurrentRelation(nullptr) {
@@ -504,6 +487,9 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, nullptr, ok);
             if (memberType == "way") {
                 myCurrentWays.push_back(ref);
+                if (role == "inner") {
+                    myInnerEdges.insert(ref);
+                }
             }
         }
         return;
@@ -636,5 +622,70 @@ PCLoaderOSM::EdgesHandler::myEndElement(int element) {
     }
 }
 
+
+double
+PCLoaderOSM::mergeClosest(const std::map<long long int, PCOSMNode*>& nodes, std::vector<std::vector<long long int> >& snippets) {
+    double best = std::numeric_limits<double>::max();
+    int best_i = 0;
+    int best_j = 1;
+    bool iFW = true;
+    bool jFW = true;
+
+    for (int i = 0; i < (int)snippets.size(); i++) {
+        for (int j = i + 1; j < (int)snippets.size(); j++) {
+            Position front1(convertNodePosition(nodes.find(snippets[i].front())->second));
+            Position back1(convertNodePosition(nodes.find(snippets[i].back())->second));
+            Position front2(convertNodePosition(nodes.find(snippets[j].front())->second));
+            Position back2(convertNodePosition(nodes.find(snippets[j].back())->second));
+            double dist1 = front1.distanceTo2D(front2);
+            double dist2 = front1.distanceTo2D(back2);
+            double dist3 = back1.distanceTo2D(front2);
+            double dist4 = back1.distanceTo2D(back2);
+            if (dist1 < best) {
+                best = dist1;
+                best_i = i;
+                best_j = j;
+                iFW = false;
+                jFW = true;
+            }
+            if (dist2 < best) {
+                best = dist2;
+                best_i = i;
+                best_j = j;
+                iFW = false;
+                jFW = false;
+            }
+            if (dist3 < best) {
+                best = dist3;
+                best_i = i;
+                best_j = j;
+                iFW = true;
+                jFW = true;
+            }
+            if (dist4 < best) {
+                best = dist4;
+                best_i = i;
+                best_j = j;
+                iFW = true;
+                jFW = false;
+            }
+        }
+    }
+    std::vector<long long int> merged;
+    if (iFW) {
+        merged.insert(merged.end(), snippets[best_i].begin(), snippets[best_i].end());
+    } else {
+        merged.insert(merged.end(), snippets[best_i].rbegin(), snippets[best_i].rend());
+    }
+    if (jFW) {
+        merged.insert(merged.end(), snippets[best_j].begin(), snippets[best_j].end());
+    } else {
+        merged.insert(merged.end(), snippets[best_j].rbegin(), snippets[best_j].rend());
+    }
+    snippets.erase(snippets.begin() + best_j);
+    snippets.erase(snippets.begin() + best_i);
+    snippets.push_back(merged);
+    return best;
+}
 
 /****************************************************************************/

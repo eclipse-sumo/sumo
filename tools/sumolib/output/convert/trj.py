@@ -34,7 +34,7 @@ def fcd2trj(inpFCD, outSTRM, further):
     outSTRM.write(struct.pack("=c", chr(0).encode()))
     outSTRM.write(struct.pack("=c", endian))
     outSTRM.write(struct.pack("f", 3.0))
-    outSTRM.write(struct.pack("=c", chr(0).encode()))
+    outSTRM.write(struct.pack("=c", chr(1).encode()))
 
     # write DIMENSIONS block
     outSTRM.write(struct.pack("=c", chr(1).encode()))
@@ -80,10 +80,12 @@ def fcd2trj(inpFCD, outSTRM, further):
             # calculated values
             x = float(v.x)
             y = float(v.y)
-            angle = float(v.angle)
-            rearX = x - math.cos(angle)*further["length"]
-            rearY = y - math.sin(angle)*further["length"]
-
+            z = float(v.z)
+            angle = float(v.angle) * math.pi/180.
+            slope = float(v.slope) * math.pi/180.
+            rearX = x - math.sin(angle) * further["length"]
+            rearY = y - math.cos(angle) * further["length"]
+            rearZ = z - math.sin(slope) * further["length"]
             # write VEHICLE block
             outSTRM.write(struct.pack("=c", chr(3).encode()))
             outSTRM.write(struct.pack("=i", numericID))
@@ -97,7 +99,7 @@ def fcd2trj(inpFCD, outSTRM, further):
             outSTRM.write(struct.pack("=f", further["width"]))
             outSTRM.write(struct.pack("=f", speed))
             outSTRM.write(struct.pack("=f", accel))
-            outSTRM.write(struct.pack("=f", 0.0))  # front z coord
-            outSTRM.write(struct.pack("=f", 0.0))  # back z coord
+            outSTRM.write(struct.pack("=f", z))  # front z coord
+            outSTRM.write(struct.pack("=f", rearZ))  # back z coord
             # remember value for next timestep
             prevSpeed[numericID] = speed

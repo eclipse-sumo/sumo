@@ -12,3 +12,4 @@ traci_pedestrian_crossing
 
 # public transport scenario using different ways to define a repeating schedule
 public_transport
+output_parsing

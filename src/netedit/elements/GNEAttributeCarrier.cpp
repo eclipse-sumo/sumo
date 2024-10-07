@@ -37,6 +37,7 @@
 // ===========================================================================
 
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myTagProperties;
+std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myMergedPlanTagProperties;
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
@@ -53,9 +54,7 @@ const std::string GNEAttributeCarrier::False = toString(false);
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     myTagProperty(getTagProperty(tag)),
-    myNet(net),
-    mySelected(false),
-    myIsTemplate(false) {
+    myNet(net) {
 }
 
 
@@ -121,6 +120,18 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
     } else {
         return false;
     }
+}
+
+
+void
+GNEAttributeCarrier::setInGrid(bool value) {
+    myInGrid = value;
+}
+
+
+bool
+GNEAttributeCarrier::inGrid() const {
+    return myInGrid;
 }
 
 
@@ -648,7 +659,11 @@ GNEAttributeCarrier::getTagProperty(SumoXMLTag tag) {
     }
     // check that tag is defined
     if (myTagProperties.count(tag) == 0) {
-        throw ProcessError(TLF("TagProperty for tag '%' not defined", toString(tag)));
+        if (myMergedPlanTagProperties.count(tag) == 0) {
+            throw ProcessError(TLF("TagProperty for tag '%' not defined", toString(tag)));
+        } else {
+            return myMergedPlanTagProperties.at(tag);
+        }
     } else {
         return myTagProperties.at(tag);
     }
@@ -656,7 +671,7 @@ GNEAttributeCarrier::getTagProperty(SumoXMLTag tag) {
 
 
 const std::vector<GNETagProperties>
-GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
+GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans) {
     std::vector<GNETagProperties> allowedTags;
     // define on first access
     if (myTagProperties.size() == 0) {
@@ -706,7 +721,14 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isDemandElement()) {
-                allowedTags.push_back(tagProperty.second);
+                if (!mergeCommonPlans || !tagProperty.second.isPlan()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
+            }
+        }
+        if (mergeCommonPlans) {
+            for (const auto& mergedPlanTagProperty : myMergedPlanTagProperties) {
+                allowedTags.push_back(mergedPlanTagProperty.second);
             }
         }
     }
@@ -751,34 +773,50 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::PERSONTRIP) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPersonTrip()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_PERSONTRIP));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanPersonTrip()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::WALK) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPlanWalk()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_WALK));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanWalk()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::RIDE) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPlanRide()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_RIDE));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanRide()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::STOPPERSON) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPlanStopPerson()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(GNE_TAG_STOPPERSON));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanStopPerson()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
@@ -815,30 +853,67 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::TRANSPORT) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPlanTransport()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_TRANSPORT));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanTransport()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::TRANSHIP) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPlanTranship()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_TRANSHIP));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanTranship()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::STOPCONTAINER) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPlanStopContainer()) {
-                allowedTags.push_back(tagProperty.second);
+        if (mergeCommonPlans) {
+            allowedTags.push_back(myMergedPlanTagProperties.at(GNE_TAG_STOPCONTAINER));
+        } else {
+            // fill demand tags
+            for (const auto& tagProperty : myTagProperties) {
+                if (tagProperty.second.isPlanStopContainer()) {
+                    allowedTags.push_back(tagProperty.second);
+                }
             }
         }
     }
     return allowedTags;
+}
+
+
+const std::vector<GNETagProperties>
+GNEAttributeCarrier::getTagPropertiesByMergingTag(SumoXMLTag mergingTag) {
+    std::vector<GNETagProperties> result;
+    // fill tags
+    for (const auto& tagProperty : myTagProperties) {
+        if ((mergingTag == SUMO_TAG_PERSONTRIP) && tagProperty.second.isPlanPerson()) {
+            result.push_back(tagProperty.second);
+        } else if ((mergingTag == SUMO_TAG_RIDE) && tagProperty.second.isPlanRide()) {
+            result.push_back(tagProperty.second);
+        } else if ((mergingTag == SUMO_TAG_WALK) && tagProperty.second.isPlanWalk()) {
+            result.push_back(tagProperty.second);
+        } else if ((mergingTag == GNE_TAG_STOPPERSON) && tagProperty.second.isPlanStopPerson()) {
+            result.push_back(tagProperty.second);
+        } else if ((mergingTag == SUMO_TAG_TRANSPORT) && tagProperty.second.isPlanTransport()) {
+            result.push_back(tagProperty.second);
+        } else if ((mergingTag == SUMO_TAG_TRANSHIP) && tagProperty.second.isPlanTranship()) {
+            result.push_back(tagProperty.second);
+        } else if ((mergingTag == GNE_TAG_STOPCONTAINER) && tagProperty.second.isPlanStopContainer()) {
+            result.push_back(tagProperty.second);
+        }
+    }
+    return result;
 }
 
 // ===========================================================================
@@ -994,6 +1069,11 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("An optional id for the traffic light program"));
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(GNE_ATTR_IS_ROUNDABOUT,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Whether this junction is part of a roundabout"), "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TYPE;
     {
@@ -1011,55 +1091,55 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NUMLANES,
-                                              GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The number of lanes of the edge"),
                                               toString(neteditOptions.getInt("default.lanenumber")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The maximum speed allowed on the edge in m/s"),
                                               toString(neteditOptions.getFloat("default.speed")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly allows the given vehicle classes (not given will be not allowed)"),
                                               "all");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DISALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly disallows the given vehicle classes (not given will be allowed)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPREADTYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)"),
                                               SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PRIORITY,
-                                              GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The priority of the edge"),
                                               toString(neteditOptions.getInt("default.priority")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Lane width for all lanes of this edge in meters (used for visualization)"),
                                               "default");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The width of the sidewalk that should be added as an additional lane"),
                                               "default");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The width of the bike lane that should be added as an additional lane"),
                                               "default");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1075,24 +1155,24 @@ GNEAttributeCarrier::fillNetworkElements() {
                                       GUIIcon::LANETYPE, currentTag, TL("LaneType"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The maximum speed allowed on the lane in m/s"),
                                               toString(neteditOptions.getFloat("default.speed")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly allows the given vehicle classes (not given will be not allowed)"),
                                               "all");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DISALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly disallows the given vehicle classes (not given will be allowed)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::COPYABLE,
                                               TL("Lane width for all lanes of this type in meters (used for visualization)"),
                                               "default");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1123,36 +1203,36 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The maximum speed allowed on the edge in m/s"),
                                               toString(neteditOptions.getFloat("default.speed")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PRIORITY,
-                                              GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The priority of the edge"),
                                               toString(neteditOptions.getInt("default.priority")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NUMLANES,
-                                              GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The number of lanes of the edge"),
                                               toString(neteditOptions.getInt("default.lanenumber")));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The name of a type within the SUMO edge type file"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly allows the given vehicle classes (not given will be not allowed)"),
                                               "all");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DISALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly disallows the given vehicle classes (not given will be allowed)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1167,19 +1247,19 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPREADTYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)"),
                                               SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("street name (does not need to be unique, used for visualization)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::COPYABLE,
                                               TL("Lane width for all lanes of this edge in meters (used for visualization)"),
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1201,7 +1281,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_BIDIR,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UNIQUE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
                                               TL("Show if edge is bidirectional"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1222,6 +1302,11 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("Specifies, for which vehicle classes the stopOffset does NOT apply."));
         attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(GNE_ATTR_IS_ROUNDABOUT,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UNIQUE, // cannot be edited
+                                              TL("Whether this edge is part of a roundabout"), "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_LANE;
@@ -1245,24 +1330,24 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Speed in meters per second"),
                                               "13.89");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly allows the given vehicle classes (not given will be not allowed)"),
                                               "all");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DISALLOW,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Explicitly disallows the given vehicle classes (not given will be allowed)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::COPYABLE,
                                               TL("Width in meters (used for visualization)"),
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1274,7 +1359,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ACCELERATION,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Enable or disable lane as acceleration lane"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1290,21 +1375,21 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_LEFT,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Permit changing left only for to the given vehicle classes"),
                                               "all");
         attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_RIGHT,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Permit changing right only for to the given vehicle classes"),
                                               "all");
         attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
                                               TL("Lane type description (optional)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1876,8 +1961,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Parking area the charging station is located"));
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Parking area the charging station is located"),
+                                              "");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_PARKING_AREA;
@@ -1919,6 +2005,11 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("Name of parkingArea"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACCEPTED_BADGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Accepted badges to access this parkingArea"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROADSIDE_CAPACITY,
@@ -2056,6 +2147,18 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
@@ -2122,6 +2225,18 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)"),
@@ -2146,6 +2261,12 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
                                               TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
                                               "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHOW_DETECTOR,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Show detector in sumo-gui"),
+                                              "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_MULTI_LANE_AREA_DETECTOR;
@@ -2205,6 +2326,18 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)"),
@@ -2231,6 +2364,11 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHOW_DETECTOR,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Show detector in sumo-gui"),
+                                              "1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_ENTRY_EXIT_DETECTOR;
     {
@@ -2275,6 +2413,24 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Space separated list of vehicle type ids to consider"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_OPEN_ENTRY,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("If set to true, no error will be reported if vehicles leave the detector without first entering it"),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s"),
@@ -2292,7 +2448,6 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Whether no warning should be issued when a vehicle arrives within the detector area."),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
     }
     currentTag = SUMO_TAG_DET_ENTRY;
     {
@@ -2393,6 +2548,18 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("Space separated list of vehicle type ids to consider"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NEXT_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+                                              SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
@@ -2737,6 +2904,12 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_OFF,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("Whether the router should be inactive initially (and switched on in the gui)"),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_OPTIONAL,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("If rerouter is optional"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -3588,6 +3761,11 @@ GNEAttributeCarrier::fillDemandElements() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                               TL("The vehicle's height [m] (only used for drawing)"),
                                               "1.5");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_BADGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("The parking badges assigned to the vehicle"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_IMGFILE,
@@ -4531,63 +4709,668 @@ void
 GNEAttributeCarrier::fillContainerTransportElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
-    // fill transport
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    const unsigned int color = FXRGBA(240, 255, 205, 255);
+    const GUIIcon icon = GUIIcon::TRANSPORT_EDGE;
+    const SumoXMLTag xmlTag = SUMO_TAG_TRANSPORT;
+    // fill merged tag
+    myMergedPlanTagProperties[xmlTag] = GNETagProperties(xmlTag, tagType, tagProperty,
+                                        0,
+                                        conflicts, icon, xmlTag, TL("Container"), parents, color);
+    // set values of attributes
+    fillTransportCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    // from edge
     SumoXMLTag currentTag = GNE_TAG_TRANSPORT_EDGE_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSPORT_EDGE, SUMO_TAG_TRANSPORT, TL("Transport: edge->edge"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("Transport: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTransportCommonAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: edge->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: edge->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: edge->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: edge->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: edge->containerStop"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("Transport: edge->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTransportCommonAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
     }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: edge->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: edge->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from taz
+    currentTag = GNE_TAG_TRANSPORT_TAZ_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: taz->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from junction
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: junction->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from busStop
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_BUSSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: busStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from trainStop
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TRAINSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: trainStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from containerStop
     currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSPORT_EDGE, SUMO_TAG_TRANSPORT, TL("Transport: containerStop->edge"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTransportCommonAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: containerStop->containerStop"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTransportCommonAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: containerStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from chargingStation
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CHARGINGSTATION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: chargingStation->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from parkingArea
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSPORT_PARKINGAREA_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Transport: parkingArea->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -4596,82 +5379,679 @@ void
 GNEAttributeCarrier::fillContainerTranshipElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
-    // fill walks
-    SumoXMLTag currentTag = GNE_TAG_TRANSHIP_EDGE_EDGE;
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    const unsigned int color = FXRGBA(210, 233, 255, 255);
+    const GUIIcon icon = GUIIcon::TRANSHIP_EDGES;
+    const SumoXMLTag xmlTag = SUMO_TAG_TRANSHIP;
+    // fill merged tag
+    myMergedPlanTagProperties[xmlTag] = GNETagProperties(xmlTag, tagType, tagProperty,
+                                        0,
+                                        conflicts, icon, xmlTag, TL("Tranship"), parents, color);
+    // set values of attributes
+    fillTranshipCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    // fill tags
+    SumoXMLTag currentTag = GNE_TAG_TRANSHIP_EDGES;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: edge->edge"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
+                                      conflicts, icon, xmlTag, TL("Tranship: edges"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTranshipCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from edge
+    currentTag = GNE_TAG_TRANSHIP_EDGE_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: edge->containerStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
-
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTranshipCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
     }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: edge->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from taz
+    currentTag = GNE_TAG_TRANSHIP_TAZ_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: taz->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from junction
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: junction->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from busStop
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_BUSSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: busStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from trainStop
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: trainStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from containerStop
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->edge"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTranshipCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->containerStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
-
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTranshipCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
     }
-    currentTag = GNE_TAG_TRANSHIP_EDGES;
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_CHARGINGSTATION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, TL("Tranship: edges"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillTranshipCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: containerStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from chargingStation
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: chargingStation->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from parkingArea
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Tranship: parkingArea->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -4680,37 +6060,85 @@ void
 GNEAttributeCarrier::fillContainerStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
-    // fill vehicle ACs
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    const unsigned int color = FXRGBA(255, 213, 213, 255);
+    const GUIIcon icon = GUIIcon::STOPELEMENT;
+    const SumoXMLTag xmlTag = SUMO_TAG_STOP;
+    // fill merged tag
+    myMergedPlanTagProperties[GNE_TAG_STOPCONTAINER] = GNETagProperties(GNE_TAG_STOPCONTAINER, tagType, tagProperty,
+            0,
+            conflicts, icon, xmlTag, TL("ContainerStop"), parents, color);
+    // set values of attributes
+    fillPlanStopCommonAttributes(myMergedPlanTagProperties[GNE_TAG_STOPCONTAINER]);
+    // fill tags
     SumoXMLTag currentTag = GNE_TAG_STOPCONTAINER_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: edge"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("ContainerStop: edge"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPlanStopCommonAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: busStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: trainStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_STOPCONTAINER_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: containerStop"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: containerStop"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPlanStopCommonAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_CHARGINGSTATION;
+    {
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: chargingStation"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: parkingArea"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -4719,362 +6147,668 @@ void
 GNEAttributeCarrier::fillPersonPlanTrips() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(253, 255, 206, 255);
+    const GUIIcon icon = GUIIcon::PERSONTRIP_EDGE;
+    const SumoXMLTag xmlTag = SUMO_TAG_PERSONTRIP;
+    // fill merged tag
+    myMergedPlanTagProperties[xmlTag] = GNETagProperties(xmlTag, tagType, tagProperty,
+                                        0,
+                                        conflicts, icon, xmlTag, TL("PersonTrip"), parents, color);
+    // set values of attributes
+    fillPersonTripCommonAttributes(myMergedPlanTagProperties[xmlTag]);
     // from edge
     SumoXMLTag currentTag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_EDGE, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
-    // from TAZ
+    currentTag = GNE_TAG_PERSONTRIP_EDGE_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_EDGE_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_EDGE_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: edge->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from taz
     currentTag = GNE_TAG_PERSONTRIP_TAZ_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
-
     currentTag = GNE_TAG_PERSONTRIP_TAZ_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_TAZ_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_TAZ_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: taz->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     // from junction
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_JUNCTION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_JUNCTION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: junction->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     // from busStop
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_EDGE, SUMO_TAG_PERSONTRIP, TL("PersonTrip: busStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: busStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: busStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: busStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: busStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
-    // from trainstop
+    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: busStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from trainStop
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_EDGE, SUMO_TAG_PERSONTRIP, TL("PersonTrip: trainStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: trainStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: trainStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: trainStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: trainStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPersonTripCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: trainStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from containerStop
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: containerStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from chargingStation
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from parkingArea
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -5083,390 +6817,689 @@ void
 GNEAttributeCarrier::fillPersonPlanWalks() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(240, 255, 205, 255);
+    const GUIIcon icon = GUIIcon::WALK_EDGES;
+    const SumoXMLTag xmlTag = SUMO_TAG_WALK;
+    // fill merged tag
+    myMergedPlanTagProperties[xmlTag] = GNETagProperties(xmlTag, tagType, tagProperty,
+                                        0,
+                                        conflicts, icon, xmlTag, TL("Walk"), parents, color);
+    // set values of attributes
+    fillWalkCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    // fill tags
     SumoXMLTag currentTag = GNE_TAG_WALK_EDGES;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGES, SUMO_TAG_WALK, TL("walk: edges"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: edges"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_ROUTE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_ROUTE, SUMO_TAG_WALK, TL("walk: route"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: route"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     // from edge
     currentTag = GNE_TAG_WALK_EDGE_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("Walk: edge->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_EDGE_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: edge->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: edge->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_EDGE_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: edge->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: edge->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_EDGE_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: edge->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_EDGE_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: edge->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
-    // from TAZ
+    currentTag = GNE_TAG_WALK_EDGE_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: edge->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_EDGE_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: edge->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_EDGE_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: edge->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from taz
     currentTag = GNE_TAG_WALK_TAZ_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: taz->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TAZ_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: taz->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TAZ_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: taz->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: taz->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
-
     currentTag = GNE_TAG_WALK_TAZ_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: taz->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: taz->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TAZ_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: taz->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: taz->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: taz->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_TAZ_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: taz->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_TAZ_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: taz->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     // from junction
     currentTag = GNE_TAG_WALK_JUNCTION_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: junction->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: junction->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_JUNCTION_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: junction->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: junction->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_JUNCTION_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: junction->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: junction->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_JUNCTION_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: junction->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: junction->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_JUNCTION_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: junction->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: junction->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: junction->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_JUNCTION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: junction->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_JUNCTION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: junction->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     // from busStop
     currentTag = GNE_TAG_WALK_BUSSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("Walk: busStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_BUSSTOP_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: busStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_BUSSTOP_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: busStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_BUSSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: busStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_BUSSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: busStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
-    // from trainstop
+    currentTag = GNE_TAG_WALK_BUSSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_BUSSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_BUSSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: busStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from trainStop
     currentTag = GNE_TAG_WALK_TRAINSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("Walk: trainStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TRAINSTOP_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: trainStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TRAINSTOP_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: trainStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TRAINSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: trainStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_WALK_TRAINSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: trainStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_TRAINSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_TRAINSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_TRAINSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: trainStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from containerStop
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: containerStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from chargingStation
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: chargingStation->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from parkingArea
+    currentTag = GNE_TAG_WALK_PARKINGAREA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Walk: parkingArea->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -5475,134 +7508,668 @@ void
 GNEAttributeCarrier::fillPersonPlanRides() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(253, 255, 206, 255);
+    const GUIIcon icon = GUIIcon::RIDE_EDGE;
+    const SumoXMLTag xmlTag = SUMO_TAG_RIDE;
+    // fill merged tag
+    myMergedPlanTagProperties[xmlTag] = GNETagProperties(xmlTag, tagType, tagProperty,
+                                        0,
+                                        conflicts, icon, xmlTag, TL("PersonTrip"), parents, color);
+    // set values of attributes
+    fillRideCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    // from edge
     SumoXMLTag currentTag = GNE_TAG_RIDE_EDGE_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_EDGE, SUMO_TAG_RIDE, TL("Ride: edge->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_EDGE_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: edge->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_EDGE_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: edge->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_RIDE_EDGE_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, TL("Ride: edge->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_RIDE_EDGE_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, TL("Ride: edge->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_EDGE_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: edge->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_EDGE_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: edge->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_EDGE_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: edge->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from taz
+    currentTag = GNE_TAG_RIDE_TAZ_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TAZ_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: taz->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from junction
+    currentTag = GNE_TAG_RIDE_JUNCTION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_JUNCTION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: junction->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     // from busStop
     currentTag = GNE_TAG_RIDE_BUSSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_EDGE, SUMO_TAG_RIDE, TL("Ride: busStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_BUSSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_BUSSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, TL("Ride: busStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, TL("Ride: busStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
-    // from trainstop
+    currentTag = GNE_TAG_RIDE_BUSSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_BUSSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_BUSSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: busStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from trainStop
     currentTag = GNE_TAG_RIDE_TRAINSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_EDGE, SUMO_TAG_RIDE, TL("Ride: trainStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, TL("Ride: train->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, TL("Ride: train->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillRideCommonAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: trainStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from containerStop
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CONTAINERSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: containerStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from chargingStation
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_CHARGINGSTATION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: chargingStation->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    // from parkingArea
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("Ride: parkingArea->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillRideCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -5611,51 +8178,85 @@ void
 GNEAttributeCarrier::fillPersonStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(255, 213, 213, 255);
+    const GUIIcon icon = GUIIcon::STOPELEMENT;
+    const SumoXMLTag xmlTag = SUMO_TAG_STOP;
+    // fill merged tag
+    myMergedPlanTagProperties[GNE_TAG_STOPPERSON] = GNETagProperties(GNE_TAG_STOPPERSON, tagType, tagProperty,
+            0,
+            conflicts, icon, xmlTag, TL("PersonStop"), parents, color);
+    // set values of attributes
+    fillPlanStopCommonAttributes(myMergedPlanTagProperties[GNE_TAG_STOPPERSON]);
+    // fill tags
     SumoXMLTag currentTag = GNE_TAG_STOPPERSON_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("PersonStop: edge"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPlanStopCommonAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_STOPPERSON_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("PersonStop: busStop"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPlanStopCommonAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_STOPPERSON_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("PersonStop: trainStop"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillPlanStopCommonAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPPERSON_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonStop: containerStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPPERSON_CHARGINGSTATION;
+    {
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonStop: chargingStation"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_STOPPERSON_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonStop: parkingArea"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -6393,6 +8994,12 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
                                           TL("This container's color"),
                                           "yellow");
     myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE |  GNEAttributeProperties::UPDATEGEOMETRY,
+                                          TL("The position at which the container shall enter the net"),
+                                          "base");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
@@ -6555,6 +9162,18 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
                                               TL("Container stop ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    if (tagProperty.planChargingStation()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("Charging station ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planParkingArea()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("Parking area ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     // from parents
     if (tagProperty.planFromEdge()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -6575,21 +9194,33 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planFromBusStop()) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_BUSSTOP,
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_BUSSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("BuStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planFromTrainStop()) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_TRAINSTOP,
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_TRAINSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("TrainStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planFromContainerStop()) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_CONTAINERSTOP,
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CONTAINERSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("ContainerStop start ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planFromChargingStation()) {
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CHARGINGSTATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ChargingStation start ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planFromParkingArea()) {
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CHARGINGSTATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ParkingArea start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     // to parents
@@ -6634,91 +9265,137 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
     if (tagProperty.planToTrainStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("TrainStop start ID"));
+                                              TL("TrainStop end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planToContainerStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("ContainerStop start ID"));
+                                              TL("ContainerStop end ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planToChargingStation()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ChargingStation end ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planToParkingArea()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ParkingArea end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 
 
 void
-GNEAttributeCarrier::fillPersonTripCommonAttributes(SumoXMLTag currentTag) {
+GNEAttributeCarrier::fillPersonTripCommonAttributes(GNETagProperties& tagProperties) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("List of possible vehicle types to take"));
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("List of possible traffic modes. Walking is always possible regardless of this value"));
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("list of vehicle alternatives to take for the person trip"),
-                                          "ANY");
-    myTagProperties[currentTag].addAttribute(attrProperty);
+                                          TL("list of vehicle alternatives to take for the person trip"));
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_WALKFACTOR,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("Walk factor"),
+                                          "0.00");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("id of the travel group. Persons with the same group may share a taxi ride"));
+    tagProperties.addAttribute(attrProperty);
 }
 
 
 void
-GNEAttributeCarrier::fillWalkCommonAttributes(SumoXMLTag /*currentTag*/) {
-    // currently walks don't have common attributes
-}
-
-
-void
-GNEAttributeCarrier::fillRideCommonAttributes(SumoXMLTag currentTag) {
+GNEAttributeCarrier::fillWalkCommonAttributes(GNETagProperties& tagProperties) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
-    // lines
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("list of vehicle alternatives to take for the ride"),
-                                          "ANY");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-}
-
-
-void
-GNEAttributeCarrier::fillTransportCommonAttributes(SumoXMLTag currentTag) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-
-    // lines
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("list of vehicle alternatives to take for the transport"),
-                                          "ANY");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-}
-
-
-void
-GNEAttributeCarrier::fillTranshipCommonAttributes(SumoXMLTag currentTag) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-
-    // speed
     attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("speed of the container for this tranship in m/s"),
+                                          TL("speed of the person for this tranship in m/s (not together with duration)"),
                                           "1.39");
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("duration of the plan in second (not together with speed)"),
+                                          "0");
+    tagProperties.addAttribute(attrProperty);
 }
 
 
 void
-GNEAttributeCarrier::fillPlanStopCommonAttributes(SumoXMLTag currentTag) {
+GNEAttributeCarrier::fillRideCommonAttributes(GNETagProperties& tagProperties) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("list of vehicle alternatives to take for the ride"));
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("id of the travel group. Persons with the same group may share a taxi ride"));
+    tagProperties.addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::fillTransportCommonAttributes(GNETagProperties& tagProperties) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("list of vehicle alternatives to take for the transport"));
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("id of the travel group. Persons with the same group may share a taxi ride"));
+    tagProperties.addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::fillTranshipCommonAttributes(GNETagProperties& tagProperties) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("speed of the person for this tranship in m/s (not together with duration)"),
+                                          "1.39");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("duration of the plan in second (not together with speed)"),
+                                          "0");
+    tagProperties.addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::fillPlanStopCommonAttributes(GNETagProperties& tagProperties) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
@@ -6727,28 +9404,28 @@ GNEAttributeCarrier::fillPlanStopCommonAttributes(SumoXMLTag currentTag) {
                                           TL("Minimum duration for stopping"),
                                           "60");
     attrProperty.setDefaultActivated(true);
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
                                           GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("The time step at which the route continues"),
                                           "0.00");
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("Activity displayed for stopped person in GUI and output files "));
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    tagProperties.addAttribute(attrProperty);
 
     // friendlyPos attribute only for stops over edges
-    if (myTagProperties[currentTag].hasAttribute(SUMO_ATTR_EDGE)) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
                                               TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
                                               TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
                                               "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        tagProperties.addAttribute(attrProperty);
     }
 }
 

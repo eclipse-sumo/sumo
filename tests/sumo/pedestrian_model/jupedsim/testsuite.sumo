@@ -1,7 +1,13 @@
 two_edges
 
+# This test checks the mechanism that removes pedestrians at a certain rate who enter a vanishing area.
+vanishing_area
+
 # This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
 speed_change
+
+# This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
+speed_change_poly
 
 # Test the geometry checks regarding non-simple polygons
 geometry_check
@@ -18,10 +24,25 @@ walking_area
 # larger network
 larger_net
 waypoints
+
+# changing the radius of the waypoint
+waypoint_radius
 speed_factor
 
 # rerouting with optional rerouters
 rerouter
 
-# check correct arrival when there are multiple stops on the same edge
-# three_trainStops_at_one_edge (automatically commented due to no test directory being found)
+# dynamic geometry switching
+geometry_switching
+
+# geometry generation and WKT output
+geometry_generation
+tls
+
+# crossing behavior
+crossing_noPrio
+
+# crossing behavior
+crossing_Prio
+
+#improper_walk_via_bus_stop_access

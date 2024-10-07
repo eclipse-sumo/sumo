@@ -158,7 +158,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
 #endif
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
             if (!myCollector.myExpectArrival) {
-                WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
+                WRITE_WARNINGF("Vehicle '%' arrived inside % '%', time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID(), time2string(SIMSTEP));
             }
         }
         return false;
@@ -290,7 +290,7 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
             if (!myCollector.myExpectArrival) {
-                WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
+                WRITE_WARNINGF("Vehicle '%' arrived inside % '%', time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID(), time2string(SIMSTEP));
             }
         }
         return false;
@@ -365,7 +365,7 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
         return;
     }
     if (myEnteredContainer.find(&veh) != myEnteredContainer.end()) {
-        WRITE_WARNINGF("Vehicle '%' reentered % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
+        WRITE_WARNINGF("Vehicle '%' reentered % '%', time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID(), time2string(SIMSTEP));
         return;
     }
 #ifdef DEBUG_E3_NOTIFY_ENTER
@@ -411,7 +411,7 @@ MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimest
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry && veh.isVehicle()) {
-            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
+            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it, time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID(), time2string(SIMSTEP));
         }
     } else {
         myEnteredContainer[&veh].frontLeaveTime = leaveTimestep;
@@ -439,7 +439,7 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry && veh.isVehicle()) {
-            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
+            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it, time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID(), time2string(SIMSTEP));
         }
     } else {
 #ifdef DEBUG_E3_NOTIFY_LEAVE

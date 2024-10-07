@@ -382,7 +382,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // get color
             const auto color = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
             // Add a layer matrix

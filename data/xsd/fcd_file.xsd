@@ -14,29 +14,53 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="person" type="transportableType"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="container" type="transportableType"/>
             </xsd:sequence>
             <xsd:attribute name="time" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="vehicle">
         <xsd:complexType>
-            <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="id" type="xsd:string" use="required"/>
 
-            <xsd:attribute name="x" type="floatType" use="required"/>
-            <xsd:attribute name="y" type="floatType" use="required"/>
+            <xsd:attribute name="x" type="floatType" use="optional"/>
+            <xsd:attribute name="y" type="floatType" use="optional"/>
             <xsd:attribute name="z" type="floatType" use="optional"/>
-            <xsd:attribute name="angle" type="floatType" use="required"/>
+            <xsd:attribute name="angle" type="floatType" use="optional"/>
+            <xsd:attribute name="type" type="xsd:string" use="optional"/>
 
-            <xsd:attribute name="type" use="required" type="xsd:string"/>
-
-            <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="lane" use="optional" type="xsd:string"/>
-            <xsd:attribute name="slope" type="floatType" use="required"/>
-            <xsd:attribute name="signals" use="optional" type="xsd:int"/>
-            <xsd:attribute name="distance" use="optional" type="floatType"/>
-            <xsd:attribute name="acceleration" use="optional" type="floatType"/>
-            <xsd:attribute name="accelerationLat" use="optional" type="floatType"/>
+            <xsd:attribute name="speed" type="nonNegativeFloatType" use="optional"/>
+            <xsd:attribute name="pos" type="nonNegativeFloatType" use="optional"/>
+            <xsd:attribute name="lane" type="xsd:string" use="optional"/>
+            <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+            <xsd:attribute name="slope" type="floatType" use="optional"/>
+            <xsd:attribute name="signals" type="xsd:int" use="optional"/>
+            <xsd:attribute name="acceleration" type="floatType" use="optional"/>
+            <xsd:attribute name="accelerationLat" type="floatType" use="optional"/>
+            <xsd:attribute name="distance" type="floatType" use="optional"/>
+            <xsd:attribute name="odometer" type="floatType" use="optional"/>
+            <xsd:attribute name="posLat" type="floatType" use="optional"/>
+            <xsd:attribute name="speedLat" type="floatType" use="optional"/>
+            <xsd:attribute name="leaderID" type="xsd:string" use="optional"/>
+            <xsd:attribute name="leaderSpeed" type="floatType" use="optional"/>
+            <xsd:attribute name="leaderGap" type="floatType" use="optional"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:complexType name="transportableType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+
+        <xsd:attribute name="x" type="floatType" use="optional"/>
+        <xsd:attribute name="y" type="floatType" use="optional"/>
+        <xsd:attribute name="z" type="floatType" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
+
+        <xsd:attribute name="type" use="optional" type="xsd:string"/>
+
+        <xsd:attribute name="speed" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="pos" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+        <xsd:attribute name="slope" type="floatType" use="optional"/>
+        <xsd:attribute name="vehicle" type="xsd:string" use="optional"/>
+    </xsd:complexType>
 </xsd:schema>

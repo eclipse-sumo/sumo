@@ -16,14 +16,12 @@
 # @date    2013-10-10
 
 from __future__ import absolute_import
+# relative imports don't work if a file is used as a library and executable
+# (https://peps.python.org/pep-0366/#rationale-for-change)
 import os
 import sys
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-    os.path.dirname(__file__), '..', '..', '..', '..')), 'tools'))
-
-from . import network  # noqa
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import network  # noqa
 
 
 def grid(numIntersectionsX=10, numIntersectionsY=5, defaultNode=None, defaultEdge=None, centralReservation=0):

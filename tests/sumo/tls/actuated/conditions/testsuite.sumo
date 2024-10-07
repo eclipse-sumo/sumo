@@ -7,6 +7,9 @@ default
 # use custom switching rules to replicate the default behavior
 replicate_default
 
+# use custom switching rules to replicate the default behavior
+replicate_default_simplified
+
 # change time gap condition for one phase
 custom_gapOut
 

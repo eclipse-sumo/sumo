@@ -180,6 +180,23 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
 
 
 void
+ROPerson::Stop::saveAsXML(OutputDevice& os, const bool /*extended*/, const bool /*asTrip*/, OptionsCont& /*options*/) const {
+    stopDesc.write(os, false);
+    std::string comment = "";
+    for (std::string sID : stopDesc.getStoppingPlaceIDs()) {
+        const std::string name = RONet::getInstance()->getStoppingPlaceName(sID);
+        if (name != "") {
+            comment += name + " ";
+        }
+    }
+    if (comment != "") {
+        comment =  " <!-- " + comment + " -->";
+    }
+    stopDesc.writeParams(os);
+    os.closeTag(comment);
+}
+
+void
 ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_WALK);
     std::string comment = "";

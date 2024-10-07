@@ -95,7 +95,7 @@ GNEPythonTool::postProcessing() {
 
 
 std::string
-GNEPythonTool::getCommand() const {
+GNEPythonTool::getCommandPath() const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
@@ -105,20 +105,25 @@ GNEPythonTool::getCommand() const {
         sumoHome = std::string(sumoHomeEnv);
         // harmonise slash
         if (sumoHome.back() == '\\') {
-            sumoHome = sumoHome.substr(0, sumoHome.size() - 1);
+            sumoHome.pop_back();
+        }
+        if (sumoHome.back() != '/') {
+            sumoHome += "/";
         }
         // quote string to handle spaces but prevent double quotes
         if (sumoHome.front() != '"') {
             sumoHome = "\"" + sumoHome;
         }
-        if (sumoHome.back() != '"') {
-            sumoHome += "\"";
+        if (sumoHome.back() == '"') {
+            sumoHome.pop_back();
         }
-        sumoHome += "/";
     }
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath;
-    // declare arguments
+    return python + " " + sumoHome + myToolPath + "\"";
+}
+
+
+std::string
+GNEPythonTool::getCommand() const {
     std::string arguments;
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
@@ -150,7 +155,7 @@ GNEPythonTool::getCommand() const {
             }
         }
     }
-    return command + " " + arguments;
+    return getCommandPath() + " " + arguments;
 }
 
 
@@ -196,18 +201,16 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
 
 void
 GNEPythonTool::saveConfiguration(const std::string& file) const {
-    // add python script
-    const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
-    const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath + " -C " + file + " ";
+    std::string command = getCommandPath() + " -C \"" + file + "\" ";
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
         // only write modified values
         if (!option.second->isDefault()) {
-            command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            if (option.second->isBool()) {
+                command += ("--" + option.first + " ");
+            } else {
+                command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            }
         }
     }
     // start in background

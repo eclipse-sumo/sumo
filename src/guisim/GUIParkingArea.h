@@ -62,6 +62,7 @@ public:
      * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the parking area
      * @param[in] lines Names of the parking lines that halt on this parking area
+     * @param[in] badges Names which grant access to this parking area
      * @param[in] lane The lane the parking area is placed on
      * @param[in] begPos Begin position of the parking area on the lane
      * @param[in] endPos End position of the parking area on the lane
@@ -71,7 +72,7 @@ public:
      * @param[in] angle Default angle of the lot rectangle relative to lane direction (if = 0 is computed ... TODO)
      */
     GUIParkingArea(const std::string& id,
-                   const std::vector<std::string>& lines, MSLane& lane,
+                   const std::vector<std::string>& lines, const std::vector<std::string>& badges, MSLane& lane,
                    double frompos, double topos, unsigned int capacity,
                    double width, double length, double angle, const std::string& name,
                    bool onRoad,

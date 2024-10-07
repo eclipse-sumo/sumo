@@ -79,19 +79,19 @@ private:
 
     /** @brief Called on an XML-warning
      *
-     * The warning is reported to the the warning-instance of MsgHandler
+     * The warning is reported to the warning-instance of MsgHandler
      */
     void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
     /** @brief Called on an XML-error
      *
-     * The warning is reported to the the error-instance of MsgHandler
+     * The warning is reported to the error-instance of MsgHandler
      */
     void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
     /** @brief Called on an XML-fatal error
      *
-     * The warning is reported to the the error-instance of MsgHandler
+     * The warning is reported to the error-instance of MsgHandler
      */
     void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 

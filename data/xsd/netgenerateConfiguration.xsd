@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO netgenerate Version v1_18_0+2421-58d8177730f
+<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO netgenerate Version v1_20_0+0443-233e48e5c88
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="netgenerateConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -136,6 +136,7 @@
             <xsd:element name="offset.z" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="flip-y-axis" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="roundabouts.guess.max-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.visibility-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess.fix-lengths" type="boolOptionType" minOccurs="0"/>
@@ -259,6 +260,7 @@
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.minimal-shape" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.endpoint-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>

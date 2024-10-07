@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-16 17:51:24 by Eclipse SUMO netedit Version 1.17.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Other additionals -->
+    <rerouter id="rr_0" edges="E1" pos="93.73,29.16">
+        <interval begin="0.00" end="100.00">
+            <closingLaneReroute id="-E1_1" disallow="all"/>
+        </interval>
+        <interval begin="100.00" end="800.00">
+            <closingLaneReroute id="E1_1" disallow="all"/>
+        </interval>
+    </rerouter>
+
+
+    <edgeData id="lcCount" period="100" edges="E1 -E1" writeAttributes="laneChangedFrom laneChangedTo" file="aggregated.xml" end="200"/>
+</additional>

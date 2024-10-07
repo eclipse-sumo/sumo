@@ -158,19 +158,10 @@ protected:
     bool myFriendlyPosition;
 
     /// @brief The position of the sign
-    Position mySignPos;
+    Position mySymbolPosition;
 
-    /// @brief circle width resolution for all stopping places
-    static const double myCircleWidth;
-
-    /// @brief squared circle width resolution for all stopping places
-    static const double myCircleWidthSquared;
-
-    /// @brief inner circle width resolution for all stopping places
-    static const double myCircleInWidth;
-
-    /// @brief text inner circle width resolution for all stopping places
-    static const double myCircleInText;
+    /// @brief circle contour
+    GNEContour mySymbolContour;
 
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
@@ -180,12 +171,12 @@ protected:
                    const RGBColor& color) const;
 
     /// @brief draw sign
-    void drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration,
+    void drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
                   const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
 
     /// @brief check object in view
     void calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const double width, const bool movingGeometryPoints) const;
+                                       const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
 private:
     /// @brief set attribute after validation

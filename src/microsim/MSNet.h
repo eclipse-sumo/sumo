@@ -556,6 +556,12 @@ public:
      */
     MSStoppingPlace* getStoppingPlace(const std::string& id, const SumoXMLTag category) const;
 
+    /** @brief Returns the named stopping place by looking through all categories
+     * @param[in] id The id of the stop to return.
+     * @return The named stop, or 0 if no such stop exists
+     */
+    MSStoppingPlace* getStoppingPlace(const std::string& id) const;
+
     /** @brief Returns the stop of the given category close to the given position
      * @param[in] lane the lane of the stop to return.
      * @param[in] pos the position of the stop to return.
@@ -582,7 +588,7 @@ public:
     /// @brief write electrical substation output
     void writeSubstationOutput() const;
 
-    /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
+    /// @brief return wheter the given logic (or rather its wrapper) is selected in the GUI
     virtual bool isSelected(const MSTrafficLightLogic*) const {
         return false;
     }

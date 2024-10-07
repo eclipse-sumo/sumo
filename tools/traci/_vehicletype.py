@@ -187,6 +187,15 @@ class VTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_HEIGHT, typeID)
 
+    def getMass(self, typeID):
+        """getMass(string) -> double
+
+        Returns the mass in kg of this type.
+        If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
+        """
+        return self._getUniversal(tc.VAR_MASS, typeID)
+
     def getColor(self, typeID):
         """getColor(string) -> (integer, integer, integer, integer)
 
@@ -335,6 +344,15 @@ class VTypeDomain(Domain):
         Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_HEIGHT, typeID, "d", height)
+
+    def setMass(self, typeID, mass):
+        """setMass(string, double) -> None
+
+        Sets the mass in kg of this type.
+        If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
+        """
+        self._setCmd(tc.VAR_MASS, typeID, "d", mass)
 
     def setMinGap(self, typeID, minGap):
         """setMinGap(string, double) -> None

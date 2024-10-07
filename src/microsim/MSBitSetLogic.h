@@ -41,7 +41,7 @@ template< int N >
 class MSBitSetLogic : public MSJunctionLogic {
 public:
     /** @brief Container that holds the right of way bitsets.
-        Each link has it's own
+        Each link has its own
         bitset. The bits in the bitsets correspond to the links. To create
         a bitset for a particular link, set the bits to true that correspond
         to links that have the right of way. All others set to false,

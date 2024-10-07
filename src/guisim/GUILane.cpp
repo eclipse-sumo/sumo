@@ -59,7 +59,10 @@
 
 #include <osgview/GUIOSGHeader.h>
 
+#define RENDERING_BUFFER 10
+
 //#define GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
+//#define GUILane_DEBUG_DRAW_CROSSING_OUTLINE
 
 // ===========================================================================
 // static member declaration
@@ -77,8 +80,9 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
                  SVCPermissions permissions,
                  SVCPermissions changeLeft, SVCPermissions changeRight,
                  int index, bool isRampAccel,
-                 const std::string& type) :
-    MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
+                 const std::string& type,
+                 const PositionVector& outlineShape) :
+    MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type, outlineShape),
     GUIGlObject(GLO_LANE, id, GUIIconSubSys::getIcon(GUIIcon::LANE)),
     myParkingAreas(nullptr),
     myTesselation(nullptr),
@@ -541,18 +545,28 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     const bool detailZoom = s.scale * exaggeration > 5;
     const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal);
     const bool drawRails = drawAsRailway(s);
-    if (isCrossing || isWalkingArea) {
-        // draw internal lanes on top of junctions
-        glTranslated(0, 0, GLO_JUNCTION + 0.1);
-    } else if (isWaterway(myPermissions)) {
-        // draw waterways below normal roads
-        glTranslated(0, 0, getType() - 0.2);
+    const PositionVector& baseShape = getShape(s2);
+    if (s.trueZ) {
+        glTranslated(0, 0, baseShape.getMinZ());
     } else {
-        glTranslated(0, 0, getType());
+        if (isCrossing) {
+            // draw internal lanes on top of junctions
+            glTranslated(0, 0, GLO_JUNCTION + 0.1);
+        } else if (isWalkingArea) {
+            // draw internal lanes on top of junctions
+            glTranslated(0, 0, GLO_JUNCTION + 0.3);
+        } else if (isWaterway(myPermissions)) {
+            // draw waterways below normal roads
+            glTranslated(0, 0, getType() - 0.2);
+        } else if (myPermissions == SVC_SUBWAY) {
+            // draw subways further below
+            glTranslated(0, 0, getType() - 0.4);
+        } else {
+            glTranslated(0, 0, getType());
+        }
     }
     // set lane color
     const RGBColor color = setColor(s);
-    const PositionVector& baseShape = getShape(s2);
     auto& shapeColors = getShapeColors(s2);
     if (MSGlobals::gUseMesoSim) {
         shapeColors.clear();
@@ -627,19 +641,26 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .2);
                     GLHelper::drawCrossTies(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5,
                                             0, s.drawForRectangleSelection);
+#ifdef GUILane_DEBUG_DRAW_CROSSING_OUTLINE
+                    if (myOutlineShape != nullptr) {
+                        GLHelper::setColor(RGBColor::BLUE);
+                        glTranslated(0, 0, 0.4);
+                        GLHelper::drawBoxLines(*myOutlineShape, 0.1);
+                        glTranslated(0, 0, -0.4);
+                        if (s.geometryIndices.show(this)) {
+                            GLHelper::debugVertices(*myOutlineShape, s.geometryIndices, s.scale);
+                        }
+                    }
+#endif
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
-                    if (s.scale * exaggeration < 20.) {
-                        GLHelper::drawFilledPoly(baseShape, true);
-                    } else {
-                        if (myTesselation == nullptr) {
-                            myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
-                        }
-                        myTesselation->drawTesselation(baseShape);
+                    if (myTesselation == nullptr) {
+                        myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
                     }
+                    myTesselation->drawTesselation(baseShape);
                     glTranslated(0, 0, -.2);
                     if (s.geometryIndices.show(this)) {
                         GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
@@ -650,8 +671,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 // (this avoids artifacts at geometry corners without having to
                 // compute lane-marking intersection points)
                 double halfWidth = isInternal ? myQuarterLaneWidth : (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2);
-                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
-                const int cornerDetail = drawDetails && !isInternal ? (int)(s.scale * exaggeration) : 0;
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions) && !isAirway(myPermissions);
+                const int cornerDetail = drawDetails && !isInternal ? (s.drawForRectangleSelection ? 8 : (int)(s.scale * exaggeration)) : 0;
                 double offset = halfWidth * MAX2(0., (exaggeration - 1)) * (MSGlobals::gLefthand ? -1 : 1);
                 if (spreadSuperposed) {
                     offset += halfWidth * 0.5 * (MSGlobals::gLefthand ? -1 : 1);
@@ -743,7 +764,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
             drawMarkings(s, exaggeration);
         }
-        if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi) {
+        if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi
+                && MSGlobals::gUsingInternalLanes
+                && getNormalSuccessorLane()->getPermissions() == SVC_BICYCLE && getNormalPredecessorLane()->getPermissions() == SVC_BICYCLE) {
             drawBikeMarkings();
         }
         if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
@@ -762,6 +785,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             if ((*v)->getLane() == this) {
                 static_cast<const GUIVehicle*>(*v)->drawGL(s);
             } // else: this is the shadow during a continuous lane change
+        }
+        // draw long partial vehicles (#14342)
+        for (const MSVehicle* veh : myPartialVehicles) {
+            if (veh->getLength() > RENDERING_BUFFER) {
+                // potential double rendering taken into account
+                static_cast<const GUIVehicle*>(veh)->drawGL(s);
+            }
         }
         // draw parking vehicles
         for (const MSBaseVehicle* const v : myParkingVehicles) {
@@ -1029,8 +1059,8 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->mkItem(TL("type"), false, myLaneType);
     ret->mkItem(TL("priority"), false, myEdge->getPriority());
     ret->mkItem(TL("distance [km]"), false, myEdge->getDistance() / 1000);
-    ret->mkItem(TL("allowed vehicle class"), false, getVehicleClassNames(myPermissions));
-    ret->mkItem(TL("disallowed vehicle class"), false, getVehicleClassNames(~myPermissions));
+    ret->mkItem(TL("allowed vehicle class"), false, StringUtils::wrapText(getVehicleClassNames(myPermissions), 60));
+    ret->mkItem(TL("disallowed vehicle class"), false, StringUtils::wrapText(getVehicleClassNames(~myPermissions), 60));
     ret->mkItem(TL("permission code"), false, myPermissions);
     ret->mkItem(TL("color value"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
     if (myBidiLane != nullptr) {
@@ -1050,7 +1080,7 @@ GUILane::getCenteringBoundary() const {
     Boundary b;
     b.add(myShape[0]);
     b.add(myShape[-1]);
-    b.grow(10);
+    b.grow(RENDERING_BUFFER);
     // ensure that vehicles and persons on the side are drawn even if the edge
     // is outside the view
     return b;
@@ -1255,6 +1285,9 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                     return 4;
                 case SVC_AUTHORITY:
                     return 8;
+                case SVC_AIRCRAFT:
+                case SVC_DRONE:
+                    return 11;
                 default:
                     break;
             }
@@ -1498,7 +1531,7 @@ GUILane::getScaleValue(const GUIVisualizationSettings& s, int activeScheme, bool
 
 bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myPermissions) && ((myPermissions & SVC_BUS) == 0) && s.showRails && s.spreadSuperposed;
+    return isRailway(myPermissions) && ((myPermissions & SVC_BUS) == 0) && s.showRails;
 }
 
 
@@ -1586,7 +1619,7 @@ double
 GUILane::getClickPriority() const {
     if (MSGlobals::gUseMesoSim) {
         // do not select lanes in meso mode
-        return -std::numeric_limits<double>::max();
+        return INVALID_PRIORITY;
     }
     if (myEdge->isCrossing()) {
         return GLO_CROSSING;

@@ -48,6 +48,7 @@ def check():
     print("phaseName", traci.trafficlight.getPhaseName(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
     print("duration", traci.trafficlight.getPhaseDuration(tlsID))
+    print("spent", traci.trafficlight.getSpentDuration(tlsID))
 
 
 phases = []
@@ -74,6 +75,7 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.trafficlight.getSubscriptionResults(tlsID))
+    check()
 traci.trafficlight.setLinkState(tlsID, 4, 'u')
 try:
     traci.trafficlight.setLinkState(tlsID, 16, 'u')

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 15:52:58 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2024-09-26 14:26:11 by Eclipse SUMO netedit Version v1_20_0+2157-7cbf65e8f91
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\bugs\ticket1711/net.net.xml"/>
+        <additional-files value="D:\SUMO\tests\netedit\bugs\ticket1711\additionals.add.xml"/>
+        <route-files value="D:\SUMO\tests\netedit\bugs\ticket1711\routes.rou.xml"/>
+        <data-files value="D:\SUMO\tests\netedit\bugs\ticket1711\datas.dat.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\bugs\ticket1711\net.net.xml"/>
     </input>
-
-    <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\bugs\ticket1711/net"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -19,7 +18,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -30,15 +28,17 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</configuration>
+</neteditConfiguration>
 -->
 
-<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <node id="A" x="50.00" y="0.00" type="dead_end"/>
-    <node id="B" x="50.00" y="100.00" type="dead_end"/>
-    <node id="C" x="0.00" y="50.00" type="dead_end"/>
-    <node id="Center" x="50.00" y="50.00" type="priority"/>
-    <node id="D" x="100.00" y="50.00" type="dead_end"/>
+    <node id="J0" x="-25.00" y="0.00" type="dead_end"/>
+    <node id="J1" x="0.00" y="25.00" type="dead_end"/>
+    <node id="J2" x="0.00" y="-25.00" type="dead_end"/>
+    <node id="J3" x="25.00" y="0.00" type="dead_end"/>
+    <node id="Junction5" x="0.00" y="0.00" type="priority"/>
+    <node id="JunctionExtern0" x="-60.00" y="0.00" type="priority"/>
+    <node id="JunctionExtern1" x="60.00" y="0.00" type="priority"/>
 </nodes>

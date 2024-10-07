@@ -157,6 +157,7 @@ configuration:
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.expand** {{DT_BOOL}} | Expand the end of the last loaded weight interval to infinity; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
+| **--weights.tls-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs across a traffic light; *default:* **0** |
 | **--aggregation-interval** {{DT_TIME}} | Defines the time interval when aggregating single vehicle input; Defaults to one hour; *default:* **3600** |
 | **--capacities.default** {{DT_BOOL}} | Ignore edge priorities when calculating capacities and restraints; *default:* **false** |
 | **--weights.priority-factor** {{DT_FLOAT}} | Consider edge priorities in addition to travel times, weighted by factor; *default:* **0** |

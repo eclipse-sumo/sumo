@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-02 19:46:06 by Eclipse SUMO netconvert Version v1_19_0+1642-d53676a8152
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <projection>
+        <proj.scale value="20"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-48205.27,-59917.20" convBoundary="0.00,0.00,2856.00,5523.60" origBoundary="48205.27,59917.20,48348.07,60193.38" projParameter="!"/>
+
+    <node id="10708" x="1536.40" y="3242.20" type="priority"/>
+    <node id="13448" x="1675.00" y="0.00" type="priority"/>
+    <node id="14304" x="17.80" y="2655.00" type="priority"/>
+    <node id="14305" x="2832.80" y="5501.00" type="priority"/>
+    <node id="17199" x="646.40" y="3238.60" type="priority"/>
+    <node id="17200" x="1516.40" y="4112.20" type="priority"/>
+</nodes>

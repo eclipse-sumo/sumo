@@ -233,7 +233,8 @@ GNEPoly::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -258,6 +259,8 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, app);
+    new FXMenuSeparator(ret);
     FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
@@ -299,16 +302,18 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() &&
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+            myNet->getViewNet()->getDataViewOptions().showShapes() &&
             GUIPolygon::checkDraw(s, this, this)) {
-        // draw boundaries
+        // draw boundary
+        const auto boundary = getCenteringBoundary();
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get exaggeration
         const double polyExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(polyExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawPoly(boundary, isAttributeCarrierSelected())) {
             // get colors
             const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
             // push layer matrix
@@ -336,7 +341,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        calculateContourPolygons(s, d, polyExaggeration, (getFill() || myAdditionalGeometry.getShape().isClosed()));
+        calculateContourPolygons(s, d, polyExaggeration, getFill());
     }
 }
 
@@ -423,7 +428,7 @@ GNEPoly::openPolygon(bool allowUndo) {
 void
 GNEPoly::closePolygon(bool allowUndo) {
     // only close if shape is opened
-    if (myShape.isClosed() == false) {
+    if (!myShape.isClosed()) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin(this, "close shape");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
@@ -485,18 +490,14 @@ void
 GNEPoly::simplifyShape(bool allowUndo) {
     if (!mySimplifiedShape && myShape.size() > 2) {
         const Boundary b =  myShape.getBoxBoundary();
+        // create a square as simplified shape
         PositionVector simplifiedShape;
+        simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
+        simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
+        simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
+        simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
         if (myShape.isClosed()) {
-            // create a square as simplified shape
-            simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
-            simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
-            simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
-            simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
             simplifiedShape.push_back(simplifiedShape[0]);
-        } else {
-            // create a line as simplified shape
-            simplifiedShape.push_back(myShape.front());
-            simplifiedShape.push_back(myShape.back());
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
@@ -744,6 +745,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
+            myAdditionalContour.clearContour();
             break;
         case SUMO_ATTR_LINEWIDTH:
             myLineWidth = parse<double>(value);

@@ -76,26 +76,46 @@ void
 MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
     // ignore triggered vehicles
     if (veh->hasDeparted()) {
-        myStopped.find(veh)->second.loadedPersons += n;
+        if (myStopped.count(veh) == 0) {
+            WRITE_WARNINGF(TL("Vehicle '%' loads persons on edge '%', time=% without starting the stop."),
+                    veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
+        } else {
+            myStopped.find(veh)->second.loadedPersons += n;
+        }
     }
 }
 
 void
 MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
-    myStopped.find(veh)->second.unloadedPersons += n;
+    if (myStopped.count(veh) == 0) {
+        WRITE_WARNINGF(TL("Vehicle '%' unloads persons on edge '%', time=% without starting the stop."),
+                veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
+    } else {
+        myStopped.find(veh)->second.unloadedPersons += n;
+    }
 }
 
 void
 MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
     // ignore triggered vehicles
     if (veh->hasDeparted()) {
-        myStopped.find(veh)->second.loadedContainers += n;
+        if (myStopped.count(veh) == 0) {
+            WRITE_WARNINGF(TL("Vehicle '%' loads container on edge '%', time=% without starting the stop."),
+                    veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
+        } else {
+            myStopped.find(veh)->second.loadedContainers += n;
+        }
     }
 }
 
 void
 MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
-    myStopped.find(veh)->second.unloadedContainers += n;
+    if (myStopped.count(veh) == 0) {
+        WRITE_WARNINGF(TL("Vehicle '%' unloads container on edge '%', time=% without starting the stop."),
+                veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
+    } else {
+        myStopped.find(veh)->second.unloadedContainers += n;
+    }
 }
 
 void
@@ -131,14 +151,8 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
         myDevice.writeAttr("delay", delay);
     }
     if (stop.arrival >= 0) {
-        myDevice.writeAttr("arrivalDelay", arrivalDelay);
+        myDevice.writeAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay);
     }
-    myDevice.writeAttr("initialPersons", si.initialNumPersons);
-    myDevice.writeAttr("loadedPersons", si.loadedPersons);
-    myDevice.writeAttr("unloadedPersons", si.unloadedPersons);
-    myDevice.writeAttr("initialContainers", si.initialNumContainers);
-    myDevice.writeAttr("loadedContainers", si.loadedContainers);
-    myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
     if (stop.busstop != "") {
         myDevice.writeAttr(SUMO_ATTR_BUS_STOP, stop.busstop);
     }
@@ -166,6 +180,12 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     if (MSGlobals::gUseStopEnded) {
         myDevice.writeAttr(SUMO_ATTR_USED_ENDED, stop.ended >= 0);
     }
+    myDevice.writeAttr("initialPersons", si.initialNumPersons);
+    myDevice.writeAttr("loadedPersons", si.loadedPersons);
+    myDevice.writeAttr("unloadedPersons", si.unloadedPersons);
+    myDevice.writeAttr("initialContainers", si.initialNumContainers);
+    myDevice.writeAttr("loadedContainers", si.loadedContainers);
+    myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
     myDevice.closeTag();
     myStopped.erase(veh);
 }

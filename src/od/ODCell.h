@@ -25,6 +25,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -68,7 +69,8 @@ struct ODCell {
     std::vector<RORoute*> pathsVector;  // path_id, string of edges?
 
     /// @brief mapping of departure times to departing vehicles, if already fixed
-    std::map<SUMOTime, std::vector<std::string> > departures;
+    typedef std::map<SUMOTime, std::vector<SUMOVehicleParameter> > Departures;
+    Departures departures;
 
     /// @brief the origin "district" is an edge id
     bool originIsEdge = false;

@@ -31,9 +31,11 @@
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
+#include <netwrite/NWWriter_SUMO.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -142,7 +144,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(GNEViewParent* viewParent, GNEViewNet* view
 
 
 GNETLSEditorFrame::~GNETLSEditorFrame() {
-    cleanup();
+    myTLSPhases->clearPhaseTable();
 }
 
 
@@ -195,7 +197,7 @@ GNETLSEditorFrame::isTLSSaved() {
         // open question box
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
                                                TL("Save TLS Changes"), "%s",
-                                               TL("There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?"));
+                                               TL("There are unsaved changes in the currently edited traffic light.\nDo you want to save it before changing mode?"));
         if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'YES'");
@@ -269,7 +271,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
             myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, true), true);
         }
     }
-    // clean up temporary container to avoid deletion of defs when it's destruct is called
+    // clean up temporary container to avoid deletion of defs when its destruct is called
     for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
         tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
     }
@@ -1570,7 +1572,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
             connectionControlled = true;
         }
     }
-    if (connectionControlled == false) {
+    if (!connectionControlled) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
@@ -1796,10 +1798,21 @@ GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*)
     if (currentJunction != nullptr) {
         const auto oldDefinition = getCurrentTLSDefinition();
         std::vector<NBNode*> nodes = oldDefinition->getNodes();
+        GNEUndoList* undoList = myTLSEditorParent->getViewNet()->getUndoList();
         for (const auto& node : nodes) {
             GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
-            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
-            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, true), true);
+            undoList->add(new GNEChange_TLS(junction, oldDefinition, false), true);
+            undoList->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, true), true);
+            // synchronize crossing tl-indices in case they were changed (via onCmdCleanStates)
+            for (const auto& gc : junction->getGNECrossings()) {
+                NBNode::Crossing* c = gc->getNBCrossing();
+                if (c) {
+                    gc->setAttribute(SUMO_ATTR_TLLINKINDEX, toString(c->tlLinkIndex), undoList);
+                    gc->setAttribute(SUMO_ATTR_TLLINKINDEX2, toString(c->tlLinkIndex2), undoList);
+                }
+            }
+
+
         }
         // end change
         myTLSEditorParent->getViewNet()->getUndoList()->end();
@@ -1987,7 +2000,7 @@ GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
 void
 GNETLSEditorFrame::TLSPhases::initPhaseTable() {
     // first clear table
-    myPhaseTable->clearTable();
+    clearPhaseTable();
     if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable();
@@ -2007,6 +2020,12 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable() {
         myPhaseTable->hide();
     }
     update();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::clearPhaseTable() {
+    myPhaseTable->clearTable();
 }
 
 
@@ -2979,7 +2998,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             }
         }
 
-        // clean up temporary container to avoid deletion of defs when it's destruct is called
+        // clean up temporary container to avoid deletion of defs when its destruct is called
         for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
             tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
         }
@@ -3004,60 +3023,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         OutputDevice& device = OutputDevice::getDevice(file.text());
         // save program
         device.writeXMLHeader("additional", "additional_file.xsd");
-        device.openTag(SUMO_TAG_TLLOGIC);
-        device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
-        device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
-        device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
-        device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
-        myTLSEditorParent->myEditedDef->writeParams(device);
-        // write the phases
-        const bool TLSActuated = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::ACTUATED);
-        const bool TLSDelayBased = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::DELAYBASED);
-        const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
-        // write the phases
-        const auto& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
-        for (const auto& phase : phases) {
-            device.openTag(SUMO_TAG_PHASE);
-            device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
-            device.writeAttr(SUMO_ATTR_STATE, phase.state);
-            // write specific actuated parameters
-            if (TLSActuated || TLSDelayBased) {
-                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-                }
-                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.maxDur));
-                }
-            }
-            // write specific NEMA parameters
-            if (TLSNEMA) {
-                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-                }
-                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.vehExt));
-                }
-                if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.red));
-                }
-                if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.yellow));
-                }
-            }
-            device.closeTag();
-        }
+        NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic());
         device.close();
     }
     return 1;

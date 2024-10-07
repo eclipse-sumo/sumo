@@ -198,8 +198,7 @@ int RealisticEngineModel::performGearShifting(double speed_mps, double accelerat
 
 
 double RealisticEngineModel::maxEngineAcceleration_mps2(double speed_mps) {
-    const double maxEngineAcceleration = speed_mpsToThrust_N(speed_mps) / ep.__maxAccelerationCoefficient;
-    return std::min(maxEngineAcceleration, maxNoSlipAcceleration_mps2());
+    return speed_mpsToThrust_N(speed_mps) / ep.__maxAccelerationCoefficient;
 }
 
 
@@ -230,17 +229,17 @@ double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_
     double correctedSpeed = std::max(speed_mps, minSpeed_mps);
     if (reqAccel_mps2 >= 0) {
         //the system wants to accelerate
-        //the real engine acceleration is the minimum between what the engine can deliver, and what
-        //has been requested
-        double engineAccel = std::min(maxEngineAcceleration_mps2(correctedSpeed), reqAccel_mps2);
+        //compute what is the maximum acceleration that can be delivered by the engine
+        double engineAccel = maxEngineAcceleration_mps2(correctedSpeed);
+        //the maximum acceleration is given by the maximum acceleration the engine can provide minus friction forces
+        double maxAccel = engineAccel - thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
         //now we need to computed delayed acceleration due to actuation lag
         double tau = getEngineTimeConstant_s(speed_mpsToRpm(correctedSpeed));
         double alpha = ep.dt / (tau + ep.dt);
-        //compute the acceleration provided by the engine, thus removing friction from current acceleration
-        double currentAccel_mps2 = accel_mps2 + thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
         //use standard first order lag with time constant depending on engine rpm
-        //add back frictions resistance as well
-        realAccel_mps2 = alpha * engineAccel + (1 - alpha) * currentAccel_mps2 - thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
+        realAccel_mps2 = alpha * reqAccel_mps2 + (1 - alpha) * accel_mps2;
+        //limit the actual acceleration by considering friction forces and the maximum acceleration considering tyres
+        realAccel_mps2 = std::min(std::min(realAccel_mps2, maxAccel), maxNoSlipAcceleration_mps2());
     } else {
         realAccel_mps2 = getRealBrakingAcceleration(speed_mps, accel_mps2, reqAccel_mps2, timeStep);
     }
@@ -258,14 +257,13 @@ double RealisticEngineModel::getRealBrakingAcceleration(double speed_mps, double
     UNUSED_PARAMETER(t);
     //compute which part of the deceleration is currently done by frictions
     double frictionDeceleration = thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
-    //remove the part of the deceleration which is due to friction
-    double brakesAccel_mps2 = accel_mps2 + frictionDeceleration;
+    //the maximum deceleration is what the vehicle can do given the tyres plus the friction forces (friction can make the vehicle brake stronger)
+    double maxDeceleration = -maxNoSlipAcceleration_mps2() - frictionDeceleration;
     //compute the new brakes deceleration
-    double newBrakesAccel_mps2 = ep.__brakesAlpha * std::max(-ep.__maxNoSlipAcceleration, reqAccel_mps2) + ep.__brakesOneMinusAlpha * brakesAccel_mps2;
-    //our brakes limit is tires friction
-    newBrakesAccel_mps2 = std::max(-ep.__maxNoSlipAcceleration, newBrakesAccel_mps2);
-    //now we need to add back our friction deceleration
-    return newBrakesAccel_mps2 - frictionDeceleration;
+    double newBrakesAccel_mps2 = ep.__brakesAlpha * reqAccel_mps2 + ep.__brakesOneMinusAlpha * accel_mps2;
+    //keep actual deceleration within physical limits (considering that wind force can help us slowing down)
+    return std::max(maxDeceleration, newBrakesAccel_mps2);
+
 }
 
 

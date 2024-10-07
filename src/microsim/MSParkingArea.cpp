@@ -14,6 +14,7 @@
 /// @file    MSParkingArea.cpp
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Tue, 19.01.2016
 ///
 // A area where vehicles can park next to the road
@@ -27,6 +28,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
 #include "MSLane.h"
 #include <microsim/transportables/MSTransportable.h>
@@ -43,7 +45,8 @@
 // method definitions
 // ===========================================================================
 MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::string>& lines,
-                             MSLane& lane, double begPos, double endPos, int capacity, double width, double length,
+                             const std::vector<std::string>& badges, MSLane& lane,
+                             double begPos, double endPos, int capacity, double width, double length,
                              double angle, const std::string& name, bool onRoad,
                              const std::string& departPos, bool lefthand) :
     MSStoppingPlace(id, SUMO_TAG_PARKING_AREA, lines, lane, begPos, endPos, name),
@@ -53,6 +56,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     myWidth(width),
     myLength(length),
     myAngle(lefthand ? -angle : angle),
+    myAcceptedBadges(badges.begin(), badges.end()),
     myEgressBlocked(false),
     myReservationTime(-1),
     myReservations(0),
@@ -66,10 +70,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;
     }
-    const double spaceDim = capacity > 0 ? myLane.interpolateLanePosToGeometryPos((myEndPos - myBegPos) / capacity) : 7.5;
-    if (myLength == 0) {
-        myLength = spaceDim;
-    }
+
     if (departPos != "") {
         std::string error;
         if (!SUMOVehicleParameter::parseDepartPos(departPos, toString(myElement), getID(), myDepartPos, myDepartPosDefinition, error)) {
@@ -90,19 +91,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     if (!myOnRoad) {
         myShape.move2side((lane.getWidth() / 2. + myWidth / 2.) * offset);
     }
-    // Initialize space occupancies if there is a road-side capacity
-    // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
-    for (int i = 0; i < capacity; ++i) {
-        // calculate pos, angle and slope of parking lot space
-        const Position pos = GeomHelper::calculateLotSpacePosition(myShape, i, spaceDim, myAngle, myWidth, myLength);
-        double spaceAngle = GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle);
-        double spaceSlope = GeomHelper::calculateLotSpaceSlope(myShape, i, spaceDim);
-        // add lotEntry
-        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, spaceAngle, spaceSlope);
-        // update endPos
-        mySpaceOccupancies.back().endPos = MIN2(myEndPos, myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1)));
-    }
-    computeLastFreePos();
+    setRoadsideCapacity(capacity);
 }
 
 
@@ -532,6 +521,41 @@ MSParkingArea::getLastStepOccupancy() const {
     return myLastStepOccupancy;
 }
 
+
+void
+MSParkingArea::accept(std::string badge) {
+    myAcceptedBadges.insert(badge);
+}
+
+
+void
+MSParkingArea::accept(std::vector<std::string> badges) {
+    myAcceptedBadges.insert(badges.begin(), badges.end());
+}
+
+
+void
+MSParkingArea::refuse(std::string badge) {
+    myAcceptedBadges.erase(badge);
+}
+
+
+bool
+MSParkingArea::accepts(MSBaseVehicle* veh) const {
+    if (myAcceptedBadges.size() == 0) {
+        return true;
+    } else {
+        std::vector<std::string> vehicleBadges = veh->getParkingBadges();
+        for (auto badge : vehicleBadges) {
+            if (myAcceptedBadges.count(badge) != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+
 void
 MSParkingArea::notifyEgressBlocked() {
     computeLastFreePos();
@@ -547,6 +571,32 @@ MSParkingArea::getNumAlternatives() const {
 void
 MSParkingArea::setNumAlternatives(int alternatives) {
     myNumAlternatives = MAX2(myNumAlternatives, alternatives);
+}
+
+
+void
+MSParkingArea::setRoadsideCapacity(int capacity) {
+    // reinit parking lot generation process
+    myRoadSideCapacity = capacity;
+
+    // Initialize space occupancies if there is a road-side capacity
+    // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
+    const double spaceDim = myRoadSideCapacity > 0 ? myLane.interpolateLanePosToGeometryPos((myEndPos - myBegPos) / myRoadSideCapacity) : 7.5;
+    if (myLength == 0) {
+        myLength = spaceDim;
+    }
+    mySpaceOccupancies.clear();
+    myCapacity = 0;
+    for (int i = 0; i < myRoadSideCapacity; ++i) {
+        // calculate pos, angle and slope of parking lot space
+        const Position pos = GeomHelper::calculateLotSpacePosition(myShape, i, spaceDim, myAngle, myWidth, myLength);
+        double spaceAngle = GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle);
+        double spaceSlope = GeomHelper::calculateLotSpaceSlope(myShape, i, spaceDim);
+        // add lotEntry
+        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, spaceAngle, spaceSlope);
+        // update endPos
+        mySpaceOccupancies.back().endPos = MIN2(myEndPos, myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1)));
+    }
 }
 
 /****************************************************************************/

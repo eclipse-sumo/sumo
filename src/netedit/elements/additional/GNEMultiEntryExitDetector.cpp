@@ -39,17 +39,20 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
 }
 
 
-GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq,
-        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
-        double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) :
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
+        const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+        const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3EXIT), name, {}, {}, {}, {}, {}, {}),
               Parameterised(parameters),
               myPosition(pos),
               myPeriod(freq),
               myFilename(filename),
               myVehicleTypes(vehicleTypes),
+              myNextEdges(nextEdges),
+              myDetectPersons(detectPersons),
               myTimeThreshold(timeThreshold),
               mySpeedThreshold(speedThreshold),
+              myOpenEntry(openEntry),
 myExpectedArrival(expectedArrival) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -104,6 +107,9 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (getAttribute(SUMO_ATTR_EXPECT_ARRIVAL) != myTagProperty.getDefaultValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
             device.writeAttr(SUMO_ATTR_EXPECT_ARRIVAL, myExpectedArrival);
         }
+        if (getAttribute(SUMO_ATTR_OPEN_ENTRY) != myTagProperty.getDefaultValue(SUMO_ATTR_OPEN_ENTRY)) {
+            device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myExpectedArrival);
+        }
         // write all entry/exits
         for (const auto& access : getChildAdditionals()) {
             access->writeAdditional(device);
@@ -140,7 +146,8 @@ GNEMultiEntryExitDetector::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -196,8 +203,9 @@ GNEMultiEntryExitDetector::getParentName() const {
 
 void
 GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // check if drawn
-    if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    // first check if additional has to be drawn
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3
@@ -225,10 +233,16 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
             return myFilename;
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
+        case SUMO_ATTR_NEXT_EDGES:
+            return toString(myNextEdges);
+        case SUMO_ATTR_DETECT_PERSONS:
+            return toString(myDetectPersons);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
+        case SUMO_ATTR_OPEN_ENTRY:
+            return toString(myOpenEntry);
         case SUMO_ATTR_EXPECT_ARRIVAL:
             return toString(myExpectedArrival);
         case GNE_ATTR_SELECTED:
@@ -265,8 +279,11 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_NEXT_EDGES:
+        case SUMO_ATTR_DETECT_PERSONS:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case SUMO_ATTR_OPEN_ENTRY:
         case SUMO_ATTR_EXPECT_ARRIVAL:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -301,9 +318,22 @@ GNEMultiEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
+        case SUMO_ATTR_NEXT_EDGES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfNetIDs(value);
+            }
+        case SUMO_ATTR_DETECT_PERSONS:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::PersonModeValues.hasString(value);
+            }
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_OPEN_ENTRY:
         case SUMO_ATTR_EXPECT_ARRIVAL:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -385,11 +415,20 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
+        case SUMO_ATTR_NEXT_EDGES:
+            myNextEdges = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_DETECT_PERSONS:
+            myDetectPersons = value;
+            break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<double>(value);
+            break;
+        case SUMO_ATTR_OPEN_ENTRY:
+            myOpenEntry = parse<bool>(value);
             break;
         case SUMO_ATTR_EXPECT_ARRIVAL:
             myExpectedArrival = parse<bool>(value);

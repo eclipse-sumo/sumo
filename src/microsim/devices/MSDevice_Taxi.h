@@ -81,8 +81,11 @@ public:
                                const std::set<std::string>& lines,
                                SUMOTime reservationTime,
                                SUMOTime pickupTime,
+                               SUMOTime earliestPickupTime,
                                const MSEdge* from, double fromPos,
+                               const MSStoppingPlace* fromStop,
                                const MSEdge* to, double toPos,
+                               const MSStoppingPlace* toStop,
                                const std::string& group);
 
     /// @brief retract reservation
@@ -91,6 +94,13 @@ public:
                                   const MSEdge* from, double fromPos,
                                   const MSEdge* to, double toPos,
                                   const std::string& group);
+
+    /// @brief update reservation's fromPos due to pre-booking
+    static void updateReservationFromPos(MSTransportable* person,
+                                         const std::set<std::string>& lines,
+                                         const MSEdge* from, double fromPos,
+                                         const MSEdge* to, double toPos,
+                                         const std::string& group, double newFromPos);
 
     /// @brief period command to trigger the dispatch algorithm
     static SUMOTime triggerDispatch(SUMOTime currentTime);
@@ -162,6 +172,12 @@ public:
     /// @brief service the given reservations
     void dispatchShared(std::vector<const Reservation*> reservations);
 
+    /// @brief remove the persons the taxi is currently waiting for from reservations
+    void cancelCurrentCustomers();
+
+    /// @brief remove person from reservations
+    bool cancelCustomer(const MSTransportable* t);
+
     /// @brief whether the given person is allowed to board this taxi
     bool allowsBoarding(const MSTransportable* t) const;
 
@@ -217,7 +233,8 @@ private:
     void prepareStop(ConstMSEdgeVector& edges,
                      std::vector<SUMOVehicleParameter::Stop>& stops,
                      double& lastPos, const MSEdge* stopEdge, double stopPos,
-                     const std::string& action);
+                     const MSStoppingPlace* stopPlace,
+                     const std::string& action, const Reservation* res, const bool isPickup);
 
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge, const std::string& action);
@@ -247,7 +264,7 @@ private:
     /// @brief algorithm for controlling idle behavior
     MSIdling* myIdleAlgorithm;
 
-    /// @brief whether the taxi has reached it's schedule service end
+    /// @brief whether the taxi has reached its schedule service end
     bool myReachedServiceEnd = false;
 
     /// @brief reservations currently being served
@@ -262,12 +279,16 @@ private:
     static MSDispatch* myDispatcher;
     /// @brief The repeated call to the dispatcher
     static Command* myDispatchCommand;
+    /// @brief the last dispatch order
+    std::vector<const Reservation*> myLastDispatch;
     // @brief the list of available taxis
     static std::vector<MSDevice_Taxi*> myFleet;
     // @brief the maximum personCapacity in the fleet
     static int myMaxCapacity;
     // @brief the maximum container capacity in the fleet
     static int myMaxContainerCapacity;
+
+    static std::set<std::string> myVClassWarningVTypes;
 
 private:
     /// @brief Invalidated copy constructor.

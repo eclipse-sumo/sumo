@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-06 18:51:52 by Eclipse SUMO netconvert Version v1_12_0+2002-7ea8a94
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,14 +31,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-403087.80,-5811470.27" convBoundary="0.00,0.00,38.60,116.99" origBoundary="13.455920,52.375706,13.649024,52.459222" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -68,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="180304817#3" from="1531989564" to="1531989559" name="Alt-Köpenick" priority="1" type="highway.service" spreadType="center">
-        <lane id="180304817#3_0" index="0" allow="pedestrian bus delivery bicycle" speed="1.39" length="8.16" shape="1.37,7.85 2.97,-0.00">
+        <lane id="180304817#3_0" index="0" allow="pedestrian bus delivery bicycle" speed="1.39" length="8.16" shape="1.37,7.85 2.97,0.00">
             <param key="origId" value="180304817"/>
         </lane>
     </edge>

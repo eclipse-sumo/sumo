@@ -113,7 +113,7 @@ public:
     virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
     /// @brief move forward and return whether the person arrived
-    bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr);
+    bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr, const bool isReplay = false);
 
     void activateEntryReminders(MSTransportable* person, const bool isDepart = false);
 
@@ -135,6 +135,17 @@ public:
     /// @brief Whether the transportable is walking
     bool isWalk() const {
         return true;
+    }
+
+    SUMOTime getTimeLoss(const MSTransportable* transportable) const;
+
+    bool equals(const MSStage& s) const {
+        if (!MSStageMoving::equals(s)) {
+            return false;
+        }
+        // this is safe because MSStage already checked that the type fits
+        const MSStageWalking& sw = static_cast<const MSStageWalking&>(s);
+        return myWalkingTime == sw.myWalkingTime;
     }
 
 private:

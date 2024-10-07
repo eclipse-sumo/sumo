@@ -47,11 +47,12 @@ myFriendlyPosition(false) {
 }
 
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const Parameterised::Map& parameters) :
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, const double pos, const std::string& specialPos,
+                     const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
 Parameterised(parameters),
 myPositionOverLane(pos),
+mySpecialPosition(specialPos),
 myLength(length),
 myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
@@ -191,7 +192,8 @@ GNEAccess::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -222,7 +224,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // radius depends if mouse is over element
             const double radius = gViewObjectsHandler.isElementSelected(this) ? 1 : 0.5;
             // get color
@@ -268,7 +270,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             if (myPositionOverLane == INVALID_DOUBLE) {
-                return "random";
+                return mySpecialPosition;
             } else {
                 return toString(myPositionOverLane);
             }
@@ -337,7 +339,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_POSITION:
-            if (value.empty() || (value == "random")) {
+            if (value.empty() || value == "random" || value == "doors" || value == "carriage") {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -387,8 +389,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (value.empty()) {
                 myPositionOverLane = 0;
-            } else if (value == "random") {
+            } else if (value == "random" || value == "doors" || value == "carriage") {
                 myPositionOverLane = INVALID_DOUBLE;
+                mySpecialPosition = value;
             } else {
                 myPositionOverLane = parse<double>(value);
             }

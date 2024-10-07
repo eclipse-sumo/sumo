@@ -19,6 +19,9 @@ trip_chain
 # remove person instantly
 remove
 
+# remove person while on a walkingarea and approaching a crossing (make sure it unregisters)
+remove_crossing
+
 # remove person and add another one with the same id
 remove_add
 
@@ -33,3 +36,12 @@ force_depart
 
 # add person that starts in a vehicle
 start_in_vehicle
+
+# define a ride to differnt kinds of stopping places
+appendDrivingStage_stoppingPlaces
+
+# see #15518
+setSpeedFactor
+
+# see #15527
+setSpeedFactor2

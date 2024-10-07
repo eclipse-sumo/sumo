@@ -157,7 +157,7 @@ GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (myStepsValids == false) {
+    if (!myStepsValids) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box

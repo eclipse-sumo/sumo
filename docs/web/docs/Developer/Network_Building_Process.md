@@ -291,7 +291,7 @@ following three cases must be distinguished:
 |                                                 |                                                      |
 | ----------------------------------------------- | ---------------------------------------------------- |
 | ![laneShapeIntersectsWithNodeShape.png](../images/LaneShapeIntersectsWithNodeShape.png) | The edge shape intersects with the node shape. Then, the shape is trimmed to the intersection point. This looks quite reasonable.                                                                          |
-| ![laneShapeOutsideOfNodeShape.png](../images/LaneShapeOutsideOfNodeShape.png)                | The edge shape is outside the node shape. The the present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
+| ![laneShapeOutsideOfNodeShape.png](../images/LaneShapeOutsideOfNodeShape.png)                | The edge shape is outside the node shape. The present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
 | ![laneShapeInsideOfNodeShape.png](../images/LaneShapeInsideOfNodeShape.png)                   | The edge shape is completely within the node shape. What should happen here? (The red dots show, what netconvert does at present.)                                                                         |
 
 So I am wondering, what the right behavior of netconvert would be in

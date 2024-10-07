@@ -69,6 +69,9 @@ public:
     static std::string getStreetName(const std::string& edgeID);
     static const std::vector<std::string> getPendingVehicles(const std::string& edgeID);
     static double getAngle(const std::string& edgeID, double relativePosition = libsumo::INVALID_DOUBLE_VALUE);
+    static std::string getFromJunction(const std::string& edgeID);
+    static std::string getToJunction(const std::string& edgeID);
+    static std::string getBidiEdge(const std::string& edgeID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
@@ -95,7 +98,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static void setAllowedSVCPermissions(const std::string& edgeID, int permissions);
+    static void setAllowedSVCPermissions(const std::string& edgeID, long long int permissions);
 
     static MSEdge* getEdge(const std::string& edgeID);
 

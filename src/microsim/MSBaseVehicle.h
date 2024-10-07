@@ -43,6 +43,8 @@ class MSDevice_Transportable;
 class MSDevice_Emissions;
 class MSVehicleDevice;
 class MSEdgeWeightsStorage;
+class MSChargingStation;
+class StoppingPlaceMemory;
 
 
 // ===========================================================================
@@ -148,8 +150,15 @@ public:
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
-    inline const MSVehicleType& getVehicleType() const  {
+    inline const MSVehicleType& getVehicleType() const {
         return *myType;
+    }
+
+    /** @brief Returns the vehicle's type parameter
+     * @return The vehicle's type parameter
+     */
+    inline const SUMOVTypeParameter& getVTypeParameter() const {
+        return myType->getParameter();
     }
 
     /** @brief Returns the vehicle's access class
@@ -158,6 +167,11 @@ public:
     inline SUMOVehicleClass getVClass() const {
         return myType->getParameter().vehicleClass;
     }
+
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    bool ignoreTransientPermissions() const;
 
     /** @brief Returns the maximum speed (the minimum of desired and technical maximum speed)
      * @return The vehicle's maximum speed
@@ -296,9 +310,10 @@ public:
      *
      * @param[in] t The time for which the route is computed
      * @param[in] router The router to use
+     * @param[in] sink (optionally) a new destination edge
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false);
+    bool reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
 
 
     /** @brief Replaces the current route by the given edges
@@ -323,10 +338,11 @@ public:
      *
      * @param[in] route The new route to pass
      * @param[in] info Information regarding the replacement
+     * @param[in] addRouteStops Whether stops from the replacement route should be added
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true,
                               std::string* msgReturn = nullptr);
 
     /** @brief Returns the vehicle's acceleration
@@ -443,6 +459,11 @@ public:
      */
     int getPersonNumber() const;
 
+    /** @brief Returns the number of leaving persons
+     * @return The number of leaving passengers
+     */
+    int getLeavingPersonNumber() const;
+
     /** @brief Returns the list of persons
      * @return The list of passengers on-board
      */
@@ -482,7 +503,7 @@ public:
     /// @brief returns whether the vehicle serves a public transport line that serves the given stop
     bool isLineStop(double position) const;
 
-    /// @brief check wether the vehicle has jump at the given part of it's route
+    /// @brief check wether the vehicle has jump at the given part of its route
     bool hasJump(const MSRouteIterator& it) const;
 
     /** @brief Validates the current or given route
@@ -644,6 +665,9 @@ public:
     /** @brief get the current  parking area stop or nullptr */
     MSParkingArea* getCurrentParkingArea();
 
+    /// @brief get the valid parking access rights (vehicle settings override vehicle type settings)
+    const std::vector<std::string>& getParkingBadges() const;
+
     /// @brief departure position where the vehicle fits fully onto the edge (if possible)
     double basePos(const MSEdge* edge) const;
 
@@ -719,6 +743,9 @@ public:
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
     */
     virtual bool resumeFromStopping() = 0;
+
+    /// @brief mark vehicle as active
+    void unregisterWaiting();
 
     /// @brief deletes the next stop at the given index if it exists
     bool abortNextStop(int nextStopIndex = 0);
@@ -820,6 +847,11 @@ public:
     */
     double getChargedEnergy() const;
 
+    /** @brief Returns the maximum charge rate allowed by the battery in the current time step (W)
+    * @return The maximum charge rate in the current time step.
+    */
+    double getMaxChargeRate() const;
+
     /** @brief Returns actual current (A) of ElecHybrid device
     * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the powertrain of the vehicle?
     * RICE_REV_JS: It is the current drawn from the overhead wire (value if the vehicle is not connected to overhead wire?)
@@ -860,19 +892,6 @@ public:
 
 
         /// @brief return the current routing mode
-        int getRoutingMode() const {
-            return myRoutingMode;
-        }
-
-        /** @brief Sets routing behavior
-         * @param[in] value an enum value controlling the different modes
-         */
-        void setRoutingMode(int value) {
-            myRoutingMode = value;
-        }
-
-
-        /// @brief return the current routing mode
         double getExtraImpatience() const {
             return myExtraImpatience;
         }
@@ -884,13 +903,7 @@ public:
             myExtraImpatience = value;
         }
 
-
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex, SUMOVehicleClass svc) const;
-
     protected:
-        ///@brief routing mode (see TraCIConstants.h)
-        int myRoutingMode;
-
         /// @brief dynamic impatience offset
         double myExtraImpatience = 0;
 
@@ -909,6 +922,20 @@ public:
 
     virtual bool hasInfluencer() const  = 0;
 
+    /// @brief return routing mode (configures router choice but also handling of transient permission changes)
+    int getRoutingMode() const {
+        return myRoutingMode;
+    }
+
+    /** @brief Sets routing behavior
+     * @param[in] value an enum value controlling the different modes
+     */
+    void setRoutingMode(int value) {
+        myRoutingMode = value;
+    }
+
+
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *
@@ -957,21 +984,16 @@ public:
 
     /// @name state io
     //@{
-    void rememberBlockedParkingArea(const MSParkingArea* pa, bool local);
-    SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const;
+    void rememberBlockedParkingArea(const MSStoppingPlace* pa, bool local);
+    SUMOTime sawBlockedParkingArea(const MSStoppingPlace* pa, bool local) const;
+    void rememberBlockedChargingStation(const MSStoppingPlace* cs, bool local);
+    SUMOTime sawBlockedChargingStation(const MSStoppingPlace* cs, bool local) const;
 
     /// @brief score only needed when running with gui
-    void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score);
+    void rememberParkingAreaScore(const MSStoppingPlace* pa, const std::string& score);
     void resetParkingAreaScores();
-
-    /// @brief store information for a single parking area
-    struct PaMemory {
-        PaMemory() : blockedAtTime(-1), blockedAtTimeLocal(-1) {}
-
-        SUMOTime blockedAtTime;
-        SUMOTime blockedAtTimeLocal;
-        std::string score;
-    };
+    void rememberChargingStationScore(const MSStoppingPlace* cs, const std::string& score);
+    void resetChargingStationScores();
 
     int getNumberParkingReroutes() const {
         return myNumberParkingReroutes;
@@ -980,9 +1002,12 @@ public:
         myNumberParkingReroutes = value;
     }
 
-    typedef std::map<const MSParkingArea*, PaMemory, ComparatorIdLess> ParkingMemory;
-    const ParkingMemory* getParkingMemory() const {
+    const StoppingPlaceMemory* getParkingMemory() const {
         return myParkingMemory;
+    }
+
+    const StoppingPlaceMemory* getChargingMemory() const {
+        return myChargingMemory;
     }
     //@}
 
@@ -1060,7 +1085,8 @@ protected:
     int myRouteValidity;
 
     /// memory for parking search
-    ParkingMemory* myParkingMemory = nullptr;
+    StoppingPlaceMemory* myParkingMemory = nullptr;
+    StoppingPlaceMemory* myChargingMemory = nullptr;
     int myNumberParkingReroutes = 0;
 
     /// @brief Whether this vehicle is registered as waiting for a person or container (for deadlock-recognition)
@@ -1077,6 +1103,9 @@ protected:
      * @note:   only set by vClass rail reversing at the moment
      */
     bool myAmReversed = false;
+
+    ///@brief routing mode (see TraCIConstants.h)
+    int myRoutingMode;
 
 private:
     const NumericalID myNumericalID;
@@ -1097,6 +1126,12 @@ private:
 
     /// @brief remove route at the end of the simulation
     void checkRouteRemoval();
+
+    /// @brief helper function
+    bool insertJump(int nextStopIndex, MSRouteIterator itStart, std::string& errorMsg);
+
+    /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
+    void setSkips(MSStop& stop, int prevActiveStops);
 
 private:
     /// invalidated assignment operator

@@ -339,6 +339,8 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
                     // continue depending of type
                     if (type == "STR") {
                         myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputString(this, myEntriesFrame, topic, entry, description, defaultValue));
+                    } else if (type == "TIME") {
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputTime(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
                         myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputFilename(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if (type == "BOOL") {

@@ -35,7 +35,7 @@
 #include "tempstructs/NIVissimConnection.h"
 #include "tempstructs/NIVissimConflictArea.h"
 
-#include <utils/common/StringBijection.h>
+#include <utils/common/SequentialStringBijection.h>
 #include <utils/common/StringTokenizer.h>
 #include <list>
 
@@ -648,10 +648,10 @@ private:
     };
 
     /// The names of VISSIM-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry vissimTags[];
+    static SequentialStringBijection::Entry vissimTags[];
 
     /// The names of VISSIM-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry vissimAttrs[];
+    static SequentialStringBijection::Entry vissimAttrs[];
 
 
 };

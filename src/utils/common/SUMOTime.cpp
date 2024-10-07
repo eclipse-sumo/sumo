@@ -73,9 +73,13 @@ time2string(SUMOTime t, bool humanReadable) {
     }
     // needed for signed zero errors, see #5926
     t = llabs(t);
-    const SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
-    if (scale > 1 && t != SUMOTime_MAX) {
-        t = (t + scale / 2) / scale;
+    SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
+    if (scale > 1) {
+        if (t != SUMOTime_MAX) {
+            t = (t + scale / 2) / scale;
+        } else {
+            scale = 1;
+        }
     }
     const SUMOTime second = TIME2STEPS(1) / scale;
     if (humanReadable) {
@@ -141,6 +145,12 @@ bool checkStepLengthMultiple(const SUMOTime t, const std::string& error, SUMOTim
     }
     // next line used to fix build
     return false;
+}
+
+void checkTimeBounds(const double time) {
+    if (time > STEPS2TIME(SUMOTime_MAX)) {
+        throw TimeFormatException("Input time " + toString(time) + "s exceeds the time value range.");
+    }
 }
 
 

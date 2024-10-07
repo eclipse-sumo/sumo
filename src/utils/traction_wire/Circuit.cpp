@@ -347,8 +347,8 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                                 //Question: sign before alpha - or + during setting current?
                                 //Answer: sign before alpha is minus since we assume positive powerWanted if the current element behaves as load
                                 // (*it_element)->setCurrent(-alpha * (*it_element)->getPowerWanted() / diff_voltage);
-                                // Note: we should never reach this part of code since the authors assumes the negataive node of current source as the ground node
-                                WRITE_WARNING(TL("The negative node of current source is not the groud."))
+                                // Note: we should never reach this part of code since the authors assumes the negative node of current source as the ground node
+                                WRITE_WARNING(TL("The negative node of current source is not the ground."))
                                 if (PosNode_NumACol != -1) {
                                     // -1* d_b/d_phiPos = -1* d(alpha*P/(phiPos-phiNeg) )/d_phiPos = -1* (-alpha*P/(phiPos-phiNeg)^2 )
                                     J(i, PosNode_NumACol) += alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
@@ -367,8 +367,8 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
 
             // RICE_CHECK @20210409 This had to be merged into the master/main manually.
             // Sum of currents going through the all voltage sources
-            // the sum is over all nodes, but the nonzero nodes are only those neigboring with current sources,
-            // so the sum is negative sum of currents through/from current sources representing trolleybusess
+            // the sum is over all nodes, but the nonzero nodes are only those neighboring with current sources,
+            // so the sum is negative sum of currents through/from current sources representing trolleybuses
             currentSumActual = 0;
             for (i = 0; i < numofeqs - (int)voltageSources->size(); i++) {
                 currentSumActual -= vals[i];
@@ -385,7 +385,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                     break;
                 }
                 //voltage limits 70% - 120% of nominal voltage
-                // RICE_TODO @20210409 Again, these limits should be parametrised.
+                // RICE_TODO @20210409 Again, these limits should be parametrized.
                 if (x.maxCoeff() > voltageSources->front()->getVoltage() * 1.2 || x.minCoeff() < voltageSources->front()->getVoltage() * 0.7) {
                     alphaReason = ALPHA_VOLTAGE_LIMITS;
                     alpha_notSolution.push_back(alpha);
@@ -442,7 +442,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
         vals[i] = x_best[i];
     }
 
-    // RICE_TODO: Describe what is hapenning here.
+    // RICE_TODO: Describe what is happening here.
     // we take x_best and alphaBest and update current values in current sources in order to be in agreement with the solution
     int i = 0;
     for (auto& node : *nodes) {
@@ -472,8 +472,8 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                         //Question: sign before alpha - or + during setting current?
                         //Answer: sign before alpha is minus since we assume positive powerWanted if the current element behaves as load
                         // (*it_element)->setCurrent(-alphaBest * (*it_element)->getPowerWanted() / diff_voltage);
-                        // Note: we should never reach this part of code since the authors assumes the negataive node of current source as the ground node
-                        WRITE_WARNING(TL("The negative node of current source is not the groud."))
+                        // Note: we should never reach this part of code since the authors assumes the negative node of current source as the ground node
+                        WRITE_WARNING(TL("The negative node of current source is not the ground."))
                     }
                 }
             }
@@ -703,7 +703,7 @@ bool Circuit::createEquationNRmethod(Node* node, double* eqn, double& val, std::
             case Element::ElementType::RESISTOR_traction_wire:
                 if ((*it)->isEnabled()) {
                     x = (*it)->getResistance();
-                    // go through all neigboring removable nodes and sum resistance of resistors in the serial branch
+                    // go through all neighboring removable nodes and sum resistance of resistors in the serial branch
                     Node* nextNONremovableNode = (*it)->getTheOtherNode(node);
                     Element* nextSerialResistor = *it;
                     while (nextNONremovableNode->isRemovable()) {
@@ -763,7 +763,7 @@ void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
     for (std::vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
         // if the node is connected to two elements and is not the ground
         if ((*it)->getElements()->size() == 2 && !(*it)->isGround()) {
-            // set such node defaultly as removable. But check if the two elements are both resistors
+            // set such node by default as removable. But check if the two elements are both resistors
             (*it)->setRemovability(true);
             for (std::vector<Element*>::iterator it2 = (*it)->getElements()->begin(); it2 != (*it)->getElements()->end(); it2++) {
                 if ((*it2)->getType() != Element::ElementType::RESISTOR_traction_wire) {
@@ -772,7 +772,7 @@ void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
                 }
             }
             if ((*it)->isRemovable()) {
-                //if the node is removeable add pointer into the vector of removeblas nodes
+                //if the node is removable add pointer into the vector of removable nodes
                 removable_ids->push_back((*it)->getId());
             }
         } else {
@@ -882,7 +882,7 @@ void Circuit::replaceAndDeleteNode(Node* unusedNode, Node* newNode) {
         }
     }
 
-    this->descreaseLastId();
+    this->decreaseLastId();
     delete unusedNode;
 }
 

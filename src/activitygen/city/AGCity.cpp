@@ -117,7 +117,7 @@ AGCity::generateWorkPositions() {
 
     // Work positions outside the city
     generateOutgoingWP();
-    std::cout << "--> work position: " << std::endl;
+    std::cout << "--> work position:" << std::endl;
     std::cout << "  |-> in city: " << workPositionCounter << std::endl;
     std::cout << "  |-> out city: " << statData.workPositions - workPositionCounter << std::endl;
     std::cout << "  |-> in+out city: " << statData.workPositions << std::endl;
@@ -233,7 +233,7 @@ AGCity::generatePopulation() {
     //cout << "number people: " << nbrSingle + nbrCouple + nbr3More + nbrChild << std::endl;
     //END TEST
 
-    std::cout << "--> population: " << std::endl;
+    std::cout << "--> population:" << std::endl;
     std::cout << "  |-> city households: " << nbrHH << std::endl;
     std::cout << "  |-> city people: " << nbrSingle + nbrCouple + nbrChild << std::endl;
     std::cout << "    |-> city single: " << nbrSingle << " / (in) couple: " << nbrCouple << std::endl;

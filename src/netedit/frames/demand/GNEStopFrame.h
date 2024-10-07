@@ -20,15 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEAttributesCreator.h>
-#include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNENeteditAttributes.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNETagSelector.h>
-
+#include <utils/foxtools/MFXDynamicLabel.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
 // class definitions
@@ -108,6 +108,9 @@ private:
 
     /// @brief stop parent base object
     CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
+
+    /// @brief plan parameters
+    CommonXMLStructure::PlanParameters myPlanParameters;
 
     /// @brief Stop parent selectors
     GNEDemandElementSelector* myStopParentSelector;

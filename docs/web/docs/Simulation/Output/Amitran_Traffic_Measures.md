@@ -30,13 +30,13 @@ file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 
 ```xml
 <linkData xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/linkdata.xsd">
-   <timeSlice startTime="0" duration="60000"/>
-   <timeSlice startTime="60000" duration="60000">
-       <link id="32" amount="2" averageSpeed="888"/>
-       <link id="35" amount="2" averageSpeed="879"/>
-       <link id="38" amount="4" averageSpeed="859"/>
-   </timeSlice>
-   ...
+   <timeSlice startTime="0" duration="60000"/>
+   <timeSlice startTime="60000" duration="60000">
+       <link id="32" amount="2" averageSpeed="888"/>
+       <link id="35" amount="2" averageSpeed="879"/>
+       <link id="38" amount="4" averageSpeed="859"/>
+   </timeSlice>
+   ...
 </linkData>
 ```
 
@@ -81,7 +81,7 @@ Notes:
   which has similar content
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="float: right; margin-top: -5px;"><a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project
-<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

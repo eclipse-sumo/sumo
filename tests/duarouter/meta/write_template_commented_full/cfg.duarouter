@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 10:46:22 by Eclipse SUMO duarouter Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2024-06-26 13:30:33 by Eclipse SUMO duarouter Version v1_20_0+0837-89657f7d4be
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -177,6 +177,12 @@
         <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
         <weights.minor-penalty value="1.5" type="FLOAT"/>
 
+        <!-- Apply the given time penalty when computing routing costs across a traffic light -->
+        <weights.tls-penalty value="0" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
+        <weights.turnaround-penalty value="5" type="FLOAT"/>
+
         <!-- Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT) -->
         <weights.random-factor value="1" type="FLOAT"/>
 
@@ -196,10 +202,10 @@
         <astar.save-landmark-distances value="" type="FILE"/>
 
         <!-- Use FLOAT as Gawron&apos;s beta -->
-        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT"/>
+        <gawron.beta value="0.9" synonymes="gBeta" type="FLOAT"/>
 
         <!-- Use FLOAT as Gawron&apos;s a -->
-        <gawron.a value="0.05" synonymes="gA" type="FLOAT"/>
+        <gawron.a value="0.5" synonymes="gA" type="FLOAT"/>
 
         <!-- Save routes with near zero probability -->
         <keep-all-routes value="false" type="BOOL"/>
@@ -350,4 +356,4 @@
 
     </random_number>
 
-</configuration>
+</duarouterConfiguration>

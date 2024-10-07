@@ -67,9 +67,13 @@ MEInductLoop::writeXMLOutput(OutputDevice& dev,
     mySegment->prepareDetectorForWriting(myMeanData);
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(startTime)).writeAttr(SUMO_ATTR_END, time2string(stopTime));
     dev.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(myID)).writeAttr("sampledSeconds", myMeanData.getSamples());
-    myMeanData.write(dev, 0, stopTime - startTime, (double)mySegment->getEdge().getLanes().size(), mySegment->getEdge().getSpeedLimit(), -1.0);
+    myMeanData.write(dev, 0, stopTime - startTime, (int)mySegment->getEdge().getLanes().size(), mySegment->getEdge().getSpeedLimit(), -1.0);
     myMeanData.reset();
 }
 
+const MSEdge&
+MEInductLoop::getEdge() const {
+    return mySegment->getEdge();
+}
 
 /****************************************************************************/

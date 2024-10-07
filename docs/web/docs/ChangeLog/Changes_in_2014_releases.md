@@ -46,7 +46,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Fixed rerouting close to junctions
 
 - sumo-gui
-  - Single-stepping the simulation with hotkey (*Ctrl-D*) is now
+  - Single-stepping the simulation with hotkey (<kbd>Ctrl</kbd> + <kbd>D</kbd>) is now
         working as smoothly as intended.
   - Changing simulation delay via mousewheel now works when the
         pointer is on top of the dial.
@@ -178,9 +178,9 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
         source/destination/via. The file format is the same as for
         option **--weights-output-prefix** {{DT_STR}} with missing edges defaulting to probability 0 and
         missing files defaulting to normal randomization.
-  - Added [dua-iterate.py](../Tools/Assign.md#dua-iteratepy)
+  - Added [duaIterate.py](../Tools/Assign.md#duaiteratepy)
         option **--zip** to zip old iteration outputs using 7-zip
-  - Added script [server.py](../Tools/Import/OSM.md#serverpy)
+  - Added script [server.py](../Tools/Import/OSM.md#osmwebwizardpy)
         for "three-click" scenario generation (thanks to Jakob
         Stigloher)
 
@@ -195,7 +195,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
 - Documentation
   - Added [description of generic netconvert warnings](../netconvert.md#warnings_during_import).
   - Added [description of OSM-specific netconvert warnings](../Networks/Import/OpenStreetMap.md#warnings_during_import).
-  - Added [description of Windows build configurations](../Installing/Windows_Build.md#available_builds).
+  - Added [description of Windows build configurations](../Installing/Windows_Build.md).
 
 - duarouter
   - Now issuing warnings about repaired routes.
@@ -417,7 +417,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
 
 - Documentation
   - An explanation for vehicle insertion can be found
-    [here](../sumo.md#insertion_of_vehicles).
+    [here](../Simulation/VehicleInsertion.md).
   - [Default parameters for different vehicle classes](../Vehicle_Type_Parameter_Defaults.md).
   - [Documentation for Calibrators](../Simulation/Calibrator.md). These simulation
     objects allow for dynamic adaption to traffic flow and speed at
@@ -526,7 +526,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Reworked drawing of trains to have more realistic [carriage lengths](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#visualization).
     Also some busses are drawn with flexible segments now.
   - The vehicle parameter dialog now lists the maximum speed of the
-    vehicle's type and the the time headway to the vehicle's current
+    vehicle's type and the time headway to the vehicle's current
     leader
   - added vehicle coloring mode *by time headway*
   - Traffic light colors now distinguish between *green major* (code

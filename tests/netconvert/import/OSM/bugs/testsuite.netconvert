@@ -36,6 +36,7 @@ ticket6493
 
 # guess-signals must work in intermodal networks
 ticket6495
+ticket6503
 
 # missing green phase
 ticket6582
@@ -76,10 +77,19 @@ ticket9062
 # faulty permissions leading to a faulty network (triggered by ptlines)
 ticket9701
 
-# crash when (always) processing pt stuff 
+# junction shape
+ticket10589
+
+# invalid rail crossing
+ticket10777
+
+# join looses tram connection
+ticket10826
+
+# crash when (always) processing pt stuff
 ticket11803
 
-# crash when (always) processing pt stuff 
+# crash when (always) processing pt stuff
 ticket11839
 
 # interpretation of empty osm.turn-lanes value
@@ -108,3 +118,24 @@ ticket13237
 
 # foot=yes with sidewalk=no
 ticket14124
+
+# crash on missing node reference
+ticket14766
+
+# bad junction join
+ticket14769
+
+# bad junction shape
+ticket14785
+
+# bad junction shape (webwizard version of OSM)
+ticket14785b
+
+# exit on broken OSM
+ticket14892
+
+# warning on traffic light
+ticket15150
+
+# psv=yes with bus=no
+ticket15301

@@ -71,7 +71,14 @@ void GNEChange_Crossing::undo() {
         WRITE_DEBUG("removing " + toString(SUMO_TAG_CROSSING) + " from " + myJunctionParent->getTagStr() + " '" + myJunctionParent->getID() + "'");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
-            myJunctionParent->retrieveGNECrossing(myJunctionParent->getNBNode()->getCrossing(myEdges), false)->unselectAttributeCarrier();
+            GNECrossing* crossing = myJunctionParent->retrieveGNECrossing(myJunctionParent->getNBNode()->getCrossing(myEdges), false);
+            if (crossing) {
+                crossing->unselectAttributeCarrier();
+            } else {
+#ifdef _DEBUG
+                WRITE_WARNINGF("Unable to deselect crossing at junction '%' after undo", myJunctionParent->getID());
+#endif
+            }
         }
         // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
@@ -92,7 +99,7 @@ void GNEChange_Crossing::undo() {
         // add crossing of NBNode
         NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
-        if (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings() == false) {
+        if (!myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings() == false) {
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
@@ -103,7 +110,16 @@ void GNEChange_Crossing::undo() {
         myJunctionParent->clearWalkingAreas();
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
-            myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
+            if (mySelectedElement) {
+                GNECrossing* crossing = myJunctionParent->retrieveGNECrossing(c, false);
+                if (crossing) {
+                    crossing->selectAttributeCarrier();
+                } else {
+#ifdef _DEBUG
+                    WRITE_WARNINGF("Unable to select crossing at junction '%' after undo", myJunctionParent->getID());
+#endif
+                }
+            }
         }
     }
     // enable save networkElements
@@ -129,14 +145,30 @@ void GNEChange_Crossing::redo() {
         myJunctionParent->clearWalkingAreas();
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
-            myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
+            if (mySelectedElement) {
+                GNECrossing* crossing = myJunctionParent->retrieveGNECrossing(c, false);
+                if (crossing) {
+                    crossing->selectAttributeCarrier();
+                } else {
+#ifdef _DEBUG
+                    WRITE_WARNINGF("Unable to select crossing at junction '%' after undo", myJunctionParent->getID());
+#endif
+                }
+            }
         }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + toString(SUMO_TAG_CROSSING) + " from " + myJunctionParent->getTagStr() + " '" + myJunctionParent->getID() + "'");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
-            myJunctionParent->retrieveGNECrossing(myJunctionParent->getNBNode()->getCrossing(myEdges), false)->unselectAttributeCarrier();
+            GNECrossing* crossing = myJunctionParent->retrieveGNECrossing(myJunctionParent->getNBNode()->getCrossing(myEdges), false);
+            if (crossing) {
+                crossing->unselectAttributeCarrier();
+            } else {
+#ifdef _DEBUG
+                WRITE_WARNINGF("Unable to deselect crossing at junction '%' after undo", myJunctionParent->getID());
+#endif
+            }
         }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);

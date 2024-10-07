@@ -67,7 +67,7 @@ public class Subscription {
             for (Map.Entry<String, TraCIResults> vehEntry : vsRes.entrySet()) {
                 System.out.println("Vehicle Subscription: id=" + vehEntry.getKey());
                 vehEntry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
-                    .forEach(entry -> System.out.println("   variable id: " + entry.getKey() + "  value: " + entry.getValue().getString()));
+                .forEach(entry -> System.out.println("   variable id: " + entry.getKey() + "  value: " + entry.getValue().getString()));
             }
         }
 

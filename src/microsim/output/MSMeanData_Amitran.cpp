@@ -54,6 +54,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::reset(bool) {
     typedAmount.clear();
     typedSamples.clear();
     typedTravelDistance.clear();
+    resetTime = SIMSTEP;
 }
 
 
@@ -107,7 +108,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 void
 MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime /* period */,
-        const double /* numLanes */, const double /*speedLimit*/, const double defaultTravelTime, const int /* numVehicles */) const {
+        const int /* numLanes */, const double /*speedLimit*/, const double defaultTravelTime, const int /* numVehicles */) const {
     int averageSpeed;
     if (sampleSeconds > 0) {
         averageSpeed = int(100 * travelledDistance / sampleSeconds);

@@ -909,6 +909,9 @@ public:
      */
     void updateBestLanes(bool forceRebuild = false, const MSLane* startLane = 0);
 
+    /** @brief Update the lane brutto occupancy after a change in minGap
+     * */
+    void updateLaneBruttoSum();
 
     /** @brief Returns the best sequence of lanes to continue the route starting at myLane
      * @return The bestContinuations of the LaneQ for myLane (see LaneQ)
@@ -944,7 +947,7 @@ public:
 
     /* @brief returns the current signed offset from the lane that is most
      * suited for continuing the current route (in the strategic sense of reducing lane-changes)
-     * - 0 if the vehicle is one it's best lane
+     * - 0 if the vehicle is on its best lane
      * - negative if the vehicle should change to the right
      * - positive if the vehicle should change to the left
      */
@@ -1022,6 +1025,10 @@ public:
      */
     SUMOTime collisionStopTime() const;
 
+    /** @brief Returns how long the vehicle has been stopped already due to lack of energy.
+     */
+    bool brokeDown() const;
+
     /** @brief Returns the information whether the vehicle is fully controlled via TraCI
      * @return Whether the vehicle is remote-controlled
      */
@@ -1044,12 +1051,12 @@ public:
      * Compute distance that will be covered, if the vehicle moves to a given position on its route,
      * starting at its current position.
      * @param destPos:  position on the destination edge that shall be reached
-     * @param destEdge: destination edge that shall be reached
+     * @param destLane: destination lane that shall be reached
      * @return      distance from the vehicles current position to the destination position,
      *          or a near infinite real value if the destination position is not contained
      *          within the vehicles route or the vehicle is not active
      */
-    double getDistanceToPosition(double destPos, const MSEdge* destEdge) const;
+    double getDistanceToPosition(double destPos, const MSLane* destLane) const;
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
@@ -1935,7 +1942,7 @@ protected:
     SUMOTime myJunctionEntryTimeNeverYield;
     SUMOTime myJunctionConflictEntryTime;
 
-    /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting eposide
+    /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting episode
     SUMOTime myTimeSinceStartup;
 
 protected:
@@ -1989,6 +1996,11 @@ protected:
                 accelV = MIN2(accelV, v);
             }
         }
+
+        inline void adaptStopSpeed(const double v) {
+            myVLinkWait = MIN2(myVLinkWait, v);
+        }
+
         inline double getLeaveSpeed() const {
             return accelV < 0 ? myVLinkPass : accelV;
         }
@@ -2057,7 +2069,16 @@ public:
         return 0.5 * getCarFollowModel().getMaxAccel();
     }
 
+    /* @brief return the previous lane in this vehicles route including internal lanes
+     * @param[in] current The lane of which the predecessor should be returned
+     * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
+     */
+    const MSLane* getPreviousLane(const MSLane* current, int& furtherIndex) const;
 
+    /// @brief checks for link leaders on the given link
+    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
+                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
+                         bool isShadowLink = false) const;
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2079,10 +2100,6 @@ protected:
                                DriveProcessItem* const lastLink,
                                double& v, double& vLinkPass) const;
 
-    /// @brief checks for link leaders on the given link
-    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
-                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
-                         bool isShadowLink = false) const;
 
     /// @brief checks for link leaders of the current link as well as the parallel link (if there is one)
     void checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
@@ -2125,6 +2142,9 @@ protected:
 
     /// @brief remove vehicle from further lanes (on leaving the network)
     void cleanupFurtherLanes();
+
+    /// @brief comparison between different continuations from the same lane
+    static bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m);
 
 private:
     /// @brief The per vehicle variables of the car following model

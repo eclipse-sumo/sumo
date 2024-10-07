@@ -443,7 +443,7 @@ def getCSVOutput(assignments, path, veh_types, interval):
     while t in assignments:
         for f in files:
             f.write('[' + str(t) + ':' + str(t + interval - 1) + '];')
-        for veh_type in assignments[t].itervalues():
+        for veh_type in assignments[t].values():
             f_mean_travel_time.write(str(veh_type['avgTravelTime']) + ";" + str(veh_type['SDTravelTime']) + ";" +
                                      str(veh_type['quartil25TravelTime']) + ";" + str(veh_type['medianTravelTime']) +
                                      ";" + str(veh_type['quartil75TravelTime']) + ";")

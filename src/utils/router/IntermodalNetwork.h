@@ -46,6 +46,31 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/** @brief where mode changes are possible
+*/
+enum ModeChangeOptions {
+    /// @brief parking areas
+    PARKING_AREAS = 1,
+    /// @brief public transport stops and access
+    PT_STOPS = 2,
+    /// @brief junctions with edges allowing the additional mode
+    ALL_JUNCTIONS = 2 << 2,
+    /// @brief taxi customer may exit at parking areas
+    TAXI_DROPOFF_PARKING_AREAS = 2 << 3,
+    /// @brief taxi customer may exit at public transport stops
+    TAXI_DROPOFF_PT = 2 << 4,
+    /// @brief taxi customer may exit anywhere
+    TAXI_DROPOFF_ANYWHERE = 2 << 5,
+    /// @brief taxi customer may be picked up at parking areas
+    TAXI_PICKUP_PARKING_AREAS = 2 << 6,
+    /// @brief taxi customer may be picked up at public transport stops
+    TAXI_PICKUP_PT = 2 << 7,
+    /// @brief taxi customer may be picked up anywhere
+    TAXI_PICKUP_ANYWHERE = 2 << 8
+};
+
+
+
 /// @brief the intermodal network storing edges, connections and the mappings to the "real" edges
 template<class E, class L, class N, class V>
 class IntermodalNetwork {
@@ -57,25 +82,6 @@ private:
     typedef std::pair<_IntermodalEdge*, _IntermodalEdge*> EdgePair;
 
 public:
-    /** @brief where mode changes are possible
-    */
-    enum ModeChangeOptions {
-        /// @brief parking areas
-        PARKING_AREAS = 1,
-        /// @brief public transport stops and access
-        PT_STOPS = 2,
-        /// @brief junctions with edges allowing the additional mode
-        ALL_JUNCTIONS = 4,
-        /// @brief taxi customer may exit anywhere
-        TAXI_DROPOFF_ANYWHERE = 8,
-        /// @brief taxi customer may be picked up anywhere
-        TAXI_PICKUP_ANYWHERE = 16,
-        /// @brief taxi customer may be picked up at public transport stop
-        TAXI_PICKUP_PT = 32,
-        /// @brief taxi customer may be picked up at public transport stop
-        TAXI_DROPOFF_PT = 64
-    };
-
     /* @brief build the pedestrian part of the intermodal network (once)
      * @param edges The list of MSEdge or ROEdge to build from
      * @param numericalID the start number for the creation of new edges
@@ -689,6 +695,9 @@ public:
                 lastStop = currStop;
                 lastPos = stopPos;
             }
+            if (pars.line != "taxi" && validStops.front().busstop == validStops.back().busstop) {
+                myLoopedLines.insert(pars.line);
+            }
         } else {
             if (validStops.size() != lineEdges.size() + 1) {
                 WRITE_WARNINGF("Number of stops for public transport line '%' does not match earlier definitions, ignoring schedule.", pars.line);
@@ -744,6 +753,10 @@ public:
         addEdge(access);
         from->addSuccessor(access);
         access->addSuccessor(to);
+    }
+
+    bool isLooped(const std::string lineID) const {
+        return myLoopedLines.count(lineID) != 0;
     }
 
 private:
@@ -810,11 +823,11 @@ private:
             beforeSplit->transferSuccessors(afterSplit);
             beforeSplit->addSuccessor(afterSplit);
             if (forward) {
-                afterSplit->setLength(beforeSplit->getLength() - relPos);
+                afterSplit->setLength(MAX2(0.0, beforeSplit->getLength() - relPos));
                 beforeSplit->setLength(relPos);
             } else {
                 afterSplit->setLength(relPos);
-                beforeSplit->setLength(beforeSplit->getLength() - relPos);
+                beforeSplit->setLength(MAX2(0.0, beforeSplit->getLength() - relPos));
                 // rename backward edges for easier referencing
                 const std::string newID = beforeSplit->getID();
                 beforeSplit->setID(afterSplit->getID());
@@ -869,6 +882,9 @@ private:
 
     /// @brief retrieve the splitted edges for the given "original"
     std::map<_IntermodalEdge*, std::vector<_IntermodalEdge*> > myAccessSplits;
+
+    /// @brief looped lines need extra checking when building itineraries
+    std::set<std::string > myLoopedLines;
 
     int myNumericalID;
     const int myCarWalkTransfer;

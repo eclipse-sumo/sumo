@@ -37,18 +37,20 @@
 
 GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
     GNEDetector("", net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1INSTANT),
-                0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+                0, 0, {}, "", {}, {}, "", "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-        const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net,
+        const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+        const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1INSTANT),
                 pos, 0, {
     lane
-}, filename, vehicleTypes, name, friendlyPos, parameters) {
+}, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -62,20 +64,10 @@ void
 GNEInstantInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
-    if (myFilename.size() > 0) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
-    }
-    if (myVehicleTypes.size() > 0) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
-    }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
-    }
+    // write common detector parameters
+    writeDetectorValues(device);
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();
@@ -146,7 +138,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
         // get detail level
         const auto d = s.getDetailLevel(E1InstantExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // declare colors
             RGBColor mainColor, secondColor, textColor;
             // set color
@@ -189,98 +181,25 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
 
 std::string
 GNEInstantInductionLoopDetector::getAttribute(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            return getMicrosimID();
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane);
-        case SUMO_ATTR_NAME:
-            return myAdditionalName;
-        case SUMO_ATTR_FILE:
-            return myFilename;
-        case SUMO_ATTR_VTYPES:
-            return toString(myVehicleTypes);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
-        case GNE_ATTR_SHIFTLANEINDEX:
-            return "";
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    return getDetectorAttribute(key);
 }
 
 
 double
 GNEInstantInductionLoopDetector::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_POSITION:
-            return myPositionOverLane;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    return getDetectorAttributeDouble(key);
 }
 
 
 void
 GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_NAME:
-        case SUMO_ATTR_FILE:
-        case SUMO_ATTR_VTYPES:
-        case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_SHIFTLANEINDEX:
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            break;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-
+    setDetectorAttribute(key, value, undoList);
 }
 
 
 bool
 GNEInstantInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidDetectorID(value);
-        case SUMO_ATTR_LANE:
-            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        case SUMO_ATTR_NAME:
-            return SUMOXMLDefinitions::isValidAttribute(value);
-        case SUMO_ATTR_FILE:
-            return SUMOXMLDefinitions::isValidFilename(value);
-        case SUMO_ATTR_VTYPES:
-            if (value.empty()) {
-                return true;
-            } else {
-                return SUMOXMLDefinitions::isValidListOfTypeID(value);
-            }
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    return isDetectorValid(key, value);
 }
 
 // ===========================================================================
@@ -289,45 +208,7 @@ GNEInstantInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& val
 
 void
 GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            // update microsimID
-            setAdditionalID(value);
-            break;
-        case SUMO_ATTR_LANE:
-            replaceAdditionalParentLanes(value);
-            break;
-        case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value);
-            break;
-        case SUMO_ATTR_NAME:
-            myAdditionalName = value;
-            break;
-        case SUMO_ATTR_FILE:
-            myFilename = value;
-            break;
-        case SUMO_ATTR_VTYPES:
-            myVehicleTypes = parse<std::vector<std::string> >(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
-        case GNE_ATTR_SHIFTLANEINDEX:
-            shiftLaneIndex();
-            break;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    setDetectorAttribute(key, value);
 }
 
 

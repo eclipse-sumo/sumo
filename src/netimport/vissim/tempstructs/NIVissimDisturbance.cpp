@@ -198,7 +198,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         std::string id_pcie = toString<int>(pc->getToEdgeID());
         NBEdge* const pcoe = ec.retrievePossiblySplit(id_pcoe, id_pcie, true);
         NBEdge* const pcie = ec.retrievePossiblySplit(id_pcie, id_pcoe, false);
-        // check whether it's ending node is the node the prohibited
+        // check whether its ending node is the node the prohibited
         //  edge end at
         if (pcoe != nullptr && pcie != nullptr && pcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections
@@ -250,7 +250,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         std::string id_bcie = toString<int>(bc->getToEdgeID());
         NBEdge* const bcoe = ec.retrievePossiblySplit(id_bcoe, id_bcie, true);
         NBEdge* const bcie = ec.retrievePossiblySplit(id_bcie, id_bcoe, false);
-        // check whether it's ending node is the node the prohibited
+        // check whether its ending node is the node the prohibited
         //  edge end at
         if (bcoe != nullptr && bcie != nullptr && bcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections

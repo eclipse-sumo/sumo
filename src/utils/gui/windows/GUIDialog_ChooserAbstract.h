@@ -84,7 +84,7 @@ public:
     /// @brief Callback: The dialog shall be closed
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief Callback: Something has been typed into the the field
+    /// @brief Callback: Something has been typed into the field
     long onChgText(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Selects to current item if enter is pressed
@@ -143,7 +143,7 @@ protected:
     /// update the list with the given ids
     void refreshList(const std::vector<GUIGlID>& ids);
 
-    /// @bbrief retrieve name for the given object
+    /// @brief retrieve name for the given object
     virtual std::string getObjectName(GUIGlObject* o) const;
 
 private:

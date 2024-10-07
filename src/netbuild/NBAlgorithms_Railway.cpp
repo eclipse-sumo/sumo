@@ -84,7 +84,7 @@ NBRailwayTopologyAnalyzer::Track::getSuccessors(SUMOVehicleClass svc) const {
 
 
 const std::vector<std::pair<const NBRailwayTopologyAnalyzer::Track*, const NBRailwayTopologyAnalyzer::Track*> >&
-NBRailwayTopologyAnalyzer::Track::getViaSuccessors(SUMOVehicleClass svc) const {
+NBRailwayTopologyAnalyzer::Track::getViaSuccessors(SUMOVehicleClass svc, bool /*ignoreTransientPermissions*/) const {
     if ((minPermissions & svc) != 0) {
         return viaSuccessors;
     } else {
@@ -190,6 +190,9 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
     if (ec.retrieve(id2) == nullptr) {
         NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(),
                                 edge, edge->getGeometry().reverse());
+        if (edge->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
+            e2->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+        }
         ec.insert(e2);
         if (ec.retrieve(id2) == nullptr) {
             WRITE_WARNINGF(TL("Bidi-edge '%' prevented by filtering rules."), id2);
@@ -647,7 +650,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
     for (EdgeVector& seq : seqsToReverse) {
         NBNode* seqStart = seq.front()->getFromNode();
         NBNode* seqEnd = seq.back()->getToNode();
-        // avoid reversing sequenes on both sides of a broken node
+        // avoid reversing sequences on both sides of a broken node
         if (affectedEndpoints.count(seqStart) == 0
                 && affectedEndpoints.count(seqEnd) == 0) {
             affectedEndpoints.insert(seqStart);
@@ -657,6 +660,9 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
                 e->reinitNodes(e->getToNode(), e->getFromNode());
                 e->setGeometry(e->getGeometry().reverse());
                 reversedIDs.insert(e->getID());
+                if (e->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
+                    e->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+                }
             }
             seqLengths[(int)seq.size()]++;
             numReversed++;
@@ -678,7 +684,7 @@ int
 NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
     std::set<NBNode*> railNodes = getRailNodes(ec);
-    // find buffer stops and ensure that thay are connect to the network in both directions
+    // find buffer stops and ensure that they are connect to the network in both directions
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
     for (NBNode* node : railNodes) {
@@ -1113,7 +1119,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, b
         }
         if ((!haveStraightReverse || haveStraight) && (!geometryLike || outRailTo.size() + inRailTo.size() == 2)) {
             // check whether there is a straight edge pointing towards this one at the to-node
-            // and there is no straight outoing edge at the to-node
+            // and there is no straight outgoing edge at the to-node
             haveStraight = false;
             haveStraightReverse = false;
             for (const NBEdge* toStraightCand : inRailTo) {
@@ -1308,6 +1314,11 @@ NBRailwaySignalGuesser::guessRailSignals(NBEdgeCont& ec, NBPTStopCont& sc) {
 }
 
 
+bool
+NBRailwaySignalGuesser::canBeSignal(const NBNode* node) {
+    return (node->getType() != SumoXMLNodeType::RAIL_SIGNAL && node->geometryLike());
+}
+
 int
 NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength) {
     int addedSignals = 0;
@@ -1315,14 +1326,14 @@ NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double mi
         const NBEdge* stopEdge = ec.retrieve(item.second->getEdgeId());
         if (stopEdge != nullptr && isRailway(stopEdge->getPermissions())) {
             NBNode* to = stopEdge->getToNode();
-            if (to->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+            if (canBeSignal(to)) {
                 to->reinit(to->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                 addedSignals++;
             }
             NBNode* from = stopEdge->getFromNode();
             if (stopEdge->getLoadedLength() >= minLength) {
                 /// XXX should split edge if it is too long
-                if (from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                if (canBeSignal(from)) {
                     from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                     addedSignals++;
                 }
@@ -1344,7 +1355,7 @@ NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double mi
                     }
                     searchDist -= stopEdge->getLoadedLength();
                 }
-                if (searchDist <= 0 && from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                if (searchDist <= 0 && canBeSignal(from)) {
                     from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                     addedSignals++;
                 }
@@ -1356,5 +1367,139 @@ NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double mi
 }
 
 
+int
+NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
+    int moved = 0;
+    int numCorridors = 0;
+    std::set<NBNode*> railNodes = NBRailwayTopologyAnalyzer::getRailNodes(ec);
+    std::set<NBNode*> railGeomNodes;
+    for (NBNode* n : railNodes) {
+        if (n->geometryLike()) {
+            railGeomNodes.insert(n);
+        }
+    }
+    std::set<NBNode*, ComparatorIdLess> kinkNodes;;
+    for (NBNode* n : railGeomNodes) {
+        NBEdge* in = n->getIncomingEdges().front();
+        NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();
+        const double relAngle = fabs(RAD2DEG(GeomHelper::angleDiff(DEG2RAD(in->getAngleAtNode(n)), DEG2RAD(out->getAngleAtNode(n)))));
+        if (maxAngle > 0 && relAngle > maxAngle) {
+            kinkNodes.insert(n);
+        }
+    }
+    while (!kinkNodes.empty()) {
+        std::vector<NBNode*> corridor;
+        std::vector<NBEdge*> corridorEdges;
+        Boundary corridorBox;
+        double length = 0;
+        NBNode* n = *kinkNodes.begin();
+        kinkNodes.erase(kinkNodes.begin());
+        // go downstream and upstream, add kinkNodes until a "long" enough
+        // non-kink stretch is found
+        NBEdge* in = n->getIncomingEdges().front();
+        NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();
+        NBEdge* const centerIn = in;
+        NBEdge* const centerOut = out;
+        NBNode* up = in->getFromNode();
+        NBNode* down = out->getToNode();
+        corridor.push_back(up);
+        corridor.push_back(n);
+        corridor.push_back(down);
+        corridorBox.add(up->getPosition());
+        corridorBox.add(down->getPosition());
+        corridorEdges.push_back(in);
+        corridorEdges.push_back(out);
+        length += in->getLoadedLength();
+        length += out->getLoadedLength();
+        Position cBeg, cEnd, delta;
+        while (kinkNodes.count(up) != 0) {
+            NBEdge* const out2 = in;
+            NBEdge* const in2 = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out2) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
+            length += in2->getLoadedLength();
+            up = in2->getFromNode();
+            corridor.insert(corridor.begin(), up);
+            corridorEdges.insert(corridorEdges.begin(), in2);
+            kinkNodes.erase(up);
+            corridorBox.add(up->getPosition());
+        }
+        cBeg = up->getPosition();
+        cEnd = down->getPosition();
+        delta = cEnd - cBeg;
+        while (delta.length2D() <= POSITION_EPS * (double)corridor.size() && railGeomNodes.count(up) != 0) {
+            NBEdge* const out2 = in;
+            NBEdge* const in2 = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out2) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
+            length += in2->getLoadedLength();
+            up = in2->getFromNode();
+            corridor.insert(corridor.begin(), up);
+            corridorEdges.insert(corridorEdges.begin(), in2);
+            kinkNodes.erase(up);
+            corridorBox.add(up->getPosition());
+            cBeg = up->getPosition();
+            cEnd = down->getPosition();
+            delta = cEnd - cBeg;
+        }
+        in = centerIn;
+        out = centerOut;
+        while (kinkNodes.count(down) != 0) {
+            NBEdge* const in2 = out;
+            NBEdge* const out2 = down->getOutgoingEdges().size() == 1 || down->getOutgoingEdges()[1]->isTurningDirectionAt(in2) ? down->getOutgoingEdges().front() : down->getOutgoingEdges().back();
+            down = out2->getToNode();
+            length += out2->getLoadedLength();
+            corridor.push_back(down);
+            corridorEdges.push_back(out2);
+            kinkNodes.erase(down);
+            corridorBox.add(down->getPosition());
+        }
+        cBeg = up->getPosition();
+        cEnd = down->getPosition();
+        delta = cEnd - cBeg;
+        while (delta.length2D() <= POSITION_EPS * (double)corridor.size() && railGeomNodes.count(down) != 0) {
+            NBEdge* const in2 = out;
+            NBEdge* const out2 = down->getOutgoingEdges().size() == 1 || down->getOutgoingEdges()[1]->isTurningDirectionAt(in2) ? down->getOutgoingEdges().front() : down->getOutgoingEdges().back();
+            down = out2->getToNode();
+            length += out2->getLoadedLength();
+            corridor.push_back(down);
+            corridorEdges.push_back(out2);
+            kinkNodes.erase(down);
+            corridorBox.add(down->getPosition());
+            cBeg = up->getPosition();
+            cEnd = down->getPosition();
+            delta = cEnd - cBeg;
+        }
+        // straighten all edges in corridor (corridorEdges doesn't include bidi)
+        std::set<NBNode*> corridorNodes(corridor.begin(), corridor.end());
+        for (NBNode* n2 : corridorNodes) {
+            for (NBEdge* e : n2->getEdges()) {
+                if (corridorNodes.count(e->getFromNode()) != 0
+                        && corridorNodes.count(e->getToNode()) != 0) {
+                    PositionVector simpleGeom;
+                    simpleGeom.push_back(e->getFromNode()->getPosition());
+                    simpleGeom.push_back(e->getToNode()->getPosition());
+                    e->setGeometry(simpleGeom);
+                }
+            }
+        }
+        if (delta.length2D() > 0) {
+            double currLength = 0;
+            for (int i = 1; i < (int)corridor.size() - 1; i++) {
+                currLength += corridorEdges[i - 1]->getLoadedLength();
+                const Position newPos = cBeg + delta * (currLength / length);
+                NBNode* const n2 = corridor[i];
+                n2->reinit(newPos, n2->getType());
+                for (NBEdge* e : n2->getEdges()) {
+                    e->resetEndpointAtNode(n2);
+                }
+                moved += 1;
+            }
+            numCorridors += 1;
+        } else {
+            WRITE_WARNINGF(TL("Could not straighten corridor %."), toString(corridor));
+        }
+    }
+    //std::cout << " railNodes=" << railNodes.size() << " railGeomNodes=" << railGeomNodes.size() << " kinkNodes=" << kinkNodes.size() << "\n";
+
+    WRITE_MESSAGEF(TL("Moved % rail junctions for straightening % corridors."), moved, numCorridors);
+    return moved;
+}
 
 /****************************************************************************/

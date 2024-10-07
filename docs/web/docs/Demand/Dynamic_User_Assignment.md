@@ -31,7 +31,7 @@ The tool [duaIterate.py](../Tools/Assign.md#duaiteratepy) can be used to compute
     This script will require copious amounts of disk space
 
 ```
-python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
+python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
 ```
 
 *duaIterate.py* supports many of the same options as
@@ -83,7 +83,7 @@ routes by a configurable algorithm described below.
 ## Route-Choice algorithm
 
 The two methods which are implemented are called
-[Gawron](../Publications.md#traffic_assignment) and
+[Gawron](../Publications.md#publications_using_sumo) and
 [Logit](https://en.wikipedia.org/wiki/Discrete_choice) in the following.
 The input for each of the methods is a weight or cost function \(w\) on
 the edges of the net, coming from the simulation or default costs (in
@@ -154,7 +154,7 @@ Option **--convergence-steps** may used to force convergence by iteratively redu
 
 ## Speeding up Iterations
 
-There is currently now way to speed up duaIteraty.py by parallelization.
+There is currently now way to speed up duaIterate.py by parallelization.
 However, the total running time of duaIterate is strongly influenced by the total running time of "jammed" iterations.
 This is a frequent occurrence in the early iterations where many cars try to take the fastest route while disregarding capacity.
 There are several options to mitigate this:

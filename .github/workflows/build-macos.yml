@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-12, macos-13]
+        os: [macos-13, macos-14]
     runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPILERTYPE: clang
@@ -38,9 +38,10 @@ jobs:
 
     - name: Preparing Build System
       run: |
+        brew update
+        brew upgrade || brew link --overwrite python@3.12
         brew install --cask xquartz
-        brew install --overwrite python@3.12
-        brew install xerces-c fox proj gdal gl2ps ccache googletest
+        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
 #        python3 -m pip install texttest
 
     - name: ccache

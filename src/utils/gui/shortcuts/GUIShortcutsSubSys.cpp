@@ -35,6 +35,9 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_a), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS));
     accelTable->addAccel(parseKey(KEY_A), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS));
 
+    accelTable->addAccel(parseKey(KEY_b), target, FXSEL(SEL_COMMAND, MID_HOTKEY_B_BREAKPOINT));
+    accelTable->addAccel(parseKey(KEY_B), target, FXSEL(SEL_COMMAND, MID_HOTKEY_B_BREAKPOINT));
+
     accelTable->addAccel(parseKey(KEY_c), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER));
     accelTable->addAccel(parseKey(KEY_C), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER));
 
@@ -258,6 +261,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_F11, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F11_HALLOFFAME));
     accelTable->addAccel(parseKey(KEY_F12, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT));
 
+    accelTable->addAccel(parseKey(KEY_ESC, KEYMODIFIER_SHIFT),  target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_ESC_CLEARSELECTION));
+
     // alt hotkeys
 
     accelTable->addAccel(parseKey(KEY_0, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOGGLEEDITOPTION));
@@ -272,6 +277,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_9, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_9_TOGGLEEDITOPTION));
 
     accelTable->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_F4_CLOSE));
+    accelTable->addAccel(parseKey(KEY_b, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_B_BREAKPOINT_EARLY));
+    accelTable->addAccel(parseKey(KEY_B, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_B_BREAKPOINT_EARLY));
 }
 
 

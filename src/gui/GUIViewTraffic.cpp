@@ -170,7 +170,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 
 void
 GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                                  bool hide, double hideThreshold, bool hide2, double hideThreshold2) {
+        const GUIVisualizationRainbowSettings& rs) {
     assert(!scheme.isFixed());
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
@@ -231,46 +231,12 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         int step = MAX2(1, 360 / (int)codes.size());
         int hue = 0;
         for (SVCPermissions p : codes) {
-            scheme.addColor(RGBColor::fromHSV(hue, 1, 1), p);
+            scheme.addColor(RGBColor::fromHSV(hue, 1, 1), (double)p);
             hue = (hue + step) % 360;
         }
         return;
     }
-
-    if (hide && hide2 && minValue == std::numeric_limits<double>::infinity()) {
-        minValue = hideThreshold;
-        maxValue = hideThreshold2;
-    }
-    if (minValue != std::numeric_limits<double>::infinity()) {
-        scheme.clear();
-        // add new thresholds
-        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL
-                || hasMissingData)  {
-            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
-        }
-        if (hide) {
-            const double rawRange = maxValue - minValue;
-            minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
-            scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
-        }
-        if (hide2) {
-            const double rawRange = maxValue - minValue;
-            maxValue = MIN2(hideThreshold2 - MIN2(1.0, rawRange / 100.0), maxValue);
-            scheme.addColor(RGBColor(204, 204, 204), hideThreshold2);
-        }
-        double range = maxValue - minValue;
-        scheme.addColor(RGBColor::RED, (minValue));
-        scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
-        scheme.addColor(RGBColor::YELLOW, (minValue + range * 2 / 6.0));
-        scheme.addColor(RGBColor::GREEN, (minValue + range * 3 / 6.0));
-        scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
-        scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
-        scheme.addColor(RGBColor::MAGENTA, (maxValue));
-    }
+    buildMinMaxRainbow(s, scheme, rs, minValue, maxValue, hasMissingData);
 }
 
 

@@ -141,6 +141,10 @@ public:
         myTimePenalty = value;
     }
 
+    inline double getTimePenalty() const {
+        return myTimePenalty;
+    }
+
     /// @brief return whether this edge is a normal edge
     inline bool isNormal() const {
         return myFunction == SumoXMLEdgeFunc::NORMAL;
@@ -346,7 +350,7 @@ public:
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
 
     /** @brief Returns the number of edges connected to this edge

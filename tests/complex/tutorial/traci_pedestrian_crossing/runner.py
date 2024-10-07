@@ -36,7 +36,7 @@ THISDIR = os.path.dirname(__file__)
 
 
 # we need to import python modules from the $SUMO_HOME/tools directory
-# If the the environment variable SUMO_HOME is not set, try to locate the python
+# If the environment variable SUMO_HOME is not set, try to locate the python
 # modules relative to this script
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')

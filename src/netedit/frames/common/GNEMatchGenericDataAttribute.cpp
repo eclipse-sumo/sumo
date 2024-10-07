@@ -22,6 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -131,7 +132,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myEnd->setText(toString(myIntervals.begin()->first.second).c_str());
         myEnd->setTextColor(FXRGB(0, 0, 0));
         // get generic datas
-        const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+        const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, true);
         // fill combo box (only with drawable elements)
         for (const auto& genericDataTag : genericDataTags) {
             if (genericDataTag.isDrawable()) {
@@ -253,7 +254,7 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
-    if (myFromTAZComboBox->getText() == "<from TAZ>") {
+    if (myFromTAZComboBox->getText() == TL("<from TAZ>")) {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
@@ -271,7 +272,7 @@ GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
-    if (myToTAZComboBox->getText() == "<to TAZ>") {
+    if (myToTAZComboBox->getText() == TL("<to TAZ>")) {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
@@ -292,7 +293,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // get generic data tags
-    const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+    const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, true);
     // fill myMatchGenericDataTagComboBox
     for (const auto& genericDataTag : listOfTags) {
         if (genericDataTag.isDrawable() && (genericDataTag.getFieldString() == myMatchGenericDataTagComboBox->getText().text())) {

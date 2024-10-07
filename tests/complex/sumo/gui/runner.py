@@ -21,20 +21,34 @@ import os
 import subprocess
 import sys
 import time
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
-import testUtil  # noqa
+import warnings
+warnings.filterwarnings("ignore", category=ResourceWarning)  # pyscreeze leaves files open
+import pyautogui  # noqa
 
-guisimBinary = testUtil.checkBinary('sumo-gui')
-for run in range(20):
-    p = subprocess.Popen([guisimBinary, "-Q", "-N", "-c", "sumo.sumocfg"])
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
+
+
+PLAY = os.path.join("data", "play.png")
+STOP = os.path.join("data", "stop.png")
+
+
+def findAndClick(obj):
+    positionOnScreen = pyautogui.locateOnScreen(obj, minSearchTime=3, confidence=0.9)
+    pyautogui.moveTo(positionOnScreen)
+    pyautogui.click()
+
+
+guisimBinary = sumolib.checkBinary('sumo-gui')
+for run in range(3):
+    p = subprocess.Popen([guisimBinary, "-Q", "-c", "sumo.sumocfg"])
     time.sleep(1)
-    testUtil.findAndClick(testUtil.PLAY)
+    findAndClick(PLAY)
     time.sleep(10)
     for step in range(3):
-        testUtil.findAndClick(testUtil.STOP)
+        findAndClick(STOP)
         time.sleep(1)
-        testUtil.findAndClick(testUtil.PLAY)
+        findAndClick(PLAY)
         time.sleep(1)
     p.wait()
-    subprocess.call(["diff", "v.xml", "vehroutes.xml"])

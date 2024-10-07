@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_18_0+2224-9463baa5d5c
+Eclipse SUMO netconvert Version v1_20_0+1963-cf76c26275c
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -92,7 +92,7 @@ Output Options:
                                         network input and that are not supported
                                         by polyconvert (OpenDRIVE)
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
-                                        whenever the angular change  between
+                                        whenever the angular change between
                                         straight segments exceeds FLOAT degrees
   --opendrive-output.lefthand-left     Write lanes in lefthand networks on the
                                         left side (positive indices)
@@ -162,6 +162,8 @@ Processing Options:
   --geometry.min-dist FLOAT            reduces too similar geometry points
   --geometry.max-angle FLOAT           Warn about edge geometries with an angle
                                         above DEGREES in successive segments
+  --geometry.max-angle.fix             Straighten edge geometries with an angle
+                                        above max-angle successive segments
   --geometry.min-radius FLOAT          Warn about edge geometries with a
                                         turning radius less than METERS at the
                                         start or end
@@ -200,6 +202,9 @@ Processing Options:
   --offset.z FLOAT                     Adds FLOAT to net z-positions
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
+  --roundabouts.guess.max-length FLOAT  Structures with a circumference above
+                                        FLOAT threshold are not classified as
+                                        roundabout
   --roundabouts.visibility-distance FLOAT  Default visibility when approaching
                                         a roundabout
   --opposites.guess                    Enable guessing of opposite direction
@@ -247,6 +252,8 @@ Building Defaults Options:
                                         intersections
   --default.connection-length FLOAT    The default length when overriding
                                         connection lengths
+  --default.connection.cont-pos FLOAT  Whether/where connections should have an
+                                        internal junction
   --default.right-of-way STR           The default algorithm for computing
                                         right of way rules ('default',
                                         'edgePriority')
@@ -375,7 +382,8 @@ Edge Removal Options:
   --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
                                         single line. Selection files from
                                         sumo-gui are also supported)
-  --keep-edges.postload                Remove edges after joining
+  --keep-edges.postload                Remove edges after loading, patching and
+                                        joining
   --keep-edges.in-boundary STR[]       Only keep edges which are located within
                                         the given boundary (given either as
                                         CARTESIAN corner coordinates
@@ -395,6 +403,8 @@ Edge Removal Options:
                                         connected components
   --remove-edges.by-type STR[]         Remove edges where type is in STR[]
   --remove-edges.isolated              Removes isolated edges
+  --keep-lanes.min-width FLOAT         Only keep lanes with width in meters >
+                                        FLOAT
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated             All nodes will be unregulated
@@ -472,6 +482,8 @@ Junctions Options:
                                         of average
   --junctions.minimal-shape            Build junctions with minimal shapes
                                         (ignoring edge overlap)
+  --junctions.endpoint-shape           Build junction shapes based on edge
+                                        endpoints (ignoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes
@@ -540,6 +552,8 @@ Railway Options:
                                         estimated main direction
   --railway.topology.extend-priority   Extend loaded edge priority values based
                                         on estimated main direction
+  --railway.geometry.straighten        Move junctions to straighten a sequence
+                                        of rail edges
   --railway.signal.guess.by-stops      Guess signals that guard public
                                         transport stops
   --railway.access-distance FLOAT      The search radius for finding suitable
@@ -555,6 +569,7 @@ Formats Options:
   --ignore-change-restrictions STR[]   List vehicle classes that may ignore
                                         lane changing restrictions ('all'
                                         discards all restrictions)
+  --ignore-widths                      Whether lane widths shall be ignored.
   --osm.skip-duplicates-check          Skips the check for duplicate nodes and
                                         edges
   --osm.elevation                      Imports elevation data
@@ -582,6 +597,8 @@ Formats Options:
                                         FLOAT m
   --osm.stop-output.length.train FLOAT  The default length of a train stop in
                                         FLOAT m
+  --osm.railsignals STR[]              Specify custom rules for importing
+                                        railway signals
   --osm.all-attributes                 Whether additional attributes shall be
                                         imported
   --osm.extra-attributes STR[]         List of additional attributes that shall
@@ -635,7 +652,6 @@ Formats Options:
   --visum.lanes-from-capacity.norm FLOAT  The factor for flow to no. lanes
                                         conversion
   --opendrive.import-all-lanes         Imports all lane types
-  --opendrive.ignore-widths            Whether lane widths shall be ignored.
   --opendrive.curve-resolution FLOAT   The geometry resolution in m when
                                         importing curved geometries as line
                                         segments.
@@ -696,5 +712,5 @@ Examples:
   netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
     generate net with given nodes, edges, and edge types doing verbose output
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

@@ -41,7 +41,7 @@ A third alternative is to specify a set of routes (`<routeDistribution>`) and le
 
 # Vehicle Type Distributions
 
-A simple way of of modelling a heterogeneous vehicle fleet works by defining a `<vTypeDistribution>` and let each vehicle pick it's type randomly from this distribution. For details, see [vehicle type distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_type_distributions).
+A simple way of of modelling a heterogeneous vehicle fleet works by defining a `<vTypeDistribution>` and let each vehicle pick its type randomly from this distribution. For details, see [vehicle type distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_type_distributions).
 
 # Speed distribution
 
@@ -131,7 +131,7 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 # Further sources of randomness
 
 - The tool [randomTrips.py](../Tools/Trip.md#randomtripspy) allows generating traffic between random edges. It also supports randomizing arrival rates.
-- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix
+- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix, it also randomizes the departure time within a configurable interval.
 - [duarouter](../duarouter.md) adds randomness when performing [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
 - [duarouter](../duarouter.md) can randomly disturb the fastest-paths by setting option **--weights.random-factor**
 - [Simulation routing can be randomized](../Demand/Automatic_Routing.md#randomness) to ensure usage of alternative routes.

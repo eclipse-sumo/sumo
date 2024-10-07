@@ -16,14 +16,14 @@ on:
 
 jobs:
   build:
-    if: github.repository == 'DLR-TS/sumo'
+    if: github.repository == 'DLR-TS/sumo' || github.event_name == 'pull_request'
     runs-on: windows-latest
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
       matrix:
-        jps_version: ['rls-1.0', 'master']
-        build_config: ['Release', 'Debug']
+        jps_version: [rls-1.2, master]
+        build_config: [Release, Debug]
 
     steps:
     - name: Cloning jupedsim
@@ -67,12 +67,16 @@ jobs:
         cmake -B sumo/build-${{ matrix.build_config }} -DJUPEDSIM_CUSTOMDIR=jupedsim-install-${{ matrix.build_config }} sumo
         cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
 
-    - name: Building Examples and Tests
+    - name: Running sumo.extra tests
+      # Tests in Debug hit a timeout
+      if: matrix.build_config == 'Release'
       run: |
         cd sumo/build-${{ matrix.build_config }}
         $env:TEXTTEST_TMP = "D:/texttest"
-        $env:TEXTTEST_CI_APPS = "-a sumo.extra"
-        ctest --build-config ${{ matrix.build_config }} --output-on-failure -R texttest
+        $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
+        ctest --build-config ${{ matrix.build_config }} --verbose -R texttest
+        $env:TEXTTEST_CI_APPS = "-a sumo -ts meta"
+        ctest --build-config ${{ matrix.build_config }} --verbose -R texttest
 
     - name: Compressing test results
       if: failure()

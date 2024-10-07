@@ -155,7 +155,7 @@ private:
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
     /// @brief get time string object
-    SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
+    SUMOTime getTimeString(const FXString& text, const FXint pos) const;
 
     /// @brief fill styles
     void fillStyles();
@@ -171,6 +171,12 @@ private:
 
     /// @brief The text colors used
     static FXHiliteStyle* myStyles;
+
+    /// @brief The time text to look for
+    static std::string myTimeText;
+
+    /// @brief The translated type strings text to look for
+    static std::map<std::string, std::string> myTypeStrings;
 
     /// @brief The instances of message retriever encapsulations
     OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;

@@ -76,12 +76,6 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
     const GUIGlObject* getGUIGlObject() const;
 
-    /// @brief set shape edited
-    void setShapeEdited(const bool value);
-
-    /// @brief check if shape is being edited
-    bool isShapeEdited() const;
-
     /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isNetworkElementValid() const;
 
@@ -172,6 +166,7 @@ public:
 
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -181,6 +176,12 @@ public:
      * @return string with the value associated to key
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
+
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    virtual PositionVector getAttributePositionVector(SumoXMLAttr key) const = 0;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -203,6 +204,41 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @name functions related with shape editing
+    /// @{
+
+    /// @brief set shape edited
+    void setShapeEdited(const bool value);
+
+    /// @brief check if shape is being edited
+    bool isShapeEdited() const;
+
+    /// @brief get index geometry point under cursor of shape edited
+    int getGeometryPointUnderCursorShapeEdited() const;
+
+    /// @brief simplify shape edited
+    void simplifyShapeEdited(GNEUndoList* undoList);
+
+    /// @brief straigthen shape edited
+    void straigthenShapeEdited(GNEUndoList* undoList);
+
+    /// @brief close shape edited
+    void closeShapeEdited(GNEUndoList* undoList);
+
+    /// @brief open shape edited
+    void openShapeEdited(GNEUndoList* undoList);
+
+    /// @brief set first geometry point shape edited
+    void setFirstGeometryPointShapeEdited(const int index, GNEUndoList* undoList);
+
+    /// @brief delete geometry point shape edited
+    void deleteGeometryPointShapeEdited(const int index, GNEUndoList* undoList);
+
+    /// @brief reset shape edited
+    void resetShapeEdited(GNEUndoList* undoList);
+
+    /// @}
+
     /// @brief set network element id
     void setNetworkElementID(const std::string& newID);
 
@@ -218,6 +254,15 @@ protected:
 
     // @brief check if we're drawing using a boundary but element was already selected
     bool checkDrawingBoundarySelection() const;
+
+    /// @brief get shape edited popup menu
+    GUIGLObjectPopupMenu* getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, const PositionVector& shape);
+
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+     * @param pos position of new/existent vertex
+     * @return index of position vector
+     */
+    int getVertexIndex(const PositionVector& shape, const Position& pos);
 
 private:
     /// @brief set attribute after validation

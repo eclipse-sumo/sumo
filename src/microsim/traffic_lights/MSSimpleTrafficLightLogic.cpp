@@ -337,6 +337,8 @@ MSSimpleTrafficLightLogic::getParameter(const std::string& key, const std::strin
         return toString(myCoordinated);
     } else if (key == "cycleSecond") {
         return toString(STEPS2TIME(getTimeInCycle()));
+    } else if (key == "typeName") {
+        return toString(this->getLogicType());
     }
     return Parameterised::getParameter(key, defaultValue);
 }
@@ -346,7 +348,7 @@ MSSimpleTrafficLightLogic::setParameter(const std::string& key, const std::strin
     if (key == "cycleTime") {
         myDefaultCycleTime = string2time(value);
         Parameterised::setParameter(key, value);
-    } else if (key == "cycleSecond") {
+    } else if (key == "cycleSecond" || key == "typeName") {
         throw InvalidArgument(key + " cannot be changed dynamically for traffic light '" + getID() + "'");
     } else if (key == "offset") {
         myOffset = string2time(value);

@@ -270,6 +270,13 @@ MSVehicleType::setColor(const RGBColor& color) {
 
 
 void
+MSVehicleType::setParkingBadges(const std::vector<std::string>& badges) {
+    myParameter.parkingBadges.assign(badges.begin(), badges.end());
+    myParameter.parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
+}
+
+
+void
 MSVehicleType::setWidth(const double& width) {
     if (myOriginalType != nullptr && width < 0) {
         myParameter.width = myOriginalType->getWidth();
@@ -311,6 +318,15 @@ MSVehicleType::setShape(SUMOVehicleShape shape) {
 // ------------ Static methods for building vehicle types
 MSVehicleType*
 MSVehicleType::build(SUMOVTypeParameter& from) {
+    if (from.hasParameter("vehicleMass")) {
+        if (from.wasSet(VTYPEPARS_MASS_SET)) {
+            WRITE_WARNINGF(TL("The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The 'mass' attribute will take precedence."), from.id);
+        } else {
+            WRITE_WARNINGF(TL("The vType '%' has a 'vehicleMass' parameter, which is deprecated. Please use the 'mass' attribute (for the empty mass) and the 'loading' parameter, if needed."), from.id);
+            from.mass = from.getDouble("vehicleMass", from.mass);
+            from.parametersSet |= VTYPEPARS_MASS_SET;
+        }
+    }
     MSVehicleType* vtype = new MSVehicleType(from);
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
     const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass, decel, MSGlobals::gDefaultEmergencyDecel));
@@ -453,7 +469,17 @@ MSVehicleType::check() {
                            toString(getVehicleClass()), getID());
         }
     }
+    if (!myParameter.wasSet(VTYPEPARS_EMISSIONCLASS_SET) && !OptionsCont::getOptions().getBool("device.battery.track-fuel")
+            && (OptionsCont::getOptions().getFloat("device.battery.probability") == 1.
+                || myParameter.getDouble("device.battery.probability", -1.) == 1.
+                || StringUtils::toBool(myParameter.getParameter("has.battery.device", "false")))) {
+        myParameter.emissionClass = PollutantsInterface::getClassByName("Energy");
+        myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+        WRITE_MESSAGEF(TL("The battery device is active for vType '%' but no emission class is set. The emission class Energy/unknown will be used, please consider setting an explicit emission class!"),
+                       getID());
+    }
 }
+
 
 void
 MSVehicleType::setAccel(double accel) {

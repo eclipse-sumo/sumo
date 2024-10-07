@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-04 13:17:44 by Eclipse SUMO netconvert Version v1_18_0+0061-a2f1ffe04c7
+<!-- generated on 2024-04-30 18:10:08 by Eclipse SUMO netconvert Version v1_19_0+2011-624920fe92d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="24.80" width="3.00" shape="112.40,-7.90 112.40,-10.90 87.60,-10.90 87.60,-7.90"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.80" width="3.20" shape="100.00,100.00 89.10,100.00 110.90,100.00 100.00,100.00"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.80" width="21.80" shape="100.00,100.00 89.10,100.00 110.90,100.00 100.00,100.00"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">

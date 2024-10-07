@@ -22,6 +22,7 @@
 
 #include <set>
 #include <cassert>
+#include <utils/common/Command.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Position.h>
@@ -60,7 +61,7 @@ class MSStageDriving : public MSStage {
 public:
     /// constructor
     MSStageDriving(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
-                   const double arrivalPos, const std::vector<std::string>& lines,
+                   const double arrivalPos, const double arrivalPosLat, const std::vector<std::string>& lines,
                    const std::string& group = "",
                    const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
@@ -76,6 +77,9 @@ public:
 
     /// abort this stage (TraCI)
     void abort(MSTransportable* t);
+
+    /// initialization, e.g. for param-related events
+    void init(MSTransportable* transportable);
 
     /// Returns the current edge
     const MSEdge* getEdge() const;
@@ -172,6 +176,11 @@ public:
     /// @brief checks whether the person may exit at the current vehicle position
     bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 
+    SUMOTime getTimeLoss(const MSTransportable* transportable) const;
+    SUMOTime getDuration() const;
+    SUMOTime getTravelTime() const;
+    SUMOTime getWaitingTime() const;
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(std::ostringstream& out);
@@ -179,6 +188,17 @@ public:
     /** @brief Reconstructs the current state
      */
     void loadState(MSTransportable* transportable, std::istringstream& state);
+
+    bool equals(const MSStage& s) const {
+        if (!MSStage::equals(s)) {
+            return false;
+        }
+        // this is safe because MSStage already checked that the type fits
+        const MSStageDriving& sd = static_cast<const MSStageDriving&>(s);
+        return myOrigin == sd.myOrigin &&
+               myLines == sd.myLines &&
+               myIntendedVehicleID == sd.myIntendedVehicleID;
+    }
 
 protected:
     /// the origin edge
@@ -210,6 +230,7 @@ protected:
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;
 
+
 private:
     /// brief register waiting person (on proceed or loadState)
     void registerWaiting(MSTransportable* transportable, SUMOTime now);
@@ -220,5 +241,22 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSStageDriving& operator=(const MSStageDriving&) = delete;
+
+private:
+    class BookReservation : public Command {
+    public:
+        BookReservation(MSTransportable* transportable, SUMOTime earliestPickupTime, MSStageDriving* stage) :
+            myTransportable(transportable), myEarliestPickupTime(earliestPickupTime), myStage(stage), myWaitingPos(stage->myWaitingPos) {}
+        SUMOTime execute(SUMOTime currentTime);
+
+    public:
+        MSTransportable* myTransportable;
+        SUMOTime myEarliestPickupTime;
+        MSStageDriving* myStage;
+        double myWaitingPos;
+    };
+
+protected:
+    BookReservation* myReservationCommand;
 
 };

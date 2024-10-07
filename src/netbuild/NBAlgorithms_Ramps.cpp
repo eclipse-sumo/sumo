@@ -32,10 +32,12 @@
 #include "NBAlgorithms_Ramps.h"
 
 #define OFFRAMP_LOOKBACK 500
+#define MIN_SPLIT_LENGTH POSITION_EPS
 
 //#define DEBUG_RAMPS
 #define DEBUGNODEID  ""
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
+//#define DEBUGCOND(obj) true
 
 // ===========================================================================
 // static members
@@ -48,6 +50,9 @@ const std::string NBRampsComputer::ADDED_ON_RAMP_EDGE("-AddedOnRampEdge");
 // ---------------------------------------------------------------------------
 // NBRampsComputer
 // ---------------------------------------------------------------------------
+
+NBRampsComputer::NBRampsComputer() { }
+
 void
 NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRemove) {
     const bool guessAndAdd = oc.getBool("ramps.guess") && mayAddOrRemove;
@@ -200,7 +205,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = cont->getNumLanes();
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
+    const int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = cont;
     NBEdge* last = cont;
     NBEdge* curr = cont;
@@ -210,7 +215,9 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                // we need to distinguish between loading a .net.xml (connections are defined and applicable)
+                // and manual connection patches (should be post-prcess because the lane wasn't added yet)
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     curr->invalidateConnections(true);
                 }
                 incremented.insert(curr);
@@ -241,21 +248,23 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             }
         }
         // check whether a further split is necessary
-        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength + MIN_SPLIT_LENGTH < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
-            NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtOffset(rampLength - currLength));
-            if (!nc.insert(rn)) {
-                throw ProcessError(TLF("Ups - could not build on-ramp for edge '%' (node could not be build)!", curr->getID()));
-            }
+            std::string newNodeID = getUnusedID(curr->getID() + "-AddedOnRampNode", nc);
+            std::string newEdgeID = getUnusedID(curr->getID() + ADDED_ON_RAMP_EDGE, ec);
+            NBNode* rn = new NBNode(newNodeID, curr->getGeometry().positionAtOffset(rampLength - currLength));
+            nc.insert(rn);
             std::string name = curr->getID();
-            bool ok = ec.splitAt(dc, curr, rn, curr->getID() + ADDED_ON_RAMP_EDGE, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
-            if (!ok) {
-                WRITE_ERRORF(TL("Ups - could not build on-ramp for edge '%'!"), curr->getID());
+            const double currShift = myShiftedEdges[curr];
+            if (!ec.splitAt(dc, curr, rn, newEdgeID, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes())) {
+                WRITE_WARNING("Could not build on-ramp for edge '"  + curr->getID() + "' for unknown reason");
                 return;
             }
             //ec.retrieve(name)->invalidateConnections();
-            curr = ec.retrieve(name + ADDED_ON_RAMP_EDGE);
+            curr = ec.retrieve(newEdgeID);
+            // copy shift over
+            myShiftedEdges[curr] = currShift;
             incremented.insert(curr);
             last = curr;
             moveRampRight(curr, toAdd);
@@ -306,7 +315,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = prev->getNumLanes();
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
+    const int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = prev;
     NBEdge* last = prev;
     NBEdge* curr = prev;
@@ -316,7 +325,9 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                // we need to distinguish between loading a .net.xml (connections are defined and applicable)
+                // and manual connection patches (should be post-prcess because the lane wasn't added yet)
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     curr->invalidateConnections(true);
                 }
                 incremented.insert(curr);
@@ -327,7 +338,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             NBNode* prevN = curr->getFromNode();
             if (prevN->getIncomingEdges().size() == 1 && prevN->getOutgoingEdges().size() == 1) {
                 curr = prevN->getIncomingEdges()[0];
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER && toAdd != 0) {
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     // curr might be an onRamp. In this case connections need to be rebuilt
                     curr->invalidateConnections();
                 }
@@ -347,21 +358,23 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             }
         }
         // check whether a further split is necessary
-        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength + MIN_SPLIT_LENGTH < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
             Position pos = curr->getGeometry().positionAtOffset(curr->getGeometry().length() - (rampLength  - currLength));
-            NBNode* rn = new NBNode(curr->getID() + "-AddedOffRampNode", pos);
-            if (!nc.insert(rn)) {
-                throw ProcessError(TLF("Ups - could not build off-ramp for edge '%' (node could not be build)!", curr->getID()));
-            }
+            std::string newNodeID = getUnusedID(curr->getID() + "-AddedOffRampNode", nc);
+            std::string newEdgeID = getUnusedID(curr->getID() + "-AddedOffRampEdge", ec);
+            NBNode* rn = new NBNode(newNodeID, pos);
+            nc.insert(rn);
             std::string name = curr->getID();
-            bool ok = ec.splitAt(dc, curr, rn, curr->getID(), curr->getID() + "-AddedOffRampEdge", curr->getNumLanes(), curr->getNumLanes() + toAdd);
-            if (!ok) {
-                WRITE_ERRORF(TL("Ups - could not build off-ramp for edge '%'!"), curr->getID());
+            const double currShift = myShiftedEdges[curr];
+            if (!ec.splitAt(dc, curr, rn, curr->getID(), newEdgeID, curr->getNumLanes(), curr->getNumLanes() + toAdd)) {
+                WRITE_WARNING("Could not build off-ramp for edge '"  + curr->getID() + "' for unknown reason");
                 return;
             }
-            curr = ec.retrieve(name + "-AddedOffRampEdge");
+            curr = ec.retrieve(newEdgeID);
+            // copy shift over
+            myShiftedEdges[curr] = currShift;
             incremented.insert(curr);
             last = curr;
             moveRampRight(curr, toAdd);
@@ -415,10 +428,14 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     }
     try {
         PositionVector g = ramp->getGeometry();
-        const double offset = (0.5 * addedLanes *
+        double offset = (0.5 * addedLanes *
                                (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+        if (myShiftedEdges.count(ramp) != 0) {
+            offset -= myShiftedEdges[ramp];
+        }
         g.move2side(offset);
         ramp->setGeometry(g);
+        myShiftedEdges[ramp] = offset;
     } catch (InvalidArgument&) {
         WRITE_WARNINGF(TL("For edge '%': could not compute shape."), ramp->getID());
     }

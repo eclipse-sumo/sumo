@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-12 13:45:34 by Eclipse SUMO netconvert Version v1_17_0+0247-198ddc7
+<!-- generated on 2024-02-29 13:55:19 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -14,7 +14,7 @@
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399345.66,-5809362.43" convBoundary="0.00,0.00,1737.68,770.60" origBoundary="1351960.240000,5242549.880000,1354524.800000,5243232.070000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -2140,7 +2140,7 @@
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="261636678" type="priority" x="1115.15" y="56.33" incLanes="27445091_0 27445178_0 27445178_1 27445087_0 27445087_1" intLanes=":261636678_0_0 :261636678_1_0 :261636678_2_0 :261636678_2_1 :261636678_8_0 :261636678_5_0 :261636678_5_1 :261636678_9_0" shape="1114.35,66.69 1117.54,66.44 1117.80,64.25 1118.28,63.45 1118.99,62.84 1119.93,62.43 1121.11,62.22 1119.98,49.47 1109.54,50.19 1110.16,62.97 1112.35,63.30 1113.15,63.81 1113.75,64.54 1114.15,65.50">
+    <junction id="261636678" type="priority" x="1115.15" y="56.33" incLanes="27445091_0 27445178_0 27445178_1 27445087_0 27445087_1" intLanes=":261636678_0_0 :261636678_1_0 :261636678_2_0 :261636678_2_1 :261636678_8_0 :261636678_5_0 :261636678_5_1 :261636678_9_0" shape="1114.35,66.69 1117.54,66.44 1117.80,64.25 1118.28,63.45 1118.99,62.84 1119.93,62.43 1121.11,62.21 1119.98,49.47 1109.54,50.19 1110.16,62.97 1112.35,63.30 1113.15,63.81 1113.75,64.54 1114.15,65.50">
         <request index="0" response="00001100" foes="00001100" cont="0"/>
         <request index="1" response="01101100" foes="01111100" cont="0"/>
         <request index="2" response="00000000" foes="10000011" cont="0"/>

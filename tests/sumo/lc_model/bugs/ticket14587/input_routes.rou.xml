@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-24 01:24:44 by Eclipse SUMO netedit Version 1.19.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="HV" maxSpeed="13.89" desiredMaxSpeed="13.89" color="red"/>
+    <!-- Routes -->
+    <route id="r_0" edges="E6 E8 E7"/>
+    <route id="r_1" edges="E6 E8 E9 E10 E1"/>
+    <route id="r_10" edges="E4 E14 E15 E8 E7"/>
+    <route id="r_11" edges="E4 E14 E15 E8 E9 E10 E1"/>
+    <route id="r_2" edges="E6 E8 E9 E10 E11 E12 E3"/>
+    <route id="r_3" edges="E0 E10 E11 E12 E13 E14 E5"/>
+    <route id="r_4" edges="E0 E10 E11 E12 E3"/>
+    <route id="r_5" edges="E0 E10 E1"/>
+    <route id="r_6" edges="E2 E12 E3"/>
+    <route id="r_7" edges="E2 E12 E13 E14 E5"/>
+    <route id="r_8" edges="E2 E12 E13 E14 E15 E8 E7"/>
+    <route id="r_9" edges="E4 E14 E5"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="f_12" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_1" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_13" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_2" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_14" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_3" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_15" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_4" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_16" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_5" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_17" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_6" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_18" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_7" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_19" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_8" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_20" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_9" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_21" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_10" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_22" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_11" end="3600.00" vehsPerHour="360"/>
+    <flow id="f_23" type="HV" begin="0.00" departLane="best" departPos="base" departSpeed="avg" route="r_0" end="3600.00" vehsPerHour="360"/>
+</routes>

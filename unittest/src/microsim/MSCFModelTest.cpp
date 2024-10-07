@@ -48,7 +48,6 @@ protected :
         tau = 1;
         type = new MSVehicleType(SUMOVTypeParameter("0"));
         m = new MSCFModel_Krauss(type);
-        MSGlobals::gSemiImplicitEulerUpdate = true;
     }
 
     virtual void TearDown() {

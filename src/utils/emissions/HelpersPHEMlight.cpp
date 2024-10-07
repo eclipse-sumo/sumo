@@ -254,7 +254,7 @@ HelpersPHEMlight::getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep,
 
 
 double
-HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
+HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != nullptr) {
         return v == 0.0 ? 0.0 : MIN2(a, currCep->GetMaxAccel(v, slope));
@@ -291,7 +291,7 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
 #endif
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != nullptr) {
-        const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
+        const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope, param);
         if (currCep->getFuelType() != PHEMlightdll::Constants::strBEV &&
                 corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
                 corrSpeed > PHEMlightdll::Constants::ZERO_SPEED_ACCURACY) {

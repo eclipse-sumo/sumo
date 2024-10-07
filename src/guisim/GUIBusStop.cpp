@@ -80,7 +80,7 @@ GUIBusStop::initShape(PositionVector& fgShape,
     const double lgf = myLane.getLengthGeometryFactor(secondaryShape);
     fgShape = myLane.getShape(secondaryShape);
     fgShape = fgShape.getSubpart(lgf * myBegPos, lgf * myEndPos);
-    fgShape.move2side((myLane.getWidth() + myWidth) * 0.45 * offsetSign);
+    fgShape.move2side(((myLane.getWidth() + myWidth) * 0.5 - 0.2) * offsetSign);
     fgShapeRotations.reserve(fgShape.size() - 1);
     fgShapeLengths.reserve(fgShape.size() - 1);
     int e = (int) fgShape.size() - 1;
@@ -96,14 +96,15 @@ GUIBusStop::initShape(PositionVector& fgShape,
     fgSignRot = 0;
     if (tmp.length() != 0) {
         fgSignRot = fgShape.rotationDegreeAtOffset(double((fgShape.length() / 2.)));
-        fgSignRot -= 90;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+        fgSignRot -= 90 * rotSign;
     }
 }
 
 
 bool
-GUIBusStop::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors) {
-    const bool added = MSStoppingPlace::addAccess(lane, startPos, endPos, length, doors);
+GUIBusStop::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit) {
+    const bool added = MSStoppingPlace::addAccess(lane, startPos, endPos, length, exit);
     if (added) {
         myAccessCoords.push_back(lane->geometryPositionAtOffset((startPos + endPos) / 2.));
     }
@@ -140,7 +141,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     ret->mkItem((transportable + " capacity [#]").c_str(), false, myTransportableCapacity);
     ret->mkItem((transportable + " number [#]").c_str(), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     ret->mkItem(TL("stopped vehicles [#]"), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
-    ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));
+    ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIBusStop, double>(this, &GUIBusStop::getCroppedLastFreePos));
     // rides-being-waited-on statistic
     std::map<std::string, int> stats;
     for (const MSTransportable* t : getTransportables()) {
@@ -204,8 +205,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // draw the lines
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+        const double lineAngle = s.getTextAngle(signRot);
         // Iterate over every line
-        const double lineAngle = s.getTextAngle(rotSign * signRot);
         RGBColor lineColor = color.changedBrightness(-51);
         const double textOffset = s.flippedTextAngle(rotSign * signRot) ? -1 : 1;
         const double textOffset2 = s.flippedTextAngle(rotSign * signRot) ? -1 : 0.3;
@@ -214,7 +215,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // traslate and rotate
             glTranslated(signPos.x(), signPos.y(), 0);
-            glRotated(lineAngle, 0, 0, 1);
+            glRotated(-lineAngle, 0, 0, 1);
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
@@ -236,14 +237,13 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(colorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.drawDetail(10, exaggeration)) {
-            if (myElement == SUMO_TAG_CONTAINER_STOP) {
-                GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
-            } else if (myElement == SUMO_TAG_TRAIN_STOP) {
-                GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
-            } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
-            }
+
+        if (myElement == SUMO_TAG_CONTAINER_STOP) {
+            GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
+        } else if (myElement == SUMO_TAG_TRAIN_STOP) {
+            GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
+        } else {
+            GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
         }
         GLHelper::popMatrix();
     }
@@ -276,6 +276,11 @@ GUIBusStop::getCenteringBoundary() const {
 const std::string
 GUIBusStop::getOptionalName() const {
     return myName;
+}
+
+double
+GUIBusStop::getCroppedLastFreePos() const {
+    return MAX2(0., getLastFreePos());
 }
 
 /****************************************************************************/

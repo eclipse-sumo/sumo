@@ -70,6 +70,7 @@ public class APITest {
             for (String s : stage.edges) {
                 System.out.println("  " + s);
             }
+            @SuppressWarnings("unchecked")  // the cast is as safe or unsafe as all the other casts after do_job_get but here the compiler complains
             LinkedList<SumoStage> stages = (LinkedList<SumoStage>)conn.do_job_get(Simulation.findIntermodalRoute("gneE0", "gneE2", "", 0, 0,
                                            1.5, 1, 50, 50, 0, "", "", ""));
             System.out.println("findIntermodalRoute result stages:");

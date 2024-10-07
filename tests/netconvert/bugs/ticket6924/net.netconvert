@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-02 15:11:27 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
+<!-- generated on 2024-04-12 13:49:28 by Eclipse SUMO netconvert Version v1_19_0+1810-4e00b3ca5f6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,300.00,0.10" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -37,16 +37,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":gneJ0_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="0.00,0.00 0.00,0.00"/>
     </edge>
     <edge id=":gneJ1_0" function="internal" bidi=":gneJ1_1">
-        <lane id=":gneJ1_0_0" index="0" allow="rail" speed="13.89" length="0.64" shape="99.93,-0.07 99.79,-0.15 99.67,-0.11 99.53,-0.04 99.34,0.00"/>
+        <lane id=":gneJ1_0_0" index="0" allow="rail" speed="13.89" length="0.62" shape="99.93,-0.07 99.79,-0.15 99.67,-0.11 99.53,-0.04 99.34,0.00"/>
     </edge>
     <edge id=":gneJ1_1" function="internal" bidi=":gneJ1_0">
-        <lane id=":gneJ1_1_0" index="0" allow="rail" speed="13.89" length="0.60" shape="99.34,0.00 99.93,-0.07"/>
+        <lane id=":gneJ1_1_0" index="0" allow="rail" speed="13.89" length="0.62" shape="99.34,0.00 99.93,-0.07"/>
     </edge>
     <edge id=":gneJ4_0" function="internal" bidi=":gneJ4_1">
-        <lane id=":gneJ4_0_0" index="0" allow="rail" speed="13.89" length="0.60" shape="100.66,0.00 100.07,0.07"/>
+        <lane id=":gneJ4_0_0" index="0" allow="rail" speed="13.89" length="0.62" shape="100.66,0.00 100.07,0.07"/>
     </edge>
     <edge id=":gneJ4_1" function="internal" bidi=":gneJ4_0">
-        <lane id=":gneJ4_1_0" index="0" allow="rail" speed="13.89" length="0.64" shape="100.07,0.07 100.21,0.15 100.33,0.11 100.47,0.04 100.66,0.00"/>
+        <lane id=":gneJ4_1_0" index="0" allow="rail" speed="13.89" length="0.62" shape="100.07,0.07 100.21,0.15 100.33,0.11 100.47,0.04 100.66,0.00"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="300.00,0.00 300.00,0.00"/>

@@ -1,2 +1,8 @@
 # Tests the edge API
 edge
+
+# see #14552
+setMaxSpeed
+
+# retrieve bidi lane
+bidi

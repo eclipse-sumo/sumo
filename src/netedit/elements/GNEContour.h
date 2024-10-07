@@ -47,7 +47,7 @@ public:
     Boundary getContourBoundary() const;
 
     /// @brief void clear contour
-    void clearContour();
+    void clearContour() const;
 
     /// @brief calculate contours
     /// @{
@@ -73,7 +73,8 @@ public:
 
     /// @brief calculate contour edge
     void calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const GNEEdge* edge, const bool closeFirstExtrem, const bool closeLastExtrem) const;
+                              const GNEEdge* edge, const GUIGlObject* elementToRegister, const bool closeFirstExtrem,
+                              const bool closeLastExtrem) const;
 
     /// @brief calculate contour between two consecutive edges
     void calculateContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

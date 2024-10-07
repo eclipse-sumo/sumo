@@ -130,7 +130,7 @@ private:
     void addLane(const SUMOSAXAttributes& attrs);
 
     /** @brief parses stop offsets for the current lane or edge
-     * @param[in] attrs The attributes to get the stop offset sepcifics from
+     * @param[in] attrs The attributes to get the stop offset specifics from
      */
     void addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
 
@@ -140,7 +140,7 @@ private:
     void addJunction(const SUMOSAXAttributes& attrs);
 
 
-    /** @brief Parses a reques and saves selected attributes in myCurrentJunction
+    /** @brief Parses a request and saves selected attributes in myCurrentJunction
      * @param[in] attrs The attributes to get the junction's values from
      */
     void addRequest(const SUMOSAXAttributes& attrs);
@@ -308,7 +308,7 @@ private:
     /** @struct Crossing
      * @brief Describes a pedestrian crossing
      */
-    struct Crossing {
+    struct Crossing : public Parameterised {
         Crossing(const std::string& _edgeID) :
             edgeID(_edgeID), customTLIndex(-1), customTLIndex2(-1) {}
 
@@ -395,7 +395,7 @@ private:
     /// @brief whether the loaded network was built for lefthand traffic
     bool myAmLefthand;
 
-    /// @brief whether the the written network should have a different "handedness" (LHT/RHT) than the loaded network
+    /// @brief whether the written network should have a different "handedness" (LHT/RHT) than the loaded network
     bool myChangeLefthand;
 
     /// @brief the level of corner detail in the loaded network
@@ -426,6 +426,9 @@ private:
     bool myJunctionsHigherSpeed;
     /// @brief custom settings for internal junction computation
     double myInternalJunctionsVehicleWidth;
+    /// @brief custom settings for junction shape computation
+    bool myJunctionsMinimalShape;
+    bool myJunctionsEndpointShape;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

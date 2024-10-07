@@ -82,13 +82,13 @@ The Person is moved to the network
 position that best matches the given x,y network coordinates.
 
 The argument edgeID is optional and can be set to "" if not known.
-It's use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap).
+Its use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap).
 
 The optional keepRoute flag is a bitset that influences
 mapping as follows:
 
 - **bit0** (keepRoute = 1 when only this bit is set)
-  - **1**: The person is mapped to the closest edge within it's existing route.
+  - **1**: The person is mapped to the closest edge within its existing route.
            If no suitable position is found within 100m   mapping fails with an error.
   - **0**: The person is mapped to the closest edge within the network.
            If that edge does not belong to the original route, the current route is replaced by a new
@@ -99,7 +99,7 @@ mapping as follows:
            If no suitable position is found within 100m mapping fails with an error.
 - **bit1** (keepRoute = 2 when only this bit is set)
   - **1**: The person is mapped to the exact position in
-  the network If that position lies outside the road network, the person stops moving on it's own
+  the network If that position lies outside the road network, the person stops moving on its own
   accord until it is placed back into the network with another TraCI
   command. (if keeproute = 3, the position must still be within 100m of the vehicle route)
   - **0**: The person is always on a road
@@ -124,7 +124,7 @@ previous and the new position instead.
     In between calls of moveToXY, the person may still perform regular movement. The person position is reset afterwards but this can affect other pedestrians. To avoid this, person.setSpeed(personID, 0) can be used.
 
 !!! caution
-    When mapping a person to an edge that is not currently on it's route, the new route may consist of that edge only. Once the person reaches the arrivalPos on that edge it disappears unless receiving another moveToXY command in that simulation step. This means, persons may disappear when calling *traci.simulationStep* with arguments that cause SUMO to perform multiple steps.
+    When mapping a person to an edge that is not currently on its route, the new route may consist of that edge only. Once the person reaches the arrivalPos on that edge it disappears unless receiving another moveToXY command in that simulation step. This means, persons may disappear when calling *traci.simulationStep* with arguments that cause SUMO to perform multiple steps.
 
 |         byte          |       integer        |        byte         |                       string                       |       byte       |                        double                        | byte | double | byte | double | byte | integer ||
 | :-------------------: | :------------------: | :------------------------------------------------: | :--------------: | :---------------------------------------------------: | :-: |:-: |:-: |:-: |:-: |:-: |:-: |:-: |

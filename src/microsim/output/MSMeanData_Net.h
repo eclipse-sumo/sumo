@@ -123,11 +123,13 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                   const double numLanes, const double speedLimit, const double defaultTravelTime,
+                   const int numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
         /// @brief return attribute value
         double getAttributeValue(SumoXMLAttr a, const SUMOTime period, const double numLanes, const double speedLimit) const;
+
+        double getOccupancy(SUMOTime period, int numLanes) const;
 
     protected:
         /** @brief Internal notification about the vehicle moves

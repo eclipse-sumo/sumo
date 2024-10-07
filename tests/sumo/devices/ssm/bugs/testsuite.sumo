@@ -1,6 +1,3 @@
-# SSM device reports collisions with oncoming traffic on another lane
-ticket13918
-
 # SSM device crashes on junction without internal lane
 ticket4350
 
@@ -19,3 +16,6 @@ ticket7836
 
 # emergency vehicle with bluelight device performs lane change that disrupts a follower relationship.
 ticket11336
+
+# SSM device reports collisions with oncoming traffic on another lane
+ticket13918

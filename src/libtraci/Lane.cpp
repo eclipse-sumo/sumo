@@ -294,6 +294,10 @@ Lane::getAngle(const std::string& laneID, double relativePosition) {
     return Dom::getDouble(libsumo::VAR_ANGLE, laneID, &content);
 }
 
+std::string
+Lane::getBidiLane(const std::string& laneID) {
+    return Dom::getString(libsumo::VAR_BIDI, laneID);
+}
 
 void
 Lane::setAllowed(const std::string& laneID, std::string allowedClass) {

@@ -113,7 +113,6 @@ namespace tcpip
 #ifdef WIN32
 		static std::string GetWinsockErrorString(int err);
 #endif
-		bool atoaddr(std::string, struct sockaddr_in& addr);
 		bool datawaiting(int sock) const;
 
 		std::string host_;

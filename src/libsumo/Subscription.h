@@ -23,6 +23,7 @@
 #include <set>
 #include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIDefs.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -139,7 +140,7 @@ public:
     /// @brief vTypes specified by the vTypes filter
     std::set<std::string> filterVTypes;
     /// @brief vClasses specified by the vClasses filter, @see SVCPermissions
-    int filterVClasses;
+    SVCPermissions filterVClasses;
     /// @brief Opening angle (in deg) specified by the field of vision filter
     double filterFieldOfVisionOpeningAngle;
     /// @brief Lateral distance specified by the lateral distance filter

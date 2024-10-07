@@ -197,7 +197,7 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return the modified acceleration
          */
-        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
         /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
          * Default implementation returns always zero.
@@ -298,7 +298,7 @@ public:
 
     /** @brief Returns the fuel type of the given emission class
      * @param[in] c The vehicle emission class
-     * @return "Diesel", "Gasoline", "HybridDiesel", or "HybridGasoline"
+     * @return "Diesel", "Gasoline", "HybridDiesel", "HybridGasoline", or "Electricity"
      */
     static std::string getFuel(const SUMOEmissionClass c);
 
@@ -353,7 +353,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
+    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
 
     /** @brief Returns the coasting deceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class

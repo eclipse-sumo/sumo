@@ -1,2 +1,11 @@
 block_vehicles_walking_forward
 bidirectional_flow_2_stripes
+uncontrolled_prio_crossing
+
+# pedestrians walking in the other direction
+uncontrolled_prio_crossing2
+
+# pedestrians walking in the other direction
+uncontrolled_prio_crossing2_bigJunction
+uncontrolled_prio_crossing_ballistic
+uncontrolled_prio_crossing_turn

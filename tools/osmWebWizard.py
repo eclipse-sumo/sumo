@@ -258,6 +258,7 @@ class Builder(object):
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
+        options += ["--polyconvert-options", " -v,--osm.keep-full-type,--osm.merge-relations,1"]
 
         self.report("Converting map data")
         osmBuild.build(options)
@@ -332,8 +333,14 @@ class Builder(object):
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
                     options += ["--persontrip.walk-opposite-factor", "0.8"]
+                    options += ["--duarouter-weights.tls-penalty", "20"]
 
-                randomTrips.main(randomTrips.get_options(options))
+                try:
+                    randomTrips.main(randomTrips.get_options(options))
+                except ValueError:
+                    print("Could not generate %s traffic" % vehicle, file=sys.stderr)
+                    continue
+
                 randomTripsCalls.append(options)
 
                 # --validate is not called for pedestrians
@@ -412,6 +419,7 @@ class Builder(object):
                 "--duration-log.statistics",
                 "--device.rerouting.adaptation-interval", "10",
                 "--device.rerouting.adaptation-steps", "18",
+                "--tls.actuated.jam-threshold", "30",
                 "-v", "--no-step-log", "--save-configuration", self.files_relative["config"], "--ignore-route-errors"]
 
         if self.routenames:

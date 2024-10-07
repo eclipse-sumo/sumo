@@ -32,9 +32,6 @@ Warning: Removing pt stop '250749715' on non existing edge ''.
 Warning: Removing pt stop '4103427181' on non existing edge ''.
 Warning: Removing pt stop '4539421794' on non existing edge ''.
 Warning: Removed 3 pt stops because they could not be assigned to the network
-Warning: Converting invalid rail_crossing to priority junction '1100375051'.
-Warning: Converting invalid rail_crossing to priority junction '1100375067'.
-Warning: Converting invalid rail_crossing to priority junction '1100375072'.
 Warning: Ambiguity in turnarounds computation at junction '344918064'.
 Warning: Ambiguity in turnarounds computation at junction '506075298'.
 Warning: Found sharp turn with radius 7.88 at the start of edge '-10426716#0'.
@@ -42,8 +39,6 @@ Warning: Found sharp turn with radius 7.88 at the end of edge '10426716#0'.
 Warning: The rail crossing '1882498697' does not have any roads.
 Warning: The rail crossing '54142974' does not have any roads.
 Warning: The rail crossing 'cluster_2525484869_366041397' does not have any roads.
-Warning: The rail crossing 'cluster_3921110414_3921110415' does not have any roads.
-Warning: The rail crossing 'cluster_5672130262_5672130263' does not have any roads.
 Warning: 7 total messages of type: Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!
 Warning: 8 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
 Warning: 14 total messages of type: Removed invalid stop '%' from line '%'.

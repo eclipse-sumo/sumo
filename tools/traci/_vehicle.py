@@ -383,6 +383,20 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANE_INDEX, vehID)
 
+    def getSegmentID(self, vehID):
+        """getSegmentID(string) -> string
+
+        Returns the id of the segment the named vehicle was at within the last step (mesosim).
+        """
+        return self._getUniversal(tc.VAR_SEGMENT_ID, vehID)
+
+    def getSegmentIndex(self, vehID):
+        """getSegmentIndex(string) -> integer
+
+        Returns the index of the segment the named vehicle was at within the last step (mesosim).
+        """
+        return self._getUniversal(tc.VAR_SEGMENT_INDEX, vehID)
+
     def getTypeID(self, vehID):
         """getTypeID(string) -> string
 
@@ -1341,7 +1355,7 @@ class VehicleDomain(VTypeDomain):
     def moveTo(self, vehID, laneID, pos, reason=tc.MOVE_AUTOMATIC):
         """moveTo(string, string, double, integer) -> None
 
-        Move a vehicle to a new position along it's current route.
+        Move a vehicle to a new position along its current route.
         """
         self._setCmd(tc.VAR_MOVE_TO, vehID, "tsdi", 3, laneID, pos, reason)
 
@@ -1476,6 +1490,8 @@ class VehicleDomain(VTypeDomain):
         (once for pickup and once for drop-off) and the list encodes ride
         sharing of passengers (in pickup and drop-off order)
         """
+        if isinstance(reservations, str):
+            reservations = [reservations]
         self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "l", reservations)
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
@@ -1483,21 +1499,22 @@ class VehicleDomain(VTypeDomain):
            Reasons are defined in module constants and start with REMOVE_'''
         self._setCmd(tc.REMOVE, vehID, "b", reason)
 
-    def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
-        '''Place vehicle at the given x,y coordinates and force it's angle to
+    @alias_param("laneIndex", "lane")
+    def moveToXY(self, vehID, edgeID, laneIndex, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
+        '''Place vehicle at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
         natural angle of the edge on which it is driving.
         If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
+        any edge in the network but its route then only consists of that edge.
         If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
         edgeID and lane are optional placement hints to resolve ambiguities.
         The command fails if no suitable target position is found within the
         distance given by matchThreshold.
         '''
-        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, lane, x, y, angle, keepRoute, matchThreshold)
+        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, laneIndex, x, y, angle, keepRoute, matchThreshold)
 
     def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None

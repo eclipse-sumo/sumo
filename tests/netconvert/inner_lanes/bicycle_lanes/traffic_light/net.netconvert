@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:38 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-29 13:55:52 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -25,13 +30,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -55,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_6_0" index="0" allow="passenger" speed="9.26" length="5.01" shape="98.40,110.40 99.11,105.44"/>
     </edge>
     <edge id=":C_26" function="internal">
-        <lane id=":C_26_0" index="0" allow="bicycle" speed="10.89" length="19.54" width="1.00" shape="94.55,102.22 97.42,97.42 102.83,94.18 110.40,93.10"/>
+        <lane id=":C_26_0" index="0" allow="bicycle" speed="10.89" length="19.54" width="1.00" shape="94.55,102.22 97.42,97.43 102.83,94.18 110.40,93.10"/>
     </edge>
     <edge id=":C_27" function="internal">
         <lane id=":C_27_0" index="0" allow="passenger" speed="6.51" length="7.55" shape="94.99,108.94 94.85,107.95 93.80,106.20 92.05,105.15 89.60,104.80"/>
@@ -70,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_8_0" index="0" allow="bicycle" speed="13.89" length="20.80" width="1.00" shape="110.40,106.90 89.60,106.90"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" allow="bicycle" speed="10.89" length="19.90" width="1.00" shape="110.40,106.90 102.83,105.82 97.42,102.58 94.36,97.47"/>
+        <lane id=":C_9_0" index="0" allow="bicycle" speed="10.89" length="19.90" width="1.00" shape="110.40,106.90 102.83,105.82 97.43,102.58 94.36,97.47"/>
     </edge>
     <edge id=":C_10" function="internal">
         <lane id=":C_10_0" index="0" allow="passenger" speed="6.51" length="1.48" shape="110.40,104.80 108.94,105.01"/>
@@ -110,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_19_0" index="0" allow="passenger" speed="9.26" length="5.01" shape="101.60,89.60 100.89,94.56"/>
     </edge>
     <edge id=":C_32" function="internal">
-        <lane id=":C_32_0" index="0" allow="bicycle" speed="10.89" length="19.54" width="1.00" shape="105.45,97.78 102.58,102.58 97.17,105.82 89.60,106.90"/>
+        <lane id=":C_32_0" index="0" allow="bicycle" speed="10.89" length="19.54" width="1.00" shape="105.45,97.78 102.58,102.57 97.17,105.82 89.60,106.90"/>
     </edge>
     <edge id=":C_33" function="internal">
         <lane id=":C_33_0" index="0" allow="passenger" speed="6.51" length="7.55" shape="105.01,91.06 105.15,92.05 106.20,93.80 107.95,94.85 110.40,95.20"/>
@@ -128,7 +132,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_21_0" index="0" allow="bicycle" speed="13.89" length="20.80" width="1.00" shape="89.60,93.10 110.40,93.10"/>
     </edge>
     <edge id=":C_22" function="internal">
-        <lane id=":C_22_0" index="0" allow="bicycle" speed="10.89" length="19.90" width="1.00" shape="89.60,93.10 97.17,94.18 102.58,97.42 105.64,102.53"/>
+        <lane id=":C_22_0" index="0" allow="bicycle" speed="10.89" length="19.90" width="1.00" shape="89.60,93.10 97.17,94.18 102.57,97.42 105.64,102.53"/>
     </edge>
     <edge id=":C_23" function="internal">
         <lane id=":C_23_0" index="0" allow="passenger" speed="6.51" length="1.48" shape="89.60,95.20 91.06,94.99"/>

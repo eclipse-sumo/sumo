@@ -47,11 +47,10 @@ assert(os.path.exists(traciJar))
 for f in sys.argv[1:]:
     fname = "data/%s.java" % f
     if useLibsumo:
-        with open(fname, 'r') as fob:
-            filedata = fob.read()
-        filedata = filedata.replace('libtraci', 'libsumo')
-        with open(fname, 'w') as fob:
-            fob.write(filedata)
+        with open(fname, encoding="utf8") as fin:
+            filedata = fin.read()
+        with open(fname, 'w', encoding="utf8") as fob:
+            fob.write(filedata.replace('libtraci', 'libsumo'))
     subprocess.check_call([javac, "-cp", traciJar, fname])
 
 os.environ["PATH"] += os.pathsep + os.path.join(os.environ['SUMO_HOME'], "bin")
@@ -59,7 +58,8 @@ procs = [subprocess.Popen([java, "-Djava.library.path=" + os.path.join(os.enviro
                            "-cp", os.pathsep.join([traciJar, "data"]), sys.argv[1],
                            checkBinary('sumo'), "data/config.sumocfg"])]
 if len(sys.argv) > 2:
-    time.sleep(10)  # give sumo some time to start
-    procs += [subprocess.Popen([java, "-cp", os.pathsep.join([traciJar, "data"]), f]) for f in sys.argv[2:]]
+    time.sleep(5)  # give sumo some time to start
+    procs += [subprocess.Popen([java, "-Djava.library.path=" + os.path.join(os.environ['SUMO_HOME'], "bin"),
+                                "-cp", os.pathsep.join([traciJar, "data"]), f]) for f in sys.argv[2:]]
 for p in procs:
     p.wait()

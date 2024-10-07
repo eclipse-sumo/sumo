@@ -70,7 +70,8 @@ public:
     static NBNode* processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
                                    NBNodeCont& nc, NBEdgeCont& ec,
-                                   NBTrafficLightLogicCont& tlc);
+                                   NBTrafficLightLogicCont& tlc,
+                                   GeoConvHelper* from_srs = nullptr);
 
 protected:
     /// @name inherited from GenericSAXHandler

@@ -11,7 +11,7 @@ have their start or stop location outside the map.
 ## Typical Command Line
 
 ```
-activitygen --net-file <NET> --stat-file <STATISTICS> --output-file <TRIPS> --random
+activitygen --net-file <NET> --stat-file <STATISTICS> --output-file <TRIPS> --random
 ```
 
 <NET\> is a map in form of a SUMO net file, <STATISTICS\> contains the
@@ -32,18 +32,18 @@ files [{{SUMO}}/tests/activitygen/activitygen-example.net.xml]({{Source}}tests/a
 To run this example, use the following commands:
 
 ```
-activitygen --net-file activitygen-example.net.xml \
-            --stat-file activitygen-example.stat.xml \
-            --output-file activitygen-example.trips.rou.xml \
-            --random
+activitygen --net-file activitygen-example.net.xml \
+            --stat-file activitygen-example.stat.xml \
+            --output-file activitygen-example.trips.rou.xml \
+            --random
 
-duarouter --net-file activitygen-example.net.xml \
-          --route-files activitygen-example.trips.rou.xml \
-          --output-file activitygen-example.rou.xml \
-          --ignore-errors
+duarouter --net-file activitygen-example.net.xml \
+          --route-files activitygen-example.trips.rou.xml \
+          --output-file activitygen-example.rou.xml \
+          --ignore-errors
 
-sumo --net-file activitygen-example.net.xml \
-     --route-files activitygen-example.rou.xml
+sumo --net-file activitygen-example.net.xml \
+     --route-files activitygen-example.rou.xml
 ```
 
 The first command generates the net file from the node and edge
@@ -69,8 +69,8 @@ the time of their departure into account during routing (see
 [Demand/Automatic_Routing](../Demand/Automatic_Routing.md))
 
 ```
-sumo --net-file activitygen-example.net.xml \
-     --route-files activitygen-example.trips.rou.xml
+sumo --net-file activitygen-example.net.xml \
+     --route-files activitygen-example.trips.rou.xml
 ```
 
 ## The Statistics File

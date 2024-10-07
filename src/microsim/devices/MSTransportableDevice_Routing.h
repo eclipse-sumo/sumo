@@ -145,6 +145,9 @@ private:
     /// @brief The (optional) command responsible for rerouting
     WrappingCommand< MSTransportableDevice_Routing >* myRerouteCommand;
 
+    /// @brief The range of the plan which shall be replaced
+    std::string myScope;
+
 private:
     /// @brief Invalidated copy constructor.
     MSTransportableDevice_Routing(const MSTransportableDevice_Routing&);

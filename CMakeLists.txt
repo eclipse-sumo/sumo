@@ -18,6 +18,7 @@ option(ENABLE_JAVA_BINDINGS "Build Java Bindings" ON)
 option(ENABLE_CS_BINDINGS "Build C# Bindings")
 option(CCACHE_SUPPORT "Enable ccache support if installed" ON)
 option(TCMALLOC "Use tcmalloc if installed" ON)
+option(VERBOSE_SUB "Let sub-commands be more verbose")
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
@@ -36,9 +37,9 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
+cmake_minimum_required(VERSION 3.5)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.5)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
@@ -225,6 +226,8 @@ elseif (MSVC)
     endif ()
     # SWIG generates large obj files
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+    # backward compatible mutex API, see https://github.com/actions/runner-images/issues/10004
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR")
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
@@ -235,11 +238,10 @@ endif ()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if (CLANG_COMPILER)
     if (WIN32)
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer,unsigned-integer-overflow -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
-        # set iterator de bug level in 0
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
         add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
     else ()
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
     endif ()
 endif ()
 
@@ -407,6 +409,8 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
     endif(INSTALL_DLL_RUNTIMES)
+    # set fmt dir depending of msvc toolset version
+    file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?/v${MSVC_TOOLSET_VERSION}")
     # declare flag for use google test
     set(USE_GOOGLETEST true)
     # check if use google test
@@ -464,6 +468,27 @@ else (FREETYPE_FOUND)
     message(WARNING "FreeType cannot be found. If you are using SUMO libraries, update SUMO_LIBRARIES folder with git pull. Otherwise, specify manually FreeType include folder and libs.")
 endif (FREETYPE_FOUND)
 
+if (SUMO_LIBRARIES AND WIN32)
+    find_package(fmt PATHS ${fmt_PATH} NO_DEFAULT_PATH)
+    if (fmt_FOUND)
+        message(STATUS "Found FMT (SUMOLibraries): " ${fmt_DIR})
+        include_directories(SYSTEM "${fmt_PATH}/include")
+        set(FMT_LIBRARY fmt::fmt)
+        set(HAVE_FMT 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
+    endif (fmt_FOUND)
+elseif (NOT MSVC)
+    find_package(fmt QUIET)
+    if (fmt_FOUND)
+        set(HAVE_FMT 1)
+        set(FMT_LIBRARY fmt::fmt)
+        # next 2 lines could fix the include path for mambaforge fmt on DLR machines (maybe outdated cmake?)
+        # get_target_property(fmt_INCLUDE_DIR fmt::fmt INTERFACE_INCLUDE_DIRECTORIES)
+        # include_directories(SYSTEM ${fmt_INCLUDE_DIR})
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
+    endif (fmt_FOUND)
+endif ()
+
 find_package(X11)
 if (X11_FOUND)
     link_directories(${X11_LIBRARY_DIR})
@@ -498,6 +523,14 @@ if (TCMALLOC)
         set(TCMALLOC_LIBRARY "")
     endif ()
 endif ()
+
+# Eigen (for overhead wire / electric circuit simulation)
+find_package(Eigen3 3.2)
+if (EIGEN3_FOUND)
+    include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+    set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
+endif (EIGEN3_FOUND)
 
 if (CHECK_OPTIONAL_LIBS)
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
@@ -544,20 +577,12 @@ if (CHECK_OPTIONAL_LIBS)
         endif (GL2PS_FOUND)
     endif ()
 
-    # Eigen (for overhead wire / electric circuit simulation)
-    find_package(Eigen3 3.2)
-    if (EIGEN3_FOUND)
-        include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
-        set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
-    endif (EIGEN3_FOUND)
-
     find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
     if (jupedsim_FOUND)
         find_package(GEOS)
         if (GEOS_FOUND)
             include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
-            set(JPS_VERSION "${jupedsim_VERSION_MINOR}0${jupedsim_VERSION_PATCH}")
+            set(JPS_VERSION "${jupedsim_VERSION_MAJOR}${jupedsim_VERSION_MINOR}${jupedsim_VERSION_PATCH}")
             set(ENABLED_FEATURES "${ENABLED_FEATURES} JuPedSim")
             message(STATUS "Found JuPedSim: ${jupedsim_DIR} ${jupedsim_VERSION}")
         else (GEOS_FOUND)
@@ -577,7 +602,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_handlers utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
-        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES})
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES} ${FMT_LIBRARY})
 if (WIN32)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
@@ -601,8 +626,7 @@ if (MSVC)
             PATTERN "*.bat"
             PATTERN "*.dll"
             PATTERN "*d.dll" EXCLUDE
-            PATTERN "gtest*.dll" EXCLUDE
-            PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
+            PATTERN "gtest*.dll" EXCLUDE)
 else ()
     include(GNUInstallDirs)
 endif ()
@@ -645,11 +669,14 @@ if (NOT ${PYTHON_SETUPTOOLS_MISSING})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build_config/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
+        if (NOT VERBOSE_SUB)
+            set(PYTHON_BUILD_OPTS "-C--quiet")
+        endif ()
         add_custom_target(pure_wheels ALL
                           COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
-                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
+                          COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
                           COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py
-                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
+                          COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
                           WORKING_DIRECTORY ${TOOLS_DIR})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
                 COMPONENT pytraci)
@@ -718,6 +745,9 @@ add_custom_target(install_mo DEPENDS ${I18N_DATA})
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
+if (NOT VERBOSE_SUB)
+    set(MVN_OPTS "-q")
+endif ()
 find_package(Java COMPONENTS Development)
 if (MVN_EXECUTABLE AND Java_FOUND)
     if (NOT DEFINED ENV{JAVA_HOME})
@@ -727,11 +757,11 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
     endif ()
     add_custom_target(traas
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/traas/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.1.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/lisum/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode -f tools/contributed/lisum/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-core/target/lisum-core-1.0.2.jar bin/lisum-core.jar
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-gui/target/lisum-gui-1.1.jar bin/lisum-gui.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -763,7 +793,7 @@ if (MVN_EXECUTABLE)
     add_custom_target(javadoc
         COMMAND rm -rf docs/javadoc
         COMMAND mkdir docs/javadoc
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
+        COMMAND ${MVN_EXECUTABLE} ${MVN_OPTS} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
         COMMAND mv tools/contributed/traas/target/site/apidocs docs/javadoc/traas
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
@@ -847,9 +877,7 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 find_program(PYINSTALLER_FOUND "pyinstaller")
 if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
     add_custom_target(game
-        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/game/minwait.py
         COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec
-        COMMAND ${CMAKE_COMMAND} -E chdir dist/runner ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_BINARY_DIR}/sumo-game.zip" --format=zip "."
     )
 endif()
 
@@ -871,9 +899,6 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND ln -s ../../userdoc/images sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND tar -czf sumo_${PACKAGE_VERSION}.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
-        COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND cp -a build_config/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(dist examples doc ${JAVA_TARGETS})

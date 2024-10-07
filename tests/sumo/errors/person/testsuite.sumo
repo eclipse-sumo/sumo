@@ -13,3 +13,4 @@ vehicle_as_person
 
 # consecutive stops at different positions on the same edge
 unconnected_stops_same_edge
+personTrip_without_person
