@@ -2360,6 +2360,8 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     if (outgoing == nullptr) {
         return LinkDirection::NODIR;
     }
+    assert(incoming->getToNode() == this);
+    assert(outgoing->getFromNode() == this);
     if (incoming->getJunctionPriority(this) == NBEdge::JunctionPriority::ROUNDABOUT && outgoing->getJunctionPriority(this) == NBEdge::JunctionPriority::ROUNDABOUT) {
         return LinkDirection::STRAIGHT;
     }
