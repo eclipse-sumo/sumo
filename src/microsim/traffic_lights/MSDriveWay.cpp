@@ -696,6 +696,7 @@ MSDriveWay::overlap(const MSDriveWay& other) const {
     return false;
 }
 
+
 bool
 MSDriveWay::flankConflict(const MSDriveWay& other) const {
     for (const MSLane* lane : myForward) {
@@ -1238,9 +1239,7 @@ MSDriveWay::addSwitchFoes(MSLink* link) {
                 myFoes.push_back(foe);
             } else {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   cand=" << foe->myID
-                    << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
-                    << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
+                std::cout << "   cand=" << foe->myID << "\n";
 #endif
             }
         }
@@ -1813,10 +1812,11 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
 #ifdef DEBUG_BUILD_SIDINGS
                 std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
 #endif
+                const int firstIndex = i + 1;
                 if (addToFoe) {
                     auto& foeSidings = foe->mySidings[this];
                     // indices must be mapped onto foe route;
-                    const MSEdge* first = myRoute[i + 1];
+                    const MSEdge* first = myRoute[firstIndex];
                     auto itFirst = std::find(foe->myRoute.begin(), foe->myRoute.end(), first);
                     if (itFirst != foe->myRoute.end()) {
                         const MSEdge* last = myRoute[start];
@@ -1827,7 +1827,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                     }
                 } else {
                     auto& foeSidings = mySidings[foe];
-                    foeSidings.insert(foeSidings.begin(), Siding(i + 1, start, length));
+                    foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start, length));
                 }
                 start = -1;
                 length = 0;
