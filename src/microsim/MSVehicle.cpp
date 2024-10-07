@@ -4526,7 +4526,7 @@ MSVehicle::executeMove() {
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = vSafe;
     const double rawAccel = SPEED2ACCEL(MAX2(vNext, 0.) - myState.mySpeed);
-    if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold && rawAccel <= accelThresholdForWaiting()) {
+    if (vNext <= SUMO_const_haltingSpeed*TS && myWaitingTime > MSGlobals::gStartupWaitThreshold && rawAccel <= accelThresholdForWaiting() && myActionStep) {
         myTimeSinceStartup = 0;
     } else if (isStopped()) {
         // do not apply startupDelay for waypoints

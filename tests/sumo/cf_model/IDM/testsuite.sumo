@@ -53,5 +53,9 @@ ticket11564
 # right of way violation due to imprecise stopping on minor link
 ticket13369
 
+
+# vehicle already starts driving although startupDelay is active (#14289)
+startupDelay1.0_timestep0.01
+
 # emergency braking at yellow
 ticket14620
