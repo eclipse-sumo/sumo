@@ -24,24 +24,31 @@
 # 1. Create a pkg file for Eclipse SUMO (= "framework") (and also add dependent libraries)
 # 2. Create pkg files for all launchers (= "apps")
 # 3. Create an installer pkg to jointly install the framework pkg and all app pkgs
+# 4. Put the installer pkg into a dmg - ready to be notarized
 
 import os
 import plistlib
+import re
 import shutil
 import string
 import subprocess
 import sys
 import tempfile
-import re
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.options import ArgumentParser  # noqa
 
 from build_config.version import get_pep440_version  # noqa
 
+try:
+    from dmgbuild.core import build_dmg
+except ImportError:
+    print("Error: dmgbuild module is not installed. Please install it using 'pip install dmgbuild'.")
+    sys.exit(1)
+
 
 def transform_pep440_version(version):
-    post_pattern = re.compile(r'^(.*)\.post\d+$')
+    post_pattern = re.compile(r"^(.*)\.post\d+$")
     match = post_pattern.match(version)
     if match:
         return f"{match.group(1)}-git"
@@ -49,11 +56,14 @@ def transform_pep440_version(version):
         return version
 
 
-def parse_args(def_pkg_name):
-    def_output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
+def parse_args(def_dmg_name, def_pkg_name):
+    def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
+    def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
+
     op = ArgumentParser(description="Build an installer for macOS (dmg file)")
     op.add_argument("build_dir", help="Build dir of sumo")
-    op.add_argument("-o", "--output", dest="output", help="Output path for the installer pkg", default=def_output_path)
+    op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
+    op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
 
     return op.parse_args()
 
@@ -379,21 +389,58 @@ def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
     return "Installer", os.path.basename(output_path), id, output_path, pkg_size
 
 
+def create_dmg(dmg_title, dmg_output_path, installer_pkg_path):
+
+    print(" - Preparing disk image folder")
+    dmg_prep_folder = tempfile.mkdtemp()
+    shutil.copy(installer_pkg_path, dmg_prep_folder)
+
+    # FIXME: Add uninstaller script to the installer folder
+
+    if os.path.exists(dmg_output_path):
+        print(" - Removing already existing disk image before creating a new disk image")
+        os.remove(dmg_output_path)
+
+    print(" - Collecting files and calculating file size")
+    files_to_store = []
+    total_size = 0
+    for root, _, files in os.walk(dmg_prep_folder):
+        for file in files:
+            files_to_store.append((os.path.join(root, file), file))
+            total_size += os.path.getsize(os.path.join(root, file))
+
+    print(" - Building diskimage")
+    settings = {
+        "volume_name": "Eclipse SUMO",
+        "size": f"{total_size // 1024 * 1.2}K",
+        "files": files_to_store,
+        # FIXME: add background and badge
+    }
+    build_dmg(dmg_output_path, dmg_title, settings=settings)
+
+    print(" - Cleaning up")
+    shutil.rmtree(dmg_prep_folder)
+
+
 def main():
     version = transform_pep440_version(get_pep440_version())
-    default_installer_pkg_name = f"sumo-{version}.pkg"
+    default_pkg_name = f"sumo-{version}.pkg"
+    default_dmg_name = f"sumo-{version}.dmg"
     base_id = "org.eclipse.sumo"
 
     # Parse and check the command line arguments
-    opts = parse_args(default_installer_pkg_name)
+    opts = parse_args(default_dmg_name, default_pkg_name)
     if not os.path.exists(opts.build_dir):
         print(f"Error: build directory '{opts.build_dir}' does not exist.", file=sys.stderr)
         sys.exit(1)
     if not os.path.exists(os.path.join(opts.build_dir, "CMakeCache.txt")):
         print(f"Error: directory '{opts.build_dir}' is not a build directory.", file=sys.stderr)
         sys.exit(1)
-    if not os.path.exists(os.path.dirname(opts.output)):
-        print(f"Error: output directory '{os.path.dirname(opts.output)}' does not exist.", file=sys.stderr)
+    if not os.path.exists(os.path.dirname(opts.output_dmg)):
+        print(f"Error: dmg output directory '{os.path.dirname(opts.output_dmg)}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+    if not os.path.exists(os.path.dirname(opts.output_pkg)):
+        print(f"Error: pkg output directory '{os.path.dirname(opts.output_pkg)}' does not exist.", file=sys.stderr)
         sys.exit(1)
 
     # Building the framework package
@@ -443,15 +490,22 @@ def main():
 
     # Building the installer package
     print("Building installer")
-    create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version, opts.output)
+    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version, opts.output_pkg)
     print("Successfully built installer\n")
+
+    # Putting the installer package into a dmg file - ready for signing
+    print("Building disk image")
+    create_dmg("Eclipse SUMO", opts.output_dmg, installer_pkg[3])
+    print("Successfully built disk image\n")
 
     # Removing non-installer pkg-files
     os.remove(framework_pkg[3])
     for app_pkg in app_pkgs:
         os.remove(app_pkg[3])
 
-    print(f"Installer pkg is available: '{opts.output}' ({os.path.getsize(opts.output) / (1024 * 1024):.2f} MB)")
+    print("Build completed successfully")
+    print(f" - disk image   : '{opts.output_dmg}' ({os.path.getsize(opts.output_dmg) / (1024 * 1024):.2f} MB)")
+    print(f" - installer pkg: '{opts.output_pkg}' ({os.path.getsize(opts.output_pkg) / (1024 * 1024):.2f} MB)")
 
 
 if __name__ == "__main__":
