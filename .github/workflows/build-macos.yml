@@ -77,14 +77,12 @@ jobs:
         path: sumo/bin
 
     - name: Creating macOS installer dmg
-      if: startsWith(github.ref, 'refs/tags/')
       run: |
         cd sumo
         python3 -m pip install dmgbuild
         python3 tools/build_config/buildMacOSInstaller.py ./cmake-build
 
     - name: Uploading macOS installer dmg
-      if: startsWith(github.ref, 'refs/tags/')
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }}-installer-unsigned
