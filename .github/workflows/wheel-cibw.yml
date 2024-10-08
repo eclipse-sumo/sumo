@@ -52,6 +52,8 @@ jobs:
         with:
           package-dir: sumo
           output-dir: wheelhouse
+        env:
+          USE_NINJA: OFF
 
       - uses: actions/upload-artifact@v4
         with:
