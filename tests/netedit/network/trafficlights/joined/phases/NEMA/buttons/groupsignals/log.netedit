@@ -1,7 +1,1 @@
-Warning: Non-static traffic light 'J0' does not define variable phase length.
-Warning: Non-static traffic light 'J0' does not define variable phase length.
-Warning: Non-static traffic light 'J0' does not define variable phase length.
-Warning: Non-static traffic light 'J0' does not define variable phase length.
-Warning: Non-static traffic light 'J0' does not define variable phase length.
-Warning: Unused state in tlLogic 'J0', program '0' at tl-index 40
-Warning: 7 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: Unused state in tlLogic 'J0', program '0' at tl-index 28

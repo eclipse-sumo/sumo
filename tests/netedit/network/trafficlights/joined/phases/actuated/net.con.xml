@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 15:38:48 by Eclipse SUMO netedit Version v1_20_0+1829-6a550143aba
+<!-- generated on 2024-10-08 09:56:07 by Eclipse SUMO netedit Version v1_20_0+2246-02b4422aa12
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\trafficlights\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\actuated\net.net.xml"/>
     </input>
 
     <processing>
@@ -49,16 +49,12 @@
     <connection from="-E3" to="E2" fromLane="2" toLane="2"/>
     <connection from="-E3" to="E0" fromLane="2" toLane="2"/>
 
-    <connection from="E0" to="-E0" fromLane="1" toLane="1"/>
     <connection from="E0" to="-E0" fromLane="2" toLane="2"/>
 
-    <connection from="E1" to="-E1" fromLane="1" toLane="1"/>
     <connection from="E1" to="-E1" fromLane="2" toLane="2"/>
 
-    <connection from="E2" to="-E2" fromLane="1" toLane="1"/>
     <connection from="E2" to="-E2" fromLane="2" toLane="2"/>
 
-    <connection from="E3" to="-E3" fromLane="1" toLane="1"/>
     <connection from="E3" to="-E3" fromLane="2" toLane="2"/>
 
     <connection from="EdgeExternBot"/>

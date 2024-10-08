@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 15:31:12 by Eclipse SUMO netedit Version v1_20_0+1829-6a550143aba
+<!-- generated on 2024-10-08 09:56:30 by Eclipse SUMO netedit Version v1_20_0+2246-02b4422aa12
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\trafficlights\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\delay_based\net.net.xml"/>
     </input>
 
     <processing>
@@ -29,11 +29,13 @@
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="30.00,-20.00" convBoundary="-40.00,-40.00,40.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="30.00,-20.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <node id="J0" x="0.00" y="0.00" type="priority"/>
-    <node id="J1" x="-40.00" y="0.00" type="priority"/>
-    <node id="J2" x="40.00" y="0.00" type="priority"/>
-    <node id="J3" x="0.00" y="40.00" type="priority"/>
-    <node id="J4" x="0.00" y="-40.00" type="priority"/>
+    <node id="J0" x="0.00" y="0.00" type="traffic_light" tl="J0" tlType="delay_based" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3" rightOfWay="allwayStop"/>
+    <node id="J1" x="-25.00" y="0.00" type="traffic_light" tl="J0" tlType="delay_based" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3" rightOfWay="allwayStop"/>
+    <node id="J2" x="25.00" y="0.00" type="traffic_light" tl="J0" tlType="delay_based" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3" rightOfWay="allwayStop"/>
+    <node id="J3" x="0.00" y="25.00" type="traffic_light" tl="J0" tlType="delay_based" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3" rightOfWay="allwayStop"/>
+    <node id="J4" x="0.00" y="-25.00" type="traffic_light" tl="J0" tlType="delay_based" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3" rightOfWay="allwayStop"/>
+    <node id="JunctionExtern0" x="-60.00" y="0.00" type="dead_end"/>
+    <node id="JunctionExtern1" x="60.00" y="0.00" type="dead_end"/>
 </nodes>
