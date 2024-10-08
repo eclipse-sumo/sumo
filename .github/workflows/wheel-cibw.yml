@@ -47,8 +47,12 @@ jobs:
           package-dir: sumo
           output-dir: wheelhouse
         env:
-          USE_NINJA: OFF
+          USE_NINJA: 0
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.10"
+          CMAKE_PREFIX_PATH: $(brew --prefix xerces-c)
+          XercesC_LIBRARY: $(brew --prefix xerces-c)/lib
+          XercesC_INCLUDE_DIR: $(brew --prefix xerces-c)/include
 
       - uses: actions/upload-artifact@v4
         with:
