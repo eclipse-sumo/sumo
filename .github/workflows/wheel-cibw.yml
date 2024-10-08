@@ -36,12 +36,6 @@ jobs:
           cd sumo
           git fetch --tags --force
 
-      - name: Preparing Build System
-        run: |
-          brew update
-          brew install --cask xquartz
-          brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
-
       - name: Preparing wheel eclipse-sumo
         run: |
           cp sumo/build_config/pyproject.toml sumo/
@@ -54,6 +48,7 @@ jobs:
           output-dir: wheelhouse
         env:
           USE_NINJA: OFF
+          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
 
       - uses: actions/upload-artifact@v4
         with:
