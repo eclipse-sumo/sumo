@@ -1,0 +1,59 @@
+name: wheel-cibw
+
+on:
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+      - 'src/gui*/**'
+      - 'src/netedit/**'
+      - 'tests/netedit/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        #os: [ubuntu-latest, windows-latest, macos-13, macos-14]
+        os: [macos-14]
+
+    steps:
+      - name: Cloning SUMO
+        uses: actions/checkout@v4
+        with:
+          path: sumo
+          fetch-depth: 0
+
+      - name: Fetching SUMO tags
+        run: |
+          cd sumo
+          git fetch --tags --force
+
+      - name: Preparing Build System
+        run: |
+          brew update
+          brew install --cask xquartz
+          brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
+
+      - name: Preparing wheel eclipse-sumo
+        run: |
+          cp sumo/build_config/pyproject.toml sumo/
+          python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-sumo.py sumo/setup.py
+
+      - name: Building wheel eclipse-sumo
+        uses: pypa/cibuildwheel@v2.21.2
+        with:
+          package-dir: sumo
+          output-dir: wheelhouse
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl
