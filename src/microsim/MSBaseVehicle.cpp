@@ -346,10 +346,6 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             source = stopEdge;
             continue;
         }
-        //if (source == stopEdge) {
-        //    edges.push_back(source);
-        //    continue;
-        //}
         router.computeLooped(source, stopEdge, this, t, into, silent);
         //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " target=" << (*s)->getID() << " edges=" << toString(into) << "\n";
         if (into.size() > 0) {
