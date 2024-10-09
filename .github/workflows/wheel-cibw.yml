@@ -63,8 +63,9 @@ jobs:
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-          CIBW_ARCHS_MACOS: "arm64"
+          CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
+
 
       - uses: actions/upload-artifact@v4
         with:
