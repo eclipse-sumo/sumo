@@ -63,6 +63,8 @@ public:
     /// @brief whether there is a circle in the waiting-for relationships that contains the given vehicle
     bool haveDeadlock(const SUMOVehicle* veh) const;
 
+    void addDeadlockCheck(std::vector<const MSRailSignal*> signals);
+
     /** @brief Called if a vehicle changes its state
      * @param[in] vehicle The vehicle which changed its state
      * @param[in] to The state the vehicle has changed to
@@ -90,6 +92,10 @@ public:
     /// @brief final check for driveway compatibility of signals that switched green in this step
     void recheckGreen();
 
+    const std::map<const MSRailSignal*, std::vector<const MSRailSignal*> >& getDeadlockChecks() const {
+        return myDeadlockChecks;
+    }
+
 private:
     /** @brief Constructor */
     MSRailSignalControl();
@@ -114,6 +120,8 @@ private:
 
     std::map<const SUMOVehicle*, std::pair<const MSRailSignal*, const SUMOVehicle*> > myWaitRelations;
     mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
+
+    std::map<const MSRailSignal*, std::vector<const MSRailSignal*> > myDeadlockChecks;
 
     /// @brief list of all rail signals
     std::vector<MSRailSignal*> mySignals;

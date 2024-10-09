@@ -223,7 +223,7 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     vehicles.push_back(item.second->getID());
                 }
                 OutputDevice& od = OutputDevice::getDeviceByOption("deadlock-output");
-                od.openTag("deadlock");
+                od.openTag(SUMO_TAG_DEADLOCK);
                 od.writeAttr(SUMO_ATTR_TIME, time2string(SIMSTEP));
                 od.writeAttr(SUMO_ATTR_SIGNALS, signals);
                 od.writeAttr("vehicles", vehicles);
@@ -237,5 +237,20 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
     }
 }
 
+
+void
+MSRailSignalControl::addDeadlockCheck(std::vector<const MSRailSignal*> signals) {
+    if (MSDriveWay::haveDriveWays()) {
+        WRITE_WARNING("Deadlocks should be loaded before any vehicles");
+    }
+    const int n = (int)signals.size();
+    for (int i = 0; i < n; i++) {
+        std::vector<const MSRailSignal*> others;
+        for (int j = 1; j < n; j++) {
+            others.push_back(signals[(i + j) % n]);
+        }
+        myDeadlockChecks[signals[i]] = others;
+    }
+}
 
 /****************************************************************************/

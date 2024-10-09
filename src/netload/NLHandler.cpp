@@ -45,6 +45,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <mesosim/MESegment.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -288,6 +289,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_INSERTION_ORDER: // intended fall-through
             case SUMO_TAG_BIDI_PREDECESSOR:
                 myLastParameterised.push_back(addPredecessorConstraint(element, attrs, myConstrainedSignal));
+                break;
+            case SUMO_TAG_DEADLOCK:
+                addDeadlock(attrs);
                 break;
             default:
                 break;
@@ -1719,6 +1723,23 @@ NLHandler::addMesoEdgeType(const SUMOSAXAttributes& attrs) {
     if (myNetIsLoaded) {
         myHaveSeenMesoEdgeType = true;
     }
+}
+
+void
+NLHandler::addDeadlock(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::vector<std::string> signalIDs = attrs.get<std::vector<std::string>>(SUMO_ATTR_SIGNALS, nullptr, ok);
+    std::vector<const MSRailSignal*> signals;
+    for (const std::string& id : signalIDs) {
+        const MSTrafficLightLogic* tll = myJunctionControlBuilder.getTLLogicControlToUse().getActive(id);
+        const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(tll);
+        if (rs != nullptr) {
+            signals.push_back(rs);
+        } else {
+            throw InvalidArgument("Rail signal '" + toString(id) + "' in " + toString(SUMO_TAG_DEADLOCK) + " is not known");
+        }
+    }
+    MSRailSignalControl::getInstance().addDeadlockCheck(signals);
 }
 
 // ----------------------------------

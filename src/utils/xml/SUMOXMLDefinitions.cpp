@@ -158,6 +158,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "insertionOrder",                         SUMO_TAG_INSERTION_ORDER },
     { "bidiPredecessor",                        SUMO_TAG_BIDI_PREDECESSOR },
     { "railSignalConstraintTracker",            SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
+    { "deadlock",                               SUMO_TAG_DEADLOCK },
     { "link",                                   SUMO_TAG_LINK },
     { "approaching",                            SUMO_TAG_APPROACHING },
     // OSM

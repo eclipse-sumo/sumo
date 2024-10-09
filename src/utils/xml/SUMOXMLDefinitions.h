@@ -279,6 +279,8 @@ enum SumoXMLTag {
     SUMO_TAG_BIDI_PREDECESSOR,
     /// @brief Saved state for constraint tracker
     SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
+    /// @brief Saved deadlock information, also for loading as an extra check
+    SUMO_TAG_DEADLOCK,
     /// @brief Link information for state-saving
     SUMO_TAG_LINK,
     /// @brief Link-approaching vehicle information for state-saving
