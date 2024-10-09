@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-08 13:15+0000\n"
+"PO-Revision-Date: 2024-10-09 07:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8008,28 +8008,28 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:607
 #: src/netimport/NIImporter_OpenStreetMap.cpp:835
 msgid "Could not add edge '%'."
-msgstr ""
+msgstr "Non ho potuto aggiungere l'arco '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "Colonna mancante %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "Manca la colonna opzionale % senza valore standard."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:499
 #, c-format
 msgid "The traffic light edge '%' could not be found."
-msgstr ""
+msgstr "L'arco di semaforo '%' non è stato trovato."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr ""
+msgstr "Non si è potuto assegnare un semaforo a '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr ""
+msgstr "Non ho potuto analizzare la data AAAA-MM-GG '%'"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
