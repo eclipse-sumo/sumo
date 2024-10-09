@@ -321,7 +321,8 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualiza
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
-        const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        const double rotSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+        const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) - 180. * rotSign;
         // push matrix
         GLHelper::pushMatrix();
         // Start drawing sign traslating matrix to signal position

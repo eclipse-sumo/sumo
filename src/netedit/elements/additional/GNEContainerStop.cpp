@@ -107,7 +107,7 @@ GNEContainerStop::updateGeometry() {
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
     // move entire shape and update
-    tmpShape.move2side(2);
+    tmpShape.move2side(2 * offsetSign);
     myAdditionalGeometry.updateGeometry(tmpShape);
     // Move shape to side
     tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);

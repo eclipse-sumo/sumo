@@ -237,7 +237,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(colorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
         if (myElement == SUMO_TAG_CONTAINER_STOP) {
             GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
         } else if (myElement == SUMO_TAG_TRAIN_STOP) {
