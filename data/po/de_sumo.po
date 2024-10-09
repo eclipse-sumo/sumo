@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-01 10:55+0000\n"
+"PO-Revision-Date: 2024-10-09 07:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5690,7 +5690,7 @@ msgstr "Pflichtattribut fehlt in der Definition vom Kalibrator '%'."
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
 msgstr ""
-"Nicht nummerischer Wert für das nummerische Attribut in der Definition vom "
+"Nicht numerischer Wert für das nummerische Attribut in der Definition vom "
 "Kalibrator '%'."
 
 #: src/microsim/trigger/MSCalibrator.cpp:221
@@ -8754,19 +8754,19 @@ msgstr "Lade Zeitrestriktionen"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr "Nicht nummerischer Wert für den Zwischenstand in Knoten %."
+msgstr "Nicht numerischer Wert für den Zwischenstand in Knoten %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr "Kein nummerischer Wert für die Geometrien in Knoten %."
+msgstr "Kein numerischer Wert für die Geometrien in Knoten %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr "Kein nummerischer Wert für die x-Position in Knoten %."
+msgstr "Kein numerischer Wert für die x-Position in Knoten %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr "Kein nummerischer Wert für die y-Position in Knoten %."
+msgstr "Kein numerischer Wert für die y-Position in Knoten %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:230
 #: src/netimport/NIImporter_VISUM.cpp:321
@@ -8788,23 +8788,23 @@ msgstr "Fehlender Versions-String in der Datei '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr "Nicht nummerischer Wert für form_of_way vom Link '%'."
+msgstr "Nicht numerischer Wert für form_of_way vom Link '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr "Nicht nummerischer Wert für brunnel_type vom Link '%'."
+msgstr "Nicht numerischer Wert für brunnel_type vom Link '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%'."
-msgstr "Nicht nummerischer Wert für street_type vom Link '%'."
+msgstr "Nicht numerischer Wert für street_type vom Link '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr "Nicht nummerischer Wert für die SPEED_RESTRICTION vom Link '%'."
+msgstr "Nicht numerischer Wert für die SPEED_RESTRICTION vom Link '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr "Nicht nummerischer Wert für die Anzahl von Fahrstreifen vom Link '%'."
+msgstr "Nicht numerischer Wert für die Anzahl von Fahrstreifen vom Link '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
 #: src/netimport/NIImporter_OpenDrive.cpp:549
@@ -8832,11 +8832,11 @@ msgstr "LSA konnte nicht zu '%' zugewiesen werden."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr "YYYY-MM-DD Datum '%' konnte nicht eingelesen werden"
+msgstr "Datum im Format JJJJ-MM-TT '%' konnte nicht eingelesen werden"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
-msgstr "Ignoriere zeitliches Verbotsmanöver (%)."
+msgstr "Ignoriere zeitweise verbotenes Manöver (%)."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:756
 #: src/netimport/NIImporter_DlrNavteq.cpp:801
@@ -8892,7 +8892,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr "Keine nummerische Positionsinformation für Knoten '%'."
+msgstr "Keine numerische Positionsinformation für Knoten '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
@@ -8908,7 +8908,7 @@ msgstr "Fahrstreifensatz-ID '%' zweimal gefunden."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
-msgstr "Kein nummerischer Wert im Fahrstreifensatz '%'."
+msgstr "Kein numerischer Wert im Fahrstreifensatz '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:279
 msgid "Missing data in laneset '%'."
@@ -8916,7 +8916,7 @@ msgstr "Fehlende Daten im Fahrstreifensatz '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr "Kein nummerischer Wert in Fahrstreifen '%'."
+msgstr "Kein numerischer Wert in Fahrstreifen '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:292
 msgid "Missing data in lane '%'."
@@ -9201,7 +9201,7 @@ msgstr "Wert von Schlüssel '%' ist ungültig ('%') im Knoten '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1059
 msgid "Value of key '%' is not numeric ('%') in node '%'."
-msgstr "Wert von Schlüssel '%' ist nicht nummerisch ('%') im Knoten '%'."
+msgstr "Wert von Schlüssel '%' ist nicht numerisch ('%') im Knoten '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1206
 #: src/polyconvert/PCLoaderOSM.cpp:578
@@ -9240,7 +9240,7 @@ msgstr "Verwende minimale Fahrstreifenanzahl aus der Liste (%) für Kante '%'."
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1560
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1570
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
-msgstr "Wert vom Schlüssel '%' ist nicht nummerisch ('%') in Kante '%'."
+msgstr "Wert vom Schlüssel '%' ist nicht numerisch ('%') in Kante '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1567
 msgid "Ignoring track count % for edge '%'."
@@ -9376,7 +9376,7 @@ msgstr "Inkonsistente Bahnkilometerrichtung für Weg '%': % (Überspringen)"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2615
 msgid "Value of railway:position is not numeric ('%') in node '%'."
-msgstr "Wert der Eisenbahn: Position ist nicht nummerisch ('%') im Knoten '%'."
+msgstr "Wert von railway:position ist nicht numerisch ('%') im Knoten '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2723
 msgid ""
@@ -9514,7 +9514,7 @@ msgstr "Zu kurze Wertlinie in % aufgetreten."
 
 #: src/netimport/NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
-msgstr "Ein Wert in % sollte nummerisch sein, ist es aber nicht (ID='%')."
+msgstr "Ein Wert in % sollte numerisch sein, ist es aber nicht (ID='%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:251
 msgid "One of the needed values ('%') is missing in %."
@@ -9579,7 +9579,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_VISUM.cpp:757
 msgid "A lane number for edge '%' is not numeric (%)."
-msgstr "Eine Fahrstreifennummer für Kante '%' ist nicht nummerisch (%)."
+msgstr "Eine Fahrstreifennummer für Kante '%' ist nicht numerisch (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:762
 msgid "A lane number for edge '%' is not positive (%)."
@@ -9587,7 +9587,7 @@ msgstr "Eine Fahrstreifenummer für Kante '%' ist nicht positiv (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:781
 msgid "A lane length for edge '%' is not numeric (%)."
-msgstr "Eine Fahrstreifenlänge für die Kante '%' ist nicht nummerisch (%)."
+msgstr "Eine Fahrstreifenlänge für die Kante '%' ist nicht numerisch (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:785
 msgid "A lane length for edge '%' is not positive (%)."
@@ -9631,7 +9631,7 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:1107
 msgid "A from-lane number for edge '%' is not numeric (%)."
 msgstr ""
-"Eine Ausgangsfahrstreifennummer für die Kante '%' ist nicht nummerisch (%)."
+"Eine Ausgangsfahrstreifennummer für die Kante '%' ist nicht numerisch (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1112
 msgid "A from-lane number for edge '%' is not positive (%)."
@@ -9640,7 +9640,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_VISUM.cpp:1121
 msgid "A to-lane number for edge '%' is not numeric (%)."
-msgstr "Eine Endfahrstreifennummer für die Kante '%' ist nicht nummerisch (%)."
+msgstr "Eine Endfahrstreifennummer für die Kante '%' ist nicht numerisch (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1126
 msgid "A to-lane number for edge '%' is not positive (%)."
@@ -11005,7 +11005,7 @@ msgstr "Mehr Einträge als Bezirke gefunden."
 
 #: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
-msgstr "Keine nummerische Fahrzeuganzahl in Zeile '%'."
+msgstr "Keine numerische Fahrzeuganzahl in Zeile '%'."
 
 #: src/od/ODMatrix.cpp:592
 msgid "Missing at least one information in line '%'."
@@ -11923,7 +11923,7 @@ msgstr "Fehlender Eintrag in Zeile '%'."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:286
 msgid "Not numeric entry in line '%'."
-msgstr "Kein nummerischer Eintrag in Zeile '%'."
+msgstr "Kein numerischer Eintrag in Zeile '%'."
 
 #: src/tools/emissionsMap_main.cpp:54
 msgid "Writing map of '%' into '%'."
