@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-09 08:48+0000\n"
+"PO-Revision-Date: 2024-10-09 08:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6173,18 +6173,22 @@ msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr ""
+"Non creare un'area pedonale tra due marciapiedi che sono collegati da "
+"un'incrocio pedonale tra FLOAT"
 
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr ""
+"Interpreta STR[] come elenco di codici identificatifivi di semafori da non "
+"combinare con nessun'altro"
 
 #: src/netbuild/NBFrame.cpp:635
 msgid "Only keep edges with speed in meters/second > FLOAT"
-msgstr ""
+msgstr "Mantieni soltanto quelli archi con un limite di velocità in m/s > FLOAT"
 
 #: src/netbuild/NBFrame.cpp:639
 msgid "Remove edges in STR[]"
-msgstr ""
+msgstr "Rimuovi archi in STR[]"
 
 #: src/netbuild/NBFrame.cpp:643
 msgid ""
