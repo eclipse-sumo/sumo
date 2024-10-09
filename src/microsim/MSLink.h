@@ -742,7 +742,7 @@ private:
     const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
 
     /// @brief add information about another pedestrian crossing
-    void updateDistToFoePedCrossing(double dist); 
+    void updateDistToFoePedCrossing(double dist);
 
 private:
     /// @brief The lane behind the junction approached by this link

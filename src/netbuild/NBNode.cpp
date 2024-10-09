@@ -3126,7 +3126,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 if (hadSidewalk && hadNonSidewalk) {
                     if (edge->getFromNode() == this) {
                         WRITE_WARNINGF(TL("Ignoring additional sidewalk lane % on edge '%' for walkingareas."),
-                                i, edge->getID());
+                                       i, edge->getID());
                     }
                     continue;
                 }

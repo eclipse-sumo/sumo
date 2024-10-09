@@ -2284,8 +2284,8 @@ MSLane::executeMovements(const SUMOTime t) {
         if (ttt > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || tttb > 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
             const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
-                    && firstNotStopped->succEdge(1) != nullptr
-                    && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr);
+                                       && firstNotStopped->succEdge(1) != nullptr
+                                       && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr);
 
             const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt && !disconnected;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0

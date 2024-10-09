@@ -139,9 +139,9 @@ MELoop::checkCar(MEVehicle* veh) {
     const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
     const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected;
     if (!veh->isStopped() && (r1 || r3)) {
-            const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
-                    && veh->succEdge(1) != nullptr
-                    && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr);
+        const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
+                                   && veh->succEdge(1) != nullptr
+                                   && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr);
         if ((r1 && !disconnected) || (r3 && disconnected)) {
             teleportVehicle(veh, toSegment);
             return;

@@ -262,7 +262,7 @@ public:
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
-            const GUIVisualizationRainbowSettings& /*rs*/) {
+                                   const GUIVisualizationRainbowSettings& /*rs*/) {
     }
 
     /// @brief return list of loaded edgeData attributes

@@ -78,8 +78,7 @@ GNEChange_RegisterJoin::redoName() const {
 
 GNEChange_RegisterJoin::GNEChange_RegisterJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, NBNodeCont& nc) :
     GNEChange(Supermode::NETWORK, true, false),
-    myNC(nc)
-{
+    myNC(nc) {
     for (NBNode* n : cluster) {
         myNodeIDs.insert(n->getID());
     }

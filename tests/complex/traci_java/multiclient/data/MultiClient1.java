@@ -50,7 +50,7 @@ public class MultiClient1 {
 
             //start Traci Server
             Simulation.setOrder(1);
-            
+
             int lastPhase = -1;
             for (int i = 0; i < 3600; i++) {
                 Simulation.step();

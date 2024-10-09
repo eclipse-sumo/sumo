@@ -621,8 +621,8 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
     if (veh->getDevice(typeid(MSDevice_GLOSA)) != nullptr &&
-        static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive() &&
-        maxSpeed < speed) {
+            static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive() &&
+            maxSpeed < speed) {
         seen = speed * (1 - (vars->v0_old - vars->v0_int) / (vars->v0_old - maxSpeed)) * myTpreview;
     }
 

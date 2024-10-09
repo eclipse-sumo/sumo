@@ -170,7 +170,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 
 void
 GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-        const GUIVisualizationRainbowSettings& rs) {
+                                  const GUIVisualizationRainbowSettings& rs) {
     assert(!scheme.isFixed());
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();

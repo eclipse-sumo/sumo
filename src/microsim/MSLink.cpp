@@ -937,8 +937,8 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
-                && !ignoreFoe(ego, it.first)
-                && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
+                    && !ignoreFoe(ego, it.first)
+                    && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
                 // check whether braking is feasible (ego might have started to accelerate already)
                 const auto& cfm = ego->getVehicleType().getCarFollowModel();
 #ifdef MSLink_DEBUG_OPENED
@@ -991,10 +991,10 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         if (gDebugFlag1) {
             std::stringstream stream; // to reduce output interleaving from different threads
             stream << "    foeDist=" << avi.dist
-                << " foeBGap=" << veh->getBrakeGap(false)
-                << " foeWait=" << avi.waitingTime
-                << " wait=" << waitingTime
-                << "\n";
+                   << " foeBGap=" << veh->getBrakeGap(false)
+                   << " foeWait=" << avi.waitingTime
+                   << " wait=" << waitingTime
+                   << "\n";
             std::cout << stream.str();
         }
 #endif
@@ -1760,17 +1760,17 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         if (!ignoreFoe(ego, item.first) && timeToEnterCrossing > STEPS2TIME(item.second.arrivalTime - SIMSTEP)) {
                             if (gDebugFlag1) {
                                 std::cout << SIMTIME << ": " << ego->getID() << " breaking for approaching person " << item.first->getID()
-                                    //<< " dtc=" << distToCrossing << " ttc=" << distToCrossing / MAX2(ego->getSpeed(), 1.0) << " foeAT=" << item.second.arrivalTime << " foeTTC=" << STEPS2TIME(item.second.arrivalTime - SIMSTEP)
-                                    << "\n";
+                                          //<< " dtc=" << distToCrossing << " ttc=" << distToCrossing / MAX2(ego->getSpeed(), 1.0) << " foeAT=" << item.second.arrivalTime << " foeTTC=" << STEPS2TIME(item.second.arrivalTime - SIMSTEP)
+                                          << "\n";
                             }
                             result.emplace_back(nullptr, -1, distToPeds);
                             break;
-                        //} else {
-                        //    if (gDebugFlag1) {
-                        //        std::cout << SIMTIME << ": " << ego->getID() << " notBreaking for approaching person " << item.first->getID()
-                        //            << " dtc=" << distToCrossing << " ttc=" << distToCrossing / MAX2(ego->getSpeed(), 1.0) << " foeAT=" << item.second.arrivalTime << " foeTTC=" << STEPS2TIME(item.second.arrivalTime - SIMSTEP)
-                        //            << "\n";
-                        //    }
+                            //} else {
+                            //    if (gDebugFlag1) {
+                            //        std::cout << SIMTIME << ": " << ego->getID() << " notBreaking for approaching person " << item.first->getID()
+                            //            << " dtc=" << distToCrossing << " ttc=" << distToCrossing / MAX2(ego->getSpeed(), 1.0) << " foeAT=" << item.second.arrivalTime << " foeTTC=" << STEPS2TIME(item.second.arrivalTime - SIMSTEP)
+                            //            << "\n";
+                            //    }
                         }
                     }
                 }

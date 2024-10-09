@@ -90,7 +90,7 @@ MSDevice_GLOSA::cleanup() {
 // MSDevice_GLOSA-methods
 // ---------------------------------------------------------------------------
 MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor,
-    double addSwitchTime, bool overrideSafety, bool ignoreCFModel) :
+                               double addSwitchTime, bool overrideSafety, bool ignoreCFModel) :
     MSVehicleDevice(holder, id),
     myVeh(dynamic_cast<MSVehicle&>(holder)),
     myNextTLSLink(nullptr),

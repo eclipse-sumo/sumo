@@ -548,7 +548,7 @@ MSDevice_Taxi::cancelCurrentCustomers() {
     }
     if (!customersToBeRemoved.empty()) {
         WRITE_WARNINGF(TL("Taxi '%' aborts waiting for customers: % at time=%."),
-                myHolder.getID(), toString(customersToBeRemoved), time2string(SIMSTEP));
+                       myHolder.getID(), toString(customersToBeRemoved), time2string(SIMSTEP));
     }
     for (auto t : customersToBeRemoved) {
         cancelCustomer(t);

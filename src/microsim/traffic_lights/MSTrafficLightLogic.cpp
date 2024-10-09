@@ -513,7 +513,7 @@ MSTrafficLightLogic::activateProgram() {
     myAmActive = true;
     // updated the traffic light logic stored in the link
     for (const LinkVector& currGroup : myLinks) {
-        for (MSLink* link: currGroup) {
+        for (MSLink* link : currGroup) {
             link->setTLLogic(this);
         }
     }

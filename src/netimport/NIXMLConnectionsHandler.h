@@ -134,12 +134,12 @@ private:
     /** @brief Parses a delete element that specifies a connection to delete
      * @param[in] attrs The attributes to get the deleted connections values from
      */
-    void delConnection(const SUMOSAXAttributes& attrs); 
+    void delConnection(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a connection and adds it to the referenced edge
      * @param[in] attrs The attributes to get the connections's values from
      */
-    void parseConnection(const SUMOSAXAttributes& attrs); 
+    void parseConnection(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a crossing and updates the referenced node
      * @param[in] attrs The attributes to get the crossings's values from
@@ -154,7 +154,7 @@ private:
     /** @brief Parses a prohibition and updates the referenced node
      * @param[in] attrs The attributes to get the prohibition's values from
      */
-    void addProhibition(const SUMOSAXAttributes& attrs); 
+    void addProhibition(const SUMOSAXAttributes& attrs);
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;
