@@ -53,3 +53,6 @@ triangle_6veh
 
 # deadlock
 circle_3veh
+
+# avoid deadlock by loading a deadlock file
+circle_3veh.loadDL
