@@ -139,7 +139,7 @@ class Road:
         # if element.has_key('tags'):
         #    self._attrs.update(element['tags'])
 
-        # is_one is a scpecial one way detection
+        # is_one is a special one way detection
         #self._is_oneway = self.is_oneway_osm()
         # self.is_oneway_osm()
 

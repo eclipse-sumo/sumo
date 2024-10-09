@@ -109,7 +109,7 @@ for a fraction disconnected, discarded trips.
 
 Sometimes it is desirable to obtain validated trips rather than routes
 (i.e. to make use of [one-shot route
-assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment).
+assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment)).
 In this case the additional option **--validate** may be used to generate validated
 trips (by first generating valid routes and then converting them back
 into trips).

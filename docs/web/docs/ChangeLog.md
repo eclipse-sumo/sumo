@@ -220,7 +220,7 @@ title: ChangeLog
   - chargingStation default power is now 22kW (instead of 0) #15144
   - Added warning for unusual distribution definitions #15146
   - fcd-output now contains the vtype for pedestrians #15210
-  - Added option **--chargingstations-output.aggregated ** to write output that is more compact #15240
+  - Added option **--chargingstations-output.aggregated** to write output that is more compact #15240
   - vType attribute `jmAllwayStopWait` can now be used to customize required waiting time at allwayStop #15428
   - time-to-teleport.disconnected may now be higher than time-to-teleport #15494
   - Stop attribute `index` can now be used to encode stopping on a later edge of a looped route #15503 

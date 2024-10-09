@@ -176,7 +176,7 @@ class ModeShares(am.ArrayObjman):
 
 
 class ActivityTypes(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, ident, demand, **kwargs):
 
         self._init_objman(ident, parent=demand, name='Activity Types',

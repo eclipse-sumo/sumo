@@ -121,7 +121,7 @@ Only trips that start and end in the sub-scenario network are kept
 (this differs from [cutRoutes.py](#cutroutespy) which also keeps routes passing through the
 sub-scenario network).
 
-```python
+```
 python tools/route/cutRoutes.py --trips-output output.rou.xml cut.net.xml orig.rou.xml
 ```
 

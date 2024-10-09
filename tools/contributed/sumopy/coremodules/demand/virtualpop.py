@@ -48,7 +48,7 @@ OCCUPATIONS = {'unknown': -1,
 
 
 class Activities(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, ident, virtualpop, **kwargs):
 
         self._init_objman(ident=ident, parent=virtualpop, name='Activities',
@@ -60,7 +60,7 @@ class Activities(am.ArrayObjman):
 
     def _init_attributes(self):
 
-        # activy types now in demand
+        # activity types now in demand
         activitytypes = self.parent.get_demand().activitytypes
         self.add_col(am.IdsArrayConf('ids_activitytype', activitytypes,
                                      groupnames=['parameters'],
@@ -71,7 +71,7 @@ class Activities(am.ArrayObjman):
                                      #xmlmap = get_inversemap( activitytypes.names.get_indexmap()),
                                      ))
 
-        # attention, this may cause trouble durung init if
+        # attention, this may cause trouble during init if
         # facilities are not yet initialized
         self.add_col(am.IdsArrayConf('ids_facility', self.parent.get_scenario().landuse.facilities,
                                      groupnames=['parameters'],

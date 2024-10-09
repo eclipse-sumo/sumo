@@ -456,7 +456,7 @@ class PtLines(DemandobjMixin, am.ArrayObjman):
 
 
 class PtLinks(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, ident, ptlines, **kwargs):
         self._init_objman(ident=ident, parent=ptlines,
                           name='PT links',

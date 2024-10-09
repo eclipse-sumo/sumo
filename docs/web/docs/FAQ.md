@@ -435,7 +435,7 @@ and simply type `git pull`.
 
   Make sure that your computer supports 3D Acceleration and graphical
   drivers are correctly installed and configured. It will probably not
-  work on mahcines accessed via RDP or a similar remote desktop protocol.
+  work on machines accessed via RDP or a similar remote desktop protocol.
 
 ### Troubleshooting
 
@@ -781,7 +781,7 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
 Turn-arounds are a frequently observed at the start or end of a route if the respective edge goes in the wrong direction with regard to the general direction of travel.
 There are different ways to avoid this:
 
-- specifify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
+- specify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
   - randomTrips.py provides option ** --junction-taz** for this purpose
 - set duarouter option **--remove-loops**  which will cut off starting / ending turn-arounds in the route
 

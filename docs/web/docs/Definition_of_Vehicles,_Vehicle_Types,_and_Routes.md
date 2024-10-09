@@ -328,8 +328,8 @@ inserted at the end of the lane instead. When departSpeed="max" is set, vehicle 
 Determines the speed of the vehicle at insertion, where maxDepartSpeed = MIN(speedLimit * speedFactor, vType_desiredMaxSpeed * speedFactor, vType_maxSpeed);
 
 - `≥0`: The vehicle is tried to be inserted using the given speed. If that speed is unsafe, departure is delayed.
-- "`random`": A random speed between 0 and maxDepartSpeed is used, the speed may be adapted to accomodate a leader or intersection ensure a safe distance to the leader vehicle.
-- "`max`": The maxDeparSpeed is used when possible, the speed may be lowered to accomodate a leader vehicle or intersections.
+- "`random`": A random speed between 0 and maxDepartSpeed is used, the speed may be adapted to accommodate a leader or intersection ensure a safe distance to the leader vehicle.
+- "`max`": The maxDeparSpeed is used when possible, the speed may be lowered to accommodate a leader vehicle or intersections.
 - "`desired`": The maxDepartSpeed is used. If that speed is unsafe, departure is delayed.
 - "`speedLimit`": The speed limit of the lane is used. If that speed is unsafe, departure is delayed.
 - "`last`": The current speed of the last vehicle on the departure lane is used (or 'desired' speed if the lane is empty). If that speed is unsafe, departure is delayed.
@@ -502,7 +502,7 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | scale  | float >= 0  | scaling factor for traffic. Acts as a multiplier for option **--scale** for all vehicles of this type. Values < 1 cause a proportional reduction in traffic whereas values above 1 increase it by this factor. (default 1)|
 | timeToTeleport       | float   |        | Override option **--time-to-teleport** for vehicles of this type |
 | timeToTeleportBidi   | float   |        | Override option **--time-to-teleport.bidi** for vehicles of this type |
-| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has its `arrival` attribut set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
+| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has its `arrival` attribute set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
 | parkingBadges | string list | \- | list of keywords to access restricted parking areas (the default empty list will still allow access to unrestricted parking areas) |
 
 Besides values which describe the vehicle's car-following properties,

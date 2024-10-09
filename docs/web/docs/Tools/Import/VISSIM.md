@@ -161,13 +161,13 @@ Routen muss immer 1 ergeben und die Referenzierung auf eine
 Routen-Verteilung erfolgt über deren eindeutige ID:
 
 ```xml
-  <routeDistribution id="81_900.0">
-     <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 124" id="163" probability="0.372751499001"/>
-     <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 239 72 " id="181" probability="0.125916055963"/>
-     <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 181 184" id="187" probability="0.171219187209"/>
-     <route edges="81 83 215 216 217 272 16" id="193" probability="0.211192538308"/>
-     <route edges="81 83 210 211 268 13" id="195" probability="0.11892071952"/>
-  </routeDistribution>
+<routeDistribution id="81_900.0">
+   <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 124" id="163" probability="0.372751499001"/>
+   <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 239 72 " id="181" probability="0.125916055963"/>
+   <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 181 184" id="187" probability="0.171219187209"/>
+   <route edges="81 83 215 216 217 272 16" id="193" probability="0.211192538308"/>
+   <route edges="81 83 210 211 268 13" id="195" probability="0.11892071952"/>
+</routeDistribution>
 ```
 
 Des weiteren gehören zur Routendefinition auch Fahzeugtyp-Verteilungen .
@@ -307,19 +307,19 @@ zu finden sind. Diese definieren die Abfolge der Phasen und die
 Referenzierung erfolgt über die jeweilige ID:
 
 ```xml
- <signalsequences>
-     <signalsequence id="5" name="Red-Red/Amber-Green-Flashing Green-Amber">
-        <state display="1" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
-        <state display="2" isFixedDuration="true" isClosed="true" defaultDuration="1000" />
-        <state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
-        <state display="5" isFixedDuration="true" isClosed="false" defaultDuration="4000" />
-        <state display="4" isFixedDuration="true" isClosed="true" defaultDuration="3000" />
-     </signalsequence>
-     <signalsequence id="12" name="Off-Green">
-        <state display="7" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
-        <state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
-     </signalsequence>
-  </signalsequences>
+<signalsequences>
+   <signalsequence id="5" name="Red-Red/Amber-Green-Flashing Green-Amber">
+      <state display="1" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
+      <state display="2" isFixedDuration="true" isClosed="true" defaultDuration="1000" />
+      <state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
+      <state display="5" isFixedDuration="true" isClosed="false" defaultDuration="4000" />
+      <state display="4" isFixedDuration="true" isClosed="true" defaultDuration="3000" />
+   </signalsequence>
+   <signalsequence id="12" name="Off-Green">
+      <state display="7" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
+      <state display="3" isFixedDuration="false" isClosed="false" defaultDuration="5000" />
+   </signalsequence>
+</signalsequences>
 ```
 
 Anschließend erfolgt die Definition aller Signalprogramme und deren
@@ -335,16 +335,16 @@ der zugehörigen Signalsequenz befinden:
 
 ```xml
 <sg sg_id="1" signal_sequence="5">
-     <cmds>
-        <cmd display="3" begin="13000" />
-        <cmd display="1" begin="46000" />
-     </cmds>
-     <fixedstates>
-        <fixedstate display="2" duration="2000" />
-        <fixedstate display="5" duration="4000" />
-        <fixedstate display="4" duration="3000" />
-     </fixedstates>
-  </sg>
+   <cmds>
+      <cmd display="3" begin="13000" />
+      <cmd display="1" begin="46000" />
+   </cmds>
+   <fixedstates>
+      <fixedstate display="2" duration="2000" />
+      <fixedstate display="5" duration="4000" />
+      <fixedstate display="4" duration="3000" />
+   </fixedstates>
+</sg>
 ```
 
 ## LSA Definition: SUMO
@@ -372,11 +372,11 @@ aktuellen Zustand eines Fahrstreifens:
 
 ```xml
 <tlLogic id="69" type="static" programID="Tagesprogramm S 5.3" offset="0.00">
-     <phase duration="20.00" state="Grrr"/>
-     <phase duration="20.00" state="yyyy"/>
-     <phase duration="100.00" state="rGGG"/>
-     <phase duration="100.00" state="yyyy"/>
-  </tlLogic>
+   <phase duration="20.00" state="Grrr"/>
+   <phase duration="20.00" state="yyyy"/>
+   <phase duration="100.00" state="rGGG"/>
+   <phase duration="100.00" state="yyyy"/>
+</tlLogic>
 ```
 
 Welcher `state-Index` zu welchem Fahrstreifen zugeordnet wird, ist in
@@ -386,10 +386,10 @@ beeinflusst wird, dieser auch zugewiesen werden. Hierfür wird dem
 Attribut `tl` die ID der jeweiligen LSA zugeteilt:
 
 ```xml
- <connection dir="r" from="117" fromLane="0" to="88" toLane="0" via=":69_1_0" tl="69" linkIndex="2" state="o"/>
-  <connection dir="s" from="117" fromLane="0" to="76" toLane="0" via=":69_2_0" tl="69" linkIndex="3" state="o"/>
-  <connection dir="s" from="117" fromLane="1" to="76" toLane="1" via=":69_2_1" tl="69" linkIndex="1" state="o"/>
-  <connection dir="r" from="89" fromLane="0" to="76" toLane="0" via=":69_0_0" tl="69" linkIndex="0" state="o"/>
+<connection dir="r" from="117" fromLane="0" to="88" toLane="0" via=":69_1_0" tl="69" linkIndex="2" state="o"/>
+<connection dir="s" from="117" fromLane="0" to="76" toLane="0" via=":69_2_0" tl="69" linkIndex="3" state="o"/>
+<connection dir="s" from="117" fromLane="1" to="76" toLane="1" via=":69_2_1" tl="69" linkIndex="1" state="o"/>
+<connection dir="r" from="89" fromLane="0" to="76" toLane="0" via=":69_0_0" tl="69" linkIndex="0" state="o"/>
 ```
 
 Auch die *junction*, auf der die Lichtsignalanlage platziert werden
@@ -400,11 +400,11 @@ gesetzt werden:
 
 ```xml
 <junction id="69" incLanes="89_0 117_0 117_1" intLanes=":69_0_0 :69_1_0 :69_2_0 :69_2_1" shape="3276.61,1952.22 3277.64,1946.15 3275.74,1944.30 3269.32,1943.27 3265.23,1952.29 3274.96,1953.43" type="traffic_light" x="3273.91" y="1947.87">
-     <request cont="0" foes="1100" index="0" response="1100"/>
-     <request cont="0" foes="0000" index="1" response="0000"/>
-     <request cont="0" foes="0001" index="2" response="0000"/>
-     <request cont="0" foes="0001" index="3" response="0000"/>
-  </junction>
+   <request cont="0" foes="1100" index="0" response="1100"/>
+   <request cont="0" foes="0000" index="1" response="0000"/>
+   <request cont="0" foes="0001" index="2" response="0000"/>
+   <request cont="0" foes="0001" index="3" response="0000"/>
+</junction>
 ```
 
 Zusätzlich ist es möglich in SUMO mehrere Programme für eine LSA zu
@@ -418,10 +418,10 @@ per Hand oder durch das Kindelement `<wautSwitch>` zu einem angegebenen
 Zeitpunkt verändert werden:
 
 ```xml
-  <WAUT refTime="0" id="myWAUT" startProg="weekday_night">
-     <wautSwitch time="21600" to="weekday_day"/>
-     <wautSwitch time="79200" to="weekday_night"/>
-  </WAUT>
+<WAUT refTime="0" id="myWAUT" startProg="weekday_night">
+   <wautSwitch time="21600" to="weekday_day"/>
+   <wautSwitch time="79200" to="weekday_night"/>
+</WAUT>
 ```
 
 Nähere Beschreibungen zur Definition von Lichtsignalanlagen befinden
@@ -485,10 +485,10 @@ streckenbezogen. Hierfür wird die Strecke und der Laufmeter für den
 Start- und Endpunkt festgelegt:
 
 ```xml
-  <vehicleTravelTimeMeasurement name="Wienerstrasse_Sueden" no="1">
-     <start link="207" pos="239.836000"/>
-     <end link="126" pos="12.867000"/>
-  </vehicleTravelTimeMeasurement>
+<vehicleTravelTimeMeasurement name="Wienerstrasse_Sueden" no="1">
+   <start link="207" pos="239.836000"/>
+   <end link="126" pos="12.867000"/>
+</vehicleTravelTimeMeasurement>
 ```
 
 ## Detektor-Definition SUMO
@@ -499,8 +499,8 @@ Fahrstreifen und Laufmeter angegeben. Es ist jedoch zusätzlich möglich
 das Zeitintervall zu definieren, in dem die Daten aggregiert werden.
 
 ```xml
-  <inductionLoop file="ind_out.xml" period="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
-  <inductionLoop file="ind_out.xml" period="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
+<inductionLoop file="ind_out.xml" period="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
+<inductionLoop file="ind_out.xml" period="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
 ```
 
 Wie bei den Induktionsschleifen sind auch die Reisezeitmessungen durch
@@ -510,12 +510,12 @@ die ganze Strecke beziehen, da definiert wird, welche Fahrstreifen
 berücksichtigt werden sollen.
 
 ```xml
-  <entryExitDetector file="time_out.xml" period="900" id="1">
-     <detEntry lane="207_0" pos="239.753789696"/>
-     <detEntry lane="207_1" pos="241.370532161"/>
-     <detExit lane="126_0" pos="23.2884507277"/>
-     <detExit lane="126_1" pos="23.2873152316"/>
-  </entryExitDetector>
+<entryExitDetector file="time_out.xml" period="900" id="1">
+   <detEntry lane="207_0" pos="239.753789696"/>
+   <detEntry lane="207_1" pos="241.370532161"/>
+   <detExit lane="126_0" pos="23.2884507277"/>
+   <detExit lane="126_1" pos="23.2873152316"/>
+</entryExitDetector>
 ```
 
 ## Umsetzung

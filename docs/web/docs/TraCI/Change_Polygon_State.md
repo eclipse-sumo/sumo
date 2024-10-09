@@ -44,7 +44,7 @@ The message contents are as following:
 
 |        ubyte         |      ubyte       |     double      |     double      | ... |      double       |      double       |
 | :------------------: | :--------------: | :-------------: | :-------------: | :-: | :---------------: | :---------------: |
-| value type *polygon* | entry number (n) | x-coordinate\#0 | y-ccordinate\#0 | ... | x-coordinate\#n-1 | y-coordinate\#n-1 |
+| value type *polygon* | entry number (n) | x-coordinate\#0 | y-coordinate\#0 | ... | x-coordinate\#n-1 | y-coordinate\#n-1 |
 
 ### filled (0x55)
 
@@ -75,7 +75,7 @@ given ID could be found, an error message is generated.
 
 |         ubyte         |       int       |        ubyte        |                             string                             |          ubyte           |                                      color                                       |          ubyte           |                     ubyte                      |       ubyte        |                        int                        |       ubyte        |                                shape                                 |
 | :-------------------: | :-------------: | :-----------------: | :---------------------: | :----------------------: | :---------------------------: | :----------------------: | :---------------: | :----------------: | :-----------------------: | :----------------: | :------------------: |
-| value type *compound* | item number = 5 | value type *string* | ID of a tracked object (empty string for setting tracking off) | value type *double list* | time line (anchor times for animation, give empty list for stting animation off) | value type *double list* | alpha span (anchor values for alpha animation) | value type *ubyte* | flag indicating whether animation shall be looped | value type *ubyte* | flag indicating whether polygon shall be rotated with tracked object |
+| value type *compound* | item number = 5 | value type *string* | ID of a tracked object (empty string for setting tracking off) | value type *double list* | time line (anchor times for animation, give empty list for setting animation off) | value type *double list* | alpha span (anchor values for alpha animation) | value type *ubyte* | flag indicating whether animation shall be looped | value type *ubyte* | flag indicating whether polygon shall be rotated with tracked object |
 
 For the dynamics, either a tracked object must be specified, inducing
 the polygon to follow the objects movements in the simulation, or the
