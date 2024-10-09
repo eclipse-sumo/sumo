@@ -99,6 +99,7 @@ tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
 weights:weights.xml
 lanechanges:lanechanges.xml
+deadlocks:deadlocks.xml
 ssm:ssm.xml
 ssm2:ssm_ego.xml
 png:out.png
@@ -200,6 +201,7 @@ cfg:JuPedSim
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
+deadlocks:<!--{[->]}-->
 ps:%%CreationDate
 ps2:%%CreationDate
 statistic:<performance

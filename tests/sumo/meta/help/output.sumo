@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0439-a8f3c62bd15
+Eclipse SUMO sumo Version v1_20_0+0627-9f0eaa86dc7
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -163,6 +163,7 @@ Output Options:
   --lanedata-output FILE               Write aggregated traffic statistics for
                                         all lanes into FILE
   --statistic-output FILE              Write overall statistics into FILE
+  --deadlock-output FILE               Write reports on deadlocks FILE
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -267,6 +268,9 @@ Processing Options:
                                         teleporting
   --time-to-teleport.bidi TIME         The waiting time after which vehicles on
                                         bidirectional edges are teleported
+  --time-to-teleport.railsignal-deadlock TIME  The waiting time after which
+                                        vehicles in a rail-signal based deadlock
+                                        are teleported
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
