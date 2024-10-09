@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-09 07:56+0000\n"
+"PO-Revision-Date: 2024-10-09 08:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2314,6 +2314,8 @@ msgid ""
 "The submodel to use in JuPedSim ('CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 msgstr ""
+"Il modello subordinato da usare in JuPedSim ('CollisionFreeSpeed', "
+"'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 
 #: src/microsim/MSFrame.cpp:572
 msgid "The neighbor repulsion strength of the JuPedSim model"
@@ -2333,28 +2335,36 @@ msgstr "La zona di repulsione geometrica del modello JuPedSim (in metri)"
 
 #: src/microsim/MSFrame.cpp:580
 msgid "The filename to output the JuPedSim network as WKT"
-msgstr ""
+msgstr "Il nome del file in uscita della rete JuPedSim in formata WKT"
 
 #: src/microsim/MSFrame.cpp:582
 msgid ""
 "Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"
 msgstr ""
+"Se la rete JuPedSim esportata in formato WKT deve usare coordinate "
+"geografiche (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:584
 msgid "The filename to output the JuPedSim setup as Python script"
 msgstr ""
+"Il nome del file in uscita dove scrivere la configurazione JuPedSim su forma "
+"di script Python"
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
 "Tolerance to apply when matching pedestrian and vehicle positions on "
 "boarding at individual stops"
 msgstr ""
+"Tolleranza tra posizioni di pedoni e veicoli nella salita a fermate "
+"individuali"
 
 #: src/microsim/MSFrame.cpp:591 src/router/ROFrame.cpp:163
 msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
 msgstr ""
+"Distanza massima nella proiezione di coordinate di ingresso (fromXY etc.) "
+"sulla rete stradale"
 
 #: src/microsim/MSFrame.cpp:594 src/router/ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
@@ -2381,6 +2391,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs for turnaround "
 "internal lanes"
 msgstr ""
+"Applica questa pena temporale quando si calcola il costo di instradamento "
+"attraverso corsie di inversione ad u"
 
 #: src/microsim/MSFrame.cpp:618
 msgid ""
@@ -2393,6 +2405,8 @@ msgid ""
 "When set, trips between the same origin and destination will share a taxi by "
 "default"
 msgstr ""
+"Se impostato corse con la stessa origine e destinazione condivideranno un "
+"taxi per difetto"
 
 #: src/microsim/MSFrame.cpp:652
 msgid "Replay exact rerouting sequence from vehroute-output"
@@ -6136,20 +6150,23 @@ msgstr ""
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr ""
+"Genera INT punti intermedi per appianare le corsie all'interno dell'incrocio"
 
 #: src/netbuild/NBFrame.cpp:378
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr ""
+"Genera incroci più larghi per permettere curve ad s lisce quando cambia il "
+"numero di corsie"
 
 #: src/netbuild/NBFrame.cpp:425
 msgid "Forces rectangular cuts between lanes and intersections"
-msgstr ""
+msgstr "Forza di tagliare in forma rettangolare tra corsie ed incroci"
 
 #: src/netbuild/NBFrame.cpp:484
 msgid "Always build walking areas even if there are no crossings"
-msgstr ""
+msgstr "Crea aree pedonali sempre anche quando non ci sono passaggi pedonali"
 
 #: src/netbuild/NBFrame.cpp:487
 msgid ""
