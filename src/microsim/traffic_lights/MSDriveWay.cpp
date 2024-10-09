@@ -510,6 +510,11 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     }
                     /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
                 }
+                if (ego != nullptr && myOrigin != nullptr && MSGlobals::gTimeToTeleportRSDeadlock > 0
+                        && ego->getWaitingTime() > ego->getVehicleType().getCarFollowModel().getStartupDelay()) {
+                    SUMOVehicle* foe = *foeDW->myTrains.begin();
+                    MSRailSignalControl::getInstance().addWaitRelation(ego, dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()), foe);
+                }
                 return true;
             }
         } else if (foeDW != this && isDepartDriveway() && !foeDW->isDepartDriveway()) {

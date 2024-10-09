@@ -313,6 +313,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("statistic-output", "statistics-output");
     oc.addDescription("statistic-output", "Output", TL("Write overall statistics into FILE"));
 
+    oc.doRegister("deadlock-output", new Option_FileName());
+    oc.addDescription("deadlock-output", "Output", TL("Write reports on deadlocks FILE"));
+
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
     oc.addDescription("movereminder-output", "Output", TL("Save movereminder states of selected vehicles into FILE"));
@@ -438,6 +441,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("time-to-teleport.bidi", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.bidi", "Processing", TL("The waiting time after which vehicles on bidirectional edges are teleported"));
+
+    oc.doRegister("time-to-teleport.railsignal-deadlock", new Option_String("-1", "TIME"));
+    oc.addDescription("time-to-teleport.railsignal-deadlock", "Processing", TL("The waiting time after which vehicles in a rail-signal based deadlock are teleported"));
 
     oc.doRegister("waiting-time-memory", new Option_String("100", "TIME"));
     oc.addDescription("waiting-time-memory", "Processing", TL("Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)"));
@@ -834,6 +840,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
     OutputDevice::createDeviceByOption("collision-output", "collisions", "collision_file.xsd");
     OutputDevice::createDeviceByOption("statistic-output", "statistics", "statistic_file.xsd");
+    OutputDevice::createDeviceByOption("deadlock-output", "additional", "additional_file.xsd");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
@@ -1061,6 +1068,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gGridlockHighwaysSpeed = oc.getFloat("time-to-teleport.highways.min-speed");
     MSGlobals::gTimeToTeleportDisconnected = string2time(oc.getString("time-to-teleport.disconnected"));
     MSGlobals::gTimeToTeleportBidi = string2time(oc.getString("time-to-teleport.bidi"));
+    MSGlobals::gTimeToTeleportRSDeadlock = string2time(oc.getString("time-to-teleport.railsignal-deadlock"));
     MSGlobals::gRemoveGridlocked = oc.getBool("time-to-teleport.remove");
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");

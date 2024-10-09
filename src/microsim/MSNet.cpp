@@ -760,6 +760,9 @@ MSNet::simulationStep(const bool onlyMove) {
             myPeriodicStateFiles.erase(myPeriodicStateFiles.begin());
         }
     }
+    if (MSRailSignalControl::hasInstance()) {
+        MSRailSignalControl::getInstance().resetWaitRelations();
+    }
     myBeginOfTimestepEvents->execute(myStep);
     if (MSRailSignalControl::hasInstance()) {
         MSRailSignalControl::getInstance().recheckGreen();

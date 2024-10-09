@@ -50,6 +50,19 @@ public:
     /** @brief Perform resets events when quick-loading state */
     static void clearState();
 
+    /// @brief reset all waiting-for relationships at the start of the simulation step
+    void resetWaitRelations() {
+        myWaitRelations.clear();
+        myWrittenDeadlocks.clear();
+    }
+
+    void addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, SUMOVehicle* reason) {
+        myWaitRelations[waits] = std::make_pair(rs, reason);
+    }
+
+    /// @brief whether there is a circle in the waiting-for relationships that contains the given vehicle
+    bool haveDeadlock(const SUMOVehicle* veh) const;
+
     /** @brief Called if a vehicle changes its state
      * @param[in] vehicle The vehicle which changed its state
      * @param[in] to The state the vehicle has changed to
@@ -98,6 +111,9 @@ private:
 
     /// @brief map of driveways that must perform additional checks if the key edge is used by a train route
     std::map<const MSEdge*, std::vector<ProtectedDriveway> > myProtectedDriveways;
+
+    std::map<const SUMOVehicle*, std::pair<const MSRailSignal*, const SUMOVehicle*> > myWaitRelations;
+    mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
 
     /// @brief list of all rail signals
     std::vector<MSRailSignal*> mySignals;

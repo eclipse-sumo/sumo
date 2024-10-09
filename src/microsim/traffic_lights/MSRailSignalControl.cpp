@@ -197,4 +197,45 @@ MSRailSignalControl::recheckGreen() {
 }
 
 
+bool
+MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
+    std::set<const SUMOVehicle*> seen;
+    std::vector<std::pair<const MSRailSignal*, const SUMOVehicle*> > list;
+    const SUMOVehicle* cur = veh;
+    while (seen.count(cur) == 0) {
+        auto it = myWaitRelations.find(cur);
+        if (it != myWaitRelations.end()) {
+            seen.insert(cur);
+            list.push_back(it->second);
+            cur = it->second.second;
+        } else {
+            return false;
+        }
+    }
+    if (cur == veh) {
+        if (OptionsCont::getOptions().isSet("deadlock-output")) {
+            if (myWrittenDeadlocks.count(seen) == 0) {
+                myWrittenDeadlocks.insert(seen);
+                std::vector<std::string> signals;
+                std::vector<std::string> vehicles;
+                for (auto item : list) {
+                    signals.push_back(item.first->getID());
+                    vehicles.push_back(item.second->getID());
+                }
+                OutputDevice& od = OutputDevice::getDeviceByOption("deadlock-output");
+                od.openTag("deadlock");
+                od.writeAttr(SUMO_ATTR_TIME, time2string(SIMSTEP));
+                od.writeAttr(SUMO_ATTR_SIGNALS, signals);
+                od.writeAttr("vehicles", vehicles);
+                od.closeTag();
+            }
+        }
+        return true;
+    } else {
+        // it's a deadlock but does not involve veh
+        return false;
+    }
+}
+
+
 /****************************************************************************/

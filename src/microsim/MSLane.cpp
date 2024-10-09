@@ -52,6 +52,7 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <mesosim/MELoop.h>
@@ -2294,7 +2295,7 @@ MSLane::executeMovements(const SUMOTime t) {
     if (firstNotStopped != nullptr) {
         const SUMOTime ttt = firstNotStopped->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
         const SUMOTime tttb = firstNotStopped->getVehicleType().getParameter().getTimeToTeleportBidi(MSGlobals::gTimeToTeleportBidi);
-        if (ttt > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || tttb > 0) {
+        if (ttt > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || tttb > 0 || MSGlobals::gTimeToTeleportRSDeadlock > 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
             const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
@@ -2305,7 +2306,9 @@ MSLane::executeMovements(const SUMOTime t) {
                             && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
             const bool r4 = !r1 && !r2 && !r3 && tttb > 0
                             && firstNotStopped->getWaitingTime() > tttb && getBidiLane();
-            if (r1 || r2 || r3 || r4) {
+            const bool r5 = MSGlobals::gTimeToTeleportRSDeadlock > 0 && MSRailSignalControl::hasInstance() && !r1 && !r2 && !r3 && !r4
+                            && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportRSDeadlock && MSRailSignalControl::getInstance().haveDeadlock(firstNotStopped);
+            if (r1 || r2 || r3 || r4 || r5) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                 std::string reason = (wrongLane ? " (wrong lane" : (minorLink ? " (yield" : " (jam"));
@@ -2321,6 +2324,7 @@ MSLane::executeMovements(const SUMOTime t) {
                                + (r2 ? ", highway" : "")
                                + (r3 ? ", disconnected" : "")
                                + (r4 ? ", bidi" : "")
+                               + (r5 ? ", railSignal" : "")
                                + "), lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
                 if (wrongLane) {
                     MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
