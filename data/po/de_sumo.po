@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-09 07:56+0000\n"
+"PO-Revision-Date: 2024-10-09 15:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7250,7 +7250,7 @@ msgstr "Berechne Abbiegerichtungen"
 
 #: src/netbuild/NBNetBuilder.cpp:347
 msgid "Assigning nodes to traffic lights"
-msgstr "Zuweisung von Knoten zu LSAs"
+msgstr "Zuweisung von Knoten zu LSA"
 
 #: src/netbuild/NBNetBuilder.cpp:370
 msgid "Guessing and setting on-/off-ramps"
@@ -7354,7 +7354,7 @@ msgstr "Berechne LSA-Logiken"
 
 #: src/netbuild/NBNetBuilder.cpp:605
 msgid " % traffic light(s) %computed."
-msgstr " % LSA(s) % berechnet."
+msgstr " % LSA % berechnet."
 
 #: src/netbuild/NBNetBuilder.cpp:616
 msgid "Building inner edges"
@@ -8738,7 +8738,7 @@ msgstr "Lade Kanten"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
-msgstr "Lade LSAs"
+msgstr "Lade LSA"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:123
 msgid "Loading prohibited manoeuvres"
