@@ -95,14 +95,15 @@ jobs:
         sudo apt-get update
         sudo apt-get install pipx
         pipx install texttest
-        python3 -m venv testenv
+        python3 -m venv testenv --system-site-packages
         testenv/bin/python -m pip install manylinux-wheels/eclipse_sumo*
         testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
       run: |
-        testenv/bin/python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
+        source testenv/bin/activate
+        python3 -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         tests/runTests.sh -b ci -v ci.fast
 
     - name: Running meta tests and cleaning up
