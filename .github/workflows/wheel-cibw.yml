@@ -20,6 +20,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-13, macos-14]
 
@@ -44,6 +45,20 @@ jobs:
         uses: pypa/cibuildwheel@v2.21.2
         with:
           package-dir: sumo
+          output-dir: wheelhouse
+        env:
+          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
+
+      - name: Preparing wheel libsumo
+        run: |
+          python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-libsumo.py sumo/tools/setup.py
+
+      - name: Building wheel libsumo
+        uses: pypa/cibuildwheel@v2.21.2
+        with:
+          package-dir: sumo/tools
           output-dir: wheelhouse
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
