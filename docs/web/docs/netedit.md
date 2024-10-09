@@ -41,6 +41,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **-d** {{DT_FILE}}<br> **--data-files** {{DT_FILE}} | Load data elements descriptions from FILE(s) |
 | **-m** {{DT_FILE}}<br> **--meandata-files** {{DT_FILE}} | Load meanData descriptions from FILE(s) |
 | **--ignore-missing-inputs** {{DT_BOOL}} | Reset path values (additional, route, data...) after loading netedit config; *default:* **false** |
+| **--selection-file** {{DT_FILE}} | Load element selection |
 | **-s** {{DT_FILE}}<br> **--sumo-net-file** {{DT_FILE}} | Read SUMO-net from FILE |
 | **-n** {{DT_FILE}}<br> **--node-files** {{DT_FILE}} | Read XML-node defs from FILE |
 | **-e** {{DT_FILE}}<br> **--edge-files** {{DT_FILE}} | Read XML-edge defs from FILE |
@@ -131,6 +132,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.min-dist** {{DT_FLOAT}} | reduces too similar geometry points; *default:* **-1** |
 | **--geometry.max-angle** {{DT_FLOAT}} | Warn about edge geometries with an angle above DEGREES in successive segments; *default:* **99** |
+| **--geometry.max-angle.fix** {{DT_BOOL}} | Straighten edge geometries with an angle above max-angle successive segments; *default:* **false** |
 | **--geometry.min-radius** {{DT_FLOAT}} | Warn about edge geometries with a turning radius less than METERS at the start or end; *default:* **9** |
 | **--geometry.min-radius.fix** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius; *default:* **false** |
 | **--geometry.min-radius.fix.railways** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways); *default:* **true** |
@@ -182,6 +184,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
+| **--default.connection.cont-pos** {{DT_FLOAT}} | Whether/where connections should have an internal junction; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
 
 ### Tls Building
@@ -259,6 +262,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--keep-edges.components** {{DT_INT}} | Only keep the INT largest weakly connected components; *default:* **0** |
 | **--remove-edges.by-type** {{DT_STR_LIST}} | Remove edges where type is in STR[] |
 | **--remove-edges.isolated** {{DT_BOOL}} | Removes isolated edges; *default:* **false** |
+| **--keep-lanes.min-width** {{DT_FLOAT}} | Only keep lanes with width in meters > FLOAT; *default:* **0.01** |
 
 ### Unregulated Nodes
 | Option | Description |
@@ -338,6 +342,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
 | **--railway.topology.direction-priority** {{DT_BOOL}} | Set edge priority values based on estimated main direction; *default:* **false** |
 | **--railway.topology.extend-priority** {{DT_BOOL}} | Extend loaded edge priority values based on estimated main direction; *default:* **false** |
+| **--railway.geometry.straighten** {{DT_BOOL}} | Move junctions to straighten a sequence of rail edges; *default:* **false** |
 | **--railway.signal.guess.by-stops** {{DT_BOOL}} | Guess signals that guard public transport stops; *default:* **false** |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
 | **--railway.max-accesses** {{DT_INT}} | The maximum road accesses registered per rail stops; *default:* **5** |
