@@ -76,7 +76,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: [3.7, 3.8, 3.9, '3.10', 3.11, 3.12]
+        python_version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
 
     steps:
     - name: Cloning SUMO
@@ -113,7 +113,8 @@ jobs:
 
     - name: Running libsumo tests
       run: |
-        testenv/bin/python -m pip install -f manylinux-wheels libsumo
+        source testenv/bin/activate
+        python3 -m pip install -f manylinux-wheels libsumo
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
