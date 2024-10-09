@@ -74,6 +74,9 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
 {
     // IDM does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
+    if (vtype->getActionStepLength() != DELTA_T) {
+        WRITE_WARNINGF("CarFollowModel EIDM is not compatible with actionStepLength % in vType '%'", STEPS2TIME(vtype->getActionStepLength()), vtype->getID());
+    }
 }
 
 MSCFModel_EIDM::~MSCFModel_EIDM() {}
