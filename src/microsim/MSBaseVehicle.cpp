@@ -279,8 +279,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     std::set<int> jumps;
 
     if (myParameter->via.size() == 0) {
-        double firstPos = -1;
-        double lastPos = -1;
+        double firstPos = INVALID_DOUBLE;
+        double lastPos = INVALID_DOUBLE;
         stops = getStopEdges(firstPos, lastPos, jumps);
         if (stops.size() > 0) {
             double sourcePos = onInit ? 0 : getPositionOnLane();
@@ -1586,8 +1586,12 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
             }
         }
         prev = &stop;
-        if (firstPos < 0) {
-            firstPos = stopPos;
+        if (firstPos == INVALID_DOUBLE) {
+            if (stop.parkingarea != nullptr && stop.edge == myRoute->begin()) {
+                firstPos = MAX2(0., stopPos);
+            } else {
+                firstPos = stopPos;
+            }
         }
         lastPos = stopPos;
         if (stop.pars.jump >= 0) {
