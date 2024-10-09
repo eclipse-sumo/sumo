@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.21.0 (10.10.2024)
 
 ### Bugfixes
 
@@ -64,7 +64,7 @@ title: ChangeLog
   - Fixed crash when loading state related to rerouting device assignment #15517
   - Now updating via edges when rerouting to an alternative parkingArea #15545
   - StartUpDelay and ActionStepLength can now be used together #14229
-  - StartUpDelay now works with small timesteps and IDM #14289 
+  - StartUpDelay now works with small timesteps and IDM #14289
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -153,7 +153,7 @@ title: ChangeLog
   - Can now load laneAreaDetector defined with endPos #14683
   - Copy template now copies the changeLeft/changeRight attributes #15507
   - Contour of non-filled polygons is now reset after moving #15541
-  - Fixed crash when attempting to create a joined NEMA controller #15547 
+  - Fixed crash when attempting to create a joined NEMA controller #15547
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -230,7 +230,7 @@ title: ChangeLog
   - vType attribute `jmAllwayStopWait` can now be used to customize required waiting time at allwayStop #15428
   - time-to-teleport.disconnected may now be higher than time-to-teleport #15494
   - Stop attribute `index` can now be used to encode stopping on a later edge of a looped route #15503
-  - The battery model now records depletion events in tripinfo output #15529 
+  - The battery model now records depletion events in tripinfo output #15529
 
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
@@ -242,7 +242,7 @@ title: ChangeLog
   - Hotkey <kbd>ESC</kbd> + <kbd>SHIFT</kbd> can be used to clear the selection regardless of editing mode #14481
   - Making person/container plan wider on mouse-over #15337
   - Now Showing junctions while creating person and container plans #15345
-  - Added detectPersons to InductionLoop attributes #15515 
+  - Added detectPersons to InductionLoop attributes #15515
 
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
@@ -307,7 +307,7 @@ title: ChangeLog
 - plotting tools can now handle Matplotlib versions suffix like ".post1" #15372
 - Fixed invalid characters in documentation command examples #15441
 - Fixed inconsistent argument name in libsumo function Vehicle.moveTo #15304
-- A warning is now given when trying to use carFollowModel EIDM with actionSteps #15557 
+- A warning is now given when trying to use carFollowModel EIDM with actionSteps #15557
 
 ## Version 1.20.0 (07.05.2024)
 
