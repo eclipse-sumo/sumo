@@ -77,6 +77,7 @@ won't be affected by further changes to the original type.
 | parameter (0x7e)          | string, string                                                 | [Sets the string value for the given string parameter](#setting_device_and_lanechangemodel_parameters_0x7e)                                                                                                               | [setParameter](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter)        |
 | action step length (0x7d) | double (new action step length), boolean (reset action offset) | Sets the current action step length for the vehicle in s. If the boolean value resetActionOffset is true, an action step is scheduled immediately for the vehicle. | [setActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setActionStepLength) |
 | highlight (0x6c)          | highlight specification, see below                             | Adds a highlight to the vehicle                                                                                                                                    | [highlight](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-highlight)           |
+| mass (0xc8)          | double                             | Sets the mass of the vehicle to the given value                                                                                                                           | [setMass](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMass)           |
 
 Please note:
 

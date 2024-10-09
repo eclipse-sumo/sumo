@@ -512,6 +512,12 @@ value is also shown in the table.
   <td><p>Returns the index of the segment on which the vehicle is driving (mesosim)</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSegmentIndex">getDepartSegmentIndex</a></p></td>
 </tr>
+  <tr class="odd">
+<td><p>mass (0xc8)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the mass of the vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getMass">getMass</a></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -778,11 +784,11 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.battery.energyConsumed
 - device.battery.energyCharged
 - device.battery.chargeLevel
-- device.battery.maximumBatteryCapacity
+- device.battery.capacity
 - device.battery.chargingStationId
-- device.battery.vehicleMass
 - device.battery.totalEnergyConsumed
 - device.battery.totalEnergyRegenerated
+- device.battery.maximumChargeRate
 - device.person.IDList
 - device.container.IDList
 - device.rerouting.period (returns individual rerouting period in
