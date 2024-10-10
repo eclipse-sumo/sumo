@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-09 08:52+0000\n"
+"PO-Revision-Date: 2024-10-10 10:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9621,7 +9621,7 @@ msgstr ""
 
 #: src/netload/NLHandler.cpp:1679
 msgid "At district '%': succeeding edge '%' does not exist."
-msgstr ""
+msgstr "Nel distretto '%': l'arco successivo '%' non esiste."
 
 #: src/netload/NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
@@ -10943,6 +10943,8 @@ msgstr "Attributo sconosciuto '%' da scrivere in uscita."
 msgid ""
 "Option --vtype requires option --additional-files for loading vehicle types"
 msgstr ""
+"L'opzione --vtype richiede l'opzione --additional-files per caricare i tipi "
+"di veicoli"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:225
 msgid "Vehicle type is not unique."
@@ -10967,16 +10969,18 @@ msgstr "Voce non numerica in linea '%'."
 
 #: src/tools/emissionsMap_main.cpp:54
 msgid "Writing map of '%' into '%'."
-msgstr ""
+msgstr "Scrittura della corrispondenza di '%' in '%'."
 
 #: src/tools/emissionsMap_main.cpp:58 src/utils/router/AStarLookupTable.h:292
 #, c-format
 msgid "Could not open file '%' for writing."
-msgstr ""
+msgstr "Non ho potuto aprire il file '%' in modo scrittura."
 
 #: src/tools/emissionsMap_main.cpp:83
 msgid "Builds and writes an emissions map for SUMO's emission models."
 msgstr ""
+"Costruice e scrive corrispondenze di emissions per gli modelli di emissioni "
+"di SUMO."
 
 #: src/tools/emissionsMap_main.cpp:89
 msgid "If set, maps for all available emissions are written."
