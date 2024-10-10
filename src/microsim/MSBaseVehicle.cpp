@@ -288,7 +288,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 sourcePos = getNextStop().pars.endPos;
             }
             // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
+            const bool skipFirst = stops.front() == source && (source != getEdge() || (source == sink && sink->getNumSuccessors() == 0 && jumps.size() == 0)
+                                   || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = (stops.back() == sink
                                    && myArrivalPos >= lastPos
                                    && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
