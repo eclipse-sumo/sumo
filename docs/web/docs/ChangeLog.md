@@ -56,7 +56,6 @@ title: ChangeLog
   - Fixed nondeterministic order of constraint trackers in saved state #15406
   - Fixed infinite loop if rerouter interval end < begin #15416
   - Fixed bug where vType-param "device.rerouting.probability" could not be used to prevent rerouting #15288
-  - Fixed nondeterministic order of constraint trackers in saved state #15406
   - edgeData output now excludes non-driving lanes from laneDensity computation #15383
   - rerouter closingReroute now preserves all existing stops when computing new route #14610
   - Fixed invalid emergency stop message for waypoint at route end #15485
@@ -65,6 +64,7 @@ title: ChangeLog
   - Now updating via edges when rerouting to an alternative parkingArea #15545
   - StartUpDelay and ActionStepLength can now be used together #14229
   - StartUpDelay now works with small timesteps and IDM #14289
+  - Fixed crash when using taxi with pre-booking and ride sharing #15385
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -136,8 +136,7 @@ title: ChangeLog
   - Fixed crash recomputing network with volatile recomputing and loaded vehicles #15356
   - Can now create rides with only one edge #15361
   - Fixed clicking Person/container plans over TAZs #15363
-  - Fixed crash trying to move persons over TAZ #15365
-  - Fixed crash when using taxi with pre-booking and ride sharing #15385
+  - Fixed crash trying to move persons over TAZ #15365  
   - Fixed crash joining junctions with crossings #15328
   - Fixed loss of TAZ edges after recomputing with volatile options #15401
   - Stop attribute `parking` now takes effect when set in *Stop mode* #15439
@@ -154,6 +153,7 @@ title: ChangeLog
   - Copy template now copies the changeLeft/changeRight attributes #15507
   - Contour of non-filled polygons is now reset after moving #15541
   - Fixed crash when attempting to create a joined NEMA controller #15547
+  - Fixed lefthand drawing of additional elements #15566 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -288,7 +288,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609
   - generateRailSignalConstraints.py: Added option **--abort-unordered.keep-actual** which keeps stops after a detected overtaking as valid if they have started/ended values #15065
   - generateRailSignalConstraints.py: Added option **--all-inactive** for setting all constraints as inactive #15312
-  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025
+  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to avoid a wider distribution than may be expected #15025
   - mapDetectors.py: Option **--max-radius** can now be used to configure maximum mapping radius #15118
   - mapDetectors.py: Can now handle CSV with BOM #15116
   - net2geojson.py: can now optionally include numLanes and speed as properties #15109
