@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-10 10:02+0000\n"
+"PO-Revision-Date: 2024-10-10 14:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3393,6 +3393,8 @@ msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr ""
+"Il valore di tau=% nel tipo di veicolo '%' inferiore al passo di simulazione "
+"può causare collisioni."
 
 #: src/microsim/MSVehicleType.cpp:468
 #, c-format
@@ -3401,6 +3403,9 @@ msgid ""
 "lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-"
 "queue for multi-modal meso simulation"
 msgstr ""
+"La classe di veicoli '%' del tipo di veicolo '%' viene ignorata dall'opzione "
+"--meso-ignore-lanes-by-vclass per assicurare la capacità di veicoli. Imposta "
+"l'opzione --meso-lane-queue per una simulazione mesoscopica multimodale"
 
 #: src/microsim/MSVehicleType.cpp:478
 msgid ""
@@ -3408,6 +3413,9 @@ msgid ""
 "emission class Energy/unknown will be used, please consider setting an "
 "explicit emission class!"
 msgstr ""
+"L'attrezzo di batteria è attivato nel tipo di veicolo '%' ma nessuna classe "
+"di emissioni è stata impostata. Quindi si usa la classe di emissioni Energy/"
+"unknown. Considera di impostare una classe di emissioni esplicita!"
 
 #: src/microsim/cfmodels/MSCFModel_CC.cpp:66
 msgid ""
@@ -3485,6 +3493,8 @@ msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
 msgstr ""
+"Non è ancora stato implementato altro metodo di aggiornamento che quello "
+"Euler semiimplicito. Uscita!"
 
 #: src/microsim/devices/MSDevice.cpp:172
 #, c-format
