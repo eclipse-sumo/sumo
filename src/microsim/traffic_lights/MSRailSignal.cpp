@@ -478,7 +478,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
     for (MSDriveWay* dw : myDriveways) {
-        if (dw->match(veh->getRoute(), firstIt)) {
+        if (dw->match(firstIt, veh->getRoute().end())) {
             return *dw;
         }
 #ifdef DEBUG_SELECT_DRIVEWAY

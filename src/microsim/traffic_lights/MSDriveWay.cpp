@@ -191,7 +191,7 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
     if (veh.isVehicle() && enteredLane == myLane && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
         SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
-        if (myTrains.count(&sveh) == 0 && match(sveh.getRoute(), firstIt)) {
+        if (myTrains.count(&sveh) == 0 && match(firstIt, sveh.getRoute().end())) {
             myTrains.insert(&sveh);
             if (myWriteVehicles) {
                 myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
@@ -524,7 +524,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 if (foeA.second.dist < foe->getBrakeGap(true)) {
                     MSRouteIterator firstIt = std::find(foe->getCurrentRouteEdge(), foe->getRoute().end(), foeDW->myRoute.front());
                     if (firstIt != foe->getRoute().end()) {
-                        if (foeDW->match(foe->getRoute(), firstIt)) {
+                        if (foeDW->match(firstIt, foe->getRoute().end())) {
                             bool useSiding = canUseSiding(ego, foeDW);
 #ifdef DEBUG_SIGNALSTATE
                             if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
@@ -1465,12 +1465,12 @@ MSDriveWay::appendMapIndex(LaneVisitedMap& map, const MSLane* lane) {
 }
 
 bool
-MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
+MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
     // @todo optimize: it is sufficient to check for specific edges (after each switch)
     auto itRoute = firstIt;
     auto itDwRoute = myRoute.begin();
     bool match = true;
-    while (itRoute != route.end() && itDwRoute != myRoute.end()) {
+    while (itRoute != endIt && itDwRoute != myRoute.end()) {
         if (*itRoute != *itDwRoute) {
             match = false;
 #ifdef DEBUG_MATCH
@@ -1484,9 +1484,9 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
     // if the vehicle arrives before the end of this driveway,
     // we'd rather build a new driveway to avoid superfluous restrictions
     if (match && itDwRoute == myRoute.end()
-            && (itRoute == route.end() || myFoundSignal || myFoundJump || myIsSubDriveway)) {
+            && (itRoute == endIt || myFoundSignal || myFoundJump || myIsSubDriveway)) {
         //std::cout << "  using dw=" << "\n";
-        if (myFoundJump && itRoute != route.end()) {
+        if (myFoundJump && itRoute != endIt) {
             // check whether the current route requires an extended driveway
             const MSEdge* next = *itRoute;
             const MSEdge* prev = myRoute.back();
@@ -1903,7 +1903,7 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
         }
     }
     for (MSDriveWay* dw : myDepartureDriveways[edge]) {
-        if (dw->match(veh->getRoute(), veh->getCurrentRouteEdge())) {
+        if (dw->match(veh->getCurrentRouteEdge(), veh->getRoute().end())) {
             return dw;
         }
     }

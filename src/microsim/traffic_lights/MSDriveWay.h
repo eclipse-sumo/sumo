@@ -138,7 +138,7 @@ public:
     }
 
     /// @brief whether the give route matches this driveway
-    bool match(const MSRoute& route, MSRouteIterator firstIt) const;
+    bool match(MSRouteIterator firstIt, MSRouteIterator endIt) const;
 
     static void init();
 
