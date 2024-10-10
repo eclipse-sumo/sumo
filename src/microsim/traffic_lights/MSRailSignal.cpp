@@ -477,18 +477,27 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
         return *myDriveways.front();
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
+    return getDriveWay(firstIt, veh->getRoute().end(), veh->getID());
+}
+
+
+MSDriveWay&
+MSRailSignal::LinkInfo::getDriveWay(MSRouteIterator firstIt, MSRouteIterator endIt, const std::string& info) {
     for (MSDriveWay* dw : myDriveways) {
-        if (dw->match(firstIt, veh->getRoute().end())) {
+        if (dw->match(firstIt, endIt)) {
             return *dw;
         }
 #ifdef DEBUG_SELECT_DRIVEWAY
-        std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " other dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
+        std::cout << SIMTIME << " rs=" << getID() << " veh=" << info << " other dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << "\n";
+#else
+    UNUSED_PARAMETER(info);
 #endif
     }
-    MSDriveWay* dw = MSDriveWay::buildDriveWay(rs->getNewDrivewayID(), myLink, firstIt, veh->getRoute().end());
-    dw->setVehicle(veh->getID());
+    MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(myLink->getTLLogic()));
+    MSDriveWay* dw = MSDriveWay::buildDriveWay(rs->getNewDrivewayID(), myLink, firstIt, endIt);
+    dw->setVehicle(info);
 #ifdef DEBUG_SELECT_DRIVEWAY
-    std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " new dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
+    std::cout << SIMTIME << " rs=" << getID() << " veh=" << info << " new dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << "\n";
 #endif
     myDriveways.push_back(dw);
     return *myDriveways.back();
@@ -605,6 +614,11 @@ MSRailSignal::retrieveDriveWay(int numericalID) const {
 const MSDriveWay&
 MSRailSignal::retrieveDriveWayForVeh(int tlIndex, const SUMOVehicle* veh) {
     return myLinkInfos[tlIndex].getDriveWay(veh);
+}
+
+const MSDriveWay&
+MSRailSignal::retrieveDriveWayForRoute(int tlIndex, MSRouteIterator first, MSRouteIterator end) {
+    return myLinkInfos[tlIndex].getDriveWay(first, end);
 }
 
 

@@ -264,6 +264,7 @@ public:
     const MSDriveWay& retrieveDriveWay(int numericalID) const;
 
     const MSDriveWay& retrieveDriveWayForVeh(int tlIndex, const SUMOVehicle* veh);
+    const MSDriveWay& retrieveDriveWayForRoute(int tlIndex, MSRouteIterator first, MSRouteIterator end);
 
     const std::vector<MSDriveWay*> retrieveDriveWays(int tlIndex) const;
 
@@ -320,6 +321,7 @@ protected:
 
         /// @brief retrieve an existing Driveway or construct a new driveway based on the vehicles route
         MSDriveWay& getDriveWay(const SUMOVehicle*);
+        MSDriveWay& getDriveWay(MSRouteIterator firstIt, MSRouteIterator endIt, const std::string& info="");
 
         /// @brief try rerouting vehicle if reservation failed
         void reroute(SUMOVehicle* veh, const MSEdgeVector& occupied);
