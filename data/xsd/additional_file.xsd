@@ -615,7 +615,7 @@
     <xsd:complexType name="deadlockType">
         <xsd:attribute name="time" type="timeType" use="optional"/>
         <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
-        <xsd:attribute name="signals" type="xsd:string" use="mandatory"/>
+        <xsd:attribute name="signals" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="polygonType">
