@@ -2,6 +2,10 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
 ## Version 1.21.0 (10.10.2024)
 
 ### Bugfixes
@@ -136,7 +140,7 @@ title: ChangeLog
   - Fixed crash recomputing network with volatile recomputing and loaded vehicles #15356
   - Can now create rides with only one edge #15361
   - Fixed clicking Person/container plans over TAZs #15363
-  - Fixed crash trying to move persons over TAZ #15365  
+  - Fixed crash trying to move persons over TAZ #15365
   - Fixed crash joining junctions with crossings #15328
   - Fixed loss of TAZ edges after recomputing with volatile options #15401
   - Stop attribute `parking` now takes effect when set in *Stop mode* #15439
@@ -153,7 +157,7 @@ title: ChangeLog
   - Copy template now copies the changeLeft/changeRight attributes #15507
   - Contour of non-filled polygons is now reset after moving #15541
   - Fixed crash when attempting to create a joined NEMA controller #15547
-  - Fixed lefthand drawing of additional elements #15566 
+  - Fixed lefthand drawing of additional elements #15566
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
