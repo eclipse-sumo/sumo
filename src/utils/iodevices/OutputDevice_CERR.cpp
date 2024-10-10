@@ -47,6 +47,7 @@ OutputDevice_CERR::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_CERR::OutputDevice_CERR() : OutputDevice(0, "CERR") {
+    myStreamDevice = std::make_unique<COUTStreamDevice>(std::cerr);
 }
 
 
@@ -55,15 +56,10 @@ OutputDevice_CERR::~OutputDevice_CERR() {
 }
 
 
-std::ostream&
-OutputDevice_CERR::getOStream() {
-    return std::cerr;
-}
-
-
 void
 OutputDevice_CERR::postWriteHook() {
     std::cerr.flush();
+    getOStream().flush();
 }
 
 

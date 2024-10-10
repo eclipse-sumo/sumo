@@ -51,6 +51,7 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
             std::this_thread::sleep_for(std::chrono::seconds(wait));
         }
     }
+    myStreamDevice = new StringStream();
 }
 
 
@@ -60,16 +61,10 @@ OutputDevice_Network::~OutputDevice_Network() {
 }
 
 
-std::ostream&
-OutputDevice_Network::getOStream() {
-    return myMessage;
-}
-
-
 void
 OutputDevice_Network::postWriteHook() {
-    const std::string toSend = myMessage.str();
-    myMessage.str("");
+    const std::string toSend = myStreamDevice->str();
+    myStreamDevice->str("");
     if (toSend.empty() || !mySocket->has_client_connection()) {
         return;
     }

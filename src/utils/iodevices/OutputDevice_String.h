@@ -41,29 +41,8 @@ public:
      */
     OutputDevice_String(const int defaultIndentation = 0);
 
-
-    /// @brief Destructor
-    ~OutputDevice_String();
-
-
     /** @brief Returns the current content as a string
      * @return The content as string
      */
     std::string getString() const;
-
-protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return The used stream
-     */
-    std::ostream& getOStream();
-    /// @}
-
-
-private:
-    /// The wrapped ofstream
-    std::ostringstream myStream;
-
 };
