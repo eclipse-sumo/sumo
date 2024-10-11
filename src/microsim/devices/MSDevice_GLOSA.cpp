@@ -126,13 +126,21 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         const double vMax = myVeh.getLane()->getVehicleMaxSpeed(&myVeh);
         double timeToJunction = earliest_arrival(myDistance, vMax);
         int countOld = 0;
-		// calculate "first" next phase, all coming Phases are calculated via "getTimeToNextSwitch"
+        // calculate "first" next phase, all coming Phases are calculated via "getTimeToNextSwitch"
         double timeToSwitch = getTimeToSwitch(myNextTLSLink, countOld);
         bool currentPhaseGreen = false;
         bool currentPhaseStop = false;
         bool solved = false;
         double nextSwitch = 0;
         nextSwitch = timeToSwitch;
+        double QueueLength = 0;
+        double greentime = 0;
+        double additionaljunctiontime = 0;
+        // It takes factor [seconds/per meter queue] to dissolve the queue at drive off, LITERATURE REVIEW?
+        double factor = 0.21;
+        // Additional time (offset) for the leading vehicle to accelerate, LITERATURE REVIEW?
+        double addition = 3;
+
         if (myNextTLSLink->haveGreen()) { currentPhaseGreen = true; }
         else if (myNextTLSLink->haveRed() || myNextTLSLink->haveYellow()) { currentPhaseStop = true; }
         // else if any other phase, GLOSA does not interfere
@@ -142,14 +150,8 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         }
 #endif
         if (myUseQueue) {
-		    // Detect queue length at tls
-		    double QueueLength = myNextTLSLink->getTLLogic()->getTLQueueLength(myNextTLSLink->getLaneBefore()->getID());
-            double greentime = 0;
-            double additionaljunctiontime = 0;
-		    // It takes factor [seconds/per meter queue] to dissolve the queue at drive off, LITERATURE REVIEW?
-            double factor = 0.21;
-		    // Additional time (offset) for the leading vehicle to accelerate, LITERATURE REVIEW?
-            double addition = 3;
+            // Detect queue length at tls
+            QueueLength = myNextTLSLink->getTLLogic()->getTLQueueLength(myNextTLSLink->getLaneBefore()->getID());
 #ifdef DEBUG_QUEUE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " veh=" << myVeh.getID() << " Queuelength=" << QueueLength << "\n";
@@ -388,8 +390,8 @@ MSDevice_GLOSA::timeGreen(const MSLink* tlsLink) {
     const auto& phases = tl->getPhases();
     const int n = (int)phases.size();
     const int cur = tl->getCurrentPhaseIndex();
-	// As there are multiple "microphases G" in one Greenphase this function only gives back
-	// the already spent time in the current microphase
+    // As there are multiple "microphases G" in one Greenphase this function only gives back
+    // the already spent time in the current microphase
     SUMOTime result = tl->getSpentDuration();
 
     for (int i = 1; i < n; i++) {
