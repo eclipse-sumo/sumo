@@ -1486,14 +1486,22 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
     if (match && itDwRoute == myRoute.end()
             && (itRoute == endIt || myFoundSignal || myFoundJump || myIsSubDriveway)) {
         //std::cout << "  using dw=" << "\n";
-        if (myFoundJump && itRoute != endIt) {
+        if (itRoute != endIt) {
             // check whether the current route requires an extended driveway
             const MSEdge* next = *itRoute;
             const MSEdge* prev = myRoute.back();
-            if (prev->getBidiEdge() != next && prev->getBidiEdge() != nullptr
+            if (myFoundJump && prev->getBidiEdge() != next && prev->getBidiEdge() != nullptr
                     && prev->isConnectedTo(*next, (SUMOVehicleClass)(SVC_RAIL_CLASSES & prev->getPermissions()))) {
 #ifdef DEBUG_MATCH
                 std::cout << "  check dw=" << getID() << " prev=" << prev->getID() << " next=" << next->getID() << "\n";
+#endif
+                return false;
+            }
+            if (!myFoundJump && prev->getBidiEdge() == next) {
+                assert(myIsSubDriveway);
+                // must not leave driveway via reversal
+#ifdef DEBUG_MATCH
+                std::cout << getID() << " back=" << myForward.back()->getID() << " noMatch route " << toString(ConstMSEdgeVector(firstIt, endIt)) << "\n";
 #endif
                 return false;
             }
