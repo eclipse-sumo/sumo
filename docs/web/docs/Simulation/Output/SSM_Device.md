@@ -36,8 +36,8 @@ The detail of information given for each conflict and the criteria to qualify an
     ...
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.ssm.device" value="true"/>
-        <param key="device.ssm.measures" value="TTC DRAC PET MDRAC"/>
-        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 3.4"/>
+        <param key="device.ssm.measures" value="TTC DRAC PET BR SGAP TGAP PPET MDRAC"/>
+        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 0.0 0.2 0.5 2.0 3.4"/>
         <param key="device.ssm.range" value="50.0" />
         <param key="device.ssm.mdrac.prt" value="1.0" />
         <param key="device.ssm.extratime" value="5.0" />
