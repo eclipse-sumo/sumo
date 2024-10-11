@@ -6,3 +6,6 @@ towards_right
 
 # test effect of internal lanes on strategic changing
 internal_lanes
+
+# all lanes are equally suitable from a strategic viewpoint. lane choice should not be biased.
+arbitrary
