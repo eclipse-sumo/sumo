@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-11 11:44:23 by Eclipse SUMO sumo Version v1_20_0+0635-42dff0ed830
+<!-- generated on 2024-10-11 14:26:48 by Eclipse SUMO sumo Version v1_20_0+0638-b2dc6c989ae
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,18 +49,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals=""/>
                 <foes driveWays="A.0 A.1 D.0.0"/>
             </driveWay>
-            <subDriveWay id="A.0.0" vehicle="" edges="b c d">
-                <forward lanes=":A_1_0 b_0 :B_1_0 c_0 :C_2_0 d_0 :D_1_0"/>
-            </subDriveWay>
-            <subDriveWay id="A.0.1" vehicle="" edges="b c d e">
+            <subDriveWay id="A.0.0" vehicle="" edges="b c d e">
                 <forward lanes=":A_1_0 b_0 :B_1_0 c_0 :C_2_0 d_0 :D_1_0 e_0"/>
+            </subDriveWay>
+            <subDriveWay id="A.0.1" vehicle="" edges="b c d">
+                <forward lanes=":A_1_0 b_0 :B_1_0 c_0 :C_2_0 d_0 :D_1_0"/>
             </subDriveWay>
             <driveWay id="A.1" vehicle="t1" edges="b c d e -e -d -c2 -b2 -a2">
                 <forward lanes=":A_1_0 b_0 :B_1_0 c_0 :C_2_0 d_0 :D_1_0 e_0 :E_2_0 -e_0"/>
                 <bidi lanes=":A_0_0 -b_0 :B_0_0 -c_0 :C_1_0 -d_0 :D_0_0 -e_0 e_0 :D_1_0 d_0 :C_3_0 c2_0 :J3_1_0 b2_0 :J2_1_0 a2_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.0.1 A.1 D.0.0"/>
+                <foes driveWays="A.0.0 A.1 D.0.0"/>
             </driveWay>
             <subDriveWay id="A.1.0" vehicle="" edges="b c d">
                 <forward lanes=":A_1_0 b_0 :B_1_0 c_0 :C_2_0 d_0 :D_1_0"/>
@@ -74,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":D_1_0 d_0 :C_3_0 c2_0 :J3_1_0 b2_0 :J2_1_0 a2_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="A.0.0 A.1.0 D.0"/>
+                <foes driveWays="A.0.1 A.1.0 D.0"/>
             </driveWay>
             <subDriveWay id="D.0.0" vehicle="" edges="-d">
                 <forward lanes=":D_0_0 -d_0"/>

@@ -43,6 +43,8 @@
             <exit id="t1" time="256.00" reason="1"/>
         </driveWay>
         <subDriveWay id="E.1.0">
+            <entry id="t0" time="33.00" reason="1"/>
+            <exit id="t0" time="51.00" reason="1"/>
             <entry id="t1" time="196.00" reason="1"/>
             <exit id="t1" time="214.00" reason="1"/>
         </subDriveWay>
@@ -71,6 +73,8 @@
             <exit id="t0" time="136.00" reason="1"/>
         </subDriveWay>
         <subDriveWay id="G.0.4">
+            <entry id="t0" time="85.00" reason="1"/>
+            <exit id="t0" time="105.00" reason="1"/>
             <entry id="t1" time="248.00" reason="1"/>
             <exit id="t1" time="268.00" reason="1"/>
         </subDriveWay>
@@ -79,6 +83,8 @@
             <exit id="t1" time="276.00" reason="9"/>
         </driveWay>
         <subDriveWay id="G.1.0">
+            <entry id="t0" time="85.00" reason="1"/>
+            <exit id="t0" time="105.00" reason="1"/>
             <entry id="t1" time="248.00" reason="1"/>
             <exit id="t1" time="268.00" reason="1"/>
         </subDriveWay>
