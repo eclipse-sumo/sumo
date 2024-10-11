@@ -147,7 +147,12 @@ public:
 private:
 
     /// @brief compute time to next (relevant) switch
-    static double getTimeToSwitch(const MSLink* tlsLink);
+    static double getTimeToSwitch(const MSLink* tlsLink, int& countOld);
+
+    /// @brief compute time to next (relevant) switch the vehicle can reach
+    static double getTimeToNextSwitch(const MSLink* tlsLink, bool &currentPhaseGreen, bool &currentPhaseStop, int& countOld);
+
+    static double timeGreen(const MSLink* tlsLink);
 
     /// @brief return minimum number of seconds to reach the junction
     double earliest_arrival(double speed, double distance);
@@ -160,7 +165,7 @@ private:
     double time_to_junction_at_continuous_accel(double d, double v);
 
     /// @brief adapt speed to reach junction at green
-    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch);
+    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch, bool &solved);
 
     /** @brief Constructor
      *
@@ -168,7 +173,7 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor,
-                   double addSwitchTime, bool overrideSafety, bool ignoreCFModel);
+        double addSwitchTime, bool useQueue,  bool overrideSafety, bool ignoreCFModel);
 
 
 
@@ -189,6 +194,8 @@ private:
     double myMaxSpeedFactor;
     /// @brief Additional time the vehicle shall need to reach the intersection after the signal turns green
     double myAddSwitchTime;
+    /// @brief if true the queue in front of the TLS is used for calculation
+    bool  myUseQueue;
     /// @brief if true ignore the current light state, always follow GLOSA's predicted state
     bool myOverrideSafety;
     /// @brief if true ignore non-critical speed calculations from the CF model, follow GLOSA's perfect speed calculation
