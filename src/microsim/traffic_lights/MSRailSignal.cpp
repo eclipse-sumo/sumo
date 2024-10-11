@@ -365,17 +365,15 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                         MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(link->getTLLogic()));
                         if (rs != nullptr) {
                             LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
-                            if (li.myDriveways.empty()) {
-                                // init driveway
-                                li.getDriveWay(ego);
-                                if (update && rs->isActive()) {
-                                    // vehicle may have rerouted its intial trip
-                                    // after the states have been set
-                                    // @note: This is a hack because it could lead to invalid tls-output
-                                    // (it's still an improvement over switching based on default driveways)
-                                    rs->trySwitch();
-                                    rs->setTrafficLightSignals(SIMSTEP);
-                                }
+                            // init driveway
+                            li.getDriveWay(ego);
+                            if (update && rs->isActive()) {
+                                // vehicle may have rerouted its intial trip
+                                // after the states have been set
+                                // @note: This is a hack because it could lead to invalid tls-output
+                                // (it's still an improvement over switching based on default driveways)
+                                rs->trySwitch();
+                                rs->setTrafficLightSignals(SIMSTEP);
                             }
                         }
                     }
