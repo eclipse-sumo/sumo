@@ -150,8 +150,8 @@ For crossing and merging situations, we consider "expected" entry and exit times
 For the calculation of those times for the approaching vehicles, we take into account the current deceleration of the
 vehicles, if the vehicle is not decelerating, the current speed is extrapolated as a constant (i.e., acceleration is only considered if it is negative).
 
-For some reference to definitions of SSMs see for instance [Guido et al. (2011) "Safety performance measures: a comparison between microsimulation and observational data"] or [Mahmud et al. (2016) "Application of proximal surrogate indicators for safety evaluation: A review of recent developments and research needs"]
-
+For some reference to definitions of SSMs see for instance [Guido et al. (2011) "Safety performance measures: a comparison between microsimulation and observational data"](https://doi.org/10.1016/j.sbspro.2011.08.027) or [Mahmud et al. (2016) "Application of proximal surrogate indicators for safety evaluation: A review of recent developments and research needs"](https://doi.org/10.1016/j.iatssr.2017.02.001).
+.
 ### TTC
 The time-to-collision is defined for all follow-lead situations for which the follower is faster than the leader. It is given as
 
