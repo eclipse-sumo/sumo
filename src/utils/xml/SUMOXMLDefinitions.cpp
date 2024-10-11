@@ -972,6 +972,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcSigma",                    SUMO_ATTR_LCA_SIGMA },
     { "lcKeepRightAcceptanceTime",  SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME },
     { "lcOvertakeDeltaSpeedFactor", SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR },
+    { "lcContRight",                SUMO_ATTR_LCA_CONTRIGHT },
     { "lcExperimental1",            SUMO_ATTR_LCA_EXPERIMENTAL1 },
     /// @}
 

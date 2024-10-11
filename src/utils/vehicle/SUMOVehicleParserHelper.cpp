@@ -1550,6 +1550,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_SIGMA);
         lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME);
         lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR);
+        lc2013Params.insert(SUMO_ATTR_LCA_CONTRIGHT);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
         allowedLCModelAttrs[LaneChangeModel::LC2013] = lc2013Params;
         // sl2015 (extension of lc2013)

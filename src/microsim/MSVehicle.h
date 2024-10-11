@@ -2144,7 +2144,7 @@ protected:
     void cleanupFurtherLanes();
 
     /// @brief comparison between different continuations from the same lane
-    static bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m);
+    bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) const;
 
 private:
     /// @brief The per vehicle variables of the car following model

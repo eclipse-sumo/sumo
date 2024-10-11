@@ -6232,7 +6232,7 @@ MSVehicle::updateLaneBruttoSum() {
 }
 
 bool
-MSVehicle::betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) {
+MSVehicle::betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) const {
     if (bestConnectedNext == nullptr) {
         return true;
     } else if (m.lane->getBidiLane() != nullptr && bestConnectedNext->lane->getBidiLane() == nullptr) {
@@ -6241,8 +6241,18 @@ MSVehicle::betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) {
         return true;
     } else if (bestConnectedNext->length < m.length) {
         return true;
-    } else if (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset)) {
-        return true;
+    } else if (bestConnectedNext->length == m.length) {
+        if (abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset)) {
+            return true;
+        }
+        const double contRight = getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_CONTRIGHT, 1);
+        if (contRight < 1
+                // if we don't check for adjacency, the rightmost line will get
+                // multiple chances to be better which leads to an uninituitve distribution
+                && (m.lane->getIndex() - bestConnectedNext->lane->getIndex()) == 1
+                && RandHelper::rand(getRNG()) > contRight) {
+            return true;
+        }
     }
     return false;
 }
