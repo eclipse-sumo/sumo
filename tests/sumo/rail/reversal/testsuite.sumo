@@ -99,3 +99,6 @@ two_double_reversals
 
 # invalid subDriveway construction
 reversal_after_common_block
+
+# vehicle should not be assigned to a subDriveway if it would have to leave via reversal
+subdriveway_reversal
