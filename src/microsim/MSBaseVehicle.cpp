@@ -277,7 +277,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
     std::set<int> jumps;
-
+    bool stopAtSink = false;
     if (myParameter->via.size() == 0) {
         double firstPos = INVALID_DOUBLE;
         double lastPos = INVALID_DOUBLE;
@@ -288,8 +288,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 sourcePos = getNextStop().pars.endPos;
             }
             // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front() == source && (source != getEdge() || (source == sink && sink->getNumSuccessors() == 0 && jumps.size() == 0)
-                                   || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
+            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = (stops.back() == sink
                                    && myArrivalPos >= lastPos
                                    && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
@@ -311,6 +310,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                     stops.erase(stops.end() - 1);
                 }
             }
+            stopAtSink = stops.size() > 0 && stops.back() == sink && jumps.size() == 0;
         }
     } else {
         std::set<const MSEdge*> jumpEdges;
@@ -359,12 +359,14 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 source = stopEdge;
             }
         } else {
-            std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
-            if (MSGlobals::gCheckRoutes || silent) {
-                throw ProcessError(error);
-            } else {
-                WRITE_WARNING(error);
-                edges.push_back(source);
+            if ((source != sink || !stopAtSink)) {
+                std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
+                if (MSGlobals::gCheckRoutes || silent) {
+                    throw ProcessError(error);
+                } else {
+                    WRITE_WARNING(error);
+                    edges.push_back(source);
+                }
             }
             source = stopEdge;
         }
@@ -1588,7 +1590,7 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
         }
         prev = &stop;
         if (firstPos == INVALID_DOUBLE) {
-            if (stop.parkingarea != nullptr && stop.edge == myRoute->begin()) {
+            if (stop.parkingarea != nullptr) {
                 firstPos = MAX2(0., stopPos);
             } else {
                 firstPos = stopPos;
