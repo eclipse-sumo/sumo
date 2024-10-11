@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 15:10:35 by Eclipse SUMO sumo Version v1_20_0+0597-36c9673207a
+<!-- generated on 2024-10-11 12:14:35 by Eclipse SUMO sumo Version v1_20_0+0636-3016b45a628
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <collision.action value="warn"/>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
         <use-stop-ended value="true"/>
     </processing>
@@ -59,7 +60,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":J3_0_0 -E3_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J3.0 J3.d2 J4.d0"/>
+                <foes driveWays="J3.0 J3.1 J3.d2 J4.d0"/>
+            </driveWay>
+            <driveWay id="J3.1" vehicle="v2" edges="E3 -E3 E3">
+                <forward lanes=":J3_2_0 E3_0 :J4_1_0 -E3_0 :J3_1_0 E3_0"/>
+                <bidi lanes=":J3_0_0 -E3_0 E3_0 -E3_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J3_0"/>
+                <foes driveWays="J3.0 J3.1 J3.d2 J4.d0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -80,7 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="E3_0 -E3_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J3_0"/>
-            <foes driveWays="J3.0 J3.d2 J4.d0"/>
+            <foes driveWays="J3.0 J3.1 J3.d2 J4.d0"/>
         </driveWay>
     </departJunction>
     <departJunction id="J0">
@@ -98,7 +106,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-E3_0 E3_0 -E3_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J3_0"/>
-            <foes driveWays="J3.0 J3.d2 J4.d0"/>
+            <foes driveWays="J3.0 J3.1 J3.d2 J4.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

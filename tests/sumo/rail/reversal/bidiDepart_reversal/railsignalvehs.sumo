@@ -12,6 +12,7 @@
             <entry id="v1" time="142.00" reason="1"/>
             <exit id="v1" time="174.00" reason="1"/>
         </driveWay>
+        <driveWay id="J3.1"/>
     </link>
 </railSignal>
 <railSignal id="J4">
