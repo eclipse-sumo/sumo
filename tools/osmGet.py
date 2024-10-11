@@ -269,6 +269,7 @@ def get(args=None):
             num = options.tiles
             b = west
             for i in range(num):
+                print("Getting tile %d/%d" % (i+1,num))
                 e = b + (east - west) / float(num)
                 readCompressed(options, conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
                     north, south, b, e), roadTypesJSON, options.shapes,
