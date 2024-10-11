@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-10 14:28+0000\n"
+"PO-Revision-Date: 2024-10-11 11:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6282,39 +6282,41 @@ msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
+"Indovina le rampe di accesso e segna le corsie di accelerazione se ci sono "
+"ma non aggiungere altre corsie"
 
 #: src/netbuild/NBFrame.cpp:709
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr ""
+msgstr "Non considerare archi con un limite di velocità > FLOAT come rampe"
 
 #: src/netbuild/NBFrame.cpp:713
 msgid "Treat edges with speed < FLOAT as no highways"
-msgstr ""
+msgstr "Non considerare archi con un limite di velocità < FLOAT come autostrade"
 
 #: src/netbuild/NBFrame.cpp:717
 msgid "Use FLOAT as ramp-length"
-msgstr ""
+msgstr "Utilizza FLOAT come lunghezza di rampa"
 
 #: src/netbuild/NBFrame.cpp:721
 msgid "Use FLOAT as minimum ramp-length"
-msgstr ""
+msgstr "Utilizza FLOAT come lunghezza minima di rampa"
 
 #: src/netbuild/NBFrame.cpp:725
 msgid "Tries to handle the given edges as ramps"
-msgstr ""
+msgstr "Cerca di trattare gli archi dati come rampe"
 
 #: src/netbuild/NBFrame.cpp:728
 msgid "Do not consider the given edges as ramps"
-msgstr ""
+msgstr "Non considerare gli archi dati come rampe"
 
 #: src/netbuild/NBFrame.cpp:732
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "Evita di separare archi"
 
 #: src/netbuild/NBFrame.cpp:742
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
-msgstr ""
+msgstr "valore '%' non autorizzato per l'opzione '--tls.default-type'"
 
 #: src/netbuild/NBFrame.cpp:746
 msgid ""
@@ -6338,28 +6340,34 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:762
 msgid "default.lanenumber must be at least 1"
-msgstr ""
+msgstr "default.lanenumber deve essere almeno 1"
 
 #: src/netbuild/NBFrame.cpp:770
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
+"solamente una delle opzioni 'default.disallow' o 'default.allow' può essere "
+"usata alla volta"
 
 #: src/netbuild/NBFrame.cpp:774
 msgid "junctions.internal-link-detail must >= 2"
-msgstr ""
+msgstr "junctions.internal-link-detail deve essere almeno 2"
 
 #: src/netbuild/NBFrame.cpp:779
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
 msgstr ""
+"L'opzione 'junctions.scurve-stretch' richiede l'uso di corsie interne. "
+"L'opzione '--no-internal-links' verrà disattivata."
 
 #: src/netbuild/NBFrame.cpp:786
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr ""
+"l'opzione 'default.junctions.radius' è inferiore all'opzione 'junctions."
+"small-radius'"
 
 #: src/netbuild/NBFrame.cpp:794
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
