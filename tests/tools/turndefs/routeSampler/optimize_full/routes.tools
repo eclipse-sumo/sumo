@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-16 07:34:08.448755 by routeSampler.py v1_18_0+1600-ddd21fefb94
+<!-- generated on 2024-10-13 19:14:21.688203 by routeSampler.py v1_21_0+0025-85f2a55a1cc
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -110,7 +110,7 @@
         <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/>
     </vehicle>
     <vehicle id="33" depart="36.90">
-        <route edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/>
+        <route edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
     </vehicle>
     <vehicle id="34" depart="39.07">
         <route edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/>
@@ -170,7 +170,7 @@
         <route edges="11.80.00 23 23.80.00 31"/>
     </vehicle>
     <vehicle id="53" depart="55.27">
-        <route edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+        <route edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/>
     </vehicle>
     <vehicle id="54" depart="56.63">
         <route edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/>
