@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
+<!-- generated on 2024-10-14 12:37:25 by Eclipse SUMO sumo Version v1_20_0+0641-8aff895acb8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport value="1000"/>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -165,8 +166,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="S_14092-14101_0 :14092_0_0 S_14090-14092_0 :14090_0_0 S_SectionLink_14049-14090_0 :SectionLink_14049_1_0"
                     deadlockCheck="S_14072-14077_0 :14072_0_0 S_14067-14072_0 :14067_0_0 S_11347-14067_0 :11347_0_0 S_11339-11342_0 :11339_0_0 S_SectionLink_11329-11332_0 :SectionLink_11329_0_0 S_11551-11552_0 :11551_0_0 S_SectionLink_11326-11551_0 :SectionLink_11326_0_0 S_SectionLink_11322-11324_0 :SectionLink_11322_1_0 S_11514-11515_0 :11514_0_0 S_11506-11514_0 F_11514-11506_0 :11514_2_0 F_SectionLink_11322-11515_0 :SectionLink_11322_2_0 F_SectionLink_11326-11324_0 :SectionLink_11326_3_0 F_11551-SectionLink_11326_0 :11551_2_0 F_SectionLink_11329-11552_0 :SectionLink_11329_3_0 F_11339-11336_0 :11339_1_0 F_11347-11343_0 :11347_1_0 F_14067-11347_0 :14067_1_0 F_14072-14067_0 :14072_1_0 F_SectionLink_14049-14079_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0 F_14061-14054_0"/>
             <flank lanes=""/>
-            <conflictLinks signals="14092_0"/>
-            <foes driveWays="14092.1 14101.d0 14101.d1"/>
+            <conflictLinks signals=""/>
+            <foes driveWays="14101.d0 14101.d1"/>
         </driveWay>
         <driveWay id="14101.d1" vehicle="v_1" edges="F_14101-14092 F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079 F_14072-14067 F_14067-11347 F_11347-11343 F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515 F_11514-11506">
             <forward lanes="F_14101-14092_0"/>
