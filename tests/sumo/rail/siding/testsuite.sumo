@@ -21,9 +21,6 @@ siding_both_ways4
 # siding cannot be used because it is already occupied
 siding_deadlock
 
-# siding cannot be used because it is already occupied, vehicle routes start or end in the siding
-siding_deadlock2
-
 # driveway should be usable despite occupied siding if the other side is still usable
 siding_occupied_advance
 
@@ -38,21 +35,3 @@ siding_noSignal2
 
 # a loop that reverses on itself can create a deadlock with 3 vehicles
 loop_3veh
-
-# a loop that reverses on itself can create a deadlock with 4 vehicles (2 from either direction)
-loop_4veh
-
-# a loop that reverses on itself can create a deadlock with 4 vehicles (2 from either direction), this time with different driveway initialization order
-loop_4veh2
-
-# collision (caused by rail-signal triggered rerouting)
-loop_4veh3
-
-# deadlock
-triangle_6veh
-
-# deadlock
-circle_3veh
-
-# avoid deadlock by loading a deadlock file
-circle_3veh.loadDL

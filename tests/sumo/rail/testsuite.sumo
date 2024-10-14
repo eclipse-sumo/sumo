@@ -4,6 +4,9 @@ rail_signal
 # test for conflicts and deadlocks involving a siding
 siding
 
+# complex deadlocks that are not found automatically
+deadlocks
+
 # trams driving in a loop servicing stops
 tramwayLoop
 
