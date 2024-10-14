@@ -37,7 +37,7 @@ jobs:
       #     python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-sumo.py sumo/setup.py
 
       # - name: Building wheel eclipse-sumo
-      #   uses: pypa/cibuildwheel@v2.21.2
+      #   uses: pypa/cibuildwheel@v2.21.3
       #   with:
       #     package-dir: sumo
       #     output-dir: wheelhouse
@@ -51,7 +51,7 @@ jobs:
           python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-libsumo.py sumo/tools/setup.py
 
       - name: Building wheel libsumo
-        uses: pypa/cibuildwheel@v2.21.2
+        uses: pypa/cibuildwheel@v2.21.3
         with:
           package-dir: sumo/tools
           output-dir: wheelhouse
