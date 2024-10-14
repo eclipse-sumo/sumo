@@ -64,6 +64,7 @@ def parse_args(def_dmg_name, def_pkg_name):
     op.add_argument("build_dir", help="Build dir of sumo")
     op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
     op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
+    op.add_option("-v", "--verbose", action="store_true", default=False, help="tell me more")
 
     return op.parse_args()
 
@@ -306,7 +307,7 @@ export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
     return app_name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
+def create_installer(frmwk_pkg, app_pkgs, id, version, output_path, verbose):
     cwd = os.path.dirname(os.path.abspath(__file__))
     print(" - Creating temporary directory")
     temp_dir = tempfile.mkdtemp()
@@ -380,7 +381,8 @@ def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
         resources_dir,
         output_path,
     ]
-    subprocess.run(productbuild_command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    out = None if verbose else subprocess.DEVNULL
+    subprocess.run(productbuild_command, check=True, stdout=out, stderr=out)
     pkg_size = os.path.getsize(output_path)
 
     print(" - Cleaning up")
@@ -490,7 +492,8 @@ def main():
 
     # Building the installer package
     print("Building installer")
-    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version, opts.output_pkg)
+    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version,
+                                     opts.output_pkg, opts.verbose)
     print("Successfully built installer\n")
 
     # Putting the installer package into a dmg file - ready for signing
