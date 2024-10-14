@@ -543,6 +543,27 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
             }
         }
     }
+    for (const std::set<const MSDriveWay*>& dlFoes : myDeadlocks) {
+        bool allOccupied = true;
+        for (const MSDriveWay* dlFoe : dlFoes) {
+            if (dlFoe->myTrains.empty()) {
+                allOccupied = false;
+                //std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << "  deadlockCheck clear " << dlFoe->getID() << "\n";
+                break;
+            }
+        }
+        if (allOccupied) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
+                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << "\n";
+            }
+#endif
+            for (const MSDriveWay* dlFoe : dlFoes) {
+                MSRailSignal::blockingDriveWays().push_back(dlFoe);
+            }
+            return true;
+        }
+    }
     return false;
 }
 
@@ -856,6 +877,11 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
                 od.writeAttr("length", siding.length);
                 od.closeTag();
             }
+            od.closeTag();
+        }
+        for (auto item : myDeadlocks) {
+            od.openTag("deadlock");
+            od.writeAttr("foes", joinNamedToStringSorting(item, " "));
             od.closeTag();
         }
     }
@@ -1896,6 +1922,19 @@ MSDriveWay::addConflictLink(const MSLink* link) {
     }
 }
 
+void
+MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
+    std::set<const MSDriveWay*> filtered;
+    for (const MSDriveWay* foe : deadlockFoes) {
+        if (std::find(myFoes.begin(), myFoes.end(), foe) == myFoes.end()) {
+            filtered.insert(foe);
+        }
+    }
+    if (std::find(myDeadlocks.begin(), myDeadlocks.end(), filtered) == myDeadlocks.end()) {
+        myDeadlocks.push_back(filtered);
+        //std::cout << getID() << " deadlockFoes=" << toString(deadlockFoes) << "\n";
+    }
+}
 
 const MSDriveWay*
 MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {

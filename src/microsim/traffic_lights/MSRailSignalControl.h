@@ -60,6 +60,11 @@ public:
         myWaitRelations[waits] = std::make_pair(rs, reason);
     }
 
+    void addDrivewayFollower(const MSDriveWay* dw, const MSDriveWay* dw2);
+
+    /// @brief check whether the given signal and driveway are part of a deadlock circle
+    void addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw);
+
     /// @brief whether there is a circle in the waiting-for relationships that contains the given vehicle
     bool haveDeadlock(const SUMOVehicle* veh) const;
 
@@ -96,6 +101,11 @@ public:
         return myDeadlockChecks;
     }
 
+protected:
+
+    void findDeadlockFoes(const MSDriveWay* dw, const std::vector<const MSRailSignal*>& others, std::vector<const MSDriveWay*> deadlockFoes);
+
+
 private:
     /** @brief Constructor */
     MSRailSignalControl();
@@ -122,6 +132,9 @@ private:
     mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
 
     std::map<const MSRailSignal*, std::vector<const MSRailSignal*> > myDeadlockChecks;
+    std::set<std::set <const MSDriveWay*> > myDWDeadlocks;
+    std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWaySucc;
+    std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWayPred;
 
     /// @brief list of all rail signals
     std::vector<MSRailSignal*> mySignals;

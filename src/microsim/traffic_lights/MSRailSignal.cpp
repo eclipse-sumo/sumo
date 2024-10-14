@@ -355,6 +355,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
         endIndex = (int)edges.size() - 1;
     }
     const int departIndex = ego->getParameter().departEdge;
+    MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego));
     for (int i = departIndex; i <= endIndex - 1; i++) {
         const MSEdge* e = edges[i];
         if (e->isNormal() && e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
@@ -366,7 +367,10 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                         if (rs != nullptr) {
                             LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
                             // init driveway
-                            li.getDriveWay(ego);
+                            MSDriveWay* dw = &li.getDriveWay(ego);
+                            MSRailSignalControl::getInstance().addDrivewayFollower(prev, dw);
+                            MSRailSignalControl::getInstance().addDWDeadlockChecks(rs, prev);
+                            prev = dw;
                             if (update && rs->isActive()) {
                                 // vehicle may have rerouted its intial trip
                                 // after the states have been set

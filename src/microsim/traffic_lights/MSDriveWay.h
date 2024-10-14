@@ -137,8 +137,26 @@ public:
         myFirstVehicle = vehID;
     }
 
+    const std::vector<MSDriveWay*>& getFoes() const {
+        return myFoes;
+    }
+
+    const std::vector<const MSLane*>& getForward() const {
+        return myForward;
+    }
+
     /// @brief whether the give route matches this driveway
     bool match(MSRouteIterator firstIt, MSRouteIterator endIt) const;
+
+    void addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes);
+
+    bool isDepartDriveway() const {
+        return myOrigin == nullptr;
+    };
+
+    const MSLink* getOrigin() const {
+        return myOrigin;
+    }
 
     static void init();
 
@@ -272,10 +290,6 @@ protected:
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);
 
-    bool isDepartDriveway() const {
-        return myOrigin == nullptr;
-    };
-
     bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool recurse=true) const;
 
     bool isFoeOrSubFoe(const MSDriveWay* foe) const;
@@ -317,6 +331,7 @@ private:
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
     std::map<const MSDriveWay*, std::vector<Siding>, ComparatorIdLess> mySidings;
+    std::vector<std::set <const MSDriveWay*> > myDeadlocks;
 
     /* @brief driveways that are not foes but to which this driveway is a foe
      * (must be updated if this driveway is deleted */
