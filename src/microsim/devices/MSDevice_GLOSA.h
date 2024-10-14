@@ -194,8 +194,6 @@ private:
     double myMaxSpeedFactor;
     /// @brief Additional time the vehicle shall need to reach the intersection after the signal turns green
     double myAddSwitchTime;
-    /// @brief if true the queue in front of the TLS is used for calculation
-    bool  myUseQueue;
     /// @brief if true ignore the current light state, always follow GLOSA's predicted state
     bool myOverrideSafety;
     /// @brief if true ignore non-critical speed calculations from the CF model, follow GLOSA's perfect speed calculation
@@ -206,6 +204,8 @@ private:
 
     /// @brief If speedFactor is currently beeing changed by the GLOSA device
     bool mySpeedAdviceActive;
+    /// @brief if true the queue in front of the TLS is used for calculation
+    bool  myUseQueue;
 
 
 private:

@@ -136,9 +136,11 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         double QueueLength = 0;
         double greentime = 0;
         double additionaljunctiontime = 0;
-        // It takes factor [seconds/per meter queue] to dissolve the queue at drive off, LITERATURE REVIEW?
+        // It takes factor [seconds/per meter queue] to dissolve the queue at drive off
+        // experimental value from calibrated drone data
         double factor = 0.21;
-        // Additional time (offset) for the leading vehicle to accelerate, LITERATURE REVIEW?
+        // Additional time (offset) for the leading vehicle to accelerate
+        // experimental value from calibrated drone data
         double addition = 3;
 
         if (myNextTLSLink->haveGreen()) { currentPhaseGreen = true; }
@@ -192,24 +194,23 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 if (countwhile == 2 && myUseQueue) {
                     nextSwitch -= QueueLength * factor + addition;
                 }
-#ifdef DEBUG_GLOSA
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " next phase will be/is green" << "\n";
-                }
-#endif
                 if (mySpeedAdviceActive && myOriginalSpeedFactor > myVeh.getChosenSpeedFactor()) {
                     myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
                     mySpeedAdviceActive = false;
                 }
 #ifdef DEBUG_GLOSA
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " timeToJunction=" << timeToJunction << " nextSwitch=" << nextSwitch << "\n";
+                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " traffic light will be/is green" << "\n";
+                    std::cout << SIMTIME << " veh=" << myVeh.getID()
+                              << " timeToJunction=" << timeToJunction
+                              << " nextSwitch=" << nextSwitch
+                              << " myDistance=" << myDistance << "\n";
                 }
 #endif
                 // if we arrive at the tls after it switched to red (else do nothing)
                 if (timeToJunction > nextSwitch) {
                     // if speed can be increased to arrive at tls while green (else look for next phases)
-                    if (myMaxSpeedFactor > myVeh.getChosenSpeedFactor()) {
+                    if (myMaxSpeedFactor > myOriginalSpeedFactor) {
                         const double vMax2 = vMax / myVeh.getChosenSpeedFactor() * myMaxSpeedFactor;
                         const double timetoJunction2 = earliest_arrival(myDistance, vMax2) + additionaljunctiontime;
                         // reaching the signal at yellow might be sufficient
@@ -242,9 +243,10 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 // tls is red at the moment
 #ifdef DEBUG_GLOSA
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " tls will be/is red"
+                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " traffic light will be/is red";
+                    std::cout << SIMTIME << " veh=" << myVeh.getID()
+                              << " timeToJunction=" << timeToJunction 
                               << " nextSwitch=" << nextSwitch
-                              << " timeToJunction=" << timeToJunction
                               << " myDistance=" << myDistance << "\n";
                 }
 #endif
@@ -364,11 +366,11 @@ MSDevice_GLOSA::getTimeToNextSwitch(const MSLink* tlsLink, bool& currentPhaseGre
     const int cur = countOld;
     SUMOTime result = 0;
 
-    for (int i = 1; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         const auto& phase = phases[(cur + i) % n];
         const char ls = phase->getState()[tlsLink->getTLIndex()];
         if (currentPhaseGreen && (ls == 'g' || ls == 'G')) {
-            countOld = cur + i;
+            countOld = (cur + i)%n;
             break;
         }
         if (currentPhaseStop && (ls != 'g' && ls != 'G')) {
