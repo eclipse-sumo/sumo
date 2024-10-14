@@ -792,6 +792,10 @@ MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveW
             return false;
         }
         i++;
+        if (edge2 == myForward.front()->getNextNormal()) {
+            // foe should not pass from behind through our own forward section
+            return false;
+        }
         if (forward.count(edge2->getBidiEdge()) != 0) {
             return true;
         }
