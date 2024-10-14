@@ -67,7 +67,7 @@ to describe the edges' attributes. In this case, the column to
 retrieve an according street's type name from must be named using **--shapefile.type-id** {{DT_IDList}} and a
 [SUMO edge type file](../../SUMO_edge_type_file.md) must be given to
 [netconvert](../../netconvert.md) using **--type-files** {{DT_FILE}}. If something fails with the
-types or the explicit values, it can be catched using **--shapefile.use-defaults-on-failure**. In these cases,
+types or the explicit values, it can be caught using **--shapefile.use-defaults-on-failure**. In these cases,
 the default [netconvert](../../netconvert.md) values are used. Besides
 this, it is possible to load own [connection
 descriptions](../../Networks/PlainXML.md#connection_descriptions).
