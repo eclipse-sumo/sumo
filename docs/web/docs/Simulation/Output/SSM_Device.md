@@ -154,7 +154,7 @@ For the calculation of those times for the approaching vehicles, we take into ac
 vehicles, if the vehicle is not decelerating, the current speed is extrapolated as a constant (i.e., acceleration is only considered if it is negative).
 
 For some reference to definitions of SSMs see for instance [Guido et al. (2011) "Safety performance measures: a comparison between microsimulation and observational data"](https://doi.org/10.1016/j.sbspro.2011.08.027) or [Mahmud et al. (2016) "Application of proximal surrogate indicators for safety evaluation: A review of recent developments and research needs"](https://doi.org/10.1016/j.iatssr.2017.02.001).
-.
+
 ### TTC
 The time-to-collision is defined for all follow-lead situations for which the follower is faster than the leader. It is given as
 
@@ -298,17 +298,17 @@ Elements of type `<conflict>` hold the following information in their child elem
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "TTC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [TTC-calculation](#ttc).) | --device.ssm.measures "TTC" |
 |              | value   | float >= 0          | The minimal measured TTC-value.                               | --device.ssm.measures "TTC" |
-|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of minTTC.| --device.ssm.measures "TTC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurrence of minTTC.| --device.ssm.measures "TTC" |
 | maxDRAC      | time    | float               | Time point of the maximal measured value for the DRAC.        | --device.ssm.measures "DRAC" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "DRAC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [DRAC-calculation](#drac).)  | --device.ssm.measures "DRAC" |
 |              | value   | float >= 0          | The maximal measured DRAC-value.                              | --device.ssm.measures "DRAC" |
-|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of maxDRAC.| --device.ssm.measures "DRAC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurrence of maxDRAC.| --device.ssm.measures "DRAC" |
 | PET          | time    | float               | Time point of the minimal measured value for the PET. (Usually the PET is only measured once, therefore no PETSpan is reported.)  | --device.ssm.measures "PET" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding encroachment point.           | --device.ssm.measures "PET" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type.  | --device.ssm.measures "PET" |
 |              | value   | float >= 0          | The measured PET-value.                                       | --device.ssm.measures "PET" |
-|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of PET.   | --device.ssm.measures "PET" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurrence of PET.   | --device.ssm.measures "PET" |
 
 
 The `<globalMeasures>` element has the following structure:
@@ -344,7 +344,7 @@ junction:junctionID1
 junction:junctionID2
 ...
 ```
-The edges adjoining the given junctions and the given edges are used to measure the conflicts. Only conflicts occuring at these edges are measured and outputed.
+The edges adjoining the given junctions and the given edges are used to measure the conflicts. Only conflicts occurring at these edges are measured and outputted.
 
 
 ## TraCI

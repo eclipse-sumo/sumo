@@ -240,7 +240,7 @@ reality, as the next picture shows:
 on-/off-ramps**
 
 Furthermore, all streets are unidirectional - even highways. This makes
-the network not usable for traffic simulations when left in the orignal
+the network not usable for traffic simulations when left in the original
 state. Trying to convert the network with **--arcview.all-bidi**, that means trying to insert
 edges bidirectional, makes the city usable, but the highways are even
 worse, now, because also the on-/off-ramps are bidirectional, then...

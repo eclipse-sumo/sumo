@@ -157,7 +157,7 @@ settings.
   - There is no check for unused values
 - WAUT errors
   - How comes that a tls-switch - output is build though errors
-    occured? (see
+    occurred? (see
     tests/sumo/errors/wauts/cross3ltl_error_unknown_wautid)
   - The programs are checked in a lazy way, the error is reported
     too late (see

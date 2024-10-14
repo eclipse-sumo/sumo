@@ -303,7 +303,7 @@ plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE
 <img src="../images/hist_timeLoss_clamped.png" width="500px"/>
 
 !!! caution
-    It is importent to set **-i @NONE** to ensure that the timeLoss values are aggregated by file rather than by vehicle id.
+    It is important to set **-i @NONE** to ensure that the timeLoss values are aggregated by file rather than by vehicle id.
 
 ## plot_trajectories.py
 
@@ -473,7 +473,7 @@ Here the most important options are listed. Use **--help** to see all options.
 | **--min-width-value** {{DT_FLOAT}}                            | If set, defines the minimum edge width value        |
 | **--max-width-value** {{DT_FLOAT}}                            | If set, defines the maximum edge width value        |
 | **-v**<br>**--verbose**                                     | If set, the progress is printed on the screen       |
-| **--internal**                                     | If set, internal edges (of junctions) are included to the genrated shapes.       |
+| **--internal**                                     | If set, internal edges (of junctions) are included to the generated shapes.       |
 
 ## plot_net_selection.py
 
@@ -655,7 +655,7 @@ the measure (vehicles) that fall into a bin.
 | **-i** {{DT_FILE}}[,{{DT_FILE}}]\*<br>**--tripinfos-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read         |
 | **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                          | Defines the measure to read from the summary file                                            |
 | **-v**<br>**--verbose**                                            | If set, the progress is printed on the screen                                                |
-| **--bins** {{DT_INT}}                                               | The number of bins to devide the values into                                                 |
+| **--bins** {{DT_INT}}                                               | The number of bins to divide the values into                                                 |
 | **--norm** {{DT_FLOAT}}                                             | Defines a number by which read values are divided; default: 1.0                              |
 | **--minV** {{DT_FLOAT}}                                             | The minimum value; if set, read values that are lower than this value are set to this value  |
 | **--maxV** {{DT_FLOAT}}                                             | The maximum value; if set, read values that are higher than this value are set to this value |
