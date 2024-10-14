@@ -33,10 +33,10 @@ jobs:
         cd tools
         sudo apt-get update
         sudo apt-get install python3-build
-        python build_config/version.py build_config/setup-sumolib.py ./setup.py
-        python -m build -o ../wheelhouse
-        python build_config/version.py build_config/setup-traci.py ./setup.py
-        python -m build -o ../wheelhouse
+        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
+        python3 -m build -o ../wheelhouse
+        python3 build_config/version.py build_config/setup-traci.py ./setup.py
+        python3 -m build -o ../wheelhouse
 
     - name: Building SUMO / libsumo Python wheels (latest manylinux docker)
       # if: github.repository == 'DLR-TS/sumo'
