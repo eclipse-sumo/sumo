@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 15:10:34 by Eclipse SUMO sumo Version v1_20_0+0597-36c9673207a
+<!-- generated on 2024-10-14 14:15:36 by Eclipse SUMO sumo Version v1_20_0+0644-46a9e118c98
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -41,21 +42,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="B">
         <link linkIndex="0" from="-b_0" to=":B_0_0">
-            <driveWay id="B.0" vehicle="t0" edges="-a">
+            <driveWay id="B.1" vehicle="t0" edges="-a">
                 <forward lanes=":B_0_0 -a_0"/>
                 <bidi lanes=":B_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.d2 B.0"/>
+                <foes driveWays="A.d2 B.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="a_0" to=":B_1_0">
-            <driveWay id="B.1" vehicle="t0" edges="b">
+            <driveWay id="B.0" vehicle="t0" edges="b">
                 <forward lanes=":B_1_0 b_0"/>
                 <bidi lanes=":B_0_0 -b_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="C_0"/>
-                <foes driveWays="B.1 B.d0 C.0 C.d1"/>
+                <foes driveWays="B.0 B.d0 C.0 C.d1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -66,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":C_1_0 b_0 :B_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="B.1 B.d0 C.0 C.d1"/>
+                <foes driveWays="B.0 B.d0 C.0 C.d1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="b_0" to=":C_1_0"/>
@@ -77,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="b_0 :B_1_0 a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="C_0"/>
-            <foes driveWays="B.1 B.d0 C.0 C.d1"/>
+            <foes driveWays="B.0 B.d0 C.0 C.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="A">
@@ -86,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="B_0"/>
-            <foes driveWays="A.d2 B.0"/>
+            <foes driveWays="A.d2 B.1"/>
         </driveWay>
     </departJunction>
     <departJunction id="B">
@@ -95,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-b_0"/>
             <flank lanes=""/>
             <conflictLinks signals="B_1 C_0"/>
-            <foes driveWays="B.1 B.d0 C.0 C.d1"/>
+            <foes driveWays="B.0 B.d0 C.0 C.d1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

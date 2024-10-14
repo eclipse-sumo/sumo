@@ -1,12 +1,12 @@
 <railSignal id="B">
     <link linkIndex="0" from="-b_0" to=":B_0_0">
-        <driveWay id="B.0">
+        <driveWay id="B.1">
             <entry id="t0" time="36.00" reason="1"/>
             <exit id="t0" time="80.00" reason="5"/>
         </driveWay>
     </link>
     <link linkIndex="1" from="a_0" to=":B_1_0">
-        <driveWay id="B.1"/>
+        <driveWay id="B.0"/>
     </link>
 </railSignal>
 <railSignal id="C">
