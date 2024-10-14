@@ -330,17 +330,10 @@ private:
     std::map<const MSDriveWay*, std::vector<Siding>, ComparatorIdLess> mySidings;
     std::vector<std::set <const MSDriveWay*> > myDeadlocks;
 
-    /* @brief driveways that are not foes but to which this driveway is a foe
-     * (must be updated if this driveway is deleted */
-    std::vector<MSDriveWay*> myUpdateDelete;
-
     /* @brief shortened versions of this driveway to be used as foes instead of the long original
      * (ends as soon as the train has left a particular conflict section)
      * they are never attached to a LinkInfo and thus never the target of the match() function */
     std::vector<MSDriveWay*> mySubDriveWays;
-
-    /// @brief track own occurences in mySwitchDriveWays for cleanup in destructor
-    std::vector<const MSLink*> myForwardSwitches;
 
     /// @brief track own occurences in myReversalDriveWays for cleanup in destructor
     std::vector<const MSEdge*> myReversals;

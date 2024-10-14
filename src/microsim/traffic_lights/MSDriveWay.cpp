@@ -110,62 +110,7 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
 {}
 
 
-MSDriveWay::~MSDriveWay() {
-    for (SUMOVehicle* veh : myTrains) {
-        MSBaseVehicle* bVeh = dynamic_cast<MSBaseVehicle*>(veh);
-        bVeh->removeReminder(this);
-    }
-    for (const MSLane* lane : myForward) {
-        const_cast<MSLane*>(lane)->removeMoveReminder(this);
-    }
-    cleanupPointersToSelf(myFoes);
-    cleanupPointersToSelf(myUpdateDelete);
-    for (const MSLink* link : myForwardSwitches) {
-        std::vector<MSDriveWay*>& dws = mySwitchDriveWays[link];
-        dws.erase(std::find(dws.begin(), dws.end(), this));
-    }
-    for (const MSEdge* edge : myReversals) {
-        std::vector<MSDriveWay*>& dws = myReversalDriveWays[edge];
-        dws.erase(std::find(dws.begin(), dws.end(), this));
-    }
-    if (myLane != nullptr) {
-        const MSEdge* first = &myLane->getEdge();
-        if (isDepartDriveway() && !myIsSubDriveway) {
-            std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
-            dws.erase(std::find(dws.begin(), dws.end(), this));
-            std::vector<MSDriveWay*>& dws2 = myDepartureDrivewaysEnds[&myForward.back()->getEdge()];
-            dws2.erase(std::find(dws2.begin(), dws2.end(), this));
-        }
-    }
-    if (myNumericalID != -1 && myForward.size() > 0 && !myIsSubDriveway) {
-        std::vector<MSDriveWay*>& dws = myEndingDriveways[&myForward.back()->getEdge()];
-        dws.erase(std::find(dws.begin(), dws.end(), this));
-    }
-    for (const MSDriveWay* sub : mySubDriveWays) {
-        delete sub;
-    }
-}
-
-void
-MSDriveWay::cleanupPointersToSelf(const std::vector<MSDriveWay*> others) {
-    for (MSDriveWay* foe : others) {
-        if (foe == this) {
-            continue;
-        }
-        auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
-        if (it != foe->myFoes.end()) {
-            foe->myFoes.erase(it);
-        }
-        auto it2 = foe->mySidings.find(this);
-        if (it2 != foe->mySidings.end()) {
-            foe->mySidings.erase(it2);
-        }
-        auto it3 = std::find(foe->myUpdateDelete.begin(), foe->myUpdateDelete.end(), this);
-        if (it3 != foe->myUpdateDelete.end()) {
-            foe->myUpdateDelete.erase(it3);
-        }
-    }
-}
+MSDriveWay::~MSDriveWay() { }
 
 void
 MSDriveWay::cleanup() {
@@ -1045,7 +990,6 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     // switch on driveway
                     //std::cout << "mySwitchDriveWays " << getID() << " link=" << link->getDescription() << "\n";
                     mySwitchDriveWays[link].push_back(this);
-                    myForwardSwitches.push_back(link);
                 }
                 if (link->getLane()->getBidiLane() != nullptr && &link->getLane()->getEdge() == current->getBidiEdge()) {
                     // reversal on driveway
@@ -1359,7 +1303,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
 #endif
                 foe->myFoes.push_back(dw);
                 foe->addSidings(dw);
-                dw->myUpdateDelete.push_back(foe);
             } else {
                 dw->buildSubFoe(foe, movingBlock);
             }
@@ -1371,7 +1314,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
 #endif
                 dw->myFoes.push_back(foe);
                 dw->addSidings(foe);
-                foe->myUpdateDelete.push_back(dw);
             } else  {
                 foe->buildSubFoe(dw, movingBlock);
             }
@@ -1680,14 +1622,12 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
                 foe->myFoes.push_back(this);
                 // foe will get the sidings
                 addSidings(foe, true);
-                myUpdateDelete.push_back(foe);
             }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " terminates\n";
 #endif
         } else if (myTerminateRoute && myBidi.size() <= myForward.size()) {
             foe->myFoes.push_back(this);
-            myUpdateDelete.push_back(foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terminates, foe=" << foe->getID() << "\n";
 #endif
