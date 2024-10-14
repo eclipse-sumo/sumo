@@ -155,10 +155,6 @@ MSRailSignal::updateCurrentPhase() {
 #endif
             } else {
                 state[li.myLink->getTLIndex()] = 'G';
-                if (driveway.getFlank().size() > 0 && myCurrentPhase.getState()[li.myLink->getTLIndex()] != 'G') {
-                    // schedule recheck
-                    MSRailSignalControl::getInstance().addGreenFlankSwitch(li.myLink, driveway.getNumericalID());
-                }
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4) {
                     std::cout << SIMTIME << " rsl=" << li.getID() << " veh=" << closest.first->getID() << " reserved\n";

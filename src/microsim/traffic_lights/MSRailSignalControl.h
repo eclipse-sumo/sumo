@@ -83,10 +83,6 @@ public:
         return mySignals;
     }
 
-    void addGreenFlankSwitch(MSLink* link, int dwID) {
-        mySwitchedGreenFlanks.emplace_back(link, dwID);
-    }
-
     /// @brief final check for driveway compatibility of signals that switched green in this step
     void recheckGreen();
 
@@ -113,7 +109,6 @@ private:
     mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
 
     std::map<const MSRailSignal*, std::vector<const MSRailSignal*> > myDeadlockChecks;
-    std::set<std::set <const MSDriveWay*> > myDWDeadlocks;
     std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWaySucc;
     std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWayPred;
 

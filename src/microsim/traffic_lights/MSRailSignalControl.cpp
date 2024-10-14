@@ -32,8 +32,6 @@
 #include "MSRailSignalControl.h"
 
 
-//#define DEBUG_SIGNALSTATE
-//#define DEBUG_RECHECKGREEN
 //#define DEBUG_BUILD_DEADLOCK_CHECK
 
 // ===========================================================================
@@ -69,7 +67,6 @@ MSRailSignalControl::clearState() {
         myInstance->myDriveWaySucc.clear();
         myInstance->myDriveWayPred.clear();
         myInstance->myWrittenDeadlocks.clear();
-        myInstance->myDWDeadlocks.clear();
         myInstance->myDeadlockChecks.clear();
     }
 }
@@ -96,75 +93,6 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
 void
 MSRailSignalControl::addSignal(MSRailSignal* signal) {
     mySignals.push_back(signal);
-}
-
-
-void
-MSRailSignalControl::recheckGreen() {
-    if (mySwitchedGreenFlanks.size() > 0) {
-        for (const auto& item : mySwitchedGreenFlanks) {
-            for (const auto& item2 : mySwitchedGreenFlanks) {
-                if (item.second < item2.second) {
-                    bool conflict = false;
-                    std::pair<int, int> code(item.second, item2.second);
-                    auto it = myDriveWayCompatibility.find(code);
-                    if (it != myDriveWayCompatibility.end()) {
-                        conflict = it->second;
-                    } else {
-                        // new driveway pair
-                        const MSRailSignal* rs = static_cast<const MSRailSignal*>(item.first->getTLLogic());
-                        const MSRailSignal* rs2 = static_cast<const MSRailSignal*>(item2.first->getTLLogic());
-                        const MSDriveWay& dw = rs->retrieveDriveWay(item.second);
-                        const MSDriveWay& dw2 = rs2->retrieveDriveWay(item2.second);
-                        // overlap may return true if the driveways are consecutive forward sections
-                        conflict = dw.flankConflict(dw2) || dw2.flankConflict(dw);
-                        myDriveWayCompatibility[code] = conflict;
-#ifdef DEBUG_RECHECKGREEN
-                        std::cout << SIMTIME << " new code " << code.first << "," << code.second << " conflict=" << conflict << " dw=" << toString(dw.myRoute) << " dw2=" << toString(dw2.myRoute) << "\n";
-#endif
-                    }
-                    if (conflict) {
-                        MSRailSignal* rs = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(item.first->getTLLogic()));
-                        MSRailSignal* rs2 = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(item2.first->getTLLogic()));
-                        const MSRailSignal::Approaching& veh = item.first->getClosest();
-                        const MSRailSignal::Approaching& veh2 = item2.first->getClosest();
-                        if (MSDriveWay::mustYield(veh, veh2)) {
-                            std::string state = rs->getCurrentPhaseDef().getState();
-                            state[item.first->getTLIndex()] = 'r';
-                            const_cast<MSPhaseDefinition&>(rs->getCurrentPhaseDef()).setState(state);
-                            rs->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-#ifdef DEBUG_RECHECKGREEN
-                            std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item.first)
-                                      << " (" << veh.first->getID() << " yields to " << veh2.first->getID() << "\n";
-#endif
-#ifdef DEBUG_SIGNALSTATE
-                            if (DEBUG_HELPER(rs)) {
-                                std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item.first)
-                                          << " (" << veh.first->getID() << " yields to " << veh2.first->getID() << "\n";
-                            }
-#endif
-                        } else {
-                            std::string state = rs2->getCurrentPhaseDef().getState();
-                            state[item2.first->getTLIndex()] = 'r';
-                            const_cast<MSPhaseDefinition&>(rs2->getCurrentPhaseDef()).setState(state);
-                            rs2->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-#ifdef DEBUG_RECHECKGREEN
-                            std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item2.first)
-                                      << " (" << veh2.first->getID() << " yields to " << veh.first->getID() << "\n";
-#endif
-#ifdef DEBUG_SIGNALSTATE
-                            if (DEBUG_HELPER(rs2)) {
-                                std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item2.first)
-                                          << " (" << veh2.first->getID() << " yields to " << veh.first->getID() << "\n";
-                            }
-#endif
-                        }
-                    }
-                }
-            }
-        }
-        mySwitchedGreenFlanks.clear();
-    }
 }
 
 
