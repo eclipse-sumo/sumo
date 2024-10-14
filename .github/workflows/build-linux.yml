@@ -65,6 +65,7 @@ jobs:
         path: jupedsim
 
     - name: ccache
+      # do a clean build once a day
       if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2
       with:
@@ -74,7 +75,7 @@ jobs:
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
         sudo apt-get install libgeos-dev
-        cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=jupedsim-install jupedsim
+        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
         cmake --build jupedsim-build -j4 --config Release
         cmake --install jupedsim-build --config Release
 
