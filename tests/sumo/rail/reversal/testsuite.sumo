@@ -102,3 +102,6 @@ reversal_after_common_block
 
 # vehicle should not be assigned to a subDriveway if it would have to leave via reversal
 subdriveway_reversal
+
+# consecutive signals for the same route should not be foes if the train branches of after reversal and before entering their section
+consecutive_before_reversal
