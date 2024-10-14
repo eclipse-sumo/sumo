@@ -17,6 +17,9 @@ For instance, a single vehicle can be equipped (with a device parametrized by de
 </routes>
 ```
 
+## Preparing the network file
+The SSM device makes use of the [right-of-way information](../../../Networks/SUMO_Road_Networks.md#junctions_and_right-of-way) of the intersections to derive some of the measures. It uses the foe matrix of the right-of-way definition to extract crossing and merging paths. If an intersection is set to **unregulated**, this information is not available and thus e.g. no PET measure can be computed for this intersection.
+
 ## Output File
 
 The SSM device generates an output file (one for each vehicle named `ssm_<vehicleID>.xml` per default, but several vehicles may write to the same file).
