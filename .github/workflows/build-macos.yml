@@ -31,11 +31,6 @@ jobs:
         path: sumo
         fetch-depth: 0
 
-    - name: Fetching SUMO tags
-      run: |
-        cd sumo
-        git fetch --tags --force
-
     - name: Preparing Build System
       run: |
         brew update

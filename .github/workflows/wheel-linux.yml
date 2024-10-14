@@ -28,10 +28,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Fetching SUMO tags
-      run: |
-        git fetch --tags --force
-
     - name: Building sumolib / traci (pure Python) wheels and sdist
       run: |
         cd tools
