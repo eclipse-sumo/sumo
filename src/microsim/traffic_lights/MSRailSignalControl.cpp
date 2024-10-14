@@ -32,7 +32,6 @@
 #include "MSRailSignalControl.h"
 
 
-//#define DEBUG_REGISTER_DRIVEWAY
 //#define DEBUG_SIGNALSTATE
 //#define DEBUG_RECHECKGREEN
 //#define DEBUG_BUILD_DEADLOCK_CHECK
@@ -66,8 +65,6 @@ MSRailSignalControl::cleanup() {
 void
 MSRailSignalControl::clearState() {
     if (myInstance != nullptr) {
-        myInstance->myUsedEdges.clear();
-        myInstance->myProtectedDriveways.clear();
         myInstance->myDriveWayCompatibility.clear();
         myInstance->myDriveWaySucc.clear();
         myInstance->myDriveWayPred.clear();
@@ -84,17 +81,6 @@ MSRailSignalControl::~MSRailSignalControl() {
 void
 MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
     if (isRailway(vehicle->getVClass())) {
-        if (to == MSNet::VehicleState::NEWROUTE || to == MSNet::VehicleState::DEPARTED || to == MSNet::VehicleState::BUILT) {
-            for (const MSEdge* edge : vehicle->getRoute().getEdges()) {
-                myUsedEdges.insert(edge);
-                if (myProtectedDriveways.count(edge) != 0) {
-#ifdef DEBUG_REGISTER_DRIVEWAY
-                    std::cout << "MSRailSignalControl edge=" << edge->getID() << " used by vehicle " << vehicle->getID() << ". Updating " << myProtectedDriveways[edge].size() << " driveways, time=" << time2string(SIMSTEP) << "\n";
-#endif
-                    updateDriveways(edge);
-                }
-            }
-        }
         std::string dummyMsg;
         if ((to == MSNet::VehicleState::BUILT && (!vehicle->getParameter().wasSet(VEHPARS_FORCE_REROUTE) || vehicle->hasValidRoute(dummyMsg)))
                 || (!vehicle->hasDeparted() && to == MSNet::VehicleState::NEWROUTE)) {
@@ -104,28 +90,6 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
             }
         }
     }
-}
-
-
-void
-MSRailSignalControl::registerProtectedDriveway(MSRailSignal* rs, const MSEdge* first, int driveWayID, const MSEdge* protectedBidi) {
-    myProtectedDriveways[protectedBidi].push_back(ProtectedDriveway(rs, first, driveWayID));
-#ifdef DEBUG_REGISTER_DRIVEWAY
-    std::cout << "MSRailSignalControl edge=" << protectedBidi->getID() << " assumed secure by driveway " << driveWayID << " at signal " << Named::getIDSecure(rs) << " first=" << first->getID() << "\n";
-#endif
-}
-
-
-void
-MSRailSignalControl::updateDriveways(const MSEdge* used) {
-    for (const ProtectedDriveway& pdw : myProtectedDriveways[used]) {
-        if (pdw.rs != nullptr) {
-            pdw.rs->updateDriveway(pdw.dwID);
-        } else {
-            MSDriveWay::updateDepartDriveway(pdw.first, pdw.dwID);
-        }
-    }
-    myProtectedDriveways.erase(used);
 }
 
 

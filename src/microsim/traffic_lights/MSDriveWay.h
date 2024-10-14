@@ -191,9 +191,6 @@ protected:
     /// @brief whether the current signal is switched green for a train approaching this block
     const SUMOVehicle* myActive;
 
-    /// @brief switch assumed safe from bidi-traffic
-    const MSEdge* myProtectedBidi;
-
     /// @brief list of edges for matching against train routes
     std::vector<const MSEdge*> myRoute;
 

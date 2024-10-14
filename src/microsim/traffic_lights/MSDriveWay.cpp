@@ -102,7 +102,6 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
         myOrigin(origin),
         myMaxFlankLength(0),
         myActive(nullptr),
-        myProtectedBidi(nullptr),
         myCoreSize(0),
         myFoundSignal(false),
         myFoundJump(false),
@@ -1000,49 +999,19 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                             continue;
                         }
                         if (link->getViaLaneOrLane() != bidi) {
-                            const MSEdge* const bidiNext = bidi->getNextNormal();
                             myCoreSize = (int)myRoute.size();
-                            if (MSRailSignalControl::getInstance().getUsedEdges().count(bidiNext) == 0 && false) {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-                                if (gDebugFlag4) {
-                                    std::cout << "      abort: found protecting switch " << ili.viaLink->getDescription() << "\n";
-                                }
+                            if (gDebugFlag4) {
+                                const MSEdge* const bidiNext = bidi->getNextNormal();
+                                std::cout << "      found unsafe switch " << ili.viaLink->getDescription() << " (used=" << bidiNext->getID() << ")\n";
+                            }
 #endif
-                                // if bidi is actually used by a train (rather than
-                                // the other route) we must later adapt this driveway for additional checks (myBidiExtended)
-                                myProtectedBidi = bidiNext;
-                                std::set<const MSEdge*> visitedEdges;
-                                for (auto item : visited) {
-                                    visitedEdges.insert(&item.first->getEdge());
-                                }
-                                while (next != end) {
-                                    // if bidiNext is used at some point, this driveway will be updated
-                                    // by looking further along the route until a new protecting switch is found or there are no more bidi edges.
-                                    // For this reason, we must record the rest of the route (or at least up to where it loops back on itself).
-                                    // This leads to seemingly redundant driveways that may be differentiated on update.
-                                    visitedEdges.insert(*next);
-                                    const MSEdge* nextBidi = (*next)->getBidiEdge();
-                                    if (nextBidi != nullptr) {
-                                        visitedEdges.insert(nextBidi);
-                                    }
-                                    myRoute.push_back(*next);
-                                    next++;
-                                }
-                                return;
-                            } else {
-#ifdef DEBUG_DRIVEWAY_BUILDROUTE
-                                if (gDebugFlag4) {
-                                    std::cout << "      found unsafe switch " << ili.viaLink->getDescription() << " (used=" << bidiNext->getID() << ")\n";
-                                }
-#endif
-                                // trains along our route beyond this switch
-                                // might create deadlock
-                                foundUnsafeSwitch = true;
-                                // the switch itself must still be guarded to ensure safety
-                                for (const auto& ili2 : bidi->getIncomingLanes()) {
-                                    if (ili2.viaLink->getDirection() != LinkDirection::TURN) {
-                                        flankSwitches.insert(ili.viaLink);
-                                    }
+                            // trains along our route beyond this switch might create deadlock
+                            foundUnsafeSwitch = true;
+                            // the switch itself must still be guarded to ensure safety
+                            for (const auto& ili2 : bidi->getIncomingLanes()) {
+                                if (ili2.viaLink->getDirection() != LinkDirection::TURN) {
+                                    flankSwitches.insert(ili.viaLink);
                                 }
                             }
                         }
@@ -1320,9 +1289,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         before.push_back(fromBidi);
     }
     dw->buildRoute(link, 0., first, end, visited, flankSwitches);
-    if (dw->myProtectedBidi == nullptr) {
-        dw->myCoreSize = (int)dw->myRoute.size();
-    }
+    dw->myCoreSize = (int)dw->myRoute.size();
     dw->checkFlanks(link, dw->myForward, visited, true, flankSwitches);
     dw->checkFlanks(link, dw->myBidi, visited, false, flankSwitches);
     dw->checkFlanks(link, before, visited, true, flankSwitches);
@@ -1364,10 +1331,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
     dw->myConflictLanes.insert(dw->myConflictLanes.end(), dw->myBidi.begin(), dw->myBidi.end());
     dw->myConflictLanes.insert(dw->myConflictLanes.end(), dw->myFlank.begin(), dw->myFlank.end());
-    if (dw->myProtectedBidi != nullptr) {
-        MSRailSignalControl::getInstance().registerProtectedDriveway(rs, dw->myRoute.front(), dw->myNumericalID, dw->myProtectedBidi);
-    }
-
     dw->addBidiFoes(rs, false);
     dw->addBidiFoes(rs, true);
     // add driveways that start on the same signal / lane
@@ -1964,27 +1927,6 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
     dw->setVehicle(veh->getID());
     return dw;
-}
-
-
-void
-MSDriveWay::updateDepartDriveway(const MSEdge* first, int dwID) {
-    for (MSDriveWay* oldDW : myDepartureDriveways[first]) {
-        if (oldDW->getNumericalID() == dwID) {
-#ifdef DEBUG_BUILD_DRIVEWAY
-            if (DEBUG_COND_DW) {
-                std::cout << "updateDepartDriveway " << oldDW->getID() << "\n";
-            }
-#endif
-            MSDriveWay* dw = buildDriveWay(oldDW->getID(), nullptr, oldDW->myRoute.begin(), oldDW->myRoute.end());
-            dw->myVehicleEvents = oldDW->myVehicleEvents;
-            myDepartureDriveways[first].push_back(dw);
-            myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
-            delete oldDW;
-            return;
-        }
-    }
-    WRITE_WARNINGF("Could not update depart-driveway % starting on edge %", dwID, first->getID());
 }
 
 

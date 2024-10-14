@@ -77,13 +77,6 @@ public:
      */
     void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
-    /// @brief mark driveway that must receive additional checks if protectedBidi is ever used by a train route
-    void registerProtectedDriveway(MSRailSignal* rs, const MSEdge* first, int driveWayID, const MSEdge* protectedBidi);
-
-    const std::set<const MSEdge*>& getUsedEdges() const {
-        return myUsedEdges;
-    }
-
     void addSignal(MSRailSignal* signal);
 
     const std::vector<MSRailSignal*>& getSignals() const {
@@ -115,18 +108,6 @@ private:
 
     /// @brief all rail edges that are part of a known route
     std::set<const MSEdge*> myUsedEdges;
-
-    struct ProtectedDriveway {
-        ProtectedDriveway(MSRailSignal* _rs, const MSEdge* _first, int _dwID) :
-            rs(_rs), first(_first), dwID(_dwID) {};
-
-        MSRailSignal* rs;
-        const MSEdge* first;
-        int dwID;
-    };
-
-    /// @brief map of driveways that must perform additional checks if the key edge is used by a train route
-    std::map<const MSEdge*, std::vector<ProtectedDriveway> > myProtectedDriveways;
 
     std::map<const SUMOVehicle*, std::pair<const MSRailSignal*, const SUMOVehicle*> > myWaitRelations;
     mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;

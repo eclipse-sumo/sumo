@@ -630,30 +630,6 @@ MSRailSignal::retrieveDriveWays(int tlIndex) const {
 }
 
 
-void
-MSRailSignal::updateDriveway(int numericalID) {
-    for (LinkInfo& li : myLinkInfos) {
-        for (auto it = li.myDriveways.begin(); it != li.myDriveways.end(); it++) {
-            const MSDriveWay* dw = *it;
-            if (dw->getNumericalID() == numericalID) {
-#ifdef DEBUG_DRIVEWAY_UPDATE
-                std::cout << SIMTIME << " rail signal junction '" << getID() << "' requires update for driveway " << numericalID << "\n";
-#endif
-                std::string oldID = dw->getID();
-                std::vector<const MSEdge*> route = dw->getRoute();
-                auto oldEvents = dw->getEvents();
-                delete *it;
-                li.myDriveways.erase(it);
-                // restore driveway to preserve events
-                MSDriveWay* newDW = MSDriveWay::buildDriveWay(oldID, li.myLink, route.begin(), route.end());
-                newDW->setEvents(oldEvents);
-                li.myDriveways.push_back(newDW);
-                return;
-            }
-        }
-    }
-}
-
 std::string
 MSRailSignal::getBlockingVehicleIDs() const {
     MSRailSignal* rs = const_cast<MSRailSignal*>(this);
