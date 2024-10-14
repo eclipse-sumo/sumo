@@ -238,7 +238,6 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
             const MSDriveWay& foeDriveWay = foeRS->retrieveDriveWayForVeh(foeLink->getTLIndex(), foe.first);
             MSEdgeVector occupied;
             if (foeDriveWay.foeDriveWayOccupied(false, foe.first, occupied) ||
-                    foeDriveWay.deadlockLaneOccupied(nullptr, false) ||
                     !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay) ||
                     !isFoeOrSubFoe(&foeDriveWay) ||
@@ -603,52 +602,6 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
     }
     return false;
 }
-
-bool
-MSDriveWay::deadlockLaneOccupied(const SUMOVehicle* ego, bool store) const {
-    for (const MSLane* lane : myBidiExtended) {
-        if (!lane->empty()) {
-            assert(myBidi.size() != 0);
-            const MSEdge* lastBidi = myBidi.back()->getNextNormal();
-            MSVehicle* foe = lane->getVehiclesSecure().front();
-            lane->releaseVehicles();
-            if (foe == ego) {
-                continue;
-            }
-#ifdef DEBUG_SIGNALSTATE
-            if (gDebugFlag4) {
-                std::cout << "  check for deadlock with " << foe->getID() << "\n";
-            }
-#endif
-            // check of foe will enter myBidi (need to check at most
-            // myBidiExtended.size edges)
-            const int minEdges = (int)myBidiExtended.size();
-            auto foeIt = foe->getCurrentRouteEdge() + 1;
-            auto foeEnd = foe->getRoute().end();
-            bool conflict = false;
-            for (int i = 0; i < minEdges && foeIt != foeEnd; i++) {
-                if ((*foeIt) == lastBidi) {
-#ifdef DEBUG_SIGNALSTATE
-                    if (gDebugFlag4) {
-                        std::cout << "    vehicle will enter " << lastBidi->getID() << "\n";
-                    }
-#endif
-                    conflict = true;
-                    break;
-                }
-                foeIt++;
-            }
-            if (conflict) {
-                if (MSRailSignal::storeVehicles() && store) {
-                    MSRailSignal::blockingVehicles().push_back(foe);
-                }
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 
 bool
 MSDriveWay::overlap(const MSDriveWay& other) const {
