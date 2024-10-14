@@ -7,6 +7,9 @@ siding
 # complex deadlocks that are not found automatically
 deadlocks
 
+# complex deadlocks that are not found automatically but are avoided by loading deadlock hints.
+deadlocks_loadHints
+
 # trams driving in a loop servicing stops
 tramwayLoop
 

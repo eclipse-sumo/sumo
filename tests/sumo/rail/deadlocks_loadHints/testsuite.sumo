@@ -13,5 +13,5 @@ loop_4veh3
 # deadlock
 triangle_6veh
 
-# deadlock
+# avoid deadlock by loading a deadlock file
 circle_3veh
