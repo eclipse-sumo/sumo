@@ -1501,7 +1501,7 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
 #endif
                 return false;
             }
-            if (!myFoundJump && prev->getBidiEdge() == next) {
+            if (!myFoundJump && prev->getBidiEdge() == next && prev == &myForward.back()->getEdge()) {
                 assert(myIsSubDriveway);
                 // must not leave driveway via reversal
 #ifdef DEBUG_MATCH
