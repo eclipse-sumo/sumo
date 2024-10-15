@@ -1688,18 +1688,18 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     auto foeSearchBeg = foe->myRoute.begin() + forwardNormals;
     auto foeSearchEnd = foe->myRoute.end();
     if (foeEndBidi == nullptr) {
-        throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " noBidi\n");
+        throw ProcessError("checkSiding " + getID() + " foe=" + foe->getID() + " noBidi\n");
     }
     int i;
-    int start = -1;
-    double length = 0;
+    std::vector<int> start;
+    std::vector<double> length;
     for (i = 0; i < (int)myRoute.size(); i++) {
         if (myRoute[i] == foeEndBidi) {
             break;
         }
     }
     if (i == (int)myRoute.size()) {
-        throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
+        throw ProcessError("checkSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
     }
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
@@ -1708,14 +1708,13 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     i--;
     for (; i >= 0; i--) {
         const MSEdge* cur = myRoute[i];
-        if (start == -1) {
-            if (hasRS(cur, next)) {
-                if (std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge()) == foeSearchEnd) {
-                    start = i;
-                    length = cur->getLength();
-                }
+        if (hasRS(cur, next)) {
+            if (std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge()) == foeSearchEnd) {
+                start.push_back(i);
+                length.push_back(0);
             }
-        } else {
+        }
+        if (!start.empty()) {
             auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
             if (itFind != foeSearchEnd) {
 #ifdef DEBUG_BUILD_SIDINGS
@@ -1728,21 +1727,27 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                     const MSEdge* first = myRoute[firstIndex];
                     auto itFirst = std::find(foe->myRoute.begin(), foe->myRoute.end(), first);
                     if (itFirst != foe->myRoute.end()) {
-                        const MSEdge* last = myRoute[start];
-                        auto itLast = std::find(itFirst, foe->myRoute.end(), last);
-                        if (itLast != foe->myRoute.end()) {
-                            foeSidings.insert(foeSidings.begin(), Siding(itFirst - foe->myRoute.begin(), itLast - foe->myRoute.begin(), length));
+                        for (int j = 0; j < (int)length.size(); j++) {
+                            const MSEdge* last = myRoute[start[j]];
+                            auto itLast = std::find(itFirst, foe->myRoute.end(), last);
+                            if (itLast != foe->myRoute.end()) {
+                                foeSidings.insert(foeSidings.begin(), Siding(itFirst - foe->myRoute.begin(), itLast - foe->myRoute.begin(), length[j]));
+                            }
                         }
                     }
                 } else {
                     auto& foeSidings = mySidings[foe];
-                    foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start, length));
+                    for (int j = 0; j < (int)length.size(); j++) {
+                        foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start[j], length[j]));
+                    }
                 }
-                start = -1;
-                length = 0;
+                start.clear();
+                length.clear();
                 foeSearchBeg = itFind;
             } else {
-                length += cur->getLength();
+                for (int j = 0; j < (int)length.size(); j++) {
+                    length[j] += cur->getLength();
+                }
             }
         }
         next = cur;
