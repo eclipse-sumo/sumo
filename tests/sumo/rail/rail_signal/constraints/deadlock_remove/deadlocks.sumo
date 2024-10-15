@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-15 11:50:54 by Eclipse SUMO sumo Version v1_20_0+0662-36f48e67704
+<!-- generated on 2024-10-15 12:19:28 by Eclipse SUMO sumo Version v1_20_0+0665-7d9ea4f130b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport.remove-constraint value="true"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
@@ -41,5 +42,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <constraintDeadlock time="231.00" signals="A D" vehicles="t1 t0" tripIds="t1 t0"/>
+    <constraintDeadlock time="231.00" signals="A D" vehicles="t1 t0" tripIds="t1 t0">
+        <resolvedConstraint id="A">
+            <predecessor tripId="t0" tl="D" foes="t1" active="0"/>
+        </resolvedConstraint>
+    </constraintDeadlock>
 </additional>
