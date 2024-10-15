@@ -136,11 +136,11 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
         if (!constraints.empty() && oc.getBool("time-to-teleport.remove-constraint")) {
             resolved = constraints.front();
             if (newDeadlock) {
-                std::vector<std::string> tripIDs;
+                std::vector<std::string> vehicles;
                 for (auto item : list) {
-                    tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
+                    vehicles.push_back(item.foe->getID());
                 }
-                WRITE_WARNINGF("Deactivating constraint to resolve deadlock between tripIds % at time %.", toString(tripIDs), time2string(SIMSTEP));
+                WRITE_WARNINGF("Deactivating constraint to resolve deadlock between vehicles % at time %.", toString(vehicles), time2string(SIMSTEP));
                 resolved->setActive(false);
                 resolvedUnblocked = constraintBlocked.front();
                 resolvedSignal = constraintSignals.front();
