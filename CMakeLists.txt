@@ -395,6 +395,7 @@ if (SUMO_LIBRARIES AND WIN32)
 #                                 "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
