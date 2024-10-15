@@ -96,17 +96,27 @@ MSRailSignalControl::addSignal(MSRailSignal* signal) {
 }
 
 
+void
+MSRailSignalControl::addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint) {
+    myWaitRelations[waits] = WaitRelation(rs, reason, constraint);
+}
+
+
 bool
 MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
     std::set<const SUMOVehicle*> seen;
-    std::vector<std::pair<const MSRailSignal*, const SUMOVehicle*> > list;
+    std::vector<WaitRelation> list;
     const SUMOVehicle* cur = veh;
+    std::vector<MSRailSignalConstraint*> constraints;
     while (seen.count(cur) == 0) {
         auto it = myWaitRelations.find(cur);
         if (it != myWaitRelations.end()) {
+            if (it->second.constraint != nullptr) {
+                constraints.push_back(it->second.constraint);
+            }
             seen.insert(cur);
             list.push_back(it->second);
-            cur = it->second.second;
+            cur = it->second.foe;
         } else {
             return false;
         }
@@ -117,15 +127,24 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                 myWrittenDeadlocks.insert(seen);
                 std::vector<std::string> signals;
                 std::vector<std::string> vehicles;
+                std::vector<std::string> tripIDs;
                 for (auto item : list) {
-                    signals.push_back(item.first->getID());
-                    vehicles.push_back(item.second->getID());
+                    signals.push_back(item.railSignal->getID());
+                    vehicles.push_back(item.foe->getID());
+                    tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
                 }
                 OutputDevice& od = OutputDevice::getDeviceByOption("deadlock-output");
-                od.openTag(SUMO_TAG_DEADLOCK);
+                if (constraints.empty()) {
+                    od.openTag(SUMO_TAG_DEADLOCK);
+                } else {
+                    od.openTag("constraintDeadlock");
+                }
                 od.writeAttr(SUMO_ATTR_TIME, time2string(SIMSTEP));
                 od.writeAttr(SUMO_ATTR_SIGNALS, signals);
                 od.writeAttr("vehicles", vehicles);
+                if (!constraints.empty()) {
+                    od.writeAttr("tripIds", tripIDs);
+                }
                 od.closeTag();
             }
         }

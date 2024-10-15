@@ -26,6 +26,7 @@
 // class declarations
 // ===========================================================================
 class MSRailSignal;
+class MSRailSignalConstraint;
 class MSEdge;
 
 // ===========================================================================
@@ -56,9 +57,7 @@ public:
         myWrittenDeadlocks.clear();
     }
 
-    void addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, SUMOVehicle* reason) {
-        myWaitRelations[waits] = std::make_pair(rs, reason);
-    }
+    void addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint = nullptr);
 
     void addDrivewayFollower(const MSDriveWay* dw, const MSDriveWay* dw2);
 
@@ -109,7 +108,16 @@ private:
     /// @brief all rail edges that are part of a known route
     std::set<const MSEdge*> myUsedEdges;
 
-    std::map<const SUMOVehicle*, std::pair<const MSRailSignal*, const SUMOVehicle*> > myWaitRelations;
+    struct WaitRelation {
+        WaitRelation(const MSRailSignal* _railSignal = nullptr, const SUMOVehicle* _foe = nullptr, MSRailSignalConstraint* _constraint = nullptr) :
+            railSignal(_railSignal), foe(_foe), constraint(_constraint) {}
+        // indices along route
+        const MSRailSignal* railSignal;
+        const SUMOVehicle* foe;
+        MSRailSignalConstraint* constraint;
+    };
+    std::map<const SUMOVehicle*, WaitRelation> myWaitRelations;
+
     mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
 
     std::map<const MSRailSignal*, std::vector<const MSRailSignal*> > myDeadlockChecks;

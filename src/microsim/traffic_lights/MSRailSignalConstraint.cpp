@@ -81,11 +81,11 @@ MSRailSignalConstraint::clearAll() {
 
 
 const SUMOVehicle*
-MSRailSignalConstraint::getVeh(const std::string& tripID) {
+MSRailSignalConstraint::getVeh(const std::string& tripID, bool checkID) {
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
         SUMOVehicle* veh = i->second;
-        if (veh->getParameter().getParameter("tripId") == tripID) {
+        if (veh->getParameter().getParameter("tripId") == tripID || (checkID && veh->getID() == tripID)) {
             return veh;
         }
     }
@@ -206,7 +206,7 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
 
 const SUMOVehicle*
 MSRailSignalConstraint_Predecessor::getFoe() const {
-    return getVeh(myTripId);
+    return getVeh(myTripId, true);
 }
 
 // ===========================================================================

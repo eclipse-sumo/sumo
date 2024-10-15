@@ -147,7 +147,7 @@ MSRailSignal::updateCurrentPhase() {
             MSDriveWay& driveway = li.getDriveWay(closest.first);
             //std::cout << SIMTIME << " signal=" << getTLLinkID(li.myLink) << " veh=" << closest.first->getID() << " dw:\n";
             //driveway.writeBlocks(*OutputDevice_COUT::getDevice());
-            const bool mustWait = !constraintsAllow(closest.first);
+            const bool mustWait = !constraintsAllow(closest.first, true);
             MSEdgeVector occupied;
             if (mustWait || !driveway.reserve(closest, occupied)) {
                 state[li.myLink->getTLIndex()] = 'r';
@@ -213,7 +213,7 @@ MSRailSignal::updateCurrentPhase() {
 
 
 bool
-MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
+MSRailSignal::constraintsAllow(const SUMOVehicle* veh, bool storeWaitRelation) const {
     if (myConstraints.size() == 0) {
         return true;
     } else {
@@ -228,6 +228,13 @@ MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
                         std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
                     }
 #endif
+                    if (storeWaitRelation && MSGlobals::gTimeToTeleportRSDeadlock > 0
+                            && veh->getWaitingTime() > veh->getVehicleType().getCarFollowModel().getStartupDelay()) {
+                        const SUMOVehicle* foe = c->getFoe();
+                        if (foe != nullptr) {
+                            MSRailSignalControl::getInstance().addWaitRelation(veh, this, foe, c);
+                        }
+                    }
                     if (myStoreVehicles) {
                         myConstraintInfo = c->getDescription();
                     }

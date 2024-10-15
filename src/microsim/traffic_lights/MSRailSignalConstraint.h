@@ -120,7 +120,7 @@ public:
     static void clearAll();
 
 protected:
-    static const SUMOVehicle* getVeh(const std::string& tripID);
+    static const SUMOVehicle* getVeh(const std::string& tripID, bool checkID = false);
 
     ConstraintType myType;
 };
