@@ -33,3 +33,9 @@ deadlock_remove
 
 # conflicting constraints cause deadlock, remove the constraint (both vehicles arrive at the same time)
 deadlock_remove2
+
+# blocked insertion contributes to deadlock
+deadlock_insertion
+
+# blocked insertion after parking contributes to deadlock
+deadlock_insertion2
