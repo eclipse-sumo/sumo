@@ -37,6 +37,10 @@ siding_noSignal2
 # 
 long_siding_occupied_wait
 
+# no deadlock should be found because the sidings will clear up in time (even if the first siding is too short for the train)
+# 
+long_siding_occupied_wait2
+
 # no deadlock should be found because the sidings accomodate multiple vehicles
 long_siding_occupied_advance
 
