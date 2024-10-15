@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-15 16:45:38 by Eclipse SUMO sumo Version v1_20_0+0679-38c350fdd40
+<!-- generated on 2024-10-15 16:46:15 by Eclipse SUMO sumo Version v1_20_0+0679-38c350fdd40
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport.remove-constraint value="true"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
@@ -40,6 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <constraintDeadlock time="232.00" signals="A D" vehicles="t1 t0" tripIds="t1 123"/>
-</additional>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="296.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="13.89" duration="296.00" routeLength="849.90" waitingTime="201.00" waitingCount="1" stopTime="1.00" timeLoss="233.10" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="233.00" departLane="d_0" departPos="50.10" departSpeed="13.89" departDelay="213.00" arrival="363.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="13.89" duration="130.00" routeLength="891.19" waitingTime="32.00" waitingCount="1" stopTime="1.00" timeLoss="64.09" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>
