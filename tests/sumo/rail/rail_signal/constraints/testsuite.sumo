@@ -24,3 +24,6 @@ foeInsertion
 
 # constraint which guards a bidi section
 bidi
+
+# conflicting constraints cause deadlock
+deadlock
