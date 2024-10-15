@@ -80,16 +80,16 @@ MSRailSignalConstraint::clearAll() {
 }
 
 
-std::string
-MSRailSignalConstraint::getVehID(const std::string& tripID) {
+const SUMOVehicle*
+MSRailSignalConstraint::getVeh(const std::string& tripID) {
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
         SUMOVehicle* veh = i->second;
         if (veh->getParameter().getParameter("tripId") == tripID) {
-            return veh->getID();
+            return veh;
         }
     }
-    return "";
+    return nullptr;
 }
 
 // ===========================================================================
@@ -177,18 +177,19 @@ std::string
 MSRailSignalConstraint_Predecessor::getDescription() const {
     // try to retrieve vehicle id that belongs to myTripId
     // this may be slow so it should only be used for debugging
-    std::string vehID = getVehID(myTripId);
-    if (vehID != "") {
-        vehID = " (" + vehID + ")";
+    const SUMOVehicle* veh = getVeh(myTripId);
+    std::string vehID;
+    if (veh != nullptr) {
+        vehID = " (" + veh->getID() + ")";
     }
     std::vector<std::string> passedIDs;
     for (const std::string& passedTripID : myTrackers.front()->myPassed) {
         if (passedTripID == "") {
             continue;
         }
-        const std::string passedID = getVehID(passedTripID);
-        if (passedID != "") {
-            passedIDs.push_back(passedID);
+        const SUMOVehicle* passedVeh = getVeh(passedTripID);
+        if (passedVeh != nullptr) {
+            passedIDs.push_back(passedVeh->getID());
         }
     }
     std::string passedIDs2 = "";
@@ -201,6 +202,11 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
     }
     return (toString(getTag()) + "  " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
             + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2 + params);
+}
+
+const SUMOVehicle*
+MSRailSignalConstraint_Predecessor::getFoe() const {
+    return getVeh(myTripId);
 }
 
 // ===========================================================================

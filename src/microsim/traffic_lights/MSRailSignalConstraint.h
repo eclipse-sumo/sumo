@@ -27,6 +27,7 @@
 // class declarations
 // ===========================================================================
 class MSRailSignal;
+class SUMOVehicle;
 class SUMOSAXAttributes;
 
 
@@ -64,6 +65,10 @@ public:
 
     virtual std::string getDescription() const {
         return "RailSignalConstraint";
+    }
+
+    virtual const SUMOVehicle* getFoe() const {
+        return nullptr;
     }
 
     virtual void write(OutputDevice& out, const std::string& tripId) const = 0;
@@ -115,7 +120,7 @@ public:
     static void clearAll();
 
 protected:
-    static std::string getVehID(const std::string& tripID);
+    static const SUMOVehicle* getVeh(const std::string& tripID);
 
     ConstraintType myType;
 };
@@ -155,6 +160,8 @@ public:
     }
 
     std::string getDescription() const;
+
+    const SUMOVehicle* getFoe() const;
 
     class PassedTracker : public MSMoveReminder {
     public:
