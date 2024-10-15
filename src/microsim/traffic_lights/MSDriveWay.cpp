@@ -462,11 +462,12 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     }
                     /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
                 }
-                if (ego != nullptr && myOrigin != nullptr && MSGlobals::gTimeToTeleportRSDeadlock > 0
-                        && ego->getWaitingTime() > ego->getVehicleType().getCarFollowModel().getStartupDelay()) {
+                if (ego != nullptr && MSGlobals::gTimeToTeleportRSDeadlock > 0
+                        && (ego->getWaitingTime() > ego->getVehicleType().getCarFollowModel().getStartupDelay() || !ego->isOnRoad())) {
                     // if there is an occupied siding, it becomes part of the waitRelation
                     SUMOVehicle* foe = *(useSiding.second == nullptr ? foeDW : useSiding.second)->myTrains.begin();
-                    MSRailSignalControl::getInstance().addWaitRelation(ego, dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()), foe);
+                    const MSRailSignal* rs = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
+                    MSRailSignalControl::getInstance().addWaitRelation(ego, rs, foe);
                 }
                 return true;
             }

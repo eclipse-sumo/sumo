@@ -760,9 +760,6 @@ MSNet::simulationStep(const bool onlyMove) {
             myPeriodicStateFiles.erase(myPeriodicStateFiles.begin());
         }
     }
-    if (MSRailSignalControl::hasInstance()) {
-        MSRailSignalControl::getInstance().resetWaitRelations();
-    }
     myBeginOfTimestepEvents->execute(myStep);
     if (MSRailSignalControl::hasInstance()) {
         MSRailSignalControl::getInstance().updateSignals(myStep);
@@ -813,6 +810,10 @@ MSNet::simulationStep(const bool onlyMove) {
     // containers
     if (myContainerControl != nullptr && myContainerControl->hasTransportables()) {
         myContainerControl->checkWaiting(this, myStep);
+    }
+    if (MSRailSignalControl::hasInstance()) {
+        MSRailSignalControl::getInstance().resetWaitRelations();
+        // preserve waitRelation from insertion for the next step
     }
     // insert vehicles
     myInserter->determineCandidates(myStep);

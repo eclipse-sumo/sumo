@@ -154,7 +154,7 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                 std::vector<std::string> vehicles;
                 std::vector<std::string> tripIDs;
                 for (auto item : list) {
-                    signals.push_back(item.railSignal->getID());
+                    signals.push_back(item.railSignal == nullptr ? "INSERTION" : item.railSignal->getID());
                     vehicles.push_back(item.foe->getID());
                     tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
                 }
