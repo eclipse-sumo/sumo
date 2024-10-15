@@ -45,3 +45,6 @@ deadlock_insertion2
 
 # blocked insertion after parking contributes to deadlock, remove the constraint
 deadlock_insertion2_remove
+
+# conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint
+deadlock_insertion3
