@@ -37,5 +37,8 @@ siding_noSignal2
 # 
 long_siding_occupied_wait
 
+# no deadlock should be found because the sidings accomodate multiple vehicles
+long_siding_occupied_advance
+
 # a loop that reverses on itself can create a deadlock with 3 vehicles
 loop_3veh
