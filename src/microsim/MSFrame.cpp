@@ -436,6 +436,9 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-teleport.remove", new Option_Bool(false));
     oc.addDescription("time-to-teleport.remove", "Processing", TL("Whether vehicles shall be removed after waiting too long instead of being teleported"));
 
+    oc.doRegister("time-to-teleport.remove-constraint", new Option_Bool(false));
+    oc.addDescription("time-to-teleport.remove-constraint", "Processing", TL("Whether rail-signal-constraint based deadlocks shall be cleared by removing a constraint"));
+
     oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.ride", "Processing", TL("The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"));
 

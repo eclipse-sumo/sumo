@@ -28,6 +28,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include "MSRailSignal.h"
+#include "MSRailSignalConstraint.h"
 #include "MSDriveWay.h"
 #include "MSRailSignalControl.h"
 
@@ -108,11 +109,15 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
     std::vector<WaitRelation> list;
     const SUMOVehicle* cur = veh;
     std::vector<MSRailSignalConstraint*> constraints;
+    std::vector<const SUMOVehicle*> constraintBlocked;
+    std::vector<const MSRailSignal*> constraintSignals;
     while (seen.count(cur) == 0) {
         auto it = myWaitRelations.find(cur);
         if (it != myWaitRelations.end()) {
             if (it->second.constraint != nullptr) {
                 constraints.push_back(it->second.constraint);
+                constraintBlocked.push_back(cur);
+                constraintSignals.push_back(it->second.railSignal);
             }
             seen.insert(cur);
             list.push_back(it->second);
@@ -122,7 +127,23 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
         }
     }
     if (cur == veh) {
-        if (OptionsCont::getOptions().isSet("deadlock-output")) {
+        const OptionsCont& oc = OptionsCont::getOptions();
+        MSRailSignalConstraint* resolved = nullptr;
+        const SUMOVehicle* resolvedUnblocked = nullptr;
+        const MSRailSignal* resolvedSignal = nullptr;
+        if (!constraints.empty() && oc.getBool("time-to-teleport.remove-constraint")) {
+            std::vector<std::string> tripIDs;
+            for (auto item : list) {
+                tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
+            }
+            WRITE_WARNINGF("Deactivating constraint to resolve deadlock between tripIds % at time %.", toString(tripIDs), time2string(SIMSTEP));
+            resolved = constraints.front();
+            resolved->setActive(false);
+            resolvedUnblocked = constraintBlocked.front();
+            resolvedSignal = constraintSignals.front();
+        }
+
+        if (oc.isSet("deadlock-output")) {
             if (myWrittenDeadlocks.count(seen) == 0) {
                 myWrittenDeadlocks.insert(seen);
                 std::vector<std::string> signals;
@@ -145,10 +166,17 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                 if (!constraints.empty()) {
                     od.writeAttr("tripIds", tripIDs);
                 }
+                if (resolved != nullptr) {
+                    od.openTag("resolvedConstraint");
+                    od.writeAttr(SUMO_ATTR_ID, resolvedSignal->getID());
+                    resolved->write(od, resolvedUnblocked->getParameter().getParameter("tripId", resolvedUnblocked->getID()));
+                    od.closeTag();
+                }
                 od.closeTag();
+
             }
         }
-        return true;
+        return resolved == nullptr;
     } else {
         // it's a deadlock but does not involve veh
         return false;
