@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-11 11:30+0000\n"
+"PO-Revision-Date: 2024-10-15 07:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8-rc\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -10474,39 +10474,42 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr ""
+msgstr "Scrivi itinerari generati in FILE"
 
 #: src/router/ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr ""
+msgstr "Scrivi i tipi di veicoli utilizzati in un FILE separato"
 
 #: src/router/ROFrame.cpp:56
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
 msgstr ""
+"Mantieni i codici identificativi delle distribuzioni di tipi di veicoli "
+"nella scrittura dei veicoli e dei loro tipi"
 
 #: src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr ""
+msgstr "Utilizza FILE come rete SUMO base degli itinerari"
 
 #: src/router/ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
-msgstr ""
+msgstr "Scrivi veicoli con il loro itinerario indicato come referenza"
 
 #: src/router/ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
 msgstr ""
+"Carica dati addizionali (distretti, fermate di autobus) da uno o più FILE"
 
 #: src/router/ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
-msgstr ""
+msgstr "Carica itinerari SUMO, alternative, flussi e corsie da uno o più FILE"
 
 #: src/router/ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr ""
+msgstr "Carica pesi di rete da uno o più FILE"
 
 #: src/router/ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr ""
+msgstr "Carica pesi di corsie da uno o più FILE"
 
 #: src/router/ROFrame.cpp:125
 msgid "Continue if a route could not be build"
@@ -11061,11 +11064,11 @@ msgstr ""
 
 #: src/traci-server/TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
-msgstr ""
+msgstr "Avviamento di TraCI senza l'uso di corsie interne!"
 
 #: src/traci-server/TraCIServer.cpp:320
 msgid "***Starting server on port % ***"
-msgstr ""
+msgstr "***Avviamento del server su porta % ***"
 
 #: src/traci-server/TraCIServer.cpp:323
 #, c-format
@@ -11116,15 +11119,15 @@ msgstr ""
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
 msgid " done (%ms)."
-msgstr ""
+msgstr " concluso (%ms)."
 
 #: src/utils/common/MsgHandler.cpp:192
 msgid " done."
-msgstr ""
+msgstr " concluso."
 
 #: src/utils/common/MsgHandler.cpp:195
 msgid " failed."
-msgstr ""
+msgstr " fallito."
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
