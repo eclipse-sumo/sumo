@@ -30,3 +30,6 @@ deadlock
 
 # conflicting constraints cause deadlock, remove the constraint
 deadlock_remove
+
+# conflicting constraints cause deadlock, remove the constraint (both vehicles arrive at the same time)
+deadlock_remove2
