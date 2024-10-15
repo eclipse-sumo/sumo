@@ -27,3 +27,6 @@ bidi
 
 # conflicting constraints cause deadlock
 deadlock
+
+# conflicting constraints cause deadlock, remove the constraint
+deadlock_remove
