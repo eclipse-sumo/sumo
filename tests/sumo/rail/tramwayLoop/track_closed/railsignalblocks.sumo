@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-26 22:58:51 by Eclipse SUMO sumo Version v1_20_0+0608-d1da7d7d312
+<!-- generated on 2024-10-15 10:19:29 by Eclipse SUMO sumo Version v1_20_0+0658-896cbfcc7a2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -266,6 +267,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="s14_0 s24_0"/>
                 <foes driveWays="s14.0.1 s24.0 s25.0"/>
                 <sidings foe="s24.0">
+                    <siding start="T33_0" end="T33_0" length="150.00"/>
+                    <siding start="T33_0" end="T34_0" length="850.00"/>
+                    <siding start="T33_0" end="T35_0" length="1950.00"/>
+                    <siding start="T33_0" end="T6_0" length="2350.00"/>
+                    <siding start="T33_0" end="TrightLoop_1" length="2750.00"/>
+                    <siding start="T33_0" end="T3_1" length="3850.00"/>
                     <siding start="T33_0" end="T19_1" length="4550.00"/>
                 </sidings>
             </driveWay>
