@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:42:08 by Eclipse SUMO sumo Version v1_20_0+0429-f4efa8785ef
+<!-- generated on 2024-10-15 08:13:51 by Eclipse SUMO sumo Version v1_20_0+0652-00b5479c17d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -43,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
-    <tlsState time="0.00" id="gneJ2" programID="0" phase="0" state="G"/>
+    <tlsState time="0.00" id="gneJ2" programID="0" phase="1" state="r"/>
     <tlsState time="1.00" id="gneJ2" programID="0" phase="1" state="r"/>
     <tlsState time="2.00" id="gneJ2" programID="0" phase="1" state="r"/>
     <tlsState time="3.00" id="gneJ2" programID="0" phase="1" state="r"/>
