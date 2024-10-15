@@ -39,9 +39,9 @@
         <stop edge="d" duration="1"/>
     </trip>
     <trip id="t0" type="train" depart="0.00" from="-d2" to="-E2" departSpeed="max">
-        <stop edge="-d2" duration="300"/>
+        <stop edge="-d2" duration="250"/>
     </trip>
     <trip id="t1" type="train" depart="0.00" from="d" to="g" departSpeed="max">
-        <stop edge="d" duration="300"/>
+        <stop edge="d" duration="250"/>
     </trip>
 </routes>
