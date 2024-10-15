@@ -250,7 +250,7 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
                     !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay) ||
                     !isFoeOrSubFoe(&foeDriveWay) ||
-                    canUseSiding(veh.first, &foeDriveWay)) {
+                    canUseSiding(veh.first, &foeDriveWay).first) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4) {
                     if (foeDriveWay.foeDriveWayOccupied(false, foe.first, occupied)) {
@@ -434,7 +434,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     continue;
                 }
             }
-            bool useSiding = canUseSiding(ego, foeDW);
+            std::pair<bool, const MSDriveWay*> useSiding = canUseSiding(ego, foeDW);
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
                     auto it = mySidings.find(foeDW);
@@ -445,7 +445,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     std::cout << "  useSiding=" << useSiding << " numSidings=" << numSidings << "\n";
                 }
 #endif
-            if (useSiding) {
+            if (useSiding.first) {
                 continue;
             } else {
                 if (MSRailSignal::storeVehicles() && store) {
@@ -464,7 +464,8 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
                 if (ego != nullptr && myOrigin != nullptr && MSGlobals::gTimeToTeleportRSDeadlock > 0
                         && ego->getWaitingTime() > ego->getVehicleType().getCarFollowModel().getStartupDelay()) {
-                    SUMOVehicle* foe = *foeDW->myTrains.begin();
+                    // if there is an occupied siding, it becomes part of the waitRelation
+                    SUMOVehicle* foe = *(useSiding.second == nullptr ? foeDW : useSiding.second)->myTrains.begin();
                     MSRailSignalControl::getInstance().addWaitRelation(ego, dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()), foe);
                 }
                 return true;
@@ -477,7 +478,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     MSRouteIterator firstIt = std::find(foe->getCurrentRouteEdge(), foe->getRoute().end(), foeDW->myRoute.front());
                     if (firstIt != foe->getRoute().end()) {
                         if (foeDW->match(firstIt, foe->getRoute().end())) {
-                            bool useSiding = canUseSiding(ego, foeDW);
+                            bool useSiding = canUseSiding(ego, foeDW).first;
 #ifdef DEBUG_SIGNALSTATE
                             if (gDebugFlag4 || DEBUG_COND_DW || DEBUG_HELPER(ego)) {
                                 std::cout << SIMTIME << " " << getID() << " blocked by " << foeDW->getID() << " (approached by " << foe->getID() << ") useSiding=" << useSiding << "\n";
@@ -563,7 +564,7 @@ MSDriveWay::hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe) {
 }
 
 
-bool
+std::pair<bool, const MSDriveWay*>
 MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool recurse) const {
     auto it = mySidings.find(foe);
     if (it != mySidings.end()) {
@@ -586,7 +587,7 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
                                 WRITE_WARNINGF("Invalid call to canUseSiding dw=% foe=% ego=% time=%", getID(), foe->getID(), Named::getIDSecure(ego), time2string(SIMSTEP));
                                 continue;
                             }
-                            if (foe->canUseSiding(foeVeh, this, false)) {
+                            if (foe->canUseSiding(foeVeh, this, false).first) {
                                 continue;
                             }
                         }
@@ -599,17 +600,17 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
                                 << " sidingEnd=" << sidingEnd->getID() << " sidingApproach=" << sidingApproach->getID() << " approaching=" << toString(sidingApproach->myTrains) << "\n";
                         }
 #endif
-                        return false;
+                        return std::make_pair(false, sidingApproach);
                     }
                 }
                 //std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
                 //    << " foeVeh=" << toString(foe->myTrains)
                 //    << " sidingEnd=" << sidingEnd->getID() << "usable\n";
-                return true;
+                return std::make_pair(true, nullptr);
             }
         }
     }
-    return false;
+    return std::make_pair(false, nullptr);
 }
 
 bool

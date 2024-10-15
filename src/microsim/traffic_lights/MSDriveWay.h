@@ -284,7 +284,8 @@ protected:
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);
 
-    bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool recurse=true) const;
+    /// @brief return whether a siding can be used. If a siding exist but is occupied, also return the occupied driveway in the siding
+    std::pair<bool, const MSDriveWay*> canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool recurse=true) const;
 
     bool isFoeOrSubFoe(const MSDriveWay* foe) const;
 
