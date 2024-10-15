@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-15 07:13+0000\n"
+"PO-Revision-Date: 2024-10-16 08:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9073,16 +9073,16 @@ msgstr ""
 #: src/netimport/NIXMLEdgesHandler.cpp:227
 #, c-format
 msgid "Edge '%' changed its type; assuming type override is wished."
-msgstr ""
+msgstr "L'arco '%' ha cambiato tipo; si assume che è desiderato sovrascriverlo."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:315
 msgid "Ignoring self-looped edge '%' at junction '%'"
-msgstr ""
+msgstr "L'arco anello '%' all'incrocio '%' verrà ignorato"
 
 #: src/netimport/NIXMLEdgesHandler.cpp:393
 #, c-format
 msgid "'%' is deprecated, please use '%' instead."
-msgstr ""
+msgstr "'%' è obsoleto, invece usa '%'."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:403
 msgid "Lane index is larger than number of lanes (edge '%')."
@@ -9114,7 +9114,7 @@ msgstr ""
 
 #: src/netimport/NIXMLEdgesHandler.cpp:570
 msgid "The to-node is not given for edge '%'."
-msgstr ""
+msgstr "Il nodo terminale dell'arco '%' non è stato definito."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
@@ -9136,27 +9136,29 @@ msgstr "Arco '%' sconosciuto in una rotatoria."
 
 #: src/netimport/NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "Posizione assente (nel nodo '%')."
 
 #: src/netimport/NIXMLNodesHandler.cpp:185
 msgid "Could not insert node though checked this before (id='%')."
 msgstr ""
+"Non ho potuto inserire il nodo benché controllato prima (codice "
+"identificativo '%')."
 
 #: src/netimport/NIXMLNodesHandler.cpp:214
 msgid "Unable to project node shape at node '%'."
-msgstr ""
+msgstr "La forma del nodo '%' non poteva essere proiettata."
 
 #: src/netimport/NIXMLNodesHandler.cpp:322
 msgid "Unknown traffic light type '%' for node '%'."
-msgstr ""
+msgstr "Tipo di semaforo '%' sconosciuto nel nodo '%'."
 
 #: src/netimport/NIXMLNodesHandler.cpp:331
 msgid "Unknown traffic light layout '%' for node '%'."
-msgstr ""
+msgstr "Disposizione di semafori '%' sconosciuta nel nodo '%'."
 
 #: src/netimport/NIXMLNodesHandler.cpp:342
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr ""
+msgstr "Cambio del tipo da '%' a '%' per semaforo '%'."
 
 #: src/netimport/NIXMLPTHandler.cpp:159
 #, c-format
