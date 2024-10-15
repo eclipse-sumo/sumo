@@ -127,24 +127,28 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
         }
     }
     if (cur == veh) {
+        const bool newDeadlock = myWrittenDeadlocks.count(seen) == 0;
+        myWrittenDeadlocks.insert(seen);
         const OptionsCont& oc = OptionsCont::getOptions();
         MSRailSignalConstraint* resolved = nullptr;
         const SUMOVehicle* resolvedUnblocked = nullptr;
         const MSRailSignal* resolvedSignal = nullptr;
         if (!constraints.empty() && oc.getBool("time-to-teleport.remove-constraint")) {
-            std::vector<std::string> tripIDs;
-            for (auto item : list) {
-                tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
-            }
-            WRITE_WARNINGF("Deactivating constraint to resolve deadlock between tripIds % at time %.", toString(tripIDs), time2string(SIMSTEP));
             resolved = constraints.front();
-            resolved->setActive(false);
-            resolvedUnblocked = constraintBlocked.front();
-            resolvedSignal = constraintSignals.front();
+            if (newDeadlock) {
+                std::vector<std::string> tripIDs;
+                for (auto item : list) {
+                    tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
+                }
+                WRITE_WARNINGF("Deactivating constraint to resolve deadlock between tripIds % at time %.", toString(tripIDs), time2string(SIMSTEP));
+                resolved->setActive(false);
+                resolvedUnblocked = constraintBlocked.front();
+                resolvedSignal = constraintSignals.front();
+            }
         }
 
         if (oc.isSet("deadlock-output")) {
-            if (myWrittenDeadlocks.count(seen) == 0) {
+            if (newDeadlock) {
                 myWrittenDeadlocks.insert(seen);
                 std::vector<std::string> signals;
                 std::vector<std::string> vehicles;
