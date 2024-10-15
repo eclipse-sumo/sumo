@@ -51,3 +51,6 @@ deadlock_insertion3
 
 # conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint, remove constraint to resolve the deadlock
 deadlock_insertion3_remove
+
+# conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint with tripId
+deadlock_insertion3_tripId
