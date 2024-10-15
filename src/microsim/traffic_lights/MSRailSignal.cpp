@@ -423,6 +423,12 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::st
 #endif
                         info = c->getDescription();
                         isInsertionOrder = c->getType() == MSRailSignalConstraint::ConstraintType::INSERTION_ORDER;
+                        if (MSGlobals::gTimeToTeleportRSDeadlock > 0) {
+                            const SUMOVehicle* foe = c->getFoe();
+                            if (foe != nullptr) {
+                                MSRailSignalControl::getInstance().addWaitRelation(veh, rs, foe, c);
+                            }
+                        }
                         return true;
                     }
                 }
