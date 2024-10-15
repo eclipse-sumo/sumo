@@ -37,5 +37,11 @@ deadlock_remove2
 # blocked insertion contributes to deadlock
 deadlock_insertion
 
+# blocked insertion contributes to deadlock, remove the constraint
+deadlock_insertion_remove
+
 # blocked insertion after parking contributes to deadlock
 deadlock_insertion2
+
+# blocked insertion after parking contributes to deadlock, remove the constraint
+deadlock_insertion2_remove
