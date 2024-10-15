@@ -69,6 +69,7 @@ MSRailSignal::VehicleVector MSRailSignal::myBlockingVehicles;
 MSRailSignal::VehicleVector MSRailSignal::myRivalVehicles;
 MSRailSignal::VehicleVector MSRailSignal::myPriorityVehicles;
 std::string MSRailSignal::myConstraintInfo;
+int MSRailSignal::myRSIndex(0);
 std::vector<const MSDriveWay*> MSRailSignal::myBlockingDriveWays;
 std::string MSRailSignal::myRequestedDriveWay;
 
@@ -79,6 +80,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::string& id, const std::string& programID, SUMOTime delay,
                            const Parameterised::Map& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, 0, TrafficLightType::RAIL_SIGNAL, delay, parameters),
+    myNumericalID(myRSIndex++),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X')), // dummy phase
     myPhaseIndex(0),
     myDriveWayIndex(0)
@@ -86,6 +88,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
     myDefaultCycleTime = DELTA_T;
     myMovingBlock = OptionsCont::getOptions().getBool("railsignal-moving-block");
     MSRailSignalControl::getInstance().addSignal(this);
+    mySwitchCommand->deschedule(this);
 }
 
 void
@@ -122,21 +125,24 @@ MSRailSignal::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
 // ------------ Switching and setting current rows
 SUMOTime
 MSRailSignal::trySwitch() {
-    updateCurrentPhase();
-    return DELTA_T;
+    // deschedule regular traffic light event,
+    // updateCurrentPhase is instead called from MSRailSignalControl::updateSignals
+    return SUMOTime_MAX;
 }
 
 
 
-void
+bool
 MSRailSignal::updateCurrentPhase() {
 #ifdef DEBUG_SIGNALSTATE
     gDebugFlag4 = DEBUG_COND;
 #endif
+    bool keepActive = false;
     // green by default so vehicles can be inserted at the borders of the network
     std::string state(myLinks.size(), 'G');
     for (LinkInfo& li : myLinkInfos) {
         if (li.myLink->getApproaching().size() > 0) {
+            keepActive = true;
             Approaching closest = li.myLink->getClosest();
             MSDriveWay& driveway = li.getDriveWay(closest.first);
             //std::cout << SIMTIME << " signal=" << getTLLinkID(li.myLink) << " veh=" << closest.first->getID() << " dw:\n";
@@ -173,6 +179,7 @@ MSRailSignal::updateCurrentPhase() {
                 const MSDriveWay& driveway = *li.myDriveways.front();
                 MSEdgeVector occupied;
                 if (driveway.foeDriveWayOccupied(true, nullptr, occupied) || driveway.foeDriveWayApproached()) {
+                    keepActive = true;
 #ifdef DEBUG_SIGNALSTATE
                     if (gDebugFlag4) {
                         std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway " << driveway.getID() << "\n";
@@ -192,10 +199,16 @@ MSRailSignal::updateCurrentPhase() {
     if (myCurrentPhase.getState() != state) {
         myCurrentPhase.setState(state);
         myPhaseIndex = 1 - myPhaseIndex;
+        // set link priorities
+        setTrafficLightSignals(SIMSTEP);
+        // execute switch actions (3D-gui)
+        //const MSTLLogicControl::TLSLogicVariants& vars = myTLControl.get(myTLLogic->getID());
+        //vars.executeOnSwitchActions();
     }
 #ifdef DEBUG_SIGNALSTATE
     gDebugFlag4 = false;
 #endif
+    return keepActive;
 }
 
 
@@ -366,13 +379,14 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                             MSDriveWay* dw = &li.getDriveWay(ego);
                             MSRailSignalControl::getInstance().addDrivewayFollower(prev, dw);
                             MSRailSignalControl::getInstance().addDWDeadlockChecks(rs, prev);
+                            MSRailSignalControl::getInstance().notifyApproach(link);
                             prev = dw;
                             if (update && rs->isActive()) {
                                 // vehicle may have rerouted its intial trip
                                 // after the states have been set
                                 // @note: This is a hack because it could lead to invalid tls-output
                                 // (it's still an improvement over switching based on default driveways)
-                                rs->trySwitch();
+                                rs->updateCurrentPhase();
                                 rs->setTrafficLightSignals(SIMSTEP);
                             }
                         }

@@ -137,6 +137,14 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
         if (myTrains.count(&sveh) == 0 && match(firstIt, sveh.getRoute().end())) {
             myTrains.insert(&sveh);
+            if (myOrigin != nullptr) {
+                    MSRailSignalControl::getInstance().notifyApproach(myOrigin);
+            }
+            for (const MSDriveWay* foe : myFoes) {
+                if (foe->myOrigin != nullptr) {
+                    MSRailSignalControl::getInstance().notifyApproach(foe->myOrigin);
+                }
+            }
             if (myWriteVehicles) {
                 myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
             }
@@ -192,6 +200,7 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
         return false;
     }
 }
+
 
 bool
 MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {

@@ -63,6 +63,7 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/devices/MSDevice_Transportable.h>
@@ -5316,6 +5317,13 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                                        dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance, getLateralPositionOnLane());
         }
     }
+    if (isRailway(getVClass())) {
+        for (DriveProcessItem& dpi : myLFLinkLanes) {
+            if (dpi.myLink != nullptr && dpi.myLink->getTLLogic() != nullptr && dpi.myLink->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
+                MSRailSignalControl::getInstance().notifyApproach(dpi.myLink);
+            }
+        }
+    }
     if (myLaneChangeModel->getShadowLane() != nullptr) {
         // register on all shadow links
         for (const DriveProcessItem& dpi : myLFLinkLanes) {
@@ -5362,6 +5370,7 @@ MSVehicle::registerInsertionApproach(MSLink* link, double dist) {
     link->setApproaching(this, SUMOTime_MAX, 0, 0, false, arrivalSpeedBraking, 0, dpi.myDistance, 0);
     // ensure cleanup in the next step
     myLFLinkLanes.push_back(dpi);
+    MSRailSignalControl::getInstance().notifyApproach(link);
 }
 
 

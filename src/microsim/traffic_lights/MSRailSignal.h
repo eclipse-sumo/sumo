@@ -68,6 +68,10 @@ public:
     /// @brief Destructor
     ~MSRailSignal();
 
+    inline int getNumericalID() const {
+        return myNumericalID;
+    }
+
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value) override;
 
@@ -101,8 +105,8 @@ public:
      * @return The state actually required for this signal.
      */
 
-    /// @brief updates the current phase of the signal
-    void updateCurrentPhase();
+    /// @brief updates the current phase of the signal and return whether it should be kept active
+    bool updateCurrentPhase();
 
     /** @brief Switches to the next phase
     * @return The time of the next switch (always the next step)
@@ -300,6 +304,8 @@ public:
 
 protected:
 
+    const int myNumericalID;
+
     std::string getNewDrivewayID();
 
     /* The driveways for each link
@@ -358,6 +364,8 @@ protected:
 
     /// @brief running number of driveways created for this signal
     int myDriveWayIndex;
+
+    static int myRSIndex;
 
 protected:
     /// @brief update vehicle lists for traci calls

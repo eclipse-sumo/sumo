@@ -215,4 +215,41 @@ MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const std::vector<co
 }
 
 
+void
+MSRailSignalControl::notifyApproach(const MSLink* link) {
+    const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
+    assert(rs != nullptr);
+    myActiveSignals.insert(const_cast<MSRailSignal*>(rs));
+}
+
+
+void
+MSRailSignalControl::updateSignals(SUMOTime t) {
+    UNUSED_PARAMETER(t);
+    // there are 4 states for a signal
+    // 1. approached and green
+    // 2. approached and red
+    // 3. not approached and trains could pass
+    // 4. not approached and trains coult not pass
+    //
+    // for understanding conflicts better in sumo-gui, we want to show (3) as green. This
+    // means we have to keep updating signals in state (4) until they change to (3)
+
+    //std::cout << SIMTIME << " activeSignals=" << myActiveSignals.size() << "\n";
+    for (auto it = myActiveSignals.begin(); it != myActiveSignals.end();) {
+        MSRailSignal* rs = *it;
+        //std::cout << SIMTIME << " update " << rs->getID() << "\n";
+        const bool keepActive = rs->updateCurrentPhase();
+        if (rs->isActive()) {
+            rs->setTrafficLightSignals(t);
+        }
+        if (!keepActive) {
+            it = myActiveSignals.erase(it);
+        } else {
+            it++;
+        }
+    }
+}
+
+
 /****************************************************************************/

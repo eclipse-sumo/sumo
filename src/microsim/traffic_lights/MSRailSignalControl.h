@@ -83,12 +83,16 @@ public:
         return mySignals;
     }
 
-    /// @brief final check for driveway compatibility of signals that switched green in this step
-    void recheckGreen();
-
     const std::map<const MSRailSignal*, std::vector<const MSRailSignal*> >& getDeadlockChecks() const {
         return myDeadlockChecks;
     }
+
+    /// switch rail signal to active
+    void notifyApproach(const MSLink* link);
+
+    /// @brief update active rail signals
+    void updateSignals(SUMOTime t);
+
 
 protected:
 
@@ -118,6 +122,7 @@ private:
     /// @brief list of signals that switched green along with driveway index
     std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
     std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
+    std::set<MSRailSignal*, ComparatorNumericalIdLess> myActiveSignals;
 
     static MSRailSignalControl* myInstance;
 
