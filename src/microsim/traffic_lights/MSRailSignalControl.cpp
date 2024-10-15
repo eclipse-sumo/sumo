@@ -99,6 +99,7 @@ MSRailSignalControl::addSignal(MSRailSignal* signal) {
 
 void
 MSRailSignalControl::addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint) {
+    //std::cout << time2string(SIMSTEP) << " addWaitRelation waits=" << waits->getID() << " foe=" << reason->getID() << "\n";
     myWaitRelations[waits] = WaitRelation(rs, reason, constraint);
 }
 
@@ -111,6 +112,7 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
     std::vector<MSRailSignalConstraint*> constraints;
     std::vector<const SUMOVehicle*> constraintBlocked;
     std::vector<const MSRailSignal*> constraintSignals;
+    //std::cout << time2string(SIMSTEP) << " haveDeadlock veh=" << veh->getID() << "\n";
     while (seen.count(cur) == 0) {
         auto it = myWaitRelations.find(cur);
         if (it != myWaitRelations.end()) {

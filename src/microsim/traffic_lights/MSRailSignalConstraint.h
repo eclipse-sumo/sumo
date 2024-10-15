@@ -107,6 +107,10 @@ public:
         return myType == INSERTION_PREDECESSOR || myType == INSERTION_ORDER;
     }
 
+    static void storeTripId(const std::string& tripId, const std::string& vehID);
+
+    static const std::string& lookupVehId(const std::string& tripId);
+
     /// @brief clean up state
     static void cleanup();
 
@@ -123,6 +127,8 @@ protected:
     static const SUMOVehicle* getVeh(const std::string& tripID, bool checkID = false);
 
     ConstraintType myType;
+
+    static std::map<std::string, std::string> myTripIdLookup;
 };
 
 

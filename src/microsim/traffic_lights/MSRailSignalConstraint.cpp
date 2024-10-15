@@ -39,6 +39,7 @@
 // static value definitions
 // ===========================================================================
 std::map<const MSLane*, MSRailSignalConstraint_Predecessor::PassedTracker*> MSRailSignalConstraint_Predecessor::myTrackerLookup;
+std::map<std::string, std::string> MSRailSignalConstraint::myTripIdLookup;
 
 // ===========================================================================
 // MSRailSignalConstraint method definitions
@@ -70,6 +71,7 @@ MSRailSignalConstraint::saveState(OutputDevice& out) {
 void
 MSRailSignalConstraint::clearState() {
     MSRailSignalConstraint_Predecessor::clearState();
+    myTripIdLookup.clear();
 }
 
 void
@@ -77,12 +79,20 @@ MSRailSignalConstraint::clearAll() {
     for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
         s->removeConstraints();
     }
+    myTripIdLookup.clear();
 }
 
 
 const SUMOVehicle*
 MSRailSignalConstraint::getVeh(const std::string& tripID, bool checkID) {
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    const std::string& vehID = lookupVehId(tripID);
+    if (vehID != "") {
+        SUMOVehicle* veh = c.getVehicle(vehID);
+        if (veh != nullptr) {
+            return veh;
+        }
+    }
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
         SUMOVehicle* veh = i->second;
         if (veh->getParameter().getParameter("tripId") == tripID || (checkID && veh->getID() == tripID)) {
@@ -207,6 +217,16 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
 const SUMOVehicle*
 MSRailSignalConstraint_Predecessor::getFoe() const {
     return getVeh(myTripId, true);
+}
+
+void
+MSRailSignalConstraint::storeTripId(const std::string& tripId, const std::string& vehID) {
+    myTripIdLookup[tripId] = vehID;
+}
+
+const std::string&
+MSRailSignalConstraint::lookupVehId(const std::string& tripId) {
+    return myTripIdLookup[tripId];
 }
 
 // ===========================================================================
