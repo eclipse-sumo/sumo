@@ -33,5 +33,9 @@ siding_noSignal
 # siding does not prevent deadlock because it doesn't have a signal. one more layer of signals outside the siding
 siding_noSignal2
 
+# no deadlock should be found because the sidings will clear up in time
+# 
+long_siding_occupied_wait
+
 # a loop that reverses on itself can create a deadlock with 3 vehicles
 loop_3veh
