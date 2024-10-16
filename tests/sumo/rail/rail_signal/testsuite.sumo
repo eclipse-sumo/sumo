@@ -131,3 +131,6 @@ driveway_variants
 
 # corner case that caused a crash
 subDriveWay_short
+
+# corner case that causes a deadlock between 2 vehicles due to invalid driveway matching
+driveWayShort_badMatch
