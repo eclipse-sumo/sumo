@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-16 08:16+0000\n"
+"PO-Revision-Date: 2024-10-16 08:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8668,12 +8668,16 @@ msgid ""
 "Duplicate definition of stopOffset for edge %.\n"
 "Ignoring duplicate specification."
 msgstr ""
+"Definizione raddoppiata di stopOffset dell'arco %.\n"
+"La specificazione raddoppiata verrà ignorata."
 
 #: src/netimport/NIImporter_SUMO.cpp:718
 msgid ""
 "Duplicate definition of lane's stopOffset on edge %.\n"
 "Ignoring duplicate specifications."
 msgstr ""
+"Definizione raddoppiata di stopOffset di una corsia dell'arco %.\n"
+"La specificazione raddoppiata verrà ignorata."
 
 #: src/netimport/NIImporter_SUMO.cpp:755
 #, c-format
