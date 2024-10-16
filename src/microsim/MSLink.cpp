@@ -853,9 +853,9 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         // sublane model could have detected a conflict
         return collectFoes == nullptr || collectFoes->size() == 0;
     }
-    if (myState == LINKSTATE_ALLWAY_STOP && waitingTime < TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_ALLWAYSTOP_WAIT, TS))) {
+    if (myState == LINKSTATE_ALLWAY_STOP && waitingTime < TIME2STEPS(ego == nullptr ? TS : ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_ALLWAYSTOP_WAIT, TS))) {
         return false;
-    } else if (myState == LINKSTATE_STOP && waitingTime < TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPSIGN_WAIT, TS))) {
+    } else if (myState == LINKSTATE_STOP && waitingTime < TIME2STEPS(ego == nullptr ? TS : ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPSIGN_WAIT, TS))) {
         return false;
     }
 
