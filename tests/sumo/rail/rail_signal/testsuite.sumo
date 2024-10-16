@@ -128,3 +128,6 @@ update_driveways
 
 # reduce number of "parallel" driveways
 driveway_variants
+
+# corner case that caused a crash
+subDriveWay_short
