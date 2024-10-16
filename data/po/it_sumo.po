@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-16 08:49+0000\n"
+"PO-Revision-Date: 2024-10-16 14:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5202,18 +5202,26 @@ msgstr ""
 #: src/microsim/trigger/MSChargingStation.cpp:66
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
 msgstr ""
+"L'attributo % per la stazione di ricarica con il codice identificativo '%' è "
+"invalido."
 
 #: src/microsim/trigger/MSChargingStation.cpp:71
 msgid "ChargingStation with ID='%' doesn't have a valid position (% < %)."
 msgstr ""
+"La stazione di ricarica con il codice identificativo '%' non si trova a una "
+"posizione valida (% < %)."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
 msgstr ""
+"Appunto temporale invalido oppure non ordinato correttamente nel sistema di "
+"limiti dinamici di velocità '%'."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:182
 msgid "Time % was set twice for vss '%'; replacing first entry."
 msgstr ""
+"L'ora % è stata impostata due volte per il sistema di limiti dinamici di "
+"velocità '%'; perciò il primo appunto è stato sostituito dal secondo."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:354
 #: src/microsim/trigger/MSOverheadWire.cpp:409
@@ -5267,19 +5275,25 @@ msgstr "Valore invalido '%' del parametro di tipo di veicolo '%'"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:130
 msgid "MSTriggeredRerouter %: No destination edge id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Nessun arco di destinazione è stato indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:193
 msgid "MSTriggeredRerouter %: No route id given."
 msgstr ""
+"MSTriggeredRerouter %: Nessun codice identificativo di itinerario è stato "
+"indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:216
 msgid "MSTriggeredRerouter %: No parking area id given."
 msgstr ""
+"MSTriggeredRerouter %: Nessun codice identificativo di un parcheggio è stato "
+"indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:241
 msgid "MSTriggeredRerouter %: No via edge id given."
 msgstr ""
+"MSTriggeredRerouter %: Nessun codice identificativo di un'arco intermedio è "
+"stato indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:524
 #, c-format
