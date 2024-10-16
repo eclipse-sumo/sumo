@@ -116,6 +116,12 @@ GNEAdditional::setSpecialColor(const RGBColor* color) {
 }
 
 
+void
+GNEAdditional::resetAdditionalContour() {
+    myAdditionalContour.clearContour();
+}
+
+
 bool
 GNEAdditional::isAdditionalValid() const {
     return true;

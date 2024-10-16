@@ -411,7 +411,11 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // draw demand element children
         drawDemandElementChildren(s);
         // calculate contour
-        calculateContourPolygons(s, d, TAZExaggeration, getFill());
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+            calculateContourPolygons(s, d, TAZExaggeration, true);
+        } else {
+            calculateContourPolygons(s, d, TAZExaggeration, getFill());
+        }
         // calculate contour for TAZ Center
         myTAZCenterContour.calculateContourCircleShape(s, d, this, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
     }
@@ -711,7 +715,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
-            myAdditionalContour.clearContour();
+            resetAdditionalContour();
             break;
         case SUMO_ATTR_EDGES:
             break;
