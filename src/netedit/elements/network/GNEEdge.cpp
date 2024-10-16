@@ -243,9 +243,9 @@ GNEEdge::checkDrawFromContour() const {
         if (edgeRelDataFrame->shown()) {
             // check first Edge
             if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().empty()) {
-                return gViewObjectsHandler.isElementSelected(this);
-            } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().front() == this) {
-                return true;
+                return false;
+            } else {
+                return edgeRelDataFrame->getPathCreator()->getSelectedEdges().front() == this;
             }
         }
     }
@@ -295,11 +295,11 @@ GNEEdge::checkDrawToContour() const {
         // get TAZRelDataFrame
         const auto& edgeRelDataFrame = viewParent->getEdgeRelDataFrame();
         if (edgeRelDataFrame->shown()) {
-            // check first Edge
+            // check last Edge
             if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().empty()) {
-                return gViewObjectsHandler.isElementSelected(this);
-            } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().back() == this) {
-                return true;
+                return false;
+            } else {
+                return edgeRelDataFrame->getPathCreator()->getSelectedEdges().back() == this;
             }
         }
     }
@@ -365,6 +365,8 @@ GNEEdge::checkDrawOverContour() const {
                 // check edges
                 if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().empty()) {
                     return true;
+                } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().size() == 2) {
+                    return false;
                 } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().front() == this) {
                     return false;
                 } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().back() == this) {
