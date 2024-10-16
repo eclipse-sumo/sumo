@@ -136,6 +136,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
         out.writeAttr(SUMO_ATTR_CONSTRAINTS, true);
     }
+    if (MSDriveWay::haveDriveWays()) {
+        out.writeAttr(SUMO_ATTR_RAIL, true);
+    }
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
         if (!MSGlobals::gUseMesoSim) {
@@ -188,6 +191,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             bool ok;
             if (attrs.getOpt<bool>(SUMO_ATTR_CONSTRAINTS, nullptr, ok, false)) {
                 MSRailSignalConstraint::clearAll();
+            }
+            if (attrs.getOpt<bool>(SUMO_ATTR_RAIL, nullptr, ok, false)) {
+                // init before loading any vehicles to ensure that driveways are built early
+                MSRailSignalControl::getInstance();
             }
             break;
         }

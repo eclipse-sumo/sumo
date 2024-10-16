@@ -30,6 +30,7 @@
             <xsd:attribute name="time" type="timeType"/>
             <xsd:attribute name="type" type="xsd:string"/>
             <xsd:attribute name="constraints" type="boolType"/>
+            <xsd:attribute name="rail" type="boolType"/>
         </xsd:complexType>
     </xsd:element>
 

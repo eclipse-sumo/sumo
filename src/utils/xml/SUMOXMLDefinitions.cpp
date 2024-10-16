@@ -826,6 +826,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     { "constraints",            SUMO_ATTR_CONSTRAINTS },
+    { "rail",                   SUMO_ATTR_RAIL },
     { "detectors",              SUMO_ATTR_DETECTORS },
     { "conditions",             SUMO_ATTR_CONDITIONS },
     { "saveDetectors",          SUMO_ATTR_SAVE_DETECTORS },
