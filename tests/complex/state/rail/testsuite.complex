@@ -1,5 +1,8 @@
 save_on_rail_signal
 save_rail_signal
+
+# Copy of save_rail_signal
+save_rail_signal2
 save_rail_signal_constraint
 
 # include the actual constraints in the saved state
