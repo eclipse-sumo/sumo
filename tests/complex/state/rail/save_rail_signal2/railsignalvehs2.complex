@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 09:04:07 by Eclipse SUMO sumo Version v1_20_0+0684-f016839ee01
+<!-- generated on 2024-10-16 10:04:20 by Eclipse SUMO sumo Version v1_20_0+0687-ce2c48e1a87
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,24 +30,30 @@
 <railsignal-vehicle-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to=":A_2_0">
-            <driveWay id="A.0"/>
-            <subDriveWay id="A.0.0"/>
+            <driveWay id="A.0">
+                <exit id="train" time="31.00" reason="9"/>
+            </driveWay>
+            <subDriveWay id="A.0.0">
+                <exit id="train" time="25.00" reason="1"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="B">
         <link linkIndex="0" from="-d2_0" to=":B_0_0">
             <driveWay id="B.0">
-                <entry id="train2" time="20.00" reason="1"/>
-                <exit id="train2" time="47.00" reason="9"/>
+                <entry id="train2" time="26.00" reason="1"/>
+                <exit id="train2" time="53.00" reason="9"/>
             </driveWay>
             <subDriveWay id="B.0.0">
-                <entry id="train2" time="20.00" reason="1"/>
-                <exit id="train2" time="39.00" reason="1"/>
+                <entry id="train2" time="26.00" reason="1"/>
+                <exit id="train2" time="45.00" reason="1"/>
             </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ7">
-        <driveWay id="gneJ7.d1"/>
+        <driveWay id="gneJ7.d1">
+            <exit id="train2" time="30.00" reason="1"/>
+        </driveWay>
     </departJunction>
     <departJunction id="gneJ0">
         <driveWay id="gneJ0.d0"/>

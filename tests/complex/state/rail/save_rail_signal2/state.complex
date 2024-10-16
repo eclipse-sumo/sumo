@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 08:48:43 by Eclipse SUMO sumo Version v1_20_0+0681-187b28facee
+<!-- generated on 2024-10-16 09:34:24 by Eclipse SUMO sumo Version v1_20_0+0687-ce2c48e1a87
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,6 +9,8 @@
     </input>
 
     <output>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
         <save-state.times value="20"/>
         <save-state.files value="state.xml"/>
     </output>
@@ -26,7 +28,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0681-187b28facee" time="20.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0687-ce2c48e1a87" time="20.00" type="micro">
     <route id="!train" state="0" edges="a b c d"/>
     <route id="!train2" state="0" edges="-d2 -c -b -a2"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
@@ -50,4 +52,7 @@
             <approaching id="train" arrivalTime="22980" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="7.01" waitingTime="0" distance="69.17"/>
         </link>
     </lane>
+    <driveWay id="A.0" edges="b c d" vehicles="train"/>
+    <subDriveWay id="A.0.0" edges="b c" vehicles="train"/>
+    <driveWay id="gneJ7.d1" edges="-d2 -c -b -a2" vehicles="train2"/>
 </snapshot>
