@@ -177,6 +177,7 @@ errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes
 errors:.*UserWarning: {REPLACE UserWarning: }
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.{LINES 3}
+errors:MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER){LINES 2}
 errors:\\{REPLACE /}
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
