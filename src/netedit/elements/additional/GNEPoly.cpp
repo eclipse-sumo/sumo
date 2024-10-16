@@ -341,7 +341,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        calculateContourPolygons(s, d, polyExaggeration, getFill());
+        calculateContourPolygons(s, d, getShapeLayer(), polyExaggeration, getFill());
     }
 }
 

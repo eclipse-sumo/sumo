@@ -412,9 +412,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         drawDemandElementChildren(s);
         // calculate contour
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-            calculateContourPolygons(s, d, TAZExaggeration, true);
+            calculateContourPolygons(s, d, getShapeLayer(), TAZExaggeration, true);
         } else {
-            calculateContourPolygons(s, d, TAZExaggeration, getFill());
+            calculateContourPolygons(s, d, getShapeLayer(), TAZExaggeration, getFill());
         }
         // calculate contour for TAZ Center
         myTAZCenterContour.calculateContourCircleShape(s, d, this, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, getShapeLayer(), TAZExaggeration);

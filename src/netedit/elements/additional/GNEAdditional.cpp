@@ -1028,12 +1028,12 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
 
 void
 GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const double exaggeration, const bool filledShape) const {
+                                        const double layer, const double exaggeration, const bool filledShape) const {
     // calculate contour depending of contoured shape
     if (filledShape) {
-        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), 1);
+        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), layer, 1);
     } else {
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(),
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), layer,
                 s.neteditSizeSettings.polylineWidth, exaggeration, true, true, 0);
     }
     // get edit modes
@@ -1045,7 +1045,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
         // get geometry point radius (size depends if we're in move mode)
         const double geometryPointRaidus = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // calculate contour geometry points
-        myAdditionalContour.calculateContourAllGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), getType(), geometryPointRaidus, exaggeration, moveMode);
+        myAdditionalContour.calculateContourAllGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), layer, geometryPointRaidus, exaggeration, moveMode);
     }
 }
 
