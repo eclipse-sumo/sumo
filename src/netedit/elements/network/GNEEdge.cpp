@@ -731,14 +731,21 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get detail level from the first lane
         const auto d = myLanes.front()->getDrawingConstants()->getDetail();
+        // calculate layer
+        double layer = GLO_EDGE;
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            layer = GLO_FRONTELEMENT;
+        } else if (myLanes.front()->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
+            layer = GLO_JUNCTION + 1.8;
+        }
         // check if draw details
         if (!s.drawForViewObjectsHandler) {
             // draw geometry points
-            drawEdgeGeometryPoints(s, d);
+            drawEdgeGeometryPoints(s, d, layer);
             // draw edge shape (a red line only visible if lane shape is strange)
-            drawEdgeShape(s, d);
+            drawEdgeShape(s, d, layer);
             // draw edge stopOffset
-            drawLaneStopOffset(s, d);
+            drawLaneStopOffset(s, d, layer);
             // draw edge name
             drawEdgeName(s);
             // draw lock icon
@@ -747,7 +754,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate edge contour (always before children)
-        calculateEdgeContour(s, d);
+        calculateEdgeContour(s, d, layer);
         // draw lanes
         for (const auto& lane : myLanes) {
             lane->drawGL(s);
@@ -2604,7 +2611,7 @@ GNEEdge::getContainersOverEdgeMap() const {
 
 
 void
-GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
     // first check conditions
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
         // check if draw geometry points
@@ -2643,8 +2650,8 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
         }
         // draw start and end points
         if (bigGeometryPoints) {
-            drawStartGeometryPoint(s, d, geometryPointRadius, exaggeration);
-            drawEndGeometryPoint(s, d, geometryPointRadius, exaggeration);
+            drawStartGeometryPoint(s, d, geometryPointRadius, layer, exaggeration);
+            drawEndGeometryPoint(s, d, geometryPointRadius, layer, exaggeration);
         }
         // draw dotted contour geometry points
         myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myNBEdge->getGeometry(), geometryPointRadius,
@@ -2655,7 +2662,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
 
 void
 GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                const double geometryPointRadius, const double exaggeration) const {
+                                const double geometryPointRadius, const double layer, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get first geometry point
@@ -2710,7 +2717,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
                 }
             }
             // draw dotted contour geometry points
-            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(), getType(),
+            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(), layer,
                     geometryPointRadius, exaggeration);
         }
     }
@@ -2719,7 +2726,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const double geometryPointRadius, const double exaggeration) const {
+                              const double layer, const double geometryPointRadius, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get first geometry point
@@ -2774,7 +2781,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
                 }
             }
             // draw dotted contour geometry points
-            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(), getType(),
+            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(), layer,
                     geometryPointRadius, exaggeration);
         }
     }
@@ -2845,17 +2852,13 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (d <= GUIVisualizationSettings::Detail::LaneDetails) {
         // Push stopOffset matrix
         GLHelper::pushMatrix();
         // translate to front (note: Special case)
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            glTranslated(0, 0, GLO_FRONTELEMENT);
-        } else {
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
-        }
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, layer + 1);
         if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             for (const auto& lane : getLanes()) {
                 lane->drawLaneStopOffset(s);
@@ -2894,11 +2897,11 @@ GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.addElementUnderCursor(this, getType(), false, true);
+        gViewObjectsHandler.addElementUnderCursor(this, layer, false, true);
     } else {
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
@@ -2909,7 +2912,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
         // check if we're in move mode
         const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // calculate contour
-        myNetworkElementContour.calculateContourEdge(s, d, this, this, true, true);
+        myNetworkElementContour.calculateContourEdge(s, d, this, this, layer, true, true);
         // calculate edge geometry points
         myNetworkElementContour.calculateContourEdgeGeometryPoints(s, d, this, geometryPointRadius, moveMode, firstExtrem, lastExtrem);
     }
@@ -2978,7 +2981,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
     // avoid draw for railways
     if ((d <= GUIVisualizationSettings::Detail::LaneDetails) && !myLanes.front()->getDrawingConstants()->drawAsRailway() &&
             (gViewObjectsHandler.markedFirstGeometryPoint == this)) {
@@ -2988,7 +2991,7 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualization
         if (drawBigGeometryPoints()) {
             glTranslated(0, 0, GLO_GEOMETRYPOINT - 1);
         } else {
-            glTranslated(0, 0, GLO_EDGE);
+            glTranslated(0, 0, layer);
         }
         // obtain color
         RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);

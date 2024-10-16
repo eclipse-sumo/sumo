@@ -129,14 +129,14 @@ GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const
 
 void
 GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                 const GNEEdge* edge, const GUIGlObject* elementToRegister, const bool closeFirstExtrem,
-                                 const bool closeLastExtrem) const {
+                                 const GNEEdge* edge, const GUIGlObject* elementToRegister, const double layer,
+                                 const bool closeFirstExtrem, const bool closeLastExtrem) const {
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForViewObjectsHandler) {
         // calculate contour edge shape
         buildContourEdge(s, d, edge, closeFirstExtrem, closeLastExtrem);
         // check if position or bondary is within contour shape
-        gViewObjectsHandler.checkShapeElement(elementToRegister, *myCalculatedShape, *myContourBoundary, edge->getType());
+        gViewObjectsHandler.checkShapeElement(elementToRegister, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
