@@ -1549,7 +1549,14 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     // For movingBlock the logic is changed:
     // We remove the conflict-free part as before but then keep removing the the conflict part until the
     // another non-conconflit part is found
-
+    if (myForward.size() < foe->myForward.size() &&
+            myForward == std::vector<const MSLane*>(foe->myForward.begin(), foe->myForward.begin() + myForward.size())) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+        std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " is subpart of foe=" << foe->getID() << "\n";
+#endif
+        foe->myFoes.push_back(this);
+        return true;
+    }
     int subLast = myForward.size() - 2;
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (subLast < 0) {
