@@ -127,13 +127,13 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjec
             return myPlanCreator->addRoute(o);
         }
     }
-    if (!viewObjects.getJunctions().empty()) {
+    if (viewObjects.getAttributeCarrierFront() == viewObjects.getJunctionFront()) {
         return myPlanCreator->addJunction(viewObjects.getJunctions().front());
     }
-    if (!viewObjects.getLanes().empty()) {
+    if (viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
         return myPlanCreator->addEdge(viewObjects.getLanes().front());
     }
-    if (!viewObjects.getTAZs().empty()) {
+    if (viewObjects.getAttributeCarrierFront() == viewObjects.getTAZFront()) {
         return myPlanCreator->addTAZ(viewObjects.getTAZs().front());
     }
     return false;
