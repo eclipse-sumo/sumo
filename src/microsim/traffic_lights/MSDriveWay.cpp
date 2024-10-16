@@ -67,12 +67,12 @@
 // static value definitions
 // ===========================================================================
 int MSDriveWay::myGlobalDriveWayIndex(0);
-int MSDriveWay::myDepartDriveWayIndex(0);
 int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDriveways;
+std::map<const MSJunction*, int> MSDriveWay::myDepartDrivewayIndex;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways;
 std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
@@ -111,12 +111,12 @@ MSDriveWay::~MSDriveWay() { }
 void
 MSDriveWay::cleanup() {
     myGlobalDriveWayIndex = 0;
-    myDepartDriveWayIndex = 0;
     myNumWarnings = 0;
     myWriteVehicles = false;
     MSDriveWay::mySwitchDriveWays.clear();
     MSDriveWay::myReversalDriveWays.clear();
     MSDriveWay::myDepartureDriveways.clear();
+    MSDriveWay::myDepartDrivewayIndex.clear();
     MSDriveWay::myDepartureDrivewaysEnds.clear();
     MSDriveWay::myEndingDriveways.clear();
 }
@@ -1833,7 +1833,7 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
             return dw;
         }
     }
-    const std::string id = edge->getFromJunction()->getID() + ".d" + toString(myDepartDriveWayIndex++);
+    const std::string id = edge->getFromJunction()->getID() + ".d" + toString(myDepartDrivewayIndex[edge->getFromJunction()]++);
     MSDriveWay* dw = buildDriveWay(id, nullptr, veh->getCurrentRouteEdge(), veh->getRoute().end());
     myDepartureDriveways[edge].push_back(dw);
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);

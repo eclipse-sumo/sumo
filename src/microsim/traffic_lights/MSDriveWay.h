@@ -343,7 +343,6 @@ private:
     std::string myFirstVehicle;
 
     static int myGlobalDriveWayIndex;
-    static int myDepartDriveWayIndex;
     static int myNumWarnings;
     static bool myWriteVehicles;
 
@@ -355,6 +354,7 @@ private:
 
     /// @brief all driveways that do not start at a rail signal (and are only used at departure)
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDriveways;
+    static std::map<const MSJunction*, int> myDepartDrivewayIndex;
     /// @brief all driveways that do not start at a rail signal (and are only used at departure) by end edge
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDrivewaysEnds;
 
