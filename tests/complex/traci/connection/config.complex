@@ -1,2 +1,0 @@
-[run_dependent_text]
-errors:MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER){LINES 2}
