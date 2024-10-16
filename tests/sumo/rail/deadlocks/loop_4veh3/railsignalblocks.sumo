@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-07 16:57:44 by Eclipse SUMO sumo Version v1_20_0+0623-4d64fbde829
+<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,10 +22,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <deadlock-output value="deadlocks.xml"/>
     </output>
 
     <processing>
         <collision.action value="warn"/>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -105,20 +107,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":J_0_0 -k_0 :K_1_0 -l_0 :L_0_0 -m_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J.0 M.d1.0"/>
+                <foes driveWays="J.0 M.d0.0"/>
             </driveWay>
         </link>
     </railSignal>
     <departJunction id="M">
-        <driveWay id="M.d1" vehicle="t2" edges="-m -l -k2 -j2 -i2 -h -g -f2 -e2 -d2 -c2 -b -a">
+        <driveWay id="M.d0" vehicle="t2" edges="-m -l -k2 -j2 -i2 -h -g -f2 -e2 -d2 -c2 -b -a">
             <forward lanes="-m_0 :L_0_0 -l_0 :K_0_0 -k2_0 :J2_0_0 -j2_0"/>
             <bidi lanes="m_0 :L_1_0 l_0 :K_3_0 k2_0 :J2_1_0 j2_0 :I2_1_0 i2_0 :H_3_0"
                     deadlockCheck="h_0 :G_1_0 g_0 :F_3_0 f2_0 :E2_1_0 e2_0 :D2_3_0 d2_0 :C2_1_0 c2_0 :B_3_0 b_0 :A_1_0 a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="D_0 J_0"/>
-            <foes driveWays="J.0 M.d1"/>
+            <foes driveWays="J.0 M.d0"/>
         </driveWay>
-        <subDriveWay id="M.d1.0" vehicle="" edges="-m -l">
+        <subDriveWay id="M.d0.0" vehicle="" edges="-m -l">
             <forward lanes="-m_0 :L_0_0 -l_0"/>
         </subDriveWay>
     </departJunction>

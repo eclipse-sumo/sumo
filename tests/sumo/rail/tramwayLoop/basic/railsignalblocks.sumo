@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-26 22:58:51 by Eclipse SUMO sumo Version v1_20_0+0608-d1da7d7d312
+<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -373,7 +374,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="s4.0 s4.d2"/>
+                <foes driveWays="s4.0 s4.d0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -491,12 +492,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </subDriveWay>
     </departJunction>
     <departJunction id="s4">
-        <driveWay id="s4.d2" vehicle="tram3" edges="TrightLoop_1 T3_1 T19_1 T18_1">
+        <driveWay id="s4.d0" vehicle="tram3" edges="TrightLoop_1 T3_1 T19_1 T18_1">
             <forward lanes="TrightLoop_1_0"/>
             <bidi lanes="TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s4_0"/>
-            <foes driveWays="s4.0 s4.d2"/>
+            <foes driveWays="s4.0 s4.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

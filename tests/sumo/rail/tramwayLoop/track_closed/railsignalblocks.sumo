@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-15 10:19:29 by Eclipse SUMO sumo Version v1_20_0+0658-896cbfcc7a2
+<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -368,7 +368,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T32_0_0 :s25_1_0 T31_0_0 :w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0 :s10_1_0 T12_0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="s4.0 s4.d2"/>
+                <foes driveWays="s4.0 s4.d0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -486,13 +486,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </subDriveWay>
     </departJunction>
     <departJunction id="s4">
-        <driveWay id="s4.d2" vehicle="tram3" edges="TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1">
+        <driveWay id="s4.d0" vehicle="tram3" edges="TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1">
             <forward lanes="TrightLoop_1_0"/>
             <bidi lanes="TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"
                     deadlockCheck="T32_0_0 :s25_1_0 T31_0_0 :w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0 :s10_1_0 T12_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s4_0"/>
-            <foes driveWays="s4.0 s4.d2"/>
+            <foes driveWays="s4.0 s4.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

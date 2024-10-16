@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 23:56:18 by Eclipse SUMO sumo Version v1_20_0+0600-54c3f033709
+<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -133,13 +134,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="TR0">
-        <driveWay id="TR0.d1" vehicle="rail2" edges="-T15 -T14 -T13 -T12 -T11 -T10">
+        <driveWay id="TR0.d0" vehicle="rail2" edges="-T15 -T14 -T13 -T12 -T11 -T10">
             <forward lanes="-T15_0"/>
             <bidi lanes="T15_0 :E_1_0 T14_0 :W2_3_0"
                     deadlockCheck="T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="TR0.d1"/>
+            <foes driveWays="TR0.d0"/>
         </driveWay>
     </departJunction>
     <departJunction id="TL0">
