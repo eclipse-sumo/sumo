@@ -81,13 +81,7 @@ std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways
 // ---------------------------------------------------------------------------
 void
 MSDriveWay::init() {
-    const OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("railsignal-vehicle-output")) {
-        OutputDevice::createDeviceByOption("railsignal-vehicle-output");
-        myWriteVehicles = true;
-    } else {
-        myWriteVehicles = false;
-    }
+    myWriteVehicles = OptionsCont::getOptions().isSet("railsignal-vehicle-output");
 }
 
 // ===========================================================================

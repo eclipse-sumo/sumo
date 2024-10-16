@@ -838,6 +838,7 @@ MSFrame::buildStreams() {
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
     OutputDevice::createDeviceByOption("railsignal-block-output", "railsignal-block-output");
+    OutputDevice::createDeviceByOption("railsignal-vehicle-output", "railsignal-vehicle-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
