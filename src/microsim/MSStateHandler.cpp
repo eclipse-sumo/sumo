@@ -36,6 +36,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
@@ -333,6 +334,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER: {
             MSRailSignalConstraint_Predecessor::loadState(attrs);
+            break;
+        }
+        case SUMO_TAG_DRIVEWAY: 
+        case SUMO_TAG_SUBDRIVEWAY: { 
+            MSDriveWay::loadState(attrs, element);
             break;
         }
         case SUMO_TAG_PARAM: {

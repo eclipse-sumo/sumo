@@ -22,6 +22,7 @@
 
 #include <utils/common/Named.h>
 #include <microsim/MSMoveReminder.h>
+#include <microsim/MSRoute.h>
 
 // ===========================================================================
 // class declarations
@@ -173,9 +174,11 @@ public:
 
     static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh);
 
-    static void updateDepartDriveway(const MSEdge* first, int dwID);
-
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
+
+    /** @brief Save driveway occupancy into the given stream */
+    static void saveState(OutputDevice& out);
+    static void loadState(const SUMOSAXAttributes& attrs, int tag);
 
 protected:
 
@@ -297,7 +300,7 @@ protected:
 
     static bool isSwitch(const MSLink* link);
 
-    void cleanupPointersToSelf(const std::vector<MSDriveWay*> others);
+    void _saveState(OutputDevice& out) const;
 
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
@@ -357,6 +360,10 @@ private:
 
     /// @brief all driveways that end on the given edge
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myEndingDriveways;
+
+    /// @brief lookup table for state loading
+    static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;
+    static std::map<std::string, MSDriveWay*> myDriveWayLookup;
 
 };
 

@@ -159,6 +159,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "bidiPredecessor",                        SUMO_TAG_BIDI_PREDECESSOR },
     { "railSignalConstraintTracker",            SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
     { "deadlock",                               SUMO_TAG_DEADLOCK },
+    { "driveWay",                               SUMO_TAG_DRIVEWAY },
+    { "subDriveWay",                            SUMO_TAG_SUBDRIVEWAY },
     { "link",                                   SUMO_TAG_LINK },
     { "approaching",                            SUMO_TAG_APPROACHING },
     // OSM
@@ -1002,6 +1004,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
     { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },
     { "optional",               SUMO_ATTR_OPTIONAL },
+    { "vehicles",               SUMO_ATTR_VEHICLES },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

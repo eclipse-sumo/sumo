@@ -75,6 +75,8 @@ std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWa
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDriveways;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways;
+std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
+std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
 
 // ---------------------------------------------------------------------------
 // static initialisation methods
@@ -728,7 +730,7 @@ MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveW
 
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
-    od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
+    od.openTag(myIsSubDriveway ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
     od.writeAttr(SUMO_ATTR_ID, myID);
     od.writeAttr(SUMO_ATTR_VEHICLE, myFirstVehicle);
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
@@ -1851,5 +1853,83 @@ MSDriveWay::writeDepatureBlocks(OutputDevice& od, bool writeVehicles) {
         }
     }
 }
+
+void
+MSDriveWay::saveState(OutputDevice& out) {
+    // all driveways are in myEndingDriveways which makes it convenient
+    for (auto item : myEndingDriveways) {
+        for (MSDriveWay* dw : item.second) {
+            dw->_saveState(out);
+            for (MSDriveWay* sub : dw->mySubDriveWays) {
+                sub->_saveState(out);
+            }
+        }
+    }
+}
+
+void
+MSDriveWay::_saveState(OutputDevice& out) const {
+    if (!myTrains.empty()) {
+        out.openTag(myIsSubDriveway ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
+        out.writeAttr(SUMO_ATTR_ID, getID());
+        out.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
+        out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+        out.closeTag();
+    }
+}
+
+void
+MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
+    if ((int)myDriveWayRouteLookup.size() < myGlobalDriveWayIndex) {
+        for (auto item : myEndingDriveways) {
+            for (MSDriveWay* dw : item.second) {
+                myDriveWayRouteLookup[dw->myRoute] = dw;
+            }
+        }
+    }
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    bool ok;
+    const std::string id  = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string edges = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok);
+    ConstMSEdgeVector route;
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        MSEdge::parseEdgesList(edges, route, id);
+    }
+    MSDriveWay* dw = nullptr;
+    if (tag == SUMO_TAG_DRIVEWAY) {
+        auto it = myDriveWayRouteLookup.find(route);
+        if (it == myDriveWayRouteLookup.end()) {
+            throw ProcessError(TLF("Unknown driveWay '%' with route '%'", id, edges));
+        }
+        dw = it->second;
+        myDriveWayLookup[id] = dw;
+    } else {
+        std::string parentID = id.substr(0, id.rfind('.'));
+        auto it = myDriveWayLookup.find(parentID);
+        if (it == myDriveWayLookup.end()) {
+            throw ProcessError(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
+        }
+        MSDriveWay* parent = it->second;
+        for (MSDriveWay* sub : parent->mySubDriveWays) {
+            if (sub->myRoute == route) {
+                dw = sub;
+                break;
+            }
+        }
+        if (dw == nullptr) {
+            throw ProcessError(TLF("Unknown subDriveWay '%' with route '%' at parent '%'", id, edges, parent->getID()));
+        }
+    }
+    const std::string vehicles = attrs.get<std::string>(SUMO_ATTR_VEHICLES, id.c_str(), ok);
+    for (const std::string& vehID : StringTokenizer(vehicles).getVector()) {
+        MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(c.getVehicle(vehID));
+        if (veh == nullptr) {
+            throw ProcessError(TLF("Unknown vehicle '%' in driveway '%'", vehID, id));
+        }
+        dw->myTrains.insert(veh);
+        veh->addReminder(dw);
+    }
+}
+
 
 /****************************************************************************/
