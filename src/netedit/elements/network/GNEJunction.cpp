@@ -277,39 +277,35 @@ GNEJunction::checkDrawOverContour() const {
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
-    if (modes.isCurrentSupermodeDemand()) {
-        // get current plan selector
-        GNEPlanSelector* planSelector = nullptr;
-        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            planSelector = viewParent->getPersonFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            planSelector = viewParent->getContainerFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
-        }
-        // continue depending of plan selector
-        if (planSelector && planSelector->markJunctions() && (viewObjectsSelector.getJunctionFront() == this)) {
-            if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
-                return false;
-            } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isTAZElement()) {
-                return false;
-            } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                return false;
-            } else {
-                return true;
+    if (viewObjectsSelector.getJunctionFront() != this) {
+        return false;
+    } else {
+        if (modes.isCurrentSupermodeDemand()) {
+            // get current plan selector
+            GNEPlanSelector* planSelector = nullptr;
+            if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+                planSelector = viewParent->getPersonFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+                planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+                planSelector = viewParent->getContainerFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+                planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
             }
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
-            // get current vehicle template
-            const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            // check if vehicle can be placed over from-to TAZs
-            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
-                return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
+            // continue depending of plan selector
+            if (planSelector && planSelector->markJunctions()) {
+                return (viewObjectsSelector.getAttributeCarrierFront() == viewObjectsSelector.getJunctionFront());
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+                // get current vehicle template
+                const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+                // check if vehicle can be placed over from-to TAZs
+                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
+                    return (viewObjectsSelector.getAttributeCarrierFront() == viewObjectsSelector.getJunctionFront());
+                }
             }
         }
+        return false;
     }
-    return false;
 }
 
 

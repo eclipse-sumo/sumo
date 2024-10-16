@@ -338,21 +338,13 @@ GNEEdge::checkDrawOverContour() const {
             }
             // continue depending of plan selector
             if (planSelector && planSelector->markEdges()) {
-                if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
-                    return false;
-                } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isTAZElement()) {
-                    return false;
-                } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE);
             } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
                 // get current vehicle template
                 const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
                 // check if vehicle can be placed over from-to TAZs
                 if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
-                    return true;
+                    return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE);
                 }
             }
         } else if (modes.isCurrentSupermodeData()) {
