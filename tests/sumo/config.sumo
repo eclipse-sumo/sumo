@@ -93,6 +93,8 @@ calibrator_log:calibrator.log.xml
 links:linkstate.xml
 railsignalblocks:railsignal_blocks.xml
 railsignalvehs:railsignal_vehicles.xml
+railsignalblocks2:railsignal_blocks2.xml
+railsignalvehs2:railsignal_vehicles2.xml
 dispatchinfos:dispatchinfos.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
@@ -148,6 +150,8 @@ chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
 railsignalblocks:<!--{[->]}-->
 railsignalvehs:<!--{[->]}-->
+railsignalblocks2:<!--{[->]}-->
+railsignalvehs2:<!--{[->]}-->
 dispatchinfos:<!--{[->]}-->
 ssm:<!--{[->]}-->
 ssm2:<!--{[->]}-->
