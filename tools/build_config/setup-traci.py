@@ -84,8 +84,8 @@ There are some [TraCI Tutorials](https://sumo.dlr.de/docs/Tutorials/index.html#t
 ## Contributing
 
 If you find a bug in TraCI or have a suggestion for a new feature, please report it on the SUMO issue tracker at
-[https://github.com/eclipse-sumo/sumo/issues](https://github.com/eclipse-sumo/sumo/issues). If you would like to contribute
-code to TraCI, please submit a pull request to the SUMO repository at
+[https://github.com/eclipse-sumo/sumo/issues](https://github.com/eclipse-sumo/sumo/issues).
+If you would like to contribute code to TraCI, please submit a pull request to the SUMO repository at
 [https://github.com/eclipse-sumo/sumo](https://github.com/eclipse-sumo/sumo).
 
 ## License

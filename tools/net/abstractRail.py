@@ -210,7 +210,7 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
 def getEdgeOrdering(edgeIDs, ordering, useOutgoing):
     result = []
     for vN in ordering:
-        if type(vN) == sumolib.net.edge.Edge:
+        if isinstance(vN, sumolib.net.edge.Edge):
             result.append(vN.getID())
         else:
             edges = vN.getOutgoing() if useOutgoing else vN.getIncoming()
@@ -312,9 +312,9 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
 
 def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
     constrainedEdges = set()
-    for nodeID, ordering in orderings:
+    for _, ordering in orderings:
         for vNode in ordering:
-            if type(vNode) == sumolib.net.edge.Edge:
+            if isinstance(vNode, sumolib.net.edge.Edge):
                 constrainedEdges.add(vNode)
 
     # every node and every edge is assigned a single y-values

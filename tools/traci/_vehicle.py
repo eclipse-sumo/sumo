@@ -1269,7 +1269,7 @@ class VehicleDomain(VTypeDomain):
         If begTime or endTime are not specified the value is set for the whole
         simulation duration.
         """
-        if type(edgeID) != str and type(begTime) == str:
+        if not isinstance(edgeID, str) and isinstance(begTime, str):
             # legacy handling
             warnings.warn(
                 "Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. " +
