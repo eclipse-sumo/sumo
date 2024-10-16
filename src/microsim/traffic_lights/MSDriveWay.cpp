@@ -1917,7 +1917,9 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
             }
         }
         if (dw == nullptr) {
-            throw ProcessError(TLF("Unknown subDriveWay '%' with route '%' at parent '%'", id, edges, parent->getID()));
+            // missing subdriveways can be ignored. They may have been created
+            // as foes for driveways that are not relevant at state loading time
+            return;
         }
     }
     const std::string vehicles = attrs.get<std::string>(SUMO_ATTR_VEHICLES, id.c_str(), ok);
