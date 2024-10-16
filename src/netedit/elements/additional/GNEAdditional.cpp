@@ -226,13 +226,8 @@ GNEAdditional::checkDrawFromContour() const {
     } else if (modes.isCurrentSupermodeData()) {
         // get TAZRelDataFrame
         const auto& TAZRelDataFrame = viewParent->getTAZRelDataFrame();
-        if (TAZRelDataFrame->shown()) {
-            // check first TAZ
-            if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
-                return gViewObjectsHandler.isElementSelected(this);
-            } else if (TAZRelDataFrame->getFirstTAZ() == this) {
-                return true;
-            }
+        if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() == this)) {
+            return true;
         }
     }
     // nothing to draw
@@ -290,13 +285,8 @@ GNEAdditional::checkDrawToContour() const {
     } else if (modes.isCurrentSupermodeData()) {
         // get TAZRelDataFrame
         const auto& TAZRelDataFrame = viewParent->getTAZRelDataFrame();
-        if (TAZRelDataFrame->shown()) {
-            // check first TAZ
-            if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
-                return gViewObjectsHandler.isElementSelected(this);
-            } else if (TAZRelDataFrame->getFirstTAZ() == this) {
-                return true;
-            }
+        if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getSecondTAZ() == this)) {
+            return true;
         }
     }
     // nothing to draw
@@ -312,37 +302,54 @@ GNEAdditional::checkDrawRelatedContour() const {
 
 bool
 GNEAdditional::checkDrawOverContour() const {
-    // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
-    if (modes.isCurrentSupermodeDemand()) {
-        // get current plan selector
-        GNEPlanSelector* planSelector = nullptr;
-        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            planSelector = viewParent->getPersonFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            planSelector = viewParent->getContainerFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
-        }
-        // continue depending of plan selector
-        if (planSelector) {
-            if ((myTagProperty.isStoppingPlace() && planSelector->markStoppingPlaces()) ||
-                    (myTagProperty.isTAZElement() && planSelector->markTAZs())) {
-                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    if (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() != this) {
+        return false;
+    } else {
+        const auto& viewParent = myNet->getViewNet()->getViewParent();
+        if (modes.isCurrentSupermodeDemand()) {
+            // get current plan selector
+            GNEPlanSelector* planSelector = nullptr;
+            if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+                planSelector = viewParent->getPersonFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+                planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+                planSelector = viewParent->getContainerFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+                planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
             }
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
-            // get current vehicle template
-            const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            // check if vehicle can be placed over from-to TAZs
-            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
-                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+            // continue depending of plan selector
+            if (planSelector) {
+                if ((myTagProperty.isStoppingPlace() && planSelector->markStoppingPlaces()) ||
+                        (myTagProperty.isTAZElement() && planSelector->markTAZs())) {
+                    return true;
+                }
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+                // get current vehicle template
+                const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+                // check if vehicle can be placed over from-to TAZs
+                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
+                    return true;
+                }
+            }
+        } else if (modes.isCurrentSupermodeData()) {
+            // get TAZRelDataFrame
+            const auto& TAZRelDataFrame = viewParent->getTAZRelDataFrame();
+            if (TAZRelDataFrame->shown()) {
+                if (TAZRelDataFrame->getFirstTAZ() && TAZRelDataFrame->getSecondTAZ()) {
+                    return false;
+                } else if (TAZRelDataFrame->getFirstTAZ() == this) {
+                    return false;
+                } else if (TAZRelDataFrame->getSecondTAZ() == this) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
+        return false;
     }
-    return false;
 }
 
 
