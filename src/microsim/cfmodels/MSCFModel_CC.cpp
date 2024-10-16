@@ -227,7 +227,22 @@ double
 MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
 
+    // if the vehicle is driven by a human model, let the model decide the secure gap
+    if (vars->activeController == Plexe::DRIVER)
+        return myHumanDriver->getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
+
     const double tolerance = 0.8;
+    bool isInSamePlatoon = false;
+    for (int i = 0; i < vars->members.size(); i++) {
+        if (vars->members[i] == pred->getID()) {
+            isInSamePlatoon = true;
+            break;
+        }
+    }
+    // if the preceding vehicle is not in my platoon, you can change lane only if there is a large safe gap
+    if (!isInSamePlatoon)
+        return (vars->accHeadwayTime * speed + 2) * tolerance;
+    // otherwise the gap w.r.t. members depends on the active controller
     switch (vars->activeController) {
         case Plexe::CACC:
         case Plexe::FAKED_CACC:
@@ -240,8 +255,6 @@ MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pr
             return d_i_j(vars->vehicles, vars->h, 1, 0) * tolerance;
         case Plexe::FLATBED:
             return (vars->flatbedD - vars->flatbedH * (speed - leaderSpeed)) * tolerance;
-        case Plexe::DRIVER:
-            return myHumanDriver->getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
         default:
             throw InvalidArgument("Unsupported activeController" + toString(vars->activeController));
     }
@@ -838,40 +851,45 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             }
             return;
         }
-        if (key.compare(PAR_ADD_MEMBER) == 0) {
+        if (key.compare(PAR_SET_PLATOON_FORMATION) == 0) {
             std::string id;
-            int position;
-            buf >> id >> position;
-            vars->members[position] = id;
-
-            auto vehicle = findVehicle(id);
-            if (!vehicle) {
-                throw libsumo::TraCIException("Adding " + id + " as member but " + id + " does not exists");
+            buf >> vars->nCars;
+            vars->members.clear();
+            bool leader = false;
+            std::string leaderId;
+            MSVehicle* leaderVehicle;
+            for (int i = 0; i < vars->nCars; i++) {
+                buf >> id;
+                auto vehicle = findVehicle(id);
+                if (!vehicle) {
+                    throw libsumo::TraCIException("Adding " + id + " as member but " + id + " does not exists");
+                }
+                auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
+                if (!cfm) {
+                    throw libsumo::TraCIException("Adding " + id + " as member but " + id + " is not using MSCFModel_CC");
+                }
+                if (veh->getID() == id)
+                    vars->position = i;
+                if (i == 0) {
+                    leaderId = id;
+                    leaderVehicle = vehicle;
+                    if (veh->getID() == id)
+                        leader = true;
+                }
+                vars->members[i] = id;
             }
-            auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
-            if (!cfm) {
-                throw libsumo::TraCIException("Adding " + id + " as member but " + id + " is not using MSCFModel_CC");
+            vars->isLeader = leader;
+            if (!vars->isLeader) {
+                setLeader(veh, leaderVehicle, leaderId);
+                vars->frontVehicleId = vars->members[vars->position - 1];
+                vars->frontVehicle = findVehicle(vars->frontVehicleId);
             }
-            cfm->setLeader(vehicle, veh, veh->getID());
-            vars->isLeader = true;
-            return;
+        }
+        if (key.compare(PAR_ADD_MEMBER) == 0) {
+            throw libsumo::TraCIException("The Plexe API addPlatoonMember is deprecated. Please use setPlatoonFormation");
         }
         if (key.compare(PAR_REMOVE_MEMBER) == 0) {
-            for (auto item = vars->members.begin(); item != vars->members.end(); item++)
-                if (item->second.compare(value) == 0) {
-                    auto vehicle = findVehicle(value);
-                    if (!vehicle) {
-                        throw libsumo::TraCIException("Removing " + value + " from members but " + value + " does not exist");
-                    }
-                    auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
-                    if (!cfm) {
-                        throw libsumo::TraCIException("Removing " + value + " from members but " + value + " is not using MSCFModel_CC");
-                    }
-                    cfm->setLeader(vehicle, nullptr, "");
-                    vars->members.erase(item);
-                    break;
-                }
-            return;
+            throw libsumo::TraCIException("The Plexe API removePlatoonMember is deprecated. Please use setPlatoonFormation");
         }
         if (key.compare(PAR_ENABLE_AUTO_LANE_CHANGE) == 0) {
             vars->autoLaneChange = StringUtils::toInt(value.c_str()) == 1;
