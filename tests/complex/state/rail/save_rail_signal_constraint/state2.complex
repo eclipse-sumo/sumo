@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-24 15:55:06 by Eclipse SUMO sumo Version v1_20_0+0199-c75164ae12b
+<!-- generated on 2024-10-16 11:03:16 by Eclipse SUMO sumo Version v1_20_0+0691-822de6bf232
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0199-c75164ae12b" time="10.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0691-822de6bf232" time="10.00" type="micro" rail="1">
     <route id="!between" state="0" edges="d e"/>
     <route id="!t0!var#1" state="0" edges="a b c"/>
     <route id="!t1" state="0" edges="d c c"/>
@@ -59,4 +59,6 @@
             <approaching id="between" arrivalTime="25194" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="238.83"/>
         </link>
     </lane>
+    <driveWay id="gneJ1.d1" edges="a" vehicles="t0"/>
+    <driveWay id="gneJ5.d0" edges="d" vehicles="between"/>
 </snapshot>
