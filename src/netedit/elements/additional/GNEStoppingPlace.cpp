@@ -359,16 +359,16 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
     if (movingGeometryPoints) {
         if (myStartPosition != INVALID_DOUBLE) {
             myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
-                    s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
         }
         if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
             myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
-                    s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
         }
     } else {
         // don't exaggerate contour
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
-        mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, s.stoppingPlaceSettings.symbolExternalRadius, exaggeration);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), width, 1, true, true, 0);
+        mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, s.stoppingPlaceSettings.symbolExternalRadius, getType(), exaggeration);
     }
 }
 

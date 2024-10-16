@@ -451,17 +451,24 @@ void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // update lane drawing constan
     myDrawingConstants->update(s);
+    // calculate layer
+    double layer = GLO_LANE;
+    if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
+        layer = GLO_FRONTELEMENT;
+    } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
+        layer = GLO_JUNCTION + 2;
+    }
     // check drawing conditions
     if (!s.drawForViewObjectsHandler) {
         // draw lane
-        drawLane(s);
+        drawLane(s, layer);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(myDrawingConstants->getDetail(), this, getType(), getPositionInView(), 1);
         // draw dotted contour
         myNetworkElementContour.drawDottedContours(s, myDrawingConstants->getDetail(), this, s.dottedContourSettings.segmentWidth, true);
     }
     // calculate contour (always before children)
-    calculateLaneContour(s);
+    calculateLaneContour(s, layer);
     // draw children
     drawChildren(s);
 }
@@ -1008,17 +1015,11 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 
 
 void
-GNELane::drawLane(const GUIVisualizationSettings& s) const {
+GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
     // Push layer matrix
     GLHelper::pushMatrix();
-    // translate to front (note: Special case)
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
-        glTranslated(0, 0, GLO_FRONTELEMENT);
-    } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
-    } else {
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
-    }
+    // translate to layer
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, layer);
     // set lane colors
     setLaneColor(s);
     // Check if lane has to be draw as railway and if isn't being drawn for selecting
@@ -1417,16 +1418,16 @@ GNELane::drawLane2LaneConnections() const {
 
 
 void
-GNELane::calculateLaneContour(const GUIVisualizationSettings& s) const {
+GNELane::calculateLaneContour(const GUIVisualizationSettings& s, const double layer) const {
     // first check if edge parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentEdge)) {
+    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentEdge, layer)) {
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
-                myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
+                layer, myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
-                    s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(), true);
+                    layer, s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(), true);
         }
     }
 }

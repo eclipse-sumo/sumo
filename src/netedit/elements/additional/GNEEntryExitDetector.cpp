@@ -163,7 +163,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), 2.7, 1.6, getType(), 2, 0,
                 myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
     }
 }

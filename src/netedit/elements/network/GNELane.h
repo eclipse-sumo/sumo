@@ -375,7 +375,7 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
-    void drawLane(const GUIVisualizationSettings& s) const;
+    void drawLane(const GUIVisualizationSettings& s, const double layer) const;
 
     /// @brief draw selected lane
     void drawSelectedLane(const GUIVisualizationSettings& s) const;
@@ -402,7 +402,7 @@ private:
     void drawLane2LaneConnections() const;
 
     /// @brief calculate contour
-    void calculateLaneContour(const GUIVisualizationSettings& s) const;
+    void calculateLaneContour(const GUIVisualizationSettings& s, const double layer) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme, RGBColor& col) const;
