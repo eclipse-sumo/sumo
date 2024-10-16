@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-24 15:55:06 by Eclipse SUMO sumo Version v1_20_0+0199-c75164ae12b
+<!-- generated on 2024-10-16 10:53:55 by Eclipse SUMO sumo Version v1_20_0+0689-312159a3031
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0199-c75164ae12b" time="6.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0689-312159a3031" time="6.00" type="micro" rail="1">
     <route id="!vehicle_0" state="0" edges="gneE1 gneE2"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="train" vClass="rail"/>
@@ -34,4 +34,5 @@
     <lane id="gneE2_0">
         <vehicles value="vehicle_0"/>
     </lane>
+    <driveWay id="gneJ2.d0" edges="gneE1 gneE2" vehicles="vehicle_0"/>
 </snapshot>
