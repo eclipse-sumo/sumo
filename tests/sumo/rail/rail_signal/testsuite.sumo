@@ -132,5 +132,7 @@ driveway_variants
 # corner case that caused a crash
 subDriveWay_short
 
-# corner case that causes a deadlock between 2 vehicles due to invalid driveway matching
+# corner case that causes a deadlock between 2 vehicles due to invalid driveway matching.
+# 
+# Even after corrected matching, there is still a deadlock because train t4 which enters last never passes a switch or signal and therefore doesnt "see" any conflicts.
 driveWayShort_badMatch

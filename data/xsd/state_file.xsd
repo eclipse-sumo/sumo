@@ -238,7 +238,7 @@
     <xsd:complexType name="driveWayStateType">
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
-        <xsd:attribute name="vehicles" type="xsd:string" use="required"/>
+        <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

@@ -45,9 +45,6 @@
 //#define SUBDRIVEWAY_WARN_NOCONFLICT
 
 //#define DEBUG_BUILD_DRIVEWAY
-//#define DEBUG_BUILD_SUBDRIVEWAY
-//#define DEBUG_ADD_FOES
-//#define DEBUG_BUILD_SIDINGS
 //#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_CHECK_FLANKS
 //#define DEBUG_SIGNALSTATE_PRIORITY
@@ -102,6 +99,8 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
         myFoundSignal(false),
         myFoundJump(false),
         myTerminateRoute(false),
+        myAbortedBuild(false),
+        myBidiEnded(false),
         myIsSubDriveway(false)
 {}
 
@@ -845,7 +844,11 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                               " exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
             }
             myNumWarnings++;
+            myAbortedBuild = true;
             // length exceeded
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+            if (gDebugFlag4) std::cout << " abort: length=" << length << "\n";
+#endif
             return;
         }
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -934,6 +937,10 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     if (link == origin) {
                         WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
+                        myAbortedBuild = true;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                        if (gDebugFlag4) std::cout << " abort: found circle\n";
+#endif
                         return;
                     }
                     seekForwardSignal = false;
@@ -981,6 +988,10 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             }
         }
     }
+    myBidiEnded = !seekBidiSwitch;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+    if (gDebugFlag4) std::cout << " normalEnd myBidiEnded=" << myBidiEnded << "\n";
+#endif
 }
 
 
@@ -1379,7 +1390,7 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
     // if the vehicle arrives before the end of this driveway,
     // we'd rather build a new driveway to avoid superfluous restrictions
     if (match && itDwRoute == myRoute.end()
-            && (itRoute == endIt || myFoundSignal || myFoundJump || myIsSubDriveway)) {
+            && (itRoute == endIt || myAbortedBuild || myBidiEnded || myFoundJump || myIsSubDriveway)) {
         //std::cout << "  using dw=" << "\n";
         if (itRoute != endIt) {
             // check whether the current route requires an extended driveway
@@ -1722,7 +1733,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
             auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
             if (itFind != foeSearchEnd) {
 #ifdef DEBUG_BUILD_SIDINGS
-                std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
+                std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << toString(length) << "\n";
 #endif
                 const int firstIndex = i + 1;
                 if (addToFoe) {
@@ -1876,13 +1887,26 @@ MSDriveWay::saveState(OutputDevice& out) {
 
 void
 MSDriveWay::_saveState(OutputDevice& out) const {
-    if (!myTrains.empty()) {
+    if (!myTrains.empty() || haveSubTrains()) {
         out.openTag(myIsSubDriveway ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
         out.writeAttr(SUMO_ATTR_ID, getID());
         out.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
-        out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+        if (!myTrains.empty()) {
+            out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+        }
         out.closeTag();
     }
+}
+
+
+bool
+MSDriveWay::haveSubTrains() const {
+    for (MSDriveWay* sub : mySubDriveWays) {
+        if (!sub->myTrains.empty()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void
@@ -1906,6 +1930,8 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
     if (tag == SUMO_TAG_DRIVEWAY) {
         auto it = myDriveWayRouteLookup.find(route);
         if (it == myDriveWayRouteLookup.end()) {
+            //WRITE_WARNING(TLF("Unknown driveWay '%' with route '%'", id, edges));
+            //return;
             throw ProcessError(TLF("Unknown driveWay '%' with route '%'", id, edges));
         }
         dw = it->second;
@@ -1914,6 +1940,8 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
         std::string parentID = id.substr(0, id.rfind('.'));
         auto it = myDriveWayLookup.find(parentID);
         if (it == myDriveWayLookup.end()) {
+            //WRITE_WARNING(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
+            //return;
             throw ProcessError(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
         }
         MSDriveWay* parent = it->second;
@@ -1929,7 +1957,7 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
             return;
         }
     }
-    const std::string vehicles = attrs.get<std::string>(SUMO_ATTR_VEHICLES, id.c_str(), ok);
+    const std::string vehicles = attrs.getOpt<std::string>(SUMO_ATTR_VEHICLES, id.c_str(), ok, "");
     for (const std::string& vehID : StringTokenizer(vehicles).getVector()) {
         MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(c.getVehicle(vehID));
         if (veh == nullptr) {
