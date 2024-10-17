@@ -45,9 +45,6 @@
 //#define SUBDRIVEWAY_WARN_NOCONFLICT
 
 //#define DEBUG_BUILD_DRIVEWAY
-//#define DEBUG_BUILD_SUBDRIVEWAY
-//#define DEBUG_ADD_FOES
-//#define DEBUG_BUILD_SIDINGS
 //#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_CHECK_FLANKS
 //#define DEBUG_SIGNALSTATE_PRIORITY
@@ -849,6 +846,9 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             myNumWarnings++;
             myAbortedBuild = true;
             // length exceeded
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+            if (gDebugFlag4) std::cout << " abort: length=" << length << "\n";
+#endif
             return;
         }
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -938,6 +938,9 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                         WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
                         myAbortedBuild = true;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                        if (gDebugFlag4) std::cout << " abort: found circle\n";
+#endif
                         return;
                     }
                     seekForwardSignal = false;
@@ -986,6 +989,9 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
         }
     }
     myBidiEnded = !seekBidiSwitch;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+    if (gDebugFlag4) std::cout << " normalEnd myBidiEnded=" << myBidiEnded << "\n";
+#endif
 }
 
 
