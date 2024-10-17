@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-16 14:29+0000\n"
+"PO-Revision-Date: 2024-10-17 13:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7451,39 +7451,39 @@ msgstr ""
 
 #: src/netgen/netgen_main.cpp:274
 msgid " Removed % traffic lights at geometry-like nodes"
-msgstr ""
+msgstr " % semafori rimossi da nodi che sembrano esistere solo per la geometria"
 
 #: src/netimport/NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "Carica rete di SUMO da FILE"
 
 #: src/netimport/NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di nodi in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di archi in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di collegamenti in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di semafori in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di tipi in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "Carica fermate di trasporto pubblico da FILE"
 
 #: src/netimport/NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "Carica linee di trasporto pubblico da FILE"
 
 #: src/netimport/NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
@@ -11436,7 +11436,7 @@ msgstr "Colonna invalida"
 #: src/utils/foxtools/MFXDecalsTable.cpp:340
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
 msgid "Open decal"
-msgstr ""
+msgstr "Apri immagine di sfondo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:345
 msgid "All files (*)"
@@ -11444,27 +11444,27 @@ msgstr "Tutti i file (*)"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
 msgid "Open decal."
-msgstr ""
+msgstr "Apre l'immagine di sfondo."
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:805
 msgid "Remove decal"
-msgstr ""
+msgstr "Rimuovi immagine di sfondo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:805
 msgid "Remove decal."
-msgstr ""
+msgstr "Rimuove l'immagine di sfondo."
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Estendi"
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
-msgstr ""
+msgstr "Estendi il riquadro per mostrare tutti il contenuto"
 
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
-msgstr ""
+msgstr "Digita per cercare..."
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
