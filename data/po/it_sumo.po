@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-17 13:14+0000\n"
+"PO-Revision-Date: 2024-10-17 17:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4770,25 +4770,32 @@ msgstr "Espressione vuota invalida"
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1379
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
 msgstr ""
+"Errore mentre si cerca di ritrovare le condizioni '%' per la logica di "
+"semaforo '%' (%)"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
 "Unknown laneAreaDetector '%' given as custom detector for delay_based "
 "tlLogic '%', program '%."
 msgstr ""
+"Rivelatore di corsie '%' sconosciusto dato come rivelatore personalizzato "
+"della logica di semaforo '%', programma '%."
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
-msgstr ""
+msgstr "Stato invalido 'off' del collegamento % nell'incrocio '%'"
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:84
 msgid "Inconsistent 'off'-states for linkIndex % at tlLogic '%'"
 msgstr ""
+"Stati 'off' inconsistenti per l'indice di collegamento % nella logica di "
+"semaforo '%'"
 
 #: src/microsim/traffic_lights/MSRailSignal.cpp:106
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
 msgstr ""
+"Il segnale ferroviario nell'incrocio '%' non controlla nessun collegamento"
 
 #: src/microsim/traffic_lights/MSRailSignal.cpp:1215
 msgid "Found circular block after railSignal % (% edges, length %)"
@@ -10097,7 +10104,7 @@ msgstr "Fine dell'archivio incontrato nella lettura di %."
 
 #: src/od/ODMatrix.cpp:469
 msgid "Broken period definition '%'."
-msgstr ""
+msgstr "Definizione di intervallo invalida '%'."
 
 #: src/od/ODMatrix.cpp:483
 msgid "Broken factor: '%'."
@@ -10131,21 +10138,23 @@ msgstr "Non ho potuto aprile '%'."
 #: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
-msgstr ""
+msgstr "'%' non contiene l'informazione necessaria relativa all'ora descritta."
 
 #: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
-msgstr ""
+msgstr "Non ho potuto accedere al file di matrice '%' da caricare."
 
 #: src/od/ODMatrix.cpp:722
 #, c-format
 msgid "Could not access route file '%' to load."
-msgstr ""
+msgstr "Non ho potuto accedere al file di itinerari '%' da caricare."
 
 #: src/od/ODMatrix.cpp:739
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr ""
+"Sono stati trovati % appunti per la curva cronologica invece dei 24 "
+"aspettati per un giorno intero."
 
 #: src/od/ODMatrix.cpp:749
 msgid "Broken time line definition: missing a value in '%'."
