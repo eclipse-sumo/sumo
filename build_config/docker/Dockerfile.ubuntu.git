@@ -10,6 +10,7 @@
 FROM ubuntu:jammy
 
 ENV SUMO_HOME=/usr/share/sumo
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update
 RUN apt-get -y install git
@@ -21,7 +22,7 @@ RUN apt-get -y install $(cat /opt/sumo/build_config/build_req_deb.txt)
 # 3D GUI, video recording
 RUN apt-get -y install libopenscenegraph-dev libavformat-dev libswscale-dev
 # packages needed for the tools (some are also listed in tools/requirements.txt but we prefer the ubuntu packages)
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
+RUN apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
 
 # python packages needed for the tools (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/tools/requirements.txt

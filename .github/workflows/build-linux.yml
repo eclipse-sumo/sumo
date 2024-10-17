@@ -109,8 +109,12 @@ jobs:
 
     - name: Building Examples and Tests
       if: matrix.build_type == 'full' && (github.repository == 'DLR-TS/sumo' || matrix.compiler == 'gcc')
+      # need to explicitly uninstall matplotlib below because pandas pulls it in but we need a newer version for test stability
+      # having both installed confuses matplotlib https://github.com/matplotlib/matplotlib/issues/26827
+      # the pipdeptree below is also just for debugging but often comes handy so keep it enabled
       run: |
         sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
+        sudo apt-get -y uninstall python3-matplotlib
         python3 -m venv testenv --system-site-packages
         source testenv/bin/activate
         python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
@@ -122,6 +126,7 @@ jobs:
     - name: Extra tests
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
+        source testenv/bin/activate
         sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
 

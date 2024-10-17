@@ -1,5 +1,4 @@
 python3-autopep8
-python3-contourpy
 python3-ezdxf
 python3-flake8
 python3-pandas
