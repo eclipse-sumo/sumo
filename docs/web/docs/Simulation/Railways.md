@@ -417,6 +417,39 @@ This constrain defines that a given vehicle id (or tripId) can only be inserted 
 ### constraints generation
 Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) by using a route file with [stops that define a schedule](Public_Transport.md#public_transport_schedules).
 
+# Deadlocks
+
+If the graph of relationships between trains that wait for another train ever forms a circle, then no train can ever advance and the simulation is in a state of deadlock.
+The default behavior of rail signals is to anticipate most such problems and prevent a train from passing a single if that movement would form a deadlock.
+However, the default logic only handles the most common cases that involve two or three trains (and a few situations with four trains).
+
+- Deadlocks may appear from an interplay of four or more trains.
+- The signal logic does not prevent deadlocks that involve loaded [signal constraints](#schedule_constraints)
+
+The deal with deadlock problems, the simulation provides multiple strategies explained in the following.
+
+## Deadlock detection
+
+By setting option **--time-to-teleport.railsignal-deadlock TIME** deadlocks are detected if one of the vehicles involved has been waiting for the given TIME.
+If option **--deadlock-output FILE** is also set, then any detected deadlocks will be written to the given file.
+
+## Deadlock resolution
+
+In case a deadlock is detected, the vehicle that has been waiting in this deadlock for the longest time will be teleported to the next available network edge to break the deadlock.
+If option **--time-to-teleport.remove** is set, the vehicle will instead be removed from the simulation.
+
+By setting option **--time-to-teleport.remove-constraint**, a constraint involved in the deadlock will be deactivated to break the deadlock rather than teleporting or removing a vehicle. This option is highly recommended when working with constraints. But doesn't take effect otherwise.
+
+If option **--deadlock-output FILE** is set, then the deactivated constraint will also be included in the recorded deadlock.
+
+## Deadlock prevention
+
+The prevent complex deadlocks that happened without the use of constraints, the recorded deadlocks from a previous simulation can be loaded as an additional file.
+This will selectively add additional checks to the rail signal logic to prevent any deadlock constelation among the list of signals that were part of the recorded deadlocks.
+
+!!! caution
+    The deadlock file must be loaded before any trains (which is only an issue if trains are loaded with option **--additional-files**).
+
 # TraCI
 
 Rail signals and rail crossings can be controlled with function *traci.trafficlight.setRedYellowGreenState*. They can also be switched off with *traci.trafficlight.setProgram(tlsID, "off")*. In either case, normal operations can be resumed by reactivating the default program "0": *traci.trafficlight.setProgram(tlsID, "0")*.
