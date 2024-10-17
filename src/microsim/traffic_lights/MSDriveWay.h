@@ -204,6 +204,10 @@ protected:
     bool myFoundSignal;
     bool myFoundJump;
     bool myTerminateRoute;
+    /// @brief whether driveway building was aborted due to MAX_BLOCK_LENGTH
+    bool myAbortedBuild;
+    /// @brief whether driveway building was aborted when no further bidi edge was found
+    bool myBidiEnded;
     bool myIsSubDriveway;
 
     /* @brief the actual driveway part up to the next railsignal (halting position)

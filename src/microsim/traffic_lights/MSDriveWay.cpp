@@ -102,6 +102,8 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
         myFoundSignal(false),
         myFoundJump(false),
         myTerminateRoute(false),
+        myAbortedBuild(false),
+        myBidiEnded(false),
         myIsSubDriveway(false)
 {}
 
@@ -845,6 +847,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                               " exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
             }
             myNumWarnings++;
+            myAbortedBuild = true;
             // length exceeded
             return;
         }
@@ -934,6 +937,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     if (link == origin) {
                         WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
+                        myAbortedBuild = true;
                         return;
                     }
                     seekForwardSignal = false;
@@ -981,6 +985,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             }
         }
     }
+    myBidiEnded = !seekBidiSwitch;
 }
 
 
@@ -1379,7 +1384,7 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
     // if the vehicle arrives before the end of this driveway,
     // we'd rather build a new driveway to avoid superfluous restrictions
     if (match && itDwRoute == myRoute.end()
-            && (itRoute == endIt || myFoundSignal || myFoundJump || myIsSubDriveway)) {
+            && (itRoute == endIt || myAbortedBuild || myBidiEnded || myFoundJump || myIsSubDriveway)) {
         //std::cout << "  using dw=" << "\n";
         if (itRoute != endIt) {
             // check whether the current route requires an extended driveway
