@@ -1727,7 +1727,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
             auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
             if (itFind != foeSearchEnd) {
 #ifdef DEBUG_BUILD_SIDINGS
-                std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
+                std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << toString(length) << "\n";
 #endif
                 const int firstIndex = i + 1;
                 if (addToFoe) {
