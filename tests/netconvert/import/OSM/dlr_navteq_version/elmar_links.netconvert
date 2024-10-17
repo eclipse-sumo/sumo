@@ -1,7 +1,7 @@
 # Format matches Extraction version: V7 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on 2024-04-26 09:19:03 by Eclipse SUMO netconvert Version v1_19_0+1942-af64547e310
+# <!-- generated on 2024-06-12 07:52:41 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # -->
 # 
-# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 # 
 #     <input>
 #         <osm-files value="osm.xml"/>
@@ -60,7 +60,7 @@
 #         <xml-validation value="never"/>
 #     </report>
 # 
-# </configuration>
+# </netconvertConfiguration>
 # 
 #
 # LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID	LENGTH	VEHICLE_TYPE	FORM_OF_WAY	BRUNNEL_TYPE	FUNCTIONAL_ROAD_CLASS	SPEED_CATEGORY	NUMBER_OF_LANES	SPEED_LIMIT	SPEED_RESTRICTION	NAME_ID1_REGIONAL	NAME_ID2_LOCAL	HOUSENUMBERS_RIGHT	HOUSENUMBERS_LEFT	ZIP_CODE	AREA_ID	SUBAREA_ID	THROUGH_TRAFFIC	SPECIAL_RESTRICTIONS	EXTENDED_NUMBER_OF_LANES	ISRAMP	CONNECTION	MAXHEIGHT	MAXWIDTH	MAXWEIGHT	SURFACE

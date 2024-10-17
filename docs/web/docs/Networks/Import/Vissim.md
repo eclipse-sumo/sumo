@@ -11,7 +11,7 @@ short. A usage example for [netconvert](../../netconvert.md)'s Vissim
 import may look like:
 
 ```
-netconvert --vissim-file=<VISSIM_FILE> --output-file=MySUMOFile.net.xml
+netconvert --vissim-file=<VISSIM_FILE> --output-file=MySUMOFile.net.xml
 ```
 
 Vissim-networks do possibly not contain explicit definitions of an
@@ -31,7 +31,7 @@ During import, different actions must be done which may yield in some
 loss of data and may be watched in part by setting the verbose option.
 
 As of **SVN revision \[18592\]** the import parser used by netconvert
-was extended to accomodate for the new XML input file format (`*.inpx`)
+was extended to accommodate for the new XML input file format (`*.inpx`)
 of VISSIM version \>= 6 (which makes a lot of things a lot easier)...
 
 # Advice on VISSIM network structure

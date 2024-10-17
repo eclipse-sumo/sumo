@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
 
 # Trip depart and arrival options, see
-# http://www.sumo.dlr.de/userdoc/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#A_Vehicle.27s_depart_and_arrival_parameter
+# https://sumo.dlr.de/docs/Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#a_vehicles_depart_and_arrival_parameter
 
 
 #from agilepy.lib_base.geometry import find_area

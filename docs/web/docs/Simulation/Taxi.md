@@ -96,7 +96,7 @@ Direct ride hailing can be regarded as a spontaneous booking. If the taxi is to 
 
 By default, there is only a single taxi fleet using line attribute 'taxi' and taxi customers use attribute `lines="taxi"` for their rides.
 It is permitted to define the line attribute for taxi with the prefix 'taxi:' and an arbitrary suffix (i.e. "taxi:fleetA").
-Likewise, tt is permitted to define the lines attribute for rides with the prefix 'taxi:' and a suffix.
+Likewise, it is permitted to define the lines attribute for rides with the prefix 'taxi:' and a suffix.
 When this is done, the following rules are applied when assigning taxis to customers:
 
 - a taxi with line 'taxi:X' may only pick up customers with matching ride attribute lines="taxi:X" (for any value of X)
@@ -150,7 +150,7 @@ By default, vehicles will leave the simulation after reaching the end of their f
 
 When using idle-algorithm **taxistand**, the following inputs must be provided:
 
-- each taxi stand must be defined as a [parkingAreas](ParkingArea.md)
+- each taxi stand must be defined as a [parkingArea](ParkingArea.md)
 - the list of parkingAreas that may be used for a particular taxi or taxi fleet must be defined as a `<rerouter>`-element according to the [description for parking search simulation](Rerouter.md#rerouting_to_an_alternative_parking_area).
 - the taxi must define the parameter `device.taxi.stands-rerouter` either as a child element of the `<vehicle>` or its `<vType>` and declare the rerouter id.
 

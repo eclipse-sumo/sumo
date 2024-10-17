@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-24 15:49:41 by Eclipse SUMO sumo Version v1_14_1+14230-ef4659e9b2b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <battery-output value="battery.xml"/>
+        <battery-output.precision value="4"/>
+        <chargingstations-output value="chargingstations.xml"/>
+        <chargingstations-output.aggregated value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <battery>
+        <device.battery.probability value="1"/>
+    </battery>
+
+</sumoConfiguration>
+-->
+
+<chargingstations-export>
+    <chargingEvent chargingStationId="CS1" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="18.47" chargingBegin="12.00" chargingEnd="18.00" actualBatteryCapacity="12978.88" maximumBatteryCapacity="35000.00" minPower="10000.00" maxPower="10000.00" minCharge="2.64" maxCharge="2.64" minEfficiency="0.95" maxEfficiency="0.95"/>
+    <chargingEvent chargingStationId="CS1" vehicle="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="18.47" chargingBegin="17.00" chargingEnd="23.00" actualBatteryCapacity="11983.26" maximumBatteryCapacity="35000.00" minPower="10000.00" maxPower="10000.00" minCharge="2.64" maxCharge="2.64" minEfficiency="0.95" maxEfficiency="0.95"/>
+    <chargingEvent chargingStationId="CS2" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="30.25" chargingBegin="26.00" chargingEnd="36.00" actualBatteryCapacity="12974.06" maximumBatteryCapacity="35000.00" minPower="11000.00" maxPower="11000.00" minCharge="2.75" maxCharge="2.75" minEfficiency="0.90" maxEfficiency="0.90"/>
+    <chargingEvent chargingStationId="CS1" vehicle="veh2" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="26.39" chargingBegin="32.00" chargingEnd="41.00" actualBatteryCapacity="9981.70" maximumBatteryCapacity="35000.00" minPower="10000.00" maxPower="10000.00" minCharge="2.64" maxCharge="2.64" minEfficiency="0.95" maxEfficiency="0.95"/>
+    <chargingEvent chargingStationId="CS2" vehicle="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="30.25" chargingBegin="32.00" chargingEnd="42.00" actualBatteryCapacity="11977.60" maximumBatteryCapacity="35000.00" minPower="11000.00" maxPower="11000.00" minCharge="2.75" maxCharge="2.75" minEfficiency="0.90" maxEfficiency="0.90"/>
+    <chargingEvent chargingStationId="CS3" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="17.00" chargingBegin="47.00" chargingEnd="55.00" actualBatteryCapacity="12955.97" maximumBatteryCapacity="35000.00" minPower="12000.00" maxPower="12000.00" minCharge="0.00" maxCharge="2.83" minEfficiency="0.85" maxEfficiency="0.85"/>
+    <chargingEvent chargingStationId="CS3" vehicle="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="17.00" chargingBegin="52.00" chargingEnd="60.00" actualBatteryCapacity="11960.36" maximumBatteryCapacity="35000.00" minPower="12000.00" maxPower="12000.00" minCharge="0.00" maxCharge="2.83" minEfficiency="0.85" maxEfficiency="0.85"/>
+    <chargingEvent chargingStationId="CS2" vehicle="veh2" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="41.25" chargingBegin="49.00" chargingEnd="63.00" actualBatteryCapacity="9987.83" maximumBatteryCapacity="35000.00" minPower="11000.00" maxPower="11000.00" minCharge="2.75" maxCharge="2.75" minEfficiency="0.90" maxEfficiency="0.90"/>
+    <chargingEvent chargingStationId="CS4" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="23.11" chargingBegin="63.00" chargingEnd="75.00" actualBatteryCapacity="12943.98" maximumBatteryCapacity="35000.00" minPower="13000.00" maxPower="13000.00" minCharge="0.00" maxCharge="2.89" minEfficiency="0.80" maxEfficiency="0.80"/>
+    <chargingEvent chargingStationId="CS3" vehicle="veh2" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="5.67" chargingBegin="74.00" chargingEnd="78.00" actualBatteryCapacity="9958.46" maximumBatteryCapacity="35000.00" minPower="12000.00" maxPower="12000.00" minCharge="0.00" maxCharge="2.83" minEfficiency="0.85" maxEfficiency="0.85"/>
+    <chargingEvent chargingStationId="CS5" vehicle="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="0.00" chargingBegin="77.00" chargingEnd="87.00" actualBatteryCapacity="11881.30" maximumBatteryCapacity="35000.00" minPower="14000.00" maxPower="14000.00" minCharge="0.00" maxCharge="0.00" minEfficiency="0.00" maxEfficiency="0.00"/>
+    <chargingEvent chargingStationId="CS4" vehicle="veh2" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="0.00" chargingBegin="86.00" chargingEnd="89.00" actualBatteryCapacity="9923.49" maximumBatteryCapacity="35000.00" minPower="13000.00" maxPower="13000.00" minCharge="0.00" maxCharge="0.00" minEfficiency="0.80" maxEfficiency="0.80"/>
+    <chargingEvent chargingStationId="CS5" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="0.00" chargingBegin="86.00" chargingEnd="96.00" actualBatteryCapacity="12915.09" maximumBatteryCapacity="35000.00" minPower="14000.00" maxPower="14000.00" minCharge="0.00" maxCharge="0.00" minEfficiency="0.00" maxEfficiency="0.00"/>
+</chargingstations-export>

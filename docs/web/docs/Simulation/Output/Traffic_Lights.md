@@ -20,8 +20,8 @@ The attributes have herein the following meanings:
 | Attribute Name | Value Type        | Description                                               |
 | -------------- | ----------------- | --------------------------------------------------------- |
 | **type**       | enum (string)     | type of the event trigger; always "SaveTLSStates" herein. |
-| **source**     | referenced tls id | The id of the traffic light which state shall be written. |
 | **dest**       | file name         | The file to save the state into.                          |
+| source         | referenced tls id | The id of the traffic light which state shall be written. If not given, all tls will be saved |
 | saveDetectors  | bool              | Whether detector states shall be saved                    |
 | saveConditions | bool              | Whether condition states shall be saved                   |
 
@@ -55,7 +55,7 @@ the following meaning:
 
 ### Optional Output
 
-If the the attributes 'saveDetectors' or 'saveConditions' are set, additional attributes are written to the output.
+If the attributes 'saveDetectors' or 'saveConditions' are set, additional attributes are written to the output.
 These attributes are only written for traffic lights [controlled by detectors](../Traffic_Lights.md#traffic_lights_that_respond_to_traffic) and for traffic lights with [custom switching rules](../Traffic_Lights.md#type_actuated_with_custom_switching_rules) respectively.
 
 |Element    | Name           | Type           | Description                                                         |
@@ -82,8 +82,8 @@ The attributes have herein the following meanings:
 | Attribute Name | Value Type        | Description                                                 |
 | -------------- | ----------------- | ----------------------------------------------------------- |
 | **type**       | enum (string)     | type of the event trigger; always "SaveTLSSwitches" herein. |
-| **source**     | referenced tls id | The id of the traffic light which state shall be written.   |
 | **dest**       | file name         | The file to save the state into.                            |
+| source         | referenced tls id | The id of the traffic light which state shall be written. If not given, all tls will be saved |
 
 ### Generated Output
 
@@ -128,8 +128,8 @@ The attributes have herein the following meanings:
 | Attribute Name | Value Type        | Description                                                     |
 | -------------- | ----------------- | --------------------------------------------------------------- |
 | **type**       | enum (string)     | type of the event trigger; always "SaveTLSSwitchStates" herein. |
-| **source**     | referenced tls id | The id of the traffic light which state shall be written.       |
 | **dest**       | file name         | The file to save the state into.                                |
+| source         | referenced tls id | The id of the traffic light which state shall be written. If not given, all tls will be saved |
 
 ### Generated Output
 
@@ -160,8 +160,8 @@ The attributes have herein the following meanings:
 | Attribute Name | Value Type        | Description                                               |
 | -------------- | ----------------- | --------------------------------------------------------- |
 | **type**       | enum (string)     | type of the event trigger; always "SaveTLSStates" herein. |
-| **source**     | referenced tls id | The id of the traffic light which state shall be written. |
 | **dest**       | file name         | The file to save the state into.                          |
+| source         | referenced tls id | The id of the traffic light which state shall be written. If not given, all tls will be saved |
 
 ### Generated Output
 

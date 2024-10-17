@@ -33,15 +33,6 @@
 #include "GNEAdditionalHandler.h"
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-const double GNEStoppingPlace::myCircleWidth = 1.1;
-const double GNEStoppingPlace::myCircleWidthSquared = 1.21;
-const double GNEStoppingPlace::myCircleInWidth = 0.9;
-const double GNEStoppingPlace::myCircleInText = 1.6;
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -158,7 +149,8 @@ GNEStoppingPlace::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -305,7 +297,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings::Detail d, const std:
             // push a new matrix for every line
             GLHelper::pushMatrix();
             // translate
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            glTranslated(mySymbolPosition.x(), mySymbolPosition.y(), 0);
             // rotate over lane
             GUIGeometry::rotateOverLane(rot);
             // draw line with a color depending of the selection status
@@ -322,18 +314,19 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings::Detail d, const std:
 
 
 void
-GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration, const RGBColor& baseColor,
-                           const RGBColor& signColor, const std::string& word) const {
+GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
+                           const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const {
     // only draw in level 2
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
-        const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        const double rotSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+        const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) - 180. * rotSign;
         // push matrix
         GLHelper::pushMatrix();
         // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
+        glTranslated(mySymbolPosition.x(), mySymbolPosition.y(), 0);
         // rotate over lane
         GUIGeometry::rotateOverLane(rot);
         // scale matrix depending of the exaggeration
@@ -341,7 +334,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
         // set color
         GLHelper::setColor(baseColor);
         // Draw circle
-        GLHelper::drawFilledCircleDetailled(d, myCircleWidth);
+        GLHelper::drawFilledCircleDetailled(d, s.stoppingPlaceSettings.symbolExternalRadius);
         // continue depending of rectangle selection
         if (d <= GUIVisualizationSettings::Detail::Text) {
             // Traslate to front
@@ -349,9 +342,9 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
             // set color
             GLHelper::setColor(signColor);
             // draw another circle in the same position, but a little bit more small
-            GLHelper::drawFilledCircleDetailled(d, myCircleInWidth);
+            GLHelper::drawFilledCircleDetailled(d, s.stoppingPlaceSettings.symbolInternalRadius);
             // draw H depending of detailSettings
-            GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor);
+            GLHelper::drawText(word, Position(), .1, s.stoppingPlaceSettings.symbolInternalTextSize, baseColor);
         }
         // pop draw matrix
         GLHelper::popMatrix();
@@ -361,20 +354,21 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
 
 void
 GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const double width, const bool movingGeometryPoints) const {
+        const double width, const double exaggeration, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
         if (myStartPosition != INVALID_DOUBLE) {
             myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
-                    s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
         }
         if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
             myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
-                    s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
         }
     } else {
         // don't exaggerate contour
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), width, 1, true, true, 0);
+        mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, s.stoppingPlaceSettings.symbolExternalRadius, getType(), exaggeration);
     }
 }
 

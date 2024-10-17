@@ -350,7 +350,11 @@ parseVehicleClasses(const std::string& allowedS) {
         while (sta.hasNext()) {
             const std::string s = sta.next();
             if (!SumoVehicleClassStrings.hasString(s)) {
-                WRITE_ERRORF(TL("Unknown vehicle class '%' encountered."), s);
+                if (gIgnoreUnknownVClass) {
+                    WRITE_WARNINGF(TL("Unknown vehicle class '%' ignored."), s);
+                } else {
+                    WRITE_ERRORF(TL("Unknown vehicle class '%' encountered."), s);
+                }
             } else {
                 const SUMOVehicleClass vc = getVehicleClassID(s);
                 const std::string& realName = SumoVehicleClassStrings.getString(vc);
@@ -530,8 +534,8 @@ isSidewalk(SVCPermissions permissions) {
 
 
 bool
-isForWeakModes(SVCPermissions permissions) {
-    return ((permissions & SVC_WEAK) != 0 && (permissions & ~SVC_WEAK) == 0);
+isForVulnerableModes(SVCPermissions permissions) {
+    return ((permissions & SVC_VULNERABLE) != 0 && (permissions & ~SVC_VULNERABLE) == 0);
 }
 
 

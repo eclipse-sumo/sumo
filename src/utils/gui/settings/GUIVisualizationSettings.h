@@ -86,6 +86,39 @@ struct GUIVisualizationTextSettings {
 };
 
 
+struct GUIVisualizationRainbowSettings {
+
+    /// @brief constructor
+    GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral, double _neutralThreshold, bool _fixRange);
+
+    /// @brief equality comparator
+    bool operator==(const GUIVisualizationRainbowSettings& other);
+
+    /// @brief inequality comparator
+    bool operator!=(const GUIVisualizationRainbowSettings& other);
+
+    /// @brief print values in output device
+    void print(OutputDevice& dev, const std::string& name) const;
+
+    /// @brief whether data below threshold should not be colored
+    bool hideMin;
+    /// @brief threshold below which value should not be colored
+    double minThreshold;
+    /// @brief whether data above threshold should not be colored
+    bool hideMax;
+    /// @brief threshold above which value should not be colored
+    double maxThreshold;
+    /// @brief whether the scale should be centered at a specific value
+    bool setNeutral;
+    /// @brief neutral point of scale
+    double neutralThreshold;
+    /// @brief whether the color scale should be fixed to the given min/max values
+    bool fixRange;
+    /// @brief color steps for the rainbow;
+    std::vector<RGBColor> colors;
+};
+
+
 /// @brief struct for size settings
 struct GUIVisualizationSizeSettings {
 
@@ -362,6 +395,9 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief Vaporizer size
     static const double vaporizerSize;
 
+    /// @brief stopEdges size
+    static const double stopEdgeSize;
+
     /// @brief connection color
     static const RGBColor connectionColor;
 
@@ -454,6 +490,15 @@ struct GUIVisualizationStoppingPlaceSettings {
 
     /// @brief chargingStation width
     static const double chargingStationWidth;
+
+    /// @brief symbol external radius
+    static const double symbolExternalRadius;
+
+    /// @brief symbol internal radius
+    static const double symbolInternalRadius;
+
+    /// @brief symbol internal text size
+    static const double symbolInternalTextSize;
 };
 
 
@@ -578,6 +623,33 @@ public:
     /// @brief constructor
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
+    /// @brief check if draw junction
+    bool checkDrawJunction(const Boundary& b, const bool selected) const;
+
+    /// @brief check if draw edge
+    bool checkDrawEdge(const Boundary& b) const;
+
+    /// @brief update ignore hide by zoom (call BEFORE drawing all elements).
+    void updateIgnoreHideByZoom();
+
+    /// @brief check if draw additionals
+    bool checkDrawAdditional(Detail d, const bool selected) const;
+
+    /// @brief check if draw polygon
+    bool checkDrawPoly(const Boundary& b, const bool selected) const;
+
+    /// @brief check if draw POI
+    bool checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const;
+
+    /// @brief check if draw vehicle
+    bool checkDrawVehicle(Detail d, const bool selected) const;
+
+    /// @brief check if draw person
+    bool checkDrawPerson(Detail d, const bool selected) const;
+
+    /// @brief check if draw container
+    bool checkDrawContainer(Detail d, const bool selected) const;
+
     /// @brief copy all content from another GUIVisualizationSettings (note: DON'T USE in DrawGL functions!)
     void copy(const GUIVisualizationSettings& s);
 
@@ -622,9 +694,6 @@ public:
     /// @brief return wether the text was flipped for reading at the given angle
     bool flippedTextAngle(double objectAngle) const;
 
-    /// @brief check if draw element depending of boundarySize
-    bool checkBoundarySizeDrawing(const double w, const double h) const;
-
     /// @brief return the detail level
     Detail getDetailLevel(const double exaggeration) const;
 
@@ -648,6 +717,9 @@ public:
 
     /// @brief Information whether frames-per-second should be drawn
     bool fps;
+
+    /// @brief drawl all objects according to their z data
+    bool trueZ;
 
     /// @name Background visualization settings
     /// @{
@@ -698,7 +770,7 @@ public:
     /// @brief Information whether rails shall be drawn
     bool showRails;
 
-    // Setting bundles for optional drawing names with size and color
+    /// @brief Setting bundles for optional drawing names with size and color
     GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue, edgeScaleValue;
 
     /// @brief flag to show or hide connectors
@@ -738,13 +810,8 @@ public:
     /// @brief key for scaling by edgeData
     std::string edgeDataScaling;
 
-    /// @brief threshold below which edge data value should not be rendered
-    bool edgeValueHideCheck;
-    double edgeValueHideThreshold;
-
-    /// @brief threshold above which edge data value should not be rendered
-    bool edgeValueHideCheck2;
-    double edgeValueHideThreshold2;
+    /// @brief checks and thresholds for rainbow coloring
+    GUIVisualizationRainbowSettings edgeValueRainBow;
     /// @}
 
     /// @name vehicle visualization settings
@@ -785,6 +852,9 @@ public:
 
     /// @brief Set whether parking related information should be shown
     bool showParkingInfo;
+
+    /// @brief Set whether the charging search related information should be shown
+    bool showChargingInfo;
 
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
@@ -852,6 +922,8 @@ public:
     bool drawCrossingsAndWalkingareas;
     // Setting bundles for controling the size of the drawn junction
     GUIVisualizationSizeSettings junctionSize;
+
+    GUIVisualizationRainbowSettings junctionValueRainBow;
     /// @}
 
 
@@ -923,9 +995,8 @@ public:
     /// @brief key for coloring by edgeRelation / tazRelation attribute
     std::string relDataAttr;
 
-    /// @brief value below which relation data value should not be rendered
-    bool dataValueHideCheck;
-    double dataValueHideThreshold;
+    /// @brief value below which edgeData and edgeRelation data value should not be rendered
+    GUIVisualizationRainbowSettings dataValueRainBow;
     /// @}
 
 
@@ -1018,6 +1089,8 @@ public:
     static const double MISSING_DATA;
     static RGBColor COL_MISSING_DATA;
 
+    static std::map<std::string, std::vector<RGBColor> > RAINBOW_SCHEMES;
+
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
 
@@ -1050,6 +1123,13 @@ public:
 
     /// @brief alt key pressed (only used for draw polygons under other elements in SUMO-GUI, store is not needed)
     bool altKeyPressed = false;
+
+    /// @brief constant for boundary size drawing (20 for slow computers, 10 for quick computers)
+    double BoundarySizeDrawing = 15;
+
+protected:
+    /// @brief flag for ignore hide by zoom (used if we're drawing elements with constant size, their ID/name/etc. texts, etc.)
+    bool myIgnoreHideByZoom;
 
 private:
     /// @brief set copy constructor private

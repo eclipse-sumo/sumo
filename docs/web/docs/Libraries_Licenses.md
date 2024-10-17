@@ -133,6 +133,10 @@ won't work
 Please note that the tools needed for processing the translation files (so for compiling SUMO)
 are distributed under GPL and are not part of the SUMO download.
 
+### [{fmt}](https://fmt.dev) - Formatting library
+
+- [​MIT License](https://github.com/fmtlib/fmt/blob/master/LICENSE)
+
 
 ## Data and Documentation
 

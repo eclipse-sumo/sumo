@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="300.00">
+        <ride from="B2C2" to="A0B0" lines="taxi">
+            <param key="earliestPickupTime" value="75.00"/>
+            <param key="reservationTime" value="60.00"/>
+        </ride>
+    </person>
+</routes> 

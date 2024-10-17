@@ -196,7 +196,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
         lastStop = &veh.getStop((int)veh.getStops().size() - 1);
     }
     if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
-        const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
+        const MSParkingArea* pa = dynamic_cast<MSParkingArea*>(rerouteDef->parkProbs.getVals().front().first);
         SUMOVehicleParameter::Stop stop;
         stop.lane = pa->getLane().getID();
         stop.startPos = pa->getBeginLanePosition();

@@ -21,8 +21,15 @@
 #include <config.h>
 
 #include <utils/common/Command.h>
+#include <utils/common/MapMatcher.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include "MSVehicleDevice.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMOSAXReader;
 
 
 // ===========================================================================
@@ -57,6 +64,7 @@ public:
     /** @brief Static intialization
      */
     static void init();
+    static SUMOTime parseNext(SUMOTime t);
 
 public:
     /// @brief Destructor.
@@ -65,7 +73,7 @@ public:
     void move(SUMOTime currentTime);
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "fcd-replay";
     }
 
@@ -82,6 +90,7 @@ public:
 
     void setTrajectory(Trajectory* const t) {
         myTrajectory = t;
+        myTrajectoryIndex = 1;
     }
 
 private:
@@ -94,16 +103,19 @@ private:
 
     class MoveVehicles : public Command {
     public:
-        SUMOTime execute(SUMOTime currentTime);
+        SUMOTime execute(SUMOTime currentTime) override;
     private:
         /// @brief Invalidated assignment operator.
         MoveVehicles& operator=(const MoveVehicles&) = delete;
     };
 
-    class FCDHandler : public SUMOSAXHandler {
+    class FCDHandler : public SUMOSAXHandler, public MapMatcher<MSEdge, MSLane, MSJunction> {
     public:
-        void reset();
-        void addTrafficObjects();
+        FCDHandler(const std::string& file);
+        SUMOTime getTime() const {
+            return myTime;
+        }
+        void updateTrafficObjects(const SUMOTime intervalStart);
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -116,24 +128,35 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) override;
         //@}
 
+        void initLaneTree(NamedRTree* tree) override;
+
+        MSEdge* retrieveEdge(const std::string& id) override;
+
     private:
-        SUMOTime myTime;
-        std::map<std::string, Trajectory> myTrajectories;
         struct StageStart {
             std::string vehicle;
             int trajectoryOffset;
             int routeOffset;
         };
+
+        MSTransportable::MSTransportablePlan* makePlan(const SUMOVehicleParameter& params, const ConstMSEdgeVector& route,
+                const std::vector<StageStart>& stages, const Trajectory& t);
+        ConstMSEdgeVector checkRoute(const ConstMSEdgeVector& edges, const SUMOVehicle* const vehicle);
+
+        SUMOTime myTime = 0;
+        std::map<std::string, Trajectory> myTrajectories;
         std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector, std::vector<StageStart> > > myRoutes;
         std::map<const Position, std::string> myPositions;
     };
 
 private:
-    static FCDHandler myHandler;
+    static FCDHandler* myHandler;
+    static SUMOSAXReader* myParser;
     Trajectory* myTrajectory = nullptr;
+    int myTrajectoryIndex = 0;
 
 private:
     /// @brief Invalidated copy constructor.

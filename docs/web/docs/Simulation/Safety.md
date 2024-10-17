@@ -71,6 +71,7 @@ size (default 1s) when using the default Krauss model.
 Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
 
 Side collisions can be caused by
+
 - configuring lateral imperfection with vType parameter *lcSigma*
 - allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)

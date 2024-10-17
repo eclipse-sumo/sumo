@@ -98,7 +98,8 @@ class PolygonDomain(Domain):
         self._setCmd(tc.VAR_WIDTH, polygonID, "d", lineWidth)
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0, lineWidth=1):
-        """add(string,  list((double, double)), (integer, integer, integer, integer), bool, string, integer, double) -> None
+        """add(string,  list((double, double)), (integer, integer, integer, integer),
+               bool, string, integer, double) -> None
         Adds a new polygon.
         """
         self._setCmd(tc.ADD, polygonID, "tscBipd", 6, polygonType, color, fill, layer, shape, lineWidth)

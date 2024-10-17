@@ -88,20 +88,14 @@ MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
     if (person == nullptr || !person->hasDeparted() || te.time > currentTime) {
         return false;
     }
-    if (person->getCurrentStageType() == MSStageType::WALKING) {
-        libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7);
-        MSStageWalking* walk = static_cast<MSStageWalking*>(person->getCurrentStage());
-        if (myTrajectoryIndex > 0 && myTrajectory->at(myTrajectoryIndex - 1).edgeOrLane != te.edgeOrLane) {
-            walk->moveToNextEdge(person, currentTime, 1, nullptr, true);
-        }
-    } else if (person->getCurrentStageType() == MSStageType::DRIVING) {
+    if (person->getCurrentStageType() == MSStageType::DRIVING) {
         if (person->getVehicle() == nullptr) {  // entering the vehicle
             const MSEdge* const edge = person->getEdge();
             for (const SUMOVehicle* v : edge->getVehicles()) {
                 if (v->getSpeed() == 0. && fabs(v->getPositionOnLane() - te.lanePos) < POSITION_EPS) {
                     v->getLane()->getVehiclesSecure();  // lock the lane
                     SUMOTime dummy = -1; // boarding- and loading-time are not considered
-                    MSNet::getInstance()->getPersonControl().loadAnyWaiting(edge, const_cast<SUMOVehicle*>(v), dummy, dummy, true);
+                    MSNet::getInstance()->getPersonControl().loadAnyWaiting(edge, const_cast<SUMOVehicle*>(v), dummy, dummy, person);
                     v->getLane()->releaseVehicles();  // unlock the lane
                 }
             }
@@ -116,9 +110,22 @@ MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
             }
         }
     }
+    if (person->getCurrentStageType() == MSStageType::WALKING) {
+        libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7);
+        MSStageWalking* walk = static_cast<MSStageWalking*>(person->getCurrentStage());
+        if (myTrajectoryIndex > 0 && myTrajectory->at(myTrajectoryIndex - 1).edgeOrLane != te.edgeOrLane) {
+            walk->moveToNextEdge(person, currentTime, 1, nullptr, true);
+        }
+    }
     // person->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectoryIndex++;
     return false;
+}
+
+
+MSTransportableDevice_FCDReplay::MovePedestrians::MovePedestrians() {
+    // higher than default command priority of 0
+    priority = 1;
 }
 
 

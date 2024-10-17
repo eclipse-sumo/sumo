@@ -251,7 +251,7 @@ The attributes used within such definitions are:
 | Attribute Name | Value Type  | Description            |
 | -------------- | ----------- | ---------------------------------------------------------------------------------------------- |
 | **id**         | id (string) | The id of a new route to assign; the id must be the id of a previously loaded route                                                                          |
-| probability    | float       | The the probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
+| probability    | float       | The probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
 
 ### Repeated public transport routes
 
@@ -322,6 +322,7 @@ weighted sum over a number of attributes. For invisible parkingAreas
 (attribute `visible="false"`, the occupancy value is a taken as a random number from
 \[0,capacity\[ which means they are always among the set of alternatives
 even when full. Each attribute (i.e. occupancy, time, distance) is normalized to [0-1] with the maximum value of all candidate parkingAreas with positive remaining capacity) and inverted as necessary.
+Inversion means taking the remainder to 1 instead of the normalized value itself.
 
 By default only the distance from the current vehicle
 position to the new parking area is considered. The following table
@@ -338,10 +339,10 @@ vType](../Simulation/GenericParameters.md):
 | parking.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
 | parking.distanceto.weight   | 1             | The road distance to the parking area                                    | no                         |
 | parking.timeto.weight       | 0             | The assumed travel time to the parking area                              | no                         |
-| parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicles destination      | no                         |
+| parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicle destination      | no                         |
 | parking.timefrom.weight     | 0             | The assumed travel time from the parking area to the vehicle destination | no                         |
 
-When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to the range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The negative normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
+When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to the range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The inverted normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
 
 ### Further parameters to affect parking behavior
 

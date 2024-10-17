@@ -29,7 +29,7 @@ file (using the **--output-file** option). In the case, a VISUM network shall be
 imported, the following code will convert it into a SUMO-network:
 
 ```
-netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml
+netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml
 ```
 
 The import can be influenced using [further netconvert options](../Networks/Further_Options.md).

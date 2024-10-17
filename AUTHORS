@@ -4,7 +4,7 @@ unique identification.
 The last entry is the sourceforge / github / weblate account name used when contributing. A * denotes
 entries which have been added by automated retrieval and still may need review.
 If you find missing or duplicate authors please open
-an issue or pull request at https://github.com/eclipse/sumo/issues
+an issue or pull request at https://github.com/eclipse-sumo/sumo/issues
 
 Alessio Bonfietti <alessio.bonfietti@unibo.it> bonfioale
 Alexander Brummer <> alexbrummer

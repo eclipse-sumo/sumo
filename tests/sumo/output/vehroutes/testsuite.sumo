@@ -96,6 +96,12 @@ with_stops
 # output of stops
 with_stops_priorEdges
 
+# output of stops
+with_stops_started_ended
+
+# output of stops
+with_stops_started_ended_exitTimes
+
 # one vehicle with route distribution in input
 route_dist
 

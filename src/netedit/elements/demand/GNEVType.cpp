@@ -842,8 +842,8 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             }
             return false;
         case SUMO_ATTR_GUISHAPE:
-            if (value == "all") {
-                return false;
+            if (value.empty() || (value == "default")) {
+                return true;
             } else {
                 return canParseVehicleShape(value);
             }
@@ -1585,7 +1585,12 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_GUISHAPE:
-            if (!value.empty() && (value != SumoVehicleShapeStrings.getString(defaultValues.shape))) {
+            if (value.empty() || (value == "default")) {
+                // set default value
+                shape = defaultValues.shape;
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_SHAPE_SET;
+            } else if (!value.empty() && (value != SumoVehicleShapeStrings.getString(defaultValues.shape))) {
                 shape = getVehicleShapeID(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_SHAPE_SET;

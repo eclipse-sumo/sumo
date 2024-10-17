@@ -1,0 +1,19 @@
+--no-step-log 
+--no-duration-log 
+-n net.net.xml 
+-r input_routes.rou.xml 
+-a input_additional.add.xml,input_additional2.add.xml 
+--save-state.times 10800
+--save-state.files state.xml 
+--routing-algorithm astar
+--device.rerouting.period 600
+--device.rerouting.adaptation-steps 36
+--device.rerouting.adaptation-interval 10
+--device.rerouting.synchronize
+: 
+--no-step-log
+--no-duration-log
+-n net.net.xml
+-a input_additional.add.xml,input_additional2.add.xml 
+--load-state state.xml
+tests/complex/state/runner.py

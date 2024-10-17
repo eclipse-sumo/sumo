@@ -192,7 +192,8 @@ GNEAccess::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -223,7 +224,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // radius depends if mouse is over element
             const double radius = gViewObjectsHandler.isElementSelected(this) ? 1 : 0.5;
             // get color
@@ -255,7 +256,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1, accessExaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1, getType(), accessExaggeration);
     }
 }
 
@@ -338,7 +339,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_POSITION:
-            if (value.empty() || value == "random" || value == "doors") {
+            if (value.empty() || value == "random" || value == "doors" || value == "carriage") {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -388,7 +389,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (value.empty()) {
                 myPositionOverLane = 0;
-            } else if (value == "random" || value == "doors") {
+            } else if (value == "random" || value == "doors" || value == "carriage") {
                 myPositionOverLane = INVALID_DOUBLE;
                 mySpecialPosition = value;
             } else {

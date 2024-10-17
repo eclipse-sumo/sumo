@@ -576,7 +576,7 @@ private:
     /// @brief handler for ignorable error messages
     MsgHandler* myErrorHandler;
 
-    /// @brief whether to keep the the vtype distribution in output
+    /// @brief whether to keep the vtype distribution in output
     const bool myKeepVTypeDist;
 
     /// @brief whether to calculate routes for public transport

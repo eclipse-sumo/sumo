@@ -184,12 +184,13 @@ GNEPerson::~GNEPerson() {}
 
 GNEMoveOperation*
 GNEPerson::getMoveOperation() {
+    const auto firstContainerPlan = getChildDemandElements().front();
     // check first person plan
-    if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
+    if (firstContainerPlan->getTagProperty().isPlanStopPerson()) {
         return nullptr;
-    } else {
+    } else if (firstContainerPlan->getParentEdges().size() > 0) {
         // get lane
-        const GNELane* lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        const GNELane* lane = firstContainerPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         // declare departPos
         double posOverLane = 0;
         if (canParse<double>(getDepartPos())) {
@@ -197,6 +198,8 @@ GNEPerson::getMoveOperation() {
         }
         // return move operation
         return new GNEMoveOperation(this, lane, posOverLane, false);
+    } else {
+        return nullptr;
     }
 }
 
@@ -327,7 +330,6 @@ GNEPerson::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEle
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     bool drawPerson = true;
-    const auto personColor = setColor(s);
     // check if person can be drawn
     if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawPerson = false;
@@ -350,7 +352,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawPerson(d, isAttributeCarrierSelected())) {
             // obtain width and length
             const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
             const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
@@ -364,7 +366,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set person color
-            GLHelper::setColor(personColor);
+            GLHelper::setColor(getDrawingColor(s));
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
@@ -420,7 +422,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             myPersonContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myPersonContour.calculateContourRectangleShape(s, d, this, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+        myPersonContour.calculateContourRectangleShape(s, d, this, personPosition, 0.1, 0.2, getType(), -1.1, 0, 0, exaggeration);
     }
 }
 
@@ -523,7 +525,11 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
                 return personPlan->getPositionInView();
             } else if (personPlan->getTagProperty().planFromTAZ()) {
                 // TAZ
-                return personPlan->getParentAdditionals().front()->getPositionInView();
+                if (personPlan->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return personPlan->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return personPlan->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
             } else if (personPlan->getTagProperty().planFromJunction()) {
                 // juncrtion
                 return personPlan->getParentJunctions().front()->getPositionInView();
@@ -564,7 +570,7 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(NamespaceIDs::persons, value);
         case SUMO_ATTR_TYPE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {
@@ -625,62 +631,12 @@ GNEPerson::getACParametersMap() const {
 // ===========================================================================
 
 RGBColor
-GNEPerson::setColor(const GUIVisualizationSettings& s) const {
-    const GUIColorer& c = s.personColorer;
-    /*
-        if (!setFunctionalColor(c.getActive())) {
-            return c.getScheme().getColor(getColorValue(s, c.getActive()));
-        }
-    */
-    return c.getScheme().getColor(getColorValue(s, c.getActive()));
-}
-
-
-bool
-GNEPerson::setFunctionalColor(int /* activeScheme */) const {
-    /*
-    switch (activeScheme) {
-        case 0: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
-                return true;
-            }
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
-                return true;
-            }
-            return false;
-        }
-        case 2: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
-                return true;
-            }
-            return false;
-        }
-        case 3: {
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
-                return true;
-            }
-            return false;
-        }
-        case 8: { // color by angle
-            double hue = GeomHelper::naviDegree(getAngle());
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
-            return true;
-        }
-        case 9: { // color randomly (by pointer)
-            const double hue = (long)this % 360; // [0-360]
-            const double sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            return true;
-        }
-        default:
-            return false;
+GNEPerson::getDrawingColor(const GUIVisualizationSettings& s) const {
+    if (isAttributeCarrierSelected()) {
+        return s.colorSettings.selectedPersonColor;
+    } else {
+        return getColorByScheme(s.personColorer, this);
     }
-    */
-    return false;
 }
 
 // ===========================================================================
@@ -770,7 +726,8 @@ GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
 }
 
 
-void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
+void
+GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
     // change departPos
     departPosProcedure = DepartPosDefinition::GIVEN;
     departPos = moveResult.newFirstPos;

@@ -169,6 +169,11 @@ public:
     }
 
     /// @brief Computes the length of the given vector
+    inline double length() const {
+        return sqrt(myX * myX + myY * myY + myZ * myZ);
+    }
+
+    /// @brief Computes the length of the given vector neglecting the z coordinate
     inline double length2D() const {
         return sqrt(myX * myX + myY * myY);
     }

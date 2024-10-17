@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-17 09:42:58 by Eclipse SUMO sumo Version v1_20_0+0703-550959f676a
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+<!-- generated on 2024-10-17 10:24:01 by Eclipse SUMO sumo Version v1_21_0+0063-40d747df57b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,7 +26,7 @@
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-vehicle-output>

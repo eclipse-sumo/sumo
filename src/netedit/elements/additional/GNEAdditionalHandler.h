@@ -185,13 +185,16 @@ public:
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E1 detector name
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                          const double position, const SUMOTime period, const std::string& file, const std::vector<std::string>& vehicleTypes,
-                         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+                         const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Builds a single-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -203,39 +206,47 @@ public:
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] jamThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
     void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                    const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
-                                   const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
-                                   const double jamThreshold, const bool friendlyPos, const Parameterised::Map& parameters);
+                                   const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                                   const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
+                                   const bool friendlyPos, const bool show, const Parameterised::Map& parameters);
 
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the detector
-     * @param[in] lanes The lanes the detector is placed on
+     * @param[in] laneIDs The lanes the detector is placed on
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] jamThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes,
+    void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs,
                                   const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
-                                  const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
-                                  const double jamThreshold, const bool friendlyPos, const Parameterised::Map& parameters);
+                                  const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                                  const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
+                                  const bool friendlyPos, const bool show, const Parameterised::Map& parameters);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -244,15 +255,19 @@ public:
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] openEntry enable or disable open Entry
      * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
     void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
-                         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                         const double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters);
+                         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
+                         const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters);
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -282,11 +297,14 @@ public:
      * @param[in] filename The path to the output file.
      * @param[in] name E2 detector name
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     void buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                                const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                                const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                                 const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief builds a microscopic calibrator over a lane

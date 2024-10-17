@@ -69,7 +69,7 @@ interval may be altered using the ".adaptation-interval" option.
 By setting the option **--device.rerouting.adaptation-weight** {{DT_FLOAT}} the travel speed of each edge is computed as
 
 ```
-FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
+FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
 ```
 
 This averaging takes place with the period set by **--device.rerouting.adaptation-interval**.
@@ -89,7 +89,7 @@ To understand the evolution of edge weights during the simulation it can
 be helpful to look at the values in detail:
 
 - used road coloring *by routing device assumed speed* in
-  [sumo-gui](../sumo-gui.md#changing_the_appearance.2Fvisualisation_of_the_simulation)
+  [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
 - use option **--device.rerouting.output** {{DT_FILE}} to get the raw numbers
 - use [TraCI function
   ''vehicle.getParameter("device.rerouting.edge:EDGEID")](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
@@ -122,7 +122,7 @@ The following parameters are supported as child elements of a `<vType>`, `<vehic
 
 - device.rerouting.period
 - device.rerouting.pre-period
-- device.rerouting.proability
+- device.rerouting.probability
 - device.rerouting.deterministic
 - device.rerouting.mode
 - has.rerouting.device

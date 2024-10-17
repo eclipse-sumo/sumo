@@ -199,7 +199,7 @@ protected:
     std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e);
 
     /// @brief keep only valid NEMA phase names (for params)
-    void filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier);
+    void filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier, int barrierDefault = 0);
 
     /// @brief ensure that phase max durations before each barrier have the same sum in both rings
     void fixDurationSum(NBTrafficLightLogic* logic, const std::map<int, int>& names, int ring1a, int ring1b, int ring2a, int ring2b);

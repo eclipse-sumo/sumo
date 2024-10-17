@@ -86,7 +86,8 @@ GNERerouterSymbol::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -154,7 +155,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(rerouteExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw rerouter symbol
             drawRerouterSymbol(s, d, rerouteExaggeration);
             // draw parent and child lines
@@ -164,7 +165,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour rectangle shape
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, 0, 3,
+            myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, getType(), 0, 3,
                     symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
         }
     }

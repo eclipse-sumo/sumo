@@ -58,25 +58,30 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 
 void
 GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_VSS);
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    if (!myVehicleTypes.empty()) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
-    }
-    // write all rerouter interval
-    for (const auto& step : getChildAdditionals()) {
-        if (!step->getTagProperty().isSymbol()) {
-            step->writeAdditional(device);
+    // avoid write rerouters without edges
+    if (getAttribute(SUMO_ATTR_LANES).size() > 0) {
+        device.openTag(SUMO_TAG_VSS);
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
+        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        if (!myAdditionalName.empty()) {
+            device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
+        if (!myVehicleTypes.empty()) {
+            device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+        }
+        // write all rerouter interval
+        for (const auto& step : getChildAdditionals()) {
+            if (!step->getTagProperty().isSymbol()) {
+                step->writeAdditional(device);
+            }
+        }
+        // write parameters (Always after children to avoid problems with additionals.xsd)
+        writeParams(device);
+        device.closeTag();
+    } else {
+        WRITE_WARNING("Variable Speed Sign '" + getID() + TL("' needs at least one lane"));
     }
-    // write parameters (Always after children to avoid problems with additionals.xsd)
-    writeParams(device);
-    device.closeTag();
 }
 
 
@@ -156,7 +161,8 @@ GNEVariableSpeedSign::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;

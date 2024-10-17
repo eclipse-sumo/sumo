@@ -40,70 +40,173 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 // ===========================================================================
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getWalkTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-                                     const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
-                                     const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-                                     const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-                                     const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
-            !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop &&
-            consecutiveEdges.empty() && !route) {
-        return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
-    } else if (consecutiveEdges.size() > 0) {
-        return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
-    } else if (route) {
-        return std::make_pair(GNE_TAG_WALK_ROUTE, GUIIcon::WALK_ROUTE);
-    } else if (fromEdge && toEdge) {
+GNEDemandElementPlan::getWalkTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_WALK_EDGE_EDGE, GUIIcon::WALK_EDGE);
-    } else if (fromEdge && toTAZ) {
-        return std::make_pair(GNE_TAG_WALK_EDGE_TAZ, GUIIcon::WALK_TAZ);
-    } else if (fromEdge && toJunction) {
-        return std::make_pair(GNE_TAG_WALK_EDGE_JUNCTION, GUIIcon::WALK_JUNCTION);
-    } else if (fromEdge && toBusStop) {
-        return std::make_pair(GNE_TAG_WALK_EDGE_BUSSTOP, GUIIcon::WALK_BUSSTOP);
-    } else if (fromEdge && toTrainStop) {
-        return std::make_pair(GNE_TAG_WALK_EDGE_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
-    } else if (fromTAZ && toEdge) {
-        return std::make_pair(GNE_TAG_WALK_TAZ_EDGE, GUIIcon::WALK_EDGE);
-    } else if (fromTAZ && toTAZ) {
-        return std::make_pair(GNE_TAG_WALK_TAZ_TAZ, GUIIcon::WALK_TAZ);
-    } else if (fromTAZ && toJunction) {
-        return std::make_pair(GNE_TAG_WALK_TAZ_JUNCTION, GUIIcon::WALK_JUNCTION);
-    } else if (fromTAZ && toBusStop) {
-        return std::make_pair(GNE_TAG_WALK_TAZ_BUSSTOP, GUIIcon::WALK_BUSSTOP);
-    } else if (fromTAZ && toTrainStop) {
-        return std::make_pair(GNE_TAG_WALK_TAZ_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
-    } else if (fromJunction && toEdge) {
-        return std::make_pair(GNE_TAG_WALK_JUNCTION_EDGE, GUIIcon::WALK_EDGE);
-    } else if (fromJunction && toTAZ) {
-        return std::make_pair(GNE_TAG_WALK_JUNCTION_TAZ, GUIIcon::WALK_TAZ);
-    } else if (fromJunction && toJunction) {
-        return std::make_pair(GNE_TAG_WALK_JUNCTION_JUNCTION, GUIIcon::WALK_JUNCTION);
-    } else if (fromJunction && toBusStop) {
-        return std::make_pair(GNE_TAG_WALK_JUNCTION_BUSSTOP, GUIIcon::WALK_BUSSTOP);
-    } else if (fromJunction && toTrainStop) {
-        return std::make_pair(GNE_TAG_WALK_JUNCTION_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
-    } else if (fromBusStop && toEdge) {
-        return std::make_pair(GNE_TAG_WALK_BUSSTOP_EDGE, GUIIcon::WALK_EDGE);
-    } else if (fromBusStop && toTAZ) {
-        return std::make_pair(GNE_TAG_WALK_BUSSTOP_TAZ, GUIIcon::WALK_TAZ);
-    } else if (fromBusStop && toJunction) {
-        return std::make_pair(GNE_TAG_WALK_BUSSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
-    } else if (fromBusStop && toBusStop) {
-        return std::make_pair(GNE_TAG_WALK_BUSSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
-    } else if (fromBusStop && toTrainStop) {
-        return std::make_pair(GNE_TAG_WALK_BUSSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
-    } else if (fromTrainStop && toEdge) {
-        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_EDGE, GUIIcon::WALK_EDGE);
-    } else if (fromTrainStop && toTAZ) {
-        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TAZ, GUIIcon::WALK_TAZ);
-    } else if (fromTrainStop && toJunction) {
-        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
-    } else if (fromTrainStop && toBusStop) {
-        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
-    } else if (fromTrainStop && toTrainStop) {
-        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+    } else if (planParameters.consecutiveEdges.size() > 0) {
+        return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
+    } else if (!planParameters.toRoute.empty()) {
+        return std::make_pair(GNE_TAG_WALK_ROUTE, GUIIcon::WALK_ROUTE);
+    } else if (!planParameters.fromEdge.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_EDGE_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTAZ.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TAZ_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromJunction.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_JUNCTION_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromBusStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_BUSSTOP_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTrainStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_TRAINSTOP_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromContainerStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromChargingStation.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromParkingArea.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_EDGE, GUIIcon::WALK_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_TAZ, GUIIcon::WALK_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_JUNCTION, GUIIcon::WALK_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_CONTAINERSTOP, GUIIcon::WALK_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_CHARGINGSTATION, GUIIcon::WALK_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_WALK_PARKINGAREA_PARKINGAREA, GUIIcon::WALK_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -111,64 +214,169 @@ GNEDemandElementPlan::getWalkTagIcon(const std::vector<GNEEdge*>& consecutiveEdg
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
-            !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
+GNEDemandElementPlan::getPersonTripTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_EDGE, GUIIcon::PERSONTRIP_EDGE);
-    } else if (fromEdge && toEdge) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_EDGE, GUIIcon::PERSONTRIP_EDGE);
-    } else if (fromEdge && toTAZ) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_TAZ, GUIIcon::PERSONTRIP_TAZ);
-    } else if (fromEdge && toJunction) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
-    } else if (fromEdge && toBusStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
-    } else if (fromEdge && toTrainStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
-    } else if (fromTAZ && toEdge) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_EDGE, GUIIcon::PERSONTRIP_EDGE);
-    } else if (fromTAZ && toTAZ) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_TAZ, GUIIcon::PERSONTRIP_TAZ);
-    } else if (fromTAZ && toJunction) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
-    } else if (fromTAZ && toBusStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
-    } else if (fromTAZ && toTrainStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
-    } else if (fromJunction && toEdge) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_EDGE, GUIIcon::PERSONTRIP_EDGE);
-    } else if (fromJunction && toTAZ) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_TAZ, GUIIcon::PERSONTRIP_TAZ);
-    } else if (fromJunction && toJunction) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
-    } else if (fromJunction && toBusStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
-    } else if (fromJunction && toTrainStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
-    } else if (fromBusStop && toEdge) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
-    } else if (fromBusStop && toTAZ) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
-    } else if (fromBusStop && toJunction) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
-    } else if (fromBusStop && toBusStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
-    } else if (fromBusStop && toTrainStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
-    } else if (fromTrainStop && toEdge) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
-    } else if (fromTrainStop && toTAZ) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
-    } else if (fromTrainStop && toJunction) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
-    } else if (fromTrainStop && toBusStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
-    } else if (fromTrainStop && toTrainStop) {
-        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+    } else if (!planParameters.fromEdge.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTAZ.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromJunction.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromBusStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTrainStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromContainerStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromChargingStation.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromParkingArea.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE, GUIIcon::PERSONTRIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_TAZ, GUIIcon::PERSONTRIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_CONTAINERSTOP, GUIIcon::PERSONTRIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_CHARGINGSTATION, GUIIcon::PERSONTRIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_PARKINGAREA, GUIIcon::PERSONTRIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -176,30 +384,169 @@ GNEDemandElementPlan::getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdg
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-                                     const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-                                     const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
+GNEDemandElementPlan::getRideTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
-    } else if (fromEdge && toEdge) {
-        return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
-    } else if (fromEdge && toBusStop) {
-        return std::make_pair(GNE_TAG_RIDE_EDGE_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
-    } else if (fromEdge && toTrainStop) {
-        return std::make_pair(GNE_TAG_RIDE_EDGE_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
-    } else if (fromBusStop && toEdge) {
-        return std::make_pair(GNE_TAG_RIDE_BUSSTOP_EDGE, GUIIcon::RIDE_EDGE);
-    } else if (fromBusStop && toBusStop) {
-        return std::make_pair(GNE_TAG_RIDE_BUSSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
-    } else if (fromBusStop && toTrainStop) {
-        return std::make_pair(GNE_TAG_RIDE_BUSSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
-    } else if (fromTrainStop && toEdge) {
-        return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_EDGE, GUIIcon::RIDE_EDGE);
-    } else if (fromTrainStop && toBusStop) {
-        return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
-    } else if (fromTrainStop && toTrainStop) {
-        return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+    } else if (!planParameters.fromEdge.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_EDGE_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTAZ.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TAZ_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromJunction.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_JUNCTION_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromBusStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_BUSSTOP_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTrainStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromContainerStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromChargingStation.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromParkingArea.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_EDGE, GUIIcon::RIDE_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_TAZ, GUIIcon::RIDE_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_JUNCTION, GUIIcon::RIDE_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_CONTAINERSTOP, GUIIcon::RIDE_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION, GUIIcon::RIDE_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA, GUIIcon::RIDE_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -207,19 +554,169 @@ GNEDemandElementPlan::getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toE
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop) {
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && !fromContainerStop && !toContainerStop) {
+GNEDemandElementPlan::getTransportTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_TRANSPORT_EDGE_EDGE, GUIIcon::TRANSPORT_EDGE);
-    } else if (fromEdge && toEdge) {
-        return std::make_pair(GNE_TAG_TRANSPORT_EDGE_EDGE, GUIIcon::TRANSPORT_EDGE);
-    } else if (fromEdge && toContainerStop) {
-        return std::make_pair(GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
-    } else if (fromContainerStop && toEdge) {
-        return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE, GUIIcon::TRANSPORT_EDGE);
-    } else if (fromContainerStop && toContainerStop) {
-        return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+    } else if (!planParameters.fromEdge.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_EDGE_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTAZ.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TAZ_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromJunction.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_JUNCTION_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromBusStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_BUSSTOP_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTrainStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_TRAINSTOP_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromContainerStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromChargingStation.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromParkingArea.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_EDGE, GUIIcon::TRANSPORT_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_TAZ, GUIIcon::TRANSPORT_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_JUNCTION, GUIIcon::TRANSPORT_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_BUSSTOP, GUIIcon::TRANSPORT_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_TRAINSTOP, GUIIcon::TRANSPORT_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_CHARGINGSTATION, GUIIcon::TRANSPORT_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_PARKINGAREA, GUIIcon::TRANSPORT_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -227,22 +724,171 @@ GNEDemandElementPlan::getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-        const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
-        const GNEAdditional* toContainerStop) {
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && !fromContainerStop && !toContainerStop && consecutiveEdges.empty()) {
-        return std::make_pair(GNE_TAG_TRANSHIP_EDGES, GUIIcon::TRANSHIP_EDGES);
-    } else if (consecutiveEdges.size() > 0) {
-        return std::make_pair(GNE_TAG_TRANSHIP_EDGES, GUIIcon::TRANSHIP_EDGES);
-    } else if (fromEdge && toEdge) {
+GNEDemandElementPlan::getTranshipTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_TRANSHIP_EDGE_EDGE, GUIIcon::TRANSHIP_EDGE);
-    } else if (fromEdge && toContainerStop) {
-        return std::make_pair(GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
-    } else if (fromContainerStop && toEdge) {
-        return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
-    } else if (fromContainerStop && toContainerStop) {
-        return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+    } else if (planParameters.consecutiveEdges.size() > 0) {
+        return std::make_pair(GNE_TAG_TRANSHIP_EDGES, GUIIcon::TRANSHIP_EDGES);
+    } else if (!planParameters.fromEdge.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_EDGE_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTAZ.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TAZ_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromJunction.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_JUNCTION_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromBusStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_BUSSTOP_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromTrainStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_TRAINSTOP_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromContainerStop.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromChargingStation.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
+    } else if (!planParameters.fromParkingArea.empty()) {
+        if (!planParameters.toEdge.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_EDGE, GUIIcon::TRANSHIP_EDGE);
+        } else if (!planParameters.toTAZ.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_TAZ, GUIIcon::TRANSHIP_TAZ);
+        } else if (!planParameters.toJunction.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_JUNCTION, GUIIcon::TRANSHIP_JUNCTION);
+        } else if (!planParameters.toBusStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_BUSSTOP, GUIIcon::TRANSHIP_BUSSTOP);
+        } else if (!planParameters.toTrainStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_TRAINSTOP, GUIIcon::TRANSHIP_TRAINSTOP);
+        } else if (!planParameters.toContainerStop.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+        } else if (!planParameters.toChargingStation.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_CHARGINGSTATION, GUIIcon::TRANSHIP_CHARGINGSTATION);
+        } else if (!planParameters.toParkingArea.empty()) {
+            return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA, GUIIcon::TRANSHIP_PARKINGAREA);
+        } else {
+            return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+        }
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -250,13 +896,19 @@ GNEDemandElementPlan::getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiv
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditional* busStop, const GNEAdditional* trainStop) {
-    if (edge) {
+GNEDemandElementPlan::getPersonStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (!planParameters.toEdge.empty()) {
         return std::make_pair(GNE_TAG_STOPPERSON_EDGE, GUIIcon::STOPELEMENT);
-    } else if (busStop) {
+    } else if (!planParameters.toBusStop.empty()) {
         return std::make_pair(GNE_TAG_STOPPERSON_BUSSTOP, GUIIcon::STOPELEMENT);
-    } else if (trainStop) {
+    } else if (!planParameters.toTrainStop.empty()) {
         return std::make_pair(GNE_TAG_STOPPERSON_TRAINSTOP, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toContainerStop.empty()) {
+        return std::make_pair(GNE_TAG_STOPPERSON_CONTAINERSTOP, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toChargingStation.empty()) {
+        return std::make_pair(GNE_TAG_STOPPERSON_CHARGINGSTATION, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toParkingArea.empty()) {
+        return std::make_pair(GNE_TAG_STOPPERSON_PARKINGAREA, GUIIcon::STOPELEMENT);
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -264,11 +916,19 @@ GNEDemandElementPlan::getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditio
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop) {
-    if (edge) {
+GNEDemandElementPlan::getContainerStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
+    if (!planParameters.toEdge.empty()) {
         return std::make_pair(GNE_TAG_STOPCONTAINER_EDGE, GUIIcon::STOPELEMENT);
-    } else if (containerStop) {
+    } else if (!planParameters.toBusStop.empty()) {
+        return std::make_pair(GNE_TAG_STOPCONTAINER_BUSSTOP, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toTrainStop.empty()) {
+        return std::make_pair(GNE_TAG_STOPCONTAINER_TRAINSTOP, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toContainerStop.empty()) {
         return std::make_pair(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toChargingStation.empty()) {
+        return std::make_pair(GNE_TAG_STOPCONTAINER_CHARGINGSTATION, GUIIcon::STOPELEMENT);
+    } else if (!planParameters.toParkingArea.empty()) {
+        return std::make_pair(GNE_TAG_STOPCONTAINER_PARKINGAREA, GUIIcon::STOPELEMENT);
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
@@ -279,13 +939,15 @@ GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const 
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
 }
 
 
 GNEMoveOperation*
 GNEDemandElementPlan::getPlanMoveOperation() {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // only move personTrips defined over edges
     if (tagProperty.planToEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // get geometry end pos
@@ -308,7 +970,7 @@ GNEDemandElementPlan::getPlanMoveOperation() {
 
 void
 GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // write attributes depending of parent elements
     if (tagProperty.planConsecutiveEdges()) {
         device.writeAttr(SUMO_ATTR_EDGES, myPlanElement->parseIDs(myPlanElement->getParentEdges()));
@@ -317,19 +979,23 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
     } else if (tagProperty.planEdge()) {
         device.writeAttr(SUMO_ATTR_EDGE, myPlanElement->getParentEdges().front()->getID());
     } else if (tagProperty.planBusStop()) {
-        device.writeAttr(SUMO_ATTR_BUS_STOP, myPlanElement->getParentAdditionals().front()->getID());
+        device.writeAttr(SUMO_ATTR_BUS_STOP, myPlanElement->getParentStoppingPlaces().front()->getID());
     } else if (tagProperty.planTrainStop()) {
-        device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentAdditionals().front()->getID());
+        device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentStoppingPlaces().front()->getID());
     } else if (tagProperty.planContainerStop()) {
-        device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentAdditionals().front()->getID());
+        device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentStoppingPlaces().front()->getID());
+    } else if (tagProperty.planChargingStation()) {
+        device.writeAttr(SUMO_ATTR_CHARGING_STATION, myPlanElement->getParentStoppingPlaces().front()->getID());
+    } else if (tagProperty.planParkingArea()) {
+        device.writeAttr(SUMO_ATTR_PARKING_AREA, myPlanElement->getParentStoppingPlaces().front()->getID());
     } else {
         // write from attribute (if this is the first element)
-        if (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == 0) {
+        if (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr) {
             // check if write edge or junction
             if (tagProperty.planFromEdge()) {
                 device.writeAttr(SUMO_ATTR_FROM, myPlanElement->getParentEdges().front()->getID());
             } else if (tagProperty.planFromTAZ()) {
-                device.writeAttr(SUMO_ATTR_FROM_TAZ, myPlanElement->getParentAdditionals().front()->getID());
+                device.writeAttr(SUMO_ATTR_FROM_TAZ, myPlanElement->getParentTAZs().front()->getID());
             } else if (tagProperty.planFromJunction()) {
                 device.writeAttr(SUMO_ATTR_FROM_JUNCTION, myPlanElement->getParentJunctions().front()->getID());
             }
@@ -341,13 +1007,17 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
         } else if (tagProperty.planToJunction()) {
             device.writeAttr(SUMO_ATTR_TO_JUNCTION, myPlanElement->getParentJunctions().back()->getID());
         } else if (tagProperty.planToTAZ()) {
-            device.writeAttr(SUMO_ATTR_TO_TAZ, myPlanElement->getParentAdditionals().back()->getID());
+            device.writeAttr(SUMO_ATTR_TO_TAZ, myPlanElement->getParentTAZs().back()->getID());
         } else if (tagProperty.planToBusStop()) {
-            device.writeAttr(SUMO_ATTR_BUS_STOP, myPlanElement->getParentAdditionals().back()->getID());
+            device.writeAttr(SUMO_ATTR_BUS_STOP, myPlanElement->getParentStoppingPlaces().back()->getID());
         } else if (tagProperty.planToTrainStop()) {
-            device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentAdditionals().back()->getID());
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentStoppingPlaces().back()->getID());
         } else if (tagProperty.planToContainerStop()) {
-            device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentAdditionals().back()->getID());
+            device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentStoppingPlaces().back()->getID());
+        } else if (tagProperty.planToChargingStation()) {
+            device.writeAttr(SUMO_ATTR_CHARGING_STATION, myPlanElement->getParentStoppingPlaces().back()->getID());
+        } else if (tagProperty.planToParkingArea()) {
+            device.writeAttr(SUMO_ATTR_PARKING_AREA, myPlanElement->getParentStoppingPlaces().back()->getID());
         }
     }
     // check if write depart position
@@ -367,18 +1037,22 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
 
 void
 GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
-    const auto tagProperty = myPlanElement->getTagProperty();
-    // write extra stop element for a stopping place (if this is the first element)
+    const auto& tagProperty = myPlanElement->getTagProperty();
+    // write an extra stop element with duration 0 over a stopping place (if this is the first element)
     if (tagProperty.planFromStoppingPlace()
             && myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr) {
         device.openTag(SUMO_TAG_STOP);
-        const std::string stopID = myPlanElement->getParentAdditionals().front()->getID();
+        const std::string stopID = myPlanElement->getParentStoppingPlaces().front()->getID();
         if (tagProperty.planFromBusStop()) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, stopID);
         } else if (tagProperty.planFromTrainStop()) {
             device.writeAttr(SUMO_ATTR_TRAIN_STOP, stopID);
         } else if (tagProperty.planFromContainerStop()) {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, stopID);
+        } else if (tagProperty.planFromChargingStation()) {
+            device.writeAttr(SUMO_ATTR_CHARGING_STATION, stopID);
+        } else if (tagProperty.planFromParkingArea()) {
+            device.writeAttr(SUMO_ATTR_PARKING_AREA, stopID);
         }
         device.writeAttr(SUMO_ATTR_DURATION, 0);
         device.closeTag();
@@ -409,7 +1083,7 @@ GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& 
 GNELane*
 GNEDemandElementPlan::getFirstPlanPathLane() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get vclass
     auto vClass = myPlanElement->getVClass();
     // continue depending of parents
@@ -421,7 +1095,7 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
         return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
     } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planToStoppingPlace()) {
         // additional
-        return myPlanElement->getParentAdditionals().front()->getParentLanes().front();
+        return myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front();
     } else {
         // in other cases (TAZ, junctions, etc.) return null
         return nullptr;
@@ -432,7 +1106,7 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
 GNELane*
 GNEDemandElementPlan::getLastPlanPathLane() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get vclass
     auto vClass = myPlanElement->getVClass();
     // check parents
@@ -444,7 +1118,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
         return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
     } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planToStoppingPlace()) {
         // additional
-        return myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge()->getLaneByAllowedVClass(vClass);
+        return myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front()->getParentEdge()->getLaneByAllowedVClass(vClass);
     } else {
         // in other cases (TAZ, junctions, etc.) return null
         return nullptr;
@@ -455,7 +1129,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
 void
 GNEDemandElementPlan::computePlanPathElement() {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get vClass
     auto vClass = myPlanElement->getVClass();
     // get path manager
@@ -474,9 +1148,9 @@ GNEDemandElementPlan::computePlanPathElement() {
         // declare last lane
         GNELane* lastLane = nullptr;
         if (myPlanElement->myTagProperty.planStoppingPlace()) {
-            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().back();
+            lastLane = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().back();
         } else if (myPlanElement->myTagProperty.planToStoppingPlace()) {
-            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().front();
+            lastLane = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front();
         } else if (myPlanElement->myTagProperty.planToEdge()) {
             lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
         }
@@ -488,9 +1162,9 @@ GNEDemandElementPlan::computePlanPathElement() {
         // declare first lane
         GNELane* firstLane = nullptr;
         if (myPlanElement->myTagProperty.planStoppingPlace()) {
-            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().back();
+            firstLane = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().back();
         } else if (myPlanElement->myTagProperty.planFromStoppingPlace()) {
-            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().front();
+            firstLane = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front();
         } else if (myPlanElement->myTagProperty.planFromEdge()) {
             firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
         }
@@ -504,18 +1178,18 @@ GNEDemandElementPlan::computePlanPathElement() {
         if (myPlanElement->myTagProperty.planFromEdge()) {
             firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
         } else if (myPlanElement->myTagProperty.planStoppingPlace()) {
-            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().back();
+            firstLane = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().back();
         } else if (myPlanElement->myTagProperty.planFromStoppingPlace()) {
-            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().front();
+            firstLane = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front();
         }
         // declare last lane
         GNELane* lastLane = nullptr;
         if (myPlanElement->myTagProperty.planToEdge()) {
             lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
         } else if (myPlanElement->myTagProperty.planStoppingPlace()) {
-            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().back();
+            lastLane = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().back();
         } else if (myPlanElement->myTagProperty.planToStoppingPlace()) {
-            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().front();
+            lastLane = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front();
         }
         if (firstLane && lastLane) {
             pathManager->calculatePath(myPlanElement, vClass, firstLane, lastLane);
@@ -533,29 +1207,57 @@ GNEDemandElementPlan::computePlanPathElement() {
 void
 GNEDemandElementPlan::updatePlanGeometry() {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
-    // declare first and last positions
-    Position firstPos = Position::INVALID;
-    Position lastPos = Position::INVALID;
-    // set first position
-    if (tagProperty.planFromJunction() && tagProperty.planToTAZ()) {
-        firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
-        lastPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
-    } else if (tagProperty.planFromTAZ() && tagProperty.planToJunction()) {
-        firstPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
-        lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
-    } else if (tagProperty.planFromTAZ() && tagProperty.planToTAZ()) {
-        firstPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
-        lastPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+    const auto& tagProperty = myPlanElement->getTagProperty();
+    // check if plan start or end in a TAZ (becase in this case has to be inserted in RTREE
+    if (tagProperty.planFromTAZ() || tagProperty.planToTAZ()) {
+        // declare first and last positions
+        Position firstPos = Position::INVALID;
+        Position lastPos = Position::INVALID;
+        // set first position
+        if (tagProperty.planFromEdge()) {
+            // from junction
+            firstPos = myPlanElement->getFirstPathLane()->getLaneShape().back();
+        } else if (tagProperty.planFromJunction()) {
+            // from junction
+            firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
+        } else if (tagProperty.planFromStoppingPlace()) {
+            // end of stoppingPlace lane shape
+            firstPos = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front()->getLaneShape().back();
+        } else if (tagProperty.planFromTAZ()) {
+            // from TAZ
+            if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+            } else {
+                firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(SUMO_ATTR_CENTER);
+            }
+        }
+        // set last position
+        if (tagProperty.planToEdge()) {
+            // from junction
+            lastPos = myPlanElement->getLastPathLane()->getLaneShape().back();
+        } else if (tagProperty.planToJunction()) {
+            // from junction
+            lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
+        } else if (tagProperty.planToStoppingPlace()) {
+            // end of stoppingPlace lane shape
+            lastPos = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front()->getLaneShape().front();
+        } else if (tagProperty.planToTAZ()) {
+            // from TAZ
+            if (myPlanElement->getParentTAZs().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+            } else {
+                lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(SUMO_ATTR_CENTER);
+            }
+        }
+        // use both position to calculate a line
+        if ((firstPos != Position::INVALID) && (lastPos != Position::INVALID)) {
+            myPlanElement->myDemandElementGeometry.updateGeometry({firstPos, lastPos});
+        } else {
+            myPlanElement->myDemandElementGeometry.clearGeometry();
+        }
     }
-    // use both position to calculate a line
-    if ((firstPos != Position::INVALID) && (lastPos != Position::INVALID)) {
-        // remove from grid
-        myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-        myPlanElement->myDemandElementGeometry.updateGeometry({firstPos, lastPos});
-        // add into grid again
-        myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
-    }
+    // update centering boundary
+    updatePlanCenteringBoundary(true);
     // update child demand elements
     for (const auto& demandElement : myPlanElement->getChildDemandElements()) {
         demandElement->updateGeometry();
@@ -565,28 +1267,48 @@ GNEDemandElementPlan::updatePlanGeometry() {
 
 Boundary
 GNEDemandElementPlan::getPlanCenteringBoundary() const {
-    Boundary planBoundary;
+    return myPlanBoundary;
+}
+
+
+void
+GNEDemandElementPlan::updatePlanCenteringBoundary(const bool updateGrid) {
+    // remove additional from grid
+    if (myPlanBoundary.isInitialised() && updateGrid) {
+        myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
+    }
+    myPlanBoundary = myPlanElement->getDemandElementGeometry().getShape().getBoxBoundary();
     // if this element is over route, add their boundary
     if (myPlanElement->getParentDemandElements().size() > 1) {
-        planBoundary.add(myPlanElement->getParentDemandElements().at(1)->getCenteringBoundary());
+        myPlanBoundary.add(myPlanElement->getParentDemandElements().at(1)->getCenteringBoundary());
     }
     // add the combination of all parent edges's boundaries
     for (const auto& edge : myPlanElement->getParentEdges()) {
-        planBoundary.add(edge->getCenteringBoundary());
+        myPlanBoundary.add(edge->getCenteringBoundary());
     }
     // add the combination of all parent edges's boundaries
     for (const auto& junction : myPlanElement->getParentJunctions()) {
-        planBoundary.add(junction->getCenteringBoundary());
+        myPlanBoundary.add(junction->getCenteringBoundary());
     }
     // add the combination of all parent additional's boundaries (stoppingPlaces and TAZs)
     for (const auto& additional : myPlanElement->getParentAdditionals()) {
-        planBoundary.add(additional->getCenteringBoundary());
+        if (additional->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+            if (additional->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                myPlanBoundary.add(additional->getAttributePosition(GNE_ATTR_TAZ_CENTROID));
+            } else {
+                myPlanBoundary.add(additional->getAttributePosition(SUMO_ATTR_CENTER));
+            }
+        } else {
+            myPlanBoundary.add(additional->getCenteringBoundary());
+        }
     }
     // check if is valid
-    if (planBoundary.isInitialised()) {
-        return planBoundary;
-    } else {
-        return myPlanElement->getParentDemandElements().front()->getCenteringBoundary();
+    if (myPlanBoundary.isInitialised()) {
+        myPlanBoundary.grow(5);
+    }
+    // add additional into RTREE again
+    if (myPlanBoundary.isInitialised() && updateGrid) {
+        myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
     }
 }
 
@@ -594,7 +1316,7 @@ GNEDemandElementPlan::getPlanCenteringBoundary() const {
 Position
 GNEDemandElementPlan::getPlanPositionInView() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // continue depending of parents
     if (tagProperty.planRoute()) {
         // route
@@ -607,9 +1329,15 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     } else if (tagProperty.planFromJunction()) {
         // first junction
         return myPlanElement->getParentJunctions().front()->getPositionInView();
-    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
+    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace()) {
         // first additional
-        return myPlanElement->getParentAdditionals().front()->getPositionInView();
+        return myPlanElement->getParentStoppingPlaces().front()->getPositionInView();
+    } else if (tagProperty.planFromTAZ()) {
+        if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+            return myPlanElement->getParentTAZs().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        } else {
+            return myPlanElement->getParentTAZs().front()->getAttributePosition(SUMO_ATTR_CENTER);
+        }
     } else {
         // return parent position
         return Position(0, 0);
@@ -647,27 +1375,33 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_EDGES:
             return myPlanElement->parseIDs(myPlanElement->getParentEdges());
-        // stoppingPlaces
+        // stoppingPlaces (single and back)
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
-            return myPlanElement->getParentAdditionals().back()->getID();
+        case SUMO_ATTR_CHARGING_STATION:
+        case SUMO_ATTR_PARKING_AREA:
+            return myPlanElement->getParentStoppingPlaces().back()->getID();
         // from elements
         case SUMO_ATTR_FROM:
             return myPlanElement->getParentEdges().front()->getID();
         case SUMO_ATTR_FROM_JUNCTION:
             return myPlanElement->getParentJunctions().front()->getID();
         case SUMO_ATTR_FROM_TAZ:
+            return myPlanElement->getParentTAZs().front()->getID();
         case GNE_ATTR_FROM_BUSSTOP:
         case GNE_ATTR_FROM_TRAINSTOP:
-            return myPlanElement->getParentAdditionals().front()->getID();
+        case GNE_ATTR_FROM_CONTAINERSTOP:
+        case GNE_ATTR_FROM_CHARGINGSTATION:
+        case GNE_ATTR_FROM_PARKINGAREA:
+            return myPlanElement->getParentStoppingPlaces().front()->getID();
         // to elements
         case SUMO_ATTR_TO:
             return myPlanElement->getParentEdges().back()->getID();
         case SUMO_ATTR_TO_JUNCTION:
             return myPlanElement->getParentJunctions().back()->getID();
         case SUMO_ATTR_TO_TAZ:
-            return myPlanElement->getParentAdditionals().back()->getID();
+            return myPlanElement->getParentTAZs().back()->getID();
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -677,7 +1411,7 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
 double
 GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare plan parent
     const auto planParent = myPlanElement->getParentDemandElements().at(0);
     // continue depending of key
@@ -685,12 +1419,13 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
             if (tagProperty.planStoppingPlace()) {
                 // use startpos of stoppingPlace parent (stops)
-                return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+                return myPlanElement->getParentStoppingPlaces().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else if (tagProperty.planFromStoppingPlace()) {
                 // use end position of stoppingPlace parent (for plans that starts in stoppingPlaces)
-                return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
-                // junctions and TAZs return always -1
+                return myPlanElement->getParentStoppingPlaces().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else if (tagProperty.planFromTAZ()) {
+                return 0;
+            } else if (tagProperty.planFromJunction()) {
                 return -1;
             } else {
                 // get previous plan element
@@ -716,10 +1451,10 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             // continue depending of parents
             if (tagProperty.planStoppingPlace()) {
                 // use end position of the stoppingPlace (stops)
-                return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                return myPlanElement->getParentStoppingPlaces().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             } else if (tagProperty.planToStoppingPlace()) {
                 // use start position of the stoppingPlace (for elements that ends in stoppingPlaces)
-                return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+                return myPlanElement->getParentStoppingPlaces().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else if (tagProperty.planToJunction() || tagProperty.planToTAZ()) {
                 // junctions and TAZs return always -1
                 return -1;
@@ -739,6 +1474,11 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                     return myArrivalPosition;
                 }
             }
+        case SUMO_ATTR_DEPARTPOS:
+            return myDepartPosition;
+        case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_ARRIVALPOS:
+            return myArrivalPosition;
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
     }
@@ -748,7 +1488,7 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
 Position
 GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare plan parent
     const auto planParent = myPlanElement->getParentDemandElements().at(0);
     // continue depending of key
@@ -757,19 +1497,22 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             // get previous plan
             const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
             if (previousPlan && previousPlan->getTagProperty().isPlanStop() && previousPlan->getTagProperty().planStoppingPlace()) {
-                return previousPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+                return previousPlan->getParentStoppingPlaces().front()->getAdditionalGeometry().getShape().back();
             }
             // continue depending of from element
             if (tagProperty.planStoppingPlace()) {
-                return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
+                return myPlanElement->getParentStoppingPlaces().front()->getAdditionalGeometry().getShape().front();
             } else if (tagProperty.planFromStoppingPlace()) {
-                return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+                return myPlanElement->getParentStoppingPlaces().front()->getAdditionalGeometry().getShape().back();
             } else if (tagProperty.planFromJunction()) {
                 // junction view position
                 return myPlanElement->getParentJunctions().front()->getPositionInView();
             } else if (tagProperty.planFromTAZ()) {
-                // TAZ view position
-                return myPlanElement->getParentAdditionals().front()->getPositionInView();
+                if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return myPlanElement->getParentTAZs().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return myPlanElement->getParentTAZs().front()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
             } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
                 // get first path lane
                 const auto firstLane = myPlanElement->getFirstPathLane();
@@ -783,12 +1526,9 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 if (previousPlan) {
                     // use previous geometry end position
                     lanePosition = previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-                } else if (myDepartPosition < 0) {
+                } else {
                     // use departPos defined in planParent
                     lanePosition = planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-                } else {
-                    // use departPos (only for tranships)
-                    lanePosition = myDepartPosition;
                 }
                 // get lane shape
                 const auto& laneShape = firstLane->getLaneShape();
@@ -809,15 +1549,19 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             if (tagProperty.planToJunction()) {
                 // junctions
                 return myPlanElement->getParentJunctions().back()->getPositionInView();
-            } else if (tagProperty.planToTAZ()) {
-                // taz
-                return myPlanElement->getParentAdditionals().back()->getPositionInView();
             } else if (tagProperty.planStoppingPlace()) {
                 // get additional back shape (stops)
-                return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
+                return myPlanElement->getParentStoppingPlaces().back()->getAdditionalGeometry().getShape().back();
             } else if (tagProperty.planToStoppingPlace()) {
                 // get additional front shape
-                return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
+                return myPlanElement->getParentStoppingPlaces().back()->getAdditionalGeometry().getShape().front();
+            } else if (tagProperty.planToTAZ()) {
+                // taz
+                if (myPlanElement->getParentTAZs().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return myPlanElement->getParentTAZs().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return myPlanElement->getParentTAZs().back()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
             } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
                 // get next plan
                 const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
@@ -857,6 +1601,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
         case SUMO_ATTR_ENDPOS:
+        case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
             break;
@@ -871,6 +1616,8 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
     // continue depending of key
     switch (key) {
         // common attributes
+        case GNE_ATTR_PARENT:
+            return false;
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
@@ -905,6 +1652,9 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_FROM_TAZ:
         case GNE_ATTR_FROM_BUSSTOP:
         case GNE_ATTR_FROM_TRAINSTOP:
+        case GNE_ATTR_FROM_CONTAINERSTOP:
+        case GNE_ATTR_FROM_CHARGINGSTATION:
+        case GNE_ATTR_FROM_PARKINGAREA:
         // to
         case SUMO_ATTR_TO:
         case SUMO_ATTR_TO_JUNCTION:
@@ -912,14 +1662,11 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
-            return false;
+        case SUMO_ATTR_CHARGING_STATION:
+        case SUMO_ATTR_PARKING_AREA:
+        // depart pos (temporal, probably will be removed)
         case SUMO_ATTR_DEPARTPOS:
-            // depart position only enabled for first plan element
-            if (myPlanElement->getParentDemandElements().size() > 0) {
-                return myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == 0;
-            } else {
-                return false;
-            }
+            return false;
         default:
             return true;
     }
@@ -929,7 +1676,17 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
 void
 GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        // from-to attributes (needed if we're replacing junction by geometry points and similar operations)
+        case SUMO_ATTR_FROM:
+            myPlanElement->replaceFirstParentEdge(value);
+            break;
+        case SUMO_ATTR_TO:
+            myPlanElement->replaceLastParentEdge(value);
+            break;
         // Common plan attributes
+        case GNE_ATTR_PARENT:
+            replacePlanParent(value);
+            break;
         case SUMO_ATTR_DEPARTPOS:
             if (value.empty()) {
                 myDepartPosition = -1;
@@ -966,7 +1723,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
 std::string
 GNEDemandElementPlan::getPlanHierarchyName() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare result
     std::string result;
     // clear result
@@ -988,11 +1745,15 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
         return result + myPlanElement->getParentEdges().front()->getID();
     } else if (tagProperty.planStoppingPlace()) {
         // stoppingPlace
-        return myPlanElement->getParentAdditionals().front()->getID();
+        return myPlanElement->getParentStoppingPlaces().front()->getID();
     } else {
-        // additional
-        if (tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
-            result += myPlanElement->getParentAdditionals().front()->getID();
+        // stoppingPlace
+        if (tagProperty.planFromStoppingPlace()) {
+            result += myPlanElement->getParentStoppingPlaces().front()->getID();
+        }
+        // TAZ
+        if (tagProperty.planFromTAZ()) {
+            result += myPlanElement->getParentTAZs().front()->getID();
         }
         // junction
         if (tagProperty.planFromJunction()) {
@@ -1004,9 +1765,13 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
         }
         // arrow
         result += " -> ";
-        // additional
-        if (tagProperty.planToStoppingPlace() || tagProperty.planToTAZ()) {
-            result += myPlanElement->getParentAdditionals().back()->getID();
+        // stoppingPlace
+        if (tagProperty.planToStoppingPlace()) {
+            result += myPlanElement->getParentStoppingPlaces().back()->getID();
+        }
+        // TAZ
+        if (tagProperty.planToTAZ()) {
+            result += myPlanElement->getParentTAZs().back()->getID();
         }
         // junction
         if (tagProperty.planToJunction()) {
@@ -1108,11 +1873,15 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get plan geometry
     auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
     if (drawPlan && (planGeometry.getShape().size() > 0)) {
+        // draw boundary
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(s, getPlanCenteringBoundary());
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get viewNet
@@ -1121,12 +1890,18 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-        // flag to check if width must be duplicated
-        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
+        // check if draw with double width
+        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
         // calculate path width
-        const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
+        double pathWidth = s.widthSettings.walkWidth;
+        if (tagProperty.isPlanRide()) {
+            pathWidth = s.widthSettings.rideWidth;
+        } else if (tagProperty.isPlanPersonTrip()) {
+            pathWidth = s.widthSettings.personTripWidth;
+        }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if ((tagProperty.isPlanPerson() && s.checkDrawPerson(d, myPlanElement->isAttributeCarrierSelected())) ||
+                (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
             // push matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -1134,18 +1909,21 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             // set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw line
-            GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
-            GLHelper::drawTriangleAtEnd(
-                *(planGeometry.getShape().end() - 2),
-                *(planGeometry.getShape().end() - 1),
-                0.5, 0.5, 0.5);
+            GUIGeometry::drawGeometry(d, planGeometry, pathWidth * (drawHalfWidth ? 1 : 2));
+            if (drawHalfWidth) {
+                GLHelper::drawTriangleAtEnd(planGeometry.getShape().front(), planGeometry.getShape().back(), 0.5, 0.5, 0.5);
+            } else {
+                GLHelper::drawTriangleAtEnd(planGeometry.getShape().front(), planGeometry.getShape().back(), 1, 1, 1);
+            }
             // pop matrix
             GLHelper::popMatrix();
             // draw dotted contour
             myPlanContour.drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myPlanContour.calculateContourExtrudedShape(s, d, myPlanElement, planGeometry.getShape(), pathWidth, 1, true, true, 0);
+        myPlanContour.calculateContourExtrudedShape(s, d, myPlanElement, planGeometry.getShape(), myPlanElement->getType(), pathWidth * 2, 1, true, true, 0);
+        // calculate contour for end
+        myPlanContourEnd.calculateContourCircleShape(s, d, myPlanElement, planGeometry.getShape().back(), 1, myPlanElement->getType(), 1);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -1159,29 +1937,45 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
+    // get tag property
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan element can be drawn
-    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), tagProperty.getTag())) {
+        // draw boundary
+        if (tagProperty.isPlacedInRTree() && s.drawBoundaries) {
+            GLHelper::drawBoundary(s, getPlanCenteringBoundary());
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-        // flag to check if width must be duplicated
-        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
-        // calculate path width
-        const double pathWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * (duplicateWidth ? 2 : 1);
         // declare path geometry
         GUIGeometry planGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
-                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
-                                        getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
-                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
-                                        getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
+            if (tagProperty.planFromTAZ()) {
+                planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            Position::INVALID,
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
+            } else if (tagProperty.planToTAZ()) {
+                planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                            Position::INVALID);
+            } else {
+                planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
+            }
         } else if (segment->isFirstSegment()) {
             planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
@@ -1197,35 +1991,46 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         } else {
             planGeometry = segment->getLane()->getLaneGeometry();
         }
+        // calculate path width double
+        const double drawingWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
+        // check if draw with double width
+        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
+        // get end pos radius
+        const double endPosRadius = getEndPosRadius(s, segment, drawHalfWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if ((tagProperty.isPlanPerson() && s.checkDrawPerson(d, myPlanElement->isAttributeCarrierSelected())) ||
+                (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType(), offsetFront);
             // Set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
-            // draw geometry
-            GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
+            // draw geometry depending of drawWithDoubleWidth
+            GUIGeometry::drawGeometry(d, planGeometry, drawingWidth * (drawHalfWidth ? 0.5 : 1));
             // draw red arrows
             drawFromArrow(s, segment->getLane(), segment);
             drawToArrow(s, segment->getLane(), segment);
-            // draw end position
-            drawEndPosition(s, d, segment, duplicateWidth);
             // Pop last matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
             myPlanElement->drawName(myPlanElement->getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
+            // draw TAZ Center dotted contour
+            myPlanContourEnd.drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
-        // calculate contour and draw dotted geometry
-        if (duplicateWidth) {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
+        const auto& shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
+        // calculate contour and draw dotted geometry (always with double width)
+        if (segment->isFirstSegment()) {
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, myPlanElement->getType(), drawingWidth, 1, true, false, 0);
+        } else if (segment->isLastSegment()) {
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, myPlanElement->getType(), drawingWidth, 1, false, false, 0);
+            // calculate contour for end
+            myPlanContourEnd.calculateContourCircleShape(s, d, myPlanElement, getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), 2 * endPosRadius, myPlanElement->getType(), 1);
         } else {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, myPlanElement->getType(), drawingWidth, 1, false, false, 0);
         }
     }
     // check if draw plan parent
@@ -1240,20 +2045,26 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
+    // get tag property
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, tagProperty.getTag())) {
+        // draw boundary
+        if (tagProperty.isPlacedInRTree() && s.drawBoundaries) {
+            GLHelper::drawBoundary(s, getPlanCenteringBoundary());
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-        // flag to check if width must be duplicated
-        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
-        // calculate path width
-        const double pathWidth = s.addSize.getExaggeration(s, segment->getPreviousLane()) * planWidth * (duplicateWidth ? 2 : 1);
+        // calculate path width double
+        const double pathWidthDouble = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
+        // check if draw with double width
+        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isElementSelected(myPlanElement));
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // push a draw matrix
@@ -1268,49 +2079,41 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
                     // obtain lane2lane geometry
                     const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
                     // draw lane2lane
-                    GUIGeometry::drawGeometry(d, lane2laneGeometry, pathWidth);
+                    GUIGeometry::drawGeometry(d, lane2laneGeometry, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
                 } else {
                     // Set invalid plan color
                     GLHelper::setColor(RGBColor::RED);
                     // draw line between end of first shape and first position of second shape
-                    GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()}, (0.5 * pathWidth));
+                    GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()}, (0.5 * pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5)));
                 }
             } else if (segment->getPreviousLane()) {
                 // draw line between center of junction and last lane shape
-                GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()}, pathWidth);
+                GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()}, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
             } else if (segment->getNextLane()) {
                 // draw line between center of junction and first lane shape
-                GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, pathWidth);
+                GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
             }
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
             // draw dotted contour
-            if (duplicateWidth) {
-                segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
-            } else {
-                segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidthSmall, true);
-            }
+            segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // check if shape dotted contour has to be drawn
         if (segment->getPreviousLane() && segment->getNextLane()) {
             if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                 // get shape
                 const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
-                // calculate contour and draw dotted geometry
-                if (duplicateWidth) {
-                    segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
-                } else {
-                    segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
-                }
+                // calculate contour and draw dotted geometry (always with double width)
+                segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, myPlanElement->getType(), pathWidthDouble, 1, false, false, 0);
             }
         } else if (segment->getPreviousLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
-                    pathWidth, 1, true, true, 0);
+                                                                 myPlanElement->getType(), pathWidthDouble, 1, false, true, 0);
         } else if (segment->getNextLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
-                    pathWidth, 1, true, true, 0);
+                                                                 myPlanElement->getType(), pathWidthDouble, 1, true, false, 0);
         }
     }
     // check if draw plan parent
@@ -1386,6 +2189,19 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 }
 
 
+double
+GNEDemandElementPlan::getEndPosRadius(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool drawHalfWidth) const {
+    // check if myPlanElement is the last segment
+    if (segment->isLastSegment()) {
+        // calculate circle width
+        const double circleRadius = (drawHalfWidth ? myArrivalPositionDiameter * 0.5 : myArrivalPositionDiameter);
+        return circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
+    } else {
+        return -1;
+    }
+}
+
+
 void
 GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const {
     // draw ifcurrent amd next segment is placed over lanes
@@ -1427,27 +2243,40 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
 
 
 void
-GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const {
     // check if myPlanElement is the last segment
-    if (segment->isLastSegment()) {
-        // calculate circle width
-        const double circleRadius = (duplicateWidth ? myArrivalPositionDiameter : (myArrivalPositionDiameter / 2.0));
-        const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
-        const double circleWidthSquared = circleWidth * circleWidth;
-        // get geometryEndPos
+    if (!s.drawForRectangleSelection && (endPosRadius > 0)) {
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-        // check if endPos can be drawn
-        if (!s.drawForRectangleSelection || (myPlanElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
-            // push draw matrix
-            GLHelper::pushMatrix();
-            // translate to pos and move to
-            glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
-            // resolution of drawn circle depending of the zoom (To improve smothness)
-            GLHelper::drawFilledCircleDetailled(d, circleWidth);
-            // pop draw matrix
-            GLHelper::popMatrix();
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // translate to pos and move to
+        glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
+        // resolution of drawn circle depending of the zoom (To improve smothness)
+        GLHelper::drawFilledCircleDetailled(d, endPosRadius);
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+bool
+GNEDemandElementPlan::replacePlanParent(const std::string& newParentID) {
+    std::vector<SumoXMLTag> tags;
+    if (myPlanElement->myTagProperty.isPlanPerson()) {
+        tags.push_back(SUMO_TAG_PERSON);
+        tags.push_back(SUMO_TAG_PERSONFLOW);
+    } else {
+        tags.push_back(SUMO_TAG_CONTAINER);
+        tags.push_back(SUMO_TAG_CONTAINERFLOW);
+    }
+    // search new parent and set it
+    for (const auto& tag : tags) {
+        if (myPlanElement->getNet()->getAttributeCarriers()->retrieveDemandElement(tag, newParentID, false) != nullptr) {
+            myPlanElement->replaceDemandElementParent(tag, newParentID, 0);
+            return true;
         }
     }
+    throw ProcessError("Invalid new parent ID");
 }
 
 /****************************************************************************/

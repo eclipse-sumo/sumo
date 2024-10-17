@@ -1,13 +1,13 @@
 Loading net-file from 'net.net.xml' ... done (0ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
-Loading done.
-Simulation version v1_17_0+1317-06f42fb started with time: 0.00.
-Simulation ended at time: 375.00
-Reason: All vehicles have left the simulation.
-Loading net-file from 'net.net.xml' ... done (1ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
-Loading state from 'state.xml' ... done (7ms).
 Loading done.
-Simulation version v1_17_0+1317-06f42fb started with time: 20.00.
-Simulation ended at time: 375.00
+Simulation version v1_20_0+1714-5abd9d647c6 started with time: 0.00.
+Simulation ended at time: 375.00.
+Reason: All vehicles have left the simulation.
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading state from 'state.xml' ... done (22ms).
+Loading done.
+Simulation version v1_20_0+1714-5abd9d647c6 started with time: 20.00.
+Simulation ended at time: 375.00.
 Reason: All vehicles have left the simulation.

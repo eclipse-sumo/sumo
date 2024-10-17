@@ -382,35 +382,12 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNERoute::computePathElement() {
-    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        // get parent vehicle
-        const GNEDemandElement* parentVehicle = getParentDemandElements().at(0);
-        // declare lane vector
-        std::vector<GNELane*> lanes;
-        // get first and last path lane
-        GNELane* firstLane = parentVehicle->getFirstPathLane();
-        GNELane* lastLane = parentVehicle->getLastPathLane();
-        // insert first vehicle lane
-        if (firstLane) {
-            lanes.push_back(firstLane);
-        }
-        // add middle lanes
-        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
-        }
-        // insert last vehicle lane
-        if (lastLane) {
-            lanes.push_back(lastLane);
-        }
-        // calculate consecutive path using vClass of vehicle parent
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, lanes);
-    } else {
-        // calculate path using SVC_PASSENGER
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
-        // if path is empty, then calculate path again using SVC_IGNORING
-        if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
-        }
+    const auto vClass = myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED ? getVClass() : SVC_PASSENGER;
+    // calculate path
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, vClass, getParentEdges());
+    // if path is empty, then calculate path again using SVC_IGNORING
+    if (!myNet->getPathManager()->isPathValid(this)) {
+        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
     }
 }
 
@@ -458,7 +435,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             routeGeometry = segment->getLane()->getLaneGeometry();
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawVehicle(d, isAttributeCarrierSelected())) {
             // draw route partial lane
             drawRoutePartialLane(s, d, segment, offsetFront, routeGeometry, exaggeration);
             // draw name
@@ -467,7 +444,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, exaggeration,
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, exaggeration,
                 segment->isFirstSegment(), segment->isLastSegment(), 0);
     }
 }
@@ -491,14 +468,14 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         const GUIGeometry& routeGeometry = connectionExist ? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
                                            GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawVehicle(d, isAttributeCarrierSelected())) {
             // draw route partial
             drawRoutePartialJunction(s, d, offsetFront, routeGeometry, routeExaggeration);
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, routeExaggeration, false, false, 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, routeExaggeration, false, false, 0);
     }
 }
 

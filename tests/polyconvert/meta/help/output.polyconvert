@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_19_0+0280-744f1199eca
+Eclipse SUMO polyconvert Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -137,5 +137,5 @@ Examples:
   polyconvert -c <CONFIGURATION>
     run with configuration options set in file
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

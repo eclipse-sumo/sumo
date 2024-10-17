@@ -1,12 +1,27 @@
-<configuration>
-            <input>
-                <net-file value="net.net.xml"/>
-                <route-files value="demand.rou.xml"/>
-                <additional-files value="add.add.xml"/>
-                <no-step-log value="True"/>
-                <time-to-teleport value="0"/>
-                <device.taxi.dispatch-algorithm value="traci"/>
-                <device.taxi.idle-algorithm value="randomCircling"/>
+<?xml version="1.0" encoding="UTF-8"?>
 
-            </input>
-        </configuration>
+<!-- generated on 2024-06-12 18:31:58 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
+-->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="demand.rou.xml"/>
+        <additional-files value="add.add.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="0"/>
+    </processing>
+
+    <report>
+        <no-step-log value="True"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+        <device.taxi.idle-algorithm value="randomCircling"/>
+    </taxi_device>
+
+</sumoConfiguration>

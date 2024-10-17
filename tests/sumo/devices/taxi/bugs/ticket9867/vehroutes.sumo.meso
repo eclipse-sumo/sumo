@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-13 11:30:15 by Eclipse SUMO sumo Version v1_19_0+1258-f6542afa4fc
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-09-19 08:53:16 by Eclipse SUMO sumo Version v1_20_0+2048-31af531e001
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -34,7 +34,7 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -112,7 +112,7 @@
             <route replacedOnEdge="C0C1" replacedOnIndex="66" reason="taxi:idling:randomCircling" replacedAtTime="992.00" probability="0" edges="A2B2 B2B1 B1A1 A1A2 A2B2 B2C2 C2B2 B2C2 C2D2 D2D1 D1D2 D2D1 D1E1 E1F1 F1F2 F2E2 E2F2 F2F1 F1F0 F0E0 E0F0 F0F1 F1F0 F0E0 E0D0 D0D1 D1E1 E1E2 E2D2 D2D1 D1D0 D0C0 C0B0 B0C0 C0D0 D0E0 E0E1 E1E2 E2E1 E1E2 E2F2 F2F1 F1F2 F2E2 E2F2 F2F1 F1F2 F2E2 E2D2 D2C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0A0 A0A1 A1A0 A0B0 B0A0 A0A1 A1A0 A0B0 B0C0 C0D0 D0C0 C0C1 C1C2 C2B2"/>
             <route edges="A2B2 B2B1 B1A1 A1A2 A2B2 B2C2 C2B2 B2C2 C2D2 D2D1 D1D2 D2D1 D1E1 E1F1 F1F2 F2E2 E2F2 F2F1 F1F0 F0E0 E0F0 F0F1 F1F0 F0E0 E0D0 D0D1 D1E1 E1E2 E2D2 D2D1 D1D0 D0C0 C0B0 B0C0 C0D0 D0E0 E0E1 E1E2 E2E1 E1E2 E2F2 F2F1 F1F2 F2E2 E2F2 F2F1 F1F2 F2E2 E2D2 D2C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0A0 A0A1 A1A0 A0B0 B0A0 A0A1 A1A0 A0B0 B0C0 C0D0 D0C0 C0C1 C1C2 C2B2 B2B1"/>
         </routeDistribution>
-        <stop lane="A2B2_1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="A2B2_1" index="1" permitted="p0" actType="pickup p0 (0)"/>
         <stop lane="B2C2_1" actType="dropOff p0 (0)"/>
     </vehicle>
 

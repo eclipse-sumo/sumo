@@ -77,22 +77,6 @@ public:
         return myDriverState;
     }
 
-private:
-    /// @name Helpers for parameter parsing
-    /// @{
-    static double getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getFreeSpeedErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getMaximalReactionTime(const SUMOVehicle& v, const OptionsCont& oc);
-    /// @}
-
-
 public:
     /// @brief Destructor.
     ~MSDevice_DriverState() {};
@@ -127,7 +111,7 @@ private:
                          double freeSpeedErrorCoefficient,
                          double maximalReactionTime);
 
-    /// @brief Initializeses the driver state parameters
+    /// @brief Initialises the driver state parameters
     void initDriverState();
 
 private:

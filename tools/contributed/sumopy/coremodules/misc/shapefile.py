@@ -320,7 +320,7 @@ class Reader:
             return self._offsets[i]
 
     def shape(self, i=0):
-        """Returns a shape object for a shape in the the geometry
+        """Returns a shape object for a shape in the geometry
         record file."""
         shp = self.__getFileObj(self.shp)
         i = self.__restrictIndex(i)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:52 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-06-27 14:13:03 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -110,13 +110,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_17_0" index="0" allow="rail" speed="13.89" length="26.44" shape="107.72,92.08 134.16,91.80"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CN NC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.50" shape="127.91,109.63 115.11,109.70" outlineShape="128.02,111.88 115.02,111.95 114.90,110.26 114.25,108.87 113.18,107.79 112.56,107.47 129.99,107.37 129.38,107.77 128.56,108.83 128.07,110.20 127.92,111.88"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.50" shape="127.91,109.63 115.11,109.70" outlineShape="128.02,111.88 115.02,111.95 114.90,110.26 114.25,108.87 113.18,107.79 112.56,107.47 129.99,107.37 129.38,107.77 128.56,108.83 128.07,110.20"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CE CE2 E2C EC">
         <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="24.42" width="4.50" shape="132.14,81.99 131.54,106.40" outlineShape="134.39,81.94 133.79,106.46 131.99,106.55 130.52,107.01 129.38,107.77 129.25,107.94 129.92,80.69 134.39,82.04 134.53,80.48 134.52,77.48 132.41,75.67 129.41,75.67 127.90,75.69 128.09,77.62 128.63,79.19 129.53,80.41 129.92,80.69"/>
     </edge>
     <edge id=":C_c2" function="crossing" crossingEdges="CS SC">
-        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.50" shape="115.11,77.98 127.91,77.94" outlineShape="115.10,75.73 127.90,75.69 128.09,77.62 128.63,79.19 129.36,80.19 113.61,80.23 114.31,79.35 114.91,77.72 115.10,75.73"/>
+        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.50" shape="115.11,77.98 127.91,77.94" outlineShape="115.10,75.73 127.90,75.69 128.09,77.62 128.63,79.19 129.36,80.19 113.61,80.23 114.31,79.35 114.91,77.72"/>
     </edge>
     <edge id=":C_c3" function="crossing" crossingEdges="CW CW2 W2C WC">
         <lane id=":C_c3_0" index="0" allow="pedestrian" speed="2.78" length="24.17" width="4.50" shape="109.65,106.40 110.18,82.24" outlineShape="107.39,106.45 107.94,82.09 110.13,82.06 111.92,81.52 112.46,81.17 111.88,107.12 107.40,106.35 107.28,107.90 107.28,110.90 110.61,111.99 113.61,111.99 115.12,111.95 114.90,110.26 114.25,108.87 113.18,107.79 111.88,107.12"/>

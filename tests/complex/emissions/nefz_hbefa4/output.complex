@@ -15,7 +15,7 @@ length:11041.9
 CO:202538
 CO2:2.81408e+06
 HC:35136.3
-NOx:21972.4
+NOx:22115.9
 PMx:411.106
 fuel:912097
 electricity:0
@@ -26,7 +26,7 @@ length:11041.9
 CO:202538
 CO2:2.81408e+06
 HC:30446.8
-NOx:21972.4
+NOx:22115.9
 PMx:411.106
 fuel:912097
 electricity:0
@@ -37,7 +37,7 @@ length:11041.9
 CO:202538
 CO2:2.81408e+06
 HC:24119.8
-NOx:21972.4
+NOx:22115.9
 PMx:411.106
 fuel:912097
 electricity:0
@@ -48,7 +48,7 @@ length:11041.9
 CO:202538
 CO2:2.81408e+06
 HC:21067
-NOx:22987.2
+NOx:23012.6
 PMx:411.106
 fuel:912097
 electricity:0
@@ -92,7 +92,7 @@ length:11041.9
 CO:123246
 CO2:2.80273e+06
 HC:6958.1
-NOx:10249.3
+NOx:10251.2
 PMx:411.106
 fuel:908426
 electricity:0
@@ -100,7 +100,7 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-1'
 sums
 length:11041.9
-CO:16682.2
+CO:16701.1
 CO2:2.58629e+06
 HC:1762.74
 NOx:4662.15
@@ -111,7 +111,7 @@ Success.
 Running 'HBEFA4/PC_petrol_PreEuro_3WCat_lt1987'
 sums
 length:11041.9
-CO:16682.2
+CO:16701.1
 CO2:2.6239e+06
 HC:1762.74
 NOx:4662.15
@@ -122,7 +122,7 @@ Success.
 Running 'HBEFA4/PC_petrol_PreEuro_3WCat_1987-90'
 sums
 length:11041.9
-CO:16682.2
+CO:16701.1
 CO2:2.58457e+06
 HC:1762.74
 NOx:4662.15
@@ -133,9 +133,9 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-2'
 sums
 length:11041.9
-CO:23191.9
+CO:23228.7
 CO2:2.55751e+06
-HC:494.396
+HC:494.555
 NOx:2375.97
 PMx:410.018
 fuel:829225
@@ -144,9 +144,9 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-3'
 sums
 length:11041.9
-CO:22070.6
+CO:22106.6
 CO2:2.44613e+06
-HC:258.334
+HC:258.342
 NOx:731.763
 PMx:316.003
 fuel:793010
@@ -155,9 +155,9 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-4'
 sums
 length:11041.9
-CO:14142.4
+CO:14148.7
 CO2:2.42796e+06
-HC:97.1883
+HC:97.2084
 NOx:917.2
 PMx:292.694
 fuel:787122
@@ -166,9 +166,9 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-5'
 sums
 length:11041.9
-CO:18034
+CO:18062.7
 CO2:2.24587e+06
-HC:111.321
+HC:111.421
 NOx:373.854
 PMx:287.704
 fuel:728191
@@ -177,10 +177,10 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-6ab'
 sums
 length:11041.9
-CO:6803.78
+CO:6811.8
 CO2:2.26165e+06
 HC:78.2879
-NOx:627.942
+NOx:628.919
 PMx:281.255
 fuel:733244
 electricity:0
@@ -188,9 +188,9 @@ Success.
 Running 'HBEFA4/PC_petrol_Euro-6c'
 sums
 length:11041.9
-CO:3782.51
+CO:3785.66
 CO2:2.3393e+06
-HC:26.3662
+HC:26.3747
 NOx:209.056
 PMx:271.813
 fuel:758424
@@ -202,8 +202,8 @@ length:11041.9
 CO:5028.06
 CO2:2.43895e+06
 HC:68.0774
-NOx:300.47
-PMx:279.476
+NOx:300.793
+PMx:279.529
 fuel:790517
 electricity:0
 Success.
@@ -212,9 +212,9 @@ sums
 length:11041.9
 CO:4854.77
 CO2:2.16247e+06
-HC:59.3528
-NOx:307.232
-PMx:281.274
+HC:59.6896
+NOx:307.578
+PMx:281.337
 fuel:700889
 electricity:0
 Success.
@@ -223,9 +223,9 @@ sums
 length:11041.9
 CO:3235.57
 CO2:1.92117e+06
-HC:40.705
-NOx:198.133
-PMx:269.487
+HC:40.8051
+NOx:198.352
+PMx:269.497
 fuel:622818
 electricity:0
 Success.
@@ -236,7 +236,7 @@ CO:15106.4
 CO2:2.69551e+06
 HC:3363.94
 NOx:11947.7
-PMx:2465.55
+PMx:2473.78
 fuel:866377
 electricity:0
 Success.
@@ -364,7 +364,7 @@ Success.
 Running 'HBEFA4/PC_diesel_Euro-5_EA189_after_software_update'
 sums
 length:11041.9
-CO:153.27
+CO:155.604
 CO2:2.48747e+06
 HC:143.699
 NOx:6919.69
@@ -432,7 +432,7 @@ sums
 length:11041.9
 CO:232.073
 CO2:2.69399e+06
-HC:159.943
+HC:160.036
 NOx:633.974
 PMx:272.637
 fuel:865959
@@ -443,7 +443,7 @@ sums
 length:11041.9
 CO:207.517
 CO2:2.55969e+06
-HC:140.978
+HC:141.056
 NOx:540.509
 PMx:271.961
 fuel:822560
@@ -455,7 +455,7 @@ length:11041.9
 CO:1343.11
 CO2:2.32975e+06
 HC:59.1082
-NOx:139.639
+NOx:139.699
 PMx:271.346
 fuel:748662
 electricity:0
@@ -463,9 +463,9 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-2_(CNG)'
 sums
 length:11041.9
-CO:25511.6
+CO:25552.1
 CO2:2.14081e+06
-HC:741.636
+HC:741.875
 NOx:2375.97
 PMx:482.053
 fuel:688708
@@ -474,9 +474,9 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-2_(P)'
 sums
 length:11041.9
-CO:23191.9
+CO:23228.7
 CO2:2.40055e+06
-HC:494.396
+HC:494.555
 NOx:2375.97
 PMx:410.018
 fuel:778296
@@ -485,9 +485,9 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-3_(CNG)'
 sums
 length:11041.9
-CO:24276.4
+CO:24316
 CO2:2.18106e+06
-HC:387.503
+HC:387.515
 NOx:731.763
 PMx:341.042
 fuel:701753
@@ -496,9 +496,9 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-3_(P)'
 sums
 length:11041.9
-CO:22070.6
+CO:22106.6
 CO2:2.44613e+06
-HC:258.334
+HC:258.342
 NOx:731.763
 PMx:316.003
 fuel:793010
@@ -507,10 +507,10 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-4_(CNG)'
 sums
 length:11041.9
-CO:3949.97
+CO:3986.41
 CO2:2.22224e+06
 HC:594.421
-NOx:2339
+NOx:2339.82
 PMx:335.835
 fuel:715030
 electricity:0
@@ -518,9 +518,9 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-4_(P)'
 sums
 length:11041.9
-CO:14533.8
+CO:14541.2
 CO2:2.49707e+06
-HC:99.2443
+HC:99.2704
 NOx:926.39
 PMx:293.16
 fuel:809459
@@ -529,10 +529,10 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-5_(CNG)'
 sums
 length:11041.9
-CO:4530.36
+CO:4543.39
 CO2:1.95213e+06
 HC:744.643
-NOx:746.073
+NOx:746.842
 PMx:348.45
 fuel:628289
 electricity:0
@@ -540,9 +540,9 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-5_(P)'
 sums
 length:11041.9
-CO:18895.1
+CO:18926.1
 CO2:2.19358e+06
-HC:114.644
+HC:114.753
 NOx:374.668
 PMx:288.703
 fuel:711203
@@ -562,10 +562,10 @@ Success.
 Running 'HBEFA4/PC_CNG_petrol_Euro-6_(P)'
 sums
 length:11041.9
-CO:6907.34
+CO:6915.59
 CO2:1.975e+06
 HC:79.8761
-NOx:636.934
+NOx:637.785
 PMx:281.471
 fuel:640368
 electricity:0
@@ -573,9 +573,9 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-3__(E85)'
 sums
 length:11041.9
-CO:22070.6
+CO:22106.6
 CO2:2.50215e+06
-HC:258.334
+HC:258.342
 NOx:731.763
 PMx:316.003
 fuel:1.22108e+06
@@ -584,9 +584,9 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-3__(P)'
 sums
 length:11041.9
-CO:22070.6
+CO:22106.6
 CO2:2.44613e+06
-HC:258.334
+HC:258.342
 NOx:731.763
 PMx:316.003
 fuel:793010
@@ -595,9 +595,9 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-4__(E85)'
 sums
 length:11041.9
-CO:14142.4
+CO:14148.7
 CO2:3.33136e+06
-HC:97.1883
+HC:97.2084
 NOx:917.2
 PMx:284.675
 fuel:1.62639e+06
@@ -606,9 +606,9 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-4__(P)'
 sums
 length:11041.9
-CO:14142.4
+CO:14148.7
 CO2:2.41247e+06
-HC:97.1883
+HC:97.2084
 NOx:917.2
 PMx:292.694
 fuel:782188
@@ -617,9 +617,9 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-5__(E85)'
 sums
 length:11041.9
-CO:18034
+CO:18062.7
 CO2:3.09366e+06
-HC:111.321
+HC:111.421
 NOx:373.854
 PMx:281.205
 fuel:1.51005e+06
@@ -628,9 +628,9 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-5__(P)'
 sums
 length:11041.9
-CO:18034
+CO:18062.7
 CO2:2.24115e+06
-HC:111.321
+HC:111.421
 NOx:373.854
 PMx:287.704
 fuel:726458
@@ -639,10 +639,10 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-6__(E85)'
 sums
 length:11041.9
-CO:6803.78
+CO:6811.8
 CO2:3.11465e+06
 HC:78.2879
-NOx:627.942
+NOx:628.919
 PMx:276.682
 fuel:1.52004e+06
 electricity:0
@@ -650,10 +650,10 @@ Success.
 Running 'HBEFA4/PC_FFV_Euro-6__(P)'
 sums
 length:11041.9
-CO:6803.78
+CO:6811.8
 CO2:2.25532e+06
 HC:78.2879
-NOx:627.942
+NOx:628.919
 PMx:281.255
 fuel:731316
 electricity:0
@@ -683,9 +683,9 @@ Success.
 Running 'HBEFA4/PC_PHEV_petrol_Euro-4_(P)'
 sums
 length:11041.9
-CO:12893.8
+CO:12898.7
 CO2:2.38706e+06
-HC:93.7947
+HC:93.8153
 NOx:898.682
 PMx:291.872
 fuel:773935
@@ -705,9 +705,9 @@ Success.
 Running 'HBEFA4/PC_PHEV_petrol_Euro-5_(P)'
 sums
 length:11041.9
-CO:16178.1
+CO:16204
 CO2:2.01319e+06
-HC:125.908
+HC:125.927
 NOx:354.264
 PMx:287.633
 fuel:652668
@@ -730,8 +730,8 @@ length:11041.9
 CO:5258.73
 CO2:2.00448e+06
 HC:69.1528
-NOx:303.94
-PMx:278.359
+NOx:304.283
+PMx:278.373
 fuel:649834
 electricity:0
 Success.
@@ -749,10 +749,10 @@ Success.
 Running 'HBEFA4/PC_PHEV_petrol_Euro-6ab_(P)'
 sums
 length:11041.9
-CO:6706.41
+CO:6714.61
 CO2:2.07145e+06
 HC:88.6245
-NOx:557.25
+NOx:557.52
 PMx:280.43
 fuel:671491
 electricity:0
@@ -817,7 +817,7 @@ sums
 length:11041.9
 CO:238.25
 CO2:2.59073e+06
-HC:153.848
+HC:153.926
 NOx:619.085
 PMx:272.881
 fuel:832597
@@ -848,9 +848,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-2_(LPG)'
 sums
 length:11041.9
-CO:23191.9
+CO:23228.7
 CO2:2.2885e+06
-HC:494.396
+HC:494.555
 NOx:2375.97
 PMx:265.955
 fuel:740685
@@ -859,9 +859,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-2_(P)'
 sums
 length:11041.9
-CO:23191.9
+CO:23228.7
 CO2:2.41016e+06
-HC:494.396
+HC:494.555
 NOx:2375.97
 PMx:410.018
 fuel:781234
@@ -870,9 +870,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-3_(LPG)'
 sums
 length:11041.9
-CO:22070.6
+CO:22106.6
 CO2:2.32303e+06
-HC:258.334
+HC:258.342
 NOx:731.763
 PMx:265.937
 fuel:751808
@@ -881,9 +881,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-3_(P)'
 sums
 length:11041.9
-CO:22070.6
+CO:22106.6
 CO2:2.44613e+06
-HC:258.334
+HC:258.342
 NOx:731.763
 PMx:316.003
 fuel:793010
@@ -892,9 +892,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-4_(LPG)'
 sums
 length:11041.9
-CO:14142.4
+CO:14148.7
 CO2:2.28881e+06
-HC:97.1883
+HC:97.2084
 NOx:917.2
 PMx:265.974
 fuel:740753
@@ -903,9 +903,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-4_(P)'
 sums
 length:11041.9
-CO:14142.4
+CO:14148.7
 CO2:2.41039e+06
-HC:97.1883
+HC:97.2084
 NOx:917.2
 PMx:292.694
 fuel:781400
@@ -914,9 +914,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-5_(LPG)'
 sums
 length:11041.9
-CO:18034
+CO:18062.7
 CO2:2.06677e+06
-HC:111.321
+HC:111.421
 NOx:373.854
 PMx:266.035
 fuel:668981
@@ -925,9 +925,9 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-5_(P)'
 sums
 length:11041.9
-CO:18034
+CO:18062.7
 CO2:2.17659e+06
-HC:111.321
+HC:111.421
 NOx:373.854
 PMx:287.704
 fuel:705624
@@ -936,10 +936,10 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-6_(LPG)'
 sums
 length:11041.9
-CO:6803.78
+CO:6811.8
 CO2:2.1946e+06
 HC:78.2879
-NOx:627.942
+NOx:628.919
 PMx:266.003
 fuel:710537
 electricity:0
@@ -947,10 +947,10 @@ Success.
 Running 'HBEFA4/PC_LPG_petrol_Euro-6_(P)'
 sums
 length:11041.9
-CO:6803.78
+CO:6811.8
 CO2:2.31234e+06
 HC:78.2879
-NOx:627.942
+NOx:628.919
 PMx:281.255
 fuel:749441
 electricity:0
@@ -972,7 +972,7 @@ length:11041.9
 CO:137925
 CO2:2.49955e+06
 HC:92117
-NOx:24174
+NOx:24429.4
 PMx:411.106
 fuel:788389
 electricity:0
@@ -980,10 +980,10 @@ Success.
 Running 'HBEFA4/PC_4S_EE'
 sums
 length:11041.9
-CO:193970
+CO:193974
 CO2:2.42991e+06
 HC:21768.8
-NOx:47270
+NOx:48018.4
 PMx:411.106
 fuel:787750
 electricity:0
@@ -994,7 +994,7 @@ length:11041.9
 CO:270340
 CO2:2.78069e+06
 HC:16890.8
-NOx:21459.8
+NOx:22049.8
 PMx:499.391
 fuel:901330
 electricity:0
@@ -1005,7 +1005,7 @@ length:11041.9
 CO:270340
 CO2:2.78069e+06
 HC:16890.8
-NOx:21459.8
+NOx:22049.8
 PMx:499.391
 fuel:901330
 electricity:0
@@ -1013,9 +1013,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-1'
 sums
 length:11041.9
-CO:139847
+CO:140035
 CO2:2.47703e+06
-HC:2847.99
+HC:2848.13
 NOx:7632.8
 PMx:408.323
 fuel:803146
@@ -1024,9 +1024,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_3WCat_1987-1990'
 sums
 length:11041.9
-CO:139847
+CO:140035
 CO2:2.41355e+06
-HC:2847.99
+HC:2848.13
 NOx:7632.8
 PMx:408.323
 fuel:782546
@@ -1035,7 +1035,7 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-2'
 sums
 length:11041.9
-CO:83172.8
+CO:83284.3
 CO2:2.50463e+06
 HC:1180.22
 NOx:2838.01
@@ -1046,9 +1046,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-3'
 sums
 length:11041.9
-CO:49165.3
+CO:49235.4
 CO2:2.02536e+06
-HC:357.075
+HC:357.108
 NOx:924.761
 PMx:370.381
 fuel:656563
@@ -1057,9 +1057,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-4'
 sums
 length:11041.9
-CO:29763.1
+CO:29795.7
 CO2:2.05744e+06
-HC:145.681
+HC:145.783
 NOx:633.066
 PMx:325.064
 fuel:667043
@@ -1068,9 +1068,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-5'
 sums
 length:11041.9
-CO:30903.2
+CO:30939.7
 CO2:1.89085e+06
-HC:152.271
+HC:152.39
 NOx:230.908
 PMx:327.932
 fuel:612949
@@ -1079,9 +1079,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6ab'
 sums
 length:11041.9
-CO:34318
+CO:34355.7
 CO2:1.91398e+06
-HC:162.93
+HC:163.046
 NOx:258.023
 PMx:332.703
 fuel:620460
@@ -1090,9 +1090,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6c'
 sums
 length:11041.9
-CO:34248.9
+CO:34286.8
 CO2:1.74391e+06
-HC:162.593
+HC:162.709
 NOx:257.919
 PMx:332.436
 fuel:565369
@@ -1101,9 +1101,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6d-temp'
 sums
 length:11041.9
-CO:34003.4
+CO:34041.1
 CO2:1.78632e+06
-HC:161.544
+HC:161.66
 NOx:257.753
 PMx:331.998
 fuel:579102
@@ -1112,9 +1112,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6d'
 sums
 length:11041.9
-CO:33802.7
+CO:33840.4
 CO2:1.6901e+06
-HC:160.674
+HC:160.791
 NOx:257.564
 PMx:331.7
 fuel:547856
@@ -1126,7 +1126,7 @@ length:11041.9
 CO:361940
 CO2:4.09569e+06
 HC:23766.9
-NOx:28610
+NOx:29416.2
 PMx:659.561
 fuel:1.32788e+06
 electricity:0
@@ -1137,7 +1137,7 @@ length:11041.9
 CO:361940
 CO2:4.09569e+06
 HC:23766.9
-NOx:28610
+NOx:29416.2
 PMx:659.561
 fuel:1.32788e+06
 electricity:0
@@ -1145,9 +1145,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-1'
 sums
 length:11041.9
-CO:286613
+CO:286747
 CO2:3.88254e+06
-HC:4453.58
+HC:4454.12
 NOx:11721.1
 PMx:557.483
 fuel:1.25862e+06
@@ -1156,9 +1156,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_3WCat_1987-1990'
 sums
 length:11041.9
-CO:286613
+CO:286747
 CO2:3.79657e+06
-HC:4453.58
+HC:4454.12
 NOx:11721.1
 PMx:557.483
 fuel:1.23084e+06
@@ -1167,9 +1167,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-2'
 sums
 length:11041.9
-CO:132516
+CO:132603
 CO2:3.56199e+06
-HC:1339.26
+HC:1339.38
 NOx:3941.28
 PMx:727.711
 fuel:1.15495e+06
@@ -1178,9 +1178,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-3'
 sums
 length:11041.9
-CO:69478.6
+CO:69532.2
 CO2:2.81345e+06
-HC:403.393
+HC:403.567
 NOx:1284.9
 PMx:405.848
 fuel:912011
@@ -1189,9 +1189,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-4'
 sums
 length:11041.9
-CO:48008.8
+CO:48043.1
 CO2:2.61853e+06
-HC:224.502
+HC:224.577
 NOx:769.671
 PMx:370.54
 fuel:849003
@@ -1200,9 +1200,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-5'
 sums
 length:11041.9
-CO:46855.3
+CO:46885.2
 CO2:2.39234e+06
-HC:225.309
+HC:225.37
 NOx:278.752
 PMx:364.677
 fuel:775490
@@ -1211,9 +1211,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-6ab'
 sums
 length:11041.9
-CO:43469.3
+CO:43502.6
 CO2:2.28395e+06
-HC:205.22
+HC:205.296
 NOx:302.411
 PMx:350.851
 fuel:740397
@@ -1222,9 +1222,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-6c'
 sums
 length:11041.9
-CO:43354.2
+CO:43387.6
 CO2:2.07975e+06
-HC:204.723
+HC:204.8
 NOx:302.326
 PMx:350.568
 fuel:674208
@@ -1233,9 +1233,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-6d-temp'
 sums
 length:11041.9
-CO:43120.4
+CO:43154.3
 CO2:2.13144e+06
-HC:203.733
+HC:203.812
 NOx:302.112
 PMx:350.056
 fuel:691063
@@ -1244,9 +1244,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-II_Euro-6d'
 sums
 length:11041.9
-CO:42809.8
+CO:42843.9
 CO2:2.01632e+06
-HC:202.528
+HC:202.609
 NOx:301.865
 PMx:349.458
 fuel:653545
@@ -1258,7 +1258,7 @@ length:11041.9
 CO:445999
 CO2:4.79843e+06
 HC:28534.6
-NOx:36155.6
+NOx:37220.4
 PMx:682.877
 fuel:1.55549e+06
 electricity:0
@@ -1269,7 +1269,7 @@ length:11041.9
 CO:445999
 CO2:4.79843e+06
 HC:28534.6
-NOx:36155.6
+NOx:37220.4
 PMx:682.877
 fuel:1.55549e+06
 electricity:0
@@ -1277,9 +1277,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-1'
 sums
 length:11041.9
-CO:301442
+CO:301727
 CO2:4.53594e+06
-HC:5405.38
+HC:5405.59
 NOx:13799.1
 PMx:562.497
 fuel:1.47038e+06
@@ -1288,9 +1288,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_3WCat_1987-1990'
 sums
 length:11041.9
-CO:301442
+CO:301727
 CO2:4.45775e+06
-HC:5405.38
+HC:5405.59
 NOx:13799.1
 PMx:562.497
 fuel:1.44524e+06
@@ -1299,9 +1299,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-2'
 sums
 length:11041.9
-CO:152342
+CO:152487
 CO2:4.44026e+06
-HC:1768.32
+HC:1768.41
 NOx:4974.02
 PMx:804.276
 fuel:1.43938e+06
@@ -1310,9 +1310,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-3'
 sums
 length:11041.9
-CO:70037.3
+CO:70113.1
 CO2:3.70393e+06
-HC:406.506
+HC:406.767
 NOx:1299.36
 PMx:410.295
 fuel:1.20065e+06
@@ -1321,9 +1321,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-4'
 sums
 length:11041.9
-CO:60611.7
+CO:60666.2
 CO2:3.67894e+06
-HC:288.22
+HC:288.366
 NOx:1104.06
 PMx:386.103
 fuel:1.19279e+06
@@ -1332,9 +1332,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-5'
 sums
 length:11041.9
-CO:61290.5
+CO:61345.9
 CO2:3.37444e+06
-HC:298.333
+HC:298.488
 NOx:402.043
 PMx:390.548
 fuel:1.09402e+06
@@ -1343,9 +1343,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-6ab'
 sums
 length:11041.9
-CO:63234.6
+CO:63292.4
 CO2:3.35726e+06
-HC:298.179
+HC:298.337
 NOx:446.577
 PMx:390.746
 fuel:1.08828e+06
@@ -1354,9 +1354,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-6c'
 sums
 length:11041.9
-CO:62925.8
+CO:62982.9
 CO2:3.05022e+06
-HC:297.217
+HC:297.374
 NOx:446.321
 PMx:390.082
 fuel:988988
@@ -1365,9 +1365,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-6d-temp'
 sums
 length:11041.9
-CO:62864.4
+CO:62922.8
 CO2:3.12146e+06
-HC:296.694
+HC:296.856
 NOx:445.992
 PMx:389.854
 fuel:1.01203e+06
@@ -1376,9 +1376,9 @@ Success.
 Running 'HBEFA4/LCV_petrol_N1-III_Euro-6d'
 sums
 length:11041.9
-CO:62531.2
+CO:62590.1
 CO2:2.9537e+06
-HC:295.276
+HC:295.44
 NOx:445.819
 PMx:389.181
 fuel:957627
@@ -1391,7 +1391,7 @@ CO:8440.35
 CO2:2.94124e+06
 HC:1466.83
 NOx:11349.8
-PMx:1822.44
+PMx:1824.8
 fuel:945265
 electricity:0
 Success.
@@ -1402,7 +1402,7 @@ CO:6267.31
 CO2:2.9164e+06
 HC:950.339
 NOx:12520.6
-PMx:1969.89
+PMx:1976.36
 fuel:937329
 electricity:0
 Success.
@@ -1413,7 +1413,7 @@ CO:8440.35
 CO2:3.01824e+06
 HC:1466.83
 NOx:11349.8
-PMx:1822.44
+PMx:1824.8
 fuel:970065
 electricity:0
 Success.
@@ -1424,7 +1424,7 @@ CO:2285.24
 CO2:2.65768e+06
 HC:537.416
 NOx:15867.7
-PMx:1433.15
+PMx:1441.9
 fuel:854088
 electricity:0
 Success.
@@ -1499,31 +1499,31 @@ sums
 length:11041.9
 CO:700.258
 CO2:1.8346e+06
-HC:293.68
+HC:298.858
 NOx:4961.68
-PMx:426.289
+PMx:428.342
 fuel:589588
 electricity:0
 Success.
 Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-6d-temp'
 sums
 length:11041.9
-CO:333.826
+CO:336.326
 CO2:1.79117e+06
-HC:330.986
+HC:337.652
 NOx:1129.55
-PMx:479.346
+PMx:485.699
 fuel:575562
 electricity:0
 Success.
 Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-6d'
 sums
 length:11041.9
-CO:300.123
+CO:302.405
 CO2:1.69178e+06
-HC:297.156
+HC:303.128
 NOx:972.493
-PMx:454.03
+PMx:458.867
 fuel:543622
 electricity:0
 Success.
@@ -1545,7 +1545,7 @@ CO:9298.65
 CO2:3.99755e+06
 HC:1576.1
 NOx:18194.5
-PMx:2131.52
+PMx:2134.77
 fuel:1.28478e+06
 electricity:0
 Success.
@@ -1567,7 +1567,7 @@ CO:2649.21
 CO2:3.68237e+06
 HC:805.391
 NOx:16172
-PMx:1394.27
+PMx:1396.33
 fuel:1.18344e+06
 electricity:0
 Success.
@@ -1632,7 +1632,7 @@ length:11041.9
 CO:1591.66
 CO2:2.65794e+06
 HC:387.374
-NOx:4431.89
+NOx:4432.58
 PMx:368.757
 fuel:854182
 electricity:0
@@ -1642,31 +1642,31 @@ sums
 length:11041.9
 CO:671.479
 CO2:2.59718e+06
-HC:276.451
-NOx:4016.56
-PMx:429.599
+HC:282.336
+NOx:4017.27
+PMx:435.36
 fuel:834564
 electricity:0
 Success.
 Running 'HBEFA4/LCV_diesel_N1-II_Euro-6d-temp'
 sums
 length:11041.9
-CO:324.974
+CO:327.41
 CO2:2.52968e+06
-HC:316.533
+HC:323.663
 NOx:1183.34
-PMx:462.059
+PMx:467.405
 fuel:813057
 electricity:0
 Success.
 Running 'HBEFA4/LCV_diesel_N1-II_Euro-6d'
 sums
 length:11041.9
-CO:292.458
+CO:294.658
 CO2:2.39234e+06
-HC:285.061
+HC:291.46
 NOx:1022.36
-PMx:440.631
+PMx:445.413
 fuel:768770
 electricity:0
 Success.
@@ -1677,7 +1677,7 @@ CO:16905.7
 CO2:5.42497e+06
 HC:189.891
 NOx:21230
-PMx:4455.81
+PMx:4459.62
 fuel:1.74355e+06
 electricity:0
 Success.
@@ -1688,7 +1688,7 @@ CO:10461.4
 CO2:5.18879e+06
 HC:120.086
 NOx:19431
-PMx:2428.48
+PMx:2430.99
 fuel:1.66739e+06
 electricity:0
 Success.
@@ -1699,7 +1699,7 @@ CO:16905.7
 CO2:5.52181e+06
 HC:189.891
 NOx:21230
-PMx:4455.81
+PMx:4459.62
 fuel:1.77465e+06
 electricity:0
 Success.
@@ -1710,7 +1710,7 @@ CO:3300.29
 CO2:4.8561e+06
 HC:44.8418
 NOx:10647.8
-PMx:2346.14
+PMx:2352.09
 fuel:1.56032e+06
 electricity:0
 Success.
@@ -1772,7 +1772,7 @@ Success.
 Running 'HBEFA4/LCV_diesel_N1-III_Euro-6ab'
 sums
 length:11041.9
-CO:3497.81
+CO:3506.12
 CO2:3.64134e+06
 HC:17.9385
 NOx:6783.79
@@ -1785,31 +1785,31 @@ sums
 length:11041.9
 CO:683.68
 CO2:3.55806e+06
-HC:273.133
+HC:278.26
 NOx:4600.14
-PMx:422.517
+PMx:427.662
 fuel:1.14353e+06
 electricity:0
 Success.
 Running 'HBEFA4/LCV_diesel_N1-III_Euro-6d-temp'
 sums
 length:11041.9
-CO:318.585
+CO:322.131
 CO2:3.46734e+06
-HC:308.462
+HC:314.79
 NOx:1045.65
-PMx:456.929
+PMx:461.689
 fuel:1.11427e+06
 electricity:0
 Success.
 Running 'HBEFA4/LCV_diesel_N1-III_Euro-6d'
 sums
 length:11041.9
-CO:286.393
+CO:289.618
 CO2:3.28006e+06
-HC:276.178
+HC:281.777
 NOx:913.524
-PMx:440.796
+PMx:445.408
 fuel:1.0541e+06
 electricity:0
 Success.
@@ -1819,7 +1819,7 @@ length:11041.9
 CO:243361
 CO2:2.35346e+06
 HC:129390
-NOx:19578.3
+NOx:20058
 PMx:499.391
 fuel:742053
 electricity:0
@@ -1827,7 +1827,7 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-2_(CNG)'
 sums
 length:11041.9
-CO:83172.8
+CO:83284.3
 CO2:2.4804e+06
 HC:1180.22
 NOx:2838.01
@@ -1838,7 +1838,7 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-2_(P)'
 sums
 length:11041.9
-CO:83172.8
+CO:83284.3
 CO2:2.50463e+06
 HC:1180.22
 NOx:2838.01
@@ -1849,9 +1849,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-3_(CNG)'
 sums
 length:11041.9
-CO:49165.3
+CO:49235.4
 CO2:2.00631e+06
-HC:357.075
+HC:357.108
 NOx:924.761
 PMx:370.381
 fuel:645551
@@ -1860,9 +1860,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-3_(P)'
 sums
 length:11041.9
-CO:49165.3
+CO:49235.4
 CO2:2.02536e+06
-HC:357.075
+HC:357.108
 NOx:924.761
 PMx:370.381
 fuel:656563
@@ -1871,9 +1871,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-4_(CNG)'
 sums
 length:11041.9
-CO:29763.1
+CO:29795.7
 CO2:2.0378e+06
-HC:145.681
+HC:145.783
 NOx:633.066
 PMx:325.064
 fuel:655812
@@ -1882,9 +1882,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-4_(P)'
 sums
 length:11041.9
-CO:29763.1
+CO:29795.7
 CO2:2.05744e+06
-HC:145.681
+HC:145.783
 NOx:633.066
 PMx:325.064
 fuel:667043
@@ -1893,9 +1893,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-5_(CNG)'
 sums
 length:11041.9
-CO:30903.2
+CO:30939.7
 CO2:1.87296e+06
-HC:152.271
+HC:152.39
 NOx:230.908
 PMx:327.932
 fuel:602620
@@ -1904,9 +1904,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-5_(P)'
 sums
 length:11041.9
-CO:30903.2
+CO:30939.7
 CO2:1.89085e+06
-HC:152.271
+HC:152.39
 NOx:230.908
 PMx:327.932
 fuel:612949
@@ -1915,9 +1915,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-6_(CNG)'
 sums
 length:11041.9
-CO:33802.7
+CO:33840.4
 CO2:1.79555e+06
-HC:160.674
+HC:160.791
 NOx:257.564
 PMx:331.7
 fuel:577771
@@ -1926,9 +1926,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-6_(P)'
 sums
 length:11041.9
-CO:33802.7
+CO:33840.4
 CO2:1.81277e+06
-HC:160.674
+HC:160.791
 NOx:257.564
 PMx:331.7
 fuel:587682
@@ -1937,9 +1937,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-2_(CNG)'
 sums
 length:11041.9
-CO:132516
+CO:132603
 CO2:3.52918e+06
-HC:1339.26
+HC:1339.38
 NOx:3941.28
 PMx:727.711
 fuel:1.13556e+06
@@ -1948,9 +1948,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-2_(P)'
 sums
 length:11041.9
-CO:132516
+CO:132603
 CO2:3.56199e+06
-HC:1339.26
+HC:1339.38
 NOx:3941.28
 PMx:727.711
 fuel:1.15495e+06
@@ -1959,9 +1959,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-3_(CNG)'
 sums
 length:11041.9
-CO:69478.6
+CO:69532.2
 CO2:2.78641e+06
-HC:403.393
+HC:403.567
 NOx:1284.9
 PMx:405.848
 fuel:896708
@@ -1970,9 +1970,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-3_(P)'
 sums
 length:11041.9
-CO:69478.6
+CO:69532.2
 CO2:2.81345e+06
-HC:403.393
+HC:403.567
 NOx:1284.9
 PMx:405.848
 fuel:912011
@@ -1981,9 +1981,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-4_(CNG)'
 sums
 length:11041.9
-CO:48008.8
+CO:48043.1
 CO2:2.59466e+06
-HC:224.502
+HC:224.577
 NOx:769.671
 PMx:370.54
 fuel:834736
@@ -1992,9 +1992,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-4_(P)'
 sums
 length:11041.9
-CO:48008.8
+CO:48043.1
 CO2:2.61853e+06
-HC:224.502
+HC:224.577
 NOx:769.671
 PMx:370.54
 fuel:849003
@@ -2003,9 +2003,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-5_(CNG)'
 sums
 length:11041.9
-CO:46855.3
+CO:46885.2
 CO2:2.36968e+06
-HC:225.309
+HC:225.37
 NOx:278.752
 PMx:364.677
 fuel:762458
@@ -2014,9 +2014,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-5_(P)'
 sums
 length:11041.9
-CO:46855.3
+CO:46885.2
 CO2:2.39234e+06
-HC:225.309
+HC:225.37
 NOx:278.752
 PMx:364.677
 fuel:775490
@@ -2025,9 +2025,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-6_(CNG)'
 sums
 length:11041.9
-CO:42809.8
+CO:42843.9
 CO2:2.14274e+06
-HC:202.528
+HC:202.609
 NOx:301.865
 PMx:349.458
 fuel:689255
@@ -2036,9 +2036,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-6_(P)'
 sums
 length:11041.9
-CO:42809.8
+CO:42843.9
 CO2:2.16271e+06
-HC:202.528
+HC:202.609
 NOx:301.865
 PMx:349.458
 fuel:701004
@@ -2047,9 +2047,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-2_(CNG)'
 sums
 length:11041.9
-CO:152342
+CO:152487
 CO2:4.39831e+06
-HC:1768.32
+HC:1768.41
 NOx:4974.02
 PMx:804.276
 fuel:1.41521e+06
@@ -2058,9 +2058,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-2_(P)'
 sums
 length:11041.9
-CO:152342
+CO:152487
 CO2:4.44026e+06
-HC:1768.32
+HC:1768.41
 NOx:4974.02
 PMx:804.276
 fuel:1.43938e+06
@@ -2069,9 +2069,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-3_(CNG)'
 sums
 length:11041.9
-CO:70037.3
+CO:70113.1
 CO2:3.66834e+06
-HC:406.506
+HC:406.767
 NOx:1299.36
 PMx:410.295
 fuel:1.18047e+06
@@ -2080,9 +2080,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-3_(P)'
 sums
 length:11041.9
-CO:70037.3
+CO:70113.1
 CO2:3.70393e+06
-HC:406.506
+HC:406.767
 NOx:1299.36
 PMx:410.295
 fuel:1.20065e+06
@@ -2091,9 +2091,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-4_(CNG)'
 sums
 length:11041.9
-CO:60611.7
+CO:60666.2
 CO2:3.64408e+06
-HC:288.22
+HC:288.366
 NOx:1104.06
 PMx:386.103
 fuel:1.17271e+06
@@ -2102,9 +2102,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-4_(P)'
 sums
 length:11041.9
-CO:60611.7
+CO:60666.2
 CO2:3.67894e+06
-HC:288.22
+HC:288.366
 NOx:1104.06
 PMx:386.103
 fuel:1.19279e+06
@@ -2113,9 +2113,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-5_(CNG)'
 sums
 length:11041.9
-CO:61290.5
+CO:61345.9
 CO2:3.34252e+06
-HC:298.333
+HC:298.488
 NOx:402.043
 PMx:390.548
 fuel:1.07566e+06
@@ -2124,9 +2124,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-5_(P)'
 sums
 length:11041.9
-CO:61290.5
+CO:61345.9
 CO2:3.37444e+06
-HC:298.333
+HC:298.488
 NOx:402.043
 PMx:390.548
 fuel:1.09402e+06
@@ -2135,9 +2135,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-6_(CNG)'
 sums
 length:11041.9
-CO:62531.2
+CO:62590.1
 CO2:3.13926e+06
-HC:295.276
+HC:295.44
 NOx:445.819
 PMx:389.181
 fuel:1.01008e+06
@@ -2146,9 +2146,9 @@ Success.
 Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-6_(P)'
 sums
 length:11041.9
-CO:62531.2
+CO:62590.1
 CO2:3.16933e+06
-HC:295.276
+HC:295.44
 NOx:445.819
 PMx:389.181
 fuel:1.02728e+06
@@ -2157,9 +2157,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-3__(E85)'
 sums
 length:11041.9
-CO:49165.3
+CO:49235.4
 CO2:2.07151e+06
-HC:357.075
+HC:357.108
 NOx:924.761
 PMx:370.381
 fuel:1.01102e+06
@@ -2168,9 +2168,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-3__(P)'
 sums
 length:11041.9
-CO:49165.3
+CO:49235.4
 CO2:2.02536e+06
-HC:357.075
+HC:357.108
 NOx:924.761
 PMx:370.381
 fuel:656563
@@ -2179,9 +2179,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-4__(E85)'
 sums
 length:11041.9
-CO:14882.4
+CO:14898.6
 CO2:2.05134e+06
-HC:189.375
+HC:189.509
 NOx:633.066
 PMx:325.064
 fuel:1.00117e+06
@@ -2190,9 +2190,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-4__(P)'
 sums
 length:11041.9
-CO:29763.1
+CO:29795.7
 CO2:2.00554e+06
-HC:145.681
+HC:145.783
 NOx:633.066
 PMx:325.064
 fuel:650290
@@ -2201,9 +2201,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-5__(E85)'
 sums
 length:11041.9
-CO:15451.6
+CO:15469.8
 CO2:1.88028e+06
-HC:197.967
+HC:198.121
 NOx:230.908
 PMx:327.932
 fuel:917771
@@ -2212,9 +2212,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-5__(P)'
 sums
 length:11041.9
-CO:30903.2
+CO:30939.7
 CO2:1.83866e+06
-HC:152.271
+HC:152.39
 NOx:230.908
 PMx:327.932
 fuel:596119
@@ -2223,9 +2223,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-6__(E85)'
 sums
 length:11041.9
-CO:17160.8
+CO:17179.6
 CO2:1.84405e+06
-HC:211.804
+HC:211.955
 NOx:258.023
 PMx:332.703
 fuel:900135
@@ -2234,9 +2234,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-6__(P)'
 sums
 length:11041.9
-CO:34318
+CO:34355.7
 CO2:1.80302e+06
-HC:162.93
+HC:163.046
 NOx:258.023
 PMx:332.703
 fuel:584518
@@ -2245,9 +2245,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-3__(E85)'
 sums
 length:11041.9
-CO:69478.6
+CO:69532.2
 CO2:2.87702e+06
-HC:403.393
+HC:403.567
 NOx:1284.9
 PMx:405.848
 fuel:1.40412e+06
@@ -2256,9 +2256,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-3__(P)'
 sums
 length:11041.9
-CO:69478.6
+CO:69532.2
 CO2:2.81345e+06
-HC:403.393
+HC:403.567
 NOx:1284.9
 PMx:405.848
 fuel:912011
@@ -2267,9 +2267,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-4__(E85)'
 sums
 length:11041.9
-CO:24008.8
+CO:24026
 CO2:2.61054e+06
-HC:291.837
+HC:291.934
 NOx:769.671
 PMx:370.54
 fuel:1.27441e+06
@@ -2278,9 +2278,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-4__(P)'
 sums
 length:11041.9
-CO:48008.8
+CO:48043.1
 CO2:2.55278e+06
-HC:224.502
+HC:224.577
 NOx:769.671
 PMx:370.54
 fuel:827654
@@ -2289,9 +2289,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-5__(E85)'
 sums
 length:11041.9
-CO:23435.6
+CO:23450.6
 CO2:2.37885e+06
-HC:292.918
+HC:292.997
 NOx:278.752
 PMx:364.677
 fuel:1.16119e+06
@@ -2300,9 +2300,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-5__(P)'
 sums
 length:11041.9
-CO:46855.3
+CO:46885.2
 CO2:2.32631e+06
-HC:225.309
+HC:225.37
 NOx:278.752
 PMx:364.677
 fuel:754119
@@ -2311,9 +2311,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-6__(E85)'
 sums
 length:11041.9
-CO:21732.9
+CO:21749.5
 CO2:2.20003e+06
-HC:266.796
+HC:266.895
 NOx:302.411
 PMx:350.851
 fuel:1.07407e+06
@@ -2322,9 +2322,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-II_Euro-6__(P)'
 sums
 length:11041.9
-CO:43469.3
+CO:43502.6
 CO2:2.15193e+06
-HC:205.22
+HC:205.296
 NOx:302.411
 PMx:350.851
 fuel:697559
@@ -2333,9 +2333,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-3__(E85)'
 sums
 length:11041.9
-CO:70037.3
+CO:70113.1
 CO2:3.78721e+06
-HC:406.506
+HC:406.767
 NOx:1299.36
 PMx:410.295
 fuel:1.84848e+06
@@ -2344,9 +2344,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-3__(P)'
 sums
 length:11041.9
-CO:70037.3
+CO:70113.1
 CO2:3.70393e+06
-HC:406.506
+HC:406.767
 NOx:1299.36
 PMx:410.295
 fuel:1.20065e+06
@@ -2355,9 +2355,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-4__(E85)'
 sums
 length:11041.9
-CO:30313.8
+CO:30341
 CO2:3.66752e+06
-HC:374.668
+HC:374.858
 NOx:1104.06
 PMx:386.103
 fuel:1.7903e+06
@@ -2366,9 +2366,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-4__(P)'
 sums
 length:11041.9
-CO:60611.7
+CO:60666.2
 CO2:3.58629e+06
-HC:288.22
+HC:288.366
 NOx:1104.06
 PMx:386.103
 fuel:1.16283e+06
@@ -2377,9 +2377,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-5__(E85)'
 sums
 length:11041.9
-CO:30648.8
+CO:30676.4
 CO2:3.35567e+06
-HC:387.862
+HC:388.064
 NOx:402.043
 PMx:390.548
 fuel:1.63814e+06
@@ -2388,9 +2388,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-5__(P)'
 sums
 length:11041.9
-CO:61290.5
+CO:61345.9
 CO2:3.28157e+06
-HC:298.333
+HC:298.488
 NOx:402.043
 PMx:390.548
 fuel:1.06389e+06
@@ -2399,9 +2399,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-6__(E85)'
 sums
 length:11041.9
-CO:31612.9
+CO:31641.8
 CO2:3.23478e+06
-HC:387.62
+HC:387.826
 NOx:446.577
 PMx:390.746
 fuel:1.57887e+06
@@ -2410,9 +2410,9 @@ Success.
 Running 'HBEFA4/LCV_FFV_N1-III_Euro-6__(P)'
 sums
 length:11041.9
-CO:63234.6
+CO:63292.4
 CO2:3.16321e+06
-HC:298.179
+HC:298.337
 NOx:446.577
 PMx:390.746
 fuel:1.02541e+06
@@ -2465,7 +2465,7 @@ Success.
 Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-5_(P)'
 sums
 length:11041.9
-CO:30592.4
+CO:30627.3
 CO2:1.73366e+06
 HC:173.397
 NOx:231.268
@@ -2487,12 +2487,12 @@ Success.
 Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-6_(P)'
 sums
 length:11041.9
-CO:33592.6
-CO2:1.48996e+06
-HC:185.214
+CO:33631.1
+CO2:1.49775e+06
+HC:185.218
 NOx:258.482
 PMx:344.718
-fuel:482995
+fuel:485519
 electricity:0
 Success.
 Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-5_(El)'
@@ -2509,9 +2509,9 @@ Success.
 Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-5_(P)'
 sums
 length:11041.9
-CO:48321.5
+CO:48355.8
 CO2:2.19624e+06
-HC:238.573
+HC:238.664
 NOx:281.593
 PMx:368.859
 fuel:712011
@@ -2531,12 +2531,12 @@ Success.
 Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-6_(P)'
 sums
 length:11041.9
-CO:43445.5
-CO2:1.744e+06
-HC:212.865
+CO:43482
+CO2:1.75181e+06
+HC:212.969
 NOx:303.364
 PMx:355.385
-fuel:565373
+fuel:567908
 electricity:0
 Success.
 Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-5_(El)'
@@ -2553,9 +2553,9 @@ Success.
 Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-5_(P)'
 sums
 length:11041.9
-CO:62187
+CO:62246.1
 CO2:3.12776e+06
-HC:316.716
+HC:316.876
 NOx:404.578
 PMx:404.353
 fuel:1.01391e+06
@@ -2575,12 +2575,12 @@ Success.
 Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-6_(P)'
 sums
 length:11041.9
-CO:63311.2
-CO2:2.59024e+06
-HC:320.545
+CO:63373.4
+CO2:2.60404e+06
+HC:320.676
 NOx:447.864
 PMx:404.26
-fuel:839809
+fuel:844281
 electricity:0
 Success.
 Running 'HBEFA4/LCV_PHEV_diesel_M+N1-I_Euro-5_(El)'
@@ -2619,11 +2619,11 @@ Success.
 Running 'HBEFA4/LCV_PHEV_diesel_M+N1-I_Euro-6_(D)'
 sums
 length:11041.9
-CO:294.292
+CO:298.108
 CO2:1.7915e+06
-HC:287.913
-NOx:1120.86
-PMx:483.813
+HC:292.974
+NOx:1121.55
+PMx:483.825
 fuel:575708
 electricity:0
 Success.
@@ -2663,11 +2663,11 @@ Success.
 Running 'HBEFA4/LCV_PHEV_diesel_N1-II_Euro-6_(D)'
 sums
 length:11041.9
-CO:290.837
+CO:294.931
 CO2:2.52255e+06
-HC:281.394
-NOx:1097.97
-PMx:483.387
+HC:287.33
+NOx:1098.53
+PMx:488.546
 fuel:810706
 electricity:0
 Success.
@@ -2707,11 +2707,11 @@ Success.
 Running 'HBEFA4/LCV_PHEV_diesel_N1-III_Euro-6_(D)'
 sums
 length:11041.9
-CO:280.206
+CO:283.985
 CO2:3.47616e+06
-HC:276.013
-NOx:1025.52
-PMx:478.228
+HC:281.221
+NOx:1026.12
+PMx:482.772
 fuel:1.11696e+06
 electricity:0
 Success.
@@ -2723,7 +2723,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:265.716
-fuel:248431
+fuel:248470
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_50ties'
@@ -2787,7 +2787,7 @@ length:11041.9
 CO:22716.6
 CO2:1.18659e+07
 HC:6380.18
-NOx:141591
+NOx:141606
 PMx:4497.11
 fuel:3.81286e+06
 electricity:0
@@ -2806,51 +2806,51 @@ Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:18491.9
-CO2:1.171e+07
-HC:878.016
-NOx:105412
+CO:18544.6
+CO2:1.17188e+07
+HC:878.5
+NOx:105711
 PMx:2709.41
-fuel:3.76291e+06
+fuel:3.76573e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:57281.5
-CO2:1.1516e+07
+CO:57799.7
+CO2:1.15224e+07
 HC:358.943
 NOx:59932.1
 PMx:2850.34
-fuel:3.70104e+06
+fuel:3.7031e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:57281.5
-CO2:1.1516e+07
+CO:57799.7
+CO2:1.15224e+07
 HC:358.943
-NOx:134739
+NOx:134802
 PMx:2850.34
-fuel:3.70104e+06
+fuel:3.7031e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-V_EGR'
 sums
 length:11041.9
-CO:15260.6
-CO2:1.11716e+07
+CO:15345.9
+CO2:1.11732e+07
 HC:1515.35
-NOx:81979.4
+NOx:82242.6
 PMx:2384.91
-fuel:3.59062e+06
+fuel:3.59113e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-V_SCR'
 sums
 length:11041.9
-CO:51513.4
+CO:51880.4
 CO2:1.09092e+07
 HC:358.134
 NOx:44254.9
@@ -2861,7 +2861,7 @@ Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:51513.4
+CO:51880.4
 CO2:1.09092e+07
 HC:358.134
 NOx:136346
@@ -2872,29 +2872,29 @@ Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:3776.81
-CO2:1.08784e+07
+CO:3784.46
+CO2:1.08836e+07
 HC:307.416
 NOx:5783
 PMx:2056.57
-fuel:3.49625e+06
+fuel:3.49792e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:3776.81
-CO2:1.08784e+07
+CO:3784.46
+CO2:1.08836e+07
 HC:307.416
 NOx:77847.7
 PMx:2056.57
-fuel:3.49625e+06
+fuel:3.49792e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:1744.89
+CO:1749.59
 CO2:1.05416e+07
 HC:507.836
 NOx:3516.29
@@ -2905,10 +2905,10 @@ Success.
 Running 'HBEFA4/Coach_Std_le18t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:1744.89
+CO:1749.59
 CO2:1.05416e+07
 HC:507.836
-NOx:104369
+NOx:104597
 PMx:1908.55
 fuel:3.38765e+06
 electricity:0
@@ -2963,7 +2963,7 @@ length:11041.9
 CO:31770.5
 CO2:1.44463e+07
 HC:11241
-NOx:162026
+NOx:162058
 PMx:8949.42
 fuel:4.64252e+06
 electricity:0
@@ -2972,132 +2972,132 @@ Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-II'
 sums
 length:11041.9
 CO:25983.9
-CO2:1.44682e+07
+CO2:1.44861e+07
 HC:6973.82
-NOx:172928
+NOx:173209
 PMx:4857.37
-fuel:4.64948e+06
+fuel:4.65521e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-III'
 sums
 length:11041.9
 CO:30368.9
-CO2:1.47776e+07
+CO2:1.48009e+07
 HC:6333.02
-NOx:138235
+NOx:138498
 PMx:4951.75
-fuel:4.74942e+06
+fuel:4.75691e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:19999.6
-CO2:1.45145e+07
-HC:1068.8
-NOx:122974
+CO:20049.1
+CO2:1.45503e+07
+HC:1071.51
+NOx:123394
 PMx:2795.93
-fuel:4.66453e+06
+fuel:4.67603e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:56874.5
-CO2:1.42065e+07
+CO:57307.5
+CO2:1.42357e+07
 HC:431.793
 NOx:70359.6
 PMx:2911.32
-fuel:4.56555e+06
+fuel:4.57495e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:56874.5
-CO2:1.42065e+07
+CO:57307.5
+CO2:1.42357e+07
 HC:431.793
-NOx:162785
+NOx:163147
 PMx:2911.32
-fuel:4.56555e+06
+fuel:4.57495e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-V_EGR'
 sums
 length:11041.9
-CO:15568.8
-CO2:1.38963e+07
+CO:15642.7
+CO2:1.39204e+07
 HC:1755.36
-NOx:91490
+NOx:91769
 PMx:2548.55
-fuel:4.46574e+06
+fuel:4.47351e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-V_SCR'
 sums
 length:11041.9
-CO:50977.4
-CO2:1.35408e+07
+CO:51285.8
+CO2:1.35601e+07
 HC:429.772
 NOx:51027.4
 PMx:2902.19
-fuel:4.35199e+06
+fuel:4.35821e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:50977.4
-CO2:1.35408e+07
+CO:51285.8
+CO2:1.35601e+07
 HC:429.772
-NOx:166395
+NOx:166489
 PMx:2902.19
-fuel:4.35199e+06
+fuel:4.35821e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:3790.44
-CO2:1.3465e+07
+CO:3792.37
+CO2:1.34908e+07
 HC:351.744
 NOx:6577.48
 PMx:2075.93
-fuel:4.32766e+06
+fuel:4.33597e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:3790.44
-CO2:1.3465e+07
+CO:3792.37
+CO2:1.34908e+07
 HC:351.744
-NOx:98847.9
+NOx:98987.8
 PMx:2075.93
-fuel:4.32766e+06
+fuel:4.33597e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:1400.33
-CO2:1.30942e+07
+CO:1403.14
+CO2:1.31116e+07
 HC:568.448
 NOx:3867.18
 PMx:1919.18
-fuel:4.20791e+06
+fuel:4.21352e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:1400.33
-CO2:1.30942e+07
+CO:1403.14
+CO2:1.31116e+07
 HC:568.448
-NOx:130545
+NOx:131046
 PMx:1919.18
-fuel:4.20791e+06
+fuel:4.21352e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_50ties'
@@ -3158,7 +3158,7 @@ Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-II'
 sums
 length:11041.9
-CO:16551.6
+CO:16592.9
 CO2:7.42995e+06
 HC:2538.77
 NOx:75722.8
@@ -3180,111 +3180,111 @@ Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:8111.22
-CO2:6.93495e+06
-HC:451.769
-NOx:48680.7
+CO:8112.05
+CO2:6.94392e+06
+HC:452.223
+NOx:48820.5
 PMx:2228.57
-fuel:2.22864e+06
+fuel:2.23152e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:19741.6
-CO2:6.88172e+06
-HC:187.184
+CO:19780
+CO2:6.8956e+06
+HC:187.693
 NOx:29887.2
 PMx:2257.58
-fuel:2.21185e+06
+fuel:2.21631e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:19741.6
-CO2:6.88172e+06
-HC:187.184
+CO:19780
+CO2:6.8956e+06
+HC:187.693
 NOx:71502.7
 PMx:2257.58
-fuel:2.21185e+06
+fuel:2.21631e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-V_EGR'
 sums
 length:11041.9
 CO:4778.92
-CO2:6.69787e+06
-HC:688.682
-NOx:38229.3
+CO2:6.71758e+06
+HC:688.724
+NOx:38380.5
 PMx:2149.14
-fuel:2.15273e+06
+fuel:2.15907e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-V_SCR'
 sums
 length:11041.9
 CO:18487.7
-CO2:6.58995e+06
-HC:182.593
+CO2:6.61136e+06
+HC:182.95
 NOx:19497.8
 PMx:2253.18
-fuel:2.11745e+06
+fuel:2.12433e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-V_SCRs'
 sums
 length:11041.9
 CO:18487.7
-CO2:6.58995e+06
-HC:182.593
+CO2:6.61136e+06
+HC:182.95
 NOx:72197.8
 PMx:2253.18
-fuel:2.11745e+06
+fuel:2.12433e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1534.04
-CO2:6.42775e+06
-HC:162.65
+CO:1535.99
+CO2:6.4545e+06
+HC:163.031
 NOx:2790.43
 PMx:1943
-fuel:2.06579e+06
+fuel:2.07438e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:1534.04
-CO2:6.42775e+06
-HC:162.65
+CO:1535.99
+CO2:6.4545e+06
+HC:163.031
 NOx:42961.7
 PMx:1943
-fuel:2.06579e+06
+fuel:2.07438e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:353.968
-CO2:6.30524e+06
+CO2:6.32552e+06
 HC:207.445
 NOx:984.867
 PMx:1899.27
-fuel:2.02621e+06
+fuel:2.03273e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:353.968
-CO2:6.30524e+06
+CO2:6.32552e+06
 HC:207.445
-NOx:60713.8
+NOx:60975.3
 PMx:1899.27
-fuel:2.02621e+06
+fuel:2.03273e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-I'
@@ -3304,7 +3304,7 @@ length:11041.9
 CO:23296.9
 CO2:1.35391e+07
 HC:6818.26
-NOx:144186
+NOx:144200
 PMx:4610.77
 fuel:4.35677e+06
 electricity:0
@@ -3323,12 +3323,12 @@ Success.
 Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-IV'
 sums
 length:11041.9
-CO:7630.95
-CO2:1.33617e+07
+CO:7673.63
+CO2:1.33717e+07
 HC:3031.65
-NOx:49187
+NOx:49344.9
 PMx:2709.58
-fuel:4.29954e+06
+fuel:4.30276e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-V'
@@ -3345,12 +3345,12 @@ Success.
 Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-VI'
 sums
 length:11041.9
-CO:7676.49
-CO2:1.18517e+07
-HC:2033.46
-NOx:5095.69
+CO:7680.17
+CO2:1.18574e+07
+HC:2034.44
+NOx:5098.13
 PMx:1932.75
-fuel:3.8134e+06
+fuel:3.81523e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-I'
@@ -3359,7 +3359,7 @@ length:11041.9
 CO:33098.8
 CO2:1.6488e+07
 HC:12607.1
-NOx:168557
+NOx:168590
 PMx:9963.6
 fuel:5.30363e+06
 electricity:0
@@ -3368,55 +3368,55 @@ Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-II'
 sums
 length:11041.9
 CO:26658.7
-CO2:1.65097e+07
+CO2:1.65301e+07
 HC:7453.28
-NOx:176121
+NOx:176407
 PMx:4986.59
-fuel:5.31297e+06
+fuel:5.31951e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-III'
 sums
 length:11041.9
 CO:30927.5
-CO2:1.68613e+07
+CO2:1.68879e+07
 HC:6563.21
-NOx:140258
+NOx:140525
 PMx:4994.71
-fuel:5.42516e+06
+fuel:5.43372e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-IV'
 sums
 length:11041.9
-CO:7784.01
-CO2:1.65614e+07
+CO:7821.04
+CO2:1.66023e+07
 HC:3509.56
-NOx:54891
+NOx:55058.4
 PMx:2796.11
-fuel:5.32913e+06
+fuel:5.34228e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-V'
 sums
 length:11041.9
-CO:10960.5
-CO2:1.47527e+07
-HC:5171.12
-NOx:19928
+CO:10976.2
+CO2:1.47738e+07
+HC:5178.51
+NOx:19956.5
 PMx:1950.73
-fuel:4.74731e+06
+fuel:4.7541e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-VI'
 sums
 length:11041.9
-CO:9500.62
-CO2:1.4669e+07
-HC:2517.59
-NOx:6306.53
+CO:9518.87
+CO2:1.46972e+07
+HC:2522.42
+NOx:6318.65
 PMx:1951.68
-fuel:4.71973e+06
+fuel:4.7288e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-I'
@@ -3433,7 +3433,7 @@ Success.
 Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-II'
 sums
 length:11041.9
-CO:16983.4
+CO:17025.6
 CO2:8.47892e+06
 HC:2713.31
 NOx:77121.8
@@ -3456,33 +3456,33 @@ Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-IV'
 sums
 length:11041.9
 CO:2389.96
-CO2:7.91196e+06
-HC:1377.4
-NOx:22934.2
+CO2:7.9222e+06
+HC:1377.48
+NOx:23025
 PMx:2228.62
-fuel:2.54591e+06
+fuel:2.5492e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-V'
 sums
 length:11041.9
-CO:5333.67
-CO2:7.17898e+06
-HC:2516.52
-NOx:9699.47
+CO:5350.99
+CO2:7.20231e+06
+HC:2524.7
+NOx:9730.97
 PMx:1914.1
-fuel:2.3102e+06
+fuel:2.31771e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-VI'
 sums
 length:11041.9
-CO:4987.01
-CO2:7.70096e+06
-HC:1321.45
-NOx:3310.23
+CO:4998.93
+CO2:7.71936e+06
+HC:1324.61
+NOx:3318.14
 PMx:1919.5
-fuel:2.4778e+06
+fuel:2.48372e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_BEV_Std_le18t'
@@ -3526,7 +3526,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1724.94
-fuel:1.02271e+06
+fuel:1.02449e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_FuelCell_Std_3-Axes_gt18t'
@@ -3537,7 +3537,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1725.81
-fuel:1.32067e+06
+fuel:1.32294e+06
 electricity:0
 Success.
 Running 'HBEFA4/Coach_FuelCell_Std_Midi'
@@ -3548,7 +3548,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1630.63
-fuel:696124
+fuel:696208
 electricity:0
 Success.
 Running 'HBEFA4/Coach_Std_le18t_EE'
@@ -3565,10 +3565,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_P_le15t_Euro-IV'
 sums
 length:11041.9
-CO:13536
+CO:13551.6
 CO2:7.37164e+06
-HC:197.467
-NOx:3837.22
+HC:198.024
+NOx:3849.4
 PMx:1889.75
 fuel:2.38945e+06
 electricity:0
@@ -3576,10 +3576,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_P_le15t_Euro-V'
 sums
 length:11041.9
-CO:12658.9
+CO:12746
 CO2:9.49187e+06
 HC:430.813
-NOx:878.65
+NOx:881.22
 PMx:1889.63
 fuel:3.07761e+06
 electricity:0
@@ -3587,12 +3587,12 @@ Success.
 Running 'HBEFA4/UBus_Midi_P_le15t_Euro-VI'
 sums
 length:11041.9
-CO:3324.23
-CO2:9.29271e+06
+CO:3334.43
+CO2:9.29657e+06
 HC:106.856
 NOx:61.1788
 PMx:1886.48
-fuel:3.01292e+06
+fuel:3.01417e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_le15t_50ties'
@@ -3708,10 +3708,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:9880.81
+CO:9892.29
 CO2:8.15257e+06
-HC:493.652
-NOx:63954.4
+HC:495.047
+NOx:64157.3
 PMx:2289.22
 fuel:2.62083e+06
 electricity:0
@@ -3719,9 +3719,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:24403.1
+CO:24559
 CO2:8.08734e+06
-HC:203.087
+HC:203.311
 NOx:34355.1
 PMx:2311.71
 fuel:2.59876e+06
@@ -3730,9 +3730,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:24403.1
+CO:24559
 CO2:8.08734e+06
-HC:203.087
+HC:203.311
 NOx:80726.1
 PMx:2311.71
 fuel:2.59876e+06
@@ -3741,10 +3741,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_EGR_(DPF)'
 sums
 length:11041.9
-CO:1679.23
+CO:1681.18
 CO2:8.33288e+06
-HC:24.6861
-NOx:63954.4
+HC:24.7558
+NOx:64157.3
 PMx:1909.87
 fuel:2.67785e+06
 electricity:0
@@ -3752,9 +3752,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCR_(DPF)'
 sums
 length:11041.9
-CO:4148.32
+CO:4174.84
 CO2:8.26646e+06
-HC:10.1565
+HC:10.1677
 NOx:34355.1
 PMx:1897.08
 fuel:2.65673e+06
@@ -3763,9 +3763,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCRs_(DPF)'
 sums
 length:11041.9
-CO:4148.32
+CO:4174.84
 CO2:8.26646e+06
-HC:10.1565
+HC:10.1677
 NOx:80726.1
 PMx:1897.08
 fuel:2.65673e+06
@@ -3774,10 +3774,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-V_EGR'
 sums
 length:11041.9
-CO:7072.91
+CO:7121.54
 CO2:7.9391e+06
 HC:652.761
-NOx:43933.1
+NOx:44061.6
 PMx:2175.79
 fuel:2.55124e+06
 electricity:0
@@ -3785,9 +3785,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCR'
 sums
 length:11041.9
-CO:21770.1
+CO:21897.4
 CO2:7.78543e+06
-HC:201.371
+HC:201.522
 NOx:22420.9
 PMx:2302.82
 fuel:2.50157e+06
@@ -3796,9 +3796,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:21770.1
+CO:21897.4
 CO2:7.78543e+06
-HC:201.371
+HC:201.522
 NOx:80653.7
 PMx:2302.82
 fuel:2.50157e+06
@@ -3807,10 +3807,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-V_EGR_(DPF)'
 sums
 length:11041.9
-CO:1202.37
+CO:1210.64
 CO2:8.11227e+06
 HC:32.6372
-NOx:43933.1
+NOx:44061.6
 PMx:1904.35
 fuel:2.60772e+06
 electricity:0
@@ -3818,9 +3818,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCR_(DPF)'
 sums
 length:11041.9
-CO:3701.32
+CO:3722.94
 CO2:7.95589e+06
-HC:10.0692
+HC:10.0767
 NOx:22420.9
 PMx:1904.11
 fuel:2.55714e+06
@@ -3829,9 +3829,9 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCRs_(DPF)'
 sums
 length:11041.9
-CO:3701.32
+CO:3722.94
 CO2:7.95589e+06
-HC:10.0692
+HC:10.0767
 NOx:80653.7
 PMx:1904.11
 fuel:2.55714e+06
@@ -3840,29 +3840,29 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1856.74
-CO2:7.77228e+06
+CO:1862.44
+CO2:7.77552e+06
 HC:161.906
 NOx:3058.94
 PMx:1982.15
-fuel:2.4974e+06
+fuel:2.49844e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:1856.74
-CO2:7.77228e+06
+CO:1862.44
+CO2:7.77552e+06
 HC:161.906
-NOx:55061.9
+NOx:55128.1
 PMx:1982.15
-fuel:2.4974e+06
+fuel:2.49844e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:641.263
+CO:643.166
 CO2:7.61063e+06
 HC:196.518
 NOx:1023.83
@@ -3873,10 +3873,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_le15t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:641.263
+CO:643.166
 CO2:7.61063e+06
 HC:196.518
-NOx:64082.9
+NOx:64229.9
 PMx:1911.23
 fuel:2.44633e+06
 electricity:0
@@ -3994,10 +3994,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:14716.2
+CO:14741.7
 CO2:1.21426e+07
-HC:814.012
-NOx:84018
+HC:816.059
+NOx:84142.8
 PMx:2536.26
 fuel:3.90265e+06
 electricity:0
@@ -4005,9 +4005,9 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:34087.4
+CO:34296.9
 CO2:1.19114e+07
-HC:387.768
+HC:387.933
 NOx:54035.1
 PMx:2652.67
 fuel:3.8281e+06
@@ -4016,9 +4016,9 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:34087.4
+CO:34296.9
 CO2:1.19114e+07
-HC:387.768
+HC:387.933
 NOx:124089
 PMx:2652.67
 fuel:3.8281e+06
@@ -4027,10 +4027,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_EGR_(DPF)'
 sums
 length:11041.9
-CO:2501.98
+CO:2506.33
 CO2:1.24095e+07
-HC:40.694
-NOx:84018
+HC:40.7964
+NOx:84142.8
 PMx:1966.08
 fuel:3.98875e+06
 electricity:0
@@ -4038,9 +4038,9 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCR_(DPF)'
 sums
 length:11041.9
-CO:5796.08
+CO:5831.69
 CO2:1.21742e+07
-HC:19.388
+HC:19.3963
 NOx:54035.1
 PMx:1950.57
 fuel:3.91239e+06
@@ -4049,9 +4049,9 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCRs_(DPF)'
 sums
 length:11041.9
-CO:5796.08
+CO:5831.69
 CO2:1.21742e+07
-HC:19.388
+HC:19.3963
 NOx:124089
 PMx:1950.57
 fuel:3.91239e+06
@@ -4060,10 +4060,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_EGR'
 sums
 length:11041.9
-CO:10422.1
+CO:10439.2
 CO2:1.16431e+07
 HC:1170.17
-NOx:69374
+NOx:69769.5
 PMx:2391.33
 fuel:3.7418e+06
 electricity:0
@@ -4071,7 +4071,7 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCR'
 sums
 length:11041.9
-CO:34851.7
+CO:35089.1
 CO2:1.13586e+07
 HC:386.308
 NOx:34039.6
@@ -4082,7 +4082,7 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:34851.7
+CO:35089.1
 CO2:1.13586e+07
 HC:386.308
 NOx:121382
@@ -4093,10 +4093,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_EGR_(DPF)'
 sums
 length:11041.9
-CO:1771.52
+CO:1774.44
 CO2:1.18994e+07
 HC:58.5075
-NOx:69374
+NOx:69769.5
 PMx:1953.7
 fuel:3.82453e+06
 electricity:0
@@ -4104,7 +4104,7 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCR_(DPF)'
 sums
 length:11041.9
-CO:5923.9
+CO:5964.26
 CO2:1.16098e+07
 HC:19.3188
 NOx:34039.6
@@ -4115,7 +4115,7 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCRs_(DPF)'
 sums
 length:11041.9
-CO:5923.9
+CO:5964.26
 CO2:1.16098e+07
 HC:19.3188
 NOx:121382
@@ -4127,22 +4127,22 @@ Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VI_A-C'
 sums
 length:11041.9
 CO:2667.24
-CO2:1.1335e+07
-HC:239.75
+CO2:1.13356e+07
+HC:239.774
 NOx:7012.07
 PMx:2151.46
-fuel:3.64263e+06
+fuel:3.64284e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VIs_A-C'
 sums
 length:11041.9
 CO:2667.24
-CO2:1.1335e+07
-HC:239.75
-NOx:91587.2
+CO2:1.13356e+07
+HC:239.774
+NOx:92018.5
 PMx:2151.46
-fuel:3.64263e+06
+fuel:3.64284e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VI_D-E'
@@ -4162,7 +4162,7 @@ length:11041.9
 CO:722.132
 CO2:1.11304e+07
 HC:485.199
-NOx:103228
+NOx:103808
 PMx:1960.09
 fuel:3.5773e+06
 electricity:0
@@ -4239,7 +4239,7 @@ length:11041.9
 CO:24335.2
 CO2:1.68125e+07
 HC:6389.46
-NOx:177318
+NOx:177349
 PMx:5050.08
 fuel:5.40308e+06
 electricity:0
@@ -4250,7 +4250,7 @@ length:11041.9
 CO:8031.87
 CO2:1.69804e+07
 HC:2108.66
-NOx:177318
+NOx:177349
 PMx:2759.46
 fuel:5.45693e+06
 electricity:0
@@ -4280,177 +4280,177 @@ Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:19335.5
-CO2:1.66627e+07
-HC:1089.76
-NOx:124233
+CO:19374.1
+CO2:1.66797e+07
+HC:1093.78
+NOx:124887
 PMx:2765.28
-fuel:5.35531e+06
+fuel:5.36077e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:44323.7
-CO2:1.64856e+07
-HC:543.188
+CO:44665.4
+CO2:1.65001e+07
+HC:543.917
 NOx:69768.9
 PMx:2940.16
-fuel:5.29802e+06
+fuel:5.30266e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:44323.7
-CO2:1.64856e+07
-HC:543.188
-NOx:169625
+CO:44665.4
+CO2:1.65001e+07
+HC:543.917
+NOx:169774
 PMx:2940.16
-fuel:5.29802e+06
+fuel:5.30266e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_EGR_(DPF)'
 sums
 length:11041.9
-CO:3287.68
-CO2:1.70293e+07
-HC:54.4819
-NOx:124233
+CO:3294.25
+CO2:1.70467e+07
+HC:54.6829
+NOx:124887
 PMx:1975.8
-fuel:5.47324e+06
+fuel:5.47884e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCR_(DPF)'
 sums
 length:11041.9
-CO:7535.07
-CO2:1.6848e+07
-HC:27.1576
+CO:7593.18
+CO2:1.68627e+07
+HC:27.1941
 NOx:69768.9
 PMx:1953.99
-fuel:5.41462e+06
+fuel:5.41937e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCRs_(DPF)'
 sums
 length:11041.9
-CO:7535.07
-CO2:1.6848e+07
-HC:27.1576
-NOx:169625
+CO:7593.18
+CO2:1.68627e+07
+HC:27.1941
+NOx:169774
 PMx:1953.99
-fuel:5.41462e+06
+fuel:5.41937e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_EGR'
 sums
 length:11041.9
-CO:15341.3
-CO2:1.61248e+07
+CO:15381.4
+CO2:1.61425e+07
 HC:1621.67
-NOx:89521.2
+NOx:90028
 PMx:2580.22
-fuel:5.18206e+06
+fuel:5.18776e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCR'
 sums
 length:11041.9
-CO:41052.9
-CO2:1.58286e+07
+CO:41314.6
+CO2:1.58449e+07
 HC:535.36
 NOx:44078.2
 PMx:2990.11
-fuel:5.08691e+06
+fuel:5.09216e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:41052.9
-CO2:1.58286e+07
+CO:41314.6
+CO2:1.58449e+07
 HC:535.36
-NOx:167366
+NOx:167541
 PMx:2990.11
-fuel:5.08691e+06
+fuel:5.09216e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_EGR_(DPF)'
 sums
 length:11041.9
-CO:2607.42
-CO2:1.64797e+07
+CO:2614.27
+CO2:1.64978e+07
 HC:81.0835
-NOx:89521.2
+NOx:90028
 PMx:1960.21
-fuel:5.29621e+06
+fuel:5.30202e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCR_(DPF)'
 sums
 length:11041.9
-CO:6978.25
-CO2:1.61765e+07
+CO:7022.73
+CO2:1.61932e+07
 HC:26.7667
 NOx:44078.2
 PMx:1956.1
-fuel:5.19884e+06
+fuel:5.20421e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCRs_(DPF)'
 sums
 length:11041.9
-CO:6978.25
-CO2:1.61765e+07
+CO:7022.73
+CO2:1.61932e+07
 HC:26.7667
-NOx:167366
+NOx:167541
 PMx:1956.1
-fuel:5.19884e+06
+fuel:5.20421e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:4014.88
-CO2:1.57961e+07
+CO:4016.59
+CO2:1.58141e+07
 HC:360.158
 NOx:9715.83
 PMx:2438.78
-fuel:5.07676e+06
+fuel:5.08255e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:4014.88
-CO2:1.57961e+07
+CO:4016.59
+CO2:1.58141e+07
 HC:360.158
-NOx:115240
+NOx:115599
 PMx:2438.78
-fuel:5.07676e+06
+fuel:5.08255e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:1068.87
-CO2:1.54761e+07
+CO:1072.36
+CO2:1.55138e+07
 HC:703.784
 NOx:3216.07
 PMx:1961.1
-fuel:4.9731e+06
+fuel:4.98526e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:1068.87
-CO2:1.54761e+07
+CO:1072.36
+CO2:1.55138e+07
 HC:703.784
-NOx:133600
+NOx:134293
 PMx:1961.1
-fuel:4.9731e+06
+fuel:4.98526e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_le18t_EE'
@@ -4478,133 +4478,133 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-IV'
 sums
 length:11041.9
-CO:9880.81
-CO2:8.4576e+06
-HC:493.652
-NOx:63954.4
+CO:9892.29
+CO2:8.51e+06
+HC:495.047
+NOx:64157.3
 PMx:2309.05
-fuel:2.71833e+06
+fuel:2.73516e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-V'
 sums
 length:11041.9
-CO:22058.8
-CO2:8.4576e+06
-HC:202.785
+CO:22197.8
+CO2:8.51e+06
+HC:203.093
 NOx:22394.4
 PMx:2318.21
-fuel:2.71833e+06
+fuel:2.73516e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1870.26
-CO2:8.34293e+06
+CO:1878.19
+CO2:8.39651e+06
 HC:164.453
 NOx:1660.93
 PMx:2005.49
-fuel:2.68141e+06
+fuel:2.69864e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-VI_D-E'
 sums
 length:11041.9
-CO:1870.26
-CO2:8.34293e+06
+CO:1878.19
+CO2:8.39651e+06
 HC:164.453
 NOx:1660.93
 PMx:2005.49
-fuel:2.68141e+06
+fuel:2.69864e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-IV'
 sums
 length:11041.9
-CO:9880.81
-CO2:1.15744e+07
-HC:493.652
-NOx:63954.4
+CO:9892.29
+CO2:1.167e+07
+HC:495.047
+NOx:64157.3
 PMx:2261.95
-fuel:3.7191e+06
+fuel:3.74979e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-V'
 sums
 length:11041.9
-CO:30147.5
-CO2:1.15744e+07
+CO:30307
+CO2:1.167e+07
 HC:378.447
 NOx:34417.7
 PMx:2561.05
-fuel:3.7191e+06
+fuel:3.74979e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-VI_A-C'
 sums
 length:11041.9
 CO:2371.69
-CO2:1.13865e+07
+CO2:1.14842e+07
 HC:235.421
 NOx:4878.73
 PMx:2168.01
-fuel:3.65928e+06
+fuel:3.69069e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-VI_D-E'
 sums
 length:11041.9
 CO:2371.69
-CO2:1.13865e+07
+CO2:1.14842e+07
 HC:235.421
 NOx:4878.73
 PMx:2168.01
-fuel:3.65928e+06
+fuel:3.69069e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-IV'
 sums
 length:11041.9
-CO:19335.5
-CO2:1.43707e+07
-HC:1089.76
-NOx:124233
+CO:19374.1
+CO2:1.44814e+07
+HC:1093.78
+NOx:124887
 PMx:2570.56
-fuel:4.61869e+06
+fuel:4.65424e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-V'
 sums
 length:11041.9
-CO:31576.6
-CO2:1.43707e+07
+CO:31671.6
+CO2:1.44814e+07
 HC:510.783
 NOx:43682.4
 PMx:2716.2
-fuel:4.61869e+06
+fuel:4.65424e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-VI_A-C'
 sums
 length:11041.9
 CO:3564.24
-CO2:1.41526e+07
+CO2:1.42653e+07
 HC:315.37
 NOx:5434.94
 PMx:2452.55
-fuel:4.54885e+06
+fuel:4.58509e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-VI_D-E'
 sums
 length:11041.9
 CO:3564.24
-CO2:1.41526e+07
+CO2:1.42653e+07
 HC:315.37
 NOx:5434.94
 PMx:2452.55
-fuel:4.54885e+06
+fuel:4.58509e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-II'
@@ -4632,10 +4632,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-IV'
 sums
 length:11041.9
-CO:11857.6
+CO:11871.4
 CO2:8.6353e+06
-HC:5924.41
-NOx:83136.1
+HC:5941.14
+NOx:83399.8
 PMx:1921.95
 fuel:2.77894e+06
 electricity:0
@@ -4654,12 +4654,12 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-VI'
 sums
 length:11041.9
-CO:5874.78
-CO2:9.07055e+06
-HC:1556.43
-NOx:3899.33
+CO:5876.55
+CO2:9.07327e+06
+HC:1556.9
+NOx:3900.5
 PMx:1949.18
-fuel:2.91887e+06
+fuel:2.91975e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-II'
@@ -4687,10 +4687,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-IV'
 sums
 length:11041.9
-CO:17661.6
+CO:17692.3
 CO2:1.28621e+07
-HC:9766.93
-NOx:109224
+HC:9791.51
+NOx:109387
 PMx:1984.7
 fuel:4.13855e+06
 electricity:0
@@ -4723,7 +4723,7 @@ length:11041.9
 CO:29957.2
 CO2:1.7808e+07
 HC:81955.3
-NOx:234801
+NOx:234841
 PMx:2276.87
 fuel:5.73013e+06
 electricity:0
@@ -4742,34 +4742,34 @@ Success.
 Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-IV'
 sums
 length:11041.9
-CO:23208.1
-CO2:1.76508e+07
-HC:13075.7
-NOx:161465
+CO:23254.4
+CO2:1.76688e+07
+HC:13123.9
+NOx:162316
 PMx:2001.46
-fuel:5.67853e+06
+fuel:5.68434e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-V'
 sums
 length:11041.9
-CO:12830.8
-CO2:1.72706e+07
-HC:6053.19
-NOx:23332.2
+CO:12843.3
+CO2:1.72875e+07
+HC:6059.11
+NOx:23355
 PMx:2013.84
-fuel:5.55677e+06
+fuel:5.5622e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-VI'
 sums
 length:11041.9
-CO:11128.7
-CO2:1.71857e+07
-HC:2949.17
-NOx:7388.55
+CO:11140.8
+CO2:1.72044e+07
+HC:2952.39
+NOx:7396.63
 PMx:2008.1
-fuel:5.52938e+06
+fuel:5.53543e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-II'
@@ -4797,10 +4797,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-IV'
 sums
 length:11041.9
-CO:9880.81
+CO:9892.29
 CO2:1.41694e+07
-HC:4813.19
-NOx:54357.5
+HC:4826.79
+NOx:54530.1
 PMx:2084.96
 fuel:7.35193e+06
 electricity:0
@@ -4808,10 +4808,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-V'
 sums
 length:11041.9
-CO:7072.91
+CO:7121.54
 CO2:1.37955e+07
 HC:6364.22
-NOx:37340.3
+NOx:37449.6
 PMx:2029.57
 fuel:7.15793e+06
 electricity:0
@@ -4819,12 +4819,12 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-VI'
 sums
 length:11041.9
-CO:1856.74
-CO2:1.3506e+07
+CO:1862.44
+CO2:1.35116e+07
 HC:1578.62
 NOx:2600.05
 PMx:1933.13
-fuel:7.00718e+06
+fuel:7.01009e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-II'
@@ -4852,10 +4852,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-IV'
 sums
 length:11041.9
-CO:14716.2
+CO:14741.7
 CO2:2.11044e+07
-HC:7935.83
-NOx:71418
+HC:7955.8
+NOx:71523.9
 PMx:2230.48
 fuel:1.09481e+07
 electricity:0
@@ -4863,10 +4863,10 @@ Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-V'
 sums
 length:11041.9
-CO:10422.1
+CO:10439.2
 CO2:2.02338e+07
 HC:11408.6
-NOx:58962.6
+NOx:59298.8
 PMx:2156.82
 fuel:1.04974e+07
 electricity:0
@@ -4875,11 +4875,11 @@ Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-VI'
 sums
 length:11041.9
 CO:2667.24
-CO2:1.96939e+07
-HC:2337.51
+CO2:1.96951e+07
+HC:2337.75
 NOx:5960.6
 PMx:2034.41
-fuel:1.02194e+07
+fuel:1.022e+07
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-II'
@@ -4888,7 +4888,7 @@ length:11041.9
 CO:24961
 CO2:2.92154e+07
 HC:66584.5
-NOx:153498
+NOx:153525
 PMx:3569.6
 fuel:1.51564e+07
 electricity:0
@@ -4907,34 +4907,34 @@ Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-IV'
 sums
 length:11041.9
-CO:19335.5
-CO2:2.89521e+07
-HC:10624.8
-NOx:105596
+CO:19374.1
+CO2:2.89816e+07
+HC:10664
+NOx:106152
 PMx:2341.11
-fuel:1.50223e+07
+fuel:1.50377e+07
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-V'
 sums
 length:11041.9
-CO:15341.3
-CO2:2.80228e+07
+CO:15381.4
+CO2:2.80536e+07
 HC:15811.7
-NOx:76085
+NOx:76515.5
 PMx:2247.24
-fuel:1.45365e+07
+fuel:1.45524e+07
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-VI'
 sums
 length:11041.9
-CO:4014.88
-CO2:2.74452e+07
+CO:4016.59
+CO2:2.74765e+07
 HC:3511.41
 NOx:8257.59
 PMx:2172.44
-fuel:1.42408e+07
+fuel:1.4257e+07
 electricity:0
 Success.
 Running 'HBEFA4/UBus_FuelCell_Midi_lt15t'
@@ -4945,7 +4945,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1595.7
-fuel:780196
+fuel:780213
 electricity:0
 Success.
 Running 'HBEFA4/UBus_FuelCell_Std_gt15-18t'
@@ -4956,7 +4956,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1770.65
-fuel:1.036e+06
+fuel:1.03678e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_FuelCell_Artic_gt18t'
@@ -4967,7 +4967,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1861.46
-fuel:1.49344e+06
+fuel:1.49524e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Electric_Midi_lt15t'
@@ -5006,10 +5006,10 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_LNG_Euro-IV'
 sums
 length:11041.9
-CO:11857.6
+CO:11871.4
 CO2:8.6353e+06
-HC:5924.41
-NOx:83136.1
+HC:5941.14
+NOx:83399.8
 PMx:1921.95
 fuel:2.77894e+06
 electricity:0
@@ -5028,21 +5028,21 @@ Success.
 Running 'HBEFA4/UBus_Midi_lt15t_LNG_Euro-VI'
 sums
 length:11041.9
-CO:5874.78
-CO2:9.07055e+06
-HC:1556.43
-NOx:3899.33
+CO:5876.55
+CO2:9.07327e+06
+HC:1556.9
+NOx:3900.5
 PMx:1949.18
-fuel:2.91887e+06
+fuel:2.91975e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Std_gt15-18t_LNG_Euro-IV'
 sums
 length:11041.9
-CO:17661.6
+CO:17692.3
 CO2:1.28621e+07
-HC:9766.93
-NOx:109224
+HC:9791.51
+NOx:109387
 PMx:1984.7
 fuel:4.13855e+06
 electricity:0
@@ -5072,42 +5072,42 @@ Success.
 Running 'HBEFA4/UBus_Artic_gt18t_LNG_Euro-IV'
 sums
 length:11041.9
-CO:23208.1
-CO2:1.76508e+07
-HC:13075.7
-NOx:161465
+CO:23254.4
+CO2:1.76688e+07
+HC:13123.9
+NOx:162316
 PMx:2001.46
-fuel:5.67853e+06
+fuel:5.68434e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_LNG_Euro-V'
 sums
 length:11041.9
-CO:12830.8
-CO2:1.72706e+07
-HC:6053.19
-NOx:23332.2
+CO:12843.3
+CO2:1.72875e+07
+HC:6059.11
+NOx:23355
 PMx:2013.84
-fuel:5.55677e+06
+fuel:5.5622e+06
 electricity:0
 Success.
 Running 'HBEFA4/UBus_Artic_gt18t_LNG_Euro-VI'
 sums
 length:11041.9
-CO:11128.7
-CO2:1.71857e+07
-HC:2949.17
-NOx:7388.55
+CO:11140.8
+CO2:1.72044e+07
+HC:2952.39
+NOx:7396.63
 PMx:2008.1
-fuel:5.52938e+06
+fuel:5.53543e+06
 electricity:0
 Success.
 Running 'HBEFA4/MC_4S_le250cc_preEuro'
 sums
 length:11041.9
-CO:121323
+CO:121420
 CO2:609861
-HC:7774.26
+HC:7833.85
 NOx:3258.46
 PMx:309.674
 fuel:197691
@@ -5116,9 +5116,9 @@ Success.
 Running 'HBEFA4/MC_4S_le250cc_Euro-1'
 sums
 length:11041.9
-CO:83039.7
+CO:83105.8
 CO2:553178
-HC:5120.04
+HC:5159.29
 NOx:3028.45
 PMx:309.674
 fuel:179340
@@ -5127,9 +5127,9 @@ Success.
 Running 'HBEFA4/MC_4S_le250cc_Euro-2'
 sums
 length:11041.9
-CO:81714.9
+CO:81780.1
 CO2:610960
-HC:3376.35
+HC:3402.22
 NOx:2655.14
 PMx:190.601
 fuel:198068
@@ -5138,9 +5138,9 @@ Success.
 Running 'HBEFA4/MC_4S_le250cc_Euro-3'
 sums
 length:11041.9
-CO:13875.5
+CO:13886.5
 CO2:596608
-HC:682.523
+HC:687.754
 NOx:873.949
 PMx:190.601
 fuel:193415
@@ -5149,10 +5149,10 @@ Success.
 Running 'HBEFA4/MC_4S_le250cc_Euro-4'
 sums
 length:11041.9
-CO:11091.6
+CO:11091.7
 CO2:599752
 HC:769.949
-NOx:334.359
+NOx:340.635
 PMx:280.549
 fuel:194425
 electricity:0
@@ -5160,10 +5160,10 @@ Success.
 Running 'HBEFA4/MC_4S_le250cc_Euro-5'
 sums
 length:11041.9
-CO:9736.44
+CO:9736.54
 CO2:599752
 HC:453.142
-NOx:223.058
+NOx:227.245
 PMx:280.549
 fuel:194425
 electricity:0
@@ -5171,10 +5171,10 @@ Success.
 Running 'HBEFA4/MC_4S_le250cc_Euro-6'
 sums
 length:11041.9
-CO:9736.44
+CO:9736.54
 CO2:599752
 HC:453.142
-NOx:223.058
+NOx:227.245
 PMx:280.549
 fuel:194425
 electricity:0
@@ -5182,7 +5182,7 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_preEuro'
 sums
 length:11041.9
-CO:99274.3
+CO:99274.8
 CO2:2.02644e+06
 HC:25752.8
 NOx:2428.25
@@ -5193,7 +5193,7 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_Euro-1'
 sums
 length:11041.9
-CO:61830.9
+CO:61831.2
 CO2:1.9425e+06
 HC:12788.1
 NOx:2322.54
@@ -5204,7 +5204,7 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_Euro-2'
 sums
 length:11041.9
-CO:36076
+CO:36076.1
 CO2:1.86319e+06
 HC:10838.3
 NOx:3064.75
@@ -5215,7 +5215,7 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_Euro-3'
 sums
 length:11041.9
-CO:3895.24
+CO:3895.26
 CO2:1.96565e+06
 HC:2594.99
 NOx:697.838
@@ -5226,10 +5226,10 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_Euro-4'
 sums
 length:11041.9
-CO:4562.42
+CO:4562.46
 CO2:1.51768e+06
 HC:407.132
-NOx:230.666
+NOx:230.675
 PMx:245.972
 fuel:492011
 electricity:0
@@ -5237,10 +5237,10 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_Euro-5'
 sums
 length:11041.9
-CO:4005.53
+CO:4005.55
 CO2:1.51768e+06
 HC:239.746
-NOx:153.902
+NOx:153.909
 PMx:245.972
 fuel:492011
 electricity:0
@@ -5248,10 +5248,10 @@ Success.
 Running 'HBEFA4/MC_4S_gt250cc_Euro-6'
 sums
 length:11041.9
-CO:4005.53
+CO:4005.55
 CO2:1.51768e+06
 HC:239.746
-NOx:153.902
+NOx:153.909
 PMx:245.972
 fuel:492011
 electricity:0
@@ -5391,9 +5391,9 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_preEuro'
 sums
 length:11041.9
-CO:154125
+CO:154248
 CO2:902493
-HC:52905.8
+HC:53311.3
 NOx:760.373
 PMx:2046.94
 fuel:284551
@@ -5402,9 +5402,9 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_Euro-1'
 sums
 length:11041.9
-CO:131803
+CO:131908
 CO2:847356
-HC:30005.3
+HC:30235.2
 NOx:583.763
 PMx:909.43
 fuel:267243
@@ -5413,9 +5413,9 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_Euro-2'
 sums
 length:11041.9
-CO:106208
+CO:106292
 CO2:731004
-HC:14802.8
+HC:14916.3
 NOx:704.92
 PMx:530.196
 fuel:230520
@@ -5424,9 +5424,9 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_Euro-3'
 sums
 length:11041.9
-CO:60570.4
+CO:60618.7
 CO2:613836
-HC:9608.6
+HC:9682.23
 NOx:659.165
 PMx:264.732
 fuel:193576
@@ -5435,10 +5435,10 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_Euro-4'
 sums
 length:11041.9
-CO:54040.3
+CO:54040.9
 CO2:617067
 HC:7835.06
-NOx:569.811
+NOx:580.507
 PMx:263.606
 fuel:194607
 electricity:0
@@ -5446,10 +5446,10 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_Euro-5'
 sums
 length:11041.9
-CO:47383.2
+CO:47383.6
 CO2:617067
 HC:4608.02
-NOx:379.905
+NOx:387.036
 PMx:263.606
 fuel:194607
 electricity:0
@@ -5457,10 +5457,10 @@ Success.
 Running 'HBEFA4/MC_2S_le250cc_Euro-6'
 sums
 length:11041.9
-CO:47383.2
+CO:47383.6
 CO2:617067
 HC:4608.02
-NOx:379.905
+NOx:387.036
 PMx:263.606
 fuel:194607
 electricity:0
@@ -5600,9 +5600,9 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:6502.2
+CO:6519.08
 CO2:5.98436e+06
-HC:397.993
+HC:398.532
 NOx:37112.2
 PMx:2190.78
 fuel:1.92333e+06
@@ -5611,7 +5611,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:18494.9
+CO:18667.3
 CO2:5.93223e+06
 HC:147.874
 NOx:29131.9
@@ -5622,7 +5622,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:18494.9
+CO:18667.3
 CO2:5.93223e+06
 HC:147.874
 NOx:61044
@@ -5633,7 +5633,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-V_EGR'
 sums
 length:11041.9
-CO:5273.76
+CO:5276.1
 CO2:5.79355e+06
 HC:676.189
 NOx:35717.2
@@ -5644,7 +5644,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-V_SCR'
 sums
 length:11041.9
-CO:16530.3
+CO:16651.2
 CO2:5.65606e+06
 HC:155.852
 NOx:20253.6
@@ -5655,7 +5655,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:16530.3
+CO:16651.2
 CO2:5.65606e+06
 HC:155.852
 NOx:61505.9
@@ -5666,7 +5666,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1394
+CO:1394.39
 CO2:5.59097e+06
 HC:132.586
 NOx:2503.06
@@ -5677,7 +5677,7 @@ Success.
 Running 'HBEFA4/RT_le7.5t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:1394
+CO:1394.39
 CO2:5.59097e+06
 HC:132.586
 NOx:41774.9
@@ -5702,7 +5702,7 @@ length:11041.9
 CO:501.92
 CO2:5.34193e+06
 HC:205.964
-NOx:50376.9
+NOx:50489.1
 PMx:1913.55
 fuel:1.71706e+06
 electricity:0
@@ -5711,75 +5711,75 @@ Running 'HBEFA4/RT_gt7_5-12t_50ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_60ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_70ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_80ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_EE'
 sums
 length:11041.9
 CO:94477.4
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:48223.4
 NOx:118337
 PMx:28299.6
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-I'
 sums
 length:11041.9
-CO:16247.6
-CO2:7.37447e+06
+CO:16252.3
+CO2:7.37766e+06
 HC:5001.81
 NOx:70535.7
 PMx:4970.27
-fuel:2.36983e+06
+fuel:2.37085e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-II'
 sums
 length:11041.9
-CO:15829.9
+CO:15910.3
 CO2:7.40994e+06
 HC:3275.54
-NOx:75387.4
+NOx:75387.7
 PMx:3565.32
 fuel:2.38133e+06
 electricity:0
@@ -5798,447 +5798,447 @@ Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:10031.1
-CO2:7.06149e+06
-HC:484.554
-NOx:59496.9
+CO:10110.9
+CO2:7.0648e+06
+HC:493.775
+NOx:59853.6
 PMx:2341.47
-fuel:2.26922e+06
+fuel:2.27028e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:26561.4
-CO2:6.98423e+06
+CO:26761.9
+CO2:6.98752e+06
 HC:236.181
 NOx:30600.8
 PMx:2404.52
-fuel:2.24496e+06
+fuel:2.24602e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:26561.4
-CO2:6.98423e+06
+CO:26761.9
+CO2:6.98752e+06
 HC:236.181
 NOx:70700.2
 PMx:2404.52
-fuel:2.24496e+06
+fuel:2.24602e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-V_EGR'
 sums
 length:11041.9
-CO:7686.24
-CO2:6.84844e+06
+CO:7724.86
+CO2:6.85172e+06
 HC:801.733
-NOx:44936.7
+NOx:45266.9
 PMx:2248.09
-fuel:2.20135e+06
+fuel:2.20241e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-V_SCR'
 sums
 length:11041.9
-CO:24208.3
-CO2:6.70781e+06
+CO:24372.9
+CO2:6.71104e+06
 HC:224.407
 NOx:22052.1
 PMx:2409.32
-fuel:2.15575e+06
+fuel:2.15678e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:24208.3
-CO2:6.70781e+06
+CO:24372.9
+CO2:6.71104e+06
 HC:224.407
 NOx:71663.7
 PMx:2409.32
-fuel:2.15575e+06
+fuel:2.15678e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1963.25
-CO2:6.6981e+06
+CO:1970.86
+CO2:6.70128e+06
 HC:167.471
 NOx:3570.06
 PMx:1994.31
-fuel:2.15271e+06
+fuel:2.15373e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:1963.25
-CO2:6.6981e+06
+CO:1970.86
+CO2:6.70128e+06
 HC:167.471
-NOx:44440.1
+NOx:44452.1
 PMx:1994.31
-fuel:2.15271e+06
+fuel:2.15373e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:587.188
-CO2:6.6326e+06
+CO:587.92
+CO2:6.63571e+06
 HC:256.431
 NOx:1144.15
 PMx:1928.2
-fuel:2.13163e+06
+fuel:2.13263e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt7_5-12t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:587.188
-CO2:6.6326e+06
+CO:587.92
+CO2:6.63571e+06
 HC:256.431
-NOx:56974
+NOx:57317.7
 PMx:1928.2
-fuel:2.13163e+06
+fuel:2.13263e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_50ties'
 sums
 length:11041.9
-CO:52977.8
-CO2:9.17561e+06
+CO:53078.9
+CO2:9.20039e+06
 HC:17530
-NOx:113613
+NOx:113862
 PMx:9920.05
-fuel:2.94918e+06
+fuel:2.95714e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_60ties'
 sums
 length:11041.9
-CO:52977.8
-CO2:9.17561e+06
+CO:53078.9
+CO2:9.20039e+06
 HC:17530
-NOx:113613
+NOx:113862
 PMx:9920.05
-fuel:2.94918e+06
+fuel:2.95714e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_70ties'
 sums
 length:11041.9
-CO:52977.8
-CO2:9.17561e+06
+CO:53078.9
+CO2:9.20039e+06
 HC:17530
-NOx:113613
+NOx:113862
 PMx:9920.05
-fuel:2.94918e+06
+fuel:2.95714e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_80ties'
 sums
 length:11041.9
-CO:52977.8
-CO2:9.17561e+06
+CO:53078.9
+CO2:9.20039e+06
 HC:17530
-NOx:113613
+NOx:113862
 PMx:9920.05
-fuel:2.94918e+06
+fuel:2.95714e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-I'
 sums
 length:11041.9
 CO:18674.3
-CO2:9.07838e+06
+CO2:9.10782e+06
 HC:4783.8
-NOx:86182.5
+NOx:86403.5
 PMx:5338.25
-fuel:2.9173e+06
+fuel:2.92676e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-II'
 sums
 length:11041.9
-CO:18209.2
-CO2:8.21334e+06
+CO:18332.5
+CO2:8.21373e+06
 HC:3242.1
-NOx:85960.4
+NOx:86024.8
 PMx:3753.7
-fuel:2.63963e+06
+fuel:2.63976e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-III'
 sums
 length:11041.9
 CO:17018.1
-CO2:8.54755e+06
+CO2:8.55174e+06
 HC:2863.06
-NOx:69232.1
+NOx:69407.7
 PMx:3430.34
-fuel:2.74678e+06
+fuel:2.74813e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:10530.5
-CO2:8.27313e+06
-HC:569.744
-NOx:62343.8
+CO:10591.8
+CO2:8.29169e+06
+HC:572.646
+NOx:62567.3
 PMx:2355.9
-fuel:2.65858e+06
+fuel:2.66455e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:28689.3
-CO2:8.24522e+06
-HC:222.558
+CO:28858.1
+CO2:8.26689e+06
+HC:223.474
 NOx:32894.2
 PMx:2403.95
-fuel:2.65001e+06
+fuel:2.65697e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:28689.3
-CO2:8.24522e+06
-HC:222.558
-NOx:83625.7
+CO:28858.1
+CO2:8.26689e+06
+HC:223.474
+NOx:83755.4
 PMx:2403.95
-fuel:2.65001e+06
+fuel:2.65697e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-V_EGR'
 sums
 length:11041.9
-CO:9786.33
-CO2:7.82393e+06
-HC:889.519
-NOx:54694.9
+CO:9844.64
+CO2:7.8281e+06
+HC:889.536
+NOx:54991.1
 PMx:2247.32
-fuel:2.51457e+06
+fuel:2.51591e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-V_SCR'
 sums
 length:11041.9
-CO:34710.5
-CO2:7.65662e+06
+CO:34942.3
+CO2:7.66088e+06
 HC:227.407
 NOx:24967.4
 PMx:2514.33
-fuel:2.46047e+06
+fuel:2.46185e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:34710.5
-CO2:7.65662e+06
+CO:34942.3
+CO2:7.66088e+06
 HC:227.407
 NOx:86477.2
 PMx:2514.33
-fuel:2.46047e+06
+fuel:2.46185e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:2401.35
-CO2:7.76966e+06
+CO:2407.43
+CO2:7.78008e+06
 HC:194.432
 NOx:3452.65
 PMx:2017.29
-fuel:2.49687e+06
+fuel:2.50022e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:2401.35
-CO2:7.76966e+06
+CO:2407.43
+CO2:7.78008e+06
 HC:194.432
-NOx:57600.1
+NOx:57813.1
 PMx:2017.29
-fuel:2.49687e+06
+fuel:2.50022e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:952.594
-CO2:7.56696e+06
+CO:953.923
+CO2:7.57206e+06
 HC:285.49
 NOx:1551.44
 PMx:1921.32
-fuel:2.43181e+06
+fuel:2.43345e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt12-14t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:952.594
-CO2:7.56696e+06
+CO:953.923
+CO2:7.57206e+06
 HC:285.49
-NOx:75327.8
+NOx:75916.6
 PMx:1921.32
-fuel:2.43181e+06
+fuel:2.43345e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_50ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_60ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_70ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_80ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-I'
 sums
 length:11041.9
-CO:21424.3
-CO2:1.03932e+07
+CO:21479.5
+CO2:1.04322e+07
 HC:4218
-NOx:101396
+NOx:101787
 PMx:5301.72
-fuel:3.34043e+06
+fuel:3.353e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-II'
 sums
 length:11041.9
-CO:18753.6
-CO2:1.00189e+07
+CO:18836.7
+CO2:1.00418e+07
 HC:3184.01
-NOx:104126
+NOx:104358
 PMx:3851.33
-fuel:3.21996e+06
+fuel:3.22733e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-III'
 sums
 length:11041.9
 CO:15777.7
-CO2:1.07438e+07
+CO2:1.07776e+07
 HC:2814.25
-NOx:82307.4
+NOx:82522.5
 PMx:3585.39
-fuel:3.45256e+06
+fuel:3.46339e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-IV_EGR'
 sums
 length:11041.9
 CO:11374.8
-CO2:1.03478e+07
-HC:648.803
-NOx:70183.5
+CO2:1.03735e+07
+HC:651.036
+NOx:70423.2
 PMx:2406.25
-fuel:3.32534e+06
+fuel:3.33359e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:31150.2
-CO2:1.02775e+07
-HC:257.238
+CO:31158.4
+CO2:1.03214e+07
+HC:257.717
 NOx:40480.3
 PMx:2450.7
-fuel:3.30306e+06
+fuel:3.31719e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:31150.2
-CO2:1.02775e+07
-HC:257.238
-NOx:104550
+CO:31158.4
+CO2:1.03214e+07
+HC:257.717
+NOx:104872
 PMx:2450.7
-fuel:3.30306e+06
+fuel:3.31719e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-V_EGR'
 sums
 length:11041.9
-CO:9681.04
-CO2:9.75234e+06
-HC:1140.31
-NOx:57623.6
+CO:9740.77
+CO2:9.75792e+06
+HC:1140.64
+NOx:57759.8
 PMx:2331.43
-fuel:3.13418e+06
+fuel:3.13598e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-V_SCR'
 sums
 length:11041.9
-CO:31221.9
-CO2:9.54882e+06
+CO:31372.5
+CO2:9.55381e+06
 HC:286.551
 NOx:32367.6
 PMx:2553.47
-fuel:3.06883e+06
+fuel:3.07044e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:31221.9
-CO2:9.54882e+06
+CO:31372.5
+CO2:9.55381e+06
 HC:286.551
 NOx:109149
 PMx:2553.47
-fuel:3.06883e+06
+fuel:3.07044e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:2620.6
+CO:2620.89
 CO2:9.19523e+06
 HC:238.041
 NOx:5038.3
@@ -6249,10 +6249,10 @@ Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:2620.6
+CO:2620.89
 CO2:9.19523e+06
 HC:238.041
-NOx:66494.1
+NOx:66524.8
 PMx:2035.39
 fuel:2.95542e+06
 electricity:0
@@ -6261,149 +6261,149 @@ Running 'HBEFA4/RT_gt14-20t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:1119.72
-CO2:8.95314e+06
+CO2:8.95505e+06
 HC:388.235
 NOx:2233.71
 PMx:1930.7
-fuel:2.87682e+06
+fuel:2.87744e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt14-20t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:1119.72
-CO2:8.95314e+06
+CO2:8.95505e+06
 HC:388.235
 NOx:84910.7
 PMx:1930.7
-fuel:2.87682e+06
+fuel:2.87744e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_50ties'
 sums
 length:11041.9
 CO:31918.8
-CO2:1.49423e+07
+CO2:1.49693e+07
 HC:8191.5
-NOx:217251
+NOx:217663
 PMx:8716.28
-fuel:4.80249e+06
+fuel:4.81115e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_60ties'
 sums
 length:11041.9
 CO:31918.8
-CO2:1.49423e+07
+CO2:1.49693e+07
 HC:8191.5
-NOx:217251
+NOx:217663
 PMx:8716.28
-fuel:4.80249e+06
+fuel:4.81115e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_70ties'
 sums
 length:11041.9
 CO:31918.8
-CO2:1.49423e+07
+CO2:1.49693e+07
 HC:8191.5
-NOx:217251
+NOx:217663
 PMx:8716.28
-fuel:4.80249e+06
+fuel:4.81115e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_80ties'
 sums
 length:11041.9
 CO:31918.8
-CO2:1.49423e+07
+CO2:1.49693e+07
 HC:8191.5
-NOx:217251
+NOx:217663
 PMx:8716.28
-fuel:4.80249e+06
+fuel:4.81115e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-I'
 sums
 length:11041.9
-CO:31916.3
-CO2:1.44057e+07
+CO:31963.4
+CO2:1.44391e+07
 HC:8202.89
-NOx:150928
+NOx:151331
 PMx:7244.48
-fuel:4.62994e+06
+fuel:4.64069e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-II'
 sums
 length:11041.9
-CO:23058.7
-CO2:1.36885e+07
+CO:23081.3
+CO2:1.36925e+07
 HC:5440.83
-NOx:152448
+NOx:152543
 PMx:4444.73
-fuel:4.39942e+06
+fuel:4.4007e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-III'
 sums
 length:11041.9
 CO:24560.3
-CO2:1.39544e+07
+CO2:1.39601e+07
 HC:5040.26
-NOx:117240
+NOx:117363
 PMx:4443.74
-fuel:4.48427e+06
+fuel:4.48609e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:15363.6
-CO2:1.37005e+07
-HC:947.239
-NOx:96299.5
+CO:15464.4
+CO2:1.37155e+07
+HC:950.37
+NOx:96524.2
 PMx:2619.54
-fuel:4.40369e+06
+fuel:4.40851e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:36962.2
-CO2:1.36258e+07
-HC:362.499
+CO:37143
+CO2:1.36454e+07
+HC:362.616
 NOx:58580.9
 PMx:2656.68
-fuel:4.37853e+06
+fuel:4.38481e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:36962.2
-CO2:1.36258e+07
-HC:362.499
-NOx:146902
+CO:37143
+CO2:1.36454e+07
+HC:362.616
+NOx:147113
 PMx:2656.68
-fuel:4.37853e+06
+fuel:4.38481e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-V_EGR'
 sums
 length:11041.9
-CO:12202.7
-CO2:1.32782e+07
-HC:1546.31
-NOx:76591.6
+CO:12250.4
+CO2:1.3297e+07
+HC:1548.6
+NOx:76753.4
 PMx:2449.64
-fuel:4.26701e+06
+fuel:4.27303e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-V_SCR'
 sums
 length:11041.9
-CO:37871.8
+CO:38029.7
 CO2:1.27272e+07
 HC:383.881
 NOx:42359.5
@@ -6414,7 +6414,7 @@ Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:37871.8
+CO:38029.7
 CO2:1.27272e+07
 HC:383.881
 NOx:150171
@@ -6426,22 +6426,22 @@ Running 'HBEFA4/RT_gt20-26t_Euro-VI_A-C'
 sums
 length:11041.9
 CO:3081.28
-CO2:1.26329e+07
+CO2:1.26378e+07
 HC:326.355
 NOx:6003.72
 PMx:2060.17
-fuel:4.06035e+06
+fuel:4.06191e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-VIs_A-C'
 sums
 length:11041.9
 CO:3081.28
-CO2:1.26329e+07
+CO2:1.26378e+07
 HC:326.355
-NOx:89074.8
+NOx:89083
 PMx:2060.17
-fuel:4.06035e+06
+fuel:4.06191e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt20-26t_Euro-VI_D-E'
@@ -6461,7 +6461,7 @@ length:11041.9
 CO:796.533
 CO2:1.2292e+07
 HC:469.989
-NOx:119861
+NOx:120907
 PMx:1948.36
 fuel:3.95068e+06
 electricity:0
@@ -6469,562 +6469,562 @@ Success.
 Running 'HBEFA4/RT_gt26-28t_50ties'
 sums
 length:11041.9
-CO:71360.7
-CO2:1.63402e+07
+CO:71485
+CO2:1.64081e+07
 HC:15242.2
-NOx:261605
+NOx:262476
 PMx:11638.1
-fuel:5.25068e+06
+fuel:5.27253e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_60ties'
 sums
 length:11041.9
-CO:71360.7
-CO2:1.63402e+07
+CO:71485
+CO2:1.64081e+07
 HC:15242.2
-NOx:261605
+NOx:262476
 PMx:11638.1
-fuel:5.25068e+06
+fuel:5.27253e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_70ties'
 sums
 length:11041.9
-CO:71360.7
-CO2:1.63402e+07
+CO:71485
+CO2:1.64081e+07
 HC:15242.2
-NOx:261605
+NOx:262476
 PMx:11638.1
-fuel:5.25068e+06
+fuel:5.27253e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_80ties'
 sums
 length:11041.9
-CO:71360.7
-CO2:1.63402e+07
+CO:71485
+CO2:1.64081e+07
 HC:15242.2
-NOx:261605
+NOx:262476
 PMx:11638.1
-fuel:5.25068e+06
+fuel:5.27253e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-I'
 sums
 length:11041.9
 CO:30578.6
-CO2:1.62597e+07
+CO2:1.63591e+07
 HC:8767.57
-NOx:167353
+NOx:168280
 PMx:7436.1
-fuel:5.22565e+06
+fuel:5.25764e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-II'
 sums
 length:11041.9
-CO:29013
-CO2:1.50814e+07
+CO:29253.4
+CO2:1.51325e+07
 HC:5652.59
-NOx:164880
+NOx:165402
 PMx:4885.63
-fuel:4.84617e+06
+fuel:4.86262e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-III'
 sums
 length:11041.9
 CO:25523.7
-CO2:1.54874e+07
+CO2:1.55269e+07
 HC:5367.64
-NOx:131752
+NOx:132041
 PMx:4535.2
-fuel:4.97735e+06
+fuel:4.99005e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:16801.8
-CO2:1.5255e+07
-HC:1027.93
-NOx:105418
+CO:16985.9
+CO2:1.53002e+07
+HC:1034.11
+NOx:105904
 PMx:2615.92
-fuel:4.90173e+06
+fuel:4.91627e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:34402.4
-CO2:1.51639e+07
+CO:34581.4
+CO2:1.52162e+07
 HC:458.184
 NOx:62700.7
 PMx:2644.95
-fuel:4.87343e+06
+fuel:4.89025e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:34402.4
-CO2:1.51639e+07
+CO:34581.4
+CO2:1.52162e+07
 HC:458.184
-NOx:165154
+NOx:165730
 PMx:2644.95
-fuel:4.87343e+06
+fuel:4.89025e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-V_EGR'
 sums
 length:11041.9
-CO:8864.74
-CO2:1.49325e+07
-HC:1574.31
-NOx:77594.5
+CO:8883
+CO2:1.49875e+07
+HC:1575.71
+NOx:78127.9
 PMx:2663.84
-fuel:4.79874e+06
+fuel:4.81643e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-V_SCR'
 sums
 length:11041.9
-CO:32716.6
-CO2:1.463e+07
+CO:32878.6
+CO2:1.46877e+07
 HC:468.154
 NOx:42879.4
 PMx:2649.02
-fuel:4.70259e+06
+fuel:4.72113e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:32716.6
-CO2:1.463e+07
+CO:32878.6
+CO2:1.46877e+07
 HC:468.154
-NOx:170314
+NOx:170661
 PMx:2649.02
-fuel:4.70259e+06
+fuel:4.72113e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:3170.24
-CO2:1.42121e+07
-HC:334.386
+CO:3181.9
+CO2:1.42524e+07
+HC:334.794
 NOx:6801.26
 PMx:2090.21
-fuel:4.56752e+06
+fuel:4.58048e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:3170.24
-CO2:1.42121e+07
-HC:334.386
-NOx:103798
+CO:3181.9
+CO2:1.42524e+07
+HC:334.794
+NOx:104121
 PMx:2090.21
-fuel:4.56752e+06
+fuel:4.58048e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:670.51
-CO2:1.39595e+07
+CO:673.613
+CO2:1.39915e+07
 HC:539.78
 NOx:3073.98
 PMx:1950.44
-fuel:4.48634e+06
+fuel:4.49662e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt26-28t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:670.51
-CO2:1.39595e+07
+CO:673.613
+CO2:1.39915e+07
 HC:539.78
-NOx:131672
+NOx:132377
 PMx:1950.44
-fuel:4.48634e+06
+fuel:4.49662e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_50ties'
 sums
 length:11041.9
-CO:42909.1
-CO2:1.82919e+07
+CO:43126
+CO2:1.83621e+07
 HC:9508.68
-NOx:266525
-PMx:10732.7
-fuel:5.87859e+06
+NOx:267412
+PMx:10760
+fuel:5.90117e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_60ties'
 sums
 length:11041.9
-CO:42909.1
-CO2:1.82919e+07
+CO:43126
+CO2:1.83621e+07
 HC:9508.68
-NOx:266525
-PMx:10732.7
-fuel:5.87859e+06
+NOx:267412
+PMx:10760
+fuel:5.90117e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_70ties'
 sums
 length:11041.9
-CO:42909.1
-CO2:1.82919e+07
+CO:43126
+CO2:1.83621e+07
 HC:9508.68
-NOx:266525
-PMx:10732.7
-fuel:5.87859e+06
+NOx:267412
+PMx:10760
+fuel:5.90117e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_80ties'
 sums
 length:11041.9
-CO:42909.1
-CO2:1.82919e+07
+CO:43126
+CO2:1.83621e+07
 HC:9508.68
-NOx:266525
-PMx:10732.7
-fuel:5.87859e+06
+NOx:267412
+PMx:10760
+fuel:5.90117e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-I'
 sums
 length:11041.9
-CO:35757.2
-CO2:1.80905e+07
+CO:35816.4
+CO2:1.81712e+07
 HC:10074
-NOx:189561
+NOx:190385
 PMx:8395.01
-fuel:5.81341e+06
+fuel:5.83936e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-II'
 sums
 length:11041.9
-CO:33239.1
-CO2:1.70813e+07
+CO:33527.3
+CO2:1.71401e+07
 HC:6520.57
-NOx:189589
+NOx:190212
 PMx:5208.18
-fuel:5.49043e+06
+fuel:5.5093e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-III'
 sums
 length:11041.9
 CO:28509.9
-CO2:1.76495e+07
+CO2:1.77217e+07
 HC:5575.52
-NOx:153730
+NOx:154368
 PMx:4908.55
-fuel:5.6722e+06
+fuel:5.69537e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:19855.3
-CO2:1.73259e+07
-HC:1298.94
-NOx:139353
+CO:20104.5
+CO2:1.74066e+07
+HC:1311.27
+NOx:140837
 PMx:2762.75
-fuel:5.56826e+06
+fuel:5.59416e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:47522
-CO2:1.71652e+07
-HC:544.27
+CO:47941.2
+CO2:1.7253e+07
+HC:544.598
 NOx:69685
 PMx:2817.23
-fuel:5.51696e+06
+fuel:5.54517e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:47522
-CO2:1.71652e+07
-HC:544.27
-NOx:183501
+CO:47941.2
+CO2:1.7253e+07
+HC:544.598
+NOx:184212
 PMx:2817.23
-fuel:5.51696e+06
+fuel:5.54517e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-V_EGR'
 sums
 length:11041.9
-CO:10160.8
-CO2:1.6987e+07
-HC:1796.53
-NOx:89188.7
+CO:10183.3
+CO2:1.70521e+07
+HC:1797.29
+NOx:89813.1
 PMx:2767.27
-fuel:5.45979e+06
+fuel:5.4807e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-V_SCR'
 sums
 length:11041.9
-CO:37186.5
-CO2:1.66568e+07
+CO:37377.3
+CO2:1.67256e+07
 HC:535.947
 NOx:49504.6
 PMx:2758.19
-fuel:5.35222e+06
+fuel:5.37429e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:37186.5
-CO2:1.66568e+07
+CO:37377.3
+CO2:1.67256e+07
 HC:535.947
-NOx:196534
+NOx:196983
 PMx:2758.19
-fuel:5.35222e+06
+fuel:5.37429e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-VI_A-C'
 sums
 length:11041.9
 CO:3279.59
-CO2:1.63434e+07
-HC:335.885
+CO2:1.64125e+07
+HC:335.985
 NOx:7195.54
 PMx:2070.63
-fuel:5.25238e+06
+fuel:5.27459e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-VIs_A-C'
 sums
 length:11041.9
 CO:3279.59
-CO2:1.63434e+07
-HC:335.885
-NOx:135736
+CO2:1.64125e+07
+HC:335.985
+NOx:136750
 PMx:2070.63
-fuel:5.25238e+06
+fuel:5.27459e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:524.559
-CO2:1.621e+07
+CO2:1.62644e+07
 HC:605.851
 NOx:3252.02
 PMx:1961.44
-fuel:5.20996e+06
+fuel:5.22745e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt28-32t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:524.559
-CO2:1.621e+07
+CO2:1.62644e+07
 HC:605.851
-NOx:151462
+NOx:152304
 PMx:1961.44
-fuel:5.20996e+06
+fuel:5.22745e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_50ties'
 sums
 length:11041.9
-CO:44737.8
-CO2:1.98927e+07
+CO:44938.5
+CO2:1.99791e+07
 HC:10180.4
-NOx:292015
-PMx:11270.3
-fuel:6.39356e+06
+NOx:293158
+PMx:11299.7
+fuel:6.42129e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_60ties'
 sums
 length:11041.9
-CO:44737.8
-CO2:1.98927e+07
+CO:44938.5
+CO2:1.99791e+07
 HC:10180.4
-NOx:292015
-PMx:11270.3
-fuel:6.39356e+06
+NOx:293158
+PMx:11299.7
+fuel:6.42129e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_70ties'
 sums
 length:11041.9
-CO:44737.8
-CO2:1.98927e+07
+CO:44938.5
+CO2:1.99791e+07
 HC:10180.4
-NOx:292015
-PMx:11270.3
-fuel:6.39356e+06
+NOx:293158
+PMx:11299.7
+fuel:6.42129e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_80ties'
 sums
 length:11041.9
-CO:44737.8
-CO2:1.98927e+07
+CO:44938.5
+CO2:1.99791e+07
 HC:10180.4
-NOx:292015
-PMx:11270.3
-fuel:6.39356e+06
+NOx:293158
+PMx:11299.7
+fuel:6.42129e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-I'
 sums
 length:11041.9
 CO:35406.6
-CO2:2.01301e+07
+CO2:2.02515e+07
 HC:10959.1
-NOx:211226
+NOx:212385
 PMx:9005.78
-fuel:6.47028e+06
+fuel:6.50931e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-II'
 sums
 length:11041.9
-CO:35201.1
-CO2:1.8573e+07
+CO:35507.4
+CO2:1.86457e+07
 HC:6954.33
-NOx:205705
+NOx:206438
 PMx:5463.47
-fuel:5.96873e+06
+fuel:5.9921e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-III'
 sums
 length:11041.9
-CO:34156.7
-CO2:1.87921e+07
+CO:34252.1
+CO2:1.88723e+07
 HC:5880.52
-NOx:166653
+NOx:167422
 PMx:5145.1
-fuel:6.03946e+06
+fuel:6.06523e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:21854.9
-CO2:1.87369e+07
-HC:1276.4
-NOx:147729
+CO:22127.1
+CO2:1.88321e+07
+HC:1294.44
+NOx:149236
 PMx:2818.95
-fuel:6.02168e+06
+fuel:6.05228e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:54260.5
-CO2:1.87318e+07
-HC:568.656
+CO:54750.3
+CO2:1.88586e+07
+HC:569.444
 NOx:75581.2
 PMx:2843.14
-fuel:6.01994e+06
+fuel:6.06069e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:54260.5
-CO2:1.87318e+07
-HC:568.656
-NOx:200266
+CO:54750.3
+CO2:1.88586e+07
+HC:569.444
+NOx:201381
 PMx:2843.14
-fuel:6.01994e+06
+fuel:6.06069e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-V_EGR'
 sums
 length:11041.9
-CO:12190.7
-CO2:1.83088e+07
+CO:12240.1
+CO2:1.83984e+07
 HC:1936.87
-NOx:106865
+NOx:107985
 PMx:2785.57
-fuel:5.88408e+06
+fuel:5.91289e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-V_SCR'
 sums
 length:11041.9
-CO:50142.6
-CO2:1.77785e+07
+CO:50576.6
+CO2:1.78639e+07
 HC:585.526
 NOx:51789.7
 PMx:2958.87
-fuel:5.71364e+06
+fuel:5.74111e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:50142.6
-CO2:1.77785e+07
+CO:50576.6
+CO2:1.78639e+07
 HC:585.526
-NOx:203006
+NOx:203350
 PMx:2958.87
-fuel:5.71364e+06
+fuel:5.74111e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:3967.75
-CO2:1.77485e+07
-HC:373.205
+CO:3979.43
+CO2:1.78439e+07
+HC:374.401
 NOx:7821.11
 PMx:2093.71
-fuel:5.70378e+06
+fuel:5.73445e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:3967.75
-CO2:1.77485e+07
-HC:373.205
-NOx:140153
+CO:3979.43
+CO2:1.78439e+07
+HC:374.401
+NOx:141124
 PMx:2093.71
-fuel:5.70378e+06
+fuel:5.73445e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:530.619
-CO2:1.75715e+07
+CO2:1.76522e+07
 HC:631.59
 NOx:3646.28
 PMx:1949.44
-fuel:5.64815e+06
+fuel:5.67408e+06
 electricity:0
 Success.
 Running 'HBEFA4/RT_gt32t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:530.619
-CO2:1.75715e+07
+CO2:1.76522e+07
 HC:631.59
-NOx:178564
+NOx:179880
 PMx:1949.44
-fuel:5.64815e+06
+fuel:5.67408e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_le7_5t_50ties'
@@ -7107,9 +7107,9 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:6502.2
+CO:6519.08
 CO2:5.98436e+06
-HC:397.993
+HC:398.532
 NOx:37112.2
 PMx:2190.78
 fuel:1.92333e+06
@@ -7118,7 +7118,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:18494.9
+CO:18667.3
 CO2:5.93223e+06
 HC:147.874
 NOx:29131.9
@@ -7129,7 +7129,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:18494.9
+CO:18667.3
 CO2:5.93223e+06
 HC:147.874
 NOx:61044
@@ -7140,7 +7140,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-V_EGR'
 sums
 length:11041.9
-CO:5273.76
+CO:5276.1
 CO2:5.79355e+06
 HC:676.189
 NOx:35717.2
@@ -7151,7 +7151,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-V_SCR'
 sums
 length:11041.9
-CO:16530.3
+CO:16651.2
 CO2:5.65606e+06
 HC:155.852
 NOx:20253.6
@@ -7162,7 +7162,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:16530.3
+CO:16651.2
 CO2:5.65606e+06
 HC:155.852
 NOx:61505.9
@@ -7173,7 +7173,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1394
+CO:1394.39
 CO2:5.59097e+06
 HC:132.586
 NOx:2503.06
@@ -7184,7 +7184,7 @@ Success.
 Running 'HBEFA4/TT_AT_le7_5t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:1394
+CO:1394.39
 CO2:5.59097e+06
 HC:132.586
 NOx:41774.9
@@ -7209,7 +7209,7 @@ length:11041.9
 CO:501.92
 CO2:5.34193e+06
 HC:205.964
-NOx:50376.9
+NOx:50489.1
 PMx:1913.55
 fuel:1.71706e+06
 electricity:0
@@ -7283,7 +7283,7 @@ Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-II'
 sums
 length:11041.9
-CO:21050.5
+CO:21059.5
 CO2:1.01428e+07
 HC:5037.24
 NOx:115482
@@ -7306,17 +7306,17 @@ Running 'HBEFA4/TT_AT_gt20-28t_Euro-IV_EGR'
 sums
 length:11041.9
 CO:13762.8
-CO2:9.91351e+06
+CO2:9.91705e+06
 HC:769.944
-NOx:82814.4
+NOx:83181.9
 PMx:2533.83
-fuel:3.18628e+06
+fuel:3.18742e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:40923.3
+CO:41099.2
 CO2:1.00302e+07
 HC:319.911
 NOx:52364.2
@@ -7327,7 +7327,7 @@ Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:40923.3
+CO:41099.2
 CO2:1.00302e+07
 HC:319.911
 NOx:113883
@@ -7338,10 +7338,10 @@ Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-V_EGR'
 sums
 length:11041.9
-CO:11131.6
+CO:11156.1
 CO2:9.75511e+06
 HC:1352.56
-NOx:67039.2
+NOx:67344.1
 PMx:2322.98
 fuel:3.13527e+06
 electricity:0
@@ -7349,7 +7349,7 @@ Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-V_SCR'
 sums
 length:11041.9
-CO:39563.6
+CO:39698.4
 CO2:9.62952e+06
 HC:308.157
 NOx:39609.4
@@ -7360,7 +7360,7 @@ Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:39563.6
+CO:39698.4
 CO2:9.62952e+06
 HC:308.157
 NOx:116670
@@ -7385,7 +7385,7 @@ length:11041.9
 CO:2950.29
 CO2:9.55624e+06
 HC:257.579
-NOx:68588.5
+NOx:68620.3
 PMx:2055.99
 fuel:3.07085e+06
 electricity:0
@@ -7394,1117 +7394,1117 @@ Running 'HBEFA4/TT_AT_gt20-28t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:1290.38
-CO2:9.28098e+06
+CO2:9.28227e+06
 HC:433.148
 NOx:2868.47
 PMx:1935.88
-fuel:2.9829e+06
+fuel:2.98332e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt20-28t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:1290.38
-CO2:9.28098e+06
+CO2:9.28227e+06
 HC:433.148
 NOx:90268.3
 PMx:1935.88
-fuel:2.9829e+06
+fuel:2.98332e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_50ties'
 sums
 length:11041.9
-CO:75114.4
-CO2:1.82247e+07
+CO:75213.8
+CO2:1.834e+07
 HC:14671.2
-NOx:290959
+NOx:292656
 PMx:12267.8
-fuel:5.85645e+06
+fuel:5.89348e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_60ties'
 sums
 length:11041.9
-CO:75114.4
-CO2:1.82247e+07
+CO:75213.8
+CO2:1.834e+07
 HC:14671.2
-NOx:290959
+NOx:292656
 PMx:12267.8
-fuel:5.85645e+06
+fuel:5.89348e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_70ties'
 sums
 length:11041.9
-CO:75114.4
-CO2:1.82247e+07
+CO:75213.8
+CO2:1.834e+07
 HC:14671.2
-NOx:290959
+NOx:292656
 PMx:12267.8
-fuel:5.85645e+06
+fuel:5.89348e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_80ties'
 sums
 length:11041.9
-CO:75114.4
-CO2:1.82247e+07
+CO:75213.8
+CO2:1.834e+07
 HC:14671.2
-NOx:290959
+NOx:292656
 PMx:12267.8
-fuel:5.85645e+06
+fuel:5.89348e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_28-34t_EE'
 sums
 length:11041.9
-CO:105154
-CO2:1.82247e+07
+CO:105293
+CO2:1.834e+07
 HC:44003.4
-NOx:349147
-PMx:19543.9
-fuel:5.85645e+06
+NOx:351181
+PMx:19555.3
+fuel:5.89348e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-I'
 sums
 length:11041.9
 CO:31531.9
-CO2:1.74935e+07
+CO2:1.76016e+07
 HC:8045.83
-NOx:176057
+NOx:177052
 PMx:8115
-fuel:5.62182e+06
+fuel:5.65656e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-II'
 sums
 length:11041.9
 CO:24875.1
-CO2:1.69851e+07
+CO2:1.70575e+07
 HC:5677.01
-NOx:175088
+NOx:175642
 PMx:4809.78
-fuel:5.45826e+06
+fuel:5.48156e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-III'
 sums
 length:11041.9
 CO:26913.5
-CO2:1.69199e+07
+CO2:1.69701e+07
 HC:5183.92
-NOx:137517
+NOx:137939
 PMx:4811.38
-fuel:5.43834e+06
+fuel:5.45447e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:17027.9
-CO2:1.70768e+07
-HC:1049
-NOx:111121
+CO:17099.5
+CO2:1.7162e+07
+HC:1050.68
+NOx:111377
 PMx:2701.03
-fuel:5.48822e+06
+fuel:5.5156e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:38898.8
-CO2:1.67599e+07
-HC:445.72
+CO:38936.6
+CO2:1.6833e+07
+HC:446.608
 NOx:67695.1
 PMx:2700.72
-fuel:5.38536e+06
+fuel:5.40883e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:38898.8
-CO2:1.67599e+07
-HC:445.72
-NOx:174822
+CO:38936.6
+CO2:1.6833e+07
+HC:446.608
+NOx:175455
 PMx:2700.72
-fuel:5.38536e+06
+fuel:5.40883e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-V_EGR'
 sums
 length:11041.9
 CO:9687.45
-CO2:1.62025e+07
-HC:1486.74
-NOx:90075.1
+CO2:1.62629e+07
+HC:1490.09
+NOx:90417.7
 PMx:2532.52
-fuel:5.20722e+06
+fuel:5.22662e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-V_SCR'
 sums
 length:11041.9
-CO:36655.8
-CO2:1.59385e+07
+CO:36678.8
+CO2:1.60017e+07
 HC:441.956
 NOx:45336
 PMx:2699.34
-fuel:5.12245e+06
+fuel:5.14276e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:36655.8
-CO2:1.59385e+07
+CO:36678.8
+CO2:1.60017e+07
 HC:441.956
-NOx:177840
+NOx:178306
 PMx:2699.34
-fuel:5.12245e+06
+fuel:5.14276e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-VI_A-C'
 sums
 length:11041.9
 CO:3081.84
-CO2:1.58117e+07
+CO2:1.5877e+07
 HC:367.681
 NOx:5736.86
 PMx:2055.85
-fuel:5.08191e+06
+fuel:5.1029e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-VIs_A-C'
 sums
 length:11041.9
 CO:3081.84
-CO2:1.58117e+07
+CO2:1.5877e+07
 HC:367.681
-NOx:112257
+NOx:112700
 PMx:2055.85
-fuel:5.08191e+06
+fuel:5.1029e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:882.702
-CO2:1.54584e+07
+CO2:1.55137e+07
 HC:466.822
 NOx:2569.48
 PMx:1959.51
-fuel:4.96852e+06
+fuel:4.98628e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt28-34t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:882.702
-CO2:1.54584e+07
+CO2:1.55137e+07
 HC:466.822
-NOx:131958
+NOx:132964
 PMx:1959.51
-fuel:4.96852e+06
+fuel:4.98628e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_50ties'
 sums
 length:11041.9
-CO:44377.7
-CO2:2.02779e+07
+CO:44553.8
+CO2:2.03647e+07
 HC:8954.54
-NOx:296648
-PMx:11351.1
-fuel:6.51634e+06
+NOx:297852
+PMx:11360.1
+fuel:6.54422e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_60ties'
 sums
 length:11041.9
-CO:44377.7
-CO2:2.02779e+07
+CO:44553.8
+CO2:2.03647e+07
 HC:8954.54
-NOx:296648
-PMx:11351.1
-fuel:6.51634e+06
+NOx:297852
+PMx:11360.1
+fuel:6.54422e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_70ties'
 sums
 length:11041.9
-CO:44377.7
-CO2:2.02779e+07
+CO:44553.8
+CO2:2.03647e+07
 HC:8954.54
-NOx:296648
-PMx:11351.1
-fuel:6.51634e+06
+NOx:297852
+PMx:11360.1
+fuel:6.54422e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_80ties'
 sums
 length:11041.9
-CO:44377.7
-CO2:2.02779e+07
+CO:44553.8
+CO2:2.03647e+07
 HC:8954.54
-NOx:296648
-PMx:11351.1
-fuel:6.51634e+06
+NOx:297852
+PMx:11360.1
+fuel:6.54422e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-I'
 sums
 length:11041.9
-CO:39835.9
-CO2:1.97349e+07
+CO:40101
+CO2:1.98206e+07
 HC:9124.56
-NOx:205229
+NOx:206143
 PMx:8984.99
-fuel:6.34254e+06
+fuel:6.37008e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-II'
 sums
 length:11041.9
-CO:29924.1
-CO2:1.93654e+07
+CO:30022.7
+CO2:1.94485e+07
 HC:6124.22
-NOx:210287
+NOx:211154
 PMx:5298.33
-fuel:6.22341e+06
+fuel:6.25013e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-III'
 sums
 length:11041.9
 CO:32364
-CO2:1.96549e+07
+CO2:1.97413e+07
 HC:5883.29
-NOx:170764
+NOx:171588
 PMx:5161.29
-fuel:6.31696e+06
+fuel:6.34475e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:21725.2
-CO2:1.95332e+07
-HC:1224.27
-NOx:145742
+CO:21780.6
+CO2:1.96342e+07
+HC:1227.83
+NOx:146764
 PMx:2822.91
-fuel:6.27737e+06
+fuel:6.30981e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:51857.5
-CO2:1.98116e+07
-HC:527.84
+CO:52014.3
+CO2:1.99535e+07
+HC:530.724
 NOx:80668.7
 PMx:2850.52
-fuel:6.36645e+06
+fuel:6.41206e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:51857.5
-CO2:1.98116e+07
-HC:527.84
-NOx:209723
+CO:52014.3
+CO2:1.99535e+07
+HC:530.724
+NOx:210819
 PMx:2850.52
-fuel:6.36645e+06
+fuel:6.41206e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-V_EGR'
 sums
 length:11041.9
-CO:14264
-CO2:1.95869e+07
+CO:14294.2
+CO2:1.97272e+07
 HC:1699.23
-NOx:100903
+NOx:101159
 PMx:2603.18
-fuel:6.29526e+06
+fuel:6.34034e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-V_SCR'
 sums
 length:11041.9
-CO:41514.5
-CO2:1.93063e+07
-HC:563.969
+CO:41612.3
+CO2:1.94324e+07
+HC:566.204
 NOx:53018.1
 PMx:2806.68
-fuel:6.20509e+06
+fuel:6.2456e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:41514.5
-CO2:1.93063e+07
-HC:563.969
-NOx:215061
+CO:41612.3
+CO2:1.94324e+07
+HC:566.204
+NOx:215926
 PMx:2806.68
-fuel:6.20509e+06
+fuel:6.2456e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:3920.39
-CO2:1.91677e+07
-HC:484.102
+CO:3923.43
+CO2:1.92962e+07
+HC:485.843
 NOx:6711.16
 PMx:2088.11
-fuel:6.16065e+06
+fuel:6.20196e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:3920.39
-CO2:1.91677e+07
-HC:484.102
-NOx:136816
+CO:3923.43
+CO2:1.92962e+07
+HC:485.843
+NOx:137479
 PMx:2088.11
-fuel:6.16065e+06
+fuel:6.20196e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:688.919
-CO2:1.86672e+07
+CO2:1.8775e+07
 HC:540.916
 NOx:3183.8
 PMx:1976.78
-fuel:5.99853e+06
+fuel:6.03316e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt34-40t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:688.919
-CO2:1.86672e+07
+CO2:1.8775e+07
 HC:540.916
-NOx:146802
+NOx:147071
 PMx:1976.78
-fuel:5.99853e+06
+fuel:6.03316e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_50ties'
 sums
 length:11041.9
 CO:45426.4
-CO2:2.33486e+07
+CO2:2.34591e+07
 HC:10602.1
-NOx:350077
+NOx:351726
 PMx:12354.7
-fuel:7.50382e+06
+fuel:7.53933e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_60ties'
 sums
 length:11041.9
 CO:45426.4
-CO2:2.33486e+07
+CO2:2.34591e+07
 HC:10602.1
-NOx:350077
+NOx:351726
 PMx:12354.7
-fuel:7.50382e+06
+fuel:7.53933e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_70ties'
 sums
 length:11041.9
 CO:45426.4
-CO2:2.33486e+07
+CO2:2.34591e+07
 HC:10602.1
-NOx:350077
+NOx:351726
 PMx:12354.7
-fuel:7.50382e+06
+fuel:7.53933e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_80ties'
 sums
 length:11041.9
 CO:45426.4
-CO2:2.33486e+07
+CO2:2.34591e+07
 HC:10602.1
-NOx:350077
+NOx:351726
 PMx:12354.7
-fuel:7.50382e+06
+fuel:7.53933e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-I'
 sums
 length:11041.9
-CO:47515.2
-CO2:2.22177e+07
+CO:47906.9
+CO2:2.23099e+07
 HC:10554.1
-NOx:236359
+NOx:237388
 PMx:10007.7
-fuel:7.14047e+06
+fuel:7.1701e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-II'
 sums
 length:11041.9
-CO:31536.3
-CO2:2.24092e+07
+CO:31545
+CO2:2.25083e+07
 HC:7408.36
-NOx:245264
+NOx:246284
 PMx:5593.24
-fuel:7.20149e+06
+fuel:7.23335e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-III'
 sums
 length:11041.9
 CO:36714.3
-CO2:2.21348e+07
+CO2:2.22333e+07
 HC:6791.11
-NOx:195940
+NOx:196891
 PMx:5637.41
-fuel:7.1141e+06
+fuel:7.14574e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:24916.6
-CO2:2.2039e+07
-HC:1404.8
-NOx:167122
+CO:24979.2
+CO2:2.21533e+07
+HC:1408.94
+NOx:168292
 PMx:2962.46
-fuel:7.08343e+06
+fuel:7.12015e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:59670.3
-CO2:2.23527e+07
-HC:606.195
+CO:59847.3
+CO2:2.25144e+07
+HC:609.534
 NOx:92421.7
 PMx:2993.87
-fuel:7.1833e+06
+fuel:7.23527e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:59670.3
-CO2:2.23527e+07
-HC:606.195
-NOx:240620
+CO:59847.3
+CO2:2.25144e+07
+HC:609.534
+NOx:241888
 PMx:2993.87
-fuel:7.1833e+06
+fuel:7.23527e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-V_EGR'
 sums
 length:11041.9
-CO:16392.7
-CO2:2.20927e+07
+CO:16427.2
+CO2:2.22516e+07
 HC:1949.27
-NOx:115852
+NOx:116150
 PMx:2707.61
-fuel:7.09962e+06
+fuel:7.15065e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-V_SCR'
 sums
 length:11041.9
-CO:47574
-CO2:2.17974e+07
-HC:647.025
+CO:47685.9
+CO2:2.1941e+07
+HC:649.604
 NOx:60785.2
 PMx:2940.77
-fuel:7.0051e+06
+fuel:7.0512e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:47574
-CO2:2.17974e+07
-HC:647.025
-NOx:246986
+CO:47685.9
+CO2:2.1941e+07
+HC:649.604
+NOx:247993
 PMx:2940.77
-fuel:7.0051e+06
+fuel:7.0512e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:4498.12
-CO2:2.16127e+07
-HC:554.195
+CO:4501.53
+CO2:2.17582e+07
+HC:556.165
 NOx:7619.16
 PMx:2116.94
-fuel:6.9463e+06
+fuel:6.99308e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:4498.12
-CO2:2.16127e+07
-HC:554.195
-NOx:157067
+CO:4501.53
+CO2:2.17582e+07
+HC:556.165
+NOx:157837
 PMx:2116.94
-fuel:6.9463e+06
+fuel:6.99308e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:791.491
-CO2:2.10466e+07
+CO2:2.11677e+07
 HC:620.505
 NOx:3670.03
 PMx:1985.72
-fuel:6.76454e+06
+fuel:6.80346e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt40-50t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:791.491
-CO2:2.10466e+07
+CO2:2.11677e+07
 HC:620.505
-NOx:168485
+NOx:168855
 PMx:1985.72
-fuel:6.76454e+06
+fuel:6.80346e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_50ties'
 sums
 length:11041.9
-CO:67030.4
-CO2:2.90441e+07
+CO:67383
+CO2:2.91787e+07
 HC:12983.8
-NOx:445701
-PMx:15921
-fuel:9.33629e+06
+NOx:447644
+PMx:15952.7
+fuel:9.3795e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_60ties'
 sums
 length:11041.9
-CO:67030.4
-CO2:2.90441e+07
+CO:67383
+CO2:2.91787e+07
 HC:12983.8
-NOx:445701
-PMx:15921
-fuel:9.33629e+06
+NOx:447644
+PMx:15952.7
+fuel:9.3795e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_70ties'
 sums
 length:11041.9
-CO:67030.4
-CO2:2.90441e+07
+CO:67383
+CO2:2.91787e+07
 HC:12983.8
-NOx:445701
-PMx:15921
-fuel:9.33629e+06
+NOx:447644
+PMx:15952.7
+fuel:9.3795e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_80ties'
 sums
 length:11041.9
-CO:67030.4
-CO2:2.90441e+07
+CO:67383
+CO2:2.91787e+07
 HC:12983.8
-NOx:445701
-PMx:15921
-fuel:9.33629e+06
+NOx:447644
+PMx:15952.7
+fuel:9.3795e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-I'
 sums
 length:11041.9
-CO:50506.3
-CO2:2.99489e+07
+CO:50654.3
+CO2:3.01423e+07
 HC:14611.3
-NOx:320375
+NOx:322197
 PMx:13230.5
-fuel:9.62627e+06
+fuel:9.68839e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-II'
 sums
 length:11041.9
-CO:51210.5
-CO2:2.76712e+07
+CO:51643.4
+CO2:2.77964e+07
 HC:8786.03
-NOx:308966
-PMx:7246.09
-fuel:8.89279e+06
+NOx:310193
+PMx:7248.77
+fuel:8.93303e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-III'
 sums
 length:11041.9
 CO:41858.9
-CO2:2.89003e+07
+CO2:2.90681e+07
 HC:8545.56
-NOx:250932
+NOx:252234
 PMx:6812.2
-fuel:9.28903e+06
+fuel:9.34295e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:32615.2
-CO2:2.86871e+07
-HC:1732.15
-NOx:214505
+CO:32728.2
+CO2:2.89209e+07
+HC:1735.03
+NOx:215638
 PMx:3189.79
-fuel:9.22033e+06
+fuel:9.29549e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:64051.1
-CO2:2.89407e+07
-HC:784.468
+CO:64234.4
+CO2:2.91751e+07
+HC:788.877
 NOx:119884
 PMx:3130.47
-fuel:9.30039e+06
+fuel:9.37571e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:64051.1
-CO2:2.89407e+07
-HC:784.468
-NOx:316846
+CO:64234.4
+CO2:2.91751e+07
+HC:788.877
+NOx:318764
 PMx:3130.47
-fuel:9.30039e+06
+fuel:9.37571e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-V_EGR'
 sums
 length:11041.9
 CO:16953.1
-CO2:2.84917e+07
-HC:2396.17
-NOx:137001
+CO2:2.87186e+07
+HC:2402.81
+NOx:137179
 PMx:3058.47
-fuel:9.15505e+06
+fuel:9.22791e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-V_SCR'
 sums
 length:11041.9
-CO:59847.6
-CO2:2.77617e+07
-HC:783.769
+CO:59982.1
+CO2:2.79767e+07
+HC:786.621
 NOx:77080.6
 PMx:3208.14
-fuel:8.92357e+06
+fuel:8.99265e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:59847.6
-CO2:2.77617e+07
-HC:783.769
-NOx:324737
+CO:59982.1
+CO2:2.79767e+07
+HC:786.621
+NOx:326456
 PMx:3208.14
-fuel:8.92357e+06
+fuel:8.99265e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-VI_A-C'
 sums
 length:11041.9
 CO:5112.97
-CO2:2.74765e+07
-HC:626.382
+CO2:2.76908e+07
+HC:627.383
 NOx:8955.63
 PMx:2145.74
-fuel:8.83113e+06
+fuel:8.89995e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-VIs_A-C'
 sums
 length:11041.9
 CO:5112.97
-CO2:2.74765e+07
-HC:626.382
-NOx:214339
+CO2:2.76908e+07
+HC:627.383
+NOx:215967
 PMx:2145.74
-fuel:8.83113e+06
+fuel:8.89995e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:1196.42
-CO2:2.7117e+07
+CO2:2.73255e+07
 HC:788.749
 NOx:4439.03
 PMx:1996.08
-fuel:8.71546e+06
+fuel:8.78249e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt50-60t_Euro-VIs_D-E'
 sums
 length:11041.9
 CO:1196.42
-CO2:2.7117e+07
+CO2:2.73255e+07
 HC:788.749
-NOx:226896
+NOx:227595
 PMx:1996.08
-fuel:8.71546e+06
+fuel:8.78249e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_50ties'
 sums
 length:11041.9
 CO:74473.4
-CO2:3.92926e+07
+CO2:3.96199e+07
 HC:15984
-NOx:619393
-PMx:19274.5
-fuel:1.26268e+07
+NOx:624513
+PMx:19325.2
+fuel:1.27319e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_60ties'
 sums
 length:11041.9
 CO:74473.4
-CO2:3.92926e+07
+CO2:3.96199e+07
 HC:15984
-NOx:619393
-PMx:19274.5
-fuel:1.26268e+07
+NOx:624513
+PMx:19325.2
+fuel:1.27319e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_70ties'
 sums
 length:11041.9
 CO:74473.4
-CO2:3.92926e+07
+CO2:3.96199e+07
 HC:15984
-NOx:619393
-PMx:19274.5
-fuel:1.26268e+07
+NOx:624513
+PMx:19325.2
+fuel:1.27319e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_80ties'
 sums
 length:11041.9
 CO:74473.4
-CO2:3.92926e+07
+CO2:3.96199e+07
 HC:15984
-NOx:619393
-PMx:19274.5
-fuel:1.26268e+07
+NOx:624513
+PMx:19325.2
+fuel:1.27319e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-I'
 sums
 length:11041.9
 CO:76598.6
-CO2:3.84266e+07
+CO2:3.87696e+07
 HC:17247.6
-NOx:424446
-PMx:15764.8
-fuel:1.23507e+07
+NOx:427866
+PMx:15789.1
+fuel:1.24609e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-II'
 sums
 length:11041.9
 CO:53796.3
-CO2:3.80417e+07
+CO2:3.83725e+07
 HC:11092.7
-NOx:421348
+NOx:424267
 PMx:8379.34
-fuel:1.22262e+07
+fuel:1.23324e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-III'
 sums
 length:11041.9
-CO:57356.7
-CO2:3.66833e+07
+CO:57371.5
+CO2:3.68835e+07
 HC:9455.57
-NOx:337051
+NOx:338953
 PMx:7454.14
-fuel:1.17895e+07
+fuel:1.18538e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:40880.2
-CO2:3.66556e+07
-HC:2420.4
-NOx:287934
+CO:41076.6
+CO2:3.68865e+07
+HC:2438.8
+NOx:290427
 PMx:3503.39
-fuel:1.17812e+07
+fuel:1.18554e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:86124.9
-CO2:3.63806e+07
-HC:954.411
+CO:86875.9
+CO2:3.65944e+07
+HC:960.605
 NOx:149451
 PMx:3508.55
-fuel:1.16915e+07
+fuel:1.17601e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:86124.9
-CO2:3.63806e+07
-HC:954.411
-NOx:405385
+CO:86875.9
+CO2:3.65944e+07
+HC:960.605
+NOx:407288
 PMx:3508.55
-fuel:1.16915e+07
+fuel:1.17601e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-V_EGR'
 sums
 length:11041.9
-CO:22842.7
-CO2:3.60001e+07
-HC:3012.75
-NOx:197134
+CO:23035.8
+CO2:3.62219e+07
+HC:3014.15
+NOx:198434
 PMx:3170.52
-fuel:1.15702e+07
+fuel:1.16415e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-V_SCR'
 sums
 length:11041.9
-CO:84231.4
-CO2:3.51268e+07
-HC:975.686
+CO:84858
+CO2:3.5344e+07
+HC:979.72
 NOx:93251.2
 PMx:3560.03
-fuel:1.12881e+07
+fuel:1.13579e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:84231.4
-CO2:3.51268e+07
-HC:975.686
-NOx:412288
+CO:84858
+CO2:3.5344e+07
+HC:979.72
+NOx:413904
 PMx:3560.03
-fuel:1.12881e+07
+fuel:1.13579e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:6740.94
-CO2:3.4795e+07
-HC:726.902
+CO:6765.45
+CO2:3.5028e+07
+HC:728.806
 NOx:11116.3
 PMx:2152.14
-fuel:1.11811e+07
+fuel:1.1256e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:6740.94
-CO2:3.4795e+07
-HC:726.902
-NOx:294337
+CO:6765.45
+CO2:3.5028e+07
+HC:728.806
+NOx:296290
 PMx:2152.14
-fuel:1.11811e+07
+fuel:1.1256e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:1353.14
-CO2:3.45854e+07
+CO:1361.48
+CO2:3.47911e+07
 HC:931.949
 NOx:5814.41
 PMx:1955.03
-fuel:1.11132e+07
+fuel:1.11793e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt60t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:1353.14
-CO2:3.45854e+07
+CO:1361.48
+CO2:3.47911e+07
 HC:931.949
-NOx:330948
+NOx:333233
 PMx:1955.03
-fuel:1.11132e+07
+fuel:1.11793e+07
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_50ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_60ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_70ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_80ties'
 sums
 length:11041.9
-CO:57853.1
-CO2:1.08436e+07
+CO:57929.5
+CO2:1.08922e+07
 HC:16832.3
-NOx:132923
+NOx:133407
 PMx:10757.6
-fuel:3.48535e+06
+fuel:3.50095e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-I'
 sums
 length:11041.9
-CO:21424.3
-CO2:1.03932e+07
+CO:21479.5
+CO2:1.04322e+07
 HC:4218
-NOx:101396
+NOx:101787
 PMx:5301.72
-fuel:3.34043e+06
+fuel:3.353e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-II'
 sums
 length:11041.9
-CO:18753.6
-CO2:1.00189e+07
+CO:18836.7
+CO2:1.00418e+07
 HC:3184.01
-NOx:104126
+NOx:104358
 PMx:3851.33
-fuel:3.21996e+06
+fuel:3.22733e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-III'
 sums
 length:11041.9
 CO:15777.7
-CO2:1.07438e+07
+CO2:1.07776e+07
 HC:2814.25
-NOx:82307.4
+NOx:82522.5
 PMx:3585.39
-fuel:3.45256e+06
+fuel:3.46339e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-IV_EGR'
 sums
 length:11041.9
 CO:11374.8
-CO2:1.03478e+07
-HC:648.803
-NOx:70183.5
+CO2:1.03735e+07
+HC:651.036
+NOx:70423.2
 PMx:2406.25
-fuel:3.32534e+06
+fuel:3.33359e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:31150.2
-CO2:1.02775e+07
-HC:257.238
+CO:31158.4
+CO2:1.03214e+07
+HC:257.717
 NOx:40480.3
 PMx:2450.7
-fuel:3.30306e+06
+fuel:3.31719e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:31150.2
-CO2:1.02775e+07
-HC:257.238
-NOx:104550
+CO:31158.4
+CO2:1.03214e+07
+HC:257.717
+NOx:104872
 PMx:2450.7
-fuel:3.30306e+06
+fuel:3.31719e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-V_EGR'
 sums
 length:11041.9
-CO:9681.04
-CO2:9.75234e+06
-HC:1140.31
-NOx:57623.6
+CO:9740.77
+CO2:9.75792e+06
+HC:1140.64
+NOx:57759.8
 PMx:2331.43
-fuel:3.13418e+06
+fuel:3.13598e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-V_SCR'
 sums
 length:11041.9
-CO:31221.9
-CO2:9.54882e+06
+CO:31372.5
+CO2:9.55381e+06
 HC:286.551
 NOx:32367.6
 PMx:2553.47
-fuel:3.06883e+06
+fuel:3.07044e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:31221.9
-CO2:9.54882e+06
+CO:31372.5
+CO2:9.55381e+06
 HC:286.551
 NOx:109149
 PMx:2553.47
-fuel:3.06883e+06
+fuel:3.07044e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:2620.6
+CO:2620.89
 CO2:9.19523e+06
 HC:238.041
 NOx:5038.3
@@ -8515,98 +8515,98 @@ Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:2401.35
-CO2:7.76966e+06
+CO:2407.43
+CO2:7.78008e+06
 HC:194.432
-NOx:57600.1
+NOx:57813.1
 PMx:2017.29
-fuel:2.49687e+06
+fuel:2.50022e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-VI_D-E'
 sums
 length:11041.9
 CO:1119.72
-CO2:8.95314e+06
+CO2:8.95505e+06
 HC:388.235
 NOx:2233.71
 PMx:1930.7
-fuel:2.87682e+06
+fuel:2.87744e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt14-20t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:952.594
-CO2:7.56696e+06
+CO:953.923
+CO2:7.57206e+06
 HC:285.49
-NOx:75327.8
+NOx:75916.6
 PMx:1921.32
-fuel:2.43181e+06
+fuel:2.43345e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_50ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_60ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_70ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_80ties'
 sums
 length:11041.9
 CO:47239.8
-CO2:7.55072e+06
+CO2:7.55394e+06
 HC:19295.5
 NOx:98617.9
 PMx:8493.31
-fuel:2.42709e+06
+fuel:2.42813e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-I'
 sums
 length:11041.9
-CO:16247.6
-CO2:7.37447e+06
+CO:16252.3
+CO2:7.37766e+06
 HC:5001.81
 NOx:70535.7
 PMx:4970.27
-fuel:2.36983e+06
+fuel:2.37085e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-II'
 sums
 length:11041.9
-CO:15829.9
+CO:15910.3
 CO2:7.40994e+06
 HC:3275.54
-NOx:75387.4
+NOx:75387.7
 PMx:3565.32
 fuel:2.38133e+06
 electricity:0
@@ -8625,119 +8625,119 @@ Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-IV_EGR'
 sums
 length:11041.9
-CO:10031.1
-CO2:7.06149e+06
-HC:484.554
-NOx:59496.9
+CO:10110.9
+CO2:7.0648e+06
+HC:493.775
+NOx:59853.6
 PMx:2341.47
-fuel:2.26922e+06
+fuel:2.27028e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-IV_SCR'
 sums
 length:11041.9
-CO:26561.4
-CO2:6.98423e+06
+CO:26761.9
+CO2:6.98752e+06
 HC:236.181
 NOx:30600.8
 PMx:2404.52
-fuel:2.24496e+06
+fuel:2.24602e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-IV_SCRs'
 sums
 length:11041.9
-CO:26561.4
-CO2:6.98423e+06
+CO:26761.9
+CO2:6.98752e+06
 HC:236.181
 NOx:70700.2
 PMx:2404.52
-fuel:2.24496e+06
+fuel:2.24602e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-V_EGR'
 sums
 length:11041.9
-CO:7686.24
-CO2:6.84844e+06
+CO:7724.86
+CO2:6.85172e+06
 HC:801.733
-NOx:44936.7
+NOx:45266.9
 PMx:2248.09
-fuel:2.20135e+06
+fuel:2.20241e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-V_SCR'
 sums
 length:11041.9
-CO:24208.3
-CO2:6.70781e+06
+CO:24372.9
+CO2:6.71104e+06
 HC:224.407
 NOx:22052.1
 PMx:2409.32
-fuel:2.15575e+06
+fuel:2.15678e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-V_SCRs'
 sums
 length:11041.9
-CO:24208.3
-CO2:6.70781e+06
+CO:24372.9
+CO2:6.71104e+06
 HC:224.407
 NOx:71663.7
 PMx:2409.32
-fuel:2.15575e+06
+fuel:2.15678e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VI_A-C'
 sums
 length:11041.9
-CO:1963.25
-CO2:6.6981e+06
+CO:1970.86
+CO2:6.70128e+06
 HC:167.471
 NOx:3570.06
 PMx:1994.31
-fuel:2.15271e+06
+fuel:2.15373e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VIs_A-C'
 sums
 length:11041.9
-CO:1963.25
-CO2:6.6981e+06
+CO:1970.86
+CO2:6.70128e+06
 HC:167.471
-NOx:44440.1
+NOx:44452.1
 PMx:1994.31
-fuel:2.15271e+06
+fuel:2.15373e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VI_D-E'
 sums
 length:11041.9
-CO:587.188
-CO2:6.6326e+06
+CO:587.92
+CO2:6.63571e+06
 HC:256.431
 NOx:1144.15
 PMx:1928.2
-fuel:2.13163e+06
+fuel:2.13263e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VIs_D-E'
 sums
 length:11041.9
-CO:587.188
-CO2:6.6326e+06
+CO:587.92
+CO2:6.63571e+06
 HC:256.431
-NOx:56974
+NOx:57317.7
 PMx:1928.2
-fuel:2.13163e+06
+fuel:2.13263e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_CNG_le7_5t_Euro-IV'
 sums
 length:11041.9
-CO:7802.59
+CO:7822.85
 CO2:6.33889e+06
-HC:4775.61
+HC:4782.09
 NOx:48246.4
 PMx:1926.07
 fuel:2.03979e+06
@@ -8768,56 +8768,56 @@ Success.
 Running 'HBEFA4/HGV_CNG_gt7_5-12t_Euro-IV'
 sums
 length:11041.9
-CO:12037.8
-CO2:7.4811e+06
-HC:5814.47
-NOx:77352.2
+CO:12133.6
+CO2:7.48461e+06
+HC:5925.12
+NOx:77815.9
 PMx:1943.72
-fuel:2.40666e+06
+fuel:2.40779e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_CNG_gt7_5-12t_Euro-V'
 sums
 length:11041.9
-CO:5429.17
-CO2:7.30838e+06
-HC:2561.74
-NOx:9872.59
+CO:5431.78
+CO2:7.3119e+06
+HC:2562.98
+NOx:9877.33
 PMx:1945.86
-fuel:2.35158e+06
+fuel:2.35271e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_CNG_gt7_5-12t_Euro-VI'
 sums
 length:11041.9
-CO:4726.17
-CO2:7.29668e+06
-HC:1252.29
-NOx:3137.33
+CO:4728.41
+CO2:7.30014e+06
+HC:1252.89
+NOx:3138.82
 PMx:1943.07
-fuel:2.34835e+06
+fuel:2.34946e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_CNG_gt12t_Euro-IV'
 sums
 length:11041.9
 CO:13649.9
-CO2:1.09599e+07
-HC:7785.82
-NOx:91241
+CO2:1.09871e+07
+HC:7812.62
+NOx:91552.7
 PMx:1954.58
-fuel:3.52658e+06
+fuel:3.53533e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_CNG_gt12t_Euro-V'
 sums
 length:11041.9
-CO:7728.26
-CO2:1.04026e+07
-HC:3645.99
-NOx:14053.2
+CO:7732.29
+CO2:1.04081e+07
+HC:3647.89
+NOx:14060.6
 PMx:1964.64
-fuel:3.34729e+06
+fuel:3.34904e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_CNG_gt12t_Euro-VI'
@@ -8834,42 +8834,42 @@ Success.
 Running 'HBEFA4/TT_AT_CNG_Euro-IV'
 sums
 length:11041.9
-CO:15624.6
-CO2:2.10313e+07
-HC:7372.33
-NOx:28411.1
+CO:15726.6
+CO2:2.11686e+07
+HC:7420.48
+NOx:28596.7
 PMx:2026.33
-fuel:6.76726e+06
+fuel:6.81146e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_CNG_Euro-V'
 sums
 length:11041.9
-CO:15624.6
-CO2:2.10313e+07
-HC:7372.33
-NOx:28411.1
+CO:15726.6
+CO2:2.11686e+07
+HC:7420.48
+NOx:28596.7
 PMx:2026.33
-fuel:6.76726e+06
+fuel:6.81146e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_CNG_Euro-VI'
 sums
 length:11041.9
-CO:13524.7
-CO2:2.08834e+07
-HC:3583.69
-NOx:8978.92
+CO:13615.3
+CO2:2.10235e+07
+HC:3607.73
+NOx:9039.14
 PMx:2026.04
-fuel:6.71925e+06
+fuel:6.76433e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_LNG_le7_5t_Euro-IV'
 sums
 length:11041.9
-CO:7802.59
+CO:7822.85
 CO2:6.33889e+06
-HC:4775.61
+HC:4782.09
 NOx:48246.4
 PMx:1926.07
 fuel:2.03979e+06
@@ -8900,56 +8900,56 @@ Success.
 Running 'HBEFA4/HGV_LNG_gt7_5-12t_Euro-IV'
 sums
 length:11041.9
-CO:12037.8
-CO2:7.4811e+06
-HC:5814.47
-NOx:77352.2
+CO:12133.6
+CO2:7.48461e+06
+HC:5925.12
+NOx:77815.9
 PMx:1943.72
-fuel:2.40666e+06
+fuel:2.40779e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_LNG_gt7_5-12t_Euro-V'
 sums
 length:11041.9
-CO:5429.17
-CO2:7.30838e+06
-HC:2561.74
-NOx:9872.59
+CO:5431.78
+CO2:7.3119e+06
+HC:2562.98
+NOx:9877.33
 PMx:1945.86
-fuel:2.35158e+06
+fuel:2.35271e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_LNG_gt7_5-12t_Euro-VI'
 sums
 length:11041.9
-CO:4726.17
-CO2:7.29668e+06
-HC:1252.29
-NOx:3137.33
+CO:4728.41
+CO2:7.30014e+06
+HC:1252.89
+NOx:3138.82
 PMx:1943.07
-fuel:2.34835e+06
+fuel:2.34946e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_LNG_gt12t_Euro-IV'
 sums
 length:11041.9
 CO:13649.9
-CO2:1.09599e+07
-HC:7785.82
-NOx:91241
+CO2:1.09871e+07
+HC:7812.62
+NOx:91552.7
 PMx:1954.58
-fuel:3.52658e+06
+fuel:3.53533e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_LNG_gt12t_Euro-V'
 sums
 length:11041.9
-CO:7728.26
-CO2:1.04026e+07
-HC:3645.99
-NOx:14053.2
+CO:7732.29
+CO2:1.04081e+07
+HC:3647.89
+NOx:14060.6
 PMx:1964.64
-fuel:3.34729e+06
+fuel:3.34904e+06
 electricity:0
 Success.
 Running 'HBEFA4/HGV_LNG_gt12t_Euro-VI'
@@ -8966,34 +8966,34 @@ Success.
 Running 'HBEFA4/TT_AT_LNG_Euro-IV'
 sums
 length:11041.9
-CO:15624.6
-CO2:2.10313e+07
-HC:7372.33
-NOx:28411.1
+CO:15726.6
+CO2:2.11686e+07
+HC:7420.48
+NOx:28596.7
 PMx:2026.33
-fuel:6.76726e+06
+fuel:6.81146e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_LNG_Euro-V'
 sums
 length:11041.9
-CO:15624.6
-CO2:2.10313e+07
-HC:7372.33
-NOx:28411.1
+CO:15726.6
+CO2:2.11686e+07
+HC:7420.48
+NOx:28596.7
 PMx:2026.33
-fuel:6.76726e+06
+fuel:6.81146e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_LNG_Euro-VI_(CI)'
 sums
 length:11041.9
-CO:3920.39
-CO2:1.75524e+07
-HC:9819.37
+CO:3923.43
+CO2:1.76702e+07
+HC:9890.05
 NOx:6711.27
 PMx:2088.11
-fuel:5.64818e+06
+fuel:5.68606e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_BEV'
@@ -9054,7 +9054,7 @@ Success.
 Running 'HBEFA4/RigidTruck_PHEV_le7_5t_Euro-VI-(D)'
 sums
 length:11041.9
-CO:1394
+CO:1394.39
 CO2:5.29947e+06
 HC:132.586
 NOx:2503.06
@@ -9076,12 +9076,12 @@ Success.
 Running 'HBEFA4/RigidTruck_PHEV_gt7_5-12t_Euro-VI-(D)'
 sums
 length:11041.9
-CO:1963.25
-CO2:6.74122e+06
+CO:1970.86
+CO2:6.74532e+06
 HC:167.471
 NOx:3570.06
 PMx:1994.31
-fuel:2.16607e+06
+fuel:2.16739e+06
 electricity:0
 Success.
 Running 'HBEFA4/RigidTruck_PHEV_gt12t_Euro-VI-(El)'
@@ -9099,11 +9099,11 @@ Running 'HBEFA4/RigidTruck_PHEV_gt12t_Euro-VI-(D)'
 sums
 length:11041.9
 CO:2508.47
-CO2:9.27516e+06
+CO2:9.33447e+06
 HC:238.242
 NOx:4911.03
 PMx:2033.19
-fuel:2.98085e+06
+fuel:2.99992e+06
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_PHEV_Euro-VI-(El)'
@@ -9120,12 +9120,12 @@ Success.
 Running 'HBEFA4/TT_AT_PHEV_Euro-VI-(D)'
 sums
 length:11041.9
-CO:3920.39
-CO2:1.89374e+07
-HC:484.102
+CO:3923.43
+CO2:1.91496e+07
+HC:485.843
 NOx:6711.16
 PMx:2088.11
-fuel:6.086e+06
+fuel:6.15416e+06
 electricity:0
 Success.
 Running 'HBEFA4/RigidTruck_FCEV_le7_5t'
@@ -9136,7 +9136,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1890.05
-fuel:464992
+fuel:465308
 electricity:0
 Success.
 Running 'HBEFA4/RigidTruck_FCEV_gt7_5-12t'
@@ -9147,7 +9147,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1907.57
-fuel:605940
+fuel:606629
 electricity:0
 Success.
 Running 'HBEFA4/RigidTruck_FCEV_gt12t'
@@ -9158,7 +9158,7 @@ CO2:0
 HC:0
 NOx:0
 PMx:1865.06
-fuel:767141
+fuel:769126
 electricity:0
 Success.
 Running 'HBEFA4/TT_AT_FCEV'
@@ -9169,6 +9169,6 @@ CO2:0
 HC:0
 NOx:0
 PMx:1791.49
-fuel:1.4355e+06
+fuel:1.44122e+06
 electricity:0
 Success.

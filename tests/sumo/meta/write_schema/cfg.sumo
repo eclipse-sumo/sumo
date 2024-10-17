@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-09 09:59:48 by Eclipse SUMO sumo Version v1_20_0+0627-9f0eaa86dc7
+<!-- generated on 2024-10-17 10:24:49 by Eclipse SUMO sumo Version v1_21_0+0063-40d747df57b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="sumoConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -67,12 +67,14 @@
             <xsd:element name="emission-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="emission-output.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emission-output.step-scaled" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="emission-output.attributes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="battery-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="battery-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="elechybrid-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="elechybrid-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="elechybrid-output.aggregated" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="chargingstations-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="chargingstations-output.aggregated" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="overheadwiresegments-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="substations-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="substations-output.precision" type="intOptionType" minOccurs="0"/>
@@ -141,6 +143,7 @@
             <xsd:element name="save-state.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.jupedsim.wkt" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.jupedsim.wkt.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.py" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -181,6 +184,7 @@
             <xsd:element name="time-to-teleport.highways.min-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.disconnected" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.remove" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.remove-constraint" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.ride" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.bidi" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.railsignal-deadlock" type="timeOptionType" minOccurs="0"/>
@@ -214,6 +218,7 @@
             <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-started" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.timegap-crossing" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0"/>
@@ -235,6 +240,7 @@
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -277,6 +283,8 @@
             <xsd:element name="person-device.rerouting.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.rerouting.mode" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.rerouting.scope" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -355,6 +363,9 @@
             <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.saturatedChargeLevel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.needToChargeLevel" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.replacePlannedStop" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.maxDistanceToReplacedStop" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.chargingStrategy" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -490,6 +501,9 @@
             <xsd:element name="device.glosa.range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.glosa.max-speedfactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.glosa.min-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.add-switchtime" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.override-safety" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.ignore-cfmodel" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -576,12 +590,14 @@
             <xsd:element name="breakpoints" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="edgedata-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="alternative-net-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="selection-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>

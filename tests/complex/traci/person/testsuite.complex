@@ -36,3 +36,12 @@ force_depart
 
 # add person that starts in a vehicle
 start_in_vehicle
+
+# define a ride to differnt kinds of stopping places
+appendDrivingStage_stoppingPlaces
+
+# see #15518
+setSpeedFactor
+
+# see #15527
+setSpeedFactor2

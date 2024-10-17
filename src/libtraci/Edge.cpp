@@ -210,6 +210,10 @@ Edge::getToJunction(const std::string& edgeID) {
     return Dom::getString(libsumo::TO_JUNCTION, edgeID);
 }
 
+std::string
+Edge::getBidiEdge(const std::string& edgeID) {
+    return Dom::getString(libsumo::VAR_BIDI, edgeID);
+}
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)

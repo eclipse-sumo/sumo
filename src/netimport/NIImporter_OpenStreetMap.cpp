@@ -266,7 +266,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         insertEdge(e, running, currentFrom, last, passed, nb, first, last);
     }
 
-    /* Collect edges which explictly are part of a roundabout and store the edges of each
+    /* Collect edges which explicitly are part of a roundabout and store the edges of each
      * detected roundabout */
     nb.getEdgeCont().extractRoundabouts();
 
@@ -496,9 +496,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     double speed = tc.getEdgeTypeSpeed(type);
     bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
     const SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
-    const SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
+    SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
     const SVCPermissions extraDis = myImportBikeAccess ? e->myExtraDisallowed : (e->myExtraDisallowed & ~SVC_BICYCLE);
-    // extra permissions are more specific than extra prohibitions
+    // extra permissions are more specific than extra prohibitions except for buses (which come from the less specific psv tag)
+    if ((extraDis & SVC_BUS) && (extra & SVC_BUS)) {
+        extra = extra & ~SVC_BUS;
+    }
     SVCPermissions permissions = (defaultPermissions & ~extraDis) | extra;
     if (defaultPermissions == SVC_SHIP) {
         // extra permission apply to the ships operating on the route rather than the waterway
@@ -567,7 +570,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
             && nodeDirection != (WAY_FORWARD | WAY_UNKNOWN)) {
         //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << "\n";
-        // heuristc: assume that the mapped way direction indicates
+        // heuristic: assume that the mapped way direction indicates
         // potential driving direction
         e->myRailDirection = WAY_BOTH;
     }

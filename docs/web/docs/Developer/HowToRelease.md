@@ -25,7 +25,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 
 - check the sources
   - compile, try to remove warnings and commit the patches
-  - run [checkStyle](../Developer/CodeStyle.md) and commit
+  - run [tools/build_config/checkStyle.py](../Developer/CodeStyle.md) and commit
     changed files
   - check the calendar to update copyright statements
   - check whether the TraCI version needs to be incremented
@@ -45,7 +45,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
     known bug.
   - recheck/rebuild the test networks (if necessary due to
     netconvert changes)
-  - check for orphaned tests by running `tools/devel/orphaned_tests.py tests` and patch testsuites to add them back in  
+  - check for orphaned tests by running `tools/devel/orphaned_tests.py tests` and patch testsuites to add them back in
   - check the tests again
 - check the documentation
   - update the [ChangeLog](../ChangeLog.md)
@@ -98,8 +98,8 @@ and committing the changes after careful inspection
   <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
 - add a new version tag
 ```
-> git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
-> git push --tags
+> git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
+> git push --tags
 ```
 
 ### Release day
@@ -119,7 +119,6 @@ following things need to be there:
   - https://pypi.org/project/libsumo/
   - https://pypi.org/project/sumolib/
   - https://pypi.org/project/traci/
-  - https://pypi.org/project/libtraci/
 - check the Maven build https://ci.eclipse.org/sumo/job/sumo-build/view/tags/ and ensure that the artifacts have been uploaded to:
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libtraci and
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libsumo/
@@ -131,13 +130,17 @@ If everything is fine:
 - make new sumo.dlr.de-release
   - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.dev/sumo website
-  - modify the version number (Version) [in config.yaml](https://github.com/eclipse-sumo/sumo.website/blob/main/src/config/_default/config.yaml) in the **Default Parameters** section
+  - modify the version number (Version) and the DOI number (DOI) [in config.yaml](https://github.com/eclipse-sumo/sumo.website/blob/main/src/config/_default/config.yaml) in the **Default Parameters** section
   - generate the static files `cd src && hugo -d ../` and commit them
 - make new sourceforge-release
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
-- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it.
+- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it
+- create a new entry in [elib](https://elib.dlr.de/)
+  - the easiest way to do it, is by going to [Einträge verwalten](https://elib.dlr.de/cgi/users/home?screen=Items) and clicking on the magnifying-glass-icon for an old release, then going to the "Aktionen" tab and selecting "Als Vorlage verwenden"
+  - take a look at the [Eintrag von Forschungssoftware-Publikationen - Tutorial](https://wiki.dlr.de/pages/viewpage.action?pageId=711888423), or the entry for a previous release: https://elib.dlr.de/205320/
+  - if necessary, talk to the elib-appointee for the department/institute
 - update files at the [opensuse build
     service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
@@ -160,7 +163,6 @@ If everything is fine:
     sumo-announce@eclipse.org
   - submit news about the release on the Eclipse Newsroom <https://newsroom.eclipse.org/node/add/news>
   - tweet about it, post on Facebook and Instagram stories
-  - trigger update of main website at <https://sumo.dlr.de>
 - close [the milestone](https://github.com/eclipse-sumo/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
 - add the latest version to the **"software version identifier"** statement in [Wikidata](https://www.wikidata.org/wiki/Q15847637) (this will update the Wikipedia articles about SUMO), making sure to select the latest version as **"preferred rank"** and setting the previous one to **"normal rank"**.

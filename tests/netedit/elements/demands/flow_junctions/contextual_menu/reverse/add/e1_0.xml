@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-09 16:33:01 by Eclipse SUMO GUI Version v1_20_0+1547-9928acb1c8e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\Netedit_dev\tests\netedit\elements\demands\flow_junctions\contextual_menu\reverse\add\net.netedit"/>
+        <route-files value="D:\Netedit_dev\tests\netedit\elements\demands\flow_junctions\contextual_menu\reverse\add\routes.netedit"/>
+        <additional-files value="D:\Netedit_dev\tests\netedit\elements\demands\flow_junctions\contextual_menu\reverse\add\additionals.netedit"/>
+        <junction-taz value="true"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+</sumoConfiguration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+    <interval begin="0.00" end="300.00" id="e1_0" nVehContrib="96" flow="1152.00" occupancy="25.36" speed="6.35" harmonicMeanSpeed="6.31" length="5.00" nVehEntered="96"/>
+    <interval begin="300.00" end="600.00" id="e1_0" nVehContrib="99" flow="1188.00" occupancy="26.54" speed="6.28" harmonicMeanSpeed="6.22" length="5.00" nVehEntered="99"/>
+    <interval begin="600.00" end="900.00" id="e1_0" nVehContrib="101" flow="1212.00" occupancy="27.24" speed="6.25" harmonicMeanSpeed="6.18" length="5.00" nVehEntered="101"/>
+    <interval begin="900.00" end="1200.00" id="e1_0" nVehContrib="99" flow="1188.00" occupancy="26.18" speed="6.35" harmonicMeanSpeed="6.30" length="5.00" nVehEntered="99"/>
+    <interval begin="1200.00" end="1500.00" id="e1_0" nVehContrib="100" flow="1200.00" occupancy="26.16" speed="6.44" harmonicMeanSpeed="6.37" length="5.00" nVehEntered="100"/>
+    <interval begin="1500.00" end="1800.00" id="e1_0" nVehContrib="99" flow="1188.00" occupancy="26.75" speed="6.25" harmonicMeanSpeed="6.17" length="5.00" nVehEntered="99"/>
+    <interval begin="1800.00" end="2100.00" id="e1_0" nVehContrib="100" flow="1200.00" occupancy="31.18" speed="5.48" harmonicMeanSpeed="5.34" length="5.00" nVehEntered="100"/>
+    <interval begin="2100.00" end="2400.00" id="e1_0" nVehContrib="100" flow="1200.00" occupancy="27.11" speed="6.23" harmonicMeanSpeed="6.15" length="5.00" nVehEntered="100"/>
+    <interval begin="2400.00" end="2700.00" id="e1_0" nVehContrib="100" flow="1200.00" occupancy="26.42" speed="6.36" harmonicMeanSpeed="6.31" length="5.00" nVehEntered="100"/>
+    <interval begin="2700.00" end="3000.00" id="e1_0" nVehContrib="99" flow="1188.00" occupancy="26.18" speed="6.38" harmonicMeanSpeed="6.30" length="5.00" nVehEntered="99"/>
+    <interval begin="3000.00" end="3300.00" id="e1_0" nVehContrib="100" flow="1200.00" occupancy="27.74" speed="6.14" harmonicMeanSpeed="6.06" length="5.00" nVehEntered="101"/>
+    <interval begin="3300.00" end="3600.00" id="e1_0" nVehContrib="100" flow="1200.00" occupancy="28.12" speed="5.98" harmonicMeanSpeed="5.90" length="5.00" nVehEntered="100"/>
+</detector>

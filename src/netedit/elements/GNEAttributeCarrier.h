@@ -86,6 +86,16 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
 
+    /// @name Function related with grid (needed for elements that aren't always in grid)
+    /// @{
+    /// @brief mark if this AC was inserted in grid or not
+    void setInGrid(bool value);
+
+    /// @brief check if this AC was inserted in grid
+    bool inGrid() const;
+
+    /// @}
+
     /// @name Function related with graphics (must be implemented in all children)
     /// @{
     /// @brief get GUIGlObject associated with this AttributeCarrier
@@ -244,7 +254,10 @@ public:
     static const GNETagProperties& getTagProperty(SumoXMLTag tag);
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory);
+    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
+
+    /// @brief get tagProperties associated to the given merging tag
+    static const std::vector<GNETagProperties> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -327,13 +340,16 @@ protected:
     const GNETagProperties& myTagProperty;
 
     /// @brief pointer to net
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
+    bool mySelected = false;
+
+    /// @brief boolean to check if this AC is in grid
+    bool myInGrid = false;
 
     /// @brief whether the current object is a template object (not drawn in the view)
-    bool myIsTemplate;
+    bool myIsTemplate = false;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
@@ -436,22 +452,22 @@ private:
     static void fillPlanParentAttributes(SumoXMLTag currentTag);
 
     /// @brief fill person trip common attributes
-    static void fillPersonTripCommonAttributes(SumoXMLTag currentTag);
+    static void fillPersonTripCommonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill walk common attributes
-    static void fillWalkCommonAttributes(SumoXMLTag currentTag);
+    static void fillWalkCommonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill ride common attributes
-    static void fillRideCommonAttributes(SumoXMLTag currentTag);
+    static void fillRideCommonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill transport common attributes
-    static void fillTransportCommonAttributes(SumoXMLTag currentTag);
+    static void fillTransportCommonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill ride common attributes
-    static void fillTranshipCommonAttributes(SumoXMLTag currentTag);
+    static void fillTranshipCommonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill plan stop common attributes
-    static void fillPlanStopCommonAttributes(SumoXMLTag currentTag);
+    static void fillPlanStopCommonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill Data elements
     static void fillDataElements();
@@ -461,6 +477,9 @@ private:
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
+
+    /// @brief map with the merged tags properties
+    static std::map<SumoXMLTag, GNETagProperties> myMergedPlanTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

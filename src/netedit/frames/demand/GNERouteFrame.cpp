@@ -52,7 +52,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     MFXGroupBoxModule(routeFrameParent, TL("Route mode")),
     myRouteFrameParent(routeFrameParent) {
     // create route template
-    myRouteTemplate = new GNERoute(routeFrameParent->getViewNet()->getNet());
+    myRouteTemplate = new GNERoute(SUMO_TAG_ROUTE, routeFrameParent->getViewNet()->getNet());
     // first fill myRouteModesStrings
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
@@ -121,7 +121,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         myRouteFrameParent->myPathLegend->hidePathLegendModule();
         // reset all flags
         for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-            edge.second.second->resetCandidateFlags();
+            edge.second->resetCandidateFlags();
         }
         // update view net
         myRouteFrameParent->myViewNet->update();
@@ -221,7 +221,7 @@ void
 GNERouteFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second.second->resetCandidateFlags();
+        edge.second->resetCandidateFlags();
     }
     GNEFrame::hide();
 }

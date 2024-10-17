@@ -494,6 +494,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_SPEED && variable != libsumo::VAR_ACCELERATION && variable != libsumo::VAR_PREV_SPEED && variable != libsumo::VAR_SPEEDSETMODE && variable != libsumo::VAR_COLOR
             && variable != libsumo::ADD && variable != libsumo::ADD_FULL && variable != libsumo::REMOVE
             && variable != libsumo::VAR_HEIGHT
+            && variable != libsumo::VAR_MASS
             && variable != libsumo::VAR_ROUTING_MODE
             && variable != libsumo::VAR_LATALIGNMENT
             && variable != libsumo::VAR_MAXSPEED_LAT

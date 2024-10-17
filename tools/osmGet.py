@@ -156,10 +156,14 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
     conn.request("POST", "/" + urlpath, finalQuery, headers={'Accept-Encoding': 'gzip'})
 
     response = conn.getresponse()
-    print(response.status, response.reason)
+    if options.verbose:
+        print(response.status, response.reason)
     if response.status == 200:
         with open(filename, "wb") as out:
-            lines = gzip.decompress(response.read())
+            if response.getheader('Content-Encoding') == 'gzip':
+                lines = gzip.decompress(response.read())
+            else:
+                lines = response.read()
             declClose = lines.find(b'>') + 1
             lines = (lines[:declClose]
                      + b"\n"
@@ -173,29 +177,31 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
 
 def get_options(args):
     optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
-    optParser.add_argument("-p", "--prefix", category="processing", default="osm", help="for output file")
+    optParser.add_argument("-p", "--prefix", category="output", default="osm", help="for output file")
     optParser.add_argument("-b", "--bbox", category="input",
                            help="bounding box to retrieve in geo coordinates west,south,east,north")
-    optParser.add_argument("-t", "--tiles", category="processing", type=int,
+    optParser.add_argument("-t", "--tiles", type=int,
                            default=1, help="number of tiles the output gets split into")
     optParser.add_argument("-d", "--output-dir", category="output",
                            help="optional output directory (must already exist)")
-    optParser.add_argument("-a", "--area", category="processing", type=int, help="area id to retrieve")
+    optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
     optParser.add_argument("-x", "--polygon", category="processing",
                            help="calculate bounding box from polygon data in file")
-    optParser.add_argument("-u", "--url", category="processing", default="www.overpass-api.de/api/interpreter",
+    optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
                            help="Download from the given OpenStreetMap server")
     # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
-    optParser.add_argument("-w", "--wikidata", category="processing", action="store_true",
+    optParser.add_argument("-w", "--wikidata", action="store_true",
                            default=False, help="get the corresponding wikidata")
-    optParser.add_argument("-r", "--road-types", category="processing", dest="roadTypes",
+    optParser.add_argument("-r", "--road-types", dest="roadTypes",
                            help="only delivers osm data to the specified road-types")
-    optParser.add_argument("-s", "--shapes", category="processing", action="store_true", default=False,
+    optParser.add_argument("-s", "--shapes", action="store_true", default=False,
                            help="determines if polygon data (buildings, areas , etc.) is downloaded")
-    optParser.add_argument("-z", "--gzip", category="processing", action="store_true",
+    optParser.add_argument("-z", "--gzip", category="output", action="store_true",
                            default=False, help="save gzipped output")
     optParser.add_argument("-q", "--query-output", category="output",
                            help="write query to the given FILE")
+    optParser.add_argument("-v", "--verbose", action="store_true",
+                           default=False, help="tell me what you are doing")
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.area and not options.polygon:
         optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
@@ -266,6 +272,8 @@ def get(args=None):
             num = options.tiles
             b = west
             for i in range(num):
+                if options.verbose:
+                    print("Getting tile %d of %d." % (i + 1, num))
                 e = b + (east - west) / float(num)
                 readCompressed(options, conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
                     north, south, b, e), roadTypesJSON, options.shapes,
@@ -280,7 +288,7 @@ def get(args=None):
         codeSet = set()
         # deal with invalid characters
         bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$', '//', '\\', '#', '<', '>']
-        for line in sumolib.xml._open(osmFile, encoding='utf8'):
+        for line in sumolib.openz(osmFile):
             subSet = set()
             if 'wikidata' in line and line.split('"')[3][0] == 'Q':
                 basicData = line.split('"')[3]
@@ -303,7 +311,8 @@ def get(args=None):
             subList = codeList[i:j]
             content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
                               ("|".join(subList))).read()
-            print(type(content))
+            if options.verbose:
+                print(type(content))
             outf.write(content + b"\n")
         outf.close()
 

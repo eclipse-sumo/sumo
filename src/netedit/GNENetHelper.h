@@ -140,15 +140,8 @@ struct GNENetHelper {
          */
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get junction by glObject
-         * @param[in] glObject The GUIGlObject associated with the element
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting junction should result in an exception
-         * @throws UnknownElement
-         */
-        GNEJunction* retrieveJunction(const GUIGlObject* glObject, bool hardFail = true) const;
-
         /// @brief get junctions
-        const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >& getJunctions() const;
+        const std::map<std::string, GNEJunction*>& getJunctions() const;
 
         /// @brief return selected junctions
         std::vector<GNEJunction*> getSelectedJunctions() const;
@@ -245,13 +238,6 @@ struct GNENetHelper {
          */
         GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get edge by glObject
-         * @param[in] glObject The GUIGlObject associated with the element
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
-         * @throws UnknownElement
-         */
-        GNEEdge* retrieveEdge(const GUIGlObject* glObject, bool hardFail = true) const;
-
         /**@brief get all edges by from and to GNEJunction
          * @param[in] id The id of the desired edge
          * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
@@ -260,7 +246,7 @@ struct GNENetHelper {
         std::vector<GNEEdge*> retrieveEdges(GNEJunction* from, GNEJunction* to) const;
 
         /// @brief map with the ID and pointer to edges of net
-        const std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> >& getEdges() const;
+        const std::map<std::string, GNEEdge*>& getEdges() const;
 
         /**@brief return all edges
          * @param[in] onlySelected Whether to return only selected edges
@@ -397,6 +383,9 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
+        /// @brief update additional ID in container
+        void updateAdditionalID(GNEAdditional* additional, const std::string& newID);
+
         /// @brief generate additional id
         std::string generateAdditionalID(SumoXMLTag type) const;
 
@@ -471,6 +460,9 @@ struct GNENetHelper {
 
         /// @brief clear demand elements
         void clearDemandElements();
+
+        /// @brief update demand element ID in container
+        void updateDemandElementID(GNEDemandElement* demandElement, const std::string& newID);
 
         /// @brief add default VTypes
         void addDefaultVTypes();
@@ -769,7 +761,7 @@ struct GNENetHelper {
         int myStopIndex;
 
         /// @brief map with the ID and pointer to junctions of net
-        std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> > myJunctions;
+        std::map<std::string, GNEJunction*> myJunctions;
 
         /// @brief set with crossings
         std::map<const GUIGlObject*, GNECrossing*> myCrossings;
@@ -781,7 +773,7 @@ struct GNENetHelper {
         std::map<std::string, GNEEdgeType*> myEdgeTypes;
 
         /// @brief map with the ID and pointer to edges of net
-        std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> > myEdges;
+        std::map<std::string, GNEEdge*> myEdges;
 
         /// @brief map with lanes
         std::map<const GUIGlObject*, GNELane*> myLanes;
@@ -792,10 +784,16 @@ struct GNENetHelper {
         /// @brief map with internal lanes
         std::map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
 
+        /// @brief map with the tag and pointer to additional elements of net, sorted by IDs
+        std::map<SumoXMLTag, std::map<const std::string, GNEAdditional*> > myAdditionalIDs;
+
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
 
-        /// @brief map with the tag and pointer to demand elements of net
+        /// @brief map with the tag and pointer to demand elements of net, sorted by IDs
+        std::map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
+
+        /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
         /// @brief map with the ID and pointer to all datasets of net

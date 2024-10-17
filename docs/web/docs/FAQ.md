@@ -61,7 +61,7 @@ title: FAQ
   other people about SUMO.
 - Answer questions on the [sumo-user mailing list](Contact.md)
   whenever you know the answer
-- Contribute to this wiki ([contact us](Contact.md), so we can
+- Contribute to this documentation ([contact us](Contact.md), so we can
   give you editing rights)
 - Create a video tutorial and tell us about it
 - Join us at the annual [SUMO User Conference](https://eclipse.dev/sumo/conference/)
@@ -77,7 +77,7 @@ title: FAQ
   that you used when registering for your account:
 
 ```
-git config --global user.email "email@example.com"
+git config --global user.email "email@example.com"
 ```
 
 - Create an [Eclipse account](https://accounts.eclipse.org/user/register) if you do not
@@ -90,15 +90,15 @@ git config --global user.email "email@example.com"
 - Clone the forked repository to your computer
 
 ```
-git clone https://github.com/yourgithubid/sumo.git
+git clone https://github.com/yourgithubid/sumo.git
 ```
 
 - Modify the files in the created sumo clone directory
 - From within this directory Commit your changes with
 
 ```
-git add src
-git commit -m "your change message" -s
+git add src
+git commit -m "your change message" -s
 ```
 
 !!! caution
@@ -107,7 +107,7 @@ git commit -m "your change message" -s
 - Push your changes to your fork on GitHub with
 
 ```
-git push
+git push
 ```
 
 - Send us a [pull request on GitHub](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
@@ -146,12 +146,12 @@ be your problem. 32bit-applications may only use 2GB of RAM. Use the
 work with larger files. If this does not fix the crash, please report
 this as a bug [as explained below](#how_do_i_report_erroneous_behavior_of_a_sumo_application).
 
-### Why does SUMO not behave as documented in this wiki?
+### Why does SUMO not behave as documented here?
 
-This wiki documents the behavior of the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
-close the the [latest release](Downloads.md) (differences are
-explicitly listed in the [ChangeLog](ChangeLog.md). If you are
-using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#sumo_-_alternative_download_and_older_releases). Note that we do
+This documentation refers to the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
+close to the [latest release](Downloads.md) (differences are
+explicitly listed in the [ChangeLog](ChangeLog.md)). If you are
+using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#older_releases_and_alternative_download). Note that we do
 not back-port bugfixes to older version of SUMO. If possible you should
 always use the latest version of SUMO.
 
@@ -166,8 +166,7 @@ always use the latest version of SUMO.
 
 ### How do I report erroneous behavior of a SUMO application?
 
-  If you suspect a bug in one of the applications you should report
-  your findings by sending the following items to the [mailing list](Contact.md):
+  If you suspect a bug in one of the applications you should collect the following information
 
 - a description of the SUMO-version and the operating system you are
   using
@@ -180,9 +179,12 @@ always use the latest version of SUMO.
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
   find the minimum input example which still shows the problem. This includes
   cutting the network (or inputs) using [netedit](Netedit/index.md)
-  or [osmconvert](Networks/Import/OpenStreetMap.md#osmfilter--osmconvert)
+  or [osmconvert](Networks/Import/OpenStreetMap.md#osmfilter_osmconvert)
 - a description at which time step (for simulations) and on which
   edge/junction the problem occurs
+
+Provide these items either by opening up a [new issue on github](https://github.com/eclipse-sumo/sumo/issues/new) and attaching the files there or
+by sending the files to the [mailing list](Contact.md)
 
 !!! note
     If you are using an older version of SUMO, please also report whether the problem shows up with the [latest release](Downloads.md).
@@ -217,7 +219,7 @@ you may appear to be lazy).
   - read the documentation
   - check out the [Tutorials](Tutorials/index.md)
   - do a web search (past questions and answers from the mailing list can be found by google)
-  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_in_this_wiki)
+  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_here)
 - Do not ask the same thing twice in a short span of time. If you are
 in a hurry and cannot get an answer, try to change your question
 according to the above suggestions.
@@ -377,7 +379,7 @@ There are plenty of git clients for all platforms. If you use the command line c
 can checkout sumo using the following command:
 
 ```
-git clone --recursive https://github.com/eclipse-sumo/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 ```
 
 If you want to see the full project history in your git checkout please
@@ -392,7 +394,7 @@ and simply type `git pull`.
 
 ### Is there further documentation on Git?
 
-  There is the [Git book](https://git-scm.com/book/) and the [GitHub help](https://help.github.com/) is also worth reading.
+  There is the [Git book](https://git-scm.com/book/en/v2) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
 
@@ -433,7 +435,7 @@ and simply type `git pull`.
 
   Make sure that your computer supports 3D Acceleration and graphical
   drivers are correctly installed and configured. It will probably not
-  work on mahcines accessed via RDP or a similar remote desktop protocol.
+  work on machines accessed via RDP or a similar remote desktop protocol.
 
 ### Troubleshooting
 
@@ -493,7 +495,7 @@ and simply type `git pull`.
   manual preparation of XML input files. Files generated by sumo
   applications such as [duarouter](duarouter.md) always add
   schema information. The schema files which are needed for checking
-  are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
+  are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#sumo_home).
   Otherwise the files will be retrieved from
   [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
   can be disabled by using the option **--xml-validation never** or by [deleting the schema
@@ -502,7 +504,7 @@ and simply type `git pull`.
 ### What causes ''Error: unable to resolve host/address 'sumo.dlr.de' ''?
 
   This is related to [XML-validation](XMLValidation.md) (see
-  above). When the [the environment variable **SUMO_HOME**](Basics/Basic_Computer_Skills.md#additional_environment_variables)
+  above). When the [the environment variable **SUMO_HOME**](Basics/Basic_Computer_Skills.md#sumo_home)
   is not set, applications will try to retrieve the xsd schema files
   online. If there is no internet connection. The above error results.
   The solution is to either
@@ -516,8 +518,8 @@ and simply type `git pull`.
   Errors such as
 
 ```
-Error: attribute name expected at
-At line/column 10/46
+Error: attribute name expected at
+At line/column 10/46
 ```
 
   can be caused by non-printing characters in the XML-file. Open your
@@ -774,6 +776,17 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   map exact vehicle locations (including lateral positioning) and also
   to move vehicles beyond the road space by using the [TraCI moveToXY function](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4).
 
+### How do I avoid routes with many turn-arounds?
+
+Turn-arounds are a frequently observed at the start or end of a route if the respective edge goes in the wrong direction with regard to the general direction of travel.
+There are different ways to avoid this:
+
+- specify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
+  - randomTrips.py provides option ** --junction-taz** for this purpose
+- set duarouter option **--remove-loops**  which will cut off starting / ending turn-arounds in the route
+
+Turn-arounds may also happen in the middle of the route because they are perceived as a faster alternative (and this may even be correct, depending on the state of traffic). To discourage the use of turn-arounds, the option **--weights.turnaround-penalty** may be given a higher value (default is 5.0). Both [sumo](sumo.md) and [duarouter](duarouter.md) support this option.
+
 ## Simulation
 
 ### How to simulate an accident
@@ -785,7 +798,7 @@ Often, the effects of an accident are required instead of the accident
 itself. Without using [TraCI](TraCI.md) the following approaches
 may be useful:
 
-1. Let a vehicle halt on the lane for some time (see [Definition of Vehicles, Vehicle Types, and Routes\#Stops](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)).
+1. Let a vehicle halt on the lane for some time (see [Definition of Vehicles, Vehicle Types, and Routes\#Stops and waypoints](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)).
 This works quite nice for simulating accidents.
 2. Put a variable speed sign of the lane where the accident is meant to
 be and let it reduce the speed (see [Simulation/Variable Speed Signs](Simulation/Variable_Speed_Signs.md)). This method will
@@ -809,7 +822,7 @@ registered
 
 ### How do I change the duration of traffic light cycles and phases?
 
-  use [netedit](Netedit/index.md#traffic_lights)
+  use [netedit](Netedit/editModesNetwork.md#traffic_lights)
 
 ### I can not see a vehicle moving in my simulation
 
@@ -823,7 +836,7 @@ registered
 - The simulation is too fast so that all vehicles disappear before
   being seen. To avoid this, you may [increase the *Delay*-value](sumo-gui.md#usage_description) to slow down
   the simulation.
-- [You might have outdated graphic card drivers](sumo-gui.md#windows_and_buttons_appear_but_no_netcars_are_visible_vehicles_are_not_visible_or_flicker_roads_are_drawn_on_top_of_vehicles)
+- [You might have outdated graphic card drivers](FAQ.md#sumo-gui_windows_and_buttons_appear_but_no_netcars_are_visible_vehicles_are_not_visible_or_flicker_roads_are_drawn_on_top_of_vehicles)
 - You did not [define any vehicles](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md)
 - All your vehicles are set to depart before the simulation **--begin** time
 - Your vehicles are set to depart much later than the simulation **--begin** time
@@ -970,7 +983,7 @@ density:
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
 !!! caution
-    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to te *departSpeed* value. Remember [time-resolution dependency](#how-do-i-get-high-flowsvehicle-densities) for further adjustment.
+    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to te *departSpeed* value. Remember [time-resolution dependency](#how_do_i_get_high_flowsvehicle_densities) for further adjustment.
 
 
 ### How do I force a lane change?
@@ -979,7 +992,7 @@ density:
 
 - setting vehicle attributes ['departLane' and 'arrivalLane'](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#a_vehicles_depart_and_arrival_parameter)
 - setting a
-  [<stop\>](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)
+  [<stop\>](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)
   on the desired lane (also affects speed)
 - setting a route that requires lane-changing to a specific lane for
   continuation
@@ -1022,7 +1035,7 @@ This reproducibility is often necessary (i.e. for debugging a scenario).
 However, to avoid biases from this "fixed" randomness it is often useful to run the simulation multiple times and perform analysis on the ensemble of results.
 Likewise, in the real world different days have different traffic and it is more reliable to draw conclusions from multiple days rather than a single day.
 
-To change the default randomness, either option **--seed** or option **--random** must be used. The first option sets a user-defined intialization for the random number generator whereas the other picks a random seed (which will be different on every run).
+To change the default randomness, either option **--seed** or option **--random** must be used. The first option sets a user-defined initialization for the random number generator whereas the other picks a random seed (which will be different on every run).
 
 !!! note
     These options apply to sumo, duarouter and many python tools which employ randomization.
@@ -1053,19 +1066,24 @@ The carFollowModels [ACC](Car-Following-Models/ACC.md) and [CACC](Car-Following-
 The default carFollowModel *Krauss* is simple/general enough to allow parameterization for both human and automated driving. The correct parameters however, depend on the user assumptions about the automated fleet:
 
 - possibly, autonomous vehicles must drive more cautiously than human drivers (i.e. with a larger value of the desired time headway `tau`)
-- possibly, autonomous vehicles may drive at lower time headways than human drivers because they have better sensing or faster actuation (i.e. with a lower valuue of the desired time headway `tau`)
+- possibly, autonomous vehicles may drive at lower time headways than human drivers because they have better sensing or faster actuation (i.e. with a lower value of the desired time headway `tau`)
 
 Functions that are meant to capture specific human behaviors can be switched of directly
 - imperfect acceleration, dawdling: `sigma="0"`
 - imperfect compliance with the speed limit: `speedDev="0"` in the `vType` or `speedFactor="1"` in the `<vehicle>`
 
-Further safey-critical behaviors are described at [Safety](Simulation/Safety.md#safety-related_parameters).
+Further safety-critical behaviors are described at [Safety](Simulation/Safety.md#safety-related_parameters).
 
 ### Why are queuing vehicles on a lane drawn as stacked in sumo-gui?
 
 If no [collisions](Simulation/Safety.md#collisions) have been reported, this is due to [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) and not [scaling the vehicle length
 to geometry](sumo-gui.md#scaling).
 
+### How do I model pedestrians crossing the road at random locations ?
+
+The closes approach currently supported, is to split the edge multiple times and put a non-prioritized pedestrian crossings at each split.
+Then configuring some pedestrians to use these in a reckless manner.
+The latter is accomplished by setting vType attributes `jmIgnoreFoeProb` and `jmIgnoreFoeSpeed` to ignore foes that are approaching the junction below the given speed with the given probability.
 
 ## Visualization
 
@@ -1074,7 +1092,7 @@ to geometry](sumo-gui.md#scaling).
 The [osmWebWizard](Tutorials/OSMWebWizard.md) tool provides the simplest solution to obtain a scenario with background images.
 Selecting the checkbox 'Satellite background' before generating the scenario is sufficient. To select another image provider, the tool [tileGet.py](Tools/Misc.md#tilegetpy) can also be used.
 
-It is important to know that the network projection will be changed from UTM to [Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection) if the checkbox "satellite background" is enabled. This is necessary to match the projection of popular satellite image providers. However, this projection has the unwelcome propertie of distorting lengths much more strongly than the default project. Depending on the area being imported, distances could be doubled (or worse).
+It is important to know that the network projection will be changed from UTM to [Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection) if the checkbox "satellite background" is enabled. This is necessary to match the projection of popular satellite image providers. However, this projection has the unwelcome property of distorting lengths much more strongly than the default project. Depending on the area being imported, distances could be doubled (or worse).
 
 The revert such a projection to UTM, the following commands may be used:
 
@@ -1188,7 +1206,7 @@ SUMO uses the fox-toolkit which permits [system-wide and per-application setting
 Under windows these settings must be configured using `regedit` i.e. at the registry location `Computer\HKEY_CURRENT_USER\SOFTWARE\sumo-gui\SUMO GUI\SETTINGS`
 
 - Supported color entries are: bordercolor, basecolor, hilitecolor, shadowcolor, backcolor, forecolor, selforecolor, selbackcolor, tipforecolor, tipbackcolor, selmenutextcolor, selmenubackcolor
-  - supported color values are RGB hex codes (#aea395) as well as symbolic names (red). A full list of colornames can be found in [`FXColorNames.cpp`](https://github.com/DLR-TS/SUMOLibraries/blob/main/fox-1.6.57/src/FXColorNames.cpp).
+  - supported color values are RGB hex codes (#aea395) as well as symbolic names (red). A full list of colornames can be found in [`FXColorNames.cpp`](https://github.com/DLR-TS/SUMOLibraries/blob/main/fox-1.6.58/src/FXColorNames.cpp).
 - The font is configured with: normalfont (i.e. normalfont="Times,100")
 - Further config entries are: typingspeed, clickspeed, scrollspeed, scrolldelay, blinkspeed, animspeed, menupause, tippause, tiptime, dragdelta, wheellines, scrollbarsize, displaygamma
 
@@ -1249,10 +1267,10 @@ as explained [here](TraCI/Interfacing_TraCI_from_Python.md) and
 path to your SUMO-installation into your script:
 
 ```
- import sys
- sys.path.append('/your/path/to/sumo/tools')
- import traci
- import sumolib
+ import sys
+ sys.path.append('/your/path/to/sumo/tools')
+ import traci
+ import sumolib
 ```
 
 ### the python scripts do not accept command line arguments (windows only)
@@ -1269,10 +1287,10 @@ script.py <argument>
 you do
 
 ```
-python script.py <argument>
+python script.py <argument>
 ```
 
-### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to generate Scenario on Windows 10
+### [osmWebWizard.py](Tools/Import/OSM.md#osmwebwizardpy) fails to generate Scenario on Windows 10
 
 This can happen with an outdated version of python 2.7. Updating to
 2.7.15 (64bit) has been reported as fixing this problem.
@@ -1280,7 +1298,7 @@ This can happen with an outdated version of python 2.7. Updating to
 Also have a look at the output in the shell window that opens. If it reports missing or outdated
 SSL certificates try: `pip install certifi`.
 
-### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to load the browser page on Linux
+### [osmWebWizard.py](Tools/Import/OSM.md#osmwebwizardpy) fails to load the browser page on Linux
 
 This happens when you are using a browser that was installed from a flatpak or a
 [snap package](https://en.wikipedia.org/wiki/Snap_(software)) (which is the default since Ubuntu 22.04).

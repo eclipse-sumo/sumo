@@ -409,7 +409,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
     if (foundComponents > 1) {
         WRITE_MESSAGEF(TL("Found % components and removed % (% edges)."), toString(foundComponents), toString(numRemoved), toString(toRemove.size()));
     }
-    return toRemove.size();
+    return (int)toRemove.size();
 }
 
 
@@ -643,7 +643,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 if (length + dist < maxDist) {
                     // don't add long "boring" appendages but always join the whole rail crossing or tls
                     const bool trueGeomLike = s->geometryLike();
-                    if (trueGeomLike || geometryLikeForClass(s, SVC_WEAK | SVC_DELIVERY)) {
+                    if (trueGeomLike || geometryLikeForClass(s, SVC_VULNERABLE | SVC_DELIVERY)) {
                         const bool hasTLS = n->isTrafficLight() || s->isTrafficLight();
                         const double fullLength = e->getGeometry().length2D();
                         const double length2 = bothCrossing || hasTLS || trueGeomLike ? length : fullLength;
@@ -999,8 +999,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
                             || isRailway(e->getPermissions()) // join railway crossings
                             || (clusterDist <= pedestrianFringeThreshold
                                 && (!pruneNoisyFringe
-                                    || ((e->getPermissions() & SVC_WEAK) != 0 &&
-                                        (e->getPermissions() & ~SVC_WEAK) == 0)
+                                    || isForVulnerableModes(e->getPermissions())
                                     // permit joining small opposite merges
                                     || getDiameter(cluster) < maxDist
                                     || cluster.size() == 2))
@@ -1065,9 +1064,9 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) 
     }
     for (NBNode* n : cluster) {
         for (NBEdge* edge : n->getOutgoingEdges()) {
-            // we must track the edge length accross geometry like nodes
-            // Also, intersecions that are geometry-like
-            // from the perspective of passenger traffic should be tracked accross
+            // we must track the edge length across geometry like nodes
+            // Also, intersections that are geometry-like
+            // from the perspective of passenger traffic should be tracked across
             std::vector<NBNode*> passed;
             double length = 0;
             NBEdge* cur = edge;
@@ -1974,6 +1973,19 @@ NBNodeCont::registerJoinedCluster(const NodeSet& cluster) {
         ids.insert(n->getID());
     }
     myJoinedClusters.push_back(ids);
+}
+
+void
+NBNodeCont::registerJoinedCluster(const std::set<std::string>& cluster) {
+    myJoinedClusters.push_back(cluster);
+}
+
+void
+NBNodeCont::unregisterJoinedCluster(const std::set<std::string>& cluster) {
+    auto it = std::find(myJoinedClusters.begin(), myJoinedClusters.end(), cluster);
+    if (it != myJoinedClusters.end()) {
+        myJoinedClusters.erase(it);
+    }
 }
 
 

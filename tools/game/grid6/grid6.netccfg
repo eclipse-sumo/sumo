@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-27 16:36:55 by Eclipse SUMO netconvert Version v1_13_0+1237-ae70b5f7a6c
+<!-- generated on 2024-06-13 07:10:21 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="grid6.nod.xml"/>
@@ -19,4 +19,4 @@
         <no-turnarounds value="true"/>
     </junctions>
 
-</configuration>
+</netconvertConfiguration>

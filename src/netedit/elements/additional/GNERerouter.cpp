@@ -67,37 +67,42 @@ GNERerouter::~GNERerouter() {
 
 void
 GNERerouter::writeAdditional(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_REROUTER);
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    if (myProbability != 1.0) {
-        device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    }
-    if (time2string(myTimeThreshold) != "0.00") {
-        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
-    }
-    if (!myVTypes.empty()) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
-    }
-    if (myOff) {
-        device.writeAttr(SUMO_ATTR_OFF, myOff);
-    }
-    if (myOptional) {
-        device.writeAttr(SUMO_ATTR_OPTIONAL, myOptional);
-    }
-    // write all rerouter interval
-    for (const auto& rerouterInterval : getChildAdditionals()) {
-        if (!rerouterInterval->getTagProperty().isSymbol()) {
-            rerouterInterval->writeAdditional(device);
+    // avoid write rerouters without edges
+    if (getAttribute(SUMO_ATTR_EDGES).size() > 0) {
+        device.openTag(SUMO_TAG_REROUTER);
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
+        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        if (!myAdditionalName.empty()) {
+            device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
+        if (myProbability != 1.0) {
+            device.writeAttr(SUMO_ATTR_PROB, myProbability);
+        }
+        if (time2string(myTimeThreshold) != "0.00") {
+            device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
+        }
+        if (!myVTypes.empty()) {
+            device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
+        }
+        if (myOff) {
+            device.writeAttr(SUMO_ATTR_OFF, myOff);
+        }
+        if (myOptional) {
+            device.writeAttr(SUMO_ATTR_OPTIONAL, myOptional);
+        }
+        // write all rerouter interval
+        for (const auto& rerouterInterval : getChildAdditionals()) {
+            if (!rerouterInterval->getTagProperty().isSymbol()) {
+                rerouterInterval->writeAdditional(device);
+            }
+        }
+        // write parameters (Always after children to avoid problems with additionals.xsd)
+        writeParams(device);
+        device.closeTag();
+    } else {
+        WRITE_WARNING("Rerouter '" + getID() + TL("' needs at least one edge"));
     }
-    // write parameters (Always after children to avoid problems with additionals.xsd)
-    writeParams(device);
-    device.closeTag();
 }
 
 
@@ -123,7 +128,8 @@ GNERerouter::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -213,24 +219,27 @@ GNERerouter::getParentName() const {
 
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor, true);
-    // draw Rerouter
-    drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
-    // iterate over additionals and check if drawn
-    for (const auto& interval : getChildAdditionals()) {
-        // if rerouter or their intevals are selected, then draw
-        if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-                isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                interval->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(interval) ||
-                (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
-            interval->drawGL(s);
-        } else {
-            // if rerouterElements are inspected or selected, then draw
-            for (const auto& rerouterElement : interval->getChildAdditionals()) {
-                if (rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
-                        (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
-                    interval->drawGL(s);
+    // first check if additional has to be drawn
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor, true);
+        // draw Rerouter
+        drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
+        // iterate over additionals and check if drawn
+        for (const auto& interval : getChildAdditionals()) {
+            // if rerouter or their intevals are selected, then draw
+            if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                    isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                    interval->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(interval) ||
+                    (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
+                interval->drawGL(s);
+            } else {
+                // if rerouterElements are inspected or selected, then draw
+                for (const auto& rerouterElement : interval->getChildAdditionals()) {
+                    if (rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
+                            (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
+                        interval->drawGL(s);
+                    }
                 }
             }
         }

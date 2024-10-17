@@ -79,6 +79,7 @@
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcKeepRightAcceptanceTime" type="floatType"/>
         <xsd:attribute name="lcOvertakeDeltaSpeedFactor" type="floatType"/>
+        <xsd:attribute name="lcContRight" type="floatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment" type="latAlignmentType"/>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
@@ -102,6 +103,8 @@
         </xsd:attribute>
         <xsd:attribute name="jmStoplineGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmTimegapMinor" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmStopSignWait" type="xsd:float"/>
+        <xsd:attribute name="jmAllwayStopWait" type="xsd:float"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
@@ -1046,6 +1049,10 @@
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromTaz" type="xsd:string"/>
+                    <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
@@ -1068,6 +1075,10 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromTaz" type="xsd:string"/>
+                    <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>

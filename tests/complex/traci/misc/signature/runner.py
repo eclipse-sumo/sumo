@@ -23,7 +23,11 @@ if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 import traci
-import libsumo
+if sys.version_info[0] > 2:
+    import libsumo
+else:
+    def libsumo(): return None
+    libsumo.DOMAINS = []
 
 VERBOSE = False
 
@@ -38,6 +42,8 @@ for dt in traci.DOMAINS:
                         if fl[0] == ft[0]:
                             sigt = inspect.signature(ft[1])
                             sigl = inspect.signature(fl[1])
+                            if VERBOSE:
+                                print("checking", sigt, sigl)
                             if sigt != sigl:
                                 params = list(sigl.parameters.values())
                                 if not params or params[0].kind != inspect.Parameter.VAR_POSITIONAL:

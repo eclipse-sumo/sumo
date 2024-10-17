@@ -19,6 +19,8 @@
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
+#include <algorithm>
+
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -64,8 +66,8 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, "battery.chargeLevel", maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
         const double stoppingThreshold = readParameterValue(v, SUMO_ATTR_STOPPINGTHRESHOLD, "battery.stoppingThreshold", 0.1);
         const double maximumChargeRate = readParameterValue(v, SUMO_ATTR_MAXIMUMCHARGERATE, "battery.maximumChargeRate", 150000.);
-        const std::string chargeLevelTable = getStringParam(v, OptionsCont::getOptions(), "battery.chargeLevelTable", "");
-        const std::string chargeCurveTable = getStringParam(v, OptionsCont::getOptions(), "battery.chargeCurveTable", "");
+        const std::string chargeLevelTable = v.getStringParam("device.battery.chargeLevelTable");
+        const std::string chargeCurveTable = v.getStringParam("device.battery.chargeCurveTable");
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
@@ -92,7 +94,7 @@ MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, co
         }
         return StringUtils::toDouble(v.getParameter().getParameter(oldParam, "0"));
     }
-    return getFloatParam(v, OptionsCont::getOptions(), paramName, defaultVal);
+    return v.getFloatParam("device." + paramName, false, defaultVal);
 }
 
 
@@ -106,6 +108,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
     myStoppingThreshold(0),             // [stoppingThreshold >= 0]
     myMaximumChargeRate(0),
+    myChargeLimit(-1),
     myLastAngle(std::numeric_limits<double>::infinity()),
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
@@ -116,7 +119,9 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
-    myVehicleStopped(0) {  // Initially the vehicle is stopped and the corresponding variable is 0
+    myVehicleStopped(0),
+    myDepletedCount(0) {
+    // Initially the vehicle is stopped and the corresponding variable is 0
 
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), toString(maximumBatteryCapacity));
@@ -201,6 +206,12 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
             myConsum = MIN2(myConsum, 0.0);
         }
 
+        // saturate between 0 and myMaximumBatteryCapacity [Wh]
+        if (myConsum > getActualBatteryCapacity() && getActualBatteryCapacity() > 0 && getMaximumBatteryCapacity() > 0) {
+            myDepletedCount++;
+            WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted, time=%."), veh.getID(), time2string(SIMSTEP));
+        }
+
         // Energy lost/gained from vehicle movement (via vehicle energy model) [Wh]
         setActualBatteryCapacity(getActualBatteryCapacity() - myConsum);
 
@@ -211,15 +222,6 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
             myTotalRegenerated -= myConsum;
         }
 
-        // saturate between 0 and myMaximumBatteryCapacity [Wh]
-        if (getActualBatteryCapacity() < 0) {
-            setActualBatteryCapacity(0);
-            if (getMaximumBatteryCapacity() > 0) {
-                WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted."), veh.getID());
-            }
-        } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity()) {
-            setActualBatteryCapacity(getMaximumBatteryCapacity());
-        }
         myLastAngle = veh.getAngle();
     }
 
@@ -399,6 +401,12 @@ MSDevice_Battery::setMaximumChargeRate(const double chargeRate) {
 
 
 void
+MSDevice_Battery::setChargeLimit(const double limit) {
+    myChargeLimit = limit;
+}
+
+
+void
 MSDevice_Battery::resetChargingStartTime() {
     myChargingStartTime = 0;
 }
@@ -469,6 +477,15 @@ MSDevice_Battery::getChargingStartTime() const {
 }
 
 
+SUMOTime
+MSDevice_Battery::estimateChargingDuration(const double toCharge, const double csPower) const {
+    //if (!myChargeCurve.empty()) {
+    //    // TODO: integrate charge curve
+    //}
+    return TIME2STEPS(toCharge / MIN2(csPower, myMaximumChargeRate));
+}
+
+
 std::string
 MSDevice_Battery::getChargingStationID() const {
     if (myActChargingStation != nullptr) {
@@ -498,10 +515,8 @@ MSDevice_Battery::getStoppingThreshold() const {
 
 double
 MSDevice_Battery::getMaximumChargeRate() const {
-    if (myChargeCurve.empty()) {
-        return myMaximumChargeRate;
-    }
-    return LinearApproxHelpers::getInterpolatedValue(myChargeCurve, myActualBatteryCapacity / myMaximumBatteryCapacity);
+    double baseVal = (myChargeCurve.empty()) ? myMaximumChargeRate : LinearApproxHelpers::getInterpolatedValue(myChargeCurve, myActualBatteryCapacity / myMaximumBatteryCapacity);
+    return (myChargeLimit < 0) ? baseVal : MIN2(myChargeLimit, baseVal);
 }
 
 
@@ -560,6 +575,16 @@ MSDevice_Battery::notifyParking() {
     // @note: only charing is performed but no energy is consumed
     notifyMove(myHolder, myHolder.getPositionOnLane(), myHolder.getPositionOnLane(), myHolder.getSpeed());
     myConsum = 0;
+}
+
+
+void
+MSDevice_Battery::generateOutput(OutputDevice* tripinfoOut) const {
+    if (tripinfoOut != nullptr) {
+        tripinfoOut->openTag("battery");
+        tripinfoOut->writeAttr("depleted", toString(myDepletedCount));
+        tripinfoOut->closeTag();
+    }
 }
 
 

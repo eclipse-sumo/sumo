@@ -276,7 +276,7 @@ MSTransportableControl::hasAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle) 
 
 
 bool
-MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration, const bool force) {
+MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration, MSTransportable* const force) {
     bool ret = false;
     const auto wait = myWaiting4Vehicle.find(edge);
     if (wait != myWaiting4Vehicle.end()) {
@@ -284,7 +284,7 @@ MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle,
         TransportableVector& transportables = wait->second;
         for (TransportableVector::iterator i = transportables.begin(); i != transportables.end();) {
             MSTransportable* const t = *i;
-            if (t->isWaitingFor(vehicle) && (force ||
+            if (t->isWaitingFor(vehicle) && (t == force ||
                                              (vehicle->allowsBoarding(t)
                                               && timeToLoadNext - DELTA_T <= currentTime
                                               && vehicle->isStoppedInRange(t->getEdgePos(), MSGlobals::gStopTolerance)))) {

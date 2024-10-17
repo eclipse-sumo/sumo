@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-27 08:20:27 by Eclipse SUMO sumo Version v1_20_0+2168-e87fa0f79d8
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed"/>
+    </output>
+
+    <processing>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="37609"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p1" speed="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="3.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="4.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="5.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="6.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="7.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="8.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="9.00">
+        <person id="p1" speed="1.47"/>
+    </timestep>
+    <timestep time="10.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="11.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="12.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="13.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="14.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="15.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="16.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="17.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="18.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="19.00">
+        <person id="p1" speed="0.69"/>
+    </timestep>
+    <timestep time="20.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="21.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="22.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="23.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="24.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="25.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="26.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="27.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="28.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="29.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="30.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="31.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="32.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="33.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="34.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="35.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="36.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="37.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="38.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="39.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="40.00">
+        <person id="p1" speed="2.78"/>
+    </timestep>
+    <timestep time="41.00"/>
+</fcd-export>

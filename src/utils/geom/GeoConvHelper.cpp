@@ -589,8 +589,8 @@ GeoConvHelper::setLoadedPlain(const std::string& nodFile, const GeoConvHelper& l
 
 
 GeoConvHelper*
-GeoConvHelper::getLoadedPlain(const std::string& edgFile) {
-    std::string nodFile = StringUtils::replace(edgFile, ".edg.xml", ".nod.xml");
+GeoConvHelper::getLoadedPlain(const std::string& plainFile, const std::string& suffix) {
+    std::string nodFile = StringUtils::replace(plainFile, suffix, ".nod.xml");
     auto it = myLoadedPlain.find(nodFile);
     if (it != myLoadedPlain.end()) {
         return new GeoConvHelper(it->second.first, it->second.second, Boundary(), Boundary());

@@ -166,8 +166,8 @@ print("getParameter stats.persons.loaded", traci.simulation.getParameter("", "st
 print("getParameter stats.persons.running", traci.simulation.getParameter("", "stats.persons.running"))
 print("getParameter stats.persons.jammed", traci.simulation.getParameter("", "stats.persons.jammed"))
 print("getParameter stats.personTeleports.total", traci.simulation.getParameter("", "stats.personTeleports.total"))
-print("getParameter stats.personTeleports.abortWait", traci.simulation.getParameter("", "stats.personTeleports.abortWait"))
-print("getParameter stats.personTeleports.wrongDest", traci.simulation.getParameter("", "stats.personTeleports.wrongDest"))
+print("getParameter stats.personTeleports.abortWait", traci.simulation.getParameter("", "stats.personTeleports.abortWait"))  # noqa
+print("getParameter stats.personTeleports.wrongDest", traci.simulation.getParameter("", "stats.personTeleports.wrongDest"))  # noqa
 
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))

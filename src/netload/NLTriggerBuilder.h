@@ -66,7 +66,6 @@ public:
     /// @brief Destructor
     virtual ~NLTriggerBuilder();
 
-
     /** @brief Sets the parent handler to use for nested parsing
      *
      * @param[in] handler The netload handler to set
@@ -265,6 +264,10 @@ public:
      */
     void parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
                                  const std::string& base);
+
+    /** @brief updates the parkingArea default capacity
+     */
+    void updateParkingAreaDefaultCapacity();
     //@}
 
 
@@ -382,34 +385,42 @@ protected:
      *
      * Simply calls the MSCalibrator constructor.
      *
-     * @param[in] net The net the calibrator belongs to
      * @param[in] id The id of the calibrator
      * @param[in] edge The edge the calibrator is placed at
+     * @param[in] lane The lane the calibrator is placed at if it is lane specific, nullptr otherwise
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] file The file to read the flows from
+     * @param[in] outfile The file to write calibrator statistics to
+     * @param[in] freq The frequency for the statistics output
+     * @param[in] probe an optional route probe to get distributions from
+     * @param[in] invalidJamThreshold stop calibrating if the relative speed drops below the threshold
+     * @param[in] vTypes to which vehicle types the calibrator applies
      * @todo Is the position correct/needed
      */
-    virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                          const std::string& id, MSEdge* edge, MSLane* lane, double pos,
+    virtual MSCalibrator* buildCalibrator(const std::string& id, MSEdge* edge, MSLane* lane, MSJunction* node, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq,
                                           const MSRouteProbe* probe,
                                           const double invalidJamThreshold,
-                                          const std::string& vTypes);
+                                          const std::string& vTypes,
+                                          const bool local);
 
     /** @brief builds a mesoscopic calibrator
      *
      * Simply calls the METriggeredCalibrator constructor.
      *
-     * @param[in] net The net the calibrator belongs to
      * @param[in] id The id of the calibrator
      * @param[in] edge The edge the calibrator is placed at
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] file The file to read the flows from
+     * @param[in] outfile The file to write calibrator statistics to
+     * @param[in] freq The frequency for the statistics output
+     * @param[in] probe an optional route probe to get distributions from
+     * @param[in] invalidJamThreshold stop calibrating if the relative speed drops below the threshold
+     * @param[in] vTypes to which vehicle types the calibrator applies
      * @todo Is the position correct/needed
      */
-    virtual METriggeredCalibrator* buildMECalibrator(MSNet& net,
-            const std::string& id, const MSEdge* edge, double pos,
+    virtual METriggeredCalibrator* buildMECalibrator(const std::string& id, MSEdge* edge, double pos,
             const std::string& file, const std::string& outfile,
             const SUMOTime freq,
             MSRouteProbe* probe,
@@ -498,7 +509,10 @@ protected:
      */
     double getPosition(const SUMOSAXAttributes& attrs,
                        MSLane* lane, const std::string& tt, const std::string& tid, MSEdge* edge = 0);
+
     /// @}
+
+
 
 
 protected:
@@ -510,4 +524,5 @@ protected:
     MSStoppingPlace* myCurrentStop;
 
     bool myHaveWarnedAboutEigen = false;
+    bool myParkingAreaCapacitySet = false;
 };

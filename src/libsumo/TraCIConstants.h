@@ -735,6 +735,9 @@ TRACI_CONST int INCOMING_EDGES = 0x7b;
 // outgoing edges (junction)
 TRACI_CONST int OUTGOING_EDGES = 0x7c;
 
+// get bidi object (edges, lanes)
+TRACI_CONST int VAR_BIDI = 0x7f;
+
 // last step mean vehicle length (get: induction loops, lanes, edges)
 TRACI_CONST int LAST_STEP_LENGTH = 0x15;
 
@@ -1020,6 +1023,12 @@ TRACI_CONST int VAR_LANE_ID = 0x51;
 // lane index (get: vehicle, edge)
 TRACI_CONST int VAR_LANE_INDEX = 0x52;
 
+// segment id (get: vehicle)
+TRACI_CONST int VAR_SEGMENT_ID = 0xa1;
+
+// segment index (get: vehicle)
+TRACI_CONST int VAR_SEGMENT_INDEX = 0xa2;
+
 // route id (get & set: vehicles)
 TRACI_CONST int VAR_ROUTE_ID = 0x53;
 
@@ -1119,6 +1128,9 @@ TRACI_CONST int VAR_MINGAP_LAT = 0xbb;
 
 // get/set vehicle height (vehicle, vtypes, poi)
 TRACI_CONST int VAR_HEIGHT = 0xbc;
+
+// get/set mass (vehicle, vtype)
+TRACI_CONST int VAR_MASS = 0xc8;
 
 // get/set vehicle line
 TRACI_CONST int VAR_LINE = 0xbd;
@@ -1445,6 +1457,18 @@ TRACI_CONST int VAR_TRACK_VEHICLE = 0xa6;
 
 // presence of view
 TRACI_CONST int VAR_HAS_VIEW = 0xa7;
+
+// charging station power
+TRACI_CONST int VAR_CS_POWER = 0x97;
+
+// charging station power
+TRACI_CONST int VAR_CS_EFFICIENCY = 0x98;
+
+// charging station power
+TRACI_CONST int VAR_CS_CHARGE_IN_TRANSIT = 0x99;
+
+// charging station power
+TRACI_CONST int VAR_CS_CHARGE_DELAY = 0x9a;
 
 } // namespace libsumo
 

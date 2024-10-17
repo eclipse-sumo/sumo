@@ -34,7 +34,7 @@ of Bologna", SUMO2014, p 19-26
 # Dublin - Irish Motorway, National road and city centre
 
 - [Main Page](https://github.com/maxime-gueriau/ITSC2020_CAV_impact)
-- Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the The 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
+- Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
 
 # Geneva - Digital Twin - Geneva Motorway (DT-GM)
 
@@ -75,6 +75,10 @@ Italy.
 
 - [Main Page](https://github.com/boschresearch/stuttgart-sumo-traffic-scenario)
 - Publication: David Förster, Hans Löhr, Anne Grätz, Jonathan Petit, and Frank Kargl, "An Evaluation of Pseudonym Changes for Vehicular Networks in Large-scale, Realistic Traffic Scenarios", IEEE Transactions on Intelligent Transportation Systems 19.10 (2017): 3400-3405, doi: [10.1109/TITS.2017.2775519](https://doi.org/10.1109/TITS.2017.2775519).
+
+# Toronto
+
+- [Toronto Scenarios on GitHub](https://github.com/Jahandad-Baloch/TorontoSUMONetworks)
 
 # Turin SUMO Traffic (TuST)
 A large-scale mesoscopic traffic simulation of a 600-sqkm area around the Municipality of Turin.

@@ -261,6 +261,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_F11, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F11_HALLOFFAME));
     accelTable->addAccel(parseKey(KEY_F12, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT));
 
+    accelTable->addAccel(parseKey(KEY_ESC, KEYMODIFIER_SHIFT),  target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_ESC_CLEARSELECTION));
+
     // alt hotkeys
 
     accelTable->addAccel(parseKey(KEY_0, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOGGLEEDITOPTION));

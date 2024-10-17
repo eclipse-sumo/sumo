@@ -142,6 +142,10 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
+    const Position& getSignPos() const {
+        return myFGSignPos;
+    }
+
 private:
     /// @brief Returns the stopping place name
     void initAppearance(MSLane& lane, double frompos, double topos);

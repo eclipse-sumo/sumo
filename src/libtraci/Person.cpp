@@ -297,6 +297,12 @@ Person::getHeight(const std::string& personID) {
 }
 
 
+double
+Person::getMass(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_MASS, personID);
+}
+
+
 int
 Person::getPersonCapacity(const std::string& personID) {
     return Dom::getInt(libsumo::VAR_PERSON_CAPACITY, personID);
@@ -523,6 +529,12 @@ Person::setWidth(const std::string& personID, double width) {
 void
 Person::setHeight(const std::string& personID, double height) {
     Dom::setDouble(libsumo::VAR_HEIGHT, personID, height);
+}
+
+
+void
+Person::setMass(const std::string& personID, double mass) {
+    Dom::setDouble(libsumo::VAR_HEIGHT, personID, mass);
 }
 
 

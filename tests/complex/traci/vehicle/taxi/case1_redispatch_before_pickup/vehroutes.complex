@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-09 18:29:19 by Eclipse SUMO sumo Version v1_14_1+0166-5f48fcf
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-06-26 13:47:06 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -23,10 +23,10 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="42929"/>
+        <remote-port value="46021"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -34,11 +34,11 @@
         <ride from="A1B1" to="D2D3" arrivalPos="92.10" lines="taxi"/>
     </person>
 
-    <person id="b" depart="0.00" arrival="188.00">
+    <person id="b" depart="0.00" arrival="186.00">
         <ride from="B1C1" to="C1D1" arrivalPos="50.00" lines="taxi"/>
     </person>
 
-    <person id="c" depart="0.00" departPos="50.00" arrival="332.00">
+    <person id="c" depart="0.00" departPos="50.00" arrival="330.00">
         <ride from="C1D1" to="D2D3" arrivalPos="92.10" lines="taxi"/>
     </person>
 

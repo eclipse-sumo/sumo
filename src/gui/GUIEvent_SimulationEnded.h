@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    Thu, 19 Jun 2003
 ///
-// Event sent when the the simulation is over
+// Event sent when the simulation is over
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -31,7 +31,7 @@
 // ===========================================================================
 /**
  * @class GUIEvent_SimulationEnded
- * @brief Event sent when the the simulation is over
+ * @brief Event sent when the simulation is over
  *
  * Throw from GUIRunThread to GUIApplicationWindow.
  */

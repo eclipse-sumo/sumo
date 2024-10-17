@@ -34,7 +34,7 @@ Call:
 
 ```
 checkStyle.py
-checkStyle.py --fix <SUMO_HOME>/tools
+checkStyle.py --fix <SUMO_HOME>/tools
 ```
 
 # Documentation Tools
@@ -52,7 +52,7 @@ the [table of contents](../index.md). Call
 Call:
 
 ```
-buildHTMLDocs.py SUMO
+buildHTMLDocs.py SUMO
 ```
 
 ## checkAuthors.py

@@ -25,6 +25,7 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
+from xml.sax import saxutils
 
 try:
     from StringIO import StringIO
@@ -192,7 +193,8 @@ def main(options):
             outf.write('    <person id="%s" depart="%s">\n' % (person.id, depart))
             if attributes is not None:
                 for attr in attributes.attribute:
-                    outf.write('        <param key="%s" value="%s"/>\n' % (attr.attr_name, attr.getText()))
+                    outf.write('        <param key="%s" value=%s/>\n' % (
+                        attr.attr_name, saxutils.quoteattr(attr.getText())))
 
             lastLeg = None
             for item in plan.getChildList():

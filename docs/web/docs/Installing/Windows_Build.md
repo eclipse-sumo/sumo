@@ -53,7 +53,7 @@ Editing the CMake settings using Visual Studio
   - Test start a python script and add association
   - Add Python to the path (also the Scripts dir), find it at `C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64`
   - Install pyautogui, scipy, rtree, pyproj, lxml following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not, use `pip install -r tools\requirements.txt`, possibly with the `--user` option if you don't have admin rights
+- If not, use `pip install -r tools\requirements.txt -r tools\req_dev.txt`, possibly with the `--user` option if you don't have admin rights
 
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
@@ -61,7 +61,7 @@ Editing the CMake settings using Visual Studio
 
 If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](https://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommended python modules as explained above and that the `PATH` environment variable contains the directory where the desired Python interpreter is.
 
-If you want to build SUMO in Debug mode, then you will need the *Python Debug binaries*. The Python interepreter that comes with Visual Studio doesn't install these libraries by default (at least in the case of Visual Studio Community 2022); you need to install the *Data Science stack* in addition to the *Python and C++ development stacks* mentionned above. More precisely, the component you need is called *Python native development tools*, make sure you check the correct box.
+If you want to build SUMO in Debug mode, then you will need the *Python Debug binaries*. The Python interpreter that comes with Visual Studio doesn't install these libraries by default (at least in the case of Visual Studio Community 2022); you need to install the *Data Science stack* in addition to the *Python and C++ development stacks* mentioned above. More precisely, the component you need is called *Python native development tools*, make sure you check the correct box.
 
 If you want to clone / checkout a special SUMO version, you can of course do it from the command line (if you have installed the command line tools)
 using `git clone --recursive https://github.com/eclipse-sumo/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
@@ -76,7 +76,7 @@ If Visual Studio fails at first try, it is probably because the SUMOLibraries ar
 
 If you need to modify settings, you can edit the `CMakeCache.txt` by opening it in your favorite text editor or via the *Project->CMake-Cache* menu. The following things might be useful:
 
-- If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/testus/source/repos/SUMOLibraries`) and retry
+- If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/tests/source/repos/SUMOLibraries` and retry
 - If a wrong Python interpreter or library is found, edit the PYTHON_* variables
 - If you want to disable building the GUI (Fox) or usage of Proj, set the according library entries to an empty string
 
@@ -95,11 +95,7 @@ SUMO (tested with Visual Studio 2019).
 For details on building your
 own and also on how to use different versions and additional libraries
 see [Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
-Make sure that the subdirectories `fox-1.6.54/lib`, `proj_gdal-1911/bin`
-and `xerces-c-3.2.0/bin` are in PATH. Note: for 32 bits compilations
-folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
-`32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
-64 bit version first.
+You might not to edit your `CMakeCache.txt` to use the selfmade libraries.
 
 ## Install python packages
 
@@ -120,7 +116,8 @@ pip install -r tools\requirements.txt
   - It can be identical to the source path, but we recommend to separate them
   - Build directory will be created if necessary
 - Start configuration by pressing the "Configure" button
-  - Select compiler (the default should do)
+  - Select the compiler (the default should do)
+  - Select the platform `x64`
 - Create the Visual Studio solution by clicking on "Generate"
 - Open the generated solution (.sln file) (e.g. *D:\\projects\\sumo\\cmake-build\\SUMO.sln*) using the File Explorer or by clicking on "Open Project"
 - Build the configurations you want
@@ -236,6 +233,6 @@ cmake --build . --config Release
 cmake --install . --config Release
 ```
 
-You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
+You can also change the configuration to Debug and also enable multithreading as usual which CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
 
-For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#jupedsim).
+For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#model_jupedsim).

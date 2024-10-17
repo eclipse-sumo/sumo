@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-06 22:23:05 by Eclipse SUMO marouter Version v1_19_0+2013-766b9941f98
+<!-- generated on 2024-10-09 19:54:02 by Eclipse SUMO marouter Version v1_20_0+2262-4c4b720e23e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="marouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -72,6 +72,7 @@
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="capacities.default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
@@ -105,6 +106,7 @@
 
     <xsd:complexType name="defaultsTopicType">
         <xsd:all>
+            <xsd:element name="defaults-override" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.departlane" type="strOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.departpos" type="strOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.departspeed" type="strOptionType" minOccurs="0"/>

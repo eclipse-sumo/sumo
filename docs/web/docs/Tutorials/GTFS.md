@@ -71,7 +71,7 @@ the script can merge this information with the GTFS data.
 
 In general there are three types of data
 we can extract from GTFS: schedules (in minute precision for every vehicle), stop locations (geo coordinates),
-and routes (geo coordinates of the travelled streets), where the latter is optional. The GTFS file should be in
+and routes (geo coordinates of the traveled streets), where the latter is optional. The GTFS file should be in
 zip format and contain at least `routes.txt`, `stops.txt`, `stop_times.txt`, `trips.txt`, `calendar.txt` and `calendar_dates.txt`.
 If your GTFS data has a (non-empty) `shapes.txt` file it also has route information.
 For the rest of the tutorial, we will assume that you always want to import at least the schedules from GTFS.
@@ -120,15 +120,16 @@ which automatically generate the "osm_ptlines.xml" file with the public transpor
 The call is:
 
 ```
-python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus --vtype-output pt_vtypes.xml
 ```
 
 The option **--repair** is not mandatory, but helpful. It takes the given ptLines
 and tries to repair them using duarouter before the mapping. If some routes of the
 ptLines are not valid, they won't be used for the mapping.
 
-The script generates four output files:
+The script generates the following output files:
 
+- `pt_vtypes.xml`
 - `gtfs_publictransport.add.xml` (defining the stops)
 - `gtfs_publictransport.rou.xml` (defining the single public transport vehicles)
 - `gtfs_missing.xml` contains the elements (stops and ptLines) of the GTFS data that could not be imported
@@ -137,7 +138,7 @@ The script generates four output files:
 To run the simulation call:
 
 ```
-sumo-gui -n osm.net.xml --additional gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
+sumo-gui -n osm.net.xml --additional pt_vtypes.xml,gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
 ```
 
 # Using the outputs in a simulation

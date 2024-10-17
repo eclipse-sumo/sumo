@@ -1,9 +1,9 @@
 Loading net ... done.
 Loading detector definitions from 'input_tri.det.xml' ... done.
 Loading flows from 'input_tri_flows.txt' ... done.
-Scanning for empty detectors ... 
+Scanning for empty detectors ...
 Detector 'MQ_L' has no flow.
-done.
+ done.
 Computing detector types ... done.
 Computed detector types:
  1 source detectors

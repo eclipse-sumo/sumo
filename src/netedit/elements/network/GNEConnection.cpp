@@ -204,10 +204,16 @@ GNEConnection::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
-        // only move the first element
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+        // check if we're editing this network element
+        const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+        if (editedNetworkElement) {
+            return editedNetworkElement == this;
+        } else {
+            // only move the first element
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+        }
     } else {
         return false;
     }
@@ -347,28 +353,32 @@ GNEConnection::smootShape() {
 
 GUIGLObjectPopupMenu*
 GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // build position copy entry
-    buildPositionCopyEntry(ret, app);
-    // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        // create menu commands
-        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
-        GUIDesigns::buildFXMenuCommand(ret, "Smooth connection shape", nullptr, &parent, MID_GNE_CONNECTION_SMOOTH_SHAPE);
-        // check if menu commands has to be disabled
-        NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
-        // check if we're in the correct edit mode
-        if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
-            mcCustomShape->disable();
+    if (myShapeEdited) {
+        return getShapeEditedPopUpMenu(app, parent, getNBEdgeConnection().customShape);
+    } else {
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        buildPopupHeader(ret, app);
+        buildCenterPopupEntry(ret);
+        buildNameCopyPopupEntry(ret);
+        // build selection and show parameters menu
+        myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+        buildShowParamsPopupEntry(ret);
+        // build position copy entry
+        buildPositionCopyEntry(ret, app);
+        // check if we're in supermode network
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            // create menu commands
+            FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
+            GUIDesigns::buildFXMenuCommand(ret, "Smooth connection shape", nullptr, &parent, MID_GNE_CONNECTION_SMOOTH_SHAPE);
+            // check if menu commands has to be disabled
+            NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
+            // check if we're in the correct edit mode
+            if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
+                mcCustomShape->disable();
+            }
         }
+        return ret;
     }
-    return ret;
 }
 
 
@@ -409,8 +419,16 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             drawConnection(s, d, shapeSuperposed, connectionExaggeration);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 0.1);
-            // draw dotted contour
-            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // draw dotted contour depending if we're editing the custom shape
+            const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+            if (editedNetworkElement && (editedNetworkElement == this)) {
+                // draw dotted contour geometry points
+                myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, shapeSuperposed, s.neteditSizeSettings.connectionGeometryPointRadius,
+                        connectionExaggeration, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                // draw dotted contour
+                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
         // calculate contour
         calculateConnectionContour(s, d, shapeSuperposed, connectionExaggeration);
@@ -520,10 +538,23 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_STATE:
             return toString(getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(
                                 getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         case GNE_ATTR_PARAMETERS:
             return nbCon.getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+PositionVector
+GNEConnection::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return getNBEdgeConnection().customShape;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -549,6 +580,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_CHANGE_RIGHT:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_TYPE:
         case GNE_ATTR_SELECTED:
@@ -764,13 +796,14 @@ void
 GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const PositionVector& shape, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction())) {
-        // calculate connection shape contour
-        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
+    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction(), getType())) {
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, s.neteditSizeSettings.connectionGeometryPointRadius,
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, getType(), s.neteditSizeSettings.connectionGeometryPointRadius,
                     exaggeration, true);
+        } else {
+            // calculate connection shape contour
+            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, getType(), s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
         }
     }
 }
@@ -825,10 +858,10 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= -1);
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // empty custom shapes are allowed
             return canParse<PositionVector>(value);
-        }
         case SUMO_ATTR_STATE:
             return false;
         case SUMO_ATTR_DIR:
@@ -926,36 +959,31 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LENGTH:
             nbCon.customLength = parse<double>(value);
             break;
-        case SUMO_ATTR_ALLOW: {
+        case SUMO_ATTR_ALLOW:
             nbCon.permissions = parseVehicleClasses(value);
             break;
-        }
-        case SUMO_ATTR_DISALLOW: {
+        case SUMO_ATTR_DISALLOW:
             nbCon.permissions = invertPermissions(parseVehicleClasses(value));
             break;
-        }
-        case SUMO_ATTR_CHANGE_LEFT: {
+        case SUMO_ATTR_CHANGE_LEFT:
             nbCon.changeLeft = value == "" ? SVC_UNSPECIFIED : parseVehicleClasses(value);
             break;
-        }
-        case SUMO_ATTR_CHANGE_RIGHT: {
+        case SUMO_ATTR_CHANGE_RIGHT:
             nbCon.changeRight = value == "" ? SVC_UNSPECIFIED : parseVehicleClasses(value);
             break;
-        }
         case SUMO_ATTR_STATE:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             nbCon.customShape = parse<PositionVector>(value);
             // update centering boundary
             updateCenteringBoundary(false);
             break;
-        }
-        case SUMO_ATTR_TYPE: {
+        case SUMO_ATTR_TYPE:
             nbCon.edgeType = value;
             break;
-        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

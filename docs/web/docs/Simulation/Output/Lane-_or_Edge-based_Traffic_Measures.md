@@ -66,7 +66,7 @@ For additional attributes see the table below.
 
 ### Simplified definition
 
-If none of the addional attributes listed above are needed, a meandata definition can be declared without defining an additional file by setting one of the following options:
+If none of the additional attributes listed above are needed, a meandata definition can be declared without defining an additional file by setting one of the following options:
 
 - **--edgedata-output** FILENAME
 - **--lanedata-output** FILENAME

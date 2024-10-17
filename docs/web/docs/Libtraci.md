@@ -63,8 +63,8 @@ you have `ENABLE_CS_BINDINGS` set in your cmake configuration.
     library. The method below is mostly used for testing libtraci.
 
 ```py
-import libtraci
-libtraci.start(["sumo", "-c", "test.sumocfg"])
+import libtraci
+libtraci.start(["sumo", "-c", "test.sumocfg"])
 libtraci.simulationStep()
 libtraci.close()
 ```
@@ -72,7 +72,7 @@ libtraci.close()
 Existing traci scripts can mostly be reused by calling
 
 ```py
-import libtraci as traci
+import libtraci as traci
 ```
 
 In case you have a lot of scripts you can also set the environment
@@ -83,7 +83,7 @@ import as above.
 
 ### Example Code (test.cpp)
 
-The example assumes you have the named sumocfg file in your current working directory and the SUMO bin directory included 
+The example assumes you have the named sumocfg file in your current working directory and the SUMO bin directory included
 in the PATH environmental variable. Otherwise you need to provide the full file path.
 
 ```cpp
@@ -157,6 +157,6 @@ just as in Python by adding the `py.` prefix. (Please note that this is actually
 implementation.)
 
 ```
-py.traci.start(["sumo", "-c", "test.sumocfg"])
+py.traci.start(["sumo", "-c", "test.sumocfg"])
 py.traci.simulationStep()
 ```

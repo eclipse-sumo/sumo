@@ -55,7 +55,7 @@ Connections can be inspected through inspection of their **from** lane or its co
 
 ### Changing connections
 
-When a new junction is created, or their edges are modified, a set of new connections is automatically created. But netedit allows also to customize the connections of a lane using the connection mode. When a source lane is selected in connection mode all outgoing lanes at the junction are colored according the the categories below:
+When a new junction is created, or their edges are modified, a set of new connections is automatically created. But netedit allows also to customize the connections of a lane using the connection mode. When a source lane is selected in connection mode all outgoing lanes at the junction are colored according to the categories below:
 
 | Legend                                                  | Meaning                                    | Result of left-click                                 |
 | ------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------- |
@@ -63,7 +63,7 @@ When a new junction is created, or their edges are modified, a set of new connec
 | <span style="background:#00FF00">Target</span>          | The lane is already connected from the source lane.                                             | Remove connection                                                                                                       |
 | <span style="background:#008800">Possible Target</span> | The lane is not yet connected.                                                                  | Add connection (with shift-click, set `pass="true"`)                                                                                 |
 | <span style="background:#FF00FF">Target (pass)</span>   | The lane already connected and this connection is forcibly set to have priority (attribute `pass="true"`)    | Remove connection                                                                                                       |
-| <span style="background:#FFFF00">Conflict</span>        | The lane is not yet connected. Adding a connection would be unusual for some reason (see below) | Print reason for conflict in status bar. (with ctrl-click add connection, with ctr+shift+click create connection with `pass="true"`) |
+| <span style="background:#FFFF00">Conflict</span>        | The lane is not yet connected. Adding a connection would be unusual for some reason (see below) | Print reason for conflict in status bar. (with <kbd>Ctrl</kbd> + <kbd>click</kbd> add connection, with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>click</kbd> create connection with `pass="true"`) |
 
 To deselect the source edge or cancel the declared connections press **<ESC\>** or click the *Cancel*-Button. To confirm the change press **<ENTER\>** or click the *OK*-Button.
 
@@ -217,7 +217,7 @@ Creation of polygon.
 ![](../images/ModePolygon4ClosingShape.png)
 Polygon with shape closed.
 
-The points of a shape can be edited in the Move mode by clicking on the outline to create a new point or above an already existing one in order to modify its position. If a point moves to the same position of an adjacent point, they fuse together, and if the final point moves to the position of the initial point, the polygon gets closed. If the polygon has the option “block shape” activated, it won’t be editable, but only moved as a set.
+The points of a shape can be edited in the Move mode by clicking on the outline to create a new point or above an already existing one in order to modify its position. If a point moves to the same position of an adjacent point, they fuse together, and if the final point moves to the position of the initial point, the polygon gets closed. If the polygon has the option “block shape” activated, it won't be editable, but only moved as a set.
 
 ![](../images/ModePolygon5MovingVertex.png)
 Moving Polygon's shape point.

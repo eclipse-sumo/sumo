@@ -95,22 +95,23 @@ GNEPOI::getMoveOperation() {
             (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
             myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        const double snapRadiusSquared = snapRadius * snapRadius;
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // check if we're editing width or height
         if ((myShapeWidth.size() == 0) || (myShapeHeight.size() == 0)) {
             return nullptr;
-        } else if (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        } else if (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
             // edit height
             return new GNEMoveOperation(this, myShapeHeight, true, GNEMoveOperation::OperationType::HEIGHT);
-        } else if (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        } else if (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
             // edit height
             return new GNEMoveOperation(this, myShapeHeight, false, GNEMoveOperation::OperationType::HEIGHT);
-        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
             // edit width
             return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
-        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
             // edit width
             return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
         } else {
@@ -304,7 +305,8 @@ GNEPOI::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -353,25 +355,46 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if POI can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+            myNet->getViewNet()->getDataViewOptions().showShapes()) {
+        // draw boundaries
+        GLHelper::drawBoundary(s, getCenteringBoundary());
         // obtain POIExaggeration
         const double POIExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(POIExaggeration);
+        // check if draw moving geometry points (only if we have a defined image
+        const bool movingGeometryPoints = getShapeImgFile().empty() ? false : drawMovingGeometryPoints(false);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawPOI(getWidth(), getHeight(), d, isAttributeCarrierSelected())) {
             // draw POI
-            drawPOI(s, d);
+            drawPOI(s, d, movingGeometryPoints);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), POIExaggeration);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // draw dotted contours
+            if (movingGeometryPoints) {
+                // get snap radius
+                const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+                const double snapRadiusSquared = snapRadius * snapRadius;
+                // get mouse position
+                const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+                // check if we're editing width or height
+                if ((myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
+                        (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+                    myMovingContourUp.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                    myMovingContourDown.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                } else if ((myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
+                           (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+                    myMovingContourLeft.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                    myMovingContourRight.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                }
+            } else {
+                myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
         // calculate contour
-        calculatePOIContour(s, d, POIExaggeration);
+        calculatePOIContour(s, d, POIExaggeration, movingGeometryPoints);
     }
 }
 
@@ -573,7 +596,8 @@ GNEPOI::getHierarchyName() const {
 // ===========================================================================
 
 void
-GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                const bool movingGeometryPoints) const {
     if (GUIPointOfInterest::checkDraw(s, this)) {
         // draw inner polygon
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
@@ -583,23 +607,16 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
             GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
                                              myShapeWidth.length2D(), myShapeHeight.length2D());
         }
-        // draw an orange square mode if there is an image(see #4036)
-        if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
-            // Add a draw matrix for drawing logo
-            GLHelper::pushMatrix();
-            glTranslated(x(), y(), getType() + 0.01);
-            GLHelper::setColor(RGBColor::ORANGE);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-            GLHelper::popMatrix();
-        }
         // draw geometry points
-        if (myShapeHeight.size() > 0) {
-            drawUpGeometryPoint(s, d, myShapeHeight.front(), 180, RGBColor::ORANGE);
-            drawDownGeometryPoint(s, d, myShapeHeight.back(), 180, RGBColor::ORANGE);
-        }
-        if (myShapeWidth.size() > 0) {
-            drawLeftGeometryPoint(s, d, myShapeWidth.back(), -90, RGBColor::ORANGE);
-            drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
+        if (movingGeometryPoints) {
+            if (myShapeHeight.size() > 0) {
+                drawUpGeometryPoint(s, d, myShapeHeight.front(), 180, RGBColor::ORANGE);
+                drawDownGeometryPoint(s, d, myShapeHeight.back(), 180, RGBColor::ORANGE);
+            }
+            if (myShapeWidth.size() > 0) {
+                drawLeftGeometryPoint(s, d, myShapeWidth.back(), -90, RGBColor::ORANGE);
+                drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
+            }
         }
     }
 }
@@ -607,12 +624,17 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
 
 void
 GNEPOI::calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const double exaggeration) const {
-    // draw contour depending of shape img file
-    if (getShapeImgFile().empty()) {
-        myAdditionalContour.calculateContourCircleShape(s, d, this, *this, 1.3, exaggeration);
+                            const double exaggeration, const bool movingGeometryPoints) const {
+    // check if we're calculating the contour or the moving geometry points
+    if (movingGeometryPoints) {
+        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeHeight.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+        myMovingContourDown.calculateContourCircleShape(s, d, this, myShapeHeight.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+    } else if (getShapeImgFile().empty()) {
+        myAdditionalContour.calculateContourCircleShape(s, d, this, *this, 1.3, getShapeLayer(), exaggeration);
     } else {
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), exaggeration);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, getShapeLayer(), 0, 0, getShapeNaviDegree(), exaggeration);
     }
 }
 

@@ -82,9 +82,6 @@
 #define DEFAULT_OPENGAP_MAXDECEL 1.0
 
 
-#define DEFAULT_MANUAL_TYPE ""
-#define DEFAULT_AUTOMATED_TYPE ""
-
 // Maximal tries to sample a positive value from the gaussian distribution
 // used for the driver response time when a TOR is issued. (the distribution is assumed truncated at zero)
 #define MAX_RESPONSETIME_SAMPLE_TRIES 100
@@ -161,25 +158,24 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
             WRITE_WARNING(TL("ToC device is not supported by the mesoscopic simulation."));
             return;
         }
-        const std::string manualType = getStringParam(v, oc, "toc.manualType", DEFAULT_MANUAL_TYPE, true);
-        const std::string automatedType = getStringParam(v, oc, "toc.automatedType", DEFAULT_AUTOMATED_TYPE, true);
-        const SUMOTime responseTime = TIME2STEPS(getFloatParam(v, oc, "toc.responseTime", DEFAULT_RESPONSE_TIME, false));
-        const double recoveryRate = getFloatParam(v, oc, "toc.recoveryRate", DEFAULT_RECOVERY_RATE, false);
-        const double lcAbstinence = getFloatParam(v, oc, "toc.lcAbstinence", DEFAULT_LCABSTINENCE, false);
-        const double initialAwareness = getFloatParam(v, oc, "toc.initialAwareness", DEFAULT_INITIAL_AWARENESS, false);
-        const double mrmDecel = getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
-        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", true, false);
-        const std::string deviceID = "toc_" + v.getID();
-        const std::string file = getOutputFilename(v, oc);
-        const OpenGapParams ogp = getOpenGapParams(v, oc);
-        const double dynamicToCThreshold = getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_DYNAMIC_TOC_THRESHOLD, false);
-        const double dynamicMRMProbability = getDynamicMRMProbability(v, oc);
-        const bool mrmKeepRight = getBoolParam(v, oc, "toc.mrmKeepRight", false, false);
-        const std::string mrmSafeSpot = getStringParam(v, oc, "toc.mrmSafeSpot", "", false);
-        const SUMOTime mrmSafeSpotDuration = TIME2STEPS(getFloatParam(v, oc, "toc.mrmSafeSpotDuration", 60., false));
-        const double maxPreparationAccel = getFloatParam(v, oc, "toc.maxPreparationAccel", 0.0, false);
+        const std::string manualType = v.getStringParam("device.toc.manualType", true);
+        const std::string automatedType = v.getStringParam("device.toc.automatedType", true);
+        const SUMOTime responseTime = TIME2STEPS(v.getFloatParam("device.toc.responseTime"));
+        const double recoveryRate = v.getFloatParam("device.toc.recoveryRate");
+        const double lcAbstinence = v.getFloatParam("device.toc.lcAbstinence");
+        const double initialAwareness = v.getFloatParam("device.toc.initialAwareness");
+        const double mrmDecel = v.getFloatParam("device.toc.mrmDecel");
+        const bool useColoring = v.getBoolParam("device.toc.useColorScheme");
+        const std::string file = v.getStringParam("device.toc.file");
+        const OpenGapParams ogp = getOpenGapParams(v);
+        const double dynamicToCThreshold = v.getFloatParam("device.toc.dynamicToCThreshold");
+        const double dynamicMRMProbability = getDynamicMRMProbability(v);
+        const bool mrmKeepRight = v.getBoolParam("device.toc.mrmKeepRight");
+        const std::string mrmSafeSpot = v.getStringParam("device.toc.mrmSafeSpot");
+        const SUMOTime mrmSafeSpotDuration = TIME2STEPS(v.getFloatParam("device.toc.mrmSafeSpotDuration"));
+        const double maxPreparationAccel = v.getFloatParam("device.toc.maxPreparationAccel");
         // build the device
-        MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
+        MSDevice_ToC* device = new MSDevice_ToC(v, "toc_" + v.getID(), file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
                                                 dynamicMRMProbability, maxPreparationAccel, mrmKeepRight,
@@ -189,32 +185,9 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
 }
 
 
-std::string
-MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
-    // Default of "" means no output
-    std::string file = "";
-    if (v.getParameter().hasParameter("device.toc.file")) {
-        try {
-            file = v.getParameter().getParameter("device.toc.file", file);
-        } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.measures'"), v.getParameter().getParameter("device.toc.file", file));
-        }
-    } else if (v.getVehicleType().getParameter().hasParameter("device.toc.file")) {
-        try {
-            file = v.getVehicleType().getParameter().getParameter("device.toc.file", file);
-        } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.measures'"), v.getVehicleType().getParameter().getParameter("device.toc.file", file));
-        }
-    } else {
-        file = oc.getString("device.toc.file") == "" ? file : oc.getString("device.toc.file");
-    }
-    return file;
-}
-
-
 double
-MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc) {
-    double pMRM = getFloatParam(v, oc, "toc.dynamicMRMProbability", DEFAULT_MRM_PROBABILITY, false);
+MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v) {
+    double pMRM = v.getFloatParam("device.toc.dynamicMRMProbability");
     if (pMRM < 0 || pMRM > 0.5) {
         const double pMRMTrunc = MAX2(0.0, MIN2(0.5, pMRM));
         WRITE_WARNINGF(TL("Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in the admissible range [0,0.5]. Truncated to %."), toString(pMRM), toString(pMRMTrunc));
@@ -225,11 +198,11 @@ MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& 
 
 
 MSDevice_ToC::OpenGapParams
-MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
-    double timegap = getFloatParam(v, oc, "toc.ogNewTimeHeadway", -1.0, false);
-    double spacing = getFloatParam(v, oc, "toc.ogNewSpaceHeadway", -1.0, false);
-    double changeRate = getFloatParam(v, oc, "toc.ogChangeRate", -1.0, false);
-    double maxDecel = getFloatParam(v, oc, "toc.ogMaxDecel", -1.0, false);
+MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v) {
+    double timegap = v.getFloatParam("device.toc.ogNewTimeHeadway");
+    double spacing = v.getFloatParam("device.toc.ogNewSpaceHeadway");
+    double changeRate = v.getFloatParam("device.toc.ogChangeRate");
+    double maxDecel = v.getFloatParam("device.toc.ogMaxDecel");
     bool specifiedAny = false;
 
     if (changeRate == -1.0) {

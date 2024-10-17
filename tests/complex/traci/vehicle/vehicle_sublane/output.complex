@@ -12,8 +12,8 @@ acceleration 2.5994939450407406
 pos (989.4962096581543, 501.65)
 pos3D (989.4962096581543, 501.65, 0.0)
 angle 270.0
-road 2fi
-lane 2fi_0
+road '2fi'
+lane '2fi_0'
 laneIndex 0
 type DEFAULT_VEHTYPE
 routeID horizontal
@@ -54,6 +54,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 1.5079033750798434
@@ -75,7 +76,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2991.432806497137
 driving dist 2D 1089.0303920102156
-line 
+line ''
 via ()
 dist 5.467193502862939
 lane change state right (1073741824, 1073741824)
@@ -102,8 +103,8 @@ acceleration 1.9133691473305223
 pos (964.2637932489363, 501.45)
 pos3D (964.2637932489363, 501.45, 0.0)
 angle 270.0
-road 2fi
-lane 2fi_0
+road '2fi'
+lane '2fi_0'
 laneIndex 0
 type DEFAULT_VEHTYPE@horiz
 routeID horizontal
@@ -144,6 +145,7 @@ shape bicycle
 MinGap 1.1
 width 1.1
 height 1.6
+mass 1600.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 2.223049661509682
@@ -165,7 +167,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2966.0480817393727
 driving dist 2D 1063.6456672524512
-line S46
+line 'S46'
 via ('3o', '4o')
 dist 30.85191826062743
 lane change state right (1073741824, 1073741824)
@@ -192,8 +194,8 @@ acceleration -1073741824.0
 pos invalid
 pos3D invalid
 angle -1073741824.0
-road 
-lane 
+road ''
+lane ''
 laneIndex -1073741824
 type DEFAULT_VEHTYPE
 routeID horizontal
@@ -234,6 +236,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
@@ -255,7 +258,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
 driving dist 2D -1073741824.0
-line 
+line ''
 via ()
 dist -1073741824.0
 lane change state right (1073741824, 1073741824)
@@ -277,7 +280,7 @@ step 8.0
 (StopData(lane=2fi_0, startPos=54.9, endPos=55.0, stopFlags=1, duration=2.0),)
 legacy getNextStops (('2fi_0', 55.0, '', 2, 2.0, -1073741824.0),)
 step 9.0
-{80: '2fi', 86: -1073741824.0}
+{80: '2fi', 86: 54.99930974096434}
 (StopData(lane=2fi_0, startPos=54.9, endPos=55.0, stopFlags=1, duration=2.0, arrival=9.0),)
 legacy getNextStops (('2fi_0', 55.0, '', 3, 2.0, -1073741824.0),)
 step 10.0
@@ -302,8 +305,8 @@ acceleration 1.7938080130610619
 pos (988.0537655059388, 501.65)
 pos3D (988.0537655059388, 501.65, 0.0)
 angle 270.0
-road 2fi
-lane 2fi_0
+road '2fi'
+lane '2fi_0'
 laneIndex 0
 type DEFAULT_VEHTYPE
 routeID horizontal
@@ -344,6 +347,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 1.3772867181431419
@@ -365,7 +369,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2989.98165543857
 driving dist 2D 1087.579240951649
-line t
+line 't'
 via ()
 dist 6.918344561429695
 lane change state right (1073741824, 1073741824)
@@ -517,47 +521,47 @@ step 63.0
 vehicle routeTest2 lane 2fi_0 lanePos 43.590955395815215 stopped False
 waitingTime=0.0 dynamicImpatience=0.3
 step 64.0
-vehicle bus lane 2fi_0 lanePos 0.0 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 0.0 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 65.0
-vehicle bus lane 2fi_0 lanePos 1.7952413794584574 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 1.7952413794584574 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 66.0
-vehicle bus lane 2fi_0 lanePos 5.282782797026449 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 5.282782797026449 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 67.0
-vehicle bus lane 2fi_0 lanePos 10.423440752108583 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 10.423440752108583 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 68.0
-vehicle bus lane 2fi_0 lanePos 16.896323289303112 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 16.896323289303112 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 69.0
-vehicle bus lane 2fi_0 lanePos 24.772446252731605 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 24.772446252731605 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 70.0
-vehicle bus lane 2fi_0 lanePos 29.57987436770927 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 29.57987436770927 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 71.0
-vehicle bus lane 2fi_0 lanePos 29.887302482686934 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 29.887302482686934 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 72.0
-vehicle bus lane 2fi_0 lanePos 29.968260143569484 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 29.968260143569484 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 73.0
-vehicle bus lane 2fi_0 lanePos 29.995656338323506 stopped True 
- stoppedParking False stoppeTriggered False stoppeBusStop True stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 29.995656338323506 stopped True
+ stoppedParking False stoppedTriggered False stoppedBusStop True stoppedContainerStop False
 step 74.0
-vehicle bus lane 2fi_0 lanePos 29.995656338323506 stopped True 
- stoppedParking False stoppeTriggered False stoppeBusStop True stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 29.995656338323506 stopped True
+ stoppedParking False stoppedTriggered False stoppedBusStop True stoppedContainerStop False
 step 75.0
-vehicle bus lane 2fi_0 lanePos 31.622385450465273 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 31.622385450465273 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 76.0
-vehicle bus lane 2fi_0 lanePos 34.60499547236938 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 34.60499547236938 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 step 77.0
-vehicle bus lane 2fi_0 lanePos 39.18755163358398 stopped False 
- stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
+vehicle bus lane 2fi_0 lanePos 39.18755163358398 stopped False
+ stoppedParking False stoppedTriggered False stoppedBusStop False stoppedContainerStop False
 triptest route: ('3si', '2o', '2fi', '2si', '4o', '4fi', '4si')
 nextStop: (StopData(lane=2fi_0, startPos=19.9, endPos=20.0, stopFlags=1, duration=10.0),)
 legacy getNextStops (('2fi_0', 20.0, '', 2, 10.0, -1073741824.0),)
@@ -578,23 +582,23 @@ step 84.0
 step 85.0
 ('veh', 'parking', 'speed', 0.10790925537257873, 'acceleration', -0.9155643100405666, 'pos', '(980.1461288319947, 501.65)', 'pos3d', '(980.1461288319947, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.973713448697453, 'CO2', 2585.0590953287515)
 step 86.0
-('veh', 'parking', 'speed', 0.02507959568451514, 'acceleration', -0.08282965968806359, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.02507959568451514, 'acceleration', -0.08282965968806359, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 87.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', -0.02507959568451514, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', -0.02507959568451514, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 88.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 89.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 90.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 91.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 92.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 93.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 94.0
-('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', -1073741824.0, 'CO2', 0.0)
+('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 19.99879304438197, 'CO2', 0.0)
 step 95.0
 ('veh', 'parking', 'speed', 0.0, 'acceleration', 0.0, 'pos', '(980.1211997138844, 504.84999999999997)', 'pos3d', '(980.1211997138844, 504.84999999999997, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 19.99879304438197, 'CO2', 2624.722222222222)
 step 96.0
@@ -662,8 +666,8 @@ acceleration 13.89
 pos (448.99, 491.19)
 pos3D (448.99, 491.19, 0.0)
 angle 90.0
-road 1si
-lane 1si_0
+road '1si'
+lane '1si_0'
 laneIndex 0
 type DEFAULT_VEHTYPE
 routeID !movedVeh!var#1
@@ -704,6 +708,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss -0.2502250225022503
@@ -725,7 +730,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
 driving dist 2D -1073741824.0
-line 
+line ''
 via ()
 dist 458.19101834282105
 lane change state right (1073741824, 1073741824)
@@ -780,7 +785,7 @@ pav edge=2fi pos=42.845389065088064 stopState=0
 step 147.0
 pav edge=2fi pos=44.92678038386333 stopState=0
 step 148.0
-pav edge=2fi pos=-1073741824.0 stopState=131
+pav edge=2fi pos=44.94790128400381 stopState=131
 step 149.0
 pav edge=2fi pos=44.97 stopState=131
 step 150.0
@@ -806,8 +811,8 @@ acceleration -1073741824.0
 pos invalid
 pos3D invalid
 angle -1073741824.0
-road 
-lane 
+road ''
+lane ''
 laneIndex -1073741824
 type long
 routeID horizontal
@@ -848,6 +853,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
@@ -869,7 +875,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
 driving dist 2D -1073741824.0
-line 
+line ''
 via ()
 dist -1073741824.0
 lane change state right (1073741824, 1073741824)
@@ -888,8 +894,8 @@ acceleration -1073741824.0
 pos invalid
 pos3D invalid
 angle -1073741824.0
-road 
-lane 
+road ''
+lane ''
 laneIndex -1073741824
 type long@elVeh
 routeID horizontal
@@ -930,6 +936,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
@@ -951,7 +958,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
 driving dist 2D -1073741824.0
-line 
+line ''
 via ()
 dist -1073741824.0
 lane change state right (1073741824, 1073741824)
@@ -970,8 +977,8 @@ acceleration -1073741824.0
 pos invalid
 pos3D invalid
 angle -1073741824.0
-road 
-lane 
+road ''
+lane ''
 laneIndex -1073741824
 type long
 routeID horizontal
@@ -1012,6 +1019,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
@@ -1033,7 +1041,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
 driving dist 2D -1073741824.0
-line 
+line ''
 via ()
 dist -1073741824.0
 lane change state right (1073741824, 1073741824)
@@ -1052,8 +1060,8 @@ acceleration -1073741824.0
 pos invalid
 pos3D invalid
 angle -1073741824.0
-road 
-lane 
+road ''
+lane ''
 laneIndex -1073741824
 type long@elVeh
 routeID horizontal
@@ -1094,6 +1102,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+mass 1500.0
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
@@ -1115,7 +1124,7 @@ waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
 driving dist 2D -1073741824.0
-line 
+line ''
 via ()
 dist -1073741824.0
 lane change state right (1073741824, 1073741824)

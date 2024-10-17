@@ -29,16 +29,16 @@ them reside in the relevant test directory in a test.py script that
 starts always with the same header:
 
 ```py
-import os
-import sys
+import os
+import sys
 
-testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
-neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
 sys.path.append(neteditTestRoot)
-import neteditTestFunctions as netedit
+import neteditTestFunctions as netedit
 
-# Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
+# Open netedit
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
 ```
 
 This code will find the directory with the netedit tests using the

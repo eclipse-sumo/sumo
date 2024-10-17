@@ -166,7 +166,7 @@ class NetDeleteTool(DeleteTool):
 
     def on_execute_selection(self, event):
         """
-        Definively execute operation on currently selected drawobjects.
+        Definitely execute operation on currently selected drawobjects.
         """
         if self.is_tool_allowed_on_selection():
             drawobj, _id = self.get_current_selection()
@@ -208,14 +208,14 @@ class AddCrossingTool(SelectTool):
                              groupnames=['options'],
                              name='Node ID',
                              perm='r',
-                             info='Node or juction at which crossings should be placed.',
+                             info='Node or junction at which crossings should be placed.',
                              ))
 
         self.add(cm.AttrConf('ids_edge', [],
                              groupnames=['options'],
                              perm='r',
                              name='Edge IDs',
-                             info='Edge IDs, accross which the crossing will be build.',
+                             info='Edge IDs, across which the crossing will be build.',
                              ))
 
         self.add(cm.AttrConf('width', 2.0,

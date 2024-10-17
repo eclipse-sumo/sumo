@@ -80,7 +80,7 @@ GUIBusStop::initShape(PositionVector& fgShape,
     const double lgf = myLane.getLengthGeometryFactor(secondaryShape);
     fgShape = myLane.getShape(secondaryShape);
     fgShape = fgShape.getSubpart(lgf * myBegPos, lgf * myEndPos);
-    fgShape.move2side((myLane.getWidth() + myWidth) * 0.45 * offsetSign);
+    fgShape.move2side(((myLane.getWidth() + myWidth) * 0.5 - 0.2) * offsetSign);
     fgShapeRotations.reserve(fgShape.size() - 1);
     fgShapeLengths.reserve(fgShape.size() - 1);
     int e = (int) fgShape.size() - 1;
@@ -103,8 +103,8 @@ GUIBusStop::initShape(PositionVector& fgShape,
 
 
 bool
-GUIBusStop::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors) {
-    const bool added = MSStoppingPlace::addAccess(lane, startPos, endPos, length, doors);
+GUIBusStop::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit) {
+    const bool added = MSStoppingPlace::addAccess(lane, startPos, endPos, length, exit);
     if (added) {
         myAccessCoords.push_back(lane->geometryPositionAtOffset((startPos + endPos) / 2.));
     }
@@ -237,7 +237,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(colorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
         if (myElement == SUMO_TAG_CONTAINER_STOP) {
             GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
         } else if (myElement == SUMO_TAG_TRAIN_STOP) {

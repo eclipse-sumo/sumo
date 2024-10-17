@@ -37,16 +37,16 @@ build the network. If you only use edges and nodes, stored in
 look like:
 
 ```
-netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
-  --output-file=MySUMONet.net.xml
+netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
+  --output-file=MySUMONet.net.xml
 ```
 
 If you also use connections and types the call is:
 
 ```
-netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
-  --connection-files=MyConnections.con.xml --type-files=MyTypes.typ.xml \
-  --output-file=MySUMONet.net.xml
+netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
+  --connection-files=MyConnections.con.xml --type-files=MyTypes.typ.xml \
+  --output-file=MySUMONet.net.xml
 ```
 
 The options used here, including their abbreviations, are documented on
@@ -101,7 +101,7 @@ certain meaning and value range:
 | **y**           | float                                                                                                                                                                                                                     | The y-position of the node on the plane in meters                                                                                                  |
 | z               | float                                                                                                                                                                                                                     | The z-position of the node on the plane in meters                                                                                                  |
 | type            | enum ( "priority", "traffic_light", "right_before_left", "left_before_right", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
-| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#actuated_traffic_lights)
+| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#type_actuated)
 | tlLayout        | enum (  **"opposites"**, "incoming", "alternateOneWay")                                                                                                                                                                                              | An optional layout for the traffic light plan (see below)
 | tl              | id (string)                                                                                                                                                                                                               | An optional id for the traffic light program. Nodes with the same tl-value will be joined into a single program                                    |
 | radius          | positive float;                                                                                                                                                                                                           | optional turning radius (for all corners) for that node in meters *(default 1.5)*                                                                  |
@@ -184,8 +184,8 @@ error and will yield in a program stop:
 - `traffic_light`: The junction is
   controlled by a traffic light (priority rules are used to avoid
   collisions if conflicting links have green light at the same time).
-- `right_before_left`: Vehicles yield to traffic coming from the right. (This is automatically flipped when building [lefthand](../FAQ.md#can_sumo_simulate_lefthand_traffic) networks)
-- `left_before_right`: Vehicles yield to traffic coming from the left. (Only known to be needed for [Madagascar](https://www.countryreports.org/country/Madagascar/traffic.htm) where cars drive on the right but yield for the left side)
+- `right_before_left`: Vehicles yield to traffic coming from the right. (This is automatically flipped when building [lefthand](../FAQ.md#can_sumo_simulate_lefthand_traffic) networks).
+- `left_before_right`: Vehicles yield to traffic coming from the left. (Only known to be needed for [Madagascar](https://www.countryreports.org/country/Madagascar/traffic.htm) where cars drive on the right but yield for the left side).
 - `unregulated`: The junction is completely
   unregulated - all vehicles may pass without braking; Collision
   detection on the intersection is disabled but collisions beyond the
@@ -196,9 +196,9 @@ error and will yield in a program stop:
   collisions within the intersection will never be detected.
 - `priority_stop`: This works like a
   *priority*-junction but vehicles on minor links always have to stop
-  before passing
+  before passing.
 - `allway_stop`: This junction works like
-  an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop)
+  an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop).
 - `rail_signal`: This junction is
   controlled by a [rail signal](../Simulation/Rail_signals.md).
   This type of junction/control is only useful for rails.
@@ -207,7 +207,7 @@ error and will yield in a program stop:
   [zipper-style (late merging)](https://en.wikipedia.org/wiki/Merge_%28traffic%29).
 - `rail_crossing`: This junction models a
   rail road crossing. It will allow trains to pass unimpeded and will
-  restrict vehicles via traffic signals when a train is approaching..
+  restrict vehicles via traffic signals when a train is approaching.
 - `traffic_light_right_on_red`: The
   junction is controlled by a traffic light as for type
   *traffic_light*. Additionally, right-turning vehicles may drive in
@@ -274,7 +274,7 @@ The right-of-way rules are indicated in [sumo-gui by the colored bars at the end
 *junctions-\>show lane to lane connections*.
 
 The right-of-way relationship between any two connections ca be shown in
-[netedit using right-of-way mode](../Netedit/index.md#right-of-way).
+[netedit using right-of-way mode](../Netedit/editModesNetwork.md#prohibitions).
 
 If a vehicle is braking in the simulation, the responsible foe vehicle
 (if any) can also be [identified directly](../sumo-gui.md#right_of_way).
@@ -310,7 +310,7 @@ Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [netconvert](../netconvert.md) supports the option **--junctions.join** to find such
 clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options).
-It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+It is even possible to [undo joins](../Netedit/elementsNetwork.md#junctions) that were computed automatically.
 The new junction will get the id *cluster_id0_id1*. If there are more nodes in the cluster than given by **--max-join-ids** (default 4)
 the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 
@@ -358,6 +358,9 @@ being joined. The **joinExclude**-tag is only useful together with the
 option **--junctions.join** but the **join**-tag can also be used all by itself. Nodes to be
 excluded from joining can also be specified via the option **--junctions.join-exclude id,[id\]+**.
 
+!!! note
+    The `<join>`-element supports all attributes that are also supported by the `<node>`-element. This allows overriding the attributes of the created node.
+
 ### Connections after joining nodes
 
 !!! caution
@@ -379,9 +382,10 @@ nodes may be quite surprising. Please note the - quite pathologic -
 network on the left side and compare it to the one on the right. You may
 note some big differences in lane-to-lane connections, especially for
 the edge coming from the south.
-![../images/JunctionJoin_before.svg](../images/JunctionJoin_before.svg
+
+[<img src="../images/JunctionJoin_before.svg" alt="junction before joining" width="400" />](../images/JunctionJoin_before.svg
 "junctionJoin_before.svg")
-![JunctionJoin_after.svg](../images/JunctionJoin_after.svg
+[<img src="../images/JunctionJoin_after.svg" alt="junction after joining" width="400" />](../images/JunctionJoin_after.svg
 "junctionJoin_after.svg")
 
 The reason is that during joining, edges are subsequently merged, and
@@ -677,15 +681,15 @@ With the example below, one new node is created which splits the forward
 and backward edge:
 
 ```xml
-   <edge id="123">
-       <split id="newNode" pos="150"/>
-   </edge>
+   <edge id="123">
+       <split id="newNode" pos="150"/>
+   </edge>
 ```
 
 ```xml
-   <edge id="-123">
-       <split id="newNode" pos="-150"/>
-   </edge>
+   <edge id="-123">
+       <split id="newNode" pos="-150"/>
+   </edge>
 ```
 
 The definition of a split uses the following attributes:
@@ -831,7 +835,7 @@ limits:
 
 ```xml
 <type id="a" priority="3" numLanes="3" speed="38.89">
-   <restriction vClass="truck" speed="27.89"/>
+   <restriction vClass="truck" speed="27.89"/>
 </type>
 ```
 

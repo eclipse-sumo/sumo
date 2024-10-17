@@ -1,0 +1,4 @@
+Warning: Vehicle 'splitB' to split from vehicle 'vehicle_1' is not known. time=8.00.
+Warning: Vehicle 'splitA' to split from vehicle 'vehicle_0' is not known. time=19.00.
+Warning: Vehicle 'vehicle_0' aborts stop.
+Warning: Vehicle 'vehicle_1' aborts joining after extension of 20.00s at time 88.00.

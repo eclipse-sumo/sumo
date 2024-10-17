@@ -1,0 +1,3 @@
+Error: Triggers and waypoints cannot be combined on lane 'Edge2_0' in vehicle 'routeFlow_5'.
+Warning: Vehicle 'routeFlow_3.3' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.20, offset=0.26), time=620.00.
+Warning: Vehicle 'routeFlow_3.5' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-7.86, offset=0.60), time=1020.00.

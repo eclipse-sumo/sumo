@@ -778,9 +778,12 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                          const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom
             && con.toEdge == prohibitorCon.toEdge
-            && con.toLane == prohibitorCon.toLane
-            && con.fromLane != prohibitorCon.fromLane
-            && !myJunction->isConstantWidthTransition()) {
+            && ((con.toLane == prohibitorCon.toLane
+                 && con.fromLane != prohibitorCon.fromLane
+                 && !myJunction->isConstantWidthTransition())
+                // this is actually a crossing rather than a merger
+                || (con.fromLane > prohibitorCon.fromLane && con.toLane < prohibitorCon.toLane)
+                || (con.fromLane < prohibitorCon.fromLane && con.toLane > prohibitorCon.toLane))) {
         if (foes) {
             return true;
         }
@@ -1011,7 +1014,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
             return true;
         }
         // if the link must respond it could also be due to a tlsConflict. This
-        // must not carry over the the off-state response so we continue with
+        // must not carry over the off-state response so we continue with
         // the regular check
     }
     // get the indices

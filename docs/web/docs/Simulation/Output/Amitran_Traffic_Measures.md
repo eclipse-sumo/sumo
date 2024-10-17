@@ -23,20 +23,20 @@ file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 | period (alias freq) | int (time)               | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated                                                                                              |
 | begin          | int (time)                     | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.                                                                                                                    |
 | end            | int (time)                     | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.                                                                                                                    |
-| vTypes         | string                         | A space separated ist of vehicle types to collect data for. If not given, collect for all types.        |
+| vTypes         | string                         | A space separated list of vehicle types to collect data for. If not given, collect for all types.        |
 | excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not used by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
 
 ## Generated Output
 
 ```xml
 <linkData xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/linkdata.xsd">
-   <timeSlice startTime="0" duration="60000"/>
-   <timeSlice startTime="60000" duration="60000">
-       <link id="32" amount="2" averageSpeed="888"/>
-       <link id="35" amount="2" averageSpeed="879"/>
-       <link id="38" amount="4" averageSpeed="859"/>
-   </timeSlice>
-   ...
+   <timeSlice startTime="0" duration="60000"/>
+   <timeSlice startTime="60000" duration="60000">
+       <link id="32" amount="2" averageSpeed="888"/>
+       <link id="35" amount="2" averageSpeed="879"/>
+       <link id="38" amount="4" averageSpeed="859"/>
+   </timeSlice>
+   ...
 </linkData>
 ```
 

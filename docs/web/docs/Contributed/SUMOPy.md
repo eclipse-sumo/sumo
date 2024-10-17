@@ -21,7 +21,7 @@ as a simple to use scripting language which facilitates the use of SUMO.
 # Introduction
 
 SUMO rapidly developed into a flexible and powerful open-source
-micro-simulator for multi-modal urban traffic networks . The features
+micro-simulator for multi-modal urban traffic networks . The features
 and the number of tools provided are constantly increasing, making
 simulations ever more realistic. However, the different functionalities
 consist at the present state of a large number of binaries and scripts

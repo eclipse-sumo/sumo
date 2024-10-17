@@ -350,6 +350,58 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         return None
 %}
 
+%define SUBSCRIBE_HELPER(domain)
+%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 1 and args[1] is None:
+        args = (args[0], [-1]) + args[2:]
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+%}
+
+%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+%}
+%enddef
+
+SUBSCRIBE_HELPER(Edge)
+SUBSCRIBE_HELPER(GUI)
+SUBSCRIBE_HELPER(InductionLoop)
+SUBSCRIBE_HELPER(Junction)
+SUBSCRIBE_HELPER(Lane)
+SUBSCRIBE_HELPER(LaneArea)
+SUBSCRIBE_HELPER(MultiEntryExit)
+SUBSCRIBE_HELPER(Person)
+SUBSCRIBE_HELPER(POI)
+SUBSCRIBE_HELPER(Polygon)
+SUBSCRIBE_HELPER(Route)
+SUBSCRIBE_HELPER(TrafficLight)
+SUBSCRIBE_HELPER(Vehicle)
+SUBSCRIBE_HELPER(VehicleType)
+SUBSCRIBE_HELPER(Calibrator)
+SUBSCRIBE_HELPER(BusStop)
+SUBSCRIBE_HELPER(ParkingArea)
+SUBSCRIBE_HELPER(ChargingStation)
+SUBSCRIBE_HELPER(OverheadWire)
+SUBSCRIBE_HELPER(Rerouter)
+SUBSCRIBE_HELPER(MeanData)
+SUBSCRIBE_HELPER(VariableSpeedSign)
+SUBSCRIBE_HELPER(RouteProbe)
+
+%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 1 and args[1] is None:
+        args = (args[0], [-1]) + args[2:]
+%}
+
+%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+%}
+
 #endif // SWIGPYTHON
 
 %begin %{

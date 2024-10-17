@@ -25,6 +25,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -95,6 +96,24 @@ MEVehicle::getPosition(const double offset) const {
     return lane->geometryPositionAtOffset(getPositionOnLane() + offset);
 }
 
+PositionVector
+MEVehicle::getBoundingBox(double offset) const {
+    double a = getAngle() + M_PI; // angle pointing backwards
+    double l = getLength();
+    Position pos = getPosition();
+    Position backPos = pos + Position(l * cos(a), l * sin(a));
+    PositionVector centerLine;
+    centerLine.push_back(pos);
+    centerLine.push_back(backPos);
+    if (offset != 0) {
+        centerLine.extrapolate2D(offset);
+    }
+    PositionVector result = centerLine;
+    result.move2side(MAX2(0.0, 0.5 * myType->getWidth() + offset));
+    centerLine.move2side(MIN2(0.0, -0.5 * myType->getWidth() - offset));
+    result.append(centerLine.reverse(), POSITION_EPS);
+    return result;
+}
 
 double
 MEVehicle::getSpeed() const {
@@ -275,6 +294,7 @@ MEVehicle::resumeFromStopping() {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
         }
         myPastStops.push_back(stop.pars);
+        myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         if (myAmRegisteredAsWaiting && (stop.triggered || stop.containerTriggered || stop.joinTriggered)) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaiting = false;
@@ -325,14 +345,15 @@ MEVehicle::processStop() {
         lastPos = stop.pars.endPos;
         MSNet* const net = MSNet::getInstance();
         SUMOTime dummy = -1; // boarding- and loading-time are not considered
+        if (hadStop && MSStopOut::active()) {
+            stop.reached = true;
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+        }
         if (net->hasPersons()) {
             net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
-        }
-        if (hadStop && MSStopOut::active()) {
-            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
         resumeFromStopping();
         hadStop = true;
@@ -569,6 +590,11 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myLastEntryTime;
     bis >> myBlockTime;
     myDepartPos /= 1000.; // was stored as mm
+
+    // load stops
+    myStops.clear();
+    addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
+
     if (hasDeparted()) {
         myDeparture -= offset;
         myEventTime -= offset;

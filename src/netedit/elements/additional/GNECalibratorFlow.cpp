@@ -18,6 +18,7 @@
 //
 /****************************************************************************/
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/options/OptionsCont.h>
@@ -166,16 +167,18 @@ GNECalibratorFlow::getParentName() const {
 
 void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
-    // push rotation matrix
-    GLHelper::pushMatrix();
-    // move to parent additional position
-    glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
-    // rotate
-    glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
-    // draw rerouter interval as listed attribute
-    drawListedAdditional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
-    // pop rotation matrix
-    GLHelper::popMatrix();
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // push rotation matrix
+        GLHelper::pushMatrix();
+        // move to parent additional position
+        glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
+        // rotate
+        glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
+        // draw rerouter interval as listed attribute
+        drawListedAdditional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+        // pop rotation matrix
+        GLHelper::popMatrix();
+    }
 }
 
 

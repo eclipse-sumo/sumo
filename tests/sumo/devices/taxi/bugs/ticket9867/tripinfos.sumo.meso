@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:12:05 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 15:32:42 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -34,14 +34,14 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p0" depart="5.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="82.00" waitingTime="54.00" timeLoss="0.00" traveltime="28.00">
         <ride waitingTime="54.00" vehicle="trip_1" depart="59.00" arrival="87.00" arrivalPos="190.40" duration="28.00" routeLength="382.13" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="trip_1" depart="0.00" departLane="" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1000.00" routeLength="13393.20" waitingTime="0.00" waitingCount="0" stopTime="61.00" timeLoss="61.00" rerouteNo="66" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="1.03" vaporized="end">
+    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1000.00" routeLength="13393.20" waitingTime="0.00" waitingCount="0" stopTime="61.00" timeLoss="61.00" rerouteNo="66" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="1.03" vaporized="end">
         <taxi customers="1" occupiedDistance="382.13" occupiedTime="28.71"/>
     </tripinfo>
 </tripinfos>

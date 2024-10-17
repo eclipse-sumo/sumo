@@ -156,6 +156,12 @@ VehicleType::getHeight(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getMass(const std::string& typeID) {
+    return getVType(typeID)->getMass();
+}
+
+
 TraCIColor
 VehicleType::getColor(const std::string& typeID) {
     return Helper::makeTraCIColor(getVType(typeID)->getColor());
@@ -301,6 +307,12 @@ VehicleType::setWidth(const std::string& typeID, double width)  {
 void
 VehicleType::setHeight(const std::string& typeID, double height)  {
     getVType(typeID)->setHeight(height);
+}
+
+
+void
+VehicleType::setMass(const std::string& typeID, double mass)  {
+    getVType(typeID)->setMass(mass);
 }
 
 
@@ -458,6 +470,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapDouble(objID, variable, getLength(typeID));
         case VAR_HEIGHT:
             return wrapper->wrapDouble(objID, variable, getHeight(typeID));
+        case VAR_MASS:
+            return wrapper->wrapDouble(objID, variable, getMass(typeID));
         case VAR_MINGAP:
             return wrapper->wrapDouble(objID, variable, getMinGap(typeID));
         case VAR_MAXSPEED:

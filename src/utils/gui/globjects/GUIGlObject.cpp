@@ -40,6 +40,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
@@ -65,13 +66,15 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"parentChildLine",         GLO_PARENTCHILDLINE},
     //
     {"additional",              GLO_ADDITIONALELEMENT},
+    {"stoppingPlace",           GLO_STOPPING_PLACE},
     {"busStop",                 GLO_BUS_STOP},
+    {"trainStop",               GLO_TRAIN_STOP},
     {"access",                  GLO_ACCESS},
     {"taz",                     GLO_TAZ},
     {"containerStop",           GLO_CONTAINER_STOP},
     {"chargingStation",         GLO_CHARGING_STATION},
-    {"overheadWireSegment",     GLO_OVERHEAD_WIRE_SEGMENT},
     {"parkingArea",             GLO_PARKING_AREA},
+    {"stoppingPlaceLast",       GLO_STOPPING_PLACE_LAST},
     {"parkingSpace",            GLO_PARKING_SPACE},
     {"e1Detector",              GLO_E1DETECTOR},
     {"e1DetectorME",            GLO_E1DETECTOR_ME},
@@ -94,16 +97,18 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"routeProbe",              GLO_ROUTEPROBE},
     {"vaporizer",               GLO_VAPORIZER},
     {"wire",                    GLO_WIRE},
+    {"overheadWireSegment",     GLO_OVERHEAD_WIRE_SEGMENT},
     {"tractionsubstation",      GLO_TRACTIONSUBSTATION},
+    {"additionalLast",          GLO_ADDITIONALELEMENT_LAST},
     //
     {"laneArrows",              GLO_LANEARROWS},
     //
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},
-    //
     {"jupedsim.walkable_area",  GLO_JPS_WALKABLEAREA},
     {"jupedsim.obstacle",       GLO_JPS_OBSTACLE},
+    {"shapeLast",               GLO_SHAPE_LAST},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
@@ -267,6 +272,9 @@ GUIGlObject::setNode(osg::Node* node) {
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), myIcon, nullptr, 0);
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy test coordinates to clipboard"), nullptr, ret, MID_COPY_TEST_COORDINATES);
+    }
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }

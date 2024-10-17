@@ -65,6 +65,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 #define DEFAULT_BIKE_LENGTH_WITH_GAP (getDefaultVehicleLength(SVC_BICYCLE) + 0.5)
 
 #define NO_DETECTOR "NO_DETECTOR"
+#define DEFAULT_CONDITION "DEFAULT"
 
 // ===========================================================================
 // method definitions
@@ -93,6 +94,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
     myInactiveThreshold = string2time(getParameter("inactive-threshold", DEFAULT_INACTIVE_THRESHOLD));
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
+    myBuildAllDetectors = StringUtils::toBool(getParameter("build-all-detectors", "false"));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
@@ -183,7 +185,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 continue;
             }
             const SUMOTime minDur = getMinimumMinDuration(lane);
-            if (minDur == std::numeric_limits<SUMOTime>::max() && customID == "") {
+            if (minDur == std::numeric_limits<SUMOTime>::max() && customID == "" && !myBuildAllDetectors) {
                 // only build detector if this lane is relevant for an actuated phase
                 continue;
             }
@@ -503,7 +505,7 @@ MSActuatedTrafficLightLogic::weakConflict(int tlIndex, const std::string& state)
                         const MSJunctionLogic* logic = junction->getLogic();
                         //std::cout << " greenLink=" << i << " isFoe=" << logic->getFoesFor(linkIndex).test(foeIndex) << "\n";
                         if (logic->getFoesFor(linkIndex).test(foeIndex)
-                                && (foe->getPermissions() & ~SVC_WEAK) != 0 // check1e
+                                && (foe->getPermissions() & ~SVC_VULNERABLE) != 0 // check1e
                                 && &foe->getLaneBefore()->getEdge() != &link->getLaneBefore()->getEdge()) { // check1f
                             //std::cout << " strongConflict " << tlIndex << " in phase " << state << " with link " << foe->getTLIndex() << "\n";
                             return false;
@@ -1076,8 +1078,15 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
         const MSPhaseDefinition* phase = myPhases[next];
         const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
         //std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " condition=" << condition << "\n";
-        if (condition != "" && evalExpression(condition)) {
-            return next;
+        if (condition != "") {
+            // backward compatibility if a user redefined DEFAULT_CONDITION
+            if (condition == DEFAULT_CONDITION && myConditions.count(DEFAULT_CONDITION) == 0) {
+                if (gapControl() == std::numeric_limits<double>::max()) {
+                    return next;
+                }
+            } else if (evalExpression(condition)) {
+                return next;
+            }
         }
     }
     return mustSwitch ? getCurrentPhaseDef().nextPhases.back() : myStep;
@@ -1347,6 +1356,18 @@ MSActuatedTrafficLightLogic::getDetectorStates() const {
     return result;
 }
 
+double
+MSActuatedTrafficLightLogic::getDetectorState(const std::string laneID) const {
+    double result = 0.0;
+    for (auto li : myInductLoops) {
+        if (li.lane->getID() == laneID) {
+            result = li.loop->getOccupancy() > 0 ? 1 : 0;
+            break;
+        }
+    }
+    return result;
+}
+
 std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
@@ -1381,6 +1402,7 @@ void
 MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
     // some pre-defined parameters can be updated at runtime
     if (key == "detector-gap" || key == "passing-time" || key == "file" || key == "freq" || key == "vTypes"
+            || key == "build-all-detectors"
             || StringUtils::startsWith(key, "linkMaxDur")
             || StringUtils::startsWith(key, "linkMinDur")) {
         throw InvalidArgument(key + " cannot be changed dynamically for actuated traffic light '" + getID() + "'");

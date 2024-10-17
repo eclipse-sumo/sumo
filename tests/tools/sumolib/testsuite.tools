@@ -36,7 +36,7 @@ getShortestRoute_rail
 # finding fastest routes
 getFastestRoute
 
-# testing statistics 
+# testing statistics
 statistics
 
 # read polygons
@@ -44,3 +44,6 @@ shapes
 
 # parsing a network and an additional file with tls
 net_and_additional
+
+# reading files with BOM marker
+utf8_bom

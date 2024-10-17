@@ -1017,6 +1017,10 @@ NBOwnTLDef::patchNEMAStateForCrossings(const std::string& state,
     //std::cout << " patchNEMAStateForCrossings green=" << greenEdge->getID() << " other=" << Named::getIDSecure(otherChosen) << " end=" << Named::getIDSecure(end) << " all=" << toString(all) << "\n";
 
     EdgeVector::const_iterator end = std::find(all.begin(), all.end(), endEdge);
+    if (end == all.end()) {
+        // at least prevent an infinite loop
+        end = start;
+    }
     auto it = start;
     NBContHelper::nextCCW(all, it);
     for (; it != end; NBContHelper::nextCCW(all, it)) {
@@ -1552,7 +1556,7 @@ NBOwnTLDef::deactivateAlwaysGreen(NBTrafficLightLogic* logic) const {
 
 void
 NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& fromEdges) const {
-    const int n = logic->getNumLinks();
+    const int n = (int)fromEdges.size();
     const int p = (int)logic->getPhases().size();
     for (int i1 = 0; i1 < n; ++i1) {
         if (fromEdges[i1]->isInsideTLS()) {
@@ -1566,7 +1570,7 @@ NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& 
 
 SUMOTime
 NBOwnTLDef::computeEscapeTime(const std::string& state, const EdgeVector& fromEdges, const EdgeVector& toEdges) const {
-    const int n = (int)state.size();
+    const int n = (int)fromEdges.size();
     double maxTime = 0;
     for (int i1 = 0; i1 < n; ++i1) {
         if (state[i1] == 'y' && !fromEdges[i1]->isInsideTLS()) {
@@ -1686,8 +1690,11 @@ NBOwnTLDef::buildNemaPhases(
 
     filterMissingNames(ring1, names, false);
     filterMissingNames(ring2, names, false);
-    filterMissingNames(barrier1, names, true);
-    filterMissingNames(barrier2, names, true);
+    filterMissingNames(barrier1, names, true, 8);
+    filterMissingNames(barrier2, names, true, 6);
+    if (ring1[0] == 0 && ring1[1] == 0) {
+        ring1[1] = 6;
+    }
     if (ring1[2] == 0 && ring1[3] == 0) {
         ring1[3] = 8;
     }
@@ -1720,14 +1727,14 @@ NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NB
 }
 
 void
-NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier) {
+NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier, int barrierDefault) {
     for (int i = 0; i < (int)vec.size(); i++) {
         if (names.count(vec[i]) == 0) {
             if (isBarrier) {
                 if (names.count(vec[i] - 1) > 0) {
                     vec[i] = vec[i] - 1;
                 } else {
-                    vec[i] = 8;
+                    vec[i] = barrierDefault;
                 }
             } else {
                 vec[i] = 0;

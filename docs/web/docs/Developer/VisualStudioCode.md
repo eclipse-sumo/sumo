@@ -51,17 +51,17 @@ The CMake Tools plugin should automatically recognize the `CMakeLists.txt` file 
 
 ![Visual Studio Code CMake Configuration Output](../images/VSCodeCmakeConfig.png)
 
-You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are referred to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on macOS) and enter `CMake: Select a kit`.
+You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are referred to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (<kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> on macOS) and enter `CMake: Select a kit`.
 
 SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describes certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO.
 
 ### CMake Build
 
-A build can be triggered either by using the command palette (`CMake: Build`) or by pressing `F7`. The build process for a specific target can be triggered with the command palette (`CMake: Build Target`) or by pressing `Shift+F7`. You can follow the build results in the output window in the lower half.
+A build can be triggered either by using the command palette (`CMake: Build`) or by pressing <kbd>F7</kbd>. The build process for a specific target can be triggered with the command palette (`CMake: Build Target`) or by pressing <kbd>Shift</kbd> + <kbd>F7</kbd>. You can follow the build results in the output window in the lower half.
 
 ### Running and Debugging
 
-One of the generated binaries either with or without a debugger can be started in the `Run` menu or by pressing `F5` or `Ctrl-F5`. In the next step, you will quickly notice, that Visual Studio Code requires the definition of run configurations. These are defined in the `.vscode/launch.json` configuration file. You can click on the `Add Configuration...` button on the bottom to add a new configuration for SUMO.
+One of the generated binaries either with or without a debugger can be started in the `Run` menu or by pressing <kbd>F5</kbd> or <kbd>Ctrl</kbd> + <kbd>F5</kbd>. In the next step, you will quickly notice, that Visual Studio Code requires the definition of run configurations. These are defined in the `.vscode/launch.json` configuration file. You can click on the `Add Configuration...` button on the bottom to add a new configuration for SUMO.
 
 A simple configuration to launch `sumo` can be seen here:
 
@@ -97,10 +97,10 @@ A simple configuration to launch `sumo` can be seen here:
 
 Visual Studio Code is designed to be primarily used with a keyboard, therefore it is a very good idea to start memorizing some of the most important shortcuts:
 
-* Show all commands in the command palette: `Shift + Command + P`
-* Go to file: `Command + P`
-* Start Build: `F7`
-* Start Debugging: `F5`
+* Show all commands in the command palette: <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>P</kbd>
+* Go to file: <kbd>Command</kbd> + <kbd>P</kbd>
+* Start Build: <kbd>F7</kbd>
+* Start Debugging: <kbd>F5</kbd>
 
 ### General Documentation
 

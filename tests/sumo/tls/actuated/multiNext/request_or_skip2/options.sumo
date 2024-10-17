@@ -1,0 +1,7 @@
+--no-step-log
+--net-file=net2.net.xml 
+--routes=input_routes.rou.xml
+-a input_additional2.add.xml
+--extrapolate-departpos
+--tls.actuated.show-detectors
+-t

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 19:59:09 by Eclipse SUMO netconvert Version v1_19_0+1644-497bdaaec19
+<!-- generated on 2024-09-12 14:47:37 by Eclipse SUMO netconvert Version v1_20_0+1963-cf76c26275c
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -165,7 +165,7 @@
         <!-- Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) -->
         <polygon-output value="" synonymes="taz-output" type="FILE"/>
 
-        <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
+        <!-- Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
         <!-- Write lanes in lefthand networks on the left side (positive indices) -->
@@ -266,6 +266,9 @@
 
         <!-- Warn about edge geometries with an angle above DEGREES in successive segments -->
         <geometry.max-angle value="99" type="FLOAT"/>
+
+        <!-- Straighten edge geometries with an angle above max-angle successive segments -->
+        <geometry.max-angle.fix value="false" type="BOOL"/>
 
         <!-- Warn about edge geometries with a turning radius less than METERS at the start or end -->
         <geometry.min-radius value="9" type="FLOAT"/>
@@ -410,6 +413,9 @@
 
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>
+
+        <!-- Whether/where connections should have an internal junction -->
+        <default.connection.cont-pos value="-1" type="FLOAT"/>
 
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
@@ -615,6 +621,9 @@
         <!-- Removes isolated edges -->
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL"/>
 
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
+
     </edge_removal>
 
     <unregulated_nodes>
@@ -806,6 +815,9 @@
 
         <!-- Extend loaded edge priority values based on estimated main direction -->
         <railway.topology.extend-priority value="false" type="BOOL"/>
+
+        <!-- Move junctions to straighten a sequence of rail edges -->
+        <railway.geometry.straighten value="false" type="BOOL"/>
 
         <!-- Guess signals that guard public transport stops -->
         <railway.signal.guess.by-stops value="false" type="BOOL"/>
@@ -1079,4 +1091,4 @@
 
     </random_number>
 
-</configuration>
+</netconvertConfiguration>

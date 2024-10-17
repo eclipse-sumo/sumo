@@ -99,6 +99,9 @@ public:
     /// @brief Called if the edge name shall be copied to clipboard (for lanes only)
     long onCmdCopyEdgeName(FXObject*, FXSelector, void*);
 
+    /// @brief Called if the test coordinates shall be copied to clipboard (only if gui-testing option is enabled)
+    long onCmdCopyTestCoordinates(FXObject*, FXSelector, void*);
+
     /// @brief Called if the cursor position shall be copied to clipboard
     long onCmdCopyCursorPosition(FXObject*, FXSelector, void*);
 
@@ -143,6 +146,9 @@ protected:
 
     /// @brief The position within the network the cursor was above when instanting the popup
     const Position myNetworkPosition;
+
+    /// @brief The test coordinates position when instanting the popup
+    const std::string myTestCoordinates;
 
     /// @brief vector mit Sub-MenuPanes
     std::vector<FXMenuPane*> myMenuPanes;

@@ -379,7 +379,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         }
         curCLength = (i == trainHelper.getFirstCarriageNo() ? trainHelper.getFirstCarriageLength() : trainHelper.getCarriageLength());
         GLHelper::pushMatrix();
-        glTranslated(front.x(), front.y(), getType());
+        if (s.trueZ) {
+            glTranslated(front.x(), front.y(), front.z() + 1);
+        } else {
+            glTranslated(front.x(), front.y(), getType());
+        }
         glRotated(angle, 0, 0, 1);
         double halfWidth = trainHelper.getHalfWidth();
         std::string imgFile = getVType().getImgFile();
@@ -446,7 +450,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     }
     if (getVType().getGuiShape() == SUMOVehicleShape::RAIL_CAR) {
         GLHelper::pushMatrix();
-        glTranslated(front.x(), front.y(), getType());
+        if (s.trueZ) {
+            glTranslated(front.x(), front.y(), front.z() + 1);
+        } else {
+            glTranslated(front.x(), front.y(), getType());
+        }
         glRotated(angle, 0, 0, 1);
         drawAction_drawVehicleBlinker(curCLength);
         drawAction_drawVehicleBrakeLight(curCLength);
@@ -722,7 +730,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r
         }
     }
     drawStopLabels(s, noLoop, col);
-    drawParkingInfo(s, col);
+    drawParkingInfo(s);
+    drawChargingInfo(s);
 }
 
 
@@ -746,19 +755,33 @@ GUIVehicle::getStopInfo() const {
     }
     if (myStops.front().pars.triggered) {
         result += ", triggered";
-    } else if (myStops.front().pars.containerTriggered) {
+    }
+    if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
-    } else if (myStops.front().pars.collision) {
+    }
+    if (myStops.front().pars.collision) {
         result += ", collision";
-    } else if (myStops.front().pars.until != -1) {
+    }
+    if (myStops.front().pars.arrival != -1) {
+        result += ", arrival=" + time2string(myStops.front().pars.arrival);
+    }
+    if (myStops.front().pars.started != -1) {
+        result += ", started=" + time2string(myStops.front().pars.started);
+    }
+    if (myStops.front().pars.until != -1) {
         result += ", until=" + time2string(myStops.front().pars.until);
-    } else {
-        result += ", duration=" + time2string(myStops.front().duration);
+    }
+    if (myStops.front().pars.extension != -1) {
+        result += ", extension=" + time2string(myStops.front().pars.extension);
+    }
+    if (!myStops.front().pars.permitted.empty()) {
+        result += ", permitted=" + toString(myStops.front().pars.permitted);
     }
     if (myStops.front().pars.actType != "") {
         result += ", actType=" + myStops.front().pars.actType;
     }
-    return result;
+    result += ", duration=" + time2string(myStops.front().duration);
+    return StringUtils::wrapText(result, 60);
 }
 
 
@@ -766,6 +789,7 @@ void
 GUIVehicle::selectBlockingFoes() const {
     double dist = myLane->getLength() - getPositionOnLane();
 #ifdef DEBUG_FOES
+    gDebugFlag1 = true;
     std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
 #endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
@@ -781,7 +805,7 @@ GUIVehicle::selectBlockingFoes() const {
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
-                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this);
+                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << "     closed due to:\n";
@@ -801,7 +825,7 @@ GUIVehicle::selectBlockingFoes() const {
                     parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                          getVehicleType().getLength(), getImpatience(),
                                          getCarFollowModel().getMaxDecel(),
-                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this);
+                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
@@ -813,11 +837,12 @@ GUIVehicle::selectBlockingFoes() const {
             }
         }
         for (const auto& item : blockingFoes) {
-            gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            if (item->isVehicle()) {
+                gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            } else {
+                gSelected.select(static_cast<const GUIPerson*>(item)->getGlID());
+            }
         }
-#ifdef DEBUG_FOES
-        gDebugFlag1 = true;
-#endif
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
 #ifdef DEBUG_FOES
         gDebugFlag1 = false;

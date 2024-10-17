@@ -496,8 +496,8 @@ GNEPathCreator::updateJunctionColors() {
     if (myCreationMode & SHOW_CANDIDATE_JUNCTIONS) {
         // set candidate flags
         for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
-            junction.second.second->resetCandidateFlags();
-            junction.second.second->setPossibleCandidate(true);
+            junction.second->resetCandidateFlags();
+            junction.second->setPossibleCandidate(true);
         }
     }
     // set selected junctions
@@ -524,10 +524,10 @@ GNEPathCreator::updateEdgeColors() {
     if (myShowCandidateEdges->getCheck() == TRUE && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
         // mark all edges that have at least one lane that allow given vClass
         for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-            if (edge.second.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
-                edge.second.second->setPossibleCandidate(true);
+            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
+                edge.second->setPossibleCandidate(true);
             } else {
-                edge.second.second->setSpecialCandidate(true);
+                edge.second->setSpecialCandidate(true);
             }
         }
     }
@@ -537,14 +537,14 @@ GNEPathCreator::updateEdgeColors() {
         if ((myShowCandidateEdges->getCheck() == TRUE) && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
             // mark all edges as conflicted (to mark special candidates)
             for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second.second->resetCandidateFlags();
-                edge.second.second->setConflictedCandidate(true);
+                edge.second->resetCandidateFlags();
+                edge.second->setConflictedCandidate(true);
             }
             // set special candidates (Edges that are connected but aren't compatibles with current vClass
             setSpecialCandidates(mySelectedEdges.back());
             // mark again all edges as conflicted (to mark possible candidates)
             for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second.second->setConflictedCandidate(true);
+                edge.second->setConflictedCandidate(true);
             }
             // set possible candidates (Edges that are connected AND are compatibles with current vClass
             setPossibleCandidates(mySelectedEdges.back(), myVClass);
@@ -567,7 +567,7 @@ void
 GNEPathCreator::clearJunctionColors() {
     // reset all junction flags
     for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
-        junction.second.second->resetCandidateFlags();
+        junction.second->resetCandidateFlags();
     }
 }
 
@@ -576,7 +576,7 @@ void
 GNEPathCreator::clearEdgeColors() {
     // reset all junction flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second.second->resetCandidateFlags();
+        edge.second->resetCandidateFlags();
     }
 }
 
@@ -879,7 +879,7 @@ GNEPathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             if (lane->getReachability() > 0) {
                 lane->getParentEdge()->resetCandidateFlags();
                 lane->getParentEdge()->setSpecialCandidate(true);
@@ -894,7 +894,7 @@ GNEPathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClas
     myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             if (lane->getReachability() > 0) {
                 lane->getParentEdge()->resetCandidateFlags();
                 lane->getParentEdge()->setPossibleCandidate(true);

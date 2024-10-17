@@ -24,7 +24,7 @@ probabilities from VISUM, and the name of the file into which the
 converted turning probabilities shall be written:
 
 ```
-visum_convertTurnPercentages.py <SUMO_NET> <VISUM_TURNINGS> <OUTPUT>
+visum_convertTurnPercentages.py <SUMO_NET> <VISUM_TURNINGS> <OUTPUT>
 ```
 
 The script is located in {{SUMO}}/tools/import/visum. It is written in Python.
@@ -70,7 +70,7 @@ written. Additional options are shown in the following table:
 Example call:
 
 ```
-visum_convertRoutes.py -n <SUMO_NET> -r <VISUM_ROUTES> -o <OUTPUT> --uniform
+visum_convertRoutes.py -n <SUMO_NET> -r <VISUM_ROUTES> -o <OUTPUT> --uniform
 ```
 
 The script is located in {{SUMO}}/tools/import/visum. It is written

@@ -338,7 +338,7 @@ public:
     virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
 
     /// @brief Adds the given breakpoint
-    void addBreakpoint(SUMOTime time);
+    void addBreakpoint(const SUMOTime time);
 
     /// @brief Sends an event from the application thread to the GUI and waits until it is handled
     virtual void sendBlockingEvent(GUIEvent* event);

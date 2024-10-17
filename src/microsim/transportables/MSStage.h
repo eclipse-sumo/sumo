@@ -42,6 +42,7 @@ class MSVehicleType;
 class OutputDevice;
 class SUMOVehicleParameter;
 class SUMOVehicle;
+class MSStageTrip;
 class MSTransportableDevice;
 class MSTransportable;
 class MSTransportableStateAdapter;
@@ -264,6 +265,23 @@ public:
         myCosts = costs;
     }
 
+    MSStageTrip* getTrip() const {
+        return myTrip;
+    }
+
+    void setTrip(MSStageTrip* trip) {
+        myTrip = trip;
+    }
+
+    virtual bool equals(const MSStage& s) const {
+        return myDestination == s.myDestination &&
+               myDestinationStop == s.myDestinationStop &&
+               myArrivalPos == s.myArrivalPos &&
+               myArrivalPosLat == s.myArrivalPosLat &&
+               myType == s.myType &&
+               myGroup == s.myGroup;
+    }
+
 protected:
     /// the next edge to reach by getting transported
     const MSEdge* myDestination;
@@ -294,6 +312,8 @@ protected:
 
     /// @brief Information on which parameter were set (mainly for vehroute output)
     int myParametersSet;
+
+    MSStageTrip* myTrip = nullptr;
 
     /// @brief the offset for computing positions when standing at an edge
     static const double ROADSIDE_OFFSET;

@@ -71,7 +71,7 @@ public:
      * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
@@ -82,7 +82,7 @@ public:
      *         due to acceleration capabilities and previous speeds.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] gap The (net) distance to the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle at insertion
      * @see stopSpeed() and insertionFollowSpeed()
      *
@@ -91,7 +91,7 @@ public:
 
 
     /** @brief Returns the maximum safe velocity for following the given leader
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] egoSpeed The FOLLOWERS's speed
      * @param[in] predSpeed The LEADER's speed
      * @param[in] predMaxDecel The LEADER's maximum deceleration
@@ -102,7 +102,7 @@ public:
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
-     * @param[in] gap The (netto) distance to the desired stopping point
+     * @param[in] gap The (net) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
@@ -121,7 +121,7 @@ public:
     /** @brief Computes the vehicle's safe speed
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
@@ -132,7 +132,7 @@ public:
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle
      * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @param[in] gap2pred The (net) distance to the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
@@ -258,7 +258,7 @@ private:
         double wouldacc; // @brief saves the intended accel-value the CF-model would output, if there is no reaction time (accel-value is without coolness and drive-off)
         double lastacc; // @brief saves the intended accel-value when the driver was last updated (reaction time) (accel-value is without coolness and drive-off)
         double realacc; // @brief saves the resulting accel-value between multiple stopSpeed/followSpeed calls that the CF-model will eventually output
-        double lastrealacc; // @brief saves the resulting accel-value the CF-model eventually outputed when the driver was last updated (reaction time)
+        double lastrealacc; // @brief saves the resulting accel-value the CF-model eventually outputted when the driver was last updated (reaction time)
         double realleaderacc; // @brief saves the leader accel-value from the call that resulted in the new speed
         double lastleaderacc; // @brief saves the leader accel-value from the call that resulted in the new speed when the driver was last updated (reaction time)
         double v0_int; // @brief is the internal desired speed of the vehicle

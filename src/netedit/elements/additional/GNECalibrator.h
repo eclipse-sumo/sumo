@@ -234,9 +234,14 @@ protected:
     /// @brief extra calibrator geometries
     std::vector<GUIGeometry> myEdgeCalibratorGeometries;
 
+    /// @brief calibrator contours
+    std::vector<GNEContour*>* myCalibratorContours;
+
 private:
     /// @brief draw calibrator symbol
-    void drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration, const Position& pos, const double rot) const;
+    void drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const double exaggeration, const Position& pos, const double rot,
+                              const int symbolIndex) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

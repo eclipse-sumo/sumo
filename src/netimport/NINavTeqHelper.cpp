@@ -91,7 +91,7 @@ NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS,
             }
         }
     } catch (NumberFormatException&) {
-        throw ProcessError(TLF("Non-numerical value for an edge's lane number occurred (edge '%'.", id));
+        throw ProcessError(TLF("Non-numerical value for an edge's lane number occurred (edge '%').", id));
     }
 }
 

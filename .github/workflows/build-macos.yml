@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-12, macos-13, macos-14]
+        os: [macos-13, macos-14]
     runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPILERTYPE: clang
@@ -31,17 +31,12 @@ jobs:
         path: sumo
         fetch-depth: 0
 
-    - name: Fetching SUMO tags
-      run: |
-        cd sumo
-        git fetch --tags --force
-
     - name: Preparing Build System
       run: |
         brew update
         brew upgrade || brew link --overwrite python@3.12
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps ccache googletest
+        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
 #        python3 -m pip install texttest
 
     - name: ccache
@@ -75,3 +70,15 @@ jobs:
       with:
         name: ${{ matrix.os }}-binaries
         path: sumo/bin
+
+    - name: Creating macOS installer dmg
+      run: |
+        cd sumo
+        python3 -m pip install dmgbuild
+        python3 tools/build_config/buildMacOSInstaller.py ./cmake-build --verbose
+
+    - name: Uploading macOS installer dmg
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-installer-unsigned
+        path: sumo/sumo-*.dmg

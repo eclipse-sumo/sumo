@@ -15,9 +15,10 @@
 /// @author  Daniel Krajzewicz
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    20-12-13
 ///
-// Chargin Station for Electric vehicles
+// Charging Station for Electric vehicles
 /****************************************************************************/
 #include <config.h>
 
@@ -67,7 +68,7 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
         myChargeDelay = chargeDelay;
     }
     if (getBeginLanePosition() > getEndLanePosition()) {
-        WRITE_WARNING(TLF("ChargingStation with ID='getID()' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));
+        WRITE_WARNING(TLF("ChargingStation with ID='%' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));
     }
 }
 
@@ -125,8 +126,33 @@ MSChargingStation::getWaitingTime() const {
 }
 
 
-const MSParkingArea* MSChargingStation::getParkingArea() const {
+const MSParkingArea*
+MSChargingStation::getParkingArea() const {
     return myParkingArea;
+}
+
+
+void
+MSChargingStation::setChargingPower(double chargingPower) {
+    myChargingPower = chargingPower;
+}
+
+
+void
+MSChargingStation::setEfficiency(double efficiency) {
+    myEfficiency = efficiency;
+}
+
+
+void
+MSChargingStation::setChargeDelay(SUMOTime delay) {
+    myChargeDelay = delay;
+}
+
+
+void
+MSChargingStation::setChargeInTransit(bool value) {
+    myChargeInTransit = value;
 }
 
 
@@ -154,6 +180,9 @@ MSChargingStation::isCharging() const {
 
 void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
+    if (!OptionsCont::getOptions().isSet("chargingstations-output")) {
+        return;
+    }
     std::string status = "";
     if (battery->getChargingStartTime() > myChargeDelay) {
         if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
@@ -196,7 +225,7 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     output.writeAttr(SUMO_ATTR_ID, myID);
     output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED, myTotalCharge);
     output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, chargingSteps);
-    // start writting
+    // start writing
     if (myChargeValues.size() > 0) {
         for (const std::string& vehID : myChargedVehicles) {
             int iStart = 0;
@@ -216,6 +245,74 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     // close charging station tag
     output.closeTag();
 }
+
+
+void
+MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
+    std::vector<std::string> terminatedChargers;
+    for (const auto& item : myChargeValues) {
+        const Charge& lastCharge = item.second.back();
+        if (lastCharge.timeStep < SIMSTEP - DELTA_T) {
+            // no charge during the last time step == has stopped charging
+            terminatedChargers.push_back(item.first);
+
+            // aggregate values
+            double charged = 0.;
+            double minPower = lastCharge.chargingPower;
+            double maxPower = lastCharge.chargingPower;
+            double minCharge = lastCharge.WCharged;
+            double maxCharge = lastCharge.WCharged;
+            double minEfficiency = lastCharge.chargingEfficiency;
+            double maxEfficiency = lastCharge.chargingEfficiency;
+
+            for (const auto& charge : item.second) {
+                charged += charge.WCharged;
+                if (charge.chargingPower < minPower) {
+                    minPower = charge.chargingPower;
+                }
+                if (charge.chargingPower > maxPower) {
+                    maxPower = charge.chargingPower;
+                }
+                if (charge.WCharged < minCharge) {
+                    minCharge = charge.WCharged;
+                }
+                if (charge.WCharged > maxCharge) {
+                    maxCharge = charge.WCharged;
+                }
+                if (charge.chargingEfficiency < minEfficiency) {
+                    minEfficiency = charge.chargingEfficiency;
+                }
+                if (charge.chargingEfficiency > maxEfficiency) {
+                    maxEfficiency = charge.chargingEfficiency;
+                }
+            }
+
+            // actually write the data
+            output.openTag(SUMO_TAG_CHARGING_EVENT);
+            output.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, myID);
+            output.writeAttr(SUMO_ATTR_VEHICLE, lastCharge.vehicleID);
+            output.writeAttr(SUMO_ATTR_TYPE, lastCharge.vehicleType);
+            output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charged);
+            output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(item.second.at(0).timeStep));
+            output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(lastCharge.timeStep));
+            output.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, lastCharge.actualBatteryCapacity);
+            output.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, lastCharge.maxBatteryCapacity);
+            output.writeAttr(SUMO_ATTR_MINPOWER, minPower);
+            output.writeAttr(SUMO_ATTR_MAXPOWER, maxPower);
+            output.writeAttr(SUMO_ATTR_MINCHARGE, minCharge);
+            output.writeAttr(SUMO_ATTR_MAXCHARGE, maxCharge);
+            output.writeAttr(SUMO_ATTR_MINEFFICIENCY, minEfficiency);
+            output.writeAttr(SUMO_ATTR_MAXEFFICIENCY, maxEfficiency);
+            output.closeTag();
+        }
+    }
+
+    // clear charging data of vehicles which terminated charging
+    for (auto vehID : terminatedChargers) {
+        myChargeValues.erase(vehID);
+    }
+}
+
 
 void
 MSChargingStation::writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged) {

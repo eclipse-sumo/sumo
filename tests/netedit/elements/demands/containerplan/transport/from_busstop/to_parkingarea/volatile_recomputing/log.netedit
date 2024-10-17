@@ -1,0 +1,2 @@
+Warning: Invalid to bus stop 'A' used in tranship: edge->busstop of container 'c_0'
+Warning: Invalid from bus stop 'A' used in transport: busstop->parkingarea of container 'c_0'

@@ -16,13 +16,16 @@ To be able to run SUMO on Linux, just follow these steps:
 For ubuntu this boils down to
 
 ```
-sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
-git clone --recursive https://github.com/eclipse-sumo/sumo
+sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
+git clone --recursive https://github.com/eclipse-sumo/sumo
 cd sumo
-export SUMO_HOME="$PWD"
-cmake -B build .
-cmake --build build -j$(nproc)
+export SUMO_HOME="$PWD"
+cmake -B build .
+cmake --build build -j$(nproc)
 ```
+
+!!! note
+    Do not build in an active Anaconda environment! The libraries have sometimes different versions than Anaconda which will break the build or the executables.
 
 Each of these steps is described in more detail and with possible
 alternatives below.
@@ -57,14 +60,14 @@ alternatives below.
 The package names above are for openSUSE, for ubuntu the call to get the most important optional libraries and tools is:
 
 ```
-sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-build
+sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-build
 sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8 python3-gi-cairo gir1.2-gtk-3.0
 sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-pulp python3-ezdxf
 python3 -m pip install texttest
 ```
 
 For the Python tools there are some more requirements depending on which tools you want to use. If you want to install
-everything using pip do `python3 -m pip install -r tools/requirements.txt`.
+everything using pip do `python3 -m pip install -r tools/requirements.txt -r tools/req_dev.txt`.
 
 ## Getting the source code
 
@@ -80,9 +83,9 @@ of sumo.
 The following commands should be issued:
 
 ```
-git clone --recursive https://github.com/eclipse-sumo/sumo
-cd sumo
-git fetch origin refs/replace/*:refs/replace/*
+git clone --recursive https://github.com/eclipse-sumo/sumo
+cd sumo
+git fetch origin refs/replace/*:refs/replace/*
 pwd
 ```
 
@@ -95,8 +98,8 @@ Download
 [sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz) or <https://sumo.dlr.de/daily/sumo-src-git.tar.gz>
 
 ```
-tar xzf sumo-src-<version>.tar.gz
-cd sumo-<version>/
+tar xzf sumo-src-<version>.tar.gz
+cd sumo-<version>/
 pwd
 ```
 
@@ -109,7 +112,7 @@ SUMO in the folder "*/home/<user\>/sumo-<version\>*", if you want to
 define only for the current session, type in the console
 
 ```
-export SUMO_HOME="/home/<user>/sumo-<version>"
+export SUMO_HOME="/home/<user>/sumo-<version>"
 ```
 
 If you want to define for all sessions (i.e. for every time that you run
@@ -122,7 +125,7 @@ end and restart your session.
 You can check that SUMO_HOME was successfully set if you type
 
 ```
-echo $SUMO_HOME
+echo $SUMO_HOME
 ```
 
 and console shows "/home/<user\>/sumo-<version\>"
@@ -140,7 +143,7 @@ sudo apt-get install python3-pyproj python3-rtree python3-pandas flake8 python3-
 and then install the remaining parts using pip:
 
 ```
-python3 -m pip install -r tools/requirements.txt
+python3 -m pip install -r tools/requirements.txt -r tools/req_dev.txt
 ```
 
 The pip installation will ensure that all libraries are there, so it is safe to skip the first `apt-get` step.
@@ -167,7 +170,7 @@ cmake -B build .
 to build the debug version just use
 
 ```
-cmake -D CMAKE_BUILD_TYPE=Debug -B build .
+cmake -D CMAKE_BUILD_TYPE=Debug -B build .
 ```
 
 !!! note
@@ -179,7 +182,7 @@ Other useful cmake configuration options:
 - `-D COVERAGE=ON` enable coverage instrumentation for lcov (gcc build only)
 - `-D CHECK_OPTIONAL_LIBS=OFF` disable all optional libraries (only
   include EPL compatible licensed code)
-- `-D CMAKE_BUILD_TYPE=RelWithDebInfo` enable debug symbols for
+- `-D CMAKE_BUILD_TYPE=RelWithDebInfo` enable debug symbols for
   debugging the release build or using a different profiler
 - `-D PROJ_LIBRARY=` disable PROJ
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
@@ -190,7 +193,7 @@ Other useful cmake configuration options:
 After this is finished, run
 
 ```
-cmake --build build -j $(nproc)
+cmake --build build -j $(nproc)
 ```
 
 The `nproc` command gives you the number of logical cores on your
@@ -199,7 +202,7 @@ build a lot faster. If `nproc` is not available on your system, insert a
 fixed number here or leave the option out. You may also try
 
 ```
-cmake --build build -j $(grep -c ^processor /proc/cpuinfo)
+cmake --build build -j $(grep -c ^processor /proc/cpuinfo)
 ```
 
 ## Building with clang
@@ -210,7 +213,7 @@ Our current clang configuration for additional static code checking
 enables the following CXXFLAGS:
 
 ```
--stdlib=libstdc++ -fsanitize=undefined,address,integer -fno-omit-frame-pointer -fsanitize-blacklist=$SUMO_HOME/build_config/clang_sanitize_blacklist.txt
+-stdlib=libstdc++ -fsanitize=undefined,address,integer -fno-omit-frame-pointer -fsanitize-blacklist=$SUMO_HOME/build_config/clang_sanitize_blacklist.txt
 ```
 
 You may of course leave out all the sanitizer-checks you don't want but
@@ -222,7 +225,7 @@ build, so for building with CMake and clang just change to your build
 dir and use
 
 ```
-CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug --build build -j $(nproc)
+CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug --build build -j $(nproc)
 ```
 
 The clang-debug-build will detect memory leaks (among other things)
@@ -256,20 +259,20 @@ sudo cmake --install build
 You have to adjust your SUMO_HOME variable to the install dir (usually
 /usr/local/share/sumo)
 ```
-export SUMO_HOME=/usr/local/share/sumo
+export SUMO_HOME=/usr/local/share/sumo
 ```
 
 ## Uninstalling
 
 CMake provides no `make uninstall` so if you ever want to uninstall, run
 ```
-sudo xargs rm < install_manifest.txt
+sudo xargs rm < install_manifest.txt
 ```
 from the same folder you ran `make install`. This will leave some empty
 directories, so if you want to remove them as well, double check that
 $SUMO_HOME points to the right directory (see above) and run
 ```
-sudo xargs rm -r $SUMO_HOME
+sudo xargs rm -r $SUMO_HOME
 ```
 
 ## Building Python wheels for sumolib, traci and libsumo
@@ -303,7 +306,7 @@ platform and Python you built it with.
 
 If you did a repository clone you can simply update it by doing `git pull`
 from inside the SUMO_HOME folder. Then change to the build directory and run
-`make -j $(nproc)` again.
+`make -j $(nproc)` again.
 
 If your underlying system changed (updated libraries) or you experience other
 build problems please try a clean build first by removing the build directory (or at
@@ -320,18 +323,18 @@ In this section, you will learn how to build the latest version of the pedestria
 ``` bash
 git clone https://github.com/PedestrianDynamics/jupedsim
 ```
-Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the master branch), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release and do a regular cmake build. For example, for JuPedSim release v1.1.0, you would need to type:
+Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the master branch), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release and do a regular cmake build. For example, for JuPedSim release v1.2.1, you would need to type:
 
 ``` bash
 cd jupedsim
-git checkout v1.1.0
+git checkout v1.2.1
 cmake -B build .
 cmake --build build
 sudo cmake --install build
 ```
 
 Now you should make sure GEOS is installed (`sudo apt-get install libgeos-dev`) and
-continue with the [standard build procedure above](#building-the-sumo-binaries-with-cmake).
+continue with the [standard build procedure above](#building_the_sumo_binaries_with_cmake).
 
 ### Tweaking the JuPedSim build
 
@@ -352,7 +355,7 @@ To tweak or debug the jupedsim build you can also change the configuration to De
 and also enable multithreading (with `-j4`) as usual with CMake. If you have different jupedsim versions or choose a
 different install path, you can notify CMake where JuPedSim is installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
 
-For further remarks on the use of JuPedSim inside SUMO, please consult [the documentation on the model](../Simulation/Pedestrians.md#jupedsim).
+For further remarks on the use of JuPedSim inside SUMO, please consult [the documentation on the model](../Simulation/Pedestrians.md#model_jupedsim).
 
 ## Troubleshooting
 
@@ -361,7 +364,7 @@ For further remarks on the use of JuPedSim inside SUMO, please consult [the docu
 Problem:
 
 ```
-recv ./foreign/tcpip/libtcpip.a(socket.o) (symbol belongs to implicit dependency /usr/lib/libsocket.so.1)
+recv ./foreign/tcpip/libtcpip.a(socket.o) (symbol belongs to implicit dependency /usr/lib/libsocket.so.1)
 ```
 
 Solution:
@@ -372,16 +375,16 @@ Solution:
 Problem:
 
 ```
-/usr/bin/ld: cannot find -lfreetype
-ls -lah /usr/lib64/libfreetype*
- lrwxrwxrwx. 1 root root   21 Jul 28 15:54 /usr/lib64/libfreetype.so.6 -> libfreetype.so.6.12.0
- lrwxr-xr-x. 1 root root 689K Jul 28 15:54 /usr/lib64/libfreetype.so.6.12.0
+/usr/bin/ld: cannot find -lfreetype
+ls -lah /usr/lib64/libfreetype*
+ lrwxrwxrwx. 1 root root   21 Jul 28 15:54 /usr/lib64/libfreetype.so.6 -> libfreetype.so.6.12.0
+ lrwxr-xr-x. 1 root root 689K Jul 28 15:54 /usr/lib64/libfreetype.so.6.12.0
 ```
 
 Solution: Install the dev package; for fedora:
 
 ```
-sudo yum install freetype-devel
+sudo yum install freetype-devel
 ```
 
 For details see
@@ -400,8 +403,8 @@ GUI only and had to change the installed libFOX-1.4.la such that it
 contains
 
 ```
-dependency_libs=' -lgdi32 -lglaux -ldl -lcomctl32 -lwsock32 -lwinspool -lmpr
--lpthread -lpng /usr/lib/libtiff.la /usr/lib/libjpeg.la -lz -lbz2 -lopengl32 -lglu32'
+dependency_libs=' -lgdi32 -lglaux -ldl -lcomctl32 -lwsock32 -lwinspool -lmpr
+-lpthread -lpng /usr/lib/libtiff.la /usr/lib/libjpeg.la -lz -lbz2 -lopengl32 -lglu32'
 ```
 
 Your mileage may vary.

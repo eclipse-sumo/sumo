@@ -44,9 +44,9 @@ There is also a [flatpak](https://flathub.org/apps/org.eclipse.sumo) available f
 To add the most recent sumo to your ubuntu you will need to do:
 
 ```
-sudo add-apt-repository ppa:sumo/stable
-sudo apt-get update
-sudo apt-get install sumo sumo-tools sumo-doc
+sudo add-apt-repository ppa:sumo/stable
+sudo apt-get update
+sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 ### Repositories

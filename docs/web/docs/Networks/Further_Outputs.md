@@ -51,14 +51,14 @@ are optional and only serve to enhance human reader comprehension. The
 *train,subway,light_rail,monorail,trolleybus,aerialway,ferry*). The
 **line** attribute will be used in the simulation when distinguishing
 public transport lines. The optional **completeness** attribute serves to
-inform the human reader that the stops only descibe 11% of the complete
+inform the human reader that the stops only describe 11% of the complete
 line. Incomplete lines are typical when importing only a part of the
 complete public transport network.
 
 ## Information on Joined Junctions
 
 The option **--junctions.join-output** {{DT_FILE}} causes a file to be written that specifies the junctions
-which were joined (usualy due to option **--junctions.join**). The resulting output file is
+which were joined (usually due to option **--junctions.join**). The resulting output file is
 suitable for loading with the **--node-files** option.
 
 ## Street Signs
@@ -104,7 +104,7 @@ as [OSM](../Networks/Import/OpenStreetMap.md) or
 [OpenDRIVE](../Networks/Import/OpenDRIVE.md) are included in the
 generated *.net.xml* file.
 
-When reading or writing OpenDRIVE networks, the option **--output.original-names** {{DT_BOOL}} [writtes
+When reading or writing OpenDRIVE networks, the option **--output.original-names** {{DT_BOOL}} [writes
 additional data for mapping between sumo-ids and OpenDRIVE-ids into the
 generated
 networks](../Networks/Import/OpenDRIVE.md#referencing_original_ids).

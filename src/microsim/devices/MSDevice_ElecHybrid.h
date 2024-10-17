@@ -149,7 +149,7 @@ public:
     /// @brief Get actual overhead wire segment ID
     std::string getOverheadWireSegmentID() const;
 
-    /// @brief Get actual traction substationn ID
+    /// @brief Get actual traction substation ID
     std::string getTractionSubstationID() const;
 
     /// @brief Get charged energy
@@ -184,7 +184,7 @@ public:
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
-    /// @brief Attempt to store energy into battery pack and return the energy that could not be accomodated due to SOC limits
+    /// @brief Attempt to store energy into battery pack and return the energy that could not be accommodated due to SOC limits
     double storeEnergyToBattery(const double energy);
 
     /// @brief Add energyWasted to the total sum myTotalEnergyWasted
@@ -197,7 +197,7 @@ public:
     /// @brief return energy consumption in Wh (power multiplied by TS)
     double consumption(SUMOVehicle& veh, double a, double newSpeed);
 
-    /// @brief compute charged energy properly considering recuperation and propulsion efficiency during charging battery from overhead wire or discharing battery to recuperate into overhead wire
+    /// @brief compute charged energy properly considering recuperation and propulsion efficiency during charging battery from overhead wire or discharging battery to recuperate into overhead wire
     double computeChargedEnergy(double energyIn);
 
     MSOverheadWire* getActOverheadWireSegment() {

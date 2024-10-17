@@ -1,11 +1,11 @@
 Loading net-file from 'net.net.xml' ... done (0ms).
 Loading done.
-Simulation version v1_17_0+1015-e5c7579 started with time: 0.00.
-Simulation ended at time: 31.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 31.00.
 Reason: The final simulation step has been reached.
 Loading net-file from 'net.net.xml' ... done (0ms).
-Loading state from 'state.xml' ... done (6ms).
+Loading state from 'state.xml' ... done (37ms).
 Loading done.
-Simulation version v1_17_0+1015-e5c7579 started with time: 30.00.
-Simulation ended at time: 31.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 30.00.
+Simulation ended at time: 31.00.
 Reason: All vehicles have left the simulation.

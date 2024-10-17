@@ -130,6 +130,14 @@ public:
      */
     void generateOutput(OutputDevice* tripinfoOut) const;
 
+    static SumoXMLAttrMask getWrittenAttributes() {
+        return myWrittenAttributes;
+    }
+
+    /// @brief resets the attribute mask
+    static void cleanup();
+
+
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
@@ -146,6 +154,14 @@ protected:
 private:
     /// @brief Internal storages for pollutant/fuel sum in mg or ml
     PollutantsInterface::Emissions myEmissions;
+
+    /// @brief bit mask for checking attributes to be written
+    static SumoXMLAttrMask myWrittenAttributes;
+    static SumoXMLAttrMask getDefaultMask();
+    static bool myAmInitialized;
+
+    /// @brief initialize attribute mask (once)
+    static void initOnce();
 
 private:
     /// @brief Invalidated copy constructor.

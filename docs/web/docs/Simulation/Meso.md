@@ -163,19 +163,19 @@ For an option value of *p*, The time penalty is computed by scaling the
 expected waiting time for random arrival within the cycle
 
 ```
-travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
+travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
 ```
 
 ### TLS-Flow-Penalty
 When setting **--meso-tls-flow-penalty** {{DT_FLOAT}}: to a value \> 0 (default is 0), a headway penalty is applied
- which serves to reduce the maximum flow across a tls-controlled intersection (In contrast to actual junction control, they flow is spread evently across the phase cycle rather than being concentrated during the green phases).
+ which serves to reduce the maximum flow across a tls-controlled intersection (In contrast to actual junction control, they flow is spread evenly across the phase cycle rather than being concentrated during the green phases).
 When the flow penalty is set to a value of 1 the minimum headway time is increased to model the maximum capacity
 according to the proportion of green time to cycle time.
 Higher penalty values can be used to reduce the flow even further while lower values increase the maximum flow.
 The latter is useful if the green split is not known exactly (because the traffic light program is guessed heuristically).
 ```
-greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
-headway = defaultHeadway / greenFraction
+greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
+headway = defaultHeadway / greenFraction
 ```
 
 Note, that the maximum flow cannot exceed the value at permanent green light regardless of penalty value.
@@ -230,7 +230,7 @@ The following outputs are not supported:
 
 The following SUMO features are not supported:
 
-- [Actuated traffic lights](Traffic_Lights.md#actuated_traffic_lights)
+- [Actuated traffic lights](Traffic_Lights.md#type_actuated)
 - Electric model
 - Wireless model
 - Opposite-direction driving

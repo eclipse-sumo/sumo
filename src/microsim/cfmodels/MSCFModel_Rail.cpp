@@ -12,7 +12,7 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_Rail.cpp
-/// @author  Gregor L\"ammel
+/// @author  Gregor Laemmel
 /// @author  Leander Flamm
 /// @date    Tue, 08 Feb 2017
 ///
@@ -150,7 +150,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
     }
     if (myTrainParams.resCoef_constant != INVALID_DOUBLE && resistanceTable.size() > 0) {
-        WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficents are set for vType '%'.", vtype->getID()));
+        WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficients are set for vType '%'.", vtype->getID()));
     }
 
     if (myTrainParams.traction.empty() && myTrainParams.maxPower == INVALID_DOUBLE) {

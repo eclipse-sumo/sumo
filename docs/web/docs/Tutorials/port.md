@@ -72,18 +72,18 @@ But as you can see, not all piers are connected to the waterways and if you take
 <img src="../images/tutorialport6.png" width="100%">
 
 ## Network editing
-Now we open [netedit](../Netedit/index.md) to correct these parts. You can open it from sumo-gui with the shortcut `Ctrl + T`.
+Now we open [netedit](../Netedit/index.md) to correct these parts. You can open it from sumo-gui with the shortcut <kbd>Ctrl</kbd> + <kbd>T</kbd>.
 
 ### Netedit:
 <img src="../images/tutorialport8.png" width="100%">
 
 ### 1) Shorten the waterways, so that only the originally selected area remains.
 
-Use the inspect mode (`I`): Locate the waterways that extend beyond the area and separate these edges in both directions into an appropriate part at the port and a part that can be deleted. To do so, right click on the edge at the position where the edge should be separated.
+Use the inspect mode (<kbd>I</kbd>): Locate the waterways that extend beyond the area and separate these edges in both directions into an appropriate part at the port and a part that can be deleted. To do so, right click on the edge at the position where the edge should be separated.
 
 <kbd><img src="../images/tutorialport9.png" width="600"></kbd>
 
-Use the select mode (`S`):  Select the waterways far from the port and delete them.
+Use the select mode (<kbd>S</kbd>):  Select the waterways far from the port and delete them.
 <table><tr>
 	<td>Before</td>
 	<td>After</td>
@@ -93,7 +93,7 @@ Use the select mode (`S`):  Select the waterways far from the port and delete th
 </tr></table>
 
 ### 2) Delete everything that is superfluous
-Use the select mode (`S`): Select all superfluous edges and delete them.
+Use the select mode (<kbd>S</kbd>): Select all superfluous edges and delete them.
 <table><tr>
 	<td>Before</td>
 	<td>After</td>
@@ -103,15 +103,15 @@ Use the select mode (`S`): Select all superfluous edges and delete them.
 </tr></table>
 
 ### 3) Add the missing connections between the piers and the waterways
-Use the inspect mode (`I`): Split the waterway edge in both directions at the position where you want to add the connection to the pier.
+Use the inspect mode (<kbd>I</kbd>): Split the waterway edge in both directions at the position where you want to add the connection to the pier.
 
 <kbd><img src="../images/tutorialport14.png" width="500"></kbd>
 
-Use the edge mode (`E`): Connect the pier with the waterway edge (twoway road).
+Use the edge mode (<kbd>E</kbd>): Connect the pier with the waterway edge (twoway road).
 
 <kbd><img src="../images/tutorialport15.png" width="500"></kbd>
 
-Use the inspect mode (`I`): Select the new edge and set `allow = ship`
+Use the inspect mode (<kbd>I</kbd>): Select the new edge and set `allow = ship`
 
 ### 4) Change road vClasses at the port area
 Here is our main port area.
@@ -120,9 +120,9 @@ Here is our main port area.
 
 If you have a look at the "allow"-parameter for the edges, you will see that they have different allowed vClasses. We prefer to have the same allowed vClasses for all edges (trucks, passenger car, pedestrian, delivery, taxi and bus)
 
-Use the select mode (`S`): Select all roads (except the train tracks).
+Use the select mode (<kbd>S</kbd>): Select all roads (except the train tracks).
 
-Use the inspect mode (`I`): Open the allow option on the left side and change the allowed vClasses.
+Use the inspect mode (<kbd>I</kbd>): Open the allow option on the left side and change the allowed vClasses.
 
 <img src="../images/tutorialport18.png" width="1000">
 
@@ -136,14 +136,14 @@ Use netconvert with option [`railway.topology.all-bidi`](../Simulation/Railways.
 or
 
 #### Netedit:
-Use the select mode (`S`): Select all train tracks.
+Use the select mode (<kbd>S</kbd>): Select all train tracks.
 
-Use the inspect mode (`I`): Right click on a track, -> __edge operations__ -> __add reverse direction for edge__
+Use the inspect mode (<kbd>I</kbd>): Right click on a track, -> __edge operations__ -> __add reverse direction for edge__
 
-Use the connection mode (`C`): Check and adapt the connections between the tracks (maybe it is easier to control if all tracks have the spread type `right` instead of `center`).
+Use the connection mode (<kbd>C</kbd>): Check and adapt the connections between the tracks (maybe it is easier to control if all tracks have the spread type `right` instead of `center`).
 
 ### 6) Create bus stops and container stops
-Use netedit with the additional mode (`A`).
+Use netedit with the additional mode (<kbd>A</kbd>).
 Select `busStop` or `containerStop` and define a name. Then place the stop at an edge.
 
 <img src="../images/tutorialport19.png" width="100%">

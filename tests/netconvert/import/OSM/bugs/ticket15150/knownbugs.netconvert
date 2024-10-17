@@ -1,0 +1,7 @@
+
+[Reported by Windows at 04Jul15:34:29]
+search_string:Warning
+search_file:errors
+ignore_other_errors:1
+full_description:faulty traffic light program
+brief_description:see #15150

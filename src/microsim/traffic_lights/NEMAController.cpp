@@ -722,7 +722,11 @@ NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
 void
 NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex) {
     std::set<std::string> output;
-    for (int i = 0; i < (int)state.size(); i++) {
+    for (int i = 0; i < (int)myLinks.size(); i++) {
+        if (myLinks[i].empty()) {
+            // unused index
+            continue;
+        }
         char ch = state[i];
         // if the ch is 'G', it means that the phase is controlling this lane
         if (ch == 'G') {
@@ -1041,9 +1045,7 @@ NEMALogic::getPhaseObj(int phaseNum, int ringNum) {
         }
     }
     // the phase must always be found
-    assert(0);
-    // To satisfy the compiler
-    return myPhaseObjs.front();
+    throw ProcessError("At traffic signal '" + myID + "' program '" + myProgramID + "' phase '" + toString(phaseNum) + "' not found in ring '" + toString(ringNum) + "'.");
 }
 
 PhaseTransitionLogic*

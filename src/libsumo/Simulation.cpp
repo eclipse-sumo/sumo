@@ -646,6 +646,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_TAXITYPE_ID;
             pars.back()->id = mode;
+            pars.back()->line = mode;
             modeSet |= SVC_TAXI;
         } else if (mode == toString(PersonMode::PUBLIC)) {
             pars.push_back(nullptr);
@@ -693,10 +694,11 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         SUMOVehicle* vehicle = nullptr;
         if (vehPar != nullptr) {
             MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
+            const bool isTaxi = type != nullptr && type->getID() == DEFAULT_TAXITYPE_ID && vehPar->line == "taxi";
             if (type == nullptr) {
                 throw TraCIException("Unknown vehicle type '" + vehPar->vtypeid + "'.");
             }
-            if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0) {
+            if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
                 WRITE_WARNINGF(TL("Ignoring vehicle type '%' when performing intermodal routing because it is not allowed on the start edge '%'."), type->getID(), from);
             } else {
                 ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(vehPar->id, ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());

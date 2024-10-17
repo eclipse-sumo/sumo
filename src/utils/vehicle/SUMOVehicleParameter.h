@@ -76,6 +76,7 @@ const long long int VEHPARS_INSERTION_CHECKS_SET = (long long int)2 << 31;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
+const int STOP_INDEX_REPEAT = -3;
 
 const int STOP_START_SET = 1;
 const int STOP_END_SET = 2;
@@ -466,6 +467,9 @@ public:
         /// @brief at which position in the stops list
         int index = 0;
 
+        /// @brief at which position within the route (only used for state saving)
+        mutable int routeIndex = 0;
+
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 
@@ -788,7 +792,13 @@ public:
     mutable std::vector<std::string> via;
 
     /// @brief The parking access rights
-    mutable std::vector <std::string> parkingBadges;
+    std::vector<std::string> parkingBadges;
+
+    /// @brief The modes a person or container can use
+    SVCPermissions modes;
+
+    /// @brief The types of usable (auto-generated) vehicles for a person / container
+    std::string vTypes;
 
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     int personNumber;

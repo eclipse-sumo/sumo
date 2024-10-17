@@ -205,7 +205,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                 }
                 WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)%"), toString(rel->id), e->name, frontBackMsg);
             } else {
-                WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m)\n."), rel->id, rel->name, maxDist)
+                WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m)."), rel->id, rel->name, maxDist)
                 delete e;
                 // export ways by themselves
                 for (long long int wayID : rel->myWays) {
@@ -216,7 +216,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
         }
     }
 
-    // instatiate polygons
+    // instantiate polygons
     for (EdgeMap::iterator i = edges.begin(); i != edges.end(); ++i) {
         PCOSMEdge* e = (*i).second;
         if (e->myAttributes.size() == 0) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-23 09:34:32 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
+<!-- generated on 2024-06-27 14:13:06 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" tlsIgnoreInternalJunctionJam="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -196,19 +196,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":gneJ21_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.88" width="2.80" customShape="1" shape="5786.46,5674.80 5781.79,5683.51" outlineShape="5787.74,5675.37 5782.98,5684.26 5783.02,5684.17 5782.66,5683.82 5782.11,5684.08 5781.75,5684.69 5780.56,5682.85 5785.23,5674.14 5787.69,5675.46 5785.23,5674.14"/>
     </edge>
     <edge id=":gneJ21_c1" function="crossing" crossingEdges="28639688#1">
-        <lane id=":gneJ21_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.55" width="2.80" customShape="1" shape="5790.74,5666.99 5787.63,5672.75" outlineShape="5791.97,5667.66 5788.86,5673.42 5787.69,5675.46 5785.23,5674.14 5786.40,5672.08 5789.51,5666.32 5791.52,5664.47 5791.92,5665.07 5792.42,5665.59 5791.97,5667.66"/>
+        <lane id=":gneJ21_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.55" width="2.80" customShape="1" shape="5790.74,5666.99 5787.63,5672.75" outlineShape="5791.97,5667.66 5788.86,5673.42 5787.69,5675.46 5785.23,5674.14 5786.40,5672.08 5789.51,5666.32 5791.52,5664.47 5791.92,5665.07 5792.42,5665.59"/>
     </edge>
     <edge id=":gneJ21_c2" function="crossing" crossingEdges="148050455#1">
         <lane id=":gneJ21_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.85" width="2.20" customShape="1" shape="5778.38,5649.00 5784.52,5652.04" outlineShape="5778.87,5648.01 5785.01,5651.05 5785.23,5653.62 5785.01,5651.05 5785.23,5653.62 5777.89,5649.99 5778.78,5647.97 5777.89,5649.99"/>
     </edge>
     <edge id=":gneJ21_c3" function="crossing" crossingEdges="-148050455#1">
-        <lane id=":gneJ21_c3_0" index="0" allow="pedestrian" speed="2.78" length="3.16" width="2.20" customShape="1" shape="5773.50,5646.64 5776.32,5648.07" outlineShape="5774.00,5645.66 5776.82,5647.09 5778.87,5648.01 5777.89,5649.99 5775.82,5649.05 5771.84,5647.03 5774.00,5645.66"/>
+        <lane id=":gneJ21_c3_0" index="0" allow="pedestrian" speed="2.78" length="3.16" width="2.20" customShape="1" shape="5773.50,5646.64 5776.32,5648.07" outlineShape="5774.00,5645.66 5776.82,5647.09 5778.87,5648.01 5777.89,5649.99 5775.82,5649.05 5771.84,5647.03"/>
     </edge>
     <edge id=":gneJ21_c4" function="crossing" crossingEdges="737320747#4.146">
         <lane id=":gneJ21_c4_0" index="0" allow="pedestrian" speed="2.78" length="9.24" width="2.80" customShape="1" shape="5751.73,5660.89 5755.03,5652.26" outlineShape="5750.42,5660.39 5753.72,5651.76 5756.68,5651.86 5753.72,5651.76 5756.68,5651.86 5753.04,5661.39 5750.42,5660.39 5753.04,5661.39"/>
     </edge>
     <edge id=":gneJ21_c5" function="crossing" crossingEdges="54169280#0">
-        <lane id=":gneJ21_c5_0" index="0" allow="pedestrian" speed="2.78" length="6.43" width="2.80" customShape="1" shape="5748.37,5669.13 5750.69,5663.13" outlineShape="5747.06,5668.63 5749.38,5662.63 5750.42,5660.39 5753.04,5661.39 5752.00,5663.63 5749.68,5669.63 5747.06,5668.63"/>
+        <lane id=":gneJ21_c5_0" index="0" allow="pedestrian" speed="2.78" length="6.43" width="2.80" customShape="1" shape="5748.37,5669.13 5750.69,5663.13" outlineShape="5747.06,5668.63 5749.38,5662.63 5750.42,5660.39 5753.04,5661.39 5752.00,5663.63 5749.68,5669.63"/>
     </edge>
     <edge id=":gneJ21_c6" function="crossing" crossingEdges="30399663#1">
         <lane id=":gneJ21_c6_0" index="0" allow="pedestrian" speed="2.78" length="9.04" width="2.50" customShape="1" shape="5765.89,5684.03 5757.08,5682.02" outlineShape="5765.61,5685.25 5756.80,5683.24 5757.36,5680.80 5766.17,5682.81 5765.61,5685.25 5766.17,5682.81"/>

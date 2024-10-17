@@ -118,6 +118,9 @@ public:
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
 
+    /// @brief reset additional contour
+    void resetAdditionalContour();
+
     /// @name members and functions relative to write additionals into XML
     /// @{
 
@@ -411,11 +414,13 @@ protected:
     void calculatePerpendicularLine(const double endLaneposition);
 
     /// @brief draw squared additional
-    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
+    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size,
+                               GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw listed additional
-    void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
-                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
+    void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX,
+                              const double extraOffsetY, const RGBColor baseCol, const RGBColor textCol, GUITexture texture,
+                              const std::string text) const;
 
     /// @brief check if draw additional extrem geometry points
     bool drawMovingGeometryPoints(const bool ignoreShift) const;
@@ -457,7 +462,7 @@ protected:
 
     /// @brief calculate contour for polygons
     void calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                  const double exaggeration, const bool contouredShape) const;
+                                  const double layer, const double exaggeration, const bool filledShape) const;
 
     /// @}
 

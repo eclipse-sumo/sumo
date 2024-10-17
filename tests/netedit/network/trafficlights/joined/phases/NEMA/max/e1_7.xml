@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-06 15:09:48 by Eclipse SUMO GUI Version v1_14_1+0865-4e4a8dab349
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\SUMO\tests\netedit\netelements\trafficlights\phases\NEMA\max\net.netedit"/>
+        <route-files value="D:\SUMO\tests\netedit\netelements\trafficlights\phases\NEMA\max\routes.netedit"/>
+        <additional-files value="D:\SUMO\tests\netedit\netelements\trafficlights\phases\NEMA\max\additionals.netedit"/>
+    </input>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+</detector>

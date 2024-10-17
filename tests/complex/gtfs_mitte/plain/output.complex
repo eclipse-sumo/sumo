@@ -1,5 +1,5 @@
 Success.
-Building scenario in '/home/behr_mi/.texttest/tmp/complex.perf.22Mar122814.5268/complex.perf/gtfs_mitte/plain/test'.
+Building scenario in '/home/micha/.texttest/tmp/complex.perf.30Sep071049.59455/complex.perf/gtfs_mitte/plain/test'.
 200 OK
 generating trips...
 Skipping line '1231708' because it only drives at night
@@ -20,9 +20,8 @@ Skipping line '3353027' because it only drives at night
 Skipping line '35040' because it only drives at night
 Skipping line '6187328' because it only drives at night
 Skipping line '6187329' because it only drives at night
-Cannot extend route after last stop for line '6622626' (stop edge 1151326815 not in route)
-Imported 107 lines with 310 stops and skipped 16 lines
-   bus: 47
+Imported 105 lines with 306 stops and skipped 16 lines
+   bus: 45
    light_rail: 18
    subway: 8
    train: 12
@@ -40,8 +39,8 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Fri, 22 Mar 2024 12:29:44 +0000
-function import_gtfs finished after 18.879461 seconds
+function import_gtfs called at Mon, 30 Sep 2024 07:11:21 +0000
+function import_gtfs finished after 9.414850 seconds
 Success.
 Success.
 Success.

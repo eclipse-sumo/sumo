@@ -589,6 +589,45 @@ StringUtils::trim(const std::string s, const std::string& t) {
     return trim_right(trim_left(s, t), t);
 }
 
+
+std::string
+StringUtils::wrapText(const std::string s, int width) {
+    std::vector<std::string> parts = StringTokenizer(s).getVector();
+    std::string result;
+    std::string line;
+    bool firstLine = true;
+    bool firstWord = true;
+    for (std::string p : parts) {
+        if ((int)(line.size() + p.size()) < width || firstWord) {
+            if (firstWord) {
+                firstWord = false;
+            } else {
+                line += " ";
+            }
+            line = line + p;
+        } else {
+            if (firstLine) {
+                firstLine = false;
+            } else {
+                result += "\n";
+            }
+            result = result + line;
+            line.clear();
+            firstWord = true;
+        }
+    }
+    if (line.size() > 0) {
+        if (firstLine) {
+            firstLine = false;
+        } else {
+            result += "\n";
+        }
+        result = result + line;
+    }
+    return result;
+}
+
+
 void
 StringUtils::resetTranscoder() {
     myLCPTranscoder = nullptr;

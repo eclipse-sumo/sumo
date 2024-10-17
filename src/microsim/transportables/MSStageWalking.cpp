@@ -121,25 +121,11 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         }
         return;
     }
+    const OptionsCont& oc = OptionsCont::getOptions();
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
-        const OptionsCont& oc = OptionsCont::getOptions();
-        const std::string model = oc.getString("pedestrian.model");
-        if (model != "jupedsim") {
-            if (previous->getStageType() == MSStageType::ACCESS) {
-                const Position& lastPos = previous->getPosition(now);
-                // making a wild guess on where we actually want to depart laterally
-                const double possibleDepartPosLat = lastPos.distanceTo(previous->getEdgePosition(previous->getEdge(), myDepartPos, 0.));
-                const Position& newPos = previous->getEdgePosition(previous->getEdge(), myDepartPos, -possibleDepartPosLat); // Minus sign is here for legacy reasons.
-                if (lastPos.almostSame(newPos)) {
-                    myDepartPosLat = possibleDepartPosLat;
-                } else if (lastPos.almostSame(previous->getEdgePosition(previous->getEdge(), myDepartPos, possibleDepartPosLat))) {
-                    // maybe the other side of the street
-                    myDepartPosLat = -possibleDepartPosLat;
-                }
-            }
-        } else {
+        if (oc.getString("pedestrian.model") == "jupedsim") {
             myDepartPosLat = previous->getEdgePosLat(now);
         }
         if (myWalkingTime > 0) {
@@ -156,7 +142,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         // we only need new move reminders if we are walking a different edge (else it is probably a rerouting)
         activateEntryReminders(person, true);
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+    if (oc.getBool("vehroute-output.exit-times")) {
         myExitTimes = new std::vector<SUMOTime>();
     }
     (*myRouteStep)->addTransportable(person);

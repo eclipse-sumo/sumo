@@ -37,6 +37,8 @@ set(netedit_changes_SRCS
    GNEChange_TLS.h
    GNEChange_ToggleAttribute.cpp
    GNEChange_ToggleAttribute.h
+   GNEChange_RegisterJoin.h
+   GNEChange_RegisterJoin.cpp
    )
 
 add_library(netedit_changes STATIC ${netedit_changes_SRCS})

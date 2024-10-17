@@ -126,9 +126,6 @@ routes. The scenario is now ready to be simulated by selecting
 
 `Simulation>Sumo>export routes and simulate...`
 
-Proceed as described in Sec. [\#Simulating the
-scenario](#Simulating_the_scenario.md).
-
 A test file for turnflows is located in
 
 `SUMOHOME/tools/contributed/sumopy/testscenario/demo_dem_tf_car.csv`

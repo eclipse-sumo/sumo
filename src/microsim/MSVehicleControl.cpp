@@ -96,7 +96,7 @@ MSVehicleControl::initDefaultTypes() {
     defRailType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_RAILTYPE_ID] = MSVehicleType::build(defRailType);
 
-    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
+    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_CONTAINER);
     // ISO Container TEU (cannot set this based on vClass)
     defContainerType.length = 6.1;
     defContainerType.width = 2.4;
@@ -111,19 +111,21 @@ MSVehicleControl::initDefaultTypes() {
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                ConstMSRoutePtr route, MSVehicleType* type,
-                               const bool ignoreStopErrors, const bool fromRouteFile, bool addRouteStops) {
-    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    initVehicle(built, ignoreStopErrors, addRouteStops);
+                               const bool ignoreStopErrors, const VehicleDefinitionSource source, bool addRouteStops) {
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE || source == VehicleDefinitionSource::STATE ? MSRouteHandler::getParsingRNG() : nullptr));
+    initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;
 }
 
 
 void
-MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops) {
+MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops, const VehicleDefinitionSource source) {
     myLoadedVehNo++;
     try {
         built->initDevices();
-        built->addStops(ignoreStopErrors, nullptr, addRouteStops);
+        if (source != VehicleDefinitionSource::STATE) {
+            built->addStops(ignoreStopErrors, nullptr, addRouteStops);
+        }
     } catch (ProcessError&) {
         delete built;
         throw;

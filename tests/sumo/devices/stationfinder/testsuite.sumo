@@ -1,3 +1,6 @@
+# A vehicle limits the charging rate to fulfil a charging strategy
+chargingStrategy
+
 # Vehicles break down due to low battery and gets teleported backwards on the same edge.
 breakdown_teleport_backwards
 
@@ -15,3 +18,9 @@ searching
 
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 charging
+
+# Two vehicles with different target function weights
+targetFunction
+
+# Two vehicles which replace parts of a regular stop with a charging stop
+replaceStop

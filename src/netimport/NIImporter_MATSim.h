@@ -222,10 +222,10 @@ private:
     };
 
     /// The names of MATSIM-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry matsimTags[];
+    static SequentialStringBijection::Entry matsimTags[];
 
     /// The names of MATSIM-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry matsimAttrs[];
+    static SequentialStringBijection::Entry matsimAttrs[];
 
 
 };

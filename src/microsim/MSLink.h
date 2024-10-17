@@ -180,7 +180,7 @@ public:
     };
 
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
-    typedef std::vector<const SUMOVehicle*> BlockingFoes;
+    typedef std::vector<const SUMOTrafficObject*> BlockingFoes;
     typedef std::map<const MSPerson*, ApproachingPersonInformation> PersonApproachInfos;
 
     enum ConflictFlag {
@@ -418,6 +418,10 @@ public:
      */
     void setTLState(LinkState state, SUMOTime t);
 
+    /** @brief Sets the currently active tlLogic
+     * @param[in] logic The currently active logic
+     */
+    void setTLLogic(const MSTrafficLightLogic* logic);
 
     /** @brief Returns the connected lane
      *
@@ -742,7 +746,7 @@ private:
     const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
 
     /// @brief add information about another pedestrian crossing
-    void updateDistToFoePedCrossing(double dist); 
+    void updateDistToFoePedCrossing(double dist);
 
 private:
     /// @brief The lane behind the junction approached by this link

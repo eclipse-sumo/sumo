@@ -44,7 +44,8 @@ def parseArgs(args=None):
                     help="write taxi fleet to the output FILE", metavar="FILE")
     op.add_argument("--fleet-size", type=float, metavar="NUM", category="input",
                     help="relative (0 < NUM < 1) or absolute number of vehicles (NUM >= 1) to generate")
-    op.add_argument("-t", "--type", category="input", help="stopping place type", default="chargingStation")
+    op.add_argument("-a", "--amenity", category="input", help="amenity type to read", default="taxi")
+    op.add_argument("-t", "--type", category="output", help="stopping place type", default="chargingStation")
     op.add_argument("-r", "--radius", category="input", type=float, help="radius for edge finding", default=20.)
     op.add_argument("-l", "--length", category="input", type=float,
                     help="(minimum) length of the stopping place", default=20.)
@@ -82,7 +83,7 @@ def main(options):
                             pass
                     if t.k == "name":
                         name = t.v
-                    if t.k == "amenity" and t.v == "taxi":
+                    if t.k == "amenity" and t.v == options.amenity:
                         point = net.convertLonLat2XY(float(n.lon), float(n.lat))
                         candidates = net.getNeighboringLanes(*point, r=options.radius, includeJunctions=False)
                         for lane, _ in sorted(candidates, key=lambda i: i[1]):

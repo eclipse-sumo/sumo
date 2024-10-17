@@ -124,7 +124,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
   - when drawing a vehicles route, the lanes which the vehicle
     intends to use are highlighted where this is known (previously
     the rightmost lane was always used).
-  - Added hotkeys Ctrl-A, Ctrl-S, Ctrl-D for running, stopping and
+  - Added hotkeys <kbd>Ctrl</kbd> + <kbd>A</kbd>, <kbd>Ctrl</kbd> + <kbd>S</kbd>, <kbd>Ctrl</kbd> + <kbd>D</kbd> for running, stopping and
     stepping the simulation
   - Added a menu for opening the object locator dialogs. Using the
     menu hotkeys allows searching for simulation objects without
@@ -139,7 +139,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
     begin or end to park or stop, see
     [TraCI/Simulation_Value_Retrieval](../TraCI/Simulation_Value_Retrieval.md)
     (was #353)
-  - added [new command *lane change mode (0xb6)*](../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6d) to control
+  - added [new command *lane change mode (0xb6)*](../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6) to control
     conflict resolution between TraCI-lane-changing request and
     lane-changing decisions by the laneChangeModel. It also allows
     to override safety constraints and to trigger cooperative speed
@@ -325,7 +325,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
     railway element is unidirectional or bidirectional.
   - added option **--osm.railway.oneway-default** {{DT_BOOL}} for setting the default behavior when importing
     railways without "tracks" attribute. The appropriate value
-    depends on the mapping style of the regional *OSM* comunity.
+    depends on the mapping style of the regional *OSM* community.
   - added option **--geometry.max-angle** {{DT_FLOAT}} which warns about sharp turns on an edge. This is
     enabled by default for turns above 99 Degrees.
   - added option **--geometry.min-radius** {{DT_FLOAT}} which warns about sharp turns at the start and end
@@ -458,8 +458,8 @@ removed because it was outdated
 
 - Simulation
   - added support for traffic-actuated traffic lights (see
-    [Simulation/Traffic_Lights\#Loading_new_TLS-Programs](../Simulation/Traffic_Lights.md#loading_new_program),
-    [Networks/PlainXML\#Node_Descriptions](../Networks/PlainXML.md#node_descriptions))
+    [Simulation/Traffic_Lights\#loading_a_new_program](../Simulation/Traffic_Lights.md#loading_a_new_program),
+    [Networks/PlainXML\#node_descriptions](../Networks/PlainXML.md#node_descriptions))
   - added support for microscopic calibrators. These trigger-type
     objects can be used to increase or reduce traffic volume and to
     regulate speeds at selected edges. Using calibrators it becomes

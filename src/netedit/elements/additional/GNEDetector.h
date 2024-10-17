@@ -40,6 +40,8 @@ public:
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] parentLanes vector of parent lanes
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] filename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
@@ -47,7 +49,8 @@ public:
      */
     GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
                 const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
-                const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+                const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -185,10 +188,10 @@ public:
 
 protected:
     /// @brief position of detector over Lane
-    double myPositionOverLane;
+    double myPositionOverLane = 0;
 
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    SUMOTime myPeriod;
+    SUMOTime myPeriod = 0;
 
     /// @brief The path to the output file
     std::string myFilename;
@@ -196,8 +199,48 @@ protected:
     /// @brief attribute vehicle types
     std::vector<std::string> myVehicleTypes;
 
+    /// @brief next edges
+    std::vector<std::string> myNextEdges;
+
+    /// @brief detect persons
+    std::string myDetectPersons;
+
     /// @brief Flag for friendly position
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
+
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getDetectorAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getDetectorAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setDetectorAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isDetectorValid(SumoXMLAttr key, const std::string& value);
+
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeDetectorValues(OutputDevice& device) const;
+
+    /// @brief set attribute after validation
+    void setDetectorAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief draw E1 shape
     void drawE1Shape(const GUIVisualizationSettings::Detail d, const double exaggeration,

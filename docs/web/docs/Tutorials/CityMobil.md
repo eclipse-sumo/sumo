@@ -11,7 +11,7 @@ for the new version only `createNetTaxi.py` is relevant.
 This tutorial explains how to build such a scenario programmatically by generating
 all input files with a (python) script we call `createNetTaxi.py`. The easiest way
 to follow it, is probably to read the existing code side by side with this tutorial
-since not every line wil be covered here. Some basic knowledge of Python is assumed.
+since not every line will be covered here. Some basic knowledge of Python is assumed.
 
 Most parameters for the application (including the paths to the
 executables) are in `constants.py` and can be easily adapted there to modify the scenario.
@@ -26,7 +26,7 @@ import os
 import sys
 from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, SLOTS_PER_ROW, SLOT_WIDTH
 ... # more constants
-if 'SUMO_HOME' in os.environ:
+if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib
 ```

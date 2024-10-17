@@ -27,7 +27,7 @@ from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, ti
 from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks
 from matplotlib.ticker import FuncFormatter as ff
 from matplotlib.collections import LineCollection
-mpl_version = tuple(map(int, matplotlib.__version__.split(".")))
+mpl_version = tuple(map(int, matplotlib.__version__.split(".")[:3]))
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 

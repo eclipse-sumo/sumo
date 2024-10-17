@@ -35,7 +35,7 @@ void
 MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
     const MSVehicleType& vtype = myTrain->getVehicleType();
     const double totalLength = vtype.getLength();
-    myUpscaleLength = getUpscaleLength(exaggeration, totalLength, vehicleQuality);
+    myUpscaleLength = getUpscaleLength(exaggeration, totalLength, vtype.getWidth(), vehicleQuality);
     myLocomotiveLength = vtype.getParameter().locomotiveLength * myUpscaleLength;
     myDefaultLength = vtype.getParameter().carriageLength * myUpscaleLength;
     if (myLocomotiveLength == 0) {
@@ -134,9 +134,8 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
             }
             backLane = prev;
         }
-
         carriage->front = lane->getShape(secondaryShape).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
-        carriage->back = backLane->getShape(secondaryShape).positionAtOffset(carriageBackOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
+        carriage->back = backLane->getShape(secondaryShape).positionAtOffset(carriageBackOffset * backLane->getLengthGeometryFactor(secondaryShape), lateralOffset);
         myCarriages.push_back(carriage);
 
         carriageOffset -= (curCLength + myCarriageGap);
@@ -189,8 +188,8 @@ MSTrainHelper::computeUnboardingPositions(double passengerRadius, std::vector<Po
 
 
 double
-MSTrainHelper::getUpscaleLength(double upscale, double length, int vehicleQuality) {
-    if (upscale > 1 && length > 5 && vehicleQuality != 4) {
+MSTrainHelper::getUpscaleLength(double upscale, double length, double width, int vehicleQuality) {
+    if (upscale > 1 && length > 5 && width < 5 && vehicleQuality != 4) {
         return MAX2(1.0, upscale * 5 / length);
     } else {
         return upscale;

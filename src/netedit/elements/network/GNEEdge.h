@@ -214,6 +214,12 @@ public:
     std::string getAttribute(SumoXMLAttr key) const;
     std::string getAttributeForSelection(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -469,30 +475,34 @@ private:
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
 
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
-    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                const double layer) const;
 
     /// @brief draw start extreme geometry point
     void drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                const double geometryPointRadius, const double exaggeration) const;
+                                const double geometryPointRadius, const double layer, const double exaggeration) const;
 
     /// @brief draw end extreme geometry point
     void drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const double geometryPointRadius, const double exaggeration) const;
+                              const double geometryPointRadius, const double layer, const double exaggeration) const;
 
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edgeStopOffset
-    void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                            const double layer) const;
 
     /// @brief draw edge shape (only one line)
-    void drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                       const double layer) const;
 
     /// @brief draw children
-    void drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawChildrens(const GUIVisualizationSettings& s) const;
 
     /// @brief calculate contours
-    void calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const double layer) const;
 
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;

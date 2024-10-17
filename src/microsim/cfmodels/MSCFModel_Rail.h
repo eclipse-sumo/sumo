@@ -12,7 +12,7 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_Rail.h
-/// @author  Gregor L\"ammel
+/// @author  Gregor Laemmel
 /// @date    Tue, 08 Feb 2017
 ///
 // <description missing>

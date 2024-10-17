@@ -1,0 +1,8 @@
+# additional requirements for a developer system for GUI testing and wheel creation
+build>=0.7.0
+pre-commit>=3.5.0
+pyautogui>=0.9.53
+pyinstaller>=6.1.0
+pyperclip>=1.7.0
+scikit-build>=0.12.0
+wheel>=0.37.1

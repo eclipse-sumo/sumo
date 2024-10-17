@@ -52,7 +52,7 @@ makes vehicles drive with that factor of the current speed limit. The
 attribute also allows the specification of the parameters of a normal
 distribution with optional cutoffs. The random value is selected once
 for each vehicle at the time of its creation. Using a speed deviation is
-the recommended way for getting a heterogenous mix of vehicle speeds.
+the recommended way for getting a heterogeneous mix of vehicle speeds.
 By default, a speed distribution with a standard deviation of 10% is active.
 For details, see [speed distribution](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
 
@@ -100,11 +100,11 @@ The number of vehicles inserted this way will follow the [Poisson distribution](
 The following 2 sections describe attributes for random flows that apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to [flows with a random number of vehicles](#flows_with_a_random_number_of_vehicles) but substitute the `number` attribute for the `end` attribute.
 
 ## Bernoulli Process
-By definining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
+By defining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
 a vehicle will be emitted randomly with the given probability each second until the specified number is reached.
 
 ## Poisson Process
-By definining a `<flow>` with attributes `number` and `period="exp(X)"` (instead of `vehsPerHour,number`, or `period`),
+By defining a `<flow>` with attributes `number` and `period="exp(X)"` (instead of `vehsPerHour,number`, or `period`),
 vehicles will emitted with random time-gaps that follow an exponential distribution until the specified number is reached.
 
 ## Router options
@@ -131,7 +131,7 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 # Further sources of randomness
 
 - The tool [randomTrips.py](../Tools/Trip.md#randomtripspy) allows generating traffic between random edges. It also supports randomizing arrival rates.
-- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix
+- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix, it also randomizes the departure time within a configurable interval.
 - [duarouter](../duarouter.md) adds randomness when performing [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
 - [duarouter](../duarouter.md) can randomly disturb the fastest-paths by setting option **--weights.random-factor**
 - [Simulation routing can be randomized](../Demand/Automatic_Routing.md#randomness) to ensure usage of alternative routes.

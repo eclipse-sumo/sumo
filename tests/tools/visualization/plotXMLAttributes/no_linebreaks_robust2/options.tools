@@ -1,0 +1,5 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x x -y y
+-i @NONE
+--robust-parser
+tools/visualization/plotXMLAttributes.py

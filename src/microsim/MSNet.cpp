@@ -59,6 +59,7 @@
 #include <utils/router/IntermodalRouter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
 #include <libsumo/Helper.h>
@@ -76,6 +77,7 @@
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/output/MSBatteryExport.h>
+#include <microsim/output/MSChargingStationExport.h>
 #include <microsim/output/MSElecHybridExport.h>
 #include <microsim/output/MSEmissionExport.h>
 #include <microsim/output/MSFCDExport.h>
@@ -446,7 +448,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
     if (myLogExecutionTime) {
         const long duration = now - mySimBeginMillis;
         // print performance notice
-        msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
+        msg << "Performance:\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
             if (TraCIServer::getInstance() != nullptr) {
                 msg << " TraCI-Duration: " << elapsedMs2string(myTraCIMillis) << "\n";
@@ -462,7 +464,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
         // print vehicle statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
                                            " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
-        msg << "Vehicles: " << "\n"
+        msg << "Vehicles:\n"
             << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
@@ -491,7 +493,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             msg << " Emergency Braking: " << myVehicleControl->getEmergencyBrakingCount() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
-            msg << "Persons: " << "\n"
+            msg << "Persons:\n"
                 << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
             if (myPersonControl->getJammedNumber() > 0) {
@@ -509,7 +511,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
-            msg << "Containers: " << "\n"
+            msg << "Containers:\n"
                 << " Inserted: " << myContainerControl->getLoadedNumber() << "\n"
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
@@ -530,7 +532,9 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
     if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         msg << MSDevice_Tripinfo::printStatistics();
     }
-    return msg.str();
+    std::string result = msg.str();
+    result.erase(result.end() - 1);
+    return result;
 }
 
 
@@ -673,9 +677,9 @@ MSNet::writeSummaryOutput() {
 void
 MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     // report the end when wished
-    WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
+    WRITE_MESSAGE(TLF("Simulation ended at time: %.", time2string(getCurrentTimeStep())));
     if (reason != "") {
-        WRITE_MESSAGE("Reason: " + reason);
+        WRITE_MESSAGE(TL("Reason: ") + reason);
     }
     myDetectorControl->close(myStep);
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
@@ -685,7 +689,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
+    if (OptionsCont::getOptions().isSet("chargingstations-output") && !OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
         writeChargingStationOutput();
     }
     if (OptionsCont::getOptions().isSet("overheadwiresegments-output")) {
@@ -931,21 +935,21 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
         case MSNet::SIMSTATE_RUNNING:
             return "";
         case MSNet::SIMSTATE_END_STEP_REACHED:
-            return "The final simulation step has been reached.";
+            return TL("The final simulation step has been reached.");
         case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-            return "All vehicles have left the simulation.";
+            return TL("All vehicles have left the simulation.");
         case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            return "TraCI requested termination.";
+            return TL("TraCI requested termination.");
         case MSNet::SIMSTATE_ERROR_IN_SIM:
-            return "An error occurred (see log).";
+            return TL("An error occurred (see log).");
         case MSNet::SIMSTATE_INTERRUPTED:
-            return "Interrupted.";
+            return TL("Interrupted.");
         case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
-            return "Too many teleports.";
+            return TL("Too many teleports.");
         case MSNet::SIMSTATE_LOADING:
-            return "TraCI issued load command.";
+            return TL("TraCI issued load command.");
         default:
-            return "Unknown reason.";
+            return TL("Unknown reason.");
     }
 }
 
@@ -1061,6 +1065,11 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("battery-output")) {
         MSBatteryExport::write(OutputDevice::getDeviceByOption("battery-output"), myStep,
                                oc.getInt("battery-output.precision"));
+    }
+
+    // charging station aggregated dumps
+    if (OptionsCont::getOptions().isSet("chargingstations-output") && OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
+        MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"), myStep);
     }
 
     // elecHybrid dumps
@@ -1374,6 +1383,18 @@ MSNet::getStoppingPlace(const std::string& id, const SumoXMLTag category) const 
 }
 
 
+MSStoppingPlace*
+MSNet::getStoppingPlace(const std::string& id) const {
+    for (SumoXMLTag category : std::vector<SumoXMLTag>({SUMO_TAG_BUS_STOP, SUMO_TAG_PARKING_AREA, SUMO_TAG_CONTAINER_STOP, SUMO_TAG_CHARGING_STATION, SUMO_TAG_OVERHEAD_WIRE_SEGMENT})) {
+        MSStoppingPlace* result = getStoppingPlace(id, category);
+        if (result != nullptr) {
+            return result;
+        }
+    }
+    return nullptr;
+}
+
+
 std::string
 MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const {
     if (myStoppingPlaces.count(category) > 0) {
@@ -1523,39 +1544,9 @@ MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEd
     const OptionsCont& oc = OptionsCont::getOptions();
     const int key = rngIndex * oc.getInt("thread-rngs") + routingMode;
     if (myIntermodalRouter.count(key) == 0) {
-        int carWalk = 0;
-        for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
-            if (opt == "parkingAreas") {
-                carWalk |= MSTransportableRouter::Network::PARKING_AREAS;
-            } else if (opt == "ptStops") {
-                carWalk |= MSTransportableRouter::Network::PT_STOPS;
-            } else if (opt == "allJunctions") {
-                carWalk |= MSTransportableRouter::Network::ALL_JUNCTIONS;
-            }
-        }
-        // XXX there is currently no reason to combine multiple values, thus getValueString rather than getStringVector
-        const std::string& taxiDropoff = oc.getValueString("persontrip.transfer.taxi-walk");
-        const std::string& taxiPickup = oc.getValueString("persontrip.transfer.walk-taxi");
-        if (taxiDropoff == "") {
-            if (MSDevice_Taxi::getTaxi() != nullptr) {
-                carWalk |= MSTransportableRouter::Network::TAXI_DROPOFF_ANYWHERE;
-            }
-        } else if (taxiDropoff == "ptStops") {
-            carWalk |= MSTransportableRouter::Network::TAXI_DROPOFF_PT;
-        } else if (taxiDropoff == "allJunctions") {
-            carWalk |= MSTransportableRouter::Network::TAXI_DROPOFF_ANYWHERE;
-        }
-        if (taxiPickup == "") {
-            if (MSDevice_Taxi::getTaxi() != nullptr) {
-                carWalk |= MSTransportableRouter::Network::TAXI_PICKUP_ANYWHERE;
-            }
-        } else if (taxiPickup == "ptStops") {
-            carWalk |= MSTransportableRouter::Network::TAXI_PICKUP_PT;
-        } else if (taxiPickup == "allJunctions") {
-            carWalk |= MSTransportableRouter::Network::TAXI_PICKUP_ANYWHERE;
-        }
+        const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, MSDevice_Taxi::getTaxi() != nullptr);
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
-        double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+        const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
             myIntermodalRouter[key] = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode, new FareModul());
         } else {
@@ -1593,7 +1584,7 @@ MSNet::adaptIntermodalRouter(MSTransportableRouter& router) {
     myInstance->getInsertionControl().adaptIntermodalRouter(router);
     myInstance->getVehicleControl().adaptIntermodalRouter(router);
     // add access to transfer from walking to taxi-use
-    if ((router.getCarWalkTransfer() & MSTransportableRouter::Network::TAXI_PICKUP_ANYWHERE) != 0) {
+    if ((router.getCarWalkTransfer() & ModeChangeOptions::TAXI_PICKUP_ANYWHERE) != 0) {
         for (MSEdge* edge : myInstance->getEdgeControl().getEdges()) {
             if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
                 router.getNetwork()->addCarAccess(edge, SVC_TAXI, taxiWait);

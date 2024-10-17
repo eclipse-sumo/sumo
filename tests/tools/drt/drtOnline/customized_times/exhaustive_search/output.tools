@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -17,8 +18,8 @@ New reservations: ['4', '5', '6']
 Pending reservations: ['0']
 Solve DARP with exhaustive_search
 Solve ILP
-Dispatch: taxiC_4y_5y_4z_5z
 Dispatch: taxiA_6y_6z
+Dispatch: taxiC_4y_5y_4z_5z
 
 Run dispatcher
 New reservations: ['7', '8', '9']

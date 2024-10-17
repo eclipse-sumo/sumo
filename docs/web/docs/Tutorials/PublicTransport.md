@@ -27,7 +27,7 @@ Main topics are:
 
 # Public Transport Tutorial
 At the beginning of the simulation, buses and trams are being dispatched to cater to their designated routes.
-Simultaneously, people are created. Each person hurries to their favourite bus stop and waits for their bus or tram.
+Simultaneously, people are created. Each person hurries to their favorite bus stop and waits for their bus or tram.
 They then are picked up and brought to their target bus stops.
 
 Running the simulation:
@@ -107,7 +107,7 @@ To obtain a repeating schedule multiple approaches are feasible:
 
 Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in SUMO and are vital while using intermodal routing.
 Such schedules are defined with the attribute `until`. The until attribute is set for the stops.
-A vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
+A vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stopping time ('duration') has also passed.
 
 
 ## Demand

@@ -79,6 +79,7 @@ detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
 stopinfos:stopinfos.xml
+stopinfos2:stopinfos2.xml
 collisions:collisions.xml
 ssm:ssm.xml
 summary:summary.xml
@@ -140,13 +141,14 @@ fcd3:<!--{[->]}-->
 fcd4:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
+stopinfos2:<!--{[->]}-->
 collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
 statistics:<!--{[->]}-->
 statistics2:<!--{[->]}-->
-statistics:<performance 
-statistics2:<performance 
+statistics:<performance
+statistics2:<performance
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
@@ -163,14 +165,13 @@ railsignalvehs:<!--{[->]}-->
 railsignalblocks2:<!--{[->]}-->
 railsignalvehs2:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:send failed: Connection reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:Could not find connection between
-errors:.*UserWarning: {REPLACE UserWarning: }
 errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
 errors:data\\{REPLACE data/}
@@ -180,7 +181,11 @@ errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in o
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
 errors:Matplotlib is building the font cache; this may take a moment.
+errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
+errors:.*UserWarning: {REPLACE UserWarning: }
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.{LINES 3}
+errors:MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER){LINES 2}
 errors:\\{REPLACE /}
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
@@ -194,7 +199,7 @@ output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
 output:Process [0-9]
 output:Starting process
-output:[0-9] stepping \(step 
+output:[0-9] stepping \(step
 output:^Loading configuration ... done.
 output:^Starting process [0-9] with steplength
 output:does not supply vehicle parameter

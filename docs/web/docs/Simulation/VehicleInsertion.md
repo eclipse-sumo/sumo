@@ -129,5 +129,5 @@ For specialized use cases the following tips may help to achieve even more inser
   device.rerouting](../Demand/Automatic_Routing.md)
 - The departure edge can be determined at run-time when using [Traffic
   Assignment Zones
-  (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)
+  (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz)
 - [Table of insertion capacity achievable with different options and insertion attributes](RoadCapacity.md#further_headway_effects)

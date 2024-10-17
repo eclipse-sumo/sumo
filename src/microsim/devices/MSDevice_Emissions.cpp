@@ -32,6 +32,11 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "MSDevice_Emissions.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
+SumoXMLAttrMask MSDevice_Emissions::myWrittenAttributes(getDefaultMask());
+bool MSDevice_Emissions::myAmInitialized = false;
 
 // ===========================================================================
 // method definitions
@@ -56,8 +61,50 @@ MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "emissions", v, oc.isSet("emission-output"))) {
         into.push_back(new MSDevice_Emissions(v));
+        initOnce();
     }
 }
+
+
+SumoXMLAttrMask
+MSDevice_Emissions::getDefaultMask() {
+    SumoXMLAttrMask mask;
+    // set all bits to 1
+    mask.set();
+    return mask;
+}
+
+void
+MSDevice_Emissions::cleanup() {
+    myWrittenAttributes = getDefaultMask();
+    myAmInitialized = false;
+}
+
+void
+MSDevice_Emissions::initOnce() {
+    if (myAmInitialized) {
+        return;
+    }
+    myAmInitialized = true;
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("emission-output.attributes")) {
+        myWrittenAttributes.reset();
+        for (std::string attrName : oc.getStringVector("emission-output.attributes")) {
+            if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+                if (attrName == "all") {
+                    myWrittenAttributes.set();
+                } else {
+                    WRITE_ERRORF(TL("Unknown attribute '%' to write in emission output."), attrName);
+                }
+                continue;
+            }
+            int attr = SUMOXMLDefinitions::Attrs.get(attrName);
+            myWrittenAttributes.set(attr);
+        }
+    }
+    //std::cout << "mask=" << myWrittenAttributes << "\n";
+}
+
 
 
 // ---------------------------------------------------------------------------

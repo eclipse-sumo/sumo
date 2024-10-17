@@ -119,7 +119,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - Added new option **--window-size** {{DT_INT}},{{DT_INT}} for specifying the initial window size. #2514
   - Added new visualization setting for drawing right-of-way rules
     (colored bars).
-  - [Background images (decals)](../sumo-gui.md#using_decals_within_sumo-gui) now
+  - [Background images (decals)](../sumo-gui.md#showing_background_images) now
     support the new Boolean attribute *screenRelative*. When set to
     *true*, position and size are relative to the drawing window
     instead of being relative to the network. #2438
@@ -130,7 +130,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
     [OSM](../Networks/Import/OpenStreetMap.md). #2059
   - Added new option **--junctions.scurve-stretch** {{DT_FLOAT}} which generates longer intersection shapes
     whenever the number of lanes changes. This allows for smoother
-    trajectories and is recommended when [writing OpenDRIVE networks](../Networks/Further_Outputs.md#opendrive_road_networks). #2522
+    trajectories and is recommended when [writing OpenDRIVE networks](../Networks/Further_Outputs.md#opendrive_road_objects). #2522
   - Added new option **--rectangular-lane-cut** {{DT_BOOL}} which prevents oblique angles between edges
     and intersections. This option is automatically enabled when
     exporting OpenDRIVE networks. #2562
@@ -139,10 +139,10 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
     #2123 , #892
   - Elevation data is now interpolated when importing GeoTiff
     heightmaps. #1962
-  - The geometry of [OpenDRIVE networks](../Networks/Further_Outputs.md#opendrive_road_networks)
+  - The geometry of [OpenDRIVE networks](../Networks/Further_Outputs.md#opendrive_road_objects)
     is now exported with parameterized curves according to
     specification version 1.4. #2041
-  - Elevation data is now [imported from OpenDRIVE](../Networks/Import/OpenDRIVE.md) and [exported to OpenDRIVE](../Networks/Further_Outputs.md#opendrive_road_networks).
+  - Elevation data is now [imported from OpenDRIVE](../Networks/Import/OpenDRIVE.md) and [exported to OpenDRIVE](../Networks/Further_Outputs.md#opendrive_road_objects).
     #2239 , #2240
   - Added new option **--default.disallow** {{DT_STR}}**,...** for simplifying specification of [vehicle permissions](../Simulation/VehiclePermissions.md#network_definition) #2557
   - When converting an OSM network to [writingDlrNavteq or Amitran format](../Networks/Export.md), functional road class is
@@ -150,7 +150,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
 
 - dfrouter
   - Vehicle types are now included in the
-    [emitters-output](../Demand/Routes_from_Observation_Points.md#saving_flows_and_other_values)
+    [emitters-output](../Demand/Routes_from_Observation_Points.md#generating_vehicles)
     by default. The new option **--vtype-output** {{DT_FILE}} allows redirection the vTypes into a
     separate file.
   - If the average measured speeds are systematically above the
@@ -187,9 +187,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - Added new overview page on [vehicle permissions](../Simulation/VehiclePermissions.md)
   - The [netedit](../Netedit/index.md) documentation on old and novel
     features has been expanded.
-  - The tool
-    [showDepartsAndArrivalsPerEdge.py](../Tools/Routes.md#showdepartsandarrivalsperedge)
-    is now documented. It allows edge-coloring in
+  - The tool `showDepartsAndArrivalsPerEdge.py` is now documented. It allows edge-coloring in
     [sumo-gui](../sumo-gui.md) according to traffic statistics #2263
 
 - TraCI
@@ -203,8 +201,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - The `laneChangeModel="JE2013"` has been removed due to strong similarity with *LC2013*.
     Using the model is deprecated and now defaults to *LC2013*
   - [SUMOPy](../Contributed/SUMOPy.md) has been added to the
-    SUMO repository and to the relase. Many thanks to Joerg
-    Schweizer.
+    SUMO repository and to the release. Many thanks to Joerg Schweizer.
   - The libraries for the Windows build and release were updated to
     Fox 1.6.52 and Xerces-C 3.1.4 (with an additional fix for
     [XERCESC-2052](https://issues.apache.org/jira/browse/XERCESC-2052))
@@ -282,7 +279,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - Vehicles are no longer considered stopped at a `<stop>` while still
     driving with high speed. #1846
   - Scheduled
-    [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)
+    [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)
     no longer count towards *waitSteps* and *timeLoss* in
     [tripinfo-output](../Simulation/Output/TripInfo.md#generated_output). #2311
   - Fixed bug where vehicles would not depart from a triggered stop #2339
@@ -399,7 +396,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
     the absolute value is taking as a factor for the minimum
     unjammed speed. Thus, negative values closer to 0 result in less
     jamming. The default value remains at *-1* and results in the
-    original behaviour (values above 0 set the occupancy fraction
+    original behavior (values above 0 set the occupancy fraction
     threshold independent of edge speed as before).
 
 - sumo-gui
@@ -479,7 +476,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
 
 - Tools
   - Added new tool
-    [createVehTypeDistributions.py](../Tools/Misc.md#createvehtypedistributionspy)
+    [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy)
     to simplify definition of heterogeneous vehicle fleets by
     sampling numerical attributes from configurable distributions.
     Thanks to Mirko Barthauer for the contribution.
@@ -706,7 +703,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
     knowledge about the current traffic state when computing a new
     route due to encountering a [rerouter
     object](../Simulation/Rerouter.md#assigning_a_new_destination). #2197
-  - [Parking](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)
+  - [Parking](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)
     vehicles are no included in the
     [FCD-Output](../Simulation/Output/FCDOutput.md).
   - Riding [persons](../Specification/Persons.md#rides) and

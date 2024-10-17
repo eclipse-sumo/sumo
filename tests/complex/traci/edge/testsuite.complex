@@ -3,3 +3,6 @@ edge
 
 # see #14552
 setMaxSpeed
+
+# retrieve bidi lane
+bidi

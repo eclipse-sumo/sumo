@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-03 13:22:50 by Eclipse SUMO marouter Version v1_19_0+1662-cc3005420e0
+<!-- generated on 2024-06-26 13:30:33 by Eclipse SUMO marouter Version v1_20_0+0837-89657f7d4be
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
 
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
@@ -61,6 +61,7 @@
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand the end of the last loaded weight interval to infinity"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
+        <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
         <aggregation-interval value="3600" type="TIME" help="Defines the time interval when aggregating single vehicle input; Defaults to one hour"/>
         <capacities.default value="false" type="BOOL" help="Ignore edge priorities when calculating capacities and restraints"/>
         <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
@@ -92,6 +93,7 @@
     </processing>
 
     <defaults>
+        <defaults-override value="false" type="BOOL" help="Defaults will override given values"/>
         <flow-output.departlane value="free" synonymes="departlane" type="STR" help="Assigns a default depart lane"/>
         <flow-output.departpos value="" synonymes="departpos" type="STR" help="Assigns a default depart position"/>
         <flow-output.departspeed value="max" synonymes="departspeed" type="STR" help="Assigns a default depart speed"/>
@@ -131,4 +133,4 @@
         <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
-</configuration>
+</marouterConfiguration>

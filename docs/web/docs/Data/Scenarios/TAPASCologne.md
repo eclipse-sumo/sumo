@@ -16,7 +16,7 @@ be informed** about it (use the
 The data can be [downloaded from our scenario
 repository](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
 There also vehicle traces available from the [KolnTrace project at CITI
-Lab](https://kolntrace.project.citi-lab.fr/).
+Lab](https://web.archive.org/web/20240519081107/https://kolntrace.project.citi-lab.fr/).
 
 ## About
 

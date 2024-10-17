@@ -206,7 +206,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     myACTemplates.clear();
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(myTagType);
+    const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(myTagType, true);
     // fill myACTemplates and myTagsMatchBox
     for (const auto& tagProperty : tagProperties) {
         if ((!onlyDrawables || tagProperty.isDrawable()) && (!tagProperty.requireProj() || proj)) {
@@ -297,8 +297,10 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
     switch (tagProperty.getTag()) {
         // additional elements
         case SUMO_TAG_BUS_STOP:
+            myAC = GNEBusStop::buildBusStop(net);
+            break;
         case SUMO_TAG_TRAIN_STOP:
-            myAC = new GNEBusStop(tagProperty.getTag(), net);
+            myAC = GNEBusStop::buildTrainStop(net);
             break;
         case SUMO_TAG_ACCESS:
             myAC = new GNEAccess(net);

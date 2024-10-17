@@ -43,8 +43,9 @@
 //#define DEBUG_OCCUPANCY
 //#define DEBUG_OCCUPANCY2
 //#define DEBUG_NOTIFY_ENTER
-//#define DEBUG_COND (veh.getLane()->getID() == "31to211_0")
-#define DEBUG_COND (false)
+//#define DEBUG_COND (veh.getLane()->getID() == "")
+//#define DEBUG_COND (false)
+//#define DEBUG_COND2 (veh.getEdge()->getID() == "")
 
 
 // ===========================================================================
@@ -130,9 +131,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     const double travelledDistanceVehicleOnLane,
     const double meanLengthOnLane) {
 #ifdef DEBUG_OCCUPANCY
-    if (DEBUG_COND) {
+    if (DEBUG_COND2) {
         std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
-                  << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+                  << "  veh '" << veh.getID() << "' on edge '" << veh.getEdge()->getID() << "'"
                   << ", timeOnLane=" << timeOnLane
                   << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
                   << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
@@ -251,8 +252,11 @@ void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const int numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
 
-    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength,
-                                1000. * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    double density = sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;
+    if (MSGlobals::gLateralResolution < 0) {
+        // avoid exceeding upper bound
+        density = MIN2(density, 1000 * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    }
     const double laneDensity = density / (double)numLanes;
     const double occupancy = getOccupancy(period, numLanes);
 #ifdef DEBUG_OCCUPANCY2

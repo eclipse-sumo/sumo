@@ -41,3 +41,6 @@ remove_person
 
 # see #8398
 redispatch_on_internal
+
+# dispatch a taxi that hasn't yet entered the network
+undeparted

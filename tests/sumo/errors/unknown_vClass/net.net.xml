@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-12 11:21:24 by Eclipse SUMO netgenerate Version v1_20_0+0459-20c981e95ee
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.x-number value="2"/>
+        <grid.y-number value="1"/>
+    </grid_network>
+
+    <building_defaults>
+        <default.allow value="passenger"/>
+    </building_defaults>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netgenerateConfiguration>
+-->
+
+<net version="2.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
+
+    <edge id="A0B0" from="A0" to="B0" priority="-1">
+        <lane id="A0B0_0" index="0" allow="passenger futureClass" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id="B0A0" from="B0" to="A0" priority="-1">
+        <lane id="B0A0_0" index="0" allow="passenger futureClass" speed="13.89" length="100.00" shape="100.00,1.60 0.00,1.60"/>
+    </edge>
+
+    <junction id="A0" type="priority" x="0.00" y="0.00" incLanes="B0A0_0" intLanes="" shape="0.00,0.00 0.00,3.20 0.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="B0" type="priority" x="100.00" y="0.00" incLanes="A0B0_0" intLanes="" shape="100.00,0.00 100.00,-3.20 100.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="A0B0" to="B0A0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="B0A0" to="A0B0" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

@@ -9,10 +9,12 @@ set(microsim_transportables_STAT_SRCS
         MSPerson.h
         MSPModel.cpp
         MSPModel.h
-        MSPModel_Striping.cpp
-        MSPModel_Striping.h
+        MSPModel_Interacting.cpp
+        MSPModel_Interacting.h
         MSPModel_NonInteracting.cpp
         MSPModel_NonInteracting.h
+        MSPModel_Striping.cpp
+        MSPModel_Striping.h
         MSStage.cpp
         MSStage.h
         MSStageMoving.cpp

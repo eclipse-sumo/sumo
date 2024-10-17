@@ -87,7 +87,7 @@ void
 GNEPersonFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second.second->resetCandidateFlags();
+        edge.second->resetCandidateFlags();
     }
     // hide frame
     GNEFrame::hide();
@@ -127,13 +127,13 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjec
             return myPlanCreator->addRoute(o);
         }
     }
-    if (!viewObjects.getLanes().empty()) {
-        return myPlanCreator->addEdge(viewObjects.getLanes().front());
-    }
-    if (!viewObjects.getJunctions().empty()) {
+    if (viewObjects.getAttributeCarrierFront() == viewObjects.getJunctionFront()) {
         return myPlanCreator->addJunction(viewObjects.getJunctions().front());
     }
-    if (!viewObjects.getTAZs().empty()) {
+    if (viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
+        return myPlanCreator->addEdge(viewObjects.getLanes().front());
+    }
+    if (viewObjects.getAttributeCarrierFront() == viewObjects.getTAZFront()) {
         return myPlanCreator->addTAZ(viewObjects.getTAZs().front());
     }
     return false;

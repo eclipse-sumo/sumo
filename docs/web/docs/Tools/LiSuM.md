@@ -77,7 +77,7 @@ change the workplace path.
 Open LiSuM, set the SUMO path in the system preferences dialog window
 and open an existing simulation project from the workspace. In the Tools
 menu, select "Start Lisa+ Virtual Controller" to start an instance of
-the LISA+ Virtual Controller. Pressing Ctrl+p or clicking on the "Play"
+the LISA+ Virtual Controller. Pressing <kbd>Ctrl</kbd> + <kbd>p</kbd> or clicking on the "Play"
 button on the toolbar will open an instance of the sumo-gui, which will
 take control over the system. Almost all menus, toolbars and dialog
 windows of LiSuM get blocked and from hereon the simulation may be
@@ -180,7 +180,7 @@ The configuration file shown above declares the following:
 "LISASumo.ControlUnitsOptionsWindow.PNG")Control units management window
 
 The Control Units Management dialog window gets opened by pressing
-Ctrl+M or by clicking on the "Grid" button on the simulation toolbar. In
+<kbd>Ctrl</kbd> + <kbd>M</kbd> or by clicking on the "Grid" button on the simulation toolbar. In
 this dialog it is possible to change the behavior of all available
 control units of the simulation by turning them off and on, selecting
 the program, or enabling or disabling program settings like VA
@@ -206,7 +206,7 @@ described using WSDL/XSD files, used to describe SOAP services.
 
 It is necessary that, before starting SUMO, an instance of the LISA+
 Virtual Controller is opened and running (clicking on *Menu: Tools -\>
-Start Lisa+ Virtual Controller* or by pressing Ctrl+r).
+Start Lisa+ Virtual Controller* or by pressing <kbd>Ctrl</kbd> + <kbd>r</kbd>).
 
 Per default the LISA+ Virtual Controller and its configuration file
 (OmlFgServer.ini) are to be found in the

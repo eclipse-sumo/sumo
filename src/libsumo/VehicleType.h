@@ -40,6 +40,7 @@ static std::string getShapeClass(const std::string& typeID); \
 static double getMinGap(const std::string& typeID); \
 static double getWidth(const std::string& typeID); \
 static double getHeight(const std::string& typeID); \
+static double getMass(const std::string& typeID); \
 static libsumo::TraCIColor getColor(const std::string& typeID); \
 static double getMinGapLat(const std::string& typeID); \
 static double getMaxSpeedLat(const std::string& typeID); \
@@ -67,6 +68,7 @@ static void setEmissionClass(const std::string& typeID, const std::string& clazz
 static void setShapeClass(const std::string& typeID, const std::string& shapeClass); \
 static void setWidth(const std::string& typeID, double width); \
 static void setHeight(const std::string& typeID, double height); \
+static void setMass(const std::string& typeID, double mass); \
 static void setColor(const std::string& typeID, const libsumo::TraCIColor& color); \
 static void setMinGap(const std::string& typeID, double minGap); \
 static void setMinGapLat(const std::string& typeID, double minGapLat); \

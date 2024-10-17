@@ -27,7 +27,6 @@ import subprocess
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.xml import _open  # noqa
 
 
 def parse_args():
@@ -59,13 +58,13 @@ def main(options):
     if options.disallow:
         disallowVClasses(options, net)
     else:
-        removeVClasses(options, net)
+        removeVClasses(options)
 
 
-def removeVClasses(options, net):
+def removeVClasses(options):
     classes = options.deleteClasses.split(',')
-    with open(options.outfile, 'w') as outf:
-        for line in _open(options.net):
+    with sumolib.openz(options.outfile, 'w') as outf, sumolib.openz(options.net) as inf:
+        for line in inf:
             for c in classes:
                 line = line.replace(c + " ", "")
                 line = line.replace(" " + c, "")
@@ -99,8 +98,8 @@ def disallowVClasses(options, net):
                 outfe.write('    </edge>\n')
         outfe.write("</edges>\n")
 
-    with open(options.outfile, 'w') as outf:
-        for line in _open(options.net):
+    with sumolib.openz(options.outfile, 'w') as outf, sumolib.openz(options.net) as inf:
+        for line in inf:
             for c in classes:
                 line = line.replace(c + " ", "")
                 line = line.replace(" " + c, "")

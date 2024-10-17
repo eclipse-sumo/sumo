@@ -429,7 +429,7 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     try {
         PositionVector g = ramp->getGeometry();
         double offset = (0.5 * addedLanes *
-                               (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+                         (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
         if (myShiftedEdges.count(ramp) != 0) {
             offset -= myShiftedEdges[ramp];
         }

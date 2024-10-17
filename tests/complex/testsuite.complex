@@ -32,6 +32,8 @@ emissions
 # emission tools, especially emissionDrivingCycleemissions
 emissionsMap
 
+routes
+
 # scenario generation
 scenario_generation
 unit_tests

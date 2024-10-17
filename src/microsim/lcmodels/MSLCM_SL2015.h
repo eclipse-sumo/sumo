@@ -319,7 +319,7 @@ protected:
     /// @brief compute the gap factor for the given state
     double computeGapFactor(int state) const;
 
-    /// @brief return the widht of this vehicle (padded for numerical stability)
+    /// @brief return the width of this vehicle (padded for numerical stability)
     double getWidth() const;
 
     /// @brief find leaders/followers that are already in a car-following relationship with ego
@@ -330,7 +330,7 @@ protected:
         return MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myVehicle.getLane()->getWidth();
     }
 
-    /// @brief commit to lane change maneuvre potentially overriding safe speed
+    /// @brief commit to lane change maneuver potentially overriding safe speed
     void commitManoeuvre(int blocked, int blockedFully,
                          const MSLeaderDistanceInfo& leaders,
                          const MSLeaderDistanceInfo& neighLeaders,
@@ -362,7 +362,7 @@ protected:
     double getNeighRight(const MSLane& neighLane) const;
 
     /* @brief check whether vehicle speed is appropriate for the intended maneuver distance
-     * (rather than doing an orthgonal slide) */
+     * (rather than doing an orthogonal slide) */
     bool preventSliding(double maneuverDist) const;
 
     /// @brief check against thresholds
@@ -443,7 +443,7 @@ protected:
     double myLaneDiscipline;
     // @brief lookahead for speedGain in seconds
     double mySpeedGainLookahead;
-    // @brief bounus factor staying on the inside of multi-lane roundabout
+    // @brief bonus factor staying on the inside of multi-lane roundabout
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment
     double myCooperativeSpeed;

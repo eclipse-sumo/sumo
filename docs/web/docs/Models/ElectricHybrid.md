@@ -516,7 +516,7 @@ As of SUMO 1.11.0 we are aware of the following:
 [1] [Ševčík, J., Přikryl, J. A Vehicle Device Tailored for Hybrid Trolleybuses
    and Overhead Wires Implementation in SUMO. In: Weber, M., Bieker-Walz, L.,
    Hilbrich, R., Behrisch, M. (eds.), SUMO2019. EPiC Series in Computing, vol. 62,
-   pp. 145--157. EasyChair (2019)](https://www.easychair.org/publications/download/bhmq)
+   pp. 145--157. EasyChair (2019)](https://easychair.org/publications/paper/bhmq)
 
 [2] [Ševčík, J., Adam, L., Přikryl, J., Šmídl V. Solvability of the power flow problem
    in DC overhead wire circuit modeling. *Applications of Mathematics* (2021),

@@ -46,11 +46,14 @@ shut_off_stop
 # shutting off the engine at traffic lights
 shut_off_auto
 
-# Testing error cases
-errors
-
 # Test the begin time filter
 begin
 
 # Test the begin time filter + period
 period_begin
+
+# flter written attributes
+attributes
+
+# Testing error cases
+errors

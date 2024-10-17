@@ -37,6 +37,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class MSTransportable;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -82,6 +88,10 @@ public:
 
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
+                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
+
+    /// @brief initiate the person rerouting, create router / thread pool on first use
+    static void reroute(MSTransportable& t, const SUMOTime currentTime, const std::string& info,
                         const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
 
     /// @brief adapt the known travel time for an edge

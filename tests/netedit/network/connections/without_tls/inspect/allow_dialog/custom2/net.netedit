@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-01 11:12:14 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102641.2800/netedit.gui/network/connections/without_tls/inspect/allow_dialog/custom2/log.txt"/>
+    </report>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+
+    <edge id=":Junction5_0" function="internal" type="custom">
+        <lane id=":Junction5_0_0" index="0" allow="ship" speed="15.00" length="6.00" width="3.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
+    </edge>
+    <edge id=":Junction5_1" function="internal">
+        <lane id=":Junction5_1_0" index="0" allow="custom2" speed="13.89" length="14.00" width="3.00" shape="7.00,1.50 -7.00,1.50"/>
+    </edge>
+    <edge id=":Junction5_2" function="internal">
+        <lane id=":Junction5_2_0" index="0" allow="ship" speed="13.89" length="14.00" width="3.00" shape="1.50,-7.00 1.50,7.00"/>
+    </edge>
+    <edge id=":Junction5_3" function="internal">
+        <lane id=":Junction5_3_0" index="0" allow="bus" speed="13.89" length="14.00" width="3.00" shape="-7.00,-1.50 7.00,-1.50"/>
+    </edge>
+    <edge id=":JunctionExtern0_0" function="internal">
+        <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
+    </edge>
+    <edge id=":JunctionExtern1_0" function="internal">
+        <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
+    </edge>
+
+    <edge id="-E0" from="J0" to="Junction5" priority="-1">
+        <lane id="-E0_0" index="0" disallow="pedestrian" speed="13.89" length="18.00" width="3.00" shape="-1.50,25.00 -1.50,7.00"/>
+    </edge>
+    <edge id="-E1" from="J1" to="Junction5" priority="-1">
+        <lane id="-E1_0" index="0" allow="bus" speed="13.89" length="23.00" width="3.00" shape="-30.00,-1.50 -7.00,-1.50"/>
+    </edge>
+    <edge id="-E2" from="J2" to="Junction5" priority="-1">
+        <lane id="-E2_0" index="0" speed="13.89" length="23.00" width="3.00" shape="30.00,1.50 7.00,1.50"/>
+    </edge>
+    <edge id="-E3" from="J3" to="Junction5" priority="-1">
+        <lane id="-E3_0" index="0" allow="ship" speed="13.89" length="18.00" width="3.00" shape="1.50,-25.00 1.50,-7.00"/>
+    </edge>
+    <edge id="E0" from="Junction5" to="J0" priority="-1">
+        <lane id="E0_0" index="0" disallow="pedestrian" speed="13.89" length="18.00" width="3.00" shape="1.50,7.00 1.50,25.00"/>
+    </edge>
+    <edge id="E1" from="Junction5" to="J1" priority="-1">
+        <lane id="E1_0" index="0" speed="13.89" length="23.00" width="3.00" shape="-7.00,1.50 -30.00,1.50"/>
+    </edge>
+    <edge id="E2" from="Junction5" to="J2" priority="-1">
+        <lane id="E2_0" index="0" allow="bus" speed="13.89" length="23.00" width="3.00" shape="7.00,-1.50 30.00,-1.50"/>
+    </edge>
+    <edge id="E3" from="Junction5" to="J3" priority="-1">
+        <lane id="E3_0" index="0" allow="ship" speed="13.89" length="18.00" width="3.00" shape="-1.50,-7.00 -1.50,-25.00"/>
+    </edge>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
+        <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
+    </edge>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00">
+        <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="25.00" incLanes="E0_0" intLanes="" shape="0.00,25.00 3.00,25.00 0.00,25.00"/>
+    <junction id="J1" type="dead_end" x="-30.00" y="0.00" incLanes="E1_0" intLanes="" shape="-30.00,0.00 -30.00,3.00 -30.00,0.00"/>
+    <junction id="J2" type="dead_end" x="30.00" y="0.00" incLanes="E2_0" intLanes="" shape="30.00,0.00 30.00,-3.00 30.00,0.00"/>
+    <junction id="J3" type="unregulated" x="0.00" y="-25.00" incLanes="E3_0" intLanes="" shape="0.00,-25.00 -3.00,-25.00 0.00,-25.00"/>
+    <junction id="Junction5" type="priority" x="0.00" y="0.00" incLanes="-E0_0 -E2_0 -E3_0 -E1_0" intLanes=":Junction5_0_0 :Junction5_1_0 :Junction5_2_0 :Junction5_3_0" shape="-3.00,7.00 3.00,7.00 3.44,4.78 4.00,4.00 4.78,3.44 5.78,3.11 7.00,3.00 7.00,-3.00 4.78,-3.44 4.00,-4.00 3.44,-4.78 3.11,-5.78 3.00,-7.00 -3.00,-7.00 -3.44,-4.78 -4.00,-4.00 -4.78,-3.44 -5.78,-3.11 -7.00,-3.00 -7.00,3.00 -4.78,3.44 -4.00,4.00 -3.44,4.78 -3.11,5.78">
+        <request index="0" response="0000" foes="1010" cont="0"/>
+        <request index="1" response="0101" foes="0101" cont="0"/>
+        <request index="2" response="0000" foes="1010" cont="0"/>
+        <request index="3" response="0101" foes="0101" cont="0"/>
+    </junction>
+    <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="JunctionExtern1" type="priority" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes=":JunctionExtern1_0_0" shape="60.00,0.00 60.00,-3.00 60.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="-E0" to="E3" fromLane="0" toLane="0" pass="1" keepClear="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="15.00" length="6.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" uncontrolled="1" indirect="1" type="custom" via=":Junction5_0_0" dir="s" state="M" visibility="2.00"/>
+    <connection from="-E1" to="E2" fromLane="0" toLane="0" via=":Junction5_3_0" dir="s" state="m"/>
+    <connection from="-E2" to="E1" fromLane="0" toLane="0" allow="custom2" via=":Junction5_1_0" dir="s" state="m"/>
+    <connection from="-E3" to="E0" fromLane="0" toLane="0" via=":Junction5_2_0" dir="s" state="M"/>
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
+
+    <connection from=":Junction5_0" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Junction5_1" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Junction5_2" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Junction5_3" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

@@ -263,18 +263,18 @@ Some characters are being ignored (deleted) or replaced when generating an inter
 - `'` is ignored
 - `"` is ignored
 - `/` is ignored
+- `>` is ignored
 - `(` is converted to `_`
 - `)` is converted to `_`
 - ` ` (space) is converted to `_`
-- `>` is converted to `62`
 
 Here are some practical examples:
 
 | Section title | Actual link  |
 |---|---|
-| tools fail with a SyntaxError or ImportError or some TypeError concerning ">>"  | [#tools_fail_with_a_syntaxerror_or_importerror_or_some_typeerror_concerning_6262](FAQ.md#tools_fail_with_a_syntaxerror_or_importerror_or_some_typeerror_concerning_6262)  |
+| tools fail with a SyntaxError or ImportError or some TypeError concerning ">>"  | [#tools_fail_with_a_syntaxerror_or_importerror_or_some_typeerror_concerning](FAQ.md#tools_fail_with_a_syntaxerror_or_importerror_or_some_typeerror_concerning)  |
 | Why do I get errors about missing files / file not found even though the file exists?  | [#why_do_i_get_errors_about_missing_files_file_not_found_even_though_the_file_exists](FAQ.md#why_do_i_get_errors_about_missing_files_file_not_found_even_though_the_file_exists)  |
-| Version 1.3.1 (27.08.2019)  | [#version_131_27082019](ChangeLog.md#version_131_27082019)  |
+| Version 1.3.1 (27.08.2019)  | [#version_131_27082019](ChangeLog/Changes_in_2019_releases.md#version_131_27082019)  |
 
 !!! note
     No permalink ends with a `_` character.

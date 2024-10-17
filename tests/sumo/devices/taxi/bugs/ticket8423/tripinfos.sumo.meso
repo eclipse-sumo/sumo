@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:12:05 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 15:32:42 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,7 +27,7 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -71,7 +71,7 @@
         <walk depart="1240.00" departPos="0.00" arrival="1263.00" arrivalPos="34.73" duration="23.00" routeLength="34.73" timeLoss="0.07" maxSpeed="1.51"/>
         <ride waitingTime="64.00" vehicle="rc_0" depart="1327.00" arrival="1340.00" arrivalPos="0.00" duration="13.00" routeLength="171.56" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="rc_0" depart="5.00" departLane="" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1995.00" routeLength="19779.19" waitingTime="0.00" waitingCount="0" stopTime="610.00" timeLoss="0.00" rerouteNo="275" devices="tripinfo_rc_0 taxi_rc_0 person_rc_0" vType="ridepooling-car" speedFactor="1.03" vaporized="end">
+    <tripinfo id="rc_0" depart="5.00" departLane="gneE8_0" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1995.00" routeLength="19779.19" waitingTime="0.00" waitingCount="0" stopTime="610.00" timeLoss="0.00" rerouteNo="275" devices="tripinfo_rc_0 taxi_rc_0 person_rc_0" vType="ridepooling-car" speedFactor="1.03" vaporized="end">
         <taxi customers="10" occupiedDistance="1715.60" occupiedTime="129.92"/>
     </tripinfo>
 </tripinfos>

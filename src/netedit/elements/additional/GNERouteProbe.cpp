@@ -150,10 +150,10 @@ GNERouteProbe::getParentName() const {
 
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double routeProbeExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double routeProbeExaggeration = getExaggeration(s);
         // declare colors
         RGBColor routeProbeColor, centralLineColor;
         // set colors
@@ -167,7 +167,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(routeProbeExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Add layer matrix matrix
@@ -212,9 +212,12 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
             // draw dotted contour
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            mySymbolBaseContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true, 0);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.routeProbeSize,
+                s.additionalSettings.routeProbeSize, getType(), 0, 0, 0, routeProbeExaggeration);
+        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), 0.3, routeProbeExaggeration, true, true, 0);
     }
 }
 

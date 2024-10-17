@@ -16,12 +16,20 @@
 # @date    2018-06-05
 
 import os
-if "SUMO_HOME" not in os.environ and os.path.exists(os.path.join(os.path.dirname(__file__), "data")):
-    os.environ["SUMO_HOME"] = os.path.abspath(os.path.dirname(__file__))
+import warnings
+SUMO_WHEEL_HOME = None
+try:
+    import sumo
+    SUMO_WHEEL_HOME = sumo.SUMO_HOME
+    if "SUMO_HOME" not in os.environ:
+        os.environ["SUMO_HOME"] = SUMO_WHEEL_HOME
+except ImportError:
+    if "SUMO_HOME" not in os.environ:
+        warnings.warn("SUMO_HOME is not set and the eclipse-sumo wheel is not installed!")
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
-    if os.path.exists(os.path.join(os.path.dirname(__file__), "..", "..", "bin", "zlib.dll")):
-        os.add_dll_directory(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "bin")))
+    if SUMO_WHEEL_HOME and os.path.exists(os.path.join(SUMO_WHEEL_HOME, "bin", "zlib.dll")):
+        os.add_dll_directory(os.path.abspath(os.path.join(SUMO_WHEEL_HOME, "bin")))
     elif "SUMO_HOME" in os.environ and os.path.exists(os.path.join(os.environ["SUMO_HOME"], "bin", "zlib.dll")):
         os.add_dll_directory(os.path.join(os.environ["SUMO_HOME"], "bin"))
 
@@ -30,7 +38,7 @@ from traci.step import StepManager, StepListener  # noqa
 from .libsumo import vehicle, simulation, person, trafficlight, edge  # noqa
 from .libsumo import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libsumo import TraCICollision, TraCISignalConstraint  # noqa
-from ._libsumo import TraCILogic_phases_get, TraCILogic_phases_set  # noqa
+from ._libsumo import TraCILogic_phases_get, TraCILogic_phases_set, TraCILogic_swiginit, new_TraCILogic  # noqa
 from .libsumo import *  # noqa
 
 DOMAINS = [
@@ -87,6 +95,28 @@ def set_phases(self, phases):
     TraCILogic_phases_set(self, new_phases)
 
 
+def TraCILogic__init__(self, *args, **kwargs):
+    # Extract known keyword arguments or set to None if not provided
+    programID = kwargs.get('programID', args[0] if len(args) > 0 else None)
+    type_ = kwargs.get('type',  args[1] if len(args) > 1 else None)
+    currentPhaseIndex = kwargs.get('currentPhaseIndex',  args[2] if len(args) > 2 else None)
+    phases = kwargs.get('phases',  args[3] if len(args) > 3 else None)
+    # subParameter = kwargs.get('subParameter',  args[4] if len(args) > 4 else None)
+
+    # Update phases if provided
+    if phases:
+        new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
+        phases = new_phases
+
+    # Rebuild args including the extracted keyword arguments
+    args = (programID, type_, currentPhaseIndex, phases)
+
+    # Initialize with the original function
+    TraCILogic_swiginit(self, new_TraCILogic(*args))
+
+
+# Override methods and properties
+TraCILogic.__init__ = TraCILogic__init__
 TraCILogic.phases = property(TraCILogic_phases_get, set_phases)
 TraCILogic.getPhases = _trafficlight.Logic.getPhases
 TraCILogic.__repr__ = _trafficlight.Logic.__repr__

@@ -28,8 +28,8 @@ additional:additional.xml
 [run_dependent_text]
 errors:The length does not include*{LINES 1}
 log:The length does not include*{LINES 1}
-routes:<!--{[->]}</configuration>
-alts:<!--{[->]}</configuration>
+routes:<!--{[->]}onfiguration>
+alts:<!--{[->]}onfiguration>
 vtypes:<!--{[->]}-->
 weights:<!--{[->]}-->
 edges:<!--{[->]}-->

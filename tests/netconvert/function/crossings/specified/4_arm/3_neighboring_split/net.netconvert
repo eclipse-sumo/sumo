@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-23 09:34:30 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
+<!-- generated on 2024-06-27 14:13:03 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -116,7 +116,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_c4_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="84.29,92.43 81.44,86.70" outlineShape="82.32,93.52 79.38,87.61 79.42,87.70 82.22,86.19 83.33,85.46 86.31,91.42 82.28,93.43 86.31,91.42"/>
     </edge>
     <edge id=":C_c5" function="crossing" crossingEdges="CW">
-        <lane id=":C_c5_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="82.45,111.77 84.84,105.83" outlineShape="80.37,110.93 82.75,104.99 82.28,93.43 86.31,91.42 86.93,106.67 83.68,114.76 82.80,113.18 81.60,111.74 80.37,110.93"/>
+        <lane id=":C_c5_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="82.45,111.77 84.84,105.83" outlineShape="80.37,110.93 82.75,104.99 82.28,93.43 86.31,91.42 86.93,106.67 83.68,114.76 82.80,113.18 81.60,111.74"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="10.34" width="4.50" shape="80.37,110.93 79.81,112.32 78.69,115.10 84.17,125.72 87.09,125.03 86.10,121.19 85.04,117.90 83.94,115.23 82.80,113.18 81.60,111.74"/>

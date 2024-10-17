@@ -383,6 +383,20 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANE_INDEX, vehID)
 
+    def getSegmentID(self, vehID):
+        """getSegmentID(string) -> string
+
+        Returns the id of the segment the named vehicle was at within the last step (mesosim).
+        """
+        return self._getUniversal(tc.VAR_SEGMENT_ID, vehID)
+
+    def getSegmentIndex(self, vehID):
+        """getSegmentIndex(string) -> integer
+
+        Returns the index of the segment the named vehicle was at within the last step (mesosim).
+        """
+        return self._getUniversal(tc.VAR_SEGMENT_INDEX, vehID)
+
     def getTypeID(self, vehID):
         """getTypeID(string) -> string
 
@@ -1255,7 +1269,7 @@ class VehicleDomain(VTypeDomain):
         If begTime or endTime are not specified the value is set for the whole
         simulation duration.
         """
-        if type(edgeID) != str and type(begTime) == str:
+        if not isinstance(edgeID, str) and isinstance(begTime, str):
             # legacy handling
             warnings.warn(
                 "Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. " +
@@ -1476,6 +1490,8 @@ class VehicleDomain(VTypeDomain):
         (once for pickup and once for drop-off) and the list encodes ride
         sharing of passengers (in pickup and drop-off order)
         """
+        if isinstance(reservations, str):
+            reservations = [reservations]
         self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "l", reservations)
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
@@ -1483,7 +1499,8 @@ class VehicleDomain(VTypeDomain):
            Reasons are defined in module constants and start with REMOVE_'''
         self._setCmd(tc.REMOVE, vehID, "b", reason)
 
-    def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
+    @alias_param("laneIndex", "lane")
+    def moveToXY(self, vehID, edgeID, laneIndex, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
         '''Place vehicle at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
@@ -1497,7 +1514,7 @@ class VehicleDomain(VTypeDomain):
         The command fails if no suitable target position is found within the
         distance given by matchThreshold.
         '''
-        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, lane, x, y, angle, keepRoute, matchThreshold)
+        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, laneIndex, x, y, angle, keepRoute, matchThreshold)
 
     def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None

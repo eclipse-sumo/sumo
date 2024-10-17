@@ -240,6 +240,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
             }
         }
     }
+    if (index > 0) {
+        dev.writeAttr(SUMO_ATTR_INDEX, index);
+    }
     if ((parametersSet & STOP_POSLAT_SET) != 0 && posLat != INVALID_DOUBLE) {
         dev.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
     }
@@ -704,9 +707,9 @@ SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::stri
             modeSet |= SVC_BUS;
         } else {
             if (id.empty()) {
-                error = "Unknown person mode '" + mode + "'. Must be a combination of (\"car\", \"bicycle\" or \"public\")";
+                error = "Unknown person mode '" + mode + "'. Must be a combination of (\"car\", \"taxi\", \"bicycle\" or \"public\")";
             } else {
-                error = "Unknown person mode '" + mode + "' for " + element + " '" + id + "';\n must be a combination of (\"car\", \"bicycle\" or \"public\")";
+                error = "Unknown person mode '" + mode + "' for " + element + " '" + id + "';\n must be a combination of (\"car\", \"taxi\", \"bicycle\" or \"public\")";
             }
             return false;
         }

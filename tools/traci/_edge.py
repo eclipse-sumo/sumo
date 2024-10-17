@@ -216,6 +216,13 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.TO_JUNCTION, edgeID)
 
+    def getBidiEdge(self, edgeID):
+        """getBidiEdge(string) -> string
+
+        Returns the id of the bidi edge or ""
+        """
+        return self._getUniversal(tc.VAR_BIDI, edgeID)
+
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
         """adaptTraveltime(string, double, double, double) -> None
 

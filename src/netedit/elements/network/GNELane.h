@@ -278,6 +278,12 @@ public:
     std::string getAttribute(SumoXMLAttr key) const;
     std::string getAttributeForSelection(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -369,7 +375,7 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
-    void drawLane(const GUIVisualizationSettings& s) const;
+    void drawLane(const GUIVisualizationSettings& s, const double layer) const;
 
     /// @brief draw selected lane
     void drawSelectedLane(const GUIVisualizationSettings& s) const;
@@ -396,7 +402,7 @@ private:
     void drawLane2LaneConnections() const;
 
     /// @brief calculate contour
-    void calculateLaneContour(const GUIVisualizationSettings& s) const;
+    void calculateLaneContour(const GUIVisualizationSettings& s, const double layer) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme, RGBColor& col) const;

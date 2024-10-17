@@ -21,15 +21,15 @@ Test should be found and set up automatically then.
 
 # Linux setup
 
-For Ubuntu 22.04 a simple `sudo apt install libgtest-dev` suffices.
+For Ubuntu 22.04 a simple `sudo apt install libgtest-dev` suffices.
 
 For older Ubuntu versions follow [this
 recipe](https://stackoverflow.com/questions/24295876/cmake-cannot-find-googletest-required-library-in-ubuntu),
 which boils down to:
 
 ```
-sudo apt install libgtest-dev build-essential cmake
-cd /usr/src/googletest
-sudo cmake .
-sudo cmake --build . --target install
+sudo apt install libgtest-dev build-essential cmake
+cd /usr/src/googletest
+sudo cmake .
+sudo cmake --build . --target install
 ```

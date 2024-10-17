@@ -184,12 +184,13 @@ GNEContainer::~GNEContainer() {}
 
 GNEMoveOperation*
 GNEContainer::getMoveOperation() {
+    const auto firstContainerPlan = getChildDemandElements().front();
     // check first container plan
-    if (getChildDemandElements().front()->getTagProperty().isPlanStopContainer()) {
+    if (firstContainerPlan->getTagProperty().isPlanStopContainer()) {
         return nullptr;
-    } else {
+    } else if (firstContainerPlan->getParentEdges().size() > 0) {
         // get lane
-        const GNELane* lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        const GNELane* lane = firstContainerPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         // declare departPos
         double posOverLane = 0;
         if (canParse<double>(getDepartPos())) {
@@ -197,6 +198,8 @@ GNEContainer::getMoveOperation() {
         }
         // return move operation
         return new GNEMoveOperation(this, lane, posOverLane, false);
+    } else {
+        return nullptr;
     }
 }
 
@@ -345,8 +348,11 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(exaggeration);
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
+        if (containerPosition == Position::INVALID) {
+            return;
+        }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawContainer(d, isAttributeCarrierSelected())) {
             // obtain img file
             const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
             // push draw matrix
@@ -357,7 +363,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(containerPosition.x(), containerPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set container color
-            GLHelper::setColor(color);
+            GLHelper::setColor(getDrawingColor(s));
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw container depending of detail level
@@ -410,18 +416,13 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
-            if (s.personValue.show(this)) {
-                Position containerValuePosition = containerPosition + Position(0, 0.6 * s.containerName.scaledSize(s.scale));
-                const double value = getColorValue(s, s.containerColorer.getActive());
-                GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
-            }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
             // draw dotted contour
             myContainerContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContainerContour.calculateContourRectangleShape(s, d, this, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
+        myContainerContour.calculateContourRectangleShape(s, d, this, containerPosition, 0.5, 0.18, getType(), -5.5, 0, 0, exaggeration);
     }
 }
 
@@ -497,7 +498,11 @@ double
 GNEContainer::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS:
-            return STEPS2TIME(depart);
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
+                return departPos;
+            } else {
+                return 0;
+            }
         default:
             return getFlowAttributeDouble(key);
     }
@@ -512,20 +517,24 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             if (getChildDemandElements().empty()) {
                 return Position();
             }
-            // get person plan
-            const GNEDemandElement* personPlan = getChildDemandElements().front();
-            // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isPlanStopContainer()) {
+            // get container plan
+            const GNEDemandElement* containerPlan = getChildDemandElements().front();
+            // first check if first container plan is a stop
+            if (containerPlan->getTagProperty().isPlanStopContainer()) {
                 // stop center
-                return personPlan->getPositionInView();
-            } else if (personPlan->getTagProperty().planFromTAZ()) {
+                return containerPlan->getPositionInView();
+            } else if (containerPlan->getTagProperty().planFromTAZ()) {
                 // TAZ
-                return personPlan->getParentAdditionals().front()->getPositionInView();
-            } else if (personPlan->getTagProperty().planFromJunction()) {
+                if (containerPlan->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return containerPlan->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return containerPlan->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
+            } else if (containerPlan->getTagProperty().planFromJunction()) {
                 // juncrtion
-                return personPlan->getParentJunctions().front()->getPositionInView();
+                return containerPlan->getParentJunctions().front()->getPositionInView();
             } else {
-                return personPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
+                return containerPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
             }
         }
         default:
@@ -561,7 +570,7 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(NamespaceIDs::containers, value);
         case SUMO_ATTR_TYPE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {
@@ -641,6 +650,17 @@ GNEContainer::getACParametersMap() const {
 // protected
 // ===========================================================================
 
+RGBColor
+GNEContainer::getDrawingColor(const GUIVisualizationSettings& s) const {
+    // change color
+    if (drawUsingSelectColor()) {
+        return s.colorSettings.selectedContainerColor;
+    } else {
+        return getColorByScheme(s.containerColorer, this);
+    }
+}
+
+
 void
 GNEContainer::drawAction_drawAsPoly() const {
     // obtain width and length
@@ -678,7 +698,7 @@ GNEContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double exaggeration = s.personSize.getExaggeration(s, this);
+            const double exaggeration = s.containerSize.getExaggeration(s, this);
             const double halfLength = length / 2.0 * exaggeration;
             const double halfWidth = width / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
@@ -776,7 +796,8 @@ GNEContainer::toggleAttribute(SumoXMLAttr key, const bool value) {
 }
 
 
-void GNEContainer::setMoveShape(const GNEMoveResult& moveResult) {
+void
+GNEContainer::setMoveShape(const GNEMoveResult& moveResult) {
     // change departPos
     departPosProcedure = DepartPosDefinition::GIVEN;
     departPos = moveResult.newFirstPos;

@@ -39,21 +39,21 @@ class GNEVehicle;
 class GNETransport : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for walks
-     * @param[in] net Network in which this walk is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromContainerStop from containerStop
-     * @param[in] toEdge to edge
-     * @param[in] toContainerStop to containerStop
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent,
-                                        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-                                        GNEAdditional* toContainerStop, double arrivalPosition);
-
     /// @brief default constructor
     GNETransport(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildTransport
+     * @param[in] net Network in which this Transport is placed
+     * @param[in] tag transport tag
+     * @param[in] icon transport icon
+     * @param[in] containerParent container parent
+     * @param[in] planParameters plan parameters
+     * @param[in] arrivalPosition arrival position
+     * @param[in] lines transport lines
+     * @param[in] group transport group
+     */
+    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+                 const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor
     ~GNETransport();
@@ -210,6 +210,9 @@ protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
 
+    /// @brief group
+    std::string myGroup;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -219,18 +222,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildTransport
-     * @param[in] net Network in which this Transport is placed
-     * @param[in] tag transport tag
-     * @param[in] icon transport icon
-     * @param[in] containerParent container parent
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
-     */
-    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                 const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
-                 double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNETransport(GNETransport*) = delete;

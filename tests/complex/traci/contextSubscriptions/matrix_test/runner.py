@@ -28,7 +28,7 @@ import sumolib  # noqa
 import traci  # noqa
 
 
-def runSingle(viewRange, domain, domain2):
+def runSingle(viewRange, domain, domain2, varIDs):
     name = domain._name if hasattr(domain, "_name") else domain.__name__
     name2 = domain2._name if hasattr(domain2, "_name") else domain2.__name__
     ids = domain.getIDList() if name != "simulation" else [""]
@@ -41,7 +41,7 @@ def runSingle(viewRange, domain, domain2):
     print("trying to subscribe to %s around %s '%s' at time %s" % (
         name2, name, egoID, traci.simulation.getTime()))
     domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange,
-                            [traci.constants.TRACI_ID_LIST])
+                            varIDs)
     traci.simulationStep()
     responses = domain.getAllContextSubscriptionResults()
     print("   found %s objects" % len(responses))
@@ -61,10 +61,12 @@ traci.start([sumolib.checkBinary(sys.argv[1]),
              '-Q', "-c", "sumo.sumocfg",
              '-a', 'input_additional.add.xml'])
 traci.simulationStep()
+
+varIDs = None if "--defaults" in sys.argv else [traci.constants.TRACI_ID_LIST]
 for domain in traci.DOMAINS:
     for domain2 in traci.DOMAINS:
         try:
-            runSingle(100, domain, domain2)
+            runSingle(100, domain, domain2, varIDs)
         except traci.TraCIException:
             pass
 traci.close()

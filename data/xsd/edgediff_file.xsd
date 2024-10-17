@@ -40,6 +40,7 @@
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="bidi" type="xsd:string" use="optional"/>
         <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="numLanes" type="xsd:positiveInteger" use="optional"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>

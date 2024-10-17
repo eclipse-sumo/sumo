@@ -1,0 +1,15 @@
+ Retrying in 1 seconds
+findIntermodalRoute modes='taxi' vType=' pType=''
+  Stage(type=2, edges=('accessA', 'A1A0'), travelTime=353.8464, cost=353.8464, length=56.09100000000002, depart=1.0, departPos=81.39, arrivalPos=459.8)
+  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, edges=('A1A0', 'A0B0'), travelTime=106.94048483801299, cost=106.94048483801299, length=1485.391, intended=taxi, depart=354.8464, departPos=0.0, arrivalPos=894.8)
+  Stage(type=2, edges=('accessC',), travelTime=19.19999999999999, cost=19.19999999999999, length=111.90000000000009, depart=461.786884838013, departPos=0.0, arrivalPos=20.0)
+
+
+
+findIntermodalRoute modes='taxi public' vType=' pType=''
+  Stage(type=2, edges=('accessA', 'A1A0'), travelTime=353.8464, cost=353.8464, length=56.09100000000002, depart=1.0, departPos=81.39, arrivalPos=459.8)
+  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, edges=('A1A0', 'A0B0'), travelTime=106.94048483801299, cost=106.94048483801299, length=1485.391, intended=taxi, depart=354.8464, departPos=0.0, arrivalPos=894.8)
+  Stage(type=2, edges=('accessC',), travelTime=19.19999999999999, cost=19.19999999999999, length=111.90000000000009, depart=461.786884838013, departPos=0.0, arrivalPos=20.0)
+
+
+

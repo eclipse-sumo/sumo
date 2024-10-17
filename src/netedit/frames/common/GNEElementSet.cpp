@@ -106,7 +106,7 @@ GNEElementSet::showElementSet() {
         myMatchGenericDataAttribute->showMatchGenericDataAttribute();
         // first check if myCurrentSet is invalid
         if (myCurrentSet == Type::INVALID) {
-            // disable macht attribute
+            // disable match attribute
             myMatchGenericDataAttribute->disableMatchGenericDataAttribute();
         } else {
             // enable match attribute
@@ -117,7 +117,7 @@ GNEElementSet::showElementSet() {
         myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
         // first check if myCurrentSet is invalid
         if (myCurrentSet == Type::INVALID) {
-            // disable macht attribute
+            // disable match attribute
             myMatchAttribute->disableMatchAttribute();
         } else {
             // enable match attribute

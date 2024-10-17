@@ -13,6 +13,9 @@ dualring
 # only switch to side direction on request
 request_or_skip
 
+# only switch to side direction on request (fewer side traffic)
+request_or_skip2
+
 # request arms have a permissive left turn that gets stalled out
 request_or_skip_blocked_left
 

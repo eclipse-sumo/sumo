@@ -165,7 +165,7 @@ public:
     bool isJammed() const;
 
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
-    void reroute(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
+    void replaceWalk(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
 
     /** @class Influencer

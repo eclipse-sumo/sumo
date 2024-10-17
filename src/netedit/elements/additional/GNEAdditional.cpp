@@ -22,6 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
@@ -115,6 +116,12 @@ GNEAdditional::setSpecialColor(const RGBColor* color) {
 }
 
 
+void
+GNEAdditional::resetAdditionalContour() {
+    myAdditionalContour.clearContour();
+}
+
+
 bool
 GNEAdditional::isAdditionalValid() const {
     return true;
@@ -150,61 +157,76 @@ GNEAdditional::getCenteringBoundary() const {
     if (myAdditionalBoundary.isInitialised()) {
         return myAdditionalBoundary;
     } else {
-        return myAdditionalContour.getContourBoundary();
+        Boundary contourBoundary = myAdditionalContour.getContourBoundary();
+        if (contourBoundary.isInitialised()) {
+            contourBoundary.grow(5);
+            return contourBoundary;
+        } else if (myAdditionalGeometry.getShape().size() > 0) {
+            Boundary geometryBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+            geometryBoundary.grow(5);
+            return geometryBoundary;
+        } else if (getParentAdditionals().size() > 0) {
+            return getParentAdditionals().front()->getCenteringBoundary();
+        } else {
+            Boundary centerBoundary(0, 0, 0, 0);
+            centerBoundary.grow(5);
+            return centerBoundary;
+        }
     }
 }
 
 
 bool
 GNEAdditional::checkDrawFromContour() const {
-    // get modes
+    // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
-        // get TAZRelDataFrame
-        const auto& TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-        // check conditions
-        if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            // get inspected element
-            const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
-            // check if starts in TAZ
-            if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
-                return true;
-            } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // continue depending of current status
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if starts in TAZ
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
+            return true;
+        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+            return true;
+        }
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // get current GNEPlanCreator
+        GNEPlanCreator* planCreator = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planCreator = viewParent->getPersonFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planCreator = viewParent->getPersonPlanFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planCreator = viewParent->getContainerFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planCreator = viewParent->getContainerPlanFrame()->getPlanCreator();
+        }
+        // continue depending of planCreator
+        if (planCreator) {
+            // check if this is the from additional
+            const auto additionalID = getID();
+            if ((planCreator->getPlanParameteres().fromBusStop == additionalID) ||
+                    (planCreator->getPlanParameteres().fromTrainStop == additionalID) ||
+                    (planCreator->getPlanParameteres().fromContainerStop == additionalID) ||
+                    (planCreator->getPlanParameteres().fromChargingStation == additionalID) ||
+                    (planCreator->getPlanParameteres().fromParkingArea == additionalID) ||
+                    (planCreator->getPlanParameteres().fromTAZ == additionalID)) {
                 return true;
             }
-        } else if (TAZRelDataFrame->shown()) {
-            // check first TAZ
-            if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
-                return gViewObjectsHandler.isElementSelected(this);
-            } else if (TAZRelDataFrame->getFirstTAZ() == this) {
-                return true;
-            }
-        } else if (vehicleFrame->shown()) {
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             // get selected TAZs
-            const auto& selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
-            // check if this is the second selected TAZ
+            const auto& selectedTAZs = viewParent->getVehicleFrame()->getPathCreator()->getSelectedTAZs();
+            // check if this is the first selected TAZ
             if ((selectedTAZs.size() > 0) && (selectedTAZs.front() == this)) {
                 return true;
             }
         }
-    }
-    // get current GNEPlanCreator
-    GNEPlanCreator* planCreator = nullptr;
-    if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSON)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
-    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
-    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanCreator();
-    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanCreator();
-    }
-    // continue depending of planCreator
-    if (planCreator) {
-        // check if this is the from additional
-        if ((planCreator->getFromBusStop() == this) || (planCreator->getFromTrainStop() == this) ||
-                (planCreator->getFromContainerStop() == this) || (planCreator->getFromTAZ() == this)) {
+    } else if (modes.isCurrentSupermodeData()) {
+        // get TAZRelDataFrame
+        const auto& TAZRelDataFrame = viewParent->getTAZRelDataFrame();
+        if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() == this)) {
             return true;
         }
     }
@@ -215,55 +237,55 @@ GNEAdditional::checkDrawFromContour() const {
 
 bool
 GNEAdditional::checkDrawToContour() const {
-    // get modes
+    // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    // special case for TAZs
-    if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
-        // get frames
-        const auto& TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-        // check conditions
-        if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            // get inspected element
-            const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
-            // check if ends in TAZ
-            if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
-                return true;
-            } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // continue depending of current status
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if starts in TAZ
+        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
+            return true;
+        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+            return true;
+        }
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // get current GNEPlanCreator
+        GNEPlanCreator* planCreator = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planCreator = viewParent->getPersonFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planCreator = viewParent->getPersonPlanFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planCreator = viewParent->getContainerFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planCreator = viewParent->getContainerPlanFrame()->getPlanCreator();
+        }
+        // continue depending of planCreator
+        if (planCreator) {
+            // check if this is the from additional
+            const auto additionalID = getID();
+            if ((planCreator->getPlanParameteres().toBusStop == additionalID) ||
+                    (planCreator->getPlanParameteres().toTrainStop == additionalID) ||
+                    (planCreator->getPlanParameteres().toContainerStop == additionalID) ||
+                    (planCreator->getPlanParameteres().toChargingStation == additionalID) ||
+                    (planCreator->getPlanParameteres().toParkingArea == additionalID) ||
+                    (planCreator->getPlanParameteres().toTAZ == additionalID)) {
                 return true;
             }
-        } else if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
-            // check first TAZ
-            if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
-                return gViewObjectsHandler.isElementSelected(this);
-            } else if (TAZRelDataFrame->getSecondTAZ() == this) {
-                return true;
-            }
-        } else if (vehicleFrame->shown()) {
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             // get selected TAZs
-            const auto& selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
-            // check if this is the second selected TAZ
+            const auto& selectedTAZs = viewParent->getVehicleFrame()->getPathCreator()->getSelectedTAZs();
+            // check if this is the first selected TAZ
             if ((selectedTAZs.size() > 1) && (selectedTAZs.back() == this)) {
                 return true;
             }
         }
-    }
-    // get current GNEPlanCreator
-    GNEPlanCreator* planCreator = nullptr;
-    if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSON)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
-    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
-    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanCreator();
-    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN)) {
-        planCreator = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanCreator();
-    }
-    // continue depending of planCreator
-    if (planCreator) {
-        // check if this is the from additional
-        if ((planCreator->getToBusStop() == this) || (planCreator->getToTrainStop() == this) ||
-                (planCreator->getToContainerStop() == this) || (planCreator->getToTAZ() == this)) {
+    } else if (modes.isCurrentSupermodeData()) {
+        // get TAZRelDataFrame
+        const auto& TAZRelDataFrame = viewParent->getTAZRelDataFrame();
+        if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getSecondTAZ() == this)) {
             return true;
         }
     }
@@ -280,52 +302,54 @@ GNEAdditional::checkDrawRelatedContour() const {
 
 bool
 GNEAdditional::checkDrawOverContour() const {
-    // get modes
     const auto& modes = myNet->getViewNet()->getEditModes();
-    // get frames
-    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
-    // special case for TAZs
-    if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
-        // get vehicle frame
-        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-        // check if we're in vehicle mode
-        if (vehicleFrame->shown()) {
-            // get current vehicle template
-            const auto& vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
-            // check if vehicle can be placed over from-to TAZs
-            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
-                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    if (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() != this) {
+        return false;
+    } else {
+        const auto& viewParent = myNet->getViewNet()->getViewParent();
+        if (modes.isCurrentSupermodeDemand()) {
+            // get current plan selector
+            GNEPlanSelector* planSelector = nullptr;
+            if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+                planSelector = viewParent->getPersonFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+                planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+                planSelector = viewParent->getContainerFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+                planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
             }
-        } else if (modes.isCurrentSupermodeDemand()) {
-            // check if we're in person or personPlan modes
-            if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTAZs()) ||
-                    ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTAZs())) {
-                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+            // continue depending of plan selector
+            if (planSelector) {
+                if ((myTagProperty.isStoppingPlace() && planSelector->markStoppingPlaces()) ||
+                        (myTagProperty.isTAZElement() && planSelector->markTAZs())) {
+                    return true;
+                }
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+                // get current vehicle template
+                const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+                // check if vehicle can be placed over from-to TAZs
+                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
+                    return true;
+                }
+            }
+        } else if (modes.isCurrentSupermodeData()) {
+            // get TAZRelDataFrame
+            const auto& TAZRelDataFrame = viewParent->getTAZRelDataFrame();
+            if (TAZRelDataFrame->shown()) {
+                if (TAZRelDataFrame->getFirstTAZ() && TAZRelDataFrame->getSecondTAZ()) {
+                    return false;
+                } else if (TAZRelDataFrame->getFirstTAZ() == this) {
+                    return false;
+                } else if (TAZRelDataFrame->getSecondTAZ() == this) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_BUS_STOP) && modes.isCurrentSupermodeDemand()) {
-        // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markBusStops()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markBusStops())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) && modes.isCurrentSupermodeDemand()) {
-        // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTrainStops()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_CONTAINER_STOP) && modes.isCurrentSupermodeDemand()) {
-        // check if we're in container or containerPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markContainerStops()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markContainerStops())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-        }
+        return false;
     }
-    return false;
 }
 
 
@@ -397,7 +421,8 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Mouse position over edge: ") + toString(innerPos + edgePos), nullptr, nullptr, 0);
         }
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Cursor position in view: ") + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
+        const auto mousePos = myNet->getViewNet()->getPositionInformation();
+        GUIDesigns::buildFXMenuCommand(ret, TL("Cursor position in view: ") + toString(mousePos.x()) + "," + toString(mousePos.y()), nullptr, nullptr, 0);
     }
     return ret;
 }
@@ -496,7 +521,7 @@ GNEAdditional::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, cons
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& value) const {
-    if (value == getID()) {
+    if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
         return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
@@ -508,7 +533,7 @@ GNEAdditional::isValidAdditionalID(const std::string& value) const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
-    if (value == getID()) {
+    if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
         return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
@@ -520,7 +545,7 @@ GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag>& tags, const st
 
 bool
 GNEAdditional::isValidDetectorID(const std::string& value) const {
-    if (value == getID()) {
+    if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
         return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
@@ -532,7 +557,7 @@ GNEAdditional::isValidDetectorID(const std::string& value) const {
 
 bool
 GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
-    if (value == getID()) {
+    if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
         return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
@@ -544,8 +569,14 @@ GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag>& tags, const std:
 
 void
 GNEAdditional::setAdditionalID(const std::string& newID) {
-    // set microsim ID
-    setMicrosimID(newID);
+    // update ID
+    if (isTemplate()) {
+        setMicrosimID(newID);
+    } else if ((myTagProperty.getTag() == SUMO_TAG_VAPORIZER) || !myTagProperty.hasAttribute(SUMO_ATTR_ID)) {
+        setMicrosimID(newID);
+    } else {
+        myNet->getAttributeCarriers()->updateAdditionalID(this, newID);
+    }
     // change IDs of certain children
     for (const auto& additionalChild : getChildAdditionals()) {
         // get tag
@@ -687,58 +718,56 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 
 void
 GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
-    // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // draw boundaries
-        GLHelper::drawBoundary(s, getCenteringBoundary());
-        // Obtain drawing exaggeration
-        const double exaggeration = getExaggeration(s);
-        // get detail level
-        const auto d = s.getDetailLevel(exaggeration);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
-            // Add layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // translate to position
-            glTranslated(pos.x(), pos.y(), 0);
-            // scale
-            glScaled(exaggeration, exaggeration, 1);
-            // set White color
-            glColor3d(1, 1, 1);
-            // rotate
-            glRotated(180, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
-            }
-            // Pop layer matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
-            // Draw additional ID
-            drawAdditionalID(s);
-            // draw additional name
-            drawAdditionalName(s);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
+    // Obtain drawing exaggeration
+    const double exaggeration = getExaggeration(s);
+    // get detail level
+    const auto d = s.getDetailLevel(exaggeration);
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
+        // Add layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        // translate to position
+        glTranslated(pos.x(), pos.y(), 0);
+        // scale
+        glScaled(exaggeration, exaggeration, 1);
+        // set White color
+        glColor3d(1, 1, 1);
+        // rotate
+        glRotated(180, 0, 0, 1);
+        // draw texture
+        if (drawUsingSelectColor()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
         }
-        // calculate contour
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, 0, 0, 0, exaggeration);
+        // Pop layer matrix
+        GLHelper::popMatrix();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
+        // Draw additional ID
+        drawAdditionalID(s);
+        // draw additional name
+        drawAdditionalName(s);
+        // draw dotted contour
+        myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
     }
+    // calculate contour
+    myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, getType(), 0, 0, 0, exaggeration);
 }
 
 
 void
-GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
-                                    const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
-    // first check if additional has to be drawn
+GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX,
+                                    const double extraOffsetY, const RGBColor baseCol, const RGBColor textCol, GUITexture texture,
+                                    const std::string text) const {
+    // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw boundaries
+        GLHelper::drawBoundary(s, getCenteringBoundary());
         // get detail level
         const auto d = s.getDetailLevel(1);
         // declare offsets
@@ -760,7 +789,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         // calculate signPosition position
         Position signPosition = parentPosition;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // set position depending of indexes
             signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
             // calculate colors
@@ -827,7 +856,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.56, 2.75, getType(), 0, -2.3, 0, 1);
     }
 }
 
@@ -999,13 +1028,13 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
 
 void
 GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const double exaggeration, const bool contouredShape) const {
-    // calculate contour depenidng of contoured shape
-    if (contouredShape) {
-        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), 1);
+                                        const double layer, const double exaggeration, const bool filledShape) const {
+    // calculate contour depending of contoured shape
+    if (filledShape) {
+        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), layer, 1);
     } else {
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                exaggeration, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), layer,
+                s.neteditSizeSettings.polylineWidth, exaggeration, true, true, 0);
     }
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
@@ -1016,7 +1045,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
         // get geometry point radius (size depends if we're in move mode)
         const double geometryPointRaidus = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // calculate contour geometry points
-        myAdditionalContour.calculateContourAllGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), geometryPointRaidus, exaggeration, moveMode);
+        myAdditionalContour.calculateContourAllGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), layer, geometryPointRaidus, exaggeration, moveMode);
     }
 }
 

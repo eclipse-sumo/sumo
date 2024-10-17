@@ -173,6 +173,9 @@ public:
         return (int)myLanes->size();
     }
 
+    /// @brief return the number of lanes that permit non-weak modes if the edge allows non weak modes and the number of lanes otherwise
+    int getNumDrivingLanes() const;
+
     /// @brief return total number of vehicles on this edges lanes or segments
     int getVehicleNumber() const;
 
@@ -563,6 +566,11 @@ public:
      */
     MSLane* getDepartLane(MSVehicle& veh) const;
 
+    /* @brief get the rightmost lane that allows the given vClass or nullptr
+     * @param[in] defaultFirst Whether the first lane should be returned if all lanes are forbidden
+     */
+    MSLane* getFirstAllowed(SUMOVehicleClass vClass, bool defaultFirst = false) const;
+
     /// @brief consider given departLane parameter (only for validating speeds)
     MSLane* getDepartLaneMeso(SUMOVehicle& veh) const;
 
@@ -738,6 +746,9 @@ public:
     bool isFringe() const {
         return myAmFringe;
     }
+
+    /// @brief return whether this edge prohibits changing for the given vClass when starting on the given lane index
+    bool hasChangeProhibitions(SUMOVehicleClass svc, int index) const;
 
     /// @brief whether this lane is selected in the GUI
     virtual bool isSelected() const {

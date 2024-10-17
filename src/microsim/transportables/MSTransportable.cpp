@@ -308,7 +308,6 @@ MSTransportable::abortStage(SUMOTime step) {
 }
 
 
-
 void
 MSTransportable::appendStage(MSStage* stage, int next) {
     // myStep is invalidated upon modifying myPlan
@@ -362,7 +361,71 @@ MSTransportable::setSpeed(double speed) {
 bool
 MSTransportable::replaceRoute(ConstMSRoutePtr newRoute, const std::string& /* info */, bool /* onInit */, int /* offset */, bool /* addRouteStops */, bool /* removeStops */, std::string* /* msgReturn */) {
     if (isPerson()) {
-        static_cast<MSPerson*>(this)->reroute(newRoute->getEdges(), getPositionOnLane(), 0, 1);
+        static_cast<MSPerson*>(this)->replaceWalk(newRoute->getEdges(), getPositionOnLane(), 0, 1);
+        return true;
+    }
+    return false;
+}
+
+
+bool
+MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransportableRouter& router, const bool /* onInit */, const bool /* withTaz */, const bool /* silent */, const MSEdge* /* sink */) {
+    MSStageTrip* trip = getCurrentStage()->getTrip();
+    if (trip == nullptr) {
+        // TODO this should be possible after factoring out MSStageTrip::reroute
+        return false;
+    }
+    if (getCurrentStage()->getVehicle() != nullptr) {
+        // TODO rerouting during a ride still needs to be implemented
+        return false;
+    }
+    // find the final stage of the trip
+    int tripEndOffset = -1;
+    for (int i = getNumRemainingStages() - 1; i >= 0; i--) {
+        if (getNextStage(i)->getTrip() == trip) {
+            tripEndOffset = i;
+            break;
+        }
+    }
+    std::vector<MSStage*> stages;
+    MSStageWaiting start(getEdge(), getCurrentStage()->getOriginStop(), -1, t, getEdgePos(), "start", true);
+    if (trip->reroute(t, router, this, &start, getEdge(), getRerouteDestination(), stages) == "") {
+        // check whether the new plan actually differs
+        while (tripEndOffset >= 0 && !stages.empty() && stages.back()->equals(*getNextStage(tripEndOffset))) {
+            delete stages.back();
+            stages.pop_back();
+            tripEndOffset--;
+        }
+        bool abortCurrent = true;
+        // check whether the future route of the current stage is identical to the route
+        if (!stages.empty() && stages.front()->isWalk() && getCurrentStage()->isWalk()) {
+            // TODO this check should be done for rides as well
+            MSStageMoving* s = static_cast<MSStageMoving*>(getCurrentStage());
+            int routeIndex = (int)(s->getRouteStep() - s->getRoute().begin());
+            ConstMSEdgeVector oldEdges = s->getEdges();
+            oldEdges.erase(oldEdges.begin(), oldEdges.begin() + routeIndex);
+            ConstMSEdgeVector newEdges = stages.front()->getEdges();
+            if (newEdges == oldEdges) {
+                delete stages.front();
+                stages.erase(stages.begin());
+                abortCurrent = false;
+            }
+        }
+        if (stages.empty()) {
+            return false;
+        }
+        // remove future stages of the trip
+        for (int i = tripEndOffset; i >= 1; i--) {
+            removeStage(i);
+        }
+        // insert new stages of the rerouting
+        int idx = 1;
+        for (MSStage* stage : stages) {
+            appendStage(stage, idx++);
+        }
+        if (abortCurrent) {
+            removeStage(0);
+        }
         return true;
     }
     return false;
@@ -455,7 +518,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
 #endif
     assert(getCurrentStageType() == MSStageType::DRIVING);
     if (!myAmPerson) {
-        WRITE_WARNING(TL("parkingAreaReroute not support for containers"));
+        WRITE_WARNING(TL("parkingAreaReroute not supported for containers"));
         return;
     }
     if (getDestination() == &orig->getLane().getEdge()) {

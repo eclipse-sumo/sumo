@@ -32,10 +32,7 @@ import pulp as pl
 import darpSolvers
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib import checkBinary  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.options import ArgumentParser  # noqa
@@ -93,6 +90,8 @@ def initOptions():
     ap.add_argument("--tracegetters", action='store_true',
                     help="include get-methods in tracefile")
     ap.add_argument("-v", "--verbose", action='store_true')
+    # mainly useful for reproducible tests
+    ap.add_argument("--seed", type=int, help="Set a random seed for the ILP solver")
 
     return ap
 
@@ -186,10 +185,11 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
                      for i in order_trips]) >= 1, "Assing_at_least_one_vehicle"
 
     # The problem is solved using PuLP's Solver choice
+    cbc_opts = ["RandomS %s" % options.seed] if options.seed else None
     try:
-        prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
+        prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time, options=cbc_opts))
     except pl.apis.core.PulpSolverError:
-        prob.solve(pl.COIN_CMD(msg=0, timeLimit=options.ilp_time, path="/usr/bin/cbc"))
+        prob.solve(pl.COIN_CMD(msg=0, timeLimit=options.ilp_time, path="/usr/bin/cbc", options=cbc_opts))
 
     if pl.LpStatus[prob.status] != 'Optimal':
         sys.exit("No optimal solution found: %s" % pl.LpStatus[prob.status])

@@ -531,7 +531,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             myNodeCont.insert(e.node);
         }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
-                                           myNodeCont, myEdgeCont, myTLLogicCont);
+                                           myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
         mySplits.push_back(e);
     }
 }

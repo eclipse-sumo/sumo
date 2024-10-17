@@ -307,7 +307,7 @@ MSStoppingPlace::getColor() const {
 
 
 bool
-MSStoppingPlace::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors) {
+MSStoppingPlace::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit) {
     // prevent multiple accesses on the same lane
     for (const auto& access : myAccessPos) {
         if (lane == access.lane) {
@@ -319,7 +319,7 @@ MSStoppingPlace::addAccess(MSLane* const lane, const double startPos, const doub
         const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
         length = accPos.distanceTo(stopPos);
     }
-    myAccessPos.push_back({lane, startPos, endPos, length, doors});
+    myAccessPos.push_back({lane, startPos, endPos, length, exit});
     return true;
 }
 

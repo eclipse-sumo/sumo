@@ -24,13 +24,13 @@ parameter value. So, for importing a network from OpenStreetMap one
 could simply write:
 
 ```
-netconvert --osm my_osm_net.xml
+netconvert --osm my_osm_net.xml
 ```
 
 and for importing a VISUM-network:
 
 ```
-netconvert --visum my_visum_net.net
+netconvert --visum my_visum_net.net
 ```
 
 In both cases, as no output name is given, the SUMO network generated
@@ -40,7 +40,7 @@ the imported VISUM-network into a file named "my_sumo_net.net.xml",
 write:
 
 ```
-netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
+netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
 ```
 
 Many further parameter steer how the network is imported and how the
@@ -76,7 +76,7 @@ the following formats:
 - any input files may be combined
 - "plain XML" files will be applied last and can be used to patch/update previously loaded elements
 - multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
-- To merge nodes and edges which occupy the same location but have different ids, the the options **--junctions.join-same --edges.join** can be set
+- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same --edges.join** can be set
 
 ## Export
 
@@ -109,7 +109,7 @@ Using python tools, conversion of .net.xml files into further formats is support
   information or filter stops when reducing the network size.
 - [Public transport
   lines](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction): Automatically updated when reducing network extent.
-- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Further_Outputs.md#embedding_road_objects))
+- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Further_Outputs.md#opendrive_road_objects))
 - [Elevation Data files](Networks/Elevation.md#including_elevation_data_in_a_network)
 
 ## Export
@@ -131,7 +131,7 @@ The following list ouf output is explained in more detail at
 - Railway topology output: A file for analyzing the topology of
   railway networks in regard to bi-directional track usage
 - [OpenDrive road objects](Networks/Further_Outputs.md#opendrive_road_objects)
-- [VISUM districts](Networks/Further_Outputs.md#visum-districts)
+- [VISUM districts](Networks/Further_Outputs.md#visum_districts)
 
 # Options
 
@@ -209,7 +209,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--parking-output** {{DT_FILE}} | Writes parking areas to FILE |
 | **--railway.topology.output** {{DT_FILE}} | Analyze topology of the railway network |
 | **--polygon-output** {{DT_FILE}} | Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) |
-| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
 | **--opendrive-output.lefthand-left** {{DT_BOOL}} | Write lanes in lefthand networks on the left side (positive indices); *default:* **false** |
 | **--opendrive-output.shape-match-dist** {{DT_FLOAT}} | Match loaded shapes to the closest edge within FLOAT and export as road objects; *default:* **-1** |
 
@@ -251,6 +251,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.min-dist** {{DT_FLOAT}} | reduces too similar geometry points; *default:* **-1** |
 | **--geometry.max-angle** {{DT_FLOAT}} | Warn about edge geometries with an angle above DEGREES in successive segments; *default:* **99** |
+| **--geometry.max-angle.fix** {{DT_BOOL}} | Straighten edge geometries with an angle above max-angle successive segments; *default:* **false** |
 | **--geometry.min-radius** {{DT_FLOAT}} | Warn about edge geometries with a turning radius less than METERS at the start or end; *default:* **9** |
 | **--geometry.min-radius.fix** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius; *default:* **false** |
 | **--geometry.min-radius.fix.railways** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways); *default:* **true** |
@@ -303,6 +304,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
+| **--default.connection.cont-pos** {{DT_FLOAT}} | Whether/where connections should have an internal junction; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
 
 ### Tls Building
@@ -383,6 +385,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--keep-edges.components** {{DT_INT}} | Only keep the INT largest weakly connected components; *default:* **0** |
 | **--remove-edges.by-type** {{DT_STR_LIST}} | Remove edges where type is in STR[] |
 | **--remove-edges.isolated** {{DT_BOOL}} | Removes isolated edges; *default:* **false** |
+| **--keep-lanes.min-width** {{DT_FLOAT}} | Only keep lanes with width in meters > FLOAT; *default:* **0.01** |
 
 ### Unregulated Nodes
 
@@ -467,6 +470,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
 | **--railway.topology.direction-priority** {{DT_BOOL}} | Set edge priority values based on estimated main direction; *default:* **false** |
 | **--railway.topology.extend-priority** {{DT_BOOL}} | Extend loaded edge priority values based on estimated main direction; *default:* **false** |
+| **--railway.geometry.straighten** {{DT_BOOL}} | Move junctions to straighten a sequence of rail edges; *default:* **false** |
 | **--railway.signal.guess.by-stops** {{DT_BOOL}} | Guess signals that guard public transport stops; *default:* **false** |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
 | **--railway.max-accesses** {{DT_INT}} | The maximum road accesses registered per rail stops; *default:* **5** |

@@ -1387,7 +1387,7 @@ PositionVector::distance2D(const Position& p, bool perpendicular) const {
     if (size() == 0) {
         return std::numeric_limits<double>::max();
     } else if (size() == 1) {
-        return front().distanceTo(p);
+        return front().distanceTo2D(p);
     }
     const double nearestOffset = nearest_offset_to_point2D(p, perpendicular);
     if (nearestOffset == GeomHelper::INVALID_OFFSET) {
@@ -1678,6 +1678,18 @@ PositionVector::rotate2D(double angle) {
 }
 
 
+void
+PositionVector::rotateAroundFirstElement2D(double angle) {
+    if (size() > 1) {
+        // translate position vector to (0,0), rotate, and traslate back again
+        const Position offset = front();
+        sub(offset);
+        rotate2D(angle);
+        add(offset);
+    }
+}
+
+
 PositionVector
 PositionVector::simplified() const {
     PositionVector result = *this;
@@ -1696,6 +1708,76 @@ PositionVector::simplified() const {
                 changed = true;
                 result.erase(result.begin() + middleIndex);
                 break;
+            }
+        }
+    }
+    return result;
+}
+
+
+const PositionVector
+PositionVector::simplified2(const bool closed, const double eps) const {
+    // this is a variation of the https://en.wikipedia.org/wiki/Visvalingam%E2%80%93Whyatt_algorithm
+    // which uses the distance instead of the area
+    // the benefits over the initial implementation are:
+    // 3D support, no degenerate results for a sequence of small distances, keeping the longest part of a line
+    // drawbacks: complexity of the code, speed
+    if (size() < 3) {
+        return *this;
+    }
+    auto calcScore = [&](const PositionVector & pv, int index) {
+        if (!closed && (index == 0 || index == (int)pv.size() - 1)) {
+            return eps + 1.;
+        }
+        const Position& p = pv[index];
+        const Position& a = pv[(index + (int)pv.size() - 1) % pv.size()];
+        const Position& b = pv[(index + 1) % pv.size()];
+        const double distAB = a.distanceTo(b);
+        if (distAB < MIN2(eps, NUMERICAL_EPS)) {
+            // avoid division by 0 and degenerate cases due to very small baseline
+            return (a.distanceTo(p) + b.distanceTo(p)) / 2.;
+        }
+        // https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Vector_formulation
+        // calculating the distance of p to the line defined by a and b
+        const Position dir = (b - a) / distAB;
+        const double projectedLength = (a - p).dotProduct(dir);
+        if (projectedLength <= -distAB) {
+            return b.distanceTo(p);
+        }
+        if (projectedLength >= 0.) {
+            return a.distanceTo(p);
+        }
+        const Position distVector = (a - p) - dir * projectedLength;
+        return distVector.length();
+    };
+    std::vector<double> scores;
+    double minScore = eps + 1.;
+    int minIndex = -1;
+    for (int i = 0; i < (int)size(); i++) {
+        scores.push_back(calcScore(*this, i));
+        if (scores.back() < minScore) {
+            minScore = scores.back();
+            minIndex = i;
+        }
+    }
+    if (minScore >= eps) {
+        return *this;
+    }
+    PositionVector result(*this);
+    while (minScore < eps) {
+        result.erase(result.begin() + minIndex);
+        if (result.size() < 3) {
+            break;
+        }
+        scores.erase(scores.begin() + minIndex);
+        const int prevIndex = (minIndex + (int)result.size() - 1) % result.size();
+        scores[prevIndex] = calcScore(result, prevIndex);
+        scores[minIndex % result.size()] = calcScore(result, minIndex % result.size());
+        minScore = eps + 1.;
+        for (int i = 0; i < (int)result.size(); i++) {
+            if (scores[i] < minScore) {
+                minScore = scores[i];
+                minIndex = i;
             }
         }
     }
@@ -1850,6 +1932,16 @@ PositionVector::getMaxGrade(double& maxJump) const {
         }
     }
     return result;
+}
+
+
+double
+PositionVector::getMinZ() const {
+    double minZ = std::numeric_limits<double>::max();
+    for (const Position& i : *this) {
+        minZ = MIN2(minZ, i.z());
+    }
+    return minZ;
 }
 
 

@@ -29,7 +29,7 @@ binaries](https://github.com/DLR-TS/SUMOLibraries).
 sources](https://www.fox-toolkit.org/download.html) and
 replace the ones in the SUMOLibraries (make sure not to delete the project file mentioned below).
 - Go to the Fox directory and open the VC project e.g.
-D:\\SUMOLibraries\\fox-1.6.56\\windows\\vcpp\\x64.sln.
+D:\\SUMOLibraries\\fox-1.6.58\\windows\\vcpp\\x64.sln.
 - You might get approximately 240 warnings and one error, which can
 probably be ignored as long as you can find the resulting DLLs in
 the lib dir.
@@ -71,8 +71,8 @@ broken
 - open a visual studio command prompt, cd to the jpeg dir and execute
 
 ```
-nmake /f makefile.vc setup-v10
-nmake /f makefile.vc
+nmake /f makefile.vc setup-v10
+nmake /f makefile.vc
 ```
 
 - you will get a libjpeg lib (and no dll\!) in the jpeg dir

@@ -1,15 +1,20 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-20 07:41:06.520302 by createVehTypeDistribution.py v1_20_0+0670-88aca8e654b
+  options: config_file.txt <doubleminus>o out.add.xml <doubleminus>size 10 <doubleminus>name exampleDist
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-   <vTypeDistribution id="exampleDist">
-      <vType id="exampleDist0" carFollowModel="IDM"/>
-      <vType id="exampleDist1" carFollowModel="IDM"/>
-      <vType id="exampleDist2" carFollowModel="IDM"/>
-      <vType id="exampleDist3" carFollowModel="IDM"/>
-      <vType id="exampleDist4" carFollowModel="IDM"/>
-      <vType id="exampleDist5" carFollowModel="IDM"/>
-      <vType id="exampleDist6" carFollowModel="IDM"/>
-      <vType id="exampleDist7" carFollowModel="IDM"/>
-      <vType id="exampleDist8" carFollowModel="IDM"/>
-      <vType id="exampleDist9" carFollowModel="IDM"/>
-   </vTypeDistribution>
+    <vTypeDistribution id="exampleDist">
+        <vType id="exampleDist0" carFollowModel="IDM"/>
+        <vType id="exampleDist1" carFollowModel="IDM"/>
+        <vType id="exampleDist2" carFollowModel="IDM"/>
+        <vType id="exampleDist3" carFollowModel="IDM"/>
+        <vType id="exampleDist4" carFollowModel="IDM"/>
+        <vType id="exampleDist5" carFollowModel="IDM"/>
+        <vType id="exampleDist6" carFollowModel="IDM"/>
+        <vType id="exampleDist7" carFollowModel="IDM"/>
+        <vType id="exampleDist8" carFollowModel="IDM"/>
+        <vType id="exampleDist9" carFollowModel="IDM"/>
+    </vTypeDistribution>
 </additional>

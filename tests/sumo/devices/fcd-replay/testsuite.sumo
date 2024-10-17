@@ -1,3 +1,8 @@
 plain
 
+# points don't form a continuous sequence of edges
+gap
+
+# points don't form a continous route (and no connection is possible)
+disconnect
 persons

@@ -1,0 +1,5 @@
+Error: Invalid format of distribution parameterized
+Error: Invalid speed distribution when parsing vType 'vType1' (minimum value 0.20 too large for distribution with mean -3.00 and deviation 0.10)
+Error: Invalid speed distribution when parsing vType 'vType3' (maximum value 2.00 too small for distribution with mean 12.00 and deviation 0.10)
+Error: Invalid speed distribution when parsing vType 'vType4' (maximum value 2.00 too small for distribution with mean 4.50 and deviation 0.10)
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140518.2759/netedit.gui/elements/demands/vehicletype/load/speedfactor/routes.rou.xml failed.

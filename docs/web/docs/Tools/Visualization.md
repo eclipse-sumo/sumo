@@ -44,8 +44,8 @@ Create multiple 2D-plots of 2 arbitrary attributes from on or more xml files agg
 Example uses:
 
 ```
-python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml
-python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml fcd2.xml
+python  tools/visualization/plotXMLAttributes.py -x x -y y fcd.xml
+python  tools/visualization/plotXMLAttributes.py -x x -y y fcd.xml fcd2.xml
 ```
 
 The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  [plot_trajectories.py](#plot_trajectoriespy))
@@ -72,8 +72,8 @@ The following attribute values have a special meaning. Instead of using an attri
 - `@INDEX`: the index of the *other* value within the input file is used.
 - `@FILE`: the (shortened) input file name is used (useful when plotting one value per file)
 - `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
-- `@COUNT`: the number of occurences of the *other* value is used. Together with option **--barplot** or **-hbarplot** this gives a histogram. Binning size can be set via options **--xbin** and **--ybin**.
-- `@DENSITY`: the number of occurences of the *other* value is used, normalized by the total number of values.
+- `@COUNT`: the number of occurrences of the *other* value is used. Together with option **--barplot** or **-hbarplot** this gives a histogram. Binning size can be set via options **--xbin** and **--ybin**.
+- `@DENSITY`: the number of occurrences of the *other* value is used, normalized by the total number of values.
 - `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
 - `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
 
@@ -84,6 +84,8 @@ The following attribute values have a special meaning. Instead of using an attri
 - If a comma-separated list of values is passed to option **--idattr**, then values for each of the attributes will be combined with `|` to form the data point ID
 - If a comma-separated list of values given to **--xattr** or **--yattr** (or both), and the data does not supply an ID (or option **--idattr @NONE** is set) then each combination of individual xattr and yattr will create a new line
 
+### CSV-output
+
 If a combined plot is needed that cannot be created with any of the above methods (i.e. because the data comes from different kinds of data files such as summary-output and edgeData) then an alternative is to use option **--csv-output** and plotting the resulting data with another tool (i.e. [gnuplot](https://en.wikipedia.org/wiki/Gnuplot)).
 
 In csv-output each group of data points belonging to the same ID will form it's own block separated by two blank lines from the next block.
@@ -93,6 +95,11 @@ To replicate a plot where each ID/block has its distinct color, the following ap
 stats 'data.csv'
 plot for [idx=0:STATS_blocks] 'data.csv' i idx with lines
 ```
+
+### XML format assumptions
+
+The default parsing engine of plotXMLAttributes assumes that each xml element occupies exactly one line in the input files. This fits with the output formatting of all SUMO applications.
+If an arbitrary XML file shall be plotted (i.e. without linebreaks), the option **--robust-parser** can be set. This will reduce processing speed.
 
 ### Inductionloop Speed over Time
 
@@ -122,7 +129,7 @@ Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed det
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
 
-Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
+Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay --scatterplot --legend`
 
 <img src="../images/plotAttrs_boardingDelay.png" width="500px"/>
 
@@ -130,7 +137,7 @@ Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop 
 
 Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" period="60"/>`)
 
-Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left --scatterplot --yfactor 60 --ylabel vehs/hour`
 
 Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-period 60) to vehicles per hour.
 
@@ -181,9 +188,9 @@ Input is [queue-output](../Simulation/Output/QueueOutput.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
+python tools/visualization/plotXMLAttributes.py -x timestep -y queueing_time -o queue.png queue.xml -i id --filter-ids 121_0
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
 
 <img src="../images/queue_out.png" width="500px"/>
 
@@ -192,9 +199,9 @@ Input is [vehroutes-output](../Simulation/Output/VehRoutes.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
+python tools/visualization/plotXMLAttributes.py -x depart -y arrival -o vehroute.png vehroute.xml --scatterplot
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot.
 
 <img src="../images/vehroute_output.png" width="500px"/>
 
@@ -203,9 +210,9 @@ Input is [lanechange-output](../Simulation/Output/Lanechange.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png lanechange.xml -i reason --filter-ids speedGain
+python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -o lc.png lanechange.xml -i reason --filter-ids speedGain
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
 
 <img src="../images/lanechange_output.png" width="500px"/>
 
@@ -214,9 +221,9 @@ Input is [fcd_output](../Simulation/Output/FCDOutput.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x x -y y -s -o allXY_output.png fcd.xml --scatterplot
+python tools/visualization/plotXMLAttributes.py -x x -y y -o allXY_output.png fcd.xml --scatterplot
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot..
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot..
 
 <img src="../images/allXY_output.png" width="500px"/>
 
@@ -225,9 +232,9 @@ Input is [fcd_output](../Simulation/Output/FCDOutput.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x x -y y -s -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
+python tools/visualization/plotXMLAttributes.py -x x -y y -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case); --scatterplot is to make a scatter plot instead of a line plot; --legend is to show the legend.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case); --scatterplot is to make a scatter plot instead of a line plot; --legend is to show the legend.
 
 <img src="../images/vehLocations_output.png" width="500px"/>
 
@@ -291,12 +298,12 @@ It also shows how to clamp data to the upper range of 300.
 
 Call to generate the plot:
 ```
-plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE -s --legend  --barplot --xbin 20 --xclamp :300
+plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE --legend  --barplot --xbin 20 --xclamp :300
 ```
 <img src="../images/hist_timeLoss_clamped.png" width="500px"/>
 
 !!! caution
-    It is importent to set **-i @NONE** to ensure that the timeLoss values are aggregated by file rather than by vehicle id.
+    It is important to set **-i @NONE** to ensure that the timeLoss values are aggregated by file rather than by vehicle id.
 
 ## plot_trajectories.py
 
@@ -305,7 +312,7 @@ Create plot of all trajectories obtained from a file generated through [--fcd-ou
 Example use:
 
 ```
-python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
+python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
 The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
@@ -409,30 +416,30 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
-<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
-<code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
-<code> --default-width 1 -i base-jr.xml,base-jr.xml \</code><br />
-<code> --xlim 7000,14000 --ylim 9000,16000 -\</code><br />
-<code> --default-width .5 --default-color #606060 \</code><br />
-<code> --min-color-value -1000 --max-color-value 1000 \</code><br />
-<code> --max-width-value 1000 --min-width-value -1000  \</code><br />
-<code> --max-width 3 --min-width .5 \</code><br />
-<code> --colormap "#0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000"</code></p>
+<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
+<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
+<code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
+<code> --default-width 1 -i base-jr.xml,base-jr.xml \</code><br />
+<code> --xlim 7000,14000 --ylim 9000,16000 -\</code><br />
+<code> --default-width .5 --default-color #606060 \</code><br />
+<code> --min-color-value -1000 --max-color-value 1000 \</code><br />
+<code> --max-width-value 1000 --min-width-value -1000  \</code><br />
+<code> --max-width 3 --min-width .5 \</code><br />
+<code> --colormap "#0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000"</code></p>
 <p>It shows the shift in traffic in the city of Brunswick, Tuesday-Thursday week type after establishing an environmental zone.</p></td>
 </tr>
 <tr class="even">
 <td><figure>
 <img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
-<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
-<code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
-<code> --default-width 1 -i HBEFA_base-jr.xml,HBEFA_base-jr.xml \</code><br />
-<code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
-<code> --default-width .5 --default-color #606060 \</code><br />
-<code> --min-color-value -.1 --max-color-value .1 \</code><br />
-<code> --max-width-value .1  --max-width 3 --min-width .5 \</code><br />
-<code> --colormap "#0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000"</code></p>
+<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
+<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
+<code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
+<code> --default-width 1 -i HBEFA_base-jr.xml,HBEFA_base-jr.xml \</code><br />
+<code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
+<code> --default-width .5 --default-color #606060 \</code><br />
+<code> --min-color-value -.1 --max-color-value .1 \</code><br />
+<code> --max-width-value .1  --max-width 3 --min-width .5 \</code><br />
+<code> --colormap "#0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000"</code></p>
 <p>Showing the according changes in NOx emissions.</p></td>
 </tr>
 </tbody>
@@ -466,7 +473,7 @@ Here the most important options are listed. Use **--help** to see all options.
 | **--min-width-value** {{DT_FLOAT}}                            | If set, defines the minimum edge width value        |
 | **--max-width-value** {{DT_FLOAT}}                            | If set, defines the maximum edge width value        |
 | **-v**<br>**--verbose**                                     | If set, the progress is printed on the screen       |
-| **--internal**                                     | If set, internal edges (of junctions) are included to the genrated shapes.       |
+| **--internal**                                     | If set, internal edges (of junctions) are included to the generated shapes.       |
 
 ## plot_net_selection.py
 
@@ -480,13 +487,13 @@ selection (all edge with at least one lane in the selection).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_net_selection.py -n bs.net.xml \</code><br />
-<code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
-<code> -i selection_environmental_zone.txt \</code><br />
-<code> --xlabel [m] --ylabel [m] \</code><br />
-<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
-<code> --selected-width 1 --edge-width .5 -o selected_ez.png \</code><br />
-<code> --edge-color #606060 --selected-color #800000 </code></p>
+<td><p><code>python plot_net_selection.py -n bs.net.xml \</code><br />
+<code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
+<code> -i selection_environmental_zone.txt \</code><br />
+<code> --xlabel [m] --ylabel [m] \</code><br />
+<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
+<code> --selected-width 1 --edge-width .5 -o selected_ez.png \</code><br />
+<code> --edge-color #606060 --selected-color #800000 </code></p>
 <p>The example shows the selection of an "environmental zone".</p></td>
 </tr>
 </tbody>
@@ -515,11 +522,11 @@ read from the network file.
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_speeds.png" title="plot_net_speeds.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_speeds.py -n bs.net.xml --xlim 1000,25000 \</code><br />
-<code> --ylim 2000,26000 --edge-width .5 -o speeds2.png \</code><br />
-<code> --minV 0 --maxV 60 --xticks 16 --yticks 16 \</code><br />
-<code> --xlabel [m] --ylabel [m] --xlabelsize 16 --ylabelsize 16 \</code><br />
-<code> --colormap jet</code></p>
+<td><p><code>python plot_speeds.py -n bs.net.xml --xlim 1000,25000 \</code><br />
+<code> --ylim 2000,26000 --edge-width .5 -o speeds2.png \</code><br />
+<code> --minV 0 --maxV 60 --xticks 16 --yticks 16 \</code><br />
+<code> --xlabel [m] --ylabel [m] --xlabelsize 16 --ylabelsize 16 \</code><br />
+<code> --colormap jet</code></p>
 <p>The example colors the streets in Brunswick, Germany by their maximum allowed speed.</p></td>
 </tr>
 </tbody>
@@ -547,11 +554,11 @@ are part of the net.
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_trafficLights.png" title="plot_net_trafficLights.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_trafficLights.py -n bs.net.xml \</code><br />
-<code> --xlim 1000,25000 --ylim 2000,26000 --edge-width .5 \</code><br />
-<code> --xticks 16 --yticks 16 --xlabel [m] --ylabel [m] \ </code><br />
-<code> --xlabelsize 16 --ylabelsize 16 --width 5 \</code><br />
-<code> --edge-color #606060</code></p>
+<td><p><code>python plot_trafficLights.py -n bs.net.xml \</code><br />
+<code> --xlim 1000,25000 --ylim 2000,26000 --edge-width .5 \</code><br />
+<code> --xticks 16 --yticks 16 --xlabel [m] --ylabel [m] \ </code><br />
+<code> --xlabelsize 16 --ylabelsize 16 --width 5 \</code><br />
+<code> --edge-color #606060</code></p>
 <p>The example shows the traffic lights in Brunswick.</p></td>
 </tr>
 </tbody>
@@ -581,14 +588,14 @@ visualised as a time line along the simulation time.
 <tr class="odd">
 <td><figure>
 <img src="../images/Summary_running.png" title="summary_running.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_summary.py </code><br />
-<code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
-<code> -l Mo,Di-Do,Fr,Sa,So --xlim 0,86400 --ylim 0,10000 </code><br />
-<code> -o sumodocs/summary_running.png --yticks 0,10001,2000,14 \</code><br />
-<code> --xticks 0,86401,14400,14 --xtime1 --ygrid \</code><br />
-<code> --ylabel "running vehicles [#]" --xlabel "time" \</code><br />
-<code> --title "running vehicles over time" --adjust .14,.1 </code></p>
-<p>The example shows the numbers of vehicles running in a large-scale scenario of the city of Brunswick over the day for the standard week day classes. "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/Summary.md" title="wikilink">summary-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
+<td><p><code>python plot_summary.py </code><br />
+<code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
+<code> -l Mo,Di-Do,Fr,Sa,So --xlim 0,86400 --ylim 0,10000 </code><br />
+<code> -o sumodocs/summary_running.png --yticks 0,10001,2000,14 \</code><br />
+<code> --xticks 0,86401,14400,14 --xtime1 --ygrid \</code><br />
+<code> --ylabel "running vehicles [#]" --xlabel "time" \</code><br />
+<code> --title "running vehicles over time" --adjust .14,.1 </code></p>
+<p>The example shows the numbers of vehicles running in a large-scale scenario of the city of Brunswick over the day for the standard week day classes. "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/Summary.md">summary-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
 </tr>
 </tbody>
 </table>
@@ -617,15 +624,15 @@ the measure (vehicles) that fall into a bin.
 <td><figure>
 <img src="../images/Tripinfo_distribution_duration.png" title="tripinfo_distribution_duration.png" width="500" alt="" />
 </figure></td>
-<td><p><code>python plot_tripinfo_distributions.py \</code><br />
-<code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
-<code> -o tripinfo_distribution_duration.png -v -m duration \</code><br />
-<code> --minV 0 --maxV 3600 --bins 10 --xticks 0,3601,360,14 \</code><br />
-<code> --xlabel "duration [s]" --ylabel "number [#]" \</code><br />
-<code> --title "duration distribution" \</code><br />
-<code> --yticks 14 --xlabelsize 14 --ylabelsize 14 --titlesize 16 \</code><br />
-<code> -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600</code></p>
-<p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/TripInfo.md" title="wikilink">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
+<td><p><code>python plot_tripinfo_distributions.py \</code><br />
+<code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
+<code> -o tripinfo_distribution_duration.png -v -m duration \</code><br />
+<code> --minV 0 --maxV 3600 --bins 10 --xticks 0,3601,360,14 \</code><br />
+<code> --xlabel "duration [s]" --ylabel "number [#]" \</code><br />
+<code> --title "duration distribution" \</code><br />
+<code> --yticks 14 --xlabelsize 14 --ylabelsize 14 --titlesize 16 \</code><br />
+<code> -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600</code></p>
+<p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/TripInfo.md">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
 </tr>
 <tr class="even">
 <td><figure>
@@ -648,7 +655,7 @@ the measure (vehicles) that fall into a bin.
 | **-i** {{DT_FILE}}[,{{DT_FILE}}]\*<br>**--tripinfos-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read         |
 | **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                          | Defines the measure to read from the summary file                                            |
 | **-v**<br>**--verbose**                                            | If set, the progress is printed on the screen                                                |
-| **--bins** {{DT_INT}}                                               | The number of bins to devide the values into                                                 |
+| **--bins** {{DT_INT}}                                               | The number of bins to divide the values into                                                 |
 | **--norm** {{DT_FLOAT}}                                             | Defines a number by which read values are divided; default: 1.0                              |
 | **--minV** {{DT_FLOAT}}                                             | The minimum value; if set, read values that are lower than this value are set to this value  |
 | **--maxV** {{DT_FLOAT}}                                             | The maximum value; if set, read values that are higher than this value are set to this value |
@@ -663,13 +670,13 @@ using the **--columns** {{DT_INT}}\[,{{DT_INT}}\]\* option. The values are visua
 <tr class="odd">
 <td><figure>
 <img src="../images/Nefz.png" title="nefz.png" width="500" alt="" /></figure></td>
-<td><p><code>plot_csv_timeline.py \</code><br />
-<code> -i nefz.csv -c 1 --no-legend --xlabel "time [s]" \</code><br />
-<code> --ylabel "velocity [km/h]" --xlabelsize 14 --ylabelsize 14 \</code><br />
-<code> --xticks 14 --yticks 14 --colors k --ylim 0,125 \</code><br />
-<code> --output nefz.png \</code><br />
-<code> --title "New European Driving Cycle (NEDC)" --titlesize 16</code></p>
-<p>The example shows the <a href="Emissions.md#driving_cycles" title="wikilink">New European Driving Cycle (NEDC)</a>.</p></td>
+<td><p><code>plot_csv_timeline.py \</code><br />
+<code> -i nefz.csv -c 1 --no-legend --xlabel "time [s]" \</code><br />
+<code> --ylabel "velocity [km/h]" --xlabelsize 14 --ylabelsize 14 \</code><br />
+<code> --xticks 14 --yticks 14 --colors k --ylim 0,125 \</code><br />
+<code> --output nefz.png \</code><br />
+<code> --title "New European Driving Cycle (NEDC)" --titlesize 16</code></p>
+<p>The example shows the <a href="Emissions.md#driving_cycles">New European Driving Cycle (NEDC)</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -694,8 +701,8 @@ name/value-pairs are visualised as a pie chart.
 <td><figure>
 <img src="../images/Paradigm.png" title="paradigm.png" width="500" alt="" />
 </figure></td>
-<td><p><code>plot_csv_pie.py \</code><br />
-<code> -i paradigm.csv -b --colormap Accent --no-legend -s 6,6 </code></p><br><br><b>Note:</b> Please note that you should set the width and the height to the same value using the <b>--size</b> &lt;FLOAT&gt;,&lt;FLOAT&gt; option, see <a href="#common_options">#common options</a>. Otherwise you'll get an oval.</td>
+<td><p><code>plot_csv_pie.py \</code><br />
+<code> -i paradigm.csv -b --colormap Accent --no-legend -s 6,6 </code></p><br><br><b>Note:</b> Please note that you should set the width and the height to the same value using the <b>--size</b> &lt;FLOAT&gt;,&lt;FLOAT&gt; option, see <a href="#common_options">#common options</a>. Otherwise you'll get an oval.</td>
 </tr>
 </tbody>
 </table>
@@ -724,10 +731,10 @@ name/value-pairs are visualised as a bar chart.
 <td><figure>
 <img src="../images/Nox_effects_bars.png" title="nox_effects_bars.png" width="500" alt="" />
 </figure></td>
-<td><p><code>plot_csv_bars.py \</code><br />
-<code> -i nox_effects.txt --colormap RdYlGn --no-legend --width .4 \</code><br />
-<code> -s 8,4 --revert --xlim 0,50 --xticks 0,51,10,16 --yticks 16 \</code><br />
-<code> --adjust .28,.1,.95,.9 --show-values </code></p></td>
+<td><p><code>plot_csv_bars.py \</code><br />
+<code> -i nox_effects.txt --colormap RdYlGn --no-legend --width .4 \</code><br />
+<code> -s 8,4 --revert --xlim 0,50 --xticks 0,51,10,16 --yticks 16 \</code><br />
+<code> --adjust .28,.1,.95,.9 --show-values </code></p></td>
 </tr>
 </tbody>
 </table>
@@ -835,7 +842,7 @@ When stepping through the simulation, different time intervals contained in
 the weight file can be shown. It can be useful to adapt the simulation step length to the data period for easier stepping:
 
 ```
-sumo-gui -n NET --edgedata-files FILE --step-length 3600 --end 24:0:0
+sumo-gui -n NET --edgedata-files FILE --step-length 3600 --end 24:0:0
 ```
 
 ## Intersection Flow Diagram
@@ -843,7 +850,7 @@ sumo-gui -n NET --edgedata-files FILE --step-length 3600 --end 24:0:0
 To visualize the flow on an intersection with line widths according to the amount of traffic, the tool [route2poly.py](../Tools/Routes.md#route2polypy) can be used.
 
 1. Use [netedit](../Netedit/index.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
-2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according the the polygon width.
+2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according to the polygon width.
 
         route2poly.py NET routes.rou.xml -o flows.poly.xml --filter-output.file sel.txt --scale-width 0.01 --internal --spread 1 --hue cycle
 

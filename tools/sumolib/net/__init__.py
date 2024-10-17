@@ -40,6 +40,7 @@ from itertools import chain
 
 try:
     import lxml.etree
+    import pathlib
     HAVE_LXML = True
 except ImportError:
     HAVE_LXML = False
@@ -965,6 +966,8 @@ def readNet(filename, **others):
     except IOError:
         source = filename
     if HAVE_LXML and others.get("lxml", True):
+        if isinstance(source, pathlib.Path):
+            source = str(source)
         for event, v in lxml.etree.iterparse(source, events=("start", "end")):
             if event == "start":
                 netreader.startElement(v.tag, v.attrib)

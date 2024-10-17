@@ -68,7 +68,7 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     mySelectingMultipleElements(false) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType);
+        const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType, false);
         for (const auto& tagProperty : tagProperties) {
             myDemandElementTags.push_back(tagProperty.getTag());
         }

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-26 14:59:47 by Eclipse SUMO netedit Version v1_20_0+0846-da0938e8ae1
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="/localdata1/debug/15098/github_issue/test.sumocfg"/>
+        <additional-files value=""/>
+        <route-files value="/localdata1/debug/15098/github_issue/test.rou.xml"/>
+        <sumo-net-file value="/localdata1/debug/15098/github_issue/small2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata1/debug/15098/github_issue/small2.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" spreadType="roadCenter" junctionCornerDetail="5" limitTurnSpeed="5.50" tlsIgnoreInternalJunctionJam="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-419017.13,-5181926.54" convBoundary="6185.79,39714.13,6579.69,40193.41" origBoundary="7.919408,46.497869,8.812797,47.296709" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +north"/>
+
+    <type id="highway.primary" priority="12" numLanes="2" speed="22.22" allow="passenger taxi bus delivery truck bicycle" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="16.67" allow="passenger taxi bus delivery truck bicycle" oneway="0"/>
+
+    <edge id="-1104935694" from="380417794" to="5109625067" name="Willisauerstrasse" priority="12" type="highway.primary" spreadType="roadCenter" shape="6185.79,39714.13 6221.81,39751.28 6234.06,39764.24 6247.88,39777.10 6264.13,39792.39 6274.55,39802.83 6313.05,39841.40 6330.54,39856.44 6353.31,39871.74 6386.89,39887.82 6402.45,39897.10 6407.21,39900.97 6413.90,39907.02 6419.69,39913.84 6429.62,39932.02 6432.00,39938.70 6442.49,39964.82 6448.84,39981.90 6454.13,39996.83 6457.45,40007.08 6461.93,40021.77 6464.31,40029.69 6469.27,40043.62 6490.21,40095.14 6500.25,40115.07 6501.82,40118.19">
+        <lane id="-1104935694_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="529.66" shape="6186.94,39713.02 6222.97,39750.17 6235.19,39763.10 6248.97,39775.93 6265.24,39791.24 6275.68,39801.70 6314.14,39840.23 6331.51,39855.16 6354.11,39870.35 6387.65,39886.41 6403.37,39895.79 6408.25,39899.76 6415.05,39905.90 6421.02,39912.93 6431.08,39931.36 6433.50,39938.13 6443.98,39964.24 6450.34,39981.35 6455.65,39996.32 6458.98,40006.60 6463.46,40021.31 6465.83,40029.19 6470.77,40043.05 6491.67,40094.48 6500.79,40112.60">
+            <param key="origId" value="1104935694 124619534 36723716 36723716 1104935693"/>
+        </lane>
+        <param key="cycleway:left" value="track"/>
+        <param key="cycleway:left:oneway" value="no"/>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="50"/>
+        <param key="name" value="Willisauerstrasse"/>
+    </edge>
+    <edge id="-1223940565" from="5109625053" to="269428122" name="Postplatz" priority="12" type="highway.primary" spreadType="roadCenter" shape="6504.17,40133.35 6504.02,40136.39 6503.71,40142.92 6503.60,40148.15 6503.59,40156.48 6503.54,40171.65 6502.57,40182.35 6500.77,40193.41">
+        <lane id="-1223940565_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="60.26" shape="6505.48,40139.29 6505.31,40142.97 6505.20,40148.17 6505.19,40156.48 6505.14,40171.73 6504.16,40182.55 6502.35,40193.67">
+            <param key="origId" value="1223940565 116371732 116371732"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="50"/>
+        <param key="name" value="Postplatz"/>
+    </edge>
+    <edge id="-29015052" from="5109625052" to="8079328488" name="Postplatz" priority="11" type="highway.secondary" spreadType="roadCenter" shape="6515.36,40125.97 6518.52,40126.15 6532.38,40126.97 6540.42,40127.01 6545.26,40127.09 6550.06,40127.23 6553.84,40127.38 6554.84,40127.43 6559.70,40127.54 6565.97,40127.19 6571.75,40126.16 6575.50,40125.04 6579.69,40123.27">
+        <lane id="-29015052_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="64.99" shape="6520.16,40124.64 6532.43,40125.37 6540.43,40125.41 6545.30,40125.49 6550.11,40125.63 6553.91,40125.78 6554.90,40125.83 6559.67,40125.94 6565.78,40125.60 6571.38,40124.60 6574.96,40123.53 6579.07,40121.80">
+            <param key="origId" value="29015052 866803028 866803029 866803030 525193140 525193140"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="50"/>
+        <param key="name" value="Postplatz"/>
+    </edge>
+    <edge id="1104935693" from="5109625067" to="380417794" name="Willisauerstrasse" priority="12" type="highway.primary" spreadType="roadCenter" shape="6501.82,40118.19 6500.25,40115.07 6490.21,40095.14 6469.27,40043.62 6464.31,40029.69 6461.93,40021.77 6457.45,40007.08 6454.13,39996.83 6448.84,39981.90 6442.49,39964.82 6432.00,39938.70 6429.62,39932.02 6419.69,39913.84 6413.90,39907.02 6407.21,39900.97 6402.45,39897.10 6386.89,39887.82 6353.31,39871.74 6330.54,39856.44 6313.05,39841.40 6274.55,39802.83 6264.13,39792.39 6247.88,39777.10 6234.06,39764.24 6221.81,39751.28 6185.79,39714.13">
+        <lane id="1104935693_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="529.66" shape="6497.94,40114.03 6488.75,40095.80 6467.77,40044.19 6462.79,40030.19 6460.40,40022.23 6455.92,40007.56 6452.61,39997.34 6447.34,39982.45 6441.00,39965.40 6430.50,39939.27 6428.16,39932.68 6418.36,39914.75 6412.75,39908.14 6406.17,39902.18 6401.53,39898.41 6386.13,39889.23 6352.51,39873.13 6329.57,39857.72 6311.96,39842.57 6273.42,39803.96 6263.02,39793.54 6246.79,39778.27 6232.93,39765.38 6220.65,39752.39 6184.64,39715.24">
+            <param key="origId" value="1104935693 36723716 36723716 124619534 1104935694"/>
+        </lane>
+        <param key="cycleway:left" value="track"/>
+        <param key="cycleway:left:oneway" value="no"/>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="50"/>
+        <param key="name" value="Willisauerstrasse"/>
+    </edge>
+    <edge id="116371732#0" from="269428122" to="5109625053" name="Postplatz" priority="12" type="highway.primary" spreadType="roadCenter" shape="6500.77,40193.41 6502.57,40182.35 6503.54,40171.65 6503.59,40156.48 6503.60,40148.15 6503.71,40142.92 6504.02,40136.39 6504.17,40133.35">
+        <lane id="116371732#0_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="60.26" shape="6499.19,40193.15 6500.98,40182.15 6501.94,40171.57 6501.99,40156.48 6502.00,40148.13 6502.11,40142.87 6502.29,40139.13">
+            <param key="origId" value="116371732 116371732 1223940565"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="50"/>
+        <param key="name" value="Postplatz"/>
+    </edge>
+    <edge id="525193140#0" from="8079328488" to="5109625052" name="Postplatz" priority="11" type="highway.secondary" spreadType="roadCenter" shape="6579.69,40123.27 6575.50,40125.04 6571.75,40126.16 6565.97,40127.19 6559.70,40127.54 6554.84,40127.43 6553.84,40127.38 6550.06,40127.23 6545.26,40127.09 6540.42,40127.01 6532.38,40126.97 6518.52,40126.15 6515.36,40125.97">
+        <lane id="525193140#0_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="64.99" shape="6580.31,40124.74 6576.04,40126.55 6572.12,40127.72 6566.16,40128.78 6559.73,40129.14 6554.80,40129.03 6553.77,40128.98 6550.01,40128.83 6545.22,40128.69 6540.41,40128.61 6532.33,40128.57 6519.97,40127.84">
+            <param key="origId" value="525193140 525193140 866803030 866803029 866803028 29015052"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="50"/>
+        <param key="name" value="Postplatz"/>
+    </edge>
+    <edge id="525193147#0" from="5109625067" to="5109625052" priority="12" type="highway.primary" spreadType="center" shape="6501.82,40118.19 6504.33,40116.97 6507.09,40116.61 6509.83,40117.15 6512.24,40118.55 6514.09,40120.64 6515.16,40123.20 6515.36,40125.97">
+        <lane id="525193147#0_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="19.35" shape="6508.61,40116.91 6509.83,40117.15 6512.24,40118.55 6513.44,40119.90">
+            <param key="origId" value="525193147"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="junction" value="roundabout"/>
+        <param key="lanes" value="1"/>
+        <param key="maxspeed" value="50"/>
+    </edge>
+    <edge id="525193147#1" from="5109625052" to="5109625053" priority="12" type="highway.primary" spreadType="center" shape="6515.36,40125.97 6514.54,40128.91 6512.74,40131.38 6510.19,40133.07 6507.21,40133.75 6504.17,40133.35">
+        <lane id="525193147#1_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="14.91" shape="6512.51,40131.53 6511.21,40132.40">
+            <param key="origId" value="525193147"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="junction" value="roundabout"/>
+        <param key="lanes" value="1"/>
+        <param key="maxspeed" value="50"/>
+    </edge>
+    <edge id="525193147#2" from="5109625053" to="5109625067" priority="12" type="highway.primary" spreadType="center" shape="6504.17,40133.35 6501.75,40132.13 6499.84,40130.22 6498.61,40127.81 6498.20,40125.15 6498.63,40122.47 6499.88,40120.08 6501.82,40118.19">
+        <lane id="525193147#2_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="13.89" length="19.15" shape="6499.21,40128.99 6498.61,40127.81 6498.20,40125.15 6498.41,40123.84">
+            <param key="origId" value="525193147"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="junction" value="roundabout"/>
+        <param key="lanes" value="1"/>
+        <param key="maxspeed" value="50"/>
+    </edge>
+
+    <junction id="269428122" type="dead_end" x="6500.77" y="40193.41" incLanes="-1223940565_0" intLanes="" shape="6500.77,40193.41 6503.93,40193.92 6500.77,40193.41"/>
+    <junction id="380417794" type="dead_end" x="6185.79" y="39714.13" incLanes="1104935693_0" intLanes="" shape="6185.79,39714.13 6183.49,39716.36 6185.79,39714.13"/>
+    <junction id="5109625052" type="priority" x="6515.36" y="40125.97" incLanes="525193140#0_0 525193147#0_0" intLanes="" shape="6519.88,40129.44 6520.25,40123.05 6518.81,40122.61 6518.02,40122.13 6517.18,40121.48 6516.28,40120.64 6515.34,40119.63 6511.54,40120.18 6513.08,40122.24 6513.94,40124.19 6514.12,40126.02 6513.63,40127.75 6512.46,40129.36 6510.62,40130.87 6514.18,40132.12 6515.75,40130.54 6516.66,40130.00 6517.65,40129.64 6518.73,40129.45">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
+    </junction>
+    <junction id="5109625053" type="priority" x="6504.17" y="40133.35" incLanes="525193147#1_0 116371732#0_0" intLanes="" shape="6511.12,40134.37 6511.29,40130.42 6508.29,40132.12 6505.75,40132.93 6503.67,40132.85 6502.04,40131.89 6500.87,40130.04 6500.17,40127.36 6498.25,40130.63 6499.82,40133.57 6500.30,40134.66 6500.59,40135.79 6500.72,40137.18 6500.69,40139.05 6507.08,40139.37 6507.58,40137.75 6508.15,40136.92 6508.93,40136.08 6509.92,40135.23">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="100"/>
+        <request index="2" response="010" foes="010"/>
+    </junction>
+    <junction id="5109625067" type="priority" x="6501.82" y="40118.19" incLanes="-1104935694_0 525193147#2_0" intLanes="" shape="6509.32,40118.71 6507.90,40115.14 6505.28,40114.38 6504.24,40113.88 6503.39,40113.30 6502.71,40112.63 6502.22,40111.88 6496.51,40114.75 6497.55,40117.47 6497.64,40118.52 6497.53,40119.60 6497.30,40120.89 6496.99,40122.57 6499.83,40125.11 6499.52,40121.32 6499.97,40118.59 6501.17,40116.96 6503.11,40116.43 6505.81,40117.00">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
+    </junction>
+    <junction id="8079328488" type="dead_end" x="6579.69" y="40123.27" incLanes="-29015052_0" intLanes="" shape="6579.69,40123.27 6578.44,40120.32 6579.69,40123.27"/>
+
+    <connection from="-1104935694" to="525193147#0" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
+    <connection from="116371732#0" to="525193147#2" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
+    <connection from="525193140#0" to="525193147#1" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
+    <connection from="525193147#0" to="-29015052" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="525193147#0" to="525193147#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="525193147#1" to="-1223940565" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="525193147#1" to="525193147#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="525193147#2" to="1104935693" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="525193147#2" to="525193147#0" fromLane="0" toLane="0" dir="s" state="M"/>
+
+    <roundabout nodes="5109625052 5109625053 5109625067" edges="525193147#0 525193147#1 525193147#2"/>
+
+</net>

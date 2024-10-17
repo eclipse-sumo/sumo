@@ -26,6 +26,7 @@ set(utils_common_STAT_SRCS
    StdDefs.h
    StdDefs.cpp
    StringBijection.h
+   SequentialStringBijection.h
    StringTokenizer.cpp
    StringTokenizer.h
    StringUtils.cpp

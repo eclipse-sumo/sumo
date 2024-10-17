@@ -9,3 +9,18 @@ arrival_same_time
 
 # 4 vehicles approach and depart in their order of arrival
 intermodal
+
+# 4 vehicles approach and depart in their order of arrival,
+# 
+# required waiting time increased to 3s
+wait_longer
+
+# apply jmStopLineGap to allway_stop
+stopLineGap
+
+# lane has a stopOffset
+stopOffset
+pedCrossing
+
+# re-purposing allway_stop to mimic a toll station
+toll_station

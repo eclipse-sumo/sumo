@@ -34,10 +34,12 @@ class GNEBusStop : public GNEStoppingPlace {
 
 public:
     /// @brief default constructor
-    GNEBusStop(SumoXMLTag tag, GNENet* net);
+    static GNEBusStop* buildBusStop(GNENet* net);
 
-    /**@brief parameter Constructor
-     * @param[in] tag busStop or trainStop tag
+    /// @brief default constructor
+    static GNEBusStop* buildTrainStop(GNENet* net);
+
+    /**@brief parameter constructor for bus stops
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -51,9 +53,29 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-               const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
+    static GNEBusStop* buildBusStop(const std::string& id, GNELane* lane, GNENet* net,
+                                    const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
+                                    int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+                                    const Parameterised::Map& parameters);
+
+    /**@brief parameter constructor for train stops
+     * @param[in] id The storage of gl-ids to get the one for this lane representation from
+     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] startPos Start position of the StoppingPlace
+     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] name Name of busStop
+     * @param[in] lines lines of the busStop
+     * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
+     * @param[in] color busStop color
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
+     */
+    static GNEBusStop* buildTrainStop(const std::string& id, GNELane* lane, GNENet* net,
+                                      const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
+                                      int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+                                      const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEBusStop();
@@ -121,6 +143,31 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief default constructor
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net);
+
+    /**@brief parameter Constructor
+     * @param[in] tag busStop or trainStop tag
+     * @param[in] type busStop or trainStop GLO type
+     * @param[in] icon busStop or trainStop icon
+     * @param[in] id The storage of gl-ids to get the one for this lane representation from
+     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] startPos Start position of the StoppingPlace
+     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] name Name of busStop
+     * @param[in] lines lines of the busStop
+     * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
+     * @param[in] color busStop color
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
+     */
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNELane* lane, GNENet* net,
+               const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
+               int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+               const Parameterised::Map& parameters);
 
     /// @brief Invalidated copy constructor.
     GNEBusStop(const GNEBusStop&) = delete;

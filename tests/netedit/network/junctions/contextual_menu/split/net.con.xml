@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-17 15:13:35 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <additional-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\additionals.add.xml"/>
+        <route-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\routes.rou.xml"/>
+        <data-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\datas.dat.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="E14" to="E17" fromLane="1" toLane="1"/>
+
+    <connection from="E16" to="E19" fromLane="1" toLane="1"/>
+
+    <connection from="E18" to="E21" fromLane="1" toLane="1"/>
+
+    <connection from="E20" to="E15" fromLane="1" toLane="1"/>
+
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0"/>
+
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
+
+    <crossing node="clusterJ15_J16_J18_J19" edges="E21 E14" priority="1" width="4.00" outlineShape="8.30,12.20 -8.30,12.20 -8.31,10.98 -8.64,9.98 -9.20,9.20 -9.98,8.64 -10.31,8.53 -8.20,8.20 8.20,8.20 10.31,8.53 9.98,8.64 9.20,9.20 8.64,9.98 8.31,10.98"/>
+    <crossing node="clusterJ15_J16_J18_J19" edges="E19 E20" priority="1" width="4.00" outlineShape="12.20,-8.30 12.20,8.30 10.98,8.31 9.98,8.64 9.20,9.20 8.64,9.98 8.53,10.31 8.20,8.20 8.20,-8.20 8.53,-10.31 8.64,-9.98 9.20,-9.20 9.98,-8.64 10.98,-8.31"/>
+    <crossing node="clusterJ15_J16_J18_J19" edges="E17 E18" priority="1" width="4.00" outlineShape="-8.30,-12.20 8.30,-12.20 8.31,-10.98 8.64,-9.98 9.20,-9.20 9.98,-8.64 10.31,-8.53 8.20,-8.20 -8.20,-8.20 -10.31,-8.53 -9.98,-8.64 -9.20,-9.20 -8.64,-9.98 -8.31,-10.98"/>
+    <crossing node="clusterJ15_J16_J18_J19" edges="E15 E16" priority="1" width="4.00" outlineShape="-12.20,8.30 -12.20,-8.30 -10.98,-8.31 -9.98,-8.64 -9.20,-9.20 -8.64,-9.98 -8.53,-10.31 -8.20,-8.20 -8.20,8.20 -8.53,10.31 -8.64,9.98 -9.20,9.20 -9.98,8.64 -10.98,8.31"/>
+</connections>

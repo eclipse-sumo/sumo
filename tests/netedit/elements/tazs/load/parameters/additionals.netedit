@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-04 10:42:20 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- TAZs -->
+    <taz id="TAZ_0" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00" color="green">
+        <param key="$$key with spaces%%" value="value4"/>
+        <param key="key1" value="value5"/>
+        <param key="key2" value=""/>
+        <param key="key3" value="$$value with spaces%%"/>
+        <param key="keyFinal" value="valueFinal"/>
+    </taz>
+</additional>

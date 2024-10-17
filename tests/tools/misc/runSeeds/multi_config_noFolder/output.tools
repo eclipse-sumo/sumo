@@ -1,13 +1,13 @@
 Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
-Simulation version v1_17_0+0050-ebf0a83 started with time: 0.00.
-Simulation ended at time: 18.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 18.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.00s
- Real time factor: 4500
- UPS: 4250.000000
-Vehicles: 
+Performance:
+ Duration: 0.04s
+ Real time factor: 450
+ UPS: 425.000000
+Vehicles:
  Inserted: 1
  Running: 0
  Waiting: 0
@@ -18,17 +18,16 @@ Statistics (avg of 1):
  WaitingTime: 0.00
  TimeLoss: 1.57
  DepartDelay: 0.00
-
-Loading net-file from 'net.net.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
-Simulation version v1_17_0+0050-ebf0a83 started with time: 0.00.
-Simulation ended at time: 18.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 18.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.00s
- Real time factor: 4500
- UPS: 4250.000000
-Vehicles: 
+Performance:
+ Duration: 0.04s
+ Real time factor: 439.024
+ UPS: 414.634146
+Vehicles:
  Inserted: 1
  Running: 0
  Waiting: 0
@@ -39,6 +38,5 @@ Statistics (avg of 1):
  WaitingTime: 0.00
  TimeLoss: 1.57
  DepartDelay: 0.00
-
 running seed 1
 running seed 1

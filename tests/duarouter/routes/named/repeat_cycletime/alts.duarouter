@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-29 13:52:20 by Eclipse SUMO duarouter Version v1_19_0+1975-c861cc8fbcc
+<!-- generated on 2024-06-26 13:30:34 by Eclipse SUMO duarouter Version v1_20_0+0837-89657f7d4be
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -29,15 +29,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" maxSpeed="3.00" sigma="0"/>
     <vehicle id="bus.0" type="bus" depart="0.00">
         <routeDistribution last="1">
-            <route cost="1826.46" probability="0.41725682" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
-            <route cost="607.78" probability="0.58274318" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="1911.46" probability="0.41673051" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="632.78" probability="0.58326949" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00" until="20.00"/>
         <stop busStop="busStop_c" duration="10.00" until="40.00"/>
@@ -54,8 +54,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
     <vehicle id="bus.1" type="bus" depart="100.00">
         <routeDistribution last="1">
-            <route cost="1826.46" probability="0.41725682" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
-            <route cost="607.78" probability="0.58274318" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="1911.46" probability="0.41673051" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="632.78" probability="0.58326949" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00" until="120.00"/>
         <stop busStop="busStop_c" duration="10.00" until="140.00"/>
@@ -72,8 +72,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
     <vehicle id="bus_single" type="bus" depart="300.00">
         <routeDistribution last="0">
-            <route cost="1826.46" probability="0.41725682" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
-            <route cost="607.78" probability="0.58274318" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="1911.46" probability="0.41673051" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="632.78" probability="0.58326949" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00" until="320.00"/>
         <stop busStop="busStop_c" duration="10.00" until="340.00"/>

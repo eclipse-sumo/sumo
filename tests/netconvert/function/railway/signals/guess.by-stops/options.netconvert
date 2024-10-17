@@ -1,0 +1,5 @@
+--edge-files=input_plain.edg.xml
+--node-files=input_plain.nod.xml 
+--ptstop-files input_ptstops.xml
+--output=net.net.xml 
+--railway.signal.guess.by-stops

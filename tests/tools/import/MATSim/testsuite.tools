@@ -1,4 +1,7 @@
 import_person_plans
+
+# ensure that param values are legal xml
+quote_params
 vehicles_only
 alternative_format
 

@@ -62,13 +62,13 @@ public:
      * @param[in] route The route of this vehicle
      * @param[in] type The type of this vehicle
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
-     * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
+     * @param[in] source whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (GUIVehicle instance)
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
                               ConstMSRoutePtr route, MSVehicleType* type,
-                              const bool ignoreStopErrors, const bool fromRouteFile = true,
+                              const bool ignoreStopErrors, const VehicleDefinitionSource source = VehicleDefinitionSource::ROUTEFILE,
                               bool addRouteStops = true) override;
     /// @}
 

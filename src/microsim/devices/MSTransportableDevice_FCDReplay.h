@@ -67,7 +67,7 @@ public:
 
     void setTrajectory(MSDevice_FCDReplay::Trajectory* const t) {
         myTrajectory = t;
-        myTrajectoryIndex = 0;
+        myTrajectoryIndex = 1;
     }
 
     bool move(SUMOTime currentTime);
@@ -82,6 +82,7 @@ private:
 
     class MovePedestrians : public Command {
     public:
+        MovePedestrians();
         SUMOTime execute(SUMOTime currentTime);
     private:
         /// @brief Invalidated assignment operator.

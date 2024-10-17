@@ -58,12 +58,18 @@ class Position;
  */
 class MSStoppingPlace : public Named, public Parameterised {
 public:
+    enum class AccessExit {
+        PLATFORM,
+        DOORS,
+        CARRIAGE
+    };
+
     struct Access {
         MSLane* const lane;
         const double startPos;
         const double endPos;
         const double length;
-        const bool useDoors;
+        const AccessExit exit;
     };
 
     /** @brief Constructor
@@ -163,7 +169,7 @@ public:
     double getWaitingPositionOnLane(MSTransportable* t) const;
 
 
-    /** @brief For vehicles at the stop this gives the the actual stopping
+    /** @brief For vehicles at the stop this gives the actual stopping
      *         position of the vehicle. For all others the last free stopping position
      *
      */
@@ -175,7 +181,7 @@ public:
         return (int)myWaitingTransportables.size();
     }
 
-    /** @brief Returns the tranportables waiting on this stop
+    /** @brief Returns the transportables waiting on this stop
      */
     std::vector<const MSTransportable*> getTransportables() const;
 
@@ -199,7 +205,7 @@ public:
     void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors);
+    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);
 
     /// @brief lanes and positions connected to this stop
     const std::vector<Access>& getAllAccessPos() const {

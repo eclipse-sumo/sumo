@@ -185,7 +185,8 @@ class ReroutersGeneration(object):
             pa = self._parking_areas[child.attrib['id']]
             pa['edge'] = lane.getEdge().getID()
             pa['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)
-            pa['capacity'] = (int(child.get('roadsideCapacity', 0)) + len(child.findall('space')))
+            pa['capacity'] = (int(child.get('roadsideCapacity', 1 if len(child.findall('space')) == 0 else 0)) +
+                              len(child.findall('space')))
 
     # ---------------------------------------------------------------------------------------- #
     #                                 Rerouter Generation                                      #

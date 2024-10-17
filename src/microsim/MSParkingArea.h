@@ -86,6 +86,9 @@ public:
     /// @brief Destructor
     virtual ~MSParkingArea();
 
+    /// @brief needed for patching its capacity
+    friend class NLTriggerBuilder;
+
     /// @brief Returns the area capacity
     int getCapacity() const;
 
@@ -226,6 +229,10 @@ public:
 
     /// @brief set number alternatives
     void setNumAlternatives(int alternatives);
+
+protected:
+    /// @brief overwrite the capacity (caution: will delete ANY previous parking space definitions)
+    void setRoadsideCapacity(int capactity);
 
 protected:
     /** @struct LotSpaceDefinition

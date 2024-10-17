@@ -114,6 +114,7 @@ const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0, 
 const double GUIVisualizationAdditionalSettings::routeProbeSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0, 255);
 const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
+const double GUIVisualizationAdditionalSettings::stopEdgeSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0, 255);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColorSelected(0, 0, 150, 255);
 const double GUIVisualizationAdditionalSettings::tractionSubstationSize(1);
@@ -152,6 +153,9 @@ const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
 const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(0.5);
 const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(3);
 const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
+const double GUIVisualizationStoppingPlaceSettings::symbolExternalRadius(1.1);
+const double GUIVisualizationStoppingPlaceSettings::symbolInternalRadius(0.9);
+const double GUIVisualizationStoppingPlaceSettings::symbolInternalTextSize(1.6);
 
 // -------------------------------------------------------------------------
 // Dotted contour values
@@ -202,6 +206,13 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE("by live e
 
 const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>::max());
 RGBColor GUIVisualizationSettings::COL_MISSING_DATA(225, 225, 225);
+
+std::map<std::string, std::vector<RGBColor> > GUIVisualizationSettings::RAINBOW_SCHEMES({
+    // cannot use predefined colors to avoid "static initialization order fiasco"
+    {"classic", std::vector<RGBColor>({RGBColor(255, 0, 0), RGBColor(255, 128, 0), RGBColor(255, 255, 0), RGBColor(0, 255, 0), RGBColor(0, 255, 255), RGBColor(0, 0, 255), RGBColor(255, 0, 255)})},
+    {"YlOrRd", std::vector<RGBColor>({RGBColor(255, 255, 178), RGBColor(254, 217, 118), RGBColor(254, 178, 76), RGBColor(253, 141, 60), RGBColor(252, 78, 42), RGBColor(227, 26, 28), RGBColor(177, 0, 38)})},
+    {"RdBu", std::vector<RGBColor>({RGBColor(178, 24, 43), RGBColor(239, 138, 98), RGBColor(253, 219, 199), RGBColor(247, 247, 247), RGBColor(209, 229, 240), RGBColor(103, 169, 207), RGBColor(33, 102, 172)})},
+});
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -270,6 +281,52 @@ bool
 GUIVisualizationTextSettings::show(const GUIGlObject* o) const {
     return showText && (!onlySelected || o == nullptr || gSelected.isSelected(o));
 }
+
+// ---------------------------------------------------------------------------
+// GUIVisualizationRainbowSettings - methods
+// ---------------------------------------------------------------------------
+
+GUIVisualizationRainbowSettings::GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral, double _neutralThreshold, bool _fixRange) :
+    hideMin(_hideMin),
+    minThreshold(_minThreshold),
+    hideMax(_hideMax),
+    maxThreshold(_maxThreshold),
+    setNeutral(_setNeutral),
+    neutralThreshold(_neutralThreshold),
+    fixRange(_fixRange),
+    colors(GUIVisualizationSettings::RAINBOW_SCHEMES["classic"])
+{ }
+
+
+bool
+GUIVisualizationRainbowSettings::operator==(const GUIVisualizationRainbowSettings& other) {
+    return (hideMin == other.hideMin) &&
+           (minThreshold == other.minThreshold) &&
+           (hideMin == other.hideMin) &&
+           (maxThreshold == other.maxThreshold) &&
+           (setNeutral == other.setNeutral) &&
+           (neutralThreshold == other.neutralThreshold) &&
+           (fixRange == other.fixRange);
+}
+
+
+bool
+GUIVisualizationRainbowSettings::operator!=(const GUIVisualizationRainbowSettings& other) {
+    return !((*this) == other);
+}
+
+
+void
+GUIVisualizationRainbowSettings::print(OutputDevice& dev, const std::string& name) const {
+    dev.writeAttr(name + "HideCheck", hideMin);
+    dev.writeAttr(name + "HideThreshold", minThreshold);
+    dev.writeAttr(name + "HideCheck2", hideMax);
+    dev.writeAttr(name + "HideThreshold2", maxThreshold);
+    dev.writeAttr(name + "SetNeutral", setNeutral);
+    dev.writeAttr(name + "NeutralThreshold", neutralThreshold);
+    dev.writeAttr(name + "FixRange", fixRange);
+}
+
 
 // ---------------------------------------------------------------------------
 // GUIVisualizationSizeSettings - methods
@@ -501,6 +558,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     angle(0),
     dither(false),
     fps(false),
+    trueZ(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
     laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
@@ -528,10 +586,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     edgeData("speed"),
     edgeDataID(""),
     edgeDataScaling(""),
-    edgeValueHideCheck(false),
-    edgeValueHideThreshold(0),
-    edgeValueHideCheck2(false),
-    edgeValueHideThreshold2(200),
+    edgeValueRainBow(false, 0, false, 200, false, 0, false),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
     drawMinGap(false),
@@ -541,6 +596,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     scaleLength(true),
     drawReversed(false),
     showParkingInfo(false),
+    showChargingInfo(false),
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
@@ -566,6 +622,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     drawJunctionShape(true),
     drawCrossingsAndWalkingareas(true),
     junctionSize(1),
+    junctionValueRainBow(false, 0, false, 100, false, 0, false),
     addMode(0),
     addSize(1),
     addName(false, 60, RGBColor(255, 0, 128, 255)),
@@ -582,8 +639,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
-    dataValueHideCheck(false),
-    dataValueHideThreshold(0),
+    dataValueRainBow(false, -100, false, 100, false, 0, false),
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
@@ -604,12 +660,269 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     secondaryShape(false),
     lefthand(false),
-    disableLaneIcons(false) {
+    disableLaneIcons(false),
+    myIgnoreHideByZoom(false) {
     // init defaults depending of netedit or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();
     } else {
         initSumoGuiDefaults();
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawJunction(const Boundary& b, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (junctionSize.constantSize) {
+        return true;
+    } else if (junctionSize.constantSizeSelected && selected) {
+        return true;
+    } else if (drawLinkTLIndex.showText && drawLinkTLIndex.constSize) {
+        return true;
+    } else if (drawLinkJunctionIndex.showText && drawLinkJunctionIndex.constSize) {
+        return true;
+    } else if (junctionID.showText && junctionID.constSize) {
+        return true;
+    } else if (junctionName.showText && junctionName.constSize) {
+        return true;
+    } else if (internalJunctionName.showText && internalJunctionName.constSize) {
+        return true;
+    } else if (tlsPhaseIndex.showText && tlsPhaseIndex.constSize) {
+        return true;
+    } else if (tlsPhaseName.showText && tlsPhaseName.constSize) {
+        return true;
+    } else {
+        return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawEdge(const Boundary& b) const {
+    if (disableHideByZoom) {
+        return true;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else {
+        return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
+    }
+}
+
+
+void
+GUIVisualizationSettings::updateIgnoreHideByZoom() {
+    // general
+    if (disableHideByZoom) {
+        myIgnoreHideByZoom = true;
+        // junctions
+    } else if (junctionSize.constantSize && junctionSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (drawLinkTLIndex.showText && drawLinkTLIndex.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (drawLinkJunctionIndex.showText && drawLinkJunctionIndex.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (junctionID.showText && junctionID.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (junctionName.showText && junctionName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (internalJunctionName.showText && internalJunctionName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (tlsPhaseIndex.showText && tlsPhaseIndex.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (tlsPhaseName.showText && tlsPhaseName.constSize) {
+        myIgnoreHideByZoom = true;
+        // edges
+    } else if (edgeName.showText) {
+        myIgnoreHideByZoom = true;
+    } else if (internalEdgeName.showText && internalEdgeName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (cwaEdgeName.showText && cwaEdgeName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (streetName.showText && streetName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (edgeValue.showText && edgeValue.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (edgeScaleValue.showText && edgeScaleValue.constSize) {
+        myIgnoreHideByZoom = true;
+        // additionals
+    } else if (addSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (addSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (addName.showText && addName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (addFullName.showText && addFullName.constSize) {
+        myIgnoreHideByZoom = true;
+        // POIs
+    } else if (poiSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (poiSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (poiName.showText && poiName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (poiType.showText && poiType.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (poiText.showText && poiText.constSize) {
+        myIgnoreHideByZoom = true;
+        // vehicles
+    } else if (vehicleSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleName.showText && vehicleName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleValue.showText && vehicleValue.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleScaleValue.showText && vehicleScaleValue.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (vehicleText.showText && vehicleText.constSize) {
+        myIgnoreHideByZoom = true;
+        // persons
+    } else if (personSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (personSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (personName.showText && personName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else if (personValue.showText && personValue.constSize) {
+        myIgnoreHideByZoom = true;
+        // containers
+    } else if (containerSize.constantSize) {
+        myIgnoreHideByZoom = true;
+    } else if (containerSize.constantSizeSelected) {
+        myIgnoreHideByZoom = true;
+    } else if (containerName.showText && containerName.constSize) {
+        myIgnoreHideByZoom = true;
+    } else {
+        myIgnoreHideByZoom = false;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else if (addSize.constantSize) {
+        return true;
+    } else if (addSize.constantSizeSelected && selected) {
+        return true;
+    } else if (addName.showText && addName.constSize) {
+        return true;
+    } else if (addFullName.showText && addFullName.constSize) {
+        return true;
+    } else {
+        return d <= GUIVisualizationSettings::Detail::Additionals;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawPoly(const Boundary& b, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else if (polySize.constantSize) {
+        return true;
+    } else if (polySize.constantSizeSelected && selected) {
+        return true;
+    } else if (polyName.showText && polyName.constSize) {
+        return true;
+    } else if (polyType.showText && polyType.constSize) {
+        return true;
+    } else {
+        return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else if (poiSize.constantSize) {
+        return true;
+    } else if (poiSize.constantSizeSelected && selected) {
+        return true;
+    } else if (poiName.showText && poiName.constSize) {
+        return true;
+    } else if (poiType.showText && poiType.constSize) {
+        return true;
+    } else if (poiText.showText && poiText.constSize) {
+        return true;
+    } else if ((w > 0) && (h > 0)) {
+        return (scale * MAX2(w, h)) > BoundarySizeDrawing;
+    } else {
+        return d <= GUIVisualizationSettings::Detail::Additionals;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawVehicle(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else if (vehicleSize.constantSize) {
+        return true;
+    } else if (vehicleSize.constantSizeSelected && selected) {
+        return true;
+    } else if (vehicleName.showText && vehicleName.constSize) {
+        return true;
+    } else if (vehicleValue.showText && vehicleValue.constSize) {
+        return true;
+    } else if (vehicleScaleValue.showText && vehicleScaleValue.constSize) {
+        return true;
+    } else if (vehicleText.showText && vehicleText.constSize) {
+        return true;
+    } else {
+        return d <= GUIVisualizationSettings::Detail::Additionals;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawPerson(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else if (personSize.constantSize) {
+        return true;
+    } else if (personSize.constantSizeSelected && selected) {
+        return true;
+    } else if (personName.showText && personName.constSize) {
+        return true;
+    } else if (personValue.showText && personValue.constSize) {
+        return true;
+    } else {
+        return d <= GUIVisualizationSettings::Detail::Additionals;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawContainer(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (myIgnoreHideByZoom) {
+        return true;
+    } else if (containerSize.constantSize) {
+        return true;
+    } else if (containerSize.constantSizeSelected && selected) {
+        return true;
+    } else if (containerName.showText && containerName.constSize) {
+        return true;
+    } else {
+        return d <= GUIVisualizationSettings::Detail::Additionals;
     }
 }
 
@@ -1721,6 +2034,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_OPENGL);
     dev.writeAttr("dither", dither);
     dev.writeAttr("fps", fps);
+    dev.writeAttr("trueZ", trueZ);
     dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.writeAttr("disableDottedContours", disableDottedContours);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
@@ -1758,10 +2072,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeDataID", edgeDataID);
     dev.writeAttr("edgeDataScaling", edgeDataScaling);
-    dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
-    dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
-    dev.writeAttr("edgeValueHideCheck2", edgeValueHideCheck2);
-    dev.writeAttr("edgeValueHideThreshold2", edgeValueHideThreshold2);
+    edgeValueRainBow.print(dev, "edgeValue");
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1797,6 +2108,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("scaleLength", scaleLength);
     dev.writeAttr("drawReversed", drawReversed);
     dev.writeAttr("showParkingInfo", showParkingInfo);
+    dev.writeAttr("showChargingInfo", showChargingInfo);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
@@ -1865,6 +2177,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("drawShape", drawJunctionShape);
     dev.writeAttr("drawCrossingsAndWalkingareas", drawCrossingsAndWalkingareas);
     junctionSize.print(dev, "junction");
+    junctionValueRainBow.print(dev, "junctionValue");
     junctionColorer.save(dev);
     dev.closeTag();
     // additionals
@@ -1982,6 +2295,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (fps != v2.fps) {
+        return false;
+    }
+    if (trueZ != v2.trueZ) {
         return false;
     }
     if (drawBoundaries != v2.drawBoundaries) {
@@ -2108,16 +2424,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (edgeDataScaling != v2.edgeDataScaling) {
         return false;
     }
-    if (edgeValueHideCheck != v2.edgeValueHideCheck) {
-        return false;
-    }
-    if (edgeValueHideThreshold != v2.edgeValueHideThreshold) {
-        return false;
-    }
-    if (edgeValueHideCheck2 != v2.edgeValueHideCheck2) {
-        return false;
-    }
-    if (edgeValueHideThreshold2 != v2.edgeValueHideThreshold2) {
+    if (edgeValueRainBow != v2.edgeValueRainBow) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {
@@ -2157,6 +2464,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showParkingInfo != v2.showParkingInfo) {
+        return false;
+    }
+    if (showChargingInfo != v2.showChargingInfo) {
         return false;
     }
     if (vehicleName != v2.vehicleName) {
@@ -2249,6 +2559,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (junctionSize != v2.junctionSize) {
         return false;
     }
+    if (junctionValueRainBow != v2.junctionValueRainBow) {
+        return false;
+    }
 
     if (addMode != v2.addMode) {
         return false;
@@ -2314,10 +2627,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (!(relDataAttr == v2.relDataAttr)) {
         return false;
     }
-    if (!(dataValueHideCheck == v2.dataValueHideCheck)) {
-        return false;
-    }
-    if (!(dataValueHideThreshold == v2.dataValueHideThreshold)) {
+    if (!(dataValueRainBow == v2.dataValueRainBow)) {
         return false;
     }
 
@@ -2389,22 +2699,6 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
     // fmod round towards zero which is not want we want for negative numbers
     viewAngle = fmod(viewAngle, 360);
     return (viewAngle > 90 && viewAngle < 270);
-}
-
-
-bool
-GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
-    if (disableHideByZoom) {
-        return true;
-    } else {
-        const double size = MAX2(w, h);
-        if (drawForViewObjectsHandler) {
-            return true;
-        } else {
-            // for low computers 20. for high 10
-            return (scale * size) > 15;
-        }
-    }
 }
 
 

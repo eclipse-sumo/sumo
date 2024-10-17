@@ -118,7 +118,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
 | **--street-sign-output** {{DT_FILE}} | Writes street signs as POIs to FILE |
-| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
 
 ### Processing
 
@@ -135,9 +135,9 @@ the offsets given).
 |--------|-------------|
 | **--turn-lanes** {{DT_INT}} | Generate INT left-turn lanes; *default:* **0** |
 | **--turn-lanes.length** {{DT_FLOAT}} | Set the length of generated turning lanes to FLOAT; *default:* **20** |
-| **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according the the given distribution; *default:* **0** |
-| **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according the the given distribution; *default:* **0** |
-| **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according the the given distribution; *default:* **0** |
+| **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according to the given distribution; *default:* **0** |
+| **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according to the given distribution; *default:* **0** |
+| **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according to the given distribution; *default:* **0** |
 | **--bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
 | **--random-lanenumber** {{DT_BOOL}} | Draw lane numbers randomly from [1,default.lanenumber]; *default:* **false** |
 | **--random-priority** {{DT_BOOL}} | Draw edge priority randomly from [1,default.priority]; *default:* **false** |
@@ -173,7 +173,7 @@ the offsets given).
 
 ### Building Defaults
 
-See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#Node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
+See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
 
 | Option | Description |
 |--------|-------------|
@@ -194,6 +194,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
+| **--default.connection.cont-pos** {{DT_FLOAT}} | Whether/where connections should have an internal junction; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
 | **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,left_before_right,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
 
@@ -249,6 +250,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
 | **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
+| **--keep-lanes.min-width** {{DT_FLOAT}} | Only keep lanes with width in meters > FLOAT; *default:* **0.01** |
 
 ### Unregulated Nodes
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 14:20:56 by Eclipse SUMO sumo Version v1_20_0+0120-0256b4ceff1
+<!-- generated on 2024-06-26 13:47:12 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -39,20 +39,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="237.00" waitingTime="77.00" timeLoss="20.23" traveltime="160.00">
-        <ride waitingTime="77.00" vehicle="trip_0" depart="77.00" arrival="237.00" arrivalPos="287.60" duration="160.00" routeLength="1372.08" timeLoss="20.23"/>
+    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="240.00" waitingTime="77.00" timeLoss="22.73" traveltime="163.00">
+        <ride waitingTime="77.00" vehicle="trip_0" depart="77.00" arrival="240.00" arrivalPos="287.60" duration="163.00" routeLength="1370.28" timeLoss="22.73"/>
     </personinfo>
-    <personinfo id="p.1" depart="8.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="445.00" waitingTime="287.00" timeLoss="18.76" traveltime="158.00">
-        <ride waitingTime="287.00" vehicle="trip_0" depart="295.00" arrival="453.00" arrivalPos="287.60" duration="158.00" routeLength="1372.02" timeLoss="18.76"/>
+    <personinfo id="p.1" depart="8.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="448.00" waitingTime="286.00" timeLoss="21.24" traveltime="162.00">
+        <ride waitingTime="286.00" vehicle="trip_0" depart="294.00" arrival="456.00" arrivalPos="287.60" duration="162.00" routeLength="1370.26" timeLoss="21.24"/>
     </personinfo>
-    <personinfo id="p.2" depart="15.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="678.00" waitingTime="520.00" timeLoss="18.30" traveltime="158.00">
-        <ride waitingTime="520.00" vehicle="trip_0" depart="535.00" arrival="693.00" arrivalPos="287.60" duration="158.00" routeLength="1372.03" timeLoss="18.30"/>
+    <personinfo id="p.2" depart="15.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="681.00" waitingTime="519.00" timeLoss="21.72" traveltime="162.00">
+        <ride waitingTime="519.00" vehicle="trip_0" depart="534.00" arrival="696.00" arrivalPos="287.60" duration="162.00" routeLength="1370.24" timeLoss="21.72"/>
     </personinfo>
-    <personinfo id="p.3" depart="23.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="911.00" waitingTime="751.00" timeLoss="20.21" traveltime="160.00">
-        <ride waitingTime="751.00" vehicle="trip_0" depart="774.00" arrival="934.00" arrivalPos="287.60" duration="160.00" routeLength="1372.10" timeLoss="20.21"/>
+    <personinfo id="p.3" depart="23.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="913.00" waitingTime="752.00" timeLoss="20.71" traveltime="161.00">
+        <ride waitingTime="752.00" vehicle="trip_0" depart="775.00" arrival="936.00" arrivalPos="287.60" duration="161.00" routeLength="1370.25" timeLoss="20.71"/>
     </personinfo>
 </tripinfos>

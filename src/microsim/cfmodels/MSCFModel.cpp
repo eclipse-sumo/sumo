@@ -893,7 +893,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double curren
                 return 0.;
             }
         }
-        // In general we solve g = v0^2/(-2a), where the the rhs is the distance
+        // In general we solve g = v0^2/(-2a), where the rhs is the distance
         // covered until stop when breaking with a<0
         const double a = -v0 * v0 / (2 * g);
         return v0 + a * TS;

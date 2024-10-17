@@ -22,12 +22,13 @@
 #include <config.h>
 
 #include <utils/common/WrappingCommand.h>
+#include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include "MSVehicleDevice.h"
 
 
 #define DEFAULT_SOC_INTERVAL 0.1
 #define DEFAULT_ENERGY_PER_DISTANCE 200 // Wh/km
-#define DEFAULT_AVG_WAITING_TIME 900 // s
+#define DEFAULT_AVG_WAITING_TIME 900. // s
 #define DEFAULT_CHARGINGSTATION_VIEW_DIST 10 // m
 #define DEFAULT_CONSUMPTION_ESTIMATE_HISTORY 10 // s
 
@@ -51,13 +52,19 @@ class MSStoppingPlace;
  *
  * @see MSDevice
  */
-class MSDevice_StationFinder : public MSVehicleDevice {
+class MSDevice_StationFinder : public MSVehicleDevice, MSStoppingPlaceRerouter {
 public:
     enum ChargeType {
         CHARGETYPE_CHARGING,
         CHARGETYPE_BIDIRECTIONAL,
         CHARGETYPE_BATTERYEXCHANGE,
         CHARGETYPE_FUEL
+    };
+
+    enum ChargingStrategy {
+        CHARGINGSTRATEGY_NONE,
+        CHARGINGSTRATEGY_BALANCED,
+        CHARGINGSTRATEGY_LATEST
     };
 
     enum RescueAction {
@@ -94,9 +101,6 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-
-    static void initRescueAction(const SUMOVehicle& v, const OptionsCont& oc, const std::string& option, RescueAction& myAction);
-
 public:
     /** @brief Constructor
      *
@@ -124,7 +128,7 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see PollutantsInterface
         */
-    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) override;
 
     /** @brief Computes idling emission values and adds them to the emission sums
         *
@@ -135,13 +139,24 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see PollutantsInterface
         */
-    bool notifyIdle(SUMOTrafficObject& veh);
+    bool notifyIdle(SUMOTrafficObject& veh) override;
 
     /// @}
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "stationfinder";
+    }
+
+    /// @brief return the string representation of the chosen charging strategy
+    const std::string getChargingStrategy() const {
+        if (myChargingStrategy == CHARGINGSTRATEGY_NONE) {
+            return "none";
+        } else if (myChargingStrategy == CHARGINGSTRATEGY_BALANCED) {
+            return "balanced";
+        } else {
+            return "latest";
+        }
     }
 
     /** @brief Called on writing tripinfo output
@@ -150,14 +165,72 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::tripInfoOutput
      */
-    void generateOutput(OutputDevice* tripinfoOut) const;
+    void generateOutput(OutputDevice* tripinfoOut) const override;
 
     void setBattery(MSDevice_Battery* battery) {
         myBattery = battery;
     }
 
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
+    /** @brief Compute some custom target function components
+     *
+     * @param[in] veh the concerned vehicle
+     * @param[in] brakeGap the distance before which the vehicle cannot stop
+     * @param[in] newDestination whether the destination changed
+     * @param[in] alternative the stopping place to evaluate
+     * @param[in] occupancy occupancy of the stopping place
+     * @param[in] router the router to use for evaluation if needed
+     * @param[in,out] stoppingPlaceValues the data structure to write the evaluation values to
+     * @param[in] newRoute the complete route to the destination passing by the stopping place
+     * @param[in] stoppingPlaceApproach the route to the stopping place
+     * @param[in] maxValues the maximum values of the components
+     * @param[in] addInput external input data
+     * @return false if the stopping place cannot be used according to the custom evaluation components
+     */
+    bool evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination,
+                                  MSStoppingPlace* alternative, double occupancy, double prob,
+                                  SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues,
+                                  ConstMSEdgeVector& newRoute,
+                                  ConstMSEdgeVector& stoppingPlaceApproach,
+                                  StoppingPlaceParamMap_t& maxValues,
+                                  StoppingPlaceParamMap_t& addInput) override;
+
+    /// @brief Whether the stopping place should be discarded due to its results from the component evaluation
+    bool validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues) override;
+
+    /// @brief Whether the stopping place should be included in the search (can be used to add an additional filter)
+    bool useStoppingPlace(MSStoppingPlace* stoppingPlace) override;
+
+    /// @brief Provide the router to use (MSNet::getRouterTT or MSRoutingEngine)
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited) override;
+
+    /// @brief Return the number of occupied places of the StoppingPlace
+    double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) override;
+
+    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) override;
+
+    /// @brief Return the number of places the StoppingPlace provides
+    double getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) override;
+
+    /// @brief store the blocked stopping place in the vehicle
+    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked) override;
+
+    /// @brief store the stopping place score in the vehicle
+    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score) override;
+
+    /// @brief forget all stopping place score for this vehicle
+    void resetStoppingPlaceScores(SUMOVehicle& veh) override;
+
+    /// @brief ask the vehicle when it has seen the stopping place
+    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) override;
+
+    /// @brief ask how many times already the vehicle has been rerouted to another stopping place
+    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh) override;
+
+    /// @brief update the number of reroutes for the vehicle
+    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value) override;
 
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
@@ -170,19 +243,21 @@ protected:
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
-                            const double meanLengthOnLane);
+                            const double meanLengthOnLane) override;
 
 private:
     /** @brief central search function for close charging stations
      *
      * @param[in] router
      * @param[in] expectedConsumption
+     * @param[in,out] scores additional input for score computation and scores of the best charging station
      * @param[in] constrainTT whether to constrain the search radius by a maximum travel time
      * @param[in] skipVisited whether to skip charging stations which have not been available when passing by recently
      * @param[in] skipOccupied whether to skip fully occupied charging stations
      * @return The found charging station, otherwise nullptr
      */
-    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
+    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, StoppingPlaceParamMap_t& scores, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
+
 
     /** @brief reroute to a charging station
      *
@@ -221,6 +296,18 @@ private:
      */
     void initRescueCommand();
 
+    /** @brief create the event command for changing charging rates
+     */
+    void initChargeLimitCommand();
+
+    /** @brief update the maximum charge rate of the battery to simulate charging strategies
+     */
+    SUMOTime updateChargeLimit(const SUMOTime currentTime);
+
+    /** @brief
+     */
+    void implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge, const MSChargingStation* cs);
+
 private:
     /// @brief myHolder cast to needed type
     MSVehicle& myVeh;
@@ -234,8 +321,11 @@ private:
     /// @brief The command responsible for rescue actions
     WrappingCommand<MSDevice_StationFinder>* myRescueCommand;
 
-    /// @brief The memory of lastly visited charging stations during the search before being able to charge
-    std::vector<MSChargingStation*> myPassedChargingStations;
+    /// @brief The command responsible for limiting the charging rate (~ implement charging strategies)
+    WrappingCommand<MSDevice_StationFinder>* myChargeLimitCommand;
+
+    /// @brief The next charging rates to set via myChargingRateCommand
+    std::vector<std::pair<SUMOTime, double>> myChargeLimits;
 
     /// @brief Last time the SoC was checked
     SUMOTime myLastChargeCheck;
@@ -282,8 +372,17 @@ private:
     /// @brief The state of charge at which the vehicle starts looking for charging stations
     double mySearchSoC;
 
+    /// @brief The share of stopping time a charging stop should take from the next regulr (non-charging) stop under certain conditions
+    double myReplacePlannedStop;
+
+    /// @brief The distance in meters to the original stop replaced by the charging stop (models charging close to the activity location)
+    double myDistanceToOriginalStop;
+
     /// @brief The type of charging permitted by the battery (charging, bidirectional, battery exchange)
     ChargeType myChargeType;
+
+    /// @brief The chosen charging strategy
+    ChargingStrategy myChargingStrategy;
 
     /// @brief What to do when the state of charge gets very low
     RescueAction myRescueAction;

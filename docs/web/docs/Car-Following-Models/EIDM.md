@@ -28,6 +28,9 @@ The aim of the model is to correctly replicate submicroscopic acceleration profi
 !!! caution
     The model was not tested with option **--step-method.ballistic**. The author recommends to lower the step length to increase the realism of positional updates instead.
 
+!!! caution
+    The model is not compatible with the [actionSteps](../Car-Following-Models.md#actionsteplength) feature.
+ 
 ## References
 
 1. ["Extending the Intelligent Driver Model in SUMO and Verifying the Drive Off Trajectories with Aerial Measurements"](https://sumo.dlr.de/2020/SUMO2020_paper_28.pdf);

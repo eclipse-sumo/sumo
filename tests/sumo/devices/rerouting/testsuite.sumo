@@ -1,4 +1,4 @@
-# load trips specified with coordinates 
+# load trips specified with coordinates
 trips_geo
 
 # tests for using plain inserted vehicles, all sharing the same base route (should be replaced)
@@ -46,3 +46,6 @@ disconnected
 
 # faulty routes with a single edge
 single_edge
+
+# testing the person rerouting device
+person

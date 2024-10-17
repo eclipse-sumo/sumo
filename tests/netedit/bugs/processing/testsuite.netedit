@@ -1,8 +1,0 @@
-# crash when activating 'join-junctions' and triggering recomputation
-ticket2327
-
-# crash when activating 'join-junctions' and the results node has the same position as other
-ticket3071
-
-# user-defined connections at nearby junction are affected when joining even though the junction itself it is not affected by the join
-ticket3994

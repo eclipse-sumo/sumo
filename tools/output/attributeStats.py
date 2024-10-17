@@ -30,7 +30,7 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
-    from sumolib.xml import _open, parse_fast
+    from sumolib.xml import parse_fast
     from sumolib.miscutils import Statistics, humanReadableTime
     from sumolib.statistics import setPrecision, identity
 else:
@@ -113,17 +113,18 @@ def main():
             for datafile in options.datafiles:
                 defaultID = None if len(options.datafiles) == 1 else datafile
 
-                for _, node in ET.iterparse(_open(datafile, None)):
-                    if options.element is not None and node.tag not in options.element:
-                        continue
-                    elementID = node.get(options.idAttr, defaultID)
-                    if options.attribute is None:
-                        for k, v in node.items():
-                            if k != options.idAttr:
-                                yield node.tag, k, v, elementID
-                    else:
-                        for attr in options.attribute:
-                            yield node.tag, attr, node.get(attr), elementID
+                with sumolib.openz(datafile, 'rb') as f:
+                    for _, node in ET.iterparse(f):
+                        if options.element is not None and node.tag not in options.element:
+                            continue
+                        elementID = node.get(options.idAttr, defaultID)
+                        if options.attribute is None:
+                            for k, v in node.items():
+                                if k != options.idAttr:
+                                    yield node.tag, k, v, elementID
+                        else:
+                            for attr in options.attribute:
+                                yield node.tag, attr, node.get(attr), elementID
 
     for tag, attr, stringVal, elementID in elements():
         if stringVal is not None:

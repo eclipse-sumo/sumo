@@ -39,25 +39,20 @@ class GNEVehicle;
 class GNERide : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for rides
-     * @param[in] net Network in which this rides is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromBusStop from busStop
-     * @param[in] fromTrainStop from trainStop
-     * @param[in] toEdge to edge
-     * @param[in] toBusStop to busStop
-     * @param[in] toTrainStop to trainStop
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] lines list of lines
-     */
-    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent,
-                              GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                              GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-                              double arrivalPosition, const std::vector<std::string>& lines);
-
     /// @brief default constructor
     GNERide(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildRide
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] planParameters plan parameters
+     * @param[in] lines list of lines
+     * @param[in] group group
+     */
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+            const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor
     ~GNERide();
@@ -214,6 +209,9 @@ protected:
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
+    /// @brief group
+    std::string myGroup;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -223,18 +221,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildRide
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
-     * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
-     * @param[in] lines list of lines
-     */
-    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-            const std::vector<GNEAdditional*>& additionals, double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;

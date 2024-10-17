@@ -31,6 +31,7 @@
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
 #include <microsim/MSRouterDefs.h>
+#include <microsim/MSVehicleType.h>
 #include "MSStage.h"
 
 
@@ -41,7 +42,6 @@ class MSEdge;
 class MSLane;
 class MSNet;
 class MSStoppingPlace;
-class MSVehicleType;
 class OutputDevice;
 class SUMOVehicleParameter;
 class SUMOVehicle;
@@ -143,6 +143,13 @@ public:
 
     inline const MSVehicleType& getVehicleType() const {
         return *myVType;
+    }
+
+    /** @brief Returns the object's "vehicle" type parameter
+     * @return The object's type parameter
+     */
+    inline const SUMOVTypeParameter& getVTypeParameter() const {
+        return myVType->getParameter();
     }
 
     /// @brief returns the associated RNG
@@ -332,6 +339,8 @@ public:
     const MSEdge* getRerouteDestination() const  {
         return getArrivalEdge();
     }
+
+    bool reroute(SUMOTime t, const std::string& info, MSTransportableRouter& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
 
     /// Replaces the current route by the given one
     bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);

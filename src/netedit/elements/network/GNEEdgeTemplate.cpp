@@ -135,6 +135,12 @@ GNEEdgeTemplate::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNEEdgeTemplate::getAttributePositionVector(SumoXMLAttr key) const {
+    return myEdge->getAttributePositionVector(key);
+}
+
+
 void
 GNEEdgeTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("cannot be called in templates");

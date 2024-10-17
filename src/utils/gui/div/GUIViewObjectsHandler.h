@@ -28,6 +28,7 @@
 // class declaration
 // ===========================================================================
 
+class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNERoute;
@@ -84,32 +85,34 @@ public:
     bool isElementSelected(const GUIGlObject* GLObject) const;
 
     /// @brief check boundary parent element
-    bool checkBoundaryParentElement(const GUIGlObject* GLObject, const GUIGlObject* parent);
+    bool checkBoundaryParentElement(const GUIGlObject* GLObject, const GUIGlObject* parent, const double layer);
 
     /// @brief check if mouse is within elements geometry (for circles)
     bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const Position& center, const double radius, const Boundary& circleBoundary);
+                            const Position& center, const double radius, const Boundary& circleBoundary,
+                            const double layer);
 
     /// @brief check if mouse is within geometry point
     bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const PositionVector& shape, const int index, const double radius);
+                            const PositionVector& shape, const int index, const double layer, const double radius);
 
     /// @brief check if mouse is within geometry point
     bool checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                const PositionVector& shape, const double distance);
+                                const PositionVector& shape, const double layer, const double distance);
 
     /// @brief check (closed) shape element
     bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector& shape,
-                           const Boundary& shapeBoundary);
+                           const Boundary& shapeBoundary, const double layer);
 
     /// @brief add element into list of elements under cursor
-    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);
+    bool addElementUnderCursor(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
+                               const bool fullBoundary);
 
     /// @brief add geometryPoint into list of elements under cursor
-    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
+    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex, const double layer);
 
     /// @brief add position over shape
-    bool addPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double offset);
+    bool addPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double layer, const double offset);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;
@@ -125,6 +128,12 @@ public:
 
     /// @brief isolate edge geometry points (used for moving)
     void isolateEdgeGeometryPoints();
+
+    /// @brief get merging junctions
+    const std::vector<const GNEJunction*>& getMergingJunctions() const;
+
+    /// @brief add to merging junctions (used for marking junctions to merge)
+    bool addMergingJunctions(const GNEJunction* junction);
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -165,6 +174,9 @@ protected:
 
     /// @brief empty geometry points
     std::vector<int> myEmptyGeometryPoints;
+
+    /// @brief merging junctions
+    std::vector<const GNEJunction*> myMergingJunctions;
 
 private:
     /// @brief set copy constructor private

@@ -42,10 +42,12 @@ class MSPerson;
 class MSStop;
 class MSTransportable;
 class MSParkingArea;
+class MSChargingStation;
 class MSStoppingPlace;
 class MSVehicleDevice;
 class SUMOSAXAttributes;
 class EnergyParams;
+class PositionVector;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -331,6 +333,9 @@ public:
     */
     virtual MSStop& getNextStop() = 0;
 
+    /// @brief mark vehicle as active
+    virtual void unregisterWaiting() = 0;
+
     /** @brief Returns parameters of the next stop or nullptr **/
     virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
 
@@ -362,14 +367,24 @@ public:
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 
+    virtual SUMOTime getLastActionTime() const = 0;
+
+    /// @brief get bounding rectangle
+    virtual PositionVector getBoundingBox(double offset = 0) const = 0;
+
     /// @name parking memory io
     //@{
-    virtual void rememberBlockedParkingArea(const MSParkingArea* pa, bool local) = 0;
-    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const = 0;
-    virtual void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) = 0;
+    virtual void rememberBlockedParkingArea(const MSStoppingPlace* pa, bool local) = 0;
+    virtual SUMOTime sawBlockedParkingArea(const MSStoppingPlace* pa, bool local) const = 0;
+    virtual void rememberParkingAreaScore(const MSStoppingPlace* pa, const std::string& score) = 0;
     virtual void resetParkingAreaScores() = 0;
     virtual int getNumberParkingReroutes() const = 0;
     virtual void setNumberParkingReroutes(int value) = 0;
+
+    virtual void rememberBlockedChargingStation(const MSStoppingPlace* cs, bool local) = 0;
+    virtual SUMOTime sawBlockedChargingStation(const MSStoppingPlace* cs, bool local) const = 0;
+    virtual void rememberChargingStationScore(const MSStoppingPlace* cs, const std::string& score) = 0;
+    virtual void resetChargingStationScores() = 0;
     //@}
 
     /// @name state io

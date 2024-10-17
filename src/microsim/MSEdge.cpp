@@ -166,8 +166,13 @@ void MSEdge::recalcCache() {
     } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
-            myEmptyTraveltime += MSGlobals::gMinorPenalty;
-            myTimePenalty = MSGlobals::gMinorPenalty;
+            if (link->isTurnaround()) {
+                myEmptyTraveltime += MSGlobals::gTurnaroundPenalty;
+                myTimePenalty = MSGlobals::gTurnaroundPenalty;
+            } else {
+                myEmptyTraveltime += MSGlobals::gMinorPenalty;
+                myTimePenalty = MSGlobals::gMinorPenalty;
+            }
         }
     }
 }
@@ -654,12 +659,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
         }
         case DepartLaneDefinition::DEFAULT:
         case DepartLaneDefinition::FIRST_ALLOWED:
-            for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-                if ((*i)->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
-                    return *i;
-                }
-            }
-            return nullptr;
+            return getFirstAllowed(veh.getVehicleType().getVehicleClass());
         default:
             break;
     }
@@ -668,6 +668,18 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
     }
     return (*myLanes)[0];
 }
+
+
+MSLane*
+MSEdge::getFirstAllowed(SUMOVehicleClass vClass, bool defaultFirst) const {
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        if ((*i)->allowsVehicleClass(vClass)) {
+            return *i;
+        }
+    }
+    return defaultFirst && !myLanes->empty() ? myLanes->front() : nullptr;
+}
+
 
 bool
 MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
@@ -690,7 +702,7 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
                 if (pars.departSpeed > vMax) {
                     const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
                     if (speedFactorParams[1] > 0.) {
-                        v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
+                        v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / MIN2(getSpeedLimit(), type.getDesiredMaxSpeed() - SPEED_EPS)));
                         if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
                             // only warn for significant deviation
                             WRITE_WARNINGF(TL("Choosing new speed factor % for vehicle '%' to match departure speed % (max %)."),
@@ -1294,6 +1306,20 @@ MSEdge::hasMinorLink() const {
     return false;
 }
 
+bool
+MSEdge::hasChangeProhibitions(SUMOVehicleClass svc, int index) const {
+    if (myLanes->size() == 1) {
+        return false;
+    }
+    for (const MSLane* const l : *myLanes) {
+        if (l->getIndex() <= index && !l->allowsChangingRight(svc) && l->getIndex() > 0) {
+            return true;
+        } else if (l->getIndex() >= index && !l->allowsChangingLeft(svc) && l->getIndex() < (int)(myLanes->size() - 1)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void
 MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
@@ -1432,6 +1458,23 @@ MSEdge::getVehicles() const {
     return result;
 }
 
+int
+MSEdge::getNumDrivingLanes() const {
+    int result = 0;
+    SVCPermissions filter = SVCAll;
+    if ((myCombinedPermissions & ~(SVC_PEDESTRIAN | SVC_WHEELCHAIR)) != 0) {
+        filter = ~(SVC_PEDESTRIAN | SVC_WHEELCHAIR);
+    } else if ((myCombinedPermissions & (SVC_PEDESTRIAN | SVC_WHEELCHAIR)) != 0) {
+        // filter out green verge
+        filter = (SVC_PEDESTRIAN | SVC_WHEELCHAIR);
+    }
+    for (const MSLane* const l : *myLanes) {
+        if ((l->getPermissions() & filter) != 0) {
+            result++;
+        }
+    }
+    return result;
+}
 
 int
 MSEdge::getVehicleNumber() const {

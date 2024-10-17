@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-28 17:19:42 by Eclipse SUMO sumo Version v1_14_1+13064-fb1593760f2
+<!-- generated on 2024-09-26 10:41:13 by Eclipse SUMO sumo Version v1_14_1+14996-47cf6512255
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -41,9 +41,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.stationfinder.probability value="1"/>
     </battery>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="veh_tow" depart="5.00" departLane="D1D2_0" departPos="280.00" departSpeed="13.89" departDelay="0.00" arrival="180.00" arrivalLane="C2B2_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="175.00" routeLength="1748.60" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="11.85" rerouteNo="2" devices="tripinfo_veh_tow stationfinder_veh_tow battery_veh_tow" vType="ElectricVehicle1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="veh_tow" depart="5.00" departLane="D1D2_0" departPos="280.00" departSpeed="13.89" departDelay="0.00" arrival="180.00" arrivalLane="C2B2_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="175.00" routeLength="1748.60" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="11.85" rerouteNo="2" devices="tripinfo_veh_tow stationfinder_veh_tow battery_veh_tow" vType="ElectricVehicle1" speedFactor="1.00" vaporized="">
+        <battery depleted="0"/>
+    </tripinfo>
 </tripinfos>

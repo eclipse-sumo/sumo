@@ -107,6 +107,9 @@ public:
     /// @brief called to update state for parking vehicles
     void notifyParking();
 
+    /// @brief Called on vehicle deletion to extend tripinfo
+    void generateOutput(OutputDevice* tripinfoOut) const;
+
 private:
     /** @brief Constructor
     *
@@ -140,6 +143,9 @@ public:
 
     /// @brief Get charging start time.
     SUMOTime getChargingStartTime() const;
+
+    /// @brief Estimate the charging duration given the current battery state
+    SUMOTime estimateChargingDuration(const double toCharge, const double csPower) const;
 
     /// @brief Get consum
     double getConsum() const;
@@ -177,6 +183,9 @@ public:
     /// @brief Set vehicle's stopping threshold
     void setMaximumChargeRate(const double chargeRate);
 
+    /// @brief Set (temporary) charge limit
+    void setChargeLimit(const double limit);
+
     /// @brief Reset charging start time
     void resetChargingStartTime();
 
@@ -204,6 +213,9 @@ protected:
 
     /// @brief Parameter, maximum charge rate in W
     double myMaximumChargeRate;
+
+    /// @brief (Temporary) limitation in W of the maximum charge rate = charging strategy result
+    double myChargeLimit;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;
@@ -241,8 +253,12 @@ protected:
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
 
+    /// @brief Count how many times the vehicle experienced a depleted battery
+    int myDepletedCount;
+
     /// @brief whether to track fuel consumption instead of electricity
     bool myTrackFuel;
+
 
 private:
     /// @brief Invalidated copy constructor.

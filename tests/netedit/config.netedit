@@ -5,41 +5,70 @@ virtual_display_wm_executable:fluxbox
 virtual_display_extra_args:-dpi 100 -shmem
 
 copy_test_path:test.py
+
+copy_test_path:gui-settings.xml
+
 copy_test_path:netedit.netecfg
-copy_test_path:net.net.xml
-copy_test_path:net.netccfg
-copy_test_path:net.net.xml
+copy_test_path:sumo.sumocfg
+copy_test_path:netccfg.netecfg
+
+copy_test_path:netedit_open.netecfg
+copy_test_path:sumo_open.sumocfg
+copy_test_path:netccfg_open.netecfg
+
 copy_test_path:net.con.xml
 copy_test_path:net.edg.xml
 copy_test_path:net.nod.xml
 copy_test_path:net.tll.xml
 copy_test_path:net.net.xml
-copy_test_path:net_loadedmanually.net.xml
-copy_test_path:netedit_loadedmanually.netecfg
-copy_test_path:sumo_loadedmanually.sumocfg
+
+copy_test_path:sumo.con.xml
+copy_test_path:sumo.edg.xml
+copy_test_path:sumo.nod.xml
+copy_test_path:sumo.tll.xml
+copy_test_path:sumo.net.xml
+
+copy_test_path:netccfg.con.xml
+copy_test_path:netccfg.edg.xml
+copy_test_path:netccfg.nod.xml
+copy_test_path:netccfg.tll.xml
+copy_test_path:netccfg.net.xml
+
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
 copy_test_path:vtypes.rou.xml
 copy_test_path:datas.dat.xml
-copy_test_path:gui-settings.xml
+
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
 copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
-copy_test_path:sumo.sumocfg
-copy_test_path:errorScreenshot.png
+copy_test_path:loadViewport.xml
 
 [collate_file]
+
+sumoConfigAs:saveConfigAs.netecfg
+neteditConfigAs:saveConfigAs.sumo
+
 net:net.net.xml
-net:netedit.net.xml
-net:net_loadedmanually.net.xml
-configmanually:netedit_savedmanually.netecfg
-configmanually:sumo_savedmanually.sumocfg
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
+
+sumonet:sumo.net.xml
+sumocon:sumo.con.xml
+sumoedg:sumo.edg.xml
+sumonod:sumo.nod.xml
+sumotll:sumo.tll.xml
+
+netccfgnet:netccfg.net.xml
+netccfgcon:netccfg.con.xml
+netccfgedg:netccfg.edg.xml
+netccfgnod:netccfg.nod.xml
+netccfgtll:netccfg.tll.xml
+
 additionals:additionals.add.xml
 additionals:netedit.add.xml
 routes:routes.rou.xml
@@ -53,6 +82,7 @@ cfg:config.cfg
 log:log.txt
 selection:selection.txt
 errorScreenshot:errorScreenshot.png
+viewport:viewport.xml
 
 [run_dependent_text]
 net:<!--{[->]}-->
@@ -70,6 +100,7 @@ netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
+neteconfig:<!--{[->]}-->
 output:\[log\]
 output:\[info\]
 output:+++
@@ -78,7 +109,7 @@ output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
 guisettingsoutput:<scheme{[->]}</scheme>
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:java{LINES 1}

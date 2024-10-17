@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 17:17:55 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+<!-- generated on 2024-06-26 13:47:12 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -39,16 +39,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="4.99" parking="0" started="47.00" ended="77.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="198.00" ended="240.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="5.00" parking="0" started="265.00" ended="295.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="414.00" ended="480.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="5.00" parking="0" started="505.00" ended="535.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="654.00" ended="720.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="4.97" parking="0" started="744.00" ended="774.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="895.00" ended="-1" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="201.00" ended="240.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="4.98" parking="0" started="264.00" ended="294.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="417.00" ended="480.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="4.99" parking="0" started="504.00" ended="534.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="657.00" ended="720.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="B2C2_1" pos="5.00" parking="0" started="745.00" ended="775.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.60" parking="0" started="897.00" ended="-1" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

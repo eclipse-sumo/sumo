@@ -109,22 +109,17 @@ public:
     virtual void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters) = 0;
 
     /// @brief build person trip
-    virtual void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                                 const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                                 const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                                 double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) = 0;
+    virtual void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                                 const double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                                 const std::vector<std::string>& lines, const double walkFactor, const std::string& group) = 0;
 
     /// @brief build walk
-    virtual void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                           const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                           const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                           const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos) = 0;
+    virtual void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                           const double arrivalPos, const double speed, const SUMOTime duration) = 0;
 
     /// @brief build ride
-    virtual void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                           const std::string& fromEdgeID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                           const std::string& toEdgeID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                           double arrivalPos, const std::vector<std::string>& lines) = 0;
+    virtual void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                           const double arrivalPos, const std::vector<std::string>& lines, const std::string& group) = 0;
 
     /// @brief build container
     virtual void buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters) = 0;
@@ -133,16 +128,16 @@ public:
     virtual void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters) = 0;
 
     /// @brief build transport
-    virtual void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                                const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) = 0;
+    virtual void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                                const double arrivalPos, const std::vector<std::string>& lines, const std::string& group) = 0;
 
     /// @brief build tranship
-    virtual void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                               const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
-                               const double departPosition, const double arrivalPosition) = 0;
+    virtual void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                               const double arrivalPosition, const double departPosition, const double speed, const SUMOTime duration) = 0;
 
     /// @brief build stop
-    virtual void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) = 0;
+    virtual void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                           const SUMOVehicleParameter::Stop& stopParameters) = 0;
 
     /// @}
 
