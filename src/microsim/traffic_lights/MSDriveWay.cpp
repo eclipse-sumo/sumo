@@ -61,7 +61,7 @@
 //#define DEBUG_HELPER(obj) (true)
 
 //#define DEBUG_COND_DW (dw->myNumericalID == 5)
-#define DEBUG_COND_DW (true)
+#define DEBUG_COND_DW (false)
 
 // ===========================================================================
 // static value definitions
@@ -280,7 +280,7 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
                         std::cout << "     no overlap\n";
                     } else if (!isFoeOrSubFoe(&foeDriveWay)) {
                         std::cout << "     foeDW=" << foeDriveWay.getID() << " is not a foe to " << getID() << "\n";
-                    } else if (canUseSiding(veh.first, &foeDriveWay)) {
+                    } else if (canUseSiding(veh.first, &foeDriveWay).first) {
                         std::cout << "     use siding\n";
                     }
                 }
@@ -461,7 +461,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     if (it != mySidings.end()) {
                         numSidings = it->second.size();
                     }
-                    std::cout << "  useSiding=" << useSiding << " numSidings=" << numSidings << "\n";
+                    std::cout << "  useSiding=" << useSiding.first << " sidingFoe=" << Named::getIDSecure(useSiding.second) << " numSidings=" << numSidings << "\n";
                 }
 #endif
             if (useSiding.first) {
