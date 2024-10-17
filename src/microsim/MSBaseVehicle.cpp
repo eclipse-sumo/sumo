@@ -1414,16 +1414,17 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                        + " earlier than previous stop arrival at " + time2string(iter2->pars.arrival) + ".";
         }
     } else {
-        if (stop.getUntil() >= 0 && getParameter().depart > stop.getUntil()) {
+        if (stop.getUntil() >= 0 && getParameter().depart > stop.getUntil()
+                && (!MSGlobals::gUseStopEnded || stop.pars.ended < 0)) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
                        + "' set to end at " + time2string(stop.getUntil())
                        + " earlier than departure at " + time2string(getParameter().depart) + ".";
         }
     }
-    if (stop.getUntil() >= 0 && stop.pars.arrival > stop.getUntil() && errorMsg == "") {
+    if (stop.getUntil() >= 0 && stop.getArrival() > stop.getUntil() && errorMsg == "") {
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
                    + "' set to end at " + time2string(stop.getUntil())
-                   + " earlier than arrival at " + time2string(stop.pars.arrival) + ".";
+                   + " earlier than arrival at " + time2string(stop.getArrival()) + ".";
     }
     setSkips(stop, (int)myStops.size());
     myStops.insert(iter, stop);
