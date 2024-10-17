@@ -300,6 +300,8 @@ protected:
 
     void addSwitchFoes(MSLink* link);
 
+    bool haveSubTrains() const;
+
     static bool hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe);
 
     static bool isSwitch(const MSLink* link);

@@ -1887,13 +1887,26 @@ MSDriveWay::saveState(OutputDevice& out) {
 
 void
 MSDriveWay::_saveState(OutputDevice& out) const {
-    if (!myTrains.empty()) {
+    if (!myTrains.empty() || haveSubTrains()) {
         out.openTag(myIsSubDriveway ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
         out.writeAttr(SUMO_ATTR_ID, getID());
         out.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
-        out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+        if (!myTrains.empty()) {
+            out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+        }
         out.closeTag();
     }
+}
+
+
+bool
+MSDriveWay::haveSubTrains() const {
+    for (MSDriveWay* sub : mySubDriveWays) {
+        if (!sub->myTrains.empty()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void
@@ -1917,6 +1930,8 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
     if (tag == SUMO_TAG_DRIVEWAY) {
         auto it = myDriveWayRouteLookup.find(route);
         if (it == myDriveWayRouteLookup.end()) {
+            //WRITE_WARNING(TLF("Unknown driveWay '%' with route '%'", id, edges));
+            //return;
             throw ProcessError(TLF("Unknown driveWay '%' with route '%'", id, edges));
         }
         dw = it->second;
@@ -1925,6 +1940,8 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
         std::string parentID = id.substr(0, id.rfind('.'));
         auto it = myDriveWayLookup.find(parentID);
         if (it == myDriveWayLookup.end()) {
+            //WRITE_WARNING(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
+            //return;
             throw ProcessError(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
         }
         MSDriveWay* parent = it->second;
@@ -1940,7 +1957,7 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
             return;
         }
     }
-    const std::string vehicles = attrs.get<std::string>(SUMO_ATTR_VEHICLES, id.c_str(), ok);
+    const std::string vehicles = attrs.getOpt<std::string>(SUMO_ATTR_VEHICLES, id.c_str(), ok, "");
     for (const std::string& vehID : StringTokenizer(vehicles).getVector()) {
         MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(c.getVehicle(vehID));
         if (veh == nullptr) {
