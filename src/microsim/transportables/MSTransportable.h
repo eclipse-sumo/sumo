@@ -187,6 +187,10 @@ public:
         return (*myStep)->getLane();
     }
 
+    const MSLane* getBackLane() const {
+        return getLane();
+    }
+
     /// @brief Returns the departure edge
     const MSEdge* getFromEdge() const {
         return (*myStep)->getFromEdge();

@@ -64,6 +64,7 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/devices/MSDevice_Transportable.h>
@@ -104,6 +105,7 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
+//#define DEBUG_MOVEREMINDERS
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -2276,6 +2278,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
     bool foundRailSignal = !isRailway(getVClass());
+    bool planningToStop = false;
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].start();
 #endif
@@ -2572,10 +2575,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     newStopDist = stopDist;
                     // if the vehicle is going to stop we don't need to look further
                     // (except for trains that make use of further link-approach registration for safety purposes)
-                    if (!isWaypoint && !isRailway(getVClass())) {
-                        lfLinks.emplace_back(v, stopDist);
-                        foundRealStop = true;
-                        break;
+                    if (!isWaypoint) {
+                        planningToStop = true;
+                        if (!isRailway(getVClass())) {
+                            lfLinks.emplace_back(v, stopDist);
+                            foundRealStop = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -2897,7 +2903,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
         double arrivalSpeedBraking = 0;
         const double bGap = cfModel.brakeGap(v);
-        if (seen < bGap && !isStopped()) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
+        if (seen < bGap && !isStopped() && !planningToStop) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
             // vehicle cannot come to a complete stop in time
             if (MSGlobals::gSemiImplicitEulerUpdate) {
                 arrivalSpeedBraking = cfModel.getMinimalArrivalSpeedEuler(seen, v);
@@ -4647,6 +4653,14 @@ MSVehicle::executeMove() {
         }
 #endif
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
+        if (passedLanes.size() > 1 && isRailway(getVClass())) {
+            for (auto pi = passedLanes.rbegin(); pi != passedLanes.rend(); ++pi) {
+                MSLane* pLane = *pi;
+                if (pLane != myLane && std::find(myFurtherLanes.begin(), myFurtherLanes.end(), pLane) == myFurtherLanes.end()) {
+                    leaveLaneBack(MSMoveReminder::NOTIFICATION_JUNCTION, *pi);
+                }
+            }
+        }
         // bestLanes need to be updated before lane changing starts. NOTE: This call is also a presumption for updateDriveItems()
         updateBestLanes();
         if (myLane != oldLane || oldBackLane != getBackLane()) {
@@ -5328,6 +5342,13 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                                        dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance, getLateralPositionOnLane());
         }
     }
+    if (isRailway(getVClass())) {
+        for (DriveProcessItem& dpi : myLFLinkLanes) {
+            if (dpi.myLink != nullptr && dpi.myLink->getTLLogic() != nullptr && dpi.myLink->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
+                MSRailSignalControl::getInstance().notifyApproach(dpi.myLink);
+            }
+        }
+    }
     if (myLaneChangeModel->getShadowLane() != nullptr) {
         // register on all shadow links
         for (const DriveProcessItem& dpi : myLFLinkLanes) {
@@ -5374,6 +5395,7 @@ MSVehicle::registerInsertionApproach(MSLink* link, double dist) {
     link->setApproaching(this, SUMOTime_MAX, 0, 0, false, arrivalSpeedBraking, 0, dpi.myDistance, 0);
     // ensure cleanup in the next step
     myLFLinkLanes.push_back(dpi);
+    MSRailSignalControl::getInstance().notifyApproach(link);
 }
 
 
@@ -5767,6 +5789,37 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
             myStopDist = std::numeric_limits<double>::max();
         }
     }
+}
+
+
+void
+MSVehicle::leaveLaneBack(const MSMoveReminder::Notification reason, const MSLane* leftLane) {
+    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+        if (rem->first->notifyLeaveBack(*this, reason, leftLane)) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyLeaveBack", rem->first, rem->second, true);
+            }
+#endif
+            ++rem;
+        } else {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyLeaveBack", rem->first, rem->second, false);
+            }
+#endif
+            rem = myMoveReminders.erase(rem);
+        }
+    }
+#ifdef DEBUG_MOVEREMINDERS
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " myReminders:";
+        for (auto rem : myMoveReminders) {
+            std::cout << rem.first->getDescription() << " ";
+        }
+        std::cout << "\n";
+    }
+#endif
 }
 
 

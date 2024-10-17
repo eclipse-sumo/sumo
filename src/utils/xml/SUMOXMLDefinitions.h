@@ -282,6 +282,11 @@ enum SumoXMLTag {
     SUMO_TAG_BIDI_PREDECESSOR,
     /// @brief Saved state for constraint tracker
     SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
+    /// @brief Saved deadlock information, also for loading as an extra check
+    SUMO_TAG_DEADLOCK,
+    /// @brief Saved driveway information
+    SUMO_TAG_DRIVEWAY,
+    SUMO_TAG_SUBDRIVEWAY,
     /// @brief Link information for state-saving
     SUMO_TAG_LINK,
     /// @brief Link-approaching vehicle information for state-saving
@@ -1474,6 +1479,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_FOES,
     /// @}
     SUMO_ATTR_CONSTRAINTS,
+    SUMO_ATTR_RAIL,
 
     SUMO_ATTR_DETECTORS,
     SUMO_ATTR_CONDITIONS,
@@ -1658,6 +1664,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ARRIVALTIMEBRAKING,
     SUMO_ATTR_ARRIVALSPEEDBRAKING,
     SUMO_ATTR_OPTIONAL,
+    SUMO_ATTR_VEHICLES,
 
     /// @name ActivityGen Tags
     /// @{

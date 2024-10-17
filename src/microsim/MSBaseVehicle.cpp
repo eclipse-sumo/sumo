@@ -45,6 +45,7 @@
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSStoppingPlaceRerouter.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
@@ -1426,6 +1427,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     }
     setSkips(stop, (int)myStops.size());
     myStops.insert(iter, stop);
+    if (stopPar.tripId != "") {
+        MSRailSignalConstraint::storeTripId(stopPar.tripId, getID());
+    }
     //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
     //    << " routeIndex=" << (stop.edge - myRoute->begin())
     //    << " stopIndex=" << std::distance(myStops.begin(), iter)

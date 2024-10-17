@@ -282,6 +282,9 @@ MSFrame::fillOptions() {
     oc.doRegister("railsignal-block-output", new Option_FileName());
     oc.addDescription("railsignal-block-output", "Output", TL("Save railsignal-blocks into FILE"));
 
+    oc.doRegister("railsignal-vehicle-output", new Option_FileName());
+    oc.addDescription("railsignal-vehicle-output", "Output", TL("Record entry and exit times of vehicles for railsignal blocks into FILE"));
+
     oc.doRegister("bt-output", new Option_FileName());
     oc.addDescription("bt-output", "Output", TL("Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"));
 
@@ -313,6 +316,9 @@ MSFrame::fillOptions() {
     oc.doRegister("statistic-output", new Option_FileName());
     oc.addSynonyme("statistic-output", "statistics-output");
     oc.addDescription("statistic-output", "Output", TL("Write overall statistics into FILE"));
+
+    oc.doRegister("deadlock-output", new Option_FileName());
+    oc.addDescription("deadlock-output", "Output", TL("Write reports on deadlocks FILE"));
 
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
@@ -434,11 +440,17 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-teleport.remove", new Option_Bool(false));
     oc.addDescription("time-to-teleport.remove", "Processing", TL("Whether vehicles shall be removed after waiting too long instead of being teleported"));
 
+    oc.doRegister("time-to-teleport.remove-constraint", new Option_Bool(false));
+    oc.addDescription("time-to-teleport.remove-constraint", "Processing", TL("Whether rail-signal-constraint based deadlocks shall be cleared by removing a constraint"));
+
     oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.ride", "Processing", TL("The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"));
 
     oc.doRegister("time-to-teleport.bidi", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.bidi", "Processing", TL("The waiting time after which vehicles on bidirectional edges are teleported"));
+
+    oc.doRegister("time-to-teleport.railsignal-deadlock", new Option_String("-1", "TIME"));
+    oc.addDescription("time-to-teleport.railsignal-deadlock", "Processing", TL("The waiting time after which vehicles in a rail-signal based deadlock are teleported"));
 
     oc.doRegister("waiting-time-memory", new Option_String("100", "TIME"));
     oc.addDescription("waiting-time-memory", "Processing", TL("Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)"));
@@ -457,6 +469,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emergency-insert", new Option_Bool(false));
     oc.addDescription("emergency-insert", "Processing", TL("Allow inserting a vehicle in a situation which requires emergency braking"));
+
+    oc.doRegister("insertion-checks", new Option_String("all"));
+    oc.addDescription("insertion-checks", "Processing", TL("Override default value for vehicle attribute insertionChecks"));
 
     oc.doRegister("random-depart-offset", new Option_String("0", "TIME"));
     oc.addDescription("random-depart-offset", "Processing", TL("Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"));
@@ -838,11 +853,13 @@ MSFrame::buildStreams() {
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
     OutputDevice::createDeviceByOption("railsignal-block-output", "railsignal-block-output");
+    OutputDevice::createDeviceByOption("railsignal-vehicle-output", "railsignal-vehicle-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
     OutputDevice::createDeviceByOption("collision-output", "collisions", "collision_file.xsd");
     OutputDevice::createDeviceByOption("statistic-output", "statistics", "statistic_file.xsd");
+    OutputDevice::createDeviceByOption("deadlock-output", "additional", "additional_file.xsd");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
@@ -1079,6 +1096,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gGridlockHighwaysSpeed = oc.getFloat("time-to-teleport.highways.min-speed");
     MSGlobals::gTimeToTeleportDisconnected = string2time(oc.getString("time-to-teleport.disconnected"));
     MSGlobals::gTimeToTeleportBidi = string2time(oc.getString("time-to-teleport.bidi"));
+    MSGlobals::gTimeToTeleportRSDeadlock = string2time(oc.getString("time-to-teleport.railsignal-deadlock"));
     MSGlobals::gRemoveGridlocked = oc.getBool("time-to-teleport.remove");
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
@@ -1099,6 +1117,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");
     MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire.recuperation");
     MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire.substation-current-limits");
+    MSGlobals::gInsertionChecks = SUMOVehicleParameter::parseInsertionChecks(oc.getString("insertion-checks"));
 
     MSLane::initCollisionOptions(oc);
 

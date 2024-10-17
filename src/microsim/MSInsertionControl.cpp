@@ -161,7 +161,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         return 1;
     }
     if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
-            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck)) {
+            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck || veh->getParameter().departProcedure == DepartDefinition::SPLIT)) {
         // Successful insertion
         return 1;
     }

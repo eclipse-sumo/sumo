@@ -90,6 +90,10 @@ gtfs_additional:gtfs_pt_stops.add.xml
 vtypes:vtypes.xml
 cfg:config.sumocfg
 aggregated:aggregated.xml
+railsignalblocks:railsignal_blocks.xml
+railsignalvehs:railsignal_vehicles.xml
+railsignalblocks2:railsignal_blocks2.xml
+railsignalvehs2:railsignal_vehicles2.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -156,6 +160,10 @@ detector:<!--{[->]}-->
 toc:<!--{[->]}-->
 toc2:<!--{[->]}-->
 tocs:<!--{[->]}-->
+railsignalblocks:<!--{[->]}-->
+railsignalvehs:<!--{[->]}-->
+railsignalblocks2:<!--{[->]}-->
+railsignalvehs2:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at
 errors:*** 9 leaks found

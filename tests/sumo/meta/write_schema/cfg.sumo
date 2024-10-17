@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-24 18:10:55 by Eclipse SUMO sumo Version v1_20_0+1406-38fbaaedfbd
+<!-- generated on 2024-10-17 10:24:49 by Eclipse SUMO sumo Version v1_21_0+0063-40d747df57b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -118,6 +118,7 @@
             <xsd:element name="personroute-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-block-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="railsignal-vehicle-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanechange-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanechange-output.started" type="boolOptionType" minOccurs="0"/>
@@ -129,6 +130,7 @@
             <xsd:element name="edgedata-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanedata-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="statistic-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="deadlock-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period.keep" type="intOptionType" minOccurs="0"/>
@@ -182,14 +184,17 @@
             <xsd:element name="time-to-teleport.highways.min-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.disconnected" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.remove" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.remove-constraint" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.ride" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.bidi" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.railsignal-deadlock" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="waiting-time-memory" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="startup-wait-threshold" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emergency-insert" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="insertion-checks" type="strOptionType" minOccurs="0"/>
             <xsd:element name="random-depart-offset" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
