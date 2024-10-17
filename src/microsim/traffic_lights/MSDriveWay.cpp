@@ -712,14 +712,14 @@ MSDriveWay::bidiBlockedByEnd(const MSDriveWay& other) const {
 }
 
 bool
-MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other) {
+MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other, bool secondCheck) {
     int i = 0;
     for (const MSEdge* edge2 : other.myRoute) {
         if (i == other.myCoreSize) {
             return false;
         }
         i++;
-        if (edge2 == myForward.front()->getNextNormal()) {
+        if (edge2 == myForward.front()->getNextNormal() && !secondCheck) {
             // foe should not pass from behind through our own forward section
             return false;
         }
@@ -1540,10 +1540,24 @@ MSDriveWay::addReversalFoes() {
                 //std::cout << "  candidate foe " << foe->getID() << " reverses on edge=" << e->getID() << " forward=" << joinNamedToString(forward, " ") << " foeRoute=" << toString(foe->myRoute) << "\n";
 #endif
                 if (forwardRouteConflict(forward, *foe)) {
+                    std::set<const MSEdge*> foeForward;
+                    for (const MSLane* lane : foe->myForward) {
+                        if (lane->isNormal()) {
+                            foeForward.insert(&lane->getEdge());
+                            if (lane->getBidiLane() != nullptr) {
+                                foeForward.insert(lane->getEdge().getBidiEdge());
+                            }
+                        }
+                    }
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  foe " << foe->getID() << " reverses on edge=" << e->getID() << "\n";
+                    std::cout << "  reversal cand=" << foe->getID() << " foeForward " << toString(foeForward) << "\n";
 #endif
-                    myFoes.push_back(foe);
+                    if (foe->forwardRouteConflict(foeForward, *this, true)) {
+#ifdef DEBUG_ADD_FOES
+                            std::cout << "  foe " << foe->getID() << " reverses on edge=" << e->getID() << "\n";
+#endif
+                            myFoes.push_back(foe);
+                    }
                 }
             }
         }

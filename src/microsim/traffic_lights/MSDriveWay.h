@@ -88,7 +88,7 @@ public:
     bool bidiBlockedByEnd(const MSDriveWay& other) const;
 
     /// @brief Wether the route of other passes into the forward section of this driveway
-    bool forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other);
+    bool forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other, bool secondCheck = false);
 
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
     bool conflictLaneOccupied(bool store = true, const SUMOVehicle* ego = nullptr) const;
