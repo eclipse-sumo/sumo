@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-17 10:24:49 by Eclipse SUMO sumo Version v1_21_0+0063-40d747df57b
+<!-- generated on 2024-10-18 19:15:46 by Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -542,6 +542,9 @@
 
         <!-- Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos; -->
         <pedestrian.striping.jamtime.narrow value="1" type="TIME"/>
+
+        <!-- Factor for reducing speed of pedestrian in jammed state -->
+        <pedestrian.striping.jamfactor value="0.25" type="FLOAT"/>
 
         <!-- Fraction of stripes to reserve for oncoming pedestrians -->
         <pedestrian.striping.reserve-oncoming value="0" type="FLOAT"/>

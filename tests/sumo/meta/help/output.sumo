@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_21_0+0063-40d747df57b
+Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -384,6 +384,8 @@ Processing Options:
                                         pedestrians start squeezing through a
                                         jam while on a narrow lane when using
                                         model 'striping'
+  --pedestrian.striping.jamfactor FLOAT  Factor for reducing speed of
+                                        pedestrian in jammed state
   --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
                                         for oncoming pedestrians
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
