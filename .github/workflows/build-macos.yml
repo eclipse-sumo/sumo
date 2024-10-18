@@ -61,19 +61,14 @@ jobs:
 
     - name: Building SUMO
       run: |
-        cmake -B sumo/cmake-build
-        cd sumo/cmake-build
-        make -j4
+        cmake -B sumo/cmake-build sumo
+        cmake --build sumo/cmake-build -j4
 
     - name: Building Traas
-      run: |
-        cd sumo/cmake-build
-        make traas
+      run: cmake --build sumo/cmake-build --target traas
 
     - name: Installing SUMO
-      run: |
-        cd sumo/cmake-build
-        sudo make install
+      run: cmake --install sumo/cmake-build
 
     - name: Building Examples and Tests
       run: |
