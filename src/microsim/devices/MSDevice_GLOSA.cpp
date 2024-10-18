@@ -142,6 +142,11 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         // Additional time (offset) for the leading vehicle to accelerate
         // experimental value from calibrated drone data
         double addition = 3;
+        // Vehicles are often not able to drive with their desired speed vMax.
+        // The further away from the junction, the more uncertain the arrival prediction becomes.
+        // For a vehicle trying to reach the begin/end of a green phase, this is critical.
+        // The vehicle should then rather opt for the next phase (trade travel time for traffic flow)
+        int switchOffset = 0;
 
         if (myNextTLSLink->haveGreen()) { currentPhaseGreen = true; }
         else if (myNextTLSLink->haveRed() || myNextTLSLink->haveYellow()) { currentPhaseStop = true; }
@@ -217,7 +222,10 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                         const double yellowSlack = myVeh.getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
 #ifdef DEBUG_GLOSA
                         if (DEBUG_COND) {
-                            std::cout << " vMax2=" << vMax2 << " timetoJunction2=" << timetoJunction2 << " yellowSlack=" << yellowSlack << "\n";
+                            std::cout << SIMTIME << " veh=" << myVeh.getID() 
+                                      << " vMax2=" << vMax2 
+                                      << " timetoJunction2=" << timetoJunction2 
+                                      << " yellowSlack=" << yellowSlack << "\n";
                         }
 #endif
                         // if increased speed is fast enough to arrive at tls while green (else look for next phases)
@@ -243,7 +251,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 // tls is red at the moment
 #ifdef DEBUG_GLOSA
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " traffic light will be/is red";
+                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " traffic light will be/is red" << "\n";
                     std::cout << SIMTIME << " veh=" << myVeh.getID()
                               << " timeToJunction=" << timeToJunction 
                               << " nextSwitch=" << nextSwitch
@@ -270,7 +278,18 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 }
             }
             // calculate next Phase
-            nextSwitch += getTimeToNextSwitch(myNextTLSLink, currentPhaseGreen, currentPhaseStop, countOld); 
+            nextSwitch += getTimeToNextSwitch(myNextTLSLink, currentPhaseGreen, currentPhaseStop, countOld);
+            // For vehicles far away from the junction we add an offset
+            if (nextSwitch > 20. && switchOffset == 0) {
+                nextSwitch -= (double)switchOffset;
+                switchOffset = 2;
+            } else if (nextSwitch > 40. && switchOffset == 2) {
+                nextSwitch -= (double)switchOffset;
+                switchOffset = 4;
+            } else if (nextSwitch > 60. && switchOffset == 4) {
+                nextSwitch -= (double)switchOffset;
+                switchOffset = 6;
+            }
         }
     }
     return true; // keep the device
