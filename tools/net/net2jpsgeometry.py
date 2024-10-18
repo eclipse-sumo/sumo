@@ -90,6 +90,8 @@ def parse_args():
                            help="Choose all lanes allowing pedestrians in case of ambiguities (experimental)")
     argParser.add_argument("--allow-junctions", action="store_true",
                            help="Allow junctions as feasible pedestrian areas for JuPedSim (experimental)")
+    argParser.add_argument("--fixed-metadata", action="store_true",
+                           help="Write fixed metadata (creation date etc.) for stable tests")
 
     options = argParser.parse_args()
     if not options.netFile or not options.selectedObjectsFile:
@@ -317,6 +319,8 @@ def writeToDxf(polygons, doors, options):
 
 if __name__ == "__main__":
     options = parse_args()
+    if options.fixed_metadata:
+        ezdxf.options.set("core", "write_fixed_meta_data_for_testing", "true")
     net = sumolib.net.readNet(options.netFile, withInternal=True, withPedestrianConnections=True)
     selectedObjects = sumolib.files.selection.read(options.selectedObjectsFile, lanes2edges=False)
 
