@@ -233,8 +233,8 @@ MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pr
 
     const double tolerance = 0.8;
     bool isInSamePlatoon = false;
-    for (int i = 0; i < vars->members.size(); i++) {
-        if (vars->members[i] == pred->getID()) {
+    for (const auto & member : vars->members) {
+        if (member.second == pred->getID()) {
             isInSamePlatoon = true;
             break;
         }
@@ -292,6 +292,26 @@ MSCFModel_CC::commitToLaneChange(const MSVehicle* veh, bool left) const {
 MSVehicle*
 MSCFModel_CC::findVehicle(std::string id) const {
     return dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
+}
+
+void
+MSCFModel_CC::checkControllersInitializedCondition(MSVehicle* const veh) const {
+    auto vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    if (vars->position == 0)
+        return;
+    // in the following code, it is also necessary to reset the initialization in case we change the formation
+    if (vars->initialized[0] and vars->initialized[vars->position-1]) {
+        vars->caccInitialized = true;
+    }
+    else {
+        vars->caccInitialized = false;
+    }
+    if (vars->initialized[vars->position-1]) {
+        vars->ploegInitialized = true;
+    }
+    else {
+        vars->ploegInitialized = false;
+    }
 }
 
 double
@@ -450,6 +470,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
     Position pos;
     double time;
     const double currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
+    Plexe::VEHICLE_DATA frontVehicle, leaderVehicle;
 
     if (vars->crashed) {
         return 0;
@@ -476,23 +497,26 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 
             case Plexe::CACC:
                 if (vars->autoFeed) {
-                    getVehicleInformation(vars->leaderVehicle, vars->leaderSpeed, vars->leaderAcceleration, vars->leaderControllerAcceleration, pos, time);
-                    getVehicleInformation(vars->frontVehicle, vars->frontSpeed, vars->frontAcceleration, vars->frontControllerAcceleration, pos, time);
+                    getVehicleInformation(vars->leaderVehicle, vars->vehicles[0].speed, vars->vehicles[0].acceleration, vars->vehicles[0].u, pos, time);
+                    getVehicleInformation(vars->frontVehicle, vars->vehicles[vars->position-1].speed, vars->vehicles[vars->position-1].acceleration, vars->vehicles[vars->position-1].u, pos, time);
                 }
 
+                frontVehicle = vars->vehicles[vars->position-1];
+                leaderVehicle = vars->vehicles[0];
+
                 if (vars->useControllerAcceleration) {
-                    predAcceleration = vars->frontControllerAcceleration;
-                    leaderAcceleration = vars->leaderControllerAcceleration;
+                    predAcceleration = frontVehicle.u;
+                    leaderAcceleration = leaderVehicle.u;
                 } else {
-                    predAcceleration = vars->frontAcceleration;
-                    leaderAcceleration = vars->leaderAcceleration;
+                    predAcceleration = frontVehicle.acceleration;
+                    leaderAcceleration = leaderVehicle.acceleration;
                 }
                 //overwrite pred speed using data obtained through wireless communication
-                predSpeed = vars->frontSpeed;
-                leaderSpeed = vars->leaderSpeed;
+                predSpeed = frontVehicle.speed;
+                leaderSpeed = leaderVehicle.speed;
                 if (vars->usePrediction) {
-                    predSpeed += (currentTime - vars->frontDataReadTime) * vars->frontAcceleration;
-                    leaderSpeed += (currentTime - vars->leaderDataReadTime) * vars->leaderAcceleration;
+                    predSpeed += (currentTime - frontVehicle.time) * frontVehicle.acceleration;
+                    leaderSpeed += (currentTime - leaderVehicle.time) * leaderVehicle.acceleration;
                 }
 
                 if (vars->caccInitialized) {
@@ -500,7 +524,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                 } else
                     //do not let CACC take decisions until at least one packet has been received
                 {
-                    controllerAcceleration = 0;
+                    controllerAcceleration = vars->controllerAcceleration;
                 }
 
                 break;
@@ -532,21 +556,21 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
             case Plexe::PLOEG:
 
                 if (vars->autoFeed) {
-                    getVehicleInformation(vars->frontVehicle, vars->frontSpeed, vars->frontAcceleration, vars->frontControllerAcceleration, pos, time);
+                    getVehicleInformation(vars->frontVehicle, vars->vehicles[vars->position-1].speed, vars->vehicles[vars->position-1].acceleration, vars->vehicles[vars->position-1].u, pos, time);
                 }
 
                 if (vars->useControllerAcceleration) {
-                    predAcceleration = vars->frontControllerAcceleration;
+                    predAcceleration = vars->vehicles[vars->position-1].u;
                 } else {
-                    predAcceleration = vars->frontAcceleration;
+                    predAcceleration = vars->vehicles[vars->position-1].acceleration;
                 }
                 //check if we received at least one packet
-                if (vars->frontInitialized)
+                if (vars->ploegInitialized)
                     //ploeg's controller computes \dot{u}_i, so we need to sum such value to the previously computed u_i
                 {
                     controllerAcceleration = vars->controllerAcceleration + _ploeg(veh, egoSpeed, predSpeed, predAcceleration, gap2pred);
                 } else {
-                    controllerAcceleration = 0;
+                    controllerAcceleration = vars->controllerAcceleration;
                 }
 
                 break;
@@ -558,16 +582,26 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
             case Plexe::FLATBED:
 
                 if (vars->autoFeed) {
-                    getVehicleInformation(vars->leaderVehicle, vars->leaderSpeed, vars->leaderAcceleration, vars->leaderControllerAcceleration, pos, time);
-                    getVehicleInformation(vars->frontVehicle, vars->frontSpeed, vars->frontAcceleration, vars->frontControllerAcceleration, pos, time);
+                    getVehicleInformation(vars->leaderVehicle, vars->vehicles[0].speed, vars->vehicles[0].acceleration, vars->vehicles[0].u, pos, time);
+                    getVehicleInformation(vars->frontVehicle, vars->vehicles[vars->position-1].speed, vars->vehicles[vars->position-1].acceleration, vars->vehicles[vars->position-1].u, pos, time);
                 }
 
+                frontVehicle = vars->vehicles[vars->position-1];
+                leaderVehicle = vars->vehicles[0];
+
+                if (vars->useControllerAcceleration) {
+                    predAcceleration = frontVehicle.u;
+                    leaderAcceleration = leaderVehicle.u;
+                } else {
+                    predAcceleration = frontVehicle.acceleration;
+                    leaderAcceleration = leaderVehicle.acceleration;
+                }
                 //overwrite pred speed using data obtained through wireless communication
-                predSpeed = vars->frontSpeed;
-                leaderSpeed = vars->leaderSpeed;
+                predSpeed = frontVehicle.speed;
+                leaderSpeed = leaderVehicle.speed;
                 if (vars->usePrediction) {
-                    predSpeed += (currentTime - vars->frontDataReadTime) * vars->frontAcceleration;
-                    leaderSpeed += (currentTime - vars->leaderDataReadTime) * vars->leaderAcceleration;
+                    predSpeed += (currentTime - frontVehicle.time) * frontVehicle.acceleration;
+                    leaderSpeed += (currentTime - leaderVehicle.time) * leaderVehicle.acceleration;
                 }
 
                 if (vars->caccInitialized) {
@@ -575,7 +609,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                 } else
                     //do not let CACC take decisions until at least one packet has been received
                 {
-                    controllerAcceleration = 0;
+                    controllerAcceleration = vars->controllerAcceleration;
                 }
 
                 break;
@@ -642,7 +676,7 @@ MSCFModel_CC::_ploeg(const MSVehicle* veh, double egoSpeed, double predSpeed, do
 }
 
 double
-MSCFModel_CC::d_i_j(const struct Plexe::VEHICLE_DATA* vehicles, const double h[MAX_N_CARS], int i, int j) const {
+MSCFModel_CC::d_i_j(const std::vector<struct Plexe::VEHICLE_DATA>& vehicles, const double h[MAX_N_CARS], int i, int j) const {
 
     int k, min_i, max_i;
     double d = 0;
@@ -675,7 +709,7 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     int index = vars->position;
     int nCars = vars->nCars;
-    struct Plexe::VEHICLE_DATA* vehicles = vars->vehicles;
+    std::vector<struct Plexe::VEHICLE_DATA> vehicles = vars->vehicles;
 
     //loop variable
     int j;
@@ -777,28 +811,10 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
     vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     try {
         if (key.compare(PAR_LEADER_SPEED_AND_ACCELERATION) == 0) {
-            double x, y, vx, vy;
-            buf >> vars->leaderSpeed >> vars->leaderAcceleration >> x >> y >> vars->leaderDataReadTime
-                >> vars->leaderControllerAcceleration >> vx >> vy >> vars->leaderAngle;
-            vars->leaderPosition = Position(x, y);
-            vars->leaderVelocity = Position(vx, vy);
-            vars->leaderInitialized = true;
-            if (vars->frontInitialized) {
-                vars->caccInitialized = true;
-            }
-            return;
+            throw libsumo::TraCIException("The Plexe API setLeaderVehicleData is deprecated. Please use setVehicleData");
         }
         if (key.compare(PAR_PRECEDING_SPEED_AND_ACCELERATION) == 0) {
-            double x, y, vx, vy;
-            buf >> vars->frontSpeed >> vars->frontAcceleration >> x >> y >> vars->frontDataReadTime
-                >> vars->frontControllerAcceleration >> vx >> vy >> vars->frontAngle;
-            vars->frontPosition = Position(x, y);
-            vars->frontVelocity = Position(vx, vy);
-            vars->frontInitialized = true;
-            if (vars->leaderInitialized) {
-                vars->caccInitialized = true;
-            }
-            return;
+            throw libsumo::TraCIException("The Plexe API setFrontVehicleData is deprecated. Please use setVehicleData");
         }
         if (key.compare(CC_PAR_VEHICLE_DATA) == 0) {
             struct Plexe::VEHICLE_DATA vehicle;
@@ -812,9 +828,10 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             }
             vars->vehicles[vehicle.index] = vehicle;
             if (!vars->initialized[vehicle.index] && vehicle.index != vars->position) {
+                vars->initialized[vehicle.index] = true;
                 vars->nInitialized++;
+                checkControllersInitializedCondition(veh);
             }
-            vars->initialized[vehicle.index] = true;
             return;
         }
         if (key.compare(PAR_LEADER_FAKE_DATA) == 0) {
@@ -855,6 +872,16 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             std::string id;
             buf >> vars->nCars;
             vars->members.clear();
+            // as we change the topology, also reset data about other vehicles
+            vars->initialized.clear();
+            vars->vehicles.clear();
+            vars->nInitialized = 0;
+            vars->initialized.resize(vars->nCars);
+            vars->vehicles.resize(vars->nCars);
+            for (int i = 0; i < vars->nCars; i++) {
+                vars->initialized[i] = false;
+                vars->vehicles[i] = Plexe::VEHICLE_DATA();
+            }
             bool leader = false;
             std::string leaderId;
             MSVehicle* leaderVehicle;
@@ -884,6 +911,9 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
                 vars->frontVehicleId = vars->members[vars->position - 1];
                 vars->frontVehicle = findVehicle(vars->frontVehicleId);
             }
+            // reset initialization condition for controllers
+            checkControllersInitializedCondition(veh);
+            return;
         }
         if (key.compare(PAR_ADD_MEMBER) == 0) {
             throw libsumo::TraCIException("The Plexe API addPlatoonMember is deprecated. Please use setPlatoonFormation");
@@ -1051,9 +1081,8 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
                 if (!vars->frontVehicle) {
                     throw libsumo::TraCIException("Vehicle '" + frontId + "' is not known");
                 }
-                vars->leaderInitialized = true;
-                vars->frontInitialized = true;
                 vars->caccInitialized = true;
+                vars->ploegInitialized = true;
             }
             return;
         }

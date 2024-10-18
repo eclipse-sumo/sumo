@@ -344,6 +344,14 @@ private:
      */
     void performPlatoonLaneChange(MSVehicle* const veh) const;
 
+    /**
+     * @brief For each controller, check whether their initialization condition holds and, in case, set the proper
+     * "initialized" variable. For example, for PATH CACC, this requires both data about the leader and the preceding
+     * vehicle to be initialized
+     * @param veh vehicle for which the conditions should be checked
+     */
+    void checkControllersInitializedCondition(MSVehicle* const veh) const;
+
     double _v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const;
 
     /** @brief controller for the CC which computes the acceleration to be applied. the value needs to be passed to the actuator
@@ -407,7 +415,7 @@ private:
      * @return the desired distance between vehicle i and j
      *
      */
-    double d_i_j(const struct Plexe::VEHICLE_DATA* vehicles, const double h[MAX_N_CARS], int i, int j) const;
+    double d_i_j(const std::vector<struct Plexe::VEHICLE_DATA> &vehicles, const double h[MAX_N_CARS], int i, int j) const;
 
     /** @brief flatbed platoon towing model
      *

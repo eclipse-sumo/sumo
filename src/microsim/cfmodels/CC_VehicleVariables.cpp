@@ -43,14 +43,13 @@ const double CC_VehicleVariables::defaultB[MAX_N_CARS] = {1800, 1800, 1800, 1800
 const double CC_VehicleVariables::defaultH[MAX_N_CARS] = {0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8};
 
 CC_VehicleVariables::CC_VehicleVariables() :
-    controllerAcceleration(0), frontSpeed(0), frontAcceleration(0),
-    frontControllerAcceleration(0), frontDataReadTime(0), frontAngle(0), frontInitialized(false),
+    controllerAcceleration(0),
+    ploegInitialized(false),
     autoFeed(false), leaderVehicle(nullptr), leaderVehicleId(""), frontVehicle(nullptr), frontVehicleId(""),
     isLeader(true),
     accHeadwayTime(1.5), accLambda(0.1),
-    useControllerAcceleration(true), leaderSpeed(0),
-    leaderAcceleration(0), leaderControllerAcceleration(0), leaderDataReadTime(0), leaderAngle(0),
-    leaderInitialized(false), caccInitialized(false),
+    useControllerAcceleration(true),
+    caccInitialized(false),
     useFixedAcceleration(0), fixedAcceleration(0),
     crashed(false),
     ccDesiredSpeed(14), ccKp(1), activeController(Plexe::DRIVER),
@@ -73,17 +72,11 @@ CC_VehicleVariables::CC_VehicleVariables() :
     fakeData.leaderAcceleration = 0;
     fakeData.leaderControllerAcceleration = 0;
     fakeData.leaderSpeed = 0;
-    leaderPosition.set(0, 0);
-    frontPosition.set(0, 0);
     //init L, K, b, and h with default values
     memcpy(L, defaultL, sizeof(int)*MAX_N_CARS * MAX_N_CARS);
     memcpy(K, defaultK, sizeof(double)*MAX_N_CARS * MAX_N_CARS);
     memcpy(b, defaultB, sizeof(double)*MAX_N_CARS);
     memcpy(h, defaultH, sizeof(double)*MAX_N_CARS);
-    //no data about any vehicle has been set
-    for (int i = 0; i < MAX_N_CARS; i++) {
-        initialized[i] = false;
-    }
 }
 
 CC_VehicleVariables::~CC_VehicleVariables() {

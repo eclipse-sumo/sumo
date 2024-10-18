@@ -85,22 +85,8 @@ public:
     /// @brief acceleration as computed by the controller, to be sent to other vehicles
     double controllerAcceleration;
 
-    /// @brief current front vehicle speed
-    double frontSpeed;
-    /// @brief current front vehicle acceleration (used by CACC)
-    double frontAcceleration;
-    /// @brief front vehicle controller acceleration (used by CACC)
-    double frontControllerAcceleration;
-    /// @brief current front vehicle position
-    Position frontPosition;
-    /// @brief when front vehicle data has been readed from GPS
-    double frontDataReadTime;
-    /// @brief front vehicle velocity vector
-    Position frontVelocity;
-    /// @brief front vehicle angle in radians
-    double frontAngle;
-    /// @did we receive at least one packet?
-    bool frontInitialized;
+    /// @did we receive at least one packet from the preceding vehicle?
+    bool ploegInitialized;
 
     /// @brief determines whether CACC should automatically fetch data about other vehicles
     bool autoFeed;
@@ -123,22 +109,7 @@ public:
     /// @brief determines whether PATH's CACC should use the real vehicle
     /// acceleration or the controller computed one
     bool useControllerAcceleration;
-    /// @brief platoon's leader speed (used by CACC)
-    double leaderSpeed;
-    /// @brief platoon's leader acceleration (used by CACC)
-    double leaderAcceleration;
-    /// @brief platoon's leader controller acceleration (used by CACC)
-    double leaderControllerAcceleration;
-    /// @brief platoon's leader position
-    Position leaderPosition;
-    /// @brief when leader data has been readed from GPS
-    double leaderDataReadTime;
-    /// @brief platoon's leader velocity vector
-    Position leaderVelocity;
-    /// @brief platoon's leader angle in radians
-    double leaderAngle;
-    /// @did we receive at least one packet?
-    bool leaderInitialized;
+    /// @did we receive at least one packet from leader and preceding vehicle?
     bool caccInitialized;
 
     //enable/disable the use of a constant, user defined acceleration instead of the one computed by the controller
@@ -168,9 +139,9 @@ public:
     double h[MAX_N_CARS];
 
     /// @brief data about vehicles in the platoon
-    struct Plexe::VEHICLE_DATA vehicles[MAX_N_CARS];
+    std::vector<struct Plexe::VEHICLE_DATA> vehicles;
     /// @brief tells whether data about a certain vehicle has been initialized
-    bool initialized[MAX_N_CARS];
+    std::vector<bool> initialized;
     /// @brief count of initialized vehicles
     int nInitialized;
     /// @brief my position within the platoon (0 = first car)
