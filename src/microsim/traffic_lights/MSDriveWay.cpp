@@ -108,13 +108,24 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
 {}
 
 
-MSDriveWay::~MSDriveWay() { }
+MSDriveWay::~MSDriveWay() {
+    for (const MSDriveWay* sub : mySubDriveWays) {
+        delete sub;
+    }
+    mySubDriveWays.clear();
+}
 
 void
 MSDriveWay::cleanup() {
     myGlobalDriveWayIndex = 0;
     myNumWarnings = 0;
     myWriteVehicles = false;
+
+    for (auto item : myDepartureDriveways) {
+        for (MSDriveWay* dw : item.second) {
+            delete dw;
+        }
+    }
     MSDriveWay::mySwitchDriveWays.clear();
     MSDriveWay::myReversalDriveWays.clear();
     MSDriveWay::myDepartureDriveways.clear();
