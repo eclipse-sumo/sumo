@@ -72,6 +72,7 @@ jobs:
 
     - name: Building Examples and Tests
       run: |
+        export DYLD_FALLBACK_LIBRARY_PATH=$PWD/jupedsim-install/lib:$DYLD_FALLBACK_LIBRARY_PATH
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
