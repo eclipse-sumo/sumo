@@ -359,7 +359,7 @@ private:
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myReversalDriveWays;
 
     /// @brief all driveways that do not start at a rail signal (and are only used at departure)
-    static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDriveways;
+    static std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess > myDepartureDriveways;
     static std::map<const MSJunction*, int> myDepartDrivewayIndex;
     /// @brief all driveways that do not start at a rail signal (and are only used at departure) by end edge
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDrivewaysEnds;
