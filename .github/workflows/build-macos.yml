@@ -68,7 +68,7 @@ jobs:
       run: cmake --build sumo/cmake-build --target traas
 
     - name: Installing SUMO
-      run: cmake --install sumo/cmake-build
+      run: sudo cmake --install sumo/cmake-build
 
     - name: Building Examples and Tests
       run: |
