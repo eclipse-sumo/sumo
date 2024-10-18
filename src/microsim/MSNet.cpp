@@ -1033,6 +1033,7 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
     MSRailSignalControl::clearState();
+    MSDriveWay::clearState();
     myStep = step;
     MSGlobals::gClearState = false;
 }

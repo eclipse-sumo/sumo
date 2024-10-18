@@ -134,6 +134,16 @@ MSDriveWay::cleanup() {
     MSDriveWay::myEndingDriveways.clear();
 }
 
+void
+MSDriveWay::clearState() {
+    for (auto item : myEndingDriveways) {
+        for (MSDriveWay* dw : item.second) {
+            dw->myTrains.clear();
+        }
+    }
+}
+
+
 bool
 MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
     UNUSED_PARAMETER(reason);

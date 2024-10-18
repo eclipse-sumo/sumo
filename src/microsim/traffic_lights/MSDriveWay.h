@@ -67,6 +67,8 @@ public:
 
     static void cleanup();
 
+    static void clearState();
+
     static bool haveDriveWays() {
         return myGlobalDriveWayIndex > 0;
     }
