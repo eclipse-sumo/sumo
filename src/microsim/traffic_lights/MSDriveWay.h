@@ -365,7 +365,7 @@ private:
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDrivewaysEnds;
 
     /// @brief all driveways that end on the given edge
-    static std::map<const MSEdge*, std::vector<MSDriveWay*> > myEndingDriveways;
+    static std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> myEndingDriveways;
 
     /// @brief lookup table for state loading
     static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;

@@ -71,10 +71,10 @@ int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWays;
-std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess > MSDriveWay::myDepartureDriveways;
+std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSDriveWay::myDepartureDriveways;
 std::map<const MSJunction*, int> MSDriveWay::myDepartDrivewayIndex;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
-std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways;
+std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSDriveWay::myEndingDriveways;
 std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
 std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
 
