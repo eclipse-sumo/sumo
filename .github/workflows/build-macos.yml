@@ -20,6 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-13, macos-14]
+        jps_version: ['v1.2.1']
     runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPILERTYPE: clang
@@ -39,15 +40,29 @@ jobs:
         brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
 #        python3 -m pip install texttest
 
+    - name: Cloning jupedsim
+      uses: actions/checkout@v4
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
     - name: ccache
       if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.os }}
+
+    - name: Building libjupedsim
+      run: |
+        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
+        cmake --build jupedsim-build -j4 --config Release
+        cmake --install jupedsim-build --config Release
 
     - name: Building SUMO
       run: |
-        mkdir -p sumo/cmake-build
+        cmake -B sumo/cmake-build
         cd sumo/cmake-build
-        cmake ..
         make -j4
 
     - name: Building Traas
@@ -74,8 +89,9 @@ jobs:
     - name: Creating macOS installer dmg
       run: |
         cd sumo
-        python3 -m pip install dmgbuild
-        python3 tools/build_config/buildMacOSInstaller.py ./cmake-build --verbose
+        python3 -m venv dmgenv
+        dmgenv/bin/python3 -m pip install dmgbuild
+        dmgenv/bin/python3 tools/build_config/buildMacOSInstaller.py ./cmake-build --verbose
 
     - name: Uploading macOS installer dmg
       uses: actions/upload-artifact@v4
