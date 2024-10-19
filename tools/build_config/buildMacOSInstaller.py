@@ -236,7 +236,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     return name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path):
+def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path, verbose):
     print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
 
@@ -298,7 +298,11 @@ export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
         f"/Applications/{app_name}.app",
         f"{pkg_path}",
     ]
-    subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if verbose:
+        print(pkg_build_command)
+    sys.stdout.flush()
+    out = None if verbose else subprocess.DEVNULL
+    subprocess.run(pkg_build_command, check=True, stdout=out, stderr=out)
     pkg_size = os.path.getsize(pkg_path)
 
     # Cleanup the temporary directory
@@ -381,6 +385,7 @@ def create_installer(frmwk_pkg, app_pkgs, id, version, output_path, verbose):
         resources_dir,
         output_path,
     ]
+    sys.stdout.flush()
     out = None if verbose else subprocess.DEVNULL
     subprocess.run(productbuild_command, check=True, stdout=out, stderr=out)
     pkg_size = os.path.getsize(output_path)
@@ -486,7 +491,7 @@ def main():
         print(f"Building app package for '{app_name}'")
 
         icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", "installer", app_icons)
-        app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path)
+        app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path, opts.verbose)
         app_pkgs.append(app_pkg)
         print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
