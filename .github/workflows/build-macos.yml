@@ -83,6 +83,7 @@ jobs:
         path: sumo/bin
 
     - name: Creating macOS installer dmg
+      if: matrix.os != 'macos-13'
       run: |
         cd sumo
         python3 -m venv dmgenv
@@ -90,6 +91,7 @@ jobs:
         dmgenv/bin/python3 tools/build_config/buildMacOSInstaller.py ./cmake-build --verbose
 
     - name: Uploading macOS installer dmg
+      if: matrix.os != 'macos-13'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }}-installer-unsigned
