@@ -83,8 +83,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
     myNumericalID(myRSIndex++),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X')), // dummy phase
     myPhaseIndex(0),
-    myDriveWayIndex(0)
-{
+    myDriveWayIndex(0) {
     myDefaultCycleTime = DELTA_T;
     myMovingBlock = OptionsCont::getOptions().getBool("railsignal-moving-block");
     MSRailSignalControl::getInstance().addSignal(this);
@@ -515,7 +514,7 @@ MSRailSignal::LinkInfo::getDriveWay(MSRouteIterator firstIt, MSRouteIterator end
 #ifdef DEBUG_SELECT_DRIVEWAY
         std::cout << SIMTIME << " rs=" << getID() << " veh=" << info << " other dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << "\n";
 #else
-    UNUSED_PARAMETER(info);
+        UNUSED_PARAMETER(info);
 #endif
     }
     MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(myLink->getTLLogic()));
