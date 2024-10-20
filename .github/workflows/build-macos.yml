@@ -37,7 +37,7 @@ jobs:
         brew update
         brew upgrade || brew link --overwrite python@3.12
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen texttest
+        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
 
     - name: Cloning jupedsim
       uses: actions/checkout@v4
@@ -74,6 +74,12 @@ jobs:
         export DYLD_FALLBACK_LIBRARY_PATH=$PWD/jupedsim-install/lib:$DYLD_FALLBACK_LIBRARY_PATH
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
+
+    - name: Running texttest
+      run: |
+        brew install texttest
+        export DYLD_FALLBACK_LIBRARY_PATH=$PWD/jupedsim-install/lib:$DYLD_FALLBACK_LIBRARY_PATH
+        sumo/tests/runTests.sh -b ci -v ci -ts meta
 
     - name: Uploading artifacts (SUMO binaries and FMU)
       uses: actions/upload-artifact@v4
