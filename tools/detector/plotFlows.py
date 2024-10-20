@@ -155,7 +155,7 @@ def main(options):
             for edge, group in detReader.getGroups():
                 if options.idfilter is not None and options.idfilter not in group.ids[0]:
                     continue
-                assert (len(group.timeline) <= len(data))
+                assert len(group.timeline) <= len(data)
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
             allData.append(data)
@@ -169,7 +169,7 @@ def main(options):
                 for edge, group in detReader.getGroups():
                     if options.idfilter is not None and options.idfilter not in group.ids[0]:
                         continue
-                    assert (len(group.timeline) <= len(data))
+                    assert len(group.timeline) <= len(data)
                     if group.type == detType:
                         for i, (flow, speed) in enumerate(group.timeline):
                             addToDataList(data, i, flow)
@@ -186,7 +186,7 @@ def main(options):
                     continue
                 if options.idfilter is not None and options.idfilter not in group.ids[0]:
                     continue
-                assert (len(group.timeline) <= len(data))
+                assert len(group.timeline) <= len(data)
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
                 allData.append(data)

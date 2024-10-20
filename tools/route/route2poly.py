@@ -108,11 +108,13 @@ def getSpread(lanes, positive=False):
             # print(i, [l.getID() for l in lanes])
     assert False
 
+
 def hasBidi(lanes):
     for lane in lanes:
         if lane.getEdge().getBidi():
             return True
     return False
+
 
 def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params=None):
     if params is None:

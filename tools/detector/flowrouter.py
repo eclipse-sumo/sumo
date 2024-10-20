@@ -382,7 +382,7 @@ class Net:
             else:
                 if DEBUG:
                     print("      trying to split", routeStub)
-                assert (len(currEdge.routes) > 0)
+                assert currEdge.routes
                 for route in currEdge.routes + currEdge.newRoutes:
                     if route.newFrequency == 0:
                         continue

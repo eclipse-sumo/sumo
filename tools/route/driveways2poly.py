@@ -22,6 +22,7 @@ which can be loaded with sumo-gui for visualization
 from __future__ import absolute_import
 import sys
 import os
+import random
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 import route2poly  # noqa
@@ -70,6 +71,7 @@ def parse_args(args=None):
 
     return options
 
+
 def getDriveWays(fname):
     for rs in sumolib.xml.parse(fname, "railSignal"):
         for link in rs.link:
@@ -78,9 +80,8 @@ def getDriveWays(fname):
             for dw in link.driveWay:
                 yield rs.id, dw
     for dj in sumolib.xml.parse(fname, "departJunction"):
-            for dw in dj.driveWay:
-                yield dj.id, dw
-
+        for dw in dj.driveWay:
+            yield dj.id, dw
 
 
 def main(options):
@@ -94,7 +95,6 @@ def main(options):
             if dw.id in options.filterFoes:
                 permittedFoes.update(dw.foes[0].driveWays.split())
 
-
     with open(options.output, 'w') as outf:
         sumolib.xml.writeHeader(outf, root='polygons', rootAttrs=None, options=options)
         for signal, dw in getDriveWays(options.driveways):
@@ -106,6 +106,7 @@ def main(options):
                 continue
             route2poly.generate_poly(options, net, dw.id, colorgen(), dw.edges.split(), outf)
         outf.write('</polygons>\n')
+
 
 if __name__ == "__main__":
     main(parse_args())

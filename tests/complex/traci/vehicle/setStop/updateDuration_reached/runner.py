@@ -48,7 +48,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     # only update duration once
     if traci.vehicle.getParameter(vehID, "updated") != "1" and traci.vehicle.isStopped(vehID):
         stop = traci.vehicle.getStops(vehID, 1)[0]
-        assert(stop.stoppingPlaceID != "")
+        assert stop.stoppingPlaceID != ""
         traci.vehicle.setBusStop(vehID, stop.stoppingPlaceID, duration=60)
         traci.vehicle.setParameter(vehID, "updated", "1")
         stop2 = traci.vehicle.getStops(vehID, 1)[0]

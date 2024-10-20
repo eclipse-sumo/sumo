@@ -43,7 +43,7 @@ traci.start([sumoBinary,
 vehID = "ego"
 
 stop = traci.vehicle.getStops(vehID, 1)[0]
-assert(stop.stoppingPlaceID != "")
+assert stop.stoppingPlaceID != ""
 traci.vehicle.setBusStop(vehID, stop.stoppingPlaceID, duration=60)
 stop2 = traci.vehicle.getStops(vehID, 1)[0]
 print("new duration=%s" % stop2.duration)
