@@ -101,7 +101,9 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-public:
+    /** @brief Returns the search state corresponding to the /
+
+    public:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
@@ -142,6 +144,18 @@ public:
     bool notifyIdle(SUMOTrafficObject& veh) override;
 
     /// @}
+
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs);
 
     /// @brief return the name for this type of device
     const std::string deviceName() const override {
