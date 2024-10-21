@@ -135,6 +135,15 @@ FileHelpers::addExtension(const std::string& path, const std::string& extension)
     }
 }
 
+std::string
+FileHelpers::getExtension(const std::string& path) {
+    const auto beg = path.find_last_of(".");
+    if (beg == std::string::npos) {
+        return "";
+    }
+    return path.substr(beg, path.size());
+}
+
 
 std::string
 FileHelpers::getConfigurationRelative(const std::string& configPath, const std::string& path) {
