@@ -289,7 +289,13 @@ MSDevice_StationFinder::saveState(OutputDevice& out) const {
     std::vector<std::string> internals;
     internals.push_back(toString(myLastChargeCheck));
     internals.push_back(toString(myUpdateSoC));
+    internals.push_back(toString(mySearchSoC));
+    internals.push_back(toString(myTargetSoC));
+    internals.push_back(toString(myWaitForCharge));
+    internals.push_back(toString(myRepeatInterval));
+    internals.push_back(toString(myRadius));
     internals.push_back(toString(myLastSearch));
+    internals.push_back(toString(myReserveFactor));
     internals.push_back(toString(mySearchState));
     internals.push_back(toString(myArrivalAtChargingStation));
     internals.push_back((myChargingStation == nullptr) ? "NULL" : myChargingStation->getID());
@@ -308,7 +314,13 @@ MSDevice_StationFinder::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myLastChargeCheck;
     bis >> myUpdateSoC;
+    bis >> mySearchSoC;
+    bis >> myTargetSoC;
+    bis >> myWaitForCharge;
+    bis >> myRepeatInterval;
+    bis >> myRadius;
     bis >> myLastSearch;
+    bis >> myReserveFactor;
     int searchState;
     bis >> searchState;
     mySearchState = (SearchState)searchState;
@@ -660,8 +672,46 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
         return (myChargingStation == nullptr) ? "" : myChargingStation->getID();
     } else if (key == "batteryNeed") {
         return toString(estimateConsumption() * myReserveFactor);
+    } else if (key == "needToChargeLevel") {
+        return toString(myRadius);
+    } else if (key == "saturatedChargeLevel") {
+        return toString(myRadius);
+    } else if (key == "waitForCharge") {
+        return toString(myRadius);
+    } else if (key == "repeat") {
+        return toString(myRadius);
+    } else if (key == "radius") {
+        return toString(myRadius);
+    } else if (key == "reserveFactor") {
+        return toString(myRadius);
     }
     throw InvalidArgument(TLF("Parameter '%' is not supported for device of type '%'", key, deviceName()));
+}
+
+
+void
+MSDevice_StationFinder::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = StringUtils::toDouble(value);
+    } catch (NumberFormatException&) {
+        throw InvalidArgument(TLF("Setting parameter '%' requires a number for device of type '%'", key, deviceName()));
+    }
+    if (key == "needToChargeLevel") {
+        mySearchSoC = MAX2(0., MIN2(1., doubleValue));
+    } else if (key == "saturatedChargeLevel") {
+        myTargetSoC = MAX2(0., MIN2(1., doubleValue));
+    } else if (key == "waitForCharge") {
+        myWaitForCharge = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "repeat") {
+        myRepeatInterval = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "radius") {
+        myRadius = MAX2(0., doubleValue);
+    } else if (key == "reserveFactor") {
+        myReserveFactor = MAX2(1., doubleValue);
+    } else {
+        throw InvalidArgument(TLF("Setting parameter '%' is not supported for device of type '%'", key, deviceName()));
+    }
 }
 
 

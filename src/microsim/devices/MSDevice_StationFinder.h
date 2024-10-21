@@ -187,6 +187,9 @@ public:
 
     std::string getParameter(const std::string& key) const override;
 
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
+
     /** @brief Compute some custom target function components
      *
      * @param[in] veh the concerned vehicle
