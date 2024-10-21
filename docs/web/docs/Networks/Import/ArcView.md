@@ -19,6 +19,10 @@ network stored in "my_shape_files.shp", "my_shape_files.shx",
 netconvert --shapefile-prefix my_shape_files
 ```
 
+**netconvert** supports [virtual file systems](https://gdal.org/en/latest/user/virtual_file_systems.html) when
+importing shape files. So if you have your shapes in myshapes.zip and the main file has the name arcview.shp
+you can import them via `netconvert --shapefile /vsizip/myshapes.zip/arcview` (**--shapefile** is an alias to **--shapefile-prefix**).
+
 Unfortunately, shape files describe how information is stored
 physically, but neither which is stored nor how the entries of the
 according database (\*.dbf) are named. Due to this, one has to examine
