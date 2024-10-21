@@ -42,16 +42,6 @@ GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, co
 }
 
 
-GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int /* previousParameters */) :
-    GNEChange(ac->getTagProperty().getSupermode(), true, false),
-    myAC(ac),
-    myKey(key),
-    myOrigValue(ac->isAttributeEnabled(key)),
-    myNewValue(value) {
-    myAC->incRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
-}
-
-
 GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
     // decrease reference
     myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());

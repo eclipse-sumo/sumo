@@ -1612,7 +1612,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         foe->myFoes.push_back(this);
         return true;
     }
-    int subLast = myForward.size() - 2;
+    int subLast = (int)myForward.size() - 2;
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (subLast < 0) {
         std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
@@ -1704,7 +1704,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     sub->myIsSubDriveway = true;
     sub->myForward = forward;
     sub->myRoute = route;
-    sub->myCoreSize = sub->myRoute.size();
+    sub->myCoreSize = (int)sub->myRoute.size();
     myLane->addMoveReminder(sub);
 
     // copy trains that are currently on this driveway (and associated entry events)
@@ -1790,7 +1790,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                             const MSEdge* last = myRoute[start[j]];
                             auto itLast = std::find(itFirst, foe->myRoute.end(), last);
                             if (itLast != foe->myRoute.end()) {
-                                foeSidings.insert(foeSidings.begin(), Siding(itFirst - foe->myRoute.begin(), itLast - foe->myRoute.begin(), length[j]));
+                                foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foe->myRoute.begin()), (int)(itLast - foe->myRoute.begin()), length[j]));
                             }
                         }
                     }
