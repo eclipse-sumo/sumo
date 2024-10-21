@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-17 17:23+0000\n"
+"PO-Revision-Date: 2024-10-21 09:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7696,39 +7696,39 @@ msgstr "Il numero di corsie verrà derivato dalla capacità"
 
 #: src/netimport/NIFrame.cpp:246
 msgid "Read edge ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi degli archi dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:250
 msgid "Read from-node ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi dei nodi iniziali dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:254
 msgid "Read to-node ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi dei nodi terminali dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:258
 msgid "Read type ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi dei tipi dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:261
 msgid "Read lane number from column STR"
-msgstr ""
+msgstr "Leggi il numero di corsie dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:264
 msgid "Read speed from column STR"
-msgstr ""
+msgstr "Leggi la velocità dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:267
 msgid "Read custom edge length from column STR"
-msgstr ""
+msgstr "Leggi la lunghezza personalizzata di un arco dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:270
 msgid "Read total edge width from column STR"
-msgstr ""
+msgstr "Leggi la larghezza totale di un arco dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:273
 msgid "Read (non-unique) name from column STR"
-msgstr ""
+msgstr "Leggi il nome (non necessariamente unico) dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:276
 msgid ""
@@ -7738,7 +7738,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:279
 msgid "Add the list of field names as edge params"
-msgstr ""
+msgstr "Aggiungi l'elenco di nomi dei campi come parametri dell'arco"
 
 #: src/netimport/NIFrame.cpp:283
 msgid "Uses edge type defaults on problems"
