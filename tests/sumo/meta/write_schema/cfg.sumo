@@ -139,6 +139,9 @@
             <xsd:element name="save-state.transportables" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="save-state.constraints" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="save-state.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.wkt" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.wkt.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.py" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -222,6 +225,13 @@
             <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.step-length" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.exit-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>

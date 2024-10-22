@@ -111,6 +111,9 @@
         <save-state.transportables value="false" type="BOOL" help="Save person and container states (experimental)"/>
         <save-state.constraints value="false" type="BOOL" help="Save rail signal constraints"/>
         <save-state.precision value="2" type="INT" help="Write internal state values with the given precision (default 2)"/>
+        <pedestrian.jupedsim.wkt value="" type="FILE" help="The filename to output the JuPedSim network as WKT"/>
+        <pedestrian.jupedsim.wkt.geo value="false" type="BOOL" help="Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"/>
+        <pedestrian.jupedsim.py value="" type="FILE" help="The filename to output the JuPedSim setup as Python script"/>
     </output>
 
     <time>
@@ -190,6 +193,13 @@
         <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT" help="Maximum width in m to reserve for oncoming pedestrians"/>
         <pedestrian.striping.legacy-departposlat value="false" type="BOOL" help="Interpret departPosLat for walks in legacy style"/>
         <pedestrian.striping.walkingarea-detail value="4" type="INT" help="Generate INT intermediate points to smooth out lanes within the walkingarea"/>
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME" help="The update interval of the JuPedSim simulation (in seconds)"/>
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT" help="The distance to accept the JuPedSim arrival point (in meters)"/>
+        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR" help="The submodel to use in JuPedSim (&apos;CollisionFreeSpeed&apos;, &apos;CollisionFreeSpeedV2&apos;, &apos;GeneralizedCentrifugalForce&apos;, &apos;SocialForce&apos;)"/>
+        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT" help="The neighbor repulsion strength of the JuPedSim model"/>
+        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT" help="The neighbor repulsion range of the JuPedSim model (in meters)"/>
+        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT" help="The geometry repulsion strength of the JuPedSim model"/>
+        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT" help="The geometry repulsion range of the JuPedSim model (in meters)"/>
         <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
         <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
