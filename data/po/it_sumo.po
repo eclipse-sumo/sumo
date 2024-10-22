@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-21 09:55+0000\n"
+"PO-Revision-Date: 2024-10-22 16:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-rc\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6706,11 +6706,11 @@ msgstr "Combinazione di nodi con semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:586
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "Calcolo dell'informazione del controllo con semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:593
 msgid "Computing node logics"
-msgstr ""
+msgstr "Calcolo delle logiche dei nodi"
 
 #: src/netbuild/NBNetBuilder.cpp:598
 msgid "Computing traffic light logics"
@@ -6726,7 +6726,7 @@ msgstr "Costruzione degli archi interni"
 
 #: src/netbuild/NBNetBuilder.cpp:629
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "estensione degli incroci per appianare le geometrie"
 
 #: src/netbuild/NBNetBuilder.cpp:658
 msgid "Generating street signs"
@@ -6821,57 +6821,73 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
+"Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
+"essere omesso perché non è stata trovata nessun'area pedonale."
 
 #: src/netbuild/NBNode.cpp:3066
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
+"Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
+"essere omesso perché non ci sono corsie di veicoli che lo incrociano."
 
 #: src/netbuild/NBNode.cpp:3085
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
+"Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
+"essere omesso per causa di forma invalida."
 
 #: src/netbuild/NBNode.cpp:3126
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
+"La corsia addizionale del marciapiede % su arco '%' va essere ignorata per "
+"causa delle aree pedonali."
 
 #: src/netbuild/NBNode.cpp:3242
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale "
+"collega '%' a '%'."
 
 #: src/netbuild/NBNode.cpp:3268
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale "
+"collega '%' a '%'."
 
 #: src/netbuild/NBNode.cpp:3273
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale inizia "
+"e termina alla stessa area pedonale '%'."
 
 #: src/netbuild/NBNode.cpp:3533
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale '%' "
+"attraverso [%] non ha destinazione."
 
 #: src/netbuild/NBNode.cpp:3872
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "Richiesta del passaggio pedonale sconosciuto '%'"
 
 #: src/netbuild/NBNode.cpp:3888
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "Richiesta di un passaggio pedonale sconosciuto per gli archi dati"
 
 #: src/netbuild/NBNode.cpp:3913
 msgid "Request for unknown walkingarea '%'."
-msgstr ""
+msgstr "Richiesta dell'area pedonale sconosciuta '%'."
 
 #: src/netbuild/NBNodeCont.cpp:322
 msgid "Removed a road without junctions: %."
