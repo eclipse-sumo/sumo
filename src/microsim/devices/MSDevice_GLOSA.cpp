@@ -134,8 +134,8 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         double nextSwitch = 0;
         nextSwitch = timeToSwitch;
         double QueueLength = 0;
-        double greentime = 0;
-        double additionaljunctiontime = 0;
+        double greenTime = 0;
+        double additionalJunctionTime = 0;
         // It takes factor [seconds/per meter queue] to dissolve the queue at drive off
         // experimental value from calibrated drone data
         double factor = 0.21;
@@ -166,18 +166,18 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
 #endif
             if (currentPhaseGreen) {
                 // how long has it already been green in this phase
-                greentime = timeGreen(myNextTLSLink);
-                additionaljunctiontime = (QueueLength * factor + addition) - greentime;
-                if ((additionaljunctiontime > 0) && (additionaljunctiontime < nextSwitch)) {
+                greenTime = timeGreen(myNextTLSLink);
+                additionalJunctionTime = (QueueLength * factor + addition) - greenTime;
+                if ((additionalJunctionTime > 0) && (additionalJunctionTime < nextSwitch)) {
                     // do note use queue system if queue is to long
-                    timeToJunction += additionaljunctiontime;
+                    timeToJunction += additionalJunctionTime;
                 } else {
                     // important for case: "speed can be increased to arrive at tls while green"
-                    additionaljunctiontime = 0;
+                    additionalJunctionTime = 0;
                 }
 #ifdef DEBUG_QUEUE
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " Additonaljunctiontime=" << additionaljunctiontime << " Greentime=" << greentime << " TimetoJunction(GreenQueue)=" << timeToJunction << "\n";
+                    std::cout << SIMTIME << " veh=" << myVeh.getID() << " Additonaljunctiontime=" << additionalJunctionTime << " Greentime=" << greenTime << " TimetoJunction(GreenQueue)=" << timeToJunction << "\n";
                 }
 #endif
             }
@@ -193,7 +193,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         }
 
         // Search for the next passable phase, maximum 10 Phases 
-        for (int countwhile = 1; countwhile < 10; countwhile++) {
+        for (int countwhile = 1; countwhile < 11; countwhile++) {
             if (currentPhaseGreen) {
                 // reset nextSwitch because the queue matters only for the current Phase
                 if (countwhile == 2 && myUseQueue) {
@@ -217,7 +217,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                     // if speed can be increased to arrive at tls while green (else look for next phases)
                     if (myMaxSpeedFactor > myOriginalSpeedFactor) {
                         const double vMax2 = vMax / myVeh.getChosenSpeedFactor() * myMaxSpeedFactor;
-                        const double timetoJunction2 = earliest_arrival(myDistance, vMax2) + additionaljunctiontime;
+                        const double timetoJunction2 = earliest_arrival(myDistance, vMax2) + additionalJunctionTime;
                         // reaching the signal at yellow might be sufficient
                         const double yellowSlack = myVeh.getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
 #ifdef DEBUG_GLOSA
@@ -271,24 +271,31 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 if (countwhile == 2 && myUseQueue) {
                     // reset queue because following phases should not calculate with current queue
                     nextSwitch -= QueueLength * factor + addition;
-                    timeToJunction -= additionaljunctiontime;
+                    timeToJunction -= additionalJunctionTime;
                 }
-                if (solved == true) {
+                if (solved) {
                     break; // solved
                 }
             }
             // calculate next Phase
             nextSwitch += getTimeToNextSwitch(myNextTLSLink, currentPhaseGreen, currentPhaseStop, countOld);
             // For vehicles far away from the junction we add an offset
-            if (nextSwitch > 20. && switchOffset == 0) {
-                nextSwitch -= (double)switchOffset;
-                switchOffset = 2;
-            } else if (nextSwitch > 40. && switchOffset == 2) {
-                nextSwitch -= (double)switchOffset;
-                switchOffset = 4;
-            } else if (nextSwitch > 60. && switchOffset == 4) {
-                nextSwitch -= (double)switchOffset;
+            if (nextSwitch > 80.) {
+                nextSwitch += (double)switchOffset;
                 switchOffset = 6;
+                nextSwitch -= (double)switchOffset;
+            } else if (nextSwitch > 60.) {
+                nextSwitch += (double)switchOffset;
+                switchOffset = 4;
+                nextSwitch -= (double)switchOffset;
+            } else if (nextSwitch > 40.) {
+                nextSwitch += (double)switchOffset;
+                switchOffset = 3;
+                nextSwitch -= (double)switchOffset;
+            } else if (nextSwitch > 20.) {
+                nextSwitch += (double)switchOffset;
+                switchOffset = 2;
+                nextSwitch -= (double)switchOffset;
             }
         }
     }
