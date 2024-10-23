@@ -443,6 +443,7 @@
         <device.glosa.max-speedfactor value="1.1" type="FLOAT" help="The maximum speed factor when approaching a green light"/>
         <device.glosa.min-speed value="5" type="FLOAT" help="Minimum speed when coasting towards a red light"/>
         <device.glosa.add-switchtime value="0" type="FLOAT" help="Additional time the vehicle shall need to reach the intersection after the signal turns green"/>
+        <device.glosa.use-queue value="false" type="BOOL" help="Use queue in front of the tls for GLOSA calculation"/>
         <device.glosa.override-safety value="false" type="BOOL" help="Override safety features - ignore the current light state, always follow GLOSA&apos;s predicted state"/>
         <device.glosa.ignore-cfmodel value="false" type="BOOL" help="Vehicles follow a perfect speed calculation - ignore speed calculations from the CF model if not safety critical"/>
     </glosa_device>

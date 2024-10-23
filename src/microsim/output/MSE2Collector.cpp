@@ -1553,7 +1553,7 @@ double
 MSE2Collector::getEstimateQueueLength() const {
 
     if (myVehicleInfos.empty()) {
-        return -1;
+        return 0;
     }
 
     double distance = 0;
@@ -1561,7 +1561,7 @@ MSE2Collector::getEstimateQueueLength() const {
     bool flowing =  true;
     for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
             it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
+        if (it->second->onDetector && it->second->totalTimeOnDetector > 0) {
             //  double distanceTemp = myLane->getLength() - distance;
             if (it->second->lastSpeed <= myJamHaltingSpeedThreshold) {
                 distance = MAX2(it->second->distToDetectorEnd, distance);

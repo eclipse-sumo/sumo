@@ -869,6 +869,8 @@ GLOSA Device Options:
   --device.glosa.add-switchtime FLOAT  Additional time the vehicle shall need
                                         to reach the intersection after the
                                         signal turns green
+  --device.glosa.use-queue             Use queue in front of the tls for GLOSA
+                                        calculation
   --device.glosa.override-safety       Override safety features - ignore the
                                         current light state, always follow
                                         GLOSA's predicted state
