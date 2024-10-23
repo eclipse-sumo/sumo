@@ -59,7 +59,7 @@ There are two methods for inserting vehicles into the simulation:
 In an uncongested networks these methods behave similar but in a
 congested network with lots of vehicles which cannot be inserted variant
 2) is much faster. In older version of sumo 1) was the default and one
-could switch to 2) using the option **--sloppy-insert** Since version 0.18.0, variant 2) is
+could switch to 2) using the option **--sloppy-insert**. Since version 0.18.0, variant 2) is
 the default and one may switch to 1) using the option **--eager-insert**.
 
 !!! caution
