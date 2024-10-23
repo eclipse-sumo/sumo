@@ -221,7 +221,7 @@ and then setting the options **--astar.landmark-distances landmarks.txt --astar.
 ## CH (Contraction Hierarchies)
 
 [Contraction Hierarchies](https://en.wikipedia.org/wiki/Contraction_hierarchies)
-is preprocessing-based routing algorithm. This is very efficient
+is a preprocessing-based routing algorithm. This is very efficient
 when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}.
