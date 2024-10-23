@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-18 19:15:46 by Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
+<!-- generated on 2024-10-23 14:31:23 by Eclipse SUMO sumo Version v1_14_1+15612-0b6e03ca01b
+-->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
