@@ -255,7 +255,7 @@ of the type
 Error: No connection between 'edge1' and 'edge2' found
 ```
 
-This is caused be an unconnected network. If your network has vehicle
+This is caused by an unconnected network. If your network has vehicle
 class restrictions it may be that the connectivity is only lacking for
 particular vehicle classes which is less obvious from the GUI. You can
 ignore these routes using the option **--ignore-errors**. However, if a large proportion of
