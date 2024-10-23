@@ -44,12 +44,12 @@ def plotLineString(data, color):
 
 
 def plotGeom(data, min_area, color):
-    if type(data) == Polygon:
+    if isinstance(data, Polygon):
         plotPolygonWithHoles(data, min_area, color)
-    elif type(data) == MultiPolygon:
+    elif isinstance(data, MultiPolygon):
         for polygon in data.geoms:
             plotPolygonWithHoles(polygon, min_area, color)
-    elif type(data) == LineString:
+    elif isinstance(data, LineString):
         plotLineString(data, color)
 
 

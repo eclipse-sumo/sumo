@@ -594,8 +594,9 @@ Vehicle::getNextLinks(const std::string& vehID) {
                 const std::string approachedLane = link->getLane() != nullptr ? link->getLane()->getID() : "";
                 const bool hasPrio = link->havePriority();
                 const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
-                const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                                                 SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+                const bool isOpen = link->opened(currTime, speed, speed, veh->getLength(),
+                                                 veh->getImpatience(), veh->getVehicleType().getCarFollowModel().getMaxDecel(),
+                                                 veh->getWaitingTime(), veh->getLateralPositionOnLane(), nullptr, false, veh);
                 const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
                 const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
                 const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
@@ -621,8 +622,9 @@ Vehicle::getNextLinks(const std::string& vehID) {
                         const std::string approachedLane = link->getLane() != nullptr ? link->getLane()->getID() : "";
                         const bool hasPrio = link->havePriority();
                         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
-                        const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+                        const bool isOpen = link->opened(currTime, speed, speed, veh->getLength(),
+                                                         veh->getImpatience(), veh->getVehicleType().getCarFollowModel().getMaxDecel(),
+                                                         veh->getWaitingTime(), veh->getLateralPositionOnLane(), nullptr, false, veh);
                         const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
                         const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
                         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());

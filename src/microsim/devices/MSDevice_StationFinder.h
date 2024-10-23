@@ -101,7 +101,9 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-public:
+    /** @brief Returns the search state corresponding to the /
+
+    public:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
@@ -143,6 +145,18 @@ public:
 
     /// @}
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs);
+
     /// @brief return the name for this type of device
     const std::string deviceName() const override {
         return "stationfinder";
@@ -172,6 +186,9 @@ public:
     }
 
     std::string getParameter(const std::string& key) const override;
+
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
 
     /** @brief Compute some custom target function components
      *

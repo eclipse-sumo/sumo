@@ -30,18 +30,13 @@ from sumolib import checkBinary  # noqa
 net_output = 'joined.net.xml'
 trips_output = 'trips.log'
 
-netconvert = checkBinary('netconvert')
-assert(netconvert)
-sumo = checkBinary('sumo')
-assert(sumo)
-
-args_netc = [netconvert,
+args_netc = [checkBinary('netconvert'),
              '--node-files', 'input_nodes.nod.xml',
              '--edge-files', 'input_edges.edg.xml',
              '--output', net_output,
              '--offset.disable-normalization']
 
-args_sumo = [sumo,
+args_sumo = [checkBinary('sumo'),
              '--net-file', net_output,
              '--route-files', 'input_routes.rou.xml',
              '--end', '50',

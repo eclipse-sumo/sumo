@@ -853,9 +853,9 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         // sublane model could have detected a conflict
         return collectFoes == nullptr || collectFoes->size() == 0;
     }
-    if (myState == LINKSTATE_ALLWAY_STOP && waitingTime < TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_ALLWAYSTOP_WAIT, TS))) {
+    if (myState == LINKSTATE_ALLWAY_STOP && waitingTime < TIME2STEPS(ego == nullptr ? TS : ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_ALLWAYSTOP_WAIT, TS))) {
         return false;
-    } else if (myState == LINKSTATE_STOP && waitingTime < TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPSIGN_WAIT, TS))) {
+    } else if (myState == LINKSTATE_STOP && waitingTime < TIME2STEPS(ego == nullptr ? TS : ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPSIGN_WAIT, TS))) {
         return false;
     }
 
@@ -2192,5 +2192,34 @@ void
 MSLink::updateDistToFoePedCrossing(double dist) {
     myDistToFoePedCrossing = MIN2(myDistToFoePedCrossing, dist);
 }
+
+
+std::pair<const SUMOVehicle* const, const MSLink::ApproachingVehicleInformation>
+MSLink::getClosest() const {
+    assert(getApproaching().size() > 0);
+    double minDist = std::numeric_limits<double>::max();
+    auto closestIt = getApproaching().begin();
+    for (auto apprIt = getApproaching().begin(); apprIt != getApproaching().end(); apprIt++) {
+        if (apprIt->second.dist < minDist) {
+            minDist = apprIt->second.dist;
+            closestIt = apprIt;
+        }
+    }
+    // maybe a parallel link has a closer vehicle
+    /*
+    for (MSLink* link2 : link->getLaneBefore()->getLinkCont()) {
+        if (link2 != link) {
+            for (auto apprIt2 = link2->getApproaching().begin(); apprIt2 != link2->getApproaching().end(); apprIt2++) {
+                if (apprIt2->second.dist < minDist) {
+                    minDist = apprIt2->second.dist;
+                    closestIt = apprIt2;
+                }
+            }
+        }
+    }
+    */
+    return *closestIt;
+}
+
 
 /****************************************************************************/

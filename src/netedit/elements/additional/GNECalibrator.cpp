@@ -526,10 +526,10 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
     // calculate dotted contour
     if (symbolIndex == -1) {
         myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, s.additionalSettings.calibratorWidth,
-                s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+                s.additionalSettings.calibratorHeight * 0.5, getType(), 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     } else if (symbolIndex < (int)myCalibratorContours->size()) {
         myCalibratorContours->at(symbolIndex)->calculateContourRectangleShape(s, d, this, pos, s.additionalSettings.calibratorWidth,
-                s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+                s.additionalSettings.calibratorHeight * 0.5, getType(), 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
 }
 

@@ -25,19 +25,19 @@ $INSBASE
   9
 $EXTMIN
  10
--100
+1e+20
  20
--100
+1e+20
  30
--100
+1e+20
   9
 $EXTMAX
  10
-100
+-1e+20
  20
-100
+-1e+20
  30
-100
+-1e+20
   9
 $LIMMIN
  10
@@ -445,19 +445,19 @@ $SKPOLY
   9
 $TDCREATE
  40
-2459949.678310185
+2451545.0
   9
 $TDUCREATE
  40
-2458532.153996898
+2451545.0
   9
 $TDUPDATE
  40
-2459949.678310185
+2451545.0
   9
 $TDUUPDATE
  40
-2458532.1544311
+2451545.0
   9
 $TDINDWG
  40
@@ -505,7 +505,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-42
+46
   9
 $SURFTAB1
  70
@@ -885,11 +885,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-CDA3740C-8C42-11ED-9D5A-B55E2AE7DD63
+{00000000-0000-0000-0000-000000000000}
   9
 $VERSIONGUID
   2
-CDA3740E-8C42-11ED-9D5A-B55E2AE7DD63
+{00000000-0000-0000-0000-000000000000}
   9
 $EXTNAMES
 290
@@ -1159,9 +1159,9 @@ AcDbViewportTableRecord
  21
 1.0
  12
-70.0
+0.0
  22
-50.0
+0.0
  13
 0.0
  23
@@ -1187,7 +1187,7 @@ AcDbViewportTableRecord
  37
 0.0
  40
-1.0
+1000.0
  41
 1.34
  42
@@ -1365,7 +1365,7 @@ Continuous
   0
 LAYER
   5
-2D
+2F
 330
 1
 100
@@ -1387,7 +1387,7 @@ SOLID
   0
 LAYER
   5
-38
+3A
 330
 1
 100
@@ -1489,7 +1489,7 @@ APPID
 100
 AcDbSymbolTable
  70
-2
+3
   0
 APPID
   5
@@ -1507,7 +1507,7 @@ ACAD
   0
 APPID
   5
-41
+43
 330
 3
 100
@@ -1516,6 +1516,20 @@ AcDbSymbolTableRecord
 AcDbRegAppTableRecord
   2
 HATCHBACKGROUNDCOLOR
+ 70
+0
+  0
+APPID
+  5
+44
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+EZDXF
  70
 0
   0
@@ -1605,7 +1619,7 @@ Standard
  78
 8
  79
-0
+3
 170
 0
 171
@@ -1625,9 +1639,9 @@ Standard
 178
 0
 179
-0
+2
 271
-0
+2
 272
 2
 273
@@ -1801,7 +1815,7 @@ ENTITIES
   0
 LWPOLYLINE
   5
-2E
+30
 330
 17
 100
@@ -1826,54 +1840,6 @@ AcDbPolyline
 200.0
  20
 87.35
-  0
-LWPOLYLINE
-  5
-2F
-330
-17
-100
-AcDbEntity
-  8
-SUMONetBoundary
-100
-AcDbPolyline
- 90
-2
- 70
-0
- 10
-200.0
- 20
-91.095
- 10
-113.4
- 20
-91.095
-  0
-LWPOLYLINE
-  5
-30
-330
-17
-100
-AcDbEntity
-  8
-SUMONetBoundary
-100
-AcDbPolyline
- 90
-2
- 70
-0
- 10
-113.4
- 20
-87.35
- 10
-113.4
- 20
-87.345
   0
 LWPOLYLINE
   5
@@ -1891,6 +1857,54 @@ AcDbPolyline
  70
 0
  10
+200.0
+ 20
+91.095
+ 10
+113.4
+ 20
+91.095
+  0
+LWPOLYLINE
+  5
+32
+330
+17
+100
+AcDbEntity
+  8
+SUMONetBoundary
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+113.4
+ 20
+87.35
+ 10
+113.4
+ 20
+87.345
+  0
+LWPOLYLINE
+  5
+33
+330
+17
+100
+AcDbEntity
+  8
+SUMONetBoundary
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
 0.0
  20
 88.1
@@ -1901,7 +1915,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-32
+34
 330
 17
 100
@@ -1925,7 +1939,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-33
+35
 330
 17
 100
@@ -1953,7 +1967,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-34
+36
 330
 17
 100
@@ -1977,7 +1991,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-35
+37
 330
 17
 100
@@ -2001,7 +2015,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-36
+38
 330
 17
 100
@@ -2022,34 +2036,34 @@ AcDbPolyline
 88.1
  20
 112.65
-  0
-LWPOLYLINE
-  5
-37
-330
-17
-100
-AcDbEntity
-  8
-SUMONetBoundary
-100
-AcDbPolyline
- 90
-2
- 70
-0
- 10
-91.1
- 20
-112.65
- 10
-91.1
- 20
-200.0
   0
 LWPOLYLINE
   5
 39
+330
+17
+100
+AcDbEntity
+  8
+SUMONetBoundary
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+91.1
+ 20
+112.65
+ 10
+91.1
+ 20
+200.0
+  0
+LWPOLYLINE
+  5
+3B
 330
 17
 100
@@ -2075,7 +2089,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-3A
+3C
 330
 17
 100
@@ -2101,7 +2115,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-3B
+3D
 330
 17
 100
@@ -2127,7 +2141,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-3C
+3E
 330
 17
 100
@@ -2153,7 +2167,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-3D
+3F
 330
 17
 100
@@ -2179,7 +2193,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-3E
+40
 330
 17
 100
@@ -2205,7 +2219,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-3F
+41
 330
 17
 100
@@ -2231,7 +2245,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-40
+42
 330
 17
 100
@@ -2268,6 +2282,8 @@ A
 0
 100
 AcDbDictionary
+280
+0
 281
 1
   3
@@ -2314,6 +2330,10 @@ ACAD_TABLESTYLE
 ACAD_VISUALSTYLE
 350
 16
+  3
+EZDXF_META
+350
+2D
   0
 DICTIONARY
   5
@@ -2322,6 +2342,8 @@ B
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   0
@@ -2332,6 +2354,8 @@ C
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   0
@@ -2342,6 +2366,8 @@ D
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   3
@@ -2360,6 +2386,8 @@ E
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   3
@@ -2382,6 +2410,8 @@ F
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   3
@@ -2396,6 +2426,8 @@ DICTIONARY
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   3
@@ -2410,6 +2442,8 @@ DICTIONARY
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   0
@@ -2420,6 +2454,8 @@ ACDBDICTIONARYWDFLT
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   3
@@ -2444,6 +2480,8 @@ DICTIONARY
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   0
@@ -2454,6 +2492,8 @@ DICTIONARY
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   0
@@ -2464,6 +2504,8 @@ DICTIONARY
 A
 100
 AcDbDictionary
+280
+0
 281
 1
   0
@@ -2479,21 +2521,21 @@ AcDbPlotSettings
   2
 Adobe PDF
   4
-A4
+A3
   6
 
  40
-3.175
+7.5
  41
-3.175
+20.0
  42
-3.175
+7.5
  43
-3.175
+20.0
  44
-209.91
+420.0
  45
-297.03
+297.0
  46
 0.0
  47
@@ -2513,9 +2555,9 @@ A4
  70
 1024
  72
-0
- 73
 1
+ 73
+0
  74
 5
   7
@@ -2543,13 +2585,13 @@ Model
  71
 0
  10
--3.175
+0.0
  20
--3.175
+0.0
  11
-293.857
+420.0
  21
-206.735
+297.0
  12
 0.0
  22
@@ -2557,17 +2599,17 @@ Model
  32
 0.0
  14
-29.068
+1e+20
  24
-20.356
+1e+20
  34
-0.0
+1e+20
  15
-261.614
+-1e+20
  25
-183.204
+-1e+20
  35
-0.0
+-1e+20
 146
 0.0
  13
@@ -2605,21 +2647,21 @@ AcDbPlotSettings
   2
 Adobe PDF
   4
-A4
+A3
   6
 
  40
-3.175
+7.5
  41
-3.175
+20.0
  42
-3.175
+7.5
  43
-3.175
+20.0
  44
-209.91
+420.0
  45
-297.03
+297.0
  46
 0.0
  47
@@ -2639,9 +2681,9 @@ A4
  70
 0
  72
-0
- 73
 1
+ 73
+0
  74
 5
   7
@@ -2669,13 +2711,13 @@ Layout1
  71
 1
  10
--3.175
+0.0
  20
--3.175
+0.0
  11
-293.857
+420.0
  21
-206.735
+297.0
  12
 0.0
  22
@@ -2683,17 +2725,17 @@ Layout1
  32
 0.0
  14
-29.068
+1e+20
  24
-20.356
+1e+20
  34
-0.0
+1e+20
  15
-261.614
+-1e+20
  25
-183.204
+-1e+20
  35
-0.0
+-1e+20
 146
 0.0
  13
@@ -3203,7 +3245,7 @@ Standard
  47
 1.0
  49
-0.0
+1.0
 140
 1.0
 294
@@ -3224,8 +3266,50 @@ Standard
 0
 272
 9
-272
+273
 9
+  0
+DICTIONARY
+  5
+2D
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+CREATED_BY_EZDXF
+350
+2E
+  3
+WRITTEN_BY_EZDXF
+350
+45
+  0
+DICTIONARYVAR
+  5
+2E
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+0.0 @ 2000-01-01T00:00:00.000000+00:00
+  0
+DICTIONARYVAR
+  5
+45
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+0.0 @ 2000-01-01T00:00:00.000000+00:00
   0
 ENDSEC
   0

@@ -154,3 +154,6 @@ ticket15123
 
 # setStopParameter expected
 ticket15486
+
+# crash when calling MSLink::opened without ego vehicle at allway_stop or priority_stop
+ticket15603

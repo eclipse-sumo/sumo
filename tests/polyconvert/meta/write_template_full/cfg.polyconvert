@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO polyconvert Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-10-21 17:21:37 by Eclipse SUMO polyconvert Version v1_21_0+0462-0373bcb962f
 -->
 
 <polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -73,6 +73,7 @@
         <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
         <poi-layer-offset value="0" type="FLOAT" help="Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"/>
+        <flatten value="false" type="BOOL" help="Remove all z-data"/>
     </processing>
 
     <building_defaults>

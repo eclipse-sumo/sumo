@@ -283,7 +283,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0);
     }
 }
 
@@ -342,7 +342,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration,
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
                 segment->isFirstSegment(), segment->isLastSegment(), 0);
     }
 }
@@ -372,7 +372,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0);
     }
 }
 

@@ -40,14 +40,6 @@ public:
      */
     GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value);
 
-    /**@brief constructor
-     * @param[in] ac The attribute-carrier to be modified
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] previousParameters previous values (used by flows)
-     */
-    GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int previousParameters);
-
     /// @brief Destructor
     ~GNEChange_ToggleAttribute();
 

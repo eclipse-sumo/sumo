@@ -6,6 +6,37 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed rerouting error on the last route edge with a stop #15552
+  - Fixed routing error on departure #15563
+  - Fixed invalid warnings regarding inconsistent loaded stop times #15602 
+
+- netedit
+  - Loaded containers starting from stops are now drawn #15567
+  - ESC aborts creation of edgeRel and tazRel datas #15601
+  - Fixed invalid TAZ coloring during mouse hovering in create TAZRel mode #15544 
+
+- TraCI
+  - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
+    
+### Enhancements
+
+- sumo
+  - The new vType attribute `lcContRight` can be used to configure lane choice at a lane split where all lanes have equal strategic value. #15579
+  - Added option **--insertion-checks** to set global defaults for vehicle attribute `insertionChecks` #15149
+  - railways
+    - major rewrite of signal logic #7578
+    - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
+    - Fixed various deadlocks #7493, #13262, #15474
+    - The new option **--time-to-teleport.railsignal-deadlock** can be used to detect signal based deadlocks #15561    
+    - The new optioin **--time-to-teleport.remove-constraint** can be used to resolve detected deadlocks which are caused by a signal constraint by deactivating a responsible constraint #14543
+    - The new option **--deadlock-output** can be use to log detected deadlocks and also their resolution
+    - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569 
+
+
+### Miscellaneous
+
+
 ## Version 1.21.0 (10.10.2024)
 
 ### Bugfixes

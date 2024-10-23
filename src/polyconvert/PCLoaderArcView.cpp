@@ -101,7 +101,7 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
         Position pos(geom->getX(j), geom->getY(j));
 #else
     for (const OGRPoint& p : *geom) {
-        Position pos(p.getX(), p.getY());
+        Position pos(p.getX(), p.getY(), p.Is3D() ? p.getZ() : 0.0);
 #endif
         if (!geoConvHelper.x2cartesian(pos)) {
             WRITE_ERRORF(TL("Unable to project coordinates for polygon '%'."), tid);
@@ -227,7 +227,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         }
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         switch (gtype) {
-            case wkbPoint: {
+            case wkbPoint:
+            case wkbPoint25D: {
                 OGRPoint* cgeom = (OGRPoint*) poGeometry;
                 Position pos(cgeom->getX(), cgeom->getY());
                 if (!geoConvHelper.x2cartesian(pos)) {
@@ -248,7 +249,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbPolygon: {
+            case wkbPolygon:
+            case wkbPolygon25D: {
                 const bool fill = fillType < 0 || fillType == 1;
                 const PositionVector shape = toShape(((OGRPolygon*) poGeometry)->getExteriorRing(), id);
                 SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, fill, 1, layer, angle, imgFile);
@@ -257,7 +259,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbMultiPoint: {
+            case wkbMultiPoint:
+            case wkbMultiPoint25D: {
                 OGRMultiPoint* cgeom = (OGRMultiPoint*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRPoint* cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
@@ -273,7 +276,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbMultiLineString: {
+            case wkbMultiLineString:
+            case wkbMultiLineString25D: {
                 OGRMultiLineString* cgeom = (OGRMultiLineString*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     const std::string tid = id + "#" + toString(i);
@@ -285,7 +289,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbMultiPolygon: {
+            case wkbMultiPolygon:
+            case wkbMultiPolygon25D: {
                 const bool fill = fillType < 0 || fillType == 1;
                 OGRMultiPolygon* cgeom = (OGRMultiPolygon*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {

@@ -69,7 +69,6 @@ def get_options():
 def main():
     options = get_options()
     net = None
-    attribute_retriever = None
     if options.attribute == "length":
         net = sumolib.net.readNet(options.network)
 
@@ -94,7 +93,7 @@ def main():
         def attribute_retriever(vehicle):
             return 3.6 * float(vehicle.routeLength) / (parseTime(vehicle.arrival) - parseTime(vehicle.depart))
     else:
-        sys.exit("Invalid value '%s' for option --attribute" % options.attribute)
+        raise ValueError("Invalid value '%s' for option --attribute" % options.attribute)
 
     lengths = {}
     lengths2 = {}

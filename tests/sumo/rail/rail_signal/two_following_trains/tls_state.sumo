@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-30 15:15:06 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
+<!-- generated on 2024-07-14 23:08:01 by Eclipse SUMO sumo Version v1_20_0+0489-d33cee02165
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -161,7 +161,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="38.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="38.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="39.00" id="gneJ1" programID="0" phase="1" state="r"/>
-    <tlsState time="39.00" id="gneJ3" programID="0" phase="1" state="r"/>
+    <tlsState time="39.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="39.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="40.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="40.00" id="gneJ3" programID="0" phase="1" state="r"/>
@@ -172,7 +172,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="42.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="42.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="42.00" id="gneJ5" programID="0" phase="0" state="G"/>
-    <tlsState time="43.00" id="gneJ1" programID="0" phase="1" state="r"/>
+    <tlsState time="43.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="43.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="43.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="44.00" id="gneJ1" programID="0" phase="1" state="r"/>
@@ -324,7 +324,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="92.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="93.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="93.00" id="gneJ3" programID="0" phase="1" state="r"/>
-    <tlsState time="93.00" id="gneJ5" programID="0" phase="1" state="r"/>
+    <tlsState time="93.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="94.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="94.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="94.00" id="gneJ5" programID="0" phase="1" state="r"/>
@@ -335,7 +335,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="96.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="96.00" id="gneJ5" programID="0" phase="1" state="r"/>
     <tlsState time="97.00" id="gneJ1" programID="0" phase="1" state="r"/>
-    <tlsState time="97.00" id="gneJ3" programID="0" phase="1" state="r"/>
+    <tlsState time="97.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="97.00" id="gneJ5" programID="0" phase="1" state="r"/>
     <tlsState time="98.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="98.00" id="gneJ3" programID="0" phase="1" state="r"/>
@@ -414,7 +414,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="122.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="123.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="123.00" id="gneJ3" programID="0" phase="1" state="r"/>
-    <tlsState time="123.00" id="gneJ5" programID="0" phase="1" state="r"/>
+    <tlsState time="123.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="124.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="124.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="124.00" id="gneJ5" programID="0" phase="1" state="r"/>

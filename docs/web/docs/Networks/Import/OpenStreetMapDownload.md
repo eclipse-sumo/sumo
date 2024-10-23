@@ -79,7 +79,7 @@ NE-corner: 13.471 52.552
 ## Download the area
 
 Construct an [URI (web
-adress)](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) from
+address)](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) from
 the geo-coordinates and download the data from that URI. The URI takes
 the following form:
 
@@ -93,7 +93,7 @@ for the above example this becomes
 https://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552
 ```
 
-you can download your data by entering the URI in a web-browers or by
+you can download your data by entering the URI in a web-browser or by
 using another program such as [wget](http://wget.addictivecode.org/).
 
 ```

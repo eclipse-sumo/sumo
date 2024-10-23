@@ -234,7 +234,7 @@ GNEDemandElementFlow::enableFlowAttribute(GNEDemandElement* flowElement, SumoXML
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, true, parametersSet), true);
+            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, true), true);
             return;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -253,7 +253,7 @@ GNEDemandElementFlow::disableFlowAttribute(GNEDemandElement* flowElement, SumoXM
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, false, parametersSet), true);
+            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, false), true);
             return;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

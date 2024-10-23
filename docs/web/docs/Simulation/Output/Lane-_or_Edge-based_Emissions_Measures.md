@@ -121,7 +121,7 @@ Notes:
 
 ## See Also
 
-- [edge/lane-based network performace measures
+- [edge/lane-based network performance measures
   output](../../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
   and [edge/lane-based vehicular noise emission
   output](../../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)

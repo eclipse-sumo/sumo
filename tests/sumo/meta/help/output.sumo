@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_21_0+0019-a15f3a8f697
+Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -145,6 +145,8 @@ Output Options:
                                         separate FILE
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
+  --railsignal-vehicle-output FILE     Record entry and exit times of vehicles
+                                        for railsignal blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
                                         (in conjunction with device.btreceiver
                                         and device.btsender)
@@ -165,6 +167,7 @@ Output Options:
   --lanedata-output FILE               Write aggregated traffic statistics for
                                         all lanes into FILE
   --statistic-output FILE              Write overall statistics into FILE
+  --deadlock-output FILE               Write reports on deadlocks FILE
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -265,12 +268,18 @@ Processing Options:
   --time-to-teleport.remove            Whether vehicles shall be removed after
                                         waiting too long instead of being
                                         teleported
+  --time-to-teleport.remove-constraint  Whether rail-signal-constraint based
+                                        deadlocks shall be cleared by removing a
+                                        constraint
   --time-to-teleport.ride TIME         The waiting time after which persons /
                                         containers waiting for a pickup are
                                         teleported. Negative values disable
                                         teleporting
   --time-to-teleport.bidi TIME         The waiting time after which vehicles on
                                         bidirectional edges are teleported
+  --time-to-teleport.railsignal-deadlock TIME  The waiting time after which
+                                        vehicles in a rail-signal based deadlock
+                                        are teleported
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
@@ -285,6 +294,8 @@ Processing Options:
                                         separately for insertion on an edge
   --emergency-insert                   Allow inserting a vehicle in a situation
                                         which requires emergency braking
+  --insertion-checks STR               Override default value for vehicle
+                                        attribute insertionChecks
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                         its depart value drawn uniformly from
                                         [0, TIME]
@@ -373,6 +384,8 @@ Processing Options:
                                         pedestrians start squeezing through a
                                         jam while on a narrow lane when using
                                         model 'striping'
+  --pedestrian.striping.jamfactor FLOAT  Factor for reducing speed of
+                                        pedestrian in jammed state
   --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
                                         for oncoming pedestrians
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes

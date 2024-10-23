@@ -95,6 +95,7 @@
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
@@ -193,6 +194,7 @@ MSNet::initStatic() {
     if (!MSGlobals::gUseMesoSim) {
         MSVehicle::Influencer::init();
     }
+    MSDriveWay::init();
 }
 
 void
@@ -696,9 +698,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().isSet("substations-output")) {
         writeSubstationOutput();
     }
-    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
-        writeRailSignalBlocks();
-    }
+    writeRailSignalBlocks();
     const long now = SysUtils::getCurrentMillis();
     if (myLogExecutionTime || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         WRITE_MESSAGE(generateStatistics(start, now));
@@ -766,7 +766,7 @@ MSNet::simulationStep(const bool onlyMove) {
     }
     myBeginOfTimestepEvents->execute(myStep);
     if (MSRailSignalControl::hasInstance()) {
-        MSRailSignalControl::getInstance().recheckGreen();
+        MSRailSignalControl::getInstance().updateSignals(myStep);
     }
 #ifdef HAVE_FOX
     MSRoutingEngine::waitForAll();
@@ -814,6 +814,10 @@ MSNet::simulationStep(const bool onlyMove) {
     // containers
     if (myContainerControl != nullptr && myContainerControl->hasTransportables()) {
         myContainerControl->checkWaiting(this, myStep);
+    }
+    if (MSRailSignalControl::hasInstance()) {
+        MSRailSignalControl::getInstance().resetWaitRelations();
+        // preserve waitRelation from insertion for the next step
     }
     // insert vehicles
     myInserter->determineCandidates(myStep);
@@ -971,6 +975,7 @@ MSNet::clearAll() {
     MSStopOut::cleanup();
     MSRailSignalConstraint::cleanup();
     MSRailSignalControl::cleanup();
+    MSDriveWay::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
     if (t != nullptr) {
         t->cleanup();
@@ -1028,6 +1033,7 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
     MSRailSignalControl::clearState();
+    MSDriveWay::clearState();
     myStep = step;
     MSGlobals::gClearState = false;
 }
@@ -1428,12 +1434,25 @@ MSNet::writeChargingStationOutput() const {
 
 void
 MSNet::writeRailSignalBlocks() const {
-    OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
-    for (auto tls : myLogics->getAllLogics()) {
-        MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
-        if (rs != nullptr) {
-            rs->writeBlocks(output);
+    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
+        for (auto tls : myLogics->getAllLogics()) {
+            MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+            if (rs != nullptr) {
+                rs->writeBlocks(output, false);
+            }
         }
+        MSDriveWay::writeDepatureBlocks(output, false);
+    }
+    if (OptionsCont::getOptions().isSet("railsignal-vehicle-output")) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-vehicle-output");
+        for (auto tls : myLogics->getAllLogics()) {
+            MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+            if (rs != nullptr) {
+                rs->writeBlocks(output, true);
+            }
+        }
+        MSDriveWay::writeDepatureBlocks(output, true);
     }
 }
 

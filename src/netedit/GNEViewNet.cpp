@@ -1653,7 +1653,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         // abort operation depending of current mode
-        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
+        if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
             mySelectingArea.selectingUsingRectangle = false;
             // check if current selection has to be cleaned
             if (clearSelection) {
