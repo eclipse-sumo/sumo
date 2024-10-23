@@ -1,2 +1,8 @@
-Warning: Teleporting vehicle 'v_1'; frontal collision with vehicle 'v_0', lane='-E3.50_0', gap=-1.00, time=15.00, stage=move.
-Warning: Vehicle 'v_1' teleports beyond arrival edge '-E0', time=19.00.
+Warning: Invalid approach information to rail signal 'junction 'J7', link 0' after rerouting for vehicle 'v_1' first driveway edge '-E6' time=2.00.
+Warning: Vehicle 'v_1' performs emergency braking on lane '-E5_0' with decel=5.00, wished=1.30, severity=1.00, time=2.00.
+Warning: Vehicle 'v_1' performs emergency stop at the end of lane '-E5_0' because of a red traffic light (decel=-13.89, offset=7.88), time=2.00.
+Warning: Invalid approach information to rail signal 'junction 'J7', link 0' after rerouting for vehicle 'v_1' first driveway edge '-E6' time=18.00.
+Warning: Invalid approach information to rail signal 'junction 'J7', link 0' after rerouting for vehicle 'v_1' first driveway edge '-E6' time=20.00.
+Warning: Invalid approach information to rail signal 'junction 'J7', link 0' after rerouting for vehicle 'v_1' first driveway edge '-E6' time=22.00.
+Warning: Teleporting vehicle 'v_1'; frontal collision with vehicle 'v_0', lane='E3_0', gap=-1.00, time=42.00, stage=move.
+Warning: Vehicle 'v_1' ends teleporting on edge '-E0', time=42.00.

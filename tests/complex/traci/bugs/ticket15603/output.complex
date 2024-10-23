@@ -1,0 +1,3 @@
+ Retrying in 1 seconds
+connections (('E1_0', False, False, False, ':J1_3_0', 'w', 's', 11.2), ('E2_0', False, False, False, ':J2_3_0', 's', 's', 11.2))
+links [('E4_0', False, False, False, ':J1_2_0', 'w', 'r', 9.03), ('E1_0', False, False, False, ':J1_3_0', 'w', 's', 11.2)]

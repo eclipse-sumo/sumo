@@ -45,7 +45,7 @@ You may also give routes including vehicle definitions as {{AdditionalFile}} to
 
 ## Additional Files
 
-One ore more {{AdditionalFile}}(s) are used to load additional entities:
+One or more {{AdditionalFile}}(s) are used to load additional entities:
 
 - infrastructure related things: [traffic light
   programs](../Simulation/Traffic_Lights.md), [induction

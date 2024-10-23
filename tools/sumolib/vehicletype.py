@@ -25,11 +25,6 @@ import os
 import json
 import re
 import random
-try:
-    from typing import Any, List, Tuple, Union
-except ImportError:
-    # there are python2 versions on MacOS coming without typing
-    pass
 
 import sumolib
 

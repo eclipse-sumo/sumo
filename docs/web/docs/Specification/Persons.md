@@ -24,7 +24,7 @@ below. Each person must have at least one stage in its plan.
 </person>
 ```
 
-## Availabe Person Attributes
+## Available Person Attributes
 
 | Attribute           | Type      | Range              | Default         | Remark      |
 |---------------------|-----------|--------------------|-----------------|---------------------------|

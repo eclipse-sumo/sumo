@@ -87,7 +87,7 @@ element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PAR
 ### Inspect the target function result
 The target function value of each searched charging station of the vehicle can be inspected in [sumo-gui](../sumo-gui.md). Proceed with the following steps to see the results next to the charging stations:
 
-- Open the vehicle visulization settings](../sumo-gui.md#vehicle_visualisation_settings) and check "Show charging info"
+- Open the vehicle visualization settings](../sumo-gui.md#vehicle_visualisation_settings) and check "Show charging info"
 - Move to vehicle of interest and open its context menu by right click, then choose "Show Current Route"
 
 Some charging stations may not show target function results. They may be excluded beforehand due to stationfinder device settings like `radius` and `maxEuclideanDistance`.

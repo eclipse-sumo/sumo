@@ -24,3 +24,36 @@ foeInsertion
 
 # constraint which guards a bidi section
 bidi
+
+# conflicting constraints cause deadlock
+deadlock
+
+# conflicting constraints cause deadlock, remove the constraint
+deadlock_remove
+
+# conflicting constraints cause deadlock, remove the constraint (both vehicles arrive at the same time)
+deadlock_remove2
+
+# blocked insertion contributes to deadlock
+deadlock_insertion
+
+# blocked insertion contributes to deadlock, remove the constraint
+deadlock_insertion_remove
+
+# blocked insertion after parking contributes to deadlock
+deadlock_insertion2
+
+# blocked insertion after parking contributes to deadlock, remove the constraint
+deadlock_insertion2_remove
+
+# conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint
+deadlock_insertion3
+
+# conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint, remove constraint to resolve the deadlock
+deadlock_insertion3_remove
+
+# conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint with tripId
+deadlock_insertion3_tripId
+
+# conflicting constraints cause deadlock, remove the constraint, includes an insertionConstraint with tripId
+deadlock_insertion3_tripId_remove

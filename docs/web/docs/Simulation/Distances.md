@@ -18,7 +18,7 @@ By default, the length of a straight edge corresponds to the euclidean distance
 between its start and end positions (x,y).
 
 However, lengths of edges and lanes can be different from the euclidean
-distance (referred to as a **length-geometry-mismtach**) and there are several reasons why this occurs.
+distance (referred to as a **length-geometry-mismatch**) and there are several reasons why this occurs.
 
 
 [sumo-gui](../sumo-gui.md#edgelane_visualisation_settings) and [netedit](../Netedit/index.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
@@ -32,7 +32,7 @@ The assigned length is set to the average length of all lanes of that edge.
 For curved edges, this introduces a mismatch between geometrical length and driving distance because outer
 lanes in a curve are longer than inner lanes.
 
-The main architectural reason for enforcing the same length for all lanes is the great simplificaiton this brings to lane-changing computation.
+The main architectural reason for enforcing the same length for all lanes is the great simplification this brings to lane-changing computation.
 
 !!! note
     since version 1.9.0 internal lanes for multi-lane turning connections (linkDir != 's') permit different lengths. Lane changing is forbidden while a vehicle is on such lanes.

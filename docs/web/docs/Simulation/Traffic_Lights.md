@@ -589,7 +589,7 @@ The default gap control logic, replicated with custom conditions. A complete sce
 ### Overriding Phase Attributes with Expressions
 
 By default, the phase attributes 'minDur', 'maxDur', 'earliestEnd' and 'latestEnd' are defined numerically (or left undefined).
-It may be desireable to redefine these attributes with expressions (i.e. condition ids or condition values) for the following reasons:
+It may be desirable to redefine these attributes with expressions (i.e. condition ids or condition values) for the following reasons:
 
 - the switching logic may be expressed more succinctly if these values can change dynamically during the signals operation
 - the phase definitions shall be reused for multiple programs and all variability shall be expressed in table of constants (defined via `<conditions>`s)

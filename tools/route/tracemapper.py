@@ -154,6 +154,7 @@ if __name__ == "__main__":
                         poiOut.write('    <poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
                 edges = [e.getID() for e in sumolib.route.mapTrace(
                     trace, net, *mapOpts) if e.getFunction() != "internal"]
+                edges = [edge for i, edge in enumerate(edges) if i == 0 or edge != edges[i-1]]
                 if polyOut is not None and edges:
                     route2poly.generate_poly(options, net, tid, colorgen(), edges, polyOut)
                 if edges:

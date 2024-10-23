@@ -239,7 +239,7 @@ class DijkstraRouter(handler.ContentHandler):
         """retrieves edge objects based on their ids"""
         result = []
         for id in ids:
-            if type(id) == str:
+            if isinstance(id, str):
                 if self.net.hasEdge(id):
                     result.append(self.net.getEdge(id))
                 else:

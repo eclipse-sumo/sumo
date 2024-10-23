@@ -16,7 +16,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
@@ -36,18 +37,11 @@ jobs:
         path: sumo
         fetch-depth: 0
 
-    - name: Fetching SUMO tags
-      run: |
-        cd sumo
-        git fetch --tags --force
-
     - name: Preparing Build System
       run: |
         sudo apt-get update
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libfmt-dev
-        sudo apt-get install libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig
-        sudo apt-get install maven ccache libv8-dev gettext pipx
+        sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
         pipx install texttest
 
     - name: Validate CITATION.cff
@@ -55,10 +49,6 @@ jobs:
       uses: dieghernan/cff-validator@v3
       with:
         citation-path: sumo/CITATION.cff
-
-    - name: ccache
-      if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2
 
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
@@ -68,11 +58,17 @@ jobs:
         ref: ${{ matrix.jps_version }}
         path: jupedsim
 
+    - name: ccache
+      # do a clean build once a day
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.build_type }}-${{ matrix.compiler }}
+
     - name: Building libjupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
-        sudo apt-get install libgeos-dev
-        cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=jupedsim-install jupedsim
+        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
         cmake --build jupedsim-build -j4 --config Release
         cmake --install jupedsim-build --config Release
 
@@ -113,8 +109,12 @@ jobs:
 
     - name: Building Examples and Tests
       if: matrix.build_type == 'full' && (github.repository == 'DLR-TS/sumo' || matrix.compiler == 'gcc')
+      # need to explicitly uninstall matplotlib below because pandas pulls it in but we need a newer version for test stability
+      # having both installed confuses matplotlib https://github.com/matplotlib/matplotlib/issues/26827
+      # the pipdeptree below is also just for debugging but often comes handy so keep it enabled
       run: |
-        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf python3-pyperclip python3-polib
+        sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
+        sudo apt-get -y remove python3-matplotlib
         python3 -m venv testenv --system-site-packages
         source testenv/bin/activate
         python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
@@ -126,10 +126,9 @@ jobs:
     - name: Extra tests
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
-        sudo apt-get install python2
+        source testenv/bin/activate
         sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
-        sumo/tests/runTests.sh -b ci -a tools.python2.ci
 
     - name: Compressing test results
       if: failure()

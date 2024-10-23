@@ -201,6 +201,9 @@ fillOptions() {
     oc.doRegister("poi-layer-offset", new Option_Float(0));
     oc.addDescription("poi-layer-offset", "Processing", TL("Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"));
 
+    oc.doRegister("flatten", new Option_Bool(false));
+    oc.addDescription("flatten", "Processing", TL("Remove all z-data"));
+
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
     oc.addDescription("color", "Building Defaults", TL("Sets STR as default color"));

@@ -118,6 +118,9 @@ public:
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
 
+    /// @brief reset additional contour
+    void resetAdditionalContour();
+
     /// @name members and functions relative to write additionals into XML
     /// @{
 
@@ -459,7 +462,7 @@ protected:
 
     /// @brief calculate contour for polygons
     void calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                  const double exaggeration, const bool filledShape) const;
+                                  const double layer, const double exaggeration, const bool filledShape) const;
 
     /// @}
 

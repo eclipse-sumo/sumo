@@ -51,7 +51,7 @@ are optional and only serve to enhance human reader comprehension. The
 *train,subway,light_rail,monorail,trolleybus,aerialway,ferry*). The
 **line** attribute will be used in the simulation when distinguishing
 public transport lines. The optional **completeness** attribute serves to
-inform the human reader that the stops only descibe 11% of the complete
+inform the human reader that the stops only describe 11% of the complete
 line. Incomplete lines are typical when importing only a part of the
 complete public transport network.
 

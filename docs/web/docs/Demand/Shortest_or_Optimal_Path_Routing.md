@@ -58,7 +58,7 @@ Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJun
 
 - When defining a `<trip>` with [stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints)-elements, routing will performed for each stop (starting a the trip origin or the prior stop) and ending at the destination.
 - If at least one stop is provided, either one of the `from` or `to` attributes (or `fromJunction`, `fromTaz`, ...) may be omitted.
-- If at least two stops are provied both of the `from` and `to` attributes may be omitted (the first stop serves as the origin while the last stop serves as the destination)
+- If at least two stops are provided both of the `from` and `to` attributes may be omitted (the first stop serves as the origin while the last stop serves as the destination)
 - If a a stop with a [`jump`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)-attribute is given, the subsequent part of the route (to the next stop or the destination) will be disconnected
 
 ## Mapmatching
@@ -159,7 +159,7 @@ the *weight-attribute* must be defined:
 
 # Access restrictions
 
-Acces to a network edge is typiclly restricte by the [vehicle class](../Simulation/VehiclePermissions.md) defined in a [vehicle type](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) but can also be customized with [numerical restrictions](../Simulation/VehiclePermissions.md#custom_access_restrictions).
+Access to a network edge is typiclly restricte by the [vehicle class](../Simulation/VehiclePermissions.md) defined in a [vehicle type](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) but can also be customized with [numerical restrictions](../Simulation/VehiclePermissions.md#custom_access_restrictions).
 
 # Repair routes
 

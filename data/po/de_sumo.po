@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-09 15:11+0000\n"
+"PO-Revision-Date: 2024-10-22 16:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7362,7 +7362,7 @@ msgstr "Erstelle interne Kanten"
 
 #: src/netbuild/NBNetBuilder.cpp:629
 msgid "stretching junctions to smooth geometries"
-msgstr "Strecken von Knotenpunkten zu glatten Geometrien"
+msgstr "Strecken von Knotenpunkten, um Geometrien zu glätten"
 
 #: src/netbuild/NBNetBuilder.cpp:658
 msgid "Generating street signs"
@@ -11927,7 +11927,7 @@ msgstr "Kein numerischer Eintrag in Zeile '%'."
 
 #: src/tools/emissionsMap_main.cpp:54
 msgid "Writing map of '%' into '%'."
-msgstr "Schreibe Karte von '%' in '%'."
+msgstr "Schreibe Abbildung von '%' in '%'."
 
 #: src/tools/emissionsMap_main.cpp:58 src/utils/router/AStarLookupTable.h:292
 #, c-format
@@ -11936,18 +11936,20 @@ msgstr "Datei '%' kann nicht geöffnet werden zum Schreiben."
 
 #: src/tools/emissionsMap_main.cpp:83
 msgid "Builds and writes an emissions map for SUMO's emission models."
-msgstr "Baut und schreibt eine Emissionskarte für das SUMOs Emissionsmodelle."
+msgstr ""
+"Erstellt und schreibt eine Emissionskennfeld für die SUMO-Emissionsmodelle."
 
 #: src/tools/emissionsMap_main.cpp:89
 msgid "If set, maps for all available emissions are written."
 msgstr ""
-"Wenn angewendet, werden Karten für alle verfügbaren Emissionen geschrieben."
+"Wenn angewendet, werden Kennfelder für alle verfügbaren Emissionen "
+"geschrieben."
 
 #: src/tools/emissionsMap_main.cpp:92
 msgid "Defines the name of the emission class to generate the map for."
 msgstr ""
-"Definiert den Namen der Emissionsklasse, für die die Karte erstellt werden "
-"soll."
+"Definiert den Namen der Emissionsklasse, für die das Kennfeld erstellt "
+"werden soll."
 
 #: src/tools/emissionsMap_main.cpp:95
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."

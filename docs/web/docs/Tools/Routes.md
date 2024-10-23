@@ -435,6 +435,9 @@ may be beneficial to increase the accepted **--delta** distance between trace po
 the edge reference line. The mapping algorithm is also available in the
 python library function sumolib.route.mapTrace.
 
+!!! caution
+    Geographic coordinates have to be provided in the lon/lat form (first coordinate is the longitude, second the latitude)!
+
 # tlsCycleAdaptation.py
 
 This script is to adapt the cycle lengths of the signalized

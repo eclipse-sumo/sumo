@@ -20,7 +20,8 @@ on:
 
 jobs:
   build-manylinux-wheels:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Cloning SUMO
@@ -28,19 +29,15 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Fetching SUMO tags
-      run: |
-        git fetch --tags --force
-
     - name: Building sumolib / traci (pure Python) wheels and sdist
       run: |
         cd tools
         sudo apt-get update
         sudo apt-get install python3-build
-        python build_config/version.py build_config/setup-sumolib.py ./setup.py
-        python -m build -o ../wheelhouse
-        python build_config/version.py build_config/setup-traci.py ./setup.py
-        python -m build -o ../wheelhouse
+        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
+        python3 -m build -o ../wheelhouse
+        python3 build_config/version.py build_config/setup-traci.py ./setup.py
+        python3 -m build -o ../wheelhouse
 
     - name: Building SUMO / libsumo Python wheels (latest manylinux docker)
       # if: github.repository == 'DLR-TS/sumo'
@@ -72,7 +69,8 @@ jobs:
   ###################
   test-wheels:
     needs: [build-manylinux-wheels]
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -96,7 +94,7 @@ jobs:
         sudo apt-get install pipx
         pipx install texttest
         python3 -m venv testenv --system-site-packages
-        testenv/bin/python -m pip install manylinux-wheels/eclipse_sumo*
+        testenv/bin/python -m pip install -f manylinux-wheels eclipse_sumo
         testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests

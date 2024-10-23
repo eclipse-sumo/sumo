@@ -64,6 +64,7 @@ def parse_args(def_dmg_name, def_pkg_name):
     op.add_argument("build_dir", help="Build dir of sumo")
     op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
     op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
+    op.add_option("-v", "--verbose", action="store_true", default=False, help="tell me more")
 
     return op.parse_args()
 
@@ -235,7 +236,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     return name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path):
+def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path, verbose):
     print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
 
@@ -297,7 +298,11 @@ export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
         f"/Applications/{app_name}.app",
         f"{pkg_path}",
     ]
-    subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if verbose:
+        print(pkg_build_command)
+    sys.stdout.flush()
+    out = None if verbose else subprocess.DEVNULL
+    subprocess.run(pkg_build_command, check=True, stdout=out, stderr=out)
     pkg_size = os.path.getsize(pkg_path)
 
     # Cleanup the temporary directory
@@ -306,7 +311,7 @@ export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
     return app_name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
+def create_installer(frmwk_pkg, app_pkgs, id, version, output_path, verbose):
     cwd = os.path.dirname(os.path.abspath(__file__))
     print(" - Creating temporary directory")
     temp_dir = tempfile.mkdtemp()
@@ -380,7 +385,9 @@ def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
         resources_dir,
         output_path,
     ]
-    subprocess.run(productbuild_command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    sys.stdout.flush()
+    out = None if verbose else subprocess.DEVNULL
+    subprocess.run(productbuild_command, check=True, stdout=out, stderr=out)
     pkg_size = os.path.getsize(output_path)
 
     print(" - Cleaning up")
@@ -484,13 +491,14 @@ def main():
         print(f"Building app package for '{app_name}'")
 
         icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", "installer", app_icons)
-        app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path)
+        app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path, opts.verbose)
         app_pkgs.append(app_pkg)
         print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
     # Building the installer package
     print("Building installer")
-    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version, opts.output_pkg)
+    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version,
+                                     opts.output_pkg, opts.verbose)
     print("Successfully built installer\n")
 
     # Putting the installer package into a dmg file - ready for signing

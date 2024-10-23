@@ -1,0 +1,4 @@
+--net-file net3.net.xml --additional-files input_routes.rou.xml --no-step-log
+--pedestrian.striping.jamtime 180
+--pedestrian.striping.legacy-departposlat
+--pedestrian.striping.jamfactor 0.8

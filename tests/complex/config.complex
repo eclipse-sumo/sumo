@@ -90,6 +90,10 @@ gtfs_additional:gtfs_pt_stops.add.xml
 vtypes:vtypes.xml
 cfg:config.sumocfg
 aggregated:aggregated.xml
+railsignalblocks:railsignal_blocks.xml
+railsignalvehs:railsignal_vehicles.xml
+railsignalblocks2:railsignal_blocks2.xml
+railsignalvehs2:railsignal_vehicles2.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -143,8 +147,8 @@ ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
 statistics:<!--{[->]}-->
 statistics2:<!--{[->]}-->
-statistics:<performance 
-statistics2:<performance 
+statistics:<performance
+statistics2:<performance
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
@@ -156,8 +160,12 @@ detector:<!--{[->]}-->
 toc:<!--{[->]}-->
 toc2:<!--{[->]}-->
 tocs:<!--{[->]}-->
+railsignalblocks:<!--{[->]}-->
+railsignalvehs:<!--{[->]}-->
+railsignalblocks2:<!--{[->]}-->
+railsignalvehs2:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:send failed: Connection reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
@@ -176,6 +184,8 @@ errors:Matplotlib is building the font cache; this may take a moment.
 errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
 errors:.*UserWarning: {REPLACE UserWarning: }
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
@@ -189,7 +199,7 @@ output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
 output:Process [0-9]
 output:Starting process
-output:[0-9] stepping \(step 
+output:[0-9] stepping \(step
 output:^Loading configuration ... done.
 output:^Starting process [0-9] with steplength
 output:does not supply vehicle parameter

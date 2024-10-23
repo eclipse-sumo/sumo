@@ -89,6 +89,7 @@ int MSPModel_Striping::myWalkingAreaDetail;
 SUMOTime MSPModel_Striping::jamTime;
 SUMOTime MSPModel_Striping::jamTimeCrossing;
 SUMOTime MSPModel_Striping::jamTimeNarrow;
+double MSPModel_Striping::jamFactor;
 bool MSPModel_Striping::myLegacyPosLat;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
@@ -141,6 +142,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) {
     if (jamTimeNarrow <= 0) {
         jamTimeNarrow = SUMOTime_MAX;
     }
+    jamFactor = oc.getFloat("pedestrian.striping.jamfactor");
     myLegacyPosLat = oc.getBool("pedestrian.striping.legacy-departposlat");
 }
 
@@ -2039,7 +2041,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                                myPerson->getID(), myStage->getEdge()->getID(), time2string(SIMSTEP));
                 myAmJammed = true;
             }
-            xSpeed = vMax / 4;
+            xSpeed = vMax * jamFactor;
         }
     } else if (myAmJammed && stripe(myPosLat) >= 0 && stripe(myPosLat) <= sMax && xDist >= MIN_STARTUP_DIST)  {
         myAmJammed = false;

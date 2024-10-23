@@ -251,7 +251,7 @@ for i in range(10):
     traci.simulationStep()
 
 remaining = traci.person.getRemainingStages("p3")
-assert(remaining == 1)
+assert remaining == 1
 # replace current stage
 print_remaining_plan("p3", "(before replacement of current stage)")
 traci.person.replaceStage("p3", 0, stage2)

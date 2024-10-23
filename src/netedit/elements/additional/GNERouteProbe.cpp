@@ -216,8 +216,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour and draw dotted geometry
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.routeProbeSize,
-                s.additionalSettings.routeProbeSize, 0, 0, 0, routeProbeExaggeration);
-        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.3, routeProbeExaggeration, true, true, 0);
+                s.additionalSettings.routeProbeSize, getType(), 0, 0, 0, routeProbeExaggeration);
+        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), 0.3, routeProbeExaggeration, true, true, 0);
     }
 }
 
