@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-22 16:23+0000\n"
+"PO-Revision-Date: 2024-10-23 11:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4917,41 +4917,45 @@ msgstr ""
 
 #: src/microsim/traffic_lights/NEMAController.cpp:965
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "Si parte con le fasi coordinate"
 
 #: src/microsim/transportables/MSPModel.h:186
 msgid "moveTo is ignored by the current movement model"
-msgstr ""
+msgstr "moveTo viene ignorato dal modello di movimento attuale"
 
 #: src/microsim/transportables/MSPModel.h:202
 msgid "moveToXY is ignored by the current movement model"
-msgstr ""
+msgstr "moveToXY viene ignorato dal modello di movimento attuale"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:166
 msgid "Error while adding person '%' as JuPedSim agent: %"
-msgstr ""
+msgstr "Errore nel aggiungere la persona '%' come agente JuPedSim: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:180
 msgid "Error while creating fixed transition for person '%': %"
-msgstr ""
+msgstr "Errore nel creare una transizione fissa per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:186
 msgid "Error while setting transition for person '%': %"
-msgstr ""
+msgstr "Errore nel impostare una transizione per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:205
 msgid "Error while adding waypoint for person '%': %"
-msgstr ""
+msgstr "Errore nel aggiungere un punto intermedio per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:242
 #: src/microsim/transportables/MSPModel_Striping.cpp:170
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
 msgstr ""
+"La persona '%' non ha incontrato nessuno marciapiede nell'arco '%' alle ore "
+"%."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:256
 #, c-format
 msgid "FromTaz '%' for person '%' has no shape information."
 msgstr ""
+"La zona di assegnazione del traffico di origine della persona '%' non "
+"possiede una forma."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:307
 msgid "No waiting set for crossing at %."
@@ -4959,19 +4963,20 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:344
 msgid "Error while adding a journey for person '%': %"
-msgstr ""
+msgstr "Errore nel aggiungere un viaggio per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:378
 msgid "Error while switching to a new journey for person '%': %"
-msgstr ""
+msgstr "Errore nel cambiare viaggio alla persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:409
 msgid "Error during iteration %: %"
-msgstr ""
+msgstr "Errore durante la iterazione %: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:572
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
 msgstr ""
+"La persona '%' nell'area di sparizione '%' è stata rimossa dalla simulazione."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:678
 msgid "Error while generating geometry for carriages."
