@@ -2182,6 +2182,10 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
                 // compute all demand elements
                 myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
             }
+            // reset TAZ contours (due filling)
+            for (const auto &TAZ : myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+                TAZ.second->resetAdditionalContour();
+            }
         }
         // update buttons
         networkButton->update();

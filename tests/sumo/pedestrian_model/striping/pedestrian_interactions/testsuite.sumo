@@ -4,6 +4,9 @@ jam_trafficlight
 # test interaction with default pedestrian attributes
 jam_trafficlight_defaults
 bidirectional_flow_1stripe
+
+# Copy of bidirectional_flow_1stripe
+bidirectional_flow_1stripe_jamFactor
 bidirectional_flow_2stripes
 bidirectional_flow_3stripes
 
@@ -13,6 +16,9 @@ bidirectional_flow_5stripes
 
 # test dynamics when jammed
 bidirectional_flow_jammed
+
+# test dynamics when jammed with custom jamfactor
+bidirectional_flow_jammed_jamFactor
 
 # orthogonal streams crossing on a wide plaza
 plaza

@@ -142,7 +142,7 @@ class network:
             class center:
                 x = 498
                 y = 236
-            
+
             class up:
                 x = 495
                 y = 23
@@ -240,7 +240,7 @@ class network:
             y = 320
 
         class move:
-            
+
             class top:
                 x = 500
                 y = 217

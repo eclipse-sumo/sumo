@@ -7,6 +7,41 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed rerouting error on the last route edge with a stop #15552
+  - Fixed routing error on departure #15563
+  - Fixed invalid warnings regarding inconsistent loaded stop times #15602 
+
+- netedit
+  - Loaded containers starting from stops are now drawn #15567
+  - ESC aborts creation of edgeRel and tazRel datas #15601
+  - Fixed invalid TAZ coloring during mouse hovering in create TAZRel mode #15544 
+
+- TraCI
+  - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
+    
+### Enhancements
+
+- sumo
+  - The new vType attribute `lcContRight` can be used to configure lane choice at a lane split where all lanes have equal strategic value. #15579
+  - Added option **--insertion-checks** to set global defaults for vehicle attribute `insertionChecks` #15149
+  - railways
+    - major rewrite of signal logic #7578
+    - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
+    - Fixed various deadlocks #7493, #13262, #15474
+    - The new option **--time-to-teleport.railsignal-deadlock** can be used to detect signal based deadlocks #15561    
+    - The new optioin **--time-to-teleport.remove-constraint** can be used to resolve detected deadlocks which are caused by a signal constraint by deactivating a responsible constraint #14543
+    - The new option **--deadlock-output** can be use to log detected deadlocks and also their resolution
+    - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569 
+
+
+### Miscellaneous
+
+
+## Version 1.21.0 (10.10.2024)
+
+### Bugfixes
+
+- sumo
   - Fixed unhelpful error message when giving an edge id instead of a lane id for a stop #15158 (regression in 1.11.0)
   - Fixed invalid error when loading a trip directly after a route with `repeat` #14992 (regression in 1.20.0)
   - Persons joining edge via access don't collide with vehicles again #15030 (regression in 1.20.0)
@@ -56,12 +91,15 @@ title: ChangeLog
   - Fixed nondeterministic order of constraint trackers in saved state #15406
   - Fixed infinite loop if rerouter interval end < begin #15416
   - Fixed bug where vType-param "device.rerouting.probability" could not be used to prevent rerouting #15288
-  - Fixed nondeterministic order of constraint trackers in saved state #15406
   - edgeData output now excludes non-driving lanes from laneDensity computation #15383
   - rerouter closingReroute now preserves all existing stops when computing new route #14610
   - Fixed invalid emergency stop message for waypoint at route end #15485
   - Fixed bug where taxi disappears during dispatch #15508
-  - Fixed crash when loading state related to rerouting device assignment #15517 
+  - Fixed crash when loading state related to rerouting device assignment #15517
+  - Now updating via edges when rerouting to an alternative parkingArea #15545
+  - StartUpDelay and ActionStepLength can now be used together #14229
+  - StartUpDelay now works with small timesteps and IDM #14289
+  - Fixed crash when using taxi with pre-booking and ride sharing #15385
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -111,6 +149,7 @@ title: ChangeLog
   - Fixed crash related to invalid endOffset #15317 (regression in 1.20.0)
   - Fixed invalid coloring for lane change prohibition #15099 (regression in 1.20.0)
   - Fixed highlighting during POIs and parkingSpace movement #15509, #15512 (regression in 1.20.0)
+  - Objects with enabled text rendering (i.e. ID) are always visible at any zoom #15519 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
   - Fixed invalid NEMA controller when changing type from static #15007
@@ -133,7 +172,6 @@ title: ChangeLog
   - Can now create rides with only one edge #15361
   - Fixed clicking Person/container plans over TAZs #15363
   - Fixed crash trying to move persons over TAZ #15365
-  - Fixed crash when using taxi with pre-booking and ride sharing #15385
   - Fixed crash joining junctions with crossings #15328
   - Fixed loss of TAZ edges after recomputing with volatile options #15401
   - Stop attribute `parking` now takes effect when set in *Stop mode* #15439
@@ -147,7 +185,10 @@ title: ChangeLog
   - Fixed slow-down when loading many polygons #14600
   - Fixed junction merging with active grid #15483
   - Can now load laneAreaDetector defined with endPos #14683
-  - Copy template now copies the changeLeft/changeRight attributes #15507 
+  - Copy template now copies the changeLeft/changeRight attributes #15507
+  - Contour of non-filled polygons is now reset after moving #15541
+  - Fixed crash when attempting to create a joined NEMA controller #15547
+  - Fixed lefthand drawing of additional elements #15566
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -220,10 +261,11 @@ title: ChangeLog
   - chargingStation default power is now 22kW (instead of 0) #15144
   - Added warning for unusual distribution definitions #15146
   - fcd-output now contains the vtype for pedestrians #15210
-  - Added option **--chargingstations-output.aggregated ** to write output that is more compact #15240
+  - Added option **--chargingstations-output.aggregated** to write output that is more compact #15240
   - vType attribute `jmAllwayStopWait` can now be used to customize required waiting time at allwayStop #15428
   - time-to-teleport.disconnected may now be higher than time-to-teleport #15494
-  - Stop attribute `index` can now be used to encode stopping on a later edge of a looped route #15503 
+  - Stop attribute `index` can now be used to encode stopping on a later edge of a looped route #15503
+  - The battery model now records depletion events in tripinfo output #15529
 
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
@@ -235,7 +277,7 @@ title: ChangeLog
   - Hotkey <kbd>ESC</kbd> + <kbd>SHIFT</kbd> can be used to clear the selection regardless of editing mode #14481
   - Making person/container plan wider on mouse-over #15337
   - Now Showing junctions while creating person and container plans #15345
-  - Added detectPersons to InductionLoop attributes #15515 
+  - Added detectPersons to InductionLoop attributes #15515
 
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
@@ -281,7 +323,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609
   - generateRailSignalConstraints.py: Added option **--abort-unordered.keep-actual** which keeps stops after a detected overtaking as valid if they have started/ended values #15065
   - generateRailSignalConstraints.py: Added option **--all-inactive** for setting all constraints as inactive #15312
-  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025
+  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to avoid a wider distribution than may be expected #15025
   - mapDetectors.py: Option **--max-radius** can now be used to configure maximum mapping radius #15118
   - mapDetectors.py: Can now handle CSV with BOM #15116
   - net2geojson.py: can now optionally include numLanes and speed as properties #15109
@@ -299,7 +341,8 @@ title: ChangeLog
 - parkingArea default roadsideCapacity is 1 (instead of 0) if no space definitions are given #15264
 - plotting tools can now handle Matplotlib versions suffix like ".post1" #15372
 - Fixed invalid characters in documentation command examples #15441
-- Fixed inconsistent argument name in libsumo function Vehicle.moveTo #15304 
+- Fixed inconsistent argument name in libsumo function Vehicle.moveTo #15304
+- A warning is now given when trying to use carFollowModel EIDM with actionSteps #15557
 
 ## Version 1.20.0 (07.05.2024)
 

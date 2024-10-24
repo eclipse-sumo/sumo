@@ -118,6 +118,8 @@ errors:X connection to
 errors:Could not load{LINES 1}
 errors:Debug: Modules:
 errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:\\{REPLACE /}

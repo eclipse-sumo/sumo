@@ -627,14 +627,14 @@ GNEPOI::calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualiz
                             const double exaggeration, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
-        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeHeight.front(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
-        myMovingContourDown.calculateContourCircleShape(s, d, this, myShapeHeight.back(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
-        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
-        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
+        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeHeight.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+        myMovingContourDown.calculateContourCircleShape(s, d, this, myShapeHeight.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
+        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
     } else if (getShapeImgFile().empty()) {
-        myAdditionalContour.calculateContourCircleShape(s, d, this, *this, 1.3, exaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, *this, 1.3, getShapeLayer(), exaggeration);
     } else {
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), exaggeration);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, getShapeLayer(), 0, 0, getShapeNaviDegree(), exaggeration);
     }
 }
 

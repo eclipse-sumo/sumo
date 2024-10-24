@@ -821,6 +821,10 @@ public:
     /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
     void leaveLane(const MSMoveReminder::Notification reason, const MSLane* approachedLane = 0);
 
+    /** @brief Update of reminders if vehicle back leaves a lane during (during
+     * forward movement */
+    void leaveLaneBack(const MSMoveReminder::Notification reason, const MSLane* leftLane);
+
     /** @brief Check whether the drive items (myLFLinkLanes) are up to date,
      *         and update them if required.
      *  @note  This is the case if a lane change was completed.
@@ -2144,7 +2148,7 @@ protected:
     void cleanupFurtherLanes();
 
     /// @brief comparison between different continuations from the same lane
-    static bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m);
+    bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) const;
 
 private:
     /// @brief The per vehicle variables of the car following model

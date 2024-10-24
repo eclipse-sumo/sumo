@@ -22,7 +22,7 @@ netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
 ```
 
 !!! caution
-    If your network contains geo-coordiantes (lon/lat) you must add option **--proj.utm** in order to project your network into the cartesian plane
+    If your network contains geo-coordinates (lon/lat) you must add option **--proj.utm** in order to project your network into the cartesian plane
 
 # Import Coverage
 

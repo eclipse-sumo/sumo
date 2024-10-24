@@ -38,6 +38,10 @@ rm -f $STATUSLOG
 echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
+if test -e $PREFIX/sumo_test_env/bin/activate; then
+  # activate the virtual environment containing the python packages which are not available via apt
+  source $PREFIX/sumo_test_env/bin/activate
+fi
 cd $PREFIX/sumo
 basename $MAKELOG >> $STATUSLOG
 git clean -f -x -d -q . &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)

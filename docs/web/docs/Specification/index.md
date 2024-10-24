@@ -79,7 +79,7 @@ created at time "begin". The id of the created vehicles is
 
 Types define physical parameters such as length, acceleration,
 deceleration and maximum speed and give a list of categories cars of
-this type belong to. All theses parameters are identical among all
+this type belong to. All these parameters are identical among all
 vehicles of a type.
 
 <table>
@@ -196,7 +196,7 @@ vehicles of a type.
 <td><p>string</p></td>
 <td></td>
 <td><p>P_7_7</p></td>
-<td><p>the emission class, see <a href="../Models/Emissions.md" title="wikilink">Models/Emissions</a>.</p></td>
+<td><p>the emission class, see <a href="../Models/Emissions.md">Models/Emissions</a>.</p></td>
 </tr>
 <tr class="even">
 <td><p>probability</p></td>

@@ -61,7 +61,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Lychee Link Checker
-      uses: lycheeverse/lychee-action@v1
+      uses: lycheeverse/lychee-action@v2
       with:
         fail: true
         args: -c docs/web/lychee.toml -n docs/web/docs/ --cache --max-cache-age 2d

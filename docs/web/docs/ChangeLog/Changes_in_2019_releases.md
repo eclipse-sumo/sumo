@@ -631,7 +631,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 - TraCI
   - TraCI Version is now 20
   - Function *trafficlight.setCompleteRedYellowGreeenDefinition* now
-    expectes the 5th component *next* to be a list of integers when
+    expects the 5th component *next* to be a list of integers when
     defining phases. Function
     '*'trafficlight.getCompleteRedYellowGreeenDefinition* now
     returns a list of integers as the 5th component (next) when

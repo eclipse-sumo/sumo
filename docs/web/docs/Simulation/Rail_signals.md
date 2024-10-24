@@ -27,7 +27,7 @@ If one uses a rail network (here, we mean a network consisting
 exclusively of [edges that allow
 only](../Networks/PlainXML.md#edge_descriptions)
 trains) within its simulation, it is not required to use rail signals.
-Instead one could choose all junctions withing this network to be of the
+Instead one could choose all junctions within this network to be of the
 type *priority*, which results, however, in an unrealistic behavior of
 the rail traffic. To achieve a more realistic behavior, one can make
 use of rail signals. For that, one can split a longer rail section

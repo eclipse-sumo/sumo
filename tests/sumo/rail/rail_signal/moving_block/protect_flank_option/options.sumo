@@ -2,3 +2,4 @@
 --routes=input_routes.rou.xml
 --tripinfo-output tripinfos.xml
 --railsignal-moving-block
+--railsignal-vehicle-output railsignal_vehicles.xml

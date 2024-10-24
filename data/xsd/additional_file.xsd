@@ -39,6 +39,7 @@
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
             <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
+            <xsd:element name="deadlock" type="deadlockType" minOccurs="0"/>
 
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"/>
             <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"/>
@@ -612,6 +613,12 @@
         <xsd:attribute name="foes"   use="required" type="xsd:string"/>
         <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
         <xsd:attribute name="active" use="optional" type="boolType"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="deadlockType">
+        <xsd:attribute name="time" type="timeType" use="optional"/>
+        <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
+        <xsd:attribute name="signals" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="polygonType">

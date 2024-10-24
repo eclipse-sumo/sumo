@@ -139,7 +139,7 @@ A third option which can be used if no edge types are available is a heuristic b
 
 ### Permission-based generation
 
-Option **--bikelanes.guess.from-permissons** {{DT_BOOL}} is suitable for networks which specify their edge permissions (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a bike lane for all edges which allow bicycles on any of their lanes. The option **--bikelanes.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]* applies here as well.
+Option **--bikelanes.guess.from-permissions** {{DT_BOOL}} is suitable for networks which specify their edge permissions (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a bike lane for all edges which allow bicycles on any of their lanes. The option **--bikelanes.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]* applies here as well.
 
 ### Adding bike lanes with [netedit](../Netedit/index.md)
 

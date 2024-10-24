@@ -15,8 +15,7 @@ errors at the perception stage, see
 *Figure 1: Errors in the driving process.*
 
 Practically, errors are added to the input quantities of the
-car-following model's input parameters of spacing and speed difference
-(for an integration in [contributed car-following
+car-following model's input parameters of spacing and speed difference. For an integration in [contributed car-following
 models](Developer/How_To/Car-Following_Model.md), the
 [implementation in the standard
 model](https://github.com/eclipse-sumo/sumo/blob/main/src/microsim/cfmodels/MSCFModel_Krauss.cpp)

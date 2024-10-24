@@ -62,7 +62,7 @@ pressing the `Run` button, network, buildings and routes will be
 imported. In case the trip file `demo.trip.xml` exists, it will also be
 imported.
 
-In the same way it is possible to crate an empty scenario under menu
+In the same way it is possible to create an empty scenario under menu
 `Scenario>New...`.
 
 ### Browsing the scenario
@@ -266,7 +266,7 @@ The SUMOPy internal net-editor provides currently some limited
 capability to edit the network
 
 - The geometry of edges and buildings can be manipulated: Activate the
-  Move| tool to move or the Stretch| to change vertexes.
+  Move| tool to move or the Stretch| to change vertices.
 - With the menu `Network>Clean nodes` all edges entering a node are
   “cut back” to a certain radius. This measure may facilitate the
   verification of connections between lanes at junctions.

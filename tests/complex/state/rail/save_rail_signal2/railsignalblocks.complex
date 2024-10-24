@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-10-17 10:24:01 by Eclipse SUMO sumo Version v1_21_0+0063-40d747df57b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
+        <save-state.times value="20"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="A">
+        <link linkIndex="0" from="a_0" to=":A_2_0">
+            <driveWay id="A.0" vehicle="train" edges="b c d">
+                <forward lanes=":A_2_0 b_0 :J0_1_0 c_0 :B_2_0 d_0"/>
+                <bidi lanes=":A_1_0 -b_0 :J0_0_0 -c_0 :B_1_0 -d_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="B_0"/>
+                <foes driveWays="A.0 B.0.0"/>
+            </driveWay>
+            <subDriveWay id="A.0.0" vehicle="" edges="b c">
+                <forward lanes=":A_2_0 b_0 :J0_1_0 c_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <railSignal id="B">
+        <link linkIndex="0" from="-d2_0" to=":B_0_0">
+            <driveWay id="B.0" vehicle="train2" edges="-c -b -a2">
+                <forward lanes=":B_0_0 -c_0 :J0_0_0 -b_0 :A_0_0 -a2_0"/>
+                <bidi lanes=":B_3_0 c_0 :J0_1_0 b_0 :A_3_0 a2_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="A_0"/>
+                <foes driveWays="A.0.0 B.0"/>
+            </driveWay>
+            <subDriveWay id="B.0.0" vehicle="" edges="-c -b">
+                <forward lanes=":B_0_0 -c_0 :J0_0_0 -b_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <departJunction id="gneJ7">
+        <driveWay id="gneJ7.d0" vehicle="train2" edges="-d2 -c -b -a2">
+            <forward lanes="-d2_0"/>
+            <bidi lanes="d2_0 :B_3_0"
+                    deadlockCheck="c_0 :J0_1_0 b_0 :A_3_0 a2_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals="A_0"/>
+            <foes driveWays="A.0.0 gneJ7.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="gneJ0">
+        <driveWay id="gneJ0.d0" vehicle="train" edges="a b c d">
+            <forward lanes="a_0"/>
+            <bidi lanes="-a_0 :A_1_0"
+                    deadlockCheck="-b_0 :J0_0_0 -c_0 :B_1_0 -d_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals="B_0"/>
+            <foes driveWays="gneJ0.d0"/>
+        </driveWay>
+    </departJunction>
+</railsignal-block-output>

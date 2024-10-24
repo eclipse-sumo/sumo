@@ -47,7 +47,7 @@ vehID = "ego"
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.vehicle.isStopped(vehID):
         stop = traci.vehicle.getStops(vehID, 1)[0]
-        assert(stop.stoppingPlaceID != "")
+        assert stop.stoppingPlaceID != ""
         traci.vehicle.setBusStop(vehID, stop.stoppingPlaceID, duration=0)
     traci.simulationStep()
 traci.close()

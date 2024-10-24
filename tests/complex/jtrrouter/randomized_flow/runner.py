@@ -38,10 +38,7 @@ def get_depart_lines(route_file):
 output_file1 = 'output1.rou.xml'
 output_file2 = 'output2.rou.xml'
 
-jtrrouter = checkBinary('jtrrouter')
-assert(jtrrouter)
-
-args = [jtrrouter,
+args = [checkBinary('jtrrouter'),
         '--net-file', 'input_net.net.xml',
         '--route-files', 'input_flows.flows.xml',
         '--turn-ratio-files', 'input_turns.turns.xml',

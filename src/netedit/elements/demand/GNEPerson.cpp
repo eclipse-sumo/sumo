@@ -422,7 +422,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             myPersonContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myPersonContour.calculateContourRectangleShape(s, d, this, personPosition, 0.1, 0.2, -1.1, 0, 0, exaggeration);
+        myPersonContour.calculateContourRectangleShape(s, d, this, personPosition, 0.1, 0.2, getType(), -1.1, 0, 0, exaggeration);
     }
 }
 

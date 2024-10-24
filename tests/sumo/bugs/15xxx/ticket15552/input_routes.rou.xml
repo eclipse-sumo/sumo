@@ -1,0 +1,30 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <trip id="parker0" depart="0" from="end" to="end">
+        <stop parkingArea="pa_end" until="3600"/>
+    </trip>
+    <trip id="parker1" depart="0" from="end" to="end">
+        <stop parkingArea="pa_end" until="3600"/>
+    </trip>
+    <trip id="parker2" depart="0" from="end" to="end">
+        <stop parkingArea="pa_end" until="3600"/>
+    </trip>
+    <trip id="parker3" depart="0" from="end" to="end">
+        <stop parkingArea="pa_end" until="3600"/>
+    </trip>
+    <trip id="parker4" depart="0" from="end" to="end">
+        <stop parkingArea="pa_end" until="3600"/>
+    </trip>
+
+    <trip id="veh1" depart="50" from="beg" to="end" speedFactor="1.2">
+        <stop parkingArea="pa_beg" until="80"/>
+        <stop parkingArea="pa_middle" until="150"/>
+        <stop parkingArea="pa_end" until="6000"/>
+    </trip>
+
+    <trip id="veh2" depart="80" from="beg" to="end" speedFactor="1.2">
+        <stop parkingArea="pa_beg" until="120"/>
+        <stop parkingArea="pa_middle" until="200"/>
+        <stop parkingArea="pa_end" until="6000"/>
+    </trip>
+</routes>

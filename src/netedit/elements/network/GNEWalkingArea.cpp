@@ -175,8 +175,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
             // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
-            if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
-                myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, walkingAreaExaggeration);
+            if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction, getType())) {
+                myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, getType(), walkingAreaExaggeration);
             }
         }
     }

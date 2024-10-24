@@ -160,6 +160,9 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "insertionOrder",                         SUMO_TAG_INSERTION_ORDER },
     { "bidiPredecessor",                        SUMO_TAG_BIDI_PREDECESSOR },
     { "railSignalConstraintTracker",            SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
+    { "deadlock",                               SUMO_TAG_DEADLOCK },
+    { "driveWay",                               SUMO_TAG_DRIVEWAY },
+    { "subDriveWay",                            SUMO_TAG_SUBDRIVEWAY },
     { "link",                                   SUMO_TAG_LINK },
     { "approaching",                            SUMO_TAG_APPROACHING },
     // OSM
@@ -972,6 +975,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcSigma",                    SUMO_ATTR_LCA_SIGMA },
     { "lcKeepRightAcceptanceTime",  SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME },
     { "lcOvertakeDeltaSpeedFactor", SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR },
+    { "lcContRight",                SUMO_ATTR_LCA_CONTRIGHT },
     { "lcExperimental1",            SUMO_ATTR_LCA_EXPERIMENTAL1 },
     /// @}
 
@@ -1104,6 +1108,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     { "constraints",            SUMO_ATTR_CONSTRAINTS },
+    { "rail",                   SUMO_ATTR_RAIL },
     { "detectors",              SUMO_ATTR_DETECTORS },
     { "conditions",             SUMO_ATTR_CONDITIONS },
     { "saveDetectors",          SUMO_ATTR_SAVE_DETECTORS },
@@ -1281,6 +1286,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
     { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },
     { "optional",               SUMO_ATTR_OPTIONAL },
+    { "vehicles",               SUMO_ATTR_VEHICLES },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

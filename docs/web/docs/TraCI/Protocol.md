@@ -129,7 +129,7 @@ Each command is acknowledged by a status response, included are a
 the respective command that is acknowledged.
 *Result* can have the following values:
 
-- 0x00 in case of succes
+- 0x00 in case of success
 - 0xFF if the requested command failed
 - 0x01 if the requested command is not implemented in the network
   simulator (in addition, a *Description* text must be added)

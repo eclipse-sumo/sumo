@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_20_0+1699-94bb18538d6
+Eclipse SUMO polyconvert Version v1_21_0+0462-0373bcb962f
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -100,6 +100,7 @@ Processing Options:
   --ignore-errors                   Continue on broken input
   --poi-layer-offset FLOAT          Adds FLOAT to the layer value for each poi
                                      (i.e. to raise it above polygons)
+  --flatten                         Remove all z-data
 
 Building Defaults Options:
   --color STR                       Sets STR as default color

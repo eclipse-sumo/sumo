@@ -64,3 +64,47 @@ reverse_at_route_end_impossible
 
 # see #13260
 double_reversal_same_dir
+insertion_before_reversal
+
+# second train ends before reversal
+insertion_before_reversal2
+insertion_before_reversal3
+
+# the leading train reverse and the follower train ends right before the reversal
+follower_ends_before_reversal
+
+# the leading train reverse and the follower train ends right before the reversal
+follower_ends_before_reversal2
+
+# avoid spurious foe checks
+reversal_onRoute_beyond_core
+
+# avoid spurious foe checks	
+reversal_in_first_block
+
+# avoid spurious foe checks, both driveways have a route that ends at the network boundary (terminateRoute)
+reversal_in_first_block2
+
+# train must not exit driveway by reversal
+double_reversal_dwEnd
+
+# invalid conflict when a train reverses within the bidi section, causing emergency braking
+bidiDepart_reversal
+
+# invalid conflict 
+routes_cross_twice
+
+# invalid subDriveway construction
+two_double_reversals
+
+# invalid subDriveway construction
+reversal_after_common_block
+
+# vehicle should not be assigned to a subDriveway if it would have to leave via reversal
+subdriveway_reversal
+
+# consecutive signals for the same route should not be foes if the train branches of after reversal and before entering their section
+consecutive_before_reversal
+
+# see #15608
+both_reverse

@@ -600,7 +600,7 @@ NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& de
         device.writeAttr("x", p.x());
         device.writeAttr("y", p.y());
         device.writeAttr("hdg", hdg);
-        device.writeAttr("length", length<1e-8? 1e-8 :length);
+        device.writeAttr("length", length < 1e-8 ? 1e-8 : length);
         device.openTag("line").closeTag();
         device.closeTag();
         elevationDevice << "            <elevation s=\"" << offset << "\" a=\"" << p.z() << "\" b=\"" << (p2.z() - p.z()) / MAX2(POSITION_EPS, length) << "\" c=\"0\" d=\"0\"/>\n";
@@ -1141,8 +1141,8 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             }
             for (int lane : signalLanes[id].first) {
                 device.openTag("validity");
-                device.writeAttr("fromLane", s2x(lane,e->getNumLanes()));
-                device.writeAttr("toLane", s2x(lane,e->getNumLanes()));
+                device.writeAttr("fromLane", s2x(lane, e->getNumLanes()));
+                device.writeAttr("toLane", s2x(lane, e->getNumLanes()));
                 device.closeTag();
             }
             device.closeTag();

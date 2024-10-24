@@ -122,7 +122,7 @@ def getEdges(elem, taz, routeDict):
     if elem.edges:
         edges = elem.edges.split()
     if elem.route:
-        if type(elem.route) != list:
+        if not isinstance(elem.route, list):
             # named route
             edges = routeDict.get(elem.route, [])
             if not edges:

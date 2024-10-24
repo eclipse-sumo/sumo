@@ -328,8 +328,8 @@ inserted at the end of the lane instead. When departSpeed="max" is set, vehicle 
 Determines the speed of the vehicle at insertion, where maxDepartSpeed = MIN(speedLimit * speedFactor, vType_desiredMaxSpeed * speedFactor, vType_maxSpeed);
 
 - `≥0`: The vehicle is tried to be inserted using the given speed. If that speed is unsafe, departure is delayed.
-- "`random`": A random speed between 0 and maxDepartSpeed is used, the speed may be adapted to accomodate a leader or intersection ensure a safe distance to the leader vehicle.
-- "`max`": The maxDeparSpeed is used when possible, the speed may be lowered to accomodate a leader vehicle or intersections.
+- "`random`": A random speed between 0 and maxDepartSpeed is used, the speed may be adapted to accommodate a leader or intersection ensure a safe distance to the leader vehicle.
+- "`max`": The maxDeparSpeed is used when possible, the speed may be lowered to accommodate a leader vehicle or intersections.
 - "`desired`": The maxDepartSpeed is used. If that speed is unsafe, departure is delayed.
 - "`speedLimit`": The speed limit of the lane is used. If that speed is unsafe, departure is delayed.
 - "`last`": The current speed of the last vehicle on the departure lane is used (or 'desired' speed if the lane is empty). If that speed is unsafe, departure is delayed.
@@ -502,7 +502,7 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | scale  | float >= 0  | scaling factor for traffic. Acts as a multiplier for option **--scale** for all vehicles of this type. Values < 1 cause a proportional reduction in traffic whereas values above 1 increase it by this factor. (default 1)|
 | timeToTeleport       | float   |        | Override option **--time-to-teleport** for vehicles of this type |
 | timeToTeleportBidi   | float   |        | Override option **--time-to-teleport.bidi** for vehicles of this type |
-| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has its `arrival` attribut set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
+| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has its `arrival` attribute set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
 | parkingBadges | string list | \- | list of keywords to access restricted parking areas (the default empty list will still allow access to unrestricted parking areas) |
 
 Besides values which describe the vehicle's car-following properties,
@@ -525,7 +525,7 @@ While it is possible to assign the individual speedFactor value directly in a `<
 
 Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default.
 
-The `speedFactor` of a vehicle is also multiplied with the value of `maxDesiredSpeed` of its `vType`. The resulting value gives another [upper bound on speed](Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor). This achieves speed distribution for road users where the speed limit is not meaningful (i.e. bicyles and pedestrians).
+The `speedFactor` of a vehicle is also multiplied with the value of `desiredMaxSpeed` of its `vType`. The resulting value gives another [upper bound on speed](Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor). This achieves speed distribution for road users where the speed limit is not meaningful (i.e. bicyles and pedestrians).
 
 The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Simulation/Output/TripInfo.md), [vehroute-output](Simulation/Output/VehRoutes.md)) and can also be checked via the [vehicle parameter dialog](sumo-gui.md#object_properties_right-click-functions).
 
@@ -931,6 +931,7 @@ lists which parameter are used by which model(s).
 | lcCooperative           | The willingness for performing cooperative lane changing. Lower values result in reduced cooperation. *default: 1.0, range \[0-1\]* , -1  A value of 0 would still permit changing if the target lane affords higher speed whereas -1 disables cooperative changing completely                                                                                                                 | LC2013, SL2015 |
 | lcSpeedGain             | The eagerness for performing lane changing to gain speed. Higher values result in more lane-changing. *default: 1.0, range \[0-inf)*  A value of 0 disables lane changing for speed gain                                                                                                                  | LC2013, SL2015 |
 | lcKeepRight             | The eagerness for following the obligation to keep right. Higher values result in earlier lane-changing. *default: 1.0, range \[0-inf)* A value of 0 disables this type of changing.                                                                                                               | LC2013, SL2015 |
+| lcContRight             | The probability for selecting the rightmost lane whenever the number of lanes increases. *default: 1.0, range \[0-1\]*          | LC2013, SL2015 |
 | lcOvertakeRight         | The probability for violating rules against overtaking on the right *default: 0, range \[0-1\]*                                                                                                                                                           | LC2013, SL2015 |
 | lcOpposite              | The eagerness for overtaking through the opposite-direction lane. Higher values result in more lane-changing. *default: 1.0, range \[0-inf)*                                                                                                            | LC2013         |
 | lcLookaheadLeft         | Factor for configuring the strategic lookahead distance when a change to the left is necessary (relative to right lookahead). *default: 2.0, range \[0-inf)*                                                                                            | LC2013, SL2015 |

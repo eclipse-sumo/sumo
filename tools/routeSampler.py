@@ -194,7 +194,7 @@ def get_options(args=None):
             print("Cannot use optimization (scipy not installed)", file=sys.stderr)
             sys.exit(1)
 
-    if options.optimizeInput and type(options.optimize) != int:
+    if options.optimizeInput and not isinstance(options.optimize, int):
         print("Option --optimize-input requires an integer argument for --optimize", file=sys.stderr)
         sys.exit(1)
 
@@ -265,7 +265,7 @@ class CountData:
 
     def sampleOpen(self, rng, openRoutes, routeCounts):
         cands = list(self.routeSet.intersection(openRoutes))
-        assert (cands)
+        assert cands
         probs = [routeCounts[i] for i in cands]
         x = rng.rand() * sum(probs)
         seen = 0
@@ -273,7 +273,7 @@ class CountData:
             seen += prob
             if seen >= x:
                 return route
-        assert (False)
+        assert False
 
     def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:

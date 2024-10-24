@@ -168,7 +168,7 @@ def main(options):
 
             code = connections[edgeID]
             lanes = edge.getLanes()
-            assert (len(code) == len(lanes) * 3)
+            assert len(code) == len(lanes) * 3
             for laneIndex, lane in enumerate(lanes):
                 for index in [0, 1, 2]:
                     if code[3 * laneIndex + index] == 1:

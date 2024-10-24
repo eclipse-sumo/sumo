@@ -493,7 +493,7 @@ additional type maps from
 !!! caution
     The values in those type maps were set-up ad-hoc and are not yet verified. It would be a great help if someone would revisit and improve them. Please let us know.
 
-## Explicite Road Attributes
+## Explicit Road Attributes
 
 In case an edge contains the definition about the number of lanes
 (key="*lanes*") or the allowed speed (key="*maxspeed*"), this
@@ -664,7 +664,7 @@ Python Example (Get OSM River Data from OSM in BBox)
 
 Caution: If the data volume is too large, the overpass API aborts.
 
-More information about the query syntax and a GUI for testing the querys
+More information about the query syntax and a GUI for testing the queries
 can be found on the website <https://overpass-turbo.eu/>.
 
 # Importing other formats (pbf, o5m)

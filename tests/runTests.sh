@@ -21,6 +21,14 @@ fi
 
 pushd `dirname $0` > /dev/null
 export TEXTTEST_HOME="$PWD"
+for i in *env/bin/activate; do
+  if test x"$VIRTUAL_ENV" = x; then
+    echo "Activating virtual environment $i."
+    source $i
+  else
+    echo "Virtual environment $VIRTUAL_ENV already active, ignoring $i."
+  fi
+done
 if test x"$SUMO_HOME" = x; then
   cd ..
   export SUMO_HOME="$PWD"

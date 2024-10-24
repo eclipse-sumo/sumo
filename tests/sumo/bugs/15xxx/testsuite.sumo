@@ -30,3 +30,6 @@ ticket15435
 
 # collision most likely due to driving imprecision
 ticket15440
+
+# rerouting on the last edge to the stop on the same edge
+ticket15552

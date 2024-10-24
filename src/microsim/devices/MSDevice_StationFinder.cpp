@@ -35,6 +35,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersEnergy.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include "MSRoutingEngine.h"
 #include "MSDevice_Battery.h"
 #include "MSDevice_StationFinder.h"
@@ -282,6 +283,66 @@ MSDevice_StationFinder::notifyIdle(SUMOTrafficObject& /*veh*/) {
 
 
 void
+MSDevice_StationFinder::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myLastChargeCheck));
+    internals.push_back(toString(myUpdateSoC));
+    internals.push_back(toString(mySearchSoC));
+    internals.push_back(toString(myTargetSoC));
+    internals.push_back(toString(myWaitForCharge));
+    internals.push_back(toString(myRepeatInterval));
+    internals.push_back(toString(myRadius));
+    internals.push_back(toString(myLastSearch));
+    internals.push_back(toString(myReserveFactor));
+    internals.push_back(toString(mySearchState));
+    internals.push_back(toString(myArrivalAtChargingStation));
+    internals.push_back((myChargingStation == nullptr) ? "NULL" : myChargingStation->getID());
+    internals.push_back(toString(myChargeLimits.size()));
+    for (auto chargeLimit : myChargeLimits) {
+        internals.push_back(toString(chargeLimit.first));
+        internals.push_back(toString(chargeLimit.second));
+    }
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_StationFinder::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myLastChargeCheck;
+    bis >> myUpdateSoC;
+    bis >> mySearchSoC;
+    bis >> myTargetSoC;
+    bis >> myWaitForCharge;
+    bis >> myRepeatInterval;
+    bis >> myRadius;
+    bis >> myLastSearch;
+    bis >> myReserveFactor;
+    int searchState;
+    bis >> searchState;
+    mySearchState = (SearchState)searchState;
+    bis >> myArrivalAtChargingStation;
+    std::string csID;
+    bis >> csID;
+    if (csID != "NULL") {
+        myChargingStation = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CHARGING_STATION));
+    }
+    int chargeLimitCount = 0;
+    bis >> chargeLimitCount;
+    for (int i = 0; i < chargeLimitCount; ++i) {
+        SUMOTime t = 0;
+        double limit = 0.;
+        bis >> t;
+        bis >> limit;
+        myChargeLimits.push_back({ t, limit });
+    }
+}
+
+
+void
 MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
         const double /* frontOnLane */,
         const double /* timeOnLane */,
@@ -358,6 +419,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
             stopPar.edge = cs->getLane().getEdge().getID();
             stopPar.lane = cs->getLane().getID();
             stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()));
+            stopPar.parametersSet = STOP_DURATION_SET;
             if (myReplacePlannedStop > 0) {
                 // "reuse" a previously planned stop (stop at charging station instead of a different stop)
                 // what if the charging station is skipped due to long waiting time?
@@ -370,6 +432,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                         if (timeToOriginalStop + myLastSearch < originalUntil) {
                             const SUMOTime delta = originalUntil - (timeToOriginalStop + myLastSearch);
                             stopPar.until = timeToOriginalStop + myLastSearch + (SUMOTime)((double)delta * MIN2(myReplacePlannedStop, 1.));
+                            stopPar.parametersSet |= STOP_UNTIL_SET;
                             if (myReplacePlannedStop > 1.) {
                                 myHolder.abortNextStop();
                             }
@@ -609,8 +672,46 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
         return (myChargingStation == nullptr) ? "" : myChargingStation->getID();
     } else if (key == "batteryNeed") {
         return toString(estimateConsumption() * myReserveFactor);
+    } else if (key == "needToChargeLevel") {
+        return toString(myRadius);
+    } else if (key == "saturatedChargeLevel") {
+        return toString(myRadius);
+    } else if (key == "waitForCharge") {
+        return toString(myRadius);
+    } else if (key == "repeat") {
+        return toString(myRadius);
+    } else if (key == "radius") {
+        return toString(myRadius);
+    } else if (key == "reserveFactor") {
+        return toString(myRadius);
     }
     throw InvalidArgument(TLF("Parameter '%' is not supported for device of type '%'", key, deviceName()));
+}
+
+
+void
+MSDevice_StationFinder::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = StringUtils::toDouble(value);
+    } catch (NumberFormatException&) {
+        throw InvalidArgument(TLF("Setting parameter '%' requires a number for device of type '%'", key, deviceName()));
+    }
+    if (key == "needToChargeLevel") {
+        mySearchSoC = MAX2(0., MIN2(1., doubleValue));
+    } else if (key == "saturatedChargeLevel") {
+        myTargetSoC = MAX2(0., MIN2(1., doubleValue));
+    } else if (key == "waitForCharge") {
+        myWaitForCharge = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "repeat") {
+        myRepeatInterval = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "radius") {
+        myRadius = MAX2(0., doubleValue);
+    } else if (key == "reserveFactor") {
+        myReserveFactor = MAX2(1., doubleValue);
+    } else {
+        throw InvalidArgument(TLF("Setting parameter '%' is not supported for device of type '%'", key, deviceName()));
+    }
 }
 
 

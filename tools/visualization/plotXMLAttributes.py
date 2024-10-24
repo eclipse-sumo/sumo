@@ -478,7 +478,7 @@ def interpretValue(value):
 
 
 def isnumeric(value):
-    return type(value) == int or type(value) == float
+    return isinstance(value, int) or isinstance(value, float)
 
 
 def keepNumeric(d, xyIndex):

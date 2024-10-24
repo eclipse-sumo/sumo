@@ -153,6 +153,12 @@ MSStop::getUntil() const {
 }
 
 
+SUMOTime
+MSStop::getArrival() const {
+    return MSGlobals::gUseStopStarted && pars.started >= 0 ? pars.started : pars.arrival;
+}
+
+
 double
 MSStop::getSpeed() const {
     return skipOnDemand ? std::numeric_limits<double>::max() : pars.speed;

@@ -73,69 +73,70 @@ GNEContour::clearContour() const {
 
 void
 GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const GUIGlObject* glObject, const PositionVector& shape, const double scale) const {
+                                        const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+                                        const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate closed shape contour
         buildContourClosedShape(s, d, shape, scale);
         // check if position or bondary is within closed shape
-        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary);
+        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
 
 void
 GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, const double extrusionWidth,
-        const double scale, const bool closeFirstExtrem, const bool closeLastExtrem,
-        const double offset) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, const double extrusionWidth,
+        const double scale, const bool closeFirstExtrem, const bool closeLastExtrem, const double offset) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate extruded shape
         buildContourExtrudedShape(s, d, shape, extrusionWidth, scale, closeFirstExtrem, closeLastExtrem, offset);
         // check if position or bondary is within extruded shape
-        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary);
+        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
 
 void
 GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const Position& pos, const double width, const double height,
+        const GUIGlObject* glObject, const Position& pos, const double width, const double height, const double layer,
         const double offsetX, const double offsetY, const double rot, const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate rectangle shape
         buildContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         // check if position or bondary is within rectangle shape
-        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary);
+        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
 
 void
 GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const GUIGlObject* glObject, const Position& pos, double radius, const double scale) const {
+                                        const GUIGlObject* glObject, const Position& pos, double radius, const double layer,
+                                        const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate circle shape
         buildContourCircle(s, d, pos, radius, scale);
         // check if position or bondary is within circle shape
-        gViewObjectsHandler.checkCircleElement(d, glObject, pos, (radius * scale), *myContourBoundary);
+        gViewObjectsHandler.checkCircleElement(d, glObject, pos, (radius * scale), *myContourBoundary, layer);
     }
 }
 
 
 void
 GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                 const GNEEdge* edge, const GUIGlObject* elementToRegister, const bool closeFirstExtrem,
-                                 const bool closeLastExtrem) const {
+                                 const GNEEdge* edge, const GUIGlObject* elementToRegister, const double layer,
+                                 const bool closeFirstExtrem, const bool closeLastExtrem) const {
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForViewObjectsHandler) {
         // calculate contour edge shape
         buildContourEdge(s, d, edge, closeFirstExtrem, closeLastExtrem);
         // check if position or bondary is within contour shape
-        gViewObjectsHandler.checkShapeElement(elementToRegister, *myCalculatedShape, *myContourBoundary);
+        gViewObjectsHandler.checkShapeElement(elementToRegister, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
@@ -150,57 +151,54 @@ GNEContour::calculateContourEdges(const GUIVisualizationSettings& s, const GUIVi
 
 void
 GNEContour::calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, double radius,
-        const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && (shape.size() > 0)) {
         // check position within geometry of first geometry point
-        gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, 0, (radius * scale));
+        gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, 0, layer, (radius * scale));
     }
 }
 
 
 void
 GNEContour::calculateContourLastGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, double radius,
-        const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && (shape.size() > 0)) {
         // check position within geometry of last geometry point
-        gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, (int)shape.size() - 1, (radius * scale));
+        gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, (int)shape.size() - 1, layer, (radius * scale));
     }
 }
 
 
 void
 GNEContour::calculateContourMiddleGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, double radius,
-        const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // check position within geometry of middle geometry points
         for (int i = 1; i < (int)shape.size() - 1; i++) {
-            gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, i, (radius * scale));
+            gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, i, layer, (radius * scale));
         }
         // also calculate position over shape
-        gViewObjectsHandler.checkPositionOverShape(d, glObject, shape, (radius * scale));
+        gViewObjectsHandler.checkPositionOverShape(d, glObject, shape, layer, (radius * scale));
     }
 }
 
 
 void
 GNEContour::calculateContourAllGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, double radius,
-        const double scale, const bool calculatePosOverShape) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale,
+        const bool calculatePosOverShape) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // check position within geometry of middle geometry points
         for (int i = 0; i < (int)shape.size(); i++) {
-            gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, i, (radius * scale));
+            gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, i, layer, (radius * scale));
         }
         // check if calculate position over shape
         if (calculatePosOverShape) {
-            gViewObjectsHandler.checkPositionOverShape(d, glObject, shape, (radius * scale));
+            gViewObjectsHandler.checkPositionOverShape(d, glObject, shape, layer, (radius * scale));
         }
     }
 }
@@ -208,8 +206,7 @@ GNEContour::calculateContourAllGeometryPoints(const GUIVisualizationSettings& s,
 
 void
 GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GNEEdge* edge, const double radius, const bool calculatePosOverShape,
-        const bool firstExtrem, const bool lastExtrem) const {
+        const GNEEdge* edge, const double radius, const bool calculatePosOverShape, const bool firstExtrem, const bool lastExtrem) const {
     // first check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && (gViewObjectsHandler.getSelectionPosition() != Position::INVALID)) {
         // get edge geometry
@@ -226,35 +223,35 @@ GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s
             // check position within geometry of middle geometry points
             for (int i = 1; i < lastGeometryPointIndex; i++) {
                 if (edgeGeometry[i].distanceSquaredTo(nearestPos) <= squaredRadius) {
-                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, i, radius);
+                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, i, edge->getType(), radius);
                 }
             }
             // check extrems
             if (firstExtrem) {
                 if (edgeGeometry[0].distanceSquaredTo(nearestPos) <= squaredRadius) {
-                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, 0, radius);
+                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, 0, edge->getType(), radius);
                 }
             }
             if (lastExtrem) {
                 if (edgeGeometry[lastGeometryPointIndex].distanceSquaredTo(nearestPos) <= squaredRadius) {
-                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, lastGeometryPointIndex, radius);
+                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, lastGeometryPointIndex, edge->getType(), radius);
                 }
             }
             // if list of index is emprt, use nearestPos as pos over shape
             if (calculatePosOverShape && gViewObjectsHandler.getGeometryPoints(edge).empty()) {
-                gViewObjectsHandler.addPositionOverShape(edge, nearestPos, nearestOffset);
+                gViewObjectsHandler.addPositionOverShape(edge, nearestPos, edge->getType(), nearestOffset);
             }
         } else {
             // check position within geometry of middle geometry points
             for (int i = 1; i < lastGeometryPointIndex; i++) {
-                gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, i, radius);
+                gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, i, edge->getType(), radius);
             }
             // check extrems
             if (firstExtrem) {
-                gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, 0, radius);
+                gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, 0, edge->getType(), radius);
             }
             if (lastExtrem) {
-                gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, lastGeometryPointIndex, radius);
+                gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, lastGeometryPointIndex, edge->getType(), radius);
             }
         }
     }

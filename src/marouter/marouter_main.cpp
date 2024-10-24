@@ -293,7 +293,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                         for (const SUMOVehicleParameter& veh : deps.second) {
                             OutputDevice_String od(1);
 
-                            veh.write(od, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, ignoreType || veh.vtypeid == DEFAULT_VTYPE_ID ? "" : veh.vtypeid); 
+                            veh.write(od, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, ignoreType || veh.vtypeid == DEFAULT_VTYPE_ID ? "" : veh.vtypeid);
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                             for (RORoute* const r : c->pathsVector) {
                                 r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));

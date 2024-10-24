@@ -1,1 +1,2 @@
 --railsignal-block-output railsignal_blocks.xml
+--time-to-teleport.railsignal-deadlock 200

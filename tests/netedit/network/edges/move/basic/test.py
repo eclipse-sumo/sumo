@@ -43,7 +43,7 @@ netedit.moveMode()
 # move
 netedit.moveElementVertical(referencePosition, netedit.positions.network.edge.move.top,
                             netedit.positions.elements.movementEdgeTop)
-                              
+
 netedit.moveElementVertical(referencePosition, netedit.positions.network.edge.move.bot,
                             netedit.positions.elements.movementEdgeBot)
 

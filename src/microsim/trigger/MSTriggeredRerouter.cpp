@@ -123,8 +123,8 @@ MSTriggeredRerouter::myStartElement(int element,
         myParsedRerouteInterval.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok, SUMOTime_MAX);
         if (myParsedRerouteInterval.begin >= myParsedRerouteInterval.end) {
             throw ProcessError(TLF("rerouter '%': interval end % is not after begin %.", getID(),
-                        time2string(myParsedRerouteInterval.end),
-                        time2string(myParsedRerouteInterval.begin)));
+                                   time2string(myParsedRerouteInterval.end),
+                                   time2string(myParsedRerouteInterval.begin)));
         }
     }
     if (element == SUMO_TAG_DEST_PROB_REROUTE) {

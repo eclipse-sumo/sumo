@@ -33,7 +33,7 @@ src/libsumo/TraCIDefs.h
 
 Additionally, the file *config.h* must be present but these files can be
 left empty. If SUMO was built, they can either be found in the *src* or
-the *cmake-build/src* directory)
+the *cmake-build/src* directory.
 
 If you chose to copy all these files into the same directory, the
 include paths in *TraCIAPI.h* and *TraCIAPI.cpp* need to be patched as

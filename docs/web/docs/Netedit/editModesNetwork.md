@@ -217,7 +217,7 @@ Creation of polygon.
 ![](../images/ModePolygon4ClosingShape.png)
 Polygon with shape closed.
 
-The points of a shape can be edited in the Move mode by clicking on the outline to create a new point or above an already existing one in order to modify its position. If a point moves to the same position of an adjacent point, they fuse together, and if the final point moves to the position of the initial point, the polygon gets closed. If the polygon has the option “block shape” activated, it won’t be editable, but only moved as a set.
+The points of a shape can be edited in the Move mode by clicking on the outline to create a new point or above an already existing one in order to modify its position. If a point moves to the same position of an adjacent point, they fuse together, and if the final point moves to the position of the initial point, the polygon gets closed. If the polygon has the option “block shape” activated, it won't be editable, but only moved as a set.
 
 ![](../images/ModePolygon5MovingVertex.png)
 Moving Polygon's shape point.

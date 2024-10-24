@@ -2,3 +2,4 @@
 --net-file=net.net.xml 
 --routes=input_routes.rou.xml
 --tripinfo-output tripinfos.xml
+--railsignal-vehicle-output railsignal_vehicles.xml

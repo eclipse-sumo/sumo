@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO jtrrouter Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-10-09 19:54:01 by Eclipse SUMO jtrrouter Version v1_20_0+2262-4c4b720e23e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -68,6 +68,7 @@
             <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-edges-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="turn-defaults" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="sink-edges" type="strArrayOptionType" minOccurs="0"/>

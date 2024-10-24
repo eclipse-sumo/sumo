@@ -46,10 +46,8 @@ standard passenger cars. The file contents should look like this:
 ```
 
 For further explanation of how to define flows and vTypes see the
-respective Wiki-pages: [Flow
-Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_definitions)
-and [Vehicle
-Types](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types).
+respective documentation-pages: [Flow Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_definitions)
+and [Vehicle Types](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types).
 
 To use the route-file and the generated net-file with SUMO, we edit the
 configuration-file `circles.sumocfg` to tell SUMO where it should look for vehicle

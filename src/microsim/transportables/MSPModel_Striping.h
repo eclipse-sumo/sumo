@@ -105,6 +105,8 @@ public:
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
+    /// @brief the factor on speed when jammed
+    static double jamFactor;
 
     /// @brief use old style departPosLat interpretation
     static bool myLegacyPosLat;

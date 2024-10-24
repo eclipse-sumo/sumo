@@ -796,14 +796,14 @@ void
 GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const PositionVector& shape, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction())) {
+    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction(), getType())) {
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, s.neteditSizeSettings.connectionGeometryPointRadius,
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, getType(), s.neteditSizeSettings.connectionGeometryPointRadius,
                     exaggeration, true);
         } else {
             // calculate connection shape contour
-            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
+            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, getType(), s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
         }
     }
 }

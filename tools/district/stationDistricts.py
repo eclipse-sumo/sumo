@@ -248,7 +248,7 @@ def assignByDistance(options, net, stations):
     edgeStation = dict()
     for station in stations.values():
         for edge in station.edges:
-            assert (edge not in edgeStation or not options.merge)
+            assert edge not in edgeStation or not options.merge
             edgeStation[edge] = station.name
 
     remaining = set()

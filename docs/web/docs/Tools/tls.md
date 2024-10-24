@@ -26,7 +26,7 @@ sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
 
 # tlsCycleAdaptation.py
 
-This script modifies the cycle lenth and the duration of green phases according to Websters
+This script modifies the cycle length and the duration of green phases according to Websters
 formula to best accommodate a given traffic demand. Example call:
 
 ```

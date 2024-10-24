@@ -82,6 +82,10 @@ public:
         return nullptr;
     }
 
+    const MSLane* getBackLane() const {
+        return nullptr;
+    }
+
     /** @brief Return current position (x/y, cartesian)
      *
      * If the vehicle's myLane is 0, Position::INVALID.

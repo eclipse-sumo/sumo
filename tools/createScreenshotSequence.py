@@ -44,11 +44,11 @@ def getOptions(args=None):
     argParser.add_argument("--zoom",
                            help="linear interpolation of zoom values given the key frames syntax t1:v1[;t2:v2 ...]")
     argParser.add_argument("--rotate",
-                           help="linear interpolation to rotation values in degrees (around Z axis) given the key frames \
-                           syntax t1:v1[;t2:v2 ...]")
+                           help="linear interpolation to rotation values in degrees (around Z axis) "
+                                "given the key frames syntax t1:v1[;t2:v2 ...]")
     argParser.add_argument("--translate",
-                           help="linear interpolation to the given view center points with the key frames syntax \
-                           t1:p1[;t2:p2 ...] where p1 is \"x,y\"")
+                           help="linear interpolation to the given view center points "
+                                "with the key frames syntax t1:p1[;t2:p2 ...] where p1 is \"x,y\"")
     argParser.add_argument("--include-time", dest="includeTime", category="processing", action="store_true",
                            default=False,
                            help="whether to include the system time at simulation begin in the file name")

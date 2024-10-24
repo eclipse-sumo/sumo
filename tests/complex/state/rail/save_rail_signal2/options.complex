@@ -1,0 +1,17 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r=input_routes.rou.xml
+--save-state.times 20
+--save-state.files state.xml
+--default.speeddev 0
+--railsignal-block-output railsignal_blocks.xml
+--railsignal-vehicle-output railsignal_vehicles.xml
+:
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+--load-state state.xml
+--default.speeddev 0
+--collision.action warn
+--railsignal-block-output railsignal_blocks2.xml
+--railsignal-vehicle-output railsignal_vehicles2.xml
+
+--compare railsignal_blocks,railsignal_vehicles
+tests/complex/state/runner.py

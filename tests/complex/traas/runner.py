@@ -34,7 +34,7 @@ if 'JAVA_HOME' in os.environ:
     java = os.path.join(os.environ['JAVA_HOME'], "bin", java)
 
 traasJar = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
-assert (os.path.exists(traasJar))
+assert os.path.exists(traasJar)
 
 for f in sys.argv[1:]:
     subprocess.check_call([javac, "-cp", traasJar, "-Xlint:unchecked", "data/%s.java" % f])

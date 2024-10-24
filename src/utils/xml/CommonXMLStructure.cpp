@@ -40,7 +40,7 @@ CommonXMLStructure::PlanParameters::PlanParameters() {}
 CommonXMLStructure::PlanParameters::PlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
         const SUMOSAXAttributes& attrs, bool& parsedOk) {
     // get plan parent ID (first check if exist!)
-    const auto planParentID = sumoBaseObject->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ID)?
+    const auto planParentID = sumoBaseObject->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ID) ?
                               sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID).c_str() : "";
     // edges
     fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, planParentID, parsedOk, "");

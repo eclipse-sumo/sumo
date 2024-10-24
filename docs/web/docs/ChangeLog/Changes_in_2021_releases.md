@@ -178,7 +178,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
-  - Added missing convenience functions in traci.vehicle (i.e. 'isAtBusstop' to libsumo and libtraci python bindings. Issue #9591
+  - Added missing convenience functions in traci.vehicle (i.e. 'isAtBusstop') to libsumo and libtraci python bindings. Issue #9591
   - Fixed missing vehicles when using subscriptionFilterLateralDistance. Issue #9603
 
 - tools
@@ -452,12 +452,12 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Added option **--persontrip.walk-opposite-factor FLOAT** which can be used to discourage walking against traffic flow (for FLOAT < 1). Issue #7730
   - Persons that walk against the flow of traffic now walk on the left side of the road rather than in the middle (left side of the lane instead of right side). Issue #7744
   - Vehicle stops now support attribute 'posLat' to stop with a lateral offset. Issue #8752.
-  - Rail signals can now be switched into "moving block" mode where they only guard against flanking and oncoming trains. (option **--railsignal-moving-block** or `<param key="moving-block" value="true"/>`. Issue #8518
-  - Vehroute-outupt now includdes attribute "priorEdgesLength" if option **--vehroute-output.stop-edges** is set. Issue #8815
+  - Rail signals can now be switched into "moving block" mode where they only guard against flanking and oncoming trains. (option **--railsignal-moving-block** or `<param key="moving-block" value="true"/>`). Issue #8518
+  - Vehroute-output now includes attribute "priorEdgesLength" if option **--vehroute-output.stop-edges** is set. Issue #8815
   - Added option **--emission-output.step-scaled** to write emission output scaled by step length rather than per second. Issue #8866
   - Each distinct collision now creates exactly one warning message (even if the situation persists due to **--collision.action warn**). Issue #8918
   - Persons with different vClasses are now supported (i.e. 'ignoring' to walk on a forbidden road). Issue #8875
-  - Element `<walk>` now supports attriubte 'departLane' (i.e. to place a person on the road lane instead of the sidewalk). Issue #8874
+  - Element `<walk>` now supports attribute 'departLane' (i.e. to place a person on the road lane instead of the sidewalk). Issue #8874
   - A warning is now issued if a person is configured to use a vType with the default vehicular vClass 'passenger'. Issue #8922
   - Attribute 'latAlignment' now supports numerical values to configure a fixed offset from the center line. Issue #8873
 
@@ -821,9 +821,9 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Lane changing restrictions are now imported from OSM. To achieve legacy behavior, set option **--ignore-change-restrictions all**. Issue #8221
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
   - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
-  - Merging of overlapping geo-referenced networks with re-occuring ids now works without setting option **--ignore-errors**. Issue #8019
+  - Merging of overlapping geo-referenced networks with re-occurring ids now works without setting option **--ignore-errors**. Issue #8019
   - When using option **--junctions.join-same** to merge overlapping networks with different junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
-  - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-outut**). Issue #7982
+  - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-output**). Issue #7982
   - Public transport edges that are disconnected from the main road network (in particular railways) are now included in the output when using option **--keep.edges.components 1** as long as they have public transport stops that are written via option **--ptstop-output**. Issue #8061
   - Edge types now support attribute 'spreadType'. Issue #7897
   - The behavior of option **--geometry.remove** (merging subsequent edges with common attributes) no longer depends on written **--ptstop-output** (stops will be remapped onto merged edges). To enable legacy behavior, the option **--geometry.remove.keep-ptstops** may be set. Issue #8155

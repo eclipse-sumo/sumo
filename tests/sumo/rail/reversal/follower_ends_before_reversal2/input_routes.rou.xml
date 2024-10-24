@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-01 15:08:00 by Eclipse SUMO netedit Version v1_20_0+0494-7b4f5668782
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" type="DEFAULT_RAILTYPE" depart="0.00">
+        <route edges="F_14114-14111 F_SectionLink_14066-14104 F_14104-14101 F_14101-14092 F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079 F_14072-14067 F_14067-11347 F_11347-11343 F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515 F_11514-11506 S_11506-11514 S_11514-11515 S_SectionLink_11322-11324 S_SectionLink_11326-11551 S_11551-11552 S_SectionLink_11329-11332 S_11339-11342 S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14090 S_14090-14092 S_14092-14101 S_14101-14104 S_14104-SectionLink_14066 S_SectionLink_14066-14107 -E0"/>
+    </vehicle>
+    <vehicle id="v_1" type="DEFAULT_RAILTYPE" depart="280.00">
+        <route edges="E0 F_14114-14111 F_SectionLink_14066-14104 F_14104-14101 F_14101-14092 F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079 F_14072-14067 F_14067-11347 F_11347-11343 F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515 F_11514-11506"/>
+    </vehicle>
+</routes>

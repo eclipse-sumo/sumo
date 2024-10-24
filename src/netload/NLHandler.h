@@ -214,6 +214,11 @@ protected:
      */
     virtual void addMesoEdgeType(const SUMOSAXAttributes& attrs);
 
+    /** @brief Loads deadlock information for preparing additional rail signal checks
+     * @param[in] attrs The attributes that hold the parameters
+     */
+    virtual void addDeadlock(const SUMOSAXAttributes& attrs);
+
     /// Closes the process of building an edge
     virtual void closeEdge();
 

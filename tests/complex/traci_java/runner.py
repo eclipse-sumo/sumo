@@ -42,7 +42,7 @@ files = [f for f in glob.glob(prefix + "-*.jar") if not f.endswith("sources.jar"
 traciJar = max(files, key=os.path.getmtime)
 # print("traciJar", traciJar)
 
-assert(os.path.exists(traciJar))
+assert os.path.exists(traciJar)
 
 for f in sys.argv[1:]:
     fname = "data/%s.java" % f

@@ -122,8 +122,8 @@ void
 GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-        (myAdditionalGeometry.getShape().size() > 0) &&
-        (myAdditionalGeometry.getShapeRotations().size() > 0)) {
+            (myAdditionalGeometry.getShape().size() > 0) &&
+            (myAdditionalGeometry.getShapeRotations().size() > 0)) {
         // Obtain exaggeration of the draw
         const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
         // get detail level
@@ -138,7 +138,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour circle
-        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1.3, getType(), VSSExaggeration);
     }
 }
 

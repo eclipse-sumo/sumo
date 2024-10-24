@@ -189,8 +189,8 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEED, calibratorSpeed);
     }
-    // speed (only used by calibrators)
-    if (insertionChecks != (int)InsertionCheck::ALL) {
+    // insertionChecks
+    if (wasSet(VEHPARS_INSERTION_CHECKS_SET) && insertionChecks != (int)InsertionCheck::ALL) {
         std::vector<std::string> checks;
         if (insertionChecks == (int)InsertionCheck::NONE) {
             checks.push_back(toString(InsertionCheck::NONE));
@@ -1121,19 +1121,25 @@ SUMOVehicleParameter::areInsertionChecksValid(const std::string& value) const {
 }
 
 
-void
+int
 SUMOVehicleParameter::parseInsertionChecks(const std::string& value) {
     // first reset insertionChecks
-    insertionChecks = 0;
+    int result = 0;
     if (value.empty()) {
-        insertionChecks = (int)InsertionCheck::ALL;
+        return (int)InsertionCheck::ALL;
     } else {
         // split value in substrinsg
         StringTokenizer insertionCheckStrs(value, " ");
         while (insertionCheckStrs.hasNext()) {
-            insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
+            std::string val = insertionCheckStrs.next();
+            if (SUMOXMLDefinitions::InsertionChecks.hasString(val)) {
+                result |= (int)SUMOXMLDefinitions::InsertionChecks.get(val);
+            } else {
+                throw InvalidArgument("Unknown value '" + val + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS) + ".");
+            }
         }
     }
+    return result;
 }
 
 /****************************************************************************/

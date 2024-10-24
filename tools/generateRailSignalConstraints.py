@@ -1843,7 +1843,7 @@ def writeConstraint(options, outf, tag, c):
         comment += "busStop=%s " % c.busStop
         commentParams.append(("busStop", c.busStop))
         if c.busStop2 is not None:
-            if type(c.busStop2) == list:
+            if isinstance(c.busStop2, list):
                 for k, v in c.busStop2:
                     comment += "%s=%s " % (k, v)
                     commentParams.append((k, v))

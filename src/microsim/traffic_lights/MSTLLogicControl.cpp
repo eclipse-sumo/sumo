@@ -34,6 +34,7 @@
 #include "MSTLLogicControl.h"
 #include "MSOffTrafficLightLogic.h"
 #include "MSRailSignalConstraint.h"
+#include "MSDriveWay.h"
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <utils/common/StringUtils.h>
@@ -836,6 +837,7 @@ MSTLLogicControl::saveState(OutputDevice& out) {
     for (const auto& logic : myLogics) {
         logic.second->saveState(out);
     }
+    MSDriveWay::saveState(out);
 }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO netgenerate Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-10-09 19:54:02 by Eclipse SUMO netgenerate Version v1_20_0+2262-4c4b720e23e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -166,6 +166,7 @@
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.connection-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.connection.cont-pos" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.right-of-way" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default-junction-type" type="strOptionType" minOccurs="0"/>
         </xsd:all>
@@ -221,6 +222,7 @@
             <xsd:element name="remove-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-boundary" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-geo-boundary" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="keep-lanes.min-width" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

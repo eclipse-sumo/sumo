@@ -84,12 +84,14 @@ configuration:
 | **--emission-output.precision** {{DT_INT}} | Write emission values with the given precision (default 2); *default:* **2** |
 | **--emission-output.geo** {{DT_BOOL}} | Save the positions in emission output using geo-coordinates (lon/lat); *default:* **false** |
 | **--emission-output.step-scaled** {{DT_BOOL}} | Write emission values scaled to the step length rather than as per-second values; *default:* **false** |
+| **--emission-output.attributes** {{DT_STR_LIST}} | List attributes that should be included in the emission output |
 | **--battery-output** {{DT_FILE}} | Save the battery values of each vehicle |
 | **--battery-output.precision** {{DT_INT}} | Write battery values with the given precision (default 2); *default:* **2** |
 | **--elechybrid-output** {{DT_FILE}} | Save the elecHybrid values of each vehicle |
 | **--elechybrid-output.precision** {{DT_INT}} | Write elecHybrid values with the given precision (default 2); *default:* **2** |
 | **--elechybrid-output.aggregated** {{DT_BOOL}} | Write elecHybrid values into one aggregated file; *default:* **false** |
 | **--chargingstations-output** {{DT_FILE}} | Write data of charging stations |
+| **--chargingstations-output.aggregated** {{DT_BOOL}} | Write aggregated charging event data instead of single time steps; *default:* **false** |
 | **--overheadwiresegments-output** {{DT_FILE}} | Write data of overhead wire segments |
 | **--substations-output** {{DT_FILE}} | Write data of electrical substation stations |
 | **--substations-output.precision** {{DT_INT}} | Write substation values with the given precision (default 2); *default:* **2** |
@@ -156,6 +158,7 @@ configuration:
 | **--save-state.precision** {{DT_INT}} | Write internal state values with the given precision (default 2); *default:* **2** |
 | **--pedestrian.jupedsim.wkt** {{DT_FILE}} | The filename to output the JuPedSim network as WKT |
 | **--pedestrian.jupedsim.wkt.geo** {{DT_BOOL}} | Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat); *default:* **false** |
+| **--pedestrian.jupedsim.py** {{DT_FILE}} | The filename to output the JuPedSim setup as Python script |
 
 ### Time
 
@@ -185,7 +188,9 @@ configuration:
 | **--collision.check-junctions** {{DT_BOOL}} | Enables collisions checks on junctions; *default:* **false** |
 | **--collision.check-junctions.mingap** {{DT_FLOAT}} | Increase or decrease sensitivity for junction collision check; *default:* **0** |
 | **--collision.mingap-factor** {{DT_FLOAT}} | Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used; *default:* **-1** |
+| **--keep-after-arrival** {{DT_TIME}} | After a vehicle arrives, keep it in memory for the given TIME (for TraCI access); *default:* **0** |
 | **--max-num-vehicles** {{DT_INT}} | Delay vehicle insertion to stay within the given maximum number; *default:* **-1** |
+| **--max-num-persons** {{DT_INT}} | Delay person insertion to stay within the given maximum number; *default:* **-1** |
 | **--max-num-teleports** {{DT_INT}} | Abort the simulation if the given maximum number of teleports is exceeded; *default:* **-1** |
 | **--scale** {{DT_FLOAT}} | Scale demand by the given factor (by discarding or duplicating vehicles); *default:* **1** |
 | **--scale-suffix** {{DT_STR}} | Suffix to be added when creating ids for cloned vehicles; *default:* **.** |
@@ -225,6 +230,7 @@ configuration:
 | **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
 | **--use-stop-started** {{DT_BOOL}} | Override stop arrival times with stop started times when given; *default:* **false** |
 | **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'remote']; *default:* **striping** |
+| **--pedestrian.timegap-crossing** {{DT_FLOAT}} | Minimal acceptable gap (in seconds) between two vehicles before starting to cross; *default:* **2** |
 | **--pedestrian.striping.stripe-width** {{DT_FLOAT}} | Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'; *default:* **0.64** |
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |
 | **--pedestrian.striping.mingap-to-vehicle** {{DT_FLOAT}} | Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model 'striping'; *default:* **0.25** |
@@ -238,7 +244,7 @@ configuration:
 | **--pedestrian.striping.walkingarea-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the walkingarea; *default:* **4** |
 | **--pedestrian.jupedsim.step-length** {{DT_TIME}} | The update interval of the JuPedSim simulation (in seconds); *default:* **0.01** |
 | **--pedestrian.jupedsim.exit-tolerance** {{DT_FLOAT}} | The distance to accept the JuPedSim arrival point (in meters); *default:* **1** |
-| **--pedestrian.jupedsim.model** {{DT_STR}} | The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed'); *default:* **CollisionFreeSpeed** |
+| **--pedestrian.jupedsim.model** {{DT_STR}} | The submodel to use in JuPedSim ('CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce'); *default:* **CollisionFreeSpeed** |
 | **--pedestrian.jupedsim.strength-neighbor-repulsion** {{DT_FLOAT}} | The neighbor repulsion strength of the JuPedSim model; *default:* **8** |
 | **--pedestrian.jupedsim.range-neighbor-repulsion** {{DT_FLOAT}} | The neighbor repulsion range of the JuPedSim model (in meters); *default:* **0.1** |
 | **--pedestrian.jupedsim.strength-geometry-repulsion** {{DT_FLOAT}} | The geometry repulsion strength of the JuPedSim model; *default:* **5** |
@@ -246,6 +252,7 @@ configuration:
 | **--ride.stop-tolerance** {{DT_FLOAT}} | Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops; *default:* **10** |
 | **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
 | **--mapmatch.junctions** {{DT_BOOL}} | Match positions to junctions instead of edges; *default:* **false** |
+| **--weights.turnaround-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for turnaround internal lanes; *default:* **5** |
 | **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
 
 ### Routing
@@ -288,6 +295,8 @@ configuration:
 | **--person-device.rerouting.explicit** {{DT_STR_LIST}} | Assign a 'rerouting' device to named persons |
 | **--person-device.rerouting.deterministic** {{DT_BOOL}} | The 'rerouting' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--person-device.rerouting.period** {{DT_TIME}} | The period with which the person shall be rerouted; *default:* **0** |
+| **--person-device.rerouting.mode** {{DT_STR}} | Set routing flags (8 ignores temporary blockages); *default:* **0** |
+| **--person-device.rerouting.scope** {{DT_STR}} | Which part of the person plan is to be replaced (stage, sequence, or trip); *default:* **stage** |
 
 ### Report
 
@@ -355,13 +364,20 @@ configuration:
 | **--device.stationfinder.explicit** {{DT_STR_LIST}} | Assign a 'stationfinder' device to named vehicles |
 | **--device.stationfinder.deterministic** {{DT_BOOL}} | The 'stationfinder' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--device.stationfinder.rescueTime** {{DT_TIME}} | Time to wait for a rescue vehicle on the road side when the battery is empty; *default:* **1800** |
-| **--device.stationfinder.reserveFactor** {{DT_FLOAT}} | Additional battery buffer for unexpected traffic situation when estimating the battery need; *default:* **1.1** |
-| **--device.stationfinder.emptyThreshold** {{DT_FLOAT}} | Battery percentage to go into rescue mode; *default:* **5** |
+| **--device.stationfinder.rescueAction** {{DT_STR}} | How to deal with a vehicle which has to stop due to low battery: [none, remove, tow]; *default:* **remove** |
+| **--device.stationfinder.reserveFactor** {{DT_FLOAT}} | Scale battery need with this factor to account for unexpected traffic situations; *default:* **1.1** |
+| **--device.stationfinder.emptyThreshold** {{DT_FLOAT}} | Battery percentage to go into rescue mode; *default:* **0.05** |
 | **--device.stationfinder.radius** {{DT_TIME}} | Search radius in travel time seconds; *default:* **180** |
+| **--device.stationfinder.maxEuclideanDistance** {{DT_FLOAT}} | Euclidean search distance in meters (a negative value disables the restriction); *default:* **-1** |
 | **--device.stationfinder.repeat** {{DT_TIME}} | When to trigger a new search if no station has been found; *default:* **60** |
-| **--device.stationfinder.maxChargePower** {{DT_FLOAT}} | The maximum charging speed of the vehicle battery; *default:* **1000** |
+| **--device.stationfinder.maxChargePower** {{DT_FLOAT}} | The maximum charging speed of the vehicle battery; *default:* **100000** |
 | **--device.stationfinder.chargeType** {{DT_STR}} | Type of energy transfer; *default:* **charging** |
 | **--device.stationfinder.waitForCharge** {{DT_TIME}} | After this waiting time vehicle searches for a new station when the initial one is blocked; *default:* **600** |
+| **--device.stationfinder.saturatedChargeLevel** {{DT_FLOAT}} | Target state of charge after which the vehicle stops charging; *default:* **0.8** |
+| **--device.stationfinder.needToChargeLevel** {{DT_FLOAT}} | State of charge the vehicle begins searching for charging stations; *default:* **0.4** |
+| **--device.stationfinder.replacePlannedStop** {{DT_FLOAT}} | Share of stopping time of the next independently planned stop to use for charging instead; *default:* **0** |
+| **--device.stationfinder.maxDistanceToReplacedStop** {{DT_FLOAT}} | Maximum distance in meters from the original stop to be replaced by the charging stop; *default:* **300** |
+| **--device.stationfinder.chargingStrategy** {{DT_STR}} | Set a charging strategy to alter time and charging load from the set: [none, balanced, latest]; *default:* **none** |
 | **--device.battery.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'battery' device; *default:* **-1** |
 | **--device.battery.explicit** {{DT_STR_LIST}} | Assign a 'battery' device to named vehicles |
 | **--device.battery.deterministic** {{DT_BOOL}} | The 'battery' devices are set deterministic using a fraction of 1000; *default:* **false** |
@@ -494,6 +510,9 @@ configuration:
 | **--device.glosa.range** {{DT_FLOAT}} | The communication range to the traffic light; *default:* **100** |
 | **--device.glosa.max-speedfactor** {{DT_FLOAT}} | The maximum speed factor when approaching a green light; *default:* **1.1** |
 | **--device.glosa.min-speed** {{DT_FLOAT}} | Minimum speed when coasting towards a red light; *default:* **5** |
+| **--device.glosa.add-switchtime** {{DT_FLOAT}} | Additional time the vehicle shall need to reach the intersection after the signal turns green; *default:* **0** |
+| **--device.glosa.override-safety** {{DT_BOOL}} | Override safety features - ignore the current light state, always follow GLOSA's predicted state; *default:* **false** |
+| **--device.glosa.ignore-cfmodel** {{DT_BOOL}} | Vehicles follow a perfect speed calculation - ignore speed calculations from the CF model if not safety critical; *default:* **false** |
 
 ### Tripinfo Device
 | Option | Description |
@@ -575,6 +594,7 @@ configuration:
 | **-B** {{DT_STR_LIST}}<br> **--breakpoints** {{DT_STR_LIST}} | Use TIME[] as times when the simulation should halt |
 | **--edgedata-files** {{DT_FILE}} | Load edge/lane weights for visualization from FILE |
 | **-N** {{DT_FILE}}<br> **--alternative-net-file** {{DT_FILE}} | Load a secondary road network for abstract visualization from FILE |
+| **--selection-file** {{DT_FILE}} | Load pre-selected elements from FILE |
 | **-D** {{DT_BOOL}}<br> **--demo** {{DT_BOOL}} | Restart the simulation after ending (demo mode); *default:* **false** |
 | **-T** {{DT_BOOL}}<br> **--disable-textures** {{DT_BOOL}} | Do not load background pictures; *default:* **false** |
 | **--registry-viewport** {{DT_BOOL}} | Load current viewport from registry; *default:* **false** |

@@ -176,7 +176,7 @@ The attributes within the stages have the following meaning:
 
 | Name        | Type                 | Description                                                                                                                      |
 | ----------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `depart`      | (simulation) seconds | The departure time for this stage. For `<ride>,<transport>`, this is the time where the vehicle is entered.                    (-1 if the vehicl wasn't entered) |
+| `depart`      | (simulation) seconds | The departure time for this stage. For `<ride>,<transport>`, this is the time where the vehicle is entered.                    (-1 if the vehicle wasn't entered) |
 | `arrival`     | (simulation) seconds | The arrival time for this stage N.B. In stop stages this is the time at which the stage ends i.e. after the duration time period (-1 if the stage did not start) |
 | `arrivalPos`  | m                    | The arrival position on the destination edge for this stage                                                                      |
 | `duration`    | (simulation) seconds | For walking and stopping, this is time spent in that stage. For a riding stage, this **only** is the time spent inside the vehicle.  (-1 if the stage did not start or the person did not enter the vehicle)    |

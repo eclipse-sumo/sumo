@@ -68,6 +68,9 @@ public:
     /** The time to wait for teleport on bidi edges */
     static SUMOTime gTimeToTeleportBidi;
 
+    /** The time to wait for teleport when rail signals cause deadlock */
+    static SUMOTime gTimeToTeleportRSDeadlock;
+
     /** Whether gridlocked vehicles shall be removed instead of teleporting */
     static bool gRemoveGridlocked;
 
@@ -178,4 +181,7 @@ public:
 
     /// @brief Whether emission output of some type is needed (files or GUI)
     static bool gHaveEmissions;
+
+    /// @brief The default value for insertion checks
+    static int gInsertionChecks;
 };

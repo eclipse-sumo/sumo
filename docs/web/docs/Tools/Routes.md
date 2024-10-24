@@ -121,7 +121,7 @@ Only trips that start and end in the sub-scenario network are kept
 (this differs from [cutRoutes.py](#cutroutespy) which also keeps routes passing through the
 sub-scenario network).
 
-```python
+```
 python tools/route/cutRoutes.py --trips-output output.rou.xml cut.net.xml orig.rou.xml
 ```
 
@@ -434,6 +434,9 @@ this vehicle class is allowed. If the network contains many multi-lane edges, it
 may be beneficial to increase the accepted **--delta** distance between trace points and
 the edge reference line. The mapping algorithm is also available in the
 python library function sumolib.route.mapTrace.
+
+!!! caution
+    Geographic coordinates have to be provided in the lon/lat form (first coordinate is the longitude, second the latitude)!
 
 # tlsCycleAdaptation.py
 

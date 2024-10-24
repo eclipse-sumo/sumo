@@ -25,7 +25,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 
 - check the sources
   - compile, try to remove warnings and commit the patches
-  - run [checkStyle](../Developer/CodeStyle.md) and commit
+  - run [tools/build_config/checkStyle.py](../Developer/CodeStyle.md) and commit
     changed files
   - check the calendar to update copyright statements
   - check whether the TraCI version needs to be incremented
@@ -119,7 +119,6 @@ following things need to be there:
   - https://pypi.org/project/libsumo/
   - https://pypi.org/project/sumolib/
   - https://pypi.org/project/traci/
-  - https://pypi.org/project/libtraci/
 - check the Maven build https://ci.eclipse.org/sumo/job/sumo-build/view/tags/ and ensure that the artifacts have been uploaded to:
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libtraci and
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libsumo/
@@ -164,7 +163,6 @@ If everything is fine:
     sumo-announce@eclipse.org
   - submit news about the release on the Eclipse Newsroom <https://newsroom.eclipse.org/node/add/news>
   - tweet about it, post on Facebook and Instagram stories
-  - trigger update of main website at <https://sumo.dlr.de>
 - close [the milestone](https://github.com/eclipse-sumo/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
 - add the latest version to the **"software version identifier"** statement in [Wikidata](https://www.wikidata.org/wiki/Q15847637) (this will update the Wikipedia articles about SUMO), making sure to select the latest version as **"preferred rank"** and setting the previous one to **"normal rank"**.

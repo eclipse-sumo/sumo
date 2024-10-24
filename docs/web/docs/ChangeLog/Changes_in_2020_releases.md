@@ -25,7 +25,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - battery model now works correctly with subseconds and handles additional power intake better. Issue #7695
   - crashing
     - Fixed crash on parallel intermodal routing. Issue #7627
-    - Fixe crash when defining stops on internal edges. Issue #7690
+    - Fixed crash when defining stops on internal edges. Issue #7690
     - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
     - Fixed crash when vehicle with ssm device is teleported. Issue #7753
     - Fixed crash on invalid route input. Issue #7801

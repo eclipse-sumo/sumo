@@ -687,6 +687,10 @@ public:
     /// @brief get string description for this link
     std::string  getDescription() const;
 
+    /// @brief get the closest vehicle approaching this link
+    std::pair<const SUMOVehicle* const, const ApproachingVehicleInformation> getClosest() const;
+
+
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
 
@@ -742,7 +746,7 @@ private:
     const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
 
     /// @brief add information about another pedestrian crossing
-    void updateDistToFoePedCrossing(double dist); 
+    void updateDistToFoePedCrossing(double dist);
 
 private:
     /// @brief The lane behind the junction approached by this link

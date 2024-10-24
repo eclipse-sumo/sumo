@@ -113,3 +113,26 @@ deadlock_insertion
 
 # see #14554
 reversal_before_signal
+
+# driveways must register vehicle after it finishes parking
+parking_insertion
+
+# one route ends within the block and another train starts within the block
+end_depart_within
+
+# test flank search beyond route end
+end_within
+
+# a driveway is updated after being used
+update_driveways
+
+# reduce number of "parallel" driveways
+driveway_variants
+
+# corner case that caused a crash
+subDriveWay_short
+
+# corner case that causes a deadlock between 2 vehicles due to invalid driveway matching.
+# 
+# Even after corrected matching, there is still a deadlock because train t4 which enters last never passes a switch or signal and therefore doesnt "see" any conflicts.
+driveWayShort_badMatch

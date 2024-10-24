@@ -287,7 +287,7 @@ public:
     public:
         /// @brief constructor
         InputTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                   const std::string& name, const std::string& description, const std::string& defaultValue);
+                  const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();

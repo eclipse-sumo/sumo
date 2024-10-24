@@ -68,7 +68,8 @@ def generateDetectorDef(out, freq, enableLoop, laneIDs):
         if enableLoop:
             print('    <e1Detector id="e1_%s" lane="%s" pos="200" freq="%s" file="detector.xml"/>' %
                   (laneId, laneId, freq), file=out)
-        print("""    <e2Detector id="e2_%s" lane="%s" pos="0" length="30000" friendlyPos="true" freq="%s" file="detector.xml"/>
+        print("""
+        <e2Detector id="e2_%s" lane="%s" pos="0" length="30000" friendlyPos="true" freq="%s" file="detector.xml"/>
         <e3Detector id="e3_%s" freq="%s" file="detector.xml">
             <detEntry lane="%s" pos="0"/>
             <detExit lane="%s" pos="30000" friendlyPos="true"/>

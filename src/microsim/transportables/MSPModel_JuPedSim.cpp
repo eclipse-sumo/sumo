@@ -1081,6 +1081,7 @@ MSPModel_JuPedSim::dumpGeometry(const GEOSGeometry* polygon, const std::string& 
     std::ofstream dumpFile;
     dumpFile.open(filename);
     GEOSWKTWriter* writer = GEOSWKTWriter_create();
+    GEOSWKTWriter_setRoundingPrecision(writer, gPrecisionGeo);
     char* wkt = GEOSWKTWriter_write(writer, polygonGeoCoordinates == nullptr ? polygon : polygonGeoCoordinates);
     dumpFile << wkt << std::endl;
     dumpFile.close();

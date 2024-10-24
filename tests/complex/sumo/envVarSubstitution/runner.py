@@ -42,7 +42,7 @@ subprocess.call([sumoBinary, "-c", "config.sumocfg"])
 
 files = list(sorted(os.listdir(".")))
 print("uncheck:", files, os.curdir)
-assert(files[0].endswith(".trips.xml"))
-assert(int(files[0][:-10]) > 0)
-assert("collision.xml" in files)
-assert(len(files) == 11)
+assert files[0].endswith(".trips.xml")
+assert int(files[0][:-10]) > 0
+assert "collision.xml" in files
+assert len(files) == 11

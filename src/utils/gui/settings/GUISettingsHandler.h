@@ -205,6 +205,6 @@ private:
 
     /// @brief parse attributes for rainbowSettings
     GUIVisualizationRainbowSettings parseRainbowSettings(
-            const std::string& prefix, const SUMOSAXAttributes& attrs,
-            GUIVisualizationRainbowSettings defaults);
+        const std::string& prefix, const SUMOSAXAttributes& attrs,
+        GUIVisualizationRainbowSettings defaults);
 };

@@ -79,6 +79,7 @@
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcKeepRightAcceptanceTime" type="floatType"/>
         <xsd:attribute name="lcOvertakeDeltaSpeedFactor" type="floatType"/>
+        <xsd:attribute name="lcContRight" type="floatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment" type="latAlignmentType"/>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>

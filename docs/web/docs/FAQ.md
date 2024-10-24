@@ -435,7 +435,7 @@ and simply type `git pull`.
 
   Make sure that your computer supports 3D Acceleration and graphical
   drivers are correctly installed and configured. It will probably not
-  work on mahcines accessed via RDP or a similar remote desktop protocol.
+  work on machines accessed via RDP or a similar remote desktop protocol.
 
 ### Troubleshooting
 
@@ -781,7 +781,7 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
 Turn-arounds are a frequently observed at the start or end of a route if the respective edge goes in the wrong direction with regard to the general direction of travel.
 There are different ways to avoid this:
 
-- specifify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
+- specify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
   - randomTrips.py provides option ** --junction-taz** for this purpose
 - set duarouter option **--remove-loops**  which will cut off starting / ending turn-arounds in the route
 
@@ -1056,6 +1056,9 @@ The tool [runSeeds.py](Tools/Misc.md#runseedspy) can be used to automate this, p
 The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to generated statistics for multiple runs:
 i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command
 `tools/output/attributeStats.py *.stats.xml` will generate statistics on each of the attributes in the statistic-output file over all runs.
+
+The tool [attributeCompare.py](Tools/Output.md#attributecomparepy) can be used if the attribute of interest must be grouped. An example would be to obtain averaged traffic data for each individual edge and hour in an hourly [edgeData-output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md). The following command groups each of the traffic attributes by edge id and interval begin time:
+`tools/output/attributeCompare.py *.ed.xml -o output.xml -i id,begin
 
 ### How to simulate autonomous vehicles?
 

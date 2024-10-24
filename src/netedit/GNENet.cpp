@@ -2336,8 +2336,8 @@ GNENet::saveAdditionalsConfirmed() {
     writeAdditionalByType(device, {SUMO_TAG_BUS_STOP});
     writeAdditionalByType(device, {SUMO_TAG_TRAIN_STOP});
     writeAdditionalByType(device, {SUMO_TAG_CONTAINER_STOP});
-    writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
     writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
+    writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
     // detectors
     writeDetectorComment(device);
     writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});

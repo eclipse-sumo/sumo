@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-07 11:12+0000\n"
+"PO-Revision-Date: 2024-10-23 11:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -303,7 +303,7 @@ msgstr "Moltiplica tempi del flusso con TIME per ottenere degli secondi"
 
 #: src/dfrouter/RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr "Detrae TIME secondi dai tempi (graduati) del flusso"
+msgstr "Detrae TIME secondi dai tempi (ridimensionati) del flusso"
 
 #: src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
@@ -2314,6 +2314,8 @@ msgid ""
 "The submodel to use in JuPedSim ('CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 msgstr ""
+"Il modello subordinato da usare in JuPedSim ('CollisionFreeSpeed', "
+"'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 
 #: src/microsim/MSFrame.cpp:572
 msgid "The neighbor repulsion strength of the JuPedSim model"
@@ -2333,28 +2335,36 @@ msgstr "La zona di repulsione geometrica del modello JuPedSim (in metri)"
 
 #: src/microsim/MSFrame.cpp:580
 msgid "The filename to output the JuPedSim network as WKT"
-msgstr ""
+msgstr "Il nome del file in uscita della rete JuPedSim in formata WKT"
 
 #: src/microsim/MSFrame.cpp:582
 msgid ""
 "Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"
 msgstr ""
+"Se la rete JuPedSim esportata in formato WKT deve usare coordinate "
+"geografiche (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:584
 msgid "The filename to output the JuPedSim setup as Python script"
 msgstr ""
+"Il nome del file in uscita dove scrivere la configurazione JuPedSim su forma "
+"di script Python"
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
 "Tolerance to apply when matching pedestrian and vehicle positions on "
 "boarding at individual stops"
 msgstr ""
+"Tolleranza tra posizioni di pedoni e veicoli nella salita a fermate "
+"individuali"
 
 #: src/microsim/MSFrame.cpp:591 src/router/ROFrame.cpp:163
 msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
 msgstr ""
+"Distanza massima nella proiezione di coordinate di ingresso (fromXY etc.) "
+"sulla rete stradale"
 
 #: src/microsim/MSFrame.cpp:594 src/router/ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
@@ -2381,6 +2391,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs for turnaround "
 "internal lanes"
 msgstr ""
+"Applica questa pena temporale quando si calcola il costo di instradamento "
+"attraverso corsie di inversione ad u"
 
 #: src/microsim/MSFrame.cpp:618
 msgid ""
@@ -2393,6 +2405,8 @@ msgid ""
 "When set, trips between the same origin and destination will share a taxi by "
 "default"
 msgstr ""
+"Se impostato corse con la stessa origine e destinazione condivideranno un "
+"taxi per difetto"
 
 #: src/microsim/MSFrame.cpp:652
 msgid "Replay exact rerouting sequence from vehroute-output"
@@ -3379,6 +3393,8 @@ msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr ""
+"Il valore di tau=% nel tipo di veicolo '%' inferiore al passo di simulazione "
+"può causare collisioni."
 
 #: src/microsim/MSVehicleType.cpp:468
 #, c-format
@@ -3387,6 +3403,9 @@ msgid ""
 "lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-"
 "queue for multi-modal meso simulation"
 msgstr ""
+"La classe di veicoli '%' del tipo di veicolo '%' viene ignorata dall'opzione "
+"--meso-ignore-lanes-by-vclass per assicurare la capacità di veicoli. Imposta "
+"l'opzione --meso-lane-queue per una simulazione mesoscopica multimodale"
 
 #: src/microsim/MSVehicleType.cpp:478
 msgid ""
@@ -3394,6 +3413,9 @@ msgid ""
 "emission class Energy/unknown will be used, please consider setting an "
 "explicit emission class!"
 msgstr ""
+"L'attrezzo di batteria è attivato nel tipo di veicolo '%' ma nessuna classe "
+"di emissioni è stata impostata. Quindi si usa la classe di emissioni Energy/"
+"unknown. Considera di impostare una classe di emissioni esplicita!"
 
 #: src/microsim/cfmodels/MSCFModel_CC.cpp:66
 msgid ""
@@ -3471,6 +3493,8 @@ msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
 msgstr ""
+"Non è ancora stato implementato altro metodo di aggiornamento che quello "
+"Euler semiimplicito. Uscita!"
 
 #: src/microsim/devices/MSDevice.cpp:172
 #, c-format
@@ -4746,25 +4770,32 @@ msgstr "Espressione vuota invalida"
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1379
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
 msgstr ""
+"Errore mentre si cerca di ritrovare le condizioni '%' per la logica di "
+"semaforo '%' (%)"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
 "Unknown laneAreaDetector '%' given as custom detector for delay_based "
 "tlLogic '%', program '%."
 msgstr ""
+"Rivelatore di corsie '%' sconosciusto dato come rivelatore personalizzato "
+"della logica di semaforo '%', programma '%."
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
-msgstr ""
+msgstr "Stato invalido 'off' del collegamento % nell'incrocio '%'"
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:84
 msgid "Inconsistent 'off'-states for linkIndex % at tlLogic '%'"
 msgstr ""
+"Stati 'off' inconsistenti per l'indice di collegamento % nella logica di "
+"semaforo '%'"
 
 #: src/microsim/traffic_lights/MSRailSignal.cpp:106
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
 msgstr ""
+"Il segnale ferroviario nell'incrocio '%' non controlla nessun collegamento"
 
 #: src/microsim/traffic_lights/MSRailSignal.cpp:1215
 msgid "Found circular block after railSignal % (% edges, length %)"
@@ -4886,41 +4917,45 @@ msgstr ""
 
 #: src/microsim/traffic_lights/NEMAController.cpp:965
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "Si parte con le fasi coordinate"
 
 #: src/microsim/transportables/MSPModel.h:186
 msgid "moveTo is ignored by the current movement model"
-msgstr ""
+msgstr "moveTo viene ignorato dal modello di movimento attuale"
 
 #: src/microsim/transportables/MSPModel.h:202
 msgid "moveToXY is ignored by the current movement model"
-msgstr ""
+msgstr "moveToXY viene ignorato dal modello di movimento attuale"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:166
 msgid "Error while adding person '%' as JuPedSim agent: %"
-msgstr ""
+msgstr "Errore nel aggiungere la persona '%' come agente JuPedSim: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:180
 msgid "Error while creating fixed transition for person '%': %"
-msgstr ""
+msgstr "Errore nel creare una transizione fissa per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:186
 msgid "Error while setting transition for person '%': %"
-msgstr ""
+msgstr "Errore nel impostare una transizione per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:205
 msgid "Error while adding waypoint for person '%': %"
-msgstr ""
+msgstr "Errore nel aggiungere un punto intermedio per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:242
 #: src/microsim/transportables/MSPModel_Striping.cpp:170
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
 msgstr ""
+"La persona '%' non ha incontrato nessuno marciapiede nell'arco '%' alle ore "
+"%."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:256
 #, c-format
 msgid "FromTaz '%' for person '%' has no shape information."
 msgstr ""
+"La zona di assegnazione del traffico di origine della persona '%' non "
+"possiede una forma."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:307
 msgid "No waiting set for crossing at %."
@@ -4928,19 +4963,20 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:344
 msgid "Error while adding a journey for person '%': %"
-msgstr ""
+msgstr "Errore nel aggiungere un viaggio per la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:378
 msgid "Error while switching to a new journey for person '%': %"
-msgstr ""
+msgstr "Errore nel cambiare viaggio alla persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:409
 msgid "Error during iteration %: %"
-msgstr ""
+msgstr "Errore durante la iterazione %: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:572
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
 msgstr ""
+"La persona '%' nell'area di sparizione '%' è stata rimossa dalla simulazione."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:678
 msgid "Error while generating geometry for carriages."
@@ -5178,18 +5214,26 @@ msgstr ""
 #: src/microsim/trigger/MSChargingStation.cpp:66
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
 msgstr ""
+"L'attributo % per la stazione di ricarica con il codice identificativo '%' è "
+"invalido."
 
 #: src/microsim/trigger/MSChargingStation.cpp:71
 msgid "ChargingStation with ID='%' doesn't have a valid position (% < %)."
 msgstr ""
+"La stazione di ricarica con il codice identificativo '%' non si trova a una "
+"posizione valida (% < %)."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
 msgstr ""
+"Appunto temporale invalido oppure non ordinato correttamente nel sistema di "
+"limiti dinamici di velocità '%'."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:182
 msgid "Time % was set twice for vss '%'; replacing first entry."
 msgstr ""
+"L'ora % è stata impostata due volte per il sistema di limiti dinamici di "
+"velocità '%'; perciò il primo appunto è stato sostituito dal secondo."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:354
 #: src/microsim/trigger/MSOverheadWire.cpp:409
@@ -5243,19 +5287,25 @@ msgstr "Valore invalido '%' del parametro di tipo di veicolo '%'"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:130
 msgid "MSTriggeredRerouter %: No destination edge id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Nessun arco di destinazione è stato indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:193
 msgid "MSTriggeredRerouter %: No route id given."
 msgstr ""
+"MSTriggeredRerouter %: Nessun codice identificativo di itinerario è stato "
+"indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:216
 msgid "MSTriggeredRerouter %: No parking area id given."
 msgstr ""
+"MSTriggeredRerouter %: Nessun codice identificativo di un parcheggio è stato "
+"indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:241
 msgid "MSTriggeredRerouter %: No via edge id given."
 msgstr ""
+"MSTriggeredRerouter %: Nessun codice identificativo di un'arco intermedio è "
+"stato indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:524
 #, c-format
@@ -6136,38 +6186,45 @@ msgstr ""
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr ""
+"Genera INT punti intermedi per appianare le corsie all'interno dell'incrocio"
 
 #: src/netbuild/NBFrame.cpp:378
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr ""
+"Genera incroci più larghi per permettere curve ad s lisce quando cambia il "
+"numero di corsie"
 
 #: src/netbuild/NBFrame.cpp:425
 msgid "Forces rectangular cuts between lanes and intersections"
-msgstr ""
+msgstr "Forza di tagliare in forma rettangolare tra corsie ed incroci"
 
 #: src/netbuild/NBFrame.cpp:484
 msgid "Always build walking areas even if there are no crossings"
-msgstr ""
+msgstr "Crea aree pedonali sempre anche quando non ci sono passaggi pedonali"
 
 #: src/netbuild/NBFrame.cpp:487
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr ""
+"Non creare un'area pedonale tra due marciapiedi che sono collegati da "
+"un'incrocio pedonale tra FLOAT"
 
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr ""
+"Interpreta STR[] come elenco di codici identificatifivi di semafori da non "
+"combinare con nessun'altro"
 
 #: src/netbuild/NBFrame.cpp:635
 msgid "Only keep edges with speed in meters/second > FLOAT"
-msgstr ""
+msgstr "Mantieni soltanto quelli archi con un limite di velocità in m/s > FLOAT"
 
 #: src/netbuild/NBFrame.cpp:639
 msgid "Remove edges in STR[]"
-msgstr ""
+msgstr "Rimuovi archi in STR[]"
 
 #: src/netbuild/NBFrame.cpp:643
 msgid ""
@@ -6251,39 +6308,41 @@ msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
+"Indovina le rampe di accesso e segna le corsie di accelerazione se ci sono "
+"ma non aggiungere altre corsie"
 
 #: src/netbuild/NBFrame.cpp:709
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr ""
+msgstr "Non considerare archi con un limite di velocità > FLOAT come rampe"
 
 #: src/netbuild/NBFrame.cpp:713
 msgid "Treat edges with speed < FLOAT as no highways"
-msgstr ""
+msgstr "Non considerare archi con un limite di velocità < FLOAT come autostrade"
 
 #: src/netbuild/NBFrame.cpp:717
 msgid "Use FLOAT as ramp-length"
-msgstr ""
+msgstr "Utilizza FLOAT come lunghezza di rampa"
 
 #: src/netbuild/NBFrame.cpp:721
 msgid "Use FLOAT as minimum ramp-length"
-msgstr ""
+msgstr "Utilizza FLOAT come lunghezza minima di rampa"
 
 #: src/netbuild/NBFrame.cpp:725
 msgid "Tries to handle the given edges as ramps"
-msgstr ""
+msgstr "Cerca di trattare gli archi dati come rampe"
 
 #: src/netbuild/NBFrame.cpp:728
 msgid "Do not consider the given edges as ramps"
-msgstr ""
+msgstr "Non considerare gli archi dati come rampe"
 
 #: src/netbuild/NBFrame.cpp:732
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "Evita di separare archi"
 
 #: src/netbuild/NBFrame.cpp:742
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
-msgstr ""
+msgstr "valore '%' non autorizzato per l'opzione '--tls.default-type'"
 
 #: src/netbuild/NBFrame.cpp:746
 msgid ""
@@ -6307,28 +6366,34 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:762
 msgid "default.lanenumber must be at least 1"
-msgstr ""
+msgstr "default.lanenumber deve essere almeno 1"
 
 #: src/netbuild/NBFrame.cpp:770
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
+"solamente una delle opzioni 'default.disallow' o 'default.allow' può essere "
+"usata alla volta"
 
 #: src/netbuild/NBFrame.cpp:774
 msgid "junctions.internal-link-detail must >= 2"
-msgstr ""
+msgstr "junctions.internal-link-detail deve essere almeno 2"
 
 #: src/netbuild/NBFrame.cpp:779
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
 msgstr ""
+"L'opzione 'junctions.scurve-stretch' richiede l'uso di corsie interne. "
+"L'opzione '--no-internal-links' verrà disattivata."
 
 #: src/netbuild/NBFrame.cpp:786
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr ""
+"l'opzione 'default.junctions.radius' è inferiore all'opzione 'junctions."
+"small-radius'"
 
 #: src/netbuild/NBFrame.cpp:794
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
@@ -6646,11 +6711,11 @@ msgstr "Combinazione di nodi con semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:586
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "Calcolo dell'informazione del controllo con semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:593
 msgid "Computing node logics"
-msgstr ""
+msgstr "Calcolo delle logiche dei nodi"
 
 #: src/netbuild/NBNetBuilder.cpp:598
 msgid "Computing traffic light logics"
@@ -6666,7 +6731,7 @@ msgstr "Costruzione degli archi interni"
 
 #: src/netbuild/NBNetBuilder.cpp:629
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "estensione degli incroci per appianare le geometrie"
 
 #: src/netbuild/NBNetBuilder.cpp:658
 msgid "Generating street signs"
@@ -6761,57 +6826,73 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
+"Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
+"essere omesso perché non è stata trovata nessun'area pedonale."
 
 #: src/netbuild/NBNode.cpp:3066
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
+"Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
+"essere omesso perché non ci sono corsie di veicoli che lo incrociano."
 
 #: src/netbuild/NBNode.cpp:3085
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
+"Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
+"essere omesso per causa di forma invalida."
 
 #: src/netbuild/NBNode.cpp:3126
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
+"La corsia addizionale del marciapiede % su arco '%' va essere ignorata per "
+"causa delle aree pedonali."
 
 #: src/netbuild/NBNode.cpp:3242
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale "
+"collega '%' a '%'."
 
 #: src/netbuild/NBNode.cpp:3268
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale "
+"collega '%' a '%'."
 
 #: src/netbuild/NBNode.cpp:3273
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale inizia "
+"e termina alla stessa area pedonale '%'."
 
 #: src/netbuild/NBNode.cpp:3533
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
+"Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale '%' "
+"attraverso [%] non ha destinazione."
 
 #: src/netbuild/NBNode.cpp:3872
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "Richiesta del passaggio pedonale sconosciuto '%'"
 
 #: src/netbuild/NBNode.cpp:3888
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "Richiesta di un passaggio pedonale sconosciuto per gli archi dati"
 
 #: src/netbuild/NBNode.cpp:3913
 msgid "Request for unknown walkingarea '%'."
-msgstr ""
+msgstr "Richiesta dell'area pedonale sconosciuta '%'."
 
 #: src/netbuild/NBNodeCont.cpp:322
 msgid "Removed a road without junctions: %."
@@ -7398,39 +7479,39 @@ msgstr ""
 
 #: src/netgen/netgen_main.cpp:274
 msgid " Removed % traffic lights at geometry-like nodes"
-msgstr ""
+msgstr " % semafori rimossi da nodi che sembrano esistere solo per la geometria"
 
 #: src/netimport/NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "Carica rete di SUMO da FILE"
 
 #: src/netimport/NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di nodi in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di archi in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di collegamenti in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di semafori in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "Carica definizioni di tipi in XML da FILE"
 
 #: src/netimport/NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "Carica fermate di trasporto pubblico da FILE"
 
 #: src/netimport/NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "Carica linee di trasporto pubblico da FILE"
 
 #: src/netimport/NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
@@ -7492,56 +7573,63 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
-msgstr ""
+msgstr "Mostra errori nei collegamenti mentre vengono analizzati"
 
 #: src/netimport/NIFrame.cpp:154
 msgid "Continue on unknown edge types"
-msgstr ""
+msgstr "Ignora tipi di arco sconosciuti"
 
 #: src/netimport/NIFrame.cpp:157
 msgid "vmax is parsed as given in km/h"
-msgstr ""
+msgstr "la velocità massima viene interpretata come km/h"
 
 #: src/netimport/NIFrame.cpp:160
 msgid ""
 "Use YYYY-MM-DD date to determine the readiness of features under construction"
 msgstr ""
+"Utilizza data in formato AAAA-MM-GG per stabilire la disponibilità di "
+"oggetti in costruzione"
 
 #: src/netimport/NIFrame.cpp:163
 msgid "Remove all z-data"
-msgstr ""
+msgstr "Rimuovi tutti gli dati z"
 
 #: src/netimport/NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
-msgstr ""
+msgstr "Rimuovi l'elenco di chiavi da tutti gli parametri"
 
 #: src/netimport/NIFrame.cpp:169
 msgid ""
 "List vehicle classes that may ignore lane changing restrictions ('all' "
 "discards all restrictions)"
 msgstr ""
+"Elenca le classi di veicoli autorizzati di ignorare le restrizioni di cambio "
+"corsia ('all' rimuove tutte le restrizioni)"
 
 #: src/netimport/NIFrame.cpp:173
 msgid "Whether lane widths shall be ignored."
-msgstr ""
+msgstr "Se le larghezze di corsie devono essere ignorate."
 
 #: src/netimport/NIFrame.cpp:178
 msgid "If edge shapes do not end at the node positions, extend them"
 msgstr ""
+"Estendi le forme degli archi se questi non terminano alla posizione dei nodi"
 
 #: src/netimport/NIFrame.cpp:182
 msgid "Skips the check for duplicate nodes and edges"
-msgstr ""
+msgstr "Ometti il controllo di nodi e archi raddoppiati"
 
 #: src/netimport/NIFrame.cpp:185
 msgid "Imports elevation data"
-msgstr ""
+msgstr "Importa dati di altezza"
 
 #: src/netimport/NIFrame.cpp:188
 msgid ""
 "Reconstruct (relative) elevation based on layer data. Each layer is raised "
 "by FLOAT m"
 msgstr ""
+"Ricostruisci l'altezza (relativo) basata su dati di livello. Ogni livello è "
+"alzato di FLOAT m"
 
 #: src/netimport/NIFrame.cpp:191
 #, c-format
@@ -7549,6 +7637,9 @@ msgid ""
 "Maximum grade threshold in % at 50km/h when reconstructing elevation based "
 "on layer data. The value is scaled according to road speed."
 msgstr ""
+"Valore soglia per la pendenza massima in % alla velocità di 50km/h usato per "
+"ricostruire l'altezza basandosi su dati di livello. Il valore viene "
+"ridimensionato con la velocità."
 
 #: src/netimport/NIFrame.cpp:194
 msgid "Whether one-way roads should be spread to the side instead of centered"
@@ -7626,39 +7717,39 @@ msgstr "Il numero di corsie verrà derivato dalla capacità"
 
 #: src/netimport/NIFrame.cpp:246
 msgid "Read edge ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi degli archi dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:250
 msgid "Read from-node ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi dei nodi iniziali dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:254
 msgid "Read to-node ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi dei nodi terminali dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:258
 msgid "Read type ids from column STR"
-msgstr ""
+msgstr "Leggi i codici identificativi dei tipi dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:261
 msgid "Read lane number from column STR"
-msgstr ""
+msgstr "Leggi il numero di corsie dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:264
 msgid "Read speed from column STR"
-msgstr ""
+msgstr "Leggi la velocità dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:267
 msgid "Read custom edge length from column STR"
-msgstr ""
+msgstr "Leggi la lunghezza personalizzata di un arco dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:270
 msgid "Read total edge width from column STR"
-msgstr ""
+msgstr "Leggi la larghezza totale di un arco dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:273
 msgid "Read (non-unique) name from column STR"
-msgstr ""
+msgstr "Leggi il nome (non necessariamente unico) dalla colonna STR"
 
 #: src/netimport/NIFrame.cpp:276
 msgid ""
@@ -7668,7 +7759,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:279
 msgid "Add the list of field names as edge params"
-msgstr ""
+msgstr "Aggiungi l'elenco di nomi dei campi come parametri dell'arco"
 
 #: src/netimport/NIFrame.cpp:283
 msgid "Uses edge type defaults on problems"
@@ -7998,28 +8089,28 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:607
 #: src/netimport/NIImporter_OpenStreetMap.cpp:835
 msgid "Could not add edge '%'."
-msgstr ""
+msgstr "Non ho potuto aggiungere l'arco '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "Colonna mancante %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "Manca la colonna opzionale % senza valore standard."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:499
 #, c-format
 msgid "The traffic light edge '%' could not be found."
-msgstr ""
+msgstr "L'arco di semaforo '%' non è stato trovato."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr ""
+msgstr "Non si è potuto assegnare un semaforo a '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr ""
+msgstr "Non ho potuto analizzare la data AAAA-MM-GG '%'"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
@@ -8619,12 +8710,16 @@ msgid ""
 "Duplicate definition of stopOffset for edge %.\n"
 "Ignoring duplicate specification."
 msgstr ""
+"Definizione raddoppiata di stopOffset dell'arco %.\n"
+"La specificazione raddoppiata verrà ignorata."
 
 #: src/netimport/NIImporter_SUMO.cpp:718
 msgid ""
 "Duplicate definition of lane's stopOffset on edge %.\n"
 "Ignoring duplicate specifications."
 msgstr ""
+"Definizione raddoppiata di stopOffset di una corsia dell'arco %.\n"
+"La specificazione raddoppiata verrà ignorata."
 
 #: src/netimport/NIImporter_SUMO.cpp:755
 #, c-format
@@ -9024,16 +9119,16 @@ msgstr ""
 #: src/netimport/NIXMLEdgesHandler.cpp:227
 #, c-format
 msgid "Edge '%' changed its type; assuming type override is wished."
-msgstr ""
+msgstr "L'arco '%' ha cambiato tipo; si assume che è desiderato sovrascriverlo."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:315
 msgid "Ignoring self-looped edge '%' at junction '%'"
-msgstr ""
+msgstr "L'arco anello '%' all'incrocio '%' verrà ignorato"
 
 #: src/netimport/NIXMLEdgesHandler.cpp:393
 #, c-format
 msgid "'%' is deprecated, please use '%' instead."
-msgstr ""
+msgstr "'%' è obsoleto, invece usa '%'."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:403
 msgid "Lane index is larger than number of lanes (edge '%')."
@@ -9065,7 +9160,7 @@ msgstr ""
 
 #: src/netimport/NIXMLEdgesHandler.cpp:570
 msgid "The to-node is not given for edge '%'."
-msgstr ""
+msgstr "Il nodo terminale dell'arco '%' non è stato definito."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
@@ -9087,27 +9182,29 @@ msgstr "Arco '%' sconosciuto in una rotatoria."
 
 #: src/netimport/NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "Posizione assente (nel nodo '%')."
 
 #: src/netimport/NIXMLNodesHandler.cpp:185
 msgid "Could not insert node though checked this before (id='%')."
 msgstr ""
+"Non ho potuto inserire il nodo benché controllato prima (codice "
+"identificativo '%')."
 
 #: src/netimport/NIXMLNodesHandler.cpp:214
 msgid "Unable to project node shape at node '%'."
-msgstr ""
+msgstr "La forma del nodo '%' non poteva essere proiettata."
 
 #: src/netimport/NIXMLNodesHandler.cpp:322
 msgid "Unknown traffic light type '%' for node '%'."
-msgstr ""
+msgstr "Tipo di semaforo '%' sconosciuto nel nodo '%'."
 
 #: src/netimport/NIXMLNodesHandler.cpp:331
 msgid "Unknown traffic light layout '%' for node '%'."
-msgstr ""
+msgstr "Disposizione di semafori '%' sconosciuta nel nodo '%'."
 
 #: src/netimport/NIXMLNodesHandler.cpp:342
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr ""
+msgstr "Cambio del tipo da '%' a '%' per semaforo '%'."
 
 #: src/netimport/NIXMLPTHandler.cpp:159
 #, c-format
@@ -9590,7 +9687,7 @@ msgstr ""
 
 #: src/netload/NLHandler.cpp:1679
 msgid "At district '%': succeeding edge '%' does not exist."
-msgstr ""
+msgstr "Nel distretto '%': l'arco successivo '%' non esiste."
 
 #: src/netload/NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
@@ -10028,7 +10125,7 @@ msgstr "Fine dell'archivio incontrato nella lettura di %."
 
 #: src/od/ODMatrix.cpp:469
 msgid "Broken period definition '%'."
-msgstr ""
+msgstr "Definizione di intervallo invalida '%'."
 
 #: src/od/ODMatrix.cpp:483
 msgid "Broken factor: '%'."
@@ -10062,21 +10159,23 @@ msgstr "Non ho potuto aprile '%'."
 #: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
-msgstr ""
+msgstr "'%' non contiene l'informazione necessaria relativa all'ora descritta."
 
 #: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
-msgstr ""
+msgstr "Non ho potuto accedere al file di matrice '%' da caricare."
 
 #: src/od/ODMatrix.cpp:722
 #, c-format
 msgid "Could not access route file '%' to load."
-msgstr ""
+msgstr "Non ho potuto accedere al file di itinerari '%' da caricare."
 
 #: src/od/ODMatrix.cpp:739
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr ""
+"Sono stati trovati % appunti per la curva cronologica invece dei 24 "
+"aspettati per un giorno intero."
 
 #: src/od/ODMatrix.cpp:749
 msgid "Broken time line definition: missing a value in '%'."
@@ -10425,39 +10524,42 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr ""
+msgstr "Scrivi itinerari generati in FILE"
 
 #: src/router/ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr ""
+msgstr "Scrivi i tipi di veicoli utilizzati in un FILE separato"
 
 #: src/router/ROFrame.cpp:56
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
 msgstr ""
+"Mantieni i codici identificativi delle distribuzioni di tipi di veicoli "
+"nella scrittura dei veicoli e dei loro tipi"
 
 #: src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr ""
+msgstr "Utilizza FILE come rete SUMO base degli itinerari"
 
 #: src/router/ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
-msgstr ""
+msgstr "Scrivi veicoli con il loro itinerario indicato come referenza"
 
 #: src/router/ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
 msgstr ""
+"Carica dati addizionali (distretti, fermate di autobus) da uno o più FILE"
 
 #: src/router/ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
-msgstr ""
+msgstr "Carica itinerari SUMO, alternative, flussi e corsie da uno o più FILE"
 
 #: src/router/ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr ""
+msgstr "Carica pesi di rete da uno o più FILE"
 
 #: src/router/ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr ""
+msgstr "Carica pesi di corsie da uno o più FILE"
 
 #: src/router/ROFrame.cpp:125
 msgid "Continue if a route could not be build"
@@ -10912,6 +11014,8 @@ msgstr "Attributo sconosciuto '%' da scrivere in uscita."
 msgid ""
 "Option --vtype requires option --additional-files for loading vehicle types"
 msgstr ""
+"L'opzione --vtype richiede l'opzione --additional-files per caricare i tipi "
+"di veicoli"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:225
 msgid "Vehicle type is not unique."
@@ -10936,16 +11040,18 @@ msgstr "Voce non numerica in linea '%'."
 
 #: src/tools/emissionsMap_main.cpp:54
 msgid "Writing map of '%' into '%'."
-msgstr ""
+msgstr "Scrittura della corrispondenza di '%' in '%'."
 
 #: src/tools/emissionsMap_main.cpp:58 src/utils/router/AStarLookupTable.h:292
 #, c-format
 msgid "Could not open file '%' for writing."
-msgstr ""
+msgstr "Non ho potuto aprire il file '%' in modo scrittura."
 
 #: src/tools/emissionsMap_main.cpp:83
 msgid "Builds and writes an emissions map for SUMO's emission models."
 msgstr ""
+"Costruice e scrive corrispondenze di emissions per gli modelli di emissioni "
+"di SUMO."
 
 #: src/tools/emissionsMap_main.cpp:89
 msgid "If set, maps for all available emissions are written."
@@ -11008,11 +11114,11 @@ msgstr ""
 
 #: src/traci-server/TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
-msgstr ""
+msgstr "Avviamento di TraCI senza l'uso di corsie interne!"
 
 #: src/traci-server/TraCIServer.cpp:320
 msgid "***Starting server on port % ***"
-msgstr ""
+msgstr "***Avviamento del server su porta % ***"
 
 #: src/traci-server/TraCIServer.cpp:323
 #, c-format
@@ -11063,15 +11169,15 @@ msgstr ""
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
 msgid " done (%ms)."
-msgstr ""
+msgstr " concluso (%ms)."
 
 #: src/utils/common/MsgHandler.cpp:192
 msgid " done."
-msgstr ""
+msgstr " concluso."
 
 #: src/utils/common/MsgHandler.cpp:195
 msgid " failed."
-msgstr ""
+msgstr " fallito."
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
@@ -11360,7 +11466,7 @@ msgstr "Colonna invalida"
 #: src/utils/foxtools/MFXDecalsTable.cpp:340
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
 msgid "Open decal"
-msgstr ""
+msgstr "Apri immagine di sfondo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:345
 msgid "All files (*)"
@@ -11368,27 +11474,27 @@ msgstr "Tutti i file (*)"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
 msgid "Open decal."
-msgstr ""
+msgstr "Apre l'immagine di sfondo."
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:805
 msgid "Remove decal"
-msgstr ""
+msgstr "Rimuovi immagine di sfondo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:805
 msgid "Remove decal."
-msgstr ""
+msgstr "Rimuove l'immagine di sfondo."
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Estendi"
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
-msgstr ""
+msgstr "Estendi il riquadro per mostrare tutti il contenuto"
 
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
-msgstr ""
+msgstr "Digita per cercare..."
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"

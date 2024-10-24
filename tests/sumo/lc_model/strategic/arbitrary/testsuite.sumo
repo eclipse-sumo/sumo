@@ -1,0 +1,5 @@
+# Copy of default_model
+default_model
+
+# vehicles don't have to follow the rightmost lane
+contRight_0.5

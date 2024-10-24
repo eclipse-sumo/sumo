@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-30 15:15:06 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
+<!-- generated on 2024-07-14 23:08:01 by Eclipse SUMO sumo Version v1_20_0+0489-d33cee02165
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -141,7 +141,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="99.00" id="A" programID="0" phase="0" state="G"/>
     <tlsState time="100.00" id="A" programID="0" phase="0" state="G"/>
     <tlsState time="101.00" id="A" programID="0" phase="0" state="G"/>
-    <tlsState time="102.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="102.00" id="A" programID="0" phase="0" state="G"/>
     <tlsState time="103.00" id="A" programID="0" phase="1" state="r"/>
     <tlsState time="104.00" id="A" programID="0" phase="1" state="r"/>
     <tlsState time="105.00" id="A" programID="0" phase="1" state="r"/>

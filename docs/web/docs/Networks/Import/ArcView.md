@@ -19,6 +19,10 @@ network stored in "my_shape_files.shp", "my_shape_files.shx",
 netconvert --shapefile-prefix my_shape_files
 ```
 
+**netconvert** supports [virtual file systems](https://gdal.org/en/latest/user/virtual_file_systems.html) when
+importing shape files. So if you have your shapes in myshapes.zip and the main file has the name arcview.shp
+you can import them via `netconvert --shapefile /vsizip/myshapes.zip/arcview` (**--shapefile** is an alias to **--shapefile-prefix**).
+
 Unfortunately, shape files describe how information is stored
 physically, but neither which is stored nor how the entries of the
 according database (\*.dbf) are named. Due to this, one has to examine
@@ -67,7 +71,7 @@ to describe the edges' attributes. In this case, the column to
 retrieve an according street's type name from must be named using **--shapefile.type-id** {{DT_IDList}} and a
 [SUMO edge type file](../../SUMO_edge_type_file.md) must be given to
 [netconvert](../../netconvert.md) using **--type-files** {{DT_FILE}}. If something fails with the
-types or the explicit values, it can be catched using **--shapefile.use-defaults-on-failure**. In these cases,
+types or the explicit values, it can be caught using **--shapefile.use-defaults-on-failure**. In these cases,
 the default [netconvert](../../netconvert.md) values are used. Besides
 this, it is possible to load own [connection
 descriptions](../../Networks/PlainXML.md#connection_descriptions).
@@ -240,7 +244,7 @@ reality, as the next picture shows:
 on-/off-ramps**
 
 Furthermore, all streets are unidirectional - even highways. This makes
-the network not usable for traffic simulations when left in the orignal
+the network not usable for traffic simulations when left in the original
 state. Trying to convert the network with **--arcview.all-bidi**, that means trying to insert
 edges bidirectional, makes the city usable, but the highways are even
 worse, now, because also the on-/off-ramps are bidirectional, then...

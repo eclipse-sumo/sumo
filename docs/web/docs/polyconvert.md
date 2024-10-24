@@ -68,7 +68,9 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 attributes to the imported shapes in dependence of their "type". Not all
 imported formats have a type information. When using shape files, for
 example, all instances of an artifact type are normally stored in a
-distinct shape file.
+distinct shape file. **polyconvert** supports [virtual file systems](https://gdal.org/en/latest/user/virtual_file_systems.html) when
+importing shape files. So if you have your shapes in myshapes.zip and the main file has the name arcview.shp
+you can import them via `polyconvert --shapefile /vsizip/myshapes.zip/arcview` (**--shapefile** is an alias to **--shapefile-prefixes**).
 
 | Option | Description |
 |--------|-------------|

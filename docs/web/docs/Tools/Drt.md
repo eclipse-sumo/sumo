@@ -100,12 +100,12 @@ Also [pre-booking](../Simulation/Taxi.md#prebooking) is possible.
 | **-i --interval** | int (seconds)| 30s              | time interval for collecting requests, if there are new requests after this interval the solver starts |
 | **-n --nogui** | bool            | false            | if true, uses only the command line version of sumo, else uses sumo-gui |
 | **-v --verbose** | bool          | false            | prints more information about the dispatch calculation |
-| **-t --time-limit** | int (seconds) | 10s           | maximum time for the solver to calculate a singe dispatch problem |
+| **-t --time-limit** | int (seconds) | 10s           | maximum time for the solver to calculate a single dispatch problem |
 | **-d --cost-type** | str('distance' or 'time') | distance | defines if distance or time is used as costs for the dispatch |
 | **-f --drf**   | float           | 1.5              | direct route factor: factor for maximum allowed cost for the route of a request in relation to the minimum possible cost (of the direct route); use '-1' to ignore this constraint |
 | **-a --fix-allocation** | bool   | false            | if true: as soon as a solution was found and a request was assigned to a taxi, this assignment keeps up for all following calculations |
 | **-w --waiting-time** | int (seconds) | 900s        | maximum waiting time until service after spontaneous booking or the earliest pick-up time; use '-1' for ignoring the waiting time |
-| **-p --penalty-factor** | 'dynamic' or int | 'dynamic' | factor for different penalties of constraints in realtion to the routing costs; 'dynamic' prefers holding constraints of already accepted requests, than accepting new requests |
+| **-p --penalty-factor** | 'dynamic' or int | 'dynamic' | factor for different penalties of constraints in relation to the routing costs; 'dynamic' prefers holding constraints of already accepted requests, than accepting new requests |
 
 For further help on the command line arguments run:
 

@@ -433,11 +433,11 @@ GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const 
                                        const double width, const double exaggeration, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
-        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeLength.back(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
-        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
-        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
+        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeLength.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(), exaggeration);
+        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(), exaggeration);
+        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(), exaggeration);
     } else {
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, width, exaggeration, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, getType(), width, exaggeration, true, true, 0);
     }
 }
 

@@ -38,7 +38,7 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 
 # polygon & POI
-# http://www.sumo.dlr.de/userdoc/Simulation/Shapes.html
+# https://sumo.dlr.de/docs/Simulation/Shapes.html
 #
 # <poly id="<POLYGON_ID>" type="<TYPENAME>" color="<COLOR>"
 # fill="<FILL_OPTION>" layer="<LAYER_NO>" shape="<2D-POSITION>[

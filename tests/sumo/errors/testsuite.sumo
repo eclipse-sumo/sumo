@@ -66,6 +66,9 @@ invalid_color
 # test error on invalid color input
 invalid_color_name
 
+# test error on invalid insertionChecks
+invalid_insertionChecks
+
 # test for #5875
 empty_line
 parkingArea_noCapacity

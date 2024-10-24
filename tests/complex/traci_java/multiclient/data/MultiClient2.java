@@ -36,8 +36,8 @@ public class MultiClient2 {
         try {
             Simulation.init(9999);
             Simulation.setOrder(2);
-            
-            
+
+
             for (int i = 0; i < 3600; i++) {
                 Simulation.step();
                 double timeSeconds = Simulation.getTime();

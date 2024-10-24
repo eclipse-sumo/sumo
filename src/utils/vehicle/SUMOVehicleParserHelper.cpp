@@ -683,17 +683,16 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
     }
     // parse insertion checks
     if (attrs.hasAttribute(SUMO_ATTR_INSERTIONCHECKS)) {
-        ret->insertionChecks = 0;
+        ret->parametersSet |= VEHPARS_INSERTION_CHECKS_SET;
         bool ok = true;
-        std::vector<std::string> checks = attrs.get<std::vector<std::string> >(SUMO_ATTR_INSERTIONCHECKS, ret->id.c_str(), ok);
+        std::string checks = attrs.get<std::string>(SUMO_ATTR_INSERTIONCHECKS, ret->id.c_str(), ok);
         if (!ok) {
             handleVehicleError(true, ret);
         } else {
-            for (std::string check : checks) {
-                if (!SUMOXMLDefinitions::InsertionChecks.hasString(check)) {
-                    handleVehicleError(true, ret, "Unknown value '" + check + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS));
-                }
-                ret->insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(check);
+            try {
+                ret->insertionChecks = SUMOVehicleParameter::parseInsertionChecks(checks);
+            } catch (InvalidArgument& e) {
+                handleVehicleError(true, ret, e.what());
             }
         }
     }
@@ -1550,6 +1549,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_SIGMA);
         lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME);
         lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR);
+        lc2013Params.insert(SUMO_ATTR_LCA_CONTRIGHT);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
         allowedLCModelAttrs[LaneChangeModel::LC2013] = lc2013Params;
         // sl2015 (extension of lc2013)

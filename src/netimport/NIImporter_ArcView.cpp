@@ -74,27 +74,28 @@ NIImporter_ArcView::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     // check whether the correct set of entries is given
-    //  and compute both file names
-    std::string dbf_file = oc.getString("shapefile-prefix") + ".dbf";
-    std::string shp_file = oc.getString("shapefile-prefix") + ".shp";
-    std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
-    // check whether the files do exist
-    if (!FileHelpers::isReadable(dbf_file)) {
-        WRITE_ERROR("File not accessible: " + dbf_file);
-    }
-    if (!FileHelpers::isReadable(shp_file)) {
-        WRITE_ERROR("File not accessible: " + shp_file);
-    }
-    if (!FileHelpers::isReadable(shx_file)) {
-        WRITE_ERROR("File not accessible: " + shx_file);
+    //  and compute all file names
+    const std::string dbf_file = oc.getString("shapefile-prefix") + ".dbf";
+    const std::string shp_file = oc.getString("shapefile-prefix") + ".shp";
+    const std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
+    if (!StringUtils::startsWith(shp_file, "/vsi")) {
+        // if we are not using a virtual file system, check whether the files do exist
+        if (!FileHelpers::isReadable(dbf_file)) {
+            WRITE_ERROR("File not accessible: " + dbf_file);
+        }
+        if (!FileHelpers::isReadable(shp_file)) {
+            WRITE_ERROR("File not accessible: " + shp_file);
+        }
+        if (!FileHelpers::isReadable(shx_file)) {
+            WRITE_ERROR("File not accessible: " + shx_file);
+        }
     }
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;
     }
     // load the arcview files
-    NIImporter_ArcView loader(oc,
-                              nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
-                              dbf_file, shp_file, oc.getBool("speed-in-kmh"));
+    NIImporter_ArcView loader(oc, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
+                              shp_file, oc.getBool("speed-in-kmh"));
     loader.load();
 }
 
@@ -107,7 +108,6 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
                                        NBNodeCont& nc,
                                        NBEdgeCont& ec,
                                        NBTypeCont& tc,
-                                       const std::string& dbf_name,
                                        const std::string& shp_name,
                                        bool speedInKMH)
     : myOptions(oc), mySHPName(shp_name),
@@ -116,7 +116,6 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
       mySpeedInKMH(speedInKMH),
       myRunningEdgeID(0),
       myRunningNodeID(0) {
-    UNUSED_PARAMETER(dbf_name);
 }
 
 

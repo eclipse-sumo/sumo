@@ -795,6 +795,10 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
         carriageGap = StringUtils::toDouble(getParameter("carriageGap"));
         parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
     }
+    if (hasParameter("carriageDoors")) {
+        carriageDoors = StringUtils::toInt(getParameter("carriageDoors"));
+        parametersSet |= VTYPEPARS_CARRIAGE_DOORS_SET;
+    }
     if (hasParameter("frontSeatPos")) {
         frontSeatPos = StringUtils::toDouble(getParameter("frontSeatPos"));
         parametersSet |= VTYPEPARS_FRONT_SEAT_POS_SET;

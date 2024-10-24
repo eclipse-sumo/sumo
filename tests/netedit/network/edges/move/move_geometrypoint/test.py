@@ -43,9 +43,9 @@ netedit.moveMode()
 # move
 netedit.moveElementVertical(referencePosition, netedit.positions.network.edge.move.top,
                             netedit.positions.elements.movementEdgeTop)
-                              
+
 netedit.moveElementHorizontal(referencePosition, netedit.positions.network.edge.move.geometryPointTop,
-                            netedit.positions.elements.movementRadiusB)
+                              netedit.positions.elements.movementRadiusB)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

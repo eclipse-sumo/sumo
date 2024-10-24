@@ -194,6 +194,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
+| **--default.connection.cont-pos** {{DT_FLOAT}} | Whether/where connections should have an internal junction; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
 | **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,left_before_right,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
 
@@ -249,6 +250,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
 | **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
+| **--keep-lanes.min-width** {{DT_FLOAT}} | Only keep lanes with width in meters > FLOAT; *default:* **0.01** |
 
 ### Unregulated Nodes
 

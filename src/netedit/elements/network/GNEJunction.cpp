@@ -277,39 +277,35 @@ GNEJunction::checkDrawOverContour() const {
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
-    if (modes.isCurrentSupermodeDemand()) {
-        // get current plan selector
-        GNEPlanSelector* planSelector = nullptr;
-        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            planSelector = viewParent->getPersonFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            planSelector = viewParent->getContainerFrame()->getPlanSelector();
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
-        }
-        // continue depending of plan selector
-        if (planSelector && planSelector->markJunctions() && (viewObjectsSelector.getJunctionFront() == this)) {
-            if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
-                return false;
-            } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isTAZElement()) {
-                return false;
-            } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                return false;
-            } else {
-                return true;
+    if (viewObjectsSelector.getJunctionFront() != this) {
+        return false;
+    } else {
+        if (modes.isCurrentSupermodeDemand()) {
+            // get current plan selector
+            GNEPlanSelector* planSelector = nullptr;
+            if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+                planSelector = viewParent->getPersonFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+                planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+                planSelector = viewParent->getContainerFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+                planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
             }
-        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
-            // get current vehicle template
-            const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            // check if vehicle can be placed over from-to TAZs
-            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
-                return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
+            // continue depending of plan selector
+            if (planSelector && planSelector->markJunctions()) {
+                return (viewObjectsSelector.getAttributeCarrierFront() == viewObjectsSelector.getJunctionFront());
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+                // get current vehicle template
+                const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+                // check if vehicle can be placed over from-to TAZs
+                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
+                    return (viewObjectsSelector.getAttributeCarrierFront() == viewObjectsSelector.getJunctionFront());
+                }
             }
         }
+        return false;
     }
-    return false;
 }
 
 
@@ -1855,17 +1851,17 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myJunctionBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.addElementUnderCursor(this, false, true);
+        gViewObjectsHandler.addElementUnderCursor(this, getType(), false, true);
     } else {
         // always calculate for shape
-        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), exaggeration);
+        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration);
         // check if calculate contour for bubble
         if (drawBubble) {
-            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
+            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius, getType(), exaggeration);
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.junctionGeometryPointRadius,
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myNBNode->getShape(), getType(), s.neteditSizeSettings.junctionGeometryPointRadius,
                     exaggeration, true);
         }
     }
