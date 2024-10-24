@@ -115,7 +115,7 @@ myVClass(originalRoute->getVClass()) {
 
 
 GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
 {}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
 Parameterised(originalRoute->getACParametersMap()),
@@ -141,7 +141,7 @@ myVClass(vClass) {
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
 {}, edges, {}, {}, {vehicleParent}, {}),
 Parameterised(parameters),
