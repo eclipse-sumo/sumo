@@ -411,6 +411,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  )
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
