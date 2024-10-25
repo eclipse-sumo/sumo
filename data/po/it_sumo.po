@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-24 12:18+0000\n"
+"PO-Revision-Date: 2024-10-25 09:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7051,11 +7051,11 @@ msgstr "La fermata invalida '%' è stata rimossa dalla linea '%'."
 
 #: src/netbuild/NBPTLine.cpp:331
 msgid "Removed duplicate stop '%' at area '%' from line '%'."
-msgstr ""
+msgstr "Fermata raddoppiata '%' nell'area '%' rimossa dalla linea '%'."
 
 #: src/netbuild/NBPTLine.cpp:334
 msgid "Removed duplicate stop '%' named '%' from line '%'."
-msgstr ""
+msgstr "Fermata raddoppiata '%' chiamata '%' rimossa dalla linea '%'."
 
 #: src/netbuild/NBPTLineCont.cpp:124
 msgid ""
