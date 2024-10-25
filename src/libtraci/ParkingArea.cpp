@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    ParkingArea.cpp
 /// @author  Angelo Banse
+/// @author  Mirko Barthauer
 /// @date    10.11.2020
 ///
 // C++ TraCI client API implementation
@@ -75,6 +76,10 @@ ParkingArea::getVehicleIDs(const std::string& stopID) {
     return Dom::getStringVector(libsumo::VAR_STOP_STARTING_VEHICLES_IDS, stopID);
 }
 
+std::vector<std::string>
+ParkingArea::getAcceptedBadges(const std::string& stopID) {
+    return Dom::getStringVector(libsumo::VAR_ACCESS_BADGE, stopID);
+}
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(ParkingArea, PARKINGAREA)
 LIBTRACI_PARAMETER_IMPLEMENTATION(ParkingArea, PARKINGAREA)
