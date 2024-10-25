@@ -394,6 +394,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${ZLIB_PATH}/bin/*.dll"
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
+								 "${GDAL_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*/bin/*.dll"
