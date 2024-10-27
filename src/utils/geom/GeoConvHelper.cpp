@@ -357,6 +357,7 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
 
 
 #ifdef PROJ_API_FILE
+#ifdef PROJ_VERSION_MAJOR
 bool
 GeoConvHelper::checkError(projPJ projection) const {
     const int err_no = proj_context_errno(PJ_DEFAULT_CTX);
@@ -374,6 +375,7 @@ GeoConvHelper::checkError(projPJ projection) const {
     }
     return true;
 }
+#endif
 #endif
 
 
