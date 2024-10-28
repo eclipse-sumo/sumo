@@ -1,0 +1,2 @@
+calling C:\Users\coue_be\Dev\sumo\tests\\..\bin\duarouter.exe -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 20 --no-step-log --additional-files out.add.xml --remove-loops --vtype-output out.add.xml --no-warnings --exit-times true --route-length true -o out.rou.xml
+Success.

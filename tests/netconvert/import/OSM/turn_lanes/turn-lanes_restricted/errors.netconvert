@@ -1,0 +1,14 @@
+Warning: Value of key 'maxspeed:type' is not numeric ('urban') in edge '188467285'.
+Warning: Unknown lane use specifier '' ignored for way '672153089'
+Warning: Unknown lane use specifier '' ignored for way '672153089'
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '672153089').
+Warning: Ignoring turn sign information for 4 lanes on edge -672153089#0 with 3 driving lanes
+Warning: Ignoring turn sign information for 4 lanes on edge -672153089#1 with 3 driving lanes
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '791326470').
+Warning: PT line in relation 1143405 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 5571462 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '521343968' in relation '12994470'
+Warning: Ignoring restriction relation '12994470' with unknown from-way.
+Warning: No way found for reference '1007827872' in relation '13497863'
+Warning: Ignoring restriction relation '13497863' with unknown to-way.
+Warning: PT line in relation 15004502 with no stops ignored. Probably OSM file is incomplete.

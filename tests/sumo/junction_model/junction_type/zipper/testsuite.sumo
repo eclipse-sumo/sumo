@@ -9,6 +9,9 @@ variations
 # change results when adapting earlier
 variations_adaptDist_50
 
+# change results when adapting earlier
+variations_adaptDist_10
+
 # input longer flow to test different configurations
 variations_highspeed
 

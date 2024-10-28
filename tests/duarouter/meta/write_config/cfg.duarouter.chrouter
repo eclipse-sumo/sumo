@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/21/18 15:56:20 by Eclipse SUMO duarouter Version UNKNOWN
+<!-- generated on 2024-09-30 07:22:16 by Eclipse SUMO duarouter Version v1_20_0+2191-9c9833cde36
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -18,4 +18,4 @@
         <routing-algorithm value="CH"/>
     </processing>
 
-</configuration>
+</duarouterConfiguration>

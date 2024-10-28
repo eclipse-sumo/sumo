@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,14 +69,14 @@ GNEEdgeTemplate::updateLaneTemplates() {
 }
 
 
-const std::string&
-GNEEdgeTemplate::getID() const {
-    return myEdge->getID();
+GUIGlObject*
+GNEEdgeTemplate::getGUIGlObject() {
+    return nullptr;
 }
 
 
-GUIGlObject*
-GNEEdgeTemplate::getGUIGlObject() {
+const GUIGlObject*
+GNEEdgeTemplate::getGUIGlObject() const {
     return nullptr;
 }
 
@@ -87,9 +87,57 @@ GNEEdgeTemplate::updateGeometry() {
 }
 
 
+bool
+GNEEdgeTemplate::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawSelectContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawMoveContour() const {
+    return false;
+}
+
+
 std::string
 GNEEdgeTemplate::getAttribute(SumoXMLAttr key) const {
     return myEdge->getAttribute(key);
+}
+
+
+PositionVector
+GNEEdgeTemplate::getAttributePositionVector(SumoXMLAttr key) const {
+    return myEdge->getAttributePositionVector(key);
 }
 
 
@@ -104,26 +152,10 @@ GNEEdgeTemplate::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
-void
-GNEEdgeTemplate::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
-
-void
-GNEEdgeTemplate::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
 
 bool
 GNEEdgeTemplate::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
-bool
-GNEEdgeTemplate::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    // All attributes are disabled in templates
     return false;
 }
 
@@ -151,11 +183,6 @@ GNEEdgeTemplate::getACParametersMap() const {
 
 void
 GNEEdgeTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
-void
-GNEEdgeTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 

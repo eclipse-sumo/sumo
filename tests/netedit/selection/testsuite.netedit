@@ -1,14 +1,11 @@
-# basic test
 basic
 
-# check draws selections (rectangle, polygons, etc.)
 draws
 
-# view options (toggle edges, show connections, etc.)
 viewoptions
 
-# operations (load, save, etc.)
 operations
 
-# lock selection
 lockselection
+
+bugs

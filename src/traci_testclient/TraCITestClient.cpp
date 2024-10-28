@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -594,7 +594,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double x = inMsg.readDouble();
         double y = inMsg.readDouble();
         double z = inMsg.readDouble();
-        answerLog << " Position3DValue: " << std::endl;
+        answerLog << " Position3DValue:";
         answerLog << " x: " << x << " y: " << y
                   << " z: " << z << std::endl;
     } else if (valueDataType == libsumo::POSITION_ROADMAP) {
@@ -606,10 +606,10 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
                   << " laneId=" << laneId << std::endl;
     } else if (valueDataType == libsumo::TYPE_STRING) {
         std::string s = inMsg.readString();
-        answerLog << " string value: " << s << std::endl;
+        answerLog << " string value: " << (s.empty() ? "''" : s) << std::endl;
     } else if (valueDataType == libsumo::TYPE_STRINGLIST) {
         std::vector<std::string> s = inMsg.readStringList();
-        answerLog << " string list value: [ " << std::endl;
+        answerLog << " string list value: [ ";
         for (std::vector<std::string>::iterator i = s.begin(); i != s.end(); ++i) {
             if (i != s.begin()) {
                 answerLog << ", ";
@@ -619,7 +619,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " ]" << std::endl;
     } else if (valueDataType == libsumo::TYPE_COMPOUND) {
         int no = inMsg.readInt();
-        answerLog << " compound value with " << no << " members: [ " << std::endl;
+        answerLog << " compound value with " << no << " members: [";
         for (int i = 0; i < no; ++i) {
             int currentValueDataType = inMsg.readUnsignedByte();
             answerLog << " valueDataType=" << currentValueDataType;
@@ -878,6 +878,7 @@ TraCITestClient::testAPI() {
 
     // simulation
     answerLog << "  simulation:\n";
+    answerLog << "    getOption: " << simulation.getOption("net-file") << "\n";
     answerLog << "    convert2D: " << simulation.convert2D("e_m5", 0).getString() << "\n";
     answerLog << "    convert2DGeo: " << simulation.convert2D("e_m5", 0, 0, true).getString() << "\n";
     answerLog << "    convert3D: " << simulation.convert3D("e_m5", 0).getString() << "\n";
@@ -930,7 +931,7 @@ TraCITestClient::testAPI() {
     vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0, 1, 2}));
     vehicle.addSubscriptionFilterTurn();
     vehicle.addSubscriptionFilterVClass(std::vector<std::string>({"passenger"}));
-    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"passenger"}));
+    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"DEFAULT_VEHTYPE"}));
     vehicle.addSubscriptionFilterLCManeuver(1);
 
     vehicle.subscribeContext("3", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);
@@ -1000,6 +1001,7 @@ TraCITestClient::testAPI() {
     walkEdges.push_back("e_m5");
     person.appendWalkingStage("p1", walkEdges, -20);
     simulationStep();
+    answerLog << "    getEdges before rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
     person.rerouteTraveltime("p1");
     answerLog << "    getEdges after rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
 
@@ -1049,6 +1051,19 @@ TraCITestClient::testAPI() {
     answerLog << "    stateSet=" << trafficlights.getRedYellowGreenState("n_m4") << "\n";
     answerLog << "    program: " << trafficlights.getProgram("n_m4") << "\n";
 
+    answerLog << "  gui:\n";
+    try {
+        answerLog << "    setScheme: \n";
+        gui.setSchema("View #0", "real world");
+        answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
+        gui.setZoom("View #0", 50);
+        answerLog << "    getZoom: " << gui.getZoom() << "\n";
+        answerLog << "    take screenshot: \n";
+        gui.screenshot("View #0", "image.png", 500, 500);
+    } catch (libsumo::TraCIException&) {
+        answerLog << "    no support for gui commands\n";
+    }
+
     answerLog << "  load:\n";
     std::vector<std::string> args;
     args.push_back("-n");
@@ -1063,17 +1078,4 @@ TraCITestClient::testAPI() {
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     vehicle.subscribe("0", vars, 0, 100);
     edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
-
-    answerLog << "  gui:\n";
-    try {
-        answerLog << "    setScheme: \n";
-        gui.setSchema("View #0", "real world");
-        answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
-        gui.setZoom("View #0", 50);
-        answerLog << "    getZoom: " << gui.getZoom() << "\n";
-        answerLog << "    take screenshot: \n";
-        gui.screenshot("View #0", "image.png", 500, 500);
-    } catch (libsumo::TraCIException&) {
-        answerLog << "    no support for gui commands\n";
-    }
 }

@@ -28,3 +28,22 @@ ticket10512
 
 # counter lanechange with bus
 ticket10763
+
+# unsafe lane changing on junction causes emergency braking 
+ticket10988
+
+# excessive emergency braking at discontinuity in bestlaneoffset
+ticket11695
+
+# delayed lane change while decelerating
+ticket12108
+
+# counter lane change deadlock at busstop
+ticket12320
+ticket11468
+
+# invalid speed advice to self causing deadlock
+ticket14322
+
+# emergency braking in roundabout
+ticket14587

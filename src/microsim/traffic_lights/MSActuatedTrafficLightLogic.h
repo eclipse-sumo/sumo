@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,6 +142,9 @@ public:
     /// @brief retrieve all detectors used by this program
     std::map<std::string, double> getDetectorStates() const override;
 
+    /// @brief retrieve a specific detector used by this program
+    double getDetectorState(const std::string laneID) const override;
+
     /// @brief return all named conditions defined for this traffic light
     std::map<std::string, double> getConditions() const override;
 
@@ -237,6 +240,9 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
+    /// @brief whether a given link has only weak mode foes that are green in the given state
+    bool weakConflict(int linkIndex, const std::string& state) const;
+
     template<typename T, SumoXMLTag Tag>
     const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
         const T* det = dynamic_cast<const T*>(
@@ -281,6 +287,12 @@ protected:
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
+
+    /// Whether all detectors shall be built
+    bool myBuildAllDetectors;
+
+    /// Whether any of the phases has multiple targets
+    bool myHasMultiTarget;
 
     /// The output file for generated detectors
     std::string myFile;

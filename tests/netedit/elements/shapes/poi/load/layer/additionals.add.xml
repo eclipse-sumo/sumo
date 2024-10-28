@@ -1,0 +1,12 @@
+<additionals>
+
+    <!-- non valid layer (missing) -->
+    <poi id="POI_0" color="red" x="0.00" y="-30.00" width="0.00" height="0.00"/>
+
+    <!-- non valid layer (invalid) -->
+    <poi id="POI_1" color="red" layer="dummyLayer" x="-10.00" y="-30.00" width="0.00" height="0.00"/>
+
+    <!-- valid layer -->
+    <poi id="POI_2" color="red" layer="2.35" x="-20.00" y="-30.00" width="0.00" height="0.00"/>
+
+</additionals>

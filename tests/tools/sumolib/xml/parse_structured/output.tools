@@ -1,0 +1,2 @@
+timestep(time='0.00', vehicle=[vehicle(id='p0_0', speed='0.00', lane='1/1to0/1_0')], person=[person(id='p0', speed='0.00', edge='1/1to0/1')])
+timestep(time='1.00', vehicle=[vehicle(id='p0_0', speed='1.99', lane='1/1to0/1_0')], person=[person(id='p0', speed='1.99', edge='1/1to0/1')])

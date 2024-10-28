@@ -1,0 +1,1 @@
+source.net.xml dest.net.xml diff --copy location -C config.xml tools/net/netdiff.py

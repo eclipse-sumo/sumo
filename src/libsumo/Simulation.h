@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,11 +71,17 @@ public:
     /// @brief Advances by one step (or up to the given time)
     static void step(const double time = 0.);
 
+    /// @brief Advances a "half" step
+    static void executeMove();
+
     /// @brief close simulation
     static void close(const std::string& reason = "Libsumo requested termination.");
 
     /// @brief return TraCI API and SUMO version
     static std::pair<int, std::string> getVersion();
+
+    /// @brief return the SUMO option value
+    static std::string getOption(const std::string& option);
 
     static int getCurrentTime();
     static double getTime();
@@ -151,7 +157,7 @@ public:
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
     static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key);
-    static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
+    static void setParameter(const std::string& objectID, const std::string& key, const std::string& value);
 
     static void setScale(double value);
     static void clearPending(const std::string& routeID = "");
@@ -160,7 +166,7 @@ public:
     static double loadState(const std::string& fileName);
     static void writeMessage(const std::string& msg);
 
-    static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE, const libsumo::TraCIResults& params = libsumo::TraCIResults());
+    static void subscribe(const std::vector<int>& varIDs = std::vector<int>({-1}), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE, const libsumo::TraCIResults& params = libsumo::TraCIResults());
     static const libsumo::TraCIResults getSubscriptionResults();
 
     LIBSUMO_SUBSCRIPTION_API

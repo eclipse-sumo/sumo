@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    GUIParkingArea.cpp
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Tue, 19.01.2016
 ///
 // A area where vehicles can park next to the road (gui version)
@@ -51,14 +52,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                               double frompos, double topos, unsigned int capacity,
-                               double width, double length, double angle, const std::string& name,
+GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines,
+                               const std::vector<std::string>& badges, MSLane& lane, double frompos, double topos,
+                               unsigned int capacity, double width, double length, double angle, const std::string& name,
                                bool onRoad,
-                               const std::string& departPos) :
-    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos),
-    GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id) {
-    const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
+                               const std::string& departPos,
+                               bool lefthand) :
+    MSParkingArea(id, lines, badges, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand),
+    GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA)) {
+    const double offsetSign = (MSGlobals::gLefthand || lefthand) ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
@@ -74,7 +76,8 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
     mySignRot = 0;
     if (tmp.length() != 0) {
         mySignRot = myShape.rotationDegreeAtOffset(double((myShape.length() / 2.)));
-        mySignRot -= 90;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+        mySignRot -= 90 * rotSign;
     }
     myBoundary = myShape.getBoxBoundary();
     myBoundary.grow(20);
@@ -103,12 +106,13 @@ GUIParkingArea::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("name", false, getMyName());
-    ret->mkItem("begin position [m]", false, myBegPos);
-    ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("occupancy [#]", true, getOccupancy());
-    ret->mkItem("capacity [#]", false, getCapacity());
-    ret->mkItem("alternatives [#]", false, getNumAlternatives());
+    ret->mkItem(TL("name"), false, getMyName());
+    ret->mkItem(TL("begin position [m]"), false, myBegPos);
+    ret->mkItem(TL("end position [m]"), false, myEndPos);
+    ret->mkItem(TL("occupancy [#]"), true, getOccupancy());
+    ret->mkItem(TL("capacity [#]"), false, getCapacity());
+    ret->mkItem(TL("alternatives [#]"), false, getNumAlternatives());
+    ret->mkItem(TL("access badges"), false, joinToString(myAcceptedBadges, " "));
     // close building
     ret->closeBuilding();
     return ret;
@@ -174,7 +178,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+        if (s.drawDetail(10, exaggeration)) {
             GLHelper::drawText("P", Position(), .1, 1.6, blue, mySignRot);
         }
     }

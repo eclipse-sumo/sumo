@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -41,6 +41,52 @@ import sumolib  # noqa
 from sumolib.datastructures.OrderedMultiSet import OrderedMultiSet  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_option("source", category="input", type=optParser.net_file,
+                         help="original network")
+    optParser.add_option("dest", category="input", type=optParser.net_file,
+                         help="modified network")
+    optParser.add_option("outprefix", category="output", type=optParser.file,
+                         help="prefix for the diff files")
+    optParser.add_option("-v", "--verbose", action="store_true",
+                         default=False, help="Give more output")
+    optParser.add_option("-p", "--use-prefix", action="store_true",
+                         default=False, help="interpret source and dest as plain-xml prefix instead of network names")
+    optParser.add_option("-d", "--direct", action="store_true",
+                         default=False, help="compare source and dest files directly")
+    optParser.add_option("-i", "--patch-on-import", action="store_true",
+                         default=False, help="generate patch that can be applied during initial network import" +
+                         " (exports additional connection elements)")
+    optParser.add_option("--copy",
+                         help="comma-separated list of element names to copy (if they are unchanged)")
+    optParser.add_option("--path", dest="path", help="Path to binaries")
+    optParser.add_option("--remove-plain", action="store_true",
+                         help="avoid saving plain xml files of source and destination networks")
+    optParser.add_option("-l", "--write-selections", category="output", action="store_true", default=False,
+                         help="Write selection files for created, deleted and changed elements")
+    optParser.add_option("-s", "--write-shapes", category="output", action="store_true", default=False,
+                         help="Write shape files for created, deleted and changed elements")
+    optParser.add_option("-g", "--plain-geo", category="output", action="store_true", default=False,
+                         help="Write geo coordinates instead of network coordinates")
+    options = optParser.parse_args()
+    if options.use_prefix and options.direct:
+        optParser.error(
+            "Options --use-prefix and --direct are mutually exclusive")
+
+    if options.write_shapes:
+        if options.direct:
+            optParser.error(
+                "Options --write-shapes and --direct are mutually exclusive")
+        if options.use_prefix:
+            optParser.error(
+                "Options --write-shapes and --use-prefix are mutually exclusive")
+
+    return options
+
+
+# CONSTANTS
 INDENT = 4
 
 # file types to compare
@@ -108,7 +154,8 @@ ATTRIBUTE_NAMES = {
 
 # default values for the given attribute (needed when attributes appear in
 # source but do not appear in dest)
-DEFAULT_VALUES = defaultdict(lambda: None)
+MISSING_DEFAULT = "_MISSING_DEFAULT_"
+DEFAULT_VALUES = defaultdict(lambda: MISSING_DEFAULT)
 DEFAULT_VALUES['offset'] = "0"
 DEFAULT_VALUES['spreadType'] = "right"
 DEFAULT_VALUES['customShape'] = "false"
@@ -117,7 +164,9 @@ DEFAULT_VALUES['contPos'] = "-1"
 DEFAULT_VALUES['visibility'] = "-1"
 DEFAULT_VALUES['z'] = "0"
 DEFAULT_VALUES['radius'] = "-1"
-RESET = 0
+DEFAULT_VALUES['allow'] = "all"
+DEFAULT_VALUES['rightOfWay'] = "default"
+DEFAULT_VALUES['fringe'] = "default"
 
 IGNORE_TAGS = set([TAG_LOCATION])
 
@@ -397,17 +446,21 @@ class AttributeStore:
         for tagid in tagids:
             tag, id = tagid
             names, values, children = self.id_attrs[tagid]
-            attrs = self.attr_string(names, values)
+            missing = []
+            attrs = self.attr_string(names, values, missing)
             child_strings = StringIO()
+            comments = ""
+            if missing:
+                comments = "  <!-- missingAttributes: %s -->" % ','.join(missing)
             if children:
                 # writeDeleted is not supported
                 children.writeCreated(child_strings)
                 children.writeChanged(child_strings)
 
-            if len(attrs) > 0 or len(child_strings.getvalue()) > 0 or create or tag in self.copy_tags:
-                close_tag = "/>\n"
+            if len(attrs) > 0 or len(child_strings.getvalue()) > 0 or create or tag in self.copy_tags or missing:
+                close_tag = "/>%s\n" % comments
                 if len(child_strings.getvalue()) > 0:
-                    close_tag = ">\n%s" % child_strings.getvalue()
+                    close_tag = ">%s\n%s" % (comments, child_strings.getvalue())
                 self.write(file, '<%s %s %s%s' % (
                     tag,
                     self.id_string(tag, id),
@@ -420,8 +473,10 @@ class AttributeStore:
         file.write(" " * INDENT * self.level)
         file.write(item)
 
-    def attr_string(self, names, values):
-        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None])
+    def attr_string(self, names, values, missing=None):
+        if missing is not None:
+            missing += [n for n, v in sorted(zip(names, values)) if v is MISSING_DEFAULT]
+        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None and v is not MISSING_DEFAULT])  # noqa
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
@@ -494,50 +549,8 @@ class AttributeStore:
             layer = 11
         if shape:
             shape = ' '.join([','.join(map(lambda x: "%.2f" % x, pos)) for pos in shape])
-            file.write('<poly id="%s" type="%s" shape="%s" fill="%s" layer="%s" color="%s"/>\n' % (
+            file.write('    <poly id="%s" type="%s" shape="%s" fill="%s" layer="%s" color="%s"/>\n' % (
                 ":".join(id2), tag, shape, fill, layer, color))
-
-
-def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
-    optParser = ArgumentParser()
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
-    optParser.add_option("-p", "--use-prefix", action="store_true",
-                         default=False, help="interpret source and dest as plain-xml prefix instead of network names")
-    optParser.add_option("-d", "--direct", action="store_true",
-                         default=False, help="compare source and dest files directly")
-    optParser.add_option("-i", "--patch-on-import", action="store_true",
-                         default=False, help="generate patch that can be applied during initial network import" +
-                         " (exports additional connection elements)")
-    optParser.add_option("--copy",
-                         help="comma-separated list of element names to copy (if they are unchanged)")
-    optParser.add_option("--path", dest="path", help="Path to binaries")
-    optParser.add_option("--remove-plain", action="store_true",
-                         help="avoid saving plain xml files of source and destination networks")
-    optParser.add_option("-l", "--write-selections", action="store_true", default=False,
-                         help="Write selection files for created, deleted and changed elements")
-    optParser.add_option("-s", "--write-shapes", action="store_true", default=False,
-                         help="Write shape files for created, deleted and changed elements")
-    optParser.add_option("-g", "--plain-geo", action="store_true", default=False,
-                         help="Write geo coordinates instead of network coordinates")
-    options, args = optParser.parse_known_args()
-    if len(args) != 3:
-        sys.exit(USAGE)
-    if options.use_prefix and options.direct:
-        optParser.error(
-            "Options --use-prefix and --direct are mutually exclusive")
-
-    if options.write_shapes:
-        if options.direct:
-            optParser.error(
-                "Options --write-shapes and --direct are mutually exclusive")
-        if options.use_prefix:
-            optParser.error(
-                "Options --write-shapes and --use-prefix are mutually exclusive")
-
-    options.source, options.dest, options.outprefix = args
-    return options
 
 
 def create_plain(netfile, netconvert, plain_geo):
@@ -552,7 +565,7 @@ def create_plain(netfile, netconvert, plain_geo):
 
 # creates diff of a flat xml structure
 # (only children of the root element and their attrs are compared)
-def xmldiff(source, dest, diff, type, copy_tags, patchImport,
+def xmldiff(options, source, dest, diff, type, copy_tags, patchImport,
             selectionOutputFiles, shapeOutputFiles,
             sourceNet=None, destNet=None):
     attributeStore = AttributeStore(type, copy_tags)
@@ -580,7 +593,7 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport,
             print("Dest file %s is missing. Assuming all elements are deleted." % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
-            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version)
+            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version, options=options)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
                 attributeStore.writeCopies(diff_file, copy_tags)
@@ -652,26 +665,26 @@ def handle_children(xmlfile, handle_parsenode):
 
 
 # run
-def main():
-    options = parse_args()
+def main(options):
     copy_tags = options.copy.split(',') if options.copy else []
 
     selectionOutputFiles = []
     shapeOutputFiles = []
     if options.write_selections:
-        selectionOutputFiles.append(codecs.open('created.sel.txt', 'w', 'utf-8'))
-        selectionOutputFiles.append(codecs.open('deleted.sel.txt', 'w', 'utf-8'))
-        selectionOutputFiles.append(codecs.open('changed.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open(options.outprefix + '.created.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open(options.outprefix + '.deleted.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open(options.outprefix + '.changed.sel.txt', 'w', 'utf-8'))
     if options.write_shapes:
-        shapeOutputFiles.append(codecs.open('created.shape.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open('deleted.shape.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open('changed.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.created.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.deleted.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.changed.shape.xml', 'w', 'utf-8'))
         for f in shapeOutputFiles:
             sumolib.writeXMLHeader(f, "$Id$", "additional", options=options)  # noqa
 
     if options.direct:
         type = '.xml'
-        xmldiff(options.source,
+        xmldiff(options,
+                options.source,
                 options.dest,
                 options.outprefix + type,
                 type,
@@ -691,7 +704,8 @@ def main():
             options.dest = create_plain(options.dest, netconvert, options.plain_geo)
 
         for type in PLAIN_TYPES:
-            xmldiff(options.source + type,
+            xmldiff(options,
+                    options.source + type,
                     options.dest + type,
                     options.outprefix + type,
                     type,
@@ -704,11 +718,12 @@ def main():
                 os.remove(options.source + type)
                 os.remove(options.dest + type)
 
-    [f.close() for f in selectionOutputFiles]
+    for f in selectionOutputFiles:
+        f.close()
     for f in shapeOutputFiles:
-        f.write("<additional>\n")
+        f.write("</additional>\n")
         f.close()
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())

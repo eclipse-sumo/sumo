@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,9 +135,6 @@ public:
      * @see GUIGlObject::getCenteringBoundary
      */
     Boundary getCenteringBoundary() const override;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -293,9 +290,12 @@ public:
     /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    const SUMORTree& getVisualisationSpeedUp() const {
-        return myGrid;
+    const SUMORTree& getVisualisationSpeedUp(bool secondary = false) const {
+        return secondary ? myGrid2 : myGrid;
     }
+
+    /// @brief add object into rtree
+    void registerRenderedObject(GUIGlObject* o);
 
     /** @brief Returns the vehicle control
      * @return The vehicle control
@@ -314,12 +314,20 @@ public:
     /// @brief retrieve loaded edged weight for the given attribute and the current simulation time
     double getEdgeData(const MSEdge* edge, const std::string& attr);
 
+    /// @brief retrieve live lane/edge weight for the given meanData id and attribute
+    double getMeanData(const MSLane* lane, const std::string& id, const std::string& attr);
+
     /// @brief load edgeData from file
     bool loadEdgeData(const std::string& file);
 
-
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
+
+    /// @brief return list of loaded edgeData ids (being computed in the current simulation)
+    std::vector<std::string> getMeanDataIDs() const;
+
+    /// @brief return list of available attributes for the given meanData id
+    std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const;
 
 #ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);
@@ -347,7 +355,14 @@ public:
     void updateGUI() const override;
 
     /// @brief register custom hotkey action
-    void addHotkey(int key, Command* press, Command* release);
+    void addHotkey(int key, Command* press, Command* release = nullptr);
+
+    /// @brief flush outputs once the simulation has reached its end
+    void flushOutputsAtEnd();
+
+    virtual bool skipFinalReset() const override {
+        return mySkipFinalReset;
+    }
 
 private:
     /// @brief Initialises the tl-logic map and wrappers
@@ -358,6 +373,9 @@ private:
 protected:
     /// @brief The visualization speed-up
     LayeredRTree myGrid;
+
+    /// @brief The visualization speed-up for secondary shapes
+    SUMORTree myGrid2;
 
     /// @brief The networks boundary
     Boundary myBoundary;
@@ -394,6 +412,8 @@ protected:
 
     /// @brief loaded edge data for visualization
     std::map<std::string, MSEdgeWeightsStorage*> myLoadedEdgeData;
+
+    bool mySkipFinalReset = false;
 
     /// @brief class for discovering edge attributes
     class DiscoverAttributes : public SUMOSAXHandler {

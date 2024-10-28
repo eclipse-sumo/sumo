@@ -9,12 +9,24 @@ minimum speed of all influences.
 
 # maxSpeed
 
-The
-[`<vType>-attribute maxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
+The [`<vType>-attribute maxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 models the maximum speed that a vehicle will travel. It can be thought
-of as the maximum speed of the engine or the maximum speed desired by
-the driver under any circumstances (possibly these two aspects will be
-modelled with separate attributes in the future).
+of as the maximum speed of the engine.
+
+# desiredMaxSpeed
+
+The [`<vType>-attribute desiredMaxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
+models the (mean) desired maximum speed that the vehicles drivers of that type wish to use. The actual desired maximum speed of an individual vehicle is computed by multiplying the `maxDesiredSpeed` of its type with the [individual speedFactor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) of that vehicle.
+The individual desired max speed serves as another upper bound on speed next to the `maxSpeed` and the road speed limit.
+
+The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modelled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
+
+- `pedestrian`: 1.39 (5km/h)
+- `bicycle`: 5.56 (20km/h)
+- all other classes: 2778 (10000km/h)
+
+!!! caution
+    Up to version 1.14.1 this property did not exist, and `maxSpeed` was sometimes used to also model the desired speed. This resulted in a constant default maximum speed for all bicycles.
 
 # edge/lane speed and speedFactor
 
@@ -32,9 +44,9 @@ have a random speedFactor with a deviation of 0.1 and mean of 1.0 which
 means there will be different desired speeds in the vehicle population
 by default.
 
-When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed 
+When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed
 ```
-min(maxSpeed, speedFactor * speedLimit)
+min(maxSpeed, speedFactor * desiredMaxSpeed,  speedFactor * speedLimit)
 ```
 
 !!! note
@@ -53,7 +65,7 @@ sense of being able to stop in time to avoid a collision.
 
 All models are subject to constraints in their [acceleration an deceleration](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models).
 By default they will not accelerate stronger then the *accel* value. The
-default model plans it's maneuvers so as to stay within the *decel*
+default model plans its maneuvers so as to stay within the *decel*
 value (per second) but other models may interpret this value
 differently. All models will never brake harder than the
 *emergencyDecel* value (which defaults to the same value as *decel* but
@@ -76,7 +88,7 @@ slow down. If the intersection is used by other vehicles which have the
 right of way, stopping may be necessary until a safe time-window is
 found. That time windows is based on the same safety assumptions as the
 car-following model. For the default *Krauss*-model this means that each
-vehicle must be able to stop safely even if it's lead vehicle brakes
+vehicle must be able to stop safely even if its lead vehicle brakes
 hard to a full stop.
 
 Even if a vehicle has the right-of-way it may need to slow down due to
@@ -107,7 +119,7 @@ the next edge on a vehicles route, the vehicle will decelerate and stop.
 # Stops
 
 Vehicles will decelerate when approaching the position of a
-[`stop`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+[`stop`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
 # Acceleration / Deceleration constraints
 

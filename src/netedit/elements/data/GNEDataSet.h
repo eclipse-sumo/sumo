@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,11 +87,11 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     GNEHierarchicalElement* getHierarchicalElement();
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
@@ -110,6 +110,32 @@ public:
 
     /// @brief write data set
     void writeDataSet(OutputDevice& device) const;
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
 
     /// @name data interval children
     /// @{
@@ -168,30 +194,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
-
-    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
-     * @param[in] key The attribute key
-     */
-    bool isAttributeComputed(SumoXMLAttr key) const;
-
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -219,9 +221,6 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
-
     /// @brief check if a new GNEDataInterval with the given begin and end can be inserted in current GNEDataSet
     static bool checkNewInterval(const std::map<const double, GNEDataInterval*>& dataIntervalMap, const double newBegin, const double newEnd);
 
@@ -233,4 +232,3 @@ private:
 };
 
 /****************************************************************************/
-

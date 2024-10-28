@@ -1,8 +1,14 @@
-# tests for (long-range) deadlock prevention
-deadlock
-
 # tests for rail signals
 rail_signal
+
+# test for conflicts and deadlocks involving a siding
+siding
+
+# complex deadlocks that are not found automatically
+deadlocks
+
+# complex deadlocks that are not found automatically but are avoided by loading deadlock hints.
+deadlocks_loadHints
 
 # trams driving in a loop servicing stops
 tramwayLoop
@@ -22,6 +28,9 @@ headonconflict
 # Tests interlocked block signalling
 interlocking
 
+# test vehicle-on-driveway registration
+overlapping_driveways
+
 # speed when passing tracks with different speed limits
 slow_fast_slow
 
@@ -33,6 +42,18 @@ two_passing_loops2
 
 # train insertion should try to prevent a frontal collision
 bidi_conflict_insertion
+
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion
+
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion2
+
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion3
+
+# train insertion should try to prevent a frontal collision (example where insertion is unsafe)
+bidi_conflict_parkingInsertion
 crossing_tracks
 
 # rerouting trains that pass each other in a complex network
@@ -44,6 +65,9 @@ model_railroad
 # load a rail_signal where all connections are marked as uncontrolled
 uncontrolled_links
 
+# check default rail type
+default_rail_type
+
 # railway-specific bugs
 bugs
 
@@ -52,3 +76,6 @@ crossing
 
 # test for various types of train collision
 collision
+
+# test for various types of train collision without enforcing insertion checks
+collision_noInsertionChecks

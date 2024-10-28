@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-14 14:59:30.643528 by tlsCycleAdaptation.py v1_16_0+1154-eb73212805b
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="J2" type="static" programID="a" offset="0">
+        <phase duration="4" state="rrrrGGGgrrrrGGGgrrrrrrrrrr"/>
+        <phase duration="4" state="rrrryyyyrrrryyyyrrrrrrrrrr"/>
+        <phase duration="10" state="GGGgrrrrGGGgrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="yyyyrrrryyyyrrrrrrrrrrrrrr"/>
+        <phase duration="6" state="rrrrrrrGrrrrrrrGGGGGGGGGGG"/>
+        <phase duration="4" state="rrrrrrryrrrrrrryrrrrrrrrrr"/>
+        <phase duration="3" state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="5" state="rrrGrrrrrrrGrrrrGGGGGGGGGG"/>
+        <phase duration="4" state="rrryrrrrrrryrrrrGGGGGGGGGG"/>
+        <phase duration="3" state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+    <tlLogic id="J4" type="static" programID="a" offset="0">
+        <phase duration="8" state="rrrGGGGGg"/>
+        <phase duration="4" state="rrryyyyyy"/>
+        <phase duration="5" state="GGGGrrrrr"/>
+        <phase duration="4" state="yyyyrrrrr"/>
+    </tlLogic>
+    <tlLogic id="J5" type="static" programID="a" offset="0">
+        <phase duration="5" state="GGGGGggr"/>
+        <phase duration="4" state="yyyyyyyr"/>
+        <phase duration="4" state="GrrrrrGG"/>
+        <phase duration="4" state="yrrrrryy"/>
+        <phase duration="9" state="rrrrrGGr"/>
+    </tlLogic>
+</additional>

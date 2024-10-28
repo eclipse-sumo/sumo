@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 16 Apr 2020 09:35:43 AM CEST by Eclipse SUMO netedit Version v1_5_0+1157-b8d6aa306e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/2811/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="/home/kobo/dlr/debug/2811/input_additional.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="B" lane="a_0" startPos="30" endPos="70">
+        <access lane="b_0" pos="48.40"/>
+    </busStop>
+    <busStop id="C" lane="a_0" startPos="230" endPos="270">
+        <access lane="c_0" pos="52.96"/>
+    </busStop>
+    <busStop id="D" lane="a_0" startPos="430" endPos="470">
+        <access lane="d_0" pos="44.50"/>
+    </busStop>
+</additional>

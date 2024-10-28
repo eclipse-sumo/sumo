@@ -1,0 +1,20 @@
+# Copy of plain
+plain
+
+# only plot a single measure as color
+constant_widths
+internal
+verbose
+
+# logarithmic colors
+logColors
+multiple_intervals
+
+# test colormap option
+colormap
+
+# empty interval
+missingData
+
+# empty interval
+missingData_logScale

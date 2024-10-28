@@ -46,6 +46,9 @@ radius
 # disable output for all vehicles via option
 disable_all
 
+# disable output for all vehicles via option and enable one via params
+enable_one
+
 # correctly compute positions when vehicle is on a short lane
 short_lane
 
@@ -54,6 +57,9 @@ edge_filter
 
 # output vehicle leader information
 leader
+
+# look beyond best lanes along 1-lane edges
+leader_beyond_bestLanes
 
 # automatically set precision on long step length
 precision
@@ -66,3 +72,8 @@ extended_attributes
 
 # filter written attributes with "all"
 all_attributes
+
+# filter output with shape
+shape_filter
+begin
+period_begin

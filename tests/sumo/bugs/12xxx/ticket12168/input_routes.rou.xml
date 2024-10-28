@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" sigma="0" boardingDuration="0.01" vClass="bus" personCapacity="30"/>
+
+    <trip id="v0" type="t0" depart="0">
+        <stop busStop="bs_0" duration="0.1"/>
+        <stop busStop="bs_1" duration="0.1"/>
+        <stop busStop="bs_2" duration="0.1"/>
+    </trip>
+
+    <personFlow id="a" begin="0" end="0" number="30">
+        <stop busStop="bs_0" duration="0"/>
+        <ride busStop="bs_1"/>
+    </personFlow>
+
+    <personFlow id="b" begin="0" end="0" number="30">
+        <stop busStop="bs_1" duration="0"/>
+        <ride busStop="bs_2"/>
+    </personFlow>
+
+</routes>

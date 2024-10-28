@@ -1,0 +1,16 @@
+Warning: Not using public transport line 'shuttle' for routing persons. It has less than two usable stops.
+Warning: Person 'A.3' is jammed on edge 'SC', time=339.00.
+Warning: Person 'B.3' is jammed on edge 'SC', time=339.00.
+Warning: Person 'B.10' is jammed on edge 'SC', time=340.00.
+Warning: Person 'B.9' is jammed on edge 'SC', time=341.00.
+Warning: Person 'B.11' is jammed on edge 'SC', time=341.00.
+Warning: Person 'A.10' is jammed on edge 'SC', time=343.00.
+Warning: Person 'A.13' is jammed on edge 'SC', time=343.00.
+Warning: Person 'B.12' is jammed on edge 'SC', time=343.00.
+Warning: Person 'A.14' is jammed on edge 'SC', time=344.00.
+Warning: Person 'B.5' is jammed on edge 'SC', time=344.00.
+Warning: Person 'B.6' is jammed on edge 'SC', time=344.00.
+Warning: Person 'A.6' is jammed on edge 'SC', time=345.00.
+Warning: Person 'A.4' is jammed on edge 'SC', time=352.00.
+Warning: Person 'A.8' is jammed on edge 'SC', time=352.00.
+Warning: Person 'A.5' is jammed on edge 'SC', time=352.00.

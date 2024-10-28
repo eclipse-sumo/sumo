@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-27 14:57:56 by Eclipse SUMO netconvert Version v1_17_0+1298-ea9252c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="100"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-390305.13,-5819836.66" convBoundary="0.00,0.00,606.89,1468.17" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="100" x="468.96" y="126.33" type="priority"/>
+    <node id="101" x="273.61" y="110.45" type="dead_end"/>
+    <node id="102" x="588.68" y="154.99" type="dead_end"/>
+    <node id="103" x="494.11" y="141.54" type="priority"/>
+    <node id="104" x="474.30" y="225.52" type="dead_end"/>
+    <node id="105" x="342.03" y="155.93" type="traffic_light" tl="105" tlType="actuated"/>
+    <node id="106" x="346.54" y="156.13" type="dead_end"/>
+    <node id="107" x="352.87" y="156.42" type="dead_end"/>
+    <node id="108" x="358.65" y="156.68" type="traffic_light" tl="108" tlType="actuated"/>
+    <node id="109" x="359.49" y="40.76" type="priority"/>
+    <node id="110" x="487.21" y="51.62" type="dead_end"/>
+    <node id="111" x="356.01" y="109.22" type="priority"/>
+    <node id="112" x="341.64" y="223.30" type="dead_end"/>
+    <node id="113" x="0.00" y="1468.17" type="dead_end"/>
+    <node id="114" x="541.73" y="144.94" type="dead_end"/>
+    <node id="115" x="357.33" y="212.10" type="dead_end"/>
+    <node id="116" x="346.20" y="163.09" type="dead_end"/>
+    <node id="117" x="352.38" y="163.64" type="dead_end"/>
+    <node id="118" x="332.90" y="229.64" type="dead_end"/>
+    <node id="119" x="360.65" y="0.00" type="dead_end"/>
+    <node id="120" x="364.43" y="0.53" type="dead_end"/>
+    <node id="121" x="476.53" y="225.73" type="dead_end"/>
+    <node id="122" x="349.70" y="156.27" type="rail_crossing">
+        <param key="origEdgeIds" value="175885747#2"/>
+        <param key="origId" value="1673527106 1673527109"/>
+    </node>
+    <node id="123" x="349.23" y="239.04" type="dead_end">
+        <param key="origEdgeIds" value="190447767#0 465376255#2"/>
+        <param key="origId" value="1769589131 1864428536 2792266111"/>
+    </node>
+    <node id="124" x="336.38" y="235.67" type="dead_end">
+        <param key="origEdgeIds" value="-24243052#4 24243052#4 465376256#0 465376256#1"/>
+        <param key="origId" value="1864428531 1864428537 4489423699 4603453649"/>
+    </node>
+    <node id="125" x="345.29" y="230.17" type="priority">
+        <param key="origEdgeIds" value="175885746#2"/>
+        <param key="origId" value="1864428533 1864428534"/>
+    </node>
+    <node id="126" x="480.90" y="135.19" type="traffic_light" tl="127" tlType="actuated" controlledInner="14 32 46">
+        <param key="origEdgeIds" value="-153698394#0 -83517336#1 -83517336#2 153698394#0 83517336#1 83517336#2"/>
+        <param key="origId" value="25664673 4590472030 4590472039 4590472040"/>
+    </node>
+    <node id="127" x="357.75" y="123.83" type="traffic_light" tl="127" tlType="actuated" controlledInner="14 32 46">
+        <param key="origEdgeIds" value="22972195#0 22972195#1"/>
+        <param key="origId" value="25664680 4603453154 577258918"/>
+    </node>
+    <node id="128" x="606.89" y="155.16" type="dead_end">
+        <param key="origEdgeIds" value="-114667396#1 -114667396#2 -15977422#1 114667396#1 114667396#2 15977422#1"/>
+        <param key="origId" value="25665679 4590472037 4590472042 4590472043"/>
+    </node>
+</nodes>

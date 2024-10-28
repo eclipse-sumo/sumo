@@ -1,0 +1,8 @@
+Warning: Vehicle 'v.0' exceeds personCapacity 4 when placing triggered person 'p1.4', time=4.00
+Warning: Vehicle 'v.0' exceeds personCapacity 4 when placing triggered person 'p1.5', time=5.00
+Warning: Vehicle 'v.1' exceeds personCapacity 4 when placing triggered person 'p1.10', time=9.00
+Warning: Vehicle 'v.1' exceeds personCapacity 4 when placing triggered person 'p1.11', time=10.00
+Warning: Vehicle 'v.1' exceeds personCapacity 4 when placing triggered person 'p1.12', time=10.00
+Warning: Vehicle 'v.2' exceeds personCapacity 4 when placing triggered person 'p1.17', time=14.00
+Warning: Vehicle 'v.2' exceeds personCapacity 4 when placing triggered person 'p1.18', time=15.00
+Warning: Vehicle 'v.2' exceeds personCapacity 4 when placing triggered person 'p1.19', time=16.00

@@ -11,7 +11,6 @@
         <param key="radialDragCoefficient" value="0.1"/>   <!-- as above -->
         <param key="recuperationEfficiency" value=".96"/>  <!-- as above -->
         <param key="rollDragCoefficient" value="0.01"/>    <!-- as above -->
-        <param key="stoppingTreshold" value="0.1"/>        <!-- as above -->
         <param key="vehicleMass" value="1830"/>            <!-- 1682kg curb wt + average 2 passengers / bags -->
     </vType>
 </add>

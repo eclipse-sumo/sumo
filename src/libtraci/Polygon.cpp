@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -12,7 +12,7 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Polygon.cpp
-/// @author  Gregor L\"ammel
+/// @author  Gregor Laemmel
 /// @date    15.03.2017
 ///
 // C++ TraCI client API implementation
@@ -78,8 +78,8 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(Polygon, POLYGON)
 
 
 void
-Polygon::setType(const std::string& polygonID, const std::string& setType) {
-    Dom::setString(libsumo::VAR_TYPE, polygonID, setType);
+Polygon::setType(const std::string& polygonID, const std::string& polygonType) {
+    Dom::setString(libsumo::VAR_TYPE, polygonID, polygonType);
 }
 
 

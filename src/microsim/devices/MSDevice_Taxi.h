@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 class SUMOTrafficObject;
 class MSDispatch;
 class MSIdling;
+class MSDevice_Routing;
 struct Reservation;
 
 
@@ -80,8 +81,11 @@ public:
                                const std::set<std::string>& lines,
                                SUMOTime reservationTime,
                                SUMOTime pickupTime,
+                               SUMOTime earliestPickupTime,
                                const MSEdge* from, double fromPos,
+                               const MSStoppingPlace* fromStop,
                                const MSEdge* to, double toPos,
+                               const MSStoppingPlace* toStop,
                                const std::string& group);
 
     /// @brief retract reservation
@@ -90,6 +94,13 @@ public:
                                   const MSEdge* from, double fromPos,
                                   const MSEdge* to, double toPos,
                                   const std::string& group);
+
+    /// @brief update reservation's fromPos due to pre-booking
+    static void updateReservationFromPos(MSTransportable* person,
+                                         const std::set<std::string>& lines,
+                                         const MSEdge* from, double fromPos,
+                                         const MSEdge* to, double toPos,
+                                         const std::string& group, double newFromPos);
 
     /// @brief period command to trigger the dispatch algorithm
     static SUMOTime triggerDispatch(SUMOTime currentTime);
@@ -161,8 +172,14 @@ public:
     /// @brief service the given reservations
     void dispatchShared(std::vector<const Reservation*> reservations);
 
+    /// @brief remove the persons the taxi is currently waiting for from reservations
+    void cancelCurrentCustomers();
+
+    /// @brief remove person from reservations
+    bool cancelCustomer(const MSTransportable* t);
+
     /// @brief whether the given person is allowed to board this taxi
-    bool allowsBoarding(MSTransportable* t) const;
+    bool allowsBoarding(const MSTransportable* t) const;
 
     /// @brief called by MSDevice_Transportable upon loading a person
     void customerEntered(const MSTransportable* t);
@@ -216,7 +233,8 @@ private:
     void prepareStop(ConstMSEdgeVector& edges,
                      std::vector<SUMOVehicleParameter::Stop>& stops,
                      double& lastPos, const MSEdge* stopEdge, double stopPos,
-                     const std::string& action);
+                     const MSStoppingPlace* stopPlace,
+                     const std::string& action, const Reservation* res, const bool isPickup);
 
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge, const std::string& action);
@@ -246,8 +264,14 @@ private:
     /// @brief algorithm for controlling idle behavior
     MSIdling* myIdleAlgorithm;
 
+    /// @brief whether the taxi has reached its schedule service end
+    bool myReachedServiceEnd = false;
+
     /// @brief reservations currently being served
     std::set<const Reservation*> myCurrentReservations;
+
+    /// @brief routing device (if the vehicle has one)
+    MSDevice_Routing* myRoutingDevice = nullptr;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;
@@ -255,12 +279,16 @@ private:
     static MSDispatch* myDispatcher;
     /// @brief The repeated call to the dispatcher
     static Command* myDispatchCommand;
+    /// @brief the last dispatch order
+    std::vector<const Reservation*> myLastDispatch;
     // @brief the list of available taxis
     static std::vector<MSDevice_Taxi*> myFleet;
     // @brief the maximum personCapacity in the fleet
     static int myMaxCapacity;
     // @brief the maximum container capacity in the fleet
     static int myMaxContainerCapacity;
+
+    static std::set<std::string> myVClassWarningVTypes;
 
 private:
     /// @brief Invalidated copy constructor.

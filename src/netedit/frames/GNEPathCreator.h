@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEPathCreator : public FXGroupBoxModule {
+class GNEPathCreator : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEPathCreator)
 
@@ -44,17 +44,14 @@ public:
         /// @brief constructor for single edge
         Path(const SUMOVehicleClass vClass, GNEEdge* edge);
 
-        /// @brief constructor for multiple edges
+        /// @brief constructor for two edges
         Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+
+        /// @brief constructor for two junctions
+        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
-
-        /// @brief get from additional
-        GNEAdditional* getFromBusStop() const;
-
-        /// @brief to additional
-        GNEAdditional* getToBusStop() const;
 
         /// @brief check if current path is conflict due vClass
         bool isConflictVClass() const;
@@ -65,12 +62,6 @@ public:
     protected:
         /// @brief sub path
         std::vector<GNEEdge*> mySubPath;
-
-        /// @brief from additional (usually a busStop)
-        GNEAdditional* myFromBusStop;
-
-        /// @brief to additional (usually a busStop)
-        GNEAdditional* myToBusStop;
 
         /// @brief flag to mark this path as conflicted
         bool myConflictVClass;
@@ -96,7 +87,7 @@ public:
     ~GNEPathCreator();
 
     /// @brief show GNEPathCreator for the given tag
-    void showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives);
+    void showPathCreatorModule(const GNETagProperties& tagProperty, const bool consecutives);
 
     /// @brief show GNEPathCreator
     void hidePathCreatorModule();
@@ -108,7 +99,10 @@ public:
     void setVClass(SUMOVehicleClass vClass);
 
     /// @brief add junction
-    bool addJunction(GNEJunction* junction, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addJunction(GNEJunction* junction);
+
+    /// @brief add TAZ
+    bool addTAZ(GNETAZ* taz);
 
     /// @brief add edge
     bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
@@ -119,20 +113,14 @@ public:
     /// @brief get current selected junctions
     const std::vector<GNEJunction*>& getSelectedJunctions() const;
 
-    /// @brief add stoppingPlace
-    bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
-
-    /// @brief get to stoppingPlace
-    GNEAdditional* getToStoppingPlace(SumoXMLTag expectedTag) const;
+    /// @brief get current selected TAZs
+    const std::vector<GNETAZ*>& getSelectedTAZs() const;
 
     /// @brief add route
-    bool addRoute(GNEDemandElement* route, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addRoute(GNEDemandElement* route);
 
     /// @brief get route
     GNEDemandElement* getRoute() const;
-
-    /// @brief remove route
-    void removeRoute();
 
     /// @brief get path route
     const std::vector<Path>& getPath() const;
@@ -156,7 +144,7 @@ public:
     void drawTemporalRoute(const GUIVisualizationSettings& s) const;
 
     /// @brief create path
-    void createPath();
+    bool createPath(const bool useLastRoute);
 
     /// @brief abort path creation
     void abortPathCreation();
@@ -168,6 +156,12 @@ public:
     /// @{
     /// @brief Called when the user click over button "Finish route creation"
     long onCmdCreatePath(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user click over button "Use last route"
+    long onCmdUseLastRoute(FXObject*, FXSelector, void*);
+
+    /// @brief Called when update button "Use last route"
+    long onUpdUseLastRoute(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user click over button "Abort route creation"
     long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
@@ -184,19 +178,18 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        CONSECUTIVE_EDGES        = 1 << 0,   // Path's edges are consecutives
-        NONCONSECUTIVE_EDGES     = 1 << 1,   // Path's edges aren't consecutives
-        START_EDGE               = 1 << 2,   // Path begins in an edge
-        END_EDGE                 = 1 << 3,   // Path ends in an edge
-        START_JUNCTION           = 1 << 4,   // Path begins in an edge
-        END_JUNCTION             = 1 << 5,   // Path ends in an edge
-        SINGLE_ELEMENT           = 1 << 6,   // Path only had one element
-        ONLY_FROMTO              = 1 << 7,   // Path only had two elements (first and last)
-        END_BUSSTOP              = 1 << 8,   // Path ends in a busStop
-        ROUTE                    = 1 << 9,   // Path uses a route
-        REQUIRE_FIRSTELEMENT     = 1 << 10,  // Path start always in a previous element
-        SHOW_CANDIDATE_EDGES     = 1 << 11,  // Show candidate edges
-        SHOW_CANDIDATE_JUNCTIONS = 1 << 12,  // show candidate junctions
+        ONLY_FROMTO              = 1 << 0,   // Path only had two elements (first and last)
+        CONSECUTIVE_EDGES        = 1 << 1,   // Path's edges are consecutives
+        NONCONSECUTIVE_EDGES     = 1 << 2,   // Path's edges aren't consecutives
+        START_EDGE               = 1 << 3,   // Path begins in edge
+        END_EDGE                 = 1 << 4,   // Path ends in edge
+        START_JUNCTION           = 1 << 5,   // Path begins in junction
+        END_JUNCTION             = 1 << 6,   // Path ends in junction
+        START_TAZ                = 1 << 7,   // Path begins in TAZ
+        END_TAZ                  = 1 << 8,   // Path ends in TAZ
+        ROUTE                    = 1 << 9,   // Path is over an existent edge
+        SHOW_CANDIDATE_EDGES     = 1 << 10,  // Show candidate edges
+        SHOW_CANDIDATE_JUNCTIONS = 1 << 11,  // show candidate junctions
     };
 
     /// @brief update InfoRouteLabel
@@ -226,11 +219,11 @@ protected:
     /// @brief vector with selected junctions
     std::vector<GNEJunction*> mySelectedJunctions;
 
+    /// @brief vector with selected TAZs
+    std::vector<GNETAZ*> mySelectedTAZs;
+
     /// @brief vector with selected edges
     std::vector<GNEEdge*> mySelectedEdges;
-
-    /// @brief to additional (usually a busStop)
-    GNEAdditional* myToStoppingPlace;
 
     /// @brief route (usually a busStop)
     GNEDemandElement* myRoute;
@@ -240,6 +233,9 @@ protected:
 
     /// @brief label with route info
     FXLabel* myInfoRouteLabel;
+
+    /// @brief button for use last inserted route
+    FXButton* myUseLastRoute;
 
     /// @brief button for finish route creation
     FXButton* myFinishCreationButton;
@@ -259,6 +255,8 @@ protected:
     /// @brief label for control information
     FXLabel* myControlLabel;
 
+    /// @brief label for backSpace information
+    FXLabel* myBackSpaceLabel;
 private:
     /// @brief Invalidated copy constructor.
     GNEPathCreator(GNEPathCreator*) = delete;

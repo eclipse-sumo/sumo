@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,7 +32,7 @@ class OutputHandler(handler.ContentHandler):
 
     def __init__(self, lanes):
         self.lanes = lanes
-        self.speed = dict([(l, defaultdict(dict)) for l in lanes])
+        self.speed = dict([(la, defaultdict(dict)) for la in lanes])
         self.intervals = set()
 
     def startElement(self, name, attrs):
@@ -68,7 +68,8 @@ def generateDetectorDef(out, freq, enableLoop, laneIDs):
         if enableLoop:
             print('    <e1Detector id="e1_%s" lane="%s" pos="200" freq="%s" file="detector.xml"/>' %
                   (laneId, laneId, freq), file=out)
-        print("""    <e2Detector id="e2_%s" lane="%s" pos="0" length="30000" friendlyPos="true" freq="%s" file="detector.xml"/>
+        print("""
+        <e2Detector id="e2_%s" lane="%s" pos="0" length="30000" friendlyPos="true" freq="%s" file="detector.xml"/>
         <e3Detector id="e3_%s" freq="%s" file="detector.xml">
             <detEntry lane="%s" pos="0"/>
             <detExit lane="%s" pos="30000" friendlyPos="true"/>

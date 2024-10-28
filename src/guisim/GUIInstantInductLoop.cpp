@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include "GUIInstantInductLoop.h"
@@ -41,8 +42,9 @@
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
         MSLane* const lane, double positionInMeters,
-        const std::string& vTypes)
-    : MSInstantInductLoop(id, od, lane, positionInMeters, vTypes) {}
+        const std::string name, const std::string& vTypes,
+        const std::string& nextEdges) :
+    MSInstantInductLoop(id, od, lane, positionInMeters, name, vTypes, nextEdges) {}
 
 
 GUIInstantInductLoop::~GUIInstantInductLoop() {}
@@ -58,7 +60,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1INSTANT)),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
@@ -91,8 +93,12 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
-    ret->mkItem("position [m]", false, myPosition);
-    ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem(TL("name"), false, myDetector.myName);
+    ret->mkItem(TL("position [m]"), false, myPosition);
+    ret->mkItem(TL("lane"), false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
     // values
     // close building
     ret->closeBuilding(&myDetector);
@@ -109,7 +115,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     // shape
     glColor3d(1, 0, 1);
     GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(exaggeration, exaggeration, 1);

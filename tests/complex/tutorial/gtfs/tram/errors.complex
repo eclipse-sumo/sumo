@@ -1,16 +1,26 @@
 Warning: Ambiguity in turnarounds computation at junction '1644613975'.
 Warning: Found sharp turn with radius 5.47 at the end of edge '-204836052'.
 Warning: Found angle of 124.67 degrees at edge '-26637317', segment 0.
-Warning: Found sharp turn with radius 8.98 at the start of edge '-357562720'.
 Warning: Shape for junction '246767394' has distance 84.10 to its given position.
+Warning: Converting invalid rail_crossing to priority junction '7076971117'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '7465967492'.
 Warning: Lane '-22956462_0' is not connected from any incoming edge at junction '247340717'.
 Warning: Edge '461452943' is not connected to outgoing edges at junction '664456709'.
-Warning: The rail crossing '7076971117' does not have any roads.
+Warning: The rail crossing '7465967526' does not have any roads.
 Warning: 51 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 2 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 2 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
 Warning: 30 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 34 total messages of type: Found sharp turn with radius % at the end of edge '%'.
-Warning: 51 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 85 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
-Warning: 6 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
+Warning: Converting invalid rail_crossing to priority junction '7465967526'.
+Warning: Non-static traffic light '7465967542' does not define variable phase length.
+Warning: 9 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning! No mapping library found, falling back to tracemapper.
+Warning! Disconnected route '257596' between '319292807' and '107701626', no path found. Keeping longer part.
+Warning! Disconnected route '259570' between '461452916' and '180390329#0', no path found. Keeping longer part.
+Warning! Disconnected route '68252' between '461452916' and '180390329#0', no path found. Keeping longer part.

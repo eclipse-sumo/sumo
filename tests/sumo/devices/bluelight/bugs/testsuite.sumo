@@ -11,3 +11,6 @@ ticket8072
 
 # crash in bluelight device with multiple equipped vehicle and opposite direction driving 
 ticket9310
+
+# crash in bluelight device when moving quickly onto a short arrival edge
+ticket13598

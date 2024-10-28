@@ -4,7 +4,7 @@ title: Elevation
 
 # Including Elevation Data in a Network
 
-Elevation data can be imported from the following sources 
+Elevation data can be imported from the following sources
 
 - directly from network input
   - from [OSM (with some tricks)](../Networks/Import/OpenStreetMap.md#elevation_data)
@@ -15,7 +15,8 @@ Elevation data can be imported from the following sources
   - from a greyscale height-map using [netconvert](../netconvert.md) option **--heightmap.geotiff**.
   - from [*edg.xml files*](../Networks/PlainXML.md#edge_descriptions) as part of the shape specification
 
-- by shifting geometry points and junctions along the z-axis in [netedit move mode](../Netedit/index.md#changing_elevation).
+- by shifting geometry points and junctions along the z-axis in [netedit move mode](../Netedit/editModesCommon.md#changing_elevation).
+- by generating an abstract network with z-level noise using [netgenerate](../netgenerate.md) option **--perturb-z**
 
 # Related Topics
 
@@ -36,10 +37,10 @@ each edge
 
 To calibrate the color range to the elevations found in the network, the *Recalibrate Rainbow* within the gui settings dialog button may be used.
 
-Furthermore, [sumo-gui](../sumo-gui.md) is [available with support for 3D-Visualization](https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip) which can be used to visualize elevation profiles as well. 
+Furthermore, there is an "extra" version of [sumo-gui](../sumo-gui.md) [available with support for 3D-Visualization](../Downloads.md) which can be used to visualize elevation profiles as well.
 
 ## Models that use Elevation Data
 
 - [Electric vehicle model](../Models/Electric.md)
-- [PHEMLigh emission model](../Models/Emissions/PHEMlight.md)
+- [PHEMLight emission model](../Models/Emissions/PHEMlight.md)
 - [carFollowModel="KraussPS"](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models)

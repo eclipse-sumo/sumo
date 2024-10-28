@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-22 11:33:29 by Eclipse SUMO sumo Version v1_15_0+1779-b7802e4
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <collision.action value="warn"/>
+        <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="overtaking" depart="0.00" departLane="WC_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="31.50" arrivalLane="CE_1" arrivalPos="287.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="31.50" routeLength="400.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.70" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="WC_0" departPos="40.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="130.00" arrivalLane="CE_0" arrivalPos="287.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="130.00" routeLength="360.05" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="3.97" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

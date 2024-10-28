@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-22 22:18:00 by Eclipse SUMO netgenerate Version v1_13_0+0392-8630667
+<!-- generated on 2024-09-12 14:47:37 by Eclipse SUMO netgenerate Version v1_20_0+1963-cf76c26275c
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -64,16 +64,19 @@
         <spider value="false" synonymes="s spider-net" type="BOOL"/>
 
         <!-- The number of axes within the net -->
-        <spider.arm-number value="13" synonymes="arms spider-arm-number" type="INT"/>
+        <spider.arm-number value="7" synonymes="arms spider-arm-number" type="INT"/>
 
         <!-- The number of circles of the net -->
-        <spider.circle-number value="20" synonymes="circles spider-circle-number" type="INT"/>
+        <spider.circle-number value="5" synonymes="circles spider-circle-number" type="INT"/>
 
         <!-- The distances between the circles -->
         <spider.space-radius value="100" synonymes="radius spider-space-rad" type="FLOAT"/>
 
         <!-- Omit the central node of the network -->
         <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL"/>
+
+        <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
+        <spider.attach-length value="0" type="FLOAT"/>
 
     </spider_network>
 
@@ -82,10 +85,7 @@
         <rand value="false" synonymes="r random-net" type="BOOL"/>
 
         <!-- Describes how many times an edge shall be added to the net -->
-        <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT"/>
-
-        <!-- Defines the probability to build a reverse edge -->
-        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
+        <rand.iterations value="100" synonymes="iterations rand-iterations" type="INT"/>
 
         <!-- The maximum distance for each edge -->
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT"/>
@@ -119,15 +119,6 @@
 
         <!-- Probability for a node having exactly 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
-
-        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
-        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
-
-        <!-- Draw edge priority randomly from [1,default.priority] -->
-        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
-
-        <!-- Draw edge type randomly from all loaded types -->
-        <random-type value="false" type="BOOL"/>
 
         <!-- Place nodes on a regular grid with spacing rand.min-distance -->
         <rand.grid value="false" type="BOOL"/>
@@ -165,6 +156,9 @@
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE"/>
 
+        <!-- Write all lanes and their attributes even when they are not customized -->
+        <plain-output.lanes value="false" type="BOOL"/>
+
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
@@ -183,6 +177,9 @@
         <!-- The generated net will be written to dlr-navteq files with the given PREFIX -->
         <dlr-navteq-output value="" type="FILE"/>
 
+        <!-- The dlr-navteq output format version to write -->
+        <dlr-navteq.version value="6.5" type="STR"/>
+
         <!-- The network coordinates are written with the specified level of output precision -->
         <dlr-navteq.precision value="2" type="INT"/>
 
@@ -195,7 +192,7 @@
         <!-- Writes street signs as POIs to FILE -->
         <street-sign-output value="" type="FILE"/>
 
-        <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
+        <!-- Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
     </output>
@@ -207,14 +204,26 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according to the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according to the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according to the given distribution -->
         <perturb-z value="0" type="STR"/>
+
+        <!-- Defines the probability to build a reverse edge -->
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
+
+        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
+
+        <!-- Draw edge priority randomly from [1,default.priority] -->
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
+
+        <!-- Draw edge type randomly from all loaded types -->
+        <random-type value="false" type="BOOL"/>
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>
@@ -231,13 +240,31 @@
         <!-- Splits edges across geometry nodes -->
         <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
 
+        <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
+        <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
+
+        <!-- Ensure that the given list of edges is not modified -->
+        <geometry.remove.keep-edges.explicit value="" type="STR[]"/>
+
+        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) -->
+        <geometry.remove.keep-edges.input-file value="" type="FILE"/>
+
+        <!-- Allow merging edges with differing attributes when their length is below min-length -->
+        <geometry.remove.min-length value="0" type="FLOAT"/>
+
+        <!-- Allow merging edges with differing lane widths if the difference is below FLOAT -->
+        <geometry.remove.width-tolerance value="0" type="FLOAT"/>
+
+        <!-- Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints -->
+        <geometry.remove.max-junction-size value="-1" type="FLOAT"/>
+
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
         <geometry.max-grade value="10" type="FLOAT"/>
 
-        <!-- Smooth edge edge geometries with a grade in above the warning threshold. -->
+        <!-- Smooth edge geometries with a grade above the warning threshold. -->
         <geometry.max-grade.fix value="true" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
@@ -258,6 +285,9 @@
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
 
+        <!-- Structures with a circumference above FLOAT threshold are not classified as roundabout -->
+        <roundabouts.guess.max-length value="3500" type="FLOAT"/>
+
         <!-- Default visibility when approaching a roundabout -->
         <roundabouts.visibility-distance value="9" type="FLOAT"/>
 
@@ -269,6 +299,9 @@
 
         <!-- Enable guessing of network fringe nodes -->
         <fringe.guess value="false" type="BOOL"/>
+
+        <!-- Guess disconnected edges above the given speed as outer fringe -->
+        <fringe.guess.speed-threshold value="13.8889" type="FLOAT"/>
 
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
@@ -291,6 +324,9 @@
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
 
+        <!-- The default friction on an edge -->
+        <default.friction value="1" synonymes="friction" type="FLOAT"/>
+
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
 
@@ -305,6 +341,12 @@
 
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
+
+        <!-- The default speed &apos;limit&apos; on a pedestrian crossing (in m/s) -->
+        <default.crossing-speed value="2.78" type="FLOAT"/>
+
+        <!-- The default speed &apos;limit&apos; on a pedestrian walkingarea (in m/s) -->
+        <default.walkingarea-speed value="2.78" type="FLOAT"/>
 
         <!-- The default for allowed vehicle classes -->
         <default.allow value="" type="STR"/>
@@ -321,10 +363,13 @@
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>
 
+        <!-- Whether/where connections should have an internal junction -->
+        <default.connection.cont-pos value="-1" type="FLOAT"/>
+
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
 
-        <!-- [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
+        <!-- [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>
 
     </building_defaults>
@@ -350,6 +395,9 @@
 
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
+
+        <!-- Interprets STR[] as list of tls ids to exclude from joining -->
+        <tls.join-exclude value="" type="STR[]"/>
 
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>
@@ -387,7 +435,7 @@
         <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
         <tls.nema.vehExt value="2" type="INT"/>
 
-        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
+        <!-- Set INT as fixed time for intermediate NEMA yellow phase after every switch -->
         <tls.nema.yellow value="3" type="INT"/>
 
         <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
@@ -429,6 +477,12 @@
         <!-- Assign a distinct tls link index to every connection -->
         <tls.ungroup-signals value="false" type="BOOL"/>
 
+        <!-- rebuild all traffic light plans in the network -->
+        <tls.rebuild value="false" type="BOOL"/>
+
+        <!-- Does not instantiate traffic lights at geometry-like nodes -->
+        <tls.discard-simple value="false" type="BOOL"/>
+
     </tls_building>
 
     <edge_removal>
@@ -453,6 +507,9 @@
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
         <keep-edges.in-geo-boundary value="" type="STR[]"/>
 
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
+
     </edge_removal>
 
     <unregulated_nodes>
@@ -470,6 +527,9 @@
     <junctions>
         <!-- Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s) -->
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT"/>
+
+        <!-- Build left-before-right junctions instead of right-before-left junctions -->
+        <junctions.left-before-right value="false" type="BOOL"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
@@ -504,6 +564,9 @@
         <!-- Joins junctions that have the same coordinates even if not connected -->
         <junctions.join-same value="false" type="BOOL"/>
 
+        <!-- Abbreviate junction or TLS id if it joins more than INT junctions -->
+        <max-join-ids value="4" type="INT"/>
+
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="5" type="INT"/>
 
@@ -516,7 +579,7 @@
         <!-- Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning -->
         <junctions.join-turns value="false" type="BOOL"/>
 
-        <!-- Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2) -->
+        <!-- Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2) -->
         <junctions.limit-turn-speed value="5.5" type="FLOAT"/>
 
         <!-- Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius. -->
@@ -536,6 +599,12 @@
 
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
+
+        <!-- Build junctions with minimal shapes (ignoring edge overlap) -->
+        <junctions.minimal-shape value="false" type="BOOL"/>
+
+        <!-- Build junction shapes based on edge endpoints (ignoring edge overlap) -->
+        <junctions.endpoint-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
         <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>
@@ -612,8 +681,8 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
@@ -630,6 +699,15 @@
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
 
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
+
     </report>
 
     <random_number>
@@ -641,4 +719,4 @@
 
     </random_number>
 
-</configuration>
+</netgenerateConfiguration>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-07 09:09:30 by Eclipse SUMO netedit Version v1_18_0+0172-1b2313e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="nottinghill-1.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="1"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-694502.26,-5710053.81" convBoundary="13.58,33.23,171.24,150.70" origBoundary="-0.200593,51.507755,-0.142249,51.515288" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-70520849#0" from="7123959642" to="841514178" priority="12" type="highway.primary" numLanes="2" speed="13.41" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70520849"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70520849"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="222519220#0" from="2314766396" to="841519722" priority="12" type="highway.primary" numLanes="2" speed="13.41" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="222519220"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="222519220"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="rcn" value="proposed"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk" value="separate"/>
+        <param key="source" value="https://consultations.tfl.gov.uk/roads/dc3599e6/user_uploads/notting-hill-gate-consultation-plan.pdf"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="222519220#1" from="841519722" to="841519723" priority="12" type="highway.primary" numLanes="2" speed="13.41" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="222519220"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="222519220"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="rcn" value="proposed"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk" value="separate"/>
+        <param key="source" value="https://consultations.tfl.gov.uk/roads/dc3599e6/user_uploads/notting-hill-gate-consultation-plan.pdf"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="222519221" from="2314766396" to="102091" priority="12" type="highway.primary" numLanes="2" speed="8.94" shape="128.02,130.92 128.63,136.83 129.51,141.38" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="222519221"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="222519221"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="20 mph"/>
+        <param key="name" value="Kensington Church Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="separate"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="222519222" from="841529961" to="841519716" priority="12" type="highway.primary" numLanes="2" speed="8.94" shape="144.62,33.23 133.48,81.44 129.84,97.18 128.69,101.35" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="222519222"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="222519222"/>
+        </lane>
+        <param key="cycleway:left" value="no"/>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="20 mph"/>
+        <param key="name" value="Kensington Church Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="both"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="32753636" from="102091" to="841514178" priority="12" type="highway.primary" numLanes="2" speed="13.41" shape="129.51,141.38 137.18,143.99 145.57,142.09" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="32753636"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="32753636"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="35168768#1" from="25579302" to="7208284743" priority="12" type="highway.primary" numLanes="2" speed="13.41" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="35168768"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="35168768"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="35168768#2" from="7208284743" to="841519718" priority="12" type="highway.primary" numLanes="2" speed="13.41" shape="109.60,134.93 113.28,135.94 118.22,137.48" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="35168768"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="35168768"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="35168768#3" from="841519718" to="102091" priority="12" type="highway.primary" numLanes="2" speed="13.41" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="35168768"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="35168768"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70520849#0" from="841514178" to="7123959642" priority="12" type="highway.primary" numLanes="2" speed="13.41" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70520849"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70520849"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70520892#0" from="841514178" to="841519720" priority="12" type="highway.primary" numLanes="2" speed="13.41" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70520892"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70520892"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70520892#1" from="841519720" to="2314766396" priority="12" type="highway.primary" numLanes="2" speed="13.41" shape="144.29,139.79 140.83,136.25 128.02,130.92" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70520892"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70520892"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70521361#0" from="841519716" to="10597779676" priority="7" type="highway.primary_link" numLanes="2" speed="22.22" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70521361"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70521361"/>
+        </lane>
+        <param key="highway" value="primary_link"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="left"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70521361#1" from="10597779676" to="841519725" priority="7" type="highway.primary_link" numLanes="2" speed="22.22" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70521361"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70521361"/>
+        </lane>
+        <param key="highway" value="primary_link"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="left"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70521361#2" from="841519725" to="841519723" priority="7" type="highway.primary_link" numLanes="2" speed="22.22" shape="119.03,118.74 116.24,122.19 112.79,124.82" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70521361"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70521361"/>
+        </lane>
+        <param key="highway" value="primary_link"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="left"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70521922#0" from="841519716" to="841519724" priority="12" type="highway.primary" numLanes="2" speed="8.94" shape="128.69,101.35 128.63,105.95 128.37,122.02" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70521922"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70521922"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="20 mph"/>
+        <param key="name" value="Kensington Church Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="right"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70521922#1" from="841519724" to="2314766396" priority="12" type="highway.primary" numLanes="2" speed="8.94" shape="128.37,122.02 128.44,124.38 128.02,130.92" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70521922"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70521922"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="20 mph"/>
+        <param key="name" value="Kensington Church Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A4204"/>
+        <param key="sidewalk" value="right"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="70522061" from="841519723" to="1937948454" priority="12" type="highway.primary" numLanes="2" speed="13.41" shape="112.79,124.82 61.87,108.12 39.67,101.04 13.58,92.78" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="70522061"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="70522061"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed" value="30 mph"/>
+        <param key="name" value="Notting Hill Gate"/>
+        <param key="oneway" value="yes"/>
+        <param key="ref" value="A402"/>
+        <param key="sidewalk:left" value="separate"/>
+        <param key="sidewalk:right" value="no"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+</edges>

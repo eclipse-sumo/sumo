@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,24 +31,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # first rebuild network
 netedit.rebuildNetwork()
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # go to select mode
 netedit.selectMode()
 
-# first check that invert works
-netedit.selectionInvert()
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
+                           netedit.positions.selection.rectangleMediumB)
 
-# invert again and delete selected items (all must be unselected)
-netedit.selectionInvert()
+# clear selected elements
+netedit.selectionClear()
+
+# delete selected elements
 netedit.deleteSelectedItems()
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

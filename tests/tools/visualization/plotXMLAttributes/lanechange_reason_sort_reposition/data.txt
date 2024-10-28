@@ -1,0 +1,5 @@
+1:strategic
+2:strategic|urgent
+5:cooperative
+6:speedGain
+10:keepRight

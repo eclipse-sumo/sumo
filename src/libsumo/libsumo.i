@@ -1,4 +1,5 @@
 %module libsumo
+#define SWIG_MODULE libsumo
 %include "libsumo_typemap.i"
 
 // Add necessary symbols to generated header
@@ -40,6 +41,7 @@
 #ifndef SWIGPYTHON
 %template(TraCIBestLanesVector) std::vector<libsumo::TraCIBestLanesData>;
 %template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
+%template(TraCIJunctionFoeVector) std::vector<libsumo::TraCIJunctionFoe>;
 %template(TraCILinkVector) std::vector<libsumo::TraCILink>;
 %template(TraCILinkVectorVector) std::vector< std::vector<libsumo::TraCILink> >;
 %template(TraCINextTLSVector) std::vector<libsumo::TraCINextTLSData>;

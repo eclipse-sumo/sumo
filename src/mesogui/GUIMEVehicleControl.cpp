@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,11 +44,11 @@ GUIMEVehicleControl::~GUIMEVehicleControl() {
 
 SUMOVehicle*
 GUIMEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                  const MSRoute* route, MSVehicleType* type,
-                                  const bool ignoreStopErrors, const bool fromRouteFile,
+                                  ConstMSRoutePtr route, MSVehicleType* type,
+                                  const bool ignoreStopErrors, const VehicleDefinitionSource source,
                                   bool addRouteStops) {
-    MSBaseVehicle* built = new GUIMEVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    initVehicle(built, ignoreStopErrors, addRouteStops);
+    MSBaseVehicle* built = new GUIMEVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE ? MSRouteHandler::getParsingRNG() : nullptr));
+    initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;
 }
 
@@ -62,9 +62,9 @@ GUIMEVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
 
 
 void
-GUIMEVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
+GUIMEVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard, bool wasKept) {
     FXMutexLock locker(myLock);
-    MEVehicleControl::deleteVehicle(veh, discard);
+    MEVehicleControl::deleteVehicle(veh, discard, wasKept);
 }
 
 

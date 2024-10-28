@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     steplengths = [0.1, 1.0, 1.7, 2.0]
     print("----------- SUMO ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    " % numClients)
+        print("   -------- numClients: %s  --------" % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
 
     print("----------- TraCI ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    " % numClients)
+        print("   -------- numClients: %s  --------" % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i)

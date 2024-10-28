@@ -1,0 +1,5 @@
+--osm-files osm.xml.gz
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+--railway.topology.repair
+--keep-edges.by-vclass passenger,bus,tram

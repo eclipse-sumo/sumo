@@ -1,100 +1,149 @@
 name: linux
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
     branches:
       - '**'
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
-    - cron:  '25 1 * * *'
+    - cron:  '5 0 * * *'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
+        jps_version: ['v1.2.1']
+        # include:
+        #   - build_type: full
+        #     jps_version: master
+        #     compiler: gcc
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: sumo
         fetch-depth: 0
- 
-    - uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-
-    - name: Fetching SUMO tags
-      run: |
-        cd sumo
-        git fetch --tags --force
 
     - name: Preparing Build System
       run: |
         sudo apt-get update
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig openjdk-8-jdk maven ccache
-        sudo pip3 install texttest
+        sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
+        sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
+        pipx install texttest
+
+    - name: Validate CITATION.cff
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      uses: dieghernan/cff-validator@v3
+      with:
+        citation-path: sumo/CITATION.cff
+
+    - name: Cloning jupedsim
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      uses: actions/checkout@v4
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
 
     - name: ccache
-      uses: hendrikmuhs/ccache-action@v1
+      # do a clean build once a day
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.build_type }}-${{ matrix.compiler }}
 
-    - name: Preparing Gtest
+    - name: Building libjupedsim
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
-        pushd /usr/src/gtest
-        sudo mkdir build
-        cd build
-        if [[ "${{ matrix.compiler }}" == "gcc" ]]; then sudo CC=gcc CXX=g++ cmake ..; fi
-        if [[ "${{ matrix.compiler }}" == "clang" ]]; then sudo CC=clang CXX=clang++ cmake ..; fi
-        sudo make
-        find . -name 'libgtest*' | xargs sudo cp --target-dir /usr/lib/
+        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
+        cmake --build jupedsim-build -j4 --config Release
+        cmake --install jupedsim-build --config Release
 
-    - name: Building SUMO
+    - name: Configuring SUMO
       run: |
-        mkdir -p sumo/cmake-build 
-        cd sumo/cmake-build 
+        mkdir -p sumo/cmake-build
+        cd sumo/cmake-build
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
         if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
-        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi 
-        make -j4
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi
 
     - name: Building Traas
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
         make traas
 
-    - name: Installing SUMO
+    - name: Setting up SonarQube
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      uses: warchant/setup-sonar-scanner@v8
+
+    - name: Building SUMO with SonarQube wrapper
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+        cd ..
+        sonar-scanner -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.compile-commands=cmake-build/bw-output/compile_commands.json
+
+    - name: Building and Installing SUMO
+      if: matrix.build_type != 'full' || github.repository != 'eclipse-sumo/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
+      run: |
+        cd sumo/cmake-build
+        make -j4
         sudo make install
 
     - name: Building Examples and Tests
-      if: matrix.build_type == 'full'
+      if: matrix.build_type == 'full' && (github.repository == 'DLR-TS/sumo' || matrix.compiler == 'gcc')
+      # need to explicitly uninstall matplotlib below because pandas pulls it in but we need a newer version for test stability
+      # having both installed confuses matplotlib https://github.com/matplotlib/matplotlib/issues/26827
+      # the pipdeptree below is also just for debugging but often comes handy so keep it enabled
       run: |
-        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8
-        sudo pip3 install -r sumo/tools/requirements.txt
+        sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
+        sudo apt-get -y remove python3-matplotlib
+        python3 -m venv testenv --system-site-packages
+        source testenv/bin/activate
+        python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
+        python3 -m pip install pipdeptree
+        pipdeptree
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Extra tests
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
-        sumo/tests/runTests.sh -b ci -a sumo.meso.ci
+        source testenv/bin/activate
+        sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
 
-    - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+    - name: Compressing test results
+      if: failure()
+      run: zip -r texttesttmp.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v4
       with:
-        name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
+        name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
+        path: texttesttmp.zip
+        if-no-files-found: warn
+
+    - name: Uploading artifacts (SUMO binaries)
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
         path: sumo/bin

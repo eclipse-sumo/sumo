@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,8 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNEDemandElementDistribution.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -46,25 +48,24 @@ class GNEJunction;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDemandElement
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
-class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
+class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
+    friend class GNEDemandElementFlow;
+    friend class GNEDemandElementPlan;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
-        OK,                     // There is no problem
-        INVALID_ELEMENT,        // Element is invalid (for example, a route without edges)
-        INVALID_PATH,           // Path (route, trip... ) is not valid (i.e is empty)
-        DISCONNECTED_PLAN,      // Plan element (person, containers) is not connected with the previous or next plan
-        INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
-        STOP_DOWNSTREAM,        // Stops don't follow their route parent
-        NO_PLANS                // Person or container doesn't have a plan
+        OK,                         // There is no problem
+        INVALID_ELEMENT,            // Element is invalid (for example, a route without edges)
+        INVALID_PATH,               // Path (route, trip... ) is not valid (i.e is empty)
+        DISCONNECTED_PLAN,          // Plan element (person, containers) is not connected with the previous or next plan
+        INVALID_STOPPOSITION,       // StopPosition is invalid (only used in stops over edges or lanes
+        STOP_DOWNSTREAM,            // Stops don't follow their route parent
+        REPEATEDROUTE_DISCONNECTED, // Repeated route is disconnected
+        NO_PLANS                    // Person or container doesn't have a plan
     };
 
     /**@brief Constructor
@@ -80,7 +81,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions,
+    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions,
                      const std::vector<GNEJunction*>& junctionParents,
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
@@ -101,7 +102,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions,
+    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions,
                      const std::vector<GNEJunction*>& junctionParents,
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
@@ -120,11 +121,11 @@ public:
     /// @brief remove geometry point in the clicked position (Currently unused in shapes)
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief get demand element geometry (stacked)
     const GUIGeometry& getDemandElementGeometry();
@@ -134,9 +135,6 @@ public:
 
     /// @brief get next child demand element to the given demand element
     GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
-
-    /// @brief get middle (via) parent edges
-    std::vector<GNEEdge*> getViaEdges() const;
 
     /// @brief update element stacked geometry (stacked)
     void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
@@ -149,11 +147,13 @@ public:
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
+
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
 
     /// @brief get color
     virtual const RGBColor& getColor() const = 0;
+
     /// @}
 
     /// @name members and functions relative to write demand elements into XML
@@ -163,7 +163,7 @@ public:
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual Problem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -179,14 +179,9 @@ public:
      */
     virtual void openDemandElementDialog();
 
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    virtual std::string getBegin() const;
-
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
@@ -195,6 +190,36 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
+
+    /// @brief get demand element geometry
+    const GUIGeometry& getDemandElementGeometry() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -218,19 +243,26 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
-
-    /**@brief Returns the boundary to which the view shall be centered in order to show the object
-     * @return The boundary the object is within
-     */
-    virtual Boundary getCenteringBoundary() const = 0;
-
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief check if element is locked
+    bool isGLObjectLocked() const;
+
+    /// @brief mark element as front element
+    void markAsFrontElement();
+
+    /// @brief delete element
+    void deleteGLObject();
+
+    /// @brief select element
+    void selectGLObject();
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
 
     /// @}
 
@@ -239,40 +271,28 @@ public:
     /// @brief compute pathElement
     virtual void computePathElement() = 0;
 
-    /**@brief Draws partial object (lane)
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane GNELane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
-     */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    /// @brief check if path element is selected
+    bool isPathElementSelected() const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+
+    /**@brief Draws partial object over junction
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
+     */
+    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
     /// @brief get first path lane
     virtual GNELane* getFirstPathLane() const = 0;
 
     /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
-
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
 
     /// @}
 
@@ -310,30 +330,6 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
-
-    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
-     * @param[in] key The attribute key
-     */
-    bool isAttributeComputed(SumoXMLAttr key) const;
-
     /// @brief get parameters map
     virtual const Parameterised::Map& getACParametersMap() const = 0;
 
@@ -342,10 +338,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
-    /// @}
 
-    /// @brief get personPlan start position
-    const Position getBeginPosition(const double pedestrianDepartPos) const;
+    /// @}
 
     /// @brief get invalid stops
     std::vector<GNEDemandElement*> getInvalidStops() const;
@@ -361,34 +355,25 @@ protected:
     int myStackedLabelNumber;
 
     /// @brief check if a new demand element ID is valid
-    bool isValidDemandElementID(const std::string& newID) const;
+    bool isValidDemandElementID(const std::string& value) const;
 
-    /// @name Only for person plans
-    /// @{
-    /// @brief check if person plan can be drawn
-    bool drawPersonPlan() const;
+    /// @brief check if a new demand element ID is valid
+    bool isValidDemandElementID(const std::vector<SumoXMLTag>& tags, const std::string& value) const;
 
-    /// @brief check if container plan can be drawn
-    bool drawContainerPlan() const;
+    /// @brief set demand element id
+    void setDemandElementID(const std::string& newID);
 
-    /// @brief draw person plan partial lane
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                               const double personPlanWidth, const RGBColor& personPlanColor) const;
+    /// @brief get type parent (needed because first parent can be either type or typeDistribution)
+    GNEDemandElement* getTypeParent() const;
 
-    /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
+    /// @brief get route parent (always the second parent demand element)
+    GNEDemandElement* getRouteParent() const;
 
-    /// @brief check if person plan is valid
-    Problem isPersonPlanValid() const;
+    /// @brief draw line between junctions
+    void drawJunctionLine(const GNEDemandElement* element) const;
 
-    /// @brief get person plan problem
-    std::string getPersonPlanProblem() const;
-
-    /// @brief person plans arrival position radius
-    static const double myPersonPlanArrivalPositionDiameter;
-
-    /// @}
+    /// @brief draw stack label
+    void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
     /// @name replace parent elements
     /// @{
@@ -408,14 +393,14 @@ protected:
     /// @brief replace the first parent edge
     void replaceFirstParentEdge(const std::string& value);
 
-    /// @brief replace middle (via) parent edges
-    void replaceMiddleParentEdges(const std::string& value, const bool updateChildReferences);
-
     /// @brief replace the last parent edge
     void replaceLastParentEdge(const std::string& value);
 
-    /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
+    /// @brief replace the first parent additional
+    void replaceFirstParentAdditional(SumoXMLTag tag, const std::string& value);
+
+    /// @brief replace the last parent additional
+    void replaceLastParentAdditional(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
@@ -425,32 +410,42 @@ protected:
 
     /// @}
 
-    /// @brief struct for writting sorted stops
-    struct SortedStops {
+    /// @brief auxiliar struct used for calculate pathStopIndex
+    struct EdgeStopIndex {
+
         /// @brief constructor
-        SortedStops(GNEEdge* edge_);
+        EdgeStopIndex(GNEEdge* edge_, GNEDemandElement* stop) :
+            edge(edge_),
+            stops({stop}) {}
 
-        /// @brief add (and sort) stop
-        void addStop(const GNEDemandElement* stop);
+        /// @brief edge (obtained from segment)
+        const GNEEdge* edge = nullptr;
 
-        /// @brief route's edge
-        const GNEEdge* edge;
+        /// @brief list of stops placed in the edge
+        std::vector<GNEDemandElement*> stops;
 
-        /// @brief stops sorted by end position
-        std::vector<std::pair<std::pair<double, double >, const GNEDemandElement*> > myStops;
+        /// @brief stopIndex (-1 menans out of route)
+        int stopIndex = -1;
+
+    private:
+        /// @brief default constructor (disabled)
+        EdgeStopIndex() {}
     };
 
-    /// @brief get sorted stops
-    std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
+    /// @brief get edgeStopIndex
+    std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
-    /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
+    /// @brief get color by scheme (used by vehicles, persons and containers)
+    RGBColor getColorByScheme(const GUIColorer& c, const SUMOVehicleParameter* parameters) const;
 
-    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
+    /// @brief get distribution in which the given element is part
+    std::string getDistributionParents() const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+
+    /// @brief build menu command route length
+    void buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const;
 
 private:
     /**@brief check restriction with the number of children
@@ -460,9 +455,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief set move shape
     virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;

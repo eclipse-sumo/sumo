@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 0.0: departed=() (0) arrived=() (0)
 step 0.0
 1.0: departed=('horiz', 'detour', 'detour2', 'newPerson') (4) arrived=() (0)
@@ -26,10 +27,11 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID, length=766.537661434478, depart=0.0, departPos=238.5, arrivalPos=486.54, description=walking)
+stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=3.0, cost=INVALID, length=766.537661434478, depart=0.0, departPos=238.5, arrivalPos=486.54, description=walking)
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
+boardingDuration 0.5
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 step 3.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
@@ -55,10 +57,11 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID, length=766.537661434478, depart=0.0, departPos=238.5, arrivalPos=486.54, description=walking)
+stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=6.0, cost=INVALID, length=766.537661434478, depart=0.0, departPos=238.5, arrivalPos=486.54, description=walking)
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
+boardingDuration 0.5
 persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
 examining bla
@@ -90,14 +93,14 @@ riding in vehicle: 'newPerson'
 riding in vehicle (direct): 'newPerson'
 persons on edge :0_10 at time 17.0: ('newPerson',)
 remaining stages for 'newPerson' remaining plan before jump
-  0: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=INVALID, cost=INVALID, length=14.117827939065641, depart=7.0, departPos=INVALID, arrivalPos=486.54900000000004, description=driving)
+  0: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=10.0, cost=INVALID, length=14.117827939065641, depart=7.0, departPos=INVALID, arrivalPos=486.54900000000004, description=driving)
 prio stages for 'newPerson' past plan
-  -4: Stage(type=0, edges=('3si',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=225.05, description=waiting (awaiting departure))
+  -4: Stage(type=0, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=0.0, departPos=INVALID, arrivalPos=225.05, description=waiting (awaiting departure))
   -3: Stage(type=2, edges=('3si', '2si'), travelTime=7.0, cost=INVALID, length=54.527739398485096, depart=0.0, departPos=225.05, arrivalPos=215.05, description=walking)
-  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=232.8563442186168, description=waiting (last stage removed))
+  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=233.63697864047845, description=waiting (last stage removed))
   -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', ':0_10'), travelTime=10.0, cost=INVALID, length=14.117827939065641, depart=7.0, departPos=INVALID, arrivalPos=9.06782793906563, description=driving)
 remaining stages for 'newPerson' remaining plan after jump
-  0: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=17.0, departPos=INVALID, arrivalPos=9.06782793906563, description=waiting (last stage removed))
+  0: Stage(type=1, edges=(':0_10',), travelTime=0.0, cost=INVALID, length=0.0, depart=17.0, departPos=INVALID, arrivalPos=9.06782793906563, description=waiting (last stage removed))
   1: Stage(type=1, edges=(':0_10',), travelTime=10.0, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=9.06782793906563, description=waiting (Jumped out of a moving vehicle. Ouch!))
 'detour' on road :0_w2
 'detour2' on road :0_w2
@@ -120,17 +123,19 @@ recovering from exception after asking for invalid stage index
 222.0 person=tripTest2 edge=2fi pos=19.050406385277814
 223.0 person=tripTest2 edge=2fi pos=20.296709538476232
 remaining stages for 'p3' (before replacement of current stage)
-  0: Stage(type=2, edges=('1fi', '1si'), travelTime=INVALID, cost=INVALID, length=27.24982758415672, depart=224.0, departPos=238.5, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1si'), travelTime=10.0, cost=INVALID, length=27.24982758415672, depart=224.0, departPos=238.5, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement)
-  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=0.0, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (before replacement of next stage)
-  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=0.0, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '3o'), travelTime=INVALID, cost=INVALID, length=39.991248085099585, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement)
-  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=0.0, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '4o'), travelTime=INVALID, cost=INVALID, length=39.991248085099585, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
 speed (before setSpeed) 0.0
-maxSpeed (before setSpeed) 1.3888888888888888
+type maxSpeed (before setSpeed) 10.438888888888888
+person maxSpeed (before setSpeed) 1.3888888888888888
 speed (after setSpeed) 0.0
-maxSpeed (after setSpeed) 4.2
+type maxSpeed (after setSpeed) 4.2
+person maxSpeed (after setSpeed) 1.3888888888888888
 speed (at end) 3.688469796711579

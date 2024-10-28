@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,14 +55,16 @@ public:
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
+                                               nullptr, false, nullptr, true);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false), myAmClone(true) {
         myPedNet = net;
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
+                                               nullptr, false, nullptr, true);
     }
 
     /// Destructor
@@ -82,18 +84,19 @@ public:
     double compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
                    SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
         if (getSidewalk<E, L>(from) == 0) {
-            WRITE_WARNING("Departure edge '" + from->getID() + "' does not allow pedestrians.");
+            WRITE_WARNINGF(TL("Departure edge '%' does not allow pedestrians."), from->getID());
             return false;
         }
         if (getSidewalk<E, L>(to) == 0) {
-            WRITE_WARNING("Destination edge '" + to->getID() + "' does not allow pedestrians.");
+            WRITE_WARNINGF(TL("Destination edge '%' does not allow pedestrians."), to->getID());
             return false;
         }
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _IntermodalEdge*> intoPed;
+        const bool silent = allEdges; // no warning is needed when called from MSPModel_Striping
         const bool success = myInternalRouter->compute(myPedNet->getDepartConnector(from),
                              myPedNet->getArrivalConnector(to),
-                             &trip, msTime, intoPed);
+                             &trip, msTime, intoPed, silent);
         double time = 0.;
         if (success) {
             for (const _IntermodalEdge* pedEdge : intoPed) {
@@ -120,7 +123,7 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&, bool) {
-        throw ProcessError("Do not use this method");
+        throw ProcessError(TL("Do not use this method"));
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {

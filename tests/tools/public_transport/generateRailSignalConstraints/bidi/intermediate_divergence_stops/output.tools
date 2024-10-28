@@ -1,0 +1,7 @@
+read 6 busStops on 6 edges
+read 2 routes (2 unique) and 6 stops at 6 busStops
+processed 2 routes across 18 edges with 0 merging switches
+Found 0 stops after merging switches and 0 signals that guard switches
+Found 0 conflicts
+Found 0 insertion conflicts
+Found 2 bidi conflicts

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,14 +44,14 @@ public:
     // class CurrentJunction
     // ===========================================================================
 
-    class CurrentJunction : public FXGroupBoxModule {
+    class JunctionInformation : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        CurrentJunction(GNECrossingFrame* crossingFrameParent);
+        JunctionInformation(GNECrossingFrame* crossingFrameParent);
 
         /// @brief destructor
-        ~CurrentJunction();
+        ~JunctionInformation();
 
         /// @brief set current junction label
         void updateCurrentJunctionLabel(const std::string& junctionID);
@@ -65,7 +65,7 @@ public:
     // class EdgesSelector
     // ===========================================================================
 
-    class EdgesSelector : public FXGroupBoxModule {
+    class EdgesSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::EdgesSelector)
 
@@ -101,6 +101,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(EdgesSelector)
 
     private:
@@ -124,7 +125,7 @@ public:
     // class CrossingParameters
     // ===========================================================================
 
-    class CrossingParameters : public FXGroupBoxModule {
+    class CrossingParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CrossingParameters)
 
@@ -178,6 +179,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(CrossingParameters)
 
     private:
@@ -189,6 +191,9 @@ public:
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
+
+        /// @brief current invalid edges
+        std::vector<GNEEdge*> myCurrentInvalidEdges;
 
         /// @brief Label for edges
         FXLabel* myCrossingEdgesLabel;
@@ -219,7 +224,7 @@ public:
     // class CreateCrossing
     // ===========================================================================
 
-    class CreateCrossing : public FXGroupBoxModule {
+    class CreateCrossing : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CreateCrossing)
 
@@ -240,6 +245,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(CreateCrossing)
 
     private:
@@ -254,7 +260,7 @@ public:
     // class Information
     // ===========================================================================
 
-    class Information : public FXGroupBoxModule {
+    class Information : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -265,10 +271,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNECrossingFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECrossingFrame();
@@ -277,20 +283,23 @@ public:
     void hide();
 
     /**@brief add Crossing element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      */
-    void addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void addCrossing(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief create crossing (used when user press ENTER key in Crossing mode)
     void createCrossingHotkey();
+
+    /// @brief clear edges (used when user press ESC key in Crossing mode)
+    void clearEdgesHotkey();
 
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNECrossingFrame)
 
 private:
-    /// @brief current junction modul
-    GNECrossingFrame::CurrentJunction* myCurrentJunction = nullptr;
+    /// @brief junction information modul
+    GNECrossingFrame::JunctionInformation* myJunctionInformation = nullptr;
 
     /// @brief edge selector modul
     GNECrossingFrame::EdgesSelector* myEdgeSelector = nullptr;

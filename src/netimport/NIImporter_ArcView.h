@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,13 +66,12 @@ protected:
      * @param[in] nc The node container to store nodes into
      * @param[in] ec The edge container to store edges into
      * @param[in] tc The type container to get edge types from
-     * @param[in] dbf_name The name of the according database file
      * @param[in] shp_name The name of the according shape file
      * @param[in] speedInKMH Whether the speed shall be assumed to be given in km/h
      */
     NIImporter_ArcView(const OptionsCont& oc,
                        NBNodeCont& nc, NBEdgeCont& ec, NBTypeCont& tc,
-                       const std::string& dbf_name, const std::string& shp_name,
+                       const std::string& shp_name,
                        bool speedInKMH);
 
     /// @brief Destructor
@@ -92,6 +91,17 @@ private:
      */
     double getSpeed(OGRFeature& f, const std::string& edgeid);
 
+    /** @brief Parses the width off the edge currently processed
+     * @param[in] f The entry to read the swidth from
+     * @param[in] edgeid The id of the edge for error output
+     */
+    double getLaneWidth(OGRFeature& f, const std::string& edgeid, int laneNumber);
+
+    /** @brief Parses a custom length for the edge currently processed
+     * @param[in] f The entry to read the length from
+     * @param[in] edgeid The id of the edge for error output
+     */
+    double getLength(OGRFeature& f, const std::string& edgeid);
 
     /** @brief Parses the number of lanes of the edge currently processed
      * @param[in] f The entry to read the lane number from

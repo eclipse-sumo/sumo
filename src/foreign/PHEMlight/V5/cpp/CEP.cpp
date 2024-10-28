@@ -1,8 +1,8 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // PHEMlight module
-// Copyright (C) 2016-2022 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright (C) 2016-2023 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -78,21 +78,17 @@ namespace PHEMlightdllV5 {
 
         // Init pollutant identifiers, unit and measures
         std::vector<std::string> FCvaluesIdentifier;
-        std::vector<std::vector<double> > FCvaluesMeasures;
         std::vector<std::vector<double> > normalizedFCvaluesMeasures;
         for (int i = 0; i < (int)headerLineFCvalues.size(); i++) {
             FCvaluesIdentifier.push_back(headerLineFCvalues[i]);
-            FCvaluesMeasures.push_back(std::vector<double>());
             normalizedFCvaluesMeasures.push_back(std::vector<double>());
         }
 
         // Init pollutant identifiers, unit and measures
         std::vector<std::string> pollutantIdentifier;
-        std::vector<std::vector<double> > pollutantMeasures;
         std::vector<std::vector<double> > normalizedPollutantMeasures;
         for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
             pollutantIdentifier.push_back(headerLinePollutants[i]);
-            pollutantMeasures.push_back(std::vector<double>());
             normalizedPollutantMeasures.push_back(std::vector<double>());
         }
 
@@ -110,7 +106,6 @@ namespace PHEMlightdllV5 {
         _dragNormTable = Vehicle->getFLDData()->getDragCurve()["pe_drag_norm"];
 
         // Looping through matrix and assigning values for FC values
-        _powerPatternFCvalues = std::vector<double>();
         _normalizedPowerPatternFCvalues = std::vector<double>();
 
         int headerFCCount = (int)headerLineFCvalues.size();
@@ -122,41 +117,22 @@ namespace PHEMlightdllV5 {
 
                 if (j == 0) {
                     _normalizedPowerPatternFCvalues.push_back(matrixFCvalues[i][j]);
-                    _powerPatternFCvalues.push_back(matrixFCvalues[i][j] * getRatedPower());
                 }
                 else {
-                    FCvaluesMeasures[j - 1].push_back(matrixFCvalues[i][j] * getRatedPower());
                     normalizedFCvaluesMeasures[j - 1].push_back(matrixFCvalues[i][j]);
                 }
             }
         }
 
-        _cepCurveFCvalues = std::map<std::string, std::vector<double> >();
         _idlingValueFCvalues = std::map<std::string, double>();
         _normedCepCurveFCvalues = std::map<std::string, std::vector<double> >();
 
         for (int i = 0; i < (int)headerLineFCvalues.size(); i++) {
-            _cepCurveFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], FCvaluesMeasures[i]));
             _normedCepCurveFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], normalizedFCvaluesMeasures[i]));
-            _idlingValueFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], idlingFCvalues[i] * getRatedPower()));
+            _idlingValueFCvalues.insert(std::make_pair(FCvaluesIdentifier[i], idlingFCvalues[i]));
         }
 
-        // looping through matrix and assigning values for pollutants
-        double pollutantMultiplyer = 1;
-        setNormalizingPower(CalcPower(Constants::NORMALIZING_SPEED, Constants::NORMALIZING_ACCELARATION, 0, (getCalcType() == "HEV" || getCalcType() == "BEV")));
-        setDrivingPower(getNormalizingPower());
-        if (getHeavyVehicle()) {
-            setNormalizingPower(getRatedPower());
-            setNormalizingType(eNormalizingType_RatedPower);
-            pollutantMultiplyer = getRatedPower();
-        }
-        else {
-            setNormalizingPower(getDrivingPower());
-            setNormalizingType(eNormalizingType_DrivingPower);
-        }
-
-        _powerPatternPollutants = std::vector<double>();
-        _normailzedPowerPatternPollutants = std::vector<double>();
+        _normalizedPowerPatternPollutants = std::vector<double>();
         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
 
         int headerCount = (int)headerLinePollutants.size();
@@ -167,23 +143,19 @@ namespace PHEMlightdllV5 {
                 }
 
                 if (j == 0) {
-                    _normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
-                    _powerPatternPollutants.push_back(matrixPollutants[i][j] * getNormalizingPower());
+                    _normalizedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
                 }
                 else {
-                    pollutantMeasures[j - 1].push_back(matrixPollutants[i][j] * pollutantMultiplyer);
                     normalizedPollutantMeasures[j - 1].push_back(matrixPollutants[i][j]);
                 }
             }
         }
 
-        _cepCurvePollutants = std::map<std::string, std::vector<double> >();
         _idlingValuesPollutants = std::map<std::string, double>();
 
         for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
-            _cepCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], pollutantMeasures[i]));
             _cepNormalizedCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], normalizedPollutantMeasures[i]));
-            _idlingValuesPollutants.insert(std::make_pair(pollutantIdentifier[i], idlingPollutants[i] * pollutantMultiplyer));
+            _idlingValuesPollutants.insert(std::make_pair(pollutantIdentifier[i], idlingPollutants[i]));
         }
 
         _FleetMix = std::map<std::string, double>();
@@ -213,14 +185,6 @@ namespace PHEMlightdllV5 {
         privateCalcType = value;
     }
 
-    const CEP::eNormalizingType& CEP::getNormalizingType() const {
-        return privateNormalizingType;
-    }
-
-    void CEP::setNormalizingType(const eNormalizingType& value) {
-        privateNormalizingType = value;
-    }
-
     const double& CEP::getRatedPower() const {
         return privateRatedPower;
     }
@@ -229,127 +193,81 @@ namespace PHEMlightdllV5 {
         privateRatedPower = value;
     }
 
-    const double& CEP::getNormalizingPower() const {
-        return privateNormalizingPower;
-    }
-
-    void CEP::setNormalizingPower(const double& value) {
-        privateNormalizingPower = value;
-    }
-
-    const double& CEP::getDrivingPower() const {
-        return privateDrivingPower;
-    }
-
-    void CEP::setDrivingPower(const double& value) {
-        privateDrivingPower = value;
-    }
-
-    double CEP::CalcPower(double speed, double acc, double gradient, bool HBEV) {
-        //Declaration
-        double power = 0;
-        double rotFactor = GetRotationalCoeffecient(speed);
-        double powerAux = (_auxPower * getRatedPower());
-
-        //Calculate the power
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4)) * speed;
-        power += (_crossSectionalArea * _cWValue * Constants::AIR_DENSITY_CONST / 2) * std::pow(speed, 3);
-        power += (_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * acc * speed;
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient * 0.01 * speed;
-        power /= 1000;
-        power /= Constants::_DRIVE_TRAIN_EFFICIENCY;
-        if (!HBEV) {
-            power += powerAux;
+    double CEP::CalcEngPower(double power, const double ratedPower) {
+        if (power < _normalizedPowerPatternFCvalues.front() * ratedPower) {
+            return _normalizedPowerPatternFCvalues.front() * ratedPower;
         }
-
-        //Return result
-        return power;
-    }
-
-    double CEP::CalcWheelPower(double speed, double acc, double gradient) {
-        //Declaration
-        double power = 0;
-        double rotFactor = GetRotationalCoeffecient(speed);
-
-        //Calculate the power
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4)) * speed;
-        power += (_crossSectionalArea * _cWValue * Constants::AIR_DENSITY_CONST / 2) * std::pow(speed, 3);
-        power += (_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * acc * speed;
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient * 0.01 * speed;
-        power /= 1000;
-
-        //Return result
-        return power;
-    }
-
-    double CEP::CalcEngPower(double power) {
-        if (power < _powerPatternFCvalues.front()) {
-            return _powerPatternFCvalues.front();
-        }
-        if (power > _powerPatternFCvalues.back()) {
-            return _powerPatternFCvalues.back();
+        if (power > _normalizedPowerPatternFCvalues.back() * ratedPower) {
+            return _normalizedPowerPatternFCvalues.back() * ratedPower;
         }
 
         return power;
     }
 
-    double CEP::GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass) {
+    double CEP::GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower, const double ratedPower) {
         //Declaration
-        std::vector<double> emissionCurve;
-        std::vector<double> powerPattern;
+        std::vector<double>* emissionCurve = nullptr;
+        std::vector<double>* powerPattern = nullptr;
 
-        // bisection search to find correct position in power pattern	
+        // bisection search to find correct position in power pattern
         int upperIndex;
         int lowerIndex;
 
+        double emissionMultiplier = getHeavyVehicle() ? ratedPower : 1.;
         if (std::abs(speed) <= Constants::ZERO_SPEED_ACCURACY) {
-            if (_cepCurvePollutants.find(pollutant) == _cepCurvePollutants.end() && _cepCurveFCvalues.find(pollutant) == _cepCurveFCvalues.end()) {
+            if (_cepNormalizedCurvePollutants.find(pollutant) == _cepNormalizedCurvePollutants.end() && _normedCepCurveFCvalues.find(pollutant) == _normedCepCurveFCvalues.end()) {
                 VehicleClass->setErrMsg(std::string("Emission pollutant or fuel value ") + pollutant + std::string(" not found!"));
                 return 0;
             }
 
-            if (_cepCurveFCvalues.find(pollutant) != _cepCurveFCvalues.end()) {
-                return _idlingValueFCvalues[pollutant];
+            if (_normedCepCurveFCvalues.find(pollutant) != _normedCepCurveFCvalues.end()) {
+                return _idlingValueFCvalues[pollutant] * ratedPower;
             }
-            else if (_cepCurvePollutants.find(pollutant) != _cepCurvePollutants.end()) {
-                return _idlingValuesPollutants[pollutant];
+            else if (_cepNormalizedCurvePollutants.find(pollutant) != _cepNormalizedCurvePollutants.end()) {
+                return _idlingValuesPollutants[pollutant] * emissionMultiplier;
             }
         }
 
-        if (_cepCurvePollutants.find(pollutant) == _cepCurvePollutants.end() && _cepCurveFCvalues.find(pollutant) == _cepCurveFCvalues.end()) {
+
+        if (_cepNormalizedCurvePollutants.find(pollutant) == _cepNormalizedCurvePollutants.end() && _normedCepCurveFCvalues.find(pollutant) == _normedCepCurveFCvalues.end()) {
             VehicleClass->setErrMsg(std::string("Emission pollutant or fuel value ") + pollutant + std::string(" not found!"));
             return 0;
         }
 
-        if (_cepCurveFCvalues.find(pollutant) != _cepCurveFCvalues.end()) {
-            emissionCurve = _cepCurveFCvalues[pollutant];
-            powerPattern = _powerPatternFCvalues;
+        double normalizingPower = ratedPower;
+        if (_normedCepCurveFCvalues.find(pollutant) != _normedCepCurveFCvalues.end()) {
+            emissionCurve = &_normedCepCurveFCvalues[pollutant];
+            powerPattern = &_normalizedPowerPatternFCvalues;
+            emissionMultiplier = ratedPower;
         }
-        else if (_cepCurvePollutants.find(pollutant) != _cepCurvePollutants.end()) {
-            emissionCurve = _cepCurvePollutants[pollutant];
-            powerPattern = _powerPatternPollutants;
+        else if (_cepNormalizedCurvePollutants.find(pollutant) != _cepNormalizedCurvePollutants.end()) {
+            emissionCurve = &_cepNormalizedCurvePollutants[pollutant];
+            powerPattern = &_normalizedPowerPatternPollutants;
+            if (!getHeavyVehicle()) {
+                normalizingPower = drivingPower;
+            }
         }
 
-        if (emissionCurve.empty()) {
+        if (emissionCurve == nullptr || emissionCurve->empty()) {
             VehicleClass->setErrMsg(std::string("Empty emission curve for ") + pollutant + std::string(" found!"));
             return 0;
         }
-        if (emissionCurve.size() == 1) {
-            return emissionCurve[0];
+        if (emissionCurve->size() == 1) {
+            return emissionCurve->front() * emissionMultiplier;
         }
 
         // in case that the demanded power is smaller than the first entry (smallest) in the power pattern the first is returned (should never happen)
-        if (power <= powerPattern.front()) {
-            return emissionCurve[0];
+        if (power <= powerPattern->front() * normalizingPower) {
+            return emissionCurve->front() * emissionMultiplier;
         }
 
         // if power bigger than all entries in power pattern return the last (should never happen)
-        if (power >= powerPattern.back()) {
-            return emissionCurve.back();
+        if (power >= powerPattern->back() * normalizingPower) {
+            return emissionCurve->back() * emissionMultiplier;
         }
 
-        FindLowerUpperInPattern(lowerIndex, upperIndex, powerPattern, power);
-        return Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
+        FindLowerUpperInPattern(lowerIndex, upperIndex, *powerPattern, power, normalizingPower);
+        return Interpolate(power, (*powerPattern)[lowerIndex] * normalizingPower, (*powerPattern)[upperIndex] * normalizingPower, (*emissionCurve)[lowerIndex], (*emissionCurve)[upperIndex]) * emissionMultiplier;
     }
 
     double CEP::GetCO2Emission(double _FC, double _CO, double _HC, Helpers* VehicleClass) {
@@ -443,45 +361,30 @@ namespace PHEMlightdllV5 {
                 _fCHC = 0.825;
         }
         else {
-                VehicleClass->setErrMsg(std::string("The propolsion type is not known! (") + getFuelType() + std::string(")"));
+                VehicleClass->setErrMsg(std::string("The propulsion type is not known! (") + getFuelType() + std::string(")"));
                 return false;
         }
         return true;
     }
 
-    double CEP::GetDecelCoast(double speed, double acc, double gradient) {
+    double CEP::getFMot(const double speed, const double ratedPower, const double wheelRadius) {
+        if (speed < 10e-2) {
+            return 0.;
+        }
         //Declaration
         int upperIndex;
         int lowerIndex;
 
-        if (speed < Constants::SPEED_DCEL_MIN) {
-            return speed / Constants::SPEED_DCEL_MIN * GetDecelCoast(Constants::SPEED_DCEL_MIN, acc, gradient);
-        }
-
-        double rotCoeff = GetRotationalCoeffecient(speed);
         FindLowerUpperInPattern(lowerIndex, upperIndex, _speedPatternRotational, speed);
         double iGear = Interpolate(speed, _speedPatternRotational[lowerIndex], _speedPatternRotational[upperIndex], _gearTransmissionCurve[lowerIndex], _gearTransmissionCurve[upperIndex]);
 
         double iTot = iGear * _axleRatio;
 
-        double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * M_PI);
+        double n = (30 * speed * iTot) / (wheelRadius * M_PI);
         double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
         FindLowerUpperInPattern(lowerIndex, upperIndex, _nNormTable, nNorm);
-
-        double fMot = 0;
-
-        if (speed >= 10e-2) {
-            fMot = (-Interpolate(nNorm, _nNormTable[lowerIndex], _nNormTable[upperIndex], _dragNormTable[lowerIndex], _dragNormTable[upperIndex]) * getRatedPower() * 1000 / speed) / Constants::getDRIVE_TRAIN_EFFICIENCY();
-        }
-
-        double fRoll = (_resistanceF0 + _resistanceF1 * speed + std::pow(_resistanceF2 * speed, 2) + std::pow(_resistanceF3 * speed, 3) + std::pow(_resistanceF4 * speed, 4)) * (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST;
-
-        double fAir = _cWValue * _crossSectionalArea * Constants::AIR_DENSITY_CONST * 0.5 * std::pow(speed, 2);
-
-        double fGrad = (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient / 100;
-
-        return -(fMot + fRoll + fAir + fGrad) / ((_massVehicle + _vehicleLoading) * rotCoeff);
+        return (-Interpolate(nNorm, _nNormTable[lowerIndex], _nNormTable[upperIndex], _dragNormTable[lowerIndex], _dragNormTable[upperIndex]) * ratedPower * 1000 / speed) / Constants::getDRIVE_TRAIN_EFFICIENCY();
     }
 
     double CEP::GetRotationalCoeffecient(double speed) {
@@ -493,34 +396,34 @@ namespace PHEMlightdllV5 {
         return Interpolate(speed, _speedPatternRotational[lowerIndex], _speedPatternRotational[upperIndex], _speedCurveRotational[lowerIndex], _speedCurveRotational[upperIndex]);
     }
 
-    void CEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value) {
+    void CEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double>& pattern, double value, double scale) {
         lowerIndex = 0;
         upperIndex = 0;
 
-        if (value <= pattern.front()) {
+        if (value <= pattern.front() * scale) {
             lowerIndex = 0;
             upperIndex = 0;
             return;
         }
 
-        if (value >= pattern.back()) {
+        if (value >= pattern.back() * scale) {
             lowerIndex = (int)pattern.size() - 1;
             upperIndex = (int)pattern.size() - 1;
             return;
         }
 
-        // bisection search to find correct position in power pattern	
+        // bisection search to find correct position in power pattern
         int middleIndex = ((int)pattern.size() - 1) / 2;
         upperIndex = (int)pattern.size() - 1;
         lowerIndex = 0;
 
         while (upperIndex - lowerIndex > 1) {
-            if (pattern[middleIndex] == value) {
+            if (pattern[middleIndex] * scale == value) {
                 lowerIndex = middleIndex;
                 upperIndex = middleIndex;
                 return;
             }
-            else if (pattern[middleIndex] < value) {
+            else if (pattern[middleIndex] * scale < value) {
                 lowerIndex = middleIndex;
                 middleIndex = (upperIndex - lowerIndex) / 2 + lowerIndex;
             }
@@ -528,10 +431,6 @@ namespace PHEMlightdllV5 {
                 upperIndex = middleIndex;
                 middleIndex = (upperIndex - lowerIndex) / 2 + lowerIndex;
             }
-        }
-
-        if (pattern[lowerIndex] <= value && value < pattern[upperIndex]) {
-            return;
         }
     }
 
@@ -541,13 +440,6 @@ namespace PHEMlightdllV5 {
         }
 
         return e1 + (px - p1) / (p2 - p1) * (e2 - e1);
-    }
-
-    double CEP::GetMaxAccel(double speed, double gradient, bool HBEV) {
-        double rotFactor = GetRotationalCoeffecient(speed);
-        double pMaxForAcc = GetPMaxNorm(speed) * getRatedPower() - CalcPower(speed, 0, gradient, HBEV);
-
-        return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * speed);
     }
 
     double CEP::GetPMaxNorm(double speed) {

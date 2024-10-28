@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -81,8 +81,8 @@ def main(options):
                     for source in taz.tazSource:
                         edgeFromTaz[source.id].append(taz.id)
                 if taz.tazSink:
-                    for sink in taz.tazSource:
-                        edgeToTaz[source.id].append(taz.id)
+                    for sink in taz.tazSink:
+                        edgeToTaz[sink.id].append(taz.id)
 
         ambiguousSource = []
         ambiguousSink = []
@@ -109,49 +109,66 @@ def main(options):
         end = 0
 
     # begin -> od -> count
-    if options.edgeod:
-        intervals_edge = defaultdict(lambda: defaultdict(lambda: 0))
-    else:
-        intervals = defaultdict(lambda: defaultdict(lambda: 0))
+    intervals = defaultdict(lambda: defaultdict(lambda: 0))
+    intervals_edge = defaultdict(lambda: defaultdict(lambda: 0))  # for options.edgeod
 
-    def addVehicle(vehID, fromEdge, toEdge, time, count=1):
+    def addVehicle(vehID, fromEdge, toEdge, time, count=1, isTaz=False):
         nl.numVehicles += count
         if options.interval is None:
             intervalBegin = 0
         else:
             intervalBegin = int(time / options.interval) * options.interval
 
-        if options.edgeod:
+        if options.edgeod and not isTaz:
             intervals_edge[intervalBegin][(fromEdge, toEdge)] += count
         else:
             fromTaz = None
             toTaz = None
-            if fromEdge in edgeFromTaz:
-                fromTaz = random.choice(edgeFromTaz[fromEdge])
+            if isTaz:
+                fromTaz = fromEdge
+                toTaz = toEdge
             else:
-                nl.numFromNotFound += 1
-                if nl.numFromNotFound < 5:
-                    print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
-            if toEdge in edgeToTaz:
-                toTaz = random.choice(edgeToTaz[toEdge])
-            else:
-                nl.numToNotFound += 1
-                if nl.numToNotFound < 5:
-                    print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
+                if fromEdge in edgeFromTaz:
+                    fromTaz = random.choice(edgeFromTaz[fromEdge])
+                if toEdge in edgeToTaz:
+                    toTaz = random.choice(edgeToTaz[toEdge])
+
             if fromTaz and toTaz:
                 intervals[intervalBegin][(fromTaz, toTaz)] += count
+            else:
+                if fromTaz is None:
+                    nl.numFromNotFound += 1
+                    if nl.numFromNotFound < 5:
+                        if isTaz:
+                            print("No fromTaz found for vehicle '%s' " % (vehID))
+                        else:
+                            print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
+                if toTaz is None:
+                    nl.numToNotFound += 1
+                    if nl.numToNotFound < 5:
+                        if isTaz:
+                            print("No toTaz found for vehicle '%s' " % (vehID))
+                        else:
+                            print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
 
         nl.end = max(nl.end, time)
 
     for vehicle in sumolib.xml.parse(options.routefile, ['vehicle']):
-        if vehicle.route and type(vehicle.route) == list:
+        if vehicle.route and isinstance(vehicle.route, list):
             edges = vehicle.route[0].edges.split()
             addVehicle(vehicle.id, edges[0], edges[-1], parseTime(vehicle.depart))
         else:
             print("No edges found for vehicle '%s'" % vehicle.id)
 
     for trip in sumolib.xml.parse(options.routefile, ['trip']):
-        addVehicle(trip.id, trip.attr_from, trip.to, parseTime(trip.depart))
+        if trip.attr_from and trip.to:
+            addVehicle(trip.id, trip.attr_from, trip.to, parseTime(trip.depart))
+        elif trip.fromTaz and trip.toTaz:
+            if options.edgeod:
+                print("No OD-edge information! Only TAZ-based OD counts with a given district file can be calculated.")
+                sys.exit(1)
+            else:
+                addVehicle(trip.id, trip.fromTaz, trip.toTaz, parseTime(trip.depart), 1, True)
 
     for flow in sumolib.xml.parse(options.routefile, ['flow']):
         count = None
@@ -168,12 +185,18 @@ def main(options):
         if count is None:
             print("Could not determine count for flow '%s'" % (flow.id))
             count = 1
-
         if flow.attr_from and flow.to:
             addVehicle(flow.id, flow.attr_from, flow.to, parseTime(flow.begin), count)
-        elif flow.route and type(flow.route) == list:
+        elif flow.route and isinstance(flow.route, list):
             edges = flow.route[0].edges.split()
             addVehicle(flow.id, edges[0], edges[-1], parseTime(flow.begin), count)
+        elif flow.fromTaz and flow.toTaz:
+            if options.edgeod:
+                print("No OD-edge information! A district file is needed for TAZ-based OD counts.")
+                sys.exit(1)
+            else:
+                addVehicle(flow.id, flow.fromTaz, flow.toTaz, parseTime(flow.begin), count, True)
+
         else:
             print("No edges found for flow '%s'" % flow.id)
 
@@ -185,6 +208,7 @@ def main(options):
 
     if nl.numVehicles > 0:
         numOD = 0
+        numVehicles = 0
         distinctOD = set()
         if options.edgeod:
             edgeOD = set()
@@ -199,14 +223,15 @@ def main(options):
                         options.intervalID, begin, end))
                     for od in sorted(edgeRelations.keys()):
                         numOD += 1
+                        numVehicles += edgeRelations[od]
                         edgeOD.add(od)
                         outf.write(8 * ' ' + '<edgeRelation from="%s" to="%s" count="%s"/>\n' % (
                             od[0], od[1], edgeRelations[od]))
                     outf.write(4 * ' ' + '</interval>\n')
                 outf.write('</data>\n')
 
-            print("Wrote %s OD-pairs (%s edgeOD) in %s intervals" % (
-                numOD, len(edgeOD), len(intervals_edge)))
+            print("Wrote %s OD-pairs (%s edgeOD) in %s intervals (%s vehicles total)" % (
+                numOD, len(edgeOD), len(intervals_edge), numVehicles))
         else:
             with open(options.outfile, 'w') as outf:
                 sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
@@ -219,14 +244,15 @@ def main(options):
                         options.intervalID, begin, end))
                     for od in sorted(tazRelations.keys()):
                         numOD += 1
+                        numVehicles += tazRelations[od]
                         distinctOD.add(od)
                         outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s"/>\n' % (
                             od[0], od[1], tazRelations[od]))
                     outf.write(4 * ' ' + '</interval>\n')
                 outf.write('</data>\n')
 
-            print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
-                numOD, len(distinctOD), len(intervals)))
+            print("Wrote %s OD-pairs (%s distinct) in %s intervals (%s vehicles total)" % (
+                numOD, len(distinctOD), len(intervals), numVehicles))
 
 
 if __name__ == "__main__":

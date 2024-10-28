@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-05-19 17:03:07.689017 by $Id$ v1_9_2+0037-b72a410d60
+
+<!-- generated on 2022-12-20 14:07:17.361805 by scheduleStats.py v1_15_0+1154-8389b7e
   options: -r input_routes.rou.xml -s input_stops.xml -g stopID <doubleminus>xml-output out.xml <doubleminus>group-histogram 5
 -->
+
 <scheduleStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/scheduleStats_file.xsd">
-    <statistic description="depart delay:stop_a" min="0.0" minLabel="t0_stop_a" max="0.0" maxLabel="t0_stop_a" mean="0.0" Q1="0.0" median="0.0" Q3="0.0" meanAbs="0.0" medianAbs="0.0"/>
-    <statistic description="depart delay:stop_e" min="0.0" minLabel="t1_stop_e" max="0.0" maxLabel="t1_stop_e" mean="0.0" Q1="0.0" median="0.0" Q3="0.0" meanAbs="0.0" medianAbs="0.0"/>
-    <statistic description="depart delay:stop_f" min="0.0" minLabel="t2_stop_f" max="0.0" maxLabel="t2_stop_f" mean="0.0" Q1="0.0" median="0.0" Q3="0.0" meanAbs="0.0" medianAbs="0.0"/>
-    <statistic description="depart delay:stop_c" min="0.0" minLabel="t0_stop_c" max="109.0" maxLabel="t2_stop_c" mean="54.5" Q1="0.0" median="109.0" Q3="109.0" meanAbs="54.5" medianAbs="109.0"/>
-    <statistic description="depart delay:stop_c2" min="0.0" minLabel="t1_stop_c2" max="149.0" maxLabel="t3_stop_c2" mean="74.5" Q1="0.0" median="149.0" Q3="149.0" meanAbs="74.5" medianAbs="149.0"/>
-    <statistic description="depart delay:stop_i" min="176.0" minLabel="t3_stop_i" max="176.0" maxLabel="t3_stop_i" mean="176.0" Q1="176.0" median="176.0" Q3="176.0" meanAbs="176.0" medianAbs="176.0"/>
-    <statistic description="mean depart delay grouped by [stopID]" min="0.0" minLabel="stop_a" max="176.0" maxLabel="stop_i" mean="50.8" Q1="0.0" median="54.5" Q3="74.5" meanAbs="50.8" medianAbs="54.5">
+    <statistic description="depart delay:stop_a" count="1" min="0.0" minLabel="t0_stop_a" max="0.0" maxLabel="t0_stop_a" mean="0.0" Q1="0.0" median="0.0" Q3="0.0" meanAbs="0.0" medianAbs="0.0"/>
+    <statistic description="depart delay:stop_e" count="1" min="0.0" minLabel="t1_stop_e" max="0.0" maxLabel="t1_stop_e" mean="0.0" Q1="0.0" median="0.0" Q3="0.0" meanAbs="0.0" medianAbs="0.0"/>
+    <statistic description="depart delay:stop_f" count="1" min="0.0" minLabel="t2_stop_f" max="0.0" maxLabel="t2_stop_f" mean="0.0" Q1="0.0" median="0.0" Q3="0.0" meanAbs="0.0" medianAbs="0.0"/>
+    <statistic description="depart delay:stop_c" count="2" min="0.0" minLabel="t0_stop_c" max="109.0" maxLabel="t2_stop_c" mean="54.5" Q1="0.0" median="109.0" Q3="109.0" meanAbs="54.5" medianAbs="109.0"/>
+    <statistic description="depart delay:stop_c2" count="2" min="0.0" minLabel="t1_stop_c2" max="149.0" maxLabel="t3_stop_c2" mean="74.5" Q1="0.0" median="149.0" Q3="149.0" meanAbs="74.5" medianAbs="149.0"/>
+    <statistic description="depart delay:stop_i" count="1" min="176.0" minLabel="t3_stop_i" max="176.0" maxLabel="t3_stop_i" mean="176.0" Q1="176.0" median="176.0" Q3="176.0" meanAbs="176.0" medianAbs="176.0"/>
+    <statistic description="mean depart delay grouped by [stopID]" count="6" min="0.0" minLabel="stop_a" max="176.0" maxLabel="stop_i" mean="50.8" Q1="0.0" median="54.5" Q3="74.5" meanAbs="50.8" medianAbs="54.5">
         <hist key="0.0" value="3"/>
         <hist key="55.0" value="1"/>
         <hist key="75.0" value="1"/>

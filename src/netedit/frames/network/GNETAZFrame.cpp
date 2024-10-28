@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNENet.h>
@@ -63,11 +64,11 @@ FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::TAZParameters,             FXGroupBoxModule,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
-FXIMPLEMENT(GNETAZFrame::TAZSaveChanges,            FXGroupBoxModule,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
-FXIMPLEMENT(GNETAZFrame::TAZChildDefaultParameters, FXGroupBoxModule,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
-FXIMPLEMENT(GNETAZFrame::TAZSelectionStatistics,    FXGroupBoxModule,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
-FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBoxModule,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
+FXIMPLEMENT(GNETAZFrame::TAZParameters,             MFXGroupBoxModule,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
+FXIMPLEMENT(GNETAZFrame::TAZSaveChanges,            MFXGroupBoxModule,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
+FXIMPLEMENT(GNETAZFrame::TAZChildDefaultParameters, MFXGroupBoxModule,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
+FXIMPLEMENT(GNETAZFrame::TAZSelectionStatistics,    MFXGroupBoxModule,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
+FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           MFXGroupBoxModule,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
 
 
 // ===========================================================================
@@ -149,7 +150,7 @@ GNETAZFrame::CurrentTAZ::TAZEdgeColor::TAZEdgeColor() :
 
 
 GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "TAZ"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ")),
     myTAZFrameParent(TAZFrameParent),
     myEditedTAZ(nullptr),
     myMaxSourcePlusSinkWeight(0),
@@ -157,7 +158,7 @@ GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) :
     myMaxSourceMinusSinkWeight(0),
     myMinSourceMinusSinkWeight(-1) {
     // create TAZ label
-    myCurrentTAZLabel = new FXLabel(getCollapsableFrame(), "No TAZ selected", 0, GUIDesignLabelLeft);
+    myCurrentTAZLabel = new FXLabel(getCollapsableFrame(), TL("No TAZ selected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
 }
 
 
@@ -170,10 +171,10 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
     myEditedTAZ = editedTAZ;
     // update label and moduls
     if (myEditedTAZ != nullptr) {
-        myCurrentTAZLabel->setText(("Current TAZ: " + myEditedTAZ->getID()).c_str());
+        myCurrentTAZLabel->setText((TL("Current TAZ: ") + myEditedTAZ->getID()).c_str());
         // obtain a copy of all SELECTED edges of the net (to avoid slowdown during manipulations)
         mySelectedEdges = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
-        // resfresh TAZ Edges
+        // refresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModule();
@@ -201,7 +202,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // hide save TAZ Edges
         myTAZFrameParent->myTAZSaveChanges->hideTAZSaveChangesModule();
         // restore label
-        myCurrentTAZLabel->setText("No TAZ selected");
+        myCurrentTAZLabel->setText(TL("No TAZ selected"));
         // clear selected edges
         mySelectedEdges.clear();
         // reset all weight values
@@ -255,8 +256,8 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
     myMinSourceMinusSinkWeight = -1;
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
-        // first update TAZ Stadistics
-        myEditedTAZ->updateTAZStadistic();
+        // first update TAZ Statistics
+        myEditedTAZ->updateTAZStatistic();
         myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
         // iterate over child TAZElements and create TAZEdges
         for (const auto& TAZElement : myEditedTAZ->getChildAdditionals()) {
@@ -333,7 +334,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
             }
         }
     } else {
-        throw ProcessError("Invalid TAZ Child");
+        throw ProcessError(TL("Invalid TAZ Child"));
     }
 }
 
@@ -342,10 +343,10 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZCommonStatistics::TAZCommonStatistics(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "TAZ Statistics"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ Statistics")),
     myTAZFrameParent(TAZFrameParent) {
     // create label for statistics
-    myStatisticsLabel = new FXLabel(getCollapsableFrame(), "Statistics", 0, GUIDesignLabelFrameInformation);
+    myStatisticsLabel = new FXLabel(getCollapsableFrame(), TL("Statistics"), 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -372,18 +373,18 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << "- Number of edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
-                << "- Min source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
-                << "- Max source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
-                << "- Average source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
+                << TL("- Number of edges: ") << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
+                << TL("- Min source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
+                << TL("- Max source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
+                << TL("- Average source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
                 << "\n"
-                << "- Min sink: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SINK) << "\n"
-                << "- Max sink: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SINK) << "\n"
-                << "- Average sink: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SINK);
+                << TL("- Min sink: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SINK) << "\n"
+                << TL("- Max sink: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SINK) << "\n"
+                << TL("- Average sink: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SINK);
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
     } else {
-        myStatisticsLabel->setText("No TAZ Selected");
+        myStatisticsLabel->setText(TL("No TAZ Selected"));
     }
 }
 
@@ -392,13 +393,13 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "Modifications"),
+    MFXGroupBoxModule(TAZFrameParent, TL("Modifications")),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(getCollapsableFrame(), "Confirm changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
+    mySaveChangesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Confirm changes"), "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
     mySaveChangesButton->disable();
     // Create groupbox cancel changes
-    myCancelChangesButton = new FXButton(getCollapsableFrame(), "Cancel changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+    myCancelChangesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Cancel changes"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     myCancelChangesButton->disable();
 }
 
@@ -414,7 +415,7 @@ GNETAZFrame::TAZSaveChanges::showTAZSaveChangesModule() {
 
 void
 GNETAZFrame::TAZSaveChanges::hideTAZSaveChangesModule() {
-    // cancel changes before hidding modul
+    // cancel changes before hiding module
     onCmdCancelChanges(0, 0, 0);
     hide();
 }
@@ -428,7 +429,7 @@ GNETAZFrame::TAZSaveChanges::enableButtonsAndBeginUndoList() {
         mySaveChangesButton->enable();
         myCancelChangesButton->enable();
         // start undo list set
-        myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, "TAZ changes");
+        myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, TL("TAZ changes"));
     }
 }
 
@@ -444,7 +445,7 @@ long
 GNETAZFrame::TAZSaveChanges::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // check that save changes is enabled
     if (mySaveChangesButton->isEnabled()) {
-        // disable mySaveChangesButton and myCancelChangesButtonand
+        // disable mySaveChangesButton and myCancelChangesButton
         mySaveChangesButton->disable();
         myCancelChangesButton->disable();
         // finish undo list set
@@ -481,37 +482,36 @@ GNETAZFrame::TAZSaveChanges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "TAZ Sources/Sinks"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ Sources/Sinks")),
     myTAZFrameParent(TAZFrameParent),
     myDefaultTAZSourceWeight(1),
     myDefaultTAZSinkWeight(1) {
     // create checkbox for toggle membership
     myToggleMembershipFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myToggleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
-    myToggleMembership = new FXCheckButton(myToggleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    new FXLabel(myToggleMembershipFrame, TL("Membership"), 0, GUIDesignLabelThickedFixed(100));
+    myToggleMembership = new FXCheckButton(myToggleMembershipFrame, TL("Toggle"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default enabled
     myToggleMembership->setCheck(TRUE);
     // create default TAZ Source weight
     myDefaultTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myDefaultTAZSourceFrame, "New source", 0, GUIDesignLabelAttribute);
+    new FXLabel(myDefaultTAZSourceFrame, TL("New source"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldDefaultValueTAZSources = new FXTextField(myDefaultTAZSourceFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSources->setText("1");
     // create default TAZ Sink weight
     myDefaultTAZSinkFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myDefaultTAZSinkFrame, "New sink", 0, GUIDesignLabelAttribute);
+    new FXLabel(myDefaultTAZSinkFrame, TL("New sink"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
-    myUseSelectedEdges = new FXButton(getCollapsableFrame(), "Use selected edges", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    myUseSelectedEdges = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use selected edges"), "", "", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create button for zero fringe probabilities
-    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), "Set zero fringe prob.", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
+    myZeroFringeProbabilities = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Set zero fringe prob."), "", "", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
-            << "- Toggle Membership:\n"
-            << "  Create new Sources/Sinks\n"
-            << "  with given weights.";
-    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+            << std::string("- ") << TL("Toggle Membership:") << "\n"
+            << std::string("  ") << TL("Create new Sources/Sinks with given weights.");
+    myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // always show
     show();
 }
@@ -557,13 +557,13 @@ GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
     if (myToggleMembership->getCheck() == TRUE) {
         // check if use selected edges has to be enabled
         if (myTAZFrameParent->myCurrentTAZ->getSelectedEdges().size() > 0) {
-            myUseSelectedEdges->setText("Use selected edges");
+            myUseSelectedEdges->setText(TL("Use selected edges"));
             myUseSelectedEdges->enable();
         } else if (myTAZFrameParent->myCurrentTAZ->getTAZEdges().size() > 0) {
-            myUseSelectedEdges->setText("Remove all edges");
+            myUseSelectedEdges->setText(TL("Remove all edges"));
             myUseSelectedEdges->enable();
         } else {
-            myUseSelectedEdges->setText("Use selected edges");
+            myUseSelectedEdges->setText(TL("Use selected edges"));
             myUseSelectedEdges->disable();
         }
     } else if (myTAZFrameParent->getCurrentTAZModule()->getTAZEdges().size() > 0) {
@@ -579,15 +579,15 @@ GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
                 }
             }
             if (allSelected) {
-                myUseSelectedEdges->setText("Remove all edges from selection");
+                myUseSelectedEdges->setText(TL("Remove all edges from selection"));
             } else {
-                myUseSelectedEdges->setText("Add all edges to selection");
+                myUseSelectedEdges->setText(TL("Add all edges to selection"));
             }
         } else if (myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size() == 1) {
             if (myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().front().edge->isAttributeCarrierSelected()) {
-                myUseSelectedEdges->setText("Remove edge from selection");
+                myUseSelectedEdges->setText(TL("Remove edge from selection"));
             } else {
-                myUseSelectedEdges->setText("Add edge to selection");
+                myUseSelectedEdges->setText(TL("Add edge to selection"));
             }
         } else {
             // check if all edges of TAZChildren selected are selected
@@ -598,9 +598,9 @@ GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
                 }
             }
             if (allSelected) {
-                myUseSelectedEdges->setText(("Remove " + toString(myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size()) + " from to selection").c_str());
+                myUseSelectedEdges->setText((TL("Remove ") + toString(myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size()) + TL(" edges from to selection")).c_str());
             } else {
-                myUseSelectedEdges->setText(("Add " + toString(myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size()) + " edges to selection").c_str());
+                myUseSelectedEdges->setText((TL("Add ") + toString(myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size()) + TL(" edges to selection")).c_str());
             }
         }
     } else {
@@ -636,40 +636,37 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         myTAZFrameParent->myTAZSelectionStatistics->clearSelectedEdges();
         // set text of myToggleMembership
         if (myToggleMembership->getCheck() == TRUE) {
-            myToggleMembership->setText("toggle");
+            myToggleMembership->setText(TL("toggle"));
             // show source/Sink Frames
             myDefaultTAZSourceFrame->show();
             myDefaultTAZSinkFrame->show();
             // update information label
             std::ostringstream information;
             information
-                    << "- Toggle Membership:\n"
-                    << "  Create new Sources/Sinks\n"
-                    << "  with given weights.";
+                    << std::string("- ") << TL("Toggle Membership:") << "\n"
+                    << std::string("  ") << TL("Create new Sources/Sinks with given weights.");
             myInformationLabel->setText(information.str().c_str());
             // hide TAZSelectionStatistics
             myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
             // check if use selected edges has to be enabled
             if (myTAZFrameParent->myCurrentTAZ->getSelectedEdges().size() > 0) {
-                myUseSelectedEdges->setText("Use selected edges");
+                myUseSelectedEdges->setText(TL("Use selected edges"));
             } else if (myTAZFrameParent->myCurrentTAZ->getTAZEdges().size() > 0) {
-                myUseSelectedEdges->setText("Remove all edges");
+                myUseSelectedEdges->setText(TL("Remove all edges"));
             } else {
-                myUseSelectedEdges->setText("Use selected edges");
+                myUseSelectedEdges->setText(TL("Use selected edges"));
                 myUseSelectedEdges->disable();
             }
         } else {
-            myToggleMembership->setText("keep");
+            myToggleMembership->setText(TL("keep"));
             // hide source/Sink Frames
             myDefaultTAZSourceFrame->hide();
             myDefaultTAZSinkFrame->hide();
             // update information label
             std::ostringstream information;
             information
-                    << "- Keep Membership:\n"
-                    << "  Select Sources/Sinks.\n"
-                    << "- Press ESC to clear\n"
-                    << "  current selection.";
+                    << std::string("- ") << TL("Keep Membership:") << TL("  Select Sources/Sinks.") << "\n"
+                    << std::string("- ") << TL("Press ESC to clear the current selection.");
             myInformationLabel->setText(information.str().c_str());
             // show TAZSelectionStatistics
             myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModule();
@@ -680,7 +677,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSources->getText().text())) {
             myDefaultTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSources->getText().text());
-            // check if myDefaultTAZSourceWeight is greather than 0
+            // check if myDefaultTAZSourceWeight is greater than 0
             if (myDefaultTAZSourceWeight >= 0) {
                 // set valid color
                 myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(0, 0, 0));
@@ -698,7 +695,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSinks->getText().text())) {
             myDefaultTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSinks->getText().text());
-            // check if myDefaultTAZSinkWeight is greather than 0
+            // check if myDefaultTAZSinkWeight is greater than 0
             if (myDefaultTAZSinkWeight >= 0) {
                 // set valid color
                 myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(0, 0, 0));
@@ -791,8 +788,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
 long
 GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject*, FXSelector, void*) {
     // compute and update
-    OptionsCont& oc = OptionsCont::getOptions();
-    myTAZFrameParent->getViewNet()->getNet()->computeAndUpdate(oc, false);
+    auto& neteditOptions = OptionsCont::getOptions();
+    myTAZFrameParent->getViewNet()->getNet()->computeAndUpdate(neteditOptions, false);
     myTAZFrameParent->getViewNet()->update();
     // find all edges with TAZSource/sinks and without successors/predecessors
     std::vector<GNEAdditional*> sources;
@@ -801,18 +798,18 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
     // check if we're editing a single TAZ or all TAZs
     if (myTAZFrameParent->myCurrentTAZ->getTAZ() != nullptr) {
         // iterate over source/sinks
-        for (const auto &TAZSourceSink : myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals()) {
+        for (const auto& TAZSourceSink : myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals()) {
             if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                 // set sink probability to 0 for all edges that have no predecessor
                 if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
-                    (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                        (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
                     sources.push_back(TAZSourceSink);
                     TAZs.insert(myTAZFrameParent->myCurrentTAZ->getTAZ());
                 }
             } else {
                 // set source probability to 0 for all edges that have no successor
                 if (!TAZSourceSink->getParentEdges().front()->hasPredecessors() &&
-                    (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                        (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
                     sinks.push_back(TAZSourceSink);
                     TAZs.insert(myTAZFrameParent->myCurrentTAZ->getTAZ());
                 }
@@ -820,22 +817,22 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         }
     } else {
         // iterate over all TAZs
-        for (const auto &TAZ : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             // iterate over source/sinks
-            for (const auto &TAZSourceSink : TAZ->getChildAdditionals()) {
+            for (const auto& TAZSourceSink : TAZ.second->getChildAdditionals()) {
                 if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                     // set sink probability to 0 for all edges that have no predecessor
                     if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
-                        (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                            (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
                         sources.push_back(TAZSourceSink);
-                        TAZs.insert(TAZ);
+                        TAZs.insert(TAZ.second);
                     }
                 } else {
                     // set source probability to 0 for all edges that have no successor
                     if (!TAZSourceSink->getParentEdges().front()->hasPredecessors() &&
-                        (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
+                            (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
                         sinks.push_back(TAZSourceSink);
-                        TAZs.insert(TAZ);
+                        TAZs.insert(TAZ.second);
                     }
                 }
             }
@@ -844,28 +841,28 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
     // check if there is sources/sinks
     if ((sources.size() + sinks.size()) > 0) {
         // build the text
-        const std::string text = (TAZs.size() == 1)? 
-            // single TAZ
-            "Set weight 0 in " + toString(sources.size()) + " sources and " +
-            toString(sinks.size()) + " sinks from TAZ '" + (*TAZs.begin())->getID() + "'?" : 
-            // multiple TAZs
-            "Set weight 0 in " + toString(sources.size()) + " sources and " +
-            toString(sinks.size()) + " sinks from " + toString(TAZs.size()) + " TAZs?";
+        const std::string text = (TAZs.size() == 1) ?
+                                 // single TAZ
+                                 TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
+                                 toString(sinks.size()) + TL(" sinks from TAZ '") + (*TAZs.begin())->getID() + "'?" :
+                                 // multiple TAZs
+                                 TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
+                                 toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
         // ask if continue
-        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, "Set zero fringe probabilities", "%s", text.c_str());
+        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Set zero fringe probabilities"), "%s", text.c_str());
         if (answer == 1) { // 1:yes, 2:no, 4:esc
-            myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, "set zero fringe probabilities");
-            for (const auto &source : sources) {
+            myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, TL("set zero fringe probabilities"));
+            for (const auto& source : sources) {
                 source->setAttribute(SUMO_ATTR_WEIGHT, "0", myTAZFrameParent->myViewNet->getUndoList());
             }
-            for (const auto &sink : sinks) {
+            for (const auto& sink : sinks) {
                 sink->setAttribute(SUMO_ATTR_WEIGHT, "0", myTAZFrameParent->myViewNet->getUndoList());
             }
             myTAZFrameParent->myViewNet->getUndoList()->end();
         }
     } else {
         // show information box
-        FXMessageBox::information(this, MBOX_OK, "Set zero fringe probabilities", "No source/sinks to update.");
+        FXMessageBox::information(this, MBOX_OK, TL("Set zero fringe probabilities"), TL("No source/sinks to update."));
     }
     return 1;
 }
@@ -875,20 +872,20 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "Selection Statistics"),
+    MFXGroupBoxModule(TAZFrameParent, TL("Selection Statistics")),
     myTAZFrameParent(TAZFrameParent) {
     // create default TAZ Source weight
     myTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myTAZSourceFrame, "Source", 0, GUIDesignLabelAttribute);
+    new FXLabel(myTAZSourceFrame, TL("Source"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldTAZSourceWeight = new FXTextField(myTAZSourceFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZSourceFrame->hide();
     // create default TAZ Sink weight
     myTAZSinkFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myTAZSinkFrame, "Sink", 0, GUIDesignLabelAttribute);
+    new FXLabel(myTAZSinkFrame, TL("Sink"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldTAZSinkWeight = new FXTextField(myTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZSinkFrame->hide();
     // create label for statistics
-    myStatisticsLabel = new FXLabel(getCollapsableFrame(), "Statistics", 0, GUIDesignLabelFrameInformation);
+    myStatisticsLabel = new FXLabel(getCollapsableFrame(), TL("Statistics"), 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -916,7 +913,7 @@ GNETAZFrame::TAZSelectionStatistics::selectEdge(const CurrentTAZ::TAZEdgeColor& 
     // find TAZEdgeColor using edge as criterium wasn't previously selected
     for (const auto& selectedEdge : myEdgeAndTAZChildrenSelected) {
         if (selectedEdge.edge == TAZEdgeColor.edge) {
-            throw ProcessError("TAZEdgeColor already selected");
+            throw ProcessError(TL("TAZEdgeColor already selected"));
         }
     }
     // add edge and their TAZ Children into myTAZChildSelected
@@ -948,9 +945,9 @@ GNETAZFrame::TAZSelectionStatistics::unselectEdge(GNEEdge* edge) {
             }
         }
         // throw exception if edge wasn't found
-        throw ProcessError("edge wasn't found");
+        throw ProcessError(TL("edge wasn't found"));
     } else {
-        throw ProcessError("Invalid edge");
+        throw ProcessError(TL("Invalid edge"));
     }
 }
 
@@ -993,7 +990,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSourceWeight->getText().text())) {
             double newTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSourceWeight->getText().text());
-            // check if myDefaultTAZSourceWeight is greather than 0
+            // check if myDefaultTAZSourceWeight is greater than 0
             if (newTAZSourceWeight >= 0) {
                 // set valid color in TextField
                 myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
@@ -1017,7 +1014,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSinkWeight->getText().text())) {
             double newTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSinkWeight->getText().text());
-            // check if myDefaultTAZSinkWeight is greather than 0
+            // check if myDefaultTAZSinkWeight is greater than 0
             if (newTAZSinkWeight >= 0) {
                 // set valid color in TextField
                 myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
@@ -1080,7 +1077,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // declare string sets for TextFields (to avoid duplicated values)
         std::set<std::string> weightSourceSet;
         std::set<std::string> weightSinkSet;
-        // declare stadistic variables
+        // declare statistic variables
         double weight = 0;
         double maxWeightSource = 0;
         double minWeightSource = -1;
@@ -1127,20 +1124,20 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         std::string edgeInformation;
         // first fill edgeInformation
         if (myEdgeAndTAZChildrenSelected.size() == 1) {
-            edgeInformation = "- Edge ID: " + myEdgeAndTAZChildrenSelected.begin()->edge->getID();
+            edgeInformation = TL("- Edge ID: ") + myEdgeAndTAZChildrenSelected.begin()->edge->getID();
         } else {
-            edgeInformation = "- Number of edges: " + toString(myEdgeAndTAZChildrenSelected.size());
+            edgeInformation = TL("- Number of edges: ") + toString(myEdgeAndTAZChildrenSelected.size());
         }
         // fill rest of information
         information
                 << edgeInformation << "\n"
-                << "- Min source: " << toString(minWeightSource) << "\n"
-                << "- Max source: " << toString(maxWeightSource) << "\n"
-                << "- Average source: " << toString(averageWeightSource) << "\n"
+                << TL("- Min source: ") << toString(minWeightSource) << "\n"
+                << TL("- Max source: ") << toString(maxWeightSource) << "\n"
+                << TL("- Average source: ") << toString(averageWeightSource) << "\n"
                 << "\n"
-                << "- Min sink: " << toString(minWeightSink) << "\n"
-                << "- Max sink: " << toString(maxWeightSink) << "\n"
-                << "- Average sink: " << toString(averageWeightSink);
+                << TL("- Min sink: ") << toString(minWeightSink) << "\n"
+                << TL("- Max sink: ") << toString(maxWeightSink) << "\n"
+                << TL("- Average sink: ") << toString(averageWeightSink);
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
         // set TextFields (Text and color)
@@ -1153,7 +1150,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         myTAZSourceFrame->hide();
         myTAZSinkFrame->hide();
         // hide myStatisticsLabel
-        myStatisticsLabel->setText("No edges selected");
+        myStatisticsLabel->setText(TL("No edges selected"));
     }
 }
 
@@ -1162,36 +1159,37 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "TAZ parameters"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ parameters")),
     myTAZFrameParent(TAZFrameParent),
     myTAZTemplate(nullptr) {
     // create TAZ Template
     myTAZTemplate = new GNETAZ(TAZFrameParent->getViewNet()->getNet());
     // create Button and string textField for center (by default, empty)
     FXHorizontalFrame* centerParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldCenter = new FXTextField(centerParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor = GUIDesigns::buildFXButton(colorParameter, toString(SUMO_ATTR_COLOR), "", "", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldColor->setText("blue");
     // create Button and string textField for name and set blue as default name
     FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldName = new FXTextField(nameParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create Label and CheckButton for use innen edges with true as default value
+    // create Label and CheckButton for use inner edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(useInnenEdges, "Edges within", 0, GUIDesignLabelAttribute);
-    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, "use", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    new FXLabel(useInnenEdges, TL("Edges within"), 0, GUIDesignLabelThickedFixed(100));
+    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
-    myHelpTAZAttribute = new FXButton(getCollapsableFrame(), "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpTAZAttribute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1202,13 +1200,13 @@ GNETAZFrame::TAZParameters::~TAZParameters() {
 
 void
 GNETAZFrame::TAZParameters::showTAZParametersModule() {
-    FXGroupBoxModule::show();
+    MFXGroupBoxModule::show();
 }
 
 
 void
 GNETAZFrame::TAZParameters::hideTAZParametersModule() {
-    FXGroupBoxModule::hide();
+    MFXGroupBoxModule::hide();
 }
 
 
@@ -1249,8 +1247,9 @@ GNETAZFrame::TAZParameters::getAttributesAndValues() const {
 long
 GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
     // create FXColorDialog
-    FXColorDialog colordialog(getCollapsableFrame(), tr("Color Dialog"));
+    FXColorDialog colordialog(getCollapsableFrame(), TL("Color Dialog"));
     colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text())));
@@ -1295,9 +1294,9 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
     } else if (obj == myAddEdgesWithinCheckButton) {
         // change useInnenEdgesCheckButton text
         if (myAddEdgesWithinCheckButton->getCheck() == TRUE) {
-            myAddEdgesWithinCheckButton->setText("use");
+            myAddEdgesWithinCheckButton->setText(TL("use"));
         } else {
-            myAddEdgesWithinCheckButton->setText("not use");
+            myAddEdgesWithinCheckButton->setText(TL("not use"));
         }
     } else if (obj == myCheckButtonFill) {
         // change myCheckButtonFill text
@@ -1322,27 +1321,27 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
-    FXGroupBoxModule(TAZFrameParent->myContentFrame, "Edges"),
+    MFXGroupBoxModule(TAZFrameParent, TL("Edges")),
     myTAZFrameParent(TAZFrameParent),
     myEdgeDefaultColor(RGBColor::GREY),
     myEdgeSelectedColor(RGBColor::MAGENTA) {
     // create label for non taz edge color information
-    FXLabel* NonTAZEdgeLabel = new FXLabel(getCollapsableFrame(), "Non TAZ Edge", nullptr, GUIDesignLabelCenter);
+    FXLabel* NonTAZEdgeLabel = new FXLabel(getCollapsableFrame(), TL("Non TAZ Edge"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     NonTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeDefaultColor));
     NonTAZEdgeLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // create label for selected TAZEdgeColor color information
-    FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
+    FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), TL("Selected TAZ Edge"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // build rainbow
     GNEFrame::buildRainbow(this);
     // create Radio button for show edges by source weight
-    myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Source"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
-    myColorBySinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySinkWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Sink"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by source + sink weight
-    myColorBySourcePlusSinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source + Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourcePlusSinkWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Source + Sink"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by source - sink weight
-    myColorBySourceMinusSinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source - Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourceMinusSinkWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Source - Sink"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // show by source as default
     myColorBySourceWeight->setCheck(true);
 }
@@ -1444,32 +1443,32 @@ GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
 // GNETAZFrame - methods
 // ---------------------------------------------------------------------------
 
-GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "TAZs"),
+GNETAZFrame::GNETAZFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, TL("TAZs")),
     myBaseTAZ(nullptr) {
 
-    // create current TAZ modul
+    // create current TAZ module
     myCurrentTAZ = new CurrentTAZ(this);
 
-    // Create TAZ Parameters modul
+    // Create TAZ Parameters module
     myTAZParameters = new TAZParameters(this);
 
-    // Create drawing controls modul
+    // Create drawing controls module
     myDrawingShape = new GNEDrawingShape(this);
 
-    // Create TAZ Edges Common Statistics modul
+    // Create TAZ Edges Common Statistics module
     myTAZCommonStatistics = new TAZCommonStatistics(this);
 
-    // Create save TAZ Edges modul
+    // Create save TAZ Edges module
     myTAZSaveChanges = new TAZSaveChanges(this);
 
-    // Create TAZ Edges Common Parameters modul
+    // Create TAZ Edges Common Parameters module
     myTAZChildDefaultParameters = new TAZChildDefaultParameters(this);
 
-    // Create TAZ Edges Selection Statistics modul
+    // Create TAZ Edges Selection Statistics module
     myTAZSelectionStatistics = new TAZSelectionStatistics(this);
 
-    // Create TAZ Edges Common Parameters modul
+    // Create TAZ Edges Common Parameters module
     myTAZEdgesGraphic = new TAZEdgesGraphic(this);
 
     // by default there isn't a TAZ
@@ -1493,7 +1492,7 @@ GNETAZFrame::hide() {
 
 
 bool
-GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     if (myDrawingShape->isDrawing()) {
@@ -1504,32 +1503,32 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
             myDrawingShape->addNewPoint(clickedPosition);
         }
         return true;
-    } else if ((myCurrentTAZ->getTAZ() == nullptr) || (objectsUnderCursor.getTAZFront() && myCurrentTAZ->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
+    } else if ((myCurrentTAZ->getTAZ() == nullptr) || (viewObjects.getTAZFront() && myCurrentTAZ->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
         // if user click over an TAZ and there isn't changes pending, then select a new TAZ
-        if (objectsUnderCursor.getTAZFront()) {
+        if (viewObjects.getTAZFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
-            myCurrentTAZ->setTAZ(objectsUnderCursor.getTAZFront());
-            // update TAZStadistics
-            myCurrentTAZ->getTAZ()->updateTAZStadistic();
+            myCurrentTAZ->setTAZ(viewObjects.getTAZFront());
+            // update TAZStatistics
+            myCurrentTAZ->getTAZ()->updateTAZStatistic();
             myTAZCommonStatistics->updateStatistics();
             return true;
         } else {
             return false;
         }
-    } else if (objectsUnderCursor.getEdgeFront()) {
+    } else if (viewObjects.getEdgeFront()) {
         // if toggle Edge is enabled, select edge. In other case create two new source/Sinks
         if (myTAZChildDefaultParameters->getToggleMembership()) {
             // create new source/Sinks or delete it
-            return addOrRemoveTAZMember(objectsUnderCursor.getEdgeFront());
+            return addOrRemoveTAZMember(viewObjects.getEdgeFront());
         } else {
             // first check if clicked edge was previously selected
-            if (myTAZSelectionStatistics->isEdgeSelected(objectsUnderCursor.getEdgeFront())) {
+            if (myTAZSelectionStatistics->isEdgeSelected(viewObjects.getEdgeFront())) {
                 // clear selected edges
                 myTAZSelectionStatistics->clearSelectedEdges();
             } else {
                 // iterate over TAZEdges saved in CurrentTAZ (it contains the Edge and Source/sinks)
                 for (const auto& TAZEdgeColor : myCurrentTAZ->getTAZEdges()) {
-                    if (TAZEdgeColor.edge == objectsUnderCursor.getEdgeFront()) {
+                    if (TAZEdgeColor.edge == viewObjects.getEdgeFront()) {
                         // clear current selection (to avoid having two or more edges selected at the same time using mouse clicks)
                         myTAZSelectionStatistics->clearSelectedEdges();
                         // now select edge
@@ -1558,7 +1557,7 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
             // iterate over edges
             for (const auto& edge : edges) {
                 // first check if edge owns a TAZEge
-                if (myCurrentTAZ->isTAZEdge(edge) == false) {
+                if (!myCurrentTAZ->isTAZEdge(edge)) {
                     // create new TAZ Sources/Sinks
                     addOrRemoveTAZMember(edge);
                 }
@@ -1611,7 +1610,7 @@ GNETAZFrame::shapeDrawed() {
     if (!myTAZParameters->isCurrentParametersValid()) {
         return false;
     } else if (myDrawingShape->getTemporalShape().size() < 3) {
-        WRITE_WARNING("TAZ shape needs at least three points");
+        WRITE_WARNING(TL("TAZ shape needs at least three points"));
         return false;
     } else {
         // get attributes and values
@@ -1628,13 +1627,14 @@ GNETAZFrame::shapeDrawed() {
         }
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
+            // update objects in boundary
+            myViewNet->updateObjectsInBoundary(shape.getBoxBoundary());
+            // get all edge IDs
             std::vector<std::string> edgeIDs;
-            const auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
             // get only edges with geometry around shape
-            for (const auto& AC : ACsInBoundary) {
-                if ((AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
-                        myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, shape)) {
-                    edgeIDs.push_back(AC.first);
+            for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
+                if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(edge, shape)) {
+                    edgeIDs.push_back(edge->getID());
                 }
             }
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);
@@ -1643,7 +1643,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
         // TAZ created, then return true
@@ -1662,10 +1662,10 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
                 // enable save changes button
                 myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // remove Source and Sinks using GNEChange_TAZElement
-                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source, false)) {
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source->getGUIGlObject(), false)) {
                     myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.source, false), true);
                 }
-                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink, false)) {
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink->getGUIGlObject(), false)) {
                     myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.sink, false), true);
                 }
                 // always refresh TAZ Edges after removing TAZSources/Sinks

@@ -1,0 +1,4 @@
+/scr1/sumo/tools/sumolib/net/__init__.py:34: ImportWarning: Not importing directory '/home/erdm_ja/scr1/sumo/tests/complex/state/xml': missing __init__.py
+  from xml.sax import handler, parse
+Warning: Value of tau=1.00 in vehicle type 'train' lower than simulation step size may cause collisions.
+Warning: Action steps are out of sync for loaded vehicle 'train'.

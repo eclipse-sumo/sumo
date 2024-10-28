@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@ public:
     static double getEnd(const std::string& calibratorID);
     static std::string getRouteID(const std::string& calibratorID);
     static std::string getRouteProbeID(const std::string& calibratorID);
-    static std::vector<std::string> getVTypes(const std::string& routeID);
+    static std::vector<std::string> getVTypes(const std::string& calibratorID);
     static int getPassed(const std::string& calibratorID);
     static int getInserted(const std::string& calibratorID);
     static int getRemoved(const std::string& calibratorID);
@@ -69,7 +69,6 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
-private:
     static MSCalibrator* getCalibrator(const std::string& id);
 
 private:

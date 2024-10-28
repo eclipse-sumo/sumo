@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.61.5 4133829e">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2024-02-21T12:11:00Z"/>
+
+  <node id="241268346" lat="52.3809125" lon="13.6461605"/>
+  <node id="260124402" lat="52.3909033" lon="13.6518857"/>
+  <node id="260124404" lat="52.3899835" lon="13.6507320"/>
+  <node id="260124405" lat="52.3896515" lon="13.6502575"/>
+  <node id="260124407" lat="52.3891879" lon="13.6493802"/>
+  <node id="260124409" lat="52.3890333" lon="13.6491306"/>
+  <node id="260124410" lat="52.3889547" lon="13.6490583"/>
+  <node id="260124414" lat="52.3882737" lon="13.6489332"/>
+  <node id="260124415" lat="52.3880185" lon="13.6489153"/>
+  <node id="260124417" lat="52.3880103" lon="13.6488019"/>
+  <node id="260124418" lat="52.3881952" lon="13.6487272"/>
+  <node id="260759980" lat="52.4001133" lon="13.6400732"/>
+  <node id="260759987" lat="52.3977294" lon="13.6431494"/>
+  <node id="260759989" lat="52.3946886" lon="13.6470104"/>
+  <node id="260760003" lat="52.3999365" lon="13.6401845"/>
+  <node id="260760004" lat="52.3995906" lon="13.6404112"/>
+  <node id="260760005" lat="52.3990379" lon="13.6408207"/>
+  <node id="260760006" lat="52.3986880" lon="13.6413058"/>
+  <node id="260760007" lat="52.3984494" lon="13.6417790"/>
+  <node id="260760008" lat="52.3980816" lon="13.6425147"/>
+  <node id="260760009" lat="52.3978461" lon="13.6429085"/>
+  <node id="260760010" lat="52.3976201" lon="13.6432804"/>
+  <node id="260760011" lat="52.3973877" lon="13.6433974"/>
+  <node id="260760014" lat="52.3970868" lon="13.6433571"/>
+  <node id="260760026" lat="52.3968907" lon="13.6433775"/>
+  <node id="260760032" lat="52.3966601" lon="13.6434968"/>
+  <node id="260760033" lat="52.3965567" lon="13.6437751"/>
+  <node id="260760034" lat="52.3965487" lon="13.6440972"/>
+  <node id="260760035" lat="52.3964135" lon="13.6449004"/>
+  <node id="260760036" lat="52.3962147" lon="13.6457792"/>
+  <node id="260760037" lat="52.3960398" lon="13.6461410"/>
+  <node id="260760038" lat="52.3957455" lon="13.6464432"/>
+  <node id="260760039" lat="52.3953598" lon="13.6467255"/>
+  <node id="260760040" lat="52.3950854" lon="13.6468647"/>
+  <node id="260760041" lat="52.3942942" lon="13.6471908"/>
+  <node id="260760042" lat="52.3940556" lon="13.6473697"/>
+  <node id="260760043" lat="52.3936142" lon="13.6474293"/>
+  <node id="260760044" lat="52.3931609" lon="13.6475049"/>
+  <node id="260760045" lat="52.3928746" lon="13.6476679"/>
+  <node id="260760046" lat="52.3925764" lon="13.6481769"/>
+  <node id="260760047" lat="52.3923617" lon="13.6486302"/>
+  <node id="260760048" lat="52.3920953" lon="13.6489403"/>
+  <node id="260760049" lat="52.3917414" lon="13.6491710"/>
+  <node id="260760050" lat="52.3914233" lon="13.6492783"/>
+  <node id="260760051" lat="52.3905763" lon="13.6495010"/>
+  <node id="260760052" lat="52.3903338" lon="13.6495050"/>
+  <node id="260760053" lat="52.3900475" lon="13.6494692"/>
+  <node id="260760054" lat="52.3898328" lon="13.6494374"/>
+  <node id="260760055" lat="52.3895743" lon="13.6493340"/>
+  <node id="260760056" lat="52.3893993" lon="13.6492863"/>
+  <node id="260760057" lat="52.3892801" lon="13.6493022"/>
+  <node id="262181545" lat="52.3817979" lon="13.6524376"/>
+  <node id="262181546" lat="52.3826926" lon="13.6504112"/>
+  <node id="262181548" lat="52.3841131" lon="13.6478180">
+    <tag k="seamark:notice:category" v="ferry_independent"/>
+    <tag k="seamark:notice:function" v="information"/>
+    <tag k="seamark:notice:system" v="cevni"/>
+    <tag k="seamark:type" v="notice"/>
+  </node>
+  <node id="262181549" lat="52.3853073" lon="13.6456827"/>
+  <node id="262181550" lat="52.3868684" lon="13.6450819"/>
+  <node id="262181552" lat="52.3884190" lon="13.6453223"/>
+  <node id="262181553" lat="52.3904933" lon="13.6456141"/>
+  <node id="262181554" lat="52.3918133" lon="13.6449017"/>
+  <node id="262181555" lat="52.3940026" lon="13.6434082"/>
+  <node id="262182094" lat="52.3810036" lon="13.6547189"/>
+  <node id="262882408" lat="52.3828949" lon="13.6452228">
+    <tag k="amenity" v="ferry_terminal"/>
+    <tag k="cargo" v="passengers"/>
+    <tag k="ferry" v="yes"/>
+    <tag k="gtfs_id" v="070401000007"/>
+    <tag k="name" v="Zum Seeblick"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref:BVG" v="400007"/>
+    <tag k="website" v="https://qr.bvg.de/h400007"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="269367524" lat="52.3818086" lon="13.6428443"/>
+  <node id="282324109" lat="52.3882879" lon="13.6501436"/>
+  <node id="282324111" lat="52.3865500" lon="13.6509528"/>
+  <node id="282324112" lat="52.3847727" lon="13.6493721"/>
+  <node id="282324125" lat="52.3832887" lon="13.6494116"/>
+  <node id="297388729" lat="52.3881084" lon="13.6489696"/>
+  <node id="297388730" lat="52.3880239" lon="13.6487392"/>
+  <node id="388542277" lat="52.3824987" lon="13.6446462"/>
+  <node id="388542278" lat="52.3822090" lon="13.6441474"/>
+  <node id="388542744" lat="52.3821838" lon="13.6441853"/>
+  <node id="388542865" lat="52.3815811" lon="13.6432061"/>
+  <node id="388543233" lat="52.3814410" lon="13.6429766"/>
+  <node id="388545304" lat="52.3826110" lon="13.6449326"/>
+  <node id="388545306" lat="52.3825762" lon="13.6448740"/>
+  <node id="388545309" lat="52.3824965" lon="13.6447401"/>
+  <node id="454089317" lat="52.3808395" lon="13.6420222"/>
+  <node id="1715423788" lat="52.3814379" lon="13.6535709"/>
+  <node id="1715423790" lat="52.3843749" lon="13.6473665">
+    <tag k="river:waterway_distance" v="43"/>
+    <tag k="seamark:distance_mark:category" v="not_installed"/>
+    <tag k="seamark:distance_mark:distance" v="43"/>
+    <tag k="seamark:distance_mark:units" v="kilometres"/>
+    <tag k="seamark:type" v="distance_mark"/>
+    <tag k="source" v="OSM"/>
+  </node>
+  <node id="1715423799" lat="52.3931656" lon="13.6439839">
+    <tag k="river:waterway_distance" v="42"/>
+    <tag k="seamark:distance_mark:category" v="not_installed"/>
+    <tag k="seamark:distance_mark:distance" v="42"/>
+    <tag k="seamark:distance_mark:units" v="kilometres"/>
+    <tag k="seamark:type" v="distance_mark"/>
+    <tag k="source" v="OSM"/>
+  </node>
+  <node id="1715537902" lat="52.3841785" lon="13.6510270"/>
+  <node id="1715537909" lat="52.3851299" lon="13.6519602">
+    <tag k="river:waterway_distance" v="0"/>
+    <tag k="seamark:distance_mark:category" v="not_installed"/>
+    <tag k="seamark:distance_mark:distance" v="0"/>
+    <tag k="seamark:distance_mark:units" v="kilometres"/>
+    <tag k="seamark:type" v="distance_mark"/>
+    <tag k="source" v="survey"/>
+  </node>
+  <node id="1715537917" lat="52.3860020" lon="13.6524365"/>
+  <node id="1715537922" lat="52.3880451" lon="13.6535251"/>
+  <node id="1715537927" lat="52.3894320" lon="13.6540422"/>
+  <node id="1715537932" lat="52.3910929" lon="13.6537156"/>
+  <node id="1715537956" lat="52.3925794" lon="13.6538925"/>
+  <node id="1715537959" lat="52.3934597" lon="13.6538381"/>
+  <node id="1715537964" lat="52.3938915" lon="13.6540014">
+    <tag k="river:waterway_distance" v="1"/>
+    <tag k="seamark:distance_mark:category" v="not_installed"/>
+    <tag k="seamark:distance_mark:distance" v="1"/>
+    <tag k="seamark:distance_mark:units" v="kilometres"/>
+    <tag k="seamark:type" v="distance_mark"/>
+    <tag k="source" v="survey"/>
+  </node>
+  <node id="1715537972" lat="52.3946887" lon="13.6545049"/>
+  <node id="1715537976" lat="52.3959342" lon="13.6543824"/>
+  <node id="1715537981" lat="52.3968974" lon="13.6547770"/>
+  <node id="1715537983" lat="52.3981678" lon="13.6557160"/>
+  <node id="1715537988" lat="52.3989981" lon="13.6575122"/>
+  <node id="1715538027" lat="52.3999613" lon="13.6584376"/>
+  <node id="1715538030" lat="52.4009576" lon="13.6609415"/>
+  <node id="1715538036" lat="52.4017049" lon="13.6614313">
+    <tag k="river:waterway_distance" v="2"/>
+    <tag k="seamark:distance_mark:category" v="not_installed"/>
+    <tag k="seamark:distance_mark:distance" v="2"/>
+    <tag k="seamark:distance_mark:units" v="kilometres"/>
+    <tag k="seamark:type" v="distance_mark"/>
+    <tag k="source" v="survey"/>
+  </node>
+  <node id="1715538046" lat="52.4022196" lon="13.6615538"/>
+  <node id="1715538051" lat="52.4041872" lon="13.6618124"/>
+  <node id="1715538055" lat="52.4054823" lon="13.6622070"/>
+  <node id="1715538059" lat="52.4063457" lon="13.6627785"/>
+  <node id="1715538078" lat="52.4065450" lon="13.6632684"/>
+  <node id="1715538087" lat="52.4068604" lon="13.6648061"/>
+  <node id="1715538093" lat="52.4070929" lon="13.6652688"/>
+  <node id="1715538100" lat="52.4077985" lon="13.6656226"/>
+  <node id="1715538129" lat="52.4093425" lon="13.6647517"/>
+  <node id="1867378708" lat="52.3826876" lon="13.6429515"/>
+  <node id="1867378709" lat="52.3834096" lon="13.6419375"/>
+  <node id="2045908036" lat="52.3889939" lon="13.6496372">
+    <tag k="amenity" v="ferry_terminal"/>
+    <tag k="cargo" v="passengers"/>
+    <tag k="ferry" v="yes"/>
+    <tag k="name" v="Krampenburg"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref:BVG" v="400008"/>
+    <tag k="source" v="local knowledge"/>
+    <tag k="website" v="https://qr.bvg.de/h400008"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q66966878"/>
+  </node>
+  <node id="2045908045" lat="52.3891177" lon="13.6494704"/>
+  <node id="2335528901" lat="52.3896225" lon="13.6502033"/>
+  <node id="2818725426" lat="52.3857050" lon="13.6486462"/>
+  <node id="2818725427" lat="52.3868187" lon="13.6491168"/>
+  <node id="2818725429" lat="52.3879838" lon="13.6488818">
+    <tag k="barrier" v="gate"/>
+    <tag k="motor_vehicle" v="private"/>
+  </node>
+  <node id="2818725432" lat="52.3868181" lon="13.6491956"/>
+  <node id="2818725497" lat="52.3864282" lon="13.6483904"/>
+  <node id="2818725498" lat="52.3868281" lon="13.6484617"/>
+  <node id="2818727103" lat="52.3868298" lon="13.6483712"/>
+  <node id="2818727129" lat="52.3857229" lon="13.6491469"/>
+  <node id="2818727132" lat="52.3863717" lon="13.6491828"/>
+  <node id="2818727139" lat="52.3860089" lon="13.6491010"/>
+  <node id="2818727141" lat="52.3858389" lon="13.6485373"/>
+  <node id="2818727146" lat="52.3865447" lon="13.6492112"/>
+  <node id="2818727153" lat="52.3867232" lon="13.6492059"/>
+  <node id="2818727159" lat="52.3856848" lon="13.6492541"/>
+  <node id="2818727171" lat="52.3861840" lon="13.6484007"/>
+  <node id="2818727178" lat="52.3856323" lon="13.6494563"/>
+  <node id="2818727186" lat="52.3856575" lon="13.6494204"/>
+  <node id="2818727200" lat="52.3880547" lon="13.6487097"/>
+  <node id="2818727504" lat="52.3881506" lon="13.6486932"/>
+  <node id="2818727505" lat="52.3879247" lon="13.6489135"/>
+  <node id="2818727506" lat="52.3880052" lon="13.6488605"/>
+  <node id="2818727507" lat="52.3870211" lon="13.6491737"/>
+  <node id="2818727510" lat="52.3880951" lon="13.6486937"/>
+  <node id="2818727511" lat="52.3874566" lon="13.6490890"/>
+  <node id="2818727513" lat="52.3880393" lon="13.6484897"/>
+  <node id="2818727515" lat="52.3872045" lon="13.6482966"/>
+  <node id="2818727519" lat="52.3879693" lon="13.6483886">
+    <tag k="barrier" v="gate"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="horse" v="no"/>
+  </node>
+  <node id="2818727522" lat="52.3880528" lon="13.6489547"/>
+  <node id="2818727524" lat="52.3873665" lon="13.6482886"/>
+  <node id="2818727528" lat="52.3854049" lon="13.6493388"/>
+  <node id="2818727530" lat="52.3855383" lon="13.6494597"/>
+  <node id="2818727531" lat="52.3878740" lon="13.6483529"/>
+  <node id="2818727549" lat="52.3854223" lon="13.6490519"/>
+  <node id="2818727554" lat="52.3855418" lon="13.6488218"/>
+  <node id="2818727555" lat="52.3853891" lon="13.6491792"/>
+  <node id="2818912606" lat="52.3975160" lon="13.6433564"/>
+  <node id="2824407806" lat="52.3885215" lon="13.6500366"/>
+  <node id="2824407807" lat="52.3887352" lon="13.6498957"/>
+  <node id="2824407808" lat="52.3859875" lon="13.6509016"/>
+  <node id="2824407809" lat="52.3890850" lon="13.6492180"/>
+  <node id="2824407810" lat="52.3851115" lon="13.6499203"/>
+  <node id="2824407811" lat="52.3888668" lon="13.6490288"/>
+  <node id="2824407812" lat="52.3868071" lon="13.6508558"/>
+  <node id="2824407813" lat="52.3862142" lon="13.6509958"/>
+  <node id="2824407814" lat="52.3845944" lon="13.6489707"/>
+  <node id="2824407815" lat="52.3837625" lon="13.6469750"/>
+  <node id="2824407816" lat="52.3871398" lon="13.6507305"/>
+  <node id="3057816303" lat="52.3826374" lon="13.6448876"/>
+  <node id="3057816304" lat="52.3826535" lon="13.6448601"/>
+  <node id="4228163123" lat="52.3856655" lon="13.6506522"/>
+  <node id="4228163124" lat="52.3857900" lon="13.6507864"/>
+  <node id="4228163130" lat="52.3863826" lon="13.6509902"/>
+  <node id="4393572843" lat="52.3817263" lon="13.6449825"/>
+  <node id="4393572844" lat="52.3817344" lon="13.6448870"/>
+  <node id="5221241150" lat="52.3901934" lon="13.6509953"/>
+  <node id="7673150086" lat="52.3901101" lon="13.6508908"/>
+  <node id="8019014674" lat="52.3824974" lon="13.6446962"/>
+  <node id="8019014675" lat="52.3825737" lon="13.6448211"/>
+  <node id="8019014676" lat="52.3825898" lon="13.6448246"/>
+  <node id="8019014677" lat="52.3826105" lon="13.6446246"/>
+  <node id="8019014678" lat="52.3826315" lon="13.6448220"/>
+  <node id="8019014679" lat="52.3826496" lon="13.6447056"/>
+  <node id="8019014680" lat="52.3826535" lon="13.6448298"/>
+  <node id="8019014681" lat="52.3826571" lon="13.6448513"/>
+  <node id="8019014682" lat="52.3826790" lon="13.6448599">
+    <tag k="barrier" v="gate"/>
+    <tag k="bicycle" v="dismount"/>
+    <tag k="foot" v="yes"/>
+  </node>
+  <node id="8640302025" lat="52.3826354" lon="13.6447043"/>
+  <node id="8640302026" lat="52.3826166" lon="13.6448226"/>
+  <node id="8640302027" lat="52.3825947" lon="13.6446253"/>
+  <node id="8923337005" lat="52.3948404" lon="13.6428291"/>
+  <node id="9668024777" lat="52.3830150" lon="13.6424307"/>
+  <node id="9668024780" lat="52.3833318" lon="13.6420346"/>
+  <node id="10106256570" lat="52.3875422" lon="13.6487299"/>
+  <node id="10106256571" lat="52.3875681" lon="13.6483141"/>
+  <node id="10106256572" lat="52.3875693" lon="13.6490467"/>
+  <node id="10106272258" lat="52.3859635" lon="13.6491083"/>
+  <node id="10106272259" lat="52.3858381" lon="13.6485379"/>
+  <node id="10106283836" lat="52.3871794" lon="13.6491429"/>
+  <node id="10106298340" lat="52.3868262" lon="13.6485991"/>
+  <node id="10106298341" lat="52.3868256" lon="13.6486391"/>
+  <node id="10106302123" lat="52.3869242" lon="13.6491842"/>
+  <way id="24279256">
+    <nd ref="262882408"/>
+    <nd ref="8019014682"/>
+    <tag k="bicycle" v="dismount"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="man_made" v="pier"/>
+    <tag k="mapillary" v="489599278909935"/>
+    <tag k="surface" v="dirt"/>
+  </way>
+  <way id="25881424">
+    <nd ref="262882408"/>
+    <nd ref="2824407815"/>
+    <nd ref="2824407814"/>
+    <nd ref="282324112"/>
+    <nd ref="2824407810"/>
+    <nd ref="4228163123"/>
+    <nd ref="4228163124"/>
+    <nd ref="2824407808"/>
+    <nd ref="2824407813"/>
+    <nd ref="4228163130"/>
+    <nd ref="282324111"/>
+    <nd ref="2824407812"/>
+    <nd ref="2824407816"/>
+    <nd ref="282324109"/>
+    <nd ref="2824407806"/>
+    <nd ref="2824407807"/>
+    <nd ref="2045908036"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="description" v="Verkehrt nicht ganzjährig! Dienstag - Sonntag von Karfreitag vor Ostern bis 03. Oktober. Siehe Webseite!"/>
+    <tag k="foot" v="yes"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="motorcar" v="no"/>
+    <tag k="motorcycle" v="no"/>
+    <tag k="name" v="Fähre F21"/>
+    <tag k="route" v="ferry"/>
+    <tag k="seasonal" v="yes"/>
+    <tag k="website" v="https://www.berlin.de/tourismus/dampferfahrten/faehren/1826191-1824660-faehre-f21-schmoeckwitz-krampenburg.html"/>
+  </way>
+  <way id="33911623">
+    <nd ref="388542744"/>
+    <nd ref="388542865"/>
+    <nd ref="388543233"/>
+    <nd ref="454089317"/>
+    <tag k="highway" v="path"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="dirt"/>
+  </way>
+  <way id="33911688">
+    <nd ref="388542277"/>
+    <nd ref="388542278"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="no"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Windwallstraße"/>
+    <tag k="postal_code" v="12527"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="44716313">
+    <nd ref="8019014681"/>
+    <nd ref="3057816304"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="56323943">
+    <nd ref="260124407"/>
+    <nd ref="2045908045"/>
+    <tag k="bicycle" v="dismount"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="wood"/>
+  </way>
+  <way id="62450095">
+    <nd ref="260124402"/>
+    <nd ref="5221241150"/>
+    <nd ref="7673150086"/>
+    <nd ref="260124404"/>
+    <nd ref="260124405"/>
+    <nd ref="2335528901"/>
+    <nd ref="260124407"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Straße zur Krampenburg"/>
+    <tag k="postal_code" v="12559"/>
+    <tag k="source:maxspeed" v="DE:zone:30"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="62450100">
+    <nd ref="260124407"/>
+    <nd ref="2824407809"/>
+    <nd ref="260124409"/>
+    <nd ref="260124410"/>
+    <nd ref="2824407811"/>
+    <nd ref="260124414"/>
+    <nd ref="297388729"/>
+    <nd ref="2818727522"/>
+    <nd ref="260124415"/>
+    <nd ref="2818727506"/>
+    <nd ref="260124417"/>
+    <nd ref="297388730"/>
+    <nd ref="2818727200"/>
+    <nd ref="2818727510"/>
+    <nd ref="2818727504"/>
+    <nd ref="260124418"/>
+    <nd ref="260124414"/>
+    <tag k="access" v="destination"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Straße zur Krampenburg"/>
+    <tag k="postal_code" v="12559"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="159428405">
+    <nd ref="262182094"/>
+    <nd ref="1715423788"/>
+    <nd ref="262181545"/>
+    <nd ref="262181546"/>
+    <nd ref="282324125"/>
+    <nd ref="262181548"/>
+    <nd ref="1715423790"/>
+    <nd ref="262181549"/>
+    <nd ref="262181550"/>
+    <nd ref="262181552"/>
+    <nd ref="262181553"/>
+    <nd ref="262181554"/>
+    <nd ref="1715423799"/>
+    <nd ref="262181555"/>
+    <nd ref="8923337005"/>
+    <tag k="CEMT" v="Va"/>
+    <tag k="boat" v="yes"/>
+    <tag k="draft" v="2"/>
+    <tag k="have_riverbank" v="yes"/>
+    <tag k="maxspeed" v="25"/>
+    <tag k="name" v="Dahme"/>
+    <tag k="waterway" v="river"/>
+  </way>
+  <way id="159433983">
+    <nd ref="1715538129"/>
+    <nd ref="1715538100"/>
+    <nd ref="1715538093"/>
+    <nd ref="1715538087"/>
+    <nd ref="1715538078"/>
+    <nd ref="1715538059"/>
+    <nd ref="1715538055"/>
+    <nd ref="1715538051"/>
+    <nd ref="1715538046"/>
+    <nd ref="1715538036"/>
+    <nd ref="1715538030"/>
+    <nd ref="1715538027"/>
+    <nd ref="1715537988"/>
+    <nd ref="1715537983"/>
+    <nd ref="1715537981"/>
+    <nd ref="1715537976"/>
+    <nd ref="1715537972"/>
+    <nd ref="1715537964"/>
+    <nd ref="1715537959"/>
+    <nd ref="1715537956"/>
+    <nd ref="1715537932"/>
+    <nd ref="1715537927"/>
+    <nd ref="1715537922"/>
+    <nd ref="1715537917"/>
+    <nd ref="1715537909"/>
+    <nd ref="1715537902"/>
+    <nd ref="282324125"/>
+    <tag k="draft" v="1.5"/>
+    <tag k="maxspeed" v="12"/>
+    <tag k="note" v="waterway used for shipping navigation"/>
+    <tag k="waterway" v="river"/>
+  </way>
+  <way id="176187629">
+    <nd ref="1867378709"/>
+    <nd ref="9668024780"/>
+    <nd ref="9668024777"/>
+    <nd ref="1867378708"/>
+    <nd ref="388542278"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="width" v="0.8"/>
+  </way>
+  <way id="178000235">
+    <nd ref="388545306"/>
+    <nd ref="388545309"/>
+    <tag k="handrail" v="no"/>
+    <tag k="highway" v="steps"/>
+    <tag k="incline" v="up"/>
+    <tag k="lit" v="no"/>
+    <tag k="ramp" v="no"/>
+    <tag k="step_count" v="16"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="194080016">
+    <nd ref="2045908045"/>
+    <nd ref="2045908036"/>
+    <tag k="bicycle" v="dismount"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="man_made" v="pier"/>
+    <tag k="surface" v="wood"/>
+  </way>
+  <way id="277345333">
+    <nd ref="2818727129"/>
+    <nd ref="2818727159"/>
+    <nd ref="2818727186"/>
+    <nd ref="2818727178"/>
+    <nd ref="2818727530"/>
+    <nd ref="2818727528"/>
+    <nd ref="2818727555"/>
+    <nd ref="2818727549"/>
+    <nd ref="2818727554"/>
+    <nd ref="2818725426"/>
+    <nd ref="10106272259"/>
+    <nd ref="2818727141"/>
+    <nd ref="2818727171"/>
+    <nd ref="2818725497"/>
+    <nd ref="2818727103"/>
+    <nd ref="2818727515"/>
+    <nd ref="2818727524"/>
+    <nd ref="10106256571"/>
+    <nd ref="2818727531"/>
+    <nd ref="2818727519"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="grass"/>
+    <tag k="width" v="1"/>
+  </way>
+  <way id="277345344">
+    <nd ref="2818725498"/>
+    <nd ref="10106298340"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="width" v="1"/>
+  </way>
+  <way id="277345346">
+    <nd ref="2818727103"/>
+    <nd ref="2818725498"/>
+    <tag k="handrail" v="yes"/>
+    <tag k="highway" v="steps"/>
+    <tag k="incline" v="up"/>
+    <tag k="lit" v="yes"/>
+    <tag k="ramp" v="no"/>
+    <tag k="step_count" v="7"/>
+    <tag k="surface" v="concrete"/>
+  </way>
+  <way id="277345349">
+    <nd ref="2818725427"/>
+    <nd ref="2818725432"/>
+    <tag k="handrail" v="yes"/>
+    <tag k="highway" v="steps"/>
+    <tag k="incline" v="down"/>
+    <tag k="lit" v="yes"/>
+    <tag k="ramp" v="yes"/>
+    <tag k="ramp:wheelchair" v="yes"/>
+    <tag k="step_count" v="7"/>
+    <tag k="surface" v="concrete"/>
+  </way>
+  <way id="301687315">
+    <nd ref="388545309"/>
+    <nd ref="8019014674"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="301687317">
+    <nd ref="269367524"/>
+    <nd ref="388542278"/>
+    <tag k="highway" v="path"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="ground"/>
+  </way>
+  <way id="301687319">
+    <nd ref="3057816304"/>
+    <nd ref="3057816303"/>
+    <tag k="handrail" v="yes"/>
+    <tag k="highway" v="steps"/>
+    <tag k="lit" v="no"/>
+    <tag k="ramp" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="301687320">
+    <nd ref="388545304"/>
+    <nd ref="388545306"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="860420241">
+    <nd ref="8019014674"/>
+    <nd ref="8019014675"/>
+    <nd ref="8019014676"/>
+    <nd ref="8640302027"/>
+    <nd ref="8019014677"/>
+    <nd ref="8640302026"/>
+    <nd ref="8019014678"/>
+    <nd ref="8640302025"/>
+    <nd ref="8019014679"/>
+    <nd ref="8019014680"/>
+    <nd ref="8019014681"/>
+    <nd ref="8019014682"/>
+    <tag k="highway" v="path"/>
+    <tag k="mapillary" v="2568642720106247"/>
+    <tag k="surface" v="metal"/>
+  </way>
+  <way id="860420242">
+    <nd ref="8019014674"/>
+    <nd ref="388542277"/>
+    <tag k="highway" v="path"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1032017021">
+    <nd ref="3057816303"/>
+    <nd ref="388545304"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1104401073">
+    <nd ref="260759980"/>
+    <nd ref="260760003"/>
+    <nd ref="260760004"/>
+    <nd ref="260760005"/>
+    <nd ref="260760006"/>
+    <nd ref="260760007"/>
+    <nd ref="260760008"/>
+    <nd ref="260760009"/>
+    <nd ref="260759987"/>
+    <nd ref="260760010"/>
+    <nd ref="2818912606"/>
+    <nd ref="260760011"/>
+    <nd ref="260760014"/>
+    <nd ref="260760026"/>
+    <nd ref="260760032"/>
+    <nd ref="260760033"/>
+    <nd ref="260760034"/>
+    <nd ref="260760035"/>
+    <nd ref="260760036"/>
+    <nd ref="260760037"/>
+    <nd ref="260760038"/>
+    <nd ref="260760039"/>
+    <nd ref="260760040"/>
+    <nd ref="260759989"/>
+    <nd ref="260760041"/>
+    <nd ref="260760042"/>
+    <nd ref="260760043"/>
+    <nd ref="260760044"/>
+    <nd ref="260760045"/>
+    <nd ref="260760046"/>
+    <nd ref="260760047"/>
+    <nd ref="260760048"/>
+    <nd ref="260760049"/>
+    <nd ref="260760050"/>
+    <nd ref="260760051"/>
+    <nd ref="260760052"/>
+    <nd ref="260760053"/>
+    <nd ref="260760054"/>
+    <nd ref="260760055"/>
+    <nd ref="260760056"/>
+    <nd ref="260760057"/>
+    <nd ref="260124407"/>
+    <tag k="highway" v="track"/>
+    <tag k="name" v="Am Langen See"/>
+    <tag k="name:etymology:wikidata" v="Q1805169"/>
+    <tag k="name:etymology:wikipedia" v="de:Langer See (Dahme)"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="tracktype" v="grade3"/>
+    <tag k="width" v="2"/>
+  </way>
+  <way id="1104403394">
+    <nd ref="2818727519"/>
+    <nd ref="2818727513"/>
+    <nd ref="2818727510"/>
+    <tag k="highway" v="path"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="width" v="1"/>
+  </way>
+  <way id="1104403395">
+    <nd ref="10106272259"/>
+    <nd ref="10106272258"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="width" v="1"/>
+  </way>
+  <way id="1104406339">
+    <nd ref="2818727132"/>
+    <nd ref="2818727139"/>
+    <nd ref="10106272258"/>
+    <nd ref="2818727129"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="highway" v="track"/>
+    <tag k="horse" v="no"/>
+    <tag k="motor_vehicle" v="private"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="tracktype" v="grade4"/>
+    <tag k="width" v="2.5"/>
+  </way>
+  <way id="1104406387">
+    <nd ref="10106298340"/>
+    <nd ref="10106298341"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="handrail" v="yes"/>
+    <tag k="highway" v="steps"/>
+    <tag k="horse" v="no"/>
+    <tag k="incline" v="up"/>
+    <tag k="lit" v="yes"/>
+    <tag k="ramp" v="yes"/>
+    <tag k="ramp:wheelchair" v="yes"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="step_count" v="3"/>
+    <tag k="surface" v="concrete"/>
+    <tag k="width" v="1"/>
+  </way>
+  <way id="1104406388">
+    <nd ref="10106298341"/>
+    <nd ref="2818725427"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="concrete"/>
+    <tag k="width" v="1"/>
+  </way>
+  <way id="1104406803">
+    <nd ref="10106302123"/>
+    <nd ref="2818725432"/>
+    <nd ref="2818727153"/>
+    <nd ref="2818727146"/>
+    <nd ref="2818727132"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="highway" v="track"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="motor_vehicle" v="private"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="tracktype" v="grade1"/>
+    <tag k="width" v="2.5"/>
+  </way>
+  <way id="1104407022">
+    <nd ref="10106283836"/>
+    <nd ref="2818727507"/>
+    <nd ref="10106302123"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="highway" v="track"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="motor_vehicle" v="private"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="tracktype" v="grade1"/>
+    <tag k="width" v="2.5"/>
+  </way>
+  <way id="1104407243">
+    <nd ref="10106256571"/>
+    <nd ref="10106256570"/>
+    <nd ref="10106256572"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="permissive"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="dirt"/>
+    <tag k="width" v="1.5"/>
+  </way>
+  <way id="1104407686">
+    <nd ref="2818725429"/>
+    <nd ref="2818727505"/>
+    <nd ref="10106256572"/>
+    <nd ref="2818727511"/>
+    <nd ref="10106283836"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="highway" v="track"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="motor_vehicle" v="private"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="tracktype" v="grade1"/>
+    <tag k="width" v="2.5"/>
+  </way>
+  <relation id="410654">
+    <member type="node" ref="1345121839" role="spring"/>
+    <member type="way" ref="71139153" role="main_stream"/>
+    <member type="way" ref="335711403" role="main_stream"/>
+    <member type="way" ref="335711402" role="main_stream"/>
+    <member type="way" ref="474805183" role="main_stream"/>
+    <member type="way" ref="474805184" role="main_stream"/>
+    <member type="way" ref="197057048" role="main_stream"/>
+    <member type="way" ref="197057045" role="main_stream"/>
+    <member type="way" ref="197057030" role="main_stream"/>
+    <member type="way" ref="197057039" role="main_stream"/>
+    <member type="way" ref="197057054" role="main_stream"/>
+    <member type="way" ref="197057032" role="main_stream"/>
+    <member type="way" ref="197057051" role="main_stream"/>
+    <member type="way" ref="197057042" role="main_stream"/>
+    <member type="way" ref="197057033" role="main_stream"/>
+    <member type="way" ref="197057055" role="main_stream"/>
+    <member type="way" ref="197057024" role="main_stream"/>
+    <member type="way" ref="197057031" role="main_stream"/>
+    <member type="way" ref="197057022" role="main_stream"/>
+    <member type="way" ref="197057036" role="main_stream"/>
+    <member type="way" ref="197057034" role="main_stream"/>
+    <member type="way" ref="197057047" role="main_stream"/>
+    <member type="way" ref="197057043" role="main_stream"/>
+    <member type="way" ref="197057044" role="main_stream"/>
+    <member type="way" ref="197057049" role="main_stream"/>
+    <member type="way" ref="197057052" role="main_stream"/>
+    <member type="way" ref="197057023" role="main_stream"/>
+    <member type="way" ref="197057040" role="main_stream"/>
+    <member type="way" ref="197057053" role="main_stream"/>
+    <member type="way" ref="197057038" role="main_stream"/>
+    <member type="way" ref="304448864" role="main_stream"/>
+    <member type="way" ref="1084605128" role="main_stream"/>
+    <member type="way" ref="1084605129" role="main_stream"/>
+    <member type="way" ref="304448867" role="main_stream"/>
+    <member type="way" ref="197057037" role="main_stream"/>
+    <member type="way" ref="197057050" role="main_stream"/>
+    <member type="way" ref="794891300" role="main_stream"/>
+    <member type="way" ref="794891301" role="main_stream"/>
+    <member type="way" ref="197057035" role="main_stream"/>
+    <member type="way" ref="197057041" role="main_stream"/>
+    <member type="way" ref="197057046" role="main_stream"/>
+    <member type="way" ref="197057025" role="main_stream"/>
+    <member type="way" ref="833437684" role="main_stream"/>
+    <member type="way" ref="833437683" role="main_stream"/>
+    <member type="way" ref="524329136" role="main_stream"/>
+    <member type="way" ref="244983292" role="main_stream"/>
+    <member type="way" ref="244701405" role="main_stream"/>
+    <member type="way" ref="650047688" role="main_stream"/>
+    <member type="way" ref="71284529" role="main_stream"/>
+    <member type="way" ref="50504518" role="main_stream"/>
+    <member type="way" ref="166108486" role="main_stream"/>
+    <member type="way" ref="166108487" role="main_stream"/>
+    <member type="way" ref="1181430729" role="main_stream"/>
+    <member type="way" ref="38287789" role="main_stream"/>
+    <member type="way" ref="23447351" role="main_stream"/>
+    <member type="way" ref="161849063" role="main_stream"/>
+    <member type="way" ref="161849061" role="main_stream"/>
+    <member type="way" ref="35867151" role="main_stream"/>
+    <member type="way" ref="35866890" role="main_stream"/>
+    <member type="way" ref="112636184" role="main_stream"/>
+    <member type="way" ref="24326710" role="main_stream"/>
+    <member type="way" ref="376266062" role="main_stream"/>
+    <member type="way" ref="161676330" role="main_stream"/>
+    <member type="way" ref="24336497" role="main_stream"/>
+    <member type="way" ref="131286034" role="main_stream"/>
+    <member type="way" ref="160381057" role="main_stream"/>
+    <member type="way" ref="160381063" role="main_stream"/>
+    <member type="way" ref="163029191" role="main_stream"/>
+    <member type="way" ref="795365211" role="main_stream"/>
+    <member type="way" ref="28223228" role="main_stream"/>
+    <member type="way" ref="160840421" role="main_stream"/>
+    <member type="way" ref="160840420" role="main_stream"/>
+    <member type="way" ref="160840422" role="main_stream"/>
+    <member type="way" ref="27684878" role="main_stream"/>
+    <member type="way" ref="24279426" role="main_stream"/>
+    <member type="way" ref="160840423" role="main_stream"/>
+    <member type="way" ref="27005446" role="main_stream"/>
+    <member type="way" ref="159428405" role="main_stream"/>
+    <member type="way" ref="964700913" role="main_stream"/>
+    <member type="way" ref="964700914" role="main_stream"/>
+    <member type="way" ref="159433979" role="main_stream"/>
+    <member type="way" ref="788104068" role="main_stream"/>
+    <member type="way" ref="151627010" role="main_stream"/>
+    <member type="way" ref="159433980" role="main_stream"/>
+    <tag k="destination" v="Spree"/>
+    <tag k="name" v="Dahme"/>
+    <tag k="name:ru" v="Даме"/>
+    <tag k="ref:fgkz" v="5828"/>
+    <tag k="type" v="waterway"/>
+    <tag k="waterway" v="river"/>
+    <tag k="wikidata" v="Q161455"/>
+    <tag k="wikipedia" v="de:Dahme (Fluss)"/>
+  </relation>
+  <relation id="412134">
+    <member type="way" ref="244143237" role=""/>
+    <member type="way" ref="138453564" role=""/>
+    <member type="way" ref="159187524" role=""/>
+    <member type="way" ref="159187523" role=""/>
+    <member type="way" ref="244143238" role=""/>
+    <member type="way" ref="159559434" role=""/>
+    <member type="way" ref="211740953" role=""/>
+    <member type="way" ref="1214875608" role=""/>
+    <member type="way" ref="1214875607" role=""/>
+    <member type="way" ref="1214875606" role=""/>
+    <member type="way" ref="1214875605" role=""/>
+    <member type="way" ref="1214875604" role=""/>
+    <member type="way" ref="1214156634" role=""/>
+    <member type="way" ref="1214156633" role=""/>
+    <member type="way" ref="159534658" role=""/>
+    <member type="way" ref="1214889688" role=""/>
+    <member type="way" ref="1214889689" role=""/>
+    <member type="way" ref="1214889690" role=""/>
+    <member type="way" ref="50664973" role=""/>
+    <member type="way" ref="1214889686" role=""/>
+    <member type="way" ref="1214889687" role=""/>
+    <member type="way" ref="72675454" role=""/>
+    <member type="way" ref="795152063" role=""/>
+    <member type="way" ref="147855069" role=""/>
+    <member type="way" ref="795152064" role=""/>
+    <member type="way" ref="180809009" role=""/>
+    <member type="way" ref="157185354" role=""/>
+    <member type="way" ref="788104069" role=""/>
+    <member type="way" ref="50664988" role=""/>
+    <member type="way" ref="159433980" role=""/>
+    <member type="way" ref="151627010" role=""/>
+    <member type="way" ref="788104068" role=""/>
+    <member type="way" ref="159433979" role=""/>
+    <member type="way" ref="159428405" role=""/>
+    <member type="way" ref="964700913" role=""/>
+    <member type="way" ref="964700914" role=""/>
+    <member type="way" ref="27005446" role=""/>
+    <member type="way" ref="159433986" role=""/>
+    <member type="way" ref="50667861" role=""/>
+    <member type="way" ref="159314930" role=""/>
+    <member type="way" ref="159314935" role=""/>
+    <member type="way" ref="24320841" role=""/>
+    <member type="way" ref="24486277" role=""/>
+    <member type="way" ref="24486342" role=""/>
+    <member type="way" ref="24318812" role=""/>
+    <member type="way" ref="24313889" role=""/>
+    <member type="way" ref="11603910" role=""/>
+    <member type="way" ref="24313933" role=""/>
+    <member type="way" ref="156425729" role=""/>
+    <member type="way" ref="5058894" role=""/>
+    <member type="way" ref="156389610" role=""/>
+    <member type="way" ref="179351385" role=""/>
+    <member type="way" ref="159325277" role=""/>
+    <member type="way" ref="159325276" role=""/>
+    <member type="way" ref="138453509" role=""/>
+    <member type="way" ref="138453536" role=""/>
+    <member type="way" ref="159325275" role=""/>
+    <member type="way" ref="159325278" role=""/>
+    <member type="way" ref="72537541" role=""/>
+    <member type="way" ref="159963329" role=""/>
+    <member type="way" ref="159963322" role=""/>
+    <member type="way" ref="159963327" role=""/>
+    <member type="way" ref="138453554" role=""/>
+    <member type="way" ref="1008901157" role=""/>
+    <member type="way" ref="43861697" role=""/>
+    <member type="way" ref="43861698" role=""/>
+    <member type="way" ref="43861702" role=""/>
+    <member type="way" ref="43861710" role=""/>
+    <member type="way" ref="43861716" role=""/>
+    <member type="way" ref="177948083" role=""/>
+    <member type="way" ref="159328405" role=""/>
+    <member type="way" ref="159328403" role=""/>
+    <member type="way" ref="159328406" role=""/>
+    <member type="way" ref="50668606" role=""/>
+    <tag k="destination" v="Oder"/>
+    <tag k="name" v="Spree-Oder-Wasserstraße"/>
+    <tag k="ref" v="SOW"/>
+    <tag k="type" v="waterway"/>
+    <tag k="waterway" v="river"/>
+    <tag k="wikidata" v="Q2313398"/>
+    <tag k="wikipedia" v="de:Spree-Oder-Wasserstraße"/>
+  </relation>
+  <relation id="1538109">
+    <member type="node" ref="262882408" role="stop"/>
+    <member type="way" ref="24279256" role="platform"/>
+    <member type="node" ref="1809302376" role="stop"/>
+    <member type="node" ref="5329733278" role="stop"/>
+    <member type="way" ref="169772288" role="platform"/>
+    <member type="node" ref="2078713395" role="stop"/>
+    <member type="way" ref="350351298" role="platform"/>
+    <member type="node" ref="5341554434" role="stop"/>
+    <member type="way" ref="553354168" role="platform"/>
+    <member type="node" ref="5341554433" role="stop"/>
+    <member type="way" ref="553354171" role="platform"/>
+    <tag k="name" v="Berlin, Zum Seeblick"/>
+    <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+    <tag k="network:short" v="VBB"/>
+    <tag k="operator" v="Berliner Verkehrsbetriebe;Regionale Verkehrsgesellschaft Dahme-Spreewald mbH"/>
+    <tag k="operator:short" v="BVG;RVS"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref:VBB" v="900185501"/>
+    <tag k="type" v="public_transport"/>
+    <tag k="website" v="https://fahrinfo.vbb.de/bin/stboard.exe/dn?start=yes&amp;input=900185501"/>
+  </relation>
+  <relation id="5659937">
+    <member type="node" ref="2045908036" role="stop"/>
+    <tag k="name" v="Berlin, Krampenburg"/>
+    <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+    <tag k="network:short" v="VBB"/>
+    <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+    <tag k="operator:short" v="BVG"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+    <tag k="website" v="https://fahrinfo.vbb.de/bin/stboard.exe/dn?start=yes&amp;input=900184506"/>
+  </relation>
+  <relation id="9445421">
+    <member type="node" ref="262882408" role="stop"/>
+    <member type="node" ref="2045908036" role="stop"/>
+    <member type="way" ref="25881424" role=""/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="check_date" v="2023-07-12"/>
+    <tag k="colour" v="#0080BA"/>
+    <tag k="duration" v="00:07"/>
+    <tag k="foot" v="yes"/>
+    <tag k="from" v="Zum Seeblick"/>
+    <tag k="name" v="Fähre F21: Zum Seeblick =&gt; Krampenburg"/>
+    <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+    <tag k="network:short" v="VBB"/>
+    <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+    <tag k="operator:short" v="BVG"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="F21"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Krampenburg"/>
+    <tag k="type" v="route"/>
+  </relation>
+  <relation id="9445422">
+    <member type="node" ref="2045908036" role="stop"/>
+    <member type="node" ref="262882408" role="stop"/>
+    <member type="way" ref="25881424" role=""/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="check_date" v="2023-07-12"/>
+    <tag k="colour" v="#0080BA"/>
+    <tag k="duration" v="00:07"/>
+    <tag k="foot" v="yes"/>
+    <tag k="from" v="Krampenburg"/>
+    <tag k="name" v="Fähre F21: Krampenburg =&gt; Zum Seeblick"/>
+    <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+    <tag k="network:short" v="VBB"/>
+    <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+    <tag k="operator:short" v="BVG"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="F21"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Zum Seeblick"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>

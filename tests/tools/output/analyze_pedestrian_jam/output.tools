@@ -1,0 +1,5 @@
+Parsing log.txt
+.
+read 14 lines
+waiting worst 10 edges:  [('SC', 5)]
+waiting total: 5

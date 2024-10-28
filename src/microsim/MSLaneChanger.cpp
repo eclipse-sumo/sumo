@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -85,8 +85,8 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     lastBlocked(nullptr),
     firstBlocked(nullptr),
     lastStopped(nullptr),
-    ahead(lane),
-    aheadNext(lane, nullptr, 0) {
+    ahead(_lane->getWidth()),
+    aheadNext(_lane->getWidth(), nullptr, 0.) {
 }
 
 void
@@ -293,7 +293,6 @@ MSLaneChanger::change() {
     if (vehicle->getLaneChangeModel().isChangingLanes() && !vehicle->getLaneChangeModel().alreadyChanged()) {
         return continueChange(vehicle, myCandi);
     }
-    vehicle->getLaneChangeModel().setSpeedLat(0);
     if (!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
         if (vehicle->isStoppedOnLane()) {
@@ -554,21 +553,34 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
             //if (vehicle->getID() == "flow.21") std::cout << SIMTIME << " neighLead=" << Named::getIDSecure(neighLead) << " (422)\n";
         }
     }
-    if (neighLead == nullptr) {
+    // extra check for shared lane
+    const bool checkBidi = target->lane->getBidiLane() != nullptr && target->lane->getBidiLane()->getVehicleNumberWithPartials() > 0;
+    if (neighLead == nullptr || checkBidi) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             std::cout << "Looking for leader on consecutive lanes." << std::endl;
         }
 #endif
         // There's no leader on the target lane. Look for leaders on consecutive lanes.
-        // (there might also be partial leaders due to continuous lane changing)
+        // (there might also be partial leaders due to continuous lane changing or bidiLane)
         MSLane* targetLane = target->lane;
         const double egoBack = vehicle->getBackPositionOnLane();
         double leaderBack = targetLane->getLength();
+        if (neighLead != nullptr) {
+            leaderBack = neighLead->getBackPositionOnLane(targetLane);
+        }
         for (MSVehicle* pl : targetLane->myPartialVehicles) {
             double plBack = pl->getBackPositionOnLane(targetLane);
-            if (plBack < leaderBack &&
-                    pl->getPositionOnLane(targetLane) + pl->getVehicleType().getMinGap() >= egoBack) {
+            if (pl->isBidiOn(targetLane)) {
+                plBack -= pl->getVehicleType().getLengthWithGap();
+            }
+            const double plPos = plBack + pl->getVehicleType().getLength();
+#ifdef DEBUG_SURROUNDING_VEHICLES
+            if (DEBUG_COND) {
+                std::cout << "   partial=" << pl->getID() << " plBack=" << plBack << " plPos=" << plPos << " leaderBack=" << leaderBack << " egoBack=" << egoBack << "\n";
+            }
+#endif
+            if (plBack < leaderBack && plPos + pl->getVehicleType().getMinGap() >= egoBack) {
                 neighLead = pl;
                 leaderBack = plBack;
             }
@@ -579,11 +591,15 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
                 std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
             }
 #endif
-            return std::pair<MSVehicle*, double>(neighLead, leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
+            const double gap = leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            return std::pair<MSVehicle*, double>(neighLead, gap);
         }
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         double speed = vehicle->getSpeed();
         double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+        if (target->lane->getBidiLane() != nullptr) {
+            dist += target->lane->getBidiLane()->getMaximumBrakeDist();
+        }
         // always check for link leaders while on an internal lane
         if (seen > dist && !myCandi->lane->isInternal()) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
@@ -623,7 +639,15 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     }
 #endif
     const double candiPos = vehicle->getPositionOnLane();
-    MSVehicle* neighFollow = veh(target);
+    MSVehicle* neighFollow = nullptr;
+    if (target != myCandi) {
+        neighFollow = veh(target);
+    } else {
+        // veh(target) would return the ego vehicle so we use its predecessor instead
+        if (target->lane->myVehicles.size() > 1) {
+            neighFollow = target->lane->myVehicles[target->lane->myVehicles.size() - 2];
+        }
+    }
 
 #ifdef DEBUG_SURROUNDING_VEHICLES
     if (DEBUG_COND) {
@@ -659,7 +683,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     // or a follower which is partially lapping into the target lane
     neighFollow = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(vehicle));
 
-    if (neighFollow == nullptr || neighFollow == vehicle) {
+    if (neighFollow == nullptr) {
         CLeaderDist consecutiveFollower = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true)[0];
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
@@ -778,7 +802,7 @@ MSLaneChanger::checkChange(
         //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
 
         // Expected reaction time (tau) for the follower-vehicle.
-        // (substracted TS since at this point the vehicles' states are already updated)
+        // (subtracted TS since at this point the vehicles' states are already updated)
         const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., tauRemainder * neighFollow.first->getAcceleration());
         const double vNextLeader = vehicle->getSpeed() + MIN2(0., tauRemainder * vehicle->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
@@ -823,7 +847,7 @@ MSLaneChanger::checkChange(
         //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
 
         // Expected reaction time (tau) for the follower-vehicle.
-        // (substracted TS since at this point the vehicles' states are already updated)
+        // (subtracted TS since at this point the vehicles' states are already updated)
         const double vNextFollower = vehicle->getSpeed() + MAX2(0., tauRemainder * vehicle->getAcceleration());
         const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., tauRemainder * neighLead.first->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
@@ -1025,6 +1049,7 @@ MSLaneChanger::checkChange(
     const int oldstate = state;
     // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);
+    blocked = state & LCA_BLOCKED;
 #ifdef DEBUG_CHECK_CHANGE
     if (DEBUG_COND) {
         std::cout << SIMTIME
@@ -1036,6 +1061,11 @@ MSLaneChanger::checkChange(
                   << "\n";
     }
 #endif
+
+    if (state & LCA_WANTS_LANECHANGE && blocked == 0) {
+        blocked = vehicle->getLaneChangeModel().checkChangeBeforeCommitting(vehicle, state);
+        state |= blocked;
+    }
     vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
         // this lane change will be executed, save gaps
@@ -1455,8 +1485,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             oncomingSpeed = MAX2(oncomingSpeed, oncomingSpeed2);
             if (!isOpposite && surplusGap >= 0 && oncoming.first != nullptr && oncoming.first->isStopped()
                     && oncomingOpposite.second > oncoming.second) {
-                // even if ego can change back and forth sucessfully, we have to
-                // make sure that the oncoming vehicle can also finsih it's lane
+                // even if ego can change back and forth successfully, we have to
+                // make sure that the oncoming vehicle can also finish its lane
                 // change in time
                 const double oSpeed = MAX2(oncomingOpposite.first->getSpeed(), NUMERICAL_EPS);
                 // conservative estimate
@@ -1561,14 +1591,15 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
     double oppositeLength = vehicle->getBestLanes().back().length;
     if (isOpposite) {
-        oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, neighFollow, surplusGap, opposite);
+        const bool canOvertake = spaceToOvertake <= OPPOSITE_OVERTAKING_MAX_SPACE_TO_OVERTAKE;
+        oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, neighFollow, surplusGap, opposite, canOvertake);
         leader.first = nullptr;
         if (neighLead.first != nullptr && neighLead.first->getLaneChangeModel().isOpposite()) {
             // ignore oncoming vehicle on the target lane (it might even change back in this step)
             neighLead.first = nullptr;
         }
     } else {
-        if (leader.first != nullptr && leader.first->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT
+        if (leader.first != nullptr && neighLead.first != nullptr && leader.first->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT
                 && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY) {
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
@@ -1820,7 +1851,7 @@ MSLaneChanger::resolveDeadlock(MSVehicle* vehicle,
                 std::cout << SIMTIME << " veh=" << vehicle->getID() << " resolveDeadlock"
                           << " leader=" << leader.first->getID()
                           << " leaderGap=" << leader.second
-                          << " oncoming=" << oncomingOpposite.first->getID()
+                          << " oncoming=" << Named::getIDSecure(oncomingOpposite.first)
                           << " currentDist=" << currentDist
                           << " blockerLength=" << blockerLength
                           << " reserved=" << reserved
@@ -1842,7 +1873,8 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
         std::pair<MSVehicle*, double> neighFollow,
-        double surplusGap, const MSLane* opposite) {
+        double surplusGap, const MSLane* opposite,
+        bool canOvertake) {
     // compute the remaining distance that can be driven on the opposite side
     // this value will put into oppositeLength of the opposite lanes
     // @note: length counts from the start of the current lane
@@ -1863,7 +1895,10 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
     const MSVehicle* oncomingVeh = oncoming.first;
     if (oncomingVeh != 0) {
         if (!oncomingVeh->getLaneChangeModel().isOpposite() && oncomingVeh->getLaneChangeModel().getShadowLane() != source) {
-            const double egoSpeedFraction = MIN2(0.5, vMax / (vMax + oncomingSpeed));
+            double egoSpeedFraction = 0.5;
+            if (oncomingSpeed > 0) {
+                egoSpeedFraction = MIN2(egoSpeedFraction, vMax / (vMax + oncomingSpeed));
+            }
             oppositeLength = MIN2(oppositeLength, forwardPos + oncoming.second * egoSpeedFraction);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
@@ -1915,7 +1950,7 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
             }
         }
     } else {
-        if (overtaken.first == nullptr) {
+        if (overtaken.first == nullptr || !canOvertake) {
             // there is no reason to stay on the opposite side
             std::pair<MSVehicle* const, double> oppFollow = opposite->getOppositeFollower(vehicle);
             if (oppFollow.first == nullptr) {

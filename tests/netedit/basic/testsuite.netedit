@@ -1,11 +1,9 @@
-open
+#configs
 
-save
-
-reload
+modes
 
 quit
 
-pyautogui_error
-
 about_dialog
+
+pyautogui_error

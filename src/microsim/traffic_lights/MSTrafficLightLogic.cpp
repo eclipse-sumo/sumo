@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,6 +70,10 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
     }
     int step1 = myTLLogic->getCurrentPhaseIndex();
     SUMOTime next = myTLLogic->trySwitch();
+    while (next == 0) {
+        // skip phase and switch again
+        next = myTLLogic->trySwitch();
+    }
     int step2 = myTLLogic->getCurrentPhaseIndex();
     if (step1 != step2) {
         if (myTLLogic->isActive()) {
@@ -93,6 +97,7 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
         myAssumedNextSwitch = -1;
     }
 }
+
 
 SUMOTime
 MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
@@ -156,7 +161,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                        + "', program '" + getProgramID() + "' in phases " + toString(i) + " and " + toString(iNext));
                 }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
-                    WRITE_WARNINGF("Unused states in tlLogic '%', program '%' in phase % after tl-index %",
+                    WRITE_WARNINGF(TL("Unused states in tlLogic '%', program '%' in phase % after tl-index %"),
                                    getID(), getProgramID(), i, (int)myLanes.size() - 1);
                     haveWarnedAboutUnusedStates = true;
                 }
@@ -175,7 +180,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
-                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %",
+                                    WRITE_WARNINGF(TL("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %."),
                                                    getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
@@ -188,7 +193,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 // warn about links that never get the green light
                 for (int j = 0; j < (int)state1.size(); ++j) {
                     LinkState ls = (LinkState)state1[j];
-                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR || ls == LINKSTATE_TL_OFF_BLINKING || ls == LINKSTATE_TL_OFF_NOSIGNAL || ls == LINKSTATE_STOP) {
                         foundGreen[j] = true;
                     }
                 }
@@ -196,9 +201,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
-                if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %", getID(), getProgramID(), j);
-                }
+                WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
                 break;
             }
         }
@@ -234,10 +237,11 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             if (logic != nullptr) {
                 // find symmetrical response
                 const int logicSize = logic->getLogicSize();
+                bool foundProblem = false;
                 std::vector<int> tlIndex;
-                for (int u = 0; u < logicSize; u++) {
+                for (int u = 0; u < logicSize && !foundProblem; u++) {
                     const MSLogicJunction::LinkBits& response = logic->getResponseFor(u);
-                    for (int v = 0; v < logicSize; v++) {
+                    for (int v = 0; v < logicSize && !foundProblem; v++) {
                         if (response.test(v)) {
                             if (logic->getResponseFor(v).test(u)) {
                                 // get tls link index for links u and v
@@ -260,11 +264,13 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                     for (MSPhaseDefinition* p : phases) {
                                         if (minor.find(p->getState()[tlu]) != std::string::npos
                                                 && minor.find(p->getState()[tlv]) != std::string::npos) {
-                                            WRITE_ERROR("Program '" + getProgramID() + "' at tlLogic '" + getID() + "' is incompatible with logic at junction '" + junction->getID() + "'"
-                                                        + " (mututal conflict between link indices " + toString(u) + "," + toString(v)
-                                                        + " tl indices " + toString(tlu) + "," + toString(tlv) + " phase " + toString(phaseIndex) + ")."
-                                                        + "\n       Rebuild the network with option '--tls.ignore-internal-junction-jam or include the program when building.");
-                                            return;
+                                            WRITE_WARNING(TLF("Program '%' at tlLogic '%' is incompatible with logic at junction '%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
+                                                              "  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit\n"
+                                                              "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.",
+                                                              getProgramID(), getID(), junction->getID(), u, v, tlu, tlv, phaseIndex));
+                                            // only one warning per program
+                                            foundProblem = true;
+                                            break;
                                         }
                                         phaseIndex++;
                                     }
@@ -458,7 +464,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
                     greenFraction = MAX2(MIN2(greenFraction / edgeType.tlsFlowPenalty, 1.0), 0.01);
                 }
                 if (greenFraction == 0.01) {
-                    WRITE_WARNINGF("Green fraction is only 1% for link % in tlLogic '%', program '%'.", "%", j, getID(), getProgramID());
+                    WRITE_WARNINGF(TL("Green fraction is only 1% for link % in tlLogic '%', program '%'."), "%", j, getID(), getProgramID());
                 }
                 link->setGreenFraction(greenFraction);
             }
@@ -505,6 +511,12 @@ MSTrafficLightLogic::isSelected() const {
 void
 MSTrafficLightLogic::activateProgram() {
     myAmActive = true;
+    // updated the traffic light logic stored in the link
+    for (const LinkVector& currGroup : myLinks) {
+        for (MSLink* link : currGroup) {
+            link->setTLLogic(this);
+        }
+    }
 }
 
 
@@ -560,5 +572,17 @@ MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step
     changeStepAndDuration(tlcontrol, t, step, remaining);
     setTrafficLightSignals(t - spentDuration);
 }
+
+
+SUMOTime
+MSTrafficLightLogic::computeCycleTime(const Phases& phases) {
+    SUMOTime result = 0;
+    for (const MSPhaseDefinition* p : phases) {
+        result += p->duration;
+    }
+    return result;
+}
+
+
 
 /****************************************************************************/

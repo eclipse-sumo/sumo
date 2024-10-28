@@ -8,14 +8,14 @@ SUMO has version numbers in many places, namely
 
 - the release version (visible in releases when calling `sumo -V` or in the about dialog of the GUI applications), something like 1.6.0
 - the developer version (visible in the same places for a nightly build or a self compiled developer version), something like v1_6_0+1520-cb474809f6
-- the network version (visible in the the beginning of every .net.xml as `<net version="1.0" ...`)
+- the network version (visible in the beginning of every .net.xml as `<net version="1.0" ...`)
 - the TraCI version returned by TraCI's or libsumo's [getVersion](TraCI/Control-related_commands.md) command
 
 ## Release version
 
 SUMO loosely follows [Semantic Versioning](https://semver.org) which distinguishes major releases (the first number changes),
 minor releases (the second number changes) and patch or bugfix releases (third number).
-We release approximately three or four times a year and most of the time we ship a minor release. 
+We release approximately three or four times a year and most of the time we ship a minor release.
 The amount of changes is relatively high (1000+ commits between successive releases)
 so there is always some additional feature justifying a new minor version.
 Due to the relatively high frequency and the availability of nightly builds we only ship bugfix releases
@@ -27,8 +27,8 @@ There is only one line of development.
 
 ## Developer version
 
-It is denoted by a string consisting of a "v", the last release (e.g. "1_6_0"), a plus sign with the number of 
-commits since last release (e.g. "+1520") and a minus followed by the first letters of the hash of the last commit to 
+It is denoted by a string consisting of a "v", the last release (e.g. "1_6_0"), a plus sign with the number of
+commits since last release (e.g. "+1520") and a minus followed by the first letters of the hash of the last commit to
 the main branch on github (e.g. "-cb474809f6"). For the python packages this is translated into "1.6.0.post1520" to be compliant
 with PEP440.
 
@@ -49,7 +49,7 @@ The main input files like the network and the routes are quite stable and we usu
 ## Processing
 When introducing new features or changing behavior we usually try to provide options to get the old behavior back
 unless we consider the old variant a bug. Since all the models are still under very dynamic development
-(and the main development is for research purposes) it may be hard to get identical behavior in complex 
+(and the main development is for research purposes) it may be hard to get identical behavior in complex
 traffic situations with very different SUMO versions. If you ship a scenario to someone it is always a good idea
 to mention the SUMO version it is intended to be run with. The version is also mentioned in all output files.
 

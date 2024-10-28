@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -112,7 +112,7 @@ class Net(sumolib.net.Net):
 
     def reduce(self):
         visited = set()
-        for link in self._edges.itervalues():
+        for link in self._edges.values():
             if link.target in visited:
                 continue
             sourceNodes = set([link.target])
@@ -165,7 +165,7 @@ class Net(sumolib.net.Net):
             vertex.boost.partner = vertex
         self._boostGraph.add_vertex_property('distance')
         self._boostGraph.add_vertex_property('predecessor')
-        for edge in self._fullEdges.itervalues():
+        for edge in self._fullEdges.values():
             edge.boost = self._boostGraph.add_edge(
                 edge.source.boost, edge.target.boost)
             edge.boost.weight = edge.actualtime
@@ -317,7 +317,7 @@ class Net(sumolib.net.Net):
         foutnet.write(
             'Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t' +
             'ratio\t Connection\n')
-        for edgeName, edgeObj in self._edges.iteritems():
+        for edgeName, edgeObj in self._edges.items():
             foutnet.write('%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %d\n'
                           % (edgeName, edgeObj.kind, edgeObj.source, edgeObj.target, edgeObj.length,
                              edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity,

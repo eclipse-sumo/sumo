@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEVehicle;
+class GNEVTypeDistributionsDialog;
 
 // ===========================================================================
 // class definitions
@@ -41,7 +42,7 @@ public:
     // class TypeSelector
     // ===========================================================================
 
-    class TypeSelector : public FXGroupBoxModule {
+    class TypeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeSelector)
 
@@ -59,15 +60,14 @@ public:
         void setCurrentType(GNEDemandElement* vType);
 
         /// @brief refresh vehicle type selector
-        void refreshTypeSelector();
-
-        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshTypeSelectorIDs();
+        void refreshTypeSelector(const bool updateModuls);
 
         /// @name FOX-callbacks
         /// @{
+
         /// @brief Called when the user select another element in ComboBox
         long onCmdSelectItem(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -81,14 +81,14 @@ public:
         GNEDemandElement* myCurrentType;
 
         /// @brief comboBox with the list of vTypes
-        FXComboBox* myTypeMatchBox;
+        MFXComboBoxIcon* myTypeComboBox;
     };
 
     // ===========================================================================
     // class TypeEditor
     // ===========================================================================
 
-    class TypeEditor : public FXGroupBoxModule {
+    class TypeEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeEditor)
 
@@ -144,10 +144,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETypeFrame();
@@ -160,7 +160,7 @@ public:
 
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
-    void attributeUpdated();
+    void attributeUpdated(SumoXMLAttr attribute);
 
     /// @brief open GNEAttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
     void attributesEditorExtendedDialogOpened();
@@ -169,12 +169,15 @@ private:
     /// @brief vehicle type selector
     TypeSelector* myTypeSelector;
 
-    /// @brief editorinternal vehicle type attributes
-    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor;
-
-    /// @brief modul for open extended attributes dialog
-    GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended;
-
     /// @brief Vehicle Type editor (Create, copy, etc.)
     TypeEditor* myTypeEditor;
+
+    /// @brief editorinternal vehicle type attributes
+    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
+
+    /// @brief modul for open extended attributes dialog
+    GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
+
+    /// @brief Parameters editor inspector
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 };

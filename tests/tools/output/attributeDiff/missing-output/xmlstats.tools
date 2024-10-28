@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 10:49:06.577438 by attributeDiff.py v1_16_0+1348-c6464e4
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml <doubleminus>id-attribute tripId,busStop -m stats1.xml -M stats2.xml
+-->
+
+<attributeDiff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeDiff_file.xsd">
+    <transportStatistics.number Q1="0.0" Q3="0.0" count="0.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <vehicleTripStatistics.count Q1="-1.0" Q3="-2.0" count="0.0" max="-3.0" mean="-2.0600000000000023" meanAbs="-2.0600000000000023" median="-3.0" medianAbs="-3.0" min="-4.0" stdDev="-0.8200000000000003"/>
+    <vehicleTripStatistics.departDelay Q1="-0.010000000000000009" Q3="0.0" count="0.0" max="-0.010000000000000009" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.020000000000000018" stdDev="0.0"/>
+    <vehicleTripStatistics.departDelayWaiting Q1="0.0" Q3="0.0" count="0.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <vehicleTripStatistics.duration Q1="-0.14999999999997726" Q3="-1.2699999999999818" count="0.0" max="2.8600000000000136" mean="-0.5800000000000409" meanAbs="-0.5800000000000409" median="-0.2300000000000182" medianAbs="-0.2300000000000182" min="-6.680000000000007" stdDev="0.0600000000000005"/>
+    <vehicleTripStatistics.routeLength Q1="-2.2699999999986176" Q3="-2.5200000000004366" count="0.0" max="-16.94000000000051" mean="-4.110000000000582" meanAbs="-4.110000000000582" median="-3.5200000000004366" medianAbs="-3.5200000000004366" min="-23.30999999999949" stdDev="0.10999999999999943"/>
+    <vehicleTripStatistics.speed Q1="0.03999999999999915" Q3="0.0" count="0.0" max="0.25" mean="0.03999999999999915" meanAbs="0.03999999999999915" median="0.08999999999999986" medianAbs="0.08999999999999986" min="-0.23000000000000043" stdDev="0.0"/>
+    <vehicleTripStatistics.timeLoss Q1="0.5200000000000102" Q3="-1.2199999999999989" count="0.0" max="2.8100000000000023" mean="-0.3800000000000239" meanAbs="-0.3800000000000239" median="-0.009999999999990905" medianAbs="-0.009999999999990905" min="-5.4199999999999875" stdDev="0.09999999999999964"/>
+    <vehicleTripStatistics.totalDepartDelay Q1="-5.100000000000023" Q3="-3.5" count="0.0" max="-6.300000000000011" mean="-3.490000000000009" meanAbs="-3.490000000000009" median="-4.0" medianAbs="-4.0" min="9.899999999999977" stdDev="-1.1099999999999994"/>
+    <vehicleTripStatistics.totalTravelTime Q1="-541.0" Q3="-1728.0" count="0.0" max="2190.0" mean="-1177.0" meanAbs="-1177.0" median="-1310.0" medianAbs="-1310.0" min="1120.0" stdDev="-365.6199999999999"/>
+    <vehicleTripStatistics.waitingTime Q1="0.5100000000000051" Q3="-1.1899999999999977" count="0.0" max="-9.680000000000007" mean="-1.6099999999999994" meanAbs="-1.6099999999999994" median="-0.8199999999999932" medianAbs="-0.8199999999999932" min="-16.679999999999993" stdDev="0.3100000000000005"/>
+    <vehicles.inserted Q1="1.0" Q3="1.0" count="0.0" max="-1.0" mean="1.1700000000000728" meanAbs="1.1700000000000728" median="-1.0" medianAbs="-1.0" min="6.0" stdDev="-0.34999999999999964"/>
+    <vehicles.loaded Q1="0.0" Q3="0.0" count="0.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <vehicles.running Q1="7.0" Q3="2.0" count="0.0" max="-7.0" mean="3.230000000000018" meanAbs="3.230000000000018" median="5.0" medianAbs="5.0" min="7.0" stdDev="-1.8600000000000012"/>
+    <vehicles.waiting Q1="0.0" Q3="0.0" count="0.0" max="0.0" mean="-0.020000000000000018" meanAbs="-0.020000000000000018" median="0.0" medianAbs="0.0" min="-2.0" stdDev="0.2"/>
+</attributeDiff>

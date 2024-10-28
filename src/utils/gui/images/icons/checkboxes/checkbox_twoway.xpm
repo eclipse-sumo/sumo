@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_twoway_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c #CC0000",
+". c #CD0000",
+"X c None",
+/* pixels */
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXX XXXXXXXXXXXX",
+"XX  XXXXXXXXXXXX",
+"X    ......... X",
+"X              X",
+"XX  XXXXXXXXXXXX",
+"XXX XXXXXXXXXXXX",
+"XXXXXXXXXXXX XXX",
+"XXXXXXXXXXXX  XX",
+"X              X",
+"X .........    X",
+"XXXXXXXXXXXX  XX",
+"XXXXXXXXXXXX XXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX"
+};

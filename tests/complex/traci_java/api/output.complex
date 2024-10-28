@@ -1,0 +1,84 @@
+Could not connect to TraCI server at localhost:56354 tcpip::Socket::connect() @ connect: Connection refused
+ Retrying in 1 second
+deltaT:1.0
+findRoute result stage:
+  gneE0
+  -gneE2
+  gneE2
+findIntermodalRoute result stages:
+  gneE0
+  gneE2
+Step 1.0, tlsPhase 0 (North-South)
+Step 2.0, tlsPhase 0 (North-South)
+Step 3.0, tlsPhase 0 (North-South)
+Step 4.0, tlsPhase 0 (North-South)
+Step 5.0, tlsPhase 0 (North-South)
+Step 6.0, tlsPhase 0 (North-South)
+Step 7.0, tlsPhase 0 (North-South)
+Step 8.0, tlsPhase 0 (North-South)
+Step 9.0, tlsPhase 0 (North-South)
+Step 10.0, tlsPhase 0 (North-South)
+Step 11.0, tlsPhase 0 (North-South)
+Step 12.0, tlsPhase 0 (North-South)
+Step 13.0, tlsPhase 0 (North-South)
+Step 14.0, tlsPhase 0 (North-South)
+Step 15.0, tlsPhase 0 (North-South)
+Step 16.0, tlsPhase 0 (North-South)
+Step 17.0, tlsPhase 0 (North-South)
+Step 18.0, tlsPhase 0 (North-South)
+Step 19.0, tlsPhase 0 (North-South)
+Step 20.0, tlsPhase 0 (North-South)
+Step 21.0, tlsPhase 0 (North-South)
+Step 22.0, tlsPhase 0 (North-South)
+Step 23.0, tlsPhase 0 (North-South)
+  veh=v2 len=4.5 entry=22.795861902523978 leave=-1.0 type=car
+Step 24.0, tlsPhase 0 (North-South)
+  veh=v2 len=4.5 entry=22.795861902523978 leave=23.065750341438868 type=car
+Step 25.0, tlsPhase 0 (North-South)
+  veh=v1 len=4.5 entry=24.725599909251915 leave=-1.0 type=car
+Step 26.0, tlsPhase 0 (North-South)
+  veh=v1 len=4.5 entry=24.725599909251915 leave=25.046239341232752 type=car
+Step 27.0, tlsPhase 0 (North-South)
+Step 28.0, tlsPhase 0 (North-South)
+Step 29.0, tlsPhase 0 (North-South)
+Step 30.0, tlsPhase 0 (North-South)
+Step 31.0, tlsPhase 0 (North-South)
+Step 32.0, tlsPhase 0 (North-South)
+  veh=v5 len=4.5 entry=31.94519899046922 leave=-1.0 type=car
+Step 33.0, tlsPhase 0 (North-South)
+  veh=v5 len=4.5 entry=31.94519899046922 leave=32.233714514624026 type=car
+Step 34.0, tlsPhase 0 (North-South)
+Step 35.0, tlsPhase 0 (North-South)
+Step 36.0, tlsPhase 0 (North-South)
+VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v23 v3 v4 v5 v6 v7 v8 v9 
+vehicle.getParameter: vehValue
+VehicleType.getAdaptedTraveltime: 200.0
+Vehicle.getRoute: [gneE0, gneE1]
+Vehicle.getRoute: [gneE0]
+Vehicle.getRoute: [gneE0, gneE1]
+Vehicle.getNextTLS: id=gneJ1 dist=224.8 state=r
+VehicleType.getParameter: vehtypeValue
+PersonIDs: p0 p1 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p2 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p3 p30 p31 p32 p33 p34 p4 p5 p6 p7 p8 p9 
+Person.getStage: 2
+Edge.getParameter: edgeValue
+Edge.getAdaptatedTraveltime: 123.0
+Edge.getAdaptatedTraveltime: -1.0
+Edge.getAdaptatedTraveltime: -1.0
+Edge.getEffort: 246.0
+Edge.getEffort: -1.0
+Edge.getEffort: -1.0
+Lane.getParameter: laneValue
+Route.getParameter: routeValue
+Poi.getParameter: poiValue
+TrafficLight.getControlledJunctions: [gneJ1]
+TrafficLight.getParameter: tlsValue
+TrafficLight.getCompleteRedYellowGreenDefinition: 0
+TrafficLight.getCompleteRedYellowGreenDefinition: 1
+TrafficLight.getCompleteRedYellowGreenDefinition: 2
+TrafficLight.getPhaseDuration: 50.0
+TrafficLight.getNextSwitch: 51.0
+Simulation.convertRoad: gneE2, 57.92, 0
+Simulation.convertGeo: 13.380492798007497, 52.50047399595011
+Lane.getLinks to=-gneE2_0 via= prio=true open=true
+Could not connect to TraCI server at localhost:59937 tcpip::Socket::connect() @ connect: Connection refused
+ Retrying in 1 second

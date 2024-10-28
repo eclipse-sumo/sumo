@@ -119,6 +119,8 @@
     #pragma warning(disable: 4371)
     /* Disable potential exception in C function warnings */
     #pragma warning(disable: 5039)
+    /* Disable constructor is not implicitly called */
+    #pragma warning(disable: 4582)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
@@ -154,17 +156,11 @@
         /* Define for dynamic Fox linkage */
         #define FOXDLL 1
 
-        /* Define default constructor for FOX moduls (MinGW32) */
-        #define FOX_CONSTRUCTOR(classname) classname() {}
-
-    /* Linux and OS */
-    #else
-
-        /* Define default constructor for FOX moduls (Linux and OS) */
-        #define FOX_CONSTRUCTOR(classname) classname() {}
-
     /* MinGW32 */
     #endif
+
+    /* Define default constructor for FOX moduls */
+    #define FOX_CONSTRUCTOR(classname) classname() {}
 
 /* Visual Studio */
 #endif
@@ -179,6 +175,9 @@
 /* defined if ffmpeg is available */
 #cmakedefine HAVE_FFMPEG
 
+/* defined if fmt is available */
+#cmakedefine HAVE_FMT
+
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
 
@@ -188,8 +187,11 @@
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
 
-/* defined if JuPedSim is available */
-#cmakedefine HAVE_JPS
+/* defined if libintl is available */
+#cmakedefine HAVE_INTL
+
+/* defined and set to version if JuPedSim is available */
+#cmakedefine JPS_VERSION @JPS_VERSION@
 
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
@@ -207,7 +209,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.13.0"
+    #define VERSION_STRING "1.21.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+
+	<trainStop id="ts_E3" lane="E3_0" startPos="90" endPos="120" personCapacity="300" color="255,0,0,255" >
+		<access lane="E118_0" pos="4"/>
+	</trainStop>
+
+</additional>

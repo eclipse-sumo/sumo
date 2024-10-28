@@ -1,0 +1,1 @@
+-i fcd.xml --keplerjson-output output.geojson -n net.net.xml --base-date 0

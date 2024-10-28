@@ -1,0 +1,2 @@
+-n net2.net.xml -s 42 -e 20 -r out.rou.xml --remove-loops --vtype-output out.add.xml
+--vehicle-class passenger --allow-fringe

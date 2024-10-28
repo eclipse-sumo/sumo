@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -42,3 +42,17 @@ class JunctionDomain(Domain):
         List of 2D positions (cartesian) describing the geometry.
         """
         return self._getUniversal(tc.VAR_SHAPE, junctionID)
+
+    def getIncomingEdges(self, junctionID):
+        """getIncomingEdges(string) -> list(string)
+
+        Returns the ids of the edges that end at this junction
+        """
+        return self._getUniversal(tc.INCOMING_EDGES, junctionID)
+
+    def getOutgoingEdges(self, junctionID):
+        """getOutgoingEdges(string) -> list(string)
+
+        Returns the ids of the edges that start at this junction
+        """
+        return self._getUniversal(tc.OUTGOING_EDGES, junctionID)

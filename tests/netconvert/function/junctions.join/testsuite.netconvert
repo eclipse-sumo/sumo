@@ -33,6 +33,9 @@ roundabout_with_nearby_nodes
 # A node should not be added to the cluster if any of the edges within the cluster would then nexceed maxDist.
 preserve_long_edge
 
+# A node should not be added to the cluster if any of the edges within the cluster would then exceed maxDist.
+preserve_long_edge2
+
 # joined junctions should not have multiple incoming edges with the same angle or multiple outgoing edges with the same angle
 same_angle_nojoin
 
@@ -63,3 +66,6 @@ rail_crossing
 
 # all sidewalks are modelled as extra edges
 footpaths_around
+
+# do not join appendages of multiple short edges between side roads
+noisy_fringe

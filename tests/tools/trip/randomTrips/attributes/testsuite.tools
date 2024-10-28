@@ -1,0 +1,23 @@
+# generate vType with the given vehicle_class and extra attributes
+vehicle_class_attributes
+
+# handle conflict between generated vType and user-defined vType attribute
+vehicle_class_trip_attribute_vType
+
+# load the vehicle class to use during routing from an additional file
+vclass_additional_file
+
+# load the vehicle type to use during routing from an additional file
+vtype_additional_file_validate
+
+# explicit departPos but randomized
+random-departpos
+
+# explicit arrivalPos but randomized
+random-arrivalpos
+
+# This test makes sure that the options --random-departpos and --random-arrivalpos work as intended when invoked together.
+random-departpos_arrivalpos
+
+# This test makes sure that the options --random-departpos and --trip-attributes work as intended when invoked together.
+random-departpos_conflict

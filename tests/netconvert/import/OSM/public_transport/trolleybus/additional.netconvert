@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-29 08:50:12 by Eclipse SUMO netconvert Version v1_20_0+0251-82de900cd34
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-112326137" name="Rebbergsteig" lane="-12369753#1_0" startPos="356.65" endPos="371.65" friendlyPos="true" lines="46 N4"/>
+    <busStop id="-378729074" name="Kempfhofsteig" lane="-1096073141_0" startPos="266.22" endPos="281.22" friendlyPos="true" lines="N4 46"/>
+    <busStop id="-378729465" name="Rebbergsteig" lane="-171943679#1_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="N4 46"/>
+    <busStop id="2275377478" name="Wipkingerplatz" lane="1279971412_0" startPos="1608.78" endPos="1633.78" friendlyPos="true" lines="13"/>
+    <busStop id="2288259595" name="Waidfussweg" lane="1279971412_0" startPos="1161.77" endPos="1186.77" friendlyPos="true" lines="13">
+        <access lane="-12369753#1_0" pos="6.12" length="203.20" friendlyPos="1"/>
+        <access lane="12369753#1_0" pos="365.51" length="198.40" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2288259606" name="Waidfussweg" lane="1279971413#0_0" startPos="471.52" endPos="496.52" friendlyPos="true" lines="13">
+        <access lane="-12369753#1_0" pos="45.65" length="179.30" friendlyPos="1"/>
+        <access lane="12369753#1_0" pos="325.91" length="174.50" friendlyPos="1"/>
+        <access lane="623555240_0" pos="0.00" length="231.87" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2288259660" name="Eschergutweg" lane="1279971412_0" startPos="716.96" endPos="741.96" friendlyPos="true" lines="13">
+        <access lane="-171943679#2_0" pos="70.33" length="105.49" friendlyPos="1"/>
+        <access lane="1221742465_0" pos="0.00" length="101.51" friendlyPos="1"/>
+        <access lane="359028774_0" pos="0.00" length="38.13" friendlyPos="1"/>
+        <access lane="623555244#6_0" pos="49.27" length="105.60" friendlyPos="1"/>
+        <access lane="623555244#7_0" pos="12.93" length="100.67" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2288259663" name="Eschergutweg" lane="1279971413#0_0" startPos="948.29" endPos="973.29" friendlyPos="true" lines="13">
+        <access lane="291785270_0" pos="0.00" length="15.55" friendlyPos="1"/>
+        <access lane="359028774_0" pos="0.00" length="68.27" friendlyPos="1"/>
+        <access lane="590200760_0" pos="0.00" length="77.00" friendlyPos="1"/>
+        <access lane="658595444#0_0" pos="0.00" length="10.86" friendlyPos="1"/>
+        <access lane="753225539#2_0" pos="12.03" length="78.48" friendlyPos="1"/>
+    </busStop>
+    <busStop id="29382367" name="Wipkingerplatz" lane="1279971413#0_0" startPos="3.15" endPos="28.15" friendlyPos="true" lines="13"/>
+    <busStop id="3071738304" name="Alte Trotte" lane="1279971413#1_0" startPos="191.00" endPos="216.00" friendlyPos="true" lines="13">
+        <access lane="-1096073141_0" pos="125.77" length="92.63" friendlyPos="1"/>
+        <access lane="1096073141_0" pos="166.24" length="97.43" friendlyPos="1"/>
+        <access lane="294992552_0" pos="31.05" length="176.66" friendlyPos="1"/>
+        <access lane="590532030_0" pos="74.19" length="6.29" friendlyPos="1"/>
+        <access lane="623555244#0_0" pos="238.61" length="87.59" friendlyPos="1"/>
+    </busStop>
+    <busStop id="378729047" name="Kempfhofsteig" lane="1096073140#0_0" startPos="8.41" endPos="23.41" friendlyPos="true" lines="46 N4"/>
+    <busStop id="4885628503" name="Alte Trotte" lane="1279971412_0" startPos="246.40" endPos="271.40" friendlyPos="true" lines="13">
+        <access lane="-1096073141_0" pos="159.65" length="99.39" friendlyPos="1"/>
+        <access lane="1096073141_0" pos="132.50" length="104.19" friendlyPos="1"/>
+        <access lane="294992552_0" pos="31.05" length="129.07" friendlyPos="1"/>
+        <access lane="590532030_0" pos="110.35" length="2.74" friendlyPos="1"/>
+        <access lane="623555244#0_0" pos="273.90" length="94.22" friendlyPos="1"/>
+    </busStop>
+    <busStop id="7108387796" name="Alte Trotte" lane="42208485#1_0" startPos="177.83" endPos="192.83" friendlyPos="true" lines="N13">
+        <access lane="-1096073141_0" pos="142.43" length="95.66" friendlyPos="1"/>
+        <access lane="1096073141_0" pos="149.66" length="100.46" friendlyPos="1"/>
+        <access lane="294992552_0" pos="31.05" length="151.61" friendlyPos="1"/>
+        <access lane="590532030_0" pos="92.80" length="4.56" friendlyPos="1"/>
+        <access lane="623555244#0_0" pos="256.48" length="90.78" friendlyPos="1"/>
+    </busStop>
+    <busStop id="7108387797" name="Eschergutweg" lane="42208485#0_0" startPos="143.06" endPos="158.06" friendlyPos="true" lines="N13">
+        <access lane="291785270_0" pos="0.00" length="44.26" friendlyPos="1"/>
+        <access lane="359028774_0" pos="0.00" length="35.17" friendlyPos="1"/>
+        <access lane="590200760_0" pos="0.00" length="90.32" friendlyPos="1"/>
+        <access lane="623555244#6_0" pos="31.52" length="91.66" friendlyPos="1"/>
+        <access lane="658595444#0_0" pos="0.00" length="41.43" friendlyPos="1"/>
+    </busStop>
+</additional>

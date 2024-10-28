@@ -1,0 +1,16 @@
+<add>
+    <tlLogic id="gneJ21" type="static" programID="manual" offset="0.00">
+        <!--                           012345678901234567 -->
+        <phase duration="3"     state="rrryyyrrrrrrrrrrrr" name ="3.1"/>
+        <phase duration="3"     state="rrrrrrrrrrrrrrrrrr" name ="1.2"/>
+        <phase duration="10000" state="gGgrrrGgrrrrrGGrGG" name ="1"/>
+        <phase duration="3"     state="yyyrrryyrrrrrrrrrr" name ="1.2"/>
+        <phase duration="3"     state="rrrrrrrrrrrrrrrrrr" name ="1.2"/>
+        <phase duration="10000" state="rrrgGrrrgGGGGrrGrr" name ="2"/>
+        <phase duration="3"     state="rrrgGrrryyGrrrrGrr" name ="2.3"/>
+        <phase duration="3"     state="rrrrrrrrrrrrrrrrrr" name ="1.2"/>
+        <phase duration="10000" state="rrrgGGrrrrGrrrrGrr" name ="3" />
+
+        <param key="hotkeyAbort" value="y"/>
+    </tlLogic>
+</add>

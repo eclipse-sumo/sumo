@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,8 +54,13 @@ public:
         myTurnaround(nullptr),
         myIsVirtual(true),
         myMaxLength(turnStart->getLength() - REVERSAL_SLACK),
-        myStartLength(turnStart->getLength()) {
+        myStartLength(turnStart->getLength() - REVERSAL_SLACK) {
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
+    }
+
+    /// @brief Destructor.
+    virtual ~RailEdge() {
+        delete myTurnaround;
     }
 
     void update(double maxTrainLength, const std::vector<const E*>& replacementEdges) {
@@ -85,7 +90,7 @@ public:
                 continue;
             }
             const E* bidi = prev->getBidiEdge();
-            if (backward->isConnectedTo(*bidi, SVC_IGNORING)) {
+            if (bidi != nullptr && backward->isConnectedTo(*bidi, SVC_IGNORING)) {
                 _RailEdge* prevRailEdge = prev->getRailwayRoutingEdge();
                 if (prevRailEdge->myTurnaround == nullptr) {
                     prevRailEdge->myTurnaround = new _RailEdge(prev, bidi, numericalID++);
@@ -138,8 +143,11 @@ public:
                 std::cout << "RailEdge " << getID() << " actual turnaround " << myTurnaround->getID() << "\n";
 #endif
                 myTurnaround->myIsVirtual = false;
+                // ensure at least one virtual turnaround (at the start of the
+                // edge) to avoid driving up to the end of long edges
+                const double initialDist = MAX2(maxTrainLength - getLength(), POSITION_EPS);
                 addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
-                                maxTrainLength - getLength(), getLength(), std::vector<const E*> {myOriginal});
+                                initialDist, getLength(), std::vector<const E*> {myOriginal});
             } else {
                 myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(),
                                           viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
@@ -176,6 +184,7 @@ public:
         } else {
             double seen = myStartLength;
             int nPushed = 0;
+            //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             if (seen >= length && !myIsVirtual) {
                 return;
             }
@@ -183,11 +192,11 @@ public:
             for (const E* edge : myReplacementEdges) {
                 into.push_back(edge);
                 nPushed++;
-                seen += edge->getLength();
+                seen += edge->getLength() - REVERSAL_SLACK;
+                //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
                 if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
                     break;
                 }
-                //std::cout << "insertOriginalEdges length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             }
             const int last = (int)into.size() - 1;
             for (int i = 0; i < nPushed; i++) {
@@ -224,7 +233,8 @@ public:
         return myOriginal != nullptr && myOriginal->restricts(vehicle);
     }
 
-    const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+    const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
+        UNUSED_PARAMETER(ignoreTransientPermissions); // @todo this should be changed (somewhat hidden by #14756)
         if (vClass == SVC_IGNORING || myOriginal == nullptr || myOriginal->isTazConnector()) { // || !MSNet::getInstance()->hasPermissions()) {
             return myViaSuccessors;
         }

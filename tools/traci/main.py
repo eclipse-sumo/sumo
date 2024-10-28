@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -37,10 +37,9 @@ else:
 
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
-from .domain import _defaultDomains  # noqa
+from .domain import DOMAINS  # noqa
 # StepListener needs to be imported for backwards compatibility
 from .step import StepListener  # noqa
-from .connection import Connection  # noqa
 from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _variablespeedsign, _meandata  # noqa
@@ -48,58 +47,54 @@ from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 from . import _calibrator, _routeprobe, _rerouter  # noqa
 from . import _busstop, _parkingarea, _chargingstation, _overheadwire  # noqa
+from . import connection  # noqa
 from . import constants as tc  # noqa
 
-inductionloop = _inductionloop.InductionLoopDomain()
-lanearea = _lanearea.LaneAreaDomain()
-multientryexit = _multientryexit.MultiEntryExitDomain()
-trafficlight = _trafficlight.TrafficLightDomain()
-variablespeedsign = _variablespeedsign.VariableSpeedSignDomain()
-meandata = _meandata.MeanDataDomain()
-lane = _lane.LaneDomain()
-person = _person.PersonDomain()
-route = _route.RouteDomain()
-vehicle = _vehicle.VehicleDomain()
-vehicletype = _vehicletype.VehicleTypeDomain()
+busstop = _busstop.BusStopDomain()
+calibrator = _calibrator.CalibratorDomain()
+chargingstation = _chargingstation.ChargingStationDomain()
 edge = _edge.EdgeDomain()
 gui = _gui.GuiDomain()
+inductionloop = _inductionloop.InductionLoopDomain()
 junction = _junction.JunctionDomain()
+lane = _lane.LaneDomain()
+lanearea = _lanearea.LaneAreaDomain()
+meandata = _meandata.MeanDataDomain()
+multientryexit = _multientryexit.MultiEntryExitDomain()
+overheadwire = _overheadwire.OverheadWireDomain()
+parkingarea = _parkingarea.ParkingAreaDomain()
+person = _person.PersonDomain()
 poi = _poi.PoiDomain()
 polygon = _polygon.PolygonDomain()
-simulation = _simulation.SimulationDomain()
-calibrator = _calibrator.CalibratorDomain()
-busstop = _busstop.BusStopDomain()
-parkingarea = _parkingarea.ParkingAreaDomain()
-chargingstation = _chargingstation.ChargingStationDomain()
-overheadwire = _overheadwire.OverheadWireDomain()
-routeprobe = _routeprobe.RouteProbeDomain()
 rerouter = _rerouter.RerouterDomain()
-
-_connections = {}
-# cannot use immutable type as global variable
-_currentLabel = [""]
-_connectHook = None
+route = _route.RouteDomain()
+routeprobe = _routeprobe.RouteProbeDomain()
+simulation = _simulation.SimulationDomain()
+trafficlight = _trafficlight.TrafficLightDomain()
+variablespeedsign = _variablespeedsign.VariableSpeedSignDomain()
+vehicle = _vehicle.VehicleDomain()
+vehicletype = _vehicletype.VehicleTypeDomain()
 
 
 def setConnectHook(hookFunc):
-    global _connectHook
-    _connectHook = hookFunc
+    """
+    Set a function which is called whenever a new connection has been established.
+    The function should take a single parameter which is the connection object.
+    """
+    connection._connectHook = hookFunc
 
 
 def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc=None, waitBetweenRetries=1,
-            traceFile=None, traceGetters=True):
+            traceFile=None, traceGetters=True, label=None):
     """
     Establish a connection to a TraCI-Server and return the
-    connection object. The connection is not saved in the pool and not
+    connection object. If label is not set, the connection is not saved in the pool and not
     accessible via traci.switch. It should be safe to use different
     connections established by this method in different threads.
     """
     for retry in range(1, numRetries + 2):
         try:
-            conn = Connection(host, port, proc, traceFile, traceGetters)
-            if _connectHook is not None:
-                _connectHook(conn)
-            return conn
+            return connection.Connection(host, port, proc, traceFile, traceGetters, label)
         except socket.error as e:
             if proc is not None and proc.poll() is not None:
                 raise TraCIException("TraCI server already finished")
@@ -118,10 +113,10 @@ def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
-    _connections[label] = connect(port, numRetries, host, proc, 1, traceFile, traceGetters)
+    con = connect(port, numRetries, host, proc, 1, traceFile, traceGetters, label)
     if doSwitch:
         switch(label)
-    return _connections[label].getVersion()
+    return con.getVersion()
 
 
 def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", verbose=False,
@@ -140,9 +135,9 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
     - traceGetters (bool): whether to include get-commands in traceFile
     - stdout (iostream): where to pipe sumo process stdout
     """
-    if label in _connections:
+    if connection.has(label):
         raise TraCIException("Connection '%s' is already active." % label)
-    while numRetries >= 0 and label not in _connections:
+    while numRetries >= 0 and not connection.has(label):
         sumoPort = getFreeSocketPort() if port is None else port
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
         if verbose:
@@ -151,7 +146,7 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
         try:
             result = init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch, traceFile, traceGetters)
             if traceFile is not None:
-                _connections[label].write("start", "%s, port=%s, label=%s" % (repr(cmd), repr(port), repr(label)))
+                connection.get(label).write("start", "%s, port=%s, label=%s" % (repr(cmd), repr(port), repr(label)))
             return result
         except TraCIException as e:
             if port is not None:
@@ -174,9 +169,7 @@ def hasGUI():
     """
     Return whether a GUI and the corresponding GUI commands are available for the current connection.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].hasGUI()
+    return connection.check().hasGUI()
 
 
 def load(args):
@@ -186,25 +179,41 @@ def load(args):
       load(['-c', 'run.sumocfg'])
       load(['-n', 'net.net.xml', '-r', 'routes.rou.xml'])
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].load(args)
+    return connection.check().load(args)
 
 
 def isLoaded():
-    return "" in _connections
+    """
+    Returns whether there is an active connection.
+    """
+    return connection.has("")
 
 
 def simulationStep(step=0):
+    """simulationStep(float) -> None
+    Make a simulation step and simulate up to the given second in sim time.
+    If the given value is 0 or absent, exactly one step is performed.
+    Values smaller than or equal to the current sim time result in no action.
+    """
+    connection.check().simulationStep(step)
+
+
+def simulationStepLegacy(step=0):
     """simulationStep(float) -> list
     Make a simulation step and simulate up to the given second in sim time.
     If the given value is 0 or absent, exactly one step is performed.
     Values smaller than or equal to the current sim time result in no action.
-    It returns the subscription results for the current step in a list.
+    This is a legacy function which returns the subscription results for the
+    current step in a list.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].simulationStep(step)
+    return connection.check().simulationStep(step)
+
+
+def executeMove():
+    """executeMove() -> None
+    Make "half" a simulation step.
+    """
+    connection.check().simulation.executeMove()
 
 
 def addStepListener(listener):
@@ -214,9 +223,7 @@ def addStepListener(listener):
     to the current connection.
     Returns the ID assigned to the listener if it was added successfully, None otherwise.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].addStepListener(listener)
+    return connection.check().addStepListener(listener)
 
 
 def removeStepListener(listenerID):
@@ -225,9 +232,7 @@ def removeStepListener(listenerID):
     Remove the step listener from the current connection's step listener container.
     Returns True if the listener was removed successfully, False if it wasn't registered.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].removeStepListener(listenerID)
+    return connection.check().removeStepListener(listenerID)
 
 
 def getVersion():
@@ -236,9 +241,7 @@ def getVersion():
     Returns a tuple containing the TraCI API version number (integer)
     and a string identifying the SUMO version running on the TraCI server in human-readable form.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].getVersion()
+    return connection.check().getVersion()
 
 
 def setOrder(order):
@@ -249,39 +252,38 @@ def setOrder(order):
     must be assigned a unique integer but there are not further restrictions
     on numbering.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    return _connections[""].setOrder(order)
+    return connection.check().setOrder(order)
 
 
 def close(wait=True):
     """
     Tells TraCI to close the connection.
     """
-    if "" not in _connections:
-        raise FatalTraCIError("Not connected.")
-    _connections[""].close(wait)
-    _connections[""].simulation._setConnection(None)
-    del _connections[_currentLabel[0]]
-    del _connections[""]
+    connection.check().close(wait)
 
 
 def switch(label):
-    con = getConnection(label)
-    _connections[""] = con
-    _currentLabel[0] = label
-    for domain in _defaultDomains:
-        domain._setConnection(con)
+    """
+    Switch the current connection to the one given by the label.
+    Throws a TraCIException if no such connection exists.
+    """
+    connection.switch(label)
 
 
 def getLabel():
-    return _currentLabel[0]
+    """
+    Return the label of the current connection.
+    Throws a FatalTraCIError if no connection exists.
+    """
+    return connection.check().getLabel()
 
 
 def getConnection(label="default"):
-    if label not in _connections:
-        raise TraCIException("Connection '%s' is not known." % label)
-    return _connections[label]
+    """
+    Return the connection associated with the given label.
+    Throws a TraCIException if no such connection exists.
+    """
+    return connection.get(label)
 
 
 def setLegacyGetLeader(enabled):

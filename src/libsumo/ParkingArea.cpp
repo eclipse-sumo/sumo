@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    ParkingArea.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    16.03.2020
 ///
 // C++ TraCI client API implementation
@@ -22,6 +23,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSParkingArea.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "ParkingArea.h"
@@ -88,19 +90,30 @@ ParkingArea::getVehicleIDs(const std::string& stopID) {
     return result;
 }
 
+std::vector<std::string>
+ParkingArea::getAcceptedBadges(const std::string& stopID) {
+    return dynamic_cast<MSParkingArea*>(getParkingArea(stopID))->getAcceptedBadges();
+}
+
+
+void
+ParkingArea::setAcceptedBadges(const std::string& stopID, const std::vector<std::string>& badges) {
+    dynamic_cast<MSParkingArea*>(getParkingArea(stopID))->setAcceptedBadges(badges);
+}
+
 
 std::string
 ParkingArea::getParameter(const std::string& stopID, const std::string& param) {
-    const MSStoppingPlace* s = getParkingArea(stopID);
-    return s->getParameter(param, "");
+    return getParkingArea(stopID)->getParameter(param, "");
 }
+
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(ParkingArea)
 
+
 void
 ParkingArea::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
-    MSStoppingPlace* s = getParkingArea(stopID);
-    s->setParameter(key, value);
+    getParkingArea(stopID)->setParameter(key, value);
 }
 
 
@@ -109,11 +122,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(ParkingArea, PARKINGAREA)
 
 MSStoppingPlace*
 ParkingArea::getParkingArea(const std::string& id) {
-    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_PARKING_AREA);
-    if (s == nullptr) {
-        throw TraCIException("ParkingArea '" + id + "' is not known");
-    }
-    return s;
+    return Helper::getStoppingPlace(id, SUMO_TAG_PARKING_AREA);
 }
 
 
@@ -138,6 +147,8 @@ ParkingArea::handleVariable(const std::string& objID, const int variable, Variab
             return wrapper->wrapDouble(objID, variable, getEndPos(objID));
         case VAR_NAME:
             return wrapper->wrapString(objID, variable, getName(objID));
+        case VAR_ACCESS_BADGE:
+            return wrapper->wrapStringList(objID, variable, getAcceptedBadges(objID));
         case VAR_STOP_STARTING_VEHICLES_NUMBER:
             return wrapper->wrapInt(objID, variable, getVehicleCount(objID));
         case VAR_STOP_STARTING_VEHICLES_IDS:

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,9 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObjectStorage::GUIGlObjectStorage() : myNextID(1), myLock(true) {
+GUIGlObjectStorage::GUIGlObjectStorage() :
+    myNextID(1),
+    myLock(true) {
     myObjects.push_back(nullptr);
 }
 
@@ -126,17 +128,9 @@ GUIGlObjectStorage::unblockObject(GUIGlID id) {
 }
 
 
-std::set<GUIGlID>
-GUIGlObjectStorage::getAllIDs() const {
-    FXMutexLock locker(myLock);
-    std::set<GUIGlID> result;
-    for (GUIGlObject* const o : myObjects) {
-        if (!o->isBlocked()) {
-            result.insert(o->getGlID());
-        }
-    }
-    return result;
+const std::vector<GUIGlObject*>&
+GUIGlObjectStorage::getAllGLObjects() const {
+    return myObjects;
 }
-
 
 /****************************************************************************/

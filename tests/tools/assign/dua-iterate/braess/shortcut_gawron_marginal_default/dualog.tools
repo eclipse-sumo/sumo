@@ -1,133 +1,126 @@
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
-Loading net-file from '000/../input_net.net.xml' ... done (3ms).
-Loading additional-files from '000/dua_dump_000.add.xml' ... done (1ms).
+['/home/behr_mi/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 5922.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 5922.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 1000):
  RouteLength: 1028.10
  Speed: 3.48
  Duration: 310.37
  WaitingTime: 117.57
  TimeLoss: 261.37
  DepartDelay: 885.85
-
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+['/home/behr_mi/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
 Loading net-file from '001/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '001/dua_dump_001.add.xml' ... done (1ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 5253.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 5248.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 1000):
  RouteLength: 1010.60
  Speed: 3.21
- Duration: 454.05
- WaitingTime: 213.87
- TimeLoss: 390.45
- DepartDelay: 416.56
-
+ Duration: 452.56
+ WaitingTime: 213.84
+ TimeLoss: 388.98
+ DepartDelay: 412.31
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+['/home/behr_mi/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
 Loading net-file from '002/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '002/dua_dump_002.add.xml' ... done (0ms).
+Loading additional-files from '002/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 4027.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 4392.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
- RouteLength: 1005.75
- Speed: 6.47
- Duration: 197.36
- WaitingTime: 59.20
- TimeLoss: 129.29
- DepartDelay: 6.72
-
+Statistics (avg of 1000):
+ RouteLength: 1005.90
+ Speed: 5.59
+ Duration: 230.94
+ WaitingTime: 74.53
+ TimeLoss: 162.91
+ DepartDelay: 105.88
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
-Loading net-file from '003/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '003/dua_dump_003.add.xml' ... done (0ms).
+['/home/behr_mi/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+Loading net-file from '003/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 4104.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 4362.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
- RouteLength: 1005.33
- Speed: 5.84
- Duration: 218.16
- WaitingTime: 68.55
- TimeLoss: 149.67
- DepartDelay: 33.51
-
+Statistics (avg of 1000):
+ RouteLength: 1005.93
+ Speed: 5.76
+ Duration: 225.45
+ WaitingTime: 71.10
+ TimeLoss: 157.45
+ DepartDelay: 91.91
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
-Loading net-file from '004/../input_net.net.xml' ... done (3ms).
-Loading additional-files from '004/dua_dump_004.add.xml' ... done (1ms).
+['/home/behr_mi/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 4229.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 4253.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
- RouteLength: 1004.71
- Speed: 5.33
- Duration: 238.34
- WaitingTime: 76.84
- TimeLoss: 169.26
- DepartDelay: 81.62
-
+Statistics (avg of 1000):
+ RouteLength: 1005.78
+ Speed: 5.93
+ Duration: 218.67
+ WaitingTime: 68.18
+ TimeLoss: 150.53
+ DepartDelay: 53.93
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '005/iteration_005_input_routes_004.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '005/iteration_005_input_routes_004.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '005/iteration_005.sumocfg']
-Loading net-file from '005/../input_net.net.xml' ... done (3ms).
-Loading additional-files from '005/dua_dump_005.add.xml' ... done (1ms).
+['/home/behr_mi/sumo/bin/sumo', '-c', '005/iteration_005.sumocfg']
+Loading net-file from '005/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '005/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 4285.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 3983.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
- RouteLength: 1004.20
- Speed: 5.20
- Duration: 244.35
- WaitingTime: 79.44
- TimeLoss: 174.80
- DepartDelay: 102.04
-
+Statistics (avg of 1000):
+ RouteLength: 1005.43
+ Speed: 6.64
+ Duration: 185.22
+ WaitingTime: 54.92
+ TimeLoss: 116.89
+ DepartDelay: 2.71
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '006/iteration_006_input_routes_005.duarcfg']
+['/home/behr_mi/sumo/bin/duarouter', '-c', '006/iteration_006_input_routes_005.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '006/iteration_006.sumocfg']
-Loading net-file from '006/../input_net.net.xml' ... done (3ms).
-Loading additional-files from '006/dua_dump_006.add.xml' ... done (0ms).
+['/home/behr_mi/sumo/bin/sumo', '-c', '006/iteration_006.sumocfg']
+Loading net-file from '006/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '006/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0430-936fc4515f9 started with time: 0.00
-Simulation ended at time: 4285.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 3772.00.
 Reason: All vehicles have left the simulation.
-Statistics (avg):
- RouteLength: 1003.46
- Speed: 5.18
- Duration: 248.45
- WaitingTime: 81.11
- TimeLoss: 178.27
- DepartDelay: 110.89
-
+Statistics (avg of 1000):
+ RouteLength: 1004.79
+ Speed: 7.44
+ Duration: 145.42
+ WaitingTime: 36.81
+ TimeLoss: 76.58
+ DepartDelay: 0.40

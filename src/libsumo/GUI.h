@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,21 +47,27 @@ typedef long long int SUMOTime;
 namespace LIBSUMO_NAMESPACE {
 class GUI {
 public:
+#if defined(HAVE_LIBSUMOGUI) || defined(HAVE_FOX) || defined(LIBTRACI)
     static double getZoom(const std::string& viewID = DEFAULT_VIEW);
+    static double getAngle(const std::string& viewID = DEFAULT_VIEW);
     static libsumo::TraCIPosition getOffset(const std::string& viewID = DEFAULT_VIEW);
     static std::string getSchema(const std::string& viewID = DEFAULT_VIEW);
     static libsumo::TraCIPositionVector getBoundary(const std::string& viewID = DEFAULT_VIEW);
+    static bool hasView(const std::string& viewID = DEFAULT_VIEW);
+    static std::string getTrackedVehicle(const std::string& viewID = DEFAULT_VIEW);
+    static bool isSelected(const std::string& objID, const std::string& objType = "vehicle");
+
     static void setZoom(const std::string& viewID, double zoom);
+    static void setAngle(const std::string& viewID, double angle);
     static void setOffset(const std::string& viewID, double x, double y);
     static void setSchema(const std::string& viewID, const std::string& schemeName);
     static void setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax);
-    static void screenshot(const std::string& viewID, const std::string& filename, const int width = -1, const int height = -1);
     static void trackVehicle(const std::string& viewID, const std::string& vehID);
-    static bool hasView(const std::string& viewID = DEFAULT_VIEW);
-    static std::string getTrackedVehicle(const std::string& viewID = DEFAULT_VIEW);
+    static void screenshot(const std::string& viewID, const std::string& filename, const int width = -1, const int height = -1);
     static void track(const std::string& objID, const std::string& viewID = DEFAULT_VIEW);
-    static bool isSelected(const std::string& objID, const std::string& objType = "vehicle");
     static void toggleSelection(const std::string& objID, const std::string& objType = "vehicle");
+    static void addView(const std::string& viewID, const std::string& schemeName = "", bool in3D = false);
+    static void removeView(const std::string& viewID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
@@ -91,6 +97,7 @@ private:
 
     static FX::FXApp* myApp;
 
+#endif
 #endif
 #endif
 

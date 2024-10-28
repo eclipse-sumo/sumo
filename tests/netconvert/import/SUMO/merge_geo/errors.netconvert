@@ -3,3 +3,7 @@ Warning: Edge '220198808#0' occurred at least twice in the input.
 Warning: Edge '81639675#0' occurred at least twice in the input.
 Warning: Junction '1704693564' occurred at least twice in the input.
 Warning: Junction '1704693568' occurred at least twice in the input.
+Warning: Removing invalid connection from edge '220198808#0' to edge '220198808#5'
+Warning: Removing invalid connection from edge '81639675#0' to edge '81639675#2'
+Warning: Removing invalid connection from edge '81639675#0' to edge '81639675#2'
+Warning: Unused state in tlLogic 'cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812', program '0' at tl-index 9

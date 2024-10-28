@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-26 15:52:58 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:/SUMO/tests/netedit\bugs\ticket5552/net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\bugs\ticket5552/net"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="50.00,50.00" convBoundary="-50.00,-40.00,10.00,20.00" origBoundary="-50.000000,-50.000000,50.000000,50.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="gneJ10" x="-30.00" y="-10.00" type="dead_end"/>
+    <node id="gneJ11" x="-20.00" y="-20.00" type="dead_end"/>
+    <node id="gneJ12" x="-20.00" y="-40.00" type="dead_end"/>
+    <node id="gneJ13" x="10.00" y="-10.00" type="dead_end"/>
+    <node id="gneJ14" x="-10.00" y="-10.00" type="dead_end"/>
+    <node id="gneJ15" x="-50.00" y="-40.00" type="dead_end"/>
+    <node id="gneJ16" x="-30.00" y="-20.00" type="dead_end"/>
+    <node id="gneJ17" x="-10.00" y="0.00" type="dead_end"/>
+    <node id="gneJ18" x="10.00" y="20.00" type="dead_end"/>
+    <node id="gneJ7" x="-20.00" y="20.00" type="dead_end"/>
+    <node id="gneJ8" x="-20.00" y="0.00" type="dead_end"/>
+    <node id="gneJ9" x="-50.00" y="-10.00" type="dead_end"/>
+</nodes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -104,6 +104,7 @@ MSStop::write(OutputDevice& dev) const {
     if (pars.started >= 0 && (pars.parametersSet & STOP_STARTED_SET) == 0) {
         dev.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
     }
+    pars.writeParams(dev);
     dev.closeTag();
 }
 
@@ -144,4 +145,29 @@ MSStop::getMinDuration(SUMOTime time) const {
         return duration;
     }
 }
+
+
+SUMOTime
+MSStop::getUntil() const {
+    return MSGlobals::gUseStopEnded && pars.ended >= 0 ? pars.ended : pars.until;
+}
+
+
+SUMOTime
+MSStop::getArrival() const {
+    return MSGlobals::gUseStopStarted && pars.started >= 0 ? pars.started : pars.arrival;
+}
+
+
+double
+MSStop::getSpeed() const {
+    return skipOnDemand ? std::numeric_limits<double>::max() : pars.speed;
+}
+
+
+bool
+MSStop::isInRange(const double pos, const double tolerance) const {
+    return pars.startPos - tolerance <= pos && pars.endPos + tolerance >= pos;
+}
+
 /****************************************************************************/

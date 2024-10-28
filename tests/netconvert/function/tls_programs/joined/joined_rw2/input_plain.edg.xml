@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-27 14:57:56 by Eclipse SUMO netconvert Version v1_17_0+1298-ea9252c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="100"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-390305.13,-5819836.66" convBoundary="0.00,0.00,606.89,1468.17" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="0" from="109" to="127" name="Friedrichstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="359.49,40.76 354.47,117.53">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="11483007"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="11483007"/>
+        </lane>
+        <param key="origTo" value="25664680"/>
+    </edge>
+    <edge id="1" from="126" to="100" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="482.13,133.68 478.98,131.51 473.95,128.46 468.96,126.33" spreadType="center" allow="tram" bidi="17">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origFrom" value="4590472039"/>
+    </edge>
+    <edge id="10" from="122" to="125" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="348.22,156.20 346.83,180.48 343.76,230.08" spreadType="center" allow="tram" bidi="34">
+        <lane index="0">
+            <param key="origId" value="22820560"/>
+        </lane>
+        <param key="origFrom" value="1673527106"/>
+        <param key="origTo" value="1864428533"/>
+    </edge>
+    <edge id="11" from="128" to="126" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="605.61,157.07 593.10,156.83 505.69,151.58 502.44,150.56 499.84,149.48 496.36,147.44 493.78,145.62" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="340498976 83517336"/>
+        </lane>
+        <param key="origFrom" value="25665679"/>
+        <param key="origTo" value="4590472030"/>
+    </edge>
+    <edge id="12" from="126" to="121" name="Planckstraße" priority="3" type="highway.residential" numLanes="2" speed="13.89" shape="481.98,136.01 483.13,153.97 476.53,225.73">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <param key="origFrom" value="25664673"/>
+    </edge>
+    <edge id="13" from="126" to="127" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="465.73,125.44 462.76,124.45 459.61,123.70 417.52,119.85 375.55,116.52 354.47,117.53" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="83517336"/>
+        </lane>
+        <param key="origFrom" value="4590472040"/>
+        <param key="origTo" value="25664680"/>
+    </edge>
+    <edge id="14" from="126" to="127" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="465.73,125.44 456.69,123.83 437.23,122.41 417.22,120.79 394.97,119.53 383.55,118.36 375.11,118.80 368.69,120.20 363.70,122.11 359.17,125.08" spreadType="center" allow="tram" bidi="32">
+        <lane index="0">
+            <param key="origId" value="93584121 22820560"/>
+        </lane>
+        <param key="origFrom" value="4590472040"/>
+        <param key="origTo" value="577258918"/>
+    </edge>
+    <edge id="15" from="100" to="126" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="468.96,126.33 465.73,125.44" spreadType="center" allow="tram" bidi="48">
+        <lane index="0">
+            <param key="origId" value="93584121"/>
+        </lane>
+        <param key="origTo" value="4590472040"/>
+    </edge>
+    <edge id="16" from="127" to="109" name="Friedrichstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="354.47,117.53 359.49,40.76">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="11483007"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="11483007"/>
+        </lane>
+        <param key="origFrom" value="25664680"/>
+    </edge>
+    <edge id="17" from="100" to="126" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="468.96,126.33 473.95,128.46 478.98,131.51 482.13,133.68" spreadType="center" allow="tram" bidi="1">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origTo" value="4590472039"/>
+    </edge>
+    <edge id="18" from="126" to="103" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="482.13,133.68 487.29,137.24 494.11,141.54" spreadType="center" allow="tram" bidi="2">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origFrom" value="4590472039"/>
+    </edge>
+    <edge id="19" from="103" to="102" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="494.11,141.54 503.43,146.28 510.22,148.33 573.09,153.67 588.68,154.99" spreadType="center" allow="tram" bidi="3">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+    </edge>
+    <edge id="2" from="103" to="126" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="494.11,141.54 487.29,137.24 482.13,133.68" spreadType="center" allow="tram" bidi="18">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origTo" value="4590472039"/>
+    </edge>
+    <edge id="20" from="126" to="110" name="Charlottenstraße" priority="3" type="highway.residential" numLanes="2" speed="13.89" shape="482.13,133.68 487.21,51.62">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="153698394"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="153698394"/>
+        </lane>
+        <param key="origFrom" value="4590472039"/>
+    </edge>
+    <edge id="21" from="101" to="127" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="273.61,110.45 334.47,115.77 354.47,117.53">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="158023913"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="158023913"/>
+        </lane>
+        <param key="origTo" value="25664680"/>
+        <param key="ref" value="L 1069"/>
+    </edge>
+    <edge id="22" from="104" to="127" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="474.30,225.52 476.00,205.12 480.35,159.56 480.43,154.36 480.46,150.72 480.11,147.05 478.86,142.89 475.91,137.16 471.83,133.26 467.46,130.27 463.02,128.37 451.49,126.43 443.65,125.91 384.62,121.59 374.88,122.43 369.36,123.44 364.61,125.55 362.17,126.90 359.60,128.90" spreadType="center" allow="tram" bidi="8">
+        <lane index="0">
+            <param key="origId" value="167272512 195411594"/>
+        </lane>
+        <param key="origTo" value="4603453154"/>
+    </edge>
+    <edge id="23" from="106" to="116" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="175885743"/>
+        </lane>
+    </edge>
+    <edge id="24" from="107" to="117" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="175885745"/>
+        </lane>
+    </edge>
+    <edge id="25" from="105" to="106" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="175885747"/>
+        </lane>
+    </edge>
+    <edge id="26" from="106" to="122" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="346.54,156.13 348.22,156.20" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="175885747"/>
+        </lane>
+        <param key="origTo" value="1673527106"/>
+    </edge>
+    <edge id="27" from="122" to="107" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="351.18,156.34 352.87,156.42" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="175885747"/>
+        </lane>
+        <param key="origFrom" value="1673527109"/>
+    </edge>
+    <edge id="28" from="107" to="108" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="175885747"/>
+        </lane>
+    </edge>
+    <edge id="29" from="122" to="125" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="351.18,156.34 347.83,212.02 346.82,230.26" spreadType="center" allow="tram" bidi="6">
+        <lane index="0">
+            <param key="origId" value="195411594"/>
+        </lane>
+        <param key="origFrom" value="1673527109"/>
+        <param key="origTo" value="1864428534"/>
+    </edge>
+    <edge id="3" from="102" to="103" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="588.68,154.99 573.09,153.67 510.22,148.33 503.43,146.28 494.11,141.54" spreadType="center" allow="tram" bidi="19">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+    </edge>
+    <edge id="30" from="127" to="122" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="359.60,128.90 357.87,130.88 356.35,132.99 354.83,135.68 353.45,138.83 352.21,143.66 351.70,147.34 351.18,156.34" spreadType="center" allow="tram" bidi="7">
+        <lane index="0">
+            <param key="origId" value="195411594"/>
+        </lane>
+        <param key="origFrom" value="4603453154"/>
+        <param key="origTo" value="1673527109"/>
+    </edge>
+    <edge id="31" from="105" to="127" name="Friedrichstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="340.53,155.83 341.93,134.76 343.98,127.17 353.34,116.54" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="195411604"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="195411604"/>
+        </lane>
+        <param key="origTo" value="25664680"/>
+    </edge>
+    <edge id="32" from="127" to="126" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="359.17,125.08 363.70,122.11 368.69,120.20 375.11,118.80 383.55,118.36 394.97,119.53 417.22,120.79 437.23,122.41 456.69,123.83 465.73,125.44" spreadType="center" allow="tram" bidi="14">
+        <lane index="0">
+            <param key="origId" value="22820560 93584121"/>
+        </lane>
+        <param key="origFrom" value="577258918"/>
+        <param key="origTo" value="4590472040"/>
+    </edge>
+    <edge id="33" from="122" to="127" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="348.22,156.20 348.71,147.31 349.22,143.14 350.34,137.96 351.88,134.38 353.80,131.22 356.69,127.47 359.17,125.08" spreadType="center" allow="tram" bidi="9">
+        <lane index="0">
+            <param key="origId" value="22820560"/>
+        </lane>
+        <param key="origFrom" value="1673527106"/>
+        <param key="origTo" value="577258918"/>
+    </edge>
+    <edge id="34" from="125" to="122" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="343.76,230.08 346.83,180.48 348.22,156.20" spreadType="center" allow="tram" bidi="10">
+        <lane index="0">
+            <param key="origId" value="22820560"/>
+        </lane>
+        <param key="origFrom" value="1864428533"/>
+        <param key="origTo" value="1673527106"/>
+    </edge>
+    <edge id="35" from="127" to="108" name="Friedrichstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="361.09,128.72 361.91,135.88 360.14,156.81" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="22972195"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="22972195"/>
+        </lane>
+        <param key="origFrom" value="4603453154"/>
+    </edge>
+    <edge id="36" from="120" to="111" name="C" priority="18" type="railway.subway" numLanes="1" speed="27.78" spreadType="center" allow="rail_urban">
+        <lane index="0">
+            <param key="origId" value="295250353"/>
+        </lane>
+    </edge>
+    <edge id="37" from="111" to="113" name="U6" priority="18" type="railway.subway" numLanes="1" speed="27.78" shape="356.01,109.22 348.07,223.93 348.20,242.80 343.67,300.15 340.67,338.45 331.28,415.83 306.36,710.29 301.26,814.03 298.63,846.62 295.30,886.26 291.83,930.68 287.95,981.02 283.48,1028.77 281.51,1040.09 279.59,1048.47 277.45,1057.09 274.75,1068.74 271.51,1079.45 265.35,1094.02 258.40,1107.29 238.62,1138.45 186.23,1210.48 129.03,1287.16 18.87,1439.76 0.00,1468.17" spreadType="center" allow="rail_urban">
+        <lane index="0">
+            <param key="origId" value="295376548 335043672 378659150 378659151 278240007"/>
+        </lane>
+    </edge>
+    <edge id="38" from="112" to="119" name="C" priority="18" type="railway.subway" numLanes="1" speed="27.78" shape="341.64,223.30 346.13,190.19 350.25,125.80 352.31,108.80 360.65,0.00" spreadType="center" allow="rail_urban">
+        <lane index="0">
+            <param key="origId" value="335043673"/>
+        </lane>
+    </edge>
+    <edge id="39" from="121" to="126" name="Planckstraße" priority="3" type="highway.residential" numLanes="2" speed="13.89" shape="476.53,225.73 483.13,153.97 481.98,136.01">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <param key="origTo" value="25664673"/>
+    </edge>
+    <edge id="4" from="110" to="126" name="Charlottenstraße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="487.21,51.62 482.13,133.68" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="153698394"/>
+        </lane>
+        <param key="origTo" value="4590472039"/>
+    </edge>
+    <edge id="40" from="126" to="103" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="493.78,145.62 494.11,141.54" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="463829469"/>
+        </lane>
+        <param key="origFrom" value="4590472030"/>
+    </edge>
+    <edge id="41" from="103" to="114" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="463829469"/>
+        </lane>
+    </edge>
+    <edge id="42" from="108" to="123" name="Friedrichstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="360.14,156.81 354.10,224.73 353.68,227.66 353.08,230.85" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="465376239 465376255"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="465376239 465376255"/>
+        </lane>
+        <param key="origTo" value="1864428536"/>
+    </edge>
+    <edge id="43" from="124" to="105" name="Friedrichstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="335.20,229.69 335.11,227.28 340.53,155.81" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="465376240"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="465376240"/>
+        </lane>
+        <param key="origFrom" value="1864428531"/>
+    </edge>
+    <edge id="44" from="115" to="108" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="357.33,212.10 361.03,157.28 360.63,156.77 358.65,156.68" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="465376241"/>
+        </lane>
+    </edge>
+    <edge id="45" from="118" to="105" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="332.90,229.64 338.68,156.12 339.17,155.79 342.03,155.93" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="465376242"/>
+        </lane>
+    </edge>
+    <edge id="46" from="127" to="126" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="354.47,117.53 375.55,116.52 417.52,119.85 459.61,123.70 462.76,124.45 465.73,125.44">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="83517336"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="83517336"/>
+        </lane>
+        <param key="origFrom" value="25664680"/>
+        <param key="origTo" value="4590472040"/>
+    </edge>
+    <edge id="47" from="126" to="128" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="493.78,145.62 496.36,147.44 499.84,149.48 502.44,150.56 505.69,151.58 593.10,156.83 605.61,157.07">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="83517336 340498976"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="83517336 340498976"/>
+        </lane>
+        <param key="origFrom" value="4590472030"/>
+        <param key="origTo" value="25665679"/>
+    </edge>
+    <edge id="48" from="126" to="100" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="465.73,125.44 468.96,126.33" spreadType="center" allow="tram" bidi="15">
+        <lane index="0">
+            <param key="origId" value="93584121"/>
+        </lane>
+        <param key="origFrom" value="4590472040"/>
+    </edge>
+    <edge id="5" from="127" to="101" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="354.47,117.53 334.47,115.77 273.61,110.45">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="158023913"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="158023913"/>
+        </lane>
+        <param key="origFrom" value="25664680"/>
+        <param key="ref" value="L 1069"/>
+    </edge>
+    <edge id="6" from="125" to="122" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="346.82,230.26 347.83,212.02 351.18,156.34" spreadType="center" allow="tram" bidi="29">
+        <lane index="0">
+            <param key="origId" value="195411594"/>
+        </lane>
+        <param key="origFrom" value="1864428534"/>
+        <param key="origTo" value="1673527109"/>
+    </edge>
+    <edge id="7" from="122" to="127" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="351.18,156.34 351.70,147.34 352.21,143.66 353.45,138.83 354.83,135.68 356.35,132.99 357.87,130.88 359.60,128.90" spreadType="center" allow="tram" bidi="30">
+        <lane index="0">
+            <param key="origId" value="195411594"/>
+        </lane>
+        <param key="origFrom" value="1673527109"/>
+        <param key="origTo" value="4603453154"/>
+    </edge>
+    <edge id="8" from="127" to="104" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="359.60,128.90 362.17,126.90 364.61,125.55 369.36,123.44 374.88,122.43 384.62,121.59 443.65,125.91 451.49,126.43 463.02,128.37 467.46,130.27 471.83,133.26 475.91,137.16 478.86,142.89 480.11,147.05 480.46,150.72 480.43,154.36 480.35,159.56 476.00,205.12 474.30,225.52" spreadType="center" allow="tram" bidi="22">
+        <lane index="0">
+            <param key="origId" value="195411594 167272512"/>
+        </lane>
+        <param key="origFrom" value="4603453154"/>
+    </edge>
+    <edge id="9" from="127" to="122" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="359.17,125.08 356.69,127.47 353.80,131.22 351.88,134.38 350.34,137.96 349.22,143.14 348.71,147.31 348.22,156.20" spreadType="center" allow="tram" bidi="33">
+        <lane index="0">
+            <param key="origId" value="22820560"/>
+        </lane>
+        <param key="origFrom" value="577258918"/>
+        <param key="origTo" value="1673527106"/>
+    </edge>
+</edges>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,7 +49,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
-    friend class GNEChange_EnableAttribute;
+    friend class GNEChange_ToggleAttribute;
     friend class GNEFrameAttributeModules;
     friend class GNEAttributesCreatorRow;
     friend class GNEFlowEditor;
@@ -64,6 +64,9 @@ public:
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
+
+    /// @brief get ID (all Attribute Carriers have one)
+    const std::string getID() const;
 
     /// @brief get pointer to net
     GNENet* getNet() const;
@@ -83,16 +86,58 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
 
+    /// @name Function related with grid (needed for elements that aren't always in grid)
+    /// @{
+    /// @brief mark if this AC was inserted in grid or not
+    void setInGrid(bool value);
+
+    /// @brief check if this AC was inserted in grid
+    bool inGrid() const;
+
+    /// @}
+
     /// @name Function related with graphics (must be implemented in all children)
     /// @{
-    /// @brief get ID (all Attribute Carriers have one)
-    virtual const std::string& getID() const = 0;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     virtual GUIGlObject* getGUIGlObject() = 0;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    virtual const GUIGlObject* getGUIGlObject() const = 0;
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
+
+    /// @}
+
+    /// @name Function related with contourdrawing (can be implemented in children)
+    /// @{
+
+    /// @brief check if draw inspect contour (black/white)
+    bool checkDrawInspectContour() const;
+
+    /// @brief check if draw front contour (green/blue)
+    bool checkDrawFrontContour() const;
+
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawFromContour() const = 0;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawToContour() const = 0;
+
+    /// @brief check if draw related contour (cyan)
+    virtual bool checkDrawRelatedContour() const = 0;
+
+    /// @brief check if draw over contour (orange)
+    virtual bool checkDrawOverContour() const = 0;
+
+    /// @brief check if draw delete contour (pink/white)
+    virtual bool checkDrawDeleteContour() const = 0;
+
+    /// @brief check if draw select contour (blue)
+    virtual bool checkDrawSelectContour() const = 0;
+
+    /// @brief check if draw move contour (red)
+    virtual bool checkDrawMoveContour() const = 0;
 
     /// @}
 
@@ -125,24 +170,31 @@ public:
      * @param[in] undoList The undoList on which to register changes
      * @note certain attributes can be only enabled, and can produce the disabling of other attributes
      */
-    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
+    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for disable attribute
      * @param[in] key The attribute key
      * @param[in] undoList The undoList on which to register changes
      * @note certain attributes can be only enabled, and can produce the disabling of other attributes
      */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
+    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
+    virtual bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
-    virtual bool isAttributeComputed(SumoXMLAttr key) const = 0;
+    virtual bool isAttributeComputed(SumoXMLAttr key) const;
+
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool hasAttribute(SumoXMLAttr key) const {
+        return myTagProperty.hasAttribute(key);
+    }
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
@@ -190,7 +242,7 @@ public:
     const std::string& getTagStr() const;
 
     /// @brief get FXIcon associated to this AC
-    FXIcon* getIcon() const;
+    FXIcon* getACIcon() const;
 
     /// @brief check if this AC is template
     bool isTemplate() const;
@@ -202,7 +254,10 @@ public:
     static const GNETagProperties& getTagProperty(SumoXMLTag tag);
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory);
+    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
+
+    /// @brief get tagProperties associated to the given merging tag
+    static const std::vector<GNETagProperties> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -212,17 +267,8 @@ public:
         } catch (EmptyData&) {
             // general
             return false;
-        } catch (NumberFormatException&) {
-            // numbers
-            return false;
-        } catch (TimeFormatException&) {
-            // time
-            return false;
-        } catch (BoolFormatException&) {
-            // booleans
-            return false;
-        } catch (InvalidArgument&) {
-            // colors
+        } catch (FormatException&) {
+            // numbers, time, boolean, colors
             return false;
         }
         return true;
@@ -257,8 +303,12 @@ public:
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
+    /// @brief write machine readable attribute help to file
+    static void writeAttributeHelp();
+
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
+
     /// @brief feature is still unchanged after being loaded (implies approval)
     static const std::string FEATURE_LOADED;
 
@@ -270,6 +320,7 @@ public:
 
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string FEATURE_APPROVED;
+
     /// @}
 
     /// @brief max number of attributes allowed for every tag
@@ -289,20 +340,23 @@ protected:
     const GNETagProperties& myTagProperty;
 
     /// @brief pointer to net
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
+    bool mySelected = false;
+
+    /// @brief boolean to check if this AC is in grid
+    bool myInGrid = false;
 
     /// @brief whether the current object is a template object (not drawn in the view)
-    bool myIsTemplate;
+    bool myIsTemplate = false;
+
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
+    virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
     void resetAttributes();
@@ -324,6 +378,9 @@ private:
 
     /// @brief fill Wire elements
     static void fillWireElements();
+
+    /// @brief fill JuPedSim elements
+    static void fillJuPedSimElements();
 
     /// @brief fill demand elements
     static void fillDemandElements();
@@ -349,8 +406,8 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill stopPerson elements
-    static void fillStopPersonElements();
+    /// @brief fill person stop elements
+    static void fillPersonStopElements();
 
     /// @brief fill container elements
     static void fillContainerElements();
@@ -363,6 +420,9 @@ private:
 
     /// @brief fill container stop elements
     static void fillContainerStopElements();
+
+    /// @brief fill common POI attributes
+    static void fillPOIAttributes(SumoXMLTag currentTag);
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
@@ -388,14 +448,38 @@ private:
     /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
 
+    /// @brief fill plan from-to attribute
+    static void fillPlanParentAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill person trip common attributes
+    static void fillPersonTripCommonAttributes(GNETagProperties& tagProperties);
+
+    /// @brief fill walk common attributes
+    static void fillWalkCommonAttributes(GNETagProperties& tagProperties);
+
+    /// @brief fill ride common attributes
+    static void fillRideCommonAttributes(GNETagProperties& tagProperties);
+
+    /// @brief fill transport common attributes
+    static void fillTransportCommonAttributes(GNETagProperties& tagProperties);
+
+    /// @brief fill ride common attributes
+    static void fillTranshipCommonAttributes(GNETagProperties& tagProperties);
+
+    /// @brief fill plan stop common attributes
+    static void fillPlanStopCommonAttributes(GNETagProperties& tagProperties);
+
     /// @brief fill Data elements
     static void fillDataElements();
 
-    /// @brief returns icon associated to the given vClass
-    static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
+    /// @brief fill stop person attributes
+    static void fillCommonMeanDataAttributes(SumoXMLTag currentTag);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
+
+    /// @brief map with the merged tags properties
+    static std::map<SumoXMLTag, GNETagProperties> myMergedPlanTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

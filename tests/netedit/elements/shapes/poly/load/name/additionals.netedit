@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-08-08 15:02:17 by Eclipse SUMO netedit Version v1_18_0+0799-e3f13b8932a
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="-50.000000,20.000000 -40.000000,20.000000 -40.000000,10.000000 -50.000000,10.000000 -50.000000,20.000000"/>
+    <poly id="poly_1" color="green" fill="1" layer="0.00" name="%%%%%%%" shape="-50.000000,0.000000 -40.000000,0.000000 -40.000000,-10.000000 -50.000000,-10.000000 -50.000000,0.000000"/>
+    <poly id="poly_2" color="green" fill="1" layer="0.00" name="customName" shape="-50.000000,-20.000000 -40.000000,-20.000000 -40.000000,-30.000000 -50.000000,-30.000000 -50.000000,-20.000000"/>
+</additional>

@@ -73,14 +73,14 @@ on("ready", function(){
 
             var node = elem("<div>", {className: "container"});
             var header = elem("<h4>", {textContent: category});
+            var checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
             node.append(header);
+            node.append(checkbox);
 
-            var types = elem("<div>", {className: "roadTypes"});
+            var types = elem("<div>", {className: "roadTypes " + category.toLowerCase()});
             var label = elem("<label>");
 
             for (var i = 0; i < typeList.length; i++) {
-                console.log(typeList[i]);
-
                 label = elem("<label>", {textContent: typeList[i]});
                 let roadTypeId = this.category + "_" + typeList[i]
                 this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: roadTypeId});
@@ -113,15 +113,15 @@ on("ready", function(){
         "living_street", "unsurfaced", "service", "raceway", "bus_guideway"];
     categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
         "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this will be transformed in startBuild()
-    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
+    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed", "monorail"];
     categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
     categories["Waterway"] = ["river", "canal"];
+    categories["Aerialway"] = ["cable_car", "gondola"];
     categories["Route"] = ["ferry"];
 
     var roadClasses = [];
 
     for (const [key, value] of Object.entries(categories)) {
-        console.log(key, value);
         roadClasses.push(new RoadTypes(key, value));
     }
 
@@ -321,16 +321,26 @@ on("ready", function(){
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
 
+    // function to check or uncheck all checkboxes for a certain roadType
+    var checkOrUncheckAll = function() {
+        Array.from(document.querySelectorAll(".roadTypes." + this.getAttribute("id") + " input[type=checkbox]")).forEach(el => el.checked = this.checked);
+    };
+
+    // listen if a roadType checkbox is selected/unselected
+    var roadTypeCheckboxes = document.getElementsByClassName("checkAll");
+
+    Array.from(roadTypeCheckboxes).forEach(function(element) {
+        element.addEventListener("click", checkOrUncheckAll);
+    });
+
     // OSM map
     // avoid cross domain resource sharing issues (#3991)
     // (https://gis.stackexchange.com/questions/83953/openlayers-maps-issue-with-ssl)
     var map = new OpenLayers.Map("map");
-    var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap", 
+    var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap",
     // Official OSM tileset as protocol-independent URLs
     [
-        'https://a.tile.openstreetmap.org/${z}/${x}/${y}.png',
-        'https://b.tile.openstreetmap.org/${z}/${x}/${y}.png',
-        'https://c.tile.openstreetmap.org/${z}/${x}/${y}.png'
+        'https://tile.openstreetmap.org/${z}/${x}/${y}.png'
     ], null);
     map.addLayer(maplayer);
 
@@ -404,7 +414,7 @@ on("ready", function(){
         };
         xhr.send();
     };
-    
+
 
     // set default position to center Berlin
     setPosition(13.4, 52.52);
@@ -472,7 +482,7 @@ on("ready", function(){
 		presentedErrorLog = true;
 	    }
 	};
-	
+
         // whenever the socket closes (e.g. restart) try to reconnect
         socket.addEventListener("close", connectSocket);
         socket.addEventListener("message", function(evt){

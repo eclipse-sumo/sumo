@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,9 +25,12 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsCont.h>
+#include <foreign/PHEMlight/V5/cpp/Constants.h>
 
 #include "HelpersHBEFA.h"
 #include "HelpersHBEFA3.h"
+#include "HelpersHBEFA4.h"
 #include "HelpersPHEMlight.h"
 #include "HelpersEnergy.h"
 #include "HelpersMMPEVEM.h"
@@ -38,7 +41,7 @@
 // ===========================================================================
 // static definitions
 // ===========================================================================
-
+const double PollutantsInterface::Helper::ZERO_SPEED_ACCURACY = .5;
 PollutantsInterface::Helper PollutantsInterface::myZeroHelper("Zero", PollutantsInterface::ZERO_EMISSIONS, PollutantsInterface::ZERO_EMISSIONS);
 HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
 HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
@@ -46,13 +49,16 @@ HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
 HelpersMMPEVEM PollutantsInterface::myMMPEVEMHelper;
 HelpersPHEMlight5 PollutantsInterface::myPHEMlight5Helper;
+HelpersHBEFA4 PollutantsInterface::myHBEFA4Helper;
 PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
     &PollutantsInterface::myZeroHelper,
     &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
     &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper,
-    &PollutantsInterface::myMMPEVEMHelper, &PollutantsInterface::myPHEMlight5Helper
+    &PollutantsInterface::myMMPEVEMHelper, &PollutantsInterface::myPHEMlight5Helper,
+    &PollutantsInterface::myHBEFA4Helper
 };
 std::vector<std::string> PollutantsInterface::myAllClassesStr;
+
 
 // ===========================================================================
 // method definitions
@@ -106,6 +112,7 @@ std::string& PollutantsInterface::Helper::getName() const {
 SUMOEmissionClass
 PollutantsInterface::Helper::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     UNUSED_PARAMETER(vc);
+    myVolumetricFuel = OptionsCont::getOptions().exists("emissions.volumetric-fuel") && OptionsCont::getOptions().getBool("emissions.volumetric-fuel");
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
     }
@@ -121,7 +128,7 @@ PollutantsInterface::Helper::getClassName(const SUMOEmissionClass c) const {
 
 bool
 PollutantsInterface::Helper::isSilent(const SUMOEmissionClass c) {
-    return (c & 0xffffffff & ~HEAVY_BIT) == 0;
+    return (c & (int)0xffffffff & ~HEAVY_BIT) == 0;
 }
 
 
@@ -176,22 +183,30 @@ PollutantsInterface::Helper::compute(const SUMOEmissionClass c, const EmissionTy
 
 
 double
-PollutantsInterface::Helper::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
+PollutantsInterface::Helper::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
     UNUSED_PARAMETER(c);
     UNUSED_PARAMETER(v);
     UNUSED_PARAMETER(slope);
+    UNUSED_PARAMETER(param);
     return a;
 }
 
 
 double
 PollutantsInterface::Helper::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
-    UNUSED_PARAMETER(c);
-    UNUSED_PARAMETER(v);
-    UNUSED_PARAMETER(a);
-    UNUSED_PARAMETER(slope);
-    UNUSED_PARAMETER(param);
-    return 0.;
+    // the interpolation for small v is basically the same as in PHEMlightdllV5::CEP::GetDecelCoast
+    if (v < PHEMlightdllV5::Constants::SPEED_DCEL_MIN) {
+        return v / PHEMlightdllV5::Constants::SPEED_DCEL_MIN * getCoastingDecel(c, PHEMlightdllV5::Constants::SPEED_DCEL_MIN, a, slope, param);
+    }
+    if (param == nullptr) {
+        param = EnergyParams::getDefault();
+    }
+    // the magic numbers below come from a linear interpolation with http://ts-sim-service-ba/svn/simo/trunk/projects/sumo/data/emissions/linear.py
+    const double mass = param->getDouble(SUMO_ATTR_MASS);
+    const double area = param->getDouble(SUMO_ATTR_WIDTH) * param->getDouble(SUMO_ATTR_HEIGHT) * M_PI / 4.;
+    const double incl = area / mass * -9.05337017 + -0.00017774;
+    const double grad = PHEMlightdllV5::Constants::GRAVITY_CONST * slope / 100.;
+    return MIN2(0., incl * v + 0.00001066 * mass + -0.38347107 - 20.0 * incl - grad);
 }
 
 
@@ -214,7 +229,7 @@ SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     const std::string::size_type sep = eClass.find("/");
     const std::string model = eClass.substr(0, sep); // this includes the case of no separator
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         if (myHelpers[i]->getName() == model) {
             if (sep != std::string::npos) {
                 const std::string subClass = eClass.substr(sep + 1);
@@ -240,7 +255,7 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
 const std::vector<SUMOEmissionClass>
 PollutantsInterface::getAllClasses() {
     std::vector<SUMOEmissionClass> result;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
         myHelpers[i]->addAllClassesInto(result);
     }
     return result;
@@ -253,7 +268,7 @@ PollutantsInterface::getAllClassesStr() {
     if (myAllClassesStr.empty()) {
         // first obtain all emissionClasses
         std::vector<SUMOEmissionClass> emissionClasses;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 8; i++) {
             myHelpers[i]->addAllClassesInto(emissionClasses);
         }
         // now write all emissionClasses in myAllClassesStr
@@ -358,8 +373,14 @@ PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionTyp
 
 
 double
-PollutantsInterface::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) {
-    return myHelpers[c >> 16]->getModifiedAccel(c, v, a, slope);
+PollutantsInterface::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) {
+    return myHelpers[c >> 16]->getModifiedAccel(c, v, a, slope, param);
+}
+
+
+double
+PollutantsInterface::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) {
+    return myHelpers[c >> 16]->getCoastingDecel(c, v, a, slope, param);
 }
 
 

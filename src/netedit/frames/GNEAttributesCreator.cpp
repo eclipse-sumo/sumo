@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,8 +17,8 @@
 ///
 // Attribute creator
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -39,7 +39,7 @@ FXDEFMAP(GNEAttributesCreator) AttributesCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEAttributesCreator, MFXGroupBoxModule, AttributesCreatorMap, ARRAYNUMBER(AttributesCreatorMap))
 
 
 // ===========================================================================
@@ -47,17 +47,17 @@ FXIMPLEMENT(GNEAttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYN
 // ===========================================================================
 
 GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->getContentFrame(), "Internal attributes"),
+    MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myFlowEditor
-    myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent->getContentFrame());
+    myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent);
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
-    new FXButton(myFrameButtons, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myResetButton = GUIDesigns::buildFXButton(myFrameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
+    GUIDesigns::buildFXButton(myFrameButtons, TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -132,7 +132,7 @@ GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject*
                 } else if (attrProperties.isBool()) {
                     const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue()) ? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
                     baseObject->addBoolAttribute(attrProperties.getAttr(), boolValue);
-                } else if (attrProperties.isposition()) {
+                } else if (attrProperties.isPosition()) {
                     const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue()) ? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
                     baseObject->addPositionAttribute(attrProperties.getAttr(), positionValue);
                 } else if (attrProperties.isSUMOTime()) {
@@ -142,7 +142,7 @@ GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject*
                     const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue()) ? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
                     baseObject->addColorAttribute(attrProperties.getAttr(), colorValue);
                 } else if (attrProperties.isList()) {
-                    if (attrProperties.isposition()) {
+                    if (attrProperties.isPosition()) {
                         const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue()) ? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
                         baseObject->addPositionVectorAttribute(attrProperties.getAttr(), positionVectorValue);
                     } else {
@@ -173,9 +173,9 @@ GNEAttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr();
+        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty().getTagStr();
     } else {
-        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
+        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
     // set message in status bar
     myFrameParent->getViewNet()->setStatusBarText(errorMessage);
@@ -269,7 +269,8 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
         // check special case for VType IDs in vehicle and person Frame
         if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
                 ((myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON))) {
+                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON) ||
+                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_CONTAINER))) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag

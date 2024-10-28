@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-25 12:20:24 by Eclipse SUMO marouter Version v1_14_1+1904-bc14570
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <tazrelation-files value="input_od.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <netload-output value="aggregated.xml"/>
+    </output>
+
+    <processing>
+        <scale value="2"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="0" begin="0.00" end="3600.00" number="20" type="car" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="90.84" probability="14.00000000" edges="middle end"/>
+            <route cost="90.85" probability="6.00000000" edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </flow>
+</routes>

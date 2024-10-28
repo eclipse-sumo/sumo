@@ -1,0 +1,16 @@
+# Tests how the simulation begin time affects the WAUT
+
+begin0
+begin50
+begin100
+begin150
+begin200
+begin250
+begin300
+begin350
+begin400
+begin450
+begin500
+begin550
+
+

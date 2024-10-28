@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-02-18 21:22:56.373084 by $Id$ v1_8_0+1268-8ea3cb9
-  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v <doubleminus>abort-unordered <doubleminus>debug-stop stop_b
+
+<!-- generated on 2022-07-07 11:20:48.719072 by generateRailSignalConstraints.py v1_13_0+1343-240e5d48340
+<configuration>
+    <abort-unordered value="True"/>
+    <additional-file value="input_additional.add.xml"/>
+    <debug-stop value="stop_b"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <skip-parking value="True"/>
+    <verbose value="True"/>
+</configuration>
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 </additional>

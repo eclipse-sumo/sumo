@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/FXBaseObject.h>
+#include <utils/foxtools/MFXThreadEvent.h>
+#include <utils/foxtools/MFXBaseObject.h>
 #include <utils/foxtools/fxheader.h>
 
 
@@ -54,10 +54,22 @@ enum class GUIEventType {
     /// @brief send when a status change occured
     STATUS_OCCURRED,
 
+    /**@brief Send when a new should be opened (via TraCI) */
+    ADD_VIEW,
+
+    /**@brief Send when a view should be closed (via TraCI) */
+    CLOSE_VIEW,
+
     /**@brief Send when the simulation is over;
      * @note The reason and the time step are stored within the event
     */
     SIMULATION_ENDED,
+
+    /// @brief send when a tool produces output
+    OUTPUT_OCCURRED,
+
+    /// @brief send when a tool finishes
+    TOOL_ENDED,
 
     /// @brief End of events list; use this to define new
     END

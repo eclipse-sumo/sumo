@@ -1,0 +1,24 @@
+build_config/package/sumo.*sh etc/profile.d
+data/ usr/share/sumo
+build_config/package/sumo.png usr/share/pixmaps
+build_config/package/sumo.desktop usr/share/applications
+build_config/package/sumo.xml usr/share/mime/application
+usr/bin/activitygen
+usr/bin/dfrouter
+usr/bin/duarouter
+usr/bin/emissionsDrivingCycle
+usr/bin/emissionsMap
+usr/bin/jtrrouter
+usr/bin/marouter
+usr/bin/netconvert
+usr/bin/netedit
+usr/bin/netgenerate
+usr/bin/od2trips
+usr/bin/polyconvert
+usr/bin/sumo
+usr/bin/sumo-gui
+usr/bin/marouter
+usr/bin/netedit
+usr/lib/*/*libsumo*
+usr/lib/*/*libtraci*
+usr/include/libsumo

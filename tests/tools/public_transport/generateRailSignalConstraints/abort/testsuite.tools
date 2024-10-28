@@ -4,6 +4,12 @@ repeat3
 # like 'basic' but repeat the same trains again after 1000s and 2000s
 repeat3_writeInactive
 
+# like 'basic' but repeat the same trains again after 1000s and 2000s
+repeat3_allInactive
+
+# like 'basic' but repeat the same trains again after 1000s and 2000s
+repeat3_writeInactive_allInactive
+
 # each train has multiple stops. Constraints should not be written for stops after the first inconsistence.
 # 
 multiStop
@@ -28,3 +34,6 @@ multistop_cannot_ignore_parking
 
 # one train passes the stop and the other train is inserted there
 foeInsertion
+
+# a train departs ahead of schedule and must not have constraints afterwards
+ended_early

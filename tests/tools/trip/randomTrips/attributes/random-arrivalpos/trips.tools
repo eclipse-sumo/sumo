@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:31.092631 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="10"/>
+    <net-file value="net.net.xml"/>
+    <random-arrivalpos value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="3si" to="1o" arrivalPos="134.39"/>
+    <trip id="1" depart="1.00" from="1si" to="3si" arrivalPos="160.48"/>
+    <trip id="2" depart="2.00" from="4si" to="1o" arrivalPos="206.17"/>
+    <trip id="3" depart="3.00" from="1fi" to="1si" arrivalPos="119.85"/>
+    <trip id="4" depart="4.00" from="1fi" to="1si" arrivalPos="154.12"/>
+    <trip id="5" depart="5.00" from="3fi" to="1si" arrivalPos="139.74"/>
+    <trip id="6" depart="6.00" from="4fi" to="1o" arrivalPos="393.76"/>
+    <trip id="7" depart="7.00" from="3si" to="2o" arrivalPos="75.98"/>
+    <trip id="8" depart="8.00" from="4si" to="2o" arrivalPos="45.32"/>
+    <trip id="9" depart="9.00" from="1fi" to="4o" arrivalPos="295.01"/>
+</routes>

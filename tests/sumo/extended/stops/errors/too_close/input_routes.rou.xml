@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-  <vType id="Car" sigma="0" emergencyDecel="8" speedFactor="2"/>
-  <route id="route0" edges="SC"/>
-
-  <vehicle depart="0" id="veh0" route="route0" type="Car" departPos="0" departSpeed="20">
-      <stop lane="SC_0" endPos="40" duration="50"/>
-  </vehicle>
-</additional>

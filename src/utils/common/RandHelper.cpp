@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,19 +54,19 @@ std::map<std::string, int> lastThreadIndex; // by rng
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 void
-RandHelper::insertRandOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+RandHelper::insertRandOptions(OptionsCont& oc) {
     // registers random number options
     oc.addOptionSubTopic("Random Number");
 
     oc.doRegister("random", new Option_Bool(false));
     oc.addSynonyme("random", "abs-rand", true);
-    oc.addDescription("random", "Random Number", "Initialises the random number generator with the current system time");
+    oc.addDescription("random", "Random Number", TL("Initialises the random number generator with the current system time"));
 
     oc.doRegister("seed", new Option_Integer(23423));
     oc.addSynonyme("seed", "srand", true);
-    oc.addDescription("seed", "Random Number", "Initialises the random number generator with the given value");
+    oc.addDescription("seed", "Random Number", TL("Initialises the random number generator with the given value"));
 }
 
 
@@ -106,7 +106,8 @@ RandHelper::rand(SumoRNG* rng) {
 #ifdef DEBUG_RANDCALLS_PARALLEL
     auto threadID = std::this_thread::get_id();
     if (threadIndices.count(threadID) == 0) {
-        threadIndices[threadID] = threadIndices.size();
+        const int tmp = threadIndices.size();
+        threadIndices[threadID] = tmp;
     }
     int threadIndex = threadIndices[threadID];
     auto it = lastThreadIndex.find(rng->id);
@@ -149,5 +150,10 @@ double
 RandHelper::randExp(double rate, SumoRNG* rng) {
     return -log(rand(rng)) / rate;
 }
+
+// template<class T>
+// void RandHelper::shuffle(const std::vector<T>& v) {
+//     std::shuffle(v.begin(), v.end(), rng);
+// }
 
 /****************************************************************************/

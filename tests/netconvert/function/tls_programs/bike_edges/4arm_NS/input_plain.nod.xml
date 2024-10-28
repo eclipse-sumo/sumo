@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-16 10:29:32 by Eclipse SUMO netconvert Version v1_15_0+0313-865f64f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="E" x="200.00" y="100.00" type="priority"/>
+    <node id="J0" x="114.24" y="3.64" type="dead_end"/>
+    <node id="J3" x="112.00" y="198.21" type="dead_end"/>
+    <node id="J4" x="86.55" y="197.44" type="dead_end"/>
+    <node id="J7" x="87.57" y="1.49" type="dead_end"/>
+    <node id="N" x="100.00" y="200.00" type="priority"/>
+    <node id="S" x="100.00" y="0.00" type="priority"/>
+    <node id="W" x="0.00" y="100.00" type="priority"/>
+    <node id="clusterC_J1_J2_J5_#1more" x="100.18" y="100.18" type="traffic_light" tl="J8"/>
+</nodes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,28 +15,25 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
-// Definition of Vehicle Types in NETEDIT
+// Definition of Vehicle Types in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVType.h"
-#include "GNEVTypeDistribution.h"
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEVType::GNEVType(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(""),
-myDefaultVehicleType(true),
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+                                SUMOVTypeParameter(""),
+                                myDefaultVehicleType(true),
 myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
@@ -46,8 +43,8 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(vTypeID),
 myDefaultVehicleType(true),
 myDefaultVehicleTypeModified(false) {
@@ -59,8 +56,8 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(vTypeParameter),
 myDefaultVehicleType(false),
 myDefaultVehicleTypeModified(false) {
@@ -70,8 +67,8 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(*vTypeOriginal),
 myDefaultVehicleType(false),
 myDefaultVehicleTypeModified(false) {
@@ -95,7 +92,7 @@ void
 GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
     if (myDefaultVehicleType) {
-        if (myDefaultVehicleTypeModified || (getParentDemandElements().size() > 0)) {
+        if (myDefaultVehicleTypeModified) {
             write(device);
         }
     } else {
@@ -156,12 +153,6 @@ GNEVType::getParentName() const {
 }
 
 
-double
-GNEVType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNEVType::getCenteringBoundary() const {
     // Vehicle Types doesn't have boundaries
@@ -188,14 +179,14 @@ GNEVType::computePathElement() {
 
 
 void
-GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleTypes don't use drawPartialGL
+GNEVType::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // vehicleTypes don't use drawJunctionPartialGL
 }
 
 
 void
-GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleTypes don't use drawPartialGL
+GNEVType::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // vehicleTypes don't use drawJunctionPartialGL
 }
 
 
@@ -219,13 +210,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            if (getParentDemandElements().empty()) {
-                return "";
-            } else {
-                return getParentDemandElements().front()->getID();
-            }
+            return getMicrosimID();
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
@@ -272,15 +257,11 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
             /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
-        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
-        case SUMO_ATTR_TMP1:
-        case SUMO_ATTR_TMP2:
-        case SUMO_ATTR_TMP3:
-        case SUMO_ATTR_TMP4:
-        case SUMO_ATTR_TMP5:
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
         case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
@@ -296,6 +277,22 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
+            return getCFParamString(key, myTagProperty.getDefaultValue(key));
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -333,6 +330,18 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(defaultValues.speedFactor);
             }
+        case SUMO_ATTR_DESIRED_MAXSPEED:
+            if (wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
+                return toString(desiredMaxSpeed);
+            } else {
+                return toString(defaultValues.desiredMaxSpeed);
+            }
+        case SUMO_ATTR_PARKING_BADGES:
+            if (wasSet(VTYPEPARS_PARKING_BADGES_SET)) {
+                return joinToString(parkingBadges, " ");
+            } else {
+                return "";
+            }
         case SUMO_ATTR_PERSON_CAPACITY:
             if (wasSet(VTYPEPARS_PERSON_CAPACITY)) {
                 return toString(personCapacity);
@@ -358,7 +367,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_VCLASS:
-            if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+            if (myDefaultVehicleType || wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
                 return toString(vehicleClass);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_VCLASS);
@@ -482,6 +491,9 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return False;
             }
+        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+            return getDistributionParents();
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -523,6 +535,12 @@ GNEVType::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return defaultValues.maxSpeed;
             }
+        case SUMO_ATTR_PROB:
+            if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
+                return defaultProbability;
+            } else {
+                return parse<double>(myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -537,16 +555,12 @@ GNEVType::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    GNEChange_Attribute* vTypeChangeAttributeForced = nullptr;
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
-            break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            editVTypeDistribution(value, undoList);
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -587,6 +601,15 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
         // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
@@ -617,12 +640,15 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
         /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
         //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
         case SUMO_ATTR_MAXSPEED:
         case SUMO_ATTR_SPEEDFACTOR:
+        case SUMO_ATTR_DESIRED_MAXSPEED:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_VCLASS:
         case SUMO_ATTR_EMISSIONCLASS:
@@ -649,21 +675,12 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
-                vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
-                // force change
-                vTypeChangeAttributeForced->forceChange();
-                undoList->changeAttribute(vTypeChangeAttributeForced);
+                GNEChange_Attribute::changeAttribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true", undoList, true);
             }
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, key, value);
-            // force change
-            vTypeChangeAttributeForced->forceChange();
-            undoList->changeAttribute(vTypeChangeAttributeForced);
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
-            // force change
-            vTypeChangeAttributeForced->forceChange();
-            undoList->changeAttribute(vTypeChangeAttributeForced);
+            GNEChange_Attribute::changeAttribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true", undoList, true);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -679,20 +696,7 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            // Vtypes and PTypes shares namespace
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
-                return true;
-            } else {
-                return false;
-            }
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            if (value.empty()) {
-                return true;
-            } else {
-                return SUMOXMLDefinitions::isValidVehicleID(value);
-            }
+            return isValidDemandElementID(NamespaceIDs::types, value);
         // CFM Attributes
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
@@ -707,21 +711,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
-        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
-        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
-        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
-        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
-        case SUMO_ATTR_CF_EIDM_T_REACTION:
-        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
-        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
-        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
-        case SUMO_ATTR_CF_EIDM_SIG_GAP:
-        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
-        case SUMO_ATTR_CF_EIDM_JERK_MAX:
-        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
-        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
-        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
-        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -732,7 +721,46 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             return canParse<double>(value);
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+            return canParse<int>(value) && (parse<int>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+            return canParse<double>(value) && (parse<double>(value) >= 1) && (parse<double>(value) <= 5);
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1.5);
         case SUMO_ATTR_TRAIN_TYPE:
             // rail string
             return SUMOXMLDefinitions::TrainTypes.hasString(value);
@@ -779,6 +807,10 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LCA_ACCEL_LAT:
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
             return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+            return canParse<double>(value) && (parse<double>(value) >= 0 || parse<double>(value) == -1);
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
+            return canParse<double>(value) && (parse<double>(value) >= -1) && (parse<double>(value) <= 1);
         /* case SUMO_ATTR_LCA_EXPERIMENTAL1:
             return true;
         */
@@ -791,6 +823,8 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_SPEEDFACTOR:
             return Distribution_Parameterized::isValidDescription(value);
+        case SUMO_ATTR_DESIRED_MAXSPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
                 return true;
@@ -808,8 +842,8 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             }
             return false;
         case SUMO_ATTR_GUISHAPE:
-            if (value == "all") {
-                return false;
+            if (value.empty() || (value == "default")) {
+                return true;
             } else {
                 return canParseVehicleShape(value);
             }
@@ -865,23 +899,15 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEVType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to enable
-}
-
-
-void
-GNEVType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
-}
-
-
 bool
 GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            if ((id == DEFAULT_VTYPE_ID) || (id == DEFAULT_PEDTYPE_ID) || (id == DEFAULT_BIKETYPE_ID)) {
+            if (id == DEFAULT_VTYPE_ID
+                    || id == DEFAULT_PEDTYPE_ID
+                    || id == DEFAULT_BIKETYPE_ID
+                    || id == DEFAULT_TAXITYPE_ID
+                    || id == DEFAULT_RAILTYPE_ID) {
                 return false;
             } else {
                 return true;
@@ -894,6 +920,8 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_MAXSPEED_SET);
         case SUMO_ATTR_SPEEDFACTOR:
             return wasSet(VTYPEPARS_SPEEDFACTOR_SET);
+        case SUMO_ATTR_DESIRED_MAXSPEED:
+            return wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET);
         case SUMO_ATTR_PERSON_CAPACITY:
             return wasSet(VTYPEPARS_PERSON_CAPACITY);
         case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -906,6 +934,8 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
         case SUMO_ATTR_CARRIAGE_GAP:
             return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            return false;
         default:
             return true;
     }
@@ -933,7 +963,7 @@ GNEVType::getACParametersMap() const {
 void
 GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwrite all values of default VType
-    undoList->begin(vType->getTagProperty().getGUIIcon(), "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
+    undoList->begin(vType, "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
         vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);
@@ -1016,6 +1046,33 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_M_BEGIN, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_EIDM_M_BEGIN, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0)), undoList);
     }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC1, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC2, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC2, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC2, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC3, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC3, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC3, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC4, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC4, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC4, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC5, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC5, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC5, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC6, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC6, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC6, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC7, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC7, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC7, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC8, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC8, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC8, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC9, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC9, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC9, 0)), undoList);
+    }
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
     }
@@ -1051,94 +1108,103 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     // JM values
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_CROSSING_GAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_RED_SPEED, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_PROB, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_SPEED, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_SIGMA_MINOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_TIMEGAP_MINOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_IMPATIENCE_SET)) {
         vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter.impatience), undoList);
     }
     // LCM values
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, 0)), undoList);
     }
-    //
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, 0)), undoList);
+    }
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
+    }
+    // vType parameters
+    if (newVTypeParameter.wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+        vType->setAttribute(SUMO_ATTR_VCLASS, toString(newVTypeParameter.vehicleClass), undoList);
+    }
     if (newVTypeParameter.wasSet(VTYPEPARS_LENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter.length), undoList);
     }
@@ -1150,6 +1216,9 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter.speedFactor), undoList);
+    }
+    if (newVTypeParameter.wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
+        vType->setAttribute(SUMO_ATTR_DESIRED_MAXSPEED, toString(newVTypeParameter.desiredMaxSpeed), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_COLOR_SET)) {
         vType->setAttribute(SUMO_ATTR_COLOR, toString(newVTypeParameter.color), undoList);
@@ -1209,14 +1278,17 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (newVTypeParameter.wasSet(VTYPEPARS_OSGFILE_SET)) {
         vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter.osgFile), undoList);
     }
-    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
         vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, newVTypeParameter.getParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
+    }
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_PARKING_BADGES))) {
+        vType->setAttribute(SUMO_ATTR_PARKING_BADGES, newVTypeParameter.getParameter(toString(SUMO_ATTR_PARKING_BADGES), ""), undoList);
     }
     // parse parameters
     std::string parametersStr;
@@ -1231,119 +1303,8 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (parametersStr != vType->getAttribute(GNE_ATTR_PARAMETERS)) {
         vType->setAttribute(GNE_ATTR_PARAMETERS, parametersStr, undoList);
     }
-    if (parametersStr != vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)) {
-        vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, parametersStr, undoList);
-    }
     // close undo list
     undoList->end();
-}
-
-// ===========================================================================
-// protected
-// ===========================================================================
-
-void
-GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoList* undoList) {
-    if (vTypeDistributionID.empty()) {
-        // first check if previosly this vType has a vTypeDistribution
-        if (getParentDemandElements().size() > 0) {
-            // get parent vTypeDistribution
-            GNEDemandElement* vTypeDistribution = getParentDemandElements().front();
-            // check if this is the last vType of the vTypeDistribution
-            if (vTypeDistribution->getChildDemandElements().size() == 1) {
-                // ask if remove vTypeDistribution
-                if (askRemoveVTypeDistribution(vTypeDistribution->getID())) {
-                    undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-                    // clear attribute
-                    undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
-                    // remove vType Distribution
-                    undoList->add(new GNEChange_DemandElement(vTypeDistribution, false), true);
-                    undoList->end();
-                }
-            } else {
-                // clear attribute
-                undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
-            }
-        }
-    } else {
-        // check if vTypeDistribution exist
-        const auto vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vTypeDistributionID, false);
-        // get current vTypeDistribution parent
-        const auto vTypeDistributionParent = (getParentDemandElements().size() > 0) ? getParentDemandElements().front() : nullptr;
-        if (vTypeDistribution) {
-            // add in vTypeDistribution
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
-        } else if (vTypeDistributionParent && (vTypeDistributionParent->getChildDemandElements().size() == 1)) {
-            // ask if remove vTypeDistribution
-            if (askRemoveVTypeDistribution(vTypeDistributionParent->getID())) {
-                undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add/remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-                // clear attribute
-                undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
-                // remove old vTypeDistribution
-                undoList->add(new GNEChange_DemandElement(vTypeDistributionParent, false), true);
-                // create newTypeDistribution
-                undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
-                // set new vTypeDistribution
-                undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
-                undoList->end();
-            }
-        } else {
-            undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-            // create newTypeDistribution
-            undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
-            // set new vTypeDistribution
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
-            undoList->end();
-        }
-    }
-}
-
-
-bool
-GNEVType::askAddVTypeDistribution(const std::string& vTypeDistribution) const {
-    // show warning in gui testing debug mode
-    WRITE_DEBUG("Opening FXMessageBox 'add vTypeDistribution'");
-    // Ask confirmation to user
-    const FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO,
-                          ("Add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "s").c_str(), "%s",
-                          (toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "' doesn't exist. Create?").c_str());
-    if (answer == 1) { // 1:yes, 2:no, 4:esc
-        WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'yes'");
-        return true;
-    } else {
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'No'");
-            return false;
-        } else {
-            WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'ESC'");
-            return false;
-        }
-    }
-}
-
-
-bool
-GNEVType::askRemoveVTypeDistribution(const std::string& vTypeDistribution) const {
-    // show warning in gui testing debug mode
-    WRITE_DEBUG("Opening FXMessageBox 'remove vTypeDistribution'");
-    // Ask confirmation to user
-    const FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO,
-                          ("Remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION)).c_str(), "%s",
-                          ("Changing attribute will remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "'. Continue?").c_str());
-    if (answer == 1) { // 1:yes, 2:no, 4:esc
-        WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'yes'");
-        return true;
-    } else {
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'No'");
-            return false;
-        } else {
-            WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'ESC'");
-            return false;
-        }
-    }
 }
 
 // ===========================================================================
@@ -1357,12 +1318,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             // manually change VType parameters ID
             id = value;
-            break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            setVTypeDistributionParent(value);
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -1377,6 +1335,27 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
+            // empty values means that value isn't set
+            if (value.empty()) {
+                const auto it = cfParameter.find(key);
+                if (it != cfParameter.end()) {
+                    cfParameter.erase(it);
+                }
+            } else {
+                cfParameter[key] = value;
+            }
+            break;
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
         case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
@@ -1392,19 +1371,17 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
-        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
-        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
-        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
-        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
-        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
-        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
-        case SUMO_ATTR_TRAIN_TYPE:
-        case SUMO_ATTR_K:
-        case SUMO_ATTR_CF_KERNER_PHI:
-        case SUMO_ATTR_CF_IDM_DELTA:
-        case SUMO_ATTR_CF_IDM_STEPPING:
-            // empty values means that value isn't set
-            if (value.empty()) {
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
+            // empty or default values means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == parse<double>(myTagProperty.getDefaultValue(key))))) {
                 const auto it = cfParameter.find(key);
                 if (it != cfParameter.end()) {
                     cfParameter.erase(it);
@@ -1473,9 +1450,21 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 lcParameter[key] = value;
             }
             break;
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+            // empty or -1 value means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == -1))) {
+                const auto it = lcParameter.find(key);
+                if (it != lcParameter.end()) {
+                    lcParameter.erase(it);
+                }
+            } else {
+                lcParameter[key] = value;
+            }
+            break;
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
             // empty or null values means that value isn't set
             if (value.empty() || (canParse<double>(value) && (parse<double>(value) == 0))) {
                 const auto it = lcParameter.find(key);
@@ -1535,6 +1524,18 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
             }
             break;
+        case SUMO_ATTR_DESIRED_MAXSPEED:
+            if (!value.empty() && (value != toString(defaultValues.desiredMaxSpeed))) {
+                desiredMaxSpeed = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_DESIRED_MAXSPEED_SET;
+            } else {
+                // set default value
+                desiredMaxSpeed = defaultValues.desiredMaxSpeed;
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_DESIRED_MAXSPEED_SET;
+            }
+            break;
         case SUMO_ATTR_COLOR:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 color = parse<RGBColor>(value);
@@ -1559,6 +1560,18 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update default values
             updateDefaultVClassAttributes(defaultValues);
             break;
+        case SUMO_ATTR_PARKING_BADGES:
+            if (!value.empty()) {
+                parkingBadges = parse<std::vector<std::string>>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
+            } else {
+                // set default value
+                parkingBadges.clear();
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_PARKING_BADGES_SET;
+            }
+            break;
         case SUMO_ATTR_EMISSIONCLASS:
             if (!value.empty() && (value != toString(defaultValues.emissionClass))) {
                 emissionClass = PollutantsInterface::getClassByName(value);
@@ -1572,7 +1585,12 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_GUISHAPE:
-            if (!value.empty() && (value != SumoVehicleShapeStrings.getString(defaultValues.shape))) {
+            if (value.empty() || (value == "default")) {
+                // set default value
+                shape = defaultValues.shape;
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_SHAPE_SET;
+            } else if (!value.empty() && (value != SumoVehicleShapeStrings.getString(defaultValues.shape))) {
                 shape = getVehicleShapeID(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_SHAPE_SET;
@@ -1780,7 +1798,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
-            if (!value.empty() && (value != toString(defaultValues.containerCapacity))) {
+            if (!value.empty() && (value != toString(defaultValues.locomotiveLength))) {
                 locomotiveLength = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
@@ -1835,12 +1853,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNEVType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // vehicleTypes cannot be moved
 }
@@ -1877,6 +1889,9 @@ GNEVType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues
     }
     if (!wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         speedFactor = defaultValues.speedFactor;
+    }
+    if (!wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
+        desiredMaxSpeed = defaultValues.desiredMaxSpeed;
     }
     if (!wasSet(VTYPEPARS_PERSON_CAPACITY)) {
         personCapacity = defaultValues.personCapacity;

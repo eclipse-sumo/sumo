@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,7 @@
 #include "RORouteDef.h"
 
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 
 
@@ -166,7 +166,7 @@ public:
      */
     ROEdge* getEdgeForLaneID(const std::string& laneID) const;
 
-    /** @brief Retrieves a lane rom the network given it's id
+    /** @brief Retrieves a lane rom the network given its id
      *
      * @param[in] laneID The name of the lane to retrieve the edge for
      * @return The lane object
@@ -269,15 +269,28 @@ public:
     bool addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*>* vehTypeDistribution);
 
 
+    /** @brief Retrieves the named vehicle type distribution
+     *
+     * If the named vehicle type distribution was not added to the net before
+     * nullptr is returned
+     *
+     * @param[in] id The id of the vehicle type distribution to return
+     * @return The named vehicle type distribution
+     */
+    const RandomDistributor<SUMOVTypeParameter*>* getVTypeDistribution(const std::string& id) {
+        const auto it = myVTypeDistDict.find(id);
+        return it != myVTypeDistDict.end() ? it ->second : nullptr;
+    }
+
+
     /** @brief Retrieves the named vehicle type
      *
      * If the name is "" the default type is returned.
      * If the named vehicle type (or typeDistribution) was not added to the net before
-     * 0 is returned
+     * nullptr is returned
      *
      * @param[in] id The id of the vehicle type to return
      * @return The named vehicle type
-     * @todo Check whether a const pointer may be returned
      */
     SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id);
 
@@ -432,24 +445,24 @@ public:
     }
 
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool& getThreadPool() {
+    MFXWorkerThread::Pool& getThreadPool() {
         return myThreadPool;
     }
 
-    class WorkerThread : public FXWorkerThread, public RORouterProvider {
+    class WorkerThread : public MFXWorkerThread, public RORouterProvider {
     public:
-        WorkerThread(FXWorkerThread::Pool& pool,
+        WorkerThread(MFXWorkerThread::Pool& pool,
                      const RORouterProvider& original)
-            : FXWorkerThread(pool), RORouterProvider(original) {}
+            : MFXWorkerThread(pool), RORouterProvider(original) {}
         virtual ~WorkerThread() {
             stop();
         }
     };
 
-    class BulkmodeTask : public FXWorkerThread::Task {
+    class BulkmodeTask : public MFXWorkerThread::Task {
     public:
         BulkmodeTask(const bool value) : myValue(value) {}
-        void run(FXWorkerThread* context) {
+        void run(MFXWorkerThread* context) {
             static_cast<WorkerThread*>(context)->setBulkMode(myValue);
         }
     private:
@@ -501,6 +514,12 @@ private:
 
     /// @brief Whether the default bicycle type was already used or can still be replaced
     bool myDefaultBikeTypeMayBeDeleted;
+
+    /// @brief Whether the default taxi type was already used or can still be replaced
+    bool myDefaultTaxiTypeMayBeDeleted;
+
+    /// @brief Whether the default rail type was already used or can still be replaced
+    bool myDefaultRailTypeMayBeDeleted;
 
     /// @brief Known routes
     NamedObjectCont<RORouteDef*> myRoutes;
@@ -557,19 +576,22 @@ private:
     /// @brief handler for ignorable error messages
     MsgHandler* myErrorHandler;
 
-    /// @brief whether to keep the the vtype distribution in output
+    /// @brief whether to keep the vtype distribution in output
     const bool myKeepVTypeDist;
+
+    /// @brief whether to calculate routes for public transport
+    const bool myDoPTRouting;
 
     /// @brief whether the network contains bidirectional railway edges
     bool myHasBidiEdges;
 
 #ifdef HAVE_FOX
 private:
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(RORoutable* v, const bool removeLoops, MsgHandler* errorHandler)
             : myRoutable(v), myRemoveLoops(removeLoops), myErrorHandler(errorHandler) {}
-        void run(FXWorkerThread* context);
+        void run(MFXWorkerThread* context);
     private:
         RORoutable* const myRoutable;
         const bool myRemoveLoops;
@@ -582,7 +604,7 @@ private:
 
 private:
     /// @brief for multi threaded routing
-    FXWorkerThread::Pool myThreadPool;
+    MFXWorkerThread::Pool myThreadPool;
 #endif
 
 private:

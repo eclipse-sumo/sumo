@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,6 +35,7 @@ class GNEEdge;
 class GNECrossing;
 class NBTrafficLightDefinition;
 class GNEConnection;
+class GNEInternalLane;
 
 // ===========================================================================
 // class definitions
@@ -77,6 +78,33 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
     /// @}
 
     /// @name Functions related with move elements
@@ -86,6 +114,7 @@ public:
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -102,6 +131,9 @@ public:
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -110,6 +142,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief delete element
+    void deleteGLObject();
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @brief Return net build node
@@ -139,6 +177,9 @@ public:
     /// @brief Returns GNECrossings
     const std::vector<GNECrossing*>& getGNECrossings() const;
 
+    /// @brief Returns GNEWalkingAreas
+    const std::vector<GNEWalkingArea*>& getGNEWalkingAreas() const;
+
     /// @brief Returns all GNEConnections vinculated with this junction
     std::vector<GNEConnection*> getGNEConnections() const;
 
@@ -158,6 +199,12 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -233,15 +280,39 @@ public:
     /// @brief get GNECrossing if exist, and if not create it if create is enabled
     GNECrossing* retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIfNoExist = true);
 
+    /// @brief get GNEWalkingArea if exist, and if not create it if create is enabled
+    GNEWalkingArea* retrieveGNEWalkingArea(const std::string& NBNodeWalkingAreaID, bool createIfNoExist = true);
+
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
     /// @brief set junction Type (using undo/redo)
-    void setJunctionType(const std::string &value, GNEUndoList* undoList);
+    void setJunctionType(const std::string& value, GNEUndoList* undoList);
+
+    /// @brief clear walking areas
+    void clearWalkingAreas();
+
+    /// @brief rebuilds WalkingAreas objects for this junction
+    void rebuildGNEWalkingAreas();
+
+    /// @brief add internal lane
+    void addInternalLane(const GNEInternalLane* internalLane);
+
+    /// @brief remove internal lane
+    void removeInternalLane(const GNEInternalLane* internalLane);
 
 protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
+
+    /// @brief edge boundary
+    Boundary myJunctionBoundary;
+
+    /// @brief drawing toggle (used to avoid double draws)
+    int* myDrawingToggle;
+
+    /// @brief variable used for draw circle contours
+    GNEContour myCircleContour;
 
     /// @brief vector with the (child) incomings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEIncomingEdges;
@@ -252,38 +323,64 @@ protected:
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
 
-    /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
-    double myMaxDrawingSize;
+    /// @brief the built walkingArea objects
+    std::vector<GNEWalkingArea*> myGNEWalkingAreas;
+
+    /// @brief internal lanes related placed in this junction
+    std::vector<const GNEInternalLane*> myInternalLanes;
 
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)
-    bool myAmCreateEdgeSource;
+    bool myAmCreateEdgeSource = false;
 
     /// @brief modification status of the junction logic (all connections across this junction)
     std::string myLogicStatus;
 
     /// @brief whether we are responsible for deleting myNBNode
-    bool myAmResponsible;
+    bool myAmResponsible = false;
 
     /// @brief whether this junctions logic is valid
     bool myHasValidLogic;
 
     /// @brief whether this junction is selected in tls-mode
-    bool myAmTLSSelected;
+    bool myAmTLSSelected = false;
 
     /// @brief whether this junction probably should have some connections but doesn't
-    bool myColorForMissingConnections;
+    bool myColorForMissingConnections = false;
 
     /// @brief An object that stores the shape and its tesselation
     mutable TesselatedPolygon myTesselation;
-    mutable double myExaggeration;
+
+    /// @brief exaggeration used in tesselation
+    mutable double myExaggeration = 1;
 
 private:
+    /// @brief check if draw junction as bubble
+    bool drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const;
+
+    /// @brief draw junction as bubble
+    void drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const double exaggeration) const;
+
+    /// @brief draw junction as bubble
+    void drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                             const double exaggeration) const;
+
     /// @brief draw TLS icon
-    void drawTLSIcon(const GUIVisualizationSettings& s) const;
+    void drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+
+    /// @brief draw elevation
+    void drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+
+    /// @brief draw junction name
+    void drawJunctionName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction childs
-    void drawJunctionChildren(const GUIVisualizationSettings& s) const;
+    void drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+
+    /// @brief calculate contour
+    void calculateJunctioncontour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                  const double exaggeration, const bool drawBubble) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -323,6 +420,9 @@ private:
 
     /// @brief temporarily mirror coordinates in lefthand network to compute correct crossing geometries
     void mirrorXLeftHand();
+
+    /// @brief build TLS operations contextual menu
+    void buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const int numSelectedJunctions);
 
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;

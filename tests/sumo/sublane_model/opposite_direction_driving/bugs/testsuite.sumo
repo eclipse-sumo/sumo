@@ -17,3 +17,12 @@ ticket8889
 
 # crash on invalid Changer iterator
 ticket8890
+
+# invalid movements while on the opposite side
+ticket10927
+
+# strange braking
+ticket11481
+
+# strange braking (the same as #11481 but with reduced minGapLat)
+ticket13111

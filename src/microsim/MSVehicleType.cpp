@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,6 +45,7 @@
 #include "cfmodels/MSCFModel_W99.h"
 #include "cfmodels/MSCFModel_ACC.h"
 #include "cfmodels/MSCFModel_CACC.h"
+#include "MSInsertionControl.h"
 #include "MSVehicleControl.h"
 #include "cfmodels/MSCFModel_CC.h"
 #include "MSVehicleType.h"
@@ -174,6 +175,8 @@ MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAli
 void
 MSVehicleType::setScale(double value) {
     myParameter.scale = value;
+    MSInsertionControl& insertControl = MSNet::getInstance()->getInsertionControl();
+    insertControl.updateScale(getID());
 }
 
 void
@@ -211,7 +214,7 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 void
 MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset) {
-    assert(actionStepLength >= 0.);
+    assert(actionStepLength >= 0);
     myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 
     if (myParameter.actionStepLength == actionStepLength) {
@@ -253,9 +256,23 @@ MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
 
 
 void
+MSVehicleType::setMass(double mass) {
+    myParameter.mass = mass;
+    myParameter.parametersSet |= VTYPEPARS_MASS_SET;
+}
+
+
+void
 MSVehicleType::setColor(const RGBColor& color) {
     myParameter.color = color;
     myParameter.parametersSet |= VTYPEPARS_COLOR_SET;
+}
+
+
+void
+MSVehicleType::setParkingBadges(const std::vector<std::string>& badges) {
+    myParameter.parkingBadges.assign(badges.begin(), badges.end());
+    myParameter.parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
 }
 
 
@@ -271,14 +288,24 @@ MSVehicleType::setWidth(const double& width) {
 
 void
 MSVehicleType::setImpatience(const double impatience) {
-    if (myOriginalType != nullptr && impatience < 0) {
-        myParameter.impatience = myOriginalType->getImpatience();
-    } else {
-        myParameter.impatience = impatience;
-    }
+    myParameter.impatience = impatience;
     myParameter.parametersSet |= VTYPEPARS_IMPATIENCE_SET;
 }
 
+
+void
+MSVehicleType::setBoardingDuration(SUMOTime duration, bool isPerson) {
+    if (myOriginalType != nullptr && duration < 0) {
+        myParameter.boardingDuration = myOriginalType->getBoardingDuration(isPerson);
+    } else {
+        if (isPerson) {
+            myParameter.boardingDuration = duration;
+        } else {
+            myParameter.loadingDuration = duration;
+        }
+    }
+    myParameter.parametersSet |= VTYPEPARS_BOARDING_DURATION;
+}
 
 void
 MSVehicleType::setShape(SUMOVehicleShape shape) {
@@ -291,6 +318,15 @@ MSVehicleType::setShape(SUMOVehicleShape shape) {
 // ------------ Static methods for building vehicle types
 MSVehicleType*
 MSVehicleType::build(SUMOVTypeParameter& from) {
+    if (from.hasParameter("vehicleMass")) {
+        if (from.wasSet(VTYPEPARS_MASS_SET)) {
+            WRITE_WARNINGF(TL("The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The 'mass' attribute will take precedence."), from.id);
+        } else {
+            WRITE_WARNINGF(TL("The vType '%' has a 'vehicleMass' parameter, which is deprecated. Please use the 'mass' attribute (for the empty mass) and the 'loading' parameter, if needed."), from.id);
+            from.mass = from.getDouble("vehicleMass", from.mass);
+            from.parametersSet |= VTYPEPARS_MASS_SET;
+        }
+    }
     MSVehicleType* vtype = new MSVehicleType(from);
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
     const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass, decel, MSGlobals::gDefaultEmergencyDecel));
@@ -298,10 +334,10 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     const double apparentDecel = from.getCFParam(SUMO_ATTR_APPARENTDECEL, decel);
 
     if (emergencyDecel < decel) {
-        WRITE_WARNING("Value of 'emergencyDecel' (" + toString(emergencyDecel) + ") should be higher than 'decel' (" + toString(decel) + ") for vType '" + from.id + "'.");
+        WRITE_WARNINGF(TL("Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType '%'."), toString(emergencyDecel), toString(decel), from.id);
     }
     if (emergencyDecel < apparentDecel) {
-        WRITE_WARNING("Value of 'emergencyDecel' (" + toString(emergencyDecel) + ") is lower than 'apparentDecel' (" + toString(apparentDecel) + ") for vType '" + from.id + "' may cause collisions.");
+        WRITE_WARNINGF(TL("Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType '%' may cause collisions."), toString(emergencyDecel), toString(apparentDecel), from.id);
     }
 
     switch (from.cfModel) {
@@ -423,17 +459,27 @@ MSVehicleType::check() {
     if (!myWarnedStepLengthTauOnce && TS > getCarFollowModel().getHeadwayTime()
             && !MSGlobals::gUseMesoSim) {
         myWarnedStepLengthTauOnce = true;
-        WRITE_WARNINGF("Value of tau=% in vehicle type '%' lower than simulation step size may cause collisions.",
+        WRITE_WARNINGF(TL("Value of tau=% in vehicle type '%' lower than simulation step size may cause collisions."),
                        getCarFollowModel().getHeadwayTime(), getID());
     }
     if (MSGlobals::gUseMesoSim && getVehicleClass() != SVC_PEDESTRIAN && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
         SVCPermissions ignoreVClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass"));
         if ((ignoreVClasses & getVehicleClass()) != 0) {
-            WRITE_WARNINGF("Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation",
+            WRITE_WARNINGF(TL("Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation"),
                            toString(getVehicleClass()), getID());
         }
     }
+    if (!myParameter.wasSet(VTYPEPARS_EMISSIONCLASS_SET) && !OptionsCont::getOptions().getBool("device.battery.track-fuel")
+            && (OptionsCont::getOptions().getFloat("device.battery.probability") == 1.
+                || myParameter.getDouble("device.battery.probability", -1.) == 1.
+                || StringUtils::toBool(myParameter.getParameter("has.battery.device", "false")))) {
+        myParameter.emissionClass = PollutantsInterface::getClassByName("Energy");
+        myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+        WRITE_MESSAGEF(TL("The battery device is active for vType '%' but no emission class is set. The emission class Energy/unknown will be used, please consider setting an explicit emission class!"),
+                       getID());
+    }
 }
+
 
 void
 MSVehicleType::setAccel(double accel) {

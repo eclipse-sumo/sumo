@@ -28,13 +28,13 @@ in parallel on 2 lanes)
 This model is activated using the option **--lateral-resolution** {{DT_FLOAT}}. The model is described in
 *Simulation framework for testing ADAS in Chinese traffic situations*
 [in proceedings of
-SUMO2016](http://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
+SUMO2016](https://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
 
 
 ## Lateral Resolution and Vehicle Position
-When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
+When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane; negative values mean right, positive left to the center) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
 
-The resolution which implicitly divides a lane into one or more sublanes, defines the granularity of decision making and collision detection. Each vehicle may occupy multiple sublanes (according to it's width).
+The resolution which implicitly divides a lane into one or more sublanes, defines the granularity of decision making and collision detection. Each vehicle may occupy multiple sublanes (according to its width).
 During normal simulation behavior two vehicles will never occupy the same stripe while having an overlap in the longitudinal direction of the lane. Consequently, the value of **--lateral-resolution** should be low enough to account for the space requirements of the least wide traffic member.
 If three bicycles should be able to ride side by side on a 3.6m wide lane, the lateral resolution must not be higher than 1.2m.
 
@@ -67,7 +67,7 @@ attributes are used:
   front-bumper is referred to as its *lane*. If the vehicle
   front-bumper also reaches into another lane, this is called the
   *shadow lane*
-- target lane: if the vehicle has started a lane changing manoeuvre to
+- target lane: if the vehicle has started a lane changing manoeuver to
   another lane, this is the target lane
 - lateral speed: the lateral velocity in the current simulation step
 - lane change maneuver distance: the absolute lateral distance to be
@@ -92,8 +92,8 @@ minimum width of the given resolution (**--lateral-resolution**). If the lane wi
 multiple of the given value, the leftmost sublane has a reduced with.
 The default lane-width of SUMO is 3.2m so a lateral resolution of 0.8
 will created exactly 4 sublanes of that width per lane. A resolution of
-1.0 will create three sublanes of 1.0m width and on more lane of 0.2m
-width. It is recommended use a resolution that is at least as small as
+1.0 will create three sublanes of 1.0m width and one more lane of 0.2m
+width. It is recommended to use a resolution that is at least as small as
 the least wide vehicle being simulated (i.e. motorcycles).
 
 ### Car-Following

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,13 +47,11 @@
 
 #include <osgview/GUIOSGHeader.h>
 
-//#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
 GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID):
-    GUIGlObject(GLO_JUNCTION, junction.getID()),
+    GUIGlObject(GLO_JUNCTION, junction.getID(), GUIIconSubSys::getIcon(GUIIcon::JUNCTION)),
     myJunction(junction),
     myTesselation(junction.getID(), "", RGBColor::MAGENTA, junction.getShape(), false, true, 0),
     myExaggeration(1),
@@ -68,6 +66,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& 
     myIsInternal = myJunction.getType() == SumoXMLNodeType::INTERNAL;
     myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     myAmRailway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
+    myAmAirway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     for (auto it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end() && (myAmWaterway || myAmRailway); ++it) {
         if (!(*it)->isInternal()) {
             if (!isWaterway((*it)->getPermissions())) {
@@ -75,6 +74,9 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& 
             }
             if (!isRailway((*it)->getPermissions())) {
                 myAmRailway = false;
+            }
+            if (!isAirway((*it)->getPermissions())) {
+                myAmAirway = false;
             }
         }
     }
@@ -85,6 +87,9 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& 
             }
             if (!isRailway((*it)->getPermissions())) {
                 myAmRailway = false;
+            }
+            if (!isAirway((*it)->getPermissions())) {
+                myAmAirway = false;
             }
         }
     }
@@ -113,8 +118,8 @@ GUIParameterTableWindow*
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("type", false, toString(myJunction.getType()));
-    ret->mkItem("name", false, myJunction.getName());
+    ret->mkItem(TL("type"), false, toString(myJunction.getType()));
+    ret->mkItem(TL("name"), false, myJunction.getName());
     // close building
     ret->closeBuilding(&myJunction);
     return ret;
@@ -141,7 +146,8 @@ GUIJunctionWrapper::getOptionalName() const {
 
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    if (!myIsInternal && s.drawJunctionShape) {
+    const bool s2 = s.secondaryShape;
+    if (!myIsInternal && s.drawJunctionShape && !s2) {
         // check whether it is not too small
         const double exaggeration = getExaggeration(s);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
@@ -166,31 +172,31 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     myTesselation.drawTesselation(myTesselation.getShape());
                 }
-#ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
-                GLHelper::debugVertices(shape, 80 / s.scale);
-#endif
                 // make small junctions more visible when coloring by type
                 if (myJunction.getType() == SumoXMLNodeType::RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
-                    glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
+                    glTranslated(myJunction.getPosition(s2).x(), myJunction.getPosition(s2).y(), getType() + 0.05);
                     GLHelper::drawFilledCircle(2 * exaggeration, 12);
                 }
             }
             GLHelper::popName();
             GLHelper::popMatrix();
+            if (s.geometryIndices.show(this)) {
+                GLHelper::debugVertices(myJunction.getShape(), s.geometryIndices, s.scale);
+            }
         }
     }
     if (myIsInternal) {
-        drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
+        drawName(myJunction.getPosition(s2), s.scale, s.internalJunctionName, s.angle);
     } else {
-        drawName(myJunction.getPosition(), s.scale, s.junctionID, s.angle);
+        drawName(myJunction.getPosition(s2), s.scale, s.junctionID, s.angle);
         if (s.junctionName.show(this) && myJunction.getName() != "") {
-            GLHelper::drawTextSettings(s.junctionName, myJunction.getName(), myJunction.getPosition(), s.scale, s.angle);
+            GLHelper::drawTextSettings(s.junctionName, myJunction.getName(), myJunction.getPosition(s2), s.scale, s.angle);
         }
         if ((s.tlsPhaseIndex.show(this) || s.tlsPhaseName.show(this)) && myTLLID != "") {
             const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
             if (s.tlsPhaseIndex.show(this)) {
                 const int index = active->getCurrentPhaseIndex();
-                GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(s2), s.scale, s.angle);
             }
             if (s.tlsPhaseName.show(this)) {
                 const std::string& name = active->getCurrentPhaseDef().getName();
@@ -198,7 +204,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     const Position offset = (s.tlsPhaseIndex.show(this) ?
                                              Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0))
                                              : Position(0, 0));
-                    GLHelper::drawTextSettings(s.tlsPhaseName, name, myJunction.getPosition() - offset, s.scale, s.angle);
+                    GLHelper::drawTextSettings(s.tlsPhaseName, name, myJunction.getPosition(s2) - offset, s.scale, s.angle);
                 }
             }
         }
@@ -214,6 +220,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int a
                 return 1;
             } else if (myAmRailway && MSNet::getInstance()->hasInternalLinks()) {
                 return 2;
+            } else if (myAmAirway) {
+                return 3;
             } else {
                 return 0;
             }
@@ -252,6 +260,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int a
                     return 11;
                 case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
+                case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                    return 13;
                 default:
                     assert(false);
                     return 0;

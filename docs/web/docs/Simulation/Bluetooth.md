@@ -6,7 +6,7 @@ title: Bluetooth
 
 [sumo](../sumo.md) supports the simulation of wireless onboard
 devices to facilitate a sensor mechanism which relies on the detection
-of radio signals (usually Bluetooth or WLAN) emitted by the vehicle.
+of radio signals (usually Bluetooth or Wi-Fi) emitted by the vehicle.
 Every vehicle can act as a sender and/or a receiving device. The
 parameters of the detection (e.g. the range and detection probability)
 can be configured and a log of the detection events can be written. It
@@ -18,7 +18,7 @@ devices are described at
 detection process can be found in the following publication: [Behrisch,
 Michael and Gurczik, Gaby (2014) Modelling Bluetooth Inquiry for SUMO.
 In: SUMO2014 Modeling Mobility with Open Data. SUMO2014, 15.-16.
-Mai 2014, Berlin](http://elib.dlr.de/95237/)
+Mai 2014, Berlin](https://elib.dlr.de/95237/)
 
 # Enabling Sender / Receiver devices
 
@@ -34,11 +34,15 @@ The behavior of the **btreceiver** device can be further customized using the fo
 - **--device.btreceiver-range** {{DT_FLOAT}} (defines the detection range in meters)
 - **--device.btreceiver-offtime** {{DT_FLOAT}} (defines the minimum time between connections in seconds. This can be used to model effects of communication traffic load).
 
+## Persons
+
+Both sender and receiver devices may also be [enable for persons](../Specification/Persons.md#devices). These devices work the same as those for vehicles and will interact with each other as well as with vehicle devices.
+
 # Output
 
 The option **--bt-output** generates an XML output file of the following form:
 
-```
+```xml
 <bt-output>
     <bt id="<VEHICLE_ID>">
         <seen id="<VEHICLE_ID>" tBeg="<TIME>" observerPosBeg="<COORD>" observerSpeedBeg="<SPEED>" observerLaneIDBeg="<LANE_ID>" observerLanePosBeg="<LANE_POS>"
@@ -103,4 +107,4 @@ in the following table.
 To simulate detection events between vehicles and a road-side-unit
 (RSU), it is convenient to place a stopped vehicle at the side of the
 road. This can be accomplished by by setting [attribute
-*parking="true"*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+*parking="true"*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).

@@ -11,10 +11,10 @@
 
 #define ASSERT assert // RTree uses ASSERT( condition )
 #ifndef Min
-  #define Min __min 
+  #define Min __min
 #endif //Min
 #ifndef Max
-  #define Max __max 
+  #define Max __max
 #endif //Max
 
 #define rtree_min(a,b) (a<b?a:b)
@@ -60,7 +60,7 @@ template<class DATATYPE, class DATATYPENP, class ELEMTYPE, int NUMDIMS, class CO
          class ELEMTYPEREAL = ELEMTYPE, int TMAXNODES = 8, int TMINNODES = TMAXNODES / 2>
 class RTree
 {
-protected: 
+protected:
 
   struct Node;  // Fwd decl.  Used by other internal structs and iterator
 
@@ -80,19 +80,19 @@ public:
 
   RTree(Operation operation);
   virtual ~RTree();
-  
+
   /// Insert entry
   /// \param a_min Min of bounding rect
   /// \param a_max Max of bounding rect
   /// \param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
   virtual void Insert(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const DATATYPE& a_dataId);
-  
+
   /// Remove entry
   /// \param a_min Min of bounding rect
   /// \param a_max Max of bounding rect
   /// \param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
   virtual void Remove(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const DATATYPE& a_dataId);
-  
+
 
   /// DK 15.10.2008 - begin
   //typedef void(DATATYPENP::* Operation)(const CONTEXT &) const;
@@ -120,7 +120,7 @@ public:
   /// Load tree contents from stream
   bool Load(RTFileStream& a_stream);
 
-  
+
   /// Save tree contents to file
   bool Save(const char* a_fileName);
   /// Save tree contents to stream
@@ -131,21 +131,21 @@ public:
   class Iterator
   {
   private:
-  
+
     enum { MAX_STACK = 32 }; //  Max stack size. Allows almost n^32 where n is number of branches in node
-    
+
     struct StackElement
     {
       Node* m_node;
       int m_branchIndex;
     };
-    
+
   public:
-  
+
     Iterator()                                    { Init(); }
 
     ~Iterator()                                   { }
-    
+
     /// Is iterator invalid
     bool IsNull()                                 { return (m_tos <= 0); }
 
@@ -158,7 +158,7 @@ public:
       ASSERT(IsNotNull());
       StackElement& curTos = m_stack[m_tos - 1];
       return curTos.m_node->m_branch[curTos.m_branchIndex].m_data;
-    } 
+    }
 
     /// Access the current data element. Caller must be sure iterator is not NULL first.
     const DATATYPE& operator*() const
@@ -166,13 +166,13 @@ public:
       ASSERT(IsNotNull());
       StackElement& curTos = m_stack[m_tos - 1];
       return curTos.m_node->m_branch[curTos.m_branchIndex].m_data;
-    } 
+    }
 
     /// Find the next data element
     bool operator++()                             { return FindNextData(); }
 
   private:
-  
+
     /// Reset iterator
     void Init()                                   { m_tos = 0; }
 
@@ -209,7 +209,7 @@ public:
           // Since cur node is not a leaf, push first of next level to get deeper into the tree
           Node* nextLevelnode = curTos.m_node->m_branch[curTos.m_branchIndex].m_child;
           Push(nextLevelnode, 0);
-          
+
           // If we pushed on a new leaf, exit as the data is ready at TOS
           if(nextLevelnode->IsLeaf())
           {
@@ -227,7 +227,7 @@ public:
       ++m_tos;
       ASSERT(m_tos <= MAX_STACK);
     }
-    
+
     /// Pop element off iteration stack (For internal use only)
     StackElement& Pop()
     {
@@ -238,7 +238,7 @@ public:
 
     StackElement m_stack[MAX_STACK];              ///< Stack as we are doing iteration instead of recursion
     int m_tos;                                    ///< Top Of Stack index
-  
+
     friend class RTree<DATATYPE, DATATYPENP, ELEMTYPE, NUMDIMS, CONTEXT, ELEMTYPEREAL, TMAXNODES, TMINNODES>; // Allow hiding of non-public functions while allowing manipulation by logical owner
   };
 
@@ -267,8 +267,8 @@ protected:
   /// Minimal bounding rectangle (n-dimensional)
   struct Rect
   {
-    ELEMTYPE m_min[NUMDIMS];                      ///< Min dimensions of bounding box 
-    ELEMTYPE m_max[NUMDIMS];                      ///< Max dimensions of bounding box 
+    ELEMTYPE m_min[NUMDIMS];                      ///< Min dimensions of bounding box
+    ELEMTYPE m_max[NUMDIMS];                      ///< Max dimensions of bounding box
   };
 
   /// May be data or may be another subtree
@@ -289,12 +289,12 @@ protected:
   {
     bool IsInternalNode() const                   { return (m_level > 0); } // Not a leaf, but a internal node
     bool IsLeaf() const                           { return (m_level == 0); } // A leaf, contains data
-    
+
     int m_count;                                  ///< Count
     int m_level;                                  ///< Leaf is zero, others positive
     Branch m_branch[MAXNODES];                    ///< Branch
   };
-  
+
   /// A link list of nodes for reinsertion after a delete operation
   struct ListNode
   {
@@ -317,8 +317,8 @@ protected:
     int m_branchCount;
     Rect m_coverSplit;
     ELEMTYPEREAL m_coverSplitArea;
-  }; 
- 
+  };
+
   Node* AllocNode();
   void FreeNode(Node* a_node);
   void InitNode(Node* a_node);
@@ -371,7 +371,7 @@ class RTFileStream
 
 public:
 
-  
+
   RTFileStream()
   {
     m_file = NULL;
@@ -462,7 +462,7 @@ RTREE_QUAL::RTree(Operation operation)
     3.298509f, 2.550164f, 1.884104f, // Dimension  9,10,11
     1.335263f, 0.910629f, 0.599265f, // Dimension  12,13,14
     0.381443f, 0.235331f, 0.140981f, // Dimension  15,16,17
-    0.082146f, 0.046622f, 0.025807f, // Dimension  18,19,20 
+    0.082146f, 0.046622f, 0.025807f, // Dimension  18,19,20
   };
 
   m_root = AllocNode();
@@ -489,13 +489,13 @@ void RTREE_QUAL::Insert(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMD
 #endif //_DEBUG
 
   Rect rect;
-  
+
   for(int axis=0; axis<NUMDIMS; ++axis)
   {
     rect.m_min[axis] = a_min[axis];
     rect.m_max[axis] = a_max[axis];
   }
-  
+
   InsertRect(&rect, a_dataId, &m_root, 0);
 }
 
@@ -511,7 +511,7 @@ void RTREE_QUAL::Remove(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMD
 #endif //_DEBUG
 
   Rect rect;
-  
+
   for(int axis=0; axis<NUMDIMS; ++axis)
   {
     rect.m_min[axis] = a_min[axis];
@@ -534,7 +534,7 @@ int RTREE_QUAL::Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDI
 #endif //_DEBUG
 
   Rect rect;
-  
+
   for(int axis=0; axis<NUMDIMS; ++axis)
   {
     rect.m_min[axis] = a_min[axis];
@@ -559,7 +559,7 @@ int RTREE_QUAL::Count()
 {
   int count = 0;
   CountRec(m_root, count);
-  
+
   return count;
 }
 
@@ -595,7 +595,7 @@ bool RTREE_QUAL::Load(const char* a_fileName)
   }
 
   bool result = Load(stream);
-  
+
   stream.Close();
 
   return result;
@@ -634,13 +634,13 @@ bool RTREE_QUAL::Load(RTFileStream& a_stream)
   bool result = false;
 
   // Test if header was valid and compatible
-  if(    (dataFileId == _dataFileId) 
-      && (dataSize == _dataSize) 
-      && (dataNumDims == _dataNumDims) 
-      && (dataElemSize == _dataElemSize) 
-      && (dataElemRealSize == _dataElemRealSize) 
-      && (dataMaxNodes == _dataMaxNodes) 
-      && (dataMinNodes == _dataMinNodes) 
+  if(    (dataFileId == _dataFileId)
+      && (dataSize == _dataSize)
+      && (dataNumDims == _dataNumDims)
+      && (dataElemSize == _dataElemSize)
+      && (dataElemRealSize == _dataElemRealSize)
+      && (dataMaxNodes == _dataMaxNodes)
+      && (dataMinNodes == _dataMinNodes)
     )
   {
     // Recursively load tree
@@ -726,7 +726,7 @@ bool RTREE_QUAL::Save(RTFileStream& a_stream)
 
   // Recursively save tree
   bool result = SaveRec(m_root, a_stream);
-  
+
   return result;
 }
 
@@ -804,7 +804,7 @@ void RTREE_QUAL::RemoveAllRec(Node* a_node)
       RemoveAllRec(a_node->m_branch[index].m_child);
     }
   }
-  FreeNode(a_node); 
+  FreeNode(a_node);
 }
 
 
@@ -946,7 +946,7 @@ bool RTREE_QUAL::InsertRect(Rect* a_rect, const DATATYPE& a_id, Node** a_root, i
   {
     ASSERT(a_rect->m_min[index] <= a_rect->m_max[index]);
   }
-#endif //_DEBUG  
+#endif //_DEBUG
 
   Node* newRoot;
   Node* newNode;
@@ -975,11 +975,11 @@ RTREE_TEMPLATE
 typename RTREE_QUAL::Rect RTREE_QUAL::NodeCover(Node* a_node)
 {
   ASSERT(a_node);
-  
+
   int firstTime = true;
   Rect rect;
   InitRect(&rect);
-  
+
   for(int index = 0; index < a_node->m_count; ++index)
   {
     if(firstTime)
@@ -992,7 +992,7 @@ typename RTREE_QUAL::Rect RTREE_QUAL::NodeCover(Node* a_node)
       rect = CombineRect(&rect, &(a_node->m_branch[index].m_rect));
     }
   }
-  
+
   return rect;
 }
 
@@ -1017,7 +1017,7 @@ bool RTREE_QUAL::AddBranch(Branch* a_branch, Node* a_node, Node** a_newNode)
   else
   {
     ASSERT(a_newNode);
-    
+
     SplitNode(a_node, a_branch, a_newNode);
     return true;
   }
@@ -1034,7 +1034,7 @@ void RTREE_QUAL::DisconnectBranch(Node* a_node, int a_index)
 
   // Remove element by swapping with the last element to prevent gaps in array
   a_node->m_branch[a_index] = a_node->m_branch[a_node->m_count - 1];
-  
+
   --a_node->m_count;
 }
 
@@ -1048,7 +1048,7 @@ RTREE_TEMPLATE
 int RTREE_QUAL::PickBranch(Rect* a_rect, Node* a_node)
 {
   ASSERT(a_rect && a_node);
-  
+
   bool firstTime = true;
   ELEMTYPEREAL increase;
   ELEMTYPEREAL bestIncr = (ELEMTYPEREAL)-1;
@@ -1126,7 +1126,7 @@ void RTREE_QUAL::SplitNode(Node* a_node, Branch* a_branch, Node** a_newNode)
   *a_newNode = AllocNode();
   (*a_newNode)->m_level = a_node->m_level = level;
   LoadNodes(a_node, *a_newNode, parVars);
-  
+
   ASSERT((a_node->m_count + (*a_newNode)->m_count) == parVars->m_total);
 }
 
@@ -1136,16 +1136,16 @@ RTREE_TEMPLATE
 ELEMTYPEREAL RTREE_QUAL::RectVolume(Rect* a_rect)
 {
   ASSERT(a_rect);
-  
+
   ELEMTYPEREAL volume = (ELEMTYPEREAL)1;
 
   for(int index=0; index<NUMDIMS; ++index)
   {
     volume *= a_rect->m_max[index] - a_rect->m_min[index];
   }
-  
+
   ASSERT(volume >= (ELEMTYPEREAL)0);
-  
+
   return volume;
 }
 
@@ -1155,18 +1155,18 @@ RTREE_TEMPLATE
 ELEMTYPEREAL RTREE_QUAL::RectSphericalVolume(Rect* a_rect)
 {
   ASSERT(a_rect);
-   
+
   ELEMTYPEREAL sumOfSquares = (ELEMTYPEREAL)0;
   ELEMTYPEREAL radius;
 
-  for(int index=0; index < NUMDIMS; ++index) 
+  for(int index=0; index < NUMDIMS; ++index)
   {
     ELEMTYPEREAL halfExtent = ((ELEMTYPEREAL)a_rect->m_max[index] - (ELEMTYPEREAL)a_rect->m_min[index]) * 0.5f;
     sumOfSquares += halfExtent * halfExtent;
   }
 
   radius = (ELEMTYPEREAL)sqrt(sumOfSquares);
-  
+
   // Pow maybe slow, so test for common dims like 2,3 and just use x*x, x*x*x.
   if(NUMDIMS == 3)
   {
@@ -1191,7 +1191,7 @@ ELEMTYPEREAL RTREE_QUAL::CalcRectVolume(Rect* a_rect)
   return RectSphericalVolume(a_rect); // Slower but helps certain merge cases
 #else // RTREE_USE_SPHERICAL_VOLUME
   return RectVolume(a_rect); // Faster but can cause poor merges
-#endif // RTREE_USE_SPHERICAL_VOLUME  
+#endif // RTREE_USE_SPHERICAL_VOLUME
 }
 
 
@@ -1203,7 +1203,7 @@ void RTREE_QUAL::GetBranches(Node* a_node, Branch* a_branch, PartitionVars* a_pa
   ASSERT(a_branch);
 
   ASSERT(a_node->m_count == MAXNODES);
-    
+
   // Load the branch buffer
   int index;
   for(index=0; index < MAXNODES; ++index)
@@ -1240,10 +1240,10 @@ RTREE_TEMPLATE
 void RTREE_QUAL::ChoosePartition(PartitionVars* a_parVars, int a_minFill)
 {
   ASSERT(a_parVars);
-  
+
   ELEMTYPEREAL biggestDiff;
   int group, chosen = 0, betterGroup = 0;
-  
+
   InitParVars(a_parVars, a_parVars->m_branchCount, a_minFill);
   PickSeeds(a_parVars);
 
@@ -1309,7 +1309,7 @@ void RTREE_QUAL::ChoosePartition(PartitionVars* a_parVars, int a_minFill)
   }
 
   ASSERT((a_parVars->m_count[0] + a_parVars->m_count[1]) == a_parVars->m_total);
-  ASSERT((a_parVars->m_count[0] >= a_parVars->m_minFill) && 
+  ASSERT((a_parVars->m_count[0] >= a_parVars->m_minFill) &&
         (a_parVars->m_count[1] >= a_parVars->m_minFill));
 }
 
@@ -1325,7 +1325,7 @@ void RTREE_QUAL::LoadNodes(Node* a_nodeA, Node* a_nodeB, PartitionVars* a_parVar
   for(int index=0; index < a_parVars->m_total; ++index)
   {
     ASSERT(a_parVars->m_partition[index] == 0 || a_parVars->m_partition[index] == 1);
-    
+
     if(a_parVars->m_partition[index] == 0)
     {
       AddBranch(&a_parVars->m_branchBuf[index], a_nodeA, NULL);
@@ -1439,19 +1439,19 @@ bool RTREE_QUAL::RemoveRect(Rect* a_rect, const DATATYPE& a_id, Node** a_root)
                    a_root,
                    tempNode->m_level);
       }
-      
+
       ListNode* remLNode = reInsertList;
       reInsertList = reInsertList->m_next;
-      
+
       FreeNode(remLNode->m_node);
       FreeListNode(remLNode);
     }
-    
+
     // Check for redundant root (not leaf, 1 child) and eliminate
     if((*a_root)->m_count == 1 && (*a_root)->IsInternalNode())
     {
       tempNode = (*a_root)->m_branch[0].m_child;
-      
+
       ASSERT(tempNode);
       FreeNode(*a_root);
       *a_root = tempNode;
@@ -1576,7 +1576,7 @@ bool RTREE_QUAL::Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CON
       if(Overlap(a_rect, &a_node->m_branch[index].m_rect))
       {
         DATATYPE& id = a_node->m_branch[index].m_data;
-        
+
         // NOTE: There are different ways to return results.  Here's where to modify
 /*        if(&a_resultCallback)
         {*/
@@ -1603,6 +1603,3 @@ bool RTREE_QUAL::Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CON
 #undef RTREE_QUAL
 
 #endif //RTREE_H
-
-
-

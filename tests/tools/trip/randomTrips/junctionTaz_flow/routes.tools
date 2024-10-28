@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 18 07:04:21 2020 by Eclipse SUMO duarouter Version v1_6_0+0298-e7d7de366b
+<!-- generated on 2022-07-07 10:55:35.970273 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <flows value="10"/>
+    <junction-taz value="True"/>
+    <net-file value="net.net.xml"/>
+    <route-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:35 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -11,7 +20,7 @@
 
     <output>
         <output-file value="out.rou.xml"/>
-        <alternatives-output value="out.rou.alt.xml"/>
+        <alternatives-output value="NUL"/>
     </output>
 
     <time>

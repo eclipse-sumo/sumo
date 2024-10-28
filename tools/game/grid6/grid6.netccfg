@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-13 07:10:21 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
+-->
+
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="grid6.nod.xml"/>
+        <edge-files value="grid6.edg.xml"/>
+        <connection-files value="grid6.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="grid6.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>

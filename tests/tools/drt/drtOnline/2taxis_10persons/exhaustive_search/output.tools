@@ -1,0 +1,74 @@
+ Retrying in 1 seconds
+
+Run dispatcher
+New reservations: ['0']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiA_0y_0z
+
+Run dispatcher
+New reservations: ['1', '2', '3']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiA_0y_2y_3y_1y_3z_0z_1z_2z
+
+Run dispatcher
+New reservations: ['4', '5', '6']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiA_2y_3y_4y_3z_1y_0z_1z_2z_4z
+Dispatch: taxiB_6y_5y_6z_5z
+
+Run dispatcher
+New reservations: ['7', '8', '9']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_6y_7y_5y_9y_7z_6z_5z_9z
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['8']
+Solve DARP with exhaustive_search
+Reservation 8 (person ('8',)) cannot be served
+Solve ILP
+
+Exact solution found.
+DRT simulation ended

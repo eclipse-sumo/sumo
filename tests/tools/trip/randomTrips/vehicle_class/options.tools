@@ -1,2 +1,0 @@
--n net.net.xml -e 10 -s 42 --vclass passenger --vehicle-class passenger
---trip-attributes 'color="blue" departPos="last" speedDev="0.2"'

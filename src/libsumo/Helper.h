@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,30 +41,12 @@ class MSPerson;
 class MSVehicle;
 class MSBaseVehicle;
 class MSVehicleType;
+class MSStoppingPlace;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-template<>
-inline float LANE_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
-    ASSERT(a_rect);
-    const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
-    const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
-    return .78539816f * (extent0 * extent0 + extent1 * extent1);
-}
-
-template<>
-inline LANE_RTREE_QUAL::Rect LANE_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB) {
-    ASSERT(a_rectA && a_rectB);
-    Rect newRect;
-    newRect.m_min[0] = rtree_min(a_rectA->m_min[0], a_rectB->m_min[0]);
-    newRect.m_max[0] = rtree_max(a_rectA->m_max[0], a_rectB->m_max[0]);
-    newRect.m_min[1] = rtree_min(a_rectA->m_min[1], a_rectB->m_min[1]);
-    newRect.m_max[1] = rtree_max(a_rectA->m_max[1], a_rectB->m_max[1]);
-    return newRect;
-}
-
 namespace libsumo {
 
 /**
@@ -104,6 +86,7 @@ public:
     static SUMOTrafficObject* getTrafficObject(int domain, const std::string& id);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
+    static MSStoppingPlace* getStoppingPlace(const std::string& id, const SumoXMLTag type);
 
     static SUMOVehicleParameter::Stop buildStopParameters(const std::string& edgeOrStoppingPlaceID,
             double pos, int laneIndex, double startPos, int flags, double duration, double until);
@@ -174,7 +157,8 @@ public:
     static void setRemoteControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
-    static void postProcessRemoteControl();
+    /// @brief return number of remote-controlled entities
+    static int postProcessRemoteControl();
 
     static void cleanup();
 
@@ -289,7 +273,7 @@ private:
     /// @brief Changes in the states of simulated transportables
     static TransportableStateListener myTransportableStateListener;
 
-    /// @brief A storage of lanes
+    /// @brief A lookup tree of lanes
     static LANE_RTREE_QUAL* myLaneTree;
 
     static std::map<std::string, MSVehicle*> myRemoteControlledVehicles;

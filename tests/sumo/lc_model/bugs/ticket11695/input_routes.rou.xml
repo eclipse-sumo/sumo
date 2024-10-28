@@ -1,0 +1,11 @@
+<routes>
+	<vType id="car" accel="2.0" decel="2.0" minGap="1.5" sigma="0" speedDev="0"/>
+
+    <route id="through" edges="E0 E1"/>
+    <route id="offramp" edges="E0 E1 E3"/>
+
+    <vehicle id="ego"     type="car"  depart="0" departPos="-10" departLane="1" departSpeed="max" route="offramp"/>
+    <vehicle id="blocker" type="car" depart="0" departPos="-11"  departLane="0" departSpeed="max" route="through" arrivalLane="2"/>
+
+
+</routes>

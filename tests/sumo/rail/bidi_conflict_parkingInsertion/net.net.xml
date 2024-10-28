@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-10 17:55:08 by Eclipse SUMO netedit Version v1_15_0+1531-aad1596
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-1000.00,0.00,0.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":J3_0" function="internal" bidi=":J3_1">
+        <lane id=":J3_0_0" index="0" allow="rail" speed="70.00" length="0.10" shape="-800.00,0.00 -800.00,0.00"/>
+    </edge>
+    <edge id=":J3_1" function="internal" bidi=":J3_0">
+        <lane id=":J3_1_0" index="0" allow="rail" speed="70.00" length="0.10" shape="-800.00,0.00 -800.00,0.00"/>
+    </edge>
+
+    <edge id="-beg" from="J3" to="A" priority="1" spreadType="center" bidi="beg">
+        <lane id="-beg_0" index="0" allow="rail" speed="70.00" length="200.00" shape="-800.00,0.00 -1000.00,0.00"/>
+    </edge>
+    <edge id="-middle" from="B" to="J3" priority="1" spreadType="center" bidi="middle">
+        <lane id="-middle_0" index="0" allow="rail" speed="70.00" length="800.00" shape="0.00,0.00 -800.00,0.00"/>
+    </edge>
+    <edge id="beg" from="A" to="J3" priority="1" spreadType="center" bidi="-beg">
+        <lane id="beg_0" index="0" allow="rail" speed="70.00" length="200.00" shape="-1000.00,0.00 -800.00,0.00"/>
+    </edge>
+    <edge id="middle" from="J3" to="B" priority="1" spreadType="center" bidi="-middle">
+        <lane id="middle_0" index="0" allow="rail" speed="70.00" length="800.00" shape="-800.00,0.00 0.00,0.00"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="-1000.00" y="0.00" incLanes="-beg_0" intLanes="" shape="-1000.00,1.60 -1000.00,-1.60 -1000.00,1.60 -1000.00,-1.60"/>
+    <junction id="B" type="dead_end" x="0.00" y="0.00" incLanes="middle_0" intLanes="" shape="0.00,-1.60 0.00,1.60 0.00,-1.60 0.00,1.60"/>
+    <junction id="J3" type="rail_signal" x="-800.00" y="0.00" incLanes="-middle_0 beg_0" intLanes=":J3_0_0 :J3_1_0" shape="-800.00,1.60 -800.00,-1.60 -800.00,1.60">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <connection from="-middle" to="-beg" fromLane="0" toLane="0" uncontrolled="1" via=":J3_0_0" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="0" via=":J3_1_0" tl="J3" linkIndex="0" dir="s" state="O"/>
+
+    <connection from=":J3_0" to="-beg" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J3_1" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

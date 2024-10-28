@@ -1,0 +1,4 @@
+<additional
+    <poly id="po_0" color="255,0,0,255" layer="1" fill="1" shape="40.0,120.0 130.0,120.0 130.0,50.0 40.0,50.0"/>
+    <poly id="po_1" type="foo" color="0.0,0.0,255.0" layer="1" fill="1" shape="40.0,120.0 130.0,120.0 130.0,50.0 40.0,50.0"/>
+</additional

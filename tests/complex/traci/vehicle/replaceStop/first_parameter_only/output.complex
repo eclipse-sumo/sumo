@@ -19,29 +19,29 @@ tripId fancyID
 split train0
 join train1
 line S42
-speed 3.00
+speed 0.00
 started 83.00
 ended 102.00
-stop parameters for index -1 at time 200.0:
-index 1
-edge B1C1
+stop parameters for index -1 at time 150.0:
+index 0
+edge A1B1
 lane 0
-startPos 54.05
-endPos 64.05
-posLat -1073741824.00
-arrival -1
-duration 60.00
-until -1
-extension -1
+startPos 5.00
+endPos 50.00
+posLat -0.50
+arrival 42.00
+duration 30.00
+until 100.00
+extension 10.00
 parking 0
-triggered 
-permitted 
-expected 
-actType 
-tripId 
-split 
-join 
-line 
+triggered join
+permitted p0 p1 p2
+expected p0 p1
+actType test action
+tripId fancyID
+split train0
+join train1
+line S42
 speed 0.00
-started 117.00
-ended 177.00
+started 16.00
+ended 111.00

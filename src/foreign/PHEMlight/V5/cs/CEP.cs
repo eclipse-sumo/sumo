@@ -48,7 +48,7 @@ namespace PHEMlightdll
                     _engineIdlingSpeed = 0;
                     break;
             }
-            
+
             _effectiveWheelDiameter = Vehicle.VehicleData.WheelDiameter.Value;
             HeavyVehicle = Vehicle.VehicleData.MassType == Constants.HeavyVehicle;
             FuelType = Vehicle.VehicleData.FuelType;
@@ -361,7 +361,10 @@ namespace PHEMlightdll
                 //FC values
                 foreach (string id in _cepCurveFCvalues.Keys)
                 {
-                    Emi.Add(id.ToUpper(), GetEmission(id, power, speed, VehicleClass));
+                    if (id.ToUpper() == "FC_EL" & VehicleClass.pClass == Constants.strBEV)
+                        Emi.Add(id.ToUpper(), GetEmission(id, power, speed, VehicleClass) + _auxPower * RatedPower);
+                    else
+                        Emi.Add(id.ToUpper(), GetEmission(id, power, speed, VehicleClass));
                 }
 
                 //Emission
@@ -413,7 +416,7 @@ namespace PHEMlightdll
             List<double> emissionCurve = new List<double>();
             List<double> powerPattern = new List<double>();
 
-            // bisection search to find correct position in power pattern	
+            // bisection search to find correct position in power pattern
             int upperIndex;
             int lowerIndex;
 
@@ -483,7 +486,7 @@ namespace PHEMlightdll
             List<double> emissionCurve = new List<double>();
             List<double> powerPattern = new List<double>();
 
-            // bisection search to find correct position in power pattern	
+            // bisection search to find correct position in power pattern
             int upperIndex;
             int lowerIndex;
 
@@ -536,7 +539,7 @@ namespace PHEMlightdll
         {
             //Declaration
             double fCBr, fCHC, fCCO, fCCO2;
-            
+
             fCBr = 0;
             fCHC = 0;
             fCCO = 0;
@@ -759,7 +762,7 @@ namespace PHEMlightdll
                 return;
             }
 
-            // bisection search to find correct position in power pattern	
+            // bisection search to find correct position in power pattern
             int middleIndex = (pattern.Count - 1) / 2;
             upperIndex = pattern.Count - 1;
             lowerIndex = 0;

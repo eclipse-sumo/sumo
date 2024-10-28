@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-02-26 09:28:25.570207 by generateMeanDataDefinitions.py v1_8_0+1356-bf95125476
+
+<!-- generated on 2022-07-07 11:17:58.557522 by generateMeanDataDefinitions.py v1_13_0+1343-240e5d48340
   options: <doubleminus>detector-file e1.add.xml <doubleminus>detector-type e1 <doubleminus>output edge-mean-data.add.xml <doubleminus>output-suffix -aggregated
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <edgeData id="e1det_1i_0" freq="" file="e1det_1i_0-aggregated.xml"/>
     <edgeData id="e1det_2i_0" freq="" file="e1det_2i_0-aggregated.xml"/>

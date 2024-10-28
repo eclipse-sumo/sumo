@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+
+BUILDDIR = $(CURDIR)/cmake-build
+
+%:
+	dh $@ --buildsystem=cmake --parallel --builddirectory=$(BUILDDIR)
+
+no_hardening_all_archs = mips mipsel
+
+ifeq (,$(filter $(DEB_HOST_ARCH),$(no_hardening_all_archs)))
+  export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+endif
+
+DPKG_EXPORT_BUILDFLAGS = 1
+
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+export LIBS := -lgl2ps -lGL -lGLU -lglut
+
+include /usr/share/dpkg/buildflags.mk
+
+# we need to set the CMAKE_BUILD_TYPE because it is set to "None" otherwise
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DMVN_EXECUTABLE=
+
+override_dh_auto_build-indep:
+#	Clean some unneeded files
+	find ./tools -name '*.pyc' -print0 | xargs -0 rm -f
+	rm -rf ./tools/contributed/traas/license.txt
+	rm -rf ./tools/contributed/traci4matlab/license.txt
+	rm -rf ./tools/game/sounds/license.txt
+	sed -i '/traas/d' ./docs/examples/runAll.py
+#	Fix shebangs
+	find ./tools -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python2,#!/usr/bin/python2,'
+	find ./tools -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python3,#!/usr/bin/python3,'
+	find ./tools -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python,#!/usr/bin/python3,'
+	find ./docs -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python,#!/usr/bin/python3,'
+	find ./docs -name '*.py' -print0 | xargs -0 sed -i 's,"python","python3",'
+#	build pydoc
+	./tools/build_config/buildPyDoc.py -p docs/pydoc -c
+
+override_dh_auto_build-arch:
+	dh_auto_build -a
+	$(MAKE) --directory=$(BUILDDIR) man
+
+override_dh_auto_install:
+	dh_auto_install
+	find . -name "*.pyc" -delete
+	find . -type d -name "__pycache__" -delete
+
+# By default, dh_compress compresses files that Debian policy mandates
+# should be compressed. Examples and tutorials are more user-friendly
+# if they remain uncompressed.
+override_dh_compress:
+	dh_compress --exclude=examples --exclude=tutorial

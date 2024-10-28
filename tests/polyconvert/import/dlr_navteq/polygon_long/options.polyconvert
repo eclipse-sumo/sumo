@@ -1,0 +1,2 @@
+-v --dlr-navteq-poly-files dlr_navteq_polygons.txt -o pois.poi.xml
+

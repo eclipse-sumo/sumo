@@ -1,0 +1,27 @@
+/* XPM */
+static const char *vtype_pedestrian_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1 ",
+"  c gray25",
+". c #414141",
+"X c red",
+"o c #808080",
+"O c None",
+/* pixels */
+"OOOOOOO  OOOOOOO",
+"OOOOOOO  OOOOOOO",
+"OOOOOOOOOOOOOOOO",
+"OOOOOOo oOOOOOOO",
+"OOOOOo   OOOOOOO",
+"OOOOo    oOOOOOO",
+"OOOO o  o oOOOOO",
+"OOOO O  OO oOOOO",
+"OOOOoO  OOOOOOOO",
+"OOOOOO  oOOOOOOO",
+"OOOOO  . oOOOOOO",
+"OOOOOOOOOOOOOOOO",
+"OXXXOXOXOXXOXXOO",
+"OOXOOXXXOXXOXOOO",
+"OOXOOOXOOXOOXXOO",
+"OOOOOOOOOOOOOOOO"
+};

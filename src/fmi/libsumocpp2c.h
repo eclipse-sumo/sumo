@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2020-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2020-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,9 +27,9 @@ extern "C" {
 #endif
 
 void libsumo_load(char*);
-void libsumo_close();
+void libsumo_close(void);
 void libsumo_step(double);
-int  libsumo_vehicle_getIDCount();
+int  libsumo_vehicle_getIDCount(void);
 void libsumo_vehicle_moveToXY(const char*);
 void libsumo_vehicle_getParameterWithKey(ModelInstance*, const char**);
 void libsumo_vehicle_getLaneID(ModelInstance*, const char**);
@@ -38,4 +38,3 @@ void libsumo_vehicle_getPosition(ModelInstance*, const char**);
 #ifdef __cplusplus
 }
 #endif
-

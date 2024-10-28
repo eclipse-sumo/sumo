@@ -6,8 +6,8 @@ This document describes the capabilities and basic usage of the software
 SUMOPy. SUMOPy is intended to expand the user-base of the traffic
 micro-simulator SUMO by providing a user-friendly, yet flexible
 simulation suite. The original publication related to SUMOPy can be
-found at the [University of Bologna](https://web.archive.org/web/20181101145057/http://campus.unibo.it/200538/1/Research-A-Choudhry-657079-.pdf)
-and in the [proceedings of the SUMO2013](http://sumo.dlr.de/2013/SUMO2013_15-17May%202013_Berlin-Adlershof.pdf).
+found at the [University of Bologna](https://web.archive.org/web/20181101145057/https://campus.unibo.it/200538/1/Research-A-Choudhry-657079-.pdf)
+and in the [proceedings of the SUMO2013](https://sumo.dlr.de/2013/SUMO2013_15-17May%202013_Berlin-Adlershof.pdf).
 
 A further scope of SUMOPy is to manage the huge amount of data necessary
 to run complex multi-modal simulations. This includes different demand
@@ -21,7 +21,7 @@ as a simple to use scripting language which facilitates the use of SUMO.
 # Introduction
 
 SUMO rapidly developed into a flexible and powerful open-source
-micro-simulator for multi-modal urban traffic networks . The features
+micro-simulator for multi-modal urban traffic networks . The features
 and the number of tools provided are constantly increasing, making
 simulations ever more realistic. However, the different functionalities
 consist at the present state of a large number of binaries and scripts

@@ -1,1 +1,1 @@
-$SUMO_HOME/tools tools/build/schemaCheck.py
+$SUMO_HOME/tools tools/build_config/schemaCheck.py

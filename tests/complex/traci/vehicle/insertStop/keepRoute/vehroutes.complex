@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-05 13:32:15 by Eclipse SUMO sumo Version v1_15_0+1338-c25e42c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional4.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="57149"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0.00" arrival="45.00">
+        <routeDistribution>
+            <route replacedOnEdge="A1B1" reason="traci:insertStop" replacedAtTime="2.00" probability="0" edges="A1B1"/>
+            <route edges="A1B1"/>
+        </routeDistribution>
+        <stop busStop="busStop_A1B1" duration="30.00"/>
+    </vehicle>
+
+</routes>

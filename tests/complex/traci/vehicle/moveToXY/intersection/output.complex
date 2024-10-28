@@ -1,27 +1,26 @@
-***Starting server on port 36637 ***
-Loading net-file from 'input_net2.net.xml' ... done (3ms).
+***Starting server on port 44743 ***
+Loading net-file from 'input_net2.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_10_0+0276-ffc6265 started with time: 0.00
-Simulation ended at time: 26.00
+Simulation version v1_20_0+0840-6edfc792969 started with time: 0.00.
+Simulation ended at time: 26.00.
 Reason: TraCI requested termination.
-Performance: 
+Performance:
  Duration: 0.01s
- TraCI-Duration: 0.01s
- Real time factor: 3250
- UPS: 26125.000000
-Vehicles: 
+ TraCI-Duration: 0.00s
+ Real time factor: 5200
+ UPS: 41800.000000
+Vehicles:
  Inserted: 11
  Running: 7
  Waiting: 0
-Statistics (avg):
- RouteLength: 104.91
- Speed: 5.91
+Statistics (avg of 11):
+ RouteLength: 105.16
+ Speed: 5.93
  Duration: 19.00
- WaitingTime: 2.45
- TimeLoss: 10.44
+ WaitingTime: 2.54
+ TimeLoss: 10.40
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
-
-DijkstraRouter answered 11 queries and explored 4.82 edges on average.
+DijkstraRouter answered 11 queries and explored 3.91 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
  Retrying in 1 seconds

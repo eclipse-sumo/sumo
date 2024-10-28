@@ -1,0 +1,14 @@
+# This test checks that the duarouter-specific options defined in randomTrips are correctly passed. 
+duarouter_randomTrips-defined_options
+
+# This test checks that the duarouter-specific options defined by the user are correctly passed. 
+duarouter_user-defined_options
+
+# This test checks that the duarouter-specific options defined by the user are correctly passed with a value. For instance --duarouter-exit-times true is OK, but --duarouter-exit-times isn't.
+duarouter_user-defined_options_missing_value_1
+
+# This test checks that the duarouter-specific options defined by the user are correctly passed with a value. For instance --duarouter-exit-times true is OK, but --duarouter-exit-times isn't. This test specifically checks for the last passed argument.
+duarouter_user-defined_options_missing_value_2
+
+# This test checks that the duarouter-specific options are not in conflict when there is a mix of randomTrips-defined options and user-defined options (options defined in randomTrips.py have precendence).
+duarouter_mixed_options

@@ -1,0 +1,15 @@
+Warning: Person 'pflow.5' is jammed on edge 'SC', time=350.00.
+Warning: Person 'pflow.6' is jammed on edge 'SC', time=356.00.
+Warning: Person 'pflow.9' is jammed on edge 'SC', time=358.00.
+Warning: Person 'pflow.7' is jammed on edge 'SC', time=656.00.
+Warning: Person 'pflow.8' is jammed on edge 'SC', time=846.00.
+Warning: Person 'pflow.0' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.1' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.2' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.3' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.4' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.5' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.6' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.9' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.7' aborted waiting for ANY at edge 'SC'.
+Warning: Person 'pflow.8' aborted waiting for ANY at edge 'SC'.

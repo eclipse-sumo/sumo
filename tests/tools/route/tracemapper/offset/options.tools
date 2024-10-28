@@ -1,1 +1,1 @@
--n input_net.net.xml -t tracefile.txt -o out.rou.xml -v -d 11
+-n input_net.net.xml -t tracefile.txt -o out.rou.xml -v -d 11 --direction

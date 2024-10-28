@@ -1,0 +1,32 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <laneAreaDetector id="AD0.0" lane="NC_0" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD0.1" lane="NC_1" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD1.0" lane="EC_0" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD1.1" lane="EC_1" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD2.0" lane="SC_0" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD2.1" lane="SC_1" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD3.0" lane="WC_0" endPos="-0.1" length="100" file="NUL"/>
+    <laneAreaDetector id="AD3.1" lane="WC_1" endPos="-0.1" length="100" file="NUL"/>
+
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="50" earlyTarget="NS_traffic"/>
+        <phase duration="3"  state="ygrrygrr"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="50" />
+        <phase duration="3"  state="ryrrryrr" next="10 4"/>
+        <phase duration="2"  state="rrrrrrrr"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="50" earlyTarget="EW_traffic"/>
+        <phase duration="3"  state="rrygrryg"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="50" />
+        <phase duration="3"  state="rrryrrry" next="10 9"/>
+        <phase duration="2"  state="rrrrrrrr" next="0"/>
+        <phase duration="2"  state="rrrrrrrr" minDur="2" name="default-allred" next="0 5" finalTarget="no_traffic"/>
+
+        <param key="show-detectors" value="true"/>
+
+        <condition id="NS_traffic" value="a:AD0.0 or a:AD0.1 or a:AD2.0 or a:AD2.1"/>
+        <condition id="EW_traffic" value="a:AD1.0 or a:AD1.1 or a:AD3.0 or a:AD3.1"/>
+        <condition id="no_traffic" value="!NS_traffic and !EW_traffic"/>
+
+    </tlLogic>
+</additional>

@@ -1,0 +1,8 @@
+# ACC model test
+collisionAvoidanceOverride
+
+# approach a stopped car at high speed
+fast_approach_standing
+
+# parameters chosen to reproduce platoon instability (as published)
+platoon_unstable

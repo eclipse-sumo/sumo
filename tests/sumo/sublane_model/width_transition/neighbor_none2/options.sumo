@@ -1,0 +1,8 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--lateral-resolution 0.8
+--collision.action warn
+--default.speeddev 0.1
+-t
+--seed 1

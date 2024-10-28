@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-06-08 12:00:25.606291 by gtfs2pt.py v1_9_2+0364-351130300d
-  options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>end 122400 <doubleminus>verbose
+
+<!-- generated on 2022-07-07 11:18:48.849688 by gtfs2pt.py v1_13_0+1343-240e5d48340
+  options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>begin 28800 <doubleminus>end 72000 <doubleminus>verbose
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="bus" vClass="bus"/>
 </additional>

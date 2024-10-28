@@ -1,0 +1,10 @@
+<add>
+    <rerouter id="rr0" edges="B2C2">
+        <interval begin="0" end="300">
+            <closingReroute id="C2B2" allow="authority"/>
+            <closingReroute id="B3B2" allow="authority"/>
+            <closingReroute id="A2B2" allow="authority"/>
+            <closingReroute id="B1B2" allow="authority"/>
+        </interval>
+    </rerouter>
+</add>

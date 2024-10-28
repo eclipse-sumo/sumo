@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,11 +34,11 @@ class GNEFrame : public FXVerticalFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      * @brief frameLabel label of the frame
      */
-    GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel);
+    GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::string& frameLabel);
 
     /// @brief destructor
     ~GNEFrame();
@@ -57,7 +57,7 @@ public:
     virtual void hide();
 
     /// @brief set width of GNEFrame
-    void setFrameWidth(int newWidth);
+    void setFrameWidth(const int newWidth);
 
     /// @brief get view net
     GNEViewNet* getViewNet() const;
@@ -71,11 +71,17 @@ public:
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
+    /// @brief get scrollBar width (zero if is hidden)
+    int getScrollBarWidth() const;
+
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier* AC) const;
 
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     virtual void updateFrameAfterUndoRedo();
+
+    /// @brief function called after setting new width in current frame (can be reimplemented in frame children)
+    virtual void frameWidthUpdated();
 
     /// @name functions called by moduls that can be reimplemented in frame children (note: reimplement as protected, just for safety)
     /// @{
@@ -90,7 +96,7 @@ public:
     virtual bool shapeDrawed();
 
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
-    virtual void attributeUpdated();
+    virtual void attributeUpdated(SumoXMLAttr attribute);
 
     /// @brief open GNEAttributesCreator extended dialog
     virtual void attributesEditorExtendedDialogOpened();
@@ -99,7 +105,7 @@ public:
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
     /// @brief create path between two elements
-    virtual void createPath();
+    virtual bool createPath(const bool useLastRoute);
 
     /// @}
 

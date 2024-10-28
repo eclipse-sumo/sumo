@@ -1,1 +1,1 @@
-Usage: /home/behr_mi/sumo/tests/../tools/shapes/poi_at_stops.py <NET> <STOPS>
+Usage: poi_at_stops.py <NET> <STOPS>

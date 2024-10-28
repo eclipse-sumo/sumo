@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -181,15 +181,19 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (auto item : myTLLogic->getConditions()) {
         myConditionNames.push_back(item.first);
     }
+    loadSettings();
+    const int newHeight = computeHeight();
+    FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | FRAME_NONE);
+    FXHorizontalFrame* spacerFrame = new FXHorizontalFrame(scrollWindow, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_NONE);
+    new FXScrollWindow(spacerFrame, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_NONE, 0, 0, 0, newHeight - 40);
     FXVerticalFrame* glcanvasFrame =
-        new FXVerticalFrame(this,
+        new FXVerticalFrame(spacerFrame,
                             FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y,
                             0, 0, 0, 0, 0, 0, 0, 0);
     myPanel = new GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    loadSettings();
-    setHeight(computeHeight());
+    setHeight(newHeight);
 }
 
 
@@ -209,14 +213,18 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
+    int newHeight = computeHeight();
+    FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | FRAME_NONE);
+    FXHorizontalFrame* spacerFrame = new FXHorizontalFrame(scrollWindow, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_NONE);
+    new FXScrollWindow(spacerFrame, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_NONE, 0, 0, 0, newHeight - 40);
     FXVerticalFrame* glcanvasFrame =
-        new FXVerticalFrame(this,
+        new FXVerticalFrame(spacerFrame,
                             FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y,
                             0, 0, 0, 0, 0, 0, 0, 0);
     myPanel = new GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - phases").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight(computeHeight());
+    setHeight(newHeight);
     setWidth(700);
 }
 
@@ -253,24 +261,24 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
     }
 
     new FXLabel(myToolBar, "time style:", nullptr, LAYOUT_CENTER_Y);
-    myTimeMode = new FXComboBox(myToolBar, 11, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
-    myTimeMode->appendItem("seconds");
-    myTimeMode->appendItem("MM:SS");
-    myTimeMode->appendItem("time in cycle");
-    myTimeMode->setNumVisible(3);
+    myTimeMode = new MFXComboBoxIcon(myToolBar, 11, false, GUIDesignComboBoxVisibleItemsMedium,
+                                     this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myTimeMode->appendIconItem("seconds");
+    myTimeMode->appendIconItem("MM:SS");
+    myTimeMode->appendIconItem("time in cycle");
 
     new FXLabel(myToolBar, "green time", nullptr, LAYOUT_CENTER_Y);
-    myGreenMode = new FXComboBox(myToolBar, 6, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
-    myGreenMode->appendItem("off");
-    myGreenMode->appendItem("phase");
-    myGreenMode->appendItem("running");
-    myGreenMode->setNumVisible(3);
+    myGreenMode = new MFXComboBoxIcon(myToolBar, 6, false, GUIDesignComboBoxVisibleItemsMedium,
+                                      this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myGreenMode->appendIconItem("off");
+    myGreenMode->appendIconItem("phase");
+    myGreenMode->appendIconItem("running");
 
-    myIndexMode = new FXCheckButton(myToolBar, "phase names", this, MID_SIMSTEP);
+    myIndexMode = new FXCheckButton(myToolBar, TL("phase names"), this, MID_SIMSTEP);
 
     if (myAmInTrackingMode) {
-        myDetectorMode = new FXCheckButton(myToolBar, "detectors", this, MID_SIMSTEP);
-        myConditionMode = new FXCheckButton(myToolBar, "conditions", this, MID_SIMSTEP);
+        myDetectorMode = new FXCheckButton(myToolBar, TL("detectors"), this, MID_SIMSTEP);
+        myConditionMode = new FXCheckButton(myToolBar, TL("conditions"), this, MID_SIMSTEP);
     } else {
         myDetectorMode = nullptr;
         myConditionMode = nullptr;
@@ -291,6 +299,7 @@ GUITLLogicPhasesTrackerWindow::computeHeight() {
     int newHeight = (int)myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
     if (myAmInTrackingMode) {
         newHeight += 20; // time bar
+        newHeight += 10; // something extra caused by the scroll frames
         if (myDetectorMode->getCheck()) {
             newHeight += (int)myTLLogic->getDetectorStates().size() * 20 + 5;
         }
@@ -333,7 +342,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             myLastTime += phase->duration;
         }
         if (myLastTime <= myBeginTime) {
-            WRITE_ERROR("Overflow in time computation occurred.");
+            WRITE_ERROR(TL("Overflow in time computation occurred."));
             return;
         }
     } else {
@@ -561,13 +570,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                         runningGreen[j] += *pd;
                         if (pd + 1 == myDurations.end()) {
                             drawnDuration = runningGreen[j];
-                            xOffset =  -(drawnDuration - *pd) / panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
+                            xOffset =  -(double)(drawnDuration - *pd) / panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
                         }
                     }
                 } else {
                     if (runningGreen[j] > 0) {
                         drawnDuration = runningGreen[j];
-                        xOffset =  -drawnDuration / panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
+                        xOffset =  -(double)drawnDuration / panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
                     }
                     runningGreen[j] = 0;
                 }
@@ -637,11 +646,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         }
         // draw time information
         //h = (double)(myTLLogic->getLinks().size() * 20 + 12);
-        double glh = (double)(1.0 - myTLLogic->getLinks().size() * h20 - hTop);
+        double glh = 1. - (double)myTLLogic->getLinks().size() * h20 - hTop;
         // current begin time
         // time ticks
         SUMOTime currTime = myFirstTime2Show;
-        double glpos = (double) 31 / panelWidth;
+        double glpos = 31. / panelWidth;
         const double ticSize = 4. / panelHeight;
         if (leftOffset > 0) {
             const double a = STEPS2TIME(leftOffset) * barWidth / timeRange;
@@ -666,7 +675,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                                          ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
                                          + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
                                          : toString((int)STEPS2TIME(cycleTime ? timeInCycle : currTime)));
-            const double w = 10 * timeStr.size() / panelWidth;
+            const double w = 10 * (double)timeStr.size() / panelWidth;
             glTranslated(glpos - w / 2., glh - h20 * ticShift, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             glTranslated(-glpos + w / 2., -glh + h20 * ticShift, 0);
@@ -696,7 +705,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glColor3d(0.4, 0.4, 0.4);
                     glBegin(GL_LINES);
                     glVertex2d(glpos, hStart);
-                    hStart -=  myDetectorNames.size() * h20;
+                    hStart -= (double)myDetectorNames.size() * h20;
                     glVertex2d(glpos, hStart);
                     glEnd();
                     hStart -= h35;
@@ -705,7 +714,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glColor3d(0.4, 0.4, 0.4);
                     glBegin(GL_LINES);
                     glVertex2d(glpos, hStart);
-                    glVertex2d(glpos, hStart - myConditionNames.size() * h20);
+                    glVertex2d(glpos, hStart - (double)myConditionNames.size() * h20);
                     glEnd();
                 }
             }
@@ -741,8 +750,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 tickDist += TIME2STEPS(10);
                 t -= barWidth / 4.;
             }
-            glh = (double)(1.0 - myLinkNames.size() * h20 - h80);
-            glh -= h20 * (myDetectorMode->getCheck() ? myDetectorNames.size() : myConditionNames.size());
+            glh = 1. - (double)myLinkNames.size() * h20 - h80;
+            glh -= h20 * (double)(myDetectorMode->getCheck() ? myDetectorNames.size() : myConditionNames.size());
             currTime = myFirstTime2Show;
             int pos = 31;
             glpos = (double) pos / panelWidth;
@@ -762,7 +771,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                                              ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
                                              + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
                                              : toString((int)STEPS2TIME(cycleTime ? findTimeInCycle(currTime) : currTime)));
-                const double w = 10 * timeStr.size() / panelWidth;
+                const double w = 10. * (double)timeStr.size() / panelWidth;
                 glTranslated(glpos - w / 2., glh - h20, 0);
                 GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
                 glTranslated(-glpos + w / 2., -glh + h20, 0);

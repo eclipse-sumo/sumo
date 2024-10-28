@@ -7,7 +7,9 @@ title: TraCI
 TraCI is the short term for "**Tra**ffic **C**ontrol **I**nterface".
 Giving access to a running road traffic simulation, it allows to
 retrieve values of simulated objects and to manipulate their behavior
-"on-line".
+"on-line". If performance is an issue you should consider using
+[libsumo](Libsumo.md) instead. You can also start with TraCI and switch
+to libsumo later, since the function signatures are the same.
 
 ## Using TraCI
 
@@ -44,7 +46,7 @@ the highest value within each simulation step.
 The clients are automatically synchronized after every simulation step. This means, the simulation does not advance to the next step until all clients have called the 'simulationStep'' command. Also, the simulationStep command only returns control to the client after the simulation has advanced.
 
 !!! caution
-    The simulation will only start once all clients have connected. 
+    The simulation will only start once all clients have connected.
 
 ### Protocol specification
 
@@ -72,7 +74,7 @@ arguments by using the
 
 - [Control-related commands](TraCI/Control-related_commands.md): perform a
   simulation step, close the connection, reload the simulation.
-- [Generic Parameters](TraCI/GenericParameters.md)  
+- [Generic Parameters](TraCI/GenericParameters.md)
 
 For the following APIs, the ID is equal to the ID defined in
 [sumo](sumo.md)'s input files. Here, you find their [general
@@ -115,7 +117,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about edges
   - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
     retrieve information about lanes
-- Infrastructure    
+- Infrastructure
   - [Traffic Lights Value
     Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
     retrieve information about traffic lights
@@ -133,7 +135,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about overhead wires
    - [Rerouter](TraCI/Rerouter.md)
     retrieve information about the rerouter
- - Misc     
+ - Misc
   - [Simulation Value
     Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
     information about the simulation
@@ -143,8 +145,8 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about points-of-interest
   - [Polygon Value
     Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve information about polygons
- 
-   
+
+
 ###  State Changing
 
 - Traffic Objects
@@ -159,7 +161,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     a route's state
 - Detectors and Outputs
   - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change a
-    calibrator state 
+    calibrator state
   - [Change Inductionloop State](TraCI/Change_Inductionloop_State.md) change a
     inductionloop state
   - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change a
@@ -173,6 +175,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Change Traffic Lights
     State](TraCI/Change_Traffic_Lights_State.md) change a
     traffic lights' state
+  - [Change Charging Station State](TraCI/Change_ChargingStation_State.md) change a charging stations's attributes
 - Misc
   - [Change Simulation
     State](TraCI/Change_Simulation_State.md) change the
@@ -183,7 +186,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     point-of-interest's state (or add/remove one)
   - [Change Polygon State](TraCI/Change_Polygon_State.md)
     change a polygon's state (or add/remove one)
-    
+
 ### Subscriptions
 
 - [TraCI/Object Variable
@@ -219,33 +222,37 @@ bindings are included when downloading a sumo-build.
 
 ### Interfaces by Programming Language
 
-- Python: [the package
-  tools/traci](TraCI/Interfacing_TraCI_from_Python.md) allows
+- Python: [the python module traci](TraCI/Interfacing_TraCI_from_Python.md) allows
   to interact with [sumo](sumo.md) using Python (This library
-  is tested daily and supports all TraCI commands).
-- C++: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md). 
+  is part of the sumo source code and all releases, is tested daily and supports all TraCI commands).
+  It is also [available on PyPI](https://pypi.org/project/traci/) and can thus be installed
+  using `pip install traci`.
+- C++: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md).
 - C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is a client
   library that is part of the [sumo](sumo.md)-source tree. (API
-  coverage is almost complete but this client is no longer updated. Use libtraci instead)
-- C++: [The Veins project](http://veins.car2x.org) provides a
+  coverage is good but this client is no longer updated. Please use libtraci instead.)
+- C++: [The Veins project](https://veins.car2x.org) provides a
   middle-ware for coupling [sumo](sumo.md) with
   [OMNET++](https://omnetpp.org/). As part of the infrastructure it
   provides a C++ client library for the TraCI API (API completeness is
   a bit behind the python client).
 - .NET:
   [TraCI.NET](https://github.com/CodingConnected/CodingConnected.Traci)
-  is a client library with almost complete API coverage.
+  is a client library with good API coverage.
+- .NET: libtracics is an experimental SWIG generated binding to the original libtraci.
+  It has full API coverage but is untested and needs to be generated by the user from the source.
 - Matlab
-  [TraCI4Matlab](http://www.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab).
+  [TraCI4Matlab](https://www.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab).
   The client is included as part of each SUMO release in
   {{SUMO}}*/tools/contributed/traci4matlab*
-  Not all TraCI commands have been
-  implemented.
-- Java: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md) and a sumo release provides pro-compiled Java bindings (via SWIG).
+  Not all TraCI commands have been implemented. It is recommended to
+  [use the python client](https://mathworks.com/help/matlab/call-python-libraries.html) from inside Matlab instead.
+- Java: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree.
+  It is fully API-compatible with [libsumo](Libsumo.md) and a SUMO release provides pro-compiled Java bindings (via SWIG).
 - Java: [TraaS](TraCI/TraaS.md#java_client) provides a client
   library that is part of the [sumo](sumo.md)-source tree (API
   coverage is large but this client is no longer updated. Use libtraci instead)
-- Others: Any language that is supported by SWIG can in principle use the bindings provided by libsumo or libtraci
+- Others: Any language that is supported by [SWIG](https://swig.org/) can in principle use the bindings provided by libsumo or libtraci.
 
 ### V2X simulation
 
@@ -284,16 +291,21 @@ depends on many factors:
 - computation within the TraCI script
 - client language
 
+!!! note
+    Please always consider using [libsumo](Libsumo.md) if performance is important.
+    While it is much faster in general, not all optimizations mentioned below are applicable to libsumo as well.
+    Especially subscriptions might even turn out to be slower.
+
 ### Examples
 
 As an example use-case consider retrieving the x,y position of each
 vehicle during every simulation step (using the python client):
 
 ```py
-while traci.simulation.getMinExpectedNumber() > 0:
-    for veh_id in traci.vehicle.getIDList():
-         position = traci.vehicle.getPosition(veh_id)
-    traci.simulationStep()
+while traci.simulation.getMinExpectedNumber() > 0:
+    for veh_id in traci.vehicle.getIDList():
+         position = traci.vehicle.getPosition(veh_id)
+    traci.simulationStep()
 ```
 
 - This script is able to process about 25000 vehicles per second.
@@ -302,11 +314,11 @@ while traci.simulation.getMinExpectedNumber() > 0:
   [subscriptions](TraCI/Object_Variable_Subscription.md):
 
 ```py
-while traci.simulation.getMinExpectedNumber() > 0: 
-    for veh_id in traci.simulation.getDepartedIDList():
-        traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
-    positions = traci.vehicle.getAllSubscriptionResults()
-    traci.simulationStep()
+while traci.simulation.getMinExpectedNumber() > 0:
+    for veh_id in traci.simulation.getDepartedIDList():
+        traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
+    positions = traci.vehicle.getAllSubscriptionResults()
+    traci.simulationStep()
 ```
 
 When using this script on the [Bologna
@@ -330,14 +342,14 @@ of the byte denotes the command (get, set, subscribe, ...) and the
 lesser significant the domain itself. To allow more than the 16 domains
 resulting from this split, the most significant bit (which was unused
 until version 1.7.0 because there were only 7 commands) is now used for the domain
-as well (and only three for the command). This allows for 28 domains 
+as well (and only three for the command). This allows for 28 domains
 because four general commands (like SIMSTEP) block some available combinations.
 Currently there are only four possible domains left.
 
 Furthermore after the invention of libsumo
 some parts of the TraCI interface are so generic that it may be not so
 hard to invent a wrapper with Apache Kafka or Google protocol buffers
-which could in the long run replace the need for all the byte fiddling 
+which could in the long run replace the need for all the byte fiddling
 and the different hand crafted clients.
 
 ## Troubleshooting

@@ -1,0 +1,25 @@
+/* XPM */
+static const char * show_tooltips_view_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+" 	c None",
+".	c Black",
+"X	c #FFFFE1",
+/* pixels */
+"                ",
+"   ..........   ",
+"  .XXXXXXXXXX.  ",
+" .XXXXX..XXXXX. ",
+" .XXXXX..XXXXX. ",
+" .XXXXX..XXXXX. ",
+" .XXXXX..XXXXX. ",
+" .XXXXX..XXXXX. ",
+" .XXXXXXXXXXXX. ",
+" .XXXXX..XXXXX. ",
+"  .XXXXXXXXXX.  ",
+"   .XX.......   ",
+"   .X.          ",
+"   ..           ",
+"   .            ",
+"                "
+};

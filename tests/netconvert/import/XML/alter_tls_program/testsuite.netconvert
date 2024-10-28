@@ -1,6 +1,12 @@
 # Test for using sumo networks as input
 basic
 
+# Test for new program with longer state
+state_too_long
+
+# new program with shorter state
+state_too_short
+
 # do not join phases with different names
 noJoin
 

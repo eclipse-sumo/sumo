@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -140,7 +140,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         //  split both edges and add the connections
         NIVissimEdge* e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
         NIVissimEdge* e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
-        WRITE_WARNING("Ugly split to prohibit '" + toString<int>(e1->getID()) + "' by '" + toString<int>(e2->getID()) + "'.");
+        WRITE_WARNINGF(TL("Ugly split to prohibit '%' by '%'."), toString<int>(e1->getID()), toString<int>(e2->getID()));
         Position pos = e1->crossesEdgeAtPoint(e2);
         std::string id1 = toString<int>(e1->getID()) + "x" + toString<int>(e2->getID());
         std::string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
@@ -183,12 +183,12 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
 
         NBEdge* e = ec.retrievePossiblySplit(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if (e == nullptr) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'. Have not found disturbance.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' by '%'. Have not found disturbance."), toString<int>(myEdge.getEdgeID()), toString<int>(myDisturbance.getEdgeID()));
             refusedProhibits++;
             return false;
         }
         if (e->getFromNode() == e->getToNode()) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'. Disturbance connects same node.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' by '%'. Disturbance connects same node."), toString<int>(myEdge.getEdgeID()), toString<int>(myDisturbance.getEdgeID()));
             refusedProhibits++;
             // What to do with self-looping edges?
             return false;
@@ -198,7 +198,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         std::string id_pcie = toString<int>(pc->getToEdgeID());
         NBEdge* const pcoe = ec.retrievePossiblySplit(id_pcoe, id_pcie, true);
         NBEdge* const pcie = ec.retrievePossiblySplit(id_pcie, id_pcoe, false);
-        // check whether it's ending node is the node the prohibited
+        // check whether its ending node is the node the prohibited
         //  edge end at
         if (pcoe != nullptr && pcie != nullptr && pcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections
@@ -207,7 +207,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
                 toNode->addSortedLinkFoes(NBConnection(e, edge), NBConnection(pcoe, pcie));
             }
         } else {
-            WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
+            WRITE_WARNINGF(TL("Would have to split edge '%' to build a prohibition"), e->getID());
             refusedProhibits++;
             // quite ugly - why was it not build?
             return false;
@@ -234,13 +234,13 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
 
         NBEdge* e = ec.retrievePossiblySplit(toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         if (e == nullptr) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' - it was not built.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' - it was not built."), toString<int>(myEdge.getEdgeID()));
             return false;
         }
         std::string nid1 = e->getID() + "[0]";
         std::string nid2 = e->getID() + "[1]";
         if (e->getFromNode() == e->getToNode()) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' by '%'."), toString<int>(myEdge.getEdgeID()), toString<int>(myDisturbance.getEdgeID()));
             refusedProhibits++;
             // What to do with self-looping edges?
             return false;
@@ -250,7 +250,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         std::string id_bcie = toString<int>(bc->getToEdgeID());
         NBEdge* const bcoe = ec.retrievePossiblySplit(id_bcoe, id_bcie, true);
         NBEdge* const bcie = ec.retrievePossiblySplit(id_bcie, id_bcoe, false);
-        // check whether it's ending node is the node the prohibited
+        // check whether its ending node is the node the prohibited
         //  edge end at
         if (bcoe != nullptr && bcie != nullptr && bcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections
@@ -259,7 +259,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
                 toNode->addSortedLinkFoes(NBConnection(bcoe, bcie), NBConnection(e, edge));
             }
         } else {
-            WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
+            WRITE_WARNINGF(TL("Would have to split edge '%' to build a prohibition"), e->getID());
             refusedProhibits++;
             return false;
             /*
@@ -304,7 +304,7 @@ NIVissimDisturbance::getConnection(NBNode* node, int aedgeid) {
         return NBConnection(toString<int>(c->getFromEdgeID()), from,
                             toString<int>(c->getToEdgeID()), to);
     } else {
-        WRITE_WARNING("NIVissimDisturbance: no connection");
+        WRITE_WARNING(TL("NIVissimDisturbance: no connection"));
         return NBConnection::InvalidConnection;
 //        throw 1; // !!! what to do?
     }
@@ -337,7 +337,7 @@ NIVissimDisturbance::dict_SetDisturbances() {
 void
 NIVissimDisturbance::reportRefused() {
     if (refusedProhibits > 0) {
-        WRITE_WARNING("Could not build " + toString<int>(refusedProhibits) + " of " + toString<int>((int)myDict.size()) + " disturbances.");
+        WRITE_WARNINGF(TL("Could not build % of % disturbances."), toString<int>(refusedProhibits), toString<int>((int)myDict.size()));
     }
 }
 

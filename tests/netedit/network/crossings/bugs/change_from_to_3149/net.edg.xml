@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-02 11:17:19 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul110839.15504\netedit.gui\network\crossings\bugs\change_from_to_3149\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul110839.15504\netedit.gui\network\crossings\bugs\change_from_to_3149\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul110839.15504\netedit.gui\network\crossings\bugs\change_from_to_3149\datas.dat.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\crossings\bugs\change_from_to_3149\net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul110839.15504\netedit.gui\network\crossings\bugs\change_from_to_3149\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul110839.15504\netedit.gui\network\crossings\bugs\change_from_to_3149\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul110839.15504\netedit.gui\network\crossings\bugs\change_from_to_3149\log.txt"/>
+    </report>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+
+    <edge id="-E0" from="J0" to="Junction5" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="-E1" from="J1" to="Junction5" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="-E2" from="J2" to="Junction5" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="-E3" from="J3" to="Junction5" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="E0" from="Junction5" to="J0" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="E1" from="Junction5" to="J1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="E2" from="Junction5" to="J2" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="E3" from="Junction5" to="J3" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="1.00"/>
+        <lane index="2" disallow="pedestrian" width="3.00"/>
+    </edge>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
+</edges>

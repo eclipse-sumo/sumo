@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-14 12:39:02.550992 by gtfs2pt.py v1_14_0+0096-12b08399a83
+  options: -n data/eichwalde.net.xml.gz <doubleminus>modes tram <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip <doubleminus>date 20160713
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="tram" vClass="tram"/>
+</additional>

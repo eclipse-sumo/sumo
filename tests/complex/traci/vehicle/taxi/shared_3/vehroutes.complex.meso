@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-28 08:44:44 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stops.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+    </taxi_device>
+
+    <traci_server>
+        <remote-port value="48705"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="b" depart="0.00" arrival="23.00">
+        <ride from="B1C1" to="C1D1" arrivalPos="0.00" lines="taxi"/>
+    </person>
+
+    <person id="a" depart="0.00" arrival="95.00">
+        <ride from="A1B1" to="D2D3" arrivalPos="0.00" lines="taxi"/>
+    </person>
+
+    <person id="c" depart="0.00" departPos="50.00" arrival="95.00">
+        <ride from="C1D1" to="D2D3" arrivalPos="0.00" lines="taxi"/>
+    </person>
+
+    <vehicle id="taxi_0" type="taxi" depart="0.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="1.00" probability="0" edges="A0A1"/>
+            <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="1.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D2D3"/>
+            <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
+        </routeDistribution>
+        <stop lane="A0A1_0" triggered="person"/>
+        <stop lane="A1B1_0" permitted="a" actType="pickup a (0)"/>
+        <stop lane="B1C1_0" permitted="b" actType="pickup b (1)"/>
+        <stop lane="C1D1_0" permitted="c" actType="pickup c (2),dropOff b (1)"/>
+        <stop lane="D2D3_0" actType="dropOff a (0),dropOff c (2)"/>
+    </vehicle>
+
+</routes>

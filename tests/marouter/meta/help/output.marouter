@@ -1,6 +1,6 @@
-Eclipse SUMO marouter Version v1_12_0+0320-a562602254b
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
-Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
+Eclipse SUMO marouter Version v1_20_0+1699-94bb18538d6
+ Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes.
 
 Usage: marouter [OPTION]*
 Configuration Options:
@@ -21,7 +21,11 @@ Input Options:
   -r, --route-files FILE             Read sumo routes, alternatives, flows, and
                                       trips from FILE(s)
   --phemlight-path FILE              Determines where to load PHEMlight
-                                      definitions from.
+                                      definitions from
+  --phemlight-year INT               Enable fleet age modelling with the given
+                                      reference year in PHEMlight5
+  --phemlight-temperature FLOAT      Set ambient temperature to correct NOx
+                                      emissions in PHEMlight5
   -w, --weight-files FILE            Read network weights from FILE(s)
   --lane-weight-files FILE           Read lane-based network weights from
                                       FILE(s)
@@ -48,6 +52,8 @@ Output Options:
                                       FILE
   --keep-vtype-distributions         Keep vTypeDistribution ids when writing
                                       vehicles and their types
+  --emissions.volumetric-fuel        Return fuel consumption values in (legacy)
+                                      unit l instead of mg
   --named-routes                     Write vehicles that reference routes by
                                       their id
   --write-license                    Include license info into every output
@@ -83,6 +89,12 @@ Processing Options:
                                       interval to infinity
   --weights.minor-penalty FLOAT      Apply the given time penalty when
                                       computing routing costs for minor-link
+                                      internal lanes
+  --weights.tls-penalty FLOAT        Apply the given time penalty when
+                                      computing routing costs across a traffic
+                                      light
+  --weights.turnaround-penalty FLOAT  Apply the given time penalty when
+                                      computing routing costs for turnaround
                                       internal lanes
   --aggregation-interval TIME        Defines the time interval when aggregating
                                       single vehicle input; Defaults to one hour
@@ -139,6 +151,7 @@ Processing Options:
   --logit.theta FLOAT                Use FLOAT as (c-)logit's theta
 
 Defaults Options:
+  --defaults-override                Defaults will override given values
   --flow-output.departlane STR       Assigns a default depart lane
   --flow-output.departpos STR        Assigns a default depart position
   --flow-output.departspeed STR      Assigns a default depart speed
@@ -160,12 +173,13 @@ Report Options:
   -?, --help                         Prints this screen or selected topics
   -V, --version                      Prints the current version
   -X, --xml-validation STR           Set schema validation scheme of XML inputs
-                                      ("never", "auto" or "always")
+                                      ("never", "local", "auto" or "always")
   --xml-validation.net STR           Set schema validation scheme of SUMO
-                                      network inputs ("never", "auto" or
-                                      "always")
+                                      network inputs ("never", "local", "auto"
+                                      or "always")
   --xml-validation.routes STR        Set schema validation scheme of SUMO route
-                                      inputs ("never", "auto" or "always")
+                                      inputs ("never", "local", "auto" or
+                                      "always")
   -W, --no-warnings                  Disables output of warnings
   --aggregate-warnings INT           Aggregate warnings of the same type
                                       whenever more than INT occur
@@ -174,6 +188,9 @@ Report Options:
   --message-log FILE                 Writes all non-error messages to FILE
                                       (implies verbose)
   --error-log FILE                   Writes all warnings and errors to FILE
+  --log.timestamps                   Writes timestamps in front of all messages
+  --log.processid                    Writes process ID in front of all messages
+  --language STR                     Language to use in messages
   --ignore-errors                    Continue if a route could not be build
   --stats-period INT                 Defines how often statistics shall be
                                       printed
@@ -191,5 +208,5 @@ Examples:
   marouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

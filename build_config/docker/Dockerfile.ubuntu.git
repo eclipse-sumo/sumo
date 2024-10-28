@@ -1,0 +1,38 @@
+# to build this image run the following command
+# $ docker build -t sumo - < Dockerfile.ubuntu.git
+# to use it run (GUI applications need more work)
+# $ docker run -it sumo bash
+# now you have a bash inside a docker container and can for instance run
+# $ cd /opt/sumo; bin/sumo -c docs/examples/sumo/busses/test.sumocfg
+# This Dockerfile installs everything for a full fledged SUMO with all tools runnable.
+# If you don't need certain features and rather have a smaller container you can comment the unneeded parts below
+
+FROM ubuntu:jammy
+
+ENV SUMO_HOME=/usr/share/sumo
+ARG DEBIAN_FRONTEND=noninteractive
+ARG JUPEDSIM_VERSION=v1.2.1
+
+RUN apt-get -y update
+RUN apt-get -y install git
+
+RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse-sumo/sumo
+
+# basic build dependencies
+RUN apt-get -y install $(cat /opt/sumo/build_config/build_req_deb.txt)
+# 3D GUI, video recording
+RUN apt-get -y install libopenscenegraph-dev libavformat-dev libswscale-dev
+# packages needed for the tools (some are also listed in tools/requirements.txt but we prefer the ubuntu packages)
+RUN apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
+
+# JuPedSim
+RUN cd /opt; git clone -b $JUPEDSIM_VERSION https://github.com/PedestrianDynamics/jupedsim
+RUN cd /opt; cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install jupedsim; \
+ cmake --build jupedsim-build -j4 --config Release; cmake --install jupedsim-build --config Release; rm -rf jupedsim-build
+
+# python packages needed for the tools (the ones where we do not have ubuntu packages)
+RUN pip3 install -r /opt/sumo/tools/requirements.txt
+# python packages needed for the docs (the ones where we do not have ubuntu packages)
+RUN pip3 install -r /opt/sumo/docs/web/requirements.txt
+RUN cd /opt/sumo; cmake -B cmake-build -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE; \
+ cd cmake-build; make -j8 all examples doc install; cd ..; rm -rf cmake-build

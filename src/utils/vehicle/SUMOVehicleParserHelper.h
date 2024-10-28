@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,15 +54,16 @@ public:
      * Parses all attributes stored in "SUMOVehicleParameter".
      *
      * @see SUMOVehicleParameter
-     * @param[in] tag SumoXMLTag (used in NETEDIT)
+     * @param[in] tag SumoXMLTag (used in netedit)
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] needID check if flow needs an Id (used by Calibrator flows)
+     * @param[in] allowInternalRoutes whether references to internal routes are allowed in this context
      * @return The parsed attribute structure if no error occurred, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const bool needID, const SUMOTime beginDefault, const SUMOTime endDefault);
+    static SUMOVehicleParameter* parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const bool needID, const SUMOTime beginDefault, const SUMOTime endDefault, const bool allowInternalRoutes = false);
 
     /** @brief Parses a vehicle's attributes
      *
@@ -73,12 +74,12 @@ public:
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] optionalID Whether the id shall be skipped (Used only in Calibrator Flows)
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
-     * @param[in] isPerson   Whether a person is parsed
+     * @param[in] allowInternalRoutes whether references to internal routes are allowed in this context
      * @return The parsed attribute structure if no error occurred, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID = false, const bool skipDepart = false);
+    static SUMOVehicleParameter* parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID = false, const bool skipDepart = false, const bool allowInternalRoutes = false);
 
     /** @brief Starts to parse a vehicle type
      *
@@ -164,6 +165,14 @@ public:
      */
     static SUMOTime processActionStepLength(double given);
 
+    /** @brief Checks whether the route ID uses the syntax of internal routes.
+     *
+     *   @param[in] id The route ID to check.
+     *   @return The given route ID follows the syntax of internal routes.
+     */
+    static bool isInternalRouteID(const std::string& id);
+
+    static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi = false);
 private:
     /**@brief parse ID
      * @return empty string if ID obtained from attrs isn't valid
@@ -178,9 +187,10 @@ private:
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[out] ret The parameter to parse into
      * @param[in] element The name of the element (vehicle or flow)
+     * @param[in] allowInternalRoutes Whether internal routes are valid in this context
      * @exception ProcessError If an attribute's value is invalid
      */
-    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, SumoXMLTag tag);
+    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, SumoXMLTag tag, const bool allowInternalRoutes = false);
 
     /// @brief handle error loading SUMOVehicleParameter
     static SUMOVehicleParameter* handleVehicleError(const bool hardFail, SUMOVehicleParameter* vehicleParameter, const std::string message = "");
@@ -203,6 +213,4 @@ private:
     /// @brief allowed attrs for each known LC-model
     static LCAttrMap allowedLCModelAttrs;
 
-    /// @brief allowed attrs for the junction model
-    static std::set<SumoXMLAttr> allowedJMAttrs;
 };

@@ -1,0 +1,2 @@
+input_data.xml -x time -y value -i ego --filter-ids xxx_*,bus_*,aaa,Silvani_3_6 --scatterplot --csv-output out.csv
+tools/visualization/plotXMLAttributes.py

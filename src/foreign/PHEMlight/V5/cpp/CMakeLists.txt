@@ -5,8 +5,8 @@ set(foreign_phemlight_V5_STAT_SRCS
    CEPHandler.h
    Constants.cpp
    Constants.h
-#   Correction.cpp
-#   Correction.h
+   Correction.cpp
+   Correction.h
    Helpers.cpp
    Helpers.h
 )

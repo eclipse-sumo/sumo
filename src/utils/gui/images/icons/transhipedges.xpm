@@ -1,0 +1,28 @@
+/* XPM */
+static const char *transhipedges_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c None",
+"x c #63b8ff",
+"n c black",
+"h c #CC0000",
+". c #004A7F",
+"k c #666666",
+/* pixels */
+" hh nnnnnnnn hh ",
+" hh nnnnnnnn hh ",
+"                ",
+" hh nnnnnnnn hh ",
+" hh nnnnnnnn hh ",
+"                ",
+"                ",
+"   ...      .   ",
+"    ..       .  ",
+"   . . kkkk   . ",
+"  .   xxxxk   . ",
+" .   kxxxxk   . ",
+" .   kxxxx   .  ",
+" .   kkkk . .   ",
+"  .       ..    ",
+"   .      ...   "
+};

@@ -1,4 +1,15 @@
-<tazs>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-19 13:34:39.588980 by filterDistricts.py v1_16_0+2184-17938098bd4
+<configuration>
+    <net-file value="net.net.xml"/>
+    <taz-file value="input_districts.xml"/>
+    <output value="districts.xml"/>
+    <vclass value="passenger"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <taz edges="a b c" id="1"/>
     <taz edges="c e" id="2"/>
     <taz id="3">
@@ -15,4 +26,4 @@
         <tazSink id="g" weight="1"/>
         <tazSource id="e" weight="2.5"/>
     </taz>
-</tazs>
+</additional>

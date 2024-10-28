@@ -1,0 +1,1 @@
+ --osm-files osm.xml --opendrive-output foreign.net --osm.all-attributes --osm.extra-attributes divider

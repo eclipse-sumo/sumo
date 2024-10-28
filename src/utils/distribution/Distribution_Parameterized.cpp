@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,6 +33,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+/// @brief Constructor for any temporary distribution parsed directly from the description
+Distribution_Parameterized::Distribution_Parameterized(const std::string& description) :
+    Distribution("") {
+    myParameter = {0., 0.};
+    parse(description, true);
+}
+
+
 Distribution_Parameterized::Distribution_Parameterized(const std::string& id, double mean, double deviation) :
     Distribution(id) {
     myParameter.push_back(mean);
@@ -57,7 +65,7 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
     try {
         const std::string distName = description.substr(0, description.find('('));
         if (distName == "norm" || distName == "normc") {
-            std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
+            const std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
             myParameter.resize(params.size());
             std::transform(params.begin(), params.end(), myParameter.begin(), StringUtils::toDouble);
             setID(distName);
@@ -71,28 +79,27 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         // set default distribution parameterized
         myParameter = {0., 0.};
         if (hardFail) {
-            throw ProcessError("Invalid format of distribution parameterized");
+            throw ProcessError(TL("Invalid format of distribution parameterized"));
         } else {
-            WRITE_ERROR("Invalid format of distribution parameterized");
+            WRITE_ERROR(TL("Invalid format of distribution parameterized"));
         }
     }
 }
 
+
 bool
 Distribution_Parameterized::isValidDescription(const std::string& description) {
-    Distribution_Parameterized dummy("", 0, 0);
     try {
-        dummy.parse(description, true);
-        std::string error;
-        bool valid = dummy.isValid(error);
-        if (!valid) {
-            WRITE_ERROR(error);
+        Distribution_Parameterized dummy(description);
+        const std::string error = dummy.isValid();
+        if (error == "") {
+            return true;
         }
-        return valid;
+        WRITE_ERROR(error);
     } catch (...) {
-        WRITE_ERROR("Invalid format of distribution parameterized");
-        return false;
+        WRITE_ERROR(TL("Invalid format of distribution parameterized"));
     }
+    return false;
 }
 
 
@@ -122,6 +129,15 @@ Distribution_Parameterized::getMax() const {
 }
 
 
+double
+Distribution_Parameterized::getMin() const {
+    if (myParameter[1] <= 0.) {
+        return myParameter[0];
+    }
+    return myParameter.size() > 2 ? myParameter[2] : -std::numeric_limits<double>::infinity();
+}
+
+
 std::vector<double>&
 Distribution_Parameterized::getParameter() {
     return myParameter;
@@ -147,19 +163,23 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
 }
 
 
-bool
-Distribution_Parameterized::isValid(std::string& error) {
-    if (myParameter.size() > 2 && myParameter[1] != 0) {
-        if (myParameter[0] > getMax()) {
-            error = "distribution mean " + toString(myParameter[0]) + " is larger than upper boundary " + toString(getMax());
-            return false;
+const std::string
+Distribution_Parameterized::isValid() const {
+    if (myParameter[1] > 0.) {
+        if (getMin() > getMax()) {
+            return TLF("minimum value % larger than maximum %", getMin(), getMax());
         }
-        if (myParameter[0] < myParameter[2]) {
-            error = "distribution mean " + toString(myParameter[0]) + " is smaller than lower boundary " + toString(myParameter[2]);
-            return false;
+        if (getMin() > myParameter[0] + 3 * myParameter[1]) {
+            return TLF("minimum value % too large for distribution with mean % and deviation %", myParameter[2], myParameter[0], myParameter[1]);
+        }
+        if (getMax() < myParameter[0] - 3 * myParameter[1]) {
+            return TLF("maximum value % too small for distribution with mean % and deviation %", myParameter[3], myParameter[0], myParameter[1]);
+        }
+        if (myParameter.size() > 3 && myParameter[3] - myParameter[2] < NUMERICAL_EPS * myParameter[1]) {
+            return TLF("maximum value % and minimum value % too close for distribution with mean % and deviation %", myParameter[3], myParameter[2], myParameter[0], myParameter[1]);
         }
     }
-    return true;
+    return "";
 }
 
 

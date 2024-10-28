@@ -20,7 +20,7 @@ The following table shows the attributes:
 | Attribute Name | Value Type        | Description                                               |
 | -------------- | ----------------- | --------------------------------------------------------- |
 | **id**         | id (string)       | A string holding the id of the detector                   |
-| **period** (alias freq) | int (time in s) | The period with which information shall be written. |
+| period (alias freq) | int (time in s) | The period with which information shall be written (*default: whole simulation time*). |
 | **file**       | <FILE\>            | The path to the output file. The path may be relative.    |
 | type           | (vehicle type) id | The type the vehicles must be of in order to be reported. |
 

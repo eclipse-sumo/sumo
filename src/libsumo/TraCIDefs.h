@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,24 +70,26 @@ static const libsumo::SubscriptionResults getAllSubscriptionResults(); \
 static const libsumo::TraCIResults getSubscriptionResults(const std::string& objectID); \
 static const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults(); \
 static const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objectID); \
-static void subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
+static void subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
+static const int DOMAIN_ID;
 
-#define LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
+#define LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOM) \
+const int CLASS::DOMAIN_ID(libsumo::CMD_GET_##DOM##_VARIABLE); \
 void \
 CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
-    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, varIDs, begin, end, params); \
+    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOM##_VARIABLE, objectID, varIDs, begin, end, params); \
 } \
 void \
 CLASS::unsubscribe(const std::string& objectID) { \
-    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, std::vector<int>(), libsumo::INVALID_DOUBLE_VALUE, libsumo::INVALID_DOUBLE_VALUE, libsumo::TraCIResults()); \
+    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOM##_VARIABLE, objectID, std::vector<int>(), libsumo::INVALID_DOUBLE_VALUE, libsumo::INVALID_DOUBLE_VALUE, libsumo::TraCIResults()); \
 } \
 void \
 CLASS::subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs, double begin, double end, const TraCIResults& params) { \
-    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, varIDs, begin, end, params, domain, dist); \
+    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOM##_CONTEXT, objectID, varIDs, begin, end, params, domain, dist); \
 } \
 void \
 CLASS::unsubscribeContext(const std::string& objectID, int domain, double dist) { \
-    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, std::vector<int>(), libsumo::INVALID_DOUBLE_VALUE, libsumo::INVALID_DOUBLE_VALUE, libsumo::TraCIResults(), domain, dist); \
+    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOM##_CONTEXT, objectID, std::vector<int>(), libsumo::INVALID_DOUBLE_VALUE, libsumo::INVALID_DOUBLE_VALUE, libsumo::TraCIResults(), domain, dist); \
 } \
 const libsumo::SubscriptionResults \
 CLASS::getAllSubscriptionResults() { \
@@ -107,21 +109,27 @@ CLASS::getContextSubscriptionResults(const std::string& objectID) { \
 } \
 void \
 CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \
-    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime, libsumo::TraCIResults {{libsumo::VAR_PARAMETER_WITH_KEY, std::make_shared<libsumo::TraCIString>(key)}}); \
+    libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOM##_VARIABLE, objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime, libsumo::TraCIResults {{libsumo::VAR_PARAMETER_WITH_KEY, std::make_shared<libsumo::TraCIString>(key)}}); \
 }
 
 
 #define LIBSUMO_ID_PARAMETER_API \
 static std::vector<std::string> getIDList(); \
 static int getIDCount(); \
-static std::string getParameter(const std::string& objectID, const std::string& param); \
+static std::string getParameter(const std::string& objectID, const std::string& key); \
 static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key); \
-static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
+static void setParameter(const std::string& objectID, const std::string& key, const std::string& value);
 
 #define LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(CLASS) \
 const std::pair<std::string, std::string> \
 CLASS::getParameterWithKey(const std::string& objectID, const std::string& key) { \
     return std::make_pair(key, getParameter(objectID, key)); \
+}
+
+
+#define SWIGJAVA_CAST(CLASS) \
+static std::shared_ptr<CLASS> cast(std::shared_ptr<TraCIResult> res) { \
+    return std::dynamic_pointer_cast<CLASS>(res); \
 }
 
 
@@ -165,15 +173,22 @@ struct TraCIResult {
 };
 
 /** @struct TraCIPosition
- * @brief A 3D-position
+ * @brief A 2D or 3D-position, for 2D positions z == INVALID_DOUBLE_VALUE
  */
 struct TraCIPosition : TraCIResult {
     std::string getString() const {
         std::ostringstream os;
-        os << "TraCIPosition(" << x << "," << y << "," << z << ")";
+        os << "TraCIPosition(" << x << "," << y;
+        if (z != INVALID_DOUBLE_VALUE) {
+            os << "," << z;
+        }
+        os << ")";
         return os.str();
     }
     double x = INVALID_DOUBLE_VALUE, y = INVALID_DOUBLE_VALUE, z = INVALID_DOUBLE_VALUE;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIPosition)
+#endif
 };
 
 /** @struct TraCIRoadPosition
@@ -190,6 +205,9 @@ struct TraCIRoadPosition : TraCIResult {
     std::string edgeID = "";
     double pos = INVALID_DOUBLE_VALUE;
     int laneIndex = INVALID_INT_VALUE;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIRoadPosition)
+#endif
 };
 
 /** @struct TraCIColor
@@ -204,6 +222,9 @@ struct TraCIColor : TraCIResult {
         return os.str();
     }
     int r, g, b, a;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIColor)
+#endif
 };
 
 
@@ -221,6 +242,9 @@ struct TraCIPositionVector : TraCIResult {
         return os.str();
     }
     std::vector<TraCIPosition> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIPositionVector)
+#endif
 };
 
 
@@ -233,6 +257,9 @@ struct TraCIInt : TraCIResult {
         return os.str();
     }
     int value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIInt)
+#endif
 };
 
 
@@ -248,6 +275,9 @@ struct TraCIDouble : TraCIResult {
         return libsumo::TYPE_DOUBLE;
     }
     double value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIDouble)
+#endif
 };
 
 
@@ -261,6 +291,9 @@ struct TraCIString : TraCIResult {
         return libsumo::TYPE_STRING;
     }
     std::string value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIString)
+#endif
 };
 
 
@@ -275,6 +308,9 @@ struct TraCIStringList : TraCIResult {
         return os.str();
     }
     std::vector<std::string> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIStringList)
+#endif
 };
 
 
@@ -289,6 +325,9 @@ struct TraCIDoubleList : TraCIResult {
         return os.str();
     }
     std::vector<double> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIDoubleList)
+#endif
 };
 
 
@@ -624,12 +663,28 @@ struct TraCISignalConstraint {
     bool mustWait;
     /// @brief whether this constraint is active
     bool active;
+    /// @brief additional parameters
+    std::map<std::string, std::string> param;
 
     std::string getString() const {
         std::ostringstream os;
         os << "TraCISignalConstraint(signalId=" << signalId << ", tripid=" << tripId << ", foeSignal=" << foeSignal << ", foeId=" << foeId << ")";
         return os.str();
     }
+};
+
+
+struct TraCIJunctionFoe {
+    /// @brief the id of the vehicle with intersecting trajectory
+    std::string foeId;
+    double egoDist;
+    double foeDist;
+    double egoExitDist;
+    double foeExitDist;
+    std::string egoLane;
+    std::string foeLane;
+    bool egoResponse;
+    bool foeResponse;
 };
 
 }

@@ -5,7 +5,7 @@ title: Routes from Observation Points
 # Introduction
 Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specific time range and the data may cover multiple time slices. It is also possible to distinguish counts for different types of vehicles.
 
-SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions. 
+SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions.
 
 The generated traffic should obviously match the counting data but this requirement alone does not define a unique solution. The provided SUMO tools differ in their algorithm to resolve the ambiguity and arrive at a specific set of routes and vehicles. The tools can also be distinguished by the type of counting data they consume:
 
@@ -15,15 +15,17 @@ The generated traffic should obviously match the counting data but this requirem
 - [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts (and also origin-destination counts)
 
 
-## Chosing the right tool
+## Choosing the right tool
 The algorithms listed above where developed to solve different problems and may work badly when used on the wrong kind of problem.
 
 - [dfrouter](../dfrouter.md) requires that all edges which are used as sources and sinks of traffic are provided with traffic count data. In contrast, flowrouter can infer traffic on those edges from measurements at intermediate locations.
 - [dfrouter](../dfrouter.md) and - [jtcrouter](../Tools/Turns.md#jtcrouterpy) have no capability for calibrating generated routes among the set of all routes that fit the measurement data. They can provide good results on motorway networks but produce implausible routes in highly meshed networks (i.e. cities).
 - [flowrouter](../Tools/Detector.md#flowrouterpy) can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](../Tools/Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorial explosion of possible routes), creating such a blacklist may be infeasible.
-- [routeSampler](../Tools/Turns.md#routesamplerpy) uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is easier than listing all implausible routes.
-- [routeSampler](../Tools/Turns.md#routesamplerpy) is the only tool that can use edge-count data together with turn-count data
-- [routeSampler](../Tools/Turns.md#routesamplerpy) supports building pedestrian scenarios from counts 
+- [routeSampler](../Tools/Turns.md#routesamplerpy) features
+  - uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is often easier than listing all implausible routes.
+  - can use edge-count data together with turn-count data
+  - can distinguish between passing counts, departure counts and arrival counts on edges
+  - supports building pedestrian scenarios from counts
 
 # dfrouter
 Since version 0.9.5, the SUMO-package contains a routing module named
@@ -58,7 +60,7 @@ SUMO-network, is supplied to the [dfrouter](../dfrouter.md) as
 usual using the **--net-file <SUMO_NET_FILE\>** (**-n**) option, the list of induction loops using **--detector-files <DETECTOR_FILE\>[,<DETECTOR_FILE\>]+** (**-d** for
 short). A detector file should look as follows:
 
-```
+```xml
 <detectors>
     <detectorDefinition id="<DETECTOR_ID>" lane="<LANE_ID>" pos="<POS>"/>
 ... further detectors ...
@@ -124,16 +126,16 @@ follows:
 ```
 Detector;Time;qPKW;qLKW;vPKW;vLKW
 myDet1;0;10;2;100;80
-... further entries ...
+... further entries ...
 ```
 
-This means the first time has to name the entries (columns). Their order
+This means the first line contains the header with the column names. Their order
 is not of importance, but at least the following columns must be
 included:
 
 - Detector: A string holding the id of the detector this line
   describes; should be one of the ids used in <DETECTOR_FILE\>
-- Time: The time period begin that this entry describes (in minutes)
+- Time: The time period begin that this entry describes (**in minutes**)
 - qPKW: The number of passenger cars that drove over the detector
   within this time period
 - vPKW: The average speed of passenger cars that drove over the
@@ -146,10 +148,12 @@ The following columns may optionally be included:
 - vLKW: The average speed of transport vehicles that drove over the
   detector within this time period in km/h
 
-These are not quite the values to be found in induction loop output. We
-had to constrain the <DETECTOR_FLOWS\> files this way because dfrouter is
-meant to read very many of such definitions and to do this as fast as
-possible.
+!!! caution
+    Using a different separator character or changing the name of an obligatory column will make dfrouter skip the data.
+
+
+!!! caution
+    [dfrouter](../dfrouter.md) assumes that counts are given once per minute. To handle data with a different granularity, option **--time-step SECONDS** must be used.
 
 Because in some cases one reads detector flow definitions starting at a
 certain time but wants the simulation to begin at another, it is
@@ -172,8 +176,6 @@ determined by source detectors alone.
     there in proportion to the measured flow
   - If sink detectors measure no flow at all, all vehicles will
     drive to one (arbitrary) sink
-
-The number of will be determined by
 
 ## Generating Vehicles
 
@@ -242,13 +244,13 @@ vehicles in its emitters-output. Assuming that
 [dfrouter](../dfrouter.md) was called with the options
 
 ```
-dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
+dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
 ```
 
 sumo must be called in the following way:
 
 ```
-sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
+sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
 ```
 
 If you run the tool
@@ -256,8 +258,8 @@ If you run the tool
 to sort the vehicles, either of the following will work:
 
 ```
-sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
-sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
+sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
+sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
 ```
 
 # flowrouter.py
@@ -266,7 +268,7 @@ The [flowrouter](../Tools/Detector.md#flowrouterpy) tool [improves on dfrouter](
 
 # jtcrouter.py
 
-The [jtcrouter.py](../Tools/Turns.md#jtcrouterpy) tool (available since version 1.5.0) can build a traffic demand from turn-count data. It does so by transforming the counts into flows and turn-ratios and then passing these files to [jtrrouter](../jtrrouter.md). 
+The [jtcrouter.py](../Tools/Turns.md#jtcrouterpy) tool (available since version 1.5.0) can build a traffic demand from turn-count data. It does so by transforming the counts into flows and turn-ratios and then passing these files to [jtrrouter](../jtrrouter.md).
 
 # routeSampler.py
 The [routeSampler.py](../Tools/Turns.md#routesamplerpy) tool (available since version 1.5.0) builds traffic demand from turn-count data as well as edge-count data. It uses a route file as input and then repeatedly selects from this set of routes to fulfill the given count data.

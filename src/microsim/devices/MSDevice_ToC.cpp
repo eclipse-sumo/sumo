@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -82,9 +82,6 @@
 #define DEFAULT_OPENGAP_MAXDECEL 1.0
 
 
-#define DEFAULT_MANUAL_TYPE ""
-#define DEFAULT_AUTOMATED_TYPE ""
-
 // Maximal tries to sample a positive value from the gaussian distribution
 // used for the driver response time when a TOR is issued. (the distribution is assumed truncated at zero)
 #define MAX_RESPONSETIME_SAMPLE_TRIES 100
@@ -113,43 +110,43 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("toc", "ToC Device", oc);
 
     oc.doRegister("device.toc.manualType", new Option_String());
-    oc.addDescription("device.toc.manualType", "ToC Device", "Vehicle type for manual driving regime.");
+    oc.addDescription("device.toc.manualType", "ToC Device", TL("Vehicle type for manual driving regime."));
     oc.doRegister("device.toc.automatedType", new Option_String());
-    oc.addDescription("device.toc.automatedType", "ToC Device", "Vehicle type for automated driving regime.");
+    oc.addDescription("device.toc.automatedType", "ToC Device", TL("Vehicle type for automated driving regime."));
     oc.doRegister("device.toc.responseTime", new Option_Float(DEFAULT_RESPONSE_TIME));
-    oc.addDescription("device.toc.responseTime", "ToC Device", "Average response time needed by a driver to take back control.");
+    oc.addDescription("device.toc.responseTime", "ToC Device", TL("Average response time needed by a driver to take back control."));
     oc.doRegister("device.toc.recoveryRate", new Option_Float(DEFAULT_RECOVERY_RATE));
-    oc.addDescription("device.toc.recoveryRate", "ToC Device", "Recovery rate for the driver's awareness after a ToC.");
+    oc.addDescription("device.toc.recoveryRate", "ToC Device", TL("Recovery rate for the driver's awareness after a ToC."));
     oc.doRegister("device.toc.lcAbstinence", new Option_Float(DEFAULT_LCABSTINENCE));
-    oc.addDescription("device.toc.lcAbstinence", "ToC Device", "Attention level below which a driver restrains from performing lane changes (value in [0,1]).");
+    oc.addDescription("device.toc.lcAbstinence", "ToC Device", TL("Attention level below which a driver restrains from performing lane changes (value in [0,1])."));
     oc.doRegister("device.toc.initialAwareness", new Option_Float(DEFAULT_INITIAL_AWARENESS));
-    oc.addDescription("device.toc.initialAwareness", "ToC Device", "Average awareness a driver has initially after a ToC (value in [0,1]).");
+    oc.addDescription("device.toc.initialAwareness", "ToC Device", TL("Average awareness a driver has initially after a ToC (value in [0,1])."));
     oc.doRegister("device.toc.mrmDecel", new Option_Float(DEFAULT_MRM_DECEL));
-    oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
+    oc.addDescription("device.toc.mrmDecel", "ToC Device", TL("Deceleration rate applied during a 'minimum risk maneuver'."));
     oc.doRegister("device.toc.dynamicToCThreshold", new Option_Float(DEFAULT_DYNAMIC_TOC_THRESHOLD));
-    oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", "Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs.");
+    oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", TL("Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs."));
     oc.doRegister("device.toc.dynamicMRMProbability", new Option_Float(DEFAULT_MRM_PROBABILITY));
-    oc.addDescription("device.toc.dynamicMRMProbability", "ToC Device", "Probability that a dynamically triggered TOR is not answered in time.");
+    oc.addDescription("device.toc.dynamicMRMProbability", "ToC Device", TL("Probability that a dynamically triggered TOR is not answered in time."));
     oc.doRegister("device.toc.mrmKeepRight", new Option_Bool(false));
-    oc.addDescription("device.toc.mrmKeepRight", "ToC Device", "If true, the vehicle tries to change to the right during an MRM.");
+    oc.addDescription("device.toc.mrmKeepRight", "ToC Device", TL("If true, the vehicle tries to change to the right during an MRM."));
     oc.doRegister("device.toc.mrmSafeSpot", new Option_String());
-    oc.addDescription("device.toc.mrmSafeSpot", "ToC Device", "If set, the vehicle tries to reach the given named stopping place during an MRM.");
+    oc.addDescription("device.toc.mrmSafeSpot", "ToC Device", TL("If set, the vehicle tries to reach the given named stopping place during an MRM."));
     oc.doRegister("device.toc.mrmSafeSpotDuration", new Option_Float(60.));
-    oc.addDescription("device.toc.mrmSafeSpotDuration", "ToC Device", "Duration the vehicle stays at the safe spot after an MRM.");
+    oc.addDescription("device.toc.mrmSafeSpotDuration", "ToC Device", TL("Duration the vehicle stays at the safe spot after an MRM."));
     oc.doRegister("device.toc.maxPreparationAccel", new Option_Float(0.0));
-    oc.addDescription("device.toc.maxPreparationAccel", "ToC Device", "Maximal acceleration that may be applied during the ToC preparation phase.");
+    oc.addDescription("device.toc.maxPreparationAccel", "ToC Device", TL("Maximal acceleration that may be applied during the ToC preparation phase."));
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
+    oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", TL("Timegap for ToC preparation phase."));
     oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogNewSpaceHeadway", "ToC Device", "Additional spacing for ToC preparation phase.");
+    oc.addDescription("device.toc.ogNewSpaceHeadway", "ToC Device", TL("Additional spacing for ToC preparation phase."));
     oc.doRegister("device.toc.ogMaxDecel", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogMaxDecel", "ToC Device", "Maximal deceleration applied for establishing increased gap in ToC preparation phase.");
+    oc.addDescription("device.toc.ogMaxDecel", "ToC Device", TL("Maximal deceleration applied for establishing increased gap in ToC preparation phase."));
     oc.doRegister("device.toc.ogChangeRate", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogChangeRate", "ToC Device", "Rate of adaptation towards the increased headway during ToC preparation.");
+    oc.addDescription("device.toc.ogChangeRate", "ToC Device", TL("Rate of adaptation towards the increased headway during ToC preparation."));
     oc.doRegister("device.toc.useColorScheme", new Option_Bool(true));
-    oc.addDescription("device.toc.useColorScheme", "ToC Device", "Whether a coloring scheme shall by applied to indicate the different ToC stages.");
+    oc.addDescription("device.toc.useColorScheme", "ToC Device", TL("Whether a coloring scheme shall by applied to indicate the different ToC stages."));
     oc.doRegister("device.toc.file", new Option_String());
-    oc.addDescription("device.toc.file", "ToC Device", "Switches on output by specifying an output filename.");
+    oc.addDescription("device.toc.file", "ToC Device", TL("Switches on output by specifying an output filename."));
 }
 
 
@@ -158,28 +155,27 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
         if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNING("ToC device is not supported by the mesoscopic simulation.");
+            WRITE_WARNING(TL("ToC device is not supported by the mesoscopic simulation."));
             return;
         }
-        const std::string manualType = getStringParam(v, oc, "toc.manualType", DEFAULT_MANUAL_TYPE, true);
-        const std::string automatedType = getStringParam(v, oc, "toc.automatedType", DEFAULT_AUTOMATED_TYPE, true);
-        const SUMOTime responseTime = TIME2STEPS(getFloatParam(v, oc, "toc.responseTime", DEFAULT_RESPONSE_TIME, false));
-        const double recoveryRate = getFloatParam(v, oc, "toc.recoveryRate", DEFAULT_RECOVERY_RATE, false);
-        const double lcAbstinence = getFloatParam(v, oc, "toc.lcAbstinence", DEFAULT_LCABSTINENCE, false);
-        const double initialAwareness = getFloatParam(v, oc, "toc.initialAwareness", DEFAULT_INITIAL_AWARENESS, false);
-        const double mrmDecel = getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
-        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", true, false);
-        const std::string deviceID = "toc_" + v.getID();
-        const std::string file = getOutputFilename(v, oc);
-        const OpenGapParams ogp = getOpenGapParams(v, oc);
-        const double dynamicToCThreshold = getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_DYNAMIC_TOC_THRESHOLD, false);
-        const double dynamicMRMProbability = getDynamicMRMProbability(v, oc);
-        const bool mrmKeepRight = getBoolParam(v, oc, "toc.mrmKeepRight", false, false);
-        const std::string mrmSafeSpot = getStringParam(v, oc, "toc.mrmSafeSpot", "", false);
-        const SUMOTime mrmSafeSpotDuration = TIME2STEPS(getFloatParam(v, oc, "toc.mrmSafeSpotDuration", 60., false));
-        const double maxPreparationAccel = getFloatParam(v, oc, "toc.maxPreparationAccel", 0.0, false);
+        const std::string manualType = v.getStringParam("device.toc.manualType", true);
+        const std::string automatedType = v.getStringParam("device.toc.automatedType", true);
+        const SUMOTime responseTime = TIME2STEPS(v.getFloatParam("device.toc.responseTime"));
+        const double recoveryRate = v.getFloatParam("device.toc.recoveryRate");
+        const double lcAbstinence = v.getFloatParam("device.toc.lcAbstinence");
+        const double initialAwareness = v.getFloatParam("device.toc.initialAwareness");
+        const double mrmDecel = v.getFloatParam("device.toc.mrmDecel");
+        const bool useColoring = v.getBoolParam("device.toc.useColorScheme");
+        const std::string file = v.getStringParam("device.toc.file");
+        const OpenGapParams ogp = getOpenGapParams(v);
+        const double dynamicToCThreshold = v.getFloatParam("device.toc.dynamicToCThreshold");
+        const double dynamicMRMProbability = getDynamicMRMProbability(v);
+        const bool mrmKeepRight = v.getBoolParam("device.toc.mrmKeepRight");
+        const std::string mrmSafeSpot = v.getStringParam("device.toc.mrmSafeSpot");
+        const SUMOTime mrmSafeSpotDuration = TIME2STEPS(v.getFloatParam("device.toc.mrmSafeSpotDuration"));
+        const double maxPreparationAccel = v.getFloatParam("device.toc.maxPreparationAccel");
         // build the device
-        MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
+        MSDevice_ToC* device = new MSDevice_ToC(v, "toc_" + v.getID(), file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
                                                 dynamicMRMProbability, maxPreparationAccel, mrmKeepRight,
@@ -189,35 +185,12 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
 }
 
 
-std::string
-MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
-    // Default of "" means no output
-    std::string file = "";
-    if (v.getParameter().knowsParameter("device.toc.file")) {
-        try {
-            file = v.getParameter().getParameter("device.toc.file", file);
-        } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.toc.file", file) + "'for vehicle parameter 'ssm.measures'");
-        }
-    } else if (v.getVehicleType().getParameter().knowsParameter("device.toc.file")) {
-        try {
-            file = v.getVehicleType().getParameter().getParameter("device.toc.file", file);
-        } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc.file", file) + "'for vType parameter 'ssm.measures'");
-        }
-    } else {
-        file = oc.getString("device.toc.file") == "" ? file : oc.getString("device.toc.file");
-    }
-    return file;
-}
-
-
 double
-MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc) {
-    double pMRM = getFloatParam(v, oc, "toc.dynamicMRMProbability", DEFAULT_MRM_PROBABILITY, false);
+MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v) {
+    double pMRM = v.getFloatParam("device.toc.dynamicMRMProbability");
     if (pMRM < 0 || pMRM > 0.5) {
         const double pMRMTrunc = MAX2(0.0, MIN2(0.5, pMRM));
-        WRITE_WARNING("Given value for ToC device parameter 'dynamicMRMProbability' (=" + toString(pMRM) + ") is not in the admissible range [0,0.5]. Truncated to " + toString(pMRMTrunc) + ".");
+        WRITE_WARNINGF(TL("Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in the admissible range [0,0.5]. Truncated to %."), toString(pMRM), toString(pMRMTrunc));
         return pMRMTrunc;
     }
     return pMRM;
@@ -225,11 +198,11 @@ MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& 
 
 
 MSDevice_ToC::OpenGapParams
-MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
-    double timegap = getFloatParam(v, oc, "toc.ogNewTimeHeadway", -1.0, false);
-    double spacing = getFloatParam(v, oc, "toc.ogNewSpaceHeadway", -1.0, false);
-    double changeRate = getFloatParam(v, oc, "toc.ogChangeRate", -1.0, false);
-    double maxDecel = getFloatParam(v, oc, "toc.ogMaxDecel", -1.0, false);
+MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v) {
+    double timegap = v.getFloatParam("device.toc.ogNewTimeHeadway");
+    double spacing = v.getFloatParam("device.toc.ogNewSpaceHeadway");
+    double changeRate = v.getFloatParam("device.toc.ogChangeRate");
+    double maxDecel = v.getFloatParam("device.toc.ogMaxDecel");
     bool specifiedAny = false;
 
     if (changeRate == -1.0) {
@@ -243,7 +216,7 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
         specifiedAny = true;
     }
     if (specifiedAny && timegap == -1 && spacing == -1) {
-        WRITE_ERROR("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined.")
+        WRITE_ERROR(TL("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."))
     }
     if (timegap == -1) {
         timegap = DEFAULT_OPENGAP_TIMEGAP;
@@ -575,10 +548,10 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
         SUMOVehicleParameter::Stop stop;
         MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(myMRMSafeSpot, SUMO_TAG_PARKING_AREA);
         if (s == nullptr) {
-            WRITE_WARNING("Ignoring unknown safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'.");
+            WRITE_WARNINGF(TL("Ignoring unknown safe spot '%' for vehicle '%'."), myMRMSafeSpot, myHolder.getID());
         } else {
             stop.parkingarea = myMRMSafeSpot;
-            stop.parking = true;
+            stop.parking = ParkingType::OFFROAD;
             stop.lane = s->getLane().getID();
             stop.endPos = s->getEndLanePosition();
             stop.startPos = s->getBeginLanePosition();
@@ -728,7 +701,7 @@ MSDevice_ToC::switchHolderType(const std::string& targetTypeID) {
 #endif
     MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(targetTypeID);
     if (targetType == nullptr) {
-        WRITE_ERROR("vType '" + targetType->getID() + "' for vehicle '" + myHolder.getID() + "' is not known.");
+        WRITE_ERRORF(TL("vType '%' for vehicle '%' is not known."), targetType->getID(), myHolder.getID());
         return;
     }
     myHolderMS->replaceVehicleType(targetType);
@@ -930,7 +903,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         if (isManuallyDriven()) {
             setAwareness(StringUtils::toDouble(value));
         } else {
-            WRITE_WARNING("Setting device.toc.currentAwareness during automated mode has no effect.")
+            WRITE_WARNING(TL("Setting device.toc.currentAwareness during automated mode has no effect."))
         }
     } else if (key == "mrmDecel") {
         myMRMDecel = StringUtils::toDouble(value);
@@ -947,7 +920,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "dynamicToCThreshold") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
-            WRITE_WARNING("Value of dynamicToCThreshold must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+            WRITE_WARNINGF(TL("Value of dynamicToCThreshold must be non-negative. (Given value % for vehicle % is ignored)"), value, myHolderMS->getID());
         } else if (newValue == 0) {
             myDynamicToCThreshold = newValue;
             myDynamicToCActive = false;
@@ -958,7 +931,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "dynamicMRMProbability") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
-            WRITE_WARNING("Value of dynamicMRMProbability must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+            WRITE_WARNINGF(TL("Value of dynamicMRMProbability must be non-negative. (Given value % for vehicle % is ignored)"), value, myHolderMS->getID());
         } else {
             myMRMProbability = newValue;
         }
@@ -972,10 +945,26 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "maxPreparationAccel") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
-            WRITE_WARNING("Value of maxPreparationAccel must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+            WRITE_WARNINGF(TL("Value of maxPreparationAccel must be non-negative. (Given value % for vehicle % is ignored)"), value, myHolderMS->getID());
         } else {
             myMaxPreparationAccel = newValue;
         }
+    } else if (key == "ogNewTimeHeadway") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.newTimeHeadway = newValue;
+        myOpenGapParams.active = true;
+    } else if (key == "ogNewSpaceHeadway") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.newSpaceHeadway = newValue;
+        myOpenGapParams.active = true;
+    } else if (key == "ogChangeRate") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.changeRate = newValue;
+        myOpenGapParams.active = true;
+    } else if (key == "ogMaxDecel") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.maxDecel = newValue;
+        myOpenGapParams.active = true;
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
@@ -997,7 +986,7 @@ MSDevice_ToC::_2ToCState(const std::string& str) {
     } else if (str == "RECOVERING") {
         return RECOVERING;
     } else {
-        WRITE_WARNING("Unknown ToCState '" + str + "'");
+        WRITE_WARNINGF(TL("Unknown ToCState '%'"), str);
         return UNDEFINED;
     }
 }
@@ -1018,7 +1007,7 @@ MSDevice_ToC::_2string(ToCState state) {
     } else if (state == RECOVERING) {
         return "RECOVERING";
     } else {
-        WRITE_WARNING("Unknown ToCState '" + toString(state) + "'");
+        WRITE_WARNINGF(TL("Unknown ToCState '%'"), toString(state));
         return toString(state);
     }
 }

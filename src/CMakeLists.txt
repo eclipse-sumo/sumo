@@ -3,13 +3,13 @@ set(netconvertlibs
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs})
+        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GEOS_LIBRARY})
 if (OPENSCENEGRAPH_FOUND)
     set(osgviewlib osgview)
 endif ()
 set(sumoguilibs
         gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumostatic ${sumolibs} mesogui
+        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumoguistatic ${sumolibs} mesogui
         ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)
     set(sumoguilibs ${sumoguilibs} opengl32 glu32)
@@ -48,16 +48,15 @@ if (FOX_FOUND)
     add_subdirectory(guinetload)
     add_subdirectory(guisim)
     add_subdirectory(mesogui)
-    add_subdirectory(netedit)
+    if (NETEDIT)
+        add_subdirectory(netedit)
+    endif ()
 endif ()
 
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
 target_link_libraries(sumo microsim traciserver libsumostatic ${sumolibs} ${TCMALLOC_LIBRARY})
-if (JPS_FOUND)
-    target_link_libraries(sumo jps)
-endif()
 add_dependencies(sumo generate-version-h install_dll)
 
 if (FOX_FOUND)
@@ -80,7 +79,7 @@ if (FOX_FOUND)
             set_target_properties(sumo-gui PROPERTIES VS_DPI_AWARE "ON")
         endif ()
     endif ()
-    add_dependencies(sumo-gui generate-version-h install_dll)
+    add_dependencies(sumo-gui generate-version-h install_dll install_mo)
     install(TARGETS sumo-gui RUNTIME DESTINATION bin)
 endif ()
 
@@ -108,8 +107,8 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
     set(VERSION_DEP "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
 endif()
 add_custom_command(OUTPUT version.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_BINARY_DIR}
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build_config/version.py ${CMAKE_CURRENT_BINARY_DIR}
                    DEPENDS ${VERSION_DEP}
                   )
 add_custom_target(generate-version-h DEPENDS version.h)
-set_property(TARGET generate-version-h PROPERTY FOLDER "CMake") 
+set_property(TARGET generate-version-h PROPERTY FOLDER "CMake")

@@ -13,7 +13,7 @@ title: PlainXML
 [netconvert](../netconvert.md) can [convert freely](../Networks/Export.md#plain) and without information loss
 between these two formats. Only the *plain-xml* format is meant to be
 edited by the users. In contrast, the *.net.xml* format has lots of
-subtle inter-dependencies between it's elements and should never be
+subtle inter-dependencies between its elements and should never be
 edited by hand. The *plain-xml* format is described below.
 
 It is possible to loaded a *net.xml* file along with *plain-xml* patch
@@ -37,16 +37,16 @@ build the network. If you only use edges and nodes, stored in
 look like:
 
 ```
-netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
-  --output-file=MySUMONet.net.xml
+netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
+  --output-file=MySUMONet.net.xml
 ```
 
 If you also use connections and types the call is:
 
 ```
-netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
-  --connection-files=MyConnections.con.xml --type-files=MyTypes.typ.xml \
-  --output-file=MySUMONet.net.xml
+netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
+  --connection-files=MyConnections.con.xml --type-files=MyTypes.typ.xml \
+  --output-file=MySUMONet.net.xml
 ```
 
 The options used here, including their abbreviations, are documented on
@@ -63,15 +63,15 @@ The structures of the files described in the following are also
 available as XML Schema Definitions:
 
 - [nodes files](#node_descriptions):
-  <http://sumo.dlr.de/xsd/nodes_file.xsd>
+  <https://sumo.dlr.de/xsd/nodes_file.xsd>
 - [edges files](#edge_descriptions):
-  <http://sumo.dlr.de/xsd/edges_file.xsd>
+  <https://sumo.dlr.de/xsd/edges_file.xsd>
 - [types files](#type_descriptions):
-  <http://sumo.dlr.de/xsd/types_file.xsd>
+  <https://sumo.dlr.de/xsd/types_file.xsd>
 - [connections files](#connection_descriptions):
-  <http://sumo.dlr.de/xsd/connections_file.xsd>
+  <https://sumo.dlr.de/xsd/connections_file.xsd>
 - [tllogic files](#traffic_light_program_definition):
-  <http://sumo.dlr.de/xsd/tllogic_file.xsd>
+  <https://sumo.dlr.de/xsd/tllogic_file.xsd>
 
 # Node Descriptions
 
@@ -83,7 +83,7 @@ available as XML Schema Definitions:
 | Type of content    | Nodes (intersections/junctions) |
 | Open format?       | Yes                             |
 | SUMO specific?     | Yes                             |
-| XML Schema         | [nodes_file.xsd](http://sumo.dlr.de/xsd/nodes_file.xsd)                  |
+| XML Schema         | [nodes_file.xsd](https://sumo.dlr.de/xsd/nodes_file.xsd)                  |
 
 </center>
 
@@ -100,15 +100,15 @@ certain meaning and value range:
 | **x**           | float                                                                                                                                                                                                                     | The x-position of the node on the plane in meters                                                                                                  |
 | **y**           | float                                                                                                                                                                                                                     | The y-position of the node on the plane in meters                                                                                                  |
 | z               | float                                                                                                                                                                                                                     | The z-position of the node on the plane in meters                                                                                                  |
-| type            | enum ( "priority", "traffic_light", "right_before_left", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
-| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#actuated_traffic_lights)
+| type            | enum ( "priority", "traffic_light", "right_before_left", "left_before_right", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
+| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#type_actuated)
 | tlLayout        | enum (  **"opposites"**, "incoming", "alternateOneWay")                                                                                                                                                                                              | An optional layout for the traffic light plan (see below)
 | tl              | id (string)                                                                                                                                                                                                               | An optional id for the traffic light program. Nodes with the same tl-value will be joined into a single program                                    |
 | radius          | positive float;                                                                                                                                                                                                           | optional turning radius (for all corners) for that node in meters *(default 1.5)*                                                                  |
 | shape           | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!).                                                                                                       | A custom shape for that node. If less than two positions are given, netconvert will reset that node to use a computed shape.                       |
 | keepClear       | bool                                                                                                                                                                                                                      | Whether the [junction-blocking-heuristic](../Simulation/Intersections.md#junction_blocking) should be activated at this node *(default true)* |
-| rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default* and *edgePriority*                            |
-| fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [nework fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
+| rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default*, *edgePriority*, *mixedPriority*, and *allwayStop*   |
+| fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [network fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
 | controlledInner | list of edge ids                                                                                                                                                                                                          | Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes                         |
 
 !!! note
@@ -120,7 +120,7 @@ like the example below, which is the node file "cross3l.nod.xml" for the
 examples "{{SUMO}}/data/examples/netbuild/types/cross_usingtypes/" and
 "{{SUMO}}/data/examples/netbuild/types/cross_notypes/" example.
 
-```
+```xml
 <nodes> <!-- The opening tag -->
 
   <node id="0" x="0.0" y="0.0" type="traffic_light"/> <!-- def. of node "0" -->
@@ -162,14 +162,14 @@ default may be changed using the option **--tls.default-type** {{DT_STR}}.
 
 !!! note
     You can load multiple node files at the same time by giving a comma-separated list of file names on the command line. In a configuration file you can use a space separated list as well.
-    
+
 ### tlLayout
 If you leave out the tlLayout of the node, it is set to *opposites*. This
 default may be changed using the option **--tls.layout** {{DT_STR}}
 
 - `opposites`: roads from opposite directions get the green light at the same time. Left turns (which conflict with the opposite stream) either have a green-with-conflict ('m') or get their own phase.
-- `incoming`: each incoming road gets it's own green phase
-- `alternateOneWay`: This program is for a joined controller that regulates alternating one-way access from two or more sides of a work zone (or narrow road). each incoming road gets it's own green phase and there is an all-red phase according to the size of the work zone for traffic to clear before the next direction starts up.
+- `incoming`: each incoming road gets its own green phase
+- `alternateOneWay`: This program is for a joined controller that regulates alternating one-way access from two or more sides of a work zone (or narrow road). each incoming road gets its own green phase and there is an all-red phase according to the size of the work zone for traffic to clear before the next direction starts up.
 
 ## Node types
 
@@ -184,8 +184,8 @@ error and will yield in a program stop:
 - `traffic_light`: The junction is
   controlled by a traffic light (priority rules are used to avoid
   collisions if conflicting links have green light at the same time).
-- `right_before_left`: Vehicles will let
-  vehicles coming from their right side pass.
+- `right_before_left`: Vehicles yield to traffic coming from the right. (This is automatically flipped when building [lefthand](../FAQ.md#can_sumo_simulate_lefthand_traffic) networks).
+- `left_before_right`: Vehicles yield to traffic coming from the left. (Only known to be needed for [Madagascar](https://www.countryreports.org/country/Madagascar/traffic.htm) where cars drive on the right but yield for the left side).
 - `unregulated`: The junction is completely
   unregulated - all vehicles may pass without braking; Collision
   detection on the intersection is disabled but collisions beyond the
@@ -196,9 +196,9 @@ error and will yield in a program stop:
   collisions within the intersection will never be detected.
 - `priority_stop`: This works like a
   *priority*-junction but vehicles on minor links always have to stop
-  before passing
+  before passing.
 - `allway_stop`: This junction works like
-  an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop)
+  an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop).
 - `rail_signal`: This junction is
   controlled by a [rail signal](../Simulation/Rail_signals.md).
   This type of junction/control is only useful for rails.
@@ -207,13 +207,14 @@ error and will yield in a program stop:
   [zipper-style (late merging)](https://en.wikipedia.org/wiki/Merge_%28traffic%29).
 - `rail_crossing`: This junction models a
   rail road crossing. It will allow trains to pass unimpeded and will
-  restrict vehicles via traffic signals when a train is approaching..
+  restrict vehicles via traffic signals when a train is approaching.
 - `traffic_light_right_on_red`: The
   junction is controlled by a traffic light as for type
   *traffic_light*. Additionally, right-turning vehicles may drive in
   any phase whenever it is safe to do so (after stopping once). This
   behavior is known as
   [right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red).
+- `dead_end`: There are no connections at this node. This type is assigned automatically. Using this as input will trigger guessing the type.
 
 ## Right-of-way
 
@@ -234,12 +235,23 @@ by itself. It sorts edges according to attributes *priority*, *speed* and
 determined and will receive right-of-way. All other edges will be
 classified as minor.
 
+### rightOfWay="mixedPriority"
+This behaves like "default".
+Setting this value is only useful when configuring the switched-off behavior of
+intersections controlled by traffic lights of type [NEMA](../Simulation/NEMA.md).
+In this case it corresponds to main roads having priority (yellow blinking) and side roads having to stop (red blinking).
+
 ### rightOfWay="edgePriority"
 This mode is useful for customizing
 right-of-way by tuning edge *priority* attributes. The relationship
 between streams of different incoming-edge priority will be solely
 determined by edge priority. For equal-priority values, turning
 directions are also evaluated.
+
+### rightOfWay="allwayStop"
+This mode is only used for configuring the behavior of traffic light junctions when switching the [traffic light off](../Simulation/Traffic_Lights.md#switching_tls_off).
+When this mode is used, the junction will behave like [type](#node_types) `allway_stop` in the 'off' state.
+This is used as the default for nodes controlled by traffic lights of type [NEMA](../Simulation/NEMA.md).
 
 ### Special Cases
 
@@ -262,14 +274,14 @@ The right-of-way rules are indicated in [sumo-gui by the colored bars at the end
 *junctions-\>show lane to lane connections*.
 
 The right-of-way relationship between any two connections ca be shown in
-[netedit using right-of-way mode](../Netedit/index.md#right-of-way).
+[netedit using right-of-way mode](../Netedit/editModesNetwork.md#prohibitions).
 
 If a vehicle is braking in the simulation, the responsible foe vehicle
 (if any) can also be [identified directly](../sumo-gui.md#right_of_way).
 
 !!! caution
     Never attempt to modify the junction logic within a ***.net.xml*** file manually as there are subtle inter-dependencies with other data structures in the network. Nevertheless, it may be useful to [look into the .net.xml to understand right-of-way](../Networks/SUMO_Road_Networks.md#requests)
-    
+
 ### Modifying Right-of-Way
 
 The right-of-way can be customized by specifying [additional prohibitions](#setting_connection_priorities) and by
@@ -278,17 +290,17 @@ specifying the [connection attribute](#explicitly_setting_which_edge_lane_is_con
 
 Since version 1.1.0, the algorithm for computing right-of-way from the
 edge priorities can be switched between two modes using `<node>`-attribute
-*rightOfWay*.    
+*rightOfWay*.
 
 ## Fringe
 
-For route generation it may be relevant to know whether a particular junction or edge is at boundary of a network where other roads (that exist in the real world) were cut off. This can specified using the 'fringe' attrribute:
+For route generation it may be relevant to know whether a particular junction or edge is at boundary of a network where other roads (that exist in the real world) were cut off. This can specified using the 'fringe' attribute:
 
 - default: this junction is not part of the fringe
 - outer: this junction is connected to additional edges in the real world. It is part of the outer boundary of the network
 - inner: this junction is connected to additional edges in the real world. It lies within the network but other roads (i.e. with a lower road class) were removed from the simulation
 
-The fringe attribut can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](../netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](../Netedit/index.md) is also supported.
+The fringe attribute can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](../netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](../Netedit/index.md) is also supported.
 
 The 'fringe' attribute is used by [randomTrips.py](../Tools/Trip.md#randomtripspy) when setting option **--fringe-junctions**.
 
@@ -297,10 +309,13 @@ The 'fringe' attribute is used by [randomTrips.py](../Tools/Trip.md#randomtripsp
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [netconvert](../netconvert.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options). It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options).
+It is even possible to [undo joins](../Netedit/elementsNetwork.md#junctions) that were computed automatically.
+The new junction will get the id *cluster_id0_id1*. If there are more nodes in the cluster than given by **--max-join-ids** (default 4)
+the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 
 ### Reasons for joining node clusters
-Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
+Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied.
 - To prevent jamming cross-traffic, vehicles should only enter an intersection space if they are not prevented from leaving by a downstream jam
 - Vehicles that turn left from opposite directions may turn ahead of each other (without intersecting trajectories). In an unjoined cluster long vehicles easily block each other when turning left from opposite directions.
 
@@ -325,10 +340,12 @@ joinable node clusters works like this:
     explanation is issued for each case)
 6.  each cluster is turned into a joined node
 
+### Specifying and excluding explicit joins
+
 More fine grained control over joining can be achieved by using the
 following syntax within a nodes-file
 
-```
+```xml
 <nodes>
   <join nodes="id0 id23 id24"/>
   <joinExclude nodes="id13 id17"/>
@@ -337,15 +354,18 @@ following syntax within a nodes-file
 
 This will cause the nodes *id0*,*id23* and *id24* to be joined into a
 single junction. It will also prevent the nodes *id13* and *id17* from
-being joined. The **joinExclude**-tag is only usefull together with the
+being joined. The **joinExclude**-tag is only useful together with the
 option **--junctions.join** but the **join**-tag can also be used all by itself. Nodes to be
 excluded from joining can also be specified via the option **--junctions.join-exclude id,[id\]+**.
+
+!!! note
+    The `<join>`-element supports all attributes that are also supported by the `<node>`-element. This allows overriding the attributes of the created node.
 
 ### Connections after joining nodes
 
 !!! caution
     After merging nodes, the lane-to-lane connections are recalculated. You can override them by resorting to a 2-step process:
-    
+
         # 1. Merging the junctions.
         netconvert --sumo-net-file berlin-separated-junctions.net.xml \
           --output-file berlin-joined-junctions.net.xml \
@@ -354,7 +374,7 @@ excluded from joining can also be specified via the option **--junctions.join-ex
         netconvert --sumo-net-file berlin-joined-junctions.net.xml \
           --output-file berlin-with-fixed-connections.net.xml \
           --connection-files berlin-new-connections.con.xml
-    
+
     See [#Connection Descriptions](#connection_descriptions) on how to define connections in **\*.con.xml** format.
 
 When loading networks with defined connections, the results of joining
@@ -362,9 +382,10 @@ nodes may be quite surprising. Please note the - quite pathologic -
 network on the left side and compare it to the one on the right. You may
 note some big differences in lane-to-lane connections, especially for
 the edge coming from the south.
-![../images/JunctionJoin_before.svg](../images/JunctionJoin_before.svg
+
+[<img src="../images/JunctionJoin_before.svg" alt="junction before joining" width="400" />](../images/JunctionJoin_before.svg
 "junctionJoin_before.svg")
-![JunctionJoin_after.svg](../images/JunctionJoin_after.svg
+[<img src="../images/JunctionJoin_after.svg" alt="junction after joining" width="400" />](../images/JunctionJoin_after.svg
 "junctionJoin_after.svg")
 
 The reason is that during joining, edges are subsequently merged, and
@@ -387,7 +408,7 @@ the connections.
 | Type of content    | Edges (roads/streets) |
 | Open format?       | Yes                   |
 | SUMO specific?     | Yes                   |
-| XML Schema         | [edges_file.xsd](http://sumo.dlr.de/xsd/edges_file.xsd)        |
+| XML Schema         | [edges_file.xsd](https://sumo.dlr.de/xsd/edges_file.xsd)        |
 
 Within the edges file, each description of a single edge looks like
 this: `<edge id="<STRING>" from="<NODE_ID>" to="<NODE_ID>" [type="<STRING>"] [numLanes="<INT>"] [speed="<FLOAT>"] [priority="<UINT>"] [length="<FLOAT>"] [shape="<2D-POSITION>[ <2D-POSITION>]*"] [spreadType="center"] [allow="<VEHICLE_CLASS>[ <VEHICLE_CLASS>]*"] [disallow="<VEHICLE_CLASS>[ <VEHICLE_CLASS>]*"]/>`.
@@ -470,7 +491,7 @@ closing tag and for the example
 "{{SUMO}}/data/examples/netbuild/types/cross_notypes/" the whole edges-file
 looks like this ("cross3l.edg.xml"):
 
-```
+```xml
 <edges>
 
   <edge id="1fi" from="1" to="m1" priority="2" numLanes="2" speed="11.11"/>
@@ -531,7 +552,7 @@ edge's lanes. Assume you want to allow only buses to use the leftmost
 lane of edge "2si" from the example above. Simply change this edge's
 definition into:
 
-```
+```xml
 ... previous definitions ...
   <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
     <lane index="2" allow="bus"/>
@@ -542,7 +563,7 @@ definition into:
 If you would like to disallow passenger cars and taxis, the following
 snippet would do it:
 
-```
+```xml
 ... previous definitions ...
   <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
     <lane index="2" disallow="passenger taxi"/>
@@ -562,7 +583,7 @@ The definition of a lane contains the following optional attributes:
 | speed          | float                                                                                                               | speed in meters per second                                                                                                                 |
 | width          | float                                                                                                               | width in meters (used for visualization)                                                                                                   |
 | endOffset      | float \>= 0                                                                                                         | Move the stop line back from the intersection by the given amount (effectively shortening the lane and locally enlarging the intersection) |
-| shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | A custom shape for this lane.<br><br>**Note:** The lane lengths will be averaged in the generated network. Lane-changing will ignore gaps between lanes.    
+| shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | A custom shape for this lane.<br><br>**Note:** The lane lengths will be averaged in the generated network. Lane-changing will ignore gaps between lanes.
 | type          | string | a custom type description for this lane (only informational) |
 | acceleration  | bool | whether this lane is a motorway acceleration lane (default *false*) |
 
@@ -570,16 +591,16 @@ See "Vehicle Classes" for further information about [allowed vehicle classes](..
 and their usage.
 
 ### lane change restrictions
-When definining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-phyiscal restrictions in most cases. 
+When defining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-physical restrictions in most cases.
 
-To strongest restriction is the value "ignoring". Note, that vehicles of class "ignoring" cannot be restricted from lane changing with `changeLeft` and `changeRight`. (only creating separate parallel edges will work).
+The strongest restriction is the value "ignoring". Note, that vehicles of class "ignoring" cannot be restricted from lane changing with `changeLeft` and `changeRight`. (only creating separate parallel edges will work).
 
 ## Stop Offsets
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional
-stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line). 
+stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
 
-```
+```xml
 <edge id="<ID>">
     <stopOffset value="<distance in m.>" vClasses="<space-separated list of vClasses>" />
     <lane id="<ID>" index="<INDEX>" ... >
@@ -617,7 +638,7 @@ and change the number of its lanes or the speed along its length.
 This is possible using "split" - a subelement of an XML-edge definition
 after 02.09.2009. A split may be given as following:
 
-```
+```xml
 ... previous definitions ...
     <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
       <split pos="30" lanes="0 1" speed="10"/>
@@ -637,7 +658,7 @@ The most common usage example is the other way round: lanes must be
 added, not removed along a road. The following snippet shows the by
 example:
 
-```
+```xml
 ... previous definitions ...
   <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
     <split pos="0" lanes="0 1"/>
@@ -659,16 +680,16 @@ It is also possible to add a common split in both directions of a road.
 With the example below, one new node is created which splits the forward
 and backward edge:
 
-```
-   <edge id="123">
-       <split id="newNode" pos="150"/>
-   </edge>
+```xml
+   <edge id="123">
+       <split id="newNode" pos="150"/>
+   </edge>
 ```
 
-```
-   <edge id="-123">
-       <split id="newNode" pos="-150"/>
-   </edge>
+```xml
+   <edge id="-123">
+       <split id="newNode" pos="-150"/>
+   </edge>
 ```
 
 The definition of a split uses the following attributes:
@@ -690,7 +711,7 @@ computation and disables turn-arounds for edges entering the roundabout
 from outside. A roundabout is specified within an *.edg.xml*-file in the
 following way:
 
-```
+```xml
 <edges>
   ...   <!--Edge Definitions -->
 
@@ -713,7 +734,7 @@ the adjacency information for opposite direction lanes must be defined.
 This can be done explicitly by using the `<neigh>` element in an *.edg.xml* file
 as follows:
 
-```
+```xml
 <edges>
   <edge id="a" from="X" to="Y" numLanes="2">
       <neigh lane="b_0"/>
@@ -734,7 +755,7 @@ In order to delete an edge or lane which comes from a different source
 or a preprocessed net one can give the edge id and the optional index in
 the following way:
 
-```
+```xml
 <edges>
   <delete id="a"/> <!-- deletes the edge "a" -->
   <delete id="a" index="0"/> <!-- deletes the first lane of edge "a" -->
@@ -752,7 +773,7 @@ by giving the attribute remove="true" to the type.
 | Type of content    | Edge Types     |
 | Open format?       | Yes            |
 | SUMO specific?     | Yes            |
-| XML Schema         | [types_file.xsd](http://sumo.dlr.de/xsd/types_file.xsd) |
+| XML Schema         | [types_file.xsd](https://sumo.dlr.de/xsd/types_file.xsd) |
 
 As mentioned, [edge types](../SUMO_edge_type_file.md) are meant to
 be used to ease the definition of edges. Each description of an edge
@@ -767,7 +788,7 @@ is not given within the types' descriptions. They can only be set within
 the edge's attributes. Here's an example on referencing types in edge
 definitions:
 
-```
+```xml
 <edges>
 
   <edge id="1fi" from="1" to="m1" type="b"/>
@@ -791,7 +812,7 @@ definitions:
 
 The according types file looks like this (see [SUMO edge type file](../SUMO_edge_type_file.md)):
 
-```
+```xml
 <types>
 
   <type id="a" priority="3" numLanes="3" speed="13.889"/>
@@ -812,9 +833,9 @@ settings described above (example
 Using `<type>` definitions it is possible to implement vClass specific speed
 limits:
 
-```
-<type id="a" priority="3" numLanes="3" speed="38.89"/>
-   <restriction vClass="truck" speed="27.89"/>
+```xml
+<type id="a" priority="3" numLanes="3" speed="38.89">
+   <restriction vClass="truck" speed="27.89"/>
 </type>
 ```
 
@@ -845,7 +866,7 @@ If the network was built with option **--junctions.higher-speed**, the maximum o
 | Type of content    | Connections          |
 | Open format?       | Yes                  |
 | SUMO specific?     | Yes                  |
-| XML Schema         | [connections_file.xsd](http://sumo.dlr.de/xsd/connections_file.xsd) |
+| XML Schema         | [connections_file.xsd](https://sumo.dlr.de/xsd/connections_file.xsd) |
 
 "Connections" describe how a node's incoming and outgoing edges are
 connected (for example to prohibit left-turns at some junctions). Your
@@ -919,7 +940,7 @@ simple connection element:
 | toLane         | referenced lane no | The destination lane index of the connection to be removed |
 
 !!! note
-    Note that in basic format (that is, without **fromLane** and **toLane** attributes) the defenition deletes **all** connections from given incoming edge to the given outgoing edge. When **fromLane** and **toLane** attributes are provided, only the connection from given lane to given lane is removed.
+    Note that in basic format (that is, without **fromLane** and **toLane** attributes) the definition deletes **all** connections from given incoming edge to the given outgoing edge. When **fromLane** and **toLane** attributes are provided, only the connection from given lane to given lane is removed.
 
 There are two examples within the distribution. Both use the nodes and
 edges descriptions from the example located in
@@ -939,7 +960,7 @@ horizontal edges ("1si" and "2si") have only connections to the edges
 right to them and the edge in straight direction. The file looks like
 this:
 
-```
+```xml
 <connections>
 
   <connection from="1si" to="3o"/>
@@ -963,7 +984,7 @@ additionally describe which lanes shall be connected. The according
 connections file says that the connections going straight shall be start
 at the second lane of the incoming edges:
 
-```
+```xml
 <connections>
 
   <connection from="1si" to="3o" fromLane="0" toLane="0"/>
@@ -981,7 +1002,7 @@ The built network looks like this:
 Network with explicit lane-2-lane connections
 
 !!! caution
-    Please do not use both types of connection declarations (those with an lane attribute and those without) for the same from-edge! The behaviour is not verified and tested for these settings.
+    Please do not use both types of connection declarations (those with an lane attribute and those without) for the same from-edge! The behavior is not verified and tested for these settings.
 
 ## Setting Connection Priorities
 
@@ -992,7 +1013,7 @@ right-moving vehicles may drive. The following definition within the
 connections file lets vehicles on vertical edges moving right wait for
 those which move straight on horizontal edges:
 
-```
+```xml
 <connections>
 
   <!-- The next four connection definitions are same as in
@@ -1028,7 +1049,7 @@ want to wait due to right-before-left - rule. The network looks like
 this:
 
 ![cross3l_prohibitions.gif](../images/Cross3l_prohibitions.gif "Network with explicite prohibitions")
-Network with explicite prohibitions
+Network with explicit prohibitions
 
 The syntax of a prohibition-tag is: `<prohibition prohibitor="<PROHIBITING_FROM_EDGE_ID>-><PROHIBITING_TO_EDGE_ID>" prohibited="<PROHIBITED_FROM_EDGE_ID>-><PROHIBITED_TO_EDGE_ID>"/>`.
 This means we define two connections (edge-to-edge), the prohibiting one
@@ -1043,7 +1064,7 @@ for a collision-free simulation. By default, the right-most lane will
 have the right of way but this can be customized by using attribute
 *pass* as shown below:
 
-```
+```xml
 <connections>
   <connection from="WC" to="CE" fromLane="0" toLane="0"/>
   <connection from="WC" to="CE" fromLane="1" toLane="0" pass="true"/>
@@ -1058,7 +1079,7 @@ have the right of way but this can be customized by using attribute
 | Type of content    | traffic light definition |
 | Open format?       | Yes                      |
 | SUMO specific?     | Yes                      |
-| XML Schema         | [tllogic_file.xsd](http://sumo.dlr.de/xsd/tllogic_file.xsd)         |
+| XML Schema         | [tllogic_file.xsd](https://sumo.dlr.de/xsd/tllogic_file.xsd)         |
 
 This file describes traffic lights, signal plans and defines which
 connections they control. It consists of two types of elements described
@@ -1107,7 +1128,7 @@ intersections can be specified explicitly. This is done using  elements
 within a
 [*connection-file*](#connection_descriptions).
 
-```
+```xml
 <crossing node="C" edges="edge1 edge2" priority="true"/>
 ```
 
@@ -1144,7 +1165,7 @@ corner of an intersection). The shape of a walking area can be specified
 explicitly. This is done using `walkingArea` element within a
 [*connection-file*](#connection_descriptions).
 
-```
+```xml
 <walkingArea node="C" edges="SC" shape="115.88,88.57 120.38,88.57 120.38,86.87 120.37,83.87 119.86,80.83 118.46,78.53 115.46,78.50 113.74,78.55 113.73,83.05"/>
 ```
 

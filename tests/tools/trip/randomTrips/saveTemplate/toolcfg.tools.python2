@@ -1,0 +1,60 @@
+<configuration>
+    <additional-files value="None" type="additional_file" help="define additional files to be loaded by the router" category="input"/>
+    <allow-roundabouts value="False" type="bool" help="Permit trips that start or end inside a roundabout" category="processing"/>
+    <allow-fringe value="False" type="bool" help="Allow departing on edges that leave the network and arriving on edges that enter the network (via turnarounds or as 1-edge trips" category="processing"/>
+    <allow-fringe.min-length value="None" type="float" help="Allow departing on edges that leave the network and arriving on edges that enter the network, if they have at least the given length" category="processing"/>
+    <angle value="90.0" type="float" help="weight edge probability by angle [0-360] relative to the network center" category="processing"/>
+    <angle-factor value="1.0" type="float" help="maximum weight factor for angle" category="processing"/>
+    <begin value="0" type="time" help="begin time" category="time"/>
+    <binomial value="None" type="int" help="If this is set, the number of departures per second will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period" category="processing"/>
+    <persontrip.transfer.car-walk value="None" type="string" help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)" category="processing"/>
+    <edge-param value="None" type="string" help="use the given edge parameter as factor for edge" category="processing"/>
+    <end value="3600" type="time" help="end time (default 3600)" category="time"/>
+    <flows value="0" type="int" help="generates INT flows that together output vehicles with the specified period" category="processing"/>
+    <fringe-junctions value="False" type="bool" help="Determine fringe edges based on junction attribute 'fringe'" category="processing"/>
+    <fringe-factor value="1.0" type="string" help="multiply weight of fringe edges by 'FLOAT' (default 1) or set value 'max' to force all traffic to start/end at the fringe." category="processing"/>
+    <fringe-speed-exponent value="None" type="string" help="weight fringe edge probability by speed^'FLOAT' (default: speed exponent)" category="processing"/>
+    <fringe-threshold value="0.0" type="float" help="only consider edges with speed above 'FLOAT' as fringe edges (default 0)" category="processing"/>
+    <fringe-start-attributes value="" type="string" help="additional trip attributes when starting on a fringe." category="processing"/>
+    <from-stops value="None" type="string" help="Create trips that start at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
+    <insertion-density value="None" type="string" help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow" listSeparator=" "/>
+    <insertion-rate value="None" type="string" help="How much vehicles arrive in the simulation per hour (alternative to the period option)." category="flow" listSeparator=" "/>
+    <intermediate value="0" type="int" help="generates the given number of intermediate way points" category="processing"/>
+    <jtrrouter value="False" type="bool" help="Create flows without destination as input for jtrrouter" category="processing"/>
+    <junction-taz value="False" type="bool" help="Write trips with fromJunction and toJunction" category="processing"/>
+    <lanes value="False" type="bool" help="weight edge probability by number of lanes" category="processing"/>
+    <length value="False" type="bool" help="weight edge probability by length" category="processing"/>
+    <max-distance value="None" type="float" help="require start and end edges for each trip to be at most 'FLOAT' m apart (default 0 which disables any checks)" category="processing"/>
+    <maxtries value="100" type="int" help="number of attemps for finding a trip which meets the distance constraints" category="processing"/>
+    <min-distance.fringe value="None" type="float" help="require start and end edges for each fringe to fringe trip to be at least 'FLOAT' m apart" category="processing"/>
+    <min-distance value="0.0" type="float" help="require start and end edges for each trip to be at least 'FLOAT' m apart" category="processing"/>
+    <net-file value="None" type="net_file" help="define the net file (mandatory)" category="input" required="true"/>
+    <pedestrians value="False" type="bool" help="create a person file with pedestrian trips instead of vehicle trips" category="processing"/>
+    <period value="None" type="string" help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period." category="flow" listSeparator=" "/>
+    <personrides value="None" type="string" help="create a person file with rides using STR as lines attribute" category="processing"/>
+    <persontrips value="False" type="bool" help="create a person file with person trips instead of vehicle trips" category="processing"/>
+    <random value="False" type="bool" help="use a random seed to initialize the random number generator" category="seed"/>
+    <random-arrivalpos value="False" type="bool" help="Randomly choose a position on the ending edge of the trip" category="processing"/>
+    <random-depart value="False" type="bool" help="Distribute departures randomly between begin and end" category="time"/>
+    <random-departpos value="False" type="bool" help="Randomly choose a position on the starting edge of the trip" category="processing"/>
+    <random-factor value="1.0" type="float" help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]" category="processing"/>
+    <random-routing-factor value="1" type="float" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)" category="processing"/>
+    <remove-loops value="False" type="bool" help="Remove loops at route start and end" category="processing"/>
+    <route-file value="None" type="route_file" help="generates route file with duarouter" category="output"/>
+    <seed value="42" type="int" help="random seed" category="seed"/>
+    <speed-exponent value="0.0" type="float" help="weight edge probability by speed^'FLOAT' (default 0)" category="processing"/>
+    <to-stops value="None" type="string" help="Create trips that end at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
+    <trip-attributes value="" type="string" help="additional trip attributes. When generating pedestrians, attributes for 'person' and 'walk' are supported." category="processing"/>
+    <output-trip-file value="trips.trips.xml" type="route_file" help="define the output trip filename" category="output"/>
+    <prefix value="" type="string" help="prefix for the trip ids" category="processing"/>
+    <validate value="False" type="bool" help="Whether to produce trip output that is already checked for connectivity" category="processing"/>
+    <vclass value="passenger" type="string" help="only from and to edges which permit the given vehicle class" category="processing"/>
+    <vehicle-class value="None" type="string" help="The vehicle class assigned to the generated trips (adds a standard vType definition to the output file)." category="processing"/>
+    <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
+    <via-edge-types value="None" type="string" help="Set list of edge types that cannot be used for departure or arrival (unless being on the fringe)" category="processing"/>
+    <vtype-output value="None" type="string" help="Store generated vehicle types in a separate file" category="output"/>
+    <persontrip.walkfactor value="None" type="float" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing" category="processing"/>
+    <persontrip.walk-opposite-factor value="None" type="float" help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction" category="processing"/>
+    <weights-output-prefix value="None" type="string" help="generates weights files for visualisation" category="processing"/>
+    <weights-prefix value="None" type="file" help="loads probabilities for being source, destination and via-edge from the files named 'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml" category="processing"/>
+</configuration>

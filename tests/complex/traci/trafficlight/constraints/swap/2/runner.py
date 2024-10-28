@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,10 @@ for tlsID in traci.trafficlight.getIDList():
     for c in traci.trafficlight.getConstraints(tlsID):
         print(" tls=%s %s" % (tlsID, c))
 
-traci.trafficlight.swapConstraints("H", "t2", "C", "t0")
+derived = traci.trafficlight.swapConstraints("H", "t2", "C", "t0")
+print("derived constraints")
+for c in derived:
+    print(c)
 
 print("constraints after swap")
 for tlsID in traci.trafficlight.getIDList():

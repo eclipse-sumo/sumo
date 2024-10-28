@@ -1,0 +1,2 @@
+Warning: Person 'p_0' receives type 'typeC' which implicitly uses unsuitable vClass 'passenger'.
+Warning: Person 'p_1' receives type 'typeC' which implicitly uses unsuitable vClass 'passenger'.

@@ -13,9 +13,15 @@ dualring
 # only switch to side direction on request
 request_or_skip
 
+# only switch to side direction on request (fewer side traffic)
+request_or_skip2
+
 # request arms have a permissive left turn that gets stalled out
 request_or_skip_blocked_left
 
 # request arms have a permissive left turn that gets stalled out,
 # the stalled arm has robust detection due to increased detector length
 request_or_skip_blocked_left_detLength
+
+# This test checks that the dynamic phase skipping feature works correctly relatively to detected traffic on a bicycle lane.
+bike_skip

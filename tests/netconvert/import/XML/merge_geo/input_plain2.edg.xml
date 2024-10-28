@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 12:38:45 by Eclipse SUMO netconvert Version v1_16_0+1351-7e72606
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain2"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-143308687" from="1568241842" to="1568241835" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="334.61,773.80 338.77,770.43 341.70,769.35 344.04,769.04 345.80,769.20 358.58,771.58" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="143308687"/>
+        </lane>
+    </edge>
+    <edge id="-26815978" from="294164334" to="294163880" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="492.06,716.27 521.95,686.47 533.71,679.36 554.32,664.04" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="26815978"/>
+        </lane>
+    </edge>
+    <edge id="-314415495" from="748473866" to="3204541562" name="Am Studio" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="463.66,678.98 492.99,649.06 497.10,644.87 529.87,611.53 568.09,573.81 574.37,567.77 581.57,560.75 595.31,546.72 596.32,545.60 612.70,529.47 619.26,523.01 627.30,514.86 656.55,485.29 702.35,439.02 734.47,406.58 783.80,352.98 794.41,340.38 805.70,326.49 870.83,247.31 875.02,242.18 880.34,235.10 912.28,196.77 919.73,188.05 936.77,167.47 997.91,92.46 1008.60,79.29 1010.13,77.48 1023.00,62.19 1046.40,33.68 1050.86,25.93" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="314415495"/>
+        </lane>
+    </edge>
+    <edge id="-318210361#0" from="4863714436" to="748473866" name="Am Studio" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="318210361"/>
+        </lane>
+    </edge>
+    <edge id="-318210361#3" from="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" to="4863714436" name="Am Studio" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="422.51,720.82 427.52,715.91 433.50,709.40 442.81,700.28" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="318210361"/>
+        </lane>
+    </edge>
+    <edge id="-403442280#0" from="4057899382" to="294163439" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="478.10,732.87 503.22,757.93 508.81,758.48 513.24,757.62 518.69,755.82" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="403442280"/>
+        </lane>
+    </edge>
+    <edge id="-403442280#1" from="4057899378" to="4057899382" priority="2" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="403442280"/>
+        </lane>
+    </edge>
+    <edge id="122868962" from="1464807662" to="4467671360" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="359.22,743.44 399.85,786.11 400.90,787.15" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="122868962 133129238"/>
+        </lane>
+    </edge>
+    <edge id="122868964#0" from="1371616211" to="1464807662" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="122868964"/>
+        </lane>
+    </edge>
+    <edge id="122868964#1" from="1464807662" to="1371616214" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="359.22,743.44 379.27,722.53 386.71,714.54" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="122868964 133129239"/>
+        </lane>
+    </edge>
+    <edge id="133129238#1" from="4467671360" to="1371616215" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="133129238"/>
+        </lane>
+    </edge>
+    <edge id="143308549#1" from="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" to="1652675097" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="430.08,728.33 464.13,762.39 556.16,854.18 572.11,870.15 575.22,872.97 585.21,882.31" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="143308549"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308549"/>
+        </lane>
+    </edge>
+    <edge id="143308552#0" from="57343487" to="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="347.06,646.33 354.93,654.07 398.50,697.26 405.47,704.16 410.45,708.87 414.16,712.78" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="143308552"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308552"/>
+        </lane>
+    </edge>
+    <edge id="143308555#1" from="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" to="1371616214" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="399.82,727.61 386.71,714.54" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="143308555"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308555"/>
+        </lane>
+    </edge>
+    <edge id="143308555#2" from="1371616214" to="38918157" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="386.71,714.54 343.55,671.56 340.02,668.05 333.08,661.13" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="143308555"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308555"/>
+        </lane>
+    </edge>
+    <edge id="143308687" from="1568241835" to="1568241842" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="358.58,771.58 345.80,769.20 344.04,769.04 341.70,769.35 338.77,770.43 334.61,773.80" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="143308687"/>
+        </lane>
+    </edge>
+    <edge id="206889079#0" from="1704693810" to="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="645.30,930.59 592.60,898.02 583.15,891.78 578.80,889.24 568.54,881.11 564.44,878.21 555.51,871.13 542.92,859.47 421.16,737.10" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="206889079"/>
+        </lane>
+    </edge>
+    <edge id="206889079#5" from="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" to="1704693568" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="405.35,721.53 345.58,662.87 338.46,655.44 329.79,647.10 297.24,613.65 250.14,566.37 235.06,551.21 218.41,534.60 199.61,517.51 184.63,506.35 162.78,493.72 129.90,473.38 82.93,445.69 55.28,428.22 32.42,411.25 29.94,409.23 18.57,400.42 0.00,386.24" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="206889079"/>
+        </lane>
+    </edge>
+    <edge id="220198808#0" from="1704693564" to="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="2.11,383.35 19.72,396.39 24.38,400.29 32.07,406.71 35.45,409.59 57.11,425.54 84.54,444.01 151.18,482.87 165.51,490.65 180.20,500.31 191.82,507.77 200.50,514.18 213.50,525.43 224.67,536.23 251.41,563.10 327.15,639.00 332.27,644.44 341.02,652.73 348.51,660.12 408.15,719.01" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="220198808"/>
+        </lane>
+    </edge>
+    <edge id="220198808#5" from="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" to="1704693785" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="423.82,734.49 544.89,857.18 556.59,868.05 566.29,875.66 570.24,878.85 580.93,886.93 595.13,895.79" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="220198808"/>
+        </lane>
+    </edge>
+    <edge id="24931845#0" from="671564408" to="1371616215" name="Karl-Otto-Reinsch-Straße" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="370.23,830.84 397.09,802.81 406.66,792.83" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="24931845"/>
+        </lane>
+    </edge>
+    <edge id="24931845#1" from="1371616215" to="270930931" name="Karl-Otto-Reinsch-Straße" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="24931845"/>
+        </lane>
+    </edge>
+    <edge id="26815978" from="294163880" to="294164334" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="554.32,664.04 533.71,679.36 521.95,686.47 492.06,716.27" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="26815978"/>
+        </lane>
+    </edge>
+    <edge id="314415495" from="3204541562" to="748473866" name="Am Studio" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="1050.86,25.93 1046.40,33.68 1023.00,62.19 1010.13,77.48 1008.60,79.29 997.91,92.46 936.77,167.47 919.73,188.05 912.28,196.77 880.34,235.10 875.02,242.18 870.83,247.31 805.70,326.49 794.41,340.38 783.80,352.98 734.47,406.58 702.35,439.02 656.55,485.29 627.30,514.86 619.26,523.01 612.70,529.47 596.32,545.60 595.31,546.72 581.57,560.75 574.37,567.77 568.09,573.81 529.87,611.53 497.10,644.87 492.99,649.06 463.66,678.98" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="314415495"/>
+        </lane>
+    </edge>
+    <edge id="318210361#0" from="748473866" to="4863714436" name="Am Studio" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="318210361"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="318210361"/>
+        </lane>
+    </edge>
+    <edge id="318210361#1" from="4863714436" to="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" name="Am Studio" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="442.81,700.28 433.50,709.40 427.52,715.91 422.51,720.82" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="318210361"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="318210361"/>
+        </lane>
+    </edge>
+    <edge id="403442276#0" from="4057899380" to="4057899377" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="403442276"/>
+        </lane>
+    </edge>
+    <edge id="403442276#1" from="4057899377" to="4057899376" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="403442276"/>
+        </lane>
+    </edge>
+    <edge id="403442278" from="4057899377" to="4057899381" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="479.97,715.09 472.83,722.24 480.90,730.33" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="403442278"/>
+        </lane>
+    </edge>
+    <edge id="403442279#0" from="4057899382" to="4057899381" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="403442279"/>
+        </lane>
+    </edge>
+    <edge id="403442279#1" from="4057899381" to="4057899380" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="403442279"/>
+        </lane>
+    </edge>
+    <edge id="403442279#2" from="4057899380" to="294164334" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="403442279"/>
+        </lane>
+    </edge>
+    <edge id="403442280#0" from="294163439" to="4057899382" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="518.69,755.82 513.24,757.62 508.81,758.48 503.22,757.93 478.10,732.87" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="403442280"/>
+        </lane>
+    </edge>
+    <edge id="403442280#1" from="4057899382" to="4057899378" priority="2" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="403442280"/>
+        </lane>
+    </edge>
+    <edge id="449845657" from="4467671357" to="4467671360" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="327.73,747.32 341.66,760.66 384.60,803.19 390.80,797.09 400.90,787.15" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="449845657"/>
+        </lane>
+    </edge>
+    <edge id="494624669" from="4863714433" to="4863714436" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="380.55,617.28 399.65,636.86 390.04,646.74 442.81,700.28" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="494624669"/>
+        </lane>
+    </edge>
+    <edge id="581635136" from="5564694978" to="5564694990" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="1084.45,0.00 1016.68,82.61 942.82,172.32 925.85,193.40 919.31,201.96 878.94,250.73 811.97,331.68 800.68,345.34 708.07,445.62 585.70,568.37 580.06,573.39 575.91,577.91 433.92,720.79" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="581635136"/>
+        </lane>
+    </edge>
+    <edge id="81639675#0" from="1652675099" to="270930931" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="572.41,896.13 561.13,887.42 518.45,844.44 475.53,802.02 435.29,762.22" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="81639675"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="81639675"/>
+        </lane>
+    </edge>
+    <edge id="81639675#2" from="270930931" to="cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="435.29,762.22 418.27,745.76 415.12,742.82" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="81639675"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="81639675"/>
+        </lane>
+    </edge>
+</edges>

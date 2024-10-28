@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@
 #include <vector>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/NamedRTree.h>
+#include <utils/common/MapMatcher.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include "ROPerson.h"
@@ -54,7 +54,7 @@ class RORouteDef;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class RORouteHandler : public SUMORouteHandler {
+class RORouteHandler : public SUMORouteHandler, public MapMatcher<ROEdge, ROLane, RONode> {
 public:
     /// @brief standard constructor
     RORouteHandler(RONet& net, const std::string& file,
@@ -64,12 +64,14 @@ public:
                    const bool checkSchema);
 
     /// @brief standard destructor
-    virtual ~RORouteHandler();
+    ~RORouteHandler() override;
 
     /// @brief Checks whether the route file is sorted by departure time if needed
-    bool checkLastDepart();
+    bool checkLastDepart() override;
 
 protected:
+    void deleteActivePlanAndVehicleParameter();
+
     /// @name inherited from GenericSAXHandler
     //@{
 
@@ -80,8 +82,8 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs);
+    void myStartElement(int element,
+                        const SUMOSAXAttributes& attrs) override;
     //@}
 
     /** @brief Called for parsing from and to and the corresponding taz attributes
@@ -93,22 +95,22 @@ protected:
     void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, bool& ok);
 
     /// @brief opens a type distribution for reading
-    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
+    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) override;
 
     /// @brief closes (ends) the building of a distribution
-    void closeVehicleTypeDistribution();
+    void closeVehicleTypeDistribution() override;
 
     /// @brief opens a route for reading
-    void openRoute(const SUMOSAXAttributes& attrs);
+    void openRoute(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a flow for reading
-    void openFlow(const SUMOSAXAttributes& attrs);
+    void openFlow(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a route flow for reading
-    void openRouteFlow(const SUMOSAXAttributes& attrs);
+    void openRouteFlow(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a trip for reading
-    void openTrip(const SUMOSAXAttributes& attrs);
+    void openTrip(const SUMOSAXAttributes& attrs) override;
 
     /**@brief closes (ends) the building of a route.
      * @note Afterwards no edges may be added to it;
@@ -116,81 +118,65 @@ protected:
      *       a) the route is empty or
      *       b) another route with the same id already exists
      */
-    void closeRoute(const bool mayBeDisconnected = false);
+    void closeRoute(const bool mayBeDisconnected = false) override;
 
     /// @brief opens a route distribution for reading
-    void openRouteDistribution(const SUMOSAXAttributes& attrs);
+    void openRouteDistribution(const SUMOSAXAttributes& attrs) override;
 
     /// @brief closes (ends) the building of a distribution
-    void closeRouteDistribution();
+    void closeRouteDistribution() override;
 
     /// @brief Ends the processing of a vehicle
-    void closeVehicle();
+    void closeVehicle() override;
 
     /// @brief Ends the processing of a vehicle type
-    void closeVType();
+    void closeVType() override;
 
     /// @brief Ends the processing of a person
-    void closePerson();
+    void closePerson() override;
 
     /// @brief Ends the processing of a personFlow
-    void closePersonFlow();
+    void closePersonFlow() override;
 
     /// @brief Ends the processing of a container
-    void closeContainer();
+    void closeContainer() override;
 
     /// @brief Ends the processing of a containerFlow
-    void closeContainerFlow();
+    void closeContainerFlow() override;
 
     /// @brief Ends the processing of a flow
-    void closeFlow();
+    void closeFlow() override;
 
     /// @brief Ends the processing of a trip
-    void closeTrip();
+    void closeTrip() override;
 
     /// @brief retrieve stopping place element
     const SUMOVehicleParameter::Stop* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a person from a personFlow
-    void addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
+    void addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i);
 
     /// @brief Processing of a ride
-    void addRide(const SUMOSAXAttributes& attrs);
+    void addRide(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a transport
-    void addTransport(const SUMOSAXAttributes& attrs);
+    void addTransport(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a tranship
-    void addTranship(const SUMOSAXAttributes& attrs);
+    void addTranship(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Parse edges from strings
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
                     const std::string& rid, bool& ok);
 
-    /// @brief Parse edges from coordinates
-    void parseGeoEdges(const PositionVector& positions, bool geo,
-                       ConstROEdgeVector& into, const std::string& rid, bool isFrom, bool& ok);
-
-    /// @brief find closest edge within distance for the given position or nullptr
-    const ROEdge* getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass);
-
-    /// @brief find closest junction taz given the closest edge
-    const ROEdge* getJunctionTaz(const Position& pos, const ROEdge* closestEdge, SUMOVehicleClass vClass, bool isFrom);
-
     /// @brief add a routing request for a walking or intermodal person
-    void addPersonTrip(const SUMOSAXAttributes& attrs);
+    void addPersonTrip(const SUMOSAXAttributes& attrs) override;
 
     /// @brief add a fully specified walk
-    void addWalk(const SUMOSAXAttributes& attrs);
+    void addWalk(const SUMOSAXAttributes& attrs) override;
 
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
@@ -198,8 +184,9 @@ protected:
                             double& departPos, double& arrivalPos, std::string& busStopID,
                             const ROPerson::PlanItem* const lastStage, bool& ok);
 
-    /// @brief initialize lane-RTree
-    NamedRTree* getLaneTree();
+    void initLaneTree(NamedRTree* tree) override;
+
+    ROEdge* retrieveEdge(const std::string& id) override;
 
 protected:
     /// @brief The current route
@@ -233,12 +220,8 @@ protected:
     /// @brief The begin time
     const SUMOTime myBegin;
 
-    /// @brief whether to keep the the vtype distribution in output
+    /// @brief whether to keep the vtype distribution in output
     const bool myKeepVTypeDist;
-
-    /// @brief maximum distance when map-matching
-    const double myMapMatchingDistance;
-    const bool myMapMatchJunctions;
 
     /// @brief whether input is read all at once (no sorting check is necessary)
     const bool myUnsortedInput;
@@ -251,9 +234,6 @@ protected:
 
     /// @brief The currently parsed route alternatives
     RORouteDef* myCurrentAlternatives;
-
-    /// @brief RTree for finding lanes
-    NamedRTree* myLaneTree;
 
 private:
     /// @brief Invalidated copy constructor

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <map>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include "GUIAppEnum.h"
 
 
 // ===========================================================================
@@ -36,6 +37,7 @@
 class GUIEvent;
 class GUIGlChildWindow;
 class GUISUMOAbstractView;
+class MFXStaticToolTip;
 
 
 // ===========================================================================
@@ -45,7 +47,7 @@ class GUIMainWindow : public FXMainWindow {
 
 public:
     /// @brief constructor
-    GUIMainWindow(FXApp* a);
+    GUIMainWindow(FXApp* app);
 
     /// @brief destructor
     virtual ~GUIMainWindow();
@@ -71,11 +73,13 @@ public:
     /// @brief get specific view by ID
     GUIGlChildWindow* getViewByID(const std::string& id) const;
 
+    void removeViewByID(const std::string& id);
+
     /// @brief get views
     const std::vector<GUIGlChildWindow*>& getViews() const;
 
     /// @brief update childrens
-    void updateChildren();
+    void updateChildren(int msg = MID_SIMSTEP);
 
     /// @brief get bold front
     FXFont* getBoldFont();
@@ -85,6 +89,12 @@ public:
 
     /// @brief get GL Visual
     FXGLVisual* getGLVisual() const;
+
+    /// @brief get static toolTip for menus
+    MFXStaticToolTip* getStaticTooltipMenu() const;
+
+    /// @brief get static toolTip for view
+    MFXStaticToolTip* getStaticTooltipView() const;
 
     /// @brief get build GL Canvas (must be implemented in all children)
     virtual FXGLCanvas* getBuildGLCanvas() const = 0;
@@ -106,6 +116,9 @@ public:
 
     /// @brief get test label
     FXLabel* getTestLabel();
+
+    /// @brief get test frame
+    FXHorizontalFrame* getTestFrame();
 
     /// @brief return whether the gui is in gaming mode
     bool isGaming() const;
@@ -162,10 +175,19 @@ public:
         myOnlineMaps[name] = url;
     }
 
+    /// @brief add breakpoint to the application
+    virtual void addBreakpoint(const SUMOTime /* time */) {}
+
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
         return std::vector<SUMOTime>();
     }
+
+    // @brief called when changes language
+    long onCmdChangeLanguage(FXObject*, FXSelector, void*);
+
+    // @brief called when language is updated
+    long onUpdChangeLanguage(FXObject*, FXSelector, void*);
 
 protected:
     /// @brief FOX need this
@@ -201,6 +223,7 @@ protected:
     FXLabel* myTestCoordinate = nullptr;
 
     /// @brief frames for coordinates
+    FXHorizontalFrame* myTraCiFrame = nullptr;
     FXHorizontalFrame* myCartesianFrame = nullptr;
     FXHorizontalFrame* myGeoFrame = nullptr;
     FXHorizontalFrame* myTestFrame = nullptr;
@@ -213,6 +236,15 @@ protected:
     FXDockSite* myBottomDock = nullptr;
     FXDockSite* myLeftDock = nullptr;
     FXDockSite* myRightDock = nullptr;
+
+    /// @brief Language menu common to all applications
+    FXMenuPane* myLanguageMenu = nullptr;
+
+    /// @brief static toolTip used in menus
+    MFXStaticToolTip* myStaticTooltipMenu = nullptr;
+
+    /// @brief static toolTip used in view
+    MFXStaticToolTip* myStaticTooltipView = nullptr;
 
     /// @brief information whether the gui is currently in gaming mode
     bool myAmGaming;
@@ -237,4 +269,7 @@ protected:
 
     /// @brief record window position and size in registry
     void storeWindowSizeAndPos();
+
+    void buildLanguageMenu(FXMenuBar* menuBar);
+
 };

@@ -1,9 +1,18 @@
+# tests for importin connectivity
+connections
+
+# restrict lane section to bus
+access
+
 # own examples (roundtrip)
 simple1
 simple1_remove
 simple1_noturnarounds
 simple1_left_nt
 simple1_right_nt
+
+# read OpenDRIVE from second file referenced in the main file
+simple1_include
 simple2_noturnarounds
 simple2_left_nt
 simple2_right_nt
@@ -33,5 +42,5 @@ ticket5314
 # interaction of --geometry.min-dist, --roundabouts.guess and --junctions.join
 ticket9448
 
-# tests for importin connectivity
-connections
+# converting only a part
+bbox

@@ -25,7 +25,7 @@ format 55
   //activity diagram settings
   package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
   show_infonote default drawing_language default
-  
+
   usecaseview 128161 "polyconvert"
     //use case diagram settings
     package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default
@@ -49,7 +49,7 @@ format 55
       python_2_2 python_decl ""
       idl_decl ""
       explicit_switch_type ""
-      
+
     end
 
     usecasediagram 128033 "polyconvert"

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,16 +34,20 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 bool GUIMessageWindow::myLocateLinks = true;
 SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
+FXHiliteStyle* GUIMessageWindow::myStyles = new FXHiliteStyle[8];
+std::string GUIMessageWindow::myTimeText;
+std::map<std::string, std::string> GUIMessageWindow::myTypeStrings;
 
-/* -------------------------------------------------------------------------
- * GUISUMOAbstractView - FOX callback mapping
- * ----------------------------------------------------------------------- */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
 FXDEFMAP(GUIMessageWindow) GUIMessageWindowMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,             0,      GUIMessageWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYPRESS, 0, GUIMessageWindow::onKeyPress),
 };
-
 
 FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(GUIMessageWindowMap))
 
@@ -53,55 +57,29 @@ FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(
 GUIMessageWindow::GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindow) :
     FXText(parent, nullptr, 0, 0, 0, 0, 0, 50),
     myMainWindow(mainWindow),
-    myStyles(new FXHiliteStyle[8]),
     myErrorRetriever(nullptr),
     myMessageRetriever(nullptr),
     myWarningRetriever(nullptr) {
     setStyled(true);
     setEditable(false);
-    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
-    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
-    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
-    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
-    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
-    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
-    // set separator style
-    myStyles[0].normalForeColor = blue;
-    myStyles[0].normalBackColor = white;
-    myStyles[0].selectForeColor = white;
-    myStyles[0].selectBackColor = blue;
-    myStyles[0].hiliteForeColor = blue;
-    myStyles[0].hiliteBackColor = white;
-    myStyles[0].activeBackColor = white;
-    myStyles[0].style = 0;
-    // set message text style
-    myStyles[1] = myStyles[0];
-    myStyles[1].normalForeColor = green;
-    myStyles[1].selectBackColor = green;
-    myStyles[1].hiliteForeColor = green;
-    myStyles[4] = myStyles[1];
-    myStyles[4].style = STYLE_UNDERLINE;
-    // set error text style
-    myStyles[2] = myStyles[0];
-    myStyles[2].normalForeColor = red;
-    myStyles[2].selectBackColor = red;
-    myStyles[2].hiliteForeColor = red;
-    myStyles[5] = myStyles[2];
-    myStyles[5].style = STYLE_UNDERLINE;
-    // set warning text style
-    myStyles[3] = myStyles[0];
-    myStyles[3].normalForeColor = yellow;
-    myStyles[3].selectBackColor = yellow;
-    myStyles[3].hiliteForeColor = yellow;
-    myStyles[6] = myStyles[3];
-    myStyles[6].style = STYLE_UNDERLINE;
-    // set GLDebug text style
-    myStyles[7] = myStyles[0];
-    myStyles[7].normalForeColor = fuchsia;
-    myStyles[7].selectBackColor = fuchsia;
-    myStyles[7].hiliteForeColor = fuchsia;
-    //
+    // fill styles
+    fillStyles();
+    // set styles
     setHiliteStyles(myStyles);
+    myTimeText = TL(" time");
+    // see GUIGlObject.cpp
+    myTypeStrings[StringUtils::to_lower_case(TL("edge"))] = "edge";
+    myTypeStrings[StringUtils::to_lower_case(TL("lane"))] = "lane";
+    myTypeStrings[StringUtils::to_lower_case(TL("junction"))] = "junction";
+    myTypeStrings[StringUtils::to_lower_case(TL("vehicle"))] = "vehicle";
+    myTypeStrings[StringUtils::to_lower_case(TL("person"))] = "person";
+    myTypeStrings[StringUtils::to_lower_case(TL("tlLogic"))] = "tlLogic";
+    myTypeStrings[StringUtils::to_lower_case(TL("busStop"))] = "busStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("trainStop"))] = "busStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("containerStop"))] = "containerStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("chargingStation"))] = "chargingStation";
+    myTypeStrings[StringUtils::to_lower_case(TL("overheadWireSegment"))] = "overheadWireSegment";
+    myTypeStrings[StringUtils::to_lower_case(TL("parkingArea"))] = "parkingArea";
 }
 
 
@@ -124,18 +102,9 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
                 typeS++;
             }
             std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
-            if (type == "tllogic") {
-                type = "tlLogic"; // see GUIGlObject.cpp
-            } else if (type == "busstop" || type == "trainstop") {
-                type = "busStop";
-            } else if (type == "containerstop") {
-                type = "containerStop";
-            } else if (type == "chargingstation") {
-                type = "chargingStation";
-            } else if (type == "overheadwiresegment") {
-                type = "overheadWireSegment";
-            } else if (type == "parkingarea") {
-                type = "parkingArea";
+            const auto& tsIt = myTypeStrings.find(type);
+            if (tsIt != myTypeStrings.end()) {
+                type = tsIt->second;
             }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
             const std::string typedID = type + ":" + id;
@@ -148,8 +117,8 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
 }
 
 SUMOTime
-GUIMessageWindow::getTimeString(const FXString& text, const FXint pos, const FXint /*lineS*/, const FXint /*lineE*/) const {
-    const FXint end = text.find(" ", pos + 1);
+GUIMessageWindow::getTimeString(const FXString& text, const FXint pos) const {
+    const FXint end = text.find_first_of(" ,", pos + 1);
     std::string time;
     if (end >= 0) {
         time = text.mid(pos, end - pos).text();
@@ -188,12 +157,11 @@ void
 GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
     FXText::setCursorPos(pos, notify);
     if (myLocateLinks) {
-        GUIMainWindow* const main = GUIMainWindow::getInstance();
-        std::vector<std::string> viewIDs = main->getViewIDs();
+        std::vector<std::string> viewIDs = myMainWindow->getViewIDs();
         if (viewIDs.empty()) {
             return;
         }
-        GUIGlChildWindow* const child = main->getViewByID(viewIDs[0]);
+        GUIGlChildWindow* const child = myMainWindow->getViewByID(viewIDs[0]);
         const FXString text = getText();
         const GUIGlObject* const glObj = getActiveStringObject(text, pos, lineStart(pos), lineEnd(pos));
         if (glObj != nullptr) {
@@ -202,22 +170,17 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             if (getApp()->getKeyState(KEY_Control_L)) {
                 gSelected.toggleSelection(glObj->getGlID());
             }
-        } else {
+        } else if (gSimulation) {
             const int lookback = MIN2(pos, 20);
             const int start = MAX2(lineStart(pos), pos - lookback);
             const FXString candidate = text.mid(start, lineEnd(pos) - start);
-            FXint timePos = candidate.find(" time") + 6;
-            SUMOTime t = -1;
-            if (pos >= 0 && pos > start + timePos) {
-                t = getTimeString(candidate, timePos, 0, candidate.length());
-                if (t >= 0) {
-                    t += myBreakPointOffset;
-                    std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
-                    if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
-                        breakpoints.push_back(t);
-                        std::sort(breakpoints.begin(), breakpoints.end());
-                        myMainWindow->setBreakpoints(breakpoints);
-                        myMainWindow->setStatusBarText("Set breakpoint at " + time2string(t));
+            FXint timePos = candidate.find(myTimeText.c_str());
+            if (timePos > -1) {
+                timePos += (int)myTimeText.size() + 1;
+                if (pos >= 0 && pos > start + timePos) {
+                    const SUMOTime t = getTimeString(candidate, timePos);
+                    if (t >= 0) {
+                        myMainWindow->addBreakpoint(t + myBreakPointOffset);
                     }
                 }
             }
@@ -275,15 +238,16 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
             pos = text.find("'", pos + 1);
         }
         // find time links
-        pos = text.find(" time");
+        pos = text.find(myTimeText.c_str());
+        const int timeTerm = (int)myTimeText.size() + 1;
         SUMOTime t = -1;
         if (pos >= 0) {
-            t = getTimeString(text, pos + 6, 0, text.length());
+            t = getTimeString(text, pos + timeTerm);
         }
         if (t >= 0) {
-            FXString insText = text.left(pos + 6);
+            FXString insText = text.left(pos + timeTerm);
             FXText::appendStyledText(insText, style + 1);
-            text.erase(0, pos + 6);
+            text.erase(0, pos + timeTerm);
             pos = text.find(" ");
             if (pos < 0) {
                 pos = text.rfind(".");
@@ -306,7 +270,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
 
 void
 GUIMessageWindow::addSeparator() {
-    std::string msg = "----------------------------------------------------------------------------------------\n";
+    std::string msg = std::string(100, '-') + "\n";
     FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), 1, true);
     FXText::setCursorPos(getLength() - 1);
     FXText::setBottomLine(getLength() - 1);
@@ -357,6 +321,7 @@ GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }
 
+
 long
 GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* e = (FXEvent*) ptr;
@@ -365,6 +330,58 @@ GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
         return FXText::onKeyPress(o, sel, ptr);
     }
     return 0;
+}
+
+
+FXHiliteStyle*
+GUIMessageWindow::getStyles() {
+    return myStyles;
+}
+
+
+void
+GUIMessageWindow::fillStyles() {
+    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
+    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
+    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
+    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
+    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
+    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
+    // set separator style
+    myStyles[0].normalForeColor = blue;
+    myStyles[0].normalBackColor = white;
+    myStyles[0].selectForeColor = white;
+    myStyles[0].selectBackColor = blue;
+    myStyles[0].hiliteForeColor = blue;
+    myStyles[0].hiliteBackColor = white;
+    myStyles[0].activeBackColor = white;
+    myStyles[0].style = 0;
+    // set message text style
+    myStyles[1] = myStyles[0];
+    myStyles[1].normalForeColor = green;
+    myStyles[1].selectBackColor = green;
+    myStyles[1].hiliteForeColor = green;
+    myStyles[4] = myStyles[1];
+    myStyles[4].style = STYLE_UNDERLINE;
+    // set error text style
+    myStyles[2] = myStyles[0];
+    myStyles[2].normalForeColor = red;
+    myStyles[2].selectBackColor = red;
+    myStyles[2].hiliteForeColor = red;
+    myStyles[5] = myStyles[2];
+    myStyles[5].style = STYLE_UNDERLINE;
+    // set warning text style
+    myStyles[3] = myStyles[0];
+    myStyles[3].normalForeColor = yellow;
+    myStyles[3].selectBackColor = yellow;
+    myStyles[3].hiliteForeColor = yellow;
+    myStyles[6] = myStyles[3];
+    myStyles[6].style = STYLE_UNDERLINE;
+    // set GLDebug text style
+    myStyles[7] = myStyles[0];
+    myStyles[7].normalForeColor = fuchsia;
+    myStyles[7].selectBackColor = fuchsia;
+    myStyles[7].hiliteForeColor = fuchsia;
 }
 
 /****************************************************************************/

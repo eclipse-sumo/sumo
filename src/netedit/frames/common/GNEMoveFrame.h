@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,7 @@ public:
     // class CommonModeOptions
     // ===========================================================================
 
-    class CommonModeOptions : public FXGroupBoxModule {
+    class CommonModeOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -49,16 +49,24 @@ public:
         /// @brief allow change lane
         bool getAllowChangeLane() const;
 
+        /// @brief check if merge geometry points
+        bool getMergeGeometryPoints() const;
+
     private:
         /// @brief checkbox for enable/disable change lanes
         FXCheckButton* myAllowChangeLanes;
+
+        /// @brief checkbox for enable/disable merge geometry points
+        FXCheckButton* myMergeGeometryPoints;
     };
 
     // ===========================================================================
     // class NetworkModeOptions
     // ===========================================================================
 
-    class NetworkModeOptions : public FXGroupBoxModule {
+    class NetworkModeOptions : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::NetworkModeOptions)
 
     public:
         /// @brief constructor
@@ -76,19 +84,36 @@ public:
         /// @brief move whole polygons
         bool getMoveWholePolygons() const;
 
+        /// @brief force draw geometry points
+        bool getForceDrawGeometryPoints() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called after change option
+        long onCmdChangeOption(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(NetworkModeOptions)
+
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame* myMoveFrameParent;
 
         /// @brief checkbox for enable/disable move whole polygons
-        FXCheckButton* myMoveWholePolygons;
+        FXCheckButton* myMoveWholePolygons = nullptr;
+
+        /// @brief checkbox for force darwi geometry points
+        FXCheckButton* myForceDrawGeometryPoints = nullptr;
     };
 
     // ===========================================================================
     // class DemandMoveOptions
     // ===========================================================================
 
-    class DemandModeOptions : public FXGroupBoxModule {
+    class DemandModeOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -108,17 +133,17 @@ public:
 
     private:
         /// @brief pointer to move frame parent
-        GNEMoveFrame* myMoveFrameParent;
+        GNEMoveFrame* myMoveFrameParent = nullptr;
 
         /// @brief checkbox for enable/disable leave stopPersons connected
-        FXCheckButton* myLeaveStopPersonsConnected;
+        FXCheckButton* myLeaveStopPersonsConnected = nullptr;
     };
 
     // ===========================================================================
     // class ShiftEdgeSelectedGeometry
     // ===========================================================================
 
-    class ShiftEdgeSelectedGeometry : public FXGroupBoxModule {
+    class ShiftEdgeSelectedGeometry : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftEdgeSelectedGeometry)
 
@@ -164,7 +189,7 @@ public:
     // class ChangeZInSelection
     // ===========================================================================
 
-    class ChangeZInSelection : public FXGroupBoxModule {
+    class ChangeZInSelection : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ChangeZInSelection)
 
@@ -225,7 +250,7 @@ public:
     // class ShiftShapeGeometry
     // ===========================================================================
 
-    class ShiftShapeGeometry : public FXGroupBoxModule {
+    class ShiftShapeGeometry : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftShapeGeometry)
 
@@ -267,23 +292,37 @@ public:
         FXTextField* myShiftValueYTextField = nullptr;
     };
 
+    // ===========================================================================
+    // class Information
+    // ===========================================================================
+
+    class Information : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        Information(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~Information();
+    };
+
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEMoveFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEMoveFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @param objectsUnderGrippedCursor collection of objects under gripped cursor after click over view
      */
     void processClick(const Position& clickedPosition,
-                      const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
-                      const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor);
+                      const GNEViewNetHelper::ViewObjectsSelector& viewObjects,
+                      const GNEViewNetHelper::ViewObjectsSelector& objectsUnderGrippedCursor);
 
     /// @brief show prohibition frame
     void show();
@@ -315,6 +354,9 @@ private:
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;
+
+    /// @brief modul for show information
+    Information* myInformation = nullptr;
 
     /// @brief modul for shift shape geometry
     ShiftShapeGeometry* myShiftShapeGeometry = nullptr;

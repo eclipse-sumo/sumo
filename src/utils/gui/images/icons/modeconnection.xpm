@@ -1,0 +1,25 @@
+/* XPM */
+static const char *modeconnection_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"r c red",
+". c black",
+"x c gray100",
+/* pixels */
+"..x.......r..x..",
+"..x......rrr.x..",
+"xxx.....rrrrrxxx",
+"..........r..r..",
+"..........r..rr.",
+"rrrrrrrrrrrrrrrr",
+".....r.......rr.",
+".....r.......r..",
+".....r..........",
+".....r..........",
+".....r..........",
+".....r..........",
+".....r..........",
+"xxxrrrrr.....xxx",
+"..x.rrr......x..",
+"..x..r.......x.."
+};

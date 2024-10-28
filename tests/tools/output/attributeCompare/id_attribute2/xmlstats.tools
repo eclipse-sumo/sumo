@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-14 09:56:50.434573 by attributeCompare.py v1_16_0+2059-ccfe441
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml <doubleminus>id-attribute id,begin -v
+-->
+
+<attributeCompare xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeCompare_file.xsd">
+    <interval.edge id="ed_0|0.00|CE">
+        <arrived count="2" min="400.00" minLabel="CE" max="402.00" maxLabel="CE" mean="401.00" Q1="400.00" median="402.00" Q3="402.00" meanAbs="401.00" medianAbs="402.00" stdDev="1.00"/>
+        <density count="2" min="19.62" minLabel="CE" max="19.74" maxLabel="CE" mean="19.68" Q1="19.62" median="19.74" Q3="19.74" meanAbs="19.68" medianAbs="19.74" stdDev="0.06"/>
+        <departed count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="402.00" minLabel="CE" max="402.00" maxLabel="CE" mean="402.00" Q1="402.00" median="402.00" Q3="402.00" meanAbs="402.00" medianAbs="402.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="3.00" minLabel="CE" max="6.00" maxLabel="CE" mean="4.50" Q1="3.00" median="6.00" Q3="6.00" meanAbs="4.50" medianAbs="6.00" stdDev="1.50"/>
+        <laneChangedTo count="2" min="3.00" minLabel="CE" max="6.00" maxLabel="CE" mean="4.50" Q1="3.00" median="6.00" Q3="6.00" meanAbs="4.50" medianAbs="6.00" stdDev="1.50"/>
+        <laneDensity count="2" min="9.81" minLabel="CE" max="9.87" maxLabel="CE" mean="9.84" Q1="9.81" median="9.87" Q3="9.87" meanAbs="9.84" medianAbs="9.87" stdDev="0.03"/>
+        <left count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.65" minLabel="CE" max="4.68" maxLabel="CE" mean="4.67" Q1="4.65" median="4.68" Q3="4.68" meanAbs="4.67" medianAbs="4.68" stdDev="0.01"/>
+        <overlapTraveltime count="2" min="7.99" minLabel="CE" max="8.02" maxLabel="CE" mean="8.00" Q1="7.99" median="8.02" Q3="8.02" meanAbs="8.00" medianAbs="8.02" stdDev="0.01"/>
+        <sampledSeconds count="2" min="3164.62" minLabel="CE" max="3182.95" maxLabel="CE" mean="3173.78" Q1="3164.62" median="3182.95" Q3="3182.95" meanAbs="3173.78" medianAbs="3182.95" stdDev="9.16"/>
+        <speed count="2" min="11.79" minLabel="CE" max="11.84" maxLabel="CE" mean="11.81" Q1="11.79" median="11.84" Q3="11.84" meanAbs="11.81" medianAbs="11.84" stdDev="0.03"/>
+        <speedRelative count="2" min="0.85" minLabel="CE" max="0.85" maxLabel="CE" mean="0.85" Q1="0.85" median="0.85" Q3="0.85" meanAbs="0.85" medianAbs="0.85" stdDev="0.00"/>
+        <timeLoss count="2" min="428.99" minLabel="CE" max="450.59" maxLabel="CE" mean="439.79" Q1="428.99" median="450.59" Q3="450.59" meanAbs="439.79" medianAbs="450.59" stdDev="10.80"/>
+        <traveltime count="2" min="7.57" minLabel="CE" max="7.59" maxLabel="CE" mean="7.58" Q1="7.57" median="7.59" Q3="7.59" meanAbs="7.58" medianAbs="7.59" stdDev="0.01"/>
+        <waitingTime count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|CN">
+        <arrived count="2" min="400.00" minLabel="CN" max="401.00" maxLabel="CN" mean="400.50" Q1="400.00" median="401.00" Q3="401.00" meanAbs="400.50" medianAbs="401.00" stdDev="0.50"/>
+        <density count="2" min="19.13" minLabel="CN" max="19.44" maxLabel="CN" mean="19.29" Q1="19.13" median="19.44" Q3="19.44" meanAbs="19.29" medianAbs="19.44" stdDev="0.16"/>
+        <departed count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="401.00" minLabel="CN" max="403.00" maxLabel="CN" mean="402.00" Q1="401.00" median="403.00" Q3="403.00" meanAbs="402.00" medianAbs="403.00" stdDev="1.00"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneDensity count="2" min="9.56" minLabel="CN" max="9.72" maxLabel="CN" mean="9.64" Q1="9.56" median="9.72" Q3="9.72" meanAbs="9.64" medianAbs="9.72" stdDev="0.08"/>
+        <left count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.53" minLabel="CN" max="4.61" maxLabel="CN" mean="4.57" Q1="4.53" median="4.61" Q3="4.61" meanAbs="4.57" medianAbs="4.61" stdDev="0.04"/>
+        <overlapTraveltime count="2" min="7.78" minLabel="CN" max="7.89" maxLabel="CN" mean="7.83" Q1="7.78" median="7.89" Q3="7.89" meanAbs="7.83" medianAbs="7.89" stdDev="0.05"/>
+        <sampledSeconds count="2" min="3085.03" minLabel="CN" max="3134.72" maxLabel="CN" mean="3109.88" Q1="3085.03" median="3134.72" Q3="3134.72" meanAbs="3109.88" medianAbs="3134.72" stdDev="24.84"/>
+        <speed count="2" min="11.98" minLabel="CN" max="12.16" maxLabel="CN" mean="12.07" Q1="11.98" median="12.16" Q3="12.16" meanAbs="12.07" medianAbs="12.16" stdDev="0.09"/>
+        <speedRelative count="2" min="0.86" minLabel="CN" max="0.88" maxLabel="CN" mean="0.87" Q1="0.86" median="0.88" Q3="0.88" meanAbs="0.87" medianAbs="0.88" stdDev="0.01"/>
+        <timeLoss count="2" min="376.91" minLabel="CN" max="380.19" maxLabel="CN" mean="378.55" Q1="376.91" median="380.19" Q3="380.19" meanAbs="378.55" medianAbs="380.19" stdDev="1.64"/>
+        <traveltime count="2" min="7.38" minLabel="CN" max="7.48" maxLabel="CN" mean="7.43" Q1="7.38" median="7.48" Q3="7.48" meanAbs="7.43" medianAbs="7.48" stdDev="0.05"/>
+        <waitingTime count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|CS">
+        <arrived count="2" min="428.00" minLabel="CS" max="430.00" maxLabel="CS" mean="429.00" Q1="428.00" median="430.00" Q3="430.00" meanAbs="429.00" medianAbs="430.00" stdDev="1.00"/>
+        <density count="2" min="20.53" minLabel="CS" max="20.74" maxLabel="CS" mean="20.63" Q1="20.53" median="20.74" Q3="20.74" meanAbs="20.63" medianAbs="20.74" stdDev="0.10"/>
+        <departed count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="429.00" minLabel="CS" max="431.00" maxLabel="CS" mean="430.00" Q1="429.00" median="431.00" Q3="431.00" meanAbs="430.00" medianAbs="431.00" stdDev="1.00"/>
+        <laneChangedFrom count="2" min="1.00" minLabel="CS" max="3.00" maxLabel="CS" mean="2.00" Q1="1.00" median="3.00" Q3="3.00" meanAbs="2.00" medianAbs="3.00" stdDev="1.00"/>
+        <laneChangedTo count="2" min="1.00" minLabel="CS" max="3.00" maxLabel="CS" mean="2.00" Q1="1.00" median="3.00" Q3="3.00" meanAbs="2.00" medianAbs="3.00" stdDev="1.00"/>
+        <laneDensity count="2" min="10.26" minLabel="CS" max="10.37" maxLabel="CS" mean="10.31" Q1="10.26" median="10.37" Q3="10.37" meanAbs="10.31" medianAbs="10.37" stdDev="0.05"/>
+        <left count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.86" minLabel="CS" max="4.91" maxLabel="CS" mean="4.88" Q1="4.86" median="4.91" Q3="4.91" meanAbs="4.88" medianAbs="4.91" stdDev="0.02"/>
+        <overlapTraveltime count="2" min="7.82" minLabel="CS" max="7.85" maxLabel="CS" mean="7.83" Q1="7.82" median="7.85" Q3="7.85" meanAbs="7.83" medianAbs="7.85" stdDev="0.01"/>
+        <sampledSeconds count="2" min="3310.55" minLabel="CS" max="3345.12" maxLabel="CS" mean="3327.84" Q1="3310.55" median="3345.12" Q3="3345.12" meanAbs="3327.84" medianAbs="3345.12" stdDev="17.28"/>
+        <speed count="2" min="12.05" minLabel="CS" max="12.10" maxLabel="CS" mean="12.07" Q1="12.05" median="12.10" Q3="12.10" meanAbs="12.07" medianAbs="12.10" stdDev="0.02"/>
+        <speedRelative count="2" min="0.87" minLabel="CS" max="0.87" maxLabel="CS" mean="0.87" Q1="0.87" median="0.87" Q3="0.87" meanAbs="0.87" medianAbs="0.87" stdDev="0.00"/>
+        <timeLoss count="2" min="380.33" minLabel="CS" max="414.28" maxLabel="CS" mean="397.30" Q1="380.33" median="414.28" Q3="414.28" meanAbs="397.30" medianAbs="414.28" stdDev="16.97"/>
+        <traveltime count="2" min="7.40" minLabel="CS" max="7.45" maxLabel="CS" mean="7.43" Q1="7.40" median="7.45" Q3="7.45" meanAbs="7.43" medianAbs="7.45" stdDev="0.02"/>
+        <waitingTime count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|CW">
+        <arrived count="2" min="417.00" minLabel="CW" max="427.00" maxLabel="CW" mean="422.00" Q1="417.00" median="427.00" Q3="427.00" meanAbs="422.00" medianAbs="427.00" stdDev="5.00"/>
+        <density count="2" min="20.01" minLabel="CW" max="20.56" maxLabel="CW" mean="20.29" Q1="20.01" median="20.56" Q3="20.56" meanAbs="20.29" medianAbs="20.56" stdDev="0.27"/>
+        <departed count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="420.00" minLabel="CW" max="429.00" maxLabel="CW" mean="424.50" Q1="420.00" median="429.00" Q3="429.00" meanAbs="424.50" medianAbs="429.00" stdDev="4.50"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CW" max="1.00" maxLabel="CW" mean="0.50" Q1="0.00" median="1.00" Q3="1.00" meanAbs="0.50" medianAbs="1.00" stdDev="0.50"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CW" max="1.00" maxLabel="CW" mean="0.50" Q1="0.00" median="1.00" Q3="1.00" meanAbs="0.50" medianAbs="1.00" stdDev="0.50"/>
+        <laneDensity count="2" min="10.00" minLabel="CW" max="10.28" maxLabel="CW" mean="10.14" Q1="10.00" median="10.28" Q3="10.28" meanAbs="10.14" medianAbs="10.28" stdDev="0.14"/>
+        <left count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.74" minLabel="CW" max="4.88" maxLabel="CW" mean="4.81" Q1="4.74" median="4.88" Q3="4.88" meanAbs="4.81" medianAbs="4.88" stdDev="0.07"/>
+        <overlapTraveltime count="2" min="7.80" minLabel="CW" max="7.84" maxLabel="CW" mean="7.82" Q1="7.80" median="7.84" Q3="7.84" meanAbs="7.82" medianAbs="7.84" stdDev="0.02"/>
+        <sampledSeconds count="2" min="3226.57" minLabel="CW" max="3315.85" maxLabel="CW" mean="3271.21" Q1="3226.57" median="3315.85" Q3="3315.85" meanAbs="3271.21" medianAbs="3315.85" stdDev="44.64"/>
+        <speed count="2" min="12.07" minLabel="CW" max="12.13" maxLabel="CW" mean="12.10" Q1="12.07" median="12.13" Q3="12.13" meanAbs="12.10" medianAbs="12.13" stdDev="0.03"/>
+        <speedRelative count="2" min="0.87" minLabel="CW" max="0.87" maxLabel="CW" mean="0.87" Q1="0.87" median="0.87" Q3="0.87" meanAbs="0.87" medianAbs="0.87" stdDev="0.00"/>
+        <timeLoss count="2" min="373.80" minLabel="CW" max="377.01" maxLabel="CW" mean="375.40" Q1="373.80" median="377.01" Q3="377.01" meanAbs="375.40" medianAbs="377.01" stdDev="1.60"/>
+        <traveltime count="2" min="7.40" minLabel="CW" max="7.44" maxLabel="CW" mean="7.42" Q1="7.40" median="7.44" Q3="7.44" meanAbs="7.42" medianAbs="7.44" stdDev="0.02"/>
+        <waitingTime count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|EC">
+        <arrived count="2" min="0.00" minLabel="EC" max="0.00" maxLabel="EC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="160.22" minLabel="EC" max="165.71" maxLabel="EC" mean="162.97" Q1="160.22" median="165.71" Q3="165.71" meanAbs="162.97" medianAbs="165.71" stdDev="2.75"/>
+        <departed count="2" min="425.00" minLabel="EC" max="427.00" maxLabel="EC" mean="426.00" Q1="425.00" median="427.00" Q3="427.00" meanAbs="426.00" medianAbs="427.00" stdDev="1.00"/>
+        <entered count="2" min="0.00" minLabel="EC" max="0.00" maxLabel="EC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="225.00" minLabel="EC" max="229.00" maxLabel="EC" mean="227.00" Q1="225.00" median="229.00" Q3="229.00" meanAbs="227.00" medianAbs="229.00" stdDev="2.00"/>
+        <laneChangedTo count="2" min="225.00" minLabel="EC" max="229.00" maxLabel="EC" mean="227.00" Q1="225.00" median="229.00" Q3="229.00" meanAbs="227.00" medianAbs="229.00" stdDev="2.00"/>
+        <laneDensity count="2" min="80.11" minLabel="EC" max="82.85" maxLabel="EC" mean="81.48" Q1="80.11" median="82.85" Q3="82.85" meanAbs="81.48" medianAbs="82.85" stdDev="1.37"/>
+        <left count="2" min="415.00" minLabel="EC" max="420.00" maxLabel="EC" mean="417.50" Q1="415.00" median="420.00" Q3="420.00" meanAbs="417.50" medianAbs="420.00" stdDev="2.50"/>
+        <occupancy count="2" min="39.48" minLabel="EC" max="40.86" maxLabel="EC" mean="40.17" Q1="39.48" median="40.86" Q3="40.86" meanAbs="40.17" medianAbs="40.86" stdDev="0.69"/>
+        <overlapTraveltime count="2" min="64.44" minLabel="EC" max="67.06" maxLabel="EC" mean="65.75" Q1="64.44" median="67.06" Q3="67.06" meanAbs="65.75" medianAbs="67.06" stdDev="1.31"/>
+        <sampledSeconds count="2" min="25841.02" minLabel="EC" max="26725.66" maxLabel="EC" mean="26283.34" Q1="25841.02" median="26725.66" Q3="26725.66" meanAbs="26283.34" medianAbs="26725.66" stdDev="442.32"/>
+        <speed count="2" min="1.41" minLabel="EC" max="1.47" maxLabel="EC" mean="1.44" Q1="1.41" median="1.47" Q3="1.47" meanAbs="1.44" medianAbs="1.47" stdDev="0.03"/>
+        <speedRelative count="2" min="0.10" minLabel="EC" max="0.11" maxLabel="EC" mean="0.11" Q1="0.10" median="0.11" Q3="0.11" meanAbs="0.11" medianAbs="0.11" stdDev="0.00"/>
+        <timeLoss count="2" min="23093.14" minLabel="EC" max="23974.51" maxLabel="EC" mean="23533.82" Q1="23093.14" median="23974.51" Q3="23974.51" meanAbs="23533.82" medianAbs="23974.51" stdDev="440.68"/>
+        <traveltime count="2" min="63.15" minLabel="EC" max="65.74" maxLabel="EC" mean="64.44" Q1="63.15" median="65.74" Q3="65.74" meanAbs="64.44" medianAbs="65.74" stdDev="1.29"/>
+        <waitingTime count="2" min="16157.00" minLabel="EC" max="16544.00" maxLabel="EC" mean="16350.50" Q1="16157.00" median="16544.00" Q3="16544.00" meanAbs="16350.50" medianAbs="16544.00" stdDev="193.50"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|NC">
+        <arrived count="2" min="0.00" minLabel="NC" max="0.00" maxLabel="NC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="141.62" minLabel="NC" max="156.77" maxLabel="NC" mean="149.19" Q1="141.62" median="156.77" Q3="156.77" meanAbs="149.19" medianAbs="156.77" stdDev="7.58"/>
+        <departed count="2" min="442.00" minLabel="NC" max="460.00" maxLabel="NC" mean="451.00" Q1="442.00" median="460.00" Q3="460.00" meanAbs="451.00" medianAbs="460.00" stdDev="9.00"/>
+        <entered count="2" min="0.00" minLabel="NC" max="0.00" maxLabel="NC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="239.00" minLabel="NC" max="261.00" maxLabel="NC" mean="250.00" Q1="239.00" median="261.00" Q3="261.00" meanAbs="250.00" medianAbs="261.00" stdDev="11.00"/>
+        <laneChangedTo count="2" min="239.00" minLabel="NC" max="261.00" maxLabel="NC" mean="250.00" Q1="239.00" median="261.00" Q3="261.00" meanAbs="250.00" medianAbs="261.00" stdDev="11.00"/>
+        <laneDensity count="2" min="70.81" minLabel="NC" max="78.39" maxLabel="NC" mean="74.60" Q1="70.81" median="78.39" Q3="78.39" meanAbs="74.60" medianAbs="78.39" stdDev="3.79"/>
+        <left count="2" min="420.00" minLabel="NC" max="438.00" maxLabel="NC" mean="429.00" Q1="420.00" median="438.00" Q3="438.00" meanAbs="429.00" medianAbs="438.00" stdDev="9.00"/>
+        <occupancy count="2" min="34.92" minLabel="NC" max="38.65" maxLabel="NC" mean="36.78" Q1="34.92" median="38.65" Q3="38.65" meanAbs="36.78" medianAbs="38.65" stdDev="1.86"/>
+        <overlapTraveltime count="2" min="53.73" minLabel="NC" max="61.96" maxLabel="NC" mean="57.84" Q1="53.73" median="61.96" Q3="61.96" meanAbs="57.84" medianAbs="61.96" stdDev="4.12"/>
+        <sampledSeconds count="2" min="22840.02" minLabel="NC" max="25284.14" maxLabel="NC" mean="24062.08" Q1="22840.02" median="25284.14" Q3="25284.14" meanAbs="24062.08" medianAbs="25284.14" stdDev="1222.06"/>
+        <speed count="2" min="1.53" minLabel="NC" max="1.76" maxLabel="NC" mean="1.65" Q1="1.53" median="1.76" Q3="1.76" meanAbs="1.65" medianAbs="1.76" stdDev="0.11"/>
+        <speedRelative count="2" min="0.11" minLabel="NC" max="0.13" maxLabel="NC" mean="0.12" Q1="0.11" median="0.13" Q3="0.13" meanAbs="0.12" medianAbs="0.13" stdDev="0.01"/>
+        <timeLoss count="2" min="19937.13" minLabel="NC" max="22455.27" maxLabel="NC" mean="21196.20" Q1="19937.13" median="22455.27" Q3="22455.27" meanAbs="21196.20" medianAbs="22455.27" stdDev="1259.07"/>
+        <traveltime count="2" min="52.60" minLabel="NC" max="60.72" maxLabel="NC" mean="56.66" Q1="52.60" median="60.72" Q3="60.72" meanAbs="56.66" medianAbs="60.72" stdDev="4.06"/>
+        <waitingTime count="2" min="13717.00" minLabel="NC" max="15717.00" maxLabel="NC" mean="14717.00" Q1="13717.00" median="15717.00" Q3="15717.00" meanAbs="14717.00" medianAbs="15717.00" stdDev="1000.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|SC">
+        <arrived count="2" min="0.00" minLabel="SC" max="0.00" maxLabel="SC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="155.18" minLabel="SC" max="158.89" maxLabel="SC" mean="157.03" Q1="155.18" median="158.89" Q3="158.89" meanAbs="157.03" medianAbs="158.89" stdDev="1.85"/>
+        <departed count="2" min="401.00" minLabel="SC" max="428.00" maxLabel="SC" mean="414.50" Q1="401.00" median="428.00" Q3="428.00" meanAbs="414.50" medianAbs="428.00" stdDev="13.50"/>
+        <entered count="2" min="0.00" minLabel="SC" max="0.00" maxLabel="SC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="224.00" minLabel="SC" max="253.00" maxLabel="SC" mean="238.50" Q1="224.00" median="253.00" Q3="253.00" meanAbs="238.50" medianAbs="253.00" stdDev="14.50"/>
+        <laneChangedTo count="2" min="224.00" minLabel="SC" max="253.00" maxLabel="SC" mean="238.50" Q1="224.00" median="253.00" Q3="253.00" meanAbs="238.50" medianAbs="253.00" stdDev="14.50"/>
+        <laneDensity count="2" min="77.59" minLabel="SC" max="79.45" maxLabel="SC" mean="78.52" Q1="77.59" median="79.45" Q3="79.45" meanAbs="78.52" medianAbs="79.45" stdDev="0.93"/>
+        <left count="2" min="379.00" minLabel="SC" max="409.00" maxLabel="SC" mean="394.00" Q1="379.00" median="409.00" Q3="409.00" meanAbs="394.00" medianAbs="409.00" stdDev="15.00"/>
+        <occupancy count="2" min="38.29" minLabel="SC" max="39.19" maxLabel="SC" mean="38.74" Q1="38.29" median="39.19" Q3="39.19" meanAbs="38.74" medianAbs="39.19" stdDev="0.45"/>
+        <overlapTraveltime count="2" min="63.02" minLabel="SC" max="69.40" maxLabel="SC" mean="66.21" Q1="63.02" median="69.40" Q3="69.40" meanAbs="66.21" medianAbs="69.40" stdDev="3.19"/>
+        <sampledSeconds count="2" min="25027.92" minLabel="SC" max="25626.15" maxLabel="SC" mean="25327.03" Q1="25027.92" median="25626.15" Q3="25626.15" meanAbs="25327.03" medianAbs="25626.15" stdDev="299.12"/>
+        <speed count="2" min="1.36" minLabel="SC" max="1.50" maxLabel="SC" mean="1.43" Q1="1.36" median="1.50" Q3="1.50" meanAbs="1.43" medianAbs="1.50" stdDev="0.07"/>
+        <speedRelative count="2" min="0.10" minLabel="SC" max="0.11" maxLabel="SC" mean="0.11" Q1="0.10" median="0.11" Q3="0.11" meanAbs="0.11" medianAbs="0.11" stdDev="0.00"/>
+        <timeLoss count="2" min="22245.26" minLabel="SC" max="23086.47" maxLabel="SC" mean="22665.86" Q1="22245.26" median="23086.47" Q3="23086.47" meanAbs="22665.86" medianAbs="23086.47" stdDev="420.61"/>
+        <traveltime count="2" min="61.74" minLabel="SC" max="67.97" maxLabel="SC" mean="64.86" Q1="61.74" median="67.97" Q3="67.97" meanAbs="64.86" medianAbs="67.97" stdDev="3.11"/>
+        <waitingTime count="2" min="15630.00" minLabel="SC" max="16526.00" maxLabel="SC" mean="16078.00" Q1="15630.00" median="16526.00" Q3="16526.00" meanAbs="16078.00" medianAbs="16526.00" stdDev="448.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|0.00|WC">
+        <arrived count="2" min="0.00" minLabel="WC" max="0.00" maxLabel="WC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="114.70" minLabel="WC" max="117.07" maxLabel="WC" mean="115.88" Q1="114.70" median="117.07" Q3="117.07" meanAbs="115.88" medianAbs="117.07" stdDev="1.18"/>
+        <departed count="2" min="425.00" minLabel="WC" max="429.00" maxLabel="WC" mean="427.00" Q1="425.00" median="429.00" Q3="429.00" meanAbs="427.00" medianAbs="429.00" stdDev="2.00"/>
+        <entered count="2" min="0.00" minLabel="WC" max="0.00" maxLabel="WC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="244.00" minLabel="WC" max="251.00" maxLabel="WC" mean="247.50" Q1="244.00" median="251.00" Q3="251.00" meanAbs="247.50" medianAbs="251.00" stdDev="3.50"/>
+        <laneChangedTo count="2" min="244.00" minLabel="WC" max="251.00" maxLabel="WC" mean="247.50" Q1="244.00" median="251.00" Q3="251.00" meanAbs="247.50" medianAbs="251.00" stdDev="3.50"/>
+        <laneDensity count="2" min="57.35" minLabel="WC" max="58.54" maxLabel="WC" mean="57.95" Q1="57.35" median="58.54" Q3="58.54" meanAbs="57.95" medianAbs="58.54" stdDev="0.59"/>
+        <left count="2" min="415.00" minLabel="WC" max="421.00" maxLabel="WC" mean="418.00" Q1="415.00" median="421.00" Q3="421.00" meanAbs="418.00" medianAbs="421.00" stdDev="3.00"/>
+        <occupancy count="2" min="28.11" minLabel="WC" max="28.73" maxLabel="WC" mean="28.42" Q1="28.11" median="28.73" Q3="28.73" meanAbs="28.42" medianAbs="28.73" stdDev="0.31"/>
+        <overlapTraveltime count="2" min="45.98" minLabel="WC" max="47.56" maxLabel="WC" mean="46.77" Q1="45.98" median="47.56" Q3="47.56" meanAbs="46.77" medianAbs="47.56" stdDev="0.79"/>
+        <sampledSeconds count="2" min="18499.28" minLabel="WC" max="18881.22" maxLabel="WC" mean="18690.25" Q1="18499.28" median="18881.22" Q3="18881.22" meanAbs="18690.25" medianAbs="18881.22" stdDev="190.97"/>
+        <speed count="2" min="1.99" minLabel="WC" max="2.06" maxLabel="WC" mean="2.02" Q1="1.99" median="2.06" Q3="2.06" meanAbs="2.02" medianAbs="2.06" stdDev="0.04"/>
+        <speedRelative count="2" min="0.14" minLabel="WC" max="0.15" maxLabel="WC" mean="0.15" Q1="0.14" median="0.15" Q3="0.15" meanAbs="0.15" medianAbs="0.15" stdDev="0.00"/>
+        <timeLoss count="2" min="15718.65" minLabel="WC" max="16140.22" maxLabel="WC" mean="15929.43" Q1="15718.65" median="16140.22" Q3="16140.22" meanAbs="15929.43" medianAbs="16140.22" stdDev="210.78"/>
+        <traveltime count="2" min="44.71" minLabel="WC" max="46.30" maxLabel="WC" mean="45.50" Q1="44.71" median="46.30" Q3="46.30" meanAbs="45.50" medianAbs="46.30" stdDev="0.79"/>
+        <waitingTime count="2" min="10205.00" minLabel="WC" max="10470.00" maxLabel="WC" mean="10337.50" Q1="10205.00" median="10470.00" Q3="10470.00" meanAbs="10337.50" medianAbs="10470.00" stdDev="132.50"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|CE">
+        <arrived count="2" min="424.00" minLabel="CE" max="425.00" maxLabel="CE" mean="424.50" Q1="424.00" median="425.00" Q3="425.00" meanAbs="424.50" medianAbs="425.00" stdDev="0.50"/>
+        <density count="2" min="20.72" minLabel="CE" max="20.72" maxLabel="CE" mean="20.72" Q1="20.72" median="20.72" Q3="20.72" meanAbs="20.72" medianAbs="20.72" stdDev="0.00"/>
+        <departed count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="423.00" minLabel="CE" max="425.00" maxLabel="CE" mean="424.00" Q1="423.00" median="425.00" Q3="425.00" meanAbs="424.00" medianAbs="425.00" stdDev="1.00"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CE" max="3.00" maxLabel="CE" mean="1.50" Q1="0.00" median="3.00" Q3="3.00" meanAbs="1.50" medianAbs="3.00" stdDev="1.50"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CE" max="3.00" maxLabel="CE" mean="1.50" Q1="0.00" median="3.00" Q3="3.00" meanAbs="1.50" medianAbs="3.00" stdDev="1.50"/>
+        <laneDensity count="2" min="10.36" minLabel="CE" max="10.36" maxLabel="CE" mean="10.36" Q1="10.36" median="10.36" Q3="10.36" meanAbs="10.36" medianAbs="10.36" stdDev="0.00"/>
+        <left count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.91" minLabel="CE" max="4.91" maxLabel="CE" mean="4.91" Q1="4.91" median="4.91" Q3="4.91" meanAbs="4.91" medianAbs="4.91" stdDev="0.00"/>
+        <overlapTraveltime count="2" min="7.97" minLabel="CE" max="7.99" maxLabel="CE" mean="7.98" Q1="7.97" median="7.99" Q3="7.99" meanAbs="7.98" medianAbs="7.99" stdDev="0.01"/>
+        <sampledSeconds count="2" min="3340.94" minLabel="CE" max="3342.45" maxLabel="CE" mean="3341.69" Q1="3340.94" median="3342.45" Q3="3342.45" meanAbs="3341.69" medianAbs="3342.45" stdDev="0.75"/>
+        <speed count="2" min="11.83" minLabel="CE" max="11.87" maxLabel="CE" mean="11.85" Q1="11.83" median="11.87" Q3="11.87" meanAbs="11.85" medianAbs="11.87" stdDev="0.02"/>
+        <speedRelative count="2" min="0.85" minLabel="CE" max="0.85" maxLabel="CE" mean="0.85" Q1="0.85" median="0.85" Q3="0.85" meanAbs="0.85" medianAbs="0.85" stdDev="0.00"/>
+        <timeLoss count="2" min="438.04" minLabel="CE" max="469.10" maxLabel="CE" mean="453.57" Q1="438.04" median="469.10" Q3="469.10" meanAbs="453.57" medianAbs="469.10" stdDev="15.53"/>
+        <traveltime count="2" min="7.54" minLabel="CE" max="7.57" maxLabel="CE" mean="7.55" Q1="7.54" median="7.57" Q3="7.57" meanAbs="7.55" medianAbs="7.57" stdDev="0.02"/>
+        <waitingTime count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|CN">
+        <arrived count="2" min="422.00" minLabel="CN" max="428.00" maxLabel="CN" mean="425.00" Q1="422.00" median="428.00" Q3="428.00" meanAbs="425.00" medianAbs="428.00" stdDev="3.00"/>
+        <density count="2" min="20.39" minLabel="CN" max="20.44" maxLabel="CN" mean="20.41" Q1="20.39" median="20.44" Q3="20.44" meanAbs="20.41" medianAbs="20.44" stdDev="0.03"/>
+        <departed count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="421.00" minLabel="CN" max="427.00" maxLabel="CN" mean="424.00" Q1="421.00" median="427.00" Q3="427.00" meanAbs="424.00" medianAbs="427.00" stdDev="3.00"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneDensity count="2" min="10.20" minLabel="CN" max="10.22" maxLabel="CN" mean="10.21" Q1="10.20" median="10.22" Q3="10.22" meanAbs="10.21" medianAbs="10.22" stdDev="0.01"/>
+        <left count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.83" minLabel="CN" max="4.84" maxLabel="CN" mean="4.83" Q1="4.83" median="4.84" Q3="4.84" meanAbs="4.83" medianAbs="4.84" stdDev="0.00"/>
+        <overlapTraveltime count="2" min="7.78" minLabel="CN" max="7.92" maxLabel="CN" mean="7.85" Q1="7.78" median="7.92" Q3="7.92" meanAbs="7.85" medianAbs="7.92" stdDev="0.07"/>
+        <sampledSeconds count="2" min="3288.85" minLabel="CN" max="3296.42" maxLabel="CN" mean="3292.64" Q1="3288.85" median="3296.42" Q3="3296.42" meanAbs="3292.64" medianAbs="3296.42" stdDev="3.79"/>
+        <speed count="2" min="11.95" minLabel="CN" max="12.15" maxLabel="CN" mean="12.05" Q1="11.95" median="12.15" Q3="12.15" meanAbs="12.05" medianAbs="12.15" stdDev="0.10"/>
+        <speedRelative count="2" min="0.86" minLabel="CN" max="0.88" maxLabel="CN" mean="0.87" Q1="0.86" median="0.88" Q3="0.88" meanAbs="0.87" medianAbs="0.88" stdDev="0.01"/>
+        <timeLoss count="2" min="374.97" minLabel="CN" max="408.53" maxLabel="CN" mean="391.75" Q1="374.97" median="408.53" Q3="408.53" meanAbs="391.75" medianAbs="408.53" stdDev="16.78"/>
+        <traveltime count="2" min="7.39" minLabel="CN" max="7.51" maxLabel="CN" mean="7.45" Q1="7.39" median="7.51" Q3="7.51" meanAbs="7.45" medianAbs="7.51" stdDev="0.06"/>
+        <waitingTime count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|CS">
+        <arrived count="2" min="435.00" minLabel="CS" max="444.00" maxLabel="CS" mean="439.50" Q1="435.00" median="444.00" Q3="444.00" meanAbs="439.50" medianAbs="444.00" stdDev="4.50"/>
+        <density count="2" min="21.22" minLabel="CS" max="21.43" maxLabel="CS" mean="21.32" Q1="21.22" median="21.43" Q3="21.43" meanAbs="21.32" medianAbs="21.43" stdDev="0.11"/>
+        <departed count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="437.00" minLabel="CS" max="446.00" maxLabel="CS" mean="441.50" Q1="437.00" median="446.00" Q3="446.00" meanAbs="441.50" medianAbs="446.00" stdDev="4.50"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CS" max="5.00" maxLabel="CS" mean="2.50" Q1="0.00" median="5.00" Q3="5.00" meanAbs="2.50" medianAbs="5.00" stdDev="2.50"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CS" max="5.00" maxLabel="CS" mean="2.50" Q1="0.00" median="5.00" Q3="5.00" meanAbs="2.50" medianAbs="5.00" stdDev="2.50"/>
+        <laneDensity count="2" min="10.61" minLabel="CS" max="10.72" maxLabel="CS" mean="10.66" Q1="10.61" median="10.72" Q3="10.72" meanAbs="10.66" medianAbs="10.72" stdDev="0.06"/>
+        <left count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="5.04" minLabel="CS" max="5.08" maxLabel="CS" mean="5.06" Q1="5.04" median="5.08" Q3="5.08" meanAbs="5.06" medianAbs="5.08" stdDev="0.02"/>
+        <overlapTraveltime count="2" min="7.87" minLabel="CS" max="7.95" maxLabel="CS" mean="7.91" Q1="7.87" median="7.95" Q3="7.95" meanAbs="7.91" medianAbs="7.95" stdDev="0.04"/>
+        <sampledSeconds count="2" min="3422.97" minLabel="CS" max="3457.03" maxLabel="CS" mean="3440.00" Q1="3422.97" median="3457.03" Q3="3457.03" meanAbs="3440.00" medianAbs="3457.03" stdDev="17.03"/>
+        <speed count="2" min="11.90" minLabel="CS" max="12.02" maxLabel="CS" mean="11.96" Q1="11.90" median="12.02" Q3="12.02" meanAbs="11.96" medianAbs="12.02" stdDev="0.06"/>
+        <speedRelative count="2" min="0.86" minLabel="CS" max="0.87" maxLabel="CS" mean="0.86" Q1="0.86" median="0.87" Q3="0.87" meanAbs="0.86" medianAbs="0.87" stdDev="0.01"/>
+        <timeLoss count="2" min="417.12" minLabel="CS" max="461.76" maxLabel="CS" mean="439.44" Q1="417.12" median="461.76" Q3="461.76" meanAbs="439.44" medianAbs="461.76" stdDev="22.32"/>
+        <traveltime count="2" min="7.45" minLabel="CS" max="7.53" maxLabel="CS" mean="7.49" Q1="7.45" median="7.53" Q3="7.53" meanAbs="7.49" medianAbs="7.53" stdDev="0.04"/>
+        <waitingTime count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|CW">
+        <arrived count="2" min="417.00" minLabel="CW" max="418.00" maxLabel="CW" mean="417.50" Q1="417.00" median="418.00" Q3="418.00" meanAbs="417.50" medianAbs="418.00" stdDev="0.50"/>
+        <density count="2" min="20.11" minLabel="CW" max="20.61" maxLabel="CW" mean="20.36" Q1="20.11" median="20.61" Q3="20.61" meanAbs="20.36" medianAbs="20.61" stdDev="0.25"/>
+        <departed count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="417.00" minLabel="CW" max="418.00" maxLabel="CW" mean="417.50" Q1="417.00" median="418.00" Q3="418.00" meanAbs="417.50" medianAbs="418.00" stdDev="0.50"/>
+        <laneChangedFrom count="2" min="3.00" minLabel="CW" max="4.00" maxLabel="CW" mean="3.50" Q1="3.00" median="4.00" Q3="4.00" meanAbs="3.50" medianAbs="4.00" stdDev="0.50"/>
+        <laneChangedTo count="2" min="3.00" minLabel="CW" max="4.00" maxLabel="CW" mean="3.50" Q1="3.00" median="4.00" Q3="4.00" meanAbs="3.50" medianAbs="4.00" stdDev="0.50"/>
+        <laneDensity count="2" min="10.06" minLabel="CW" max="10.30" maxLabel="CW" mean="10.18" Q1="10.06" median="10.30" Q3="10.30" meanAbs="10.18" medianAbs="10.30" stdDev="0.12"/>
+        <left count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="4.77" minLabel="CW" max="4.89" maxLabel="CW" mean="4.83" Q1="4.77" median="4.89" Q3="4.89" meanAbs="4.83" medianAbs="4.89" stdDev="0.06"/>
+        <overlapTraveltime count="2" min="7.85" minLabel="CW" max="8.06" maxLabel="CW" mean="7.96" Q1="7.85" median="8.06" Q3="8.06" meanAbs="7.96" medianAbs="8.06" stdDev="0.11"/>
+        <sampledSeconds count="2" min="3243.69" minLabel="CW" max="3323.21" maxLabel="CW" mean="3283.45" Q1="3243.69" median="3323.21" Q3="3323.21" meanAbs="3283.45" medianAbs="3323.21" stdDev="39.76"/>
+        <speed count="2" min="11.73" minLabel="CW" max="12.05" maxLabel="CW" mean="11.89" Q1="11.73" median="12.05" Q3="12.05" meanAbs="11.89" medianAbs="12.05" stdDev="0.16"/>
+        <speedRelative count="2" min="0.84" minLabel="CW" max="0.87" maxLabel="CW" mean="0.85" Q1="0.84" median="0.87" Q3="0.87" meanAbs="0.85" medianAbs="0.87" stdDev="0.02"/>
+        <timeLoss count="2" min="408.74" minLabel="CW" max="481.20" maxLabel="CW" mean="444.97" Q1="408.74" median="481.20" Q3="481.20" meanAbs="444.97" medianAbs="481.20" stdDev="36.23"/>
+        <traveltime count="2" min="7.44" minLabel="CW" max="7.63" maxLabel="CW" mean="7.54" Q1="7.44" median="7.63" Q3="7.63" meanAbs="7.54" medianAbs="7.63" stdDev="0.09"/>
+        <waitingTime count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|EC">
+        <arrived count="2" min="0.00" minLabel="EC" max="0.00" maxLabel="EC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="163.93" minLabel="EC" max="167.74" maxLabel="EC" mean="165.84" Q1="163.93" median="167.74" Q3="167.74" meanAbs="165.84" medianAbs="167.74" stdDev="1.91"/>
+        <departed count="2" min="452.00" minLabel="EC" max="454.00" maxLabel="EC" mean="453.00" Q1="452.00" median="454.00" Q3="454.00" meanAbs="453.00" medianAbs="454.00" stdDev="1.00"/>
+        <entered count="2" min="0.00" minLabel="EC" max="0.00" maxLabel="EC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="264.00" minLabel="EC" max="270.00" maxLabel="EC" mean="267.00" Q1="264.00" median="270.00" Q3="270.00" meanAbs="267.00" medianAbs="270.00" stdDev="3.00"/>
+        <laneChangedTo count="2" min="264.00" minLabel="EC" max="270.00" maxLabel="EC" mean="267.00" Q1="264.00" median="270.00" Q3="270.00" meanAbs="267.00" medianAbs="270.00" stdDev="3.00"/>
+        <laneDensity count="2" min="81.97" minLabel="EC" max="83.87" maxLabel="EC" mean="82.92" Q1="81.97" median="83.87" Q3="83.87" meanAbs="82.92" medianAbs="83.87" stdDev="0.95"/>
+        <left count="2" min="449.00" minLabel="EC" max="458.00" maxLabel="EC" mean="453.50" Q1="449.00" median="458.00" Q3="458.00" meanAbs="453.50" medianAbs="458.00" stdDev="4.50"/>
+        <occupancy count="2" min="40.49" minLabel="EC" max="41.46" maxLabel="EC" mean="40.98" Q1="40.49" median="41.46" Q3="41.46" meanAbs="40.98" medianAbs="41.46" stdDev="0.48"/>
+        <overlapTraveltime count="2" min="61.43" minLabel="EC" max="63.43" maxLabel="EC" mean="62.43" Q1="61.43" median="63.43" Q3="63.43" meanAbs="62.43" medianAbs="63.43" stdDev="1.00"/>
+        <sampledSeconds count="2" min="26438.95" minLabel="EC" max="27052.80" maxLabel="EC" mean="26745.88" Q1="26438.95" median="27052.80" Q3="27052.80" meanAbs="26745.88" medianAbs="27052.80" stdDev="306.92"/>
+        <speed count="2" min="1.49" minLabel="EC" max="1.54" maxLabel="EC" mean="1.52" Q1="1.49" median="1.54" Q3="1.54" meanAbs="1.52" medianAbs="1.54" stdDev="0.03"/>
+        <speedRelative count="2" min="0.11" minLabel="EC" max="0.11" maxLabel="EC" mean="0.11" Q1="0.11" median="0.11" Q3="0.11" meanAbs="0.11" medianAbs="0.11" stdDev="0.00"/>
+        <timeLoss count="2" min="23468.26" minLabel="EC" max="24096.49" maxLabel="EC" mean="23782.38" Q1="23468.26" median="24096.49" Q3="24096.49" meanAbs="23782.38" medianAbs="24096.49" stdDev="314.12"/>
+        <traveltime count="2" min="60.40" minLabel="EC" max="62.34" maxLabel="EC" mean="61.37" Q1="60.40" median="62.34" Q3="62.34" meanAbs="61.37" medianAbs="62.34" stdDev="0.97"/>
+        <waitingTime count="2" min="16357.00" minLabel="EC" max="16585.00" maxLabel="EC" mean="16471.00" Q1="16357.00" median="16585.00" Q3="16585.00" meanAbs="16471.00" medianAbs="16585.00" stdDev="114.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|NC">
+        <arrived count="2" min="0.00" minLabel="NC" max="0.00" maxLabel="NC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="131.61" minLabel="NC" max="143.34" maxLabel="NC" mean="137.48" Q1="131.61" median="143.34" Q3="143.34" meanAbs="137.48" medianAbs="143.34" stdDev="5.86"/>
+        <departed count="2" min="436.00" minLabel="NC" max="469.00" maxLabel="NC" mean="452.50" Q1="436.00" median="469.00" Q3="469.00" meanAbs="452.50" medianAbs="469.00" stdDev="16.50"/>
+        <entered count="2" min="0.00" minLabel="NC" max="0.00" maxLabel="NC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="236.00" minLabel="NC" max="258.00" maxLabel="NC" mean="247.00" Q1="236.00" median="258.00" Q3="258.00" meanAbs="247.00" medianAbs="258.00" stdDev="11.00"/>
+        <laneChangedTo count="2" min="236.00" minLabel="NC" max="258.00" maxLabel="NC" mean="247.00" Q1="236.00" median="258.00" Q3="258.00" meanAbs="247.00" medianAbs="258.00" stdDev="11.00"/>
+        <laneDensity count="2" min="65.81" minLabel="NC" max="71.67" maxLabel="NC" mean="68.74" Q1="65.81" median="71.67" Q3="71.67" meanAbs="68.74" medianAbs="71.67" stdDev="2.93"/>
+        <left count="2" min="437.00" minLabel="NC" max="469.00" maxLabel="NC" mean="453.00" Q1="437.00" median="469.00" Q3="469.00" meanAbs="453.00" medianAbs="469.00" stdDev="16.00"/>
+        <occupancy count="2" min="32.42" minLabel="NC" max="35.34" maxLabel="NC" mean="33.88" Q1="32.42" median="35.34" Q3="35.34" meanAbs="33.88" medianAbs="35.34" stdDev="1.46"/>
+        <overlapTraveltime count="2" min="47.85" minLabel="NC" max="55.93" maxLabel="NC" mean="51.89" Q1="47.85" median="55.93" Q3="55.93" meanAbs="51.89" medianAbs="55.93" stdDev="4.04"/>
+        <sampledSeconds count="2" min="21226.52" minLabel="NC" max="23117.33" maxLabel="NC" mean="22171.93" Q1="21226.52" median="23117.33" Q3="23117.33" meanAbs="22171.93" medianAbs="23117.33" stdDev="945.41"/>
+        <speed count="2" min="1.69" minLabel="NC" max="1.98" maxLabel="NC" mean="1.83" Q1="1.69" median="1.98" Q3="1.98" meanAbs="1.83" medianAbs="1.98" stdDev="0.15"/>
+        <speedRelative count="2" min="0.12" minLabel="NC" max="0.14" maxLabel="NC" mean="0.13" Q1="0.12" median="0.14" Q3="0.14" meanAbs="0.13" medianAbs="0.14" stdDev="0.01"/>
+        <timeLoss count="2" min="18175.52" minLabel="NC" max="20259.58" maxLabel="NC" mean="19217.55" Q1="18175.52" median="20259.58" Q3="20259.58" meanAbs="19217.55" medianAbs="20259.58" stdDev="1042.03"/>
+        <traveltime count="2" min="46.77" minLabel="NC" max="54.83" maxLabel="NC" mean="50.80" Q1="46.77" median="54.83" Q3="54.83" meanAbs="50.80" medianAbs="54.83" stdDev="4.03"/>
+        <waitingTime count="2" min="11939.00" minLabel="NC" max="13933.00" maxLabel="NC" mean="12936.00" Q1="11939.00" median="13933.00" Q3="13933.00" meanAbs="12936.00" medianAbs="13933.00" stdDev="997.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|SC">
+        <arrived count="2" min="0.00" minLabel="SC" max="0.00" maxLabel="SC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="171.63" minLabel="SC" max="182.26" maxLabel="SC" mean="176.94" Q1="171.63" median="182.26" Q3="182.26" meanAbs="176.94" medianAbs="182.26" stdDev="5.31"/>
+        <departed count="2" min="393.00" minLabel="SC" max="406.00" maxLabel="SC" mean="399.50" Q1="393.00" median="406.00" Q3="406.00" meanAbs="399.50" medianAbs="406.00" stdDev="6.50"/>
+        <entered count="2" min="0.00" minLabel="SC" max="0.00" maxLabel="SC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="222.00" minLabel="SC" max="233.00" maxLabel="SC" mean="227.50" Q1="222.00" median="233.00" Q3="233.00" meanAbs="227.50" medianAbs="233.00" stdDev="5.50"/>
+        <laneChangedTo count="2" min="222.00" minLabel="SC" max="233.00" maxLabel="SC" mean="227.50" Q1="222.00" median="233.00" Q3="233.00" meanAbs="227.50" medianAbs="233.00" stdDev="5.50"/>
+        <laneDensity count="2" min="85.82" minLabel="SC" max="91.13" maxLabel="SC" mean="88.47" Q1="85.82" median="91.13" Q3="91.13" meanAbs="88.47" medianAbs="91.13" stdDev="2.66"/>
+        <left count="2" min="390.00" minLabel="SC" max="408.00" maxLabel="SC" mean="399.00" Q1="390.00" median="408.00" Q3="408.00" meanAbs="399.00" medianAbs="408.00" stdDev="9.00"/>
+        <occupancy count="2" min="42.28" minLabel="SC" max="44.92" maxLabel="SC" mean="43.60" Q1="42.28" median="44.92" Q3="44.92" meanAbs="43.60" medianAbs="44.92" stdDev="1.32"/>
+        <overlapTraveltime count="2" min="71.80" minLabel="SC" max="79.56" maxLabel="SC" mean="75.68" Q1="71.80" median="79.56" Q3="79.56" meanAbs="75.68" medianAbs="79.56" stdDev="3.88"/>
+        <sampledSeconds count="2" min="27680.94" minLabel="SC" max="29395.26" maxLabel="SC" mean="28538.10" Q1="27680.94" median="29395.26" Q3="29395.26" meanAbs="28538.10" medianAbs="29395.26" stdDev="857.16"/>
+        <speed count="2" min="1.19" minLabel="SC" max="1.32" maxLabel="SC" mean="1.25" Q1="1.19" median="1.32" Q3="1.32" meanAbs="1.25" medianAbs="1.32" stdDev="0.07"/>
+        <speedRelative count="2" min="0.09" minLabel="SC" max="0.09" maxLabel="SC" mean="0.09" Q1="0.09" median="0.09" Q3="0.09" meanAbs="0.09" medianAbs="0.09" stdDev="0.00"/>
+        <timeLoss count="2" min="25018.74" minLabel="SC" max="26855.67" maxLabel="SC" mean="25937.21" Q1="25018.74" median="26855.67" Q3="26855.67" meanAbs="25937.21" medianAbs="26855.67" stdDev="918.46"/>
+        <traveltime count="2" min="70.42" minLabel="SC" max="78.07" maxLabel="SC" mean="74.25" Q1="70.42" median="78.07" Q3="78.07" meanAbs="74.25" medianAbs="78.07" stdDev="3.82"/>
+        <waitingTime count="2" min="17806.00" minLabel="SC" max="19540.00" maxLabel="SC" mean="18673.00" Q1="17806.00" median="19540.00" Q3="19540.00" meanAbs="18673.00" medianAbs="19540.00" stdDev="867.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|1800.00|WC">
+        <arrived count="2" min="0.00" minLabel="WC" max="0.00" maxLabel="WC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="165.37" minLabel="WC" max="174.96" maxLabel="WC" mean="170.17" Q1="165.37" median="174.96" Q3="174.96" meanAbs="170.17" medianAbs="174.96" stdDev="4.80"/>
+        <departed count="2" min="399.00" minLabel="WC" max="406.00" maxLabel="WC" mean="402.50" Q1="399.00" median="406.00" Q3="406.00" meanAbs="402.50" medianAbs="406.00" stdDev="3.50"/>
+        <entered count="2" min="0.00" minLabel="WC" max="0.00" maxLabel="WC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="218.00" minLabel="WC" max="225.00" maxLabel="WC" mean="221.50" Q1="218.00" median="225.00" Q3="225.00" meanAbs="221.50" medianAbs="225.00" stdDev="3.50"/>
+        <laneChangedTo count="2" min="218.00" minLabel="WC" max="225.00" maxLabel="WC" mean="221.50" Q1="218.00" median="225.00" Q3="225.00" meanAbs="221.50" medianAbs="225.00" stdDev="3.50"/>
+        <laneDensity count="2" min="82.69" minLabel="WC" max="87.48" maxLabel="WC" mean="85.09" Q1="82.69" median="87.48" Q3="87.48" meanAbs="85.09" medianAbs="87.48" stdDev="2.40"/>
+        <left count="2" min="397.00" minLabel="WC" max="406.00" maxLabel="WC" mean="401.50" Q1="397.00" median="406.00" Q3="406.00" meanAbs="401.50" medianAbs="406.00" stdDev="4.50"/>
+        <occupancy count="2" min="40.77" minLabel="WC" max="43.14" maxLabel="WC" mean="41.95" Q1="40.77" median="43.14" Q3="43.14" meanAbs="41.95" medianAbs="43.14" stdDev="1.18"/>
+        <overlapTraveltime count="2" min="69.33" minLabel="WC" max="74.74" maxLabel="WC" mean="72.03" Q1="69.33" median="74.74" Q3="74.74" meanAbs="72.03" medianAbs="74.74" stdDev="2.70"/>
+        <sampledSeconds count="2" min="26671.20" minLabel="WC" max="28216.80" maxLabel="WC" mean="27444.00" Q1="26671.20" median="28216.80" Q3="28216.80" meanAbs="27444.00" medianAbs="28216.80" stdDev="772.80"/>
+        <speed count="2" min="1.27" minLabel="WC" max="1.36" maxLabel="WC" mean="1.31" Q1="1.27" median="1.36" Q3="1.36" meanAbs="1.31" medianAbs="1.36" stdDev="0.05"/>
+        <speedRelative count="2" min="0.09" minLabel="WC" max="0.10" maxLabel="WC" mean="0.10" Q1="0.09" median="0.10" Q3="0.10" meanAbs="0.10" medianAbs="0.10" stdDev="0.01"/>
+        <timeLoss count="2" min="24022.68" minLabel="WC" max="25605.56" maxLabel="WC" mean="24814.12" Q1="24022.68" median="25605.56" Q3="25605.56" meanAbs="24814.12" medianAbs="25605.56" stdDev="791.44"/>
+        <traveltime count="2" min="68.02" minLabel="WC" max="73.34" maxLabel="WC" mean="70.68" Q1="68.02" median="73.34" Q3="73.34" meanAbs="70.68" medianAbs="73.34" stdDev="2.66"/>
+        <waitingTime count="2" min="16971.00" minLabel="WC" max="18130.00" maxLabel="WC" mean="17550.50" Q1="16971.00" median="18130.00" Q3="18130.00" meanAbs="17550.50" medianAbs="18130.00" stdDev="579.50"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|CE">
+        <arrived count="2" min="49.00" minLabel="CE" max="52.00" maxLabel="CE" mean="50.50" Q1="49.00" median="52.00" Q3="52.00" meanAbs="50.50" medianAbs="52.00" stdDev="1.50"/>
+        <density count="2" min="10.43" minLabel="CE" max="11.54" maxLabel="CE" mean="10.98" Q1="10.43" median="11.54" Q3="11.54" meanAbs="10.98" medianAbs="11.54" stdDev="0.55"/>
+        <departed count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="49.00" minLabel="CE" max="51.00" maxLabel="CE" mean="50.00" Q1="49.00" median="51.00" Q3="51.00" meanAbs="50.00" medianAbs="51.00" stdDev="1.00"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneDensity count="2" min="5.21" minLabel="CE" max="5.77" maxLabel="CE" mean="5.49" Q1="5.21" median="5.77" Q3="5.77" meanAbs="5.49" medianAbs="5.77" stdDev="0.28"/>
+        <left count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="2.47" minLabel="CE" max="2.74" maxLabel="CE" mean="2.61" Q1="2.47" median="2.74" Q3="2.74" meanAbs="2.61" medianAbs="2.74" stdDev="0.14"/>
+        <overlapTraveltime count="2" min="7.65" minLabel="CE" max="7.73" maxLabel="CE" mean="7.69" Q1="7.65" median="7.73" Q3="7.73" meanAbs="7.69" medianAbs="7.73" stdDev="0.04"/>
+        <sampledSeconds count="2" min="371.79" minLabel="CE" max="395.97" maxLabel="CE" mean="383.88" Q1="371.79" median="395.97" Q3="395.97" meanAbs="383.88" medianAbs="395.97" stdDev="12.09"/>
+        <speed count="2" min="12.24" minLabel="CE" max="12.36" maxLabel="CE" mean="12.30" Q1="12.24" median="12.36" Q3="12.36" meanAbs="12.30" medianAbs="12.36" stdDev="0.06"/>
+        <speedRelative count="2" min="0.88" minLabel="CE" max="0.89" maxLabel="CE" mean="0.89" Q1="0.88" median="0.89" Q3="0.89" meanAbs="0.89" medianAbs="0.89" stdDev="0.01"/>
+        <timeLoss count="2" min="32.84" minLabel="CE" max="34.62" maxLabel="CE" mean="33.73" Q1="32.84" median="34.62" Q3="34.62" meanAbs="33.73" medianAbs="34.62" stdDev="0.89"/>
+        <traveltime count="2" min="7.26" minLabel="CE" max="7.33" maxLabel="CE" mean="7.29" Q1="7.26" median="7.33" Q3="7.33" meanAbs="7.29" medianAbs="7.33" stdDev="0.04"/>
+        <waitingTime count="2" min="0.00" minLabel="CE" max="0.00" maxLabel="CE" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|CN">
+        <arrived count="2" min="73.00" minLabel="CN" max="80.00" maxLabel="CN" mean="76.50" Q1="73.00" median="80.00" Q3="80.00" meanAbs="76.50" medianAbs="80.00" stdDev="3.50"/>
+        <density count="2" min="16.68" minLabel="CN" max="17.88" maxLabel="CN" mean="17.28" Q1="16.68" median="17.88" Q3="17.88" meanAbs="17.28" medianAbs="17.88" stdDev="0.60"/>
+        <departed count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="72.00" minLabel="CN" max="80.00" maxLabel="CN" mean="76.00" Q1="72.00" median="80.00" Q3="80.00" meanAbs="76.00" medianAbs="80.00" stdDev="4.00"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CN" max="2.00" maxLabel="CN" mean="1.00" Q1="0.00" median="2.00" Q3="2.00" meanAbs="1.00" medianAbs="2.00" stdDev="1.00"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CN" max="2.00" maxLabel="CN" mean="1.00" Q1="0.00" median="2.00" Q3="2.00" meanAbs="1.00" medianAbs="2.00" stdDev="1.00"/>
+        <laneDensity count="2" min="8.34" minLabel="CN" max="8.94" maxLabel="CN" mean="8.64" Q1="8.34" median="8.94" Q3="8.94" meanAbs="8.64" medianAbs="8.94" stdDev="0.30"/>
+        <left count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="3.96" minLabel="CN" max="4.25" maxLabel="CN" mean="4.11" Q1="3.96" median="4.25" Q3="4.25" meanAbs="4.11" medianAbs="4.25" stdDev="0.15"/>
+        <overlapTraveltime count="2" min="7.98" minLabel="CN" max="8.08" maxLabel="CN" mean="8.03" Q1="7.98" median="8.08" Q3="8.08" meanAbs="8.03" medianAbs="8.08" stdDev="0.05"/>
+        <sampledSeconds count="2" min="572.41" minLabel="CN" max="637.69" maxLabel="CN" mean="605.05" Q1="572.41" median="637.69" Q3="637.69" meanAbs="605.05" medianAbs="637.69" stdDev="32.64"/>
+        <speed count="2" min="11.71" minLabel="CN" max="11.85" maxLabel="CN" mean="11.78" Q1="11.71" median="11.85" Q3="11.85" meanAbs="11.78" medianAbs="11.85" stdDev="0.07"/>
+        <speedRelative count="2" min="0.84" minLabel="CN" max="0.85" maxLabel="CN" mean="0.84" Q1="0.84" median="0.85" Q3="0.85" meanAbs="0.84" medianAbs="0.85" stdDev="0.01"/>
+        <timeLoss count="2" min="69.54" minLabel="CN" max="92.44" maxLabel="CN" mean="80.99" Q1="69.54" median="92.44" Q3="92.44" meanAbs="80.99" medianAbs="92.44" stdDev="11.45"/>
+        <traveltime count="2" min="7.57" minLabel="CN" max="7.65" maxLabel="CN" mean="7.61" Q1="7.57" median="7.65" Q3="7.65" meanAbs="7.61" medianAbs="7.65" stdDev="0.04"/>
+        <waitingTime count="2" min="0.00" minLabel="CN" max="0.00" maxLabel="CN" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|CS">
+        <arrived count="2" min="50.00" minLabel="CS" max="61.00" maxLabel="CS" mean="55.50" Q1="50.00" median="61.00" Q3="61.00" meanAbs="55.50" medianAbs="61.00" stdDev="5.50"/>
+        <density count="2" min="10.90" minLabel="CS" max="13.47" maxLabel="CS" mean="12.19" Q1="10.90" median="13.47" Q3="13.47" meanAbs="12.19" medianAbs="13.47" stdDev="1.29"/>
+        <departed count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="47.00" minLabel="CS" max="58.00" maxLabel="CS" mean="52.50" Q1="47.00" median="58.00" Q3="58.00" meanAbs="52.50" medianAbs="58.00" stdDev="5.50"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CS" max="1.00" maxLabel="CS" mean="0.50" Q1="0.00" median="1.00" Q3="1.00" meanAbs="0.50" medianAbs="1.00" stdDev="0.50"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CS" max="1.00" maxLabel="CS" mean="0.50" Q1="0.00" median="1.00" Q3="1.00" meanAbs="0.50" medianAbs="1.00" stdDev="0.50"/>
+        <laneDensity count="2" min="5.45" minLabel="CS" max="6.73" maxLabel="CS" mean="6.09" Q1="5.45" median="6.73" Q3="6.73" meanAbs="6.09" medianAbs="6.73" stdDev="0.64"/>
+        <left count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="2.57" minLabel="CS" max="3.20" maxLabel="CS" mean="2.88" Q1="2.57" median="3.20" Q3="3.20" meanAbs="2.88" medianAbs="3.20" stdDev="0.32"/>
+        <overlapTraveltime count="2" min="7.85" minLabel="CS" max="8.21" maxLabel="CS" mean="8.03" Q1="7.85" median="8.21" Q3="8.21" meanAbs="8.03" medianAbs="8.21" stdDev="0.18"/>
+        <sampledSeconds count="2" min="374.07" minLabel="CS" max="480.17" maxLabel="CS" mean="427.12" Q1="374.07" median="480.17" Q3="480.17" meanAbs="427.12" medianAbs="480.17" stdDev="53.05"/>
+        <speed count="2" min="11.52" minLabel="CS" max="12.05" maxLabel="CS" mean="11.79" Q1="11.52" median="12.05" Q3="12.05" meanAbs="11.79" medianAbs="12.05" stdDev="0.27"/>
+        <speedRelative count="2" min="0.83" minLabel="CS" max="0.87" maxLabel="CS" mean="0.85" Q1="0.83" median="0.87" Q3="0.87" meanAbs="0.85" medianAbs="0.87" stdDev="0.02"/>
+        <timeLoss count="2" min="50.90" minLabel="CS" max="76.63" maxLabel="CS" mean="63.77" Q1="50.90" median="76.63" Q3="76.63" meanAbs="63.77" medianAbs="76.63" stdDev="12.86"/>
+        <traveltime count="2" min="7.45" minLabel="CS" max="7.74" maxLabel="CS" mean="7.60" Q1="7.45" median="7.74" Q3="7.74" meanAbs="7.60" medianAbs="7.74" stdDev="0.15"/>
+        <waitingTime count="2" min="0.00" minLabel="CS" max="0.00" maxLabel="CS" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|CW">
+        <arrived count="2" min="53.00" minLabel="CW" max="64.00" maxLabel="CW" mean="58.50" Q1="53.00" median="64.00" Q3="64.00" meanAbs="58.50" medianAbs="64.00" stdDev="5.50"/>
+        <density count="2" min="11.75" minLabel="CW" max="13.75" maxLabel="CW" mean="12.75" Q1="11.75" median="13.75" Q3="13.75" meanAbs="12.75" medianAbs="13.75" stdDev="1.00"/>
+        <departed count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <entered count="2" min="51.00" minLabel="CW" max="61.00" maxLabel="CW" mean="56.00" Q1="51.00" median="61.00" Q3="61.00" meanAbs="56.00" medianAbs="61.00" stdDev="5.00"/>
+        <laneChangedFrom count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedTo count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneDensity count="2" min="5.88" minLabel="CW" max="6.88" maxLabel="CW" mean="6.38" Q1="5.88" median="6.88" Q3="6.88" meanAbs="6.38" medianAbs="6.88" stdDev="0.50"/>
+        <left count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <occupancy count="2" min="2.78" minLabel="CW" max="3.27" maxLabel="CW" mean="3.02" Q1="2.78" median="3.27" Q3="3.27" meanAbs="3.02" medianAbs="3.27" stdDev="0.25"/>
+        <overlapTraveltime count="2" min="7.91" minLabel="CW" max="7.99" maxLabel="CW" mean="7.95" Q1="7.91" median="7.99" Q3="7.99" meanAbs="7.95" medianAbs="7.99" stdDev="0.04"/>
+        <sampledSeconds count="2" min="403.27" minLabel="CW" max="490.37" maxLabel="CW" mean="446.82" Q1="403.27" median="490.37" Q3="490.37" meanAbs="446.82" medianAbs="490.37" stdDev="43.55"/>
+        <speed count="2" min="11.83" minLabel="CW" max="11.96" maxLabel="CW" mean="11.89" Q1="11.83" median="11.96" Q3="11.96" meanAbs="11.89" medianAbs="11.96" stdDev="0.07"/>
+        <speedRelative count="2" min="0.85" minLabel="CW" max="0.86" maxLabel="CW" mean="0.85" Q1="0.85" median="0.86" Q3="0.86" meanAbs="0.85" medianAbs="0.86" stdDev="0.01"/>
+        <timeLoss count="2" min="47.76" minLabel="CW" max="67.66" maxLabel="CW" mean="57.71" Q1="47.76" median="67.66" Q3="67.66" meanAbs="57.71" medianAbs="67.66" stdDev="9.95"/>
+        <traveltime count="2" min="7.51" minLabel="CW" max="7.55" maxLabel="CW" mean="7.53" Q1="7.51" median="7.55" Q3="7.55" meanAbs="7.53" medianAbs="7.55" stdDev="0.02"/>
+        <waitingTime count="2" min="0.00" minLabel="CW" max="0.00" maxLabel="CW" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|EC">
+        <arrived count="2" min="0.00" minLabel="EC" max="0.00" maxLabel="EC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="24.72" minLabel="EC" max="31.77" maxLabel="EC" mean="28.24" Q1="24.72" median="31.77" Q3="31.77" meanAbs="28.24" medianAbs="31.77" stdDev="3.53"/>
+        <departed count="2" min="10.00" minLabel="EC" max="10.00" maxLabel="EC" mean="10.00" Q1="10.00" median="10.00" Q3="10.00" meanAbs="10.00" medianAbs="10.00" stdDev="0.00"/>
+        <entered count="2" min="0.00" minLabel="EC" max="0.00" maxLabel="EC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="6.00" minLabel="EC" max="7.00" maxLabel="EC" mean="6.50" Q1="6.00" median="7.00" Q3="7.00" meanAbs="6.50" medianAbs="7.00" stdDev="0.50"/>
+        <laneChangedTo count="2" min="6.00" minLabel="EC" max="7.00" maxLabel="EC" mean="6.50" Q1="6.00" median="7.00" Q3="7.00" meanAbs="6.50" medianAbs="7.00" stdDev="0.50"/>
+        <laneDensity count="2" min="12.36" minLabel="EC" max="15.89" maxLabel="EC" mean="14.12" Q1="12.36" median="15.89" Q3="15.89" meanAbs="14.12" medianAbs="15.89" stdDev="1.77"/>
+        <left count="2" min="16.00" minLabel="EC" max="20.00" maxLabel="EC" mean="18.00" Q1="16.00" median="20.00" Q3="20.00" meanAbs="18.00" medianAbs="20.00" stdDev="2.00"/>
+        <occupancy count="2" min="6.08" minLabel="EC" max="7.86" maxLabel="EC" mean="6.97" Q1="6.08" median="7.86" Q3="7.86" meanAbs="6.97" medianAbs="7.86" stdDev="0.89"/>
+        <overlapTraveltime count="2" min="69.81" minLabel="EC" max="83.62" maxLabel="EC" mean="76.72" Q1="69.81" median="83.62" Q3="83.62" meanAbs="76.72" medianAbs="83.62" stdDev="6.91"/>
+        <sampledSeconds count="2" min="848.45" minLabel="EC" max="1133.02" maxLabel="EC" mean="990.74" Q1="848.45" median="1133.02" Q3="1133.02" meanAbs="990.74" medianAbs="1133.02" stdDev="142.28"/>
+        <speed count="2" min="1.13" minLabel="EC" max="1.36" maxLabel="EC" mean="1.25" Q1="1.13" median="1.36" Q3="1.36" meanAbs="1.25" medianAbs="1.36" stdDev="0.12"/>
+        <speedRelative count="2" min="0.08" minLabel="EC" max="0.10" maxLabel="EC" mean="0.09" Q1="0.08" median="0.10" Q3="0.10" meanAbs="0.09" medianAbs="0.10" stdDev="0.01"/>
+        <timeLoss count="2" min="761.69" minLabel="EC" max="1038.60" maxLabel="EC" mean="900.14" Q1="761.69" median="1038.60" Q3="1038.60" meanAbs="900.14" medianAbs="1038.60" stdDev="138.45"/>
+        <traveltime count="2" min="69.18" minLabel="EC" max="84.23" maxLabel="EC" mean="76.71" Q1="69.18" median="84.23" Q3="84.23" meanAbs="76.71" medianAbs="84.23" stdDev="7.52"/>
+        <waitingTime count="2" min="551.00" minLabel="EC" max="795.00" maxLabel="EC" mean="673.00" Q1="551.00" median="795.00" Q3="795.00" meanAbs="673.00" medianAbs="795.00" stdDev="122.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|NC">
+        <arrived count="2" min="0.00" minLabel="NC" max="0.00" maxLabel="NC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="67.50" minLabel="NC" max="73.83" maxLabel="NC" mean="70.66" Q1="67.50" median="73.83" Q3="73.83" meanAbs="70.66" medianAbs="73.83" stdDev="3.16"/>
+        <departed count="2" min="3.00" minLabel="NC" max="18.00" maxLabel="NC" mean="10.50" Q1="3.00" median="18.00" Q3="18.00" meanAbs="10.50" medianAbs="18.00" stdDev="7.50"/>
+        <entered count="2" min="0.00" minLabel="NC" max="0.00" maxLabel="NC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="9.00" minLabel="NC" max="13.00" maxLabel="NC" mean="11.00" Q1="9.00" median="13.00" Q3="13.00" meanAbs="11.00" medianAbs="13.00" stdDev="2.00"/>
+        <laneChangedTo count="2" min="9.00" minLabel="NC" max="13.00" maxLabel="NC" mean="11.00" Q1="9.00" median="13.00" Q3="13.00" meanAbs="11.00" medianAbs="13.00" stdDev="2.00"/>
+        <laneDensity count="2" min="33.75" minLabel="NC" max="36.91" maxLabel="NC" mean="35.33" Q1="33.75" median="36.91" Q3="36.91" meanAbs="35.33" medianAbs="36.91" stdDev="1.58"/>
+        <left count="2" min="25.00" minLabel="NC" max="39.00" maxLabel="NC" mean="32.00" Q1="25.00" median="39.00" Q3="39.00" meanAbs="32.00" medianAbs="39.00" stdDev="7.00"/>
+        <occupancy count="2" min="16.65" minLabel="NC" max="18.09" maxLabel="NC" mean="17.37" Q1="16.65" median="18.09" Q3="18.09" meanAbs="17.37" medianAbs="18.09" stdDev="0.72"/>
+        <overlapTraveltime count="2" min="100.14" minLabel="NC" max="177.41" maxLabel="NC" mean="138.78" Q1="100.14" median="177.41" Q3="177.41" meanAbs="138.78" medianAbs="177.41" stdDev="38.63"/>
+        <sampledSeconds count="2" min="2316.39" minLabel="NC" max="2632.71" maxLabel="NC" mean="2474.55" Q1="2316.39" median="2632.71" Q3="2632.71" meanAbs="2474.55" medianAbs="2632.71" stdDev="158.16"/>
+        <speed count="2" min="0.53" minLabel="NC" max="0.94" maxLabel="NC" mean="0.73" Q1="0.53" median="0.94" Q3="0.94" meanAbs="0.73" medianAbs="0.94" stdDev="0.20"/>
+        <speedRelative count="2" min="0.04" minLabel="NC" max="0.07" maxLabel="NC" mean="0.06" Q1="0.04" median="0.07" Q3="0.07" meanAbs="0.06" medianAbs="0.07" stdDev="0.02"/>
+        <timeLoss count="2" min="2226.09" minLabel="NC" max="2452.81" maxLabel="NC" mean="2339.45" Q1="2226.09" median="2452.81" Q3="2452.81" meanAbs="2339.45" medianAbs="2452.81" stdDev="113.36"/>
+        <traveltime count="2" min="99.12" minLabel="NC" max="180.39" maxLabel="NC" mean="139.75" Q1="99.12" median="180.39" Q3="180.39" meanAbs="139.75" medianAbs="180.39" stdDev="40.63"/>
+        <waitingTime count="2" min="1652.00" minLabel="NC" max="1738.00" maxLabel="NC" mean="1695.00" Q1="1652.00" median="1738.00" Q3="1738.00" meanAbs="1695.00" medianAbs="1738.00" stdDev="43.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|SC">
+        <arrived count="2" min="0.00" minLabel="SC" max="0.00" maxLabel="SC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="131.98" minLabel="SC" max="144.36" maxLabel="SC" mean="138.17" Q1="131.98" median="144.36" Q3="144.36" meanAbs="138.17" medianAbs="144.36" stdDev="6.19"/>
+        <departed count="2" min="100.00" minLabel="SC" max="114.00" maxLabel="SC" mean="107.00" Q1="100.00" median="114.00" Q3="114.00" meanAbs="107.00" medianAbs="114.00" stdDev="7.00"/>
+        <entered count="2" min="0.00" minLabel="SC" max="0.00" maxLabel="SC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="62.00" minLabel="SC" max="67.00" maxLabel="SC" mean="64.50" Q1="62.00" median="67.00" Q3="67.00" meanAbs="64.50" medianAbs="67.00" stdDev="2.50"/>
+        <laneChangedTo count="2" min="62.00" minLabel="SC" max="67.00" maxLabel="SC" mean="64.50" Q1="62.00" median="67.00" Q3="67.00" meanAbs="64.50" medianAbs="67.00" stdDev="2.50"/>
+        <laneDensity count="2" min="65.99" minLabel="SC" max="72.18" maxLabel="SC" mean="69.09" Q1="65.99" median="72.18" Q3="72.18" meanAbs="69.09" medianAbs="72.18" stdDev="3.10"/>
+        <left count="2" min="122.00" minLabel="SC" max="134.00" maxLabel="SC" mean="128.00" Q1="122.00" median="134.00" Q3="134.00" meanAbs="128.00" medianAbs="134.00" stdDev="6.00"/>
+        <occupancy count="2" min="32.66" minLabel="SC" max="35.70" maxLabel="SC" mean="34.18" Q1="32.66" median="35.70" Q3="35.70" meanAbs="34.18" medianAbs="35.70" stdDev="1.52"/>
+        <overlapTraveltime count="2" min="43.25" minLabel="SC" max="44.16" maxLabel="SC" mean="43.70" Q1="43.25" median="44.16" Q3="44.16" meanAbs="43.70" medianAbs="44.16" stdDev="0.45"/>
+        <sampledSeconds count="2" min="4529.24" minLabel="SC" max="5147.87" maxLabel="SC" mean="4838.56" Q1="4529.24" median="5147.87" Q3="5147.87" meanAbs="4838.56" medianAbs="5147.87" stdDev="309.32"/>
+        <speed count="2" min="2.14" minLabel="SC" max="2.19" maxLabel="SC" mean="2.17" Q1="2.14" median="2.19" Q3="2.19" meanAbs="2.17" medianAbs="2.19" stdDev="0.02"/>
+        <speedRelative count="2" min="0.15" minLabel="SC" max="0.16" maxLabel="SC" mean="0.15" Q1="0.15" median="0.16" Q3="0.16" meanAbs="0.15" medianAbs="0.16" stdDev="0.01"/>
+        <timeLoss count="2" min="3807.71" minLabel="SC" max="4346.90" maxLabel="SC" mean="4077.30" Q1="3807.71" median="4346.90" Q3="4346.90" meanAbs="4077.30" medianAbs="4346.90" stdDev="269.59"/>
+        <traveltime count="2" min="42.76" minLabel="SC" max="43.62" maxLabel="SC" mean="43.19" Q1="42.76" median="43.62" Q3="43.62" meanAbs="43.19" medianAbs="43.62" stdDev="0.43"/>
+        <waitingTime count="2" min="2672.00" minLabel="SC" max="2924.00" maxLabel="SC" mean="2798.00" Q1="2672.00" median="2924.00" Q3="2924.00" meanAbs="2798.00" medianAbs="2924.00" stdDev="126.00"/>
+     </interval.edge>
+    <interval.edge id="ed_0|3600.00|WC">
+        <arrived count="2" min="0.00" minLabel="WC" max="0.00" maxLabel="WC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <density count="2" min="66.41" minLabel="WC" max="84.81" maxLabel="WC" mean="75.61" Q1="66.41" median="84.81" Q3="84.81" meanAbs="75.61" medianAbs="84.81" stdDev="9.20"/>
+        <departed count="2" min="45.00" minLabel="WC" max="48.00" maxLabel="WC" mean="46.50" Q1="45.00" median="48.00" Q3="48.00" meanAbs="46.50" medianAbs="48.00" stdDev="1.50"/>
+        <entered count="2" min="0.00" minLabel="WC" max="0.00" maxLabel="WC" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <laneChangedFrom count="2" min="27.00" minLabel="WC" max="27.00" maxLabel="WC" mean="27.00" Q1="27.00" median="27.00" Q3="27.00" meanAbs="27.00" medianAbs="27.00" stdDev="0.00"/>
+        <laneChangedTo count="2" min="27.00" minLabel="WC" max="27.00" maxLabel="WC" mean="27.00" Q1="27.00" median="27.00" Q3="27.00" meanAbs="27.00" medianAbs="27.00" stdDev="0.00"/>
+        <laneDensity count="2" min="33.20" minLabel="WC" max="42.40" maxLabel="WC" mean="37.80" Q1="33.20" median="42.40" Q3="42.40" meanAbs="37.80" medianAbs="42.40" stdDev="4.60"/>
+        <left count="2" min="55.00" minLabel="WC" max="58.00" maxLabel="WC" mean="56.50" Q1="55.00" median="58.00" Q3="58.00" meanAbs="56.50" medianAbs="58.00" stdDev="1.50"/>
+        <occupancy count="2" min="16.46" minLabel="WC" max="21.04" maxLabel="WC" mean="18.75" Q1="16.46" median="21.04" Q3="21.04" meanAbs="18.75" medianAbs="21.04" stdDev="2.29"/>
+        <overlapTraveltime count="2" min="50.32" minLabel="WC" max="59.46" maxLabel="WC" mean="54.89" Q1="50.32" median="59.46" Q3="59.46" meanAbs="54.89" medianAbs="59.46" stdDev="4.57"/>
+        <sampledSeconds count="2" min="2368.22" minLabel="WC" max="2910.26" maxLabel="WC" mean="2639.24" Q1="2368.22" median="2910.26" Q3="2910.26" meanAbs="2639.24" medianAbs="2910.26" stdDev="271.02"/>
+        <speed count="2" min="1.59" minLabel="WC" max="1.88" maxLabel="WC" mean="1.73" Q1="1.59" median="1.88" Q3="1.88" meanAbs="1.73" medianAbs="1.88" stdDev="0.14"/>
+        <speedRelative count="2" min="0.11" minLabel="WC" max="0.14" maxLabel="WC" mean="0.12" Q1="0.11" median="0.14" Q3="0.14" meanAbs="0.12" medianAbs="0.14" stdDev="0.02"/>
+        <timeLoss count="2" min="2038.97" minLabel="WC" max="2567.68" maxLabel="WC" mean="2303.32" Q1="2038.97" median="2567.68" Q3="2567.68" meanAbs="2303.32" medianAbs="2567.68" stdDev="264.35"/>
+        <traveltime count="2" min="49.87" minLabel="WC" max="59.02" maxLabel="WC" mean="54.45" Q1="49.87" median="59.02" Q3="59.02" meanAbs="54.45" medianAbs="59.02" stdDev="4.58"/>
+        <waitingTime count="2" min="1488.00" minLabel="WC" max="1909.00" maxLabel="WC" mean="1698.50" Q1="1488.00" median="1909.00" Q3="1909.00" meanAbs="1698.50" medianAbs="1909.00" stdDev="210.50"/>
+     </interval.edge>
+    <interval id="ed_0|0.00">
+        <begin count="2" min="0.00" minLabel="ed_0|0.00" max="0.00" maxLabel="ed_0|0.00" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <end count="2" min="1800.00" minLabel="ed_0|0.00" max="1800.00" maxLabel="ed_0|0.00" mean="1800.00" Q1="1800.00" median="1800.00" Q3="1800.00" meanAbs="1800.00" medianAbs="1800.00" stdDev="0.00"/>
+     </interval>
+    <interval id="ed_0|1800.00">
+        <begin count="2" min="1800.00" minLabel="ed_0|1800.00" max="1800.00" maxLabel="ed_0|1800.00" mean="1800.00" Q1="1800.00" median="1800.00" Q3="1800.00" meanAbs="1800.00" medianAbs="1800.00" stdDev="0.00"/>
+        <end count="2" min="3600.00" minLabel="ed_0|1800.00" max="3600.00" maxLabel="ed_0|1800.00" mean="3600.00" Q1="3600.00" median="3600.00" Q3="3600.00" meanAbs="3600.00" medianAbs="3600.00" stdDev="0.00"/>
+     </interval>
+    <interval id="ed_0|3600.00">
+        <begin count="2" min="3600.00" minLabel="ed_0|3600.00" max="3600.00" maxLabel="ed_0|3600.00" mean="3600.00" Q1="3600.00" median="3600.00" Q3="3600.00" meanAbs="3600.00" medianAbs="3600.00" stdDev="0.00"/>
+        <end count="2" min="3983.00" minLabel="ed_0|3600.00" max="3998.00" maxLabel="ed_0|3600.00" mean="3990.50" Q1="3983.00" median="3998.00" Q3="3998.00" meanAbs="3990.50" medianAbs="3998.00" stdDev="7.50"/>
+     </interval>
+</attributeCompare>

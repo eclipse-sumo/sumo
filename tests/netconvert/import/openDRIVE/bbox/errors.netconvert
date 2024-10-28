@@ -1,0 +1,8 @@
+Warning: Could not find fromEdge representation of '1.0.00' in connection '1000002'.
+Warning: Could not find fromEdge representation of '3.222.44' in connection '1000002'.
+Warning: Could not find fromEdge representation of '1.0.00' in connection '1000003'.
+Warning: Could not find fromEdge representation of '2.171.25' in connection '1000003'.
+Warning: Could not find fromEdge representation of '1.0.00' in connection '1000004'.
+Warning: 28 total messages of type: Could not find fromEdge representation of '%' in connection '%'.
+Error: No edges loaded.
+Quitting (on error).

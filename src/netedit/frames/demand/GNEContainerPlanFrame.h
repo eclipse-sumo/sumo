@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,18 +13,22 @@
 /****************************************************************************/
 /// @file    GNEContainerPlanFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    Jun 2019
 ///
 // The Widget for add ContainerPlan elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEElementTree.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
 
 
 // ===========================================================================
@@ -36,11 +40,12 @@
 class GNEContainerPlanFrame : public GNEFrame {
 
 public:
+
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEContainerPlanFrame();
@@ -52,14 +57,25 @@ public:
     void hide();
 
     /**@brief add container plan element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @param mouseButtonKeyPressed key pressed during click
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if element was successfully added
      */
-    bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addContainerPlanElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
-    /// @brief get path creator modul
-    GNEPathCreator* getPathCreator() const;
+    /// @brief reset selected container
+    void resetSelectedContainer();
+
+    /// @brief get plan creator module
+    GNEPlanCreator* getPlanCreator() const;
+
+    /// @brief get Container Hierarchy
+    GNEElementTree* getContainerHierarchy() const;
+
+    /// @brief get container selectors
+    GNEDemandElementSelector* getContainerSelector() const;
+
+    /// @brief get containerPlan selector
+    GNEPlanSelector* getPlanSelector() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -69,24 +85,27 @@ protected:
     void demandElementSelected();
 
     /// @brief create path
-    void createPath();
+    bool createPath(const bool useLastRoute);
 
 private:
     /// @brief route handler
     GNERouteHandler myRouteHandler;
 
     /// @brief Container selectors
-    DemandElementSelector* myContainerSelector;
+    GNEDemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
-    GNETagSelector* myContainerPlanTagSelector;
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myContainerPlanAttributes;
 
-    /// @brief Path Creator
-    GNEPathCreator* myPathCreator;
+    /// @brief plan Creator
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief Container Hierarchy
     GNEElementTree* myContainerHierarchy;
+
+    /// @brief plan creator legend
+    GNEPlanCreatorLegend* myPlanCreatorLegend;
 };

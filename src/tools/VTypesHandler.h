@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,8 +81,9 @@ public:
     void closeContainerFlow() {}
     void closeFlow() {}
     void closeTrip() {}
-    void addStop(const SUMOSAXAttributes& attrs) {
+    SUMOVehicleParameter::Stop* addStop(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
+        return nullptr;
     }
     void addPersonTrip(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
@@ -90,13 +91,7 @@ public:
     void addWalk(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
     }
-    void addPerson(const SUMOSAXAttributes& attrs) {
-        UNUSED_PARAMETER(attrs);
-    }
     void addRide(const SUMOSAXAttributes& attrs) {
-        UNUSED_PARAMETER(attrs);
-    }
-    void addContainer(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
     }
     void addTransport(const SUMOSAXAttributes& attrs) {

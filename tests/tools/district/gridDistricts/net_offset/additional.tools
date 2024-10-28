@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-16 09:50:40.619764 by gridDistricts.py v1_17_0+0299-6adb064
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="0_0" shape="51.0,151.0 149.0,151.0 149.0,249.0 51.0,249.0 51.0,151.0" color="0,42,255" edges="A0A1 A0B0 A1A0 B0A0"/>
+    <taz id="0_1" shape="51.0,251.0 149.0,251.0 149.0,349.0 51.0,349.0 51.0,251.0" color="255,38,0" edges="A1B1 B1A1"/>
+    <taz id="1_0" shape="151.0,151.0 249.0,151.0 249.0,249.0 151.0,249.0 151.0,151.0" color="89,255,0" edges="B0B1 B1B0"/>
+</additional>

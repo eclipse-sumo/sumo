@@ -26,11 +26,17 @@ stop_at_position_slack
 # 10 vehicles driving in a queue. The first one stops for a while and then all vehicles start up again
 queue_stop_start
 
+# 10 vehicles driving in a queue. The first one stops for a while and then all vehicles start up again
+queue_stop_start_subsecond
+
 # a platton of vehicles follows a slow leader
 follow_slow
 
 # 10 queue vehicles drive off after a traffic light turns green	
 tls_driveOff
+
+# startup delay after stopping
+stop_driveOff
 
 # test model behaviour in jam situations
 jam_resolution
@@ -44,11 +50,15 @@ adap_speed_for_new_lane
 # tests behavior with different values of the reactionTime/headway parameter tau
 tau
 vehs_per_hour
-errors
+
+# Two vehicles follow each other. The first one stops but is ignored
+ignoreIDs
+
+# Two vehicles follow each other. The first one stops but is ignored
+ignoreTypes
 
 # tests for rail following model
 rail
-collisions
 
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
@@ -64,7 +74,10 @@ EIDM
 Wiedemann
 W99
 KraussPS
+ACC
 
 # CACC model tests
 CACC
+collisions
+errors
 bugs

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,17 +48,19 @@
 // method definitions
 // ===========================================================================
 METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
-        const MSEdge* const edge, const double pos,
+        MSEdge* const edge, const double pos,
         const std::string& aXMLFilename,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,
         const MSRouteProbe* probe,
         const double invalidJamThreshold,
         const std::string& vTypes) :
-    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false),
-    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
+    MSCalibrator(id, edge, nullptr, nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false, false),
+    mySegment(edge == nullptr ? nullptr : MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
-    mySegment->addDetector(&myEdgeMeanData);
+    if (mySegment != nullptr) {
+        mySegment->addDetector(&myEdgeMeanData);
+    }
 }
 
 
@@ -101,13 +103,8 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         myEdgeMeanData.reset(); // discard collected values
         if (!mySpeedIsDefault) {
             // if not, reset adaptation values
-            mySegment->getEdge().setMaxSpeed(myDefaultSpeed);
-            MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
             const double jamThresh = OptionsCont::getOptions().getFloat("meso-jam-threshold");
-            while (first != nullptr) {
-                first->setSpeed(myDefaultSpeed, currentTime, jamThresh);
-                first = first->getNextSegment();
-            }
+            myEdge->setMaxSpeed(myDefaultSpeed, jamThresh);
             mySpeedIsDefault = true;
         }
         if (myCurrentStateInterval == myIntervals.end()) {
@@ -120,12 +117,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     const bool calibrateSpeed = myCurrentStateInterval->v >= 0;
     // we are active
     if (!myDidSpeedAdaption && calibrateSpeed && myCurrentStateInterval->v != mySegment->getEdge().getSpeedLimit()) {
-        mySegment->getEdge().setMaxSpeed(myCurrentStateInterval->v);
-        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
-        while (first != nullptr) {
-            first->setSpeed(myCurrentStateInterval->v, currentTime, -1);
-            first = first->getNextSegment();
-        }
+        myEdge->setMaxSpeed(myCurrentStateInterval->v);
         mySpeedIsDefault = false;
         myDidSpeedAdaption = true;
     }
@@ -134,7 +126,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     while ((calibrateFlow || calibrateSpeed) && invalidJam()) {
         hadInvalidJam = true;
         if (!myHaveWarnedAboutClearingJam) {
-            WRITE_WARNINGF("Clearing jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+            WRITE_WARNINGF(TL("Clearing jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
         }
         // remove one vehicle currently on the segment
         if (mySegment->vaporizeAnyCar(currentTime, this)) {
@@ -142,7 +134,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         } else {
             if (!myHaveWarnedAboutClearingJam) {
                 // this frequenly happens for very short edges
-                WRITE_WARNINGF("Could not clear jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+                WRITE_WARNINGF(TL("Could not clear jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
             }
             break;
         }
@@ -169,16 +161,16 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
                 SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-                const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
+                ConstMSRoutePtr route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
                 if (route == nullptr) {
                     route = MSRoute::dictionary(pars->routeid);
                 }
                 if (route == nullptr) {
-                    WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
+                    WRITE_WARNINGF(TL("No valid routes in calibrator '%'."), getID());
                     break;
                 }
                 if (!route->contains(myEdge)) {
-                    WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
+                    WRITE_WARNINGF(TL("Route '%' in calibrator '%' does not contain edge '%'."), route->getID(), getID(), myEdge->getID());
                     break;
                 }
                 MSVehicleType* vtype = vc.getVType(pars->vtypeid);
@@ -191,7 +183,11 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
                 try {
-                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, false));
+                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, MSVehicleControl::VehicleDefinitionSource::TRIGGER));
+                    std::string msg;
+                    if (!vehicle->hasValidRouteStart(msg)) {
+                        throw ProcessError(msg);
+                    }
                 } catch (const ProcessError& e) {
                     if (!MSGlobals::gCheckRoutes) {
                         WRITE_WARNING(e.what());

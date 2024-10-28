@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,7 +58,7 @@ GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {
         // iterate over generic data childrens
         for (const auto& genericData : myGenericDataChildren) {
-            if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            if (genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
                 // {dataset}[{begin}m{end}]{edge}
                 genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
                                            genericData->getParentEdges().front()->getID());
@@ -107,14 +107,14 @@ GNEDataInterval::getSpecificAttributeColors() const {
 }
 
 
-const std::string&
-GNEDataInterval::getID() const {
-    return myDataSetParent->getID();
+GUIGlObject*
+GNEDataInterval::getGUIGlObject() {
+    return nullptr;
 }
 
 
-GUIGlObject*
-GNEDataInterval::getGUIGlObject() {
+const GUIGlObject*
+GNEDataInterval::getGUIGlObject() const {
     return nullptr;
 }
 
@@ -128,6 +128,48 @@ GNEDataInterval::updateGeometry() {
 Position
 GNEDataInterval::getPositionInView() const {
     return Position();
+}
+
+
+bool
+GNEDataInterval::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawSelectContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawMoveContour() const {
+    return false;
 }
 
 
@@ -164,7 +206,7 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         updateGenericDataIDs();
         // check if add to boundary
         if (genericData->getTagProperty().isPlacedInRTree()) {
-            myNet->getGrid().addAdditionalGLObject(genericData->getGUIGlObject());
+            myNet->addGLObjectIntoGrid(genericData);
         }
         // update geometry after insertion if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
@@ -176,7 +218,7 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
-        throw ProcessError("GenericData was already inserted");
+        throw ProcessError(TL("GenericData was already inserted"));
     }
 }
 
@@ -197,12 +239,12 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         myNet->getPathManager()->removePath(genericData);
         // check if remove from RTREE
         if (genericData->getTagProperty().isPlacedInRTree()) {
-            myNet->getGrid().removeAdditionalGLObject(genericData->getGUIGlObject());
+            myNet->removeGLObjectFromGrid(genericData);
         }
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteGenericData(genericData);
     } else {
-        throw ProcessError("GenericData wasn't previously inserted");
+        throw ProcessError(TL("GenericData wasn't previously inserted"));
     }
 }
 
@@ -220,8 +262,22 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
+GNEDataInterval::edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const {
+    // interate over all edgeRels and check edge parents
+    for (const auto& genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
+                (genericData->getParentEdges().front() == fromEdge) &&
+                (genericData->getParentEdges().back() == toEdge)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
-    // interate over all generic datas and check TAZ parents
+    // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 1) &&
@@ -235,7 +291,7 @@ GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
 
 bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const {
-    // interate over all generic datas and check TAZ parents
+    // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 2) &&
@@ -281,7 +337,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     switch (key) {
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -302,18 +358,6 @@ GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEDataInterval::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to enable
-}
-
-
-void
-GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to disable
-}
-
-
 bool
 GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
@@ -322,12 +366,6 @@ GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
         default:
             return true;
     }
-}
-
-
-bool
-GNEDataInterval::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
 }
 
 
@@ -367,12 +405,6 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
-}
-
-
-void
-GNEDataInterval::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw InvalidArgument("Nothing to enable");
 }
 
 /****************************************************************************/

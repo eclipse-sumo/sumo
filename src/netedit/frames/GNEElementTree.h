@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/foxtools/FXTreeListDinamic.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXTreeListDynamic.h>
 
 // ===========================================================================
 // class declaration
@@ -35,7 +35,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEElementTree : public FXGroupBoxModule {
+class GNEElementTree : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEElementTree)
 
@@ -137,8 +137,8 @@ private:
     /// @brief generic data element (casted from myClickedAC)
     GNEGenericData* myClickedGenericData;
 
-    /// @brief tree list dinamic to show the children of the element to erase
-    FXTreeListDinamic* myTreeListDinamic = nullptr;
+    /// @brief tree list dynamic to show the children of the element to erase
+    MFXTreeListDynamic* myTreeListDynamic = nullptr;
 
     /// @brief map used to save the FXTreeItems items with their vinculated AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;

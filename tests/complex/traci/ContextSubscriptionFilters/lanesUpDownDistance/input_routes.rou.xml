@@ -1,38 +1,41 @@
 <routes>
+    <vType id="t0"/>
+    <vType id="t1"/>
+    <vType id="t2" vClass="vip"/>
     <route id="1" edges="e1 e2 e3 e4"/>
     <route id="2" edges="-e4 -e3 -e2 -e1"/>
     
-    <vehicle id="lead_right" route="1" depart="0" departLane="0" departPos="75"/>
-    <vehicle id="lead_straight" route="1" depart="0" departLane="1" departPos="75"/>
-    <vehicle id="lead_left" route="1" depart="0" departLane="2" departPos="75"/>
+    <vehicle id="lead_right"              type="t0" route="1" depart="0" departLane="0" departPos="75"/>
+    <vehicle id="lead_straight"           type="t1" route="1" depart="0" departLane="1" departPos="75"/>
+    <vehicle id="lead_left"               type="t2" route="1" depart="0" departLane="2" departPos="75"/>
     
-    <vehicle id="lead_right2" route="1" depart="0" departLane="0" departPos="100"/>
-    <vehicle id="lead_straight2" route="1" depart="0" departLane="1" departPos="100"/>
-    <vehicle id="lead_left2" route="1" depart="0" departLane="2" departPos="100"/>
+    <vehicle id="lead_right2"             type="t1" route="1" depart="0" departLane="0" departPos="100"/>
+    <vehicle id="lead_straight2"          type="t2" route="1" depart="0" departLane="1" departPos="100"/>
+    <vehicle id="lead_left2"              type="t0" route="1" depart="0" departLane="2" departPos="100"/>
        
-    <vehicle id="ego" route="1" depart="0" color="red" departLane="1" departPos="50"/>
+    <vehicle id="ego"                     route="1" depart="0" color="red" departLane="1" departPos="50"/>
 
-    <vehicle id="follow_right2" route="1" depart="0" departLane="0" departPos="25"/>
-    <vehicle id="follow_straight2" route="1" depart="0" departLane="1" departPos="25"/>
-    <vehicle id="follow_left2" route="1" depart="0" departLane="2" departPos="25"/> 
+    <vehicle id="follow_right2"           type="t2" route="1" depart="0" departLane="0" departPos="25"/>
+    <vehicle id="follow_straight2"        type="t0" route="1" depart="0" departLane="1" departPos="25"/>
+    <vehicle id="follow_left2"            type="t1" route="1" depart="0" departLane="2" departPos="25"/> 
         
-    <vehicle id="follow_right" route="1" depart="0" departLane="0" departPos="0"/>
-    <vehicle id="follow_straight" route="1" depart="0" departLane="1" departPos="0"/>
-    <vehicle id="follow_left" route="1" depart="0" departLane="2" departPos="0"/> 
+    <vehicle id="follow_right"            type="t0" route="1" depart="0" departLane="0" departPos="0"/>
+    <vehicle id="follow_straight"         type="t1" route="1" depart="0" departLane="1" departPos="0"/>
+    <vehicle id="follow_left"             type="t2" route="1" depart="0" departLane="2" departPos="0"/> 
 
-    <vehicle id="opposite_lead_right" route="2" depart="0" departLane="0" departPos="100"/>
-    <vehicle id="opposite_lead_middle" route="2" depart="0" departLane="1" departPos="100"/>
-    <vehicle id="opposite_lead_left" route="2" depart="0" departLane="2" departPos="100"/>
+    <vehicle id="opposite_lead_right"     type="t1" route="2" depart="0" departLane="0" departPos="100"/>
+    <vehicle id="opposite_lead_middle"    type="t2" route="2" depart="0" departLane="1" departPos="100"/>
+    <vehicle id="opposite_lead_left"      type="t0" route="2" depart="0" departLane="2" departPos="100"/>
     
-    <vehicle id="opposite_lead_right2" route="2" depart="0" departLane="0" departPos="75"/>
-    <vehicle id="opposite_lead_middle2" route="2" depart="0" departLane="1" departPos="75"/>
-    <vehicle id="opposite_lead_left2" route="2" depart="0" departLane="2" departPos="75"/>
+    <vehicle id="opposite_lead_right2"    type="t2" route="2" depart="0" departLane="0" departPos="75"/>
+    <vehicle id="opposite_lead_middle2"   type="t0" route="2" depart="0" departLane="1" departPos="75"/>
+    <vehicle id="opposite_lead_left2"     type="t1" route="2" depart="0" departLane="2" departPos="75"/>
     
-    <vehicle id="opposite_follow_right2" route="2" depart="0" departLane="0" departPos="25"/>
-    <vehicle id="opposite_follow_middle2" route="2" depart="0" departLane="1" departPos="25"/>
-    <vehicle id="opposite_follow_left2" route="2" depart="0" departLane="2" departPos="25"/> 
+    <vehicle id="opposite_follow_right2"  type="t0" route="2" depart="0" departLane="0" departPos="25"/>
+    <vehicle id="opposite_follow_middle2" type="t1" route="2" depart="0" departLane="1" departPos="25"/>
+    <vehicle id="opposite_follow_left2"   type="t2" route="2" depart="0" departLane="2" departPos="25"/> 
 
-    <vehicle id="opposite_follow_right" route="2" depart="0" departLane="0" departPos="0"/>
-    <vehicle id="opposite_follow_middle" route="2" depart="0" departLane="1" departPos="0"/>
-    <vehicle id="opposite_follow_left" route="2" depart="0" departLane="2" departPos="0"/> 
+    <vehicle id="opposite_follow_right"   type="t1" route="2" depart="0" departLane="0" departPos="0"/>
+    <vehicle id="opposite_follow_middle"  type="t2" route="2" depart="0" departLane="1" departPos="0"/>
+    <vehicle id="opposite_follow_left"    type="t0" route="2" depart="0" departLane="2" departPos="0"/> 
 </routes>

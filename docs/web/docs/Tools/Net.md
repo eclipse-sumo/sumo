@@ -7,7 +7,7 @@ title: Net
 This script compares two *.net.xml* files. The call
 
 ```
-python tools/net/netdiff.py A.net.xml B.net.xml diff
+python tools/net/netdiff.py A.net.xml B.net.xml diff
 ```
 
 will produce 4 [plain-XML network](../Networks/PlainXML.md) files:
@@ -23,7 +23,7 @@ between the two networks ***A*** and ***B***. Furthermore, these files can be us
 maintain change-sets for making repeatable modifications:
 
 ```
-netconvert --sumo-net-file A.net.xml -n diff.nod.xml -e diff.edg.xml -x diff.con.xml -i diff.tll.xml -o B.net.xml
+netconvert --sumo-net-file A.net.xml -n diff.nod.xml -e diff.edg.xml -x diff.con.xml -i diff.tll.xml -o B.net.xml
 ```
 
 The above call can be used to recreate network ***B*** based on ***A*** and the
@@ -83,11 +83,11 @@ given network. The following connections are added:
 - vehicles can stay inside of the roundabout on every lane.
 - vehicles can leave a roundabout even if they are driving on an inner
   lane if there are enough outgoing lanes.
-  
+
 Usage:
 
 ```
-python tools/net/createRoundaboutConnections.py <net-file>
+python tools/net/createRoundaboutConnections.py <net-file>
 ```
 
 This creates the output file ```roundabout-connection.con.xml```, where the input network is ***<net-file\>***.
@@ -104,7 +104,7 @@ Additionally, you may run this script to discover which edges are
 reachable from a particular edge.
 
 ```
-python tools/net/netcheck.py <net-file> --source <edge_id> --selection-output selection.txt
+python tools/net/netcheck.py <net-file> --source <edge_id> --selection-output selection.txt
 ```
 
 This will create a file called ```selection.txt``` which can be loaded in
@@ -139,8 +139,8 @@ edges or nodes given in the input file. The results are written into
 <XMLEDGES\>.mod.xml or <XMLNODES\>.mod.xml, respectively.
 
 ```
-python tools/net/xmledges_applyOffset.py <XMLEDGES-FILE> <X-OFFSET> <Y-OFFSET>
-python tools/net/xmlnodes_applyOffset.py <XMLNODES-FILE> <X-OFFSET> <Y-OFFSET>
+python tools/net/xmledges_applyOffset.py <XMLEDGES-FILE> <X-OFFSET> <Y-OFFSET>
+python tools/net/xmlnodes_applyOffset.py <XMLNODES-FILE> <X-OFFSET> <Y-OFFSET>
 ```
 
 - <XMLEDGES-FILE\>/<XMLNODES-FILE\>: The edges/nodes file whose content shall be
@@ -161,7 +161,7 @@ Reads the given connections file <CONNECTIONS-FILE\> and replaces old edge
 names by the new ones. The result is written to <CONNECTIONS-FILE\>.mod.xml
 
 ```
-python tools/net/xmlconnections_mapEdges.py <CONNECTIONS-FILE>
+python tools/net/xmlconnections_mapEdges.py <CONNECTIONS-FILE>
 ```
 
 - <OLD_EDGE_ID\>: Id of an edge as used within <CONNECTIONS-FILE\>
@@ -173,7 +173,7 @@ python tools/net/xmlconnections_mapEdges.py <CONNECTIONS-FILE>
 converts '.net.xml' road geometries to [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) format.
 
 ```
-python tools/net/net2kml.py -n <net-file> -o output.kml
+python tools/net/net2kml.py -n <net-file> -o output.kml
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
@@ -186,10 +186,54 @@ By default, normal edge geometries will be exported. This can be changed with op
 converts '.net.xml' road geometries to [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format.
 
 ```
-python tools/net/net2geojson.py -n <net-file> -o output.geojson
+python tools/net/net2geojson.py -n <net-file> -o output.geojson
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
 
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
+
+
+# split_at_stops.py
+
+Generates an .edg.xml patch file with `split` definitions to ensure that each public transport stop of the given type (default `<trainStop>`) is on a separate edge from every other stop. The tool also generates an updated `.net.xml` and stop file. Furthermore, it can adapt a route-file so it matches the updated network.
+
+Example call:
+```
+python tools/net/split_at_stops.py <stopfile> -n <net-file> -r <route-file> -o <output-net-file> --stop-output <output-stop-file> --route-output <output-route-file> --stop-type busStop
+```
+
+!!! note
+    A similar functionality is achieved by [stationDistricts.py --split-output FILE](District.md#stationdistrictspy) which splits edges at the midpoint between stops.
+
+# abstractRail.py
+
+Converts a geodetical rail network into an abstract (schematic) rail network.
+If the network is segmented (with [stationDistricts.py](District.md#stationdistrictspy)), the resulting network will be
+a hybrid of multiple schematic pieces being oriented in a roughly geodetical manner
+
+Example call:
+```
+python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --region-file stations.taz.xml --output-prefix abstract
+```
+
+It is also possible to automatically segment the network:
+```
+python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --split --output-prefix abstract
+```
+
+## Further options
+
+- **--filter-regions**: Only convert the given list of regions and delete everything else
+- **--keep-all**: When filtering regions, keep all other regions at their old geometry. This may be used to build region-specific patch files than can the combined to patch larger parts of the network**
+- **--horizontal**: The abstract network is aligned on the horizontal
+- **--track-offset**: Define the offset between parallel tracks in m (default 20)
+- **--skip-building**: Only create patch files but do not assemble the new network
+- **--skip**: creates a region file (taz) from the stop-file, optionally splits network edges to ensure that each edge belongs to a single station
+
+!!! caution
+    If the network is large and not segmented or if the individual station segments are large, the conversion process can take a long time. The option **--skip-large INT** can be used to selective skip large regions (measured by the number of optimization constraints, reported via **--verbose** output).
+
+!!! caution
+    If option **--skip** is used the original network may be split (under a new name) and the generated abstract network will have the same edges as the split net. The input stop-file will also be adapted for the split net (under a new name) but any traffic demand (route files) have to be adapted for the split network.

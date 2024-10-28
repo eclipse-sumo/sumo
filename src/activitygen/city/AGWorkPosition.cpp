@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -18,6 +18,7 @@
 /// @author  Walter Bamberger
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    July 2010
 ///
 // Location and schedules of a work position: linked with one adult
@@ -81,7 +82,7 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
         }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 9.00am --" << std::endl;
-    return 900;
+    return 32400;
 }
 
 
@@ -97,7 +98,7 @@ AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
         }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 5.00pm --" << std::endl;
-    return 1700;
+    return 61200;
 }
 
 
@@ -123,7 +124,7 @@ AGWorkPosition::take(AGAdult* worker) {
         myStatData->workPositions--;
         myAdult = worker;
     } else {
-        throw (std::runtime_error("Work position already occupied. Cannot give it to another adult."));
+        throw ProcessError(TL("Work position already occupied. Cannot give it to another adult."));
     }
 }
 

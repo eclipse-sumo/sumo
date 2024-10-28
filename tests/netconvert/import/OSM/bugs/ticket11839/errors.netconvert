@@ -1,0 +1,4 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '4612858').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.cycleway' (first occurrence for edge '961646415').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.cycleway' (first occurrence for edge '961646427').
+Warning: Found sharp turn with radius 7.38 at the start of edge '386659490#1'.

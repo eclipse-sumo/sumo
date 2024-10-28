@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
     env = os.environ
     root = os.path.abspath(os.path.dirname(__file__))
     env["TEXTTEST_HOME"] = root
+    env["LANG"] = "C"
     if "SUMO_HOME" not in env:
         env["SUMO_HOME"] = os.path.join(root, "..")
     for binary in ("activitygen", "emissionsDrivingCycle", "emissionsMap",
@@ -38,21 +39,16 @@ def run(suffix, args, guiTests=False, chrouter=True):
                    "od2trips", "polyconvert", "sumo"):
         env[binary.upper() + "_BINARY"] = os.path.join(root, "..", "bin", binary + suffix)
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
-    apps = "sumo.extra,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,"
-    apps += "netconvert.gdal,polyconvert.gdal,complex.meso,duarouter.astar,complex.libsumo,complex.libtraci"
+    apps = "sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,"\
+           "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"\
+           "complex.meso,complex.libsumo,complex.libtraci"
     if chrouter:
         apps += ",duarouter.chrouter,duarouter.chwrapper"
-    try:
-        if os.name == "posix":
-            subprocess.call(['python2', '-V'], stdout=open(os.devnull, "w"))
-        apps += ',complex.python2,tools.python2'
-    except Exception:
-        pass
     if guiTests:
         apps += ",sumo.meso.gui,sumo.gui.osg"
-#        if os.name == "posix":
-#            apps += ",complex.libsumo.gui"
-    process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env, 
+        if os.name == "posix":
+            apps += ",complex.libsumo.gui"
+    process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     with process.stdout:
         for line in process.stdout:

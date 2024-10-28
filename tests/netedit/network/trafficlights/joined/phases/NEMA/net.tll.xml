@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-10-08 09:02:51 by Eclipse SUMO netedit Version v1_20_0+2246-02b4422aa12
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\NEMA\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="J0" type="NEMA" programID="0" offset="0">
+        <phase duration="90" state="rgrgrgrgrgrgrgrgrgrgrgrgrgrg" name="2"/>
+        <phase duration="90" state="grgrgrgrgrgrgrgrgrgrgrgrgrgr" minDur="6" maxDur="55" vehext="3" yellow="4" red="5" name="1"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="ring1" value="0,2,0,4"/>
+        <param key="ring2" value="0,6,0,8"/>
+    </tlLogic>
+
+    <connection from="-E0" to="E3" fromLane="1" toLane="1" tl="J0" linkIndex="12"/>
+    <connection from="-E0" to="E3" fromLane="2" toLane="2" tl="J0" linkIndex="13"/>
+    <connection from="-E0" to="E1" fromLane="2" toLane="2" tl="J0" linkIndex="14"/>
+    <connection from="-E0" to="E2" fromLane="2" toLane="2" tl="J0" linkIndex="15"/>
+    <connection from="-E1" to="E2" fromLane="1" toLane="1" tl="J0" linkIndex="4"/>
+    <connection from="-E1" to="E2" fromLane="2" toLane="2" tl="J0" linkIndex="5"/>
+    <connection from="-E1" to="E0" fromLane="2" toLane="2" tl="J0" linkIndex="6"/>
+    <connection from="-E1" to="E3" fromLane="2" toLane="2" tl="J0" linkIndex="7"/>
+    <connection from="-E2" to="E0" fromLane="1" toLane="1" tl="J0" linkIndex="0"/>
+    <connection from="-E2" to="E0" fromLane="2" toLane="2" tl="J0" linkIndex="1"/>
+    <connection from="-E2" to="E3" fromLane="2" toLane="2" tl="J0" linkIndex="2"/>
+    <connection from="-E2" to="E1" fromLane="2" toLane="2" tl="J0" linkIndex="3"/>
+    <connection from="-E3" to="E1" fromLane="1" toLane="1" tl="J0" linkIndex="8"/>
+    <connection from="-E3" to="E1" fromLane="2" toLane="2" tl="J0" linkIndex="9"/>
+    <connection from="-E3" to="E2" fromLane="2" toLane="2" tl="J0" linkIndex="10"/>
+    <connection from="-E3" to="E0" fromLane="2" toLane="2" tl="J0" linkIndex="11"/>
+    <connection from="E0" to="E4" fromLane="1" toLane="0" tl="J0" linkIndex="16"/>
+    <connection from="E0" to="-E0" fromLane="2" toLane="2" tl="J0" linkIndex="17"/>
+    <connection from="E1" to="E9" fromLane="1" toLane="0" tl="J0" linkIndex="20"/>
+    <connection from="E1" to="-E1" fromLane="2" toLane="2" tl="J0" linkIndex="21"/>
+    <connection from="E10" to="-E1" fromLane="0" toLane="1" tl="J0" linkIndex="19"/>
+    <connection from="E11" to="-E3" fromLane="0" toLane="1" tl="J0" linkIndex="27"/>
+    <connection from="E14" to="-E2" fromLane="0" toLane="1" tl="J0" linkIndex="24"/>
+    <connection from="E2" to="E15" fromLane="1" toLane="0" tl="J0" linkIndex="22"/>
+    <connection from="E2" to="-E2" fromLane="2" toLane="2" tl="J0" linkIndex="23"/>
+    <connection from="E3" to="E12" fromLane="1" toLane="0" tl="J0" linkIndex="25"/>
+    <connection from="E3" to="-E3" fromLane="2" toLane="2" tl="J0" linkIndex="26"/>
+    <connection from="E5" to="-E0" fromLane="0" toLane="1" tl="J0" linkIndex="18"/>
+</tlLogics>

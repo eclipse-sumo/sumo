@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,7 +94,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    virtual void buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const double pos,
+    virtual void buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const std::string& pos,
                              const double length, const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a container stop
@@ -127,12 +127,15 @@ public:
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                       const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                                      const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition,
+                                      const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
+                                      const SUMOTime waitingTime, const bool friendlyPosition, const std::string& parkingAreaID,
                                       const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Area
@@ -148,12 +151,13 @@ public:
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
      */
     virtual void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                   const double startPos, const double endPos, const std::string& departPos, const std::string& name,
-                                  const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
-                                  const double length, const double angle, const Parameterised::Map& parameters) = 0;
+                                  const std::vector<std::string>& lines, const bool friendlyPosition, const int roadSideCapacity, const bool onRoad,
+                                  const double width, const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build
@@ -176,16 +180,19 @@ public:
      * @param[in] id The id of the detector
      * @param[in] laneID The lane the detector is placed on
      * @param[in] pos position of the detector on the lane
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E1 detector name
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                 const double position, const SUMOTime frequency, const std::string& file, const std::vector<std::string>& vehicleTypes,
-                                 const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) = 0;
+                                 const double position, const SUMOTime period, const std::string& file, const std::vector<std::string>& vehicleTypes,
+                                 const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+                                 const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a single-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -193,59 +200,72 @@ public:
      * @param[in] laneID The lane the detector is placed on
      * @param[in] pos position of the detector on the lane
      * @param[in[ length length of the detector
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] jamThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
     virtual void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                           const double pos, const double length, const SUMOTime freq, const std::string& trafficLight, const std::string& filename,
-                                           const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
-                                           const double jamThreshold, const bool friendlyPos, const Parameterised::Map& parameters) = 0;
+                                           const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+                                           const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                                           const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
+                                           const bool friendlyPos, const bool show, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the detector
-     * @param[in] lanes The lanes the detector is placed on
+     * @param[in] laneIDs The lanes the detector is placed on
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] jamThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    virtual void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes,
-                                          const double pos, const double endPos, const SUMOTime freq, const std::string& trafficLight, const std::string& filename,
-                                          const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
-                                          const bool friendlyPos, const Parameterised::Map& parameters) = 0;
+    virtual void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs,
+                                          const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+                                          const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                                          const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
+                                          const bool friendlyPos, const bool show, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the detector
      * @param[in] pos position of the detector in the map
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] openEntry enable or disable open Entry
+     * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
-    virtual void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime freq,
-                                 const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                                 const double speedThreshold, const Parameterised::Map& parameters) = 0;
+    virtual void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
+                                 const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                                 const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
+                                 const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -275,11 +295,14 @@ public:
      * @param[in] filename The path to the output file.
      * @param[in] name E2 detector name
      * @param[in] vtypes list of vehicle types to be reported
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                        const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                                        const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                                        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                                         const bool friendlyPos, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a microscopic calibrator over a lane
@@ -293,7 +316,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                     const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
+                                     const double pos, const std::string& name, const std::string& outfile, const SUMOTime period, const std::string& routeprobe,
                                      const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a microscopic calibrator over an edge
@@ -310,7 +333,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID,
-                                     const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
+                                     const double pos, const std::string& name, const std::string& outfile, const SUMOTime period, const std::string& routeprobe,
                                      const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a calibrator flow
@@ -329,7 +352,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off,
+                               const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, const bool optional,
                                const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) = 0;
 
     /**@brief builds a rerouter interval
@@ -378,13 +401,13 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the routeprobe
      * @param[in] edgeID The edges the routeprobe is placed at
-     * @param[in] freq the aggregation period the values the routeprobe collects shall be summed up.
+     * @param[in] period the aggregation period the values the routeprobe collects shall be summed up.
      * @param[in] name Calibrator name
      * @param[in] file The file to read the routeprobe definitions from
      * @param[in] begin The time at which to start generating output
      * @param[in] parameters generic parameters
      */
-    virtual void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime freq,
+    virtual void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime period,
                                  const std::string& name, const std::string& file, const SUMOTime begin, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a VariableSpeedSign (lane speed additional)
@@ -513,6 +536,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] x POI's x position
      * @param[in] y POI's y position
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -523,9 +547,9 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                          const RGBColor& color, const double x, const double y, const double layer, const double angle, const std::string& imgFile,
-                          bool relativePath, const double width, const double height, const std::string& name,
-                          const Parameterised::Map& parameters) = 0;
+                          const RGBColor& color, const double x, const double y, const std::string& icon, const double layer,
+                          const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
+                          const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI over lane using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -536,6 +560,7 @@ public:
      * @param[in] posOverLane The position over Lane
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -546,9 +571,9 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color,
-                              const std::string& laneID, const double posOverLane, const bool friendlyPosition, const double posLat, const double layer,
-                              const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name,
-                              const Parameterised::Map& parameters) = 0;
+                              const std::string& laneID, const double posOverLane, const bool friendlyPosition, const double posLat, const std::string& icon,
+                              const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height,
+                              const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI in GEO coordinaten using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -557,6 +582,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] lon POI's longitud
      * @param[in] lat POI's latitud
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -567,14 +593,47 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                             const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
-                             bool relativePath, const double width, const double height, const std::string& name,
-                             const Parameterised::Map& parameters) = 0;
+                             const RGBColor& color, const double lon, const double lat, const std::string& icon, const double layer,
+                             const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
+                             const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a JuPedSim walkable area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the walkable area
+     * @param[in] shape The shape of the walkable area
+     * @param[in] geo specify if shape was loaded as GEO
+     * @param[in] name walkable area name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                      bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a JuPedSim obstacle using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the obstacle
+     * @param[in] shape The shape of the obstacle
+     * @param[in] geo specify if shape was loaded as GEO
+     * @param[in] name obstacle name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                  bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
+
     /// @}
+
+    /// @brief get flag for check if a element wasn't created
+    bool isErrorCreatingElement() const;
+
+protected:
+    /// @brief write error and enable error creating element
+    void writeError(const std::string& error);
 
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
+
+    /// @brief flag for check if a element wasn't created
+    bool myErrorCreatingElement = false;
 
     /// @name parse additional attributes
     /// @{
@@ -680,13 +739,22 @@ private:
     /// @brief parse POI attributes
     void parsePOIAttributes(const SUMOSAXAttributes& attrs);
 
+    /// @brief parse juPedSim walkable area attributes
+    void parseJpsWalkableAreaAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse juPedSim obstacle attributes
+    void parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs);
+
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
 
     /// @}
 
     /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) const;
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
+
+    /// @brief check detect persons
+    bool checkDetectPersons(const SumoXMLTag currentTag, const std::string& id, const std::string& detectPersons);
 
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;

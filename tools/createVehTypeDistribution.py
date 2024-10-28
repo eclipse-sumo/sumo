@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -42,37 +42,35 @@ a negative lower limit.
 import sys
 import csv
 import re
-import argparse
+
+from sumolib.options import ArgumentParser
 from sumolib.vehicletype import CreateVehTypeDistribution
 
 
 def get_options(args=None):
-    argParser = argparse.ArgumentParser()
-    argParser.add_argument(
-        "configFile", help="file path of the config file which defines the car-following parameter distributions")
-    argParser.add_argument(
-        "-o", "--output-file", dest="outputFile", default="vTypeDistributions.add.xml", help="file path of the " +
-        "output file (if the file already exists, the script tries to insert the distribution node into it)")
-    argParser.add_argument(
-        "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created " +
-        "vehicle type distribution")
-    argParser.add_argument(
-        "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
-    argParser.add_argument(
-        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for " +
-        "numeric attribute values")
-    argParser.add_argument(
-        "--resampling", type=int, default=100, dest="nrSamplingAttempts", help="number of attempts to resample a " +
-        "value until it lies in the specified bounds")
-    argParser.add_argument("--seed", type=int, help="random seed", default=42)
+    ap = ArgumentParser()
+    ap.add_argument("configFile", category="input",
+                    help="file path of the config file which defines the car-following parameter distributions")
+    ap.add_argument("-o", "--output-file", category="output", dest="outputFile", default="vTypeDistributions.add.xml",
+                    help=("file path of the output file" +
+                          "(if the file already exists, the script tries to insert the distribution node into it)"))
+    ap.add_argument("-n", "--name", dest="vehDistName", default="vehDist",
+                    help="alphanumerical ID used for the created vehicle type distribution")
+    ap.add_argument("-s", "--size", type=int, default=100, dest="vehicleCount",
+                    help="number of vTypes in the distribution")
+    ap.add_argument("-d", "--decimal-places", type=int, default=3, dest="decimalPlaces",
+                    help="number of decimal places for numeric attribute values")
+    ap.add_argument("--resampling", type=int, default=100, dest="nrSamplingAttempts",
+                    help="number of attempts to resample a value until it lies in the specified bounds")
+    ap.add_argument("--seed", type=int, help="random seed", default=42)
 
-    options = argParser.parse_args()
+    options = ap.parse_args(args)
     return options
 
 
 def readConfigFile(options):
     filePath = options.configFile
-    result = []
+    result = dict()
     floatRegex = [r'\s*(-?[0-9]+(\.[0-9]+)?)\s*']
     distSyntaxes = {'normal': r'normal\(%s\)' % (",".join(2 * floatRegex)),
                     'lognormal': r'lognormal\(%s\)' % (",".join(2 * floatRegex)),
@@ -143,14 +141,14 @@ def readConfigFile(options):
                             upperLimit = float(items[0][2])
                             limits = (lowerLimit, upperLimit)
 
-                    result.append({
+                    result[attName] = {
                         "name": attName,
                         "is_param": isParam,
                         "distribution": distName,
                         "distribution_params": distAttr,
                         "bounds": limits,
                         "attribute_value": attValue
-                    })
+                    }
     return result
 
 
@@ -162,12 +160,19 @@ def main(options):
                                              resampling=options.nrSamplingAttempts,
                                              decimal_places=options.decimalPlaces)
 
-    for param_dict in readConfigFile(options):
+    params = readConfigFile(options)
+    for param_dict in params.values():
         dist_creator.add_attribute(param_dict)
+    if ("speedFactor" in params) and ("speedDev" not in params):
+        dist_creator.add_attribute({"name": "speedDev", "is_param": False, "distribution": None,
+                                    "distribution_params": None, "bounds": None, "attribute_value": "0"})
+        print("Warning: Setting speedDev to 0 because only speedFactor is given.", file=sys.stderr)
 
     dist_creator.to_xml(options.outputFile)
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
-    main(options)
+    try:
+        main(get_options())
+    except ValueError as e:
+        sys.exit(e)

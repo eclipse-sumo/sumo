@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,8 +48,10 @@ std::map<ConstROEdgeVector, std::string> ROVehicle::mySavedRoutes;
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      RORouteDef* route, const SUMOVTypeParameter* type,
-                     const RONet* net, MsgHandler* errorHandler)
-    : RORoutable(pars, type), myRoute(route) {
+                     const RONet* net, MsgHandler* errorHandler):
+    RORoutable(pars, type),
+    myRoute(route),
+    myJumpTime(-1) {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
@@ -112,6 +114,18 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     }
     getParameter().stops.insert(iter, stopPar);
     myStopEdges.insert(edgeIter, stopEdge);
+    if (stopPar.jump >= 0) {
+        if (stopEdge->isInternal()) {
+            if (errorHandler != nullptr) {
+                errorHandler->inform("Jumps are not supported from internal stop edge '" + stopEdge->getID() + "'.");
+            }
+        } else {
+            if (myJumpTime < 0) {
+                myJumpTime = 0;
+            }
+            myJumpTime += stopPar.jump;
+        }
+    }
 }
 
 
@@ -197,6 +211,31 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
 
 
 void
+ROVehicle::collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const {
+    auto itM = mandatory.begin();
+    auto itS = getParameter().stops.begin();
+    auto itSEnd = getParameter().stops.end();
+    while (itM != mandatory.end() && itS != itSEnd) {
+        bool repeatMandatory = false;
+        // if we stop twice on the same edge, we must treat this as a repeated
+        // mandatory edge (even though the edge appears only once in the mandatory vector)
+        if ((*itM)->getID() == itS->edge) {
+            if (itS->jump >= 0) {
+                jumpStarts.insert(itM);
+            }
+            itS++;
+            if (itS != itSEnd && itS->edge == (itS - 1)->edge) {
+                repeatMandatory = true;
+            }
+        }
+        if (!repeatMandatory) {
+            itM++;
+        }
+    }
+}
+
+
+void
 ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
         getType()->write(*typeos);
@@ -272,7 +311,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                     os.writeAttr(SUMO_ATTR_FROMXY, fromPos);
                 }
             } else if (writeJunctions) {
-                os.writeAttr(SUMO_ATTR_FROMJUNCTION, from->getFromJunction()->getID());
+                os.writeAttr(SUMO_ATTR_FROM_JUNCTION, from->getFromJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_FROM, from->getID());
             }
@@ -289,7 +328,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                     os.writeAttr(SUMO_ATTR_TOXY, toPos);
                 }
             } else if (writeJunctions) {
-                os.writeAttr(SUMO_ATTR_TOJUNCTION, to->getToJunction()->getID());
+                os.writeAttr(SUMO_ATTR_TO_JUNCTION, to->getToJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_TO, to->getID());
             }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-02 14:46:57 by Eclipse SUMO netedit Version v1_18_0+2345-1e1f4673c2b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <personFlow id="pf_0" begin="10.00" departPos="0.00" color="red" end="3600.00" probability="0.2999999999999999889">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+        <personTrip from="Edge0" to="Edge1"/>
+    </personFlow>
+    <personFlow id="pf_1" begin="12.00" departPos="11.00" color="blue" end="3800.00" probability="0.2999999999999999889">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+        <personTrip from="Edge1" to="Edge2"/>
+    </personFlow>
+</routes>

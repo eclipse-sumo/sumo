@@ -12,3 +12,9 @@ public_transport_implicit_route_depot
 
 # define a repeating route without defining edges, first and last stop are not repeated
 public_transport_implicit_route_depot_flow
+
+# test stops on the same edge that require driving in a loop because the positions are upstream of each other
+stop_same_edge_loop
+
+# test stop on the same edge as the rerouting occurs which needs some slack for the braking gap
+stop_same_edge_slack

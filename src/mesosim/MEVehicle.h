@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
               MSVehicleType* type, const double speedFactor);
 
 
@@ -82,6 +82,10 @@ public:
         return nullptr;
     }
 
+    const MSLane* getBackLane() const {
+        return nullptr;
+    }
+
     /** @brief Return current position (x/y, cartesian)
      *
      * If the vehicle's myLane is 0, Position::INVALID.
@@ -91,20 +95,22 @@ public:
      */
     Position getPosition(const double offset = 0) const;
 
+    /// @brief get bounding rectangle
+    PositionVector getBoundingBox(double offset = 0) const;
 
     /** @brief Returns the vehicle's estimated speed assuming no delays
      * @return The vehicle's estimated speed
-     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     * @note This is only an upper bound. The speed will be lower if the preceding vehicle is delayed
      */
     double getSpeed() const;
 
     /** @brief Returns the vehicle's estimated average speed on the segment assuming no further delays
      * @return The vehicle's estimated average speed
-     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     * @note This is only an upper bound. The speed will be lower if the preceding vehicle is delayed
      */
     double getAverageSpeed() const;
 
-    /// @brief Returns the vehicle's estimated speed after driving accross the link
+    /// @brief Returns the vehicle's estimated speed after driving across the link
     double estimateLeaveSpeed(const MSLink* link) const;
 
 
@@ -134,7 +140,7 @@ public:
      */
     bool moveRoutePointer();
 
-    /** @brief Returns whether this vehicle has already arived
+    /** @brief Returns whether this vehicle has already arrived
      * (reached the arrivalPosition on its final edge)
      */
     bool hasArrived() const;
@@ -164,15 +170,6 @@ public:
     ///@brief ends the current stop and performs loading/unloading
     void processStop();
 
-    /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* /*stop*/) const {
-        return false;
-    }
-
-    bool stopsAtEdge(const MSEdge* /*edge*/) const {
-        return false;
-    }
-
     /** @brief Returns until when to stop at the current segment and sets the information that the stop has been reached
      * @param[in] time the current time
      * @return stop time for the segment
@@ -188,35 +185,23 @@ public:
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap(bool delayed = false) const {
         UNUSED_PARAMETER(delayed);
-        return 0;
+        return mySegment == nullptr || myQueIndex == MESegment::PARKING_QUEUE ? 0 : mySegment->getLength();
     }
 
-    /** @brief replace the current parking area stop with a new stop with merge duration
-     */
-    bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */, std::string& /*errorMsg*/) {
-        throw ProcessError("parkingZoneReroute not implemented for meso");
-    }
-
-    /** @brief get the current parking area stop
-     */
-    MSParkingArea* getNextParkingArea() {
-        throw ProcessError("parkingZoneReroute not implemented for meso");
-    }
-
-    /** @brief Sets the (planned) time at which the vehicle leaves his current cell
+    /** @brief Sets the (planned) time at which the vehicle leaves its current segment
      * @param[in] t The leaving time
      */
     inline void setEventTime(SUMOTime t, bool hasDelay = true) {
         assert(t > myLastEntryTime);
-        if (hasDelay && mySegment != 0) {
+        if (hasDelay && mySegment != nullptr) {
             mySegment->getEdge().markDelayed();
         }
         myEventTime = t;
     }
 
 
-    /** @brief Returns the (planned) time at which the vehicle leaves his current cell
-     * @return The time the vehicle thinks he leaves his cell at
+    /** @brief Returns the (planned) time at which the vehicle leaves its current segment
+     * @return The time the vehicle thinks it leaves its segment at
      */
     inline SUMOTime getEventTime() const {
         return myEventTime;
@@ -270,6 +255,12 @@ public:
         return myLastEntryTime;
     }
 
+    /** @brief Returns the time of the vehicle's last action point.
+     * @return The time of the last action point
+     */
+    SUMOTime getLastActionTime() const {
+        return SIMSTEP;
+    }
 
     /** @brief Sets the time at which the vehicle was blocked
      * @param[in] t The blocking time
@@ -289,7 +280,8 @@ public:
 
 
     /// @brief Returns the duration for which the vehicle was blocked
-    inline SUMOTime getWaitingTime() const {
+    inline SUMOTime getWaitingTime(const bool accumulated = false) const {
+        UNUSED_PARAMETER(accumulated);
         return MAX2(SUMOTime(0), myEventTime - myBlockTime);
     }
 
@@ -297,12 +289,6 @@ public:
         // slow-downs while driving are not modelled
         return getWaitingTime();
     }
-
-    /// @brief Returns the duration for which the vehicle was blocked
-    inline SUMOTime getAccumulatedWaitingTime() const {
-        return getWaitingTime();
-    }
-
 
     /// @brief Returns the earliest leave time for the current segment
     double getEventTimeSeconds() const {
@@ -326,7 +312,7 @@ public:
     double getCurrentStoppingTimeSeconds() const;
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+    bool replaceRoute(ConstMSRoutePtr route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction, checks also for triggered stops
      * @return true iff the vehicle may drive over the next junction

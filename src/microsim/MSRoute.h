@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <memory>
 #include <utils/common/Named.h>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/RGBColor.h>
@@ -43,6 +44,8 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
+class MSLane;
+class MSRoute;
 class OutputDevice;
 
 
@@ -52,6 +55,7 @@ class OutputDevice;
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 typedef std::vector<MSEdge*> MSEdgeVector;
 typedef ConstMSEdgeVector::const_iterator MSRouteIterator;
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 
 
 // ===========================================================================
@@ -84,19 +88,18 @@ public:
     /// returns the destination edge
     const MSEdge* getLastEdge() const;
 
-    /** @brief increments the reference counter for the route */
-    void addReference() const;
-
-    /** @brief deletes the route if there are no further references to it*/
-    void release() const;
+    /** @brief removes the route from the internal dict if it is not marked as permanent */
+    void checkRemoval() const;
 
     /** @brief Output the edge ids up to but not including the id of the given edge
      * @param[in] os The stream to write the routes into (binary)
      * @param[in] firstIndex index of the first edge to be written
      * @param[in] lastIndex index of the first edge that shall not be written (-1 writes all remaining)
+     * @param[in] withInternal Whether internal edges shall be included
+     * @param[in] svc The vClass for determining internal edges
      * @return The number of edges written
      */
-    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1) const;
+    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1, bool withInternal = false, SUMOVehicleClass svc = SVC_IGNORING) const;
 
     bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
@@ -123,22 +126,27 @@ public:
         return myEdges;
     }
 
-    /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
-     * Note, that for edges which contain loops:
-     * - the first occurance of fromEdge will be used
-     * - the first occurance of toEdge after the first occurance of fromEdge will be used
+    /** @brief Compute the distance between 2 given edges on this route, optionally including the length of internal lanes.
+     * Note, that for routes which contain loops:
+     * - the first occurance of fromEdge after routePosition will be used
+     * - the first occurance of toEdge after the above occurance of fromEdge will be used
+     * If fromEdge or toEdge are not in the route or the toPos on toEdge is not downstream of fromPos on fromEdge
+     * std::numeric_limits<double>::max() will be returned.
+     *
+     * The code will work with internal edges as fromEdge and toEdge and also the route may contain internal edges
+     * but only at the start or the end, not between two regular edges. If the route contains internal edges at the begin
+     * routePosition needs to be 0.
      *
      * @param[in] fromPos  position on the first edge, at wich the computed distance begins
-     * @param[in] toPos    position on the last edge, at which the coumputed distance endsance
-     * @param[in] fromEdge edge at wich computation begins
-     * @param[in] toEdge   edge at which distance computation shall stop
-     * @param[in] includeInternal Whether the lengths of internal edges shall be counted
+     * @param[in] toPos    position on the last edge, at which the computed distance ends
+     * @param[in] fromLane lane at wich computation begins
+     * @param[in] toLane   lane at which distance computation shall stop
      * @param[in] routePosition Optional offset when searching for the fromEdge within the route
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true, int routePosition = 0) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSLane* fromLane, const MSLane* toLane, int routePosition = 0) const;
 
-    /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
+    /** @brief Compute the distance between 2 given edges on this route, optionally including the length of internal lanes.
      * This has the same semantics as above but uses iterators instead of edge
      * points so looping routes are not an issue.
      *
@@ -150,6 +158,7 @@ public:
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
     double getDistanceBetween(double fromPos, double toPos, const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal = true) const;
+
 
     /// @brief Returns the color
     const RGBColor& getColor() const;
@@ -226,7 +235,7 @@ public:
      * @param[in] route pointer to the route object
      * @return          whether adding was successful
      */
-    static bool dictionary(const std::string& id, const MSRoute* route);
+    static bool dictionary(const std::string& id, ConstMSRoutePtr route);
 
     /** @brief Adds a route distribution to the dictionary.
      *
@@ -238,7 +247,7 @@ public:
      * @param[in] permanent  whether the new route distribution survives more than one vehicle / flow
      * @return               whether adding was successful
      */
-    static bool dictionary(const std::string& id, RandomDistributor<const MSRoute*>* const routeDist, const bool permanent = true);
+    static bool dictionary(const std::string& id, RandomDistributor<ConstMSRoutePtr>* const routeDist, const bool permanent = true);
 
     /** @brief Returns the named route or a sample from the named distribution.
      *
@@ -248,7 +257,7 @@ public:
      * @param[in] id    the id of the route or the distribution
      * @return          the route (sample)
      */
-    static const MSRoute* dictionary(const std::string& id, SumoRNG* rng = 0);
+    static ConstMSRoutePtr dictionary(const std::string& id, SumoRNG* rng = 0);
 
     /// @brief returns whether a route with the given id exists
     static bool hasRoute(const std::string& id);
@@ -260,7 +269,7 @@ public:
      * @param[in] id    the id of the route distribution
      * @return          the route distribution
      */
-    static RandomDistributor<const MSRoute*>* distDictionary(const std::string& id);
+    static RandomDistributor<ConstMSRoutePtr>* distDictionary(const std::string& id);
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();
@@ -276,9 +285,6 @@ private:
 
     /// whether the route may be deleted after the last vehicle abandoned it
     const bool myAmPermanent;
-
-    /// Information by how many vehicles the route is used
-    mutable int myReferenceCounter;
 
     /// The color
     const RGBColor* const myColor;
@@ -306,13 +312,13 @@ private:
 
 private:
     /// Definition of the dictionary container
-    typedef std::map<std::string, const MSRoute*> RouteDict;
+    typedef std::map<std::string, ConstMSRoutePtr> RouteDict;
 
     /// The dictionary container
     static RouteDict myDict;
 
     /// Definition of the dictionary container
-    typedef std::map<std::string, std::pair<RandomDistributor<const MSRoute*>*, bool> > RouteDistDict;
+    typedef std::map<std::string, std::pair<RandomDistributor<ConstMSRoutePtr>*, bool> > RouteDistDict;
 
     /// The dictionary container
     static RouteDistDict myDistDict;

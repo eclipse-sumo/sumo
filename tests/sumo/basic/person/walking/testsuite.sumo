@@ -22,3 +22,6 @@ walk_start_crossing
 
 # Copy of walk_routeDist
 walk_routeDist
+
+# define walks that end at a busStop, parkingArea, etc.
+walk_stoppingPlace

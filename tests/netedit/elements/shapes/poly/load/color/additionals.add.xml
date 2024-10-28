@@ -1,0 +1,15 @@
+<additionals>
+
+    <!-- non valid color (missing) -->
+    <poly id="poly_0" fill="0" layer="0.00" shape="-10.00,40.00 0.00,40.00 0.00,30.00 -10.00,30.00 -10.00,40.00"/>
+
+    <!-- non valid color (invalid format) -->
+    <poly id="poly_1" color="dummyColor" fill="0" layer="0.00" shape="10.00,40.00 20.00,40.00 20.00,30.00 10.00,30.00 10.00,40.00"/>
+
+    <!-- valid color 1 -->
+    <poly id="poly_2" color="255,0,0" fill="0" layer="0.00" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00"/>
+
+    <!-- valid color 2 -->
+    <poly id="poly_3" color="red" fill="0" layer="0.00" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00"/>
+
+</additionals>

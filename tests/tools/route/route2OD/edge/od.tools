@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-08 12:37:11.736198 by route2OD.py v1_12_0+0365-2492193
+
+<!-- generated on 2022-07-07 11:17:08.942952 by route2OD.py v1_13_0+1343-240e5d48340
 <configuration>
     <edge-relations value="True"/>
     <output-file value="od.xml"/>
     <route-file value="input_routes.rou.xml"/>
-    <taz-files value="input_additional.add.xml"/>
 </configuration>
-
 -->
+
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="DEFAULT_VEHTYPE" begin="0" end="11.0">
         <edgeRelation from="A1A0" to="B0C0" count="1"/>

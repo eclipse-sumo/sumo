@@ -1,3 +1,9 @@
 # a single approaching vehicle needs to stop before passing
 # 
 basic
+
+# a single approaching vehicle needs to stop before passing (but drives without stopping)
+skip_wait
+
+# a single approaching vehicle needs to stop 3s before passing 
+wait_longer

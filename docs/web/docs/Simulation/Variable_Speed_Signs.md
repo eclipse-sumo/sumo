@@ -8,7 +8,7 @@ simulation of variable speed signs. The syntax for such an object is given in th
 # Definition in a single file
 
 ```xml
-<additional>>
+<additional>
     <variableSpeedSign id="vss0" lanes="middle_0">
         <step time="0" speed="2.8"/>
         <step time="100" speed="47.22"/>
@@ -23,7 +23,7 @@ The following attributes are used within the `VariableSpeedSign` element:
 | Attribute Name | Value Type  | Description                                                  |
 | -------------- | ----------- | ------------------------------------------------------------ |
 | **id**         | id (string) | The id of the Variable Speed Signal element (user choice)    |
-| **lanes**      | id (string) | The id of the lanes of the simulation network                |
+| **lanes**      | ids (string list) | The ids of the lanes of the simulation network that shall be affected                |
 | file           | string      | optional file in which the time and speed values are defined |
 
 Each `step`-element is a combination of the time the next new speed shall be set
@@ -40,12 +40,12 @@ Instead of defining the speed changes of a `<variableSpeedSign>` in the same fil
 
 ```xml
 <additional>
-  <variableSpeedSign id="VSS_ID" lanes="LANE_IDS" file="DEF_FILE">
-     <step time="<TIME>" speed="<SPEED>"/>
+  <variableSpeedSign id="VSS_ID" lanes="LANE_IDS" file="DEF_FILE">
+     <step time="<TIME>" speed="<SPEED>"/>
 
-     ... further entries ...
+     ... further entries ...
 
-  </variableSpeedSign>
+  </variableSpeedSign>
 </additional>
 ```
 
@@ -55,10 +55,10 @@ file has the following format:
 
 ```xml
 <vss>
-  <step time="<TIME>" speed="<SPEED>"/>
-  <step time="<TIME>" speed="<SPEED>"/>
+  <step time="<TIME>" speed="<SPEED>"/>
+  <step time="<TIME>" speed="<SPEED>"/>
 
-  ... further entries ...
+  ... further entries ...
 
 </vss>
 ```

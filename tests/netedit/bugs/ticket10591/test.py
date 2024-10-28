@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.deleteMode()
 
 # remove edge
-netedit.leftClick(referencePosition, 300, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -49,8 +49,8 @@ netedit.undo(referencePosition, 1)
 # rebuild network
 netedit.rebuildNetwork()
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

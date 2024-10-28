@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@ class GNELane;
 class GNEMoveElement;
 class GNEUndoList;
 class GNEViewNet;
+class GUIGlObject;
 
 // ===========================================================================
 // class definitions
@@ -250,7 +251,7 @@ protected:
     double myMoveElementLateralOffset;
 
     /// @brief calculate move shape operation
-    GNEMoveOperation* calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius, const bool onlyContour);
+    GNEMoveOperation* calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);
 
 private:
     /// @brief set move shape

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-06 11:00:11 by Eclipse SUMO netedit Version v1_14_1+1311-ab8f708ab1e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-672401.23,-5399632.08" convBoundary="5727.24,5613.90,5813.15,5707.90" origBoundary="11.274814,48.715766,11.611141,48.814343" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="276184048" x="5799.09" y="5613.90" type="priority"/>
+    <node id="3238957553" x="5762.01" y="5707.90" type="dead_end" shape="5766.02,5703.58 5749.03,5702.81 5752.33,5706.30 5765.26,5706.83"/>
+    <node id="335525557" x="5808.10" y="5681.71" type="dead_end"/>
+    <node id="683260410" x="5741.52" y="5662.96" type="dead_end"/>
+    <node id="7610014963" x="5813.15" y="5674.60" type="dead_end"/>
+    <node id="gneJ18" x="5804.10" y="5692.43" type="dead_end" shape="5810.51,5705.05 5818.02,5693.71 5814.79,5691.65 5806.50,5687.25 5798.21,5683.88 5791.21,5695.41 5795.10,5697.49 5796.00,5700.34 5796.13,5703.06 5801.19,5703.32 5804.30,5703.19 5807.65,5703.56"/>
+    <node id="gneJ21" x="5776.47" y="5662.14" type="traffic_light" tl="gneJ21" shape="5777.60,5687.90 5784.60,5688.16 5787.87,5690.31 5804.44,5670.08 5800.06,5666.37 5796.48,5663.07 5793.71,5660.17 5791.74,5657.67 5790.58,5655.59 5790.23,5653.91 5779.83,5653.59 5774.96,5651.20 5769.06,5647.08 5766.48,5649.08 5764.71,5649.48 5762.64,5649.49 5760.24,5649.10 5757.53,5648.32 5748.46,5673.53 5750.41,5675.03 5751.03,5676.26 5751.41,5677.80 5751.56,5679.67 5751.47,5681.84 5773.59,5687.48"/>
+    <node id="gneJ220" x="5780.50" y="5695.39" type="dead_end"/>
+    <node id="gneJ30" x="5727.24" y="5645.98" type="dead_end"/>
+</nodes>

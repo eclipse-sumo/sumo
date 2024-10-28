@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,15 +95,19 @@ public:
     /// register forced (traci) departure
     void forceDeparture();
 
+    /// @brief check whether any transportables are waiting for the given vehicle
+    bool hasAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle) const;
+
     /** @brief load any applicable transportables
     * Loads any person / container that is waiting on that edge for the given vehicle and removes them from myWaiting
     * @param[in] edge the edge on which the loading should take place
     * @param[in] vehicle the vehicle which is taking on containers
     * @param[in,out] timeToLoadNext earliest time for the next loading process (gets updated)
     * @param[in,out] stopDuration the duration of the stop where the loading takes place (might be extended)
+    * @param[in] force load the specified transportable even if the vehicle is not on a stop (needed for replay)
     * @return Whether any transportables have been loaded
     */
-    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration);
+    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration, MSTransportable* const force = nullptr);
 
     /// checks whether any transportable waits to finish her plan
     bool hasTransportables() const;
@@ -165,6 +169,16 @@ public:
     /// @brief register a jammed transportable
     void registerJammed() {
         myJammedNumber++;
+    }
+
+    /// @brief register a teleport after aborting a long wait
+    void registerTeleportAbortWait() {
+        myTeleportsAbortWait++;
+    }
+
+    /// @brief register a teleport to the final destination
+    void registerTeleportWrongDest() {
+        myTeleportsWrongDest++;
     }
 
     /// @brief decrement counter to avoid double counting transportables loaded from state
@@ -230,6 +244,21 @@ public:
         return myArrivedNumber;
     }
 
+    /// @brief return the number of teleports due to excessive waiting for a ride
+    int getTeleportsAbortWait() const {
+        return myTeleportsAbortWait;
+    }
+
+    /// @brief return the number of teleports of transportables riding to the wrong destination
+    int getTeleportsWrongDest() const {
+        return myTeleportsWrongDest;
+    }
+
+    /// @brief Returns the number of teleports transportables did
+    int getTeleportCount() const {
+        return myTeleportsAbortWait + myTeleportsWrongDest;
+    }
+
     /// @}
 
     /** @brief Returns the default movement model for this kind of transportables
@@ -255,6 +284,14 @@ public:
         myDiscardedNumber++;
     }
 
+    void startedAccess() {
+        myAccessNumber++;
+    }
+
+    void endedAccess() {
+        myAccessNumber--;
+    }
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
@@ -265,6 +302,10 @@ public:
 
     /// @brief Resets transportables when quick-loading state
     void clearState();
+
+    const MSDevice_Vehroutes::SortedRouteInfo& getRouteInfo() {
+        return myRouteInfos;
+    }
 
 protected:
     /// all currently created transportables by id
@@ -277,7 +318,7 @@ protected:
     std::map<SUMOTime, TransportableVector> myWaitingUntil;
 
     /// the lists of waiting transportables
-    std::map<const MSEdge*, TransportableVector> myWaiting4Vehicle;
+    std::map<const MSEdge*, TransportableVector, ComparatorNumericalIdLess> myWaiting4Vehicle;
 
     /// @brief The number of build transportables
     int myLoadedNumber;
@@ -300,14 +341,26 @@ protected:
     /// @brief The number of transportables waiting for a specified time
     int myWaitingUntilNumber;
 
+    /// @brief The number of transportables currently in an access stage
+    int myAccessNumber;
+
     /// @brief The number of transportables that exited the simulation
     int myEndedNumber;
 
     /// @brief The number of transportables that arrived at their destination
     int myArrivedNumber;
 
+    /// @brief The number of teleports due to long waits for a ride
+    int myTeleportsAbortWait;
+
+    /// @brief The number of teleports due to wrong destination
+    int myTeleportsWrongDest;
+
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;
+
+    /// @brief maximum transportable count
+    int myMaxTransportableNumber;
 
 private:
     MSPModel* myMovementModel;

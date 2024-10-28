@@ -8,12 +8,16 @@ Building a scenario is a lot of work. If you have built a SUMO scenario
 you can share (under a sufficiently open license), please
 [contact us](../Contact.md).
 
+# Berlin
+
+- [Mosaic Berlin Sumo Traffic (BeST) Scenario on GitHub](https://github.com/mosaic-addons/best-scenario)
+
 # Bologna
 
 A small-scale scenario based on the city of Bologna. The large
 roundabout can be found at 44.494554,11.314393. These scenarios were
-developed as part of the [iTETRIS project](http://www.ict-itetris.eu). A
-[publication](http://elib.dlr.de/89354) on these scenarios was presented
+developed as part of the [iTETRIS project](https://www.ict-itetris.eu). A
+[publication](https://elib.dlr.de/89354) on these scenarios was presented
 at [SUMO
 Conference 2014](https://sumo.dlr.de/docs/Publications.html#SUMO_2014): L.
 Bieker, D. Krajzewicz, A. Morra, C. Michelacci and F. Cartolano,
@@ -21,16 +25,23 @@ Bieker, D. Krajzewicz, A. Morra, C. Michelacci and F. Cartolano,
 of Bologna", SUMO2014, p 19-26
 
 - [Bologna Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/)
-- (Old release) [Download .zip files from SourceForge](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
+- (Old release) [Download .zip files from SourceForge](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
 
-# Brunswick
+# Braunschweig
 
 - [Brunswick Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/brunswick)
 
-# Dublin - Irish Motorway, National road and city centre 
+# Dublin - Irish Motorway, National road and city centre
 
 - [Main Page](https://github.com/maxime-gueriau/ITSC2020_CAV_impact)
-- Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the The 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
+- Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
+
+# Geneva - Digital Twin - Geneva Motorway (DT-GM)
+
+- [Repository](https://github.com/SiLab-group/DigitalTwin_GenevaMotorway)
+
+Everyone (after registering at ODPMS) can get access to fine-grained (minute resolution) real-time traffic data from traffic counters and use it as input in DT-GM.
+The details of modelling and results will also be publicly available in two papers, which for the moment we only mentioned in the README file since they are under review process. (if need it we can provide you preprint of the paper "Building a Motorway Digital Twin in SUMO: Real-Time Simulation of Continuous Data Stream from Traffic Counters")
 
 # Ingolstadt traffic scenario
 ## InTAS
@@ -65,6 +76,10 @@ Italy.
 - [Main Page](https://github.com/boschresearch/stuttgart-sumo-traffic-scenario)
 - Publication: David Förster, Hans Löhr, Anne Grätz, Jonathan Petit, and Frank Kargl, "An Evaluation of Pseudonym Changes for Vehicular Networks in Large-scale, Realistic Traffic Scenarios", IEEE Transactions on Intelligent Transportation Systems 19.10 (2017): 3400-3405, doi: [10.1109/TITS.2017.2775519](https://doi.org/10.1109/TITS.2017.2775519).
 
+# Toronto
+
+- [Toronto Scenarios on GitHub](https://github.com/Jahandad-Baloch/TorontoSUMONetworks)
+
 # Turin SUMO Traffic (TuST)
 A large-scale mesoscopic traffic simulation of a 600-sqkm area around the Municipality of Turin.
 
@@ -81,7 +96,7 @@ A large-scale mesoscopic traffic simulation of a 600-sqkm area around the Munici
 # TAPASCologne
 
 ![ssnap_TapasCologne_0.1.gif](../images/Ssnap_TapasCologne_0.1.gif
-"TAPAS Cologne")   
+"TAPAS Cologne")
 The "TAPAS Cologne" simulation scenario
 describes the traffic within the city of Cologne, Germany for a whole
 day. The original demand data stems from TAPAS, a system which computes
@@ -90,10 +105,10 @@ about travelling habits of Germans and on information about the
 infrastructure of the area they live in.
 
 More information about the system can be found within this [publication
-on TAPAS](http://elib.dlr.de/45058/02/SRL_81_-_Beitrag_Varschen.pdf).
+on TAPAS](https://elib.dlr.de/45058/02/SRL_81_-_Beitrag_Varschen.pdf).
 The original data was using a closed-source road network and was mapped
 onto one stemming from the [OpenStreetMap
-project](http://www.openstreetmap.de/).
+project](https://www.openstreetmap.de/).
 
 There is further information about
 [TAPASCologne](../Data/Scenarios/TAPASCologne.md).
@@ -105,27 +120,31 @@ connected driving in Hamburg.
 
 - [TAVF-Hamburg Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/TAVF-Hamburg)
 
-# Further real-world scenarios
+# Boston, Lisbon, Los Angeles, Rio de Janeiro, San Francisco
 
-- [Bologna Ringway](http://academic.lucabedogni.it/the-bologna-ringway-dataset/).
+[SUMO simulation files for running 24h of car traffic in five large-scale cities](https://www.research-collection.ethz.ch/handle/20.500.11850/584669)
+
+# Outdated real-world scenarios
+
+- [Bologna Ringway](https://web.archive.org/web/20220707045650/https://academic.lucabedogni.it/the-bologna-ringway-dataset/).
     Scenario built within the [COLOMBO R&D
-    project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/).
+    project](https://web.archive.org/web/20170716120720/https://www.colombo-fp7.eu/).
 
 !!! caution
-    This scenario is known to have lots of collisions due to unsafe traffic lights and some invalid junction definitions. It is also quite jammed.
+    This scenario seems to have been removed and is only here for historical reference. It was known to have lots of collisions due to unsafe traffic lights and some invalid junction definitions. It is also quite jammed.
 
 # Synthetic scenarios
 
 Synthetic - or abstract - scenarios only resemble typical layouts of
 real-world junctions and arterials without mapping a very specific one.
 Some synthetic scenarios of the [COLOMBO R&D
-project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/) are examples of the German guideline
+project](https://web.archive.org/web/20170716120720/https://www.colombo-fp7.eu/) are examples of the German guideline
 RiLSA. They are described in [D1.1 "Scenario Specifications and Required
 Modifications to Simulation
-Tools"](https://web.archive.org/web/20170808122505/http://elib.dlr.de/98046/1/COLOMBO_D1.1_ScenariosExtensions_v2.4.pdf)(chapter
+Tools"](https://web.archive.org/web/20170808122505/https://elib.dlr.de/98046/1/COLOMBO_D1.1_ScenariosExtensions_v2.4.pdf)(chapter
 4).
 
-- Download: [4 RiLSA \*.zip files](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/RiLSA)
+- Download: [4 RiLSA \*.zip files](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/RiLSA)
 
 # Wildau
 

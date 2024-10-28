@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    GUIOverheadWire.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
+/// @author  Mirko Barthauer
 /// @date    2019-12-15
 ///
 // The gui-version of a MSOverheadWire
@@ -53,7 +54,7 @@
 // ===========================================================================
 GUIOverheadWire::GUIOverheadWire(const std::string& id, MSLane& lane, double frompos, double topos, bool voltageSource) :
     MSOverheadWire(id, lane, frompos, topos, voltageSource),
-    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id) {
+    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id, GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE)) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
                     lane.interpolateLanePosToGeometryPos(frompos),
@@ -80,7 +81,8 @@ GUIOverheadWire::GUIOverheadWire(const std::string& id, MSLane& lane, double fro
     myFGSignRot = 0;
     if (tmp.length() != 0) {
         myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
-        myFGSignRot -= 90;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+        myFGSignRot -= 90 * rotSign;
     }
 }
 
@@ -89,7 +91,7 @@ GUIOverheadWire::~GUIOverheadWire() {
 }
 
 GUIOverheadWireClamp::GUIOverheadWireClamp(const std::string& id, MSLane& lane_start, MSLane& lane_end) :
-    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id) {
+    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id, GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE_CLAMP)) {
     myFGShape.clear();
     myFGShape.push_back(lane_start.getShape().front());
     myFGShape.push_back(lane_end.getShape().back());
@@ -104,9 +106,9 @@ GUIOverheadWire::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
-    ret->mkItem("begin position [m]", false, myBegPos);
-    ret->mkItem("end position [m]", false, myEndPos);
-    //ret->mkItem("voltage [V]", false, myVoltage);
+    ret->mkItem(TL("begin position [m]"), false, myBegPos);
+    ret->mkItem(TL("end position [m]"), false, myEndPos);
+    //ret->mkItem(TL("voltage [V]"), false, myVoltage);
 
     // close building
     ret->closeBuilding();
@@ -279,7 +281,10 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         // push charging power matrix
         GLHelper::pushMatrix();
         // draw charging power
-        GLHelper::drawText((toString(getTractionSubstation()->getSubstationVoltage()) + " V").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myFGSignRot, FONS_ALIGN_LEFT);
+        const double lineAngle = s.getTextAngle(myFGSignRot);
+        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+        glRotated(-lineAngle, 0, 0, 1);
+        GLHelper::drawText((toString(getTractionSubstation()->getSubstationVoltage()) + " V").c_str(), Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), 0, FONS_ALIGN_LEFT);
         // pop charging power matrix
         GLHelper::popMatrix();
 
@@ -318,9 +323,9 @@ GUIOverheadWireClamp::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
-    //ret->mkItem("begin position [m]", false, NAN);
-    //ret->mkItem("end position [m]", false, NAN);
-    //ret->mkItem("voltage [V]", false, NAN);
+    //ret->mkItem(TL("begin position [m]"), false, NAN);
+    //ret->mkItem(TL("end position [m]"), false, NAN);
+    //ret->mkItem(TL("voltage [V]"), false, NAN);
 
     // close building
     ret->closeBuilding();

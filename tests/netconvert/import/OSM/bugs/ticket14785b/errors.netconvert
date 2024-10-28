@@ -1,0 +1,19 @@
+Warning: The referenced geometry information (ref='1275477851') is not known
+Warning: The referenced geometry information (ref='2753680464') is not known
+Warning: The referenced geometry information (ref='1261425424') is not known
+Warning: The referenced geometry information (ref='29221514') is not known
+Warning: The referenced geometry information (ref='3837048403') is not known
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4613110').
+Warning: Discarding way '4613308' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '19002403').
+Warning: Discarding way '24914141' because it has only 1 node(s)
+Warning: Discarding way '61579356' because it has only 1 node(s)
+Warning: Discarding way '100944802' because it has only 1 node(s)
+Warning: Discarding way '112128417' because it has only 1 node(s)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '165416919').
+Warning: Converting invalid rail_crossing to priority junction '1828018031'.
+Warning: Edge '4791000#1' is not connected to outgoing edges at junction 'cluster_1840326416_1840326419'.
+Warning: The rail crossing 'cluster_1828018084_1828018088' does not have any roads.
+Warning: The rail crossing 'cluster_1840326416_1840326419' does not have any roads.
+Warning: 14 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 790 total messages of type: The referenced geometry information (ref='%') is not known

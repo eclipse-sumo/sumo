@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/MapMatcher.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportable.h>
@@ -48,7 +49,7 @@ class MSVehicleType;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class MSRouteHandler : public SUMORouteHandler {
+class MSRouteHandler : public SUMORouteHandler, public MapMatcher<MSEdge, MSLane, MSJunction> {
 public:
 
     /// @brief enum for object type
@@ -82,7 +83,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs);
+                                const SUMOSAXAttributes& attrs) override;
     //@}
 
     /** @brief Called for parsing from and to and the corresponding taz attributes
@@ -94,22 +95,22 @@ protected:
     void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @brief opens a type distribution for reading
-    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
+    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) override;
 
     /// @brief closes (ends) the building of a distribution
-    void closeVehicleTypeDistribution();
+    void closeVehicleTypeDistribution() override;
 
     /// @brief opens a route for reading
-    void openRoute(const SUMOSAXAttributes& attrs);
+    void openRoute(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a flow for reading
-    void openFlow(const SUMOSAXAttributes& attrs);
+    void openFlow(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a route flow for reading
-    void openRouteFlow(const SUMOSAXAttributes& attrs);
+    void openRouteFlow(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a trip for reading
-    void openTrip(const SUMOSAXAttributes& attrs);
+    void openTrip(const SUMOSAXAttributes& attrs) override;
 
     /**@brief closes (ends) the building of a route.
      * @note Afterwards no edges may be added to it;
@@ -117,70 +118,71 @@ protected:
      *       a) the route is empty or
      *       b) another route with the same id already exists
      */
-    void closeRoute(const bool mayBeDisconnected = false);
+    void closeRoute(const bool mayBeDisconnected = false) override;
 
     /// @brief opens a route distribution for reading
-    void openRouteDistribution(const SUMOSAXAttributes& attrs);
+    void openRouteDistribution(const SUMOSAXAttributes& attrs) override;
 
     /// @brief closes (ends) the building of a distribution
-    void closeRouteDistribution();
+    void closeRouteDistribution() override;
 
     /// @brief Ends the processing of a vehicle (note: is virtual because is reimplemented in MSStateHandler)
-    virtual void closeVehicle();
+    virtual void closeVehicle() override;
 
     /// @brief Ends the processing of a vehicle type
-    void closeVType();
+    void closeVType() override;
 
     /// @brief Ends the processing of a person
-    void closePerson();
+    void closePerson() override;
 
     /// @brief Ends the processing of a personFlow
-    void closePersonFlow();
+    void closePersonFlow() override;
 
     /// @brief Ends the processing of a container
-    void closeContainer();
+    void closeContainer() override;
 
     /// @brief Ends the processing of a containerFlow
-    void closeContainerFlow();
+    void closeContainerFlow() override;
 
     /// @brief Ends the processing of a flow
-    void closeFlow();
+    void closeFlow() override;
 
     /// @brief Ends the processing of a trip
-    void closeTrip();
+    void closeTrip() override;
 
     /// @brief Parse destination stop
     MSStoppingPlace* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs) override;
 
     /// @brief add a routing request for a walking or intermodal person
-    void addPersonTrip(const SUMOSAXAttributes& attrs);
+    void addPersonTrip(const SUMOSAXAttributes& attrs) override;
 
     /// @brief add a fully specified walk
-    void addWalk(const SUMOSAXAttributes& attrs);
+    void addWalk(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
+    void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson) override;
 
     /// @brief Processing of a ride
-    void addRide(const SUMOSAXAttributes& attrs);
+    void addRide(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a tranship
-    void addTranship(const SUMOSAXAttributes& attrs);
+    void addTranship(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a transport
-    void addTransport(const SUMOSAXAttributes& attrs);
+    void addTransport(const SUMOSAXAttributes& attrs) override;
 
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
                             double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
                             const MSStage* const lastStage, bool& ok);
+
+    void initLaneTree(NamedRTree* tree) override;
+
+    MSEdge* retrieveEdge(const std::string& id) override;
 
 protected:
     /// @brief The current route
@@ -189,6 +191,9 @@ protected:
     /// @brief number of repetitions of the active route
     int myActiveRouteRepeat;
     SUMOTime myActiveRoutePeriod;
+
+    /// @brief whether the active route is stored indefinitely (used by state loader)
+    bool myActiveRoutePermanent;
 
     /// @brief The time at which this route was replaced (from vehroute-output)
     SUMOTime myActiveRouteReplacedAtTime;
@@ -218,7 +223,7 @@ protected:
     std::string myCurrentVTypeDistributionID;
 
     /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
@@ -231,6 +236,9 @@ protected:
 
     /// @brief whether loaded rerouting events shall be replayed
     bool myReplayRerouting;
+
+    /// @brief whether we are loading a personFlow that is starting triggered in a vehicle flow
+    bool myStartTriggeredInFlow;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static SumoRNG myParsingRNG;
@@ -249,19 +257,18 @@ private:
     void closeTransportable();
 
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+    int addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+
+    double interpretDepartPosLat(const std::string& value, int departLane, const std::string& element);
 
     /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
-    MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
+    ConstMSRoutePtr addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPermanent);
 
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
     MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
-
-    /// @brief Check if vtype of given transportable exists
-    void checkTransportableType();
 
     /// @brief Processing of a transport
     void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag);

@@ -15,3 +15,18 @@ specified_in_additional_file
 
 # use a custom detector
 custom_detector
+
+# Specifying delay-based program in an additional file
+maxDur
+
+# Specifying delay-based program in an additional file
+maxDur_extend
+
+# avoid overlapping detectors (#12615)
+short_turnlane
+
+# Specifying delay-based program in an additional file
+minDur0
+
+# test supplying additional parameters
+param_vTypes

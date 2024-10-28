@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    const PositionVector compute();
+    const PositionVector compute(bool forceSmall);
 
     /// @brief get computed radius for node
     double getRadius() const {
@@ -92,7 +92,7 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same);
+    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same, bool useEndpoints);
 
     /** @brief Joins edges
      *
@@ -148,8 +148,15 @@ private:
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
+    void computeSameEnd(PositionVector& l1, PositionVector& l2);
+
+    bool isDivided(const NBEdge* e, std::set<NBEdge*> same, const PositionVector& ccw, const PositionVector& cw) const;
+
     /// @brief compute with of rightmost lanes that exlude the given permissions
     static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);
+
+    /// @brief compute the width of the divider space for divided roads
+    static double divisionWidth(const NBEdge* e, std::set<NBEdge*> same, const Position& p, const Position& p2);
 
 private:
     /// The node to compute the geometry for
@@ -157,6 +164,9 @@ private:
 
     /// @brief the computed node radius
     double myRadius;
+
+    /// @brief the maximum distance to search for a place where neighboring edges intersect and do not overlap
+    double EXT;
 
     static const SVCPermissions SVC_LARGE_TURN;
 

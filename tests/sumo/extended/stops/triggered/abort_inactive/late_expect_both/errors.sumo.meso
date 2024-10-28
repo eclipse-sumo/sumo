@@ -1,0 +1,4 @@
+Warning: Container 'c.0' aborted waiting for v1 at edge 'beg'.
+Warning: Container 'c.1' aborted waiting for v1 at edge 'beg'.
+Warning: Container 'c.2' aborted waiting for v1 at edge 'beg'.
+Warning: Vehicle 'v1' aborted waiting for a person that will never come.

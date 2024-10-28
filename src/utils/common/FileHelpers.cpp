@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,7 +70,7 @@ FileHelpers::isDirectory(std::string path) {
     struct stat fileInfo;
     if (stat(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
 #endif
-        throw ProcessError("Cannot get file attributes for file '" + path + "'!");
+        throw ProcessError(TLF("Cannot get file attributes for file '%'!", path));
     }
     return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
 }
@@ -81,11 +81,29 @@ FileHelpers::isDirectory(std::string path) {
 
 std::string
 FileHelpers::getFilePath(const std::string& path) {
-    const std::string::size_type beg = path.find_last_of("\\/");
+    const auto beg = path.find_last_of("\\/");
     if (beg == std::string::npos) {
         return "";
     }
     return path.substr(0, beg + 1);
+}
+
+
+std::string
+FileHelpers::getFileFromPath(std::string path, const bool removeExtension) {
+    // first remove extension
+    if (removeExtension) {
+        const auto begExtension = path.find_last_of(".");
+        if (begExtension != std::string::npos) {
+            path = path.substr(0, begExtension);
+        }
+    }
+    // now remove path
+    const auto begPath = path.find_last_of("\\/");
+    if (begPath != std::string::npos) {
+        path = path.substr(begPath + 1, path.size());
+    }
+    return path;
 }
 
 
@@ -128,7 +146,7 @@ FileHelpers::getConfigurationRelative(const std::string& configPath, const std::
 bool
 FileHelpers::isSocket(const std::string& name) {
     const std::string::size_type colonPos = name.find(":");
-    return (colonPos != std::string::npos) && (colonPos > 1);
+    return (colonPos != std::string::npos) && (colonPos > 1 || name[0] == '[');
 }
 
 

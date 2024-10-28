@@ -1,5 +1,4 @@
-function import_gtfs called at Thu, 23 Sep 2021 14:28:01 +0000
-function import_gtfs finished after 0.244934 seconds
+function import_gtfs called at Sun, 11 Dec 2022 21:06:09 +0000
+function import_gtfs finished after 0.093193 seconds
 Success.
 Success.
-Warning! No mapping library found, falling back to tracemapper.

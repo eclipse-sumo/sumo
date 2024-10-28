@@ -1,0 +1,14 @@
+/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py:394: OptimizeWarning: Solving system with option 'cholesky':True failed. It is normal for this to happen occasionally, especially as the solution is approached. However, if you see this frequently, consider setting option 'cholesky' to False.
+  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
+/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py:394: OptimizeWarning: Solving system with option 'sym_pos':True failed. It is normal for this to happen occasionally, especially as the solution is approached. However, if you see this frequently, consider setting option 'sym_pos' to False.
+  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
+/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py:394: OptimizeWarning: Solving system with option 'sym_pos':False failed. This may happen occasionally, especially as the solution is approached. However, if you see this frequently, your problem may be numerically challenging. If you cannot improve the formulation, consider setting 'lstsq' to True. Consider also setting `presolve` to True, if it is not already.
+  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
+Warning: Lane '124262120_0' is not connected from any incoming edge at junction '1383487041'.
+Warning: Lane '124264571_0' is not connected from any incoming edge at junction '1383506147'.
+Warning: Speed of turning connection '124262109#0_0->124262109#1_0' reduced by 29.01 due to turning radius of 43.27 (length=7.40, angle=44.99).
+Warning: Speed of turning connection '469983241_0->124262107#0_0' reduced by 30.66 due to turning radius of 41.87 (length=7.19, angle=45.03).
+Warning: Speed of turning connection '124262109#1_0->124262124_0' reduced by 34.71 due to turning radius of 17.22 (length=6.30, angle=56.98).
+Warning: Speed of turning connection '-124262124_0->124262109#2_0' reduced by 39.37 due to turning radius of 4.68 (length=5.95, angle=123.01).
+Warning: Speed of turning connection '-458067265_0->124262109#4_0' reduced by 39.33 due to turning radius of 4.75 (length=7.53, angle=144.23).
+Warning: 21 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

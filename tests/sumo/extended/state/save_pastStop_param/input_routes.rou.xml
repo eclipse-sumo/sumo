@@ -1,0 +1,14 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+
+    <vehicle id="v0" type="t0" route="r0" depart="0">
+        <stop edge="beg" until="5">
+            <param key="custom" value="42"/>
+        </stop>
+        <stop edge="middle" endPos="-1" until="30">
+            <param key="custom2" value="43"/>
+        </stop>
+    </vehicle>
+
+</routes>

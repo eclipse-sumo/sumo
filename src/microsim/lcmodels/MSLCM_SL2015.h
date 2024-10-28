@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -134,6 +134,8 @@ public:
     ///        and updates maneuverDist according to lateral safety constraints.
     double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
+    LatAlignmentDefinition getDesiredAlignment() const override;
+
 protected:
     /** helper function which contains the actual logic */
     double _patchSpeed(double min, const double wanted, double max,
@@ -191,6 +193,9 @@ protected:
     /// @brief reserve space at the end of the lane to avoid dead locks
     bool saveBlockerLength(double length, double foeLeftSpace) override;
 
+    /// @brief whether the ego vehicle is driving outside edgebounds
+    bool outsideEdge() const;
+
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
     }
@@ -213,14 +218,6 @@ protected:
 
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
     typedef std::pair<double, int> Info;
-
-    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
-     *         and stores it into myLCAccelerationAdvices.
-     *  @note  This construction was introduced to deal with action step lengths,
-     *         where operation on the speed in the next sim step had to be replaced by acceleration
-     *         throughout the next action step.
-     */
-    void addLCSpeedAdvice(const double vSafe);
 
     /// @brief update expected speeds for each sublane of the current edge
     void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) override;
@@ -263,7 +260,7 @@ protected:
 
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
-                              double latDist, double foeOffset, bool leaders, LaneChangeAction blockType,
+                              int laneOffset, double latDist, double foeOffset, bool leaders,
                               double& safeLatGapRight, double& safeLatGapLeft,
                               std::vector<CLeaderDist>* collectBlockers = 0) const;
 
@@ -276,6 +273,7 @@ protected:
     /// @brief compute strategic lane change actions
     /// TODO: Better documentation, refs #2
     int checkStrategicChange(int ret,
+                             const MSLane& neighLane,
                              int laneOffset,
                              const MSLeaderDistanceInfo& leaders,
                              const MSLeaderDistanceInfo& neighLeaders,
@@ -293,6 +291,9 @@ protected:
                              double& latDist
                             );
 
+
+    bool mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+                             double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist);
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
@@ -318,7 +319,7 @@ protected:
     /// @brief compute the gap factor for the given state
     double computeGapFactor(int state) const;
 
-    /// @brief return the widht of this vehicle (padded for numerical stability)
+    /// @brief return the width of this vehicle (padded for numerical stability)
     double getWidth() const;
 
     /// @brief find leaders/followers that are already in a car-following relationship with ego
@@ -329,7 +330,7 @@ protected:
         return MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myVehicle.getLane()->getWidth();
     }
 
-    /// @brief commit to lane change maneuvre potentially overriding safe speed
+    /// @brief commit to lane change maneuver potentially overriding safe speed
     void commitManoeuvre(int blocked, int blockedFully,
                          const MSLeaderDistanceInfo& leaders,
                          const MSLeaderDistanceInfo& neighLeaders,
@@ -361,11 +362,17 @@ protected:
     double getNeighRight(const MSLane& neighLane) const;
 
     /* @brief check whether vehicle speed is appropriate for the intended maneuver distance
-     * (rather than doing an orthgonal slide) */
+     * (rather than doing an orthogonal slide) */
     bool preventSliding(double maneuverDist) const;
 
     /// @brief check against thresholds
     inline bool wantsKeepRight(double keepRightProb) const;
+
+    /// @brief check whether lane is an upcoming bidi lane
+    bool isBidi(const MSLane* lane) const;
+
+    /// @brief avoid unsafe lateral speed (overruling lcAccelLat)
+    double emergencySpeedLat(double speedLat) const;
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
@@ -384,10 +391,6 @@ protected:
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
     double myLookAheadSpeed;
-
-    /// @brief vector of LC-related acceleration recommendations
-    ///        Filled in wantsChange() and applied in patchSpeed()
-    std::vector<double> myLCAccelerationAdvices;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)
     std::vector<double> myExpectedSublaneSpeeds;
@@ -440,12 +443,14 @@ protected:
     double myLaneDiscipline;
     // @brief lookahead for speedGain in seconds
     double mySpeedGainLookahead;
-    // @brief bounus factor staying on the inside of multi-lane roundabout
+    // @brief bonus factor staying on the inside of multi-lane roundabout
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment
     double myCooperativeSpeed;
     // time for unrestricted driving on the right to accept keepRight change
     double myKeepRightAcceptanceTime;
+    // @brief speed difference factor for overtaking the leader on the neighbor lane before changing to that lane
+    double myOvertakeDeltaSpeedFactor;
     //@}
 
     /// @name derived parameters

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -157,7 +157,9 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
         ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+            if (!myCollector.myExpectArrival) {
+                WRITE_WARNINGF("Vehicle '%' arrived inside % '%', time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID(), time2string(SIMSTEP));
+            }
         }
         return false;
     }
@@ -281,13 +283,15 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
     ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' teleported from " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+        WRITE_WARNINGF("Vehicle '%' teleported from % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
         myCollector.myEnteredContainer.erase(&veh);
         return false;
     }
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+            if (!myCollector.myExpectArrival) {
+                WRITE_WARNINGF("Vehicle '%' arrived inside % '%', time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID(), time2string(SIMSTEP));
+            }
         }
         return false;
     }
@@ -302,16 +306,18 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              const CrossSectionVector& exits,
                              double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold,
-                             const std::string& vTypes,
+                             const std::string name, const std::string& vTypes,
+                             const std::string& nextEdges,
                              int detectPersons,
-                             bool openEntry) :
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+                             bool openEntry, bool expectArrival) :
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
+    myName(name),
     myEntries(entries),
     myExits(exits),
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0),
     myLastMeanTravelTime(0), myLastMeanHaltsPerVehicle(0), myLastMeanTimeLoss(0), myLastVehicleSum(0),
-    myLastResetTime(-1), myOpenEntry(openEntry) {
+    myLastResetTime(-1), myOpenEntry(openEntry), myExpectArrival(expectArrival) {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));
@@ -359,7 +365,7 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
         return;
     }
     if (myEnteredContainer.find(&veh) != myEnteredContainer.end()) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' reentered " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "'.");
+        WRITE_WARNINGF("Vehicle '%' reentered % '%', time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID(), time2string(SIMSTEP));
         return;
     }
 #ifdef DEBUG_E3_NOTIFY_ENTER
@@ -376,7 +382,7 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
     v.haltings = 0;
     v.intervalHaltings = 0;
     if (veh.getSpeed() < myHaltingSpeedThreshold) {
-        if (fractionTimeOnDet > myHaltingTimeThreshold) {
+        if (TIME2STEPS(fractionTimeOnDet) > myHaltingTimeThreshold) {
             v.haltings++;
             v.intervalHaltings++;
         }
@@ -405,7 +411,7 @@ MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimest
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry && veh.isVehicle()) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it, time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID(), time2string(SIMSTEP));
         }
     } else {
         myEnteredContainer[&veh].frontLeaveTime = leaveTimestep;
@@ -433,9 +439,12 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry && veh.isVehicle()) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it, time=%.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID(), time2string(SIMSTEP));
         }
     } else {
+#ifdef DEBUG_E3_NOTIFY_LEAVE
+        std::cout << veh.getID() << " leaves\n";
+#endif
         E3Values values = myEnteredContainer[&veh];
         values.backLeaveTime = leaveTimestep;
         const double speedFraction = veh.getSpeed() * (TS - fractionTimeOnDet);
@@ -628,7 +637,7 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
     if (myEnteredContainer.size() == 0) {
         myCurrentMeanSpeed = -1;
     } else {
-        myCurrentMeanSpeed /= myEnteredContainer.size();
+        myCurrentMeanSpeed /= (double)myEnteredContainer.size();
     }
 }
 
@@ -676,6 +685,7 @@ MSE3Collector::getCurrentVehicleIDs() const {
 void
 MSE3Collector::clearState(SUMOTime /* step */) {
     myEnteredContainer.clear();
+    myLeftContainer.clear();
 }
 
 /****************************************************************************/

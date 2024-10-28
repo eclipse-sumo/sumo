@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_lockcontainer_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+"X c #CC0000",
+"o c None",
+/* pixels */
+"oooooooooooooooo",
+"oooooooooooooooo",
+"ooo   oooooooooo",
+"oo     ooooooooo",
+"oo ooo ooooooooo",
+"oo ooo ooooooooo",
+"o       oooooooo",
+" XXXXXXX ooooooo",
+" XXXXXXX ooooooo",
+" XXXX           ",
+" XXXX ooooooooo ",
+"o     o o o o o ",
+"ooooo o o o o o ",
+"ooooo o o o o o ",
+"ooooo ooooooooo ",
+"ooooo           "
+};

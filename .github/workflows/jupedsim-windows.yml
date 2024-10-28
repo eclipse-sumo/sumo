@@ -1,0 +1,89 @@
+name: jupedsim-windows
+
+on:
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+  schedule:
+    - cron:  '5 0 * * *'
+
+jobs:
+  build:
+    if: github.repository == 'DLR-TS/sumo' || github.event_name == 'pull_request'
+    runs-on: windows-latest
+    strategy:
+      # Allow all other matrix-jobs to continue running, even if one of the jobs fails
+      fail-fast: false
+      matrix:
+        jps_version: [rls-1.2, master]
+        build_config: [Release, Debug]
+
+    steps:
+    - name: Cloning jupedsim
+      uses: actions/checkout@v4
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
+    - name: Building jupedsim
+      run: |
+        cmake -B jupedsim-build-${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=jupedsim-install-${{ matrix.build_config }} jupedsim
+        cmake --build jupedsim-build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }}
+        cmake --install jupedsim-build-${{ matrix.build_config }} --config ${{ matrix.build_config }}
+
+    - name: Uploading artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: jupedsim-${{ matrix.jps_version }}-${{ matrix.build_config }}
+        path: jupedsim-install-${{ matrix.build_config }}
+
+    - name: Cloning SUMO
+      uses: actions/checkout@v4
+      with:
+        path: sumo
+        fetch-depth: 0
+
+    - name: Cloning SUMO Libraries
+      uses: actions/checkout@v4
+      with:
+        repository: DLR-TS/SUMOLibraries
+        path: sumolibraries
+
+    - name: Configuring and building SUMO
+      run: |
+        cmake -B sumo/build-${{ matrix.build_config }} -DJUPEDSIM_CUSTOMDIR=jupedsim-install-${{ matrix.build_config }} sumo
+        cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
+
+    - name: Running sumo.extra tests
+      # Tests in Debug hit a timeout
+      if: matrix.build_config == 'Release'
+      run: |
+        cd sumo/build-${{ matrix.build_config }}
+        $env:TEXTTEST_TMP = "D:/texttest"
+        $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
+        ctest --build-config ${{ matrix.build_config }} --verbose -R texttest
+        $env:TEXTTEST_CI_APPS = "-a sumo -ts meta"
+        ctest --build-config ${{ matrix.build_config }} --verbose -R texttest
+
+    - name: Compressing test results
+      if: failure()
+      run: |
+        dir d:\texttest
+        Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
+        dir d:\texttest
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: texttesttmp-${{ matrix.jps_version }}-${{ matrix.build_config }}
+        path: D:/texttest/tt.zip
+        if-no-files-found: warn

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -171,6 +171,12 @@ VehicleType::getHeight(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getMass(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_MASS, typeID);
+}
+
+
 libsumo::TraCIColor
 VehicleType::getColor(const std::string& typeID) {
     return Dom::getCol(libsumo::VAR_COLOR, typeID);
@@ -186,6 +192,29 @@ VehicleType::getPersonCapacity(const std::string& typeID) {
 double
 VehicleType::getScale(const std::string& typeID) {
     return Dom::getDouble(libsumo::VAR_SCALE, typeID);
+}
+
+
+double
+VehicleType::getBoardingDuration(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, typeID);
+}
+
+
+double
+VehicleType::getImpatience(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, typeID);
+}
+
+
+void
+VehicleType::setImpatience(const std::string& typeID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, typeID, impatience);
+}
+
+void
+VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, typeID, boardingDuration);
 }
 
 void
@@ -258,6 +287,12 @@ VehicleType::setWidth(const std::string& typeID, double width) {
 void
 VehicleType::setHeight(const std::string& typeID, double height) {
     Dom::setDouble(libsumo::VAR_HEIGHT, typeID, height);
+}
+
+
+void
+VehicleType::setMass(const std::string& typeID, double mass) {
+    Dom::setDouble(libsumo::VAR_MASS, typeID, mass);
 }
 
 

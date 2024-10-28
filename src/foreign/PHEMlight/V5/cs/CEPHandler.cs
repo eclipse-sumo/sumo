@@ -347,7 +347,7 @@ namespace PHEMlightdll
                 Helper.ErrMsg = "Error in correction calculation";
                 return false;
             }
-            
+
             //Return value
             return true;
         }

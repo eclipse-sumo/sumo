@@ -74,7 +74,5 @@
     <connection from="7525914#1" to="-68014253#1" fromLane="1" toLane="0"/>
     <connection from="7525914#1" to="7525969#0" fromLane="2" toLane="1"/>
 
-    <crossing node="5647984913" edges="7525969#0" priority="0" width="4.00"/>
-    <crossing node="6137626911" edges="60062720#2" priority="0" width="4.00"/>
     <crossing node="cluster_2351978965_3491058798_606104206_606104215" edges="411031867 -411031867" priority="0" width="4.00"/>
 </connections>

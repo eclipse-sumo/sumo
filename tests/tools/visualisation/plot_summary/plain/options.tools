@@ -1,1 +1,0 @@
--b -i summary.xml -o image.png,image.svg tools/visualization/plot_summary.py 

@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" speedDev="0.1" carFollowModel="EIDM" accel="3" decel="3" sigma="0.3" tau="1" minGap="2"/>
+    <route id="r0" edges="0 -0" repeat="50">
+        <stop lane="0_0" endPos="400" duration="200"/>
+        <stop lane="0_0" endPos="401" duration="0"/>
+    </route>
+    <route id="r1" edges="0 -0" repeat="50"/>
+
+    <vehicle id="first" type="car" depart="0" route="r0" departSpeed="max"/>
+    <flow id="f" type="car" begin="1" end="31" period="1" route="r1" departSpeed="avg"/>
+</routes>

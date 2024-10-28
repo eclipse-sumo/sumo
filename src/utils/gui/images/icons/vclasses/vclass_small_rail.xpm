@@ -1,0 +1,34 @@
+/* XPM */
+static const char *vclass_small_rail_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 12 1",
+"  c #37353B",
+". c gray35",
+"X c #A29CAD",
+"o c #A2A2A2",
+"O c gray70",
+"+ c #8DA8C2",
+"@ c #A5C5E3",
+"# c #B9DDFF",
+"$ c gray86",
+"% c #E7E3EB",
+"& c gray93",
+"* c None",
+/* pixels */
+"****************",
+"****************",
+"****************",
+"oooooooooo$*****",
+"OOOOOOOOOOOOO***",
+"#############O**",
+"  ##    ##    X*",
+"  ##    ##     X",
+"  ##    ##      ",
+"  ##    ##      ",
+"#############&&$",
+"@@@@@@@@@@@@@@&$",
+"+++++++++++++++O",
+"OOOOOOOOOOOOOOO$",
+"...****....*****",
+"%%%%%%%%%%%%%%%%"
+};

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -48,6 +48,7 @@ def check():
     print("phaseName", traci.trafficlight.getPhaseName(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
     print("duration", traci.trafficlight.getPhaseDuration(tlsID))
+    print("spent", traci.trafficlight.getSpentDuration(tlsID))
 
 
 phases = []
@@ -56,8 +57,9 @@ phases.append(traci.trafficlight.Phase(10, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(40, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
-phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 logic = traci.trafficlight.Logic("custom", 0, 0, phases)
+phases.append(sumolib.net.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
+logic.phases = phases
 traci.trafficlight.setProgramLogic(tlsID, logic)
 
 traci.trafficlight.setPhase(tlsID, 4)
@@ -73,6 +75,7 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.trafficlight.getSubscriptionResults(tlsID))
+    check()
 traci.trafficlight.setLinkState(tlsID, 4, 'u')
 try:
     traci.trafficlight.setLinkState(tlsID, 16, 'u')

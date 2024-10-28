@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  8 17:15:19 2021 by Eclipse SUMO sumo Version v1_8_0+1040-a3e414f
+<!-- generated on 2022-12-11 20:57:36 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,19 +33,14 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <lateral-resolution value="0.4"/>
-        <default.action-step-length value="1"/>
+        <default.action-step-length value="1.0"/>
         <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
-
-    <gui_only>
-        <tracker-interval value="0.1"/>
-    </gui_only>
 
 </configuration>
 -->
@@ -51,215 +51,215 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="B" x="0.00" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="0.00" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.10">
-        <vehicle id="A" x="1.38" y="-6.14" angle="89.70" type="t0" speed="13.89" pos="1.39" lane="beg_0" slope="0.00" signals="0"/>
+        <vehicle id="A" x="1.38" y="-6.14" angle="89.89" type="t0" speed="13.89" pos="1.39" lane="beg_0" slope="0.00" signals="0"/>
         <vehicle id="B" x="1.38" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="1.39" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="A" x="2.76" y="-6.12" angle="89.39" type="t0" speed="13.89" pos="2.78" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="2.76" y="-6.12" angle="89.69" type="t0" speed="13.89" pos="2.78" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="2.76" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="2.78" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.30">
-        <vehicle id="A" x="4.14" y="-6.09" angle="89.09" type="t0" speed="13.89" pos="4.17" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="4.14" y="-6.09" angle="89.43" type="t0" speed="13.89" pos="4.17" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="4.14" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="4.17" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="A" x="5.51" y="-6.05" angle="88.79" type="t0" speed="13.89" pos="5.56" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="5.51" y="-6.05" angle="89.13" type="t0" speed="13.89" pos="5.56" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="5.51" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="5.56" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.50">
-        <vehicle id="A" x="6.89" y="-6.00" angle="88.48" type="t0" speed="13.89" pos="6.95" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="6.89" y="-6.00" angle="88.80" type="t0" speed="13.89" pos="6.95" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="6.89" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="6.95" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.60">
-        <vehicle id="A" x="8.27" y="-5.94" angle="88.18" type="t0" speed="13.89" pos="8.33" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="8.27" y="-5.94" angle="88.45" type="t0" speed="13.89" pos="8.33" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="8.27" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="8.33" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.70">
-        <vehicle id="A" x="9.65" y="-5.87" angle="87.88" type="t0" speed="13.89" pos="9.72" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="9.65" y="-5.87" angle="88.08" type="t0" speed="13.89" pos="9.72" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="9.65" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="9.72" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.80">
-        <vehicle id="A" x="11.03" y="-5.79" angle="87.57" type="t0" speed="13.89" pos="11.11" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="11.03" y="-5.79" angle="87.69" type="t0" speed="13.89" pos="11.11" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="11.03" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="11.11" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.90">
-        <vehicle id="A" x="12.41" y="-5.70" angle="87.27" type="t0" speed="13.89" pos="12.50" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="12.41" y="-5.70" angle="87.30" type="t0" speed="13.89" pos="12.50" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="12.41" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="12.50" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="A" x="13.79" y="-5.60" angle="86.97" type="t0" speed="13.89" pos="13.89" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="13.79" y="-5.60" angle="86.91" type="t0" speed="13.89" pos="13.89" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="13.79" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="13.89" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.10">
-        <vehicle id="A" x="15.16" y="-5.50" angle="86.97" type="t0" speed="13.89" pos="15.28" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="15.16" y="-5.50" angle="86.62" type="t0" speed="13.89" pos="15.28" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="15.16" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="15.28" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.20">
-        <vehicle id="A" x="16.54" y="-5.40" angle="86.97" type="t0" speed="13.89" pos="16.67" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="16.54" y="-5.40" angle="86.42" type="t0" speed="13.89" pos="16.67" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="16.54" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="16.67" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.30">
-        <vehicle id="A" x="17.92" y="-5.30" angle="86.97" type="t0" speed="13.89" pos="18.06" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="17.92" y="-5.30" angle="86.27" type="t0" speed="13.89" pos="18.06" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="17.92" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="18.06" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.40">
-        <vehicle id="A" x="19.30" y="-5.20" angle="86.97" type="t0" speed="13.89" pos="19.45" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="19.30" y="-5.20" angle="86.16" type="t0" speed="13.89" pos="19.45" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="19.30" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="19.45" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.50">
-        <vehicle id="A" x="20.68" y="-5.10" angle="86.97" type="t0" speed="13.89" pos="20.83" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="20.68" y="-5.10" angle="86.08" type="t0" speed="13.89" pos="20.83" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="20.68" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="20.83" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.60">
-        <vehicle id="A" x="22.06" y="-5.00" angle="86.97" type="t0" speed="13.89" pos="22.22" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="22.06" y="-5.00" angle="86.03" type="t0" speed="13.89" pos="22.22" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="22.06" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="22.22" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.70">
-        <vehicle id="A" x="23.44" y="-4.90" angle="86.97" type="t0" speed="13.89" pos="23.61" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="23.44" y="-4.90" angle="85.99" type="t0" speed="13.89" pos="23.61" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="23.44" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="23.61" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.80">
-        <vehicle id="A" x="24.81" y="-4.80" angle="86.97" type="t0" speed="13.89" pos="25.00" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="24.81" y="-4.80" angle="85.96" type="t0" speed="13.89" pos="25.00" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="24.81" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="25.00" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="1.90">
-        <vehicle id="A" x="26.19" y="-4.70" angle="86.97" type="t0" speed="13.89" pos="26.39" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="26.19" y="-4.70" angle="85.94" type="t0" speed="13.89" pos="26.39" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="26.19" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="26.39" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="A" x="27.57" y="-4.60" angle="86.97" type="t0" speed="13.89" pos="27.78" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="27.57" y="-4.60" angle="85.92" type="t0" speed="13.89" pos="27.78" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="27.57" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="27.78" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.10">
-        <vehicle id="A" x="28.95" y="-4.51" angle="87.27" type="t0" speed="13.89" pos="29.17" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="28.95" y="-4.51" angle="86.02" type="t0" speed="13.89" pos="29.17" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="28.95" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="29.17" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.20">
-        <vehicle id="A" x="30.33" y="-4.42" angle="87.27" type="t0" speed="13.89" pos="30.56" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="30.33" y="-4.42" angle="86.10" type="t0" speed="13.89" pos="30.56" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="30.33" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="30.56" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.30">
-        <vehicle id="A" x="31.71" y="-4.34" angle="87.57" type="t0" speed="13.89" pos="31.95" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="31.71" y="-4.34" angle="86.27" type="t0" speed="13.89" pos="31.95" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="31.71" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="31.95" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.40">
-        <vehicle id="A" x="33.09" y="-4.27" angle="87.88" type="t0" speed="13.89" pos="33.34" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="33.09" y="-4.27" angle="86.50" type="t0" speed="13.89" pos="33.34" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="33.09" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="33.34" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.50">
-        <vehicle id="A" x="34.46" y="-4.21" angle="88.18" type="t0" speed="13.89" pos="34.72" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="34.46" y="-4.21" angle="86.79" type="t0" speed="13.89" pos="34.72" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="34.46" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="34.72" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.60">
-        <vehicle id="A" x="35.84" y="-4.16" angle="88.48" type="t0" speed="13.89" pos="36.11" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="A" x="35.84" y="-4.16" angle="87.11" type="t0" speed="13.89" pos="36.11" lane="beg_0" slope="0.00" signals="2"/>
         <vehicle id="B" x="35.84" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="36.11" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.70">
-        <vehicle id="A" x="37.22" y="-4.02" angle="88.79" type="t0" speed="13.89" pos="37.50" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="37.22" y="-4.02" angle="87.45" type="t0" speed="13.89" pos="37.50" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="37.22" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="37.50" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.80">
-        <vehicle id="A" x="38.60" y="-3.99" angle="89.09" type="t0" speed="13.89" pos="38.89" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="38.60" y="-3.99" angle="87.82" type="t0" speed="13.89" pos="38.89" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="38.60" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="38.89" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.90">
-        <vehicle id="A" x="39.98" y="-3.97" angle="89.39" type="t0" speed="13.89" pos="40.28" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="39.98" y="-3.97" angle="88.19" type="t0" speed="13.89" pos="40.28" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="39.98" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="40.28" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="A" x="41.36" y="-3.96" angle="89.70" type="t0" speed="13.89" pos="41.67" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="41.36" y="-3.96" angle="88.58" type="t0" speed="13.89" pos="41.67" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="41.36" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="41.67" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.10">
-        <vehicle id="A" x="42.74" y="-3.96" angle="90.00" type="t0" speed="13.89" pos="43.06" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="42.74" y="-3.96" angle="88.98" type="t0" speed="13.89" pos="43.06" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="42.74" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="43.06" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.20">
-        <vehicle id="A" x="44.11" y="-3.95" angle="89.74" type="t0" speed="13.89" pos="44.45" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="44.11" y="-3.95" angle="89.16" type="t0" speed="13.89" pos="44.45" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="44.11" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="44.45" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.30">
-        <vehicle id="A" x="45.49" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="45.84" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="45.49" y="-3.95" angle="89.30" type="t0" speed="13.89" pos="45.84" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="45.49" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="45.84" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.40">
-        <vehicle id="A" x="46.87" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="47.23" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="46.87" y="-3.95" angle="89.40" type="t0" speed="13.89" pos="47.23" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="46.87" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="47.23" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="A" x="48.25" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="48.62" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="48.25" y="-3.95" angle="89.47" type="t0" speed="13.89" pos="48.62" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="48.25" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="48.62" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.60">
-        <vehicle id="A" x="49.63" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="50.00" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="49.63" y="-3.95" angle="89.52" type="t0" speed="13.89" pos="50.00" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="49.63" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="50.00" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.70">
-        <vehicle id="A" x="51.01" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="51.39" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="51.01" y="-3.95" angle="89.55" type="t0" speed="13.89" pos="51.39" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="51.01" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="51.39" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.80">
-        <vehicle id="A" x="52.39" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="52.78" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="52.39" y="-3.95" angle="89.58" type="t0" speed="13.89" pos="52.78" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="52.39" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="52.78" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.90">
-        <vehicle id="A" x="53.76" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="54.17" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="53.76" y="-3.95" angle="89.60" type="t0" speed="13.89" pos="54.17" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="53.76" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="54.17" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="A" x="55.14" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="55.56" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="55.14" y="-3.95" angle="89.61" type="t0" speed="13.89" pos="55.56" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="55.14" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="55.56" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.10">
-        <vehicle id="A" x="56.52" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="56.95" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="56.52" y="-3.95" angle="89.72" type="t0" speed="13.89" pos="56.95" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="56.52" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="56.95" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.20">
-        <vehicle id="A" x="57.90" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="58.34" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="57.90" y="-3.95" angle="89.80" type="t0" speed="13.89" pos="58.34" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="57.90" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="58.34" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.30">
-        <vehicle id="A" x="59.28" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="59.73" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="59.28" y="-3.95" angle="89.85" type="t0" speed="13.89" pos="59.73" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="59.28" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="59.73" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.40">
-        <vehicle id="A" x="60.66" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="61.12" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="60.66" y="-3.95" angle="89.89" type="t0" speed="13.89" pos="61.12" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="60.66" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="61.12" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.50">
-        <vehicle id="A" x="62.04" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="62.51" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="62.04" y="-3.95" angle="89.92" type="t0" speed="13.89" pos="62.51" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="62.04" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="62.51" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.60">
-        <vehicle id="A" x="63.41" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="63.89" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="63.41" y="-3.95" angle="89.95" type="t0" speed="13.89" pos="63.89" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="63.41" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="63.89" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.70">
-        <vehicle id="A" x="64.79" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="65.28" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="64.79" y="-3.95" angle="89.96" type="t0" speed="13.89" pos="65.28" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="64.79" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="65.28" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.80">
-        <vehicle id="A" x="66.17" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="66.67" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="66.17" y="-3.95" angle="89.97" type="t0" speed="13.89" pos="66.67" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="66.17" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="66.67" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="4.90">
-        <vehicle id="A" x="67.55" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="68.06" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="67.55" y="-3.95" angle="89.98" type="t0" speed="13.89" pos="68.06" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="67.55" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="68.06" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="A" x="68.93" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="69.45" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="68.93" y="-3.95" angle="89.99" type="t0" speed="13.89" pos="69.45" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="68.93" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="69.45" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.10">
-        <vehicle id="A" x="70.30" y="-3.95" angle="90.00" type="t0" speed="13.70" pos="70.83" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="70.30" y="-3.95" angle="89.99" type="t0" speed="13.70" pos="70.83" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="70.31" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="70.84" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.20">
-        <vehicle id="A" x="71.65" y="-3.95" angle="90.00" type="t0" speed="13.50" pos="72.19" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="71.65" y="-3.95" angle="89.99" type="t0" speed="13.50" pos="72.19" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="71.69" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="72.23" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.30">
-        <vehicle id="A" x="72.98" y="-3.95" angle="90.00" type="t0" speed="13.31" pos="73.53" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="72.98" y="-3.95" angle="89.99" type="t0" speed="13.31" pos="73.53" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="73.06" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="73.62" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.40">
@@ -371,203 +371,203 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="B" x="110.29" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="111.12" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.10">
-        <vehicle id="A" x="102.39" y="-3.94" angle="89.55" type="t0" speed="7.86" pos="103.17" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="102.39" y="-3.94" angle="89.89" type="t0" speed="7.86" pos="103.17" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="111.67" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="112.51" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.20">
-        <vehicle id="A" x="103.16" y="-3.92" angle="89.10" type="t0" speed="7.67" pos="103.94" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="103.16" y="-3.92" angle="89.67" type="t0" speed="7.67" pos="103.94" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="113.04" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="113.90" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.30">
-        <vehicle id="A" x="103.91" y="-3.89" angle="88.62" type="t0" speed="7.47" pos="104.70" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="103.91" y="-3.89" angle="89.38" type="t0" speed="7.47" pos="104.70" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="114.42" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="115.29" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.40">
-        <vehicle id="A" x="104.65" y="-3.85" angle="88.13" type="t0" speed="7.28" pos="105.44" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="104.65" y="-3.85" angle="89.01" type="t0" speed="7.28" pos="105.44" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="115.80" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="116.68" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.50">
-        <vehicle id="A" x="105.36" y="-3.80" angle="87.63" type="t0" speed="7.08" pos="106.16" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="105.36" y="-3.80" angle="88.58" type="t0" speed="7.08" pos="106.16" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="117.18" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="118.06" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.60">
-        <vehicle id="A" x="106.05" y="-3.74" angle="87.11" type="t0" speed="6.89" pos="106.85" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="106.05" y="-3.74" angle="88.09" type="t0" speed="6.89" pos="106.85" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="118.56" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="119.45" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.70">
-        <vehicle id="A" x="106.73" y="-3.67" angle="86.57" type="t0" speed="6.70" pos="107.53" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="106.73" y="-3.67" angle="87.54" type="t0" speed="6.70" pos="107.53" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="119.94" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="120.84" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.80">
-        <vehicle id="A" x="107.38" y="-3.59" angle="86.02" type="t0" speed="6.50" pos="108.19" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="107.38" y="-3.59" angle="86.94" type="t0" speed="6.50" pos="108.19" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="121.32" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="122.23" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.90">
-        <vehicle id="A" x="108.02" y="-3.51" angle="85.95" type="t0" speed="6.31" pos="108.83" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="108.02" y="-3.51" angle="86.41" type="t0" speed="6.31" pos="108.83" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="122.69" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="123.62" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="A" x="108.63" y="-3.43" angle="85.88" type="t0" speed="6.11" pos="109.45" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="A" x="108.63" y="-3.43" angle="85.94" type="t0" speed="6.11" pos="109.45" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="B" x="124.07" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="125.01" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.10">
-        <vehicle id="A" x="109.25" y="-3.34" angle="85.48" type="t0" speed="6.37" pos="110.08" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="A" x="109.25" y="-3.34" angle="85.43" type="t0" speed="6.37" pos="110.08" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="B" x="125.45" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="126.40" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.20">
-        <vehicle id="A" x="109.90" y="-3.24" angle="85.09" type="t0" speed="6.63" pos="110.73" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="109.90" y="-3.24" angle="84.89" type="t0" speed="6.63" pos="110.73" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="126.83" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="127.79" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.30">
-        <vehicle id="A" x="110.57" y="-3.14" angle="85.19" type="t0" speed="6.89" pos="111.41" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="110.57" y="-3.14" angle="84.45" type="t0" speed="6.89" pos="111.41" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="128.21" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="129.18" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.40">
-        <vehicle id="A" x="111.27" y="-3.04" angle="85.30" type="t0" speed="7.15" pos="112.11" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="111.27" y="-3.04" angle="84.10" type="t0" speed="7.15" pos="112.11" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="129.59" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="130.57" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.50">
-        <vehicle id="A" x="111.99" y="-2.94" angle="85.39" type="t0" speed="7.41" pos="112.84" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="111.99" y="-2.94" angle="83.84" type="t0" speed="7.41" pos="112.84" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="130.97" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="131.95" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.60">
-        <vehicle id="A" x="112.74" y="-2.84" angle="85.49" type="t0" speed="7.67" pos="113.59" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="112.74" y="-2.84" angle="83.64" type="t0" speed="7.67" pos="113.59" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="132.34" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="133.34" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.70">
-        <vehicle id="A" x="113.51" y="-2.74" angle="85.58" type="t0" speed="7.93" pos="114.37" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="113.51" y="-2.74" angle="83.51" type="t0" speed="7.93" pos="114.37" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="133.72" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="134.73" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.80">
-        <vehicle id="A" x="114.31" y="-2.64" angle="85.67" type="t0" speed="8.19" pos="115.18" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="114.31" y="-2.64" angle="83.43" type="t0" speed="8.19" pos="115.18" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="135.10" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="136.12" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.90">
-        <vehicle id="A" x="115.14" y="-2.54" angle="85.75" type="t0" speed="8.45" pos="116.01" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="115.14" y="-2.54" angle="83.40" type="t0" speed="8.45" pos="116.01" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="136.48" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="137.51" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="A" x="115.99" y="-2.45" angle="86.24" type="t0" speed="8.71" pos="116.87" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="115.99" y="-2.45" angle="83.52" type="t0" speed="8.71" pos="116.87" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="137.86" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="138.90" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.10">
-        <vehicle id="A" x="116.87" y="-2.37" angle="86.72" type="t0" speed="8.97" pos="117.75" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="116.87" y="-2.37" angle="83.77" type="t0" speed="8.97" pos="117.75" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="139.24" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="140.29" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.20">
-        <vehicle id="A" x="117.77" y="-2.30" angle="87.18" type="t0" speed="9.23" pos="118.66" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="117.77" y="-2.30" angle="84.12" type="t0" speed="9.23" pos="118.66" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="140.62" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="141.68" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.30">
-        <vehicle id="A" x="118.70" y="-2.24" angle="87.63" type="t0" speed="9.49" pos="119.60" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="118.70" y="-2.24" angle="84.55" type="t0" speed="9.49" pos="119.60" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="141.99" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="143.07" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.40">
-        <vehicle id="A" x="119.66" y="-2.19" angle="88.06" type="t0" speed="9.75" pos="120.56" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="119.66" y="-2.19" angle="85.04" type="t0" speed="9.75" pos="120.56" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="143.37" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="144.46" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.50">
-        <vehicle id="A" x="120.64" y="-2.15" angle="88.47" type="t0" speed="10.01" pos="121.55" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="120.64" y="-2.15" angle="85.58" type="t0" speed="10.01" pos="121.55" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="144.75" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="145.84" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.60">
-        <vehicle id="A" x="121.64" y="-2.11" angle="88.50" type="t0" speed="10.27" pos="122.56" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="121.64" y="-2.11" angle="86.03" type="t0" speed="10.27" pos="122.56" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="146.13" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="147.23" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.70">
-        <vehicle id="A" x="122.68" y="-2.08" angle="88.89" type="t0" speed="10.53" pos="123.60" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="122.68" y="-2.08" angle="86.52" type="t0" speed="10.53" pos="123.60" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="147.51" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="148.62" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.80">
-        <vehicle id="A" x="123.73" y="-2.06" angle="89.27" type="t0" speed="10.79" pos="124.67" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="123.73" y="-2.06" angle="87.04" type="t0" speed="10.79" pos="124.67" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="148.89" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="150.01" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.90">
-        <vehicle id="A" x="124.82" y="-2.05" angle="89.64" type="t0" speed="11.05" pos="125.76" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="124.82" y="-2.05" angle="87.58" type="t0" speed="11.05" pos="125.76" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="150.27" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="151.40" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="A" x="125.93" y="-2.05" angle="90.00" type="t0" speed="11.31" pos="126.88" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="125.93" y="-2.05" angle="88.13" type="t0" speed="11.31" pos="126.88" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="151.64" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="152.79" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.10">
-        <vehicle id="A" x="127.06" y="-2.05" angle="89.95" type="t0" speed="11.57" pos="128.02" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="127.06" y="-2.05" angle="88.54" type="t0" speed="11.57" pos="128.02" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="153.02" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="154.18" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.20">
-        <vehicle id="A" x="128.22" y="-2.05" angle="90.00" type="t0" speed="11.83" pos="129.19" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="128.22" y="-2.05" angle="88.87" type="t0" speed="11.83" pos="129.19" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="154.40" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="155.57" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.30">
-        <vehicle id="A" x="129.41" y="-2.05" angle="90.00" type="t0" speed="12.09" pos="130.39" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="129.41" y="-2.05" angle="89.13" type="t0" speed="12.09" pos="130.39" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="155.78" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="156.96" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.40">
-        <vehicle id="A" x="130.62" y="-2.05" angle="90.00" type="t0" speed="12.34" pos="131.61" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="130.62" y="-2.05" angle="89.33" type="t0" speed="12.34" pos="131.61" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="157.16" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="158.35" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.50">
-        <vehicle id="A" x="131.86" y="-2.05" angle="90.00" type="t0" speed="12.60" pos="132.86" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="131.86" y="-2.05" angle="89.48" type="t0" speed="12.60" pos="132.86" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="158.54" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="159.74" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.60">
-        <vehicle id="A" x="133.12" y="-2.05" angle="90.00" type="t0" speed="12.86" pos="134.13" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="133.12" y="-2.05" angle="89.60" type="t0" speed="12.86" pos="134.13" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="159.92" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="161.12" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.70">
-        <vehicle id="A" x="134.41" y="-2.05" angle="90.00" type="t0" speed="13.12" pos="135.43" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="134.41" y="-2.05" angle="89.68" type="t0" speed="13.12" pos="135.43" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="161.29" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="162.51" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.80">
-        <vehicle id="A" x="135.73" y="-2.05" angle="90.00" type="t0" speed="13.37" pos="136.75" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="135.73" y="-2.05" angle="89.75" type="t0" speed="13.37" pos="136.75" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="162.67" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="163.90" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.90">
-        <vehicle id="A" x="137.07" y="-2.05" angle="90.00" type="t0" speed="13.63" pos="138.10" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="137.07" y="-2.05" angle="89.80" type="t0" speed="13.63" pos="138.10" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="164.05" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="165.29" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="A" x="138.43" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="139.48" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="138.43" y="-2.05" angle="89.84" type="t0" speed="13.89" pos="139.48" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="165.43" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="166.68" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.10">
-        <vehicle id="A" x="139.81" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="140.87" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="139.81" y="-2.05" angle="89.88" type="t0" speed="13.89" pos="140.87" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="166.81" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="168.07" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.20">
-        <vehicle id="A" x="141.19" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="142.26" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="141.19" y="-2.05" angle="89.92" type="t0" speed="13.89" pos="142.26" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="168.19" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="169.46" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.30">
-        <vehicle id="A" x="142.57" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="143.65" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="142.57" y="-2.05" angle="89.94" type="t0" speed="13.89" pos="143.65" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="169.57" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="170.85" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.40">
-        <vehicle id="A" x="143.95" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="145.04" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="143.95" y="-2.05" angle="89.96" type="t0" speed="13.89" pos="145.04" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="170.94" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="172.24" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.50">
-        <vehicle id="A" x="145.33" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="146.43" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="145.33" y="-2.05" angle="89.97" type="t0" speed="13.89" pos="146.43" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="172.32" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="173.63" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.60">
-        <vehicle id="A" x="146.71" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="147.81" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="146.71" y="-2.05" angle="89.98" type="t0" speed="13.89" pos="147.81" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="173.70" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="175.01" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.70">
-        <vehicle id="A" x="148.08" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="149.20" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="148.08" y="-2.05" angle="89.98" type="t0" speed="13.89" pos="149.20" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="175.08" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="176.40" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.80">
-        <vehicle id="A" x="149.46" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="150.59" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="149.46" y="-2.05" angle="89.99" type="t0" speed="13.89" pos="150.59" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="176.46" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="177.79" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="12.90">
-        <vehicle id="A" x="150.84" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="151.98" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="150.84" y="-2.05" angle="89.99" type="t0" speed="13.89" pos="151.98" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="177.84" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="179.18" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="A" x="152.22" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="153.37" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="A" x="152.22" y="-2.05" angle="89.99" type="t0" speed="13.89" pos="153.37" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="B" x="179.22" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="180.57" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="13.10">

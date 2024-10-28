@@ -45,7 +45,7 @@
     <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="splitTrain" depart="0.00" from="a" to="c">
-        <stop busStop="B" duration="60.00" triggered="join"/>
+        <stop busStop="B" duration="60.00" triggered="join" extension="300"/>
     </trip>
     <trip id="t1" type="splitTrain" depart="30" from="d" to="b">
         <stop busStop="B" duration="5.00" join="t0"/>

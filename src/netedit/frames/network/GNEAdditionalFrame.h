@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,13 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNENetworkSelector.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNENetworkSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNETagSelector.h>
 
 
 // ===========================================================================
@@ -39,11 +39,61 @@
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
+    // ===========================================================================
+    // class EdgeTypeSelector
+    // ===========================================================================
+
+    class E2MultilaneLegendModule : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        E2MultilaneLegendModule(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~E2MultilaneLegendModule();
+
+        /// @brief show Legend modul
+        void showE2MultilaneLegend();
+
+        /// @brief hide Legend modul
+        void hideE2MultilaneLegend();
+    };
+
+    // ===========================================================================
+    // class HelpCreationModule
+    // ===========================================================================
+
+    class HelpCreationModule : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        HelpCreationModule(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~HelpCreationModule();
+
+        /// @brief show Legend modul
+        void showHelpCreationModule(SumoXMLTag XMLTag);
+
+        /// @brief hide Legend modul
+        void hideHelpCreationModule();
+
+    private:
+        /// @brief add translated string
+        std::string addTLString(const std::string& str);
+
+        /// @brief help label
+        FXLabel* myHelpLabel = nullptr;
+
+        /// @brief map with tags and their associated help
+        std::map<SumoXMLTag, std::string> myHelpMap;
+    };
+
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEAdditionalFrame();
@@ -52,10 +102,10 @@ public:
     void show();
 
     /**@brief add additional element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if additional was successfully added
      */
-    bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addAdditional(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get edges selector
     GNENetworkSelector* getEdgesSelector() const;
@@ -66,12 +116,15 @@ public:
     /// @brief get consecutive lane selector
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
+    /// @brief get Netedit parameter
+    GNENeteditAttributes* getNeteditAttributes() const;
+
     /// @brief create path
-    void createPath();
+    bool createPath(const bool useLastRoute);
 
 protected:
     /// @brief SumoBaseObject used for create additional
-    CommonXMLStructure::SumoBaseObject* myBaseAdditional;
+    CommonXMLStructure::SumoBaseObject* myBaseAdditional = nullptr;
 
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
@@ -93,23 +146,29 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNETagSelector* myAdditionalTagSelector;
+    GNETagSelector* myAdditionalTagSelector = nullptr;
 
     /// @brief internal additional attributes
-    GNEAttributesCreator* myAdditionalAttributes;
+    GNEAttributesCreator* myAdditionalAttributes = nullptr;
 
     /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Module for select a single parent additional
-    GNESelectorParent* mySelectorAdditionalParent;
+    GNESelectorParent* mySelectorAdditionalParent = nullptr;
 
     /// @brief Module for select edges
-    GNENetworkSelector* myEdgesSelector;
+    GNENetworkSelector* myEdgesSelector = nullptr;
 
     /// @brief Module for select lanes
-    GNENetworkSelector* myLanesSelector;
+    GNENetworkSelector* myLanesSelector = nullptr;
 
     /// @brief Module for select consecutive lanes
-    GNEConsecutiveSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
+
+    /// @brief Module for show additional help legend
+    HelpCreationModule* myHelpCreationModule = nullptr;
+
+    /// @brief Module for show E2 Detector legend
+    E2MultilaneLegendModule* myE2MultilaneLegendModule = nullptr;
 };

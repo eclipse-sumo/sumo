@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -93,6 +93,7 @@ Person::getLanePosition(const std::string& personID) {
 
 std::vector<libsumo::TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage content;
     StoHelp::writeTypedInt(content, onlyNew);
     tcpip::Storage& ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);
@@ -296,10 +297,28 @@ Person::getHeight(const std::string& personID) {
 }
 
 
+double
+Person::getMass(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_MASS, personID);
+}
+
+
 int
 Person::getPersonCapacity(const std::string& personID) {
     return Dom::getInt(libsumo::VAR_PERSON_CAPACITY, personID);
 }
+
+
+double
+Person::getBoardingDuration(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, personID);
+}
+
+double
+Person::getImpatience(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, personID);
+}
+
 
 
 LIBTRACI_PARAMETER_IMPLEMENTATION(Person, PERSON)
@@ -316,6 +335,16 @@ Person::setType(const std::string& personID, const std::string& typeID) {
     Dom::setString(libsumo::VAR_TYPE, personID, typeID);
 }
 
+
+void
+Person::setImpatience(const std::string& personID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, personID, impatience);
+}
+
+void
+Person::setBoardingDuration(const std::string& personID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, personID, boardingDuration);
+}
 
 void
 Person::add(const std::string& personID, const std::string& edgeID, double pos, double departInSecs, const std::string typeID) {
@@ -335,42 +364,9 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
 
 void
-Person::writeStage(const libsumo::TraCIStage& stage, tcpip::Storage& content) {
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(13);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(stage.type);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.vType);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.line);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.destStop);
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(stage.edges);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.travelTime);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.cost);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.length);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.intended);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.depart);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.departPos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.description);
-}
-
-
-void
 Person::appendStage(const std::string& personID, const libsumo::TraCIStage& stage) {
     tcpip::Storage content;
-    writeStage(stage, content);
+    libsumo::StorageHelper::writeStage(content, stage);
     Dom::set(libsumo::APPEND_STAGE, personID, &content);
 }
 
@@ -382,7 +378,7 @@ Person::replaceStage(const std::string& personID, const int stageIndex, const li
     content.writeInt(2);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(stageIndex);
-    writeStage(stage, content);
+    libsumo::StorageHelper::writeStage(content, stage);
     Dom::set(libsumo::REPLACE_STAGE, personID, &content);
 }
 
@@ -458,14 +454,16 @@ Person::rerouteTraveltime(const std::string& personID) {
 
 
 void
-Person::moveTo(const std::string& personID, const std::string& edgeID, double position) {
+Person::moveTo(const std::string& personID, const std::string& laneID, double pos, double posLat) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
+    content.writeInt(3);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
+    content.writeString(laneID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(position);
+    content.writeDouble(pos);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(posLat);
     Dom::set(libsumo::VAR_MOVE_TO, personID, &content);
 }
 
@@ -531,6 +529,12 @@ Person::setWidth(const std::string& personID, double width) {
 void
 Person::setHeight(const std::string& personID, double height) {
     Dom::setDouble(libsumo::VAR_HEIGHT, personID, height);
+}
+
+
+void
+Person::setMass(const std::string& personID, double mass) {
+    Dom::setDouble(libsumo::VAR_HEIGHT, personID, mass);
 }
 
 

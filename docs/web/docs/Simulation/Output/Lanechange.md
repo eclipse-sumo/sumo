@@ -87,3 +87,11 @@ can be used to obtain additional output elements:
 In case of activating the option **--lanechange.duration**, the change-elements of the output
 report the gaps recorded at the initialization of the corresponding
 lanechange.
+
+## Visualization example
+
+### Leader gaps versus speeds
+
+<img src="../../images/lanechange_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#leader_gaps_versus_speeds).

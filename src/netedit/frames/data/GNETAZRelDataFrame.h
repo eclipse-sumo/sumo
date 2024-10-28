@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,10 +34,49 @@ class GNETAZRelDataFrame : public GNEGenericDataFrame {
 
 public:
     // ===========================================================================
+    // Confirm TAZ relation
+    // ===========================================================================
+
+    class ConfirmTAZRelation : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZRelDataFrame::ConfirmTAZRelation)
+
+    public:
+        /// @brief constructor
+        ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame);
+
+        /// @brief destructor
+        ~ConfirmTAZRelation();
+
+        /// @brief called when user press confirm TAZ Relation button
+        long onCmdConfirmTAZRelation(FXObject*, FXSelector, void*);
+
+        /// @brief called when TAZ Relation button is updated
+        long onUpdConfirmTAZRelation(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press clear TAZ Relation button
+        long onCmdClearSelection(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(ConfirmTAZRelation)
+
+    private:
+        /// @brief pointer to TAZRelDataFrame parent
+        GNETAZRelDataFrame* myTAZRelDataFrame = nullptr;
+
+        /// @brief confirm TAZ Button
+        FXButton* myConfirmTAZButton = nullptr;
+
+        /// @brief clear TAZ Button
+        FXButton* myClearTAZButton = nullptr;
+    };
+
+    // ===========================================================================
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModule {
+    class Legend : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -58,16 +97,16 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNETAZRelDataFrame
      */
-    GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETAZRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETAZRelDataFrame();
 
     /// @brief set clicked TAZ
-    bool setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool setTAZ(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief build TAZRelation data
     void buildTAZRelationData();
@@ -83,13 +122,16 @@ public:
 
 protected:
     /// @brief first selected TAZ Element
-    GNETAZ* myFirstTAZ;
+    GNETAZ* myFirstTAZ = nullptr;
 
     /// @brief first selected TAZ Element
-    GNETAZ* mySecondTAZ;
+    GNETAZ* mySecondTAZ = nullptr;
+
+    /// @brief confirm TAZ Relation
+    GNETAZRelDataFrame::ConfirmTAZRelation* myConfirmTAZRelation = nullptr;
 
     /// @brief TAZRel legend
-    GNETAZRelDataFrame::Legend* myLegend;
+    GNETAZRelDataFrame::Legend* myLegend = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

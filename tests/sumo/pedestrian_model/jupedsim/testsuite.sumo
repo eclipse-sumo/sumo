@@ -1,0 +1,48 @@
+two_edges
+
+# This test checks the mechanism that removes pedestrians at a certain rate who enter a vanishing area.
+vanishing_area
+
+# This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
+speed_change
+
+# This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
+speed_change_poly
+
+# Test the geometry checks regarding non-simple polygons
+geometry_check
+
+# Test that checks there is no bad state recorded. The problem stemed from the way moveToXY works.
+bad_state_bug
+
+# Starting two agents at the same position
+identical_start_pos
+
+# small network including a walking area
+walking_area
+
+# larger network
+larger_net
+waypoints
+
+# changing the radius of the waypoint
+waypoint_radius
+speed_factor
+
+# rerouting with optional rerouters
+rerouter
+
+# dynamic geometry switching
+geometry_switching
+
+# geometry generation and WKT output
+geometry_generation
+tls
+
+# crossing behavior
+crossing_noPrio
+
+# crossing behavior
+crossing_Prio
+
+#improper_walk_via_bus_stop_access

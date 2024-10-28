@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -257,8 +257,8 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
         thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
 
-    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
-    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
+    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getMaxSpeed());
+    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getMaxSpeed());
     if (thisLaneVSafe - neighLaneVSafe > 5. / 3.6) {
         // ok, the current lane is faster than the right one...
         if (myChangeProbability < 0) {
@@ -270,7 +270,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     }
 
     // let's recheck the "Rechtsfahrgebot"
-    double vmax = MIN2(myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle), myVehicle.getVehicleType().getMaxSpeed());
+    double vmax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     vmax -= (double)(5. / 2.6);
     if (neighLaneVSafe >= vmax) {
         myChangeProbability -= TS * ((neighLaneVSafe - vmax) / (vmax));
@@ -470,8 +470,8 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
         // @todo: what if leader is below safe gap?!!!
         thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
-    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
-    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
+    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getMaxSpeed());
+    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getMaxSpeed());
     if (thisLaneVSafe > neighLaneVSafe) {
         // this lane is better
         if (myChangeProbability > 0) {
@@ -501,7 +501,7 @@ MSLCM_DK2008::patchSpeed(const double min, const double wanted, const double max
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
         if (space > 0) {
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
-            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
@@ -639,6 +639,7 @@ MSLCM_DK2008::prepareStep() {
     myDontBrake = false;
     // truncate myChangeProbability to work around numerical instability between different builds
     myChangeProbability = ceil(myChangeProbability * 100000.0) * 0.00001;
+    resetSpeedLat();
 }
 
 

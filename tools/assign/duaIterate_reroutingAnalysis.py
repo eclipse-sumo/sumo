@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,9 +28,9 @@ import sumolib  # noqa
 def parse_args(args=None):
     USAGE = "Usage: " + sys.argv[0] + " [options]"
     parser = sumolib.options.ArgumentParser(
-            usage=USAGE,
-            description="Extract fraction of vehicls that changed their route per iteration")
-    parser.add_argument("-d", "--base-directory", dest="baseDir", default=".",
+        usage=USAGE,
+        description="Extract fraction of vehicles that changed their route per iteration")
+    parser.add_argument("-d", "--base-directory", dest="baseDir", category="input", default=".", type=str,
                         help="Base directory of duaIterate run")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="Give more details for every iteration")

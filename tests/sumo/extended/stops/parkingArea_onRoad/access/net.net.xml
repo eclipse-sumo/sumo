@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on So 09 Dez 2018 21:59:25 CET by Eclipse SUMO netedit Version eeef47f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/sumo/extended/rerouter/parking/onRoad/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/sumo/tests/sumo/extended/rerouter/parking/onRoad/net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-362563.54,-4832311.19" convBoundary="654.41,92.53,748.05,382.54" origBoundary="13.296064,43.631354,13.321826,43.642858" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="a" from="12" to="14" name="Via Montespirello" priority="60" type="strada.doppiosenso.50">
+        <lane id="a_0" index="0" speed="13.89" length="304.81" shape="658.98,91.06,57.00 752.62,381.07,51.00"/>
+        <lane id="a_1" index="1" speed="13.89" length="304.81" shape="655.93,92.04,57.00 749.57,382.05,51.00"/>
+    </edge>
+
+    <junction id="12" type="dead_end" x="654.41" y="92.53" z="57.00" incLanes="" intLanes="" shape="654.41,92.53,57.00 660.50,90.56,57.00"/>
+    <junction id="14" type="dead_end" x="748.05" y="382.54" z="51.00" incLanes="a_0 a_1" intLanes="" shape="754.14,380.57,51.00 748.05,382.54,51.00"/>
+
+</net>

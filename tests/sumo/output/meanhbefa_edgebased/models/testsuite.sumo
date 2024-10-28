@@ -5,3 +5,6 @@ electric
 
 # Copy of electric
 electric_subsecond
+
+# Copy of electric using a network with slope
+electric_slope

@@ -4,6 +4,12 @@ title: Traffic Data
 
 # Traffic Data
 
+- [Hourly traffic data for the UK](https://roadtraffic.dft.gov.uk/downloads)
+- [Hourly traffic data for Germany (Federal Roads)](https://www.bast.de/DE/Verkehrstechnik/Fachthemen/v2-verkehrszaehlung/Stundenwerte.html)
+- [List of various traffic data resources collected by the Graphhopper project](https://github.com/graphhopper/open-traffic-collection)
+- [Realtime access to traffic Data of California (requires account)](https://pems.dot.ca.gov/)
+- [Swiss Dataset from ETH Zürich](https://utd19.ethz.ch/)
+
 ## FSP - Data from the *Freeway Service Patrol Evaluation Project*
 
 <font color="red">This description is not yet completed</font>
@@ -18,7 +24,7 @@ The data includes:
 #### per-vehicle speed and lengths
 
 The data is given as a tar file named
-[fsp_speed_and_lengths.tar](http://prdownloads.sourceforge.net/sumo/fsp_speed_and_lengths.tar?download)
+[fsp_speed_and_lengths.tar](https://prdownloads.sourceforge.net/sumo/fsp_speed_and_lengths.tar?download)
 (\~40MB). Within this tar-file you will find a folder which contains
 compressed (gzip) data files. Each data file represents a day for one
 direction (north/south). The following days are given:
@@ -52,11 +58,11 @@ Usage examples:
 
 - ["An Example of Microscopic Car Models Validation using the open
   source Traffic Simulation
-  SUMO"](http://sumo.dlr.de/pdf/dkrajzew_ESS2002_LOG14_Validation.pdf);
+  SUMO"](https://sumo.dlr.de/pdf/dkrajzew_ESS2002_LOG14_Validation.pdf);
   Daniel Krajzewicz, Georg Hertkorn, Christian Rössel, Peter Wagner;
   In: Proceedings of Simulation in Industry, 14th European Simulation
   Symposium, 2002, SCS European Publishing House, 2002, pp. 318-322,
   Simulation in Industry, 14th European Simulation Symposium, Oct.
   2002, Dresden / Germany
-  
-  Available as: [.pdf, \~320KB](http://sumo.dlr.de/pdf/dkrajzew_ESS2002_LOG14_Validation.pdf).
+
+  Available as: [.pdf, \~320KB](https://sumo.dlr.de/pdf/dkrajzew_ESS2002_LOG14_Validation.pdf).

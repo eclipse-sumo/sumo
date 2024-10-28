@@ -1,0 +1,26 @@
+/* XPM */
+static const char *warning_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"X c #D4AA00",
+"x c #EEDD8B",
+"o c #D5AA00",
+"  c None",
+/* pixels */
+"                ",
+"       oo       ",
+"      XXXX      ",
+"     xXXXXx     ",
+"     XXXXXX     ",
+"    xXX  XXx    ",
+"    oXX  XXX    ",
+"   xXXX  XXXx   ",
+"   XXXX  XXXX   ",
+"  XXXXXxxXXXXX  ",
+" xXXXXXXXXXXXXx ",
+" XXXXXX  XXXXXX ",
+"xXXXXXXxxXXXXXXx",
+"oXXXXXXXXXXXXXXo",
+"XXXXXXXXXXXXXXXX",
+"                "
+};

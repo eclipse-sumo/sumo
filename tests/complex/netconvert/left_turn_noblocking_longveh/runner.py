@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,18 +30,13 @@ from sumolib import checkBinary  # noqa
 net_output = 'joined.net.xml'
 trips_output = 'trips.log'
 
-netconvert = checkBinary('netconvert')
-assert(netconvert)
-sumo = checkBinary('sumo')
-assert(sumo)
-
-args_netc = [netconvert,
+args_netc = [checkBinary('netconvert'),
              '--node-files', 'input_nodes.nod.xml',
              '--edge-files', 'input_edges.edg.xml',
              '--output', net_output,
              '--offset.disable-normalization']
 
-args_sumo = [sumo,
+args_sumo = [checkBinary('sumo'),
              '--net-file', net_output,
              '--route-files', 'input_routes.rou.xml',
              '--end', '50',
@@ -54,9 +49,10 @@ subprocess.call(args_sumo)
 
 # vehicles should have completed their trips
 complete = False
-for line in open(trips_output):
-    if 'veh0' in line:
-        complete = True
+with open(trips_output) as to:
+    for line in to:
+        if 'veh0' in line:
+            complete = True
 
 if complete:
     print('test passed. no blocking occured')

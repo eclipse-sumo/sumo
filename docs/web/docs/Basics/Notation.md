@@ -11,7 +11,7 @@ described.
 If you encounter something like this:
 
 ```
-netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml
+netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml
 ```
 
 you should know that this is a call on the command line. There may be
@@ -21,8 +21,8 @@ following newline). The following example means exactly the same as the
 one above:
 
 ```
-netconvert --visum=MyVisumNet.inp \
-  --output-file=MySUMONet.net.xml
+netconvert --visum=MyVisumNet.inp \
+  --output-file=MySUMONet.net.xml
 ```
 
 ## Application Options
@@ -52,6 +52,7 @@ Complete examples of XML-Files are shown like the following:
 - *<FLOAT\>*: a floating point number
 - *<TIME\>*: time, given in seconds; fractions are allowed, e.g. "12.1"
 - *<STRING\>*: any string, but use ASCII-characters only
+- *<STRING[ ]\>*: a comma separated list of strings
 - *<ID\>*: a string which must not contain the following characters:
   '\#'
 

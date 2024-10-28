@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,13 +24,18 @@ import os
 import sys
 import time
 from matplotlib.pyplot import imread
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+REL_HOME = os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..")
+SUMO_HOME = os.environ.get('SUMO_HOME', REL_HOME)
+sys.path.append(os.path.join(SUMO_HOME, "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo-gui')] +
-            "-S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50".split(),
+traci.start([sumolib.checkBinary('sumo-gui'),
+             "-S", "-Q",
+             "-c", "sumo.sumocfg",
+             "--delay", "1",
+             "--window-size", "500,500",
+             "--window-pos", "50,50"],
             stdout=sys.stdout)
 for step in range(3):
     print("step", step)
@@ -75,4 +80,14 @@ print("edge selected:", traci.gui.isSelected("2fi", "edge"))
 traci.simulationStep()
 pic = imread("out.png")
 print("screenshot dimensions", pic.shape)
+print("adding view")
+traci.gui.addView("newView", "real world")
+for i in range(100):
+    traci.simulationStep()
+print("views", traci.gui.getIDList())
+print("removing view")
+traci.gui.removeView("newView")
+for i in range(100):
+    traci.simulationStep()
+print("views", traci.gui.getIDList())
 traci.close()

@@ -1,0 +1,36 @@
+/* XPM */
+static const char *vclass_small_bus_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 14 1",
+"  c #494453",
+". c #4A4452",
+"X c #4A4453",
+"O c #FF4B57",
+"+ c #FF4C57",
+"@ c #FF4D58",
+"# c #FF515B",
+"$ c #FF575F",
+"% c #FF5860",
+"& c #B5E61D",
+"* c #D2C29F",
+"= c #5E6F83",
+"- c #FFF4CD",
+"; c None",
+/* pixels */
+";;;;@@OOO@@@;;;;",
+";;OOOOOOOOOOOO;;",
+";OOOO&&&&&&OOOO;",
+";OOOOOOOOOOOOOO;",
+";OOO========OOO;",
+"OOO==========OOO",
+"OOO==========OOO",
+"OOO==========OOO",
+";OO==========OO;",
+";OOOOOOOOOOOOOO;",
+";O$*%OOOOOO%*%O;",
+";O*-*OOOOOO*-*O;",
+";O$*$OOOOOO%*$O;",
+";+OOOOOOOOOOOO#;",
+";;XXX;;;;;;XXX;;",
+";;.X ;;;;;;.X ;;"
+};

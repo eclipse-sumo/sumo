@@ -4,10 +4,10 @@ title: Lane- or Edge-based Noise Measures
 
 The edge/lane based noise output based on Harmonoise writes information
 about the noise produced on edges/lanes. The model was generated within
-the EC-project [Imagine](http://www.imagine-project.org/). Its
+the EC-project [Imagine](https://web.archive.org/web/20220901035449/http://www.imagine-project.org/). Its
 description can be found in the deliverable 18 of this project ([D18 The
 Harmonoise Engineering
-model](http://www.imagine-project.org/bestanden/D18_WP3_HAR32TR-040922-DGMR20.pdf)).
+model](https://web.archive.org/web/20220901035449/http://www.imagine-project.org/bestanden/D18_WP3_HAR32TR-040922-DGMR20.pdf)).
 
 !!! missing
     Add a model description here
@@ -44,7 +44,7 @@ file as following:
 | period (alias freq) | int (time)  | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated |
 | begin          | int (time)  | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.  |
 | end            | int (time)  | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.   |
-| excludeEmpty   | bool        | If set, edges/lanes which were not use by a vehicle during this period will not be written; *default: false*.   |
+| excludeEmpty   | bool        | If set, edges/lanes which were not used by a vehicle during this period will not be written; *default: false*.   |
 
 ## Generated Output
 

@@ -1,0 +1,29 @@
+# declare bidi-edge from plain xml
+simple
+
+# declare bidi-edge from plain xml
+curved
+
+# only one of the edge pair has attribute bidi
+one_declared
+
+# a sequence of non-bidi, bidi, bidi, non-bidi edges
+4edges
+
+# only the inner lane is bidi
+TWLT
+
+# only the inner lane is bidi (diagonal road)
+TWLT_diagonal
+
+# the outer lanes are not connected
+TWLT_disconnected_outer
+TWLT_sidewalks
+
+# test right of way ruleswhen TLWT ends
+TWLT_end
+
+# test right of way rules when side lane turns into TLWT 
+TWLT_side
+
+prio_tls

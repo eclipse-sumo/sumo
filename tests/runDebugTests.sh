@@ -1,6 +1,6 @@
 #!/bin/bash
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,10 +14,8 @@
 # Bash script for the test run of the debug version.
 # Sets environment variables respecting SUMO_HOME and starts texttest.
 
-if test `uname` = "Darwin"; then #macOS specific exports
-  export LC_ALL=C
-  export LANG=C
-fi
+export LC_ALL=C
+export LANG=C
 
 OLDDIR=$PWD
 cd `dirname $0`
@@ -28,7 +26,8 @@ if test x"$SUMO_HOME" = x; then
 fi
 cd $OLDDIR
 # for clang sanitizer tests
-export LSAN_OPTIONS=suppressions=$SUMO_HOME/build/clang_memleak_suppressions.txt
+export LSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_memleak_suppressions.txt,print_suppressions=0
+export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_ubsan_suppressions.txt
 
 export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygenD"
 export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouterD"

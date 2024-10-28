@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,7 +55,7 @@ public:
 
 public:
     /** Structure used for lane-change. For every lane you have to
-        know four vehicles, the change-candidate veh and it's follower
+        know four vehicles, the change-candidate veh and its follower
         and leader. Further, information about the last vehicle that changed
         into this lane is needed */
     struct ChangeElem {
@@ -290,7 +290,8 @@ protected:
                                      std::pair<MSVehicle*, double> neighLead,
                                      std::pair<MSVehicle*, double> overtaken,
                                      std::pair<MSVehicle*, double> neighFollow,
-                                     double surplusGap, const MSLane* opposite);
+                                     double surplusGap, const MSLane* opposite,
+                                     bool canOvertake);
 
     // @brief compute distance that can safely be driven on the opposite side
     static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,

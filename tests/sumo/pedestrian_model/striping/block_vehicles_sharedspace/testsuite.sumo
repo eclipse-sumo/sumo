@@ -6,10 +6,14 @@ walking_forward_illegal
 # pedestrian is forbidden on that road but walks there anyway instead of using the sidewalk
 walking_forward_sidewalk_onRoad
 walking_forward_2edges
+walking_forward_2edges_widthChange
 walking_forward_2lanes
 walking_forward_insertion
 walking_forward_2edges_insertion
 walking_backward
+
+# persons should get out of the middle of the road
+walking_backward_centered
 walking_backward_overlap
 walkingarea
 
@@ -19,6 +23,14 @@ walkingarea_noconflict
 # vehicles moving across a walkingarea when leaving the intersection
 # 
 walkingarea_exit
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+walkingarea_ignore
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians. Vehicle has no vehicular conflict
+walkingarea_ignore2
 
 # walkingarea shared by pedestrians and vehicles moving in all directions
 walkingarea_shared
@@ -34,3 +46,10 @@ complex_sublane
 
 # warn if the stripe width is lower than the pedestrian width
 stripe-width
+
+# pedestrians wait at a crossing and the vehicle waits as well because it has to pass the walkingarea for shared space beyond.
+walkingarea_and_crossing
+
+# pedestrian and vehicle face each other at walkingarea/shared space
+walkingarea_and_crossing2
+tls

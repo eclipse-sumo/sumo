@@ -123,3 +123,37 @@ ticket10212
 
 # do not return left+right in lanechange state
 ticket10212b
+
+# bestlanes must be updated after changing vClass
+ticket11117
+
+# no sim loaded
+ticket11215
+
+# moveXY after aborting stop with setStop
+ticket11870
+
+# failure to perform traci lane change
+ticket12810
+
+# failure to perform traci lane change (like 12810 but with different additional
+# change motivations)
+ticket12944
+
+# invalid route offset after moveToXY moves backwards onto internal lane
+ticket13053
+
+# missing vehicle type in save state
+ticket13384
+
+# follower overtakes leader slowing down to a non-official stop (v=0)
+ticket13710
+
+# older moveToXY overwrites changeTarget 
+ticket15123
+
+# setStopParameter expected
+ticket15486
+
+# crash when calling MSLink::opened without ego vehicle at allway_stop or priority_stop
+ticket15603

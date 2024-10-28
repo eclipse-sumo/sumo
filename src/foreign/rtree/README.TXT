@@ -27,6 +27,5 @@ FILES
 
 TO BUILD
 
-	To build a test, compile only one of the test files with RTree.h.  
+	To build a test, compile only one of the test files with RTree.h.
 	Both test files contain a main() function.
-

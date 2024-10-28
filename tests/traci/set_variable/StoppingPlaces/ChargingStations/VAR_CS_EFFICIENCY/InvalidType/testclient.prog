@@ -1,0 +1,5 @@
+simstep2 0
+setvalue 0x45 0x98 cs <color> 1,1,1
+simstep2 0
+simstep2 0
+

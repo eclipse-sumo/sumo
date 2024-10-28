@@ -2,3 +2,9 @@ trip_closedAlready
 trip_closeEnroute
 vehicle_closedAlready
 vehicle_closedEnroute
+
+# ignore rerouter based permission changes
+vehicle_closedAlready_ignore
+
+# ignore rerouter based permission changes (enabled with option)
+vehicle_closedAlready_ignore_option

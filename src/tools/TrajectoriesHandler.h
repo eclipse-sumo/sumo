@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@ public:
      */
     TrajectoriesHandler(const bool computeA, const bool computeAForward, const bool accelZeroCorrection,
                         const SUMOEmissionClass defaultClass,
-                        EnergyParams* params,
+                        EnergyParams* params, long long int attributes,
                         const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
@@ -59,7 +59,7 @@ public:
 
     bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
-                        EnergyParams* params,
+                        EnergyParams* params, long long int attributes,
                         double t, double& v,
                         double& a, double& s);
 
@@ -91,6 +91,8 @@ protected:
                         const SUMOSAXAttributes& attrs);
     //@}
 
+private:
+    void writeOptional(std::ostream& o, long long int attributes, const SumoXMLAttr attr, double v);
 
 private:
     const bool myComputeA;
@@ -98,6 +100,7 @@ private:
     const bool myAccelZeroCorrection;
     const SUMOEmissionClass myDefaultClass;
     EnergyParams* myParams;
+    long long int myAttributes;
     const double myDefaultSlope;
     std::ostream* myStdOut;
     OutputDevice* myXMLOut;

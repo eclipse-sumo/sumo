@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,9 +50,6 @@ MSElecHybridExport::writeAggregated(OutputDevice& of, SUMOTime timestep, int pre
             continue;
         }
 
-        std::string fclass = veh->getVehicleType().getID();
-        fclass = fclass.substr(0, fclass.find_first_of("@"));
-
         if (static_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
             MSDevice_ElecHybrid* elecHybridToExport = dynamic_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid)));
             if (elecHybridToExport->getMaximumBatteryCapacity() > 0) {
@@ -90,22 +87,7 @@ MSElecHybridExport::writeAggregated(OutputDevice& of, SUMOTime timestep, int pre
                 // Write Acceleration
                 of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
                 // Write Distance
-                double distance = NAN;
-                const MSLane* vehicleLane = veh->getLane();
-                if (vehicleLane != nullptr) {
-                    if (vehicleLane->isInternal()) {
-                        // route edge still points to the edge before the intersection
-                        const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
-                        distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
-                                    veh->getRoute().begin(), veh->getCurrentRouteEdge())
-                                    + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
-                                            *veh->getCurrentRouteEdge(), &veh->getLane()->getEdge()));
-                    } else {
-                        distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
-                                   veh->getRoute().begin(), veh->getCurrentRouteEdge());
-                    }
-                }
-                of.writeAttr(SUMO_ATTR_DISTANCE, distance);
+                of.writeAttr(SUMO_ATTR_DISTANCE, veh->getOdometer());
                 // Write pos x
                 of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
                 // Write pos y
@@ -114,7 +96,7 @@ MSElecHybridExport::writeAggregated(OutputDevice& of, SUMOTime timestep, int pre
                 of.writeAttr(SUMO_ATTR_Z, veh->getPosition().z());
                 // Write slope
                 of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
-                if (microVeh != 0) {
+                if (microVeh != nullptr) {
                     // Write Lane ID
                     of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
                 }
@@ -169,27 +151,7 @@ MSElecHybridExport::write(OutputDevice& of, const SUMOVehicle* veh, SUMOTime tim
         // Write Acceleration
         of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
         // Write Distance
-        double distance;
-        const MSLane* vehLane = veh->getLane();
-        if (vehLane) {
-            if (vehLane->isInternal()) {
-                // route edge still points to the edge before the intersection
-                const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
-                distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
-                            veh->getRoute().begin(), veh->getCurrentRouteEdge())
-                            + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
-                                    *veh->getCurrentRouteEdge(), &vehLane->getEdge()));
-            } else {
-                distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
-                           veh->getRoute().begin(), veh->getCurrentRouteEdge());
-            }
-        } else {
-            // typically a case of macroscopic simulation
-            // @todo Probably we should interpolate the vehicle position here?
-            // @todo Or write out something only in the case that the vehicle leaves the actual segment?
-            distance = NAN;
-        }
-        of.writeAttr(SUMO_ATTR_DISTANCE, distance);
+        of.writeAttr(SUMO_ATTR_DISTANCE, veh->getOdometer());
         // Write pos x
         of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
         // Write pos y

@@ -11,9 +11,9 @@ set(microsim_traffic_lights_STAT_SRCS
    MSRailSignalConstraint.h
    MSRailSignalControl.cpp
    MSRailSignalControl.h
+   MSDriveWay.cpp
+   MSDriveWay.h
    MSPhaseDefinition.h
-   MSPhasedTrafficLightLogic.cpp
-   MSPhasedTrafficLightLogic.h
    MSPushButton.cpp
    MSPushButton.h
    MSRailCrossing.cpp

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,9 +17,10 @@
 ///
 // Class used for move shape elements
 /****************************************************************************/
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 
 #include "GNEMoveElement.h"
 
@@ -188,34 +189,28 @@ GNEMoveElement::GNEMoveElement() :
 
 
 GNEMoveOperation*
-GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius, const bool onlyContour) {
-    // calculate squared snapRadius
-    const double squaredSnapRadius = (snapRadius * snapRadius);
+GNEMoveElement::calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape,
+        const bool maintainShapeClosed) {
+    // get moved geometry points
+    const auto geometryPoints = gViewObjectsHandler.getGeometryPoints(obj);
+    // get pos over shape
+    const auto posOverShape = gViewObjectsHandler.getPositionOverShape(obj);
     // declare shape to move
     PositionVector shapeToMove = originalShape;
-    // obtain nearest index
-    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
-    // obtain nearest position
-    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
-    // check conditions
-    if (nearestIndex == -1) {
-        return nullptr;
-    } else if (nearestPosition == Position::INVALID) {
-        // special case for extremes
-        if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-            // move extrem without creating new geometry point
-            return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
-        } else {
-            return nullptr;
-        }
-    } else if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+    const int lastIndex = (int)shapeToMove.size() - 1;
+    // check if move existent geometry points or create new
+    if (geometryPoints.size() > 0) {
         // move geometry point without creating new geometry point
-        return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
-    } else if (!onlyContour || nearestPosition.distanceSquaredTo2D(mousePosition) <= squaredSnapRadius) {
+        if (maintainShapeClosed && ((geometryPoints.front() == 0) || (geometryPoints.front() == lastIndex))) {
+            // move first and last point
+            return new GNEMoveOperation(this, originalShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
+        } else {
+            return new GNEMoveOperation(this, originalShape, {geometryPoints.front()}, shapeToMove, {geometryPoints.front()});
+        }
+    } else if (posOverShape != Position::INVALID) {
         // create new geometry point and keep new index (if we clicked near of shape)
-        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
-        // move after setting new geometry point in shapeToMove
-        return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {newIndex});
+        const int newIndex = shapeToMove.insertAtClosest(posOverShape, true);
+        return new GNEMoveOperation(this, originalShape, {shapeToMove.indexOfClosest(posOverShape)}, shapeToMove, {newIndex});
     } else {
         return nullptr;
     }
@@ -407,8 +402,8 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                     throw ProcessError("trying to move an invalid position");
                 }
             }
-            // remove double points (only in commitMove)
-            if (moveResult.shapeToUpdate.size() > 2) {
+            // remove double points if merge points is enabled (only in commitMove)
+            if (viewNet->getViewParent()->getMoveFrame()->getCommonModeOptions()->getMergeGeometryPoints() && (moveResult.shapeToUpdate.size() > 2)) {
                 moveResult.shapeToUpdate.removeDoublePoints(2);
             }
         } else {

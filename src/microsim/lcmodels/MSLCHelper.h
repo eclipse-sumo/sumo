@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,7 +64,7 @@ public:
      * @param[in,out] leadingBlockerLength: the length to reserve at the end of the lane
      * @return Whether sufficient space has been reserved (by vehicle or blocker)
      */
-    static bool saveBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength);
+    static bool updateBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength);
 
     /* @brief return saveable space
      * @param[in] requested The space that should be saved for another vehicle
@@ -72,4 +72,14 @@ public:
      * @return Whether the requested space can be reserved
      */
     static bool canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace);
+
+    /// @brief return whether the vehicles are on the same junction but on divergent paths
+    static bool divergentRoute(const MSVehicle& v1, const MSVehicle& v2);
+
+    static double getSpeedPreservingSecureGap(const MSVehicle& leader, const MSVehicle& follower, double currentGap, double leaderPlannedSpeed);
+
+    static bool isBidiLeader(const MSVehicle* leader, const std::vector<MSLane*>& cont);
+
+    static bool isBidiFollower(const MSVehicle* ego, const MSVehicle* follower);
+
 };

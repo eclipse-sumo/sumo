@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ public:
     // class CurrentTAZ
     // ===========================================================================
 
-    class CurrentTAZ : public FXGroupBoxModule {
+    class CurrentTAZ : public MFXGroupBoxModule {
 
     public:
         /// @brief struct for edges and the source/sink colors
@@ -151,7 +151,7 @@ public:
     // class TAZCommonStatistics
     // ===========================================================================
 
-    class TAZCommonStatistics : public FXGroupBoxModule {
+    class TAZCommonStatistics : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -181,7 +181,7 @@ public:
     // class TAZSaveChanges
     // ===========================================================================
 
-    class TAZSaveChanges : public FXGroupBoxModule {
+    class TAZSaveChanges : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSaveChanges)
 
@@ -231,7 +231,7 @@ public:
     // class TAZChildDefaultParameters
     // ===========================================================================
 
-    class TAZChildDefaultParameters : public FXGroupBoxModule {
+    class TAZChildDefaultParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZChildDefaultParameters)
 
@@ -283,7 +283,7 @@ public:
         /// @brief CheckButton to enable or disable Toggle edge Membership
         FXCheckButton* myToggleMembership;
 
-        /// @brief Horizontal Frame toogle membership
+        /// @brief Horizontal Frame toggle membership
         FXHorizontalFrame* myToggleMembershipFrame;
 
         /// @brief Horizontal Frame for default TAZ Source Weight
@@ -318,7 +318,7 @@ public:
     // class TAZSelectionStatistics
     // ===========================================================================
 
-    class TAZSelectionStatistics : public FXGroupBoxModule {
+    class TAZSelectionStatistics : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSelectionStatistics)
 
@@ -392,7 +392,7 @@ public:
     // class TAZParameters
     // ===========================================================================
 
-    class TAZParameters : public FXGroupBoxModule {
+    class TAZParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZParameters)
 
@@ -466,7 +466,7 @@ public:
     // class TAZEdgesGraphic
     // ===========================================================================
 
-    class TAZEdgesGraphic : public FXGroupBoxModule {
+    class TAZEdgesGraphic : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZEdgesGraphic)
 
@@ -519,10 +519,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETAZFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETAZFrame();
@@ -532,10 +532,10 @@ public:
 
     /**@brief process click over Viewnet
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something (select TAZ or add edge) was sucefully done
      */
-    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief process selection of edges in view net
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);

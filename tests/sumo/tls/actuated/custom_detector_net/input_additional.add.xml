@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSStates" source="0" dest="tls_state_switch.xml" saveDetectors="true"/>
+
+    <inductionLoop id="customLoop1" lane="1si_2" pos="235" file="detector.xml" freq="120"/>
+    <inductionLoop id="customLoop2" lane="2si_2" pos="240" file="detector.xml" freq="120"/>
+
+</additional>

@@ -1,0 +1,16 @@
+Warning: Found angle of 152.66 degrees at edge '-E2', segment 1.
+Warning: Found angle of 101.10 degrees at edge 'EdgeExternTop', segment 5.
+Warning: Shape for junction 'J4' has distance 73.03 to its given position.
+Warning: Shape for junction 'J5' has distance 39.38 to its given position.
+Warning: Invalid endOffset 6.00 at lane 'E2_0' with length 0.20 (startOffset 0.00).
+Warning: Invalid endOffset 6.00 at lane 'E2_1' with length 0.20 (startOffset 0.00).
+Warning: Speed of straight connection 'EdgeExternTop_0->EdgeExternBot_0' reduced by 9.96 due to turning radius of 2.80 (length=2.69, angle=90.00).
+Warning: Found angle of 135.72 degrees at edge '-E1', segment 0.
+Warning: Found sharp turn with radius 5.32 at the start of edge '-E1'.
+Warning: Found angle of 152.66 degrees at edge '-E2', segment 1.
+Warning: Found angle of 101.10 degrees at edge 'EdgeExternTop', segment 5.
+Warning: Shape for junction 'J4' has distance 73.03 to its given position.
+Warning: Shape for junction 'J5' has distance 39.38 to its given position.
+Warning: Invalid endOffset 6.00 at lane 'E2_0' with length 0.20 (startOffset 0.00).
+Warning: Invalid endOffset 6.00 at lane 'E2_1' with length 0.20 (startOffset 0.00).
+Warning: Speed of straight connection 'EdgeExternTop_0->EdgeExternBot_0' reduced by 9.96 due to turning radius of 2.80 (length=2.69, angle=90.00).

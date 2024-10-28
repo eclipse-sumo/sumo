@@ -1,0 +1,1 @@
+Error: Answered with error to command 0xc4: Vehicle 'ego' does not support carFollowModel parameter 'carFollowModel.foobar' (Setting parameter 'foobar' is not supported by carFollowModel).

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,8 +43,9 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos,
-                     const double endPos, const std::string& name, bool friendlyPosition, const Parameterised::Map& parameters);
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, GNELane* lane,
+                     const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
+                     const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -56,20 +57,29 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
-    /// @brief check if current additional is valid to be writed into XML
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    virtual void writeAdditional(OutputDevice& device) const = 0;
+
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
     std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem
+    /// @brief fix additional problem (must be reimplemented in all detector children)
     void fixAdditionalProblem();
+
     /// @}
 
-    /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -130,11 +140,6 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
-
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -153,29 +158,25 @@ protected:
     bool myFriendlyPosition;
 
     /// @brief The position of the sign
-    Position mySignPos;
+    Position mySymbolPosition;
 
-    /// @brief circle width resolution for all stopping places
-    static const double myCircleWidth;
-
-    /// @brief squared circle width resolution for all stopping places
-    static const double myCircleWidthSquared;
-
-    /// @brief inner circle width resolution for all stopping places
-    static const double myCircleInWidth;
-
-    /// @brief text inner circle width resolution for all stopping places
-    static const double myCircleInText;
+    /// @brief circle contour
+    GNEContour mySymbolContour;
 
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
     /// @brief draw lines
-    void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const;
+    void drawLines(const GUIVisualizationSettings::Detail d, const std::vector<std::string>& lines,
+                   const RGBColor& color) const;
 
     /// @brief draw sign
-    void drawSign(const GUIVisualizationSettings& s, const double exaggeration,
+    void drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
                   const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
+
+    /// @brief check object in view
+    void calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                       const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
 private:
     /// @brief set attribute after validation
@@ -196,5 +197,3 @@ private:
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;
 };
-
-

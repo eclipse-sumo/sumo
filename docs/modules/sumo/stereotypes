@@ -2,7 +2,7 @@
   package_stereotypes  5 "facade" "framework" "model library" "stub" "toplevel"
     -_-> 3 "access" "import" "from"
   end
-  
+
   class_stereotypes  18 "actor" "auxiliary" "boundary" "control" "entity" "enum" "enum_pattern" "exception" "focus" "implementation class" "interface" "@interface" "metaclass" "struct" "type" "typedef" "union" "utility"
     ---- 4 "list" "set" "vector" "map"
     ---> 4 "list" "set" "vector" "map"
@@ -14,17 +14,17 @@
     -_-> 3 "friend" "import" "from"
     -_-|> 1 "bind"
   end
-  
+
   use_case_stereotypes 1 "realization"
-  
+
     ---|> 4 "{complete,disjoint}" "{incomplete,disjoint}" "{complete,overlapping}" "{incomplete,overlapping}"
     -_-> 2 "include" "extend"
   end
-  
+
   artifact_stereotypes  7 "document" "file" "script" "source" "text" "library" "executable"
     -_-> 4 "deploy" "manifest" "import" "from"
   end
-  
+
   attribute_stereotypes  4 "list" "set" "vector" "map"
   operation_stereotypes  0
   state_stereotypes  3 "machine" "submachine" "top"

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-03 22:29:21 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="4526257455" name="变电所" lane="417820309#2_0" startPos="650.06" endPos="675.06" friendlyPos="true" lines="6"/>
+    <busStop id="4526257459" name="变电所" lane="172556825#0_0" startPos="658.05" endPos="683.05" friendlyPos="true" lines="3"/>
+    <busStop id="4526257471" name="谢二矿" lane="417820309#1_0" startPos="489.15" endPos="514.15" friendlyPos="true" lines="6"/>
+    <busStop id="4526257472" name="谢二矿" lane="172556825#3_0" startPos="168.12" endPos="193.12" friendlyPos="true" lines="3"/>
+    <busStop id="4526257478" name="夏郢孜" lane="417820309#0_0" startPos="241.11" endPos="266.11" friendlyPos="true" lines="6"/>
+    <busStop id="4526257479" name="夏郢孜" lane="172556825#3_0" startPos="718.07" endPos="743.07" friendlyPos="true" lines="3"/>
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,7 +60,9 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     mySubID(logic->getProgramID()),
     myOffset(logic->getOffset()),
     myPhases(logic->myPhases.begin(), logic->myPhases.end()),
-    myType(logic->getType()) {}
+    myType(logic->getType()) {
+    updateParameters(logic->getParametersMap());
+}
 
 
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
@@ -97,7 +99,7 @@ NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, 
     // check state contents
     const std::string::size_type illegal = state.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
     if (std::string::npos != illegal) {
-        throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
+        throw ProcessError(TLF("When adding phase: illegal character '%' in state", toString(state[illegal])));
     }
     // interpret index
     if (index < 0 || index >= (int)myPhases.size()) {
@@ -117,6 +119,38 @@ NBTrafficLightLogic::deletePhase(int index) {
     myPhases.erase(myPhases.begin() + index);
 }
 
+
+void
+NBTrafficLightLogic::swapPhase(int indexPhaseA, int indexPhaseB) {
+    if (indexPhaseA >= (int)myPhases.size()) {
+        throw InvalidArgument("Index " + toString(indexPhaseA) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
+    }
+    if (indexPhaseB >= (int)myPhases.size()) {
+        throw InvalidArgument("Index " + toString(indexPhaseB) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
+    }
+    // declare auxiliar PhaseDefinition and swap
+    const auto auxPhase = myPhases.at(indexPhaseA);
+    myPhases.at(indexPhaseA) = myPhases.at(indexPhaseB);
+    myPhases.at(indexPhaseB) = auxPhase;
+}
+
+
+void
+NBTrafficLightLogic::swapfirstPhase() {
+    const auto firstPhase = myPhases.front();
+    myPhases.erase(myPhases.begin());
+    myPhases.push_back(firstPhase);
+}
+
+
+void
+NBTrafficLightLogic::swaplastPhase() {
+    const auto lastPhase = myPhases.back();
+    myPhases.pop_back();
+    myPhases.insert(myPhases.begin(), lastPhase);
+}
 
 void
 NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
@@ -198,7 +232,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
                 }
             }
             if (!found) {
-                WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+                WRITE_WARNINGF(TL("Non-static traffic light '%' does not define variable phase length."), getID());
             }
         }
     }
@@ -281,6 +315,15 @@ void
 NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].name = name;
+}
+
+
+void
+NBTrafficLightLogic::overrideState(int phaseIndex, const char c) {
+    assert(phaseIndex < (int)myPhases.size());
+    for (int i = 0; i < (int)myPhases[phaseIndex].state.size(); i++) {
+        myPhases[phaseIndex].state[i] = c;
+    }
 }
 
 /****************************************************************************/

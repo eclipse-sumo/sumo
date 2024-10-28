@@ -23,11 +23,14 @@
                 <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
                 <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
                 <xsd:element name="tlLogic" type="tlStateType" minOccurs="0"/>
+                <xsd:element name="driveWay" type="driveWayStateType" minOccurs="0"/>
+                <xsd:element name="subDriveWay" type="driveWayStateType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
             <xsd:attribute name="type" type="xsd:string"/>
             <xsd:attribute name="constraints" type="boolType"/>
+            <xsd:attribute name="rail" type="boolType"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -57,7 +60,7 @@
         <xsd:attribute name="number" type="xsd:int" use="required"/>
         <xsd:attribute name="begin" type="xsd:integer" use="required"/>
         <xsd:attribute name="end" type="xsd:integer" use="required"/>
-        <xsd:attribute name="depart" type="xsd:float" use="required"/>
+        <xsd:attribute name="depart" type="floatType" use="required"/>
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
     </xsd:complexType>
 
@@ -114,13 +117,14 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="pos" type="xsd:string"/>
-        <xsd:attribute name="posLat" type="xsd:float"/>
+        <xsd:attribute name="posLat" type="floatType"/>
         <xsd:attribute name="speed" type="xsd:string"/>
-        <xsd:attribute name="angle" type="xsd:float"/>
+        <xsd:attribute name="angle" type="floatType"/>
         <xsd:attribute name="speedFactor" type="nonNegativeFloatType"/>
         <xsd:attribute name="waitingTime" type="xsd:string"/>
         <xsd:attribute name="distance" type="xsd:string" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
+        <xsd:attribute name="lcState" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="deviceType">
@@ -189,14 +193,14 @@
     <xsd:complexType name="approachingType">
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="arrivalTime" type="xsd:integer" use="required"/>
-        <xsd:attribute name="arrivalSpeed" type="xsd:float" use="required"/>
-        <xsd:attribute name="departSpeed" type="xsd:float" use="required"/>
+        <xsd:attribute name="arrivalSpeed" type="floatType" use="required"/>
+        <xsd:attribute name="departSpeed" type="floatType" use="required"/>
         <xsd:attribute name="request" type="boolType" use="required"/>
         <xsd:attribute name="arrivalTimeBraking" type="xsd:integer" use="optional"/>
-        <xsd:attribute name="arrivalSpeedBraking" type="xsd:float" use="required"/>
+        <xsd:attribute name="arrivalSpeedBraking" type="floatType" use="required"/>
         <xsd:attribute name="waitingTime" type="xsd:integer" use="required"/>
-        <xsd:attribute name="distance" type="xsd:float" use="required"/>
-        <xsd:attribute name="posLat" type="xsd:float" use="optional"/>
+        <xsd:attribute name="distance" type="floatType" use="required"/>
+        <xsd:attribute name="posLat" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="segmentStateType">
@@ -215,6 +219,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="depart" type="xsd:integer" use="required"/>
         <xsd:attribute name="parking" type="xsd:string" use="optional"/>
+        <xsd:attribute name="jump" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="railSignalConstraintTrackerType">
@@ -228,6 +233,12 @@
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
         <xsd:attribute name="phase" type="xsd:int" use="required"/>
         <xsd:attribute name="duration" type="xsd:integer" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="driveWayStateType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

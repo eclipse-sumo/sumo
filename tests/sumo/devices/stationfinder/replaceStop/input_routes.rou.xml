@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType accel="1.0" decel="5.0" id="ElectricVehicle1" emissionClass="Energy" mass="1600" length="18" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+        <param key="device.battery.capacity" value="6000"/>
+        <param key="device.battery.maxPower" value="100000"/>
+        <param key="rotatingMass" value="30"/>
+        <param key="frontSurfaceArea" value="2.2"/>
+        <param key="airDragCoefficient" value="0.33"/>
+        <param key="radialDragCoefficient" value="0.1"/>
+        <param key="rollDragCoefficient" value="0.01"/>
+        <param key="constantPowerIntake" value="40"/>
+        <param key="propulsionEfficiency" value="0.9"/>
+        <param key="recuperationEfficiency" value="0.9"/>
+        <param key="constantPowerIntake" value="0"/>
+    </vType>
+
+    <route id="route01" edges="D2 L2 L12 L10 L7 D7"/>
+
+    <vehicle depart="0" id="veh0" route="route01" type="ElectricVehicle1">
+        <stop lane="L2_0" endPos="10" until="500"/>
+        <param key="device.battery.chargeLevel" value="100"/>
+        <param key="device.stationfinder.charging.chargingTime.weight" value="0"/>
+        <param key="device.stationfinder.charging.waitingTime.weight" value="0"/>
+        <param key="device.stationfinder.replacePlannedStop" value="2"/>
+        <param key="device.stationfinder.maxDistanceToReplacedStop" value="600"/>
+    </vehicle>
+
+    <vehicle depart="10" id="veh3" route="route01" type="ElectricVehicle1">
+        <stop lane="L2_0" endPos="50" until="500"/>
+        <param key="device.stationfinder.charging.timefrom.weight" value="0"/>
+        <param key="device.stationfinder.charging.timefrom.to" value="0"/>
+        <param key="device.battery.chargeLevel" value="100"/>
+        <param key="device.stationfinder.replacePlannedStop" value="0.5"/>
+        <param key="device.stationfinder.maxDistanceToReplacedStop" value="600"/>
+    </vehicle>
+
+</routes>

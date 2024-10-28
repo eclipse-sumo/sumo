@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,6 +92,9 @@ public:
         if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arrive
             tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
+        }
+        if (this->getEdge()->isCrossing()) {
+            tlsDelay += this->getEdge()->getTimePenalty();
         }
 #ifdef IntermodalRouter_DEBUG_EFFORTS
         std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << this->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " fullLength=" << this->getLength() << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,7 +77,7 @@ public:
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
      */
-    bool wasSet(int what) const {
+    bool wasSet(long long int what) const {
         return (myParameter.parametersSet & what) != 0;
     }
 
@@ -153,11 +153,18 @@ public:
     }
 
 
-    /** @brief Get vehicle's maximum speed [m/s].
-     * @return The maximum speed (in m/s) of vehicles of this class
+    /** @brief Get vehicle's (technical) maximum speed [m/s].
+     * @return The maximum speed (in m/s) of vehicles of this types
      */
     double getMaxSpeed() const {
         return myParameter.maxSpeed;
+    }
+
+    /** @brief Returns the vehicles's desired maximum speed
+     * @return The desired maximum speed of vehicles of this type
+     */
+    double getDesiredMaxSpeed() const {
+        return myParameter.desiredMaxSpeed;
     }
 
 
@@ -193,11 +200,27 @@ public:
     }
 
 
+    /** @brief Get this vehicle type's mass
+     * @return The mass of this vehicle type
+     */
+    inline double getMass() const {
+        return myParameter.mass;
+    }
+
+
     /** @brief Returns this type's color
      * @return The color of this type
      */
     const RGBColor& getColor() const {
         return myParameter.color;
+    }
+
+
+    /** @brief Returns the parking access rights of this type
+     * @return The parking access rights
+     */
+    const std::vector<std::string>& getParkingBadges() const {
+        return myParameter.parkingBadges;
     }
 
 
@@ -243,6 +266,13 @@ public:
      */
     double getWidth() const {
         return myParameter.width;
+    }
+
+    /** @brief Get the width of the passenger compartment when being drawn
+     * @return The seating space width of this type's vehicles
+     */
+    double getSeatingWidth() const {
+        return myParameter.seatingWidth >= 0 ? myParameter.seatingWidth : myParameter.width;
     }
 
     /** @brief Get the height which vehicles of this class shall have when being drawn
@@ -297,6 +327,21 @@ public:
     SUMOTime getLoadingDuration(const bool isPerson) const {
         return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
+
+    /** @brief Get this vehicle type's boarding duration
+     * @return The time a container / person needs to get loaded on a vehicle of this type
+     */
+    SUMOTime getBoardingDuration(const bool isPerson) const {
+        return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
+    }
+
+    /** @brief Get this person type's factor for loading/boarding duration
+     * @return The multiplier for the time a container / person needs to get loaded
+     */
+    double getBoardingFactor() const {
+        return myParameter.boardingFactor;
+    }
+
 
     /** @brief Get vehicle's maximum lateral speed [m/s].
      * @return The maximum lateral speed (in m/s) of vehicles of this class
@@ -474,10 +519,22 @@ public:
     void setEmissionClass(SUMOEmissionClass eclass);
 
 
+    /** @brief Set a new value for this type's mass
+     * @param[in] mass The new mass of this type
+     */
+    void setMass(double mass);
+
+
     /** @brief Set a new value for this type's color
      * @param[in] color The new color of this type
      */
     void setColor(const RGBColor& color);
+
+
+    /** @brief Set a new value for parking access rights of this type
+     * @param[in] badges The new parking access rights of this type
+     */
+    void setParkingBadges(const std::vector<std::string>& badges);
 
 
     /** @brief Set a new value for this type's width
@@ -494,6 +551,12 @@ public:
      * @param[in] shape The new shape of this type
      */
     void setShape(SUMOVehicleShape shape);
+
+    /** @brief Set a new value for this type's boardingDuration
+     * @param[in] boardingDuration The new boardingDuration of this type
+     * @param[in] isPerson Whether to set boardingDuration or loadingDuration
+     */
+    void setBoardingDuration(SUMOTime duration, bool isPerson = true);
 
     /** @brief Set a new value for this type's impatience
      * @param[in] impatience The new impatience of this type

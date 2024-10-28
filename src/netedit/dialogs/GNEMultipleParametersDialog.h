@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/frames/GNEFrameAttributeModules.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 
 // ===========================================================================
 // class definitions
@@ -254,7 +253,7 @@ public:
     };
 
     /// @brief Constructor for parameter editor inspector
-    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditorInspector);
+    GNEMultipleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -276,7 +275,7 @@ protected:
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
     /// @brief pointer to ParametersEditor
-    GNEInspectorFrame::ParametersEditor* myParametersEditor;
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
@@ -306,4 +305,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEMultipleParametersDialog& operator=(const GNEMultipleParametersDialog&) = delete;
 };
-

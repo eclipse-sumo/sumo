@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-07 13:04:17 by Eclipse SUMO sumo Version v1_12_0+0296-f036efb
+<!-- generated on 2024-04-12 09:55:22 by Eclipse SUMO sumo Version v1_19_0+1795-64526dd6675
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <route-files value="input_routes2.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
 
@@ -30,12 +30,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -47,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="tripCloseEnroute" depart="0.00" arrival="198.00">
+    <vehicle id="VehicleCloseEnroute" depart="0.00" arrival="198.00">
         <routeDistribution>
             <route replacedOnEdge="beg2" replacedOnIndex="1" reason="rr" replacedAtTime="11.00" probability="0" edges="beg beg2 middle middle2 end end2"/>
             <route edges="beg beg2 left left2 end end2"/>

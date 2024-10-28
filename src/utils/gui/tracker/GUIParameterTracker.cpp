@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,11 +23,12 @@
 
 #include <string>
 #include <fstream>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -36,8 +37,8 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <foreign/fontstash/fontstash.h>
-#include "GUIParameterTracker.h"
 #include <utils/gui/globjects/GLIncludes.h>
+#include "GUIParameterTracker.h"
 
 
 // ===========================================================================
@@ -112,22 +113,21 @@ GUIParameterTracker::buildToolBar() {
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button
-    new FXButton(myToolBar, "\t\tSave the data...",
-                 GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
+    GUIDesigns::buildFXButton(myToolBar, "", "", + TL("Save the data..."),
+                              GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
 
     // aggregation interval combo
     myAggregationInterval =
-        new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
-                       GUIDesignComboBoxStatic);
-    myAggregationInterval->appendItem("1s");
-    myAggregationInterval->appendItem("1min");
-    myAggregationInterval->appendItem("5min");
-    myAggregationInterval->appendItem("15min");
-    myAggregationInterval->appendItem("30min");
-    myAggregationInterval->appendItem("60min");
-    myAggregationInterval->setNumVisible(6);
+        new MFXComboBoxIcon(myToolBar, 8, false, GUIDesignComboBoxVisibleItemsMedium,
+                            this, MID_AGGREGATIONINTERVAL, GUIDesignComboBoxStatic);
+    myAggregationInterval->appendIconItem("1s");
+    myAggregationInterval->appendIconItem("1min");
+    myAggregationInterval->appendIconItem("5min");
+    myAggregationInterval->appendIconItem("15min");
+    myAggregationInterval->appendIconItem("30min");
+    myAggregationInterval->appendIconItem("60min");
 
-    myMultiPlot = new FXCheckButton(myToolBar, "Multiplot", this, MID_MULTIPLOT);
+    myMultiPlot = new FXCheckButton(myToolBar, TL("Multiplot"), this, MID_MULTIPLOT);
     myMultiPlot->setCheck(false);
 }
 
@@ -215,7 +215,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
 
 long
 GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Data", ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Data"), ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -254,7 +254,7 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         }
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
+        FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }
@@ -322,7 +322,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     if (values.size() < 2) {
         // draw name
         glTranslated(-.9, 0.9, 0);
-        GLHelper::drawText(desc.getName(), Position((double)index / myParent->myTracked.size(), 0), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        GLHelper::drawText(desc.getName(), Position((double)index / (double)myParent->myTracked.size(), 0.), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
         desc.unlockValues();
         return;
     }
@@ -421,7 +421,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
 
     // draw name
     glTranslated(-0.98, .92, 0);
-    GLHelper::drawText(desc.getName(), Position((double)index / myParent->myTracked.size(), 0), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    GLHelper::drawText(desc.getName(), Position((double)index / (double)myParent->myTracked.size(), 0.), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, -.92, 0);
 
     // draw current value (with contrasting color)
@@ -442,7 +442,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         if (index == 0) {
             // time is the same for all plots so we only draw it once
             const std::string mouseTime = time2string(beginStep + static_cast<SUMOTime>(mIndex * desc.getAggregationSpan()));
-            glTranslated(1.6 * mIndex / values.size() - 0.8, -0.9, 0);
+            glTranslated(1.6 * (double)mIndex / (double)values.size() - 0.8, -0.9, 0);
             GLHelper::drawText(mouseTime, Position(0, 0), 1, fontHeight, isMultiPlot ? col.changedBrightness(-40) : RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
         }
     }

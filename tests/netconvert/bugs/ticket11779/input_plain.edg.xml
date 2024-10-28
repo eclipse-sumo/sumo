@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-07 17:47:11 by Eclipse SUMO netedit Version v1_14_1+1516-a299e0b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata2/debug/11779/netconvertcrash/input_plain.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/11779/netconvertcrash/input_plain.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-36985677" from="6412845260" to="47056735" priority="11" type="highway.secondary" numLanes="1" speed="13.80" shape="6763.01,20040.52 6798.06,20029.16 6844.42,20006.61 6891.48,19977.05 6940.49,19935.15" width="3.60">
+        <lane index="0">
+            <param key="origId" value="36985677"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="-36985678" from="247434898" to="434325155" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="6989.20,19882.02 6997.67,19895.85 7005.40,19912.58" width="2.70">
+        <lane index="0">
+            <param key="origId" value="36985678"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Hummelackerstrasse"/>
+    </edge>
+    <edge id="-38867748" from="305255404" to="461700819" priority="3" type="highway.residential" numLanes="1" speed="8.33" width="2.70">
+        <lane index="0">
+            <param key="origId" value="38867748"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="-605015893" from="434325155" to="247434893" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="7005.40,19912.58 7020.75,19909.70 7033.95,19910.38 7049.03,19909.95 7058.59,19909.10 7077.20,19907.53 7096.64,19905.62 7111.40,19904.07 7129.26,19902.28 7178.86,19912.50 7188.36,19912.99 7191.30,19956.42 7194.35,19972.52 7197.82,20005.95" width="2.70">
+        <lane index="0">
+            <param key="origId" value="605015893 605015894 605015891 605015892 31312057 22964977"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="layer" value="-1"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Hummelackerstrasse"/>
+    </edge>
+    <edge id="-684478253#1" from="247434898" to="94576278" priority="11" type="highway.secondary" numLanes="2" speed="16.67" shape="6989.20,19882.02 7024.12,19840.10 7027.85,19834.96" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <lane index="1" disallow="all">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <param key="bus:lanes:backward" value="designated|permissive"/>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="4"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="maxspeed" value="60"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+        <param key="vehicle:lanes:backward" value="no|yes"/>
+    </edge>
+    <edge id="-684478254" from="47056735" to="247434898" priority="11" type="highway.secondary" numLanes="2" speed="13.80" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478254"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="684478254"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="-684478255#1" from="305255404" to="6412845260" priority="11" type="highway.secondary" numLanes="1" speed="13.80" shape="6678.86,20058.99 6700.55,20054.95 6742.78,20047.10 6763.01,20040.52" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478255"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="1"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+    </edge>
+    <edge id="-684478256" from="295511806" to="305255404" priority="11" type="highway.secondary" numLanes="2" speed="22.22" shape="6585.23,20068.98 6637.06,20063.62 6678.86,20058.99" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478256 670870213"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="684478256 670870213"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="maxspeed" value="80"/>
+        <param key="name" value="Furttalstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="-856802543#1" from="461932913" to="434325155" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="6691.16,20093.25 6697.04,20092.32 6700.72,20091.41 6704.26,20089.83 6707.85,20086.69 6715.26,20078.97 6720.28,20074.04 6723.05,20071.47 6730.64,20067.53 6737.78,20064.36 6777.49,20051.31 6801.02,20042.03 6846.34,20022.60 6872.54,20006.75 6899.99,19986.77 6941.52,19953.37 6947.07,19948.77 6966.03,19932.86 6973.31,19928.14 6996.45,19915.98 7005.40,19912.58" width="2.70">
+        <lane index="0">
+            <param key="origId" value="856802543 856802543 210954518 210954518 27802454"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="22964977#0" from="247434893" to="434325155" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="7197.82,20005.95 7194.35,19972.52 7191.30,19956.42 7188.36,19912.99 7178.86,19912.50 7129.26,19902.28 7111.40,19904.07 7096.64,19905.62 7077.20,19907.53 7058.59,19909.10 7049.03,19909.95 7033.95,19910.38 7020.75,19909.70 7005.40,19912.58" width="2.70">
+        <lane index="0">
+            <param key="origId" value="22964977 31312057 605015892 605015891 605015894 605015893"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Bachtobelstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="27802454#0" from="434325155" to="461932913" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="7005.40,19912.58 6996.45,19915.98 6973.31,19928.14 6966.03,19932.86 6947.07,19948.77 6941.52,19953.37 6899.99,19986.77 6872.54,20006.75 6846.34,20022.60 6801.02,20042.03 6777.49,20051.31 6737.78,20064.36 6730.64,20067.53 6723.05,20071.47 6720.28,20074.04 6715.26,20078.97 6707.85,20086.69 6704.26,20089.83 6700.72,20091.41 6697.04,20092.32 6691.16,20093.25" width="2.70">
+        <lane index="0">
+            <param key="origId" value="27802454 210954518 210954518 856802543 856802543"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+    </edge>
+    <edge id="36985677" from="47056735" to="6412845260" priority="11" type="highway.secondary" numLanes="1" speed="13.80" shape="6940.49,19935.15 6891.48,19977.05 6844.42,20006.61 6798.06,20029.16 6763.01,20040.52" width="3.60">
+        <lane index="0">
+            <param key="origId" value="36985677"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="36985678" from="434325155" to="247434898" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="7005.40,19912.58 6997.67,19895.85 6989.20,19882.02" width="2.70">
+        <lane index="0">
+            <param key="origId" value="36985678"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Hummelackerstrasse"/>
+    </edge>
+    <edge id="38867744#2" from="461700819" to="461932913" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="6681.54,20085.43 6684.86,20085.85 6687.96,20087.61 6690.01,20090.04 6691.16,20093.25" spreadType="center" width="2.70">
+        <lane index="0">
+            <param key="origId" value="38867744"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="junction" value="roundabout"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="38867748" from="461700819" to="305255404" priority="3" type="highway.residential" numLanes="1" speed="8.33" width="2.70">
+        <lane index="0">
+            <param key="origId" value="38867748"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="670870213" from="305255404" to="295511806" priority="11" type="highway.secondary" numLanes="1" speed="22.22" shape="6678.86,20058.99 6637.06,20063.62 6585.23,20068.98" width="3.60">
+        <lane index="0">
+            <param key="origId" value="670870213 684478256"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="maxspeed" value="80"/>
+        <param key="name" value="Furttalstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="684478253#0" from="94576278" to="247434898" priority="11" type="highway.secondary" numLanes="2" speed="16.67" shape="7027.85,19834.96 7024.12,19840.10 6989.20,19882.02" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <param key="bus:lanes:backward" value="designated|permissive"/>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="4"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="maxspeed" value="60"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+        <param key="vehicle:lanes:backward" value="no|yes"/>
+    </edge>
+    <edge id="684478254" from="247434898" to="47056735" priority="11" type="highway.secondary" numLanes="1" speed="13.80" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478254"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="684478255#0" from="6412845260" to="305255404" priority="11" type="highway.secondary" numLanes="2" speed="13.80" shape="6763.01,20040.52 6742.78,20047.10 6700.55,20054.95 6678.86,20058.99" width="3.60">
+        <lane index="0">
+            <param key="origId" value="684478255"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="684478255"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="1"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+    </edge>
+
+    <roundabout nodes="461932913" edges="38867744#2"/>
+
+</edges>

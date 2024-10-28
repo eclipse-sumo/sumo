@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-27 10:07:44 by Eclipse SUMO sumo Version v1_14_1+1263-24bec7a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="x,y"/>
+    </output>
+
+    <time>
+        <end value="3"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="striping"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <random_number>
+        <seed value="5"/>
+    </random_number>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p.0" x="0.00" y="499.06"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="p.1" x="0.00" y="497.40"/>
+        <person id="p.2" x="0.00" y="497.50"/>
+        <person id="p.3" x="0.00" y="499.10"/>
+        <person id="p.4" x="0.00" y="498.70"/>
+        <person id="p.0" x="1.36" y="498.99"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="p.2" x="0.51" y="497.71"/>
+        <person id="p.4" x="0.72" y="498.99"/>
+        <person id="p.1" x="1.11" y="497.71"/>
+        <person id="p.3" x="1.35" y="498.99"/>
+        <person id="p.0" x="2.48" y="498.99"/>
+    </timestep>
+</fcd-export>

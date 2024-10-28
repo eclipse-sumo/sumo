@@ -1,1 +1,2 @@
-Warning: Vehicle 'rail2' performs emergency braking on lane 'T18_1_0' with decel=5.00, wished=1.30, severity=1.00, time=21.00.
+Warning: Invalid approach information to rail signal 'junction 'w3', link 2' after rerouting for vehicle 'rail6' first driveway edge 'T4_0' time=430.00.
+Warning: Invalid approach information to rail signal 'junction 'w3', link 2' after rerouting for vehicle 'rail6' first driveway edge 'T4_0' time=440.00.

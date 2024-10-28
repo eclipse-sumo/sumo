@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -181,82 +181,102 @@ public:
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
     void addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
-                 const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                 const SUMOTime latestEnd,
+                 const SUMOTime vehExt = -1, // UNSPECIFIED_DURATION
+                 const SUMOTime yellow = -1, // UNSPECIFIED_DURATION
+                 const SUMOTime red = -1, // UNSPECIFIED_DURATION
                  const std::string& name = "",
                  const std::vector<int>& next = std::vector<int>(),
                  int index = -1);
 
-    /** @brief Modifies the state for an existing phase (used by NETEDIT)
+    /** @brief Modifies the state for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] tlIndex The index at which to modify the state
      * @param[in] linkState The new link state for the given index
      */
     void setPhaseState(int phaseIndex, int tlIndex, LinkState linkState);
 
-    /** @brief Modifies the duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new duration for this phase
      */
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the min duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new min duration for this phase
      */
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the max duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new max duration for this phase
      */
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the min duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new earliestEnd for this phase
      */
     void setPhaseEarliestEnd(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the max duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new latestEnd for this phase
      */
     void setPhaseLatestEnd(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    /** @brief Modifies the veh ex for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new vehEx for this phase
      */
     void setPhaseVehExt(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    /** @brief Modifies the veh ex for an existing phase (used by netedit)
     * @param[in] phaseIndex The index of the phase to modify
     * @param[in] duration The new vehEx for this phase
     */
     void setPhaseYellow(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    /** @brief Modifies the veh ex for an existing phase (used by netedit)
     * @param[in] phaseIndex The index of the phase to modify
     * @param[in] duration The new vehEx for this phase
     */
     void setPhaseRed(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the next phase (used by NETEDIT)
+    /** @brief Modifies the next phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new duration for this phase
      */
     void setPhaseNext(int phaseIndex, const std::vector<int>& next);
 
-    /** @brief Modifies the phase name (used by NETEDIT)
+    /** @brief Modifies the phase name (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new duration for this phase
      */
     void setPhaseName(int phaseIndex, const std::string& name);
 
+    /** @brief override state with the given character(used by netedit)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] c the character to override (r, y, g, G...)
+     */
+    void overrideState(int phaseIndex, const char c);
+
     /* @brief deletes the phase at the given index
-     * @note thhrows InvalidArgument on out-of range index
+     * @note throws InvalidArgument on out-of range index
      */
     void deletePhase(int index);
+
+    /* @brief swap phases
+     * @note throws InvalidArgument on out-of range index
+     */
+    void swapPhase(int indexPhaseA, int indexPhaseB);
+
+    /// @brief swap first phase
+    void swapfirstPhase();
+
+    /// @brief swap first phase
+    void swaplastPhase();
 
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end
@@ -293,6 +313,11 @@ public:
     /// @brief Returns the phases
     const std::vector<PhaseDefinition>& getPhases() const {
         return myPhases;
+    }
+
+    /// @brief copy phase values in other
+    void copyPhase(const int origin, const int destination) {
+        myPhases.at(destination) = myPhases.at(origin);
     }
 
     /// @brief Returns the offset of first switch
@@ -341,7 +366,6 @@ private:
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
 
-private:
     /// @brief Invalidated assignment operator
     NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s) = delete;
 };

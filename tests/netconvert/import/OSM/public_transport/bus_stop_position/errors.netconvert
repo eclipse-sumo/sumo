@@ -1,0 +1,5 @@
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '821551824' (Fontanestraße/Flughafenstraße (Ausstieg)). Thus, it will be removed!
+Warning: The traffic light '28095437' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '28095437'
+Warning: The traffic light '3612453893' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '3612453893'

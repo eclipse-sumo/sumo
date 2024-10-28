@@ -1,0 +1,1 @@
+--osm-files osm.xml --osm.sidewalks --osm.crossings --no-turnarounds

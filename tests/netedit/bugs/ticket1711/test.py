@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,36 +31,36 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # set delete mode
 netedit.deleteMode()
 
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
 # remove two left edges
-netedit.leftClick(referencePosition, 150, 200)
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two right edges
-netedit.leftClick(referencePosition, 450, 200)
-netedit.leftClick(referencePosition, 450, 250)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two up edges
-netedit.leftClick(referencePosition, 300, 100)
-netedit.leftClick(referencePosition, 350, 100)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two down edges
-netedit.leftClick(referencePosition, 300, 350)
-netedit.leftClick(referencePosition, 350, 350)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -74,8 +74,8 @@ netedit.rebuildNetwork()
 # Check redo
 netedit.redo(referencePosition, 8)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

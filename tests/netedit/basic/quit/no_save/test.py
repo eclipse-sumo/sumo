@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,8 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, 0, 400)
-netedit.leftClick(referencePosition, 500, 400)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to additional mode
 netedit.additionalMode()
@@ -42,16 +42,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 245)
-
-# go to shape mode
-netedit.shapeMode()
-
-# go to additional mode
-netedit.changeElement("poly")
-
-# create polygon
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -60,11 +51,11 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 160, 245)
-netedit.leftClick(referencePosition, 160, 210)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # press enter to create route
 netedit.typeEnter()
 
 # quit netedit without saving
-netedit.quit(neteditProcess, True, False, True, False, True, False)
+netedit.quit(neteditProcess, True, False, True, False, True, False, True, False)

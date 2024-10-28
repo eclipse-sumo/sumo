@@ -24,7 +24,7 @@ working GCC (version 3.3 and up should suffice) and probably some basic
 libraries Fox depends on.
 
 It has been tested successfully on several SuSE Linux installations and
-with a recent [cygwin](http://www.cygwin.org). Everything that needs
+with a recent [cygwin](https://www.cygwin.org). Everything that needs
 extra work on cygwin is described in the [cygwin
 section](#cygwin).
 
@@ -45,14 +45,14 @@ section](#cygwin).
 We use the GNU autotools for generating configure and Makefiles for
 Unix-like environments. Documentation can be found in the
 
-- [GNU autoconf pages](http://www.gnu.org/software/autoconf/),
-- [Manual for autoconf](http://www.gnu.org/software/autoconf/manual/),
+- [GNU autoconf pages](https://www.gnu.org/software/autoconf/),
+- [Manual for autoconf](https://www.gnu.org/software/autoconf/manual/),
 - [Manual for
   automake](https://www.gnu.org/software/automake/),
 - [Manual for
   libtool](https://www.gnu.org/software/libtool/manual/libtool.html), and
 - the
-  [Autobook](http://sources.redhat.com/autobook/autobook/autobook_toc.html).
+  [Autobook](https://sourceware.org/autobook/).
 
 #### The Libraries
 
@@ -61,17 +61,17 @@ Unix-like environments. Documentation can be found in the
   For GDAL, Fox and Proj this is more or less straightforward:
 
 ```
-tar xzf fox-1.6.36.tar.gz
-cd fox-1.6.36
-./configure --prefix=$HOME && make install
-cd ..
-tar xzf gdal-1.5.1.tar.gz
-cd gdal-1.5.1
-./configure --prefix=$HOME && make install
-cd ..
-tar xzf proj-4.6.0.tar.gz
-cd proj-4.6.0
-./configure --prefix=$HOME && make install
+tar xzf fox-1.6.36.tar.gz
+cd fox-1.6.36
+./configure --prefix=$HOME && make install
+cd ..
+tar xzf gdal-1.5.1.tar.gz
+cd gdal-1.5.1
+./configure --prefix=$HOME && make install
+cd ..
+tar xzf proj-4.6.0.tar.gz
+cd proj-4.6.0
+./configure --prefix=$HOME && make install
 ```
 
 - Note: The "make install" for GDAL may fail due to the Python
@@ -100,13 +100,13 @@ cd proj-4.6.0
   somewhat more involved:
 
 ```
-tar xzf xerces-c-current.tar.gz
-export XERCESCROOT=${HOME}/xerces-c-src_3_0_1
-cd $XERCESCROOT/src/xercesc
+tar xzf xerces-c-current.tar.gz
+export XERCESCROOT=${HOME}/xerces-c-src_3_0_1
+cd $XERCESCROOT/src/xercesc
 autoconf
-./runConfigure -plinux -cgcc -xg++ -minmem -nsocket -tnative -rpthread -P$HOME
+./runConfigure -plinux -cgcc -xg++ -minmem -nsocket -tnative -rpthread -P$HOME
 make
-make install
+make install
 ```
 
 #### Concluding Remarks
@@ -116,7 +116,7 @@ fashion, note that, when building SUMO, the following parameters will be
 required for the "./configure" run:
 
 ```
-./configure --with-fox-config=$HOME/bin/fox-config --with-proj-gdal=$HOME --with-xerces=$HOME
+./configure --with-fox-config=$HOME/bin/fox-config --with-proj-gdal=$HOME --with-xerces=$HOME
 ```
 
 ### Distribution-specific instructions
@@ -127,56 +127,56 @@ may want to follow the instructions below.
 #### Ubuntu 12.04 (tested with SUMO 0.22.0)
 
 ```
-sudo apt-get install autoconf
-sudo apt-get install proj  libtool libgdal1-dev libxerces-c2-dev libfox-1.6-0 libfox-1.6-dev
-cd /usr/lib; sudo ln -s libgdal1.7.0.so libgdal.so cd /usr/local/src/sumo-0.22.0
-tar xzf sumo-src-0.22.0.tar.gz
-sudo mv -v sumo-0.22.0 /usr/local/src
-cd /usr/local/src/sumo-0.22.0
-./configure --with-fox-includes=/usr/include/fox-1.6 --with-gdal-includes=/usr/include/gdal --with-proj-libraries=/usr --with-gdal-libraries=/usr --with-proj-gdal
+sudo apt-get install autoconf
+sudo apt-get install proj  libtool libgdal1-dev libxerces-c2-dev libfox-1.6-0 libfox-1.6-dev
+cd /usr/lib; sudo ln -s libgdal1.7.0.so libgdal.so cd /usr/local/src/sumo-0.22.0
+tar xzf sumo-src-0.22.0.tar.gz
+sudo mv -v sumo-0.22.0 /usr/local/src
+cd /usr/local/src/sumo-0.22.0
+./configure --with-fox-includes=/usr/include/fox-1.6 --with-gdal-includes=/usr/include/gdal --with-proj-libraries=/usr --with-gdal-libraries=/usr --with-proj-gdal
 make
-cd bin
-sudo mv activitygen emissionsDrivingCycle netconvert polyconvert TraCITestClient dfrouter emissionsMap netgenerate  sumo duarouter jtrrouter od2trips sumo-gui /usr/local/bin
+cd bin
+sudo mv activitygen emissionsDrivingCycle netconvert polyconvert TraCITestClient dfrouter emissionsMap netgenerate  sumo duarouter jtrrouter od2trips sumo-gui /usr/local/bin
 ```
 
 #### Ubuntu 14.04 "Trusty Tahr" (tested with SUMO 0.22.0)
 
 ```
-sudo apt-get install autoconf
-sudo apt-get install libproj-dev proj-bin proj-data  libtool libgdal1-dev libxerces-c3-dev libfox-1.6-0 libfox-1.6-dev
-cd /usr/lib;
+sudo apt-get install autoconf
+sudo apt-get install libproj-dev proj-bin proj-data  libtool libgdal1-dev libxerces-c3-dev libfox-1.6-0 libfox-1.6-dev
+cd /usr/lib;
 ```
 
 create this link ...if it complains that it exists, even better
 
 ```
-sudo ln -s libgdal1.7.0.so libgdal.so
-sudo ln -s libproj.so.0.7.0 proj-lib.so
+sudo ln -s libgdal1.7.0.so libgdal.so
+sudo ln -s libproj.so.0.7.0 proj-lib.so
 ```
 
 ```
-cd sumo-0.22.0
-tar xzf sumo-src-0.22.0.tar.gz
-open file "configure" and  change: am__api_version='1.13' to am__api_version='1.14'
-cd ..
-sudo mv -v sumo-0.22.0 /usr/local/src
-cd /usr/local/src/sumo-0.22.0
-sudo aclocal
-sudo automake --add-missing
-sudo ./configure --with-fox-includes=/usr/include/fox-1.6 --with-gdal-includes=/usr/include/gdal --with-proj-libraries=/usr/lib --with-gdal-libraries=/usr --with-proj-gdal
-sudo make
-cd bin
-sudo mv activitygen emissionsDrivingCycle netconvert polyconvert TraCITestClient dfrouter emissionsMap netgenerate  sumo duarouter jtrrouter od2trips sumo-gui /usr/local/bin
-cd /usr/local/share
-sudo mkdir sumo-0.22.0
-sudo mv /usr/local/src/sumo-0.22.0/tools /usr/local/share/sumo-0.22.0/
-sudo mv  /usr/local/src/sumo-0.22.0/data /usr/local/share/sumo-0.22.0/
+cd sumo-0.22.0
+tar xzf sumo-src-0.22.0.tar.gz
+open file "configure" and  change: am__api_version='1.13' to am__api_version='1.14'
+cd ..
+sudo mv -v sumo-0.22.0 /usr/local/src
+cd /usr/local/src/sumo-0.22.0
+sudo aclocal
+sudo automake --add-missing
+sudo ./configure --with-fox-includes=/usr/include/fox-1.6 --with-gdal-includes=/usr/include/gdal --with-proj-libraries=/usr/lib --with-gdal-libraries=/usr --with-proj-gdal
+sudo make
+cd bin
+sudo mv activitygen emissionsDrivingCycle netconvert polyconvert TraCITestClient dfrouter emissionsMap netgenerate  sumo duarouter jtrrouter od2trips sumo-gui /usr/local/bin
+cd /usr/local/share
+sudo mkdir sumo-0.22.0
+sudo mv /usr/local/src/sumo-0.22.0/tools /usr/local/share/sumo-0.22.0/
+sudo mv  /usr/local/src/sumo-0.22.0/data /usr/local/share/sumo-0.22.0/
 ```
 
 if exist...
 
 ```
-sudo mv  /usr/local/src/sumo-0.22.0/doc /usr/local/share/sumo-0.22.0/
+sudo mv  /usr/local/src/sumo-0.22.0/doc /usr/local/share/sumo-0.22.0/
 ```
 
 #### Ubuntu 18.04 (tested with SUMO 0.32.0)
@@ -190,8 +190,8 @@ libfox-1.6-dev.
 sudo yum install xerces-c-devel cmake libxerces-c-dev  gdal-devel proj-develgl2ps-devel gcc-c++
 ```
 
-You need to download fox-toolkit from it's website and build manually
-http://www.fox-toolkit.org/download.html
+You need to download fox-toolkit from its website and build manually
+https://www.fox-toolkit.org/download.html
 
 #### Cygwin
 
@@ -200,7 +200,7 @@ it you need to make a symbolic link in /usr/lib such that the linker
 finds the correct library:
 
 ```
-cd /usr/lib; ln -s /usr/lib/libxerces-c25.dll.a /usr/lib/libxerces-c.dll.a
+cd /usr/lib; ln -s /usr/lib/libxerces-c25.dll.a /usr/lib/libxerces-c.dll.a
 ```
 
 Now everything (but the GUI) should build fine.

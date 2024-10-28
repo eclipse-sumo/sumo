@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -603,7 +603,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                     if len(routes) == 1:  # single valid route confirmed
                         route = routes[0]
-                        # costs are now only the peace of route accross the junction
+                        # costs are now only the peace of route across the junction
                         costs_major = routecosts[0]
 
                     else:
@@ -1369,7 +1369,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
             print('*')
             return
 
-        # do not block accross cycleped edges
+        # do not block across cycleped edges
         if lanes.ids_mode[ids_fromlane_tls[ind_con_block]] not in self.ids_cycleped:
             # to lane is a normal road
             if edges.lengths[lanes.ids_edge[id_fromlane]] < self.length_min_notls:

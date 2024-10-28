@@ -1,0 +1,14 @@
+# network with 7 stations
+simple
+
+# write a poi for each station
+poi-output
+
+# merge stations with common edges
+merge
+
+# create split file for splitting stations with common edges
+split
+
+# use the network that was created based on the above splits as input
+after_split

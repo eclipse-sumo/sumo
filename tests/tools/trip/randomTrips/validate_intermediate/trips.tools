@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Dec 23 21:46:26 2018 by Eclipse SUMO duarouter Version v1_0_1+1015-8e01b2d
+<!-- generated on 2022-07-07 10:55:35.525196 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <intermediate value="2"/>
+    <net-file value="net.net.xml"/>
+    <validate value="True"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:35 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -10,6 +18,7 @@
 
     <output>
         <output-file value="trips.trips.xml.tmp"/>
+        <alternatives-output value="NUL"/>
         <write-trips value="true"/>
     </output>
 

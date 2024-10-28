@@ -1,1 +1,1 @@
-input_data.xml input_edgedata.xml meandata.out.xml tools/output/edgeDataDiff.py
+input_data.xml input_edgedata.xml diff.xml tools/output/edgeDataDiff.py

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXIconComboBox.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 
 // ===========================================================================
 // class declaration
@@ -47,7 +47,7 @@ public:
     // class SelectionInformation
     // ===========================================================================
 
-    class SelectionInformation : public FXGroupBoxModule {
+    class SelectionInformation : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -84,7 +84,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : public FXGroupBoxModule {
+    class ModificationMode : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -145,7 +145,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : public FXGroupBoxModule {
+    class VisualScaling : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -186,7 +186,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : public FXGroupBoxModule {
+    class SelectionOperation : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
@@ -197,8 +197,8 @@ public:
         /// @brief destructor
         ~SelectionOperation();
 
-        /// @brief get reduce button
-        FXButton* getReduceButton() const;
+        /// @brief load from file
+        void loadFromFile(const std::string& file) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -240,14 +240,14 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
-        /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief process massive network element selection
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveNetworkElementSelection(const bool filterLanes);
 
-        /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief process massive demand element selection
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDemandElementSelection();
 
-        /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief process massive dataelement selection
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDataElementSelection();
 
         /// @brief ask if continue due locking
         bool askContinueIfLock() const;
@@ -267,7 +267,7 @@ public:
     // class SelectionHierarchy
     // ===========================================================================
 
-    class SelectionHierarchy : public FXGroupBoxModule {
+    class SelectionHierarchy : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionHierarchy)
 
@@ -303,7 +303,10 @@ public:
             JUNCTION,
             EDGE,
             LANE,
+            CONNECTION,
+            CROSSING,
             ADDITIONAL,
+            WIRE,
             SHAPE,
             DEMAND,
             DATA,
@@ -314,10 +317,10 @@ public:
         GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief comboBox for parents
-        FXComboBox* myParentsComboBox = nullptr;
+        MFXComboBoxIcon* myParentsComboBox = nullptr;
 
         /// @brief comboBox for children
-        FXComboBox* myChildrenComboBox = nullptr;
+        MFXComboBoxIcon* myChildrenComboBox = nullptr;
 
         /// @brief select parents button
         FXButton* mySelectParentsButton = nullptr;
@@ -337,7 +340,10 @@ public:
             std::make_pair(Selection::JUNCTION, "junction"),
             std::make_pair(Selection::EDGE, "edge"),
             std::make_pair(Selection::LANE, "lane"),
+            std::make_pair(Selection::CONNECTION, "connection"),
+            std::make_pair(Selection::CROSSING, "crossing"),
             std::make_pair(Selection::ADDITIONAL, "additionalElements"),
+            std::make_pair(Selection::WIRE, "wireElements"),
             std::make_pair(Selection::SHAPE, "shapeElements"),
             std::make_pair(Selection::DEMAND, "demandElements"),
             std::make_pair(Selection::DATA, "dataElements")
@@ -360,7 +366,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Information : public FXGroupBoxModule {
+    class Information : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -371,10 +377,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNESelectorFrame();
@@ -390,6 +396,11 @@ public:
 
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
+
+    /**@brief select attribute carrier (element)
+     * @param viewObjects objects under cursors
+     */
+    bool selectAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief apply list of ids to the current selection according to Operation,
      * @note if setop==DEFAULT than the currently set mode (myOperation) is used
@@ -414,7 +425,10 @@ public:
     FXVerticalFrame* getContentFrame() const;
 
     /// @brief get modification mode modul
-    ModificationMode* getModificationModeModule() const;
+    ModificationMode* getModificationModeModul() const;
+
+    /// @brief get selection operation modul
+    GNESelectorFrame::SelectionOperation* getSelectionOperationModul() const;
 
     /// @brief get modul for selection information
     SelectionInformation* getSelectionInformation() const;

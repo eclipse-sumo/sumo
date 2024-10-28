@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,7 +92,7 @@ public:
     /// @brief process all commands until the next SUMO simulation step.
     ///        It is guaranteed that t->getTargetTime() >= myStep after call
     ///        (except the case that a load or close command is received)s
-    void processCommandsUntilSimStep(SUMOTime step);
+    int processCommands(const SUMOTime step, const bool afterMove = false);
 
     /// @brief clean up subscriptions
     void cleanup();
@@ -297,8 +297,10 @@ private:
         ~SocketInfo() {
             delete socket;
         }
-        /// @brief Target time: next point of action for the client
+        /// @brief next point of action for the client
         SUMOTime targetTime;
+        /// @brief whether a "half step" has been done, executing only the move
+        bool executeMove = false;
         /// @brief Socket object for this client
         tcpip::Socket* socket;
         /// @brief container for vehicle state changes since last step taken by this client
@@ -316,7 +318,6 @@ private:
      * @return Always true
      */
     bool commandGetVersion();
-
 
     /** @brief Handles subscriptions to send after a simstep2 command
      */
@@ -457,5 +458,3 @@ private:
     TraCIServer& operator=(const TraCIServer& s) = delete;
 
 };
-
-

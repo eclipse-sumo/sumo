@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,12 +25,15 @@
 
 #include <string>
 #include <set>
-#include "GUIGlObjectTypes.h"
+
 #include <utils/geom/Boundary.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringBijection.h>
 #include <utils/common/RGBColor.h>
+#include <utils/foxtools/fxheader.h>
+
+#include "GUIGlObjectTypes.h"
 
 
 // ===========================================================================
@@ -50,6 +53,7 @@ class GUIGLObjectPopupMenu;
 class GUISUMOAbstractView;
 class GUIVisualizationSettings;
 struct GUIVisualizationTextSettings;
+
 #ifdef HAVE_OSG
 namespace osg {
 class Node;
@@ -61,10 +65,12 @@ class Node;
 // ===========================================================================
 
 class GUIGlObject {
+
 public:
     /// @brief associates object types with strings
     static StringBijection<GUIGlObjectType> TypeNames;
     static const GUIGlID INVALID_ID;
+    static const double INVALID_PRIORITY;
 
     /** @brief Constructor
      *
@@ -73,14 +79,15 @@ public:
      *
      * @param[in] type The GUIGlObjectType type
      * @param[in] microsimID unique ID
+     * @param[in] icon optional icon associated with this GUIGLObject
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectType type, const std::string& microsimID);
+    GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon);
 
     /// @brief Destructor
     virtual ~GUIGlObject();
 
-    /// @name Atomar getter methods
+    /// @name getter methods
     /// @{
     /// @brief Returns the full name appearing in the tool tip
     /// @return This object's typed id
@@ -97,6 +104,9 @@ public:
     inline GUIGlID getGlID() const {
         return myGlID;
     }
+
+    /// @brief get icon associated with this GL Object
+    FXIcon* getGLIcon() const;
 
     /// @}
 
@@ -138,13 +148,18 @@ public:
     virtual const std::string getOptionalName() const;
 
     /// @brief Changes the microsimID of the object
-    /// @note happens in NETEDIT
+    /// @note happens in netedit
     virtual void setMicrosimID(const std::string& newID);
 
     /// @brief Returns the type of the object as coded in GUIGlObjectType
     /// @see GUIGlObjectType
     inline GUIGlObjectType getType() const {
         return myGLObjectType;
+    }
+
+    /// @brief Returns the priority of receiving mouse clicks
+    virtual double getClickPriority() const {
+        return (double)myGLObjectType;
     }
 
     /// @brief get blocking status
@@ -158,7 +173,10 @@ public:
     }
 
     /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const {
+        UNUSED_PARAMETER(s);
+        return 1.;
+    }
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
@@ -166,6 +184,21 @@ public:
     /// @brief Draws the object
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief check if element is locked (Currently used only in netedit)
+    virtual bool isGLObjectLocked() const;
+
+    /// @brief mark element as front element (Currently used only in netedit)
+    virtual void markAsFrontElement();
+
+    /// @brief delete GLObject (Currently used only in netedit)
+    virtual void deleteGLObject();
+
+    /// @brief select GLObject (Currently used only in netedit)
+    virtual void selectGLObject();
+
+    /// @brief update GLObject (geometry, ID, etc.) (optional)
+    virtual void updateGLObject();
 
     virtual double getColorValue(const GUIVisualizationSettings& /*s*/, int /*activeScheme*/) const {
         return 0;
@@ -259,7 +292,6 @@ protected:
     void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
     /// @}
 
-protected:
     /// @brief build basic shape popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
     void buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
@@ -279,24 +311,26 @@ private:
     /// @brief full name of GL Object
     std::string myFullName;
 
+    /// @brief icon associatd with this GL Object
+    FXIcon* myIcon;
+
     /// @brief whether the object can be deleted
-    bool myAmBlocked;
+    bool myAmBlocked = false;
 
     /// @brief Parameter table windows which refer to this object
     std::set<GUIParameterTableWindow*> myParamWindows;
 
-    /// @brief create full name
-    std::string createFullName() const;
-
 #ifdef HAVE_OSG
     /// @brief OSG Node of this GL object
-    osg::Node* myOSGNode;
+    osg::Node* myOSGNode = nullptr;
 #endif
+
+    /// @brief create full name
+    std::string createFullName() const;
 
     /// @brief vector for TypeNames Initializer
     static StringBijection<GUIGlObjectType>::Entry GUIGlObjectTypeNamesInitializer[];
 
-private:
     /// @brief Invalidated copy constructor.
     GUIGlObject(const GUIGlObject&) = delete;
 

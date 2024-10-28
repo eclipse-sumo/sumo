@@ -5,7 +5,7 @@ title: XML Validation
 # Status Quo (2018-10-12)
 
 - The current build scripts for windows and linux execute
-[schemaCheck.py]({{Source}}tools/build/schemaCheck.py)
+[schemaCheck.py]({{Source}}tools/build_config/schemaCheck.py)
 as part of the regular tool tests with results visible on the [daily
 build page](https://sumo.dlr.de/daily/) (see for instance the schema
 check tests on the very end of the [64bit linux tool tests
@@ -41,12 +41,12 @@ configurations (command line option **--save-schema** {{DT_FILE}})
 files which are using Python. It seems as two are majorly used:
 
 - [lxml](https://lxml.de/validation.html)
-- [XSV](http://www.ltg.ed.ac.uk/~ht/xsv-status.html)
+- [XSV](https://www.ltg.ed.ac.uk/~ht/xsv-status.html)
 
 further candidates:
 
-- [xmlproc](http://www.garshol.priv.no/download/software/xmlproc/)
-- [minixsv](http://www.familieleuthe.de/MiniXsv.html)
+- [xmlproc](https://www.garshol.priv.no/download/software/xmlproc/)
+- [minixsv](https://pypi.org/project/minixsv/)
 
 A short comparison:
 

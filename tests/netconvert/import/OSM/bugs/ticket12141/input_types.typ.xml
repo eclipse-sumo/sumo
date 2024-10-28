@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <type id="highway.tertiary"       numLanes="1" speed="22.22" priority="10" oneway="false" spreadType="roadCenter" disallow="rail rail_urban rail_electric rail_fast tram ship"/>
+</types>

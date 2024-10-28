@@ -27,7 +27,7 @@ single simulation run.
 
 !!! caution
     The vehicular elements (trips, vehicles, flows) must be sorted by depart / begin time.
-   
+
 The reason is that route files are read incrementally to conserve memory and enable large simulations.
 All files given as parameter to **--route-files** {{DT_Routes}}\[,{{DT_Routes}}]\* are read step-wise.
 Starting at the begin time step, new routes are loaded every n time steps for the next n time steps. n
@@ -45,7 +45,7 @@ You may also give routes including vehicle definitions as {{AdditionalFile}} to
 
 ## Additional Files
 
-One ore more {{AdditionalFile}}(s) are used to load additional entities:
+One or more {{AdditionalFile}}(s) are used to load additional entities:
 
 - infrastructure related things: [traffic light
   programs](../Simulation/Traffic_Lights.md), [induction
@@ -64,7 +64,7 @@ One ore more {{AdditionalFile}}(s) are used to load additional entities:
   [routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)
 
 All these additional structures / definitions are given to the
-simulation using the **--additional-files** {{DT_FILE}}\[,{{DT_FILE}}]\*. 
+simulation using the **--additional-files** {{DT_FILE}}\[,{{DT_FILE}}]\*.
 Each file is read completely into memory and the list of files is processed from left to right.
 
 ## Parsing Order
@@ -107,7 +107,7 @@ The simulation ends in the following cases:
 
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) use a time step
 of one second per default. You may override this using the **--step-length** {{DT_TIME}} option. {{DT_TIME}} is
-by giving a value in seconds between \[0.001 and 1.0\]. 
+by giving a value in seconds between \[0.001 and 1.0\].
 
 Example: **--step-length 0.01** will run the simulation using time steps of 10ms.
 
@@ -151,9 +151,9 @@ considers the acceleration constant during one time step. It can be
 activated by giving the option **--step-method.ballistic** or including the following into the
 configuration file:
 
-```
+```xml
 <processing>
-   <step-method.ballistic value="true"/>
+   <step-method.ballistic value="true"/>
 </processing>
 ```
 
@@ -161,7 +161,7 @@ Especially for larger time-steps (e.g. 1sec.) ballistic update yields
 more realistic dynamics for car-following models based on continuous
 dynamics. See also [*Martin Treiber, Venkatesan Kanagaraj*, Comparing
 Numerical Integration Schemes for Time-Continuous Car-Following
-Models](http://arxiv.org/abs/1403.4881).
+Models](https://arxiv.org/abs/1403.4881).
 
 Ballistic update causes positions to be updated with the average speed
 between time steps instead of the speed of the current time step.

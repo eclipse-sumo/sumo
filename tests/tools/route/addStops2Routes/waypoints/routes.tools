@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-21 08:23:36.571476 by addStops2Routes.py v1_20_0+0130-280905f0296
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <typesfile value="input_routes.rou.xml"/>
+    <speed value="20"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="bicycle"/>
+    <vehicle color="1,0,0" depart="0" id="0_parkingA" type="type1">
+        <route edges="SC CN"/>
+        <stop lane="CN_2" speed="20"/>
+    </vehicle>
+</routes>

@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,6 +32,10 @@ def round(value):  # to round in Python 3 like in Python 2
         return math.ceil(value - 0.5)
     else:
         return math.floor(value + 0.5)
+
+
+def identity(value):
+    return value
 
 
 class _ExtremeType(object):
@@ -70,16 +74,19 @@ uMax = _ExtremeType(True, "uMax")
 uMin = _ExtremeType(False, "uMin")
 
 
-def setPrecision(formatstr, precision, isArray=False):
+def setPrecision(formatstr, precision, isArray=False, preformatted=False):
     if isArray:
         set_printoptions(precision=2)
         return formatstr.replace('%.2f', '%s')
-    return formatstr.replace('%.2f', '%.' + str(int(precision)) + 'f')
+    elif preformatted:
+        return formatstr.replace('%.2f', '%s')
+    else:
+        return formatstr.replace('%.2f', '%.' + str(int(precision)) + 'f')
 
 
 class Statistics:
 
-    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1):
+    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False, printSum=False):
         self.label = label
         self.min = uMax
         self.min_label = None
@@ -89,6 +96,8 @@ class Statistics:
         self.abs = abs
         self.printMin = printMin
         self.scale = scale
+        self.printDev = printDev
+        self.printSum = printSum
         self.isArray = False
         if histogram:
             self.counts = defaultdict(int)
@@ -207,27 +216,33 @@ class Statistics:
         else:
             return "Histogramm is deactivated"
 
-    def toString(self, precision=2, histStyle=1):
+    def toString(self, precision=2, histStyle=1, fmt=identity):
         """histStyle
             0 : not shown
             1 : one line
             2 : fancy
             """
         if len(self.values) > 0:
+            pre = fmt != identity
             min = ''
             if self.printMin:
-                min = setPrecision('min %.2f%s, ', precision, self.isArray) % (
-                    self.min, ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
-            result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision, self.isArray) % (
+                min = setPrecision('min %.2f%s, ', precision, self.isArray, pre) % (
+                    fmt(self.min), ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
+            result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision, self.isArray, pre) % (
                 self.label, len(self.values), min,
-                self.max,
+                fmt(self.max),
                 ('' if self.max_label is None else ' (%s)' %
                  (self.max_label,)),
-                self.avg())
-            result += setPrecision(', Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray) % self.quartiles()
+                fmt(self.avg()))
+            result += setPrecision(', Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray, pre) % (
+                tuple(map(fmt, self.quartiles())))
             if self.abs:
-                result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
-                    self.avg_abs(), self.median_abs())
+                result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray, pre) % (
+                    fmt(self.avg_abs()), fmt(self.median_abs()))
+            if self.printDev:
+                result += (setPrecision(', stdDev %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
+            if self.printSum:
+                result += (setPrecision(', sum %.2f', precision, self.isArray) % sum(self.values))
             if self.counts is not None:
                 if histStyle == 1:
                     result += '\n histogram: %s' % self.histogram()
@@ -241,26 +256,46 @@ class Statistics:
         else:
             return '%s: no values' % self.label
 
-    def toXML(self, precision=2):
-        result = '    <statistic description="%s"' % self.label
-        if len(self.values) > 0:
+    def toXML(self, precision=2, tag="statistic", indent=4, label=None, fmt=identity):
+        pre = fmt != identity
+        if label is None:
+            label = self.label
+        description = ' description="%s"' % label if label != '' else ''
+
+        result = ' ' * indent + '<%s%s' % (tag, description)
+        if self.count() > 0:
+            result += ' count="%i"' % self.count()
             result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
-                                    precision, self.isArray) %
-                       (self.min, self.min_label, self.max, self.max_label, self.avg()))
-            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray) % self.quartiles()
-            result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray) %
-                       (self.avg_abs(), self.median_abs()))
+                                    precision, self.isArray, pre) %
+                       (fmt(self.min), self.min_label, fmt(self.max), self.max_label, fmt(self.avg())))
+            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray, pre) % (
+                tuple(map(fmt, self.quartiles())))
+            result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray, pre) %
+                       (fmt(self.avg_abs()), fmt(self.median_abs())))
+            if self.printDev:
+                result += (setPrecision(' stdDev="%.2f"', precision, self.isArray) %
+                           (self.meanAndStdDev()[1]))
         if self.counts is not None:
             result += '>\n'
             for kv in self.histogram():
                 result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision, self.isArray) % kv
-            result += '    </statistic>\n'
+            result += ' ' * indent + '</%s>\n' % tag
         else:
             result += '/>\n'
         return result
 
     def __str__(self):
         return self.toString()
+
+    def normalise_to_range(self, n_min=0, n_max=1):
+        """Normalises the stored list of values between n_min and n_max, Default: [0,1]"""
+        ret = []
+        range_length = n_max - n_min
+        values_diff = max(self.values) - min(self.values)
+        for val in self.values:
+            temp = (((val - min(self.values))*range_length)/values_diff) + n_min
+            ret.append(temp)
+        return ret
 
 
 def geh(m, c):
@@ -269,3 +304,15 @@ def geh(m, c):
         return 0
     else:
         return math.sqrt(2 * (m - c) * (m - c) / (m + c))
+
+
+def sqv(self, m, c, scaling_factor=1000):
+    """Scaling Quality Value Calculation, Ref: https://journals.sagepub.com/doi/10.1177/0361198119838849
+        scaling_factor:
+        Number of person trips per day (total, per mode, per purpose) : 1
+        Mean trip distance in kilometers : 10
+        Duration of all trips per person per day in minutes : 100
+        Traffic volume per hour : 1000
+        Traffic volume per day : 10000
+    """
+    return 1/(1 + math.sqrt(((m-c)*(m-c))/(scaling_factor*c)))

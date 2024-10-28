@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -93,6 +93,56 @@ MSDevice_Transportable::notifyMoveInternal(const SUMOTrafficObject& veh,
     notifyMove(const_cast<SUMOTrafficObject&>(veh), -1, travelledDistanceFrontOnLane, veh.getEdge()->getVehicleMaxSpeed(&veh));
 }
 
+bool
+MSDevice_Transportable::anyLeavingAtStop(const MSStop& stop) const {
+    for (const MSTransportable* t : myTransportables) {
+        MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(t->getCurrentStage());
+        if (stage->canLeaveVehicle(t, myHolder, stop)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void
+MSDevice_Transportable::transferAtSplitOrJoin(MSBaseVehicle* otherVeh) {
+    const MSStop& stop = myHolder.getNextStop();
+    for (auto it = myTransportables.begin(); it != myTransportables.end();) {
+        MSTransportable* t = *it;
+        if (t->getNumRemainingStages() > 1) {
+            MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(t->getCurrentStage());
+            if (stage->canLeaveVehicle(t, myHolder, stop)) {
+                MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
+                if (stage2 && stage2->isWaitingFor(otherVeh)) {
+                    it = myTransportables.erase(it);
+                    // proceeding registers t as waiting on edge
+                    t->proceed(MSNet::getInstance(), SIMSTEP);
+                    MSTransportableControl& tc = (t->isPerson() ?
+                                                  MSNet::getInstance()->getPersonControl() :
+                                                  MSNet::getInstance()->getContainerControl());
+                    tc.abortWaitingForVehicle(t);
+                    t->getEdge()->removeTransportable(t);
+                    otherVeh->addTransportable(t);
+                    stage2->setVehicle(otherVeh);
+                    continue;
+                }
+            }
+        }
+        it++;
+    }
+}
+
+
+bool
+MSDevice_Transportable::willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) {
+    if (joinVeh && t->getNumRemainingStages() > 1) {
+        MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
+        return stage2->isWaitingFor(joinVeh);
+    }
+    return false;
+}
+
 
 bool
 MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double newPos, double newSpeed) {
@@ -110,12 +160,19 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
         if (veh.isStopped()) {
             myStopped = true;
             MSStop& stop = veh.getNextStop();
+            const MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
             const SUMOTime boardingDuration = veh.getVehicleType().getLoadingDuration(!myAmContainer);
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
-                if (stage->canLeaveVehicle(transportable, myHolder)) {
-                    if (stop.timeToBoardNextPerson - DELTA_T > currentTime) {
+                if (stage->canLeaveVehicle(transportable, myHolder, stop) && !willTransferAtJoin(transportable, joinVeh)) {
+                    SUMOTime& timeForNext = myAmContainer ? stop.timeToLoadNextContainer : stop.timeToBoardNextPerson;
+                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                    if (taxiDevice != nullptr && timeForNext == 0 && !MSGlobals::gUseMesoSim) {
+                        // taxi passengers must leave at the end of the stop duration
+                        timeForNext = stop.pars.started + stop.pars.duration;
+                    }
+                    if (timeForNext - DELTA_T > currentTime) {
                         // try deboarding again in the next step
                         myStopped = false;
                         break;
@@ -126,20 +183,20 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
 
                     SUMOTime arrivalTime = currentTime;
                     if (MSGlobals::gUseMesoSim) {
+                        // no boarding / unboarding time in meso
                         arrivalTime += 1;
                     } else {
-                        // no boarding / unboarding time in meso
-                        if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
-                            stop.timeToBoardNextPerson += boardingDuration;
+                        const SUMOTime boardingTime = (SUMOTime)((double)boardingDuration * transportable->getVehicleType().getBoardingFactor());
+                        if (timeForNext > currentTime - DELTA_T) {
+                            timeForNext += boardingTime;
                         } else {
-                            stop.timeToBoardNextPerson = currentTime + boardingDuration;
+                            timeForNext = currentTime + boardingTime;
                         }
                     }
                     //ensure that vehicle stops long enough for deboarding
-                    stop.duration = MAX2(stop.duration, stop.timeToBoardNextPerson - currentTime);
+                    stop.duration = MAX2(stop.duration, timeForNext - currentTime);
 
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
-                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr) {
                         taxiDevice->customerArrived(transportable);
                     }
@@ -189,18 +246,16 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                                     MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
+            MSTransportableControl& tc = myAmContainer ? MSNet::getInstance()->getContainerControl() : MSNet::getInstance()->getPersonControl();
             MSTransportable* transportable = *i;
             if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
                               "' to intended destination edge '" + transportable->getDestination()->getID() + "' time=" + time2string(SIMSTEP));
+                tc.registerTeleportWrongDest();
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
-                if (myAmContainer) {
-                    MSNet::getInstance()->getContainerControl().erase(transportable);
-                } else {
-                    MSNet::getInstance()->getPersonControl().erase(transportable);
-                }
+                tc.erase(transportable);
             }
             i = myTransportables.erase(i);
         }

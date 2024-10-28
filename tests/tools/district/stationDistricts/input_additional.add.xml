@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-09 10:41:39 by Eclipse SUMO netedit Version v1_16_0+1097-3a874ee0d52
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="-2609440759" name="Wildau" lane="-255228346#1_0" startPos="0.00" endPos="167.30" friendlyPos="true"/>
+    <busStop id="-293605245" name="Königs Wusterhausen" lane="-33142145#0_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <busStop id="-42118188" name="Niederlehme" lane="-176623658#0_0" startPos="2283.82" endPos="2483.82" friendlyPos="true"/>
+    <busStop id="-42132938" name="Königs Wusterhausen" lane="-334912225#0_0" startPos="8.44" endPos="208.44" friendlyPos="true"/>
+    <busStop id="-428356215" name="Wildau" lane="-255228348#1_0" startPos="0.00" endPos="167.78" friendlyPos="true"/>
+    <busStop id="-428759039" name="Königs Wusterhausen" lane="-294730183_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <busStop id="-59143907" name="Zeuthen" lane="-441932166#4_0" startPos="0.00" endPos="132.64" friendlyPos="true"/>
+    <busStop id="102020660" name="Bestensee" lane="8044251#0_0" startPos="0.00" endPos="135.62" friendlyPos="true" lines="RB24 RE7"/>
+    <busStop id="102026599" name="Zeesen" lane="337460727#2_0" startPos="1482.15" endPos="1682.15" friendlyPos="true" lines="RB24 RE7"/>
+    <busStop id="1095078266" name="Eichwalde" lane="27006469#3_0" startPos="0.00" endPos="195.91" friendlyPos="true" lines="S8 S46"/>
+    <busStop id="247120025" name="Eichwalde" lane="22955557#6_0" startPos="28.81" endPos="228.81" friendlyPos="true" lines="S8 S46"/>
+    <busStop id="2609440759" name="Wildau" lane="255228346#1_0" startPos="0.00" endPos="167.30" friendlyPos="true" lines="S46"/>
+    <busStop id="293605245" name="Königs Wusterhausen" lane="33141915#1_0" startPos="460.30" endPos="660.30" friendlyPos="true" lines="RB36 RB22"/>
+    <busStop id="295049552" name="Zeesen" lane="8044251#2_0" startPos="2009.86" endPos="2209.86" friendlyPos="true" lines="RB24 RE7"/>
+    <busStop id="296020395" name="Zeuthen" lane="42220072#1_0" startPos="0.00" endPos="170.92" friendlyPos="true" lines="S8 S46"/>
+    <busStop id="42118188" name="Niederlehme" lane="-8044249_0" startPos="626.25" endPos="826.25" friendlyPos="true" lines="RB36"/>
+    <busStop id="42132938" name="Königs Wusterhausen" lane="742458418#1_0" startPos="140.63" endPos="340.63" friendlyPos="true" lines="RB24 RB22 RE2 RE7"/>
+    <busStop id="428356215" name="Wildau" lane="255228348#1_0" startPos="0.00" endPos="167.78" friendlyPos="true" lines="S46"/>
+    <busStop id="428759039" name="Königs Wusterhausen" lane="742458420_0" startPos="11.78" endPos="211.78" friendlyPos="true" lines="S46"/>
+    <busStop id="59143907" name="Zeuthen" lane="441932166#4_0" startPos="0.00" endPos="132.64" friendlyPos="true" lines="S8 S46"/>
+</additional>

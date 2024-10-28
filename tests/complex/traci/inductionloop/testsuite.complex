@@ -4,8 +4,14 @@ inductionloop
 # test virtual detection
 override
 
+# Tests the inductionloop API for returning aggregated values
+intervalData
+
 # Tests the inductionloop API
 persons_walk
 
 # persons should be filter due to wrong type
 persons_walk_wrongType
+
+# Tests the inductionloop API, detector for persons is on walkingArea
+persons_internalDet

@@ -1,0 +1,18 @@
+Error: Could not build inductionLoop 'e1_3' in netedit; lane 'E0_2' doesn't exist.
+Error: Could not build inductionLoop 'e1_4' in netedit; lane '-E2_2' doesn't exist.
+Error: Could not build inductionLoop 'e1_5' in netedit; lane 'E2_2' doesn't exist.
+Error: Could not build inductionLoop 'e1_6' in netedit; lane '-E3_2' doesn't exist.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul114519.4348\netedit.gui\network\crossings\bugs\split_crossing_3288\additionals.add.xml failed.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c2' across [-E2] has no target.
+Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [-E1] (no walkingarea found).
+Warning: Discarding invalid crossing ':Junction5_c1' at junction 'Junction5' with edges [E1] (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [-E2] has no target.
+Warning: Discarding invalid crossing ':Junction5_c1' at junction 'Junction5' with edges [-E1] (no walkingarea found).
+Warning: Discarding invalid crossing ':Junction5_c2' at junction 'Junction5' with edges [E1] (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':Junction5_c3' across [E2] has no target.
+Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [-E2] (no walkingarea found).
+Warning: Unused state in tlLogic 'Junction5', program '0' at tl-index 16
+Warning: 104 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
+Warning: 20 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.

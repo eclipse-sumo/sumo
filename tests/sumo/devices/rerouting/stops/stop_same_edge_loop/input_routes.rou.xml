@@ -1,0 +1,8 @@
+<routes>
+    <vType id="bus" sigma="0"/>
+    <trip id="bus" type="bus" depart="0" departPos="stop" arrivalPos="85">
+        <stop edge="SC" duration="10" endPos="40"/>
+        <stop edge="CN" duration="10" endPos="80"/>
+        <stop edge="CN" duration="10" endPos="40"/>
+    </trip>
+</routes>

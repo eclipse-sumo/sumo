@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -358,6 +358,17 @@ FringeType SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
+const ParkingType invalid_return<ParkingType>::value = ParkingType::ONROAD;
+template<>
+ParkingType SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (value == toString(ParkingType::OPPORTUNISTIC)) {
+        return ParkingType::OPPORTUNISTIC;
+    } else {
+        return StringUtils::toBool(value) ? ParkingType::OFFROAD : ParkingType::ONROAD;
+    }
+}
+
+
 const std::vector<std::string> invalid_return<std::vector<std::string> >::value = std::vector<std::string>();
 template<>
 std::vector<std::string> SUMOSAXAttributes::fromString(const std::string& value) const {
@@ -383,5 +394,19 @@ std::vector<int> SUMOSAXAttributes::fromString(const std::string& value) const {
     return ret;
 }
 
+
+const std::vector<double> invalid_return<std::vector<double> >::value = std::vector<double>();
+template<>
+std::vector<double> SUMOSAXAttributes::fromString(const std::string& value) const {
+    const std::vector<std::string>& tmp = StringTokenizer(value).getVector();
+    if (tmp.empty()) {
+        throw EmptyData();
+    }
+    std::vector<double> ret;
+    for (const std::string& s : tmp) {
+        ret.push_back(StringUtils::toDouble(s));
+    }
+    return ret;
+}
 
 /****************************************************************************/

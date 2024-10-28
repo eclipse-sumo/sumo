@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-07 18:52:11 by Eclipse SUMO sumo Version v1_13_0+0095-5c39bc50064
+<!-- generated on 2024-03-07 22:27:41 by Eclipse SUMO sumo Version v1_19_0+1200-d6b735e953a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,12 +30,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -49,18 +47,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00" arrivalDelay="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00" arrivalDelay="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00" arrivalDelay="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00" arrivalDelay="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00"/>
+        <vehicle id="0" x="1497.62" y="401.65" angle="270.00" type="t1" speed="10.00" pos="97.62" edge="4/1to3/1" slope="0.00" distance="97.62" odometer="0.00" posLat="0.00" arrivalDelay="0.00"/>
     </timestep>
 </fcd-export>

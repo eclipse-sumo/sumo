@@ -24,3 +24,6 @@ walkBackward_detAtEnd
 
 # detect persons riding in car
 car
+
+# test for #10909
+laneEnd

@@ -107,19 +107,19 @@ jumping from phase 2 to 5
 102.0 phase=4
 103.0 phase=4
 104.0 phase=4
-105.0 phase=5
+105.0 phase=4
 106.0 phase=5
 107.0 phase=5
-108.0 phase=6
+108.0 phase=5
 109.0 phase=6
 110.0 phase=6
 111.0 phase=6
 112.0 phase=6
 113.0 phase=6
-114.0 phase=7
+114.0 phase=6
 115.0 phase=7
 116.0 phase=7
-117.0 phase=0
+117.0 phase=7
 118.0 phase=0
 119.0 phase=0
 120.0 phase=0
@@ -183,7 +183,7 @@ jumping from phase 2 to 5
 178.0 phase=4
 179.0 phase=4
 max-gap: 10
-cycleSecond (before): 89.00
+cycleSecond (before): 53.00
 cycleTime (before): 90.00
 cycleTime (after): 55.00
 coordinated (before): 0

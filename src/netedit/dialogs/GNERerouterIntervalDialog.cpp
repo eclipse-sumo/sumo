@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -124,7 +123,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     // create horizontal frame for begin and end label
     FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + myEditedAdditional->getTagStr()).c_str(), nullptr, GUIDesignLabelLeftThick);
+    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + myEditedAdditional->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myCheckLabel = new FXLabel(beginEndElementsLeft, "", GUIIconSubSys::getIcon(GUIIcon::CORRECT), GUIDesignLabelIcon32x32Thicked);
 
     // create horizontal frame for begin and end text fields
@@ -136,36 +135,36 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     // Create labels and tables
     FXHorizontalFrame* buttonAndLabelClosingLaneReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingLaneReroutes = new FXButton(buttonAndLabelClosingLaneReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosingLaneReroute, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    myAddClosingLaneReroutes = GUIDesigns::buildFXButton(buttonAndLabelClosingLaneReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
+    new FXLabel(buttonAndLabelClosingLaneReroute, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myClosingLaneRerouteTable = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GUIDesignTableAdditionals);
     myClosingLaneRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myClosingLaneRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelClosinReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingReroutes = new FXButton(buttonAndLabelClosinReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosinReroute, ("Add new " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    myAddClosingReroutes = GUIDesigns::buildFXButton(buttonAndLabelClosinReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
+    new FXLabel(buttonAndLabelClosinReroute, ("Add new " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myClosingRerouteTable = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE, GUIDesignTableAdditionals);
     myClosingRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myClosingRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelDestProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddDestProbReroutes = new FXButton(buttonAndLabelDestProbReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelDestProbReroute, ("Add new " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    myAddDestProbReroutes = GUIDesigns::buildFXButton(buttonAndLabelDestProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
+    new FXLabel(buttonAndLabelDestProbReroute, ("Add new " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myDestProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE, GUIDesignTableAdditionals);
     myDestProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myDestProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddRouteProbReroute = new FXButton(buttonAndLabelRouteProbReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
-    FXLabel* routeProbRerouteLabel = new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    myAddRouteProbReroute = GUIDesigns::buildFXButton(buttonAndLabelRouteProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
+    FXLabel* routeProbRerouteLabel = new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myRouteProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
     myRouteProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelParkingAreaReroute = new FXHorizontalFrame(columnRight2, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* parkingAreaRerouteButton = myAddParkingAreaReroute = new FXButton(buttonAndLabelParkingAreaReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
-    FXLabel* parkingAreaRerouteLabel = new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    FXButton* parkingAreaRerouteButton = myAddParkingAreaReroute = GUIDesigns::buildFXButton(buttonAndLabelParkingAreaReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
+    FXLabel* parkingAreaRerouteLabel = new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myParkingAreaRerouteTable = new FXTable(columnRight2, this, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GUIDesignTableAdditionals);
     myParkingAreaRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myParkingAreaRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
@@ -177,13 +176,15 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     }
 
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
-    if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
+    // for whatever reason, sonar complains in the next line that parkingAreaRerouteLabel may leak, but fox does the cleanup
+    if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {  // NOSONAR
         myAddRouteProbReroute->disable();
-        routeProbRerouteLabel->setText("Rerouter has more than one edge");
+        routeProbRerouteLabel->setText(TL("Rerouter has more than one edge"));
     }
 
     // update tables
-    updateClosingLaneReroutesTable();
+    // for whatever reason, sonar complains in the next line that routeProbRerouteLabel may leak, but fox does the cleanup
+    updateClosingLaneReroutesTable();  // NOSONAR
     updateClosingReroutesTable();
     updateDestProbReroutesTable();
     updateRouteProbReroutesTable();
@@ -193,7 +194,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     initChanges();
 
     // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
+    if (!myUpdatingElement) {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
 
@@ -210,7 +211,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // set strings for dialogs
     std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + myEditedAdditional->getTagStr() + " of " + myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
     std::string operationType = myEditedAdditional->getParentAdditionals().at(0)->getTagStr() + "'s " + myEditedAdditional->getTagStr() + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
-    if (myBeginEndValid == false) {
+    if (!myBeginEndValid) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
@@ -317,7 +318,7 @@ GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, voi
         // update closing lane reroutes table
         updateClosingLaneReroutesTable();
     } else {
-        WRITE_WARNING("There is no lanes in the network");
+        WRITE_WARNING(TL("There are no lanes in the network"));
     }
     return 1;
 }
@@ -337,7 +338,7 @@ GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) 
         // update closing reroutes table
         updateClosingReroutesTable();
     } else {
-        WRITE_WARNING("There is no edges in the network");
+        WRITE_WARNING(TL("There are no edges in the network"));
     }
     return 1;
 }
@@ -357,7 +358,7 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
         // update dest Prob reroutes table
         updateDestProbReroutesTable();
     } else {
-        WRITE_WARNING("There is no edges in the network");
+        WRITE_WARNING(TL("There are no edges in the network"));
     }
     return 1;
 }
@@ -370,7 +371,7 @@ GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*
     // check if there is at least one route
     if (routes.size() > 0) {
         // create route Prob Reroute
-        GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, *routes.begin(), 1);
+        GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, routes.begin()->second, 1);
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
         myRouteProbReroutesEdited.push_back(routeProbReroute);
         // update route prob reroutes table
@@ -385,7 +386,7 @@ GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, voi
     // first check if there is lanes in the network
     if (myEditedAdditional->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() > 0) {
         // get parking area
-        GNEAdditional* parkingArea = *myEditedAdditional->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin();
+        GNEAdditional* parkingArea = myEditedAdditional->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
         // create parkingAreaReroute and add it to table
         GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(myEditedAdditional, parkingArea, 1, 1);
         // add it using undoList
@@ -394,7 +395,7 @@ GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, voi
         // update dest Prob reroutes table
         updateParkingAreaReroutesTable();
     } else {
-        WRITE_WARNING("There is no parking areas in the network");
+        WRITE_WARNING(TL("There are no parking areas in the network"));
     }
     return 1;
 }

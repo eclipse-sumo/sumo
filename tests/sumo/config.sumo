@@ -1,6 +1,7 @@
 import_config_file:../config_all
 binary:$SUMO_BINARY
 copy_test_path:net.net.xml
+copy_test_path:net.net.xml.gz
 copy_test_path:net2.net.xml
 copy_test_path:net3.net.xml
 copy_test_path:net4.net.xml
@@ -8,7 +9,9 @@ copy_test_path:three_split.net.xml
 copy_test_path:motorway.net.xml
 copy_test_path:lefthand.net.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes.rou.xml.gz
 copy_test_path:input_routes2.rou.xml
+copy_test_path:input_routes3.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
 copy_test_path:input_additional3.add.xml
@@ -42,6 +45,7 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+personinfos:personinfos.xml
 statistic:statistic.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
@@ -89,16 +93,21 @@ binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
 railsignalblocks:railsignal_blocks.xml
+railsignalvehs:railsignal_vehicles.xml
+railsignalblocks2:railsignal_blocks2.xml
+railsignalvehs2:railsignal_vehicles2.xml
 dispatchinfos:dispatchinfos.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
 weights:weights.xml
 lanechanges:lanechanges.xml
+deadlocks:deadlocks.xml
 ssm:ssm.xml
 ssm2:ssm_ego.xml
 png:out.png
 png2:out2.png
+wkt:wkt.txt
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -106,6 +115,8 @@ output:Building Contraction Hierarchy{[->]}Simulation ended
 output:ms answering queries
 output:--python-script
 output:--osg-view{LINES 2}
+output:--pedestrian.jupedsim.model{LINES 5}
+output:--pedestrian.jupedsim{LINES 2}
 output:movereminder-output{LINES 2}
 output:Simulation.*started with{REPLACE Simulation started with}
 calibrator_log:<!--{[->]}-->
@@ -124,6 +135,7 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+personinfos:<!--{[->]}-->
 statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
@@ -139,6 +151,9 @@ battery:<!--{[->]}-->
 chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
 railsignalblocks:<!--{[->]}-->
+railsignalvehs:<!--{[->]}-->
+railsignalblocks2:<!--{[->]}-->
+railsignalvehs2:<!--{[->]}-->
 dispatchinfos:<!--{[->]}-->
 ssm:<!--{[->]}-->
 ssm2:<!--{[->]}-->
@@ -168,7 +183,7 @@ c2x_transmitted_info:<!--{[->]}-->
 c2x_vehicle_in_range:<!--{[->]}-->
 c2x_saved_info_freq:<!--{[->]}-->
 c2x_edge_near_info:<!--{[->]}-->
-errors:Leaked object at 
+errors:Leaked object at
 errors:\*\*\* \d+ leaks found
 errors:delete: freed
 errors:warning: debug_new used with placement new
@@ -185,13 +200,17 @@ cfg:<movereminder{LINES 2}
 cfg:movereminder
 cfg:<python-script
 cfg:embedded python
-cfg:<osg-view
+cfg:osg-view
 cfg:OpenSceneGraph
+cfg:pedestrian.jupedsim
+cfg:JuPedSim
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
+deadlocks:<!--{[->]}-->
 ps:%%CreationDate
 ps2:%%CreationDate
+statistic:<performance
 
 [floating_point_tolerance]
 output:0.0101

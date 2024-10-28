@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-02 14:44:14.844348 by osmWebWizard.py v1_19_0+1626-0c981d77e86
+<configuration>
+    <net-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz"/>
+    <ptlines-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm_ptlines.xml"/>
+    <ptstops-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml"/>
+    <output-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml"/>
+    <stopinfos-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/stopinfos.xml"/>
+    <routes-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/vehroutes.xml"/>
+    <trips-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/trips.trips.xml"/>
+    <end value="900.0"/>
+    <min-stops value="0"/>
+    <extend-to-fringe value="True"/>
+    <random-begin value="True"/>
+    <seed value="42"/>
+    <ignore-errors value="True"/>
+    <vtype-prefix value="pt_"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="pt_bus" vClass="bus"/>
+    <vType id="pt_tram" vClass="tram"/>
+    <vType id="pt_train" vClass="rail"/>
+    <vType id="pt_subway" vClass="subway"/>
+    <vType id="pt_light_rail" vClass="rail_urban"/>
+    <vType id="pt_monorail" vClass="rail_urban"/>
+    <vType id="pt_trolleybus" vClass="bus"/>
+    <vType id="pt_minibus" vClass="bus"/>
+    <vType id="pt_share_taxi" vClass="taxi"/>
+    <vType id="pt_aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
+    <vType id="pt_ferry" vClass="ship"/>
+    <route id="pt_ferry_F21:0" color="0,128,186" edges="25881424" >
+        <stop busStop="262882408" duration="20" until="46.0"/> <!-- Zum Seeblick -->
+        <stop busStop="2045908036" duration="20" until="316.0"/> <!-- Krampenburg -->
+    </route>
+    <route id="pt_ferry_F21:1" color="0,128,186" edges="25881424 -25881424 25881424" >
+        <stop busStop="2045908036" duration="20" until="273.0"/> <!-- Krampenburg -->
+        <stop busStop="262882408" duration="20" until="558.0"/> <!-- Zum Seeblick -->
+    </route>
+    <flow id="pt_ferry_F21:0" type="pt_ferry" route="pt_ferry_F21:0" begin="15.0" end="915.0" period="600" line="F21:0" >
+        <param key="name" value="Fähre F21: Zum Seeblick =&gt; Krampenburg"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="pt_ferry_F21:1" type="pt_ferry" route="pt_ferry_F21:1" begin="383.0" end="1283.0" period="600" line="F21:1" >
+        <param key="name" value="Fähre F21: Krampenburg =&gt; Zum Seeblick"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+</routes>

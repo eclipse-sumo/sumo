@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,14 +58,16 @@ public:
     ~GNEContainerStop();
 
     /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
+    * @param[in] device device in which write parameters of additional element
+    */
     void writeAdditional(OutputDevice& device) const;
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -79,6 +81,7 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -124,5 +127,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEContainerStop& operator=(const GNEContainerStop&) = delete;
 };
-
-

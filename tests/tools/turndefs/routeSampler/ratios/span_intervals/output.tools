@@ -1,0 +1,8 @@
+0: Wrote 100 routes (3 distinct) achieving total count 100 (100.00%) at 1 locations. GEH<5 for 100.00% and avg ratio mismatch 0.67% at 3 ratio locations (count 100)
+1800: Wrote 200 routes (3 distinct) achieving total count 200 (100.00%) at 1 locations. GEH<5 for 100.00% and avg ratio mismatch 0.33% at 3 ratio locations (count 200)
+avg interval input count: count 2, min 100.00 (0.0), max 200.00 (1800.0), mean 150.00, Q1 100.00, median 200.00, Q3 200.00
+avg interval written vehs: count 2, min 100.00 (0.0), max 200.00 (1800.0), mean 150.00, Q1 100.00, median 200.00, Q3 200.00
+avg interval underflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval overflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval GEH%: count 2, min 100.00 (0.0), max 100.00 (0.0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00
+avg interval ratio mismatch%: count 2, min 0.33 (1800.0), max 0.67 (0.0), mean 0.50, Q1 0.33, median 0.67, Q3 0.67

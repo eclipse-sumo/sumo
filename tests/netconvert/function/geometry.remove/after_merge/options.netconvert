@@ -1,0 +1,1 @@
+-e input_plain.edg.xml,input_edges.edg.xml -n input_plain.nod.xml --no-turnarounds --no-internal-links -R --edges.join --junctions.join-same

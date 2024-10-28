@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,7 +55,7 @@ public:
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
-     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
      * @param[in] relativePath set image file as relative path
@@ -77,10 +77,15 @@ public:
     /// @name Getter
     /// @{
 
-    /** @brief Returns whether the shape of the polygon
+    /** @brief Returns the shape of the polygon
      * @return The shape of the polygon
      */
     const PositionVector& getShape() const;
+
+    /** @brief Returns the holers of the polygon
+     * @return The holes of the polygon
+     */
+    const std::vector<PositionVector>& getHoles() const;
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
@@ -107,7 +112,12 @@ public:
     /** @brief Sets the shape of the polygon
      * @param[in] shape  The new shape of the polygon
      */
-    void setShape(const PositionVector& shape);
+    virtual void setShape(const PositionVector& shape);
+
+    /** @brief Sets the holes of the polygon
+     * @param[in] holes  The new holes of the polygon
+     */
+    virtual void setHoles(const std::vector<PositionVector>& holes);
 
     /// @}
 
@@ -116,9 +126,17 @@ public:
      */
     void writeXML(OutputDevice& out, bool geo = false) const;
 
+    /// @brief Return the exterior shape of the polygon.
+    PositionVector& getShapeRef() {
+        return myShape;
+    }
+
 protected:
     /// @brief The positions of the polygon
     PositionVector myShape;
+
+    /// @brief The collection of the holes of the polygon, each given by a sequence of coodinates.
+    std::vector<PositionVector> myHoles;
 
     /// @brief specify if shape is handled as GEO coordinate (Main used in netedit)
     bool myGEO;

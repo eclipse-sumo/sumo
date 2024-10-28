@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-137709' action='modify' visible='true' lat='-0.00374484622' lon='0.01150404449' />
+  <node id='-137711' action='modify' visible='true' lat='-0.00376168964' lon='0.01429443634' />
+  <node id='-137712' action='modify' visible='true' lat='-0.00322831494' lon='0.01209917837' />
+  <node id='-137713' action='modify' visible='true' lat='-0.0043399801' lon='0.01208794943' />
+  <node id='-137714' action='modify' visible='true' lat='-0.00228508389' lon='0.01280098718' />
+  <node id='-137715' action='modify' visible='true' lat='-0.00509793362' lon='0.01278414377' />
+  <node id='-137716' action='modify' visible='true' lat='-0.00256019294' lon='0.01351402494' />
+  <node id='-137717' action='modify' visible='true' lat='-0.0025602167' lon='0.01279933968'>
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='-137718' action='modify' visible='true' lat='-0.00438489586' lon='0.01391265235' />
+  <node id='-137719' action='modify' visible='true' lat='-0.00375945317' lon='0.01392392868'>
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='-137720' action='modify' visible='true' lat='-0.00374840687' lon='0.01209392491'>
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='-137721' action='modify' visible='true' lat='-0.00375262181' lon='0.01279219953'>
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='-137779' action='modify' visible='true' lat='-0.00401426159' lon='0.01391933465'>
+    <tag k='highway' v='crossing' />
+  </node>
+  <way id='-103224' action='modify' visible='true'>
+    <nd ref='-137709' />
+    <nd ref='-137720' />
+    <nd ref='-137721' />
+    <nd ref='-137719' />
+    <nd ref='-137711' />
+    <tag k='highway' v='tertiary' />
+    <tag k='lanes' v='2' />
+    <tag k='oneway' v='yes' />
+    <tag k='sidewalk' v='both' />
+  </way>
+  <way id='-103226' action='modify' visible='true'>
+    <nd ref='-137712' />
+    <nd ref='-137720' />
+    <nd ref='-137713' />
+    <tag k='highway' v='residential' />
+    <tag k='sidewalk' v='both' />
+  </way>
+  <way id='-103227' action='modify' visible='true'>
+    <nd ref='-137714' />
+    <nd ref='-137717' />
+    <nd ref='-137721' />
+    <nd ref='-137715' />
+    <tag k='highway' v='secondary' />
+    <tag k='lanes' v='4' />
+    <tag k='sidewalk' v='both' />
+  </way>
+  <way id='-103228' action='modify' visible='true'>
+    <nd ref='-137716' />
+    <nd ref='-137717' />
+    <tag k='highway' v='tertiary' />
+    <tag k='lanes' v='2' />
+    <tag k='oneway' v='yes' />
+    <tag k='sidewalk' v='both' />
+  </way>
+  <way id='-103230' action='modify' visible='true'>
+    <nd ref='-137718' />
+    <nd ref='-137779' />
+    <nd ref='-137719' />
+    <tag k='highway' v='residential' />
+    <tag k='oneway' v='yes' />
+    <tag k='sidewalk' v='both' />
+  </way>
+</osm>

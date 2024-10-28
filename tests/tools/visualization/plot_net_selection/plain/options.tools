@@ -1,0 +1,1 @@
+-n net.net.xml -i selection.txt -o image.png,image.svg tools/visualization/plot_net_selection.py --blind

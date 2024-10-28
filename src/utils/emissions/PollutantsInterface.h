@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,7 +27,6 @@
 #include <algorithm>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include "PHEMCEP.h"
 
 
 // ===========================================================================
@@ -36,9 +35,10 @@
 class EnergyParams;
 class HelpersHBEFA;
 class HelpersHBEFA3;
-class HelpersPHEMlight;
+class HelpersHBEFA4;
 class HelpersEnergy;
 class HelpersMMPEVEM;
+class HelpersPHEMlight;
 class HelpersPHEMlight5;
 
 
@@ -197,7 +197,7 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return the modified acceleration
          */
-        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
         /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
          * Default implementation returns always zero.
@@ -218,11 +218,17 @@ public:
         bool includesClass(const SUMOEmissionClass c) const;
 
     protected:
+        /// @brief the lowest speed which allows reliable coasting calculations
+        static const double ZERO_SPEED_ACCURACY;
+
         /// @brief the name of the model
         const std::string myName;
 
         /// @brief the starting index for classes of this model
         const int myBaseIndex;
+
+        /// @brief return fuel consumption in l instead of mg
+        bool myVolumetricFuel;
 
         /// @brief Mapping between emission class names and integer representations
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
@@ -292,7 +298,7 @@ public:
 
     /** @brief Returns the fuel type of the given emission class
      * @param[in] c The vehicle emission class
-     * @return "Diesel", "Gasoline", "HybridDiesel", or "HybridGasoline"
+     * @return "Diesel", "Gasoline", "HybridDiesel", "HybridGasoline", or "Electricity"
      */
     static std::string getFuel(const SUMOEmissionClass c);
 
@@ -317,7 +323,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param = nullptr);
+    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param);
 
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
      * @param[in] c The vehicle emission class
@@ -326,7 +332,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param = nullptr);
+    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and default values for the state (in mg)
      * @param[in] c The vehicle emission class
@@ -335,9 +341,10 @@ public:
      * @param[in] a The vehicle's average acceleration
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @param{in] tt the time the vehicle travels
+     * @param[in] param parameter of the emission model affecting the computation
      * @return The amount emitted by the given vehicle class [mg]
      */
-    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param = nullptr);
+    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param);
 
     /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class
@@ -346,7 +353,17 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
+    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
+
+    /** @brief Returns the coasting deceleration value, useful for comparing with external PHEMlight references.
+     * @param[in] c the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @param[in] param parameter of the emission model affecting the computation
+     * @return the coasting deceleration
+     */
+    static double getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
 
     /// @brief get energy helper
     static const HelpersEnergy& getEnergyHelper();
@@ -372,6 +389,9 @@ private:
 
     /// @brief Instance of PHEMlight5Helper which gets cleaned up automatically
     static HelpersPHEMlight5 myPHEMlight5Helper;
+
+    /// @brief Instance of HBEFA4Helper which gets cleaned up automatically
+    static HelpersHBEFA4 myHBEFA4Helper;
 
     /// @brief the known model helpers
     static Helper* myHelpers[];

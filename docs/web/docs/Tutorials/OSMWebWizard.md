@@ -15,7 +15,7 @@ in the sumo-gui.
 # Requirements
 
 - [SUMO](../Installing/index.md) installation
-- [Python](http://www.python.org) (\>= 2.7) installation
+- [Python](https://www.python.org) (\>= 2.7) installation
 
 # Getting started
 
@@ -25,7 +25,7 @@ the OSM Web wizard by invoking the following command in the *tools*
 directory:
 
 ```
-python osmWebWizard.py
+python osmWebWizard.py
 ```
 
 Windows users may also invoke the command by clicking *All Programs -\>
@@ -39,7 +39,7 @@ excerpt covers a very large area, the simulation might become slow or
 even unresponsive. We suggest choosing a similar zoom level as in the
 initial view.
 
-In the next step, you select the actual area for which you want to
+In the next step, you select the actual area for which you wish to
 generate the simulation scenario. The area selection will be activated
 by clicking the checkbox *Select Area* at the blue area selection panel
 on the right side of the map.
@@ -78,7 +78,7 @@ distribution, which is influenced by two parameters:
 - Every time a new vehicle is generated, the OSM Web Wizard randomly
 chooses a departure and arrival edge for the vehicle. The *Through
 Traffic Factor* defines how many times it is more likely for an edge
-at the boundary of the simulation area being chosen compared to an
+at the boundary of the simulation area being chosen, compared to an
 edge entirely located inside the simulation area. A big value for
 the *Through Traffic Factor* implies that many vehicles depart and
 arrive at the boundary of the simulation area, which corresponds to
@@ -99,11 +99,11 @@ The next step is generating and running the scenario.
 # Road-Type Selection
 
 In the Road-Type tab of the OSM Web Wizard one can define which road types
-to be downloaded and rendered. 
+to be downloaded and rendered.
 
 ![wz01.jpg](../images/Wz05.png "wz05.png")
 
-For example one can only choose motorways, primary, 
+For example, one can only choose motorways, primary,
 secondary and tertiary to simulate major traffic.
 This impacts the file size of the OSM map data.
 
@@ -118,7 +118,7 @@ in a smaller file size.
 
 The complete scenario will be generated automatically once *Generate
 Scenario* in the control panel has been clicked. The scenario generation
-takes a couple of seconds or minutes (depending, among others, on the
+takes a couple of seconds or minutes (depending, among other factors, on the
 size of the scenario). Once the scenario generation process has
 finished, the sumo-gui starts and the simulation can be started by
 pressing the *Play* button.
@@ -135,19 +135,23 @@ directory *\~/SUMO/yyyy-mm-dd-hh-mm-ss* will be created to host the
 data. The contents of the directory look like this:
 
 ```
-   ➜  2016-10-17-14-54-30 ls
-   build.bat                  osm.net.xml                osm.rail.rou.alt.xml       osm.tram.rou.alt.xml
-   osm.bicycle.rou.alt.xml    osm.netccfg                osm.rail.rou.xml           osm.tram.rou.xml
-   osm.bicycle.rou.xml        osm.passenger.rou.alt.xml  osm.rail.trips.xml         osm.tram.trips.xml
-   osm.bicycle.trips.xml      osm.passenger.rou.xml      osm.rail_urban.rou.alt.xml osm.truck.rou.alt.xml
-   osm.bus.rou.alt.xml        osm.passenger.trips.xml    osm.rail_urban.rou.xml     osm.truck.rou.xml
-   osm.bus.rou.xml            osm.pedestrian.rou.alt.xml osm.rail_urban.trips.xml   osm.truck.trips.xml
-   osm.bus.trips.xml          osm.pedestrian.rou.xml     osm.ship.rou.alt.xml       osm.view.xml
-   osm.motorcycle.rou.alt.xml osm.pedestrian.trips.xml   osm.ship.rou.xml           osm_bbox.osm.xml
-   osm.motorcycle.rou.xml     osm.poly.xml               osm.ship.trips.xml         run.bat
-   osm.motorcycle.trips.xml   osm.polycfg                osm.sumocfg
+   ➜  2016-10-17-14-54-30 ls
+   build.bat                  osm.net.xml                osm.rail.rou.alt.xml       osm.tram.rou.alt.xml
+   osm.bicycle.rou.alt.xml    osm.netccfg                osm.rail.rou.xml           osm.tram.rou.xml
+   osm.bicycle.rou.xml        osm.passenger.rou.alt.xml  osm.rail.trips.xml         osm.tram.trips.xml
+   osm.bicycle.trips.xml      osm.passenger.rou.xml      osm.rail_urban.rou.alt.xml osm.truck.rou.alt.xml
+   osm.bus.rou.alt.xml        osm.passenger.trips.xml    osm.rail_urban.rou.xml     osm.truck.rou.xml
+   osm.bus.rou.xml            osm.pedestrian.rou.alt.xml osm.rail_urban.trips.xml   osm.truck.trips.xml
+   osm.bus.trips.xml          osm.pedestrian.rou.xml     osm.ship.rou.alt.xml       osm.view.xml
+   osm.motorcycle.rou.alt.xml osm.pedestrian.trips.xml   osm.ship.rou.xml           osm_bbox.osm.xml
+   osm.motorcycle.rou.xml     osm.poly.xml               osm.ship.trips.xml         run.bat
+   osm.motorcycle.trips.xml   osm.polycfg                osm.sumocfg
 ```
 
 You may now edit those files and re-run the simulation. To learn more
 about the SUMO scenario files, please consult the other
 [Tutorials](index.md) as well.
+
+Please note that depending on your SUMO version some of these files may have an additional *.gz* suffix.
+The SUMO tools (including sumo-gui and netedit) will still be able to process them but to view or modify
+them in a text editor you will need to unzip them (for instance with gunzip or 7z).

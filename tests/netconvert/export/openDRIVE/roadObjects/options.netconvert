@@ -1,0 +1,4 @@
+--sumo-net-file input_net.net.xml --opendrive-output foreign.net
+--offset.disable-normalization --output.original-names --polygon-files
+input_shapes.add.xml
+--opendrive-output.shape-match-dist 100

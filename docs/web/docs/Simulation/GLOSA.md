@@ -17,9 +17,9 @@ be applied using `<device name>=glosa`.
 
 For instance, a single vehicle can be equipped with glosa as in the following minimal example
 
-```
+```xml
     <vehicle id="v0" route="route0" depart="0">
-        <param key="has.glosa.device" value="true"/>  
+        <param key="has.glosa.device" value="true"/>
     </vehicle>
 ```
 
@@ -50,16 +50,16 @@ The speedFactor is changed back to the default after passing the traffic light.
 # Traffic lights
 
 All traffic lights types supply time-to-switch information via the duration
-attribute of their phases. 
+attribute of their phases.
 
 !!! caution
     This may cause invalid maneuvers with traffic-actuated traffic lights that
     may vary their phase duration.
-    
+
 The communication range may be customized by setting param "device.glosa.range" on the tlLogic. This may also be used to disable glosa functions for specific intersections.
 To update the parameter for a program that is embedded in the .net.xml file the following element can be loaded via **--additional-files**:
 
-```
+```xml
     <tlLogic id="C" programID="0">
         <param key="device.glosa.range" value="60"/>
     </tlLogic>

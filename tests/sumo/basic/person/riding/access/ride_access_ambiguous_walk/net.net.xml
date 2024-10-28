@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-28 15:57:14 by Eclipse SUMO netedit Version v1_19_0+1077-5e605c89a6b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.16" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,2500.00,500.00" origBoundary="-500.00,0.00,2000.00,500.00" projParameter="!"/>
+
+    <edge id=":absBeg_w0" function="walkingarea">
+        <lane id=":absBeg_w0_0" index="0" allow="pedestrian" speed="2.78" length="0.10" width="3.20" shape="0.00,0.00 0.00,-6.40"/>
+    </edge>
+    <edge id=":absEnd_0" function="internal">
+        <lane id=":absEnd_0_0" index="0" allow="pedestrian" speed="27.80" length="0.10" shape="2000.00,-4.80 2000.00,-4.80"/>
+        <lane id=":absEnd_0_1" index="1" allow="pedestrian" speed="27.80" length="0.10" shape="2000.00,-1.60 2000.00,-1.60"/>
+    </edge>
+    <edge id=":absEnd_w0" function="walkingarea">
+        <lane id=":absEnd_w0_0" index="0" allow="pedestrian" speed="2.78" length="0.10" width="3.20" shape="2000.00,0.00 2000.00,-6.40 2000.00,0.00"/>
+    </edge>
+    <edge id=":beg_0" function="internal">
+        <lane id=":beg_0_0" index="0" speed="20.85" length="11.77" shape="496.00,-4.80 499.50,-4.30 501.91,-3.20 504.16,-2.10 507.20,-1.60"/>
+    </edge>
+    <edge id=":beg_1" function="internal">
+        <lane id=":beg_1_0" index="0" speed="27.80" length="9.03" shape="496.00,-1.60 498.45,-1.25 500.20,-0.20 501.25,1.55 501.60,4.00"/>
+    </edge>
+    <edge id=":beg_w0" function="walkingarea">
+        <lane id=":beg_w0_0" index="0" allow="pedestrian" speed="2.78" length="10.00" width="3.20" shape="500.00,4.00 503.20,4.00 507.20,0.00 507.20,-3.20 496.00,-6.40 496.00,0.00"/>
+    </edge>
+    <edge id=":begleft_0" function="internal">
+        <lane id=":begleft_0_0" index="0" speed="27.80" length="2.58" shape="501.60,496.80 501.70,497.50 502.00,498.00 502.50,498.30 503.20,498.40"/>
+    </edge>
+    <edge id=":end_w0" function="walkingarea">
+        <lane id=":end_w0_0" index="0" allow="pedestrian" speed="2.78" length="6.74" width="3.20" shape="1496.80,1.50 1503.20,1.50 1504.70,0.00 1504.70,-6.40 1495.30,-3.20 1495.30,0.00"/>
+    </edge>
+    <edge id=":endleft_w0" function="walkingarea">
+        <lane id=":endleft_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.87" width="3.20" shape="1503.20,495.30 1496.80,495.30 1495.30,496.80 1495.30,500.00"/>
+    </edge>
+    <edge id=":rabsEnd_w0" function="walkingarea">
+        <lane id=":rabsEnd_w0_0" index="0" allow="pedestrian" speed="2.78" length="0.10" width="3.20" shape="2500.00,-6.40 2500.00,0.00"/>
+    </edge>
+
+    <edge id="-left2end" from="end" to="endleft" priority="-1">
+        <lane id="-left2end_0" index="0" allow="pedestrian" speed="27.80" length="493.80" shape="1501.60,1.50 1501.60,495.30"/>
+    </edge>
+    <edge id="beg" from="absBeg" to="beg" priority="-1">
+        <lane id="beg_0" index="0" speed="27.80" length="496.00" shape="0.00,-4.80 496.00,-4.80"/>
+        <lane id="beg_1" index="1" speed="27.80" length="496.00" shape="0.00,-1.60 496.00,-1.60"/>
+    </edge>
+    <edge id="beg2left" from="beg" to="begleft" priority="-1">
+        <lane id="beg2left_0" index="0" speed="27.80" length="492.80" shape="501.60,4.00 501.60,496.80"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1">
+        <lane id="end_0" index="0" allow="pedestrian" speed="27.80" length="495.30" shape="1504.70,-4.80 2000.00,-4.80"/>
+        <lane id="end_1" index="1" allow="pedestrian" speed="27.80" length="495.30" shape="1504.70,-1.60 2000.00,-1.60"/>
+    </edge>
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" allow="rail_urban" speed="13.89" length="1529.03" shape="253.79,275.43 1782.80,268.49"/>
+    </edge>
+    <edge id="left" from="begleft" to="endleft" priority="-1">
+        <lane id="left_0" index="0" speed="27.80" length="992.10" shape="503.20,498.40 1495.30,498.40"/>
+    </edge>
+    <edge id="left2end" from="endleft" to="end" priority="-1">
+        <lane id="left2end_0" index="0" allow="pedestrian" speed="27.80" length="493.80" shape="1498.40,495.30 1498.40,1.50"/>
+    </edge>
+    <edge id="middle" from="beg" to="end" priority="-1">
+        <lane id="middle_0" index="0" speed="13.90" length="988.10" shape="507.20,-1.60 1495.30,-1.60"/>
+    </edge>
+    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1">
+        <lane id="rend_0" index="0" speed="27.80" length="500.00" shape="2000.00,-4.80 2500.00,-4.80"/>
+        <lane id="rend_1" index="1" speed="27.80" length="500.00" shape="2000.00,-1.60 2500.00,-1.60"/>
+    </edge>
+
+    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
+    <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes=":absEnd_0_0 :absEnd_0_1" shape="2000.00,0.00 2000.00,-6.40 2000.00,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="beg" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1" intLanes=":beg_0_0 :beg_1_0" shape="500.00,4.00 503.20,4.00 507.20,0.00 507.20,-3.20 496.00,-6.40 496.00,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="begleft" type="priority" x="500.00" y="500.00" incLanes="beg2left_0" intLanes=":begleft_0_0" shape="503.20,500.00 503.20,496.80 500.00,496.80">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="end" type="dead_end" x="1500.00" y="0.00" incLanes="left2end_0 middle_0" intLanes="" shape="1496.80,1.50 1503.20,1.50 1504.70,0.00 1504.70,-6.40 1495.30,-3.20 1495.30,0.00"/>
+    <junction id="endleft" type="dead_end" x="1500.00" y="500.00" incLanes="-left2end_0 left_0" intLanes="" shape="1503.20,495.30 1496.80,495.30 1495.30,496.80 1495.30,500.00"/>
+    <junction id="gneJ0" type="dead_end" x="253.80" y="277.03" incLanes="" intLanes="" shape="253.80,277.03 253.79,273.83"/>
+    <junction id="gneJ1" type="dead_end" x="1782.81" y="270.09" incLanes="gneE0_0" intLanes="" shape="1782.80,266.89 1782.81,270.09"/>
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.40 2500.00,0.00"/>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" pass="1" via=":beg_0_0" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" fromLane="1" toLane="0" pass="1" via=":beg_1_0" dir="l" state="M"/>
+    <connection from="beg2left" to="left" fromLane="0" toLane="0" via=":begleft_0_0" dir="r" state="M"/>
+    <connection from="end" to="rend" fromLane="0" toLane="0" via=":absEnd_0_0" dir="s" state="M"/>
+    <connection from="end" to="rend" fromLane="1" toLane="1" via=":absEnd_0_1" dir="s" state="M"/>
+
+    <connection from=":absEnd_0" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":absEnd_0" to="rend" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":beg_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":beg_1" to="beg2left" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":begleft_0" to="left" fromLane="0" toLane="0" dir="r" state="M"/>
+
+    <connection from=":absBeg_w0" to="beg" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":absEnd_w0" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="end" to=":absEnd_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":beg_w0" to="beg2left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":beg_w0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to=":beg_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":end_w0" to="-left2end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":end_w0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="left2end" to=":end_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="middle" to=":end_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":endleft_w0" to="left2end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-left2end" to=":endleft_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="left" to=":endleft_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="rend" to=":rabsEnd_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>

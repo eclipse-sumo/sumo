@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@ from __future__ import division
 
 import os
 import sys
-import optparse
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
@@ -42,25 +41,22 @@ from sumolib.miscutils import parseTime  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-o", "--output-file", dest="outfile",
-                         default="turnRatios.add.xml", help="define the output filename")
-    optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma(mandatory)")
-    optParser.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
-                         help=" calculate the turning probabilities instead of traffic volumes")
-    optParser.add_option("--id", default="generated",
-                         help="define the interval id")
-    optParser.add_option("-b", "--begin", default="0", help="custom begin time (seconds or H:M:S)")
-    optParser.add_option("-e", "--end", help="custom end time (seconds or H:M:S)")
-    optParser.add_option("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
-    (options, args) = optParser.parse_args(args=args)
+    ap = sumolib.options.ArgumentParser()
+    ap.add_option("-r", "--route-files", required=True, type=ap.file, dest="routefiles",
+                  help="define the route file separated by comma(mandatory)")
+    ap.add_option("-o", "--output-file", dest="outfile", default="turnRatios.add.xml",
+                  help="define the output filename")
+    ap.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
+                  help=" calculate the turning probabilities instead of traffic volumes")
+    ap.add_option("--id", default="generated",
+                  help="define the interval id")
+    ap.add_option("-b", "--begin", default="0", help="custom begin time (seconds or H:M:S)")
+    ap.add_option("-e", "--end", help="custom end time (seconds or H:M:S)")
+    ap.add_option("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
+    ap.add_option("-v", "--verbose", dest="verbose", action="store_true",
+                  default=False, help="tell me what you are doing")
+    options = ap.parse_args(args=args)
 
-    if not options.routefiles:
-        optParser.print_help()
-        sys.exit()
     if options.begin is not None:
         options.begin = parseTime(options.begin)
     if options.end is not None:
@@ -107,7 +103,8 @@ def getFlows(options):
     if options.interval is None:
         yield intervalEdgePairFlowsMap[0], minDepart, maxDepart
     else:
-        for begin, edgePairFlowsMap in intervalEdgePairFlowsMap.items():
+        for begin in sorted(intervalEdgePairFlowsMap.keys()):
+            edgePairFlowsMap = intervalEdgePairFlowsMap[begin]
             yield edgePairFlowsMap, begin, begin + interval
 
 
@@ -133,5 +130,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

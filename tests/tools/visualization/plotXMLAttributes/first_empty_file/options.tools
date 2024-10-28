@@ -1,0 +1,5 @@
+input_data2.xml input_data.xml -o image.png --csv-output out.csv 
+-y collisions -x @COUNT
+-i @NONE
+--join-files
+tools/visualization/plotXMLAttributes.py

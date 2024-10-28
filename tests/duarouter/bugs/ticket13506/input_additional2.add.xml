@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-16 19:03:20.881759 by ptlines2flows.py v1_17_0+0647-2bbbfe918d9
+<configuration>
+    <net-file value="map-outer-public-1.net.xml"/>
+    <ptlines-file value="ptlines-outer_86400.xml"/>
+    <ptstops-file value="pt-additional-outer_86400.xml"/>
+    <output-file value="pt-flows-outer_86400.rou.xml"/>
+    <end value="86400.0"/>
+    <use-osm-routes value="True"/>
+    <ignore-errors value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="subway" vClass="rail_urban"/>
+    <route id="subway_14:2" color="130,122,4" edges="584100104#0 584100104#1 584100104#2 584100104#3 584100104#4 584100104#5 584100104#6 584100104#7 584100104#8 584100104#9 584100104#10 584100104#11 584100104#12 584100104#13 584100104#14 584100104#15 584100104#16 761728394" >
+        <stop busStop="9381681215" duration="20" until="116.0"/> <!-- 乐秀路 -->
+        <stop busStop="9381817047" duration="20" until="223.0"/> <!-- 临洮路 -->
+        <stop busStop="9381799809" duration="20" until="323.0"/> <!-- 嘉怡路 -->
+        <stop busStop="9381794202" duration="20" until="432.0"/> <!-- 定边路 -->
+        <stop busStop="9381805999" duration="20" until="514.0"/> <!-- 真新新村 -->
+        <stop busStop="9381749214" duration="20" until="605.0"/> <!-- 真光路 -->
+        <stop busStop="9381801900" duration="20" until="698.0"/> <!-- 铜川路 -->
+        <stop busStop="6898405751" duration="20" until="779.0"/> <!-- 真如 -->
+        <stop busStop="9381856641" duration="20" until="866.0"/> <!-- 中宁路 -->
+        <stop busStop="6898405712" duration="20" until="946.0"/> <!-- 曹杨路 -->
+        <stop busStop="9381916528" duration="20" until="1036.0"/> <!-- 武宁路 -->
+        <stop busStop="9381931090" duration="20" until="1111.0"/> <!-- 武定路 -->
+        <stop busStop="9381946297" duration="20" until="1202.0"/> <!-- 静安寺 -->
+        <stop busStop="7116961619" duration="20" until="1360.0"/> <!-- 一大会址·黄陂南路 -->
+        <stop busStop="9381954261" duration="20" until="1436.0"/> <!-- 大世界 -->
+        <stop busStop="9381941588" duration="20" until="1517.0"/> <!-- 豫园 -->
+        <stop busStop="6898405748" duration="20" until="1618.0"/> <!-- 陆家嘴 -->
+        <stop busStop="7116961652" duration="20" until="1703.0"/> <!-- 浦东南路 -->
+        <stop busStop="7116961552" duration="20" until="1777.0"/> <!-- 浦东大道 -->
+        <stop busStop="7116961549" duration="20" until="1865.0"/> <!-- 源深路 -->
+        <stop busStop="9381121729" duration="20" until="1946.0"/> <!-- 昌邑路 -->
+        <stop busStop="9382076274" duration="20" until="2042.0"/> <!-- 歇浦路 -->
+        <stop busStop="7116961521" duration="20" until="2128.0"/> <!-- 龙居路 -->
+        <stop busStop="9382082433" duration="20" until="2240.0"/> <!-- 云山路 -->
+        <stop busStop="7116961518" duration="20" until="2336.0"/> <!-- 蓝天路 -->
+        <stop busStop="9382067083" duration="20" until="2451.0"/> <!-- 黄杨路 -->
+        <stop busStop="9382078475" duration="20" until="2536.0"/> <!-- 云顺路 -->
+        <stop busStop="7116961500" duration="20" until="2636.0"/> <!-- 浦东足球场 -->
+        <stop busStop="9382102245" duration="20" until="2732.0"/> <!-- 金粤路 -->
+    </route>
+    <flow id="subway_14:2" type="subway" route="subway_14:2" begin="0.0" end="3600" period="600" line="14:2" >
+        <param key="name" value="14号线：封浜→桂桥路"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+</routes>

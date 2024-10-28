@@ -1,31 +1,30 @@
 Loading net-file from 'net3.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_12_0+0452-f1c085e started with time: 0.00
-Simulation ended at time: 340.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 340.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.06s
- Real time factor: 5862.07
- UPS: 25086.206897
- UPS-Persons: 231275.862069
-Vehicles: 
+Performance:
+ Duration: 0.07s
+ Real time factor: 4594.59
+ UPS: 19662.162162
+ UPS-Persons: 181270.270270
+Vehicles:
  Inserted: 43
  Running: 0
  Waiting: 0
-Persons: 
+Persons:
  Inserted: 60
  Running: 0
-Statistics (avg):
+Statistics (avg of 43):
  RouteLength: 194.90
  Speed: 11.84
  Duration: 16.92
  WaitingTime: 0.95
- TimeLoss: 2.61
+ TimeLoss: 2.52
  DepartDelay: 0.00
 Pedestrian Statistics (avg of 60 walks):
- RouteLength: 60.27
+ RouteLength: 61.88
  Duration: 111.78
- TimeLoss: 68.39
-
-DijkstraRouter answered 7946 queries and explored 9.96 edges on average.
+ TimeLoss: 67.23
+DijkstraRouter answered 8003 queries and explored 8.96 edges on average.
 DijkstraRouter spent 0.01s answering queries (0.00ms on average).

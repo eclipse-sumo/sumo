@@ -22,16 +22,16 @@ Warning: Person 'ego' could not find route across junction 'C' from walkingArea 
 Warning: No connection between edge ':C_w0-1.00' and edge ':C_c2_arrival_connector' found.
 Warning: Person 'ego' could not find route across junction 'C' from walkingArea ':C_w0' to edge ':C_c2', time=369.60.
 Simulation ended at time: 542.30
-Performance: 
+Performance:
  Duration: 54.79s
  Real time factor: 9.89851
  UPS: 0.000000
  UPS-Persons: 98.985142
-Vehicles: 
+Vehicles:
  Inserted: 0
  Running: 0
  Waiting: 0
-Persons: 
+Persons:
  Inserted: 1
  Running: 1
  Jammed: 1

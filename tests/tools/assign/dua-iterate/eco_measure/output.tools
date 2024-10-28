@@ -1,0 +1,15 @@
+> Executing step 0
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2022-09-16 09:50:57.480395
+>>> End time: 2022-09-16 09:50:57.876478
+>>> Duration: 0:00:00.396083
+<<
+>> Running simulation
+>>> Begin time: 2022-09-16 09:50:57.876478
+>>> End time: 2022-09-16 09:50:58.307630
+>>> Duration: 0:00:00.431152
+<<
+< Step 0 ended (duration: 0:00:00.827235)
+------------------
+
+dua-iterate ended (duration: 0:00:00.839140)

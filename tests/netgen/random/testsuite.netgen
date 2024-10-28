@@ -36,6 +36,10 @@ random_grid
 # 
 random_grid2
 
+# avoid geometry-like junctions (even when the default type is traffic_light)
+# 	
+random_grid_removeGeometry
+
 # different min-distance and max-distance
 # test minimum turning angle
 min-angle

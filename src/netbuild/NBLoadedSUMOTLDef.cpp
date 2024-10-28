@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -93,12 +93,14 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
 void
 NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, int linkIndex2, bool reconstruct) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
-    if (linkIndex >= (int)myTLLogic->getNumLinks()) {
-        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
+    if (linkIndex >= myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " in connection from edge '" + from->getID() +
+                           "' to edge '" + to->getID() + "' for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
-    if (linkIndex2 >= (int)myTLLogic->getNumLinks()) {
-        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " for traffic light '" + getID() +
+    if (linkIndex2 >= myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " in connection from edge '" + from->getID() +
+                           "' to edge '" + to->getID() + "' for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex, linkIndex2);
@@ -117,10 +119,17 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
 }
 
 void
+NBLoadedSUMOTLDef::setID(const std::string& newID) {
+    Named::setID(newID);
+    myTLLogic->setID(newID);
+}
+
+void
 NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     NBTrafficLightDefinition::setProgramID(programID);
     myTLLogic->setProgramID(programID);
 }
+
 
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
@@ -128,8 +137,8 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (NBNode* const n : myControlledNodes) {
+            n->removeTrafficLight(&dummy);
         }
     }
     if (myReconstructRemovedConnections) {
@@ -142,9 +151,8 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection& c = *it;
-        if (c.getTLIndex() >= (int)myTLLogic->getNumLinks()) {
+    for (const NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() >= myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
@@ -174,8 +182,8 @@ NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, 
 
 
 void
-NBLoadedSUMOTLDef::addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, 
-                            const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, 
+NBLoadedSUMOTLDef::addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur,
+                            const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow,
                             const SUMOTime red, const std::vector<int>& next, const std::string& name) {
     myTLLogic->addStep(duration, state, minDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, name, next);
 }
@@ -338,17 +346,17 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
             NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
             SUMOTime brakingTime = TIME2STEPS(computeBrakingTime(OptionsCont::getOptions().getFloat("tls.yellow.min-decel")));
             //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
-            for (const auto &phase : phases) {
+            for (const auto& phase : phases) {
                 const std::string state = phase.state.substr(0, numNormalLinks) + crossingDefaultState;
-                NBOwnTLDef::addPedestrianPhases(newLogic, phase.duration, phase.minDur, phase.maxDur, phase.earliestEnd, phase.latestEnd, 
-                                                phase.vehExt, phase.yellow, phase.red, state, crossings, fromEdges, toEdges);
+                NBOwnTLDef::addPedestrianPhases(newLogic, phase.duration, phase.minDur, phase.maxDur, phase.earliestEnd, phase.latestEnd,
+                                                state, crossings, fromEdges, toEdges);
             }
             NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
 
             delete myTLLogic;
             myTLLogic = newLogic;
         } else if (phases.size() == 0) {
-            WRITE_WARNING("Could not patch tlLogic '" + getID() + "' for changed crossings");
+            WRITE_WARNINGF(TL("Could not patch tlLogic '%' for changed crossings"), getID());
         }
     }
 }
@@ -380,35 +388,40 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
     if (!amInvalid() && !myNeedsContRelationReady) {
         myNeedsContRelation.clear();
         myRightOnRedConflicts.clear();
-        const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
-        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-            const std::string state = (*it).state;
-            for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
-                const NBConnection& c1 = *it1;
-                const int i1 = c1.getTLIndex();
-                if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
-                    continue;
-                }
-                for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
-                    const NBConnection& c2 = *it2;
-                    const int i2 = c2.getTLIndex();
-                    if (i2 != NBConnection::InvalidTlIndex
-                            && i2 != i1
-                            && (state[i2] == 'G' || state[i2] == 'g')
-                            && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
-                        const bool rightTurnConflict = NBNode::rightTurnConflict(
-                                                           c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
-                        const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
-                        const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
-                        if (forbidden || rightTurnConflict) {
-                            myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
+        if (myType == TrafficLightType::NEMA) {
+            NBTrafficLightDefinition::initNeedsContRelation();
+            NBTrafficLightDefinition::initRightOnRedConflicts();
+        } else {
+            const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
+            const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+            for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                const std::string state = (*it).state;
+                for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
+                    const NBConnection& c1 = *it1;
+                    const int i1 = c1.getTLIndex();
+                    if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
+                        continue;
+                    }
+                    for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
+                        const NBConnection& c2 = *it2;
+                        const int i2 = c2.getTLIndex();
+                        if (i2 != NBConnection::InvalidTlIndex
+                                && i2 != i1
+                                && (state[i2] == 'G' || state[i2] == 'g')
+                                && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
+                            const bool rightTurnConflict = NBNode::rightTurnConflict(
+                                                               c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
+                            const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
+                            const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
+                            if (forbidden || rightTurnConflict) {
+                                myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
+                            }
+                            if (isFoes && state[i1] == 's') {
+                                myRightOnRedConflicts.insert(std::make_pair(i1, i2));
+                                //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
+                            }
+                            //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                         }
-                        if (isFoes && state[i1] == 's') {
-                            myRightOnRedConflicts.insert(std::make_pair(i1, i2));
-                            //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
-                        }
-                        //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                     }
                 }
             }
@@ -599,7 +612,7 @@ NBLoadedSUMOTLDef::hasValidIndices() const {
 std::string
 NBLoadedSUMOTLDef::getStates(int index) {
     assert(index >= 0);
-    assert(index <= getMaxIndex());
+    assert(index <= getMaxValidIndex());
     std::string result;
     for (auto& pd : myTLLogic->getPhases()) {
         result += pd.state[index];
@@ -608,7 +621,7 @@ NBLoadedSUMOTLDef::getStates(int index) {
 }
 
 bool
-NBLoadedSUMOTLDef::isUsed(int index) {
+NBLoadedSUMOTLDef::isUsed(int index) const {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == index || c.getTLIndex2() == index) {
             return true;
@@ -869,6 +882,17 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
                 myTLLogic->setPhaseMinDuration(ip, minDur);
                 myTLLogic->setPhaseMaxDuration(ip, maxDur);
             }
+        }
+    }
+}
+
+
+void
+NBLoadedSUMOTLDef::finalChecks() const {
+    for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
+        if (!isUsed(i)) {
+            WRITE_WARNINGF(TL("Unused state in tlLogic '%', program '%' at tl-index %"), getID(), getProgramID(), i);
+            break;
         }
     }
 }

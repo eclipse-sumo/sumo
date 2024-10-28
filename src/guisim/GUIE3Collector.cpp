@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -39,7 +40,7 @@
 // -------------------------------------------------------------------------
 
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) :
-    GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E3)),
     myDetector(detector) {
     const CrossSectionVector& entries = detector.getEntries();
     const CrossSectionVector& exits = detector.getExits();
@@ -76,12 +77,25 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this);
     // add items
     // values
-    ret->mkItem("vehicles within [#]", true,
+    ret->mkItem(TL("name"), false, myDetector.myName);
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
+    ret->mkItem(TL("vehicles within [#]"), true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
-    ret->mkItem("mean speed [m/s]", true,
+    ret->mkItem(TL("mean speed [m/s]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
-    ret->mkItem("haltings [#]", true,
+    ret->mkItem(TL("haltings [#]"), true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
+    ret->mkItem(TL("last interval mean travel time [s]"), true,
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTravelTime));
+    ret->mkItem(TL("last interval mean haltings [#]"), true,
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanHaltsPerVehicle));
+    ret->mkItem(TL("last interval mean time loss [s]"), true,
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTimeLoss));
+    ret->mkItem(TL("last interval mean vehicle count [#]"), true,
+                new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getLastIntervalVehicleSum));
+
     // close building
     ret->closeBuilding(&myDetector);
     return ret;
@@ -165,8 +179,12 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry):
-    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry)
+                               SUMOTime haltingTimeThreshold,
+                               const std::string name, const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons,
+                               bool openEntry, bool expectArrival):
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival)
 {}
 
 

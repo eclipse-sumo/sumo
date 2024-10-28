@@ -1,5 +1,16 @@
-# 	
-follow_slow_0.1
+follow_slow
 
-# 	
-follow_slow_0.01
+# approach a stopped car at high speed
+fast_approach_standing
+
+# approach a stopped car at low speed
+slow_approach_standing
+
+# approach a stopped car at low speed	
+slow_approach_standing_scMinGap
+
+# approach a stopped car at high speed
+collisionAvoidanceOverride
+
+# parameters chosen to reproduce platoon instability (as published)
+platoon_unstable

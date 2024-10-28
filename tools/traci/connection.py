@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,15 +25,42 @@ import socket
 import struct
 import sys
 import warnings
+import threading
 
 from . import constants as tc
 from .exceptions import TraCIException, FatalTraCIError
-from .domain import _defaultDomains
+from .domain import DOMAINS
 from .storage import Storage
 from .step import StepManager
 
 _DEBUG = False
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
+
+_connections = {}
+_connectHook = None
+
+
+def check():
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
+    return _connections[""]
+
+
+def has(label):
+    return label in _connections
+
+
+def get(label="default"):
+    if label not in _connections:
+        raise TraCIException("Connection '%s' is not known." % label)
+    return _connections[label]
+
+
+def switch(label):
+    con = get(label)
+    _connections[""] = con
+    for domain in DOMAINS:
+        domain._setConnection(con)
 
 
 class Connection(StepManager):
@@ -42,8 +69,10 @@ class Connection(StepManager):
     together with a list of TraCI commands which are inside.
     """
 
-    def __init__(self, host, port, process, traceFile, traceGetters):
+    def __init__(self, host, port, process, traceFile, traceGetters, label=None):
         StepManager.__init__(self)
+        if label in _connections:
+            raise TraCIException("Connection '%s' is already active." % label)
         if sys.platform.startswith('java'):
             # working around jython 2.7.0 bug #2273
             self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
@@ -59,10 +88,19 @@ class Connection(StepManager):
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
+        self._lock = threading.Lock()
         if traceFile is not None:
-            self.startTracing(traceFile, traceGetters, _defaultDomains)
-        for domain in _defaultDomains:
+            self.startTracing(traceFile, traceGetters, DOMAINS)
+        for domain in DOMAINS:
             domain._register(self, self._subscriptionMapping)
+        self._label = label
+        if _connectHook is not None:
+            _connectHook(self)
+        if label is not None:
+            _connections[label] = self
+
+    def getLabel(self):
+        return self._label
 
     def _recvExact(self):
         try:
@@ -95,8 +133,8 @@ class Connection(StepManager):
             print("receiving", result.getDebugString())
         if not result:
             self._socket.close()
-            del self._socket
-            raise FatalTraCIError("connection closed by SUMO")
+            self._socket = None
+            raise FatalTraCIError("Connection closed by SUMO.")
         for command in self._queue:
             prefix = result.read("!BBB")
             err = result.readString()
@@ -131,8 +169,9 @@ class Connection(StepManager):
             elif f == "u":  # raw unsigned byte needed for distance command and subscribe
                 packed += struct.pack("!B", int(v))
             elif f == "s":
-                v = str(v)
-                packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v.encode("latin1")
+                if sys.version_info[0] > 2 or not isinstance(v, str):
+                    v = str(v).encode("utf8")
+                packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v
             elif f == "p":  # polygon
                 if len(v) <= 255:
                     packed += struct.pack("!BB", tc.TYPE_POLYGON, len(v))
@@ -148,7 +187,8 @@ class Connection(StepManager):
             elif f == "l":  # string list
                 packed += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(v))
                 for s in v:
-                    packed += struct.pack("!i", len(s)) + s.encode("latin1")
+                    s = str(s).encode("utf8")
+                    packed += struct.pack("!i", len(s)) + s
             elif f == "f":  # float list
                 packed += struct.pack("!Bi", tc.TYPE_DOUBLELIST, len(v))
                 for x in v:
@@ -162,31 +202,34 @@ class Connection(StepManager):
             elif f == "G":
                 packed += struct.pack("!Bddd", tc.POSITION_LON_LAT_ALT, *v)
             elif f == "r":
-                packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(v[0])) + v[0].encode("latin1")
+                s = str(v[0]).encode("utf8")
+                packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(s)) + s
                 packed += struct.pack("!dB", v[1], v[2])
         return packed
 
     def _sendCmd(self, cmdID, varID, objID, format="", *values):
-        self._queue.append(cmdID)
-        packed = self._pack(format, *values)
-        length = len(packed) + 1 + 1  # length and command
-        if varID is not None:
-            if isinstance(varID, tuple):  # begin and end of a subscription
-                length += 8 + 8 + 4 + len(objID)
+        with self._lock:
+            self._queue.append(cmdID)
+            packed = self._pack(format, *values)
+            objID = str(objID).encode("utf8")
+            length = len(packed) + 1 + 1  # length and command
+            if varID is not None:
+                if isinstance(varID, tuple):  # begin and end of a subscription
+                    length += 8 + 8 + 4 + len(objID)
+                else:
+                    length += 1 + 4 + len(objID)
+            if length <= 255:
+                self._string += struct.pack("!BB", length, cmdID)
             else:
-                length += 1 + 4 + len(objID)
-        if length <= 255:
-            self._string += struct.pack("!BB", length, cmdID)
-        else:
-            self._string += struct.pack("!BiB", 0, length + 4, cmdID)
-        if varID is not None:
-            if isinstance(varID, tuple):
-                self._string += struct.pack("!dd", *varID)
-            else:
-                self._string += struct.pack("!B", varID)
-            self._string += struct.pack("!i", len(objID)) + objID.encode("latin1")
-        self._string += packed
-        return self._sendExact()
+                self._string += struct.pack("!BiB", 0, length + 4, cmdID)
+            if varID is not None:
+                if isinstance(varID, tuple):
+                    self._string += struct.pack("!dd", *varID)
+                else:
+                    self._string += struct.pack("!B", varID)
+                self._string += struct.pack("!i", len(objID)) + objID
+            self._string += packed
+            return self._sendExact()
 
     def _readSubscription(self, result):
         if _DEBUG:
@@ -199,7 +242,7 @@ class Connection(StepManager):
                                    response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
         if not isVariableSubscription:
-            domain = result.read("!B")[0]
+            result.read("!B")  # domain
         numVars = result.read("!B")[0]
         if isVariableSubscription:
             while numVars > 0:
@@ -214,18 +257,17 @@ class Connection(StepManager):
                 numVars -= 1
         else:
             objectNo = result.read("!i")[0]
+            self._subscriptionMapping[response].addContext(objectID)
             for _ in range(objectNo):
                 oid = result.readString()
                 if numVars == 0:
-                    self._subscriptionMapping[response].addContext(
-                        objectID, self._subscriptionMapping[domain], oid)
+                    self._subscriptionMapping[response].addContext(objectID, oid)
                 for __ in range(numVars):
                     varID, status = result.read("!BB")
                     if status:
                         print("Error!", result.readTypedString())
                     elif response in self._subscriptionMapping:
-                        self._subscriptionMapping[response].addContext(
-                            objectID, self._subscriptionMapping[domain], oid, varID, result)
+                        self._subscriptionMapping[response].addContext(objectID, oid, varID, result)
                     else:
                         raise FatalTraCIError(
                             "Cannot handle subscription response %02x for %s." % (response, objectID))
@@ -357,3 +399,8 @@ class Connection(StepManager):
             self._socket = None
         if wait and self._process is not None:
             self._process.wait()
+        self.simulation._setConnection(None)
+        if self._label is not None:
+            if _connections.get("") == self:
+                del _connections[""]
+            del _connections[self._label]

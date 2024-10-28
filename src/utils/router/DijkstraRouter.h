@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -121,9 +121,10 @@ public:
         double length = 0.; // dummy for the via edge cost update
         this->startQuery();
 #ifdef DijkstraRouter_DEBUG_QUERY
-        std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' time: " << STEPS2TIME(msTime) << "\n";
+        std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' from '" << Named::getIDSecure(from) << "' to '" << Named::getIDSecure(to) << "' time: " << STEPS2TIME(msTime) << "\n";
 #endif
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
+        const bool ignoreTransient = vehicle == nullptr ? false : vehicle->ignoreTransientPermissions();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
         if ((this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) && !this->myAmClean) {
 #ifdef DijkstraRouter_DEBUG_BULKMODE
@@ -164,9 +165,12 @@ public:
             auto* const minimumInfo = this->myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
 #ifdef DijkstraRouter_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
-            for (auto& it : this->myFrontierList) {
-                std::cout << "\n   " << it->effort << ", " << it->edge->getID();
+            std::cout << "DEBUG: hit=" << minEdge->getID()
+                      << " TT=" << minimumInfo->effort
+                      << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                      << " Leave: " << minimumInfo->leaveTime << " Q: ";
+            for (const auto& edgeInfo : this->myFrontierList) {
+                std::cout << "\n   " << edgeInfo->effort << ", " << edgeInfo->edge->getID();
             }
             std::cout << "\n";
 #endif
@@ -200,7 +204,7 @@ public:
                 myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
             }
             // check all ways from the node with the minimal length
-            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
+            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass, ignoreTransient)) {
                 auto& followerInfo = this->myEdgeInfos[follower.first->getNumericalID()];
                 // check whether it can be used
                 if (followerInfo.prohibited || this->isProhibited(follower.first, vehicle)) {
@@ -232,7 +236,7 @@ public:
         std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
         if (to != nullptr && !mySilent && !silent) {
-            this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+            this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
         }
 #ifdef DijkstraRouter_DEBUG_QUERY_VISITED
         DijkstraRouter_DEBUG_QUERY_VISITED_OUT << " </interval>\n</edgeData>\n";

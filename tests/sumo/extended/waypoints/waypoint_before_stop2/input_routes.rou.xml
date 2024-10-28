@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+  <vehicle depart="0" id="veh0" departSpeed="max" speedFactor="2">
+      <route edges="CE EC CW"/>
+      <stop lane="CE_1" startPos="-11" endPos="-1" speed="20"/>
+      <stop lane="EC_1" startPos="1" endPos="6" duration="5"/>
+  </vehicle>
+</routes>

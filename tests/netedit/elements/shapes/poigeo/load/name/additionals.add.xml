@@ -1,0 +1,9 @@
+<additionals>
+
+    <!-- non valid name (invalid) -->
+    <poi id="POI_1" color="red" name="" lon="-10.00" lat="-30.00" width="0.00" height="0.00"/>
+
+    <!-- valid name -->
+    <poi id="POI_2" color="red" name="myName" lon="-20.00" lat="-30.00" width="0.00" height="0.00"/>
+
+</additionals>

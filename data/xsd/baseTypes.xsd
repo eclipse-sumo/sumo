@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsd:schema [
-    <!ENTITY FloatPattern "(\-)?(\d+\.?|(\d*\.\d+))">
-    <!ENTITY PositionPattern "(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?">
+    <!ENTITY FloatPattern "[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)">
     <!ENTITY FloatPattern01 "(0|(0?\.(\d+))|(1|1\.0*))">
     <!ENTITY IntPattern255 "(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])">
 ]>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="floatType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="&FloatPattern;"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <xsd:simpleType name="positiveFloatType">
         <xsd:restriction base="xsd:float">
@@ -26,7 +31,7 @@
                     <xsd:minInclusive value="-1"/>
                     <xsd:maxInclusive value="-1"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -36,7 +41,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:pattern value="(norm|normc)\(&FloatPattern;,&FloatPattern;(,&FloatPattern;(,&FloatPattern;)?)?\)"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -77,7 +82,7 @@
             <xsd:enumeration value="x"/>
             <xsd:enumeration value="-"/>
         </xsd:restriction>
-    </xsd:simpleType> 
+    </xsd:simpleType>
 
     <xsd:simpleType name="colorType">
         <xsd:union>
@@ -119,7 +124,7 @@
     <xsd:simpleType name="positionType">
         <xsd:restriction base="xsd:string">
             <xsd:pattern
-                value="&PositionPattern;">
+                value="&FloatPattern;,&FloatPattern;(,&FloatPattern;)?">
             </xsd:pattern>
         </xsd:restriction>
     </xsd:simpleType>
@@ -127,7 +132,7 @@
     <xsd:simpleType name="shapeType">
         <xsd:restriction base="xsd:string">
             <xsd:pattern
-                value="(&PositionPattern;(\s&PositionPattern;)*)?">
+                value="(&FloatPattern;,&FloatPattern;(,&FloatPattern;)?(\s&FloatPattern;,&FloatPattern;(,&FloatPattern;)?)*)?">
             </xsd:pattern>
         </xsd:restriction>
     </xsd:simpleType>
@@ -135,7 +140,7 @@
     <xsd:simpleType name="shapeTypeTwo">
         <xsd:restriction base="xsd:string">
             <xsd:pattern
-                value="&PositionPattern;\s&PositionPattern;(\s&PositionPattern;)*">
+                value="&FloatPattern;,&FloatPattern;(,&FloatPattern;)?\s&FloatPattern;,&FloatPattern;(,&FloatPattern;)?(\s&FloatPattern;,&FloatPattern;(,&FloatPattern;)?)*">
             </xsd:pattern>
         </xsd:restriction>
     </xsd:simpleType>
@@ -165,68 +170,6 @@
         <xsd:attribute name="projParameter" type="xsd:string" use="required"/>
     </xsd:complexType>
 
-    <xsd:complexType name="boolOptionType">
-        <xsd:attribute name="value" type="boolType" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="intOptionType">
-        <xsd:attribute name="value" type="xsd:int" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="floatOptionType">
-        <xsd:attribute name="value" type="xsd:float" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="timeOptionType">
-        <xsd:attribute name="value" type="xsd:float" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="strOptionType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="strArrayOptionType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="fileOptionType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="intArrayOptionType">
-        <xsd:attribute name="value" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(\-)?(\d+)(,(\-)?(\d+))*"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
     <xsd:complexType name="tlLogicType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="phase" type="phaseType"/>
@@ -238,7 +181,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
-        <xsd:attribute name="offset" type="xsd:float" use="optional"/>
+        <xsd:attribute name="offset" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:simpleType name="tlTypeType">
@@ -246,6 +189,7 @@
             <xsd:enumeration value="actuated"/>
             <xsd:enumeration value="delay_based"/>
             <xsd:enumeration value="static"/>
+            <xsd:enumeration value="NEMA"/>
             <!--xsd:enumeration value="rail"/  only for internal use -->
         </xsd:restriction>
     </xsd:simpleType>
@@ -298,6 +242,15 @@
         <xsd:attribute name="nArgs" type="xsd:int" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="conflictType">
+        <xsd:attribute name="from" type="xsd:string" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="startPos" type="floatType" use="required"/>
+        <xsd:attribute name="endPos" type="floatType" use="required"/>
+    </xsd:complexType>
+
     <xsd:complexType name="paramType">
         <xsd:attribute name="key" type="xsd:string" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="optional"/>
@@ -310,8 +263,8 @@
         <xsd:attribute name="index" type="nonNegativeIntType" use="required"/>
         <xsd:attribute name="allow" type="xsd:string"/>
         <xsd:attribute name="disallow" type="xsd:string"/>
-        <xsd:attribute name="speed" type="xsd:float"/>
-        <xsd:attribute name="width" type="xsd:float"/>
+        <xsd:attribute name="speed" type="floatType"/>
+        <xsd:attribute name="width" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="typeType">
@@ -325,15 +278,15 @@
         <xsd:attribute name="disallow" type="xsd:string"/>
         <xsd:attribute name="priority" type="xsd:int"/>
         <xsd:attribute name="numLanes" type="xsd:int"/>
-        <xsd:attribute name="speed" type="xsd:float"/>
+        <xsd:attribute name="speed" type="floatType"/>
         <xsd:attribute name="discard" type="boolType"/>
         <xsd:attribute name="oneway" type="boolType"/>
-        <xsd:attribute name="width" type="xsd:float"/>
+        <xsd:attribute name="width" type="floatType"/>
         <xsd:attribute name="widthResolution" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxWidth" type="nonNegativeFloatType"/>
         <xsd:attribute name="minWidth" type="nonNegativeFloatType"/>
-        <xsd:attribute name="sidewalkWidth" type="xsd:float"/>
-        <xsd:attribute name="bikeLaneWidth" type="xsd:float"/>
+        <xsd:attribute name="sidewalkWidth" type="floatType"/>
+        <xsd:attribute name="bikeLaneWidth" type="floatType"/>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -347,7 +300,7 @@
 
     <xsd:complexType name="restrictionType">
         <xsd:attribute name="vClass" type="xsd:string" use="required"/>
-        <xsd:attribute name="speed" type="xsd:float" use="required"/>
+        <xsd:attribute name="speed" type="floatType" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="mesoType">
@@ -355,7 +308,7 @@
         <xsd:attribute name="taufj" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="taujf" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="taujj" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="jamThreshold" type="floatType" use="optional"/>
         <xsd:attribute name="junctionControl" type="boolType" use="optional"/>
         <xsd:attribute name="tlsPenalty" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="tlsFlowPenalty" type="nonNegativeFloatType" use="optional"/>
@@ -367,6 +320,7 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="traffic_light"/>
             <xsd:enumeration value="right_before_left"/>
+            <xsd:enumeration value="left_before_right"/>
             <xsd:enumeration value="priority"/>
             <xsd:enumeration value="dead_end"/>
             <xsd:enumeration value="unregulated"/>
@@ -377,6 +331,8 @@
             <xsd:enumeration value="zipper"/>
             <xsd:enumeration value="rail_crossing"/>
             <xsd:enumeration value="traffic_light_right_on_red"/>
+            <xsd:enumeration value="district"/>
+            <xsd:enumeration value="unknown"/>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -388,7 +344,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="pos" type="floatType" use="required"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
@@ -401,13 +357,23 @@
         <xsd:attribute name="idAfter" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
+    <xsd:simpleType name="signedTimeType">
+        <xsd:union memberTypes="floatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="&FloatPattern;:&FloatPattern;:&FloatPattern;(:&FloatPattern;)?"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="timeType">
         <xsd:union memberTypes="nonNegativeFloatType">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:pattern value="&FloatPattern;:&FloatPattern;:&FloatPattern;(:&FloatPattern;)?"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -435,6 +401,70 @@
 
     <xsd:complexType name="includeType">
         <xsd:attribute name="href" type="xsd:string"/>
+    </xsd:complexType>
+
+<!-- types for options in configuration files -->
+
+    <xsd:complexType name="boolOptionType">
+        <xsd:attribute name="value" type="boolType" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="intOptionType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="floatOptionType">
+        <xsd:attribute name="value" type="floatType" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="timeOptionType">
+        <xsd:attribute name="value" type="timeTypeWithErrorValue" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="strOptionType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="strArrayOptionType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="fileOptionType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="intArrayOptionType">
+        <xsd:attribute name="value" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(\-)?(\d+)(,(\-)?(\d+))*"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

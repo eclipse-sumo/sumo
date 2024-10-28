@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,7 @@
 #include "MSDevice_Tripinfo.h"
 
 #define NOT_ARRIVED TIME2STEPS(-1)
+#define STATE_EMPTY_ARRIVALLANE "NONE"
 
 
 // ===========================================================================
@@ -43,8 +44,8 @@
 // ===========================================================================
 std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> MSDevice_Tripinfo::myPendingOutput;
 
-long MSDevice_Tripinfo::myVehicleCount(0);
-long MSDevice_Tripinfo::myUndepartedVehicleCount(0);
+int MSDevice_Tripinfo::myVehicleCount(0);
+int MSDevice_Tripinfo::myUndepartedVehicleCount(0);
 double MSDevice_Tripinfo::myTotalRouteLength(0);
 double MSDevice_Tripinfo::myTotalSpeed(0);
 SUMOTime MSDevice_Tripinfo::myTotalDuration(0);
@@ -53,14 +54,14 @@ SUMOTime MSDevice_Tripinfo::myTotalTimeLoss(0);
 SUMOTime MSDevice_Tripinfo::myTotalDepartDelay(0);
 SUMOTime MSDevice_Tripinfo::myWaitingDepartDelay(-1);
 
-long MSDevice_Tripinfo::myBikeCount(0);
+int MSDevice_Tripinfo::myBikeCount(0);
 double MSDevice_Tripinfo::myTotalBikeRouteLength(0);
 double MSDevice_Tripinfo::myTotalBikeSpeed(0);
 SUMOTime MSDevice_Tripinfo::myTotalBikeDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalBikeWaitingTime(0);
 SUMOTime MSDevice_Tripinfo::myTotalBikeTimeLoss(0);
 
-long MSDevice_Tripinfo::myWalkCount(0);
+int MSDevice_Tripinfo::myWalkCount(0);
 double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkTimeLoss(0);
@@ -70,7 +71,7 @@ std::vector<int> MSDevice_Tripinfo::myRideRailCount({0, 0});
 std::vector<int> MSDevice_Tripinfo::myRideTaxiCount({0, 0});
 std::vector<int> MSDevice_Tripinfo::myRideBikeCount({0, 0});
 std::vector<int> MSDevice_Tripinfo::myRideAbortCount({0, 0});
-std::vector<double> MSDevice_Tripinfo::myTotalRideWaitingTime({0., 0.});
+std::vector<SUMOTime> MSDevice_Tripinfo::myTotalRideWaitingTime({0, 0});
 std::vector<double> MSDevice_Tripinfo::myTotalRideRouteLength({0., 0.});
 std::vector<SUMOTime> MSDevice_Tripinfo::myTotalRideDuration({0, 0});
 
@@ -157,7 +158,7 @@ MSDevice_Tripinfo::cleanup() {
     myRideTaxiCount = {0, 0};
     myRideBikeCount = {0, 0};
     myRideAbortCount = {0, 0};
-    myTotalRideWaitingTime = {0., 0.};
+    myTotalRideWaitingTime = {0, 0};
     myTotalRideRouteLength = {0., 0.};
     myTotalRideDuration = {0, 0};
 }
@@ -179,8 +180,10 @@ bool
 MSDevice_Tripinfo::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
                               double /*newPos*/, double newSpeed) {
     if (veh.isStopped()) {
-        myStoppingTime += DELTA_T;
-    } else if (newSpeed <= SUMO_const_haltingSpeed) {
+        if (newSpeed <= SUMO_const_haltingSpeed) {
+            myStoppingTime += DELTA_T;
+        }
+    } else if (newSpeed <= SUMO_const_haltingSpeed && lowAcceleration(veh)) {
         myWaitingTime += DELTA_T;
         if (!myAmWaiting) {
             myWaitingCount++;
@@ -190,6 +193,18 @@ MSDevice_Tripinfo::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
         myAmWaiting = false;
     }
     return true;
+}
+
+
+bool
+MSDevice_Tripinfo::lowAcceleration(const SUMOTrafficObject& veh) {
+    if (MSGlobals::gUseMesoSim) {
+        // acceleration is not modelled
+        return false;
+    } else {
+        const MSVehicle& v = dynamic_cast<const MSVehicle&>(veh);
+        return v.getAcceleration() <= v.accelThresholdForWaiting();
+    }
 }
 
 
@@ -226,6 +241,8 @@ MSDevice_Tripinfo::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notificat
         if (!MSGlobals::gUseMesoSim) {
             myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myDepartPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
+        } else {
+            myDepartLane = veh.getEdge()->getFirstAllowed(veh.getVClass(), true)->getID();
         }
         myDepartSpeed = veh.getSpeed();
         myRouteLength = -veh.getPositionOnLane();
@@ -247,6 +264,8 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         if (!MSGlobals::gUseMesoSim) {
             myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myArrivalPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
+        } else {
+            myArrivalLane = veh.getEdge()->getFirstAllowed(veh.getVClass(), true)->getID();
         }
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
@@ -261,7 +280,9 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         updateParkingStopTime();
     } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
         myParkingStarted = MSNet::getInstance()->getCurrentTimeStep();
-    } else if (reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_TELEPORT) {
+    } else if (reason == NOTIFICATION_JUNCTION
+               || reason == NOTIFICATION_TELEPORT
+               || reason == NOTIFICATION_TELEPORT_CONTINUATION) {
         if (MSGlobals::gUseMesoSim) {
             myRouteLength += myHolder.getEdge()->getLength();
         } else {
@@ -330,10 +351,10 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
-    os.writeAttr("waitingTime", time2string(myWaitingTime));
-    os.writeAttr("waitingCount", myWaitingCount);
-    os.writeAttr("stopTime", time2string(myStoppingTime));
-    os.writeAttr("timeLoss", time2string(timeLoss));
+    os.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
+    os.writeAttr(SUMO_ATTR_WAITINGCOUNT, myWaitingCount);
+    os.writeAttr(SUMO_ATTR_STOPTIME, time2string(myStoppingTime));
+    os.writeAttr(SUMO_ATTR_TIMELOSS, time2string(timeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());
     os.writeAttr("devices", toString(myHolder.getDevices()));
     os.writeAttr("vType", myHolder.getVehicleType().getID());
@@ -395,7 +416,7 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
             if (tripinfoOut != nullptr) {
                 for (MSVehicleDevice* const dev : d->myHolder.getDevices()) {
                     if (typeid(*dev) == typeid(MSDevice_Tripinfo) || typeid(*dev) == typeid(MSDevice_Vehroutes)) {
-                        // tripinfo is special and vehroute has it's own write-unfinished option
+                        // tripinfo is special and vehroute has its own write-unfinished option
                         continue;
                     }
                     dev->generateOutput(tripinfoOut);
@@ -459,11 +480,7 @@ MSDevice_Tripinfo::printStatistics() {
     msg.setf(msg.fixed);
     msg.precision(gPrecision);
     if (myBikeCount == 0 || myVehicleCount > 0) {
-        if (myBikeCount > 0) {
-            msg << "Statistics (avg of " << myVehicleCount << "):\n";
-        } else {
-            msg << "Statistics (avg):\n";
-        }
+        msg << "Statistics (avg of " << myVehicleCount << "):\n";
         msg << " RouteLength: " << getAvgRouteLength() << "\n"
             << " Speed: " << getAvgTripSpeed() << "\n"
             << " Duration: " << getAvgDuration() << "\n"
@@ -483,7 +500,7 @@ MSDevice_Tripinfo::printStatistics() {
     }
     msg << " DepartDelay: " << getAvgDepartDelay() << "\n";
     if (myWaitingDepartDelay >= 0) {
-        msg << " DepartDelayWaiting: " << STEPS2TIME(myWaitingDepartDelay / MAX2(1.0, (double)myUndepartedVehicleCount)) << "\n";
+        msg << " DepartDelayWaiting: " << getAvgDepartDelayWaiting() << "\n";
     }
     if (myWalkCount > 0) {
         msg << "Pedestrian Statistics (avg of " << myWalkCount << " walks):\n"
@@ -527,16 +544,16 @@ void
 MSDevice_Tripinfo::writeStatistics(OutputDevice& od) {
     od.setPrecision(gPrecision);
     od.openTag("vehicleTripStatistics");
+    od.writeAttr("count", myVehicleCount);
     od.writeAttr("routeLength", getAvgRouteLength());
     od.writeAttr("speed", getAvgTripSpeed());
     od.writeAttr("duration", getAvgDuration());
     od.writeAttr("waitingTime", getAvgWaitingTime());
     od.writeAttr("timeLoss", getAvgTimeLoss());
     od.writeAttr("departDelay", getAvgDepartDelay());
-    od.writeAttr("departDelayWaiting", myWaitingDepartDelay >= 0 ? STEPS2TIME(myWaitingDepartDelay / MAX2(1.0, (double)myUndepartedVehicleCount)) : -1);
+    od.writeAttr("departDelayWaiting", getAvgDepartDelayWaiting());
     od.writeAttr("totalTravelTime", time2string(myTotalDuration));
-    SUMOTime totalDepartDelay = myTotalDepartDelay + MAX2((SUMOTime)0, myWaitingDepartDelay);
-    od.writeAttr("totalDepartDelay", time2string(totalDepartDelay));
+    od.writeAttr("totalDepartDelay", time2string(TIME2STEPS(getTotalDepartDelay())));
     od.closeTag();
     if (myBikeCount > 0) {
         od.openTag("bikeTripStatistics");
@@ -598,7 +615,7 @@ MSDevice_Tripinfo::getAvgTripSpeed() {
 double
 MSDevice_Tripinfo::getAvgDuration() {
     if (myVehicleCount > 0) {
-        return STEPS2TIME(myTotalDuration / (double)myVehicleCount);
+        return STEPS2TIME(myTotalDuration / myVehicleCount);
     } else {
         return 0;
     }
@@ -607,7 +624,7 @@ MSDevice_Tripinfo::getAvgDuration() {
 double
 MSDevice_Tripinfo::getAvgWaitingTime() {
     if (myVehicleCount > 0) {
-        return STEPS2TIME(myTotalWaitingTime / (double)myVehicleCount);
+        return STEPS2TIME(myTotalWaitingTime / myVehicleCount);
     } else {
         return 0;
     }
@@ -617,7 +634,7 @@ MSDevice_Tripinfo::getAvgWaitingTime() {
 double
 MSDevice_Tripinfo::getAvgTimeLoss() {
     if (myVehicleCount > 0) {
-        return STEPS2TIME(myTotalTimeLoss / (double)myVehicleCount);
+        return STEPS2TIME(myTotalTimeLoss / myVehicleCount);
     } else {
         return 0;
     }
@@ -627,10 +644,25 @@ MSDevice_Tripinfo::getAvgTimeLoss() {
 double
 MSDevice_Tripinfo::getAvgDepartDelay() {
     if (myVehicleCount > 0) {
-        return STEPS2TIME(myTotalDepartDelay / (double)myVehicleCount);
+        return STEPS2TIME(myTotalDepartDelay / myVehicleCount);
     } else {
         return 0;
     }
+}
+
+double
+MSDevice_Tripinfo::getAvgDepartDelayWaiting() {
+    if (myWaitingDepartDelay >= 0) {
+        return STEPS2TIME(myWaitingDepartDelay / MAX2(1, myUndepartedVehicleCount));
+    } else {
+        return -1;
+    }
+}
+
+
+double
+MSDevice_Tripinfo::getTotalDepartDelay() {
+    return STEPS2TIME(myTotalDepartDelay + MAX2((SUMOTime)0, myWaitingDepartDelay));
 }
 
 double
@@ -654,7 +686,7 @@ MSDevice_Tripinfo::getAvgBikeTripSpeed() {
 double
 MSDevice_Tripinfo::getAvgBikeDuration() {
     if (myBikeCount > 0) {
-        return STEPS2TIME(myTotalBikeDuration / (double)myBikeCount);
+        return STEPS2TIME(myTotalBikeDuration / myBikeCount);
     } else {
         return 0;
     }
@@ -663,7 +695,7 @@ MSDevice_Tripinfo::getAvgBikeDuration() {
 double
 MSDevice_Tripinfo::getAvgBikeWaitingTime() {
     if (myBikeCount > 0) {
-        return STEPS2TIME(myTotalBikeWaitingTime / (double)myBikeCount);
+        return STEPS2TIME(myTotalBikeWaitingTime / myBikeCount);
     } else {
         return 0;
     }
@@ -673,7 +705,7 @@ MSDevice_Tripinfo::getAvgBikeWaitingTime() {
 double
 MSDevice_Tripinfo::getAvgBikeTimeLoss() {
     if (myBikeCount > 0) {
-        return STEPS2TIME(myTotalBikeTimeLoss / (double)myBikeCount);
+        return STEPS2TIME(myTotalBikeTimeLoss / myBikeCount);
     } else {
         return 0;
     }
@@ -693,7 +725,7 @@ MSDevice_Tripinfo::getAvgWalkRouteLength() {
 double
 MSDevice_Tripinfo::getAvgWalkDuration() {
     if (myWalkCount > 0) {
-        return STEPS2TIME(myTotalWalkDuration / (double)myWalkCount);
+        return STEPS2TIME(myTotalWalkDuration / myWalkCount);
     } else {
         return 0;
     }
@@ -703,7 +735,7 @@ MSDevice_Tripinfo::getAvgWalkDuration() {
 double
 MSDevice_Tripinfo::getAvgWalkTimeLoss() {
     if (myWalkCount > 0) {
-        return STEPS2TIME(myTotalWalkTimeLoss / (double)myWalkCount);
+        return STEPS2TIME(myTotalWalkTimeLoss / myWalkCount);
     } else {
         return 0;
     }
@@ -738,17 +770,139 @@ MSDevice_Tripinfo::getAvgRideRouteLength() {
 }
 
 
+std::string
+MSDevice_Tripinfo::getParameter(const std::string& key) const {
+    if (key == toString(SUMO_ATTR_WAITINGTIME)) {
+        return toString(STEPS2TIME(myWaitingTime));
+    } else if (key == toString(SUMO_ATTR_WAITINGCOUNT)) {
+        return toString(myWaitingCount);
+    } else if (key == toString(SUMO_ATTR_STOPTIME)) {
+        return toString(STEPS2TIME(myStoppingTime));
+    } else if (key == toString(SUMO_ATTR_ARRIVALTIME)) {
+        return toString(STEPS2TIME(myArrivalTime));
+    } else if (key == toString(SUMO_ATTR_ARRIVALLANE)) {
+        return toString(myArrivalLane);
+    } else if (key == toString(SUMO_ATTR_ARRIVALPOS)) {
+        return toString(myArrivalPos);
+    } else if (key == toString(SUMO_ATTR_ARRIVALPOS_LAT)) {
+        return toString(myArrivalPosLat);
+    } else if (key == toString(SUMO_ATTR_ARRIVALSPEED)) {
+        return toString(myArrivalSpeed);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+
+
+std::string
+MSDevice_Tripinfo::getGlobalParameter(const std::string& prefixedKey) {
+    std::string key = prefixedKey; // by default, assume vehicleTripStatistics;
+    const std::string err = "Parameter '" + prefixedKey + "' is not supported for device of type 'tripinfo'";
+    if (StringUtils::startsWith(key, "vehicleTripStatistics.")) {
+        key = prefixedKey.substr(22);
+    } else if (StringUtils::startsWith(key, "bikeTripStatistics.")) {
+        key = prefixedKey.substr(19);
+        if (key == toString(SUMO_ATTR_COUNT)) {
+            return toString(myBikeCount);
+        } else if (key == "routeLength") {
+            return toString(getAvgBikeRouteLength());
+        } else if (key == toString(SUMO_ATTR_SPEED)) {
+            return toString(getAvgBikeTripSpeed());
+        } else if (key == toString(SUMO_ATTR_DURATION)) {
+            return toString(getAvgBikeDuration());
+        } else if (key == toString(SUMO_ATTR_WAITINGTIME)) {
+            return toString(getAvgBikeWaitingTime());
+        } else if (key == toString(SUMO_ATTR_TIMELOSS)) {
+            return toString(getAvgBikeTimeLoss());
+        } else if (key == "totalTravelTime") {
+            // avoid human readable output
+            return toString(STEPS2TIME((myTotalBikeDuration)));
+        }
+        throw InvalidArgument(err);
+
+    } else if (StringUtils::startsWith(key, "pedestrianStatistics.")) {
+        key = prefixedKey.substr(21);
+        if (key == toString(SUMO_ATTR_NUMBER) || key == toString(SUMO_ATTR_COUNT)) {
+            return toString(myWalkCount);
+        } else if (key == "routeLength") {
+            return toString(getAvgWalkRouteLength());
+        } else if (key == toString(SUMO_ATTR_DURATION)) {
+            return toString(getAvgWalkDuration());
+        } else if (key == toString(SUMO_ATTR_TIMELOSS)) {
+            return toString(getAvgWalkTimeLoss());
+        }
+        throw InvalidArgument(err);
+
+    } else if (StringUtils::startsWith(key, "rideStatistics.") ||
+               StringUtils::startsWith(key, "transportStatistics.")) {
+        int index = 0;
+        if (StringUtils::startsWith(key, "rideStatistics.")) {
+            key = prefixedKey.substr(15);
+        } else {
+            index = 1;
+            key = prefixedKey.substr(20);
+        }
+        if (key == toString(SUMO_ATTR_NUMBER) || key == toString(SUMO_ATTR_COUNT)) {
+            return toString(myRideCount[index]);
+        } else if (key == toString(SUMO_ATTR_WAITINGTIME)) {
+            return toString(STEPS2TIME(myTotalRideWaitingTime[index] / MAX2(1, myRideCount[index])));
+        } else if (key == "routeLength") {
+            return toString(myTotalRideRouteLength[index] / MAX2(1, myRideCount[index]));
+        } else if (key == toString(SUMO_ATTR_DURATION)) {
+            return toString(myTotalRideRouteLength[index] / MAX2(1, myRideCount[index]));
+        } else if (key == "bus") {
+            return toString(myRideBusCount[index]);
+        } else if (key == "train") {
+            return toString(myRideRailCount[index]);
+        } else if (key == "taxi") {
+            return toString(myRideTaxiCount[index]);
+        } else if (key == "bike") {
+            return toString(myRideBikeCount[index]);
+        } else if (key == "aborted") {
+            return toString(myRideAbortCount[index]);
+        }
+        throw InvalidArgument(err);
+    }
+    // vehicleTripStatistics
+    if (key == toString(SUMO_ATTR_COUNT)) {
+        return toString(myVehicleCount);
+    } else if (key == "routeLength") {
+        return toString(getAvgRouteLength());
+    } else if (key == toString(SUMO_ATTR_SPEED)) {
+        return toString(getAvgTripSpeed());
+    } else if (key == toString(SUMO_ATTR_DURATION)) {
+        return toString(getAvgDuration());
+    } else if (key == toString(SUMO_ATTR_WAITINGTIME)) {
+        return toString(getAvgWaitingTime());
+    } else if (key == toString(SUMO_ATTR_TIMELOSS)) {
+        return toString(getAvgTimeLoss());
+    } else if (key == "departDelay") {
+        return toString(getAvgDepartDelay());
+    } else if (key == "departDelayWaiting") {
+        return toString(getAvgDepartDelayWaiting());
+    } else if (key == "totalTravelTime") {
+        // avoid human readable output
+        return toString(STEPS2TIME((myTotalDuration)));
+    } else if (key == "totalDepartDelay") {
+        return toString(getTotalDepartDelay());
+    }
+    throw InvalidArgument(err);
+}
+
+
 void
 MSDevice_Tripinfo::saveState(OutputDevice& out) const {
     if (myHolder.hasDeparted()) {
         out.openTag(SUMO_TAG_DEVICE);
         out.writeAttr(SUMO_ATTR_ID, getID());
         std::ostringstream internals;
+        internals << myDepartLane << " ";
         if (!MSGlobals::gUseMesoSim) {
-            internals << myDepartLane << " " << myDepartPosLat << " ";
+            internals << myDepartPosLat << " ";
         }
+        std::string state_arrivalLane = myArrivalLane == "" ? STATE_EMPTY_ARRIVALLANE : myArrivalLane;
         internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
-        internals << myStoppingTime << " " << myParkingStarted;
+        internals << myStoppingTime << " " << myParkingStarted << " ";
+        internals << myArrivalTime << " " << state_arrivalLane << " " << myArrivalPos << " " << myArrivalPosLat << " " << myArrivalSpeed;
         out.writeAttr(SUMO_ATTR_STATE, internals.str());
         out.closeTag();
     }
@@ -758,11 +912,16 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
 void
 MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myDepartLane;
     if (!MSGlobals::gUseMesoSim) {
-        bis >> myDepartLane >> myDepartPosLat;
+        bis >> myDepartPosLat;
     }
     bis >> myDepartSpeed >> myRouteLength >> myWaitingTime >> myAmWaiting >> myWaitingCount;
     bis >> myStoppingTime >> myParkingStarted;
+    bis >> myArrivalTime >> myArrivalLane >> myArrivalPos >> myArrivalPosLat >> myArrivalSpeed;
+    if (myArrivalLane == STATE_EMPTY_ARRIVALLANE) {
+        myArrivalLane = "";
+    }
 }
 
 

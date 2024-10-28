@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,18 +39,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4355)
-#endif
-GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+
+GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                            MSVehicleType* type, const double speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GUIMEVehicle::~GUIMEVehicle() { }
@@ -91,6 +85,9 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     if (getParameter().repetitionProbability > 0) {
         ret->mkItem("insertion probability", false, getParameter().repetitionProbability);
     }
+    if (getParameter().poissonRate > 0) {
+        ret->mkItem(TL("poisson rate"), false, getParameter().poissonRate);
+    }
     //ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("line", false, myParameter->line);
     //ret->mkItem("CO2 [mg/s]", true,
@@ -125,24 +122,20 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
-                                     GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("Type Information:", false, "");
-    ret->mkItem("type [id]", false, myType->getID());
-    ret->mkItem("length", false, myType->getLength());
-    ret->mkItem("minGap", false, myType->getMinGap());
+GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myType->getID());
+    ret->mkItem("length [m]", false, myType->getLength());
+    ret->mkItem("width [m]", false, myType->getWidth());
+    ret->mkItem("height [m]", false, myType->getHeight());
+    ret->mkItem("minGap [m]", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
     ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
+    ret->mkItem("mass [kg]", false, myType->getMass());
+    ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
-    //ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
-    //ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
-    //ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
-    //ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
-    // close building
     ret->closeBuilding(&(myType->getParameter()));
     return ret;
 }
@@ -211,20 +204,21 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 
 
 void
-GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const {
+GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const {
     const double exaggeration = getExaggeration(s);
-    MSRouteIterator start = future ? myCurrEdge : r.begin();
+    MSRouteIterator start = future ? myCurrEdge : r->begin();
     MSRouteIterator i = start;
     std::map<const MSLane*, int> repeatLane; // count repeated occurrences of the same edge
     const double textSize = s.vehicleName.size / s.scale;
-    const int indexDigits = (int)toString(r.size()).size();
-    for (; i != r.end(); ++i) {
+    const int indexDigits = (int)toString(r->size()).size();
+    const bool s2 = s.secondaryShape;
+    for (; i != r->end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
-        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+        GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
         if (s.showRouteIndex) {
             std::string label = toString((int)(i - myCurrEdge));
-            const double laneAngle = lane->getShape().angleAt2D(0);
-            Position pos = lane->getShape().front() - Position(0, textSize * repeatLane[lane]) + Position(
+            const double laneAngle = lane->getShape(s2).angleAt2D(0);
+            Position pos = lane->getShape(s2).front() - Position(0, textSize * repeatLane[lane]) + Position(
                                (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.4 * indexDigits * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
@@ -235,7 +229,7 @@ GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& 
         repeatLane[lane]++;
     }
     drawStopLabels(s, noLoop, col);
-    drawParkingInfo(s, col);
+    drawParkingInfo(s);
 }
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,10 @@
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringTokenizer.h>
 #include "StringUtils.h"
+
+#define KM_PER_MILE 1.609344
 
 
 // ===========================================================================
@@ -73,13 +76,12 @@ StringUtils::pruneZeros(const std::string& str, int max) {
 }
 
 std::string
-StringUtils::to_lower_case(std::string str) {
-    for (int i = 0; i < (int)str.length(); i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            str[i] = str[i] + 'a' - 'A';
-        }
-    }
-    return str;
+StringUtils::to_lower_case(const std::string& str) {
+    std::string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), [](char c) {
+        return (char)::tolower(c);
+    });
+    return s;
 }
 
 
@@ -87,13 +89,13 @@ std::string
 StringUtils::latin1_to_utf8(std::string str) {
     // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
     std::string result;
-    for (int i = 0; i < (int)str.length(); i++) {
-        const unsigned char c = str[i];
-        if (c < 128) {
-            result += c;
+    for (const auto& c : str) {
+        const unsigned char uc = (unsigned char)c;
+        if (uc < 128) {
+            result += uc;
         } else {
-            result += (char)(0xc2 + (c > 0xbf));
-            result += (char)((c & 0x3f) + 0x80);
+            result += (char)(0xc2 + (uc > 0xbf));
+            result += (char)((uc & 0x3f) + 0x80);
         }
     }
     return result;
@@ -138,15 +140,16 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
     if (timeRef != nullptr) {
         const std::string::size_type localTimeIndex = str.find("${LOCALTIME}");
         const std::string::size_type utcIndex = str.find("${UTC}");
-        if (localTimeIndex != std::string::npos || utcIndex != std::string::npos) {
+        const bool isUTC = utcIndex != std::string::npos;
+        if (localTimeIndex != std::string::npos || isUTC) {
             const time_t rawtime = std::chrono::system_clock::to_time_t(*timeRef);
             char buffer [80];
-            struct tm* timeinfo = utcIndex != std::string::npos ? gmtime(&rawtime) : localtime(&rawtime);
+            struct tm* timeinfo = isUTC ? gmtime(&rawtime) : localtime(&rawtime);
             strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S.", timeinfo);
             auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(*timeRef);
             auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(*timeRef - seconds);
             const std::string micro = buffer + toString(microseconds.count());
-            if (utcIndex != std::string::npos) {
+            if (isUTC) {
                 s.replace(utcIndex, 6, micro);
             } else {
                 s.replace(localTimeIndex, 12, micro);
@@ -161,9 +164,19 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
         s.replace(pidIndex, 6, toString(::getpid()));
 #endif
     }
-    if (std::getenv("${SUMO_LOGO}") == nullptr) {
+    if (std::getenv("SUMO_LOGO") == nullptr) {
         s = replace(s, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
     }
+    const std::string::size_type tildeIndex = str.find("~");
+    if (tildeIndex == 0) {
+        s.replace(0, 1, "${HOME}");
+    }
+    s = replace(s, ",~", ",${HOME}");
+#ifdef WIN32
+    if (std::getenv("HOME") == nullptr) {
+        s = replace(s, "${HOME}", "${USERPROFILE}");
+    }
+#endif
 
     // Expression for an environment variables, e.g. ${NAME}
     // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
@@ -192,26 +205,6 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
         strIter = match.suffix();
     }
     return s;
-}
-
-
-std::string
-StringUtils::toTimeString(int time) {
-    std::ostringstream oss;
-    if (time < 0) {
-        oss << "-";
-        time = -time;
-    }
-    char buffer[10];
-    sprintf(buffer, "%02i:", (time / 3600));
-    oss << buffer;
-    time = time % 3600;
-    sprintf(buffer, "%02i:", (time / 60));
-    oss << buffer;
-    time = time % 60;
-    sprintf(buffer, "%02i", time);
-    oss << buffer;
-    return oss.str();
 }
 
 
@@ -422,17 +415,100 @@ StringUtils::toBool(const std::string& sData) {
     if (sData.length() == 0) {
         throw EmptyData();
     }
-    std::string s = sData;
-    // Don't use std::transform(..., ::tolower) due a C4244 Warning in MSVC17
-    for (int i = 0; i < (int)s.length(); i++) {
-        s[i] = (char)::tolower((char)s[i]);
-    }
+    const std::string s = to_lower_case(sData);
     if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
         return true;
-    } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
+    }
+    if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
         return false;
-    } else {
-        throw BoolFormatException(s);
+    }
+    throw BoolFormatException(s);
+}
+
+MMVersion
+StringUtils::toVersion(const std::string& sData) {
+    std::vector<std::string> parts = StringTokenizer(sData, ".").getVector();
+    return MMVersion(toInt(parts.front()), toDouble(parts.back()));
+}
+
+
+double
+StringUtils::parseDist(const std::string& sData) {
+    if (sData.size() == 0) {
+        throw EmptyData();
+    }
+    try {
+        size_t idx = 0;
+        const double result = std::stod(sData, &idx);
+        if (idx != sData.size()) {
+            const std::string unit = prune(sData.substr(idx));
+            if (unit == "m" || unit == "metre" || unit == "meter" || unit == "metres" || unit == "meters") {
+                return result;
+            }
+            if (unit == "km" || unit == "kilometre" || unit == "kilometer" || unit == "kilometres" || unit == "kilometers") {
+                return result * 1000.;
+            }
+            if (unit == "mi" || unit == "mile" || unit == "miles") {
+                return result * 1000. * KM_PER_MILE;
+            }
+            if (unit == "nmi") {
+                return result * 1852.;
+            }
+            if (unit == "ft" || unit == "foot" || unit == "feet") {
+                return result * 12. * 0.0254;
+            }
+            if (unit == "\"" || unit == "in" || unit == "inch" || unit == "inches") {
+                return result * 0.0254;
+            }
+            if (unit[0] == '\'') {
+                double inches = 12 * result;
+                if (unit.length() > 1) {
+                    inches += std::stod(unit.substr(1), &idx);
+                    if (unit.substr(idx) == "\"") {
+                        return inches * 0.0254;
+                    }
+                }
+            }
+            throw NumberFormatException("(distance format) " + sData);
+        } else {
+            return result;
+        }
+    } catch (...) {
+        // invalid_argument or out_of_range
+        throw NumberFormatException("(double) " + sData);
+    }
+}
+
+
+double
+StringUtils::parseSpeed(const std::string& sData, const bool defaultKmph) {
+    if (sData.size() == 0) {
+        throw EmptyData();
+    }
+    try {
+        size_t idx = 0;
+        const double result = std::stod(sData, &idx);
+        if (idx != sData.size()) {
+            const std::string unit = prune(sData.substr(idx));
+            if (unit == "km/h" || unit == "kph" || unit == "kmh" || unit == "kmph") {
+                return result / 3.6;
+            }
+            if (unit == "m/s") {
+                return result;
+            }
+            if (unit == "mph") {
+                return result * KM_PER_MILE / 3.6;
+            }
+            if (unit == "knots") {
+                return result * 1.852 / 3.6;
+            }
+            throw NumberFormatException("(speed format) " + sData);
+        } else {
+            return defaultKmph ? result / 3.6 : result;
+        }
+    } catch (...) {
+        // invalid_argument or out_of_range
+        throw NumberFormatException("(double) " + sData);
     }
 }
 
@@ -512,6 +588,45 @@ std::string
 StringUtils::trim(const std::string s, const std::string& t) {
     return trim_right(trim_left(s, t), t);
 }
+
+
+std::string
+StringUtils::wrapText(const std::string s, int width) {
+    std::vector<std::string> parts = StringTokenizer(s).getVector();
+    std::string result;
+    std::string line;
+    bool firstLine = true;
+    bool firstWord = true;
+    for (std::string p : parts) {
+        if ((int)(line.size() + p.size()) < width || firstWord) {
+            if (firstWord) {
+                firstWord = false;
+            } else {
+                line += " ";
+            }
+            line = line + p;
+        } else {
+            if (firstLine) {
+                firstLine = false;
+            } else {
+                result += "\n";
+            }
+            result = result + line;
+            line.clear();
+            firstWord = true;
+        }
+    }
+    if (line.size() > 0) {
+        if (firstLine) {
+            firstLine = false;
+        } else {
+            result += "\n";
+        }
+        result = result + line;
+    }
+    return result;
+}
+
 
 void
 StringUtils::resetTranscoder() {

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-22 17:31:18 by Eclipse SUMO netconvert Version v1_19_0+1898-54937ed31f8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="137.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-138" from="137" to="24" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+    </edge>
+    <edge id="-348" from="347" to="137" priority="-1" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="138" from="24" to="137" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+    </edge>
+    <edge id="333" from="6" to="137" priority="-1" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+    <edge id="348" from="137" to="347" priority="-1" numLanes="4" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+        <lane index="3" allow="passenger"/>
+    </edge>
+</edges>

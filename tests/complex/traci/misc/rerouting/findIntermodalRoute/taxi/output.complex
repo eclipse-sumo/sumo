@@ -1,14 +1,14 @@
  Retrying in 1 seconds
 findIntermodalRoute modes='taxi' vType=' pType=''
   Stage(type=2, destStop=busStopC, edges=('A0B0',), travelTime=391.00896, cost=391.00896, length=94.802, depart=1.0, departPos=0.0, arrivalPos=894.8)
-  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, edges=('A0B0', 'B0B1', 'B1A1'), travelTime=109.374250137, cost=109.374250137, length=1498.361, intended=taxi, depart=392.00896, departPos=894.8, arrivalPos=894.8)
-  Stage(type=2, edges=('B1A1', 'A1B1'), travelTime=205.4976, cost=205.4976, length=1201.66, depart=501.383210137, departPos=894.8, arrivalPos=100.0)
+  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, destStop=busStopB, edges=('A0B0', 'B0B1', 'B1A1'), travelTime=109.375210137, cost=109.375210137, length=1498.362, intended=taxi, depart=392.00896, departPos=894.8, arrivalPos=894.8)
+  Stage(type=2, edges=('B1A1', 'A1B1'), travelTime=205.4976, cost=205.4976, length=1201.66, depart=501.384170137, departPos=894.8, arrivalPos=100.0)
 
 
 
 findIntermodalRoute modes='taxi public' vType=' pType=''
-  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, edges=('A0B0', 'B0B1', 'B1A1'), travelTime=116.199304132, cost=116.199304132, length=1593.161, intended=taxi, depart=1.00096, departPos=0.0, arrivalPos=894.8)
-  Stage(type=2, edges=('B1A1', 'A1B1'), travelTime=205.4976, cost=205.4976, length=1201.66, depart=117.200264132, departPos=894.8, arrivalPos=100.0)
+  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, destStop=busStopB, edges=('A0B0', 'B0B1', 'B1A1'), travelTime=116.200264132, cost=116.200264132, length=1593.162, intended=taxi, depart=1.00096, departPos=0.0, arrivalPos=894.8)
+  Stage(type=2, edges=('B1A1', 'A1B1'), travelTime=205.4976, cost=205.4976, length=1201.66, depart=117.201224132, departPos=894.8, arrivalPos=100.0)
 
 
 

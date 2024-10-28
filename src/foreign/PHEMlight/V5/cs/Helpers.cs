@@ -167,12 +167,12 @@ namespace PHEMlightdll
         {
             if (VEH.IndexOf(Constants.strLKW) >= 0)
             {
-                if (VEH.IndexOf("_" + Constants.strSII) > 0) 
+                if (VEH.IndexOf("_" + Constants.strSII) > 0)
                 {
                     _sClass = Constants.strSII;
                     return true;
                 }
-                else if (VEH.IndexOf("_" + Constants.strSI) > 0) 
+                else if (VEH.IndexOf("_" + Constants.strSI) > 0)
                 {
                     _sClass = Constants.strSI;
                     return true;
@@ -191,12 +191,12 @@ namespace PHEMlightdll
                     _sClass = Constants.strSIII;
                     return true;
                 }
-                else if (VEH.IndexOf("_" + Constants.strSII) > 0) 
+                else if (VEH.IndexOf("_" + Constants.strSII) > 0)
                 {
                     _sClass = Constants.strSII;
                     return true;
                 }
-                else if (VEH.IndexOf("_" + Constants.strSI) > 0) 
+                else if (VEH.IndexOf("_" + Constants.strSI) > 0)
                 {
                     _sClass = Constants.strSI;
                     return true;

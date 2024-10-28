@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:31.518547 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <additional-files value="input_additional.add.xml"/>
+    <end value="10"/>
+    <net-file value="net2.net.xml"/>
+    <route-file value="out.rou.xml"/>
+    <trip-attributes value="type=&quot;truck&quot;"/>
+    <validate value="True"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:31 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml.tmp"/>
+        <alternatives-output value="NUL"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="truck" vClass="truck"/>
+    <trip id="1" type="truck" depart="1.00" from="beg2left" to="end"/>
+    <trip id="5" type="truck" depart="5.00" from="beg2left" to="left2end"/>
+    <trip id="6" type="truck" depart="6.00" from="beg" to="end"/>
+    <trip id="7" type="truck" depart="7.00" from="left" to="left2end"/>
+    <trip id="8" type="truck" depart="8.00" from="beg2left" to="left2end"/>
+</routes>

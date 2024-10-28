@@ -22,7 +22,7 @@ blocker_without_enough_free_space
 # 2 close junctions, but the link across the second junction is not open
 2junctions_2nd_blocked
 
-# short edges behind a junction should not prevent vehicles from driving accross
+# short edges behind a junction should not prevent vehicles from driving across
 network_ends_behind_junction
 
 # the combination of a large junction followed by a short edge should not trigger the keepClear rule due to insufficient look-ahead (currently, the lookAhead is based on normal-edge-distance but does not take into account the number of vehicles that could be present on a large junction)

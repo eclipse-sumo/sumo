@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="fast" speedFactor="1.1" sigma="0"/>
+    <vType id="slow" speedFactor="1.0" sigma="0"/>
+    <vType id="automated" speedFactor="1.1" accel="1.362" actionStepLength="0.100" carFollowModel="ACC" color="white" lcAssertive="0.668" tau="1.649"/>
+    
+    <vehicle id="leader" type="slow" route="circle" depart="0" departPos="30" departLane="0" departSpeed="max" />
+    <vehicle id="follower" type="automated" route="circle" depart="0" departPos="20" departLane="0" departSpeed="max" />
+</routes>

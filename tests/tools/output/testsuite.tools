@@ -24,6 +24,8 @@ edgeDataDiff
 tripinfoByType
 tripinfoByTAZ
 attributeStats
+attributeDiff
+attributeCompare
 
 # tests for evaluating the coordination factor along a corridor
 computeCoordination
@@ -41,3 +43,9 @@ parkingSearchTraffic
 
 # aggregate battery outputs
 aggregateBatteryOutput
+vehrouteCountValidation
+fcdDiff
+analyze_pedestrian_jam
+
+# Copy of analyze_pedestrian_jam
+analyze_teleports

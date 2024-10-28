@@ -61,7 +61,7 @@ order is right:
 - connections between edges (need usually references to edges)
 - traffic lights (need references to nodes)
 
-Some more outrageous programmers may try to optimise the order a bit if
+Some more outrageous programmers may try to optimize the order a bit if
 the original data is aligned different. This may be possible in some
 cases.
 
@@ -90,7 +90,7 @@ structure be given to the importer, making the call have the following
 fingerprint:
 
 ```
-static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 ```
 
 At first, this method asks whether the option which makes
@@ -130,7 +130,7 @@ example), a ProcessError should be thrown. The exception must have an
 information about the error, for example:
 
 ```
-throw ProcessError("Number of lanes is <0");
+throw ProcessError("Number of lanes is <0");
 ```
 
 Yes, the decision whether a strange value is an error or a warning is

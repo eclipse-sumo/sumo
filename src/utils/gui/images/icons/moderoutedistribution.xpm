@@ -1,0 +1,37 @@
+/* XPM */
+static const char *moderoutedistribution_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 15 1",
+"  c black",
+". c gray22",
+"X c red",
+"o c None",
+"O c #02BDFF",
+"+ c #50B2C9",
+"@ c #4BB3FA",
+"# c #AAAAAA",
+"$ c #D0FCAC",
+"% c #FDFDA6",
+"& c #F7ECB6",
+"* c #FAAFC1",
+"= c #D5D5D5",
+"- c #E8DAEA",
+"; c white",
+/* pixels */
+"ooooOOOOoooooooo",
+"ooooOOOOoooooooo",
+"ooooOOOO****oooo",
+"++++OOOO****oooo",
+"++++OOOO****&&&&",
+"++............&&",
+"++.@---%---$$.&&",
+"++.%%%%%%%%%%.&&",
+"++.%X% % %  %.&&",
+"++.%%%%%%%%%%.&&",
+"++.----%--% -.&&",
+"++.$---%--%%-.&&",
+"++.#=#####=##.&&",
+"++.#=##;##=#;.&&",
+"++............&&",
+"++++OOOO****&&&&"
+};

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2021-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2021-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 //
 /****************************************************************************/
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
@@ -29,9 +30,9 @@
 // ===========================================================================
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
-    GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
-{}, {}, {}, {}, {}, {}),
-myVoltage(0),
+    GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION,
+                  GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
+                            myVoltage(0),
 myCurrentLimit(0) {
     // reset default values
     resetDefaultValues();
@@ -40,8 +41,8 @@ myCurrentLimit(0) {
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage,
         const double currentLimit, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, "",
-{}, {}, {}, {}, {}, {}),
+    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION,
+                  GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
 Parameterised(parameters),
 myPosition(pos),
 myVoltage(voltage),
@@ -69,6 +70,40 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     // write parameters
     writeParams(device);
     device.closeTag();
+}
+
+
+bool
+GNETractionSubstation::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETractionSubstation::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETractionSubstation::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
+bool
+GNETractionSubstation::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in move mode
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+        // only move the first element
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    } else {
+        return false;
+    }
 }
 
 
@@ -103,7 +138,7 @@ GNETractionSubstation::updateCenteringBoundary(const bool updateGrid) {
     // add shape boundary
     myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // grow
-    myAdditionalBoundary.grow(10);
+    myAdditionalBoundary.grow(5);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
@@ -136,7 +171,7 @@ std::string
 GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edges;
             for (const auto& tractionSubstationSymbol : getChildAdditionals()) {
@@ -152,6 +187,8 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -186,7 +223,7 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_CURRENTLIMIT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -220,12 +257,6 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNETractionSubstation::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNETractionSubstation::getPopUpID() const {
     return getTagStr() + ": " + getID();
@@ -248,7 +279,7 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " cannot be edited");
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
@@ -290,8 +321,8 @@ GNETractionSubstation::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETractionSubstation::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::TRACTION_SUBSTATION, "position of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    undoList->begin(this, "position of " + getTagStr());
+    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
     undoList->end();
 }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,15 +14,16 @@
 
 # @file    vehroute2amitranOD.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2014-04-08
 
 from __future__ import absolute_import
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def convert(vehRoutes, routeOut, odOut, interval):
@@ -62,19 +63,19 @@ def convert(vehRoutes, routeOut, odOut, interval):
         routes.write("</routes>\n")
     with open(odOut, 'w') as od:
         od.write("<demand>\n")
-        for ac, odList in actorConfig.iteritems():
+        for ac, odList in actorConfig.items():
             od.write('    <actorConfig id="%s">\n' % ac)
             for idx, odMap in enumerate(odList):
                 if odMap:
                     od.write('        <timeSlice startTime="%s" duration="%s">\n' % (
                         idx * interval * 1000, interval * 1000))
-                    for (orig, dest), routeMap in odMap.iteritems():
+                    for (orig, dest), routeMap in odMap.items():
                         total = 0
-                        for amount, _ in routeMap.itervalues():
+                        for amount, _ in routeMap.values():
                             total += amount
                         od.write('            <odPair origin="%s" destination="%s" amount="%s">\n' % (
                             orig, dest, total))
-                        for idx, (amount, ttSum) in routeMap.iteritems():
+                        for idx, (amount, ttSum) in routeMap.items():
                             od.write(('                <routeCost routeId="%s" amount="%s" ' +
                                       'averageTraveltime="%s"/>\n') % (idx, amount, int(1000. * ttSum / amount)))
                             total += amount
@@ -85,12 +86,12 @@ def convert(vehRoutes, routeOut, odOut, interval):
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-r", "--routes", default='routes.xml',
-                         help="name of the amitran route file output [default: %default]")
-    optParser.add_option("-o", "--od-file", default='od.xml',
-                         help="name of the amitran O/D file output [default: %default]")
-    optParser.add_option("-i", "--interval", default=3600, type=int,
-                         help="aggregation interval in seconds [default: %default]")
-    (options, args) = optParser.parse_args()
+    argParser = ArgumentParser()
+    argParser.add_argument("-r", "--routes", default='routes.xml', category="input",
+                           help="name of the amitran route file output [default: %(default)s]")
+    argParser.add_argument("-o", "--od-file", default='od.xml', category="output",
+                           help="name of the amitran O/D file output [default: %(default)s]")
+    argParser.add_argument("-i", "--interval", default=3600, type=int,
+                           help="aggregation interval in seconds [default: %(default)s]")
+    (options, args) = argParser.parse_args()
     convert(args[0], options.routes, options.od_file, options.interval)

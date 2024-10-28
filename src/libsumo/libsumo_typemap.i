@@ -308,6 +308,23 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
+%typemap(out) std::vector<libsumo::TraCIJunctionFoe> {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sddddssNN)",
+                                                        iter->foeId.c_str(),
+                                                        iter->egoDist,
+                                                        iter->foeDist,
+                                                        iter->egoExitDist,
+                                                        iter->foeExitDist,
+                                                        iter->egoLane.c_str(),
+                                                        iter->foeLane.c_str(),
+                                                        PyBool_FromLong(iter->egoResponse),
+                                                        PyBool_FromLong(iter->foeResponse)));
+    }
+};
+
 %typemap(out) std::vector<std::pair<std::string, double> > {
     $result = PyTuple_New($1.size());
     int index = 0;
@@ -319,7 +336,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %exceptionclass libsumo::TraCIException;
 %exceptionclass libsumo::FatalTraCIError;
 
-%pythonprepend libsumo::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
+%pythonprepend SWIG_MODULE::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, int, int) %{
     args = [str(a) for a in args[:13]] + list(args[13:])
@@ -328,9 +345,61 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             kwargs[key] = str(val)
 %}
 
-%pythonappend libsumo::Vehicle::getLeader(const std::string&, double) %{
+%pythonappend SWIG_MODULE::Vehicle::getLeader(const std::string&, double) %{
     if val[0] == "" and vehicle._legacyGetLeader:
         return None
+%}
+
+%define SUBSCRIBE_HELPER(domain)
+%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 1 and args[1] is None:
+        args = (args[0], [-1]) + args[2:]
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+%}
+
+%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+%}
+%enddef
+
+SUBSCRIBE_HELPER(Edge)
+SUBSCRIBE_HELPER(GUI)
+SUBSCRIBE_HELPER(InductionLoop)
+SUBSCRIBE_HELPER(Junction)
+SUBSCRIBE_HELPER(Lane)
+SUBSCRIBE_HELPER(LaneArea)
+SUBSCRIBE_HELPER(MultiEntryExit)
+SUBSCRIBE_HELPER(Person)
+SUBSCRIBE_HELPER(POI)
+SUBSCRIBE_HELPER(Polygon)
+SUBSCRIBE_HELPER(Route)
+SUBSCRIBE_HELPER(TrafficLight)
+SUBSCRIBE_HELPER(Vehicle)
+SUBSCRIBE_HELPER(VehicleType)
+SUBSCRIBE_HELPER(Calibrator)
+SUBSCRIBE_HELPER(BusStop)
+SUBSCRIBE_HELPER(ParkingArea)
+SUBSCRIBE_HELPER(ChargingStation)
+SUBSCRIBE_HELPER(OverheadWire)
+SUBSCRIBE_HELPER(Rerouter)
+SUBSCRIBE_HELPER(MeanData)
+SUBSCRIBE_HELPER(VariableSpeedSign)
+SUBSCRIBE_HELPER(RouteProbe)
+
+%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 1 and args[1] is None:
+        args = (args[0], [-1]) + args[2:]
+%}
+
+%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
 %}
 
 #endif // SWIGPYTHON
@@ -340,7 +409,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 // ignore constant conditional expression (C4127) and unreachable/unsafe code warnings
 // and hidden local declaration (C4456), uninitialized variable (C4701), assignment in conditional expression (C4706)
 // also see config.h.cmake
-#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710)
+#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710 4668)
 #else
 // ignore unused parameter warnings for vector template code
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -412,7 +481,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             std::cerr << "Error: " << s << std::endl;
         }
 #ifdef SWIGPYTHON
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), PyUnicode_FromString(s.c_str()));
+        PyErr_SetString(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), s.c_str());
         SWIG_fail;
 #else
         SWIG_exception(SWIG_ValueError, s.c_str());
@@ -431,7 +500,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             std::cerr << "Error: " << s << std::endl;
         }
 #ifdef SWIGPYTHON
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), PyUnicode_FromString(s.c_str()));
+        PyErr_SetString(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), s.c_str());
         SWIG_fail;
 #else
         SWIG_exception(SWIG_UnknownError, s.c_str());
@@ -440,5 +509,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         SWIG_exception(SWIG_UnknownError, "unknown exception");
     }
 }
+
+#if SWIG_VERSION < 0x040100 && defined(SWIGJAVA)
+// see https://github.com/supranational/blst/issues/53
+/* SWIG versions prior 4.1 were crossing the MinGW's ways on the path
+ * to JNI 'jlong' type */
+%begin %{
+#if defined(__MINGW32__) && defined(__int64)
+# undef __int64
+#endif
+%}
+#endif // SWIGJAVA
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;

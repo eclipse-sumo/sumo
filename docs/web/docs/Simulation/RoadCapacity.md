@@ -28,7 +28,7 @@ front-bumper to reach the location of the leaders rear-bumper.
 # Computing Headways
 
 The exact time headways observed in the simulation depend on the used
-carFollowModel and it's parameters. The easiest case to analyze is the one where all
+carFollowModel and its parameters. The easiest case to analyze is the one where all
 vehicles drive at the same speed *s*.
 
 Let `grossHeadway` denote the distance between successive vehicle front-bumpers
@@ -54,7 +54,7 @@ From this we can directly compute the time headways:
 - `netTimeHeadway = minGap / s + tau`
 - `grossTimeHeadway = (length + minGap) / s + tau`
 
-Due to length and minGap, the capacity of a road depends on it's speed limit (whereas
+Due to length and minGap, the capacity of a road depends on its speed limit (whereas
 the tau component is independent of speed).
 At high road speeds, the tau component is the dominant factor whereas length and minGap dominate at low speeds.
 
@@ -75,7 +75,7 @@ reasons
 
 The following table shows road capacities that can be achieved at vehicle
 insertion depending on the used vType and insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 2482 veh/hour.
-The script which produces the data points for the table below can be found [here](https://github.com/eclipse/sumo/tree/main/tests/complex/sumo/insertionCapacity).
+The script which produces the data points for the table below can be found [here](https://github.com/eclipse-sumo/sumo/tree/main/tests/complex/sumo/insertionCapacity).
 
 | sigma | speedDev | departSpeed | capacity | capacity <br/> --step-length 0.1 | capacity <br/> --extrapolate-departpos | capacity <br/> --step-length 0.1 <br/> --extrapolate-departpos |
 | ----- | -------- | ----------- | -------- | ---------- | -------- | -------- |
@@ -100,4 +100,5 @@ The script which produces the data points for the table below can be found [here
 Comments
 
 - default departSpeed is '0' which gives the worst possible insertion capacity
-- step-length has a side effect on the average speed reduction from sigma (this is an implementation problem that should be fixed eventually)
+- default sigma is '0.5' and default speedDev for passenger cars is 0.1
+- for the default *Krauss* model, step-length has a side effect on the average speed reduction from sigma (this can be remedied by setting `sigmaStep="1"` in the `vType`)

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include "GUIE2Collector.h"
@@ -42,17 +43,23 @@
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                MSLane* lane, double startPos, double endPos, double detLength,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, int detectPersons, bool showDetector)
+                               double jamDistThreshold,
+                               const std::string name, const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons),
+                    haltingSpeedThreshold, jamDistThreshold, name, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                std::vector<MSLane*> lanes, double startPos, double endPos,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, int detectPersons, bool showDetector)
+                               double jamDistThreshold,
+                               const std::string name, const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons),
+                    haltingSpeedThreshold, jamDistThreshold, name, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}
@@ -68,7 +75,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
-    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E2)),
     myDetector(detector) {
     mySupportsOverride = true;
     // collect detector shape into one vector (v)
@@ -119,30 +126,52 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
-    ret->mkItem("length [m]", false, myDetector.getLength());
-    ret->mkItem("position [m]", false, myDetector.getStartPos());
-    ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem(TL("name"), false, myDetector.getName());
+    ret->mkItem(TL("length [m]"), false, myDetector.getLength());
+    ret->mkItem(TL("position [m]"), false, myDetector.getStartPos());
+    ret->mkItem(TL("lane"), false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
     // values
-    ret->mkItem("vehicles [#]", true,
+    ret->mkItem(TL("vehicles [#]"), true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));
-    ret->mkItem("occupancy [%]", true,
+    ret->mkItem(TL("occupancy [%]"), true,
                 new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentOccupancy));
-    ret->mkItem("mean speed [m/s]", true,
+    ret->mkItem(TL("mean speed [m/s]"), true,
                 new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentMeanSpeed));
-    ret->mkItem("mean vehicle length [m]", true,
+    ret->mkItem(TL("mean vehicle length [m]"), true,
                 new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentMeanLength));
-    ret->mkItem("jam number [#]", true,
+    ret->mkItem(TL("jam number [#]"), true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentJamNumber));
-    ret->mkItem("max jam length [veh]", true,
+    ret->mkItem(TL("max jam length [veh]"), true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInVehicles));
-    ret->mkItem("max jam length [m]", true,
+    ret->mkItem(TL("max jam length [m]"), true,
                 new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInMeters));
-    ret->mkItem("jam length sum [veh]", true,
+    ret->mkItem(TL("jam length sum [veh]"), true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentJamLengthInVehicles));
-    ret->mkItem("jam length sum [m]", true,
+    ret->mkItem(TL("jam length sum [m]"), true,
                 new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentJamLengthInMeters));
-    ret->mkItem("started halts [#]", true,
+    ret->mkItem(TL("started halts [#]"), true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
+    ret->mkItem(TL("interval seen vehicles [#]"), true,
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getIntervalVehicleNumber));
+    ret->mkItem(TL("interval speed [m/s]"), true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getIntervalMeanSpeed));
+    ret->mkItem(TL("interval occupancy [%]"), true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getIntervalOccupancy));
+    ret->mkItem(TL("interval max jam length [m]"), true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getIntervalMaxJamLengthInMeters));
+    ret->mkItem(TL("last interval seen vehicles [#]"), true,
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getLastIntervalVehicleNumber));
+    ret->mkItem(TL("last interval speed [m/s]"), true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getLastIntervalMeanSpeed));
+    ret->mkItem(TL("last interval occupancy [%]"), true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getLastIntervalOccupancy));
+    ret->mkItem(TL("last interval max jam length [m]"), true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getLastIntervalMaxJamLengthInMeters));
+
+
     // close building
     ret->closeBuilding(&myDetector);
     return ret;
@@ -156,7 +185,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     double dwidth = 1;
     const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {

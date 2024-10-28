@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/24/17 12:37:25 by SUMO duarouter Version dev-SVN-r24439
+<!-- generated on 2023-01-09 12:27:54 by Eclipse SUMO duarouter Version v1_15_0+1463-48faf3a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <trip-files value="input_trips.trips.xml"/>
+        <route-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
     </output>
 
     <report>
@@ -94,6 +100,12 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
     <vType id="lateralStuff" maxSpeedLat="2.00" latAlignment="compact" minGapLat="0.50"/>
     <vehicle id="11" type="lateralStuff" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="12" boardingDuration="2.00" loadingDuration="20.00" timeToTeleport="200.00"/>
+    <vehicle id="12" type="12" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>

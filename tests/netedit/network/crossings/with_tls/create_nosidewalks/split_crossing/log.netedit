@@ -1,0 +1,8 @@
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
+Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [E1] (no walkingarea found).
+Warning: Discarding invalid crossing ':Junction5_c1' at junction 'Junction5' with edges [-E1] (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
+Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [E1] (no walkingarea found).
+Warning: Discarding invalid crossing ':Junction5_c1' at junction 'Junction5' with edges [-E1] (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.

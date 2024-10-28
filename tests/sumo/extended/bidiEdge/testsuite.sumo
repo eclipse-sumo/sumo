@@ -1,0 +1,51 @@
+# small extract from the dorpfeldstr. scenario (https://github.com/DLR-TS/sumo-scenarios/tree/main/Doerpfeldstr)
+Doerpfeldstr
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
+2edges_between
+
+# bidi edge where not all lanes have a bidilane
+multilane
+
+# load curved edge with shared median lane
+# (test/netconvert/import/XML/bidi/curved)
+curved
+
+# simulated shared median lane for turning (Two-Way-Left-Turn-lane)
+TWLT
+
+# successive vehicles driving on the shared median lane
+TWLT_sequence
+
+# successive vehicles driving on the shared median lane in both directions
+TWLT_bidi_sequence
+
+# median lane is shared with tram
+TWLT_tram
+
+# transition between shared median lane and unshared lanes
+TWLT_end
+
+# vehicle entering bidi lane from side road
+TWLT_side
+
+# multiple vehicles entering bidi lane from side road
+TWLT_side2
+
+# multiple vehicles entering bidi lane from side road
+TWLT_tls
+
+# multiple vehicles entering bidi lane from side road
+TWLT_tls2
+
+# multiple vehicles entering bidi lane from side road, the side road targest the bidi lane as well as another lane
+TWLT_tls_2cons
+
+# multiple vehicles entering bidi lane from side road, the side road targest the bidi lane as well as another lane
+TWLT_tls_2cons2
+
+# simulated shared median lane for turning (Two-Way-Left-Turn-lane)
+TWLT_insertion
+
+# simulated shared median lane for turning (Two-Way-Left-Turn-lane)
+TWLT_insertion2

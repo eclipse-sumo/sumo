@@ -1,0 +1,7 @@
+-r input_routes.rou.xml --edgedata-file input_edgedata.xml 
+--edgedata-attribute count
+-o out.rou.xml 
+-I --write-flows number
+--weighted
+--total-count 500
+-v

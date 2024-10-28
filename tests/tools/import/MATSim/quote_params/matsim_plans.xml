@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+
+<population>
+
+	<person id="100009">
+		<attributes>
+			<attribute name="age" class="java.lang.Integer" >49</attribute>
+			<attribute name="carAvail" class="java.lang.String" >always</attribute>
+			<attribute name="employed" class="java.lang.Boolean" >true</attribute>
+			<attribute name="hasLicense" class="java.lang.String" >yes</attribute>
+			<attribute name="sex" class="java.lang.String" >m</attribute>
+            <attribute name="vehicles" class="java.lang.String" >{"car":"12"}</attribute>
+		</attributes>
+		<plan score="98.30671358262963" selected="yes">
+			<activity type="home" link="13758" x="4522066.758592226" y="5833235.1507656025" start_time="00:01:00" end_time="08:00:00" >
+			</activity>
+			<leg mode="car" dep_time="08:00:00" trav_time="00:04:00">
+				<route type="links" start_link="13758" end_link="14465" trav_time="00:04:00" distance="8019.0">13758 14271 14269 14273 14468 14267 14465</route>
+			</leg>
+			<activity type="work" link="14465" x="4526236.861219339" y="5835127.011073385" start_time="08:00:00" end_time="24:00:00" >
+			</activity>
+			<leg mode="car" dep_time="16:04:00" trav_time="00:04:00">
+				<route type="links" start_link="14465" end_link="13758" trav_time="00:04:00" distance="7647.0">14465 14442 14451 13758</route>
+			</leg>
+			<activity type="home" link="13758" x="4522066.758592226" y="5833235.1507656025" start_time="11:33:00" end_time="24:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+
+
+</population>

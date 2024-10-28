@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-25 10:55:06 by Eclipse SUMO netedit Version v1_18_0+0511-d8469bdc8ac
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="routeA" edges="Edge0 Edge1 Edge2" color="yellow"/>
+    <route id="routeB" edges="Edge3 Edge4 Edge5" color="yellow"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="vehicleA" depart="1.00" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" color="red" line="line A" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all" route="routeA">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </vehicle>
+    <vehicle id="vehicleB" depart="2.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" insertionChecks="leaderGap junction speedLimit pedestrian all" route="routeB">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </vehicle>
+</routes>

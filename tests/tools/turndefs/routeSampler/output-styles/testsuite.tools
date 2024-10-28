@@ -8,6 +8,15 @@ write-route-distribution
 write-flows-number
 write-flows-probability
 
+# Copy of write-flows-probability
+write-flows-poisson
+
+# probability would exceed 1
+write-flows-probability_high
+
+# probability would exceed 1
+write-flows-poission_high
+
 # -f number -i
 f-number-i
 f-probability-i

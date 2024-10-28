@@ -1,4 +1,0 @@
-#leak:libfontconfig.so
-#leak:libc.so
-leak:xercesc_3_2::MemoryManagerImpl::allocate
-leak:ucnv_createConverterFromSharedData

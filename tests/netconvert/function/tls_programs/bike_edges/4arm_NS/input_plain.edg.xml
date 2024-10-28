@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-16 10:29:32 by Eclipse SUMO netconvert Version v1_15_0+0313-865f64f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="clusterC_J1_J2_J5_#1more" to="E" priority="2" numLanes="2" speed="13.89" shape="100.00,100.00 200.00,100.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="CN" from="clusterC_J1_J2_J5_#1more" to="N" priority="2" numLanes="2" speed="13.89" shape="100.00,100.00 100.00,200.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="CS" from="clusterC_J1_J2_J5_#1more" to="S" priority="2" numLanes="2" speed="13.89" shape="100.00,100.00 100.00,0.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="CW" from="clusterC_J1_J2_J5_#1more" to="W" priority="2" numLanes="2" speed="13.89" shape="100.00,100.00 0.00,100.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="E0" from="J0" to="clusterC_J1_J2_J5_#1more" priority="-1" numLanes="1" speed="13.89" shape="114.24,3.64 112.97,86.67" allow="bicycle"/>
+    <edge id="E1" from="clusterC_J1_J2_J5_#1more" to="J3" priority="-1" numLanes="1" speed="13.89" shape="113.34,113.94 112.00,198.21" allow="bicycle"/>
+    <edge id="E2" from="J4" to="clusterC_J1_J2_J5_#1more" priority="-1" numLanes="1" speed="13.89" shape="86.55,197.44 87.06,113.97" allow="bicycle"/>
+    <edge id="E3" from="clusterC_J1_J2_J5_#1more" to="J7" priority="-1" numLanes="1" speed="13.89" shape="87.53,86.34 87.57,1.49" allow="bicycle"/>
+    <edge id="EC" from="E" to="clusterC_J1_J2_J5_#1more" priority="2" numLanes="3" speed="13.89" shape="200.00,100.00 100.00,100.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="NC" from="N" to="clusterC_J1_J2_J5_#1more" priority="2" numLanes="3" speed="13.89" shape="100.00,200.00 100.00,100.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="SC" from="S" to="clusterC_J1_J2_J5_#1more" priority="2" numLanes="3" speed="13.89" shape="100.00,0.00 100.00,100.00" spreadType="roadCenter" disallow="bicycle"/>
+    <edge id="WC" from="W" to="clusterC_J1_J2_J5_#1more" priority="2" numLanes="3" speed="13.89" shape="0.00,100.00 100.00,100.00" spreadType="roadCenter" disallow="bicycle"/>
+</edges>

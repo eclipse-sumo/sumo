@@ -7,6 +7,8 @@ interval15s
 # One output; sampling at 60s
 interval60s
 
+# One output; sampling at 60s, aggregated over the whole network
+interval60s_aggregate
+
 # Two outputs; one sampling at 15s, one at 60s
 interval15s60s
-

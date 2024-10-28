@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,6 +34,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class SUMOSAXAttributes;
 
 
 // ===========================================================================
@@ -142,6 +143,30 @@ public:
      * @return The model's ID
      */
     virtual LaneChangeModel getModelID() const = 0;
+
+    /** @brief Informs the vehicle that it is about to be moved on an adjacent lane.
+     * The method can be used to re-evaluate the state of the vehicle and potentially abort the lane change.
+     * By default, if the method is not overridden by the lane change model implementation, nothing is altered and the vehicle will perform the lane change.
+     * @param veh the lane changing vehicle
+     * @param state current lane change state
+     * @return the blocked status of the vehicle. If the vehicle should perform the lane change, the method should return 0, corresponding to non-blocked.
+     * Otherwise the method should return a non-zero state, corresponding to the type of blockage.
+     */
+    virtual int checkChangeBeforeCommitting(const MSVehicle* veh, int state) const {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(state);
+        return 0;
+    }
+
+    /** @brief Save the state of the laneChangeModel
+     * @param[in] out The OutputDevice to write the information into
+     */
+    virtual void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the laneChangeModel from the given attributes
+     * @param[in] attrs XML attributes describing the current state
+     */
+    virtual void loadState(const SUMOSAXAttributes& attrs);
 
     /// @brief whether lanechange-output is active
     static bool haveLCOutput() {
@@ -457,7 +482,22 @@ public:
     int getShadowDirection() const;
 
     /// @brief return the angle offset during a continuous change maneuver
-    double getAngleOffset() const;
+    double calcAngleOffset();
+
+    /// @brief return the angle offset resulting from lane change and sigma
+    inline double getAngleOffset() const {
+        return myAngleOffset;
+    }
+
+    /// @brief set the angle offset resulting from lane change and sigma
+    inline void setAngleOffset(const double angleOffset) {
+        myAngleOffset = angleOffset;
+    }
+
+    /// @brief set the angle offset of the previous time step
+    inline void setPreviousAngleOffset(const double angleOffset) {
+        myPreviousAngleOffset = angleOffset;
+    }
 
     /// @brief reset the flag whether a vehicle already moved to false
     inline bool alreadyChanged() const {
@@ -549,6 +589,10 @@ public:
         return mySpeedLat;
     }
 
+    /* @brief reset the angle (in case no lane changing happens in this step
+     * and the maneuver was finished in the previous step) */
+    virtual void resetSpeedLat();
+
     /// @brief return the lateral speed of the current lane change maneuver
     double getAccelerationLat() const {
         return myAccelerationLat;
@@ -592,6 +636,10 @@ public:
         return myHaveBlueLight;
     }
 
+    virtual LatAlignmentDefinition getDesiredAlignment() const {
+        return myVehicle.getVehicleType().getPreferredLateralAlignment();
+    }
+
     static const double NO_NEIGHBOR;
 
 protected:
@@ -599,11 +647,22 @@ protected:
 
     virtual bool predInteraction(const std::pair<MSVehicle*, double>& leader);
 
+    virtual bool avoidOvertakeRight() const;
+
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state, int laneOffset);
 
     /// @brief return the max of maxSpeedLat and lcMaxSpeedLatStanding
     double getMaxSpeedLat2() const;
+
+    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
+     *         and stores it into myLCAccelerationAdvices.
+     *  @note  This construction was introduced to deal with action step lengths,
+     *         where operation on the speed in the next sim step had to be replaced by acceleration
+     *         throughout the next action step.
+     */
+    void addLCSpeedAdvice(const double vSafe, bool ownAdvice = true);
+
 
 protected:
     /// @brief The vehicle this lane-changer belongs to
@@ -636,6 +695,12 @@ protected:
 
     /// @brief the current lateral acceleration
     double myAccelerationLat;
+
+    /// @brief the current angle offset resulting from lane change and sigma
+    double myAngleOffset;
+
+    /// @brief the angle offset of the previous time step resulting from lane change and sigma
+    double myPreviousAngleOffset;
 
     /// @brief the speed when committing to a change maneuver
     double myCommittedSpeed;
@@ -719,6 +784,8 @@ protected:
     double myMaxDistLatStanding;
     // @brief factor for lane keeping imperfection
     double mySigma;
+    // allow overtaking right even though it is prohibited
+    double myOvertakeRightParam;
 
     /// @brief whether this vehicle is driving with special permissions and behavior
     bool myHaveBlueLight;
@@ -726,6 +793,11 @@ protected:
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */
     void initLastLaneChangeOffset(int dir);
+
+    /* @brief vector of LC-related acceleration recommendations combined with a
+     * boolean to indicate whether the advice is from ego or someone else.
+     * Filled in wantsChange() and applied in patchSpeed() */
+    std::vector<std::pair<double, bool> > myLCAccelerationAdvices;
 
     /// @brief whether overtaking on the right is permitted
     static bool myAllowOvertakingRight;

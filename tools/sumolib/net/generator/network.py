@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -16,10 +16,15 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import sumolib
 import os
+import sys
 import subprocess
 import tempfile
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(os.path.join(tools))
+import sumolib  # noqa
 
 
 class Node:
@@ -168,9 +173,7 @@ class Net:
         splits = []
         for s in defEdge.splits:
             splits.append(s)
-        lanes = []
-        for l in defEdge.lanes:
-            lanes.append(l)
+        lanes = list(defEdge.lanes)
         numLanes = defEdge.numLanes
         maxSpeed = defEdge.maxSpeed
         e = Edge(n1.nid + "_to_" + n2.nid, n1, n2, numLanes=numLanes,

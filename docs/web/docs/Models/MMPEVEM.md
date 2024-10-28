@@ -22,7 +22,7 @@ represent auxiliary devices such as air conditioning, and the battery.
 
 To utilise MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
 the vehicles you are interested in and add the following parameter:
-```
+```xml
 <param key="has.battery.device" value="true"/>
 ```
 Equipping the `vType` with a battery device is necessary because it triggers the
@@ -42,7 +42,7 @@ consumption.
 ## Model Parameters
 
 MMPEVEM shares a lot of SUMO's
-[native electric vehicle parameters](Electric.md#defining-electric-vehicles) and
+[native electric vehicle parameters](Electric.md#defining_electric_vehicles) and
 introduces only a couple of new ones. You can find exemplary vehicle type
 definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
@@ -68,7 +68,7 @@ definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
 [^1]: For the sake of compatibility, the XMLs in
   `{SUMO_HOME}/data/emissions/MMPEVEM` contain all
-  [native electric vehicle parameters](Electric.md#defining-electric-vehicles).
+  [native electric vehicle parameters](Electric.md#defining_electric_vehicles).
 [^2]: All operating points result in a power loss of 0 W in the default map.
 
 
@@ -123,7 +123,7 @@ script require MATLAB® 2017 or newer.
 
 This is an example `vType` definition of a generic electric SUV and was taken
 from `{SUMO_HOME}/data/emissions/MMPEVEM/SUV.xml`.
-```
+```xml
 <vType id="SUV" vClass="passenger" emissionClass="MMPEVEM" actionStepLength="1.0">
   <param key="has.battery.device" value="true"/>
   <param key="vehicleMass" value="2100"/>
@@ -172,4 +172,3 @@ torque and power are clipped to the motor's limits during recuperation.
 consumption in the SUMO traffic microsimulator," 2021 IEEE International
 Intelligent Transportation Systems Conference (ITSC), 2021, pp. 1650-1657, doi:
 10.1109/ITSC48978.2021.9564463](https://doi.org/10.1109/ITSC48978.2021.9564463)
-

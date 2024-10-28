@@ -1,0 +1,25 @@
+/* XPM */
+static const char *accept_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"x c #26AD87",
+"o c #FFFFFF",
+"  c None",
+/* pixels */
+"     xxxxxx     ",
+"   xxxxxxxxxx   ",
+"  xxxxxxxxxxxx  ",
+" xxxxxxxxxxxxxx ",
+" xxxxxxxxxxxxxx ",
+"xxxxxxxxxxxoxxxx",
+"xxxxxxxxxxooxxxx",
+"xxxxxxxxxooxxxxx",
+"xxxxoxxxooxxxxxx",
+"xxxxooxooxxxxxxx",
+"xxxxxoooxxxxxxxx",
+" xxxxxoxxxxxxxx ",
+" xxxxxxxxxxxxxx ",
+"  xxxxxxxxxxxx  ",
+"   xxxxxxxxxx   ",
+"     xxxxxx     "
+};

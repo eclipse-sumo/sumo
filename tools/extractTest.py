@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2009-07-08
 
 """
@@ -45,27 +46,28 @@ SOURCE_DEST_SEP = ';'
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(usage="%prog <options> <test directory>")
-    optParser.add_option("-o", "--output", default=".", help="send output to directory")
-    optParser.add_option("-f", "--file", help="read list of source and target dirs from")
-    optParser.add_option("-p", "--python-script",
+    optParser = sumolib.options.ArgumentParser(usage="%(prog)s <options> [<test directory>[;<target_directory>]]*")
+    optParser.add_option("-o", "--output", category="output",  default=".", help="send output to directory")
+    optParser.add_option("-f", "--file", category="input", help="read list of source and target dirs from")
+    optParser.add_option("-p", "--python-script", category="input",
                          help="name of a python script to generate for a batch run")
-    optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
+    optParser.add_option("-i", "--intelligent-names", category="processing", dest="names", action="store_true",
                          default=False, help="generate cfg name from directory name")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="more information")
-    optParser.add_option("-a", "--application", help="sets the application to be used")
-    optParser.add_option("-s", "--skip-configuration", default=False, action="store_true",
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
+                         help="more information")
+    optParser.add_option("-a", "--application", category="processing", help="sets the application to be used")
+    optParser.add_option("-s", "--skip-configuration", category="processing", default=False, action="store_true",
                          help="skips creation of an application config from the options.app file")
-    optParser.add_option("-x", "--skip-validation", default=False, action="store_true",
+    optParser.add_option("-x", "--skip-validation", category="processing", default=False, action="store_true",
                          help="remove all options related to XML validation")
-    optParser.add_option("-d", "--no-subdir", dest="noSubdir", action="store_true",
+    optParser.add_option("-d", "--no-subdir", category="processing", dest="noSubdir", action="store_true",
                          default=False, help="store test files directly in the output directory")
-    optParser.add_option("--depth", type=int, default=1, help="maximum depth when descending into testsuites")
-    options, args = optParser.parse_known_args(args)
-    if not options.file and len(args) == 0:
-        optParser.print_help()
-        sys.exit(1)
-    options.args = args
+    optParser.add_option("--depth", category="processing", type=int, default=1,
+                         help="maximum depth when descending into testsuites")
+    optParser.add_option("test_dir", nargs="*", category="input", help="read list of source and target dirs from")
+    options = optParser.parse_args(args)
+    if not options.file and not options.test_dir:
+        optParser.error("Please specify either an input file or a test directory")
     return options
 
 
@@ -101,7 +103,7 @@ def main(options):
                 ls[0] = join(dirname, ls[0])
                 ls[1] = join(dirname, ls[1])
                 targets.append(ls[:3])
-    for val in options.args:
+    for val in options.test_dir:
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
     depth = options.depth
@@ -127,12 +129,13 @@ def main(options):
         if not os.path.exists(os.path.dirname(options.python_script)):
             os.makedirs(os.path.dirname(options.python_script))
         pyBatch = open(options.python_script, 'w')
-        pyBatch.write('''import subprocess, sys, os
+        pyBatch.write('''#!/usr/bin/env python
+import subprocess, sys, os, multiprocessing
 from os.path import abspath, dirname, join
 THIS_DIR = abspath(dirname(__file__))
 SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(THIS_DIR)))
 os.environ["SUMO_HOME"] = SUMO_HOME
-for d, p in [
+calls = [
 ''')
     for source, target, app in targets:
         optionsFiles = defaultdict(list)
@@ -217,6 +220,8 @@ for d, p in [
                             idx = appOptions.index(o)
                             if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
                                 del appOptions[idx:idx+2]
+                            else:
+                                del appOptions[idx:idx+1]
                         newOptions.append(o)
                         if "=" in o:
                             o = o.split("=")[-1]
@@ -228,6 +233,10 @@ for d, p in [
                 nameBase = os.path.basename(target)
             if "." in variant:
                 nameBase += variant.split(".")[-1]
+            isNetdiff = False
+            for a in appOptions:
+                if "netdiff.py" in a:
+                    isNetdiff = True
             exclude = []
             # gather copy_test_path exclusions
             for configFile in cfg:
@@ -242,7 +251,7 @@ for d, p in [
                     for line in config:
                         entry = line.strip().split(':')
                         if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
-                            if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                            if "net" in app or isNetdiff or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
                                 toCopy = potentials[entry[1]][0]
                                 if os.path.isdir(toCopy):
                                     # copy from least specific to most specific
@@ -271,13 +280,17 @@ for d, p in [
                     call = ['join(SUMO_HOME, "bin", "%s")' % app] + ['"%s"' % a for a in appOptions]
                 prefix = os.path.commonprefix((testPath, os.path.abspath(pyBatch.name)))
                 up = os.path.abspath(pyBatch.name)[len(prefix):].count(os.sep) * "../"
-                pyBatch.write('    (r"%s", subprocess.Popen([%s], cwd=join(THIS_DIR, r"%s%s"))),\n' %
+                pyBatch.write('    (r"%s", [%s], r"%s%s"),\n' %
                               (testPath[len(prefix):], ', '.join(call), up, testPath[len(prefix):]))
             if options.skip_configuration:
                 continue
             oldWorkDir = os.getcwd()
             os.chdir(testPath)
             haveConfig = False
+            # look for python executable
+            pythonPath = os.environ["PYTHON"] if "PYTHON" in os.environ else os.environ.get("PYTHON_HOME", "python")
+            if os.path.isdir(pythonPath):
+                pythonPath = os.path.join(pythonPath, "python")
             if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
                        "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
                 if app == "netgen":
@@ -298,7 +311,7 @@ for d, p in [
                 for i, a in enumerate(appOptions):
                     if a.endswith(".py"):
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), '"$SUMO_HOME/%s"' % a]
+                        appOptions[0:0] = [pythonPath, '"$SUMO_HOME/%s"' % a]
                         break
                     if a.endswith(".jar"):
                         del appOptions[i:i+1]
@@ -312,16 +325,17 @@ for d, p in [
                         else:
                             a = '"$SUMO_HOME/%s"' % a
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), a]
+                        appOptions[0:0] = [pythonPath, a]
                         break
             if not haveConfig:
                 if options.verbose:
                     print("generating shell scripts for testPath '%s' with call '%s'" %
                           (testPath, " ".join(appOptions)))
-                cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
+                cmd = [ao if " " not in ao else "'%s'" % ao for ao in appOptions]
                 with open(nameBase + ".sh", "w") as sh:
+                    sh.write("#!/bin/bash\n")
                     sh.write(" ".join(cmd))
-                os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)
+                os.chmod(sh.name, os.stat(sh.name).st_mode | stat.S_IXUSR)
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
                 with open(nameBase + ".bat", "w") as bat:
                     bat.write(" ".join(cmd))
@@ -329,10 +343,23 @@ for d, p in [
         if not haveVariant:
             print("No suitable variant found for %s." % source, file=sys.stderr)
     if options.python_script:
-        pyBatch.write("""]:
-    if p.wait() != 0:
-        print("Error: '%s' failed for '%s'!" % (" ".join(p.args), d))
-        sys.exit(1)\n""")
+        pyBatch.write("""]
+procs = []
+def check():
+    for d, p in procs:
+        if p.wait() != 0:
+            print("Error: '%s' failed for '%s'!" % (" ".join(getattr(p, "args", [str(p.pid)])), d))
+            sys.exit(1)
+
+for dir, call, wd in calls:
+    procs.append((dir, subprocess.Popen(call, cwd=join(THIS_DIR, wd))))
+    if len(procs) == multiprocessing.cpu_count():
+        check()
+        procs = []
+check()
+""")
+        pyBatch.close()
+        os.chmod(pyBatch.name, os.stat(pyBatch.name).st_mode | stat.S_IXUSR)
 
 
 if __name__ == "__main__":

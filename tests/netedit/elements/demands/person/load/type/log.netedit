@@ -1,0 +1,4 @@
+Error: Attribute 'type' in definition of person 'p_1' is empty.
+Error: Invalid vehicle type 'dummyType' used in person 'p_2'.
+Error: invalid person parent
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct084114.23372\netedit.gui\elements\demands\person\load\type\routes.rou.xml failed.

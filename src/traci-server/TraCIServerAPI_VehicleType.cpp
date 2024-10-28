@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,9 +71,12 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != libsumo::VAR_TAU && variable != libsumo::VAR_COLOR && variable != libsumo::VAR_ACTIONSTEPLENGTH
             && variable != libsumo::VAR_SCALE
             && variable != libsumo::VAR_HEIGHT
+            && variable != libsumo::VAR_MASS
             && variable != libsumo::VAR_MINGAP_LAT
             && variable != libsumo::VAR_MAXSPEED_LAT
             && variable != libsumo::VAR_LATALIGNMENT
+            && variable != libsumo::VAR_BOARDING_DURATION
+            && variable != libsumo::VAR_IMPATIENCE
             && variable != libsumo::VAR_PARAMETER
             && variable != libsumo::COPY
        ) {
@@ -128,6 +131,17 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid height.", outputStorage);
             }
             libsumo::VehicleType::setHeight(id, value);
+        }
+        break;
+        case libsumo::VAR_MASS: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting mass requires a double.", outputStorage);
+            }
+            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                return server.writeErrorStatusCmd(cmd, "Invalid mass.", outputStorage);
+            }
+            libsumo::VehicleType::setMass(id, value);
         }
         break;
         case libsumo::VAR_MAXSPEED: {
@@ -343,6 +357,22 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid headway time.", outputStorage);
             }
             libsumo::VehicleType::setTau(id, value);
+        }
+        break;
+        case libsumo::VAR_IMPATIENCE: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting impatience requires a double.", outputStorage);
+            }
+            libsumo::VehicleType::setImpatience(id, value);
+        }
+        break;
+        case libsumo::VAR_BOARDING_DURATION: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting boardingDuration requires a double.", outputStorage);
+            }
+            libsumo::VehicleType::setBoardingDuration(id, value);
         }
         break;
         case libsumo::VAR_COLOR: {

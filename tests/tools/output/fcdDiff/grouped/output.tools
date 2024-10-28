@@ -1,0 +1,5 @@
+read input_data.xml
+new input_data.xml
+overtaking: count 22, min 0.00 (overtaking_00:00:00), max 3.21 (overtaking_00:00:19), mean 1.44, Q1 0.40, median 1.73, Q3 2.09
+stopped: count 119, min 0.00 (stopped_00:00:00), max 10.34 (stopped_00:01:52), mean 0.84, Q1 0.00, median 0.00, Q3 0.00
+euclidian_error: count 141, min 0.00 (overtaking_00:00:00), max 10.34 (stopped_00:01:52), mean 0.93, Q1 0.00, median 0.00, Q3 0.14

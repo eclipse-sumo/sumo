@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,7 @@
 #include "CHRouter.h"
 
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 
 
@@ -82,7 +82,7 @@ public:
 
     virtual void prohibit(const std::vector<E*>& toProhibit) {
         if (toProhibit.size() > 0) {
-            WRITE_WARNINGF("Routing algorith CHWrapper does not support dynamic closing of edges%", "");
+            WRITE_WARNINGF(TL("Routing algorithm CHWrapper does not support dynamic closing of edges%"), "");
         }
     }
 
@@ -101,8 +101,7 @@ public:
         if (myRouters.count(svc) == 0) {
             // create new router for the given permissions and maximum speed
             // XXX a new router may also be needed if vehicles differ in speed factor
-            myRouters[svc] = new CHRouterType(
-                myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false, false);
+            myRouters[svc] = new CHRouterType(myEdges, myIgnoreErrors, this->myOperation, svc.first, myWeightPeriod, false, false);
         }
         return myRouters[svc]->compute(from, to, vehicle, msTime, into, silent);
     }

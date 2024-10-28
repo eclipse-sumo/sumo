@@ -61,9 +61,9 @@ namespace tcpip
 	{
 		friend class Response;
 	public:
-		/// Constructor that prepare to connect to host:port 
+		/// Constructor that prepare to connect to host:port
 		Socket(std::string host, int port);
-		
+
 		/// Constructor that prepare for accepting a connection on given port
 		Socket(int port);
 
@@ -113,7 +113,6 @@ namespace tcpip
 #ifdef WIN32
 		static std::string GetWinsockErrorString(int err);
 #endif
-		bool atoaddr(std::string, struct sockaddr_in& addr);
 		bool datawaiting(int sock) const;
 
 		std::string host_;

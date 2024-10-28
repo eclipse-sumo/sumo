@@ -1,9 +1,0 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-
-    <!-- non valid vtypes -->
-    <e1Detector id="E1_01" lane="gneE0_0" pos="3" freq="100.00" file="fileA.txt" vTypes="%%% $$$ ;;;" friendlyPos="0"/>
-	
-	<!-- valid vtypes -->
-    <e1Detector id="E1_02" lane="gneE0_0" pos="3" freq="100.00" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
-
-</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <set>
 #include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIDefs.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -139,7 +140,7 @@ public:
     /// @brief vTypes specified by the vTypes filter
     std::set<std::string> filterVTypes;
     /// @brief vClasses specified by the vClasses filter, @see SVCPermissions
-    int filterVClasses;
+    SVCPermissions filterVClasses;
     /// @brief Opening angle (in deg) specified by the field of vision filter
     double filterFieldOfVisionOpeningAngle;
     /// @brief Lateral distance specified by the lateral distance filter
@@ -170,5 +171,3 @@ public:
 
 
 }
-
-

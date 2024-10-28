@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-12-17 15:32:50.720513 by randomTrips.py v1_4_0+0153-3c1468f
+  options: -n ../net.net.xml -o input_routes2.rou.xml -p 10 -e 100 <doubleminus>personrides taxi
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="10.00" departPos="-10">
+        <walk edges="SC CN" arrivalPos="10"/>
+    </person>
+</routes>

@@ -1,4 +1,7 @@
 import_person_plans
+
+# ensure that param values are legal xml
+quote_params
 vehicles_only
 alternative_format
 
@@ -7,3 +10,12 @@ alternative_format_vehicles_only
 
 # Importing bikes and walks
 bikes_walks
+
+# import coordinates instead of edge ids
+coordinates
+
+# import coordinates despite having edge ids
+coordinates_preferred
+
+# import activity end times
+activity

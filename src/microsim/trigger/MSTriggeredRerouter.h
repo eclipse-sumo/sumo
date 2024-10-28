@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,10 +26,11 @@
 #include <string>
 #include <vector>
 #include <utils/common/Command.h>
-#include <microsim/MSMoveReminder.h>
-#include "MSTrigger.h"
+#include <utils/common/Named.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/distribution/RandomDistributor.h>
+#include <microsim/MSMoveReminder.h>
+#include "MSStoppingPlaceRerouter.h"
 
 
 // ===========================================================================
@@ -47,18 +48,18 @@ class MSParkingArea;
 // ===========================================================================
 /**
  * @class MSTriggeredRerouter
- * @brief Reroutes vehicles passing an edge
+ * @brief Reroutes traffic objects passing an edge
  *
- * A rerouter can be positioned on a list of edges and gives vehicles which
- *  arrive one of these edges a new route.
+ * A rerouter can be positioned on a list of edges and gives traffic objects which
+ *  enters one of these edges a new route.
  *
  * The new route may be either chosen from a set of routes where each is
  *  chosen with a certain probability, or newly computed, either by keeping
  *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter :
-    public MSTrigger, public MSMoveReminder,
-    public SUMOSAXHandler {
+    public Named, public MSMoveReminder,
+    public SUMOSAXHandler, MSStoppingPlaceRerouter {
 
     friend class GUIEdge; // dynamic instantiation
 
@@ -70,14 +71,14 @@ public:
      * @param[in] prob The probability the rerouter reoutes vehicles with
      */
     MSTriggeredRerouter(const std::string& id, const MSEdgeVector& edges,
-                        double prob, bool off, SUMOTime timeThreshold,
-                        const std::string& vTypes);
+                        double prob, bool off, bool optional, SUMOTime timeThreshold,
+                        const std::string& vTypes, const Position& pos);
 
 
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
-    typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
+    //typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
 
     /**
      * @struct RerouteInterval
@@ -85,7 +86,7 @@ public:
      */
     struct RerouteInterval {
         /// unique ID for this interval
-        long long id;
+        long long int id;
         /// The begin time these definitions are valid
         SUMOTime begin;
         /// The end time these definitions are valid
@@ -96,14 +97,17 @@ public:
         std::vector<MSLane*> closedLanes;
         /// The list of edges that are affect by closed lanes
         MSEdgeVector closedLanesAffected;
-        /// The distributions of new destinations to use
+        /// The distributions of new destinations or vias to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
-        RandomDistributor<const MSRoute*> routeProbs;
+        RandomDistributor<ConstMSRoutePtr> routeProbs;
         /// The permissions to use
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
-        RandomDistributor<ParkingAreaVisible> parkProbs;
+        //RandomDistributor<ParkingAreaVisible> parkProbs;
+        RandomDistributor<MSStoppingPlaceRerouter::StoppingPlaceVisible> parkProbs;
+        /// The edge probs are vias and not destinations
+        bool isVia = false;
     };
 
     /** @brief Tries to reroute the vehicle
@@ -145,8 +149,10 @@ public:
      */
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
-    /// Returns the rerouting definition valid for the given time and vehicle, 0 if none
-    const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
+    bool triggerRouting(SUMOTrafficObject& veh, MSMoveReminder::Notification reason);
+
+    /// Returns the rerouting definition valid for the given time and object, nullptr if none
+    const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) const;
 
     /// Sets the edge permission if there are any defined in the closingEdge
     SUMOTime setPermissions(const SUMOTime currentTime);
@@ -169,10 +175,45 @@ public:
     /// Returns the rerouting probability given by the user
     double getUserProbability() const;
 
-    double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) const;
+    // @brief return whether this moveReminder triggers parking reroute
+    bool isParkingRerouter() const {
+        return myHaveParkProbs;
+    }
 
+    const Position& getPosition() {
+        return myPosition;
+    }
+
+    /// @brief Return the number of occupied places of the ParkingArea
+    double getStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
+
+    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
+
+    /// @brief Return the number of places the ParkingArea provides
+    double getStoppingPlaceCapacity(MSStoppingPlace* parkingArea);
+
+    /// @brief store the blocked ParkingArea in the vehicle
+    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* parkingArea, bool blocked);
+
+    /// @brief store the score of the ParkingArea in the vehicle
+    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* parkingArea, const std::string& score);
+
+    /// @brief reset all stored ParkingArea scores for this vehicle
+    void resetStoppingPlaceScores(SUMOVehicle& veh);
+
+    /// @brief get the time the ParkingArea was considered full from this vehicle
+    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* parkingArea, bool local);
+
+    /// @brief ask how many times already the vehicle has been rerouted to another stopping place
+    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh);
+
+    /// @brief update the number of reroutes for the vehicle
+    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value);
+
+    /// @brief search for an alternative ParkingArea
     MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
-                                      SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const;
+                                      SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
 
     /// @brief return all rerouter instances
     static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
@@ -181,6 +222,14 @@ public:
 
     /// @brief issues warning for incomplete parkingReroute relationships
     static void checkParkingRerouteConsistency();
+
+    /// @brief provide default values for evaluation components
+    static double getEvalDefaultWeight(std::string& paramName) {
+        if (paramName == "") {
+            return 1.;
+        }
+        return 0.;
+    }
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -206,24 +255,14 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
-    /** @brief Checks whether the detector measures vehicles of the given type.
+    /** @brief Checks whether the detector measures objects of the given type.
     *
-    * @param[in] veh the vehicle of which the type is checked.
+    * @param[in] obj the traffic object of which the type is checked.
     * @return whether it should be measured
     */
-    bool vehicleApplies(const SUMOVehicle& veh) const;
+    bool applies(const SUMOTrafficObject& obj) const;
 
-    typedef std::map<std::string, double> ParkingParamMap_t;
-    typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
-
-    /// determine attributes of candiate parking area for scoring
-    bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
-                       MSParkingArea* pa, double paOccupancy, double prob,
-                       SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-                       MSParkingAreaMap_t& parkAreas,
-                       std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
-                       std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
-                       ParkingParamMap_t& maxValues) const;
+    static bool affected(const std::set<SUMOTrafficObject::NumericalID>& edgeIndices, const MSEdgeVector& closed);
 
 protected:
     /// @brief edges where vehicles are notified
@@ -238,31 +277,23 @@ protected:
     /// Information whether the current rerouting probability is the user-given
     bool myAmInUserMode;
 
+    /// Information whether the rerouting will only take place on request
+    bool myAmOptional;
+
+    /// Where are we located in the network
+    Position myPosition;
+
     // @brief waiting time threshold for activation
     SUMOTime myTimeThreshold;
 
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
 
-    /// @name members used during loading
-    //@{
+    /// used during loading
+    RerouteInterval myParsedRerouteInterval;
 
-    /// The first and the last time steps of the interval
-    SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
-    /// List of closed edges
-    MSEdgeVector myCurrentClosed;
-    /// List of closed lanes
-    std::vector<MSLane*> myCurrentClosedLanes;
-    /// List of permissions for closed edges
-    SVCPermissions myCurrentPermissions;
-    /// new destinations with probabilities
-    RandomDistributor<ParkingAreaVisible> myCurrentParkProb;
-    /// new destinations with probabilities
-    RandomDistributor<MSEdge*> myCurrentEdgeProb;
-    /// new routes with probabilities
-    RandomDistributor<const MSRoute*> myCurrentRouteProb;
-    //@}
-
+    /// whether this rerouter has loaded parkingReroute definitions
+    bool myHaveParkProbs;
 
     /// @brief special destination values
     static MSEdge mySpecialDest_keepDestination;

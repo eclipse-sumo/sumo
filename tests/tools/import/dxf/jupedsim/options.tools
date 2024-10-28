@@ -1,0 +1,1 @@
+input.dxf -o out.add.xml tools/import/dxf/dxf2jupedsim.py

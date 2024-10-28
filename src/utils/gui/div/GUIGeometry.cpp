@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GUIGeometry.h"
 
@@ -125,8 +126,8 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape
 
 
 void
-GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
-                            const Position& extraFirstPosition, const Position& extraLastPosition) {
+GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, const Position& extraFirstPosition,
+                            double endTrimPosition, const Position& extraLastPosition) {
     // first clear geometry
     clearGeometry();
     // set new shape
@@ -177,6 +178,14 @@ GUIGeometry::updateSinglePosGeometry(const Position& position, const double rota
     // set position and rotation
     myShape.push_back(position);
     myShapeRotations.push_back(rotation);
+}
+
+
+void GUIGeometry::clearGeometry() {
+    // clear geometry containers
+    myShape.clear();
+    myShapeRotations.clear();
+    myShapeLengths.clear();
 }
 
 
@@ -265,28 +274,46 @@ GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector&
 
 
 void
-GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos,
-                          const GUIGeometry& geometry, const double width, double offset) {
-    // continue depending of draw for position selection
-    if (s.drawForPositionSelection) {
-        // obtain position over lane relative to mouse position
-        const Position posOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePos));
-        // if mouse is over segment
-        if (posOverLane.distanceSquaredTo2D(mousePos) <= (width * width)) {
-            // push matrix
-            GLHelper::pushMatrix();
-            // translate to position over lane
-            glTranslated(posOverLane.x(), posOverLane.y(), 0);
-            // Draw circle
-            GLHelper::drawFilledCircle(width, s.getCircleResolution());
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
-    } else if (s.scale * width < 1) {
-        // draw line (needed for zoom out)
-        GLHelper::drawLine(geometry.getShape());
-    } else {
+GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
+                          const double width, double offset) {
+    // continue depending of detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryBoxLines) {
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width, 0, offset);
+    } else if (d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+        // set line width
+        glLineWidth(static_cast<float>(width));
+        // draw a simple line
+        GLHelper::drawLine(geometry.getShape());
+        // restore line width
+        glLineWidth(1);
+    } else {
+        // draw a simple line
+        GLHelper::drawLine(geometry.getShape());
+    }
+}
+
+
+void
+GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
+                          const std::vector<RGBColor>& colors, const double width, double offset) {
+    // continue depending of detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryBoxLines) {
+        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), colors, width, 0, offset);
+    } else {
+        // set first color
+        GLHelper::setColor(*colors.begin());
+        // set width
+        if (d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+            // set line width
+            glLineWidth(static_cast<float>(width));
+            // draw a simple line
+            GLHelper::drawLine(geometry.getShape());
+            // restore line width
+            glLineWidth(1);
+        } else {
+            // draw a simple line
+            GLHelper::drawLine(geometry.getShape());
+        }
     }
 }
 
@@ -319,51 +346,46 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
-                                const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration,
-                                const bool editingElevation, const bool drawExtremeSymbols) {
-    // get exaggeratedRadio
-    const double exaggeratedRadio = (radius * exaggeration);
-    // get radius squared
-    const double exaggeratedRadioSquared = (exaggeratedRadio * exaggeratedRadio);
-    // iterate over shape
-    for (const auto& vertex : shape) {
-        // if drawForPositionSelection is enabled, check distance between mouse and vertex
-        if (!s.drawForPositionSelection || (mousePos.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector& shape,
+                                const RGBColor& color, const double radius, const double exaggeration,
+                                const bool editingElevation) {
+    // check detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
+        // get exaggeratedRadio
+        const double exaggeratedRadio = (radius * exaggeration);
+        // iterate over geometryPoints
+        for (const auto& geometryPos : shape) {
             // push geometry point matrix
             GLHelper::pushMatrix();
             // move to vertex
-            glTranslated(vertex.x(), vertex.y(), 0.2);
+            glTranslated(geometryPos.x(), geometryPos.y(), 0.2);
             // set color
-            GLHelper::setColor(geometryPointColor);
-            // draw circle
-            GLHelper::drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
+            GLHelper::setColor(color);
+            // draw circle detailled
+            GLHelper::drawFilledCircleDetailled(d, exaggeratedRadio);
             // pop geometry point matrix
             GLHelper::popMatrix();
             // draw elevation or special symbols (Start, End and Block)
-            if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
-                // get draw detail
-                const bool drawDetail = s.drawDetail(s.detailSettings.geometryPointsText, exaggeration);
-                // draw text
+            if (d <= GUIVisualizationSettings::Detail::Text) {
                 if (editingElevation) {
                     // Push Z matrix
                     GLHelper::pushMatrix();
                     // draw Z (elevation)
-                    GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
+                    GLHelper::drawText(toString(geometryPos.z()), geometryPos, 0.3, 0.7, color.invertedColor());
                     // pop Z matrix
                     GLHelper::popMatrix();
-                } else if ((vertex == shape.front()) && drawDetail && drawExtremeSymbols) {
+                } else if (geometryPos == shape.front()) {
                     // push "S" matrix
                     GLHelper::pushMatrix();
                     // draw a "s" over first point
-                    GLHelper::drawText("S", vertex, 0.3, 2 * exaggeratedRadio, textColor);
+                    GLHelper::drawText("S", geometryPos, 0.3, 2 * exaggeratedRadio, color.invertedColor());
                     // pop "S" matrix
                     GLHelper::popMatrix();
-                } else if ((vertex == shape.back()) && (shape.isClosed() == false) && drawDetail && drawExtremeSymbols) {
+                } else if (geometryPos == shape.back()) {
                     // push "E" matrix
                     GLHelper::pushMatrix();
                     // draw a "e" over last point if polygon isn't closed
-                    GLHelper::drawText("E", vertex, 0.3, 2 * exaggeratedRadio, textColor);
+                    GLHelper::drawText("E", geometryPos, 0.3, 2 * exaggeratedRadio, color.invertedColor());
                     // pop "E" matrix
                     GLHelper::popMatrix();
                 }
@@ -374,94 +396,12 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Positio
 
 
 void
-GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
-                            const RGBColor& hintColor, const double radius, const double exaggeration) {
-    // get exaggeratedRadio
-    const double exaggeratedRadio = (radius * exaggeration);
-    // obtain distance to shape
-    const double distanceToShape = shape.distance2D(mousePos);
-    // obtain squared radius
-    const double squaredRadius = (radius * radius * exaggeration);
-    // declare index
-    int index = -1;
-    // iterate over shape
-    for (int i = 0; i < (int)shape.size(); i++) {
-        // check distance
-        if (shape[i].distanceSquaredTo2D(mousePos) <= squaredRadius) {
-            index = i;
-        }
-    }
-    // continue depending of distance to shape
-    if ((distanceToShape < exaggeratedRadio) && (index == -1)) {
-        // obtain position over lane
-        const Position positionOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos));
-        // calculate hintPos
-        const Position hintPos = shape.size() > 1 ? positionOverLane : shape[0];
-        // push hintPos matrix
-        GLHelper::pushMatrix();
-        // translate to hintPos
-        glTranslated(hintPos.x(), hintPos.y(), 0.2);
-        // set color
-        GLHelper::setColor(hintColor);
-        // draw filled circle
-        GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
-        // pop hintPos matrix
-        GLHelper::popMatrix();
-    }
-}
-
-
-void
-GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
-                              const std::vector<double>& rotations, const std::vector<double>& lengths, const std::vector<RGBColor>& colors,
-                              double width, const bool onlyContour) {
-    // first check if we're in draw a contour or for selecting cliking mode
-    if (onlyContour) {
-        // get shapes
-        PositionVector shapeA = shape;
-        PositionVector shapeB = shape;
-        // move both shapes
-        shapeA.move2side((width - 0.1));
-        shapeB.move2side((width - 0.1) * -1);
-        // reverse shape B
-        shapeB = shapeB.reverse();
-        // append shape B to shape A
-        shapeA.append(shapeB, 0);
-        // close shape A
-        shapeA.closePolygon();
-        // draw box lines using shapeA
-        GLHelper::drawBoxLines(shapeA, 0.1);
-    } else if (s.drawForPositionSelection) {
-        // obtain position over lane relative to mouse position
-        const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos));
-        // if mouse is over segment
-        if (posOverLane.distanceSquaredTo2D(mousePos) <= (width * width)) {
-            // push matrix
-            GLHelper::pushMatrix();
-            // translate to position over lane
-            glTranslated(posOverLane.x(), posOverLane.y(), 0);
-            // Draw circle
-            GLHelper::drawFilledCircle(width, s.getCircleResolution());
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
-    } else if (colors.size() > 0) {
-        // draw box lines with own colors
-        GLHelper::drawBoxLines(shape, rotations, lengths, colors, width);
-    } else {
-        // draw box lines with current color
-        GLHelper::drawBoxLines(shape, rotations, lengths, width);
-    }
-}
-
-
-void
 GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
-                            const RGBColor& color, const bool drawEntire) {
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
+                            const RGBColor& color, const bool drawEntire, const double lineWidth) {
+    if (!s.drawForRectangleSelection) {
         // calculate rotation
         const double rot = RAD2DEG(parent.angleTo2D(child)) + 90;
-        // calculate distance between origin and destiny
+        // calculate distance between origin and destination
         const double distanceSquared = parent.distanceSquaredTo2D(child);
         // Add a draw matrix for details
         GLHelper::pushMatrix();
@@ -471,7 +411,7 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
         if (drawEntire) {
             // draw first box line
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .05);
+            GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), lineWidth);
             // move front
             glTranslated(0, 0, 0.1);
             // draw second box line
@@ -480,7 +420,7 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
         } else if (distanceSquared > 25) {
             // draw first box line with length 4.9
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(parent, rot, 4.9, .05);
+            GLHelper::drawBoxLine(parent, rot, 4.9, lineWidth);
             glTranslated(0, 0, 0.1);
             // draw second box line with length 4.9
             GLHelper::setColor(color);
@@ -515,10 +455,12 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
 
 void
 GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
-                           const RGBColor& color, const bool drawEntire) {
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
-        // calculate distance between origin and destiny
+                           const RGBColor& color, const bool drawEntire, const double lineWidth) {
+    if (!s.drawForRectangleSelection) {
+        // calculate distance between origin and destination
         const double distanceSquared = child.distanceSquaredTo2D(parent);
+        // calculate subline width
+        const double sublineWidth = (lineWidth * 0.8);
         // calculate rotation
         const double rot = RAD2DEG(child.angleTo2D(parent)) + 90;
         // Add a draw matrix for details
@@ -533,20 +475,20 @@ GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& ch
             GLHelper::setColor(color);
             // draw first box line
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .05);
+            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), lineWidth);
             // move front
             glTranslated(0, 0, 0.1);
             // draw second box line
             GLHelper::setColor(color);
-            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .04);
+            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), sublineWidth);
         } else {
             // draw first box line with length 4.9
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(child, rot, 4.9, .05);
+            GLHelper::drawBoxLine(child, rot, 4.9, lineWidth);
             glTranslated(0, 0, 0.1);
             // draw second box line with length
             GLHelper::setColor(color);
-            GLHelper::drawBoxLine(child, rot, 4.9, .04);
+            GLHelper::drawBoxLine(child, rot, 4.9, sublineWidth);
             // draw arrow depending of distanceSquared (10*10)
             if (distanceSquared > 100) {
                 // calculate positionVector between both points
@@ -614,14 +556,6 @@ GUIGeometry::angleLookup(const double angleDeg) {
     }
     assert(index >= 0);
     return (int)index;
-}
-
-
-void GUIGeometry::clearGeometry() {
-    // clear geometry containers
-    myShape.clear();
-    myShapeRotations.clear();
-    myShapeLengths.clear();
 }
 
 

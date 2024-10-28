@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -120,9 +120,11 @@ public:
         //std::cout << "compute from=" << from->getID() << " to=" << to->getID() << " dPos=" << departPos << " aPos=" << arrivalPos << " stopID=" << stopID << " speed=" << speed << " veh=" << Named::getIDSecure(vehicle) << " modeSet=" << modeSet << " t=" << msTime << " iFrom=" << myIntermodalNet->getDepartEdge(from, trip.departPos)->getID() << " iTo=" << (stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos))->getID() << "\n";
         const _IntermodalEdge* iFrom = originStopID != "" ? myIntermodalNet->getStopEdge(originStopID) : myIntermodalNet->getDepartEdge(from, trip.departPos);
         const _IntermodalEdge* iTo = stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos);
-        const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges);
+        const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges, true);
         if (success) {
             std::string lastLine = "";
+            const _IntermodalEdge* lastLineEdge = nullptr;
+            double lastLineTime = STEPS2TIME(msTime);
             double time = STEPS2TIME(msTime);
             double effort = 0.;
             double length = 0.;
@@ -147,8 +149,10 @@ public:
                             into.back().destStop = iEdge->getID();
                         }
                     } else {
-                        if (iEdge->getLine() != lastLine) {
+                        if (iEdge->getLine() != lastLine || loopedLineTransfer(lastLineEdge, iEdge, lastLineTime, time)) {
                             lastLine = iEdge->getLine();
+                            lastLineEdge = iEdge;
+                            lastLineTime = time;
                             if (lastLine == "!car") {
                                 into.push_back(TripItem(vehicle->getID()));
                                 into.back().vType = vehicle->getParameter().vtypeid;
@@ -167,7 +171,9 @@ public:
                         }
                     }
                 }
-                const double prevTime = time, prevEffort = effort, prevLength = length;
+                const double prevTime = time;
+                const double prevEffort = effort;
+                const double prevLength = length;
                 myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
                 // correct intermodal length:
                 length += iEdge->getPartialLength(&trip) - iEdge->getLength();
@@ -184,6 +190,12 @@ public:
                     }
                 }
             }
+        } else {
+            const std::string oType = originStopID != "" ? "stop" : "edge";
+            const std::string oID = originStopID != "" ? originStopID : from->getID();
+            const std::string dType = stopID != "" ? "stop" : "edge";
+            const std::string dID = stopID != "" ? stopID : to->getID();
+            this->myErrorMsgHandler->informf(TL("No connection between % '%' and % '%' found."), oType, oID, dType, dID);
         }
         if (into.size() > 0) {
             into.back().arrivalPos = arrivalPos;
@@ -211,7 +223,7 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&, bool) {
-        throw ProcessError("Do not use this method");
+        throw ProcessError(TL("Do not use this method"));
     }
 
     inline void setBulkMode(const bool mode) {
@@ -314,6 +326,20 @@ private:
                     break;
             }
         }
+    }
+
+
+    bool loopedLineTransfer(const _IntermodalEdge* prev, const _IntermodalEdge* cur, double prevTime, double time) {
+        assert(prev != nullptr);
+        if (myIntermodalNet->isLooped(cur->getLine())) {
+            // check if the last two edges are served by different vehicles
+            std::string intended1;
+            std::string intended2;
+            prev->getIntended(prevTime, intended1);
+            cur->getIntended(time, intended2);
+            return intended1 != intended2;
+        }
+        return false;
     }
 
 private:

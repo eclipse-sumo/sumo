@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,13 +95,14 @@ public:
      * @see MSLane
      * @todo Definitely not a good way
      */
-    virtual MSLane* addLane(const std::string& id, double maxSpeed,
+    virtual MSLane* addLane(const std::string& id, double maxSpeed, double friction,
                             double length, const PositionVector& shape,
                             double width,
                             SVCPermissions permissions,
                             SVCPermissions changeLeft, SVCPermissions changeRight,
                             int index, bool isRampAccel,
-                            const std::string& type);
+                            const std::string& type,
+                            const PositionVector& outlineShape);
 
     /** @brief process a stopOffset element (originates either from the active edge or lane).
      */
@@ -127,7 +128,7 @@ public:
     void closeLane();
 
     /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl* build(double networkVersion);
+    MSEdgeControl* build(const MMVersion& networkVersion);
 
 
     /** @brief Builds an edge instance (MSEdge in this case)
@@ -171,7 +172,9 @@ protected:
     std::vector<MSLane*>* myLaneStorage;
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
-    std::map<MSEdge*, std::string> myBidiEdges;
+    std::map<MSEdge*, std::string, ComparatorNumericalIdLess> myBidiEdges;
+
+    std::vector<std::pair<MSLane*, std::string> > myOppositeLanes;
 
     /** @brief set the stopOffset for the last added lane.
      */

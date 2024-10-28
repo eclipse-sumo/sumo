@@ -1,0 +1,27 @@
+/* XPM */
+static const char *poiicon_pin_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c gray84",
+"X c gray85",
+"o c gainsboro",
+"O c None",
+/* pixels */
+"OOOOOO   OOOOOOO",
+"OOOO       OOOOO",
+"OOO         OOOO",
+"OO           OOO",
+"O     OOO    OOO",
+"O    OOOOO    OO",
+"O    .OOOO    OO",
+"O     OOO    XOO",
+"OO           OOO",
+"OO           OOO",
+"OOO         OOOO",
+"OOO        oOOOO",
+"OOOO       OOOOO",
+"OOOOO     OOOOOO",
+"OOOOOO   OOOOOOO",
+"OOOOOOO OOOOOOOO"
+};

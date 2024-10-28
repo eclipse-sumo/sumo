@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,19 +69,33 @@ public:
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
+
+    /** @enum CycleWayType
+     * @brief details on the kind of cycleway along this road
+     */
+    enum WayType {
+        WAY_NONE = 0,
+        WAY_FORWARD = 1,
+        WAY_BACKWARD = 2,
+        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
+        WAY_UNKNOWN = 4
+    };
+
     /** @brief An internal representation of an OSM-node
      */
-    struct NIOSMNode {
+    struct NIOSMNode : public Parameterised {
         NIOSMNode(long long int _id, double _lon, double _lat)
             :
             id(_id), lon(_lon), lat(_lat), ele(0.),
             tlsControlled(false),
+            pedestrianCrossing(false),
             railwayCrossing(false),
             railwaySignal(false),
             railwayBufferStop(false),
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_IGNORING),
             positionMeters(std::numeric_limits<double>::max()),
+            myRailDirection(WAY_UNKNOWN),
             node(nullptr) { }
 
         /// @brief The node's id
@@ -94,6 +108,8 @@ protected:
         double ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
+        /// @brief Whether this is a pedestrian crossing
+        bool pedestrianCrossing;
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
         /// @brief Whether this is a railway (main) signal
@@ -112,6 +128,8 @@ protected:
         std::string position;
         /// @brief position converted to m (using highest precision available)
         double positionMeters;
+        /// @brief Information about the direction(s) of railway usage
+        WayType myRailDirection;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -128,17 +146,6 @@ public:
 
 protected:
 
-
-    /** @enum CycleWayType
-     * @brief details on the kind of cycleway along this road
-     */
-    enum WayType {
-        WAY_NONE = 0,
-        WAY_FORWARD = 1,
-        WAY_BACKWARD = 2,
-        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-        WAY_UNKNOWN = 4
-    };
 
     enum ParkingType {
         PARKING_NONE = 0,
@@ -177,8 +184,8 @@ protected:
             myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
-            myCurrentIsPlatform(false),
-            myCurrentIsElectrified(false)
+            myAmInRoundabout(false),
+            myWidth(-1)
         { }
 
         virtual ~Edge() {}
@@ -219,22 +226,35 @@ protected:
         int myChangeForward;
         /// @brief Information about change prohibitions (backward direction
         int myChangeBackward;
-        /// @brief (optional) information about the permitted vehicle classes on each lane
-        std::vector<SVCPermissions> myLaneUseForward;
-        std::vector<SVCPermissions> myLaneUseBackward;
+        /// @brief (optional) information about whether the forward lanes are designated to some SVCs
+        std::vector<bool> myDesignatedLaneForward;
+        /// @brief (optional) information about whether the backward lanes are designated to some SVCs
+        std::vector<bool> myDesignatedLaneBackward;
+        /// @brief (optional) information about additional allowed SVCs on forward lane(s)
+        std::vector<SVCPermissions> myAllowedLaneForward;
+        /// @brief (optional) information about additional allowed SVCs on backward lane(s)
+        std::vector<SVCPermissions> myAllowedLaneBackward;
+        /// @brief (optional) information about additional disallowed SVCs on forward lane(s)
+        std::vector<SVCPermissions> myDisallowedLaneForward;
+        /// @brief (optional) information about additional disallowed SVCs on backward lane(s)
+        std::vector<SVCPermissions> myDisallowedLaneBackward;
         /// @brief Information about the relative z-ordering of ways
         int myLayer;
         /// @brief The list of nodes this edge is made of
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
         bool myCurrentIsRoad;
-        /// @brief Information whether this is a pt platform
-        bool myCurrentIsPlatform;
-        /// @brief Information whether this is railway is electrified
-        bool myCurrentIsElectrified;
+        /// @brief Information whether this road is part of a roundabout
+        bool myAmInRoundabout;
+        /// @brief Additionally tagged information
+        std::map<std::string, std::string> myExtraTags;
         /// @brief turning direction (arrows printed on the road)
         std::vector<int> myTurnSignsForward;
         std::vector<int> myTurnSignsBackward;
+        /// @brief Information on lane width
+        std::vector<double> myWidthLanesForward;
+        std::vector<double> myWidthLanesBackward;
+        double myWidth;
 
     private:
         /// invalidated assignment operator
@@ -292,8 +312,20 @@ private:
     /// @brief import sidewalks
     bool myImportSidewalks;
 
+    /// @brief import bike path specific permissions and directions
+    bool myImportBikeAccess;
+
+    /// @brief import crossings
+    bool myImportCrossings;
+
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
+
+    /// @brief whether additional way and node attributes shall be imported
+    static bool myAllAttributes;
+
+    /// @brief extra attributes to import
+    static std::set<std::string> myExtraAttributes;
 
     /** @brief Builds an NBNode
      *
@@ -351,7 +383,19 @@ protected:
     static const long long int INVALID_ID;
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
-    void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
+    /// Applies lane use information from `nie` to `e`. Uses the member values
+    /// `myLaneAllowedForward`, `myLaneDisallowedForward` and `myLaneDesignatedForward`
+    /// or the respective backward values to determine the ultimate lane uses.
+    /// When a value of `e->myLaneDesignatedForward/Backward` is `true`, all permissions for the corresponding
+    /// lane will be deleted before adding permissions from `e->myLaneAllowedForward/Backward`.
+    /// SVCs from `e->myLaneAllowedForward/Backward` will be added to the existing permissions (for each lane).
+    /// SVCs from `e->myLaneDisallowedForward/Backward` will be subtracted from the existing permissions.
+    /// @brief Applies lane use information from `nie` to `e`.
+    /// @param e The NBEdge that the new information will be written to.
+    /// @param nie Ths Edge that the information comes from.
+    void applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward);
+
+    static void mergeTurnSigns(std::vector<int>& signs, std::vector<int> signs2);
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
@@ -360,7 +404,7 @@ protected:
      */
     class NodesHandler : public SUMOSAXHandler {
     public:
-        /** @brief Contructor
+        /** @brief Constructor
          * @param[in, out] toFill The nodes container to fill
          * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use
@@ -424,6 +468,9 @@ protected:
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
 
+        /// @brief custom requirements for rail signal tagging
+        StringVector myRailSignalRules;
+
         /// @brief number of diplicate nodes
         int myDuplicateNodes;
 
@@ -486,7 +533,8 @@ protected:
 
         int interpretChangeType(const std::string& value) const;
 
-        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const;
+        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const;
+
 
     private:
         /// @brief The previously parsed nodes
@@ -503,14 +551,6 @@ protected:
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;
-
-        /// @brief whether additional way attributes shall be added to the edge
-        bool myAllAttributes;
-        /// @brief extra attributes to import
-        std::set<std::string> myExtraAttributes;
-
-        /// @brief import bike path specific permissions and directions
-        bool myImportBikeAccess;
 
     private:
         /** @brief invalidated copy constructor */
@@ -587,6 +627,9 @@ protected:
 
         /// @brief whether the currently parsed relation is a restriction
         bool myIsRestriction;
+
+        /// @brief exceptions to the restriction currenlty being parsed
+        SVCPermissions myRestrictionException;
 
         /// @brief the origination way for the current restriction
         long long int myFromWay;

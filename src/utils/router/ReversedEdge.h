@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,7 +91,8 @@ public:
         return edge->myOriginal->getTravelTime(veh, time);
     }
 
-    const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+    const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
+        UNUSED_PARAMETER(ignoreTransientPermissions); // @todo this should be changed (somewhat hidden by #14756)
         if (vClass == SVC_IGNORING || myOriginal->isTazConnector()) { // || !MSNet::getInstance()->hasPermissions()) {
             return myViaSuccessors;
         }
@@ -115,7 +116,7 @@ public:
     }
 
 private:
-    const E* myOriginal;
+    const E* const myOriginal;
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ConstEdgePairVector> myClassesViaSuccessorMap;
 

@@ -1,0 +1,3119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.59 e21c39fe">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-10-14T06:46:39Z"/>
+
+  <node id="84844273" lat="51.2360259" lon="7.0874292">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="84844274" lat="51.2356266" lon="7.0864427"/>
+  <node id="266775534" lat="51.2363875" lon="7.0883214">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Hammerstein"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q19604414"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Hammerstein"/>
+  </node>
+  <node id="271135525" lat="51.2304172" lon="7.0683033">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135526" lat="51.2305438" lon="7.0686715">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135528" lat="51.2312461" lon="7.0704350"/>
+  <node id="271135529" lat="51.2320190" lon="7.0721379"/>
+  <node id="271135530" lat="51.2328389" lon="7.0739485">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135532" lat="51.2344638" lon="7.0775115">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135534" lat="51.2345933" lon="7.0777934">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135535" lat="51.2347260" lon="7.0780824">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135536" lat="51.2347893" lon="7.0783857">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135540" lat="51.2348211" lon="7.0787221">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135541" lat="51.2347045" lon="7.0816404">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135542" lat="51.2346279" lon="7.0835082">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135546" lat="51.2346843" lon="7.0839415"/>
+  <node id="271135547" lat="51.2347380" lon="7.0841514">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135552" lat="51.2368723" lon="7.0895286">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135553" lat="51.2373045" lon="7.0906175">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135555" lat="51.2376561" lon="7.0919657"/>
+  <node id="271135560" lat="51.2384522" lon="7.1001931">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="92"/>
+  </node>
+  <node id="271135561" lat="51.2385398" lon="7.1011134"/>
+  <node id="271135562" lat="51.2386196" lon="7.1018963">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="96"/>
+  </node>
+  <node id="271135563" lat="51.2387025" lon="7.1022811">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="97"/>
+  </node>
+  <node id="271135564" lat="51.2388081" lon="7.1025695"/>
+  <node id="271135565" lat="51.2388679" lon="7.1026934">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="98"/>
+  </node>
+  <node id="271135566" lat="51.2390188" lon="7.1029160">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="99"/>
+  </node>
+  <node id="271135573" lat="51.2391709" lon="7.1030825">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="description" v="Mittelstütze"/>
+    <tag k="ref" v="100"/>
+  </node>
+  <node id="271135574" lat="51.2395801" lon="7.1032757">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="102"/>
+  </node>
+  <node id="271135575" lat="51.2398883" lon="7.1032796">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="103"/>
+  </node>
+  <node id="271135578" lat="51.2405030" lon="7.1032618">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="105"/>
+  </node>
+  <node id="271135580" lat="51.2414936" lon="7.1032898">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="109"/>
+  </node>
+  <node id="271135581" lat="51.2420659" lon="7.1033863">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="111"/>
+  </node>
+  <node id="271135584" lat="51.2432997" lon="7.1038254">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="116"/>
+  </node>
+  <node id="271135585" lat="51.2434632" lon="7.1040526">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="117"/>
+  </node>
+  <node id="271135588" lat="51.2436301" lon="7.1044227">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="118"/>
+  </node>
+  <node id="271135589" lat="51.2437767" lon="7.1048109">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="119"/>
+  </node>
+  <node id="271135591" lat="51.2439214" lon="7.1051298">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="120"/>
+  </node>
+  <node id="271135592" lat="51.2439991" lon="7.1052583"/>
+  <node id="271135593" lat="51.2440846" lon="7.1053678">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="121"/>
+  </node>
+  <node id="271135595" lat="51.2442754" lon="7.1055388">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="122"/>
+  </node>
+  <node id="271135597" lat="51.2443762" lon="7.1055932"/>
+  <node id="271135598" lat="51.2447617" lon="7.1057717">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="124"/>
+  </node>
+  <node id="271135599" lat="51.2450345" lon="7.1059007">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="125"/>
+  </node>
+  <node id="271135603" lat="51.2455391" lon="7.1062370">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="127"/>
+  </node>
+  <node id="271135604" lat="51.2462844" lon="7.1067969">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="130"/>
+  </node>
+  <node id="271135607" lat="51.2464832" lon="7.1069541">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="131"/>
+  </node>
+  <node id="271135608" lat="51.2468677" lon="7.1073586">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="133"/>
+  </node>
+  <node id="271135609" lat="51.2473032" lon="7.1078862">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="135"/>
+  </node>
+  <node id="271135610" lat="51.2476873" lon="7.1084453">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="137"/>
+  </node>
+  <node id="271135611" lat="51.2478242" lon="7.1087733">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="138"/>
+  </node>
+  <node id="271135612" lat="51.2479207" lon="7.1091389">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="139"/>
+  </node>
+  <node id="271135613" lat="51.2479719" lon="7.1095426">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="140"/>
+  </node>
+  <node id="271135614" lat="51.2479935" lon="7.1099490">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="141"/>
+  </node>
+  <node id="271135618" lat="51.2480170" lon="7.1108227">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="143"/>
+  </node>
+  <node id="271135620" lat="51.2480354" lon="7.1112578">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="144"/>
+  </node>
+  <node id="271135621" lat="51.2481241" lon="7.1121378">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="146"/>
+  </node>
+  <node id="271135622" lat="51.2483159" lon="7.1133394">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="149"/>
+  </node>
+  <node id="271135623" lat="51.2484950" lon="7.1141667">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="151"/>
+  </node>
+  <node id="271135625" lat="51.2486949" lon="7.1150265">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="153"/>
+  </node>
+  <node id="271135626" lat="51.2487859" lon="7.1154162">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="154"/>
+  </node>
+  <node id="271135627" lat="51.2489841" lon="7.1166549">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="157"/>
+  </node>
+  <node id="271135628" lat="51.2490090" lon="7.1170896">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="158"/>
+  </node>
+  <node id="271135629" lat="51.2489805" lon="7.1183246">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="161"/>
+  </node>
+  <node id="271135631" lat="51.2489441" lon="7.1186969">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="162"/>
+  </node>
+  <node id="271135633" lat="51.2488336" lon="7.1197715">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="165"/>
+  </node>
+  <node id="271135635" lat="51.2486469" lon="7.1204522">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="167"/>
+  </node>
+  <node id="271135636" lat="51.2483195" lon="7.1211009">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="169"/>
+  </node>
+  <node id="271135638" lat="51.2481911" lon="7.1213864">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="170"/>
+  </node>
+  <node id="271135639" lat="51.2480980" lon="7.1217189">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="171"/>
+  </node>
+  <node id="271135640" lat="51.2480465" lon="7.1221208">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="172"/>
+  </node>
+  <node id="271135643" lat="51.2480200" lon="7.1229874">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="174"/>
+  </node>
+  <node id="271135644" lat="51.2481770" lon="7.1242699">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="177"/>
+  </node>
+  <node id="271135646" lat="51.2486235" lon="7.1253952">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Pestalozzistraße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q62108151"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Pestalozzistraße"/>
+  </node>
+  <node id="271135647" lat="51.2487594" lon="7.1256468"/>
+  <node id="271135650" lat="51.2495693" lon="7.1271766">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135651" lat="51.2496392" lon="7.1273605"/>
+  <node id="271135652" lat="51.2496888" lon="7.1275200">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135653" lat="51.2497483" lon="7.1278630">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135654" lat="51.2497668" lon="7.1282260">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135661" lat="51.2496114" lon="7.1296952">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135668" lat="51.2497120" lon="7.1305041"/>
+  <node id="271135670" lat="51.2498134" lon="7.1307797"/>
+  <node id="271135671" lat="51.2506333" lon="7.1315738">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135676" lat="51.2516022" lon="7.1322537">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135679" lat="51.2519225" lon="7.1328494">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135681" lat="51.2520291" lon="7.1331554">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135682" lat="51.2523392" lon="7.1341561">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135683" lat="51.2523979" lon="7.1343457">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Robert-Daum-Platz"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q19965716"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Robert-Daum-Platz"/>
+  </node>
+  <node id="271135684" lat="51.2526665" lon="7.1352359">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135685" lat="51.2533358" lon="7.1373229">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135686" lat="51.2536785" lon="7.1383678">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135690" lat="51.2539938" lon="7.1396185">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135691" lat="51.2541939" lon="7.1404321">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135693" lat="51.2543051" lon="7.1407331">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="271135694" lat="51.2544480" lon="7.1409888">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135697" lat="51.2548348" lon="7.1415257">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135698" lat="51.2550048" lon="7.1417473">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135700" lat="51.2552660" lon="7.1422933">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135703" lat="51.2556045" lon="7.1435773">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135704" lat="51.2557081" lon="7.1442916">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135705" lat="51.2556893" lon="7.1446628">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135706" lat="51.2556371" lon="7.1451183">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135707" lat="51.2555596" lon="7.1459773">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135708" lat="51.2555423" lon="7.1464167">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135709" lat="51.2555463" lon="7.1468600">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135711" lat="51.2555849" lon="7.1472889">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135712" lat="51.2556506" lon="7.1476699">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135713" lat="51.2557380" lon="7.1480086">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135716" lat="51.2559108" lon="7.1484281">
+    <tag k="alt_name" v="Döppersberg"/>
+    <tag k="layer" v="2"/>
+    <tag k="local_ref" v="1;2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Wuppertal Hauptbahnhof"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="operator:wikidata" v="Q1729619"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="limited"/>
+    <tag k="wikidata" v="Q19965770"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Hauptbahnhof"/>
+  </node>
+  <node id="271135719" lat="51.2563122" lon="7.1493283">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135722" lat="51.2566351" lon="7.1505247">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135723" lat="51.2567404" lon="7.1509497">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135724" lat="51.2568159" lon="7.1513480">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135726" lat="51.2568310" lon="7.1521370">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135728" lat="51.2567780" lon="7.1525207">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135729" lat="51.2566837" lon="7.1528869">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135730" lat="51.2565544" lon="7.1532209">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="271135731" lat="51.2564368" lon="7.1534406">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135732" lat="51.2559984" lon="7.1541104">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135733" lat="51.2556763" lon="7.1545268">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Kluse"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q18412944"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Kluse"/>
+  </node>
+  <node id="271135734" lat="51.2554311" lon="7.1548017">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135735" lat="51.2551538" lon="7.1551105">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135737" lat="51.2549670" lon="7.1553702">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135738" lat="51.2548473" lon="7.1556503">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135739" lat="51.2547521" lon="7.1560710">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135740" lat="51.2547309" lon="7.1564068">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135741" lat="51.2547596" lon="7.1567409">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135742" lat="51.2548317" lon="7.1570660">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135743" lat="51.2549497" lon="7.1573574">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135744" lat="51.2551088" lon="7.1576088">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135752" lat="51.2558391" lon="7.1586542">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135753" lat="51.2563255" lon="7.1595944">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135754" lat="51.2564739" lon="7.1598761">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135755" lat="51.2569260" lon="7.1603898">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135756" lat="51.2573839" lon="7.1609473">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135757" lat="51.2575505" lon="7.1612777">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135758" lat="51.2582508" lon="7.1628958">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135759" lat="51.2583757" lon="7.1631797">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135761" lat="51.2587159" lon="7.1638146">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135762" lat="51.2589117" lon="7.1641090">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135763" lat="51.2593056" lon="7.1645923">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135765" lat="51.2600472" lon="7.1653879">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135766" lat="51.2604948" lon="7.1659083">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135767" lat="51.2606731" lon="7.1662201">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135770" lat="51.2615465" lon="7.1684628">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135772" lat="51.2619723" lon="7.1695922">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135773" lat="51.2620388" lon="7.1699270">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135774" lat="51.2620799" lon="7.1703579">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135776" lat="51.2620734" lon="7.1715198">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135777" lat="51.2622375" lon="7.1731702">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135778" lat="51.2623431" lon="7.1735696">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135779" lat="51.2625758" lon="7.1742832"/>
+  <node id="271135780" lat="51.2627391" lon="7.1745467">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135781" lat="51.2629182" lon="7.1747511">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135782" lat="51.2633446" lon="7.1752439">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135783" lat="51.2635598" lon="7.1755802">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135784" lat="51.2637588" lon="7.1759306">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135785" lat="51.2641065" lon="7.1765532">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135786" lat="51.2644629" lon="7.1771428">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135787" lat="51.2646668" lon="7.1774462">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135788" lat="51.2650695" lon="7.1779216">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135789" lat="51.2652663" lon="7.1781056">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135790" lat="51.2660538" lon="7.1786649">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135791" lat="51.2662852" lon="7.1788057">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135792" lat="51.2665045" lon="7.1789329">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135793" lat="51.2667235" lon="7.1791323">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135794" lat="51.2668651" lon="7.1793471">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135795" lat="51.2669769" lon="7.1795876">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135796" lat="51.2670701" lon="7.1799043">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135797" lat="51.2671242" lon="7.1802970">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135798" lat="51.2671566" lon="7.1807412">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135799" lat="51.2671682" lon="7.1812380">
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Loher Brücke"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="IN die Schwebebahn selbst kommt man mit einem Elektrorollstuhl nicht rein, weil der Einstieg zu hoch ist und man den Rollstuhl NICHT anheben kann."/>
+    <tag k="wikidata" v="Q62116592"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Loher Brücke"/>
+  </node>
+  <node id="271135802" lat="51.2671445" lon="7.1820128">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135803" lat="51.2669903" lon="7.1826912">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135804" lat="51.2668974" lon="7.1830947">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135805" lat="51.2667260" lon="7.1838820">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135806" lat="51.2665688" lon="7.1850824">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135808" lat="51.2665712" lon="7.1855428">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135809" lat="51.2666690" lon="7.1863561">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135810" lat="51.2667902" lon="7.1872013">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135811" lat="51.2669657" lon="7.1884019">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135812" lat="51.2670405" lon="7.1889644">
+    <tag k="alt_name" v="Adlerbrücke/Opernhaus"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Adlerbrücke"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q62394013"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Adlerbrücke"/>
+  </node>
+  <node id="271135813" lat="51.2671229" lon="7.1895177">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135815" lat="51.2672594" lon="7.1903207">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135816" lat="51.2676680" lon="7.1914868">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135817" lat="51.2679654" lon="7.1922060">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135818" lat="51.2686868" lon="7.1939920">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135819" lat="51.2690296" lon="7.1947039">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135820" lat="51.2693867" lon="7.1953191">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135821" lat="51.2695276" lon="7.1955810">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135822" lat="51.2696429" lon="7.1958869">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135823" lat="51.2697325" lon="7.1963957">
+    <tag k="bridge:support" v="pylon"/>
+  </node>
+  <node id="271135824" lat="51.2697292" lon="7.1966730"/>
+  <node id="271135825" lat="51.2697028" lon="7.1969743"/>
+  <node id="271135827" lat="51.2694190" lon="7.1991425">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135830" lat="51.2694753" lon="7.1997600"/>
+  <node id="271135835" lat="51.2695170" lon="7.1999939">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135842" lat="51.2697715" lon="7.2007546">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135844" lat="51.2701358" lon="7.2015186">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135845" lat="51.2704057" lon="7.2021101">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135846" lat="51.2705196" lon="7.2025148">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135847" lat="51.2706047" lon="7.2029277">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135848" lat="51.2706486" lon="7.2033221">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135849" lat="51.2706680" lon="7.2038097">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135850" lat="51.2706720" lon="7.2044705"/>
+  <node id="271135851" lat="51.2706925" lon="7.2049408"/>
+  <node id="271135852" lat="51.2707839" lon="7.2054731">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135853" lat="51.2708487" lon="7.2056529"/>
+  <node id="271135854" lat="51.2709282" lon="7.2058573">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135855" lat="51.2710049" lon="7.2059872"/>
+  <node id="271135856" lat="51.2710896" lon="7.2060957">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135857" lat="51.2712667" lon="7.2062724">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135858" lat="51.2714893" lon="7.2064071">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135859" lat="51.2717315" lon="7.2064792">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135860" lat="51.2719432" lon="7.2065367">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135861" lat="51.2721604" lon="7.2066092">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135862" lat="51.2723731" lon="7.2067182">
+    <tag k="local_ref" v="1;2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Werther Brücke"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q62394017"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Werther Brücke"/>
+  </node>
+  <node id="271135863" lat="51.2727390" lon="7.2070281">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135864" lat="51.2729587" lon="7.2073227">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135865" lat="51.2730753" lon="7.2075182"/>
+  <node id="271135866" lat="51.2733088" lon="7.2080173">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135867" lat="51.2734375" lon="7.2083310">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135868" lat="51.2735812" lon="7.2087116">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135869" lat="51.2737121" lon="7.2091707">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135870" lat="51.2737779" lon="7.2094989">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135871" lat="51.2738093" lon="7.2099002">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135872" lat="51.2737959" lon="7.2108327">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135873" lat="51.2737488" lon="7.2117240">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135874" lat="51.2735653" lon="7.2129691">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135875" lat="51.2734403" lon="7.2133345">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135876" lat="51.2733118" lon="7.2137434">
+    <tag k="local_ref" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Wupperfeld"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref:IFOPT" v="de:05124:11600:22:2"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="271135877" lat="51.2732458" lon="7.2140842"/>
+  <node id="271135879" lat="51.2732497" lon="7.2143917">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135880" lat="51.2733128" lon="7.2146887">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135881" lat="51.2734082" lon="7.2149595">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135882" lat="51.2735912" lon="7.2152230">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135883" lat="51.2738318" lon="7.2155071">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135884" lat="51.2740541" lon="7.2158369">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135885" lat="51.2742028" lon="7.2161796">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135887" lat="51.2742844" lon="7.2165271">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135888" lat="51.2743140" lon="7.2167606"/>
+  <node id="271135889" lat="51.2743294" lon="7.2174901">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135890" lat="51.2743609" lon="7.2183226">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135892" lat="51.2744040" lon="7.2187558">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135893" lat="51.2744953" lon="7.2196564">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135894" lat="51.2745693" lon="7.2205131">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="271135895" lat="51.2746939" lon="7.2217516">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="465"/>
+  </node>
+  <node id="271135896" lat="51.2747689" lon="7.2224884"/>
+  <node id="271135897" lat="51.2747781" lon="7.2228924"/>
+  <node id="271135900" lat="51.2746840" lon="7.2242445"/>
+  <node id="272692299" lat="51.2580157" lon="7.1623195">
+    <tag k="layer" v="2"/>
+    <tag k="local_ref" v="1;2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Landgericht"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q21036572"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Landgericht"/>
+  </node>
+  <node id="272692551" lat="51.2624555" lon="7.1739678">
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Völklinger Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q62116541"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Völklinger Straße"/>
+  </node>
+  <node id="272694179" lat="51.2695029" lon="7.1981838">
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Alter Markt"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q19962027"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Alter Markt"/>
+  </node>
+  <node id="360349529" lat="51.2694447" lon="7.1995230">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="360349532" lat="51.2696223" lon="7.2003719">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="366968493" lat="51.2554955" lon="7.1431639">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="367553733" lat="51.2565406" lon="7.1501150">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="368278985" lat="51.2571974" lon="7.1606855">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="369329107" lat="51.2621506" lon="7.1727539">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="369764483" lat="51.2675103" lon="7.1911074">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="369767257" lat="51.2695768" lon="7.1977036"/>
+  <node id="380536713" lat="51.2466602" lon="7.1071276">
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Varresbecker Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q62096446"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Varresbecker Straße"/>
+  </node>
+  <node id="384740829" lat="51.2738078" lon="7.2103598">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="424077644" lat="51.2315958" lon="7.0712112">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="424077658" lat="51.2346592" lon="7.0826711">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432030933" lat="51.2374355" lon="7.0909451">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432030934" lat="51.2376726" lon="7.0921225">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432030935" lat="51.2379372" lon="7.0949759"/>
+  <node id="432030939" lat="51.2431129" lon="7.1036527">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="115"/>
+  </node>
+  <node id="432030940" lat="51.2470904" lon="7.1076143">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="134"/>
+  </node>
+  <node id="432030941" lat="51.2490190" lon="7.1175260">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="159"/>
+  </node>
+  <node id="432030942" lat="51.2487570" lon="7.1201503">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="166"/>
+  </node>
+  <node id="432030945" lat="51.2480914" lon="7.1238493">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="176"/>
+  </node>
+  <node id="432030946" lat="51.2482713" lon="7.1245896">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="178"/>
+  </node>
+  <node id="432030947" lat="51.2485025" lon="7.1251613"/>
+  <node id="432030949" lat="51.2497352" lon="7.1286155">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030950" lat="51.2497634" lon="7.1306644">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030951" lat="51.2496746" lon="7.1303608">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030952" lat="51.2500691" lon="7.1311838">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030953" lat="51.2511990" lon="7.1319002">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030955" lat="51.2521395" lon="7.1335062">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030956" lat="51.2530081" lon="7.1363543">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="432030957" lat="51.2546190" lon="7.1412297"/>
+  <node id="432030959" lat="51.2551585" lon="7.1420120">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883073" lat="51.2747531" lon="7.2222882">
+    <tag k="VRS:gemeinde" v="WUPPERTAL"/>
+    <tag k="VRS:ortsteil" v="Barmen"/>
+    <tag k="VRS:ref" v="311602"/>
+    <tag k="alt_name" v="Berliner Platz"/>
+    <tag k="description" v="Oberbarmen Bf, Gleis 1"/>
+    <tag k="local_ref" v="1"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Oberbarmen Bahnhof"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="toilets:wheelchair" v="no"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="432883074" lat="51.2745377" lon="7.2200710">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883076" lat="51.2725219" lon="7.2068277">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883078" lat="51.2694218" lon="7.1988414"/>
+  <node id="432883080" lat="51.2694280" lon="7.1987033">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883081" lat="51.2696303" lon="7.1973845"/>
+  <node id="432883082" lat="51.2688520" lon="7.1943645">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883083" lat="51.2682529" lon="7.1929084">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883085" lat="51.2673735" lon="7.1907258">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883086" lat="51.2671894" lon="7.1899515">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883087" lat="51.2666512" lon="7.1842761">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883089" lat="51.2613988" lon="7.1680733">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883094" lat="51.2611129" lon="7.1673278">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883095" lat="51.2608138" lon="7.1665654">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883096" lat="51.2585459" lon="7.1635227">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883097" lat="51.2578478" lon="7.1619494">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883099" lat="51.2681166" lon="7.1925757">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="432883100" lat="51.2560999" lon="7.1539604"/>
+  <node id="432883103" lat="51.2568438" lon="7.1517421">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="432883106" lat="51.2381145" lon="7.0967647">
+    <tag k="fixme" v="Inzwischen ersetzter Node?"/>
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Sonnborner Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q20718138"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Sonnborner Straße"/>
+    <tag k="wikipedia:de" v="Schwebebahnstation Sonnborner Straße"/>
+  </node>
+  <node id="432883107" lat="51.2393654" lon="7.1032133">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="101"/>
+  </node>
+  <node id="432883109" lat="51.2409382" lon="7.1032712">
+    <tag k="description" v="Zoo/Stadion, Gleis 2"/>
+    <tag k="local_ref" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Zoo/Stadion"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="2"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="453026368" lat="51.2746559" lon="7.2213773">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="453040490" lat="51.2737268" lon="7.2121377">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="453042036" lat="51.2706685" lon="7.2042887">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="453044593" lat="51.2671783" lon="7.1816008"/>
+  <node id="453045869" lat="51.2620870" lon="7.1711546">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="453246005" lat="51.2412744" lon="7.1032562">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="108"/>
+  </node>
+  <node id="453307716" lat="51.2308207" lon="7.0694121">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="454010410" lat="51.2346572" lon="7.0837933">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="454039230" lat="51.2354592" lon="7.0860408"/>
+  <node id="454039232" lat="51.2370148" lon="7.0898903">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="454039235" lat="51.2376042" lon="7.0916033"/>
+  <node id="454039238" lat="51.2387637" lon="7.1024716"/>
+  <node id="454039239" lat="51.2389219" lon="7.1027806"/>
+  <node id="454042501" lat="51.2342508" lon="7.0770416">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Bruch"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source" v="survey"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q20717292"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Bruch"/>
+  </node>
+  <node id="465561691" lat="51.2556804" lon="7.1439244">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="465561694" lat="51.2524414" lon="7.1344862">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="465609116" lat="51.2496192" lon="7.1300371">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="466993386" lat="51.2488685" lon="7.1194235">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="164"/>
+  </node>
+  <node id="467382403" lat="51.2488745" lon="7.1158449">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="155"/>
+  </node>
+  <node id="467382407" lat="51.2489415" lon="7.1162698">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="156"/>
+  </node>
+  <node id="467382414" lat="51.2480678" lon="7.1116918">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="145"/>
+  </node>
+  <node id="489116680" lat="51.2561609" lon="7.1489650">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="489116684" lat="51.2564322" lon="7.1497068">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="489116687" lat="51.2563789" lon="7.1495210"/>
+  <node id="489116689" lat="51.2562392" lon="7.1491422"/>
+  <node id="489116711" lat="51.2555976" lon="7.1455631">
+    <tag k="monorail" v="girder"/>
+  </node>
+  <node id="503987150" lat="51.2363383" lon="7.0881988"/>
+  <node id="604966234" lat="51.2314399" lon="7.0708758">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="604966236" lat="51.2317773" lon="7.0716113">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="604966240" lat="51.2323755" lon="7.0729227">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="902519688" lat="51.2320963" lon="7.0723068">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="945168413" lat="51.2306972" lon="7.0690888">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1187544219" lat="51.2348757" lon="7.0845417">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1208305319" lat="51.2697028" lon="7.1961424"/>
+  <node id="1334590544" lat="51.2552765" lon="7.1578361">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1494177748" lat="51.2517799" lon="7.1325225">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="1495307889" lat="51.2475190" lon="7.1081617">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="136"/>
+  </node>
+  <node id="1495307890" lat="51.2484132" lon="7.1249690">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="179"/>
+  </node>
+  <node id="1495307899" lat="51.2452901" lon="7.1060549">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="126"/>
+  </node>
+  <node id="1495307900" lat="51.2480290" lon="7.1225539">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="173"/>
+  </node>
+  <node id="1495307901" lat="51.2514095" lon="7.1320545">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="1495307904" lat="51.2480389" lon="7.1234253">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="175"/>
+  </node>
+  <node id="1496565839" lat="51.2566517" lon="7.1601305">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1509467674" lat="51.2694578" lon="7.1984516"/>
+  <node id="1509467689" lat="51.2699644" lon="7.2011423">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1509467704" lat="51.2702601" lon="7.2017722">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1509467725" lat="51.2706746" lon="7.2047078">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1509467726" lat="51.2707146" lon="7.2051208">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1509467728" lat="51.2707445" lon="7.2052967"/>
+  <node id="1510201852" lat="51.2722400" lon="7.2066450"/>
+  <node id="1510201868" lat="51.2731642" lon="7.2076911">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447808" lat="51.2590847" lon="7.1643324">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447812" lat="51.2595673" lon="7.1648767">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447815" lat="51.2598190" lon="7.1651381">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447822" lat="51.2602961" lon="7.1656506">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447836" lat="51.2609720" lon="7.1669583">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447843" lat="51.2616899" lon="7.1688434">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447845" lat="51.2618360" lon="7.1692123">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530447846" lat="51.2620864" lon="7.1707944">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530448449" lat="51.2620785" lon="7.1719302">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530448450" lat="51.2620972" lon="7.1723240">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530448923" lat="51.2631676" lon="7.1750194">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530451251" lat="51.2639656" lon="7.1763094">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530451254" lat="51.2642727" lon="7.1768341">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530451256" lat="51.2648835" lon="7.1777195">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530451271" lat="51.2655330" lon="7.1783252">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530452492" lat="51.2668126" lon="7.1834666">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530452497" lat="51.2670769" lon="7.1823620">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530453760" lat="51.2665992" lon="7.1846407">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530453761" lat="51.2666055" lon="7.1859374">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530453764" lat="51.2667344" lon="7.1867980">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530453767" lat="51.2668481" lon="7.1875912">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530453769" lat="51.2668957" lon="7.1879304">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530455205" lat="51.2670126" lon="7.1887546">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530455206" lat="51.2670636" lon="7.1891275"/>
+  <node id="1530455756" lat="51.2678238" lon="7.1918764">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530455761" lat="51.2684006" lon="7.1932801">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1530455763" lat="51.2685339" lon="7.1936117">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1559395815" lat="51.2736714" lon="7.2125651">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1559395817" lat="51.2741319" lon="7.2159972"/>
+  <node id="1559395818" lat="51.2743237" lon="7.2170102">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1559395819" lat="51.2743381" lon="7.2179687">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1609100922" lat="51.2489646" lon="7.1184992">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Westende"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="wikidata" v="Q62108148"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Westende"/>
+  </node>
+  <node id="1699886209" lat="51.2747245" lon="7.2219869"/>
+  <node id="1699886862" lat="51.2746127" lon="7.2209463">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="1699888166" lat="51.2733627" lon="7.2148449"/>
+  <node id="1699888167" lat="51.2735032" lon="7.2151008"/>
+  <node id="1699888168" lat="51.2739484" lon="7.2156672"/>
+  <node id="1699888169" lat="51.2742477" lon="7.2163456"/>
+  <node id="1699888171" lat="51.2744487" lon="7.2192054">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="2582482552" lat="51.2579957" lon="7.1622705"/>
+  <node id="2582482583" lat="51.2581252" lon="7.1625839"/>
+  <node id="2585429370" lat="51.2489074" lon="7.1190401">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="163"/>
+  </node>
+  <node id="2585429406" lat="51.2490038" lon="7.1179610">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="160"/>
+  </node>
+  <node id="2590252894" lat="51.2540927" lon="7.1400261">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252895" lat="51.2532172" lon="7.1369795">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252901" lat="51.2537857" lon="7.1387738">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252902" lat="51.2534452" lon="7.1376283">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252905" lat="51.2522374" lon="7.1338239">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252908" lat="51.2538798" lon="7.1391574">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252912" lat="51.2535585" lon="7.1379760">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252913" lat="51.2531114" lon="7.1366695">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252916" lat="51.2525704" lon="7.1349209">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2590252918" lat="51.2527751" lon="7.1355864">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2598039910" lat="51.2485514" lon="7.1252595">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2598039946" lat="51.2487000" lon="7.1255359">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2657126031" lat="51.2375543" lon="7.0913446">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="2684844005" lat="51.2498909" lon="7.1309367">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="2684844010" lat="51.2499366" lon="7.1310073"/>
+  <node id="2684844013" lat="51.2499900" lon="7.1310800"/>
+  <node id="2684844019" lat="51.2503478" lon="7.1314112">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="3096915071" lat="51.2429047" lon="7.1035436">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="114"/>
+  </node>
+  <node id="3096971399" lat="51.2560345" lon="7.1486867"/>
+  <node id="3111246445" lat="51.2348069" lon="7.0791305">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="3125935756" lat="51.2553571" lon="7.1426393">
+    <tag k="layer" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Ohligsmühle"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="operator:wikidata" v="Q1729619"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="station" v="monorail"/>
+    <tag k="toilets:wheelchair" v="no"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q19965663"/>
+    <tag k="wikipedia" v="de:Schwebebahnstation Ohligsmühle"/>
+  </node>
+  <node id="3280636890" lat="51.2423518" lon="7.1034360">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="112"/>
+  </node>
+  <node id="3280636891" lat="51.2426338" lon="7.1034853">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="113"/>
+  </node>
+  <node id="3328241005" lat="51.2409382" lon="7.1032419">
+    <tag k="description" v="Zoo/Stadion, Gleis 1"/>
+    <tag k="local_ref" v="1"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Zoo/Stadion"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="source:name" v="http://de.wikipedia.org/wiki/Wuppertaler_Schwebebahn"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="3328241006" lat="51.2405620" lon="7.1032770"/>
+  <node id="3328241007" lat="51.2405627" lon="7.1032429"/>
+  <node id="3328241065" lat="51.2412387" lon="7.1032459"/>
+  <node id="3328241066" lat="51.2412372" lon="7.1032706"/>
+  <node id="3329847056" lat="51.2747097" lon="7.2222903">
+    <tag k="VRS:gemeinde" v="WUPPERTAL"/>
+    <tag k="VRS:ortsteil" v="Barmen"/>
+    <tag k="description" v="Oberbarmen Bf, Gleis 2"/>
+    <tag k="local_ref" v="2"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Oberbarmen Bahnhof"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="2"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="3329847081" lat="51.2746932" lon="7.2224857"/>
+  <node id="3329847083" lat="51.2747013" lon="7.2219036"/>
+  <node id="3329847084" lat="51.2747049" lon="7.2219877"/>
+  <node id="3329847085" lat="51.2747146" lon="7.2219002"/>
+  <node id="3507214604" lat="51.2732834" lon="7.2138512"/>
+  <node id="3667347948" lat="51.2625100" lon="7.1741266"/>
+  <node id="3667347959" lat="51.2658010" lon="7.1785164">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="3714001877" lat="51.2665888" lon="7.1857408"/>
+  <node id="3714004991" lat="51.2547685" lon="7.1559617">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="3714004992" lat="51.2554514" lon="7.1580728">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="3714004993" lat="51.2556651" lon="7.1583731">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="3714004994" lat="51.2576955" lon="7.1616078">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="4337430955" lat="51.2746369" lon="7.2228688"/>
+  <node id="4337430956" lat="51.2746551" lon="7.2229855"/>
+  <node id="4337430957" lat="51.2747393" lon="7.2230060"/>
+  <node id="4337430958" lat="51.2745083" lon="7.2242177"/>
+  <node id="4337430959" lat="51.2746353" lon="7.2230445"/>
+  <node id="4337430960" lat="51.2745402" lon="7.2242594"/>
+  <node id="4337430961" lat="51.2745507" lon="7.2243556"/>
+  <node id="4337430962" lat="51.2747324" lon="7.2230863"/>
+  <node id="4337430963" lat="51.2746540" lon="7.2242273"/>
+  <node id="4337430964" lat="51.2746714" lon="7.2230841"/>
+  <node id="4337430965" lat="51.2745763" lon="7.2242481"/>
+  <node id="4337430966" lat="51.2746036" lon="7.2243654"/>
+  <node id="4919325944" lat="51.2732567" lon="7.2139856">
+    <tag k="local_ref" v="1"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Wupperfeld"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref:IFOPT" v="de:05124:11600:21:1"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="4939062820" lat="51.2558026" lon="7.1481758">
+    <tag k="railway" v="signal"/>
+    <tag k="railway:signal:direction" v="backward"/>
+    <tag k="railway:signal:position" v="right"/>
+    <tag k="railway:signal:train_protection" v="DE-ESO:ne14"/>
+    <tag k="railway:signal:train_protection:form" v="sign"/>
+    <tag k="railway:signal:train_protection:type" v="block_marker"/>
+    <tag k="ref" v="B20"/>
+  </node>
+  <node id="5306338447" lat="51.2381600" lon="7.0972555">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="85"/>
+  </node>
+  <node id="5306338448" lat="51.2381943" lon="7.0976249">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="86"/>
+  </node>
+  <node id="5306338449" lat="51.2382405" lon="7.0981113">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="87"/>
+  </node>
+  <node id="5306338450" lat="51.2382794" lon="7.0985288">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="88"/>
+  </node>
+  <node id="5306338451" lat="51.2383725" lon="7.0993000">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="90"/>
+  </node>
+  <node id="5306338452" lat="51.2384108" lon="7.0997401">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="91"/>
+  </node>
+  <node id="5306338453" lat="51.2383351" lon="7.0989165">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="89"/>
+  </node>
+  <node id="5306338454" lat="51.2384972" lon="7.1006153">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="93"/>
+  </node>
+  <node id="5306338455" lat="51.2385346" lon="7.1010433">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="94"/>
+  </node>
+  <node id="5306338456" lat="51.2385754" lon="7.1014685">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="95"/>
+  </node>
+  <node id="5558032621" lat="51.2746813" lon="7.2216070">
+    <tag k="monorail" v="girder"/>
+    <tag k="ref" v="464"/>
+  </node>
+  <node id="6124371934" lat="51.2745814" lon="7.2243201"/>
+  <node id="6124371935" lat="51.2746376" lon="7.2242986"/>
+  <node id="6124371936" lat="51.2745202" lon="7.2243107"/>
+  <node id="6124371937" lat="51.2746577" lon="7.2243241"/>
+  <node id="6124371938" lat="51.2746378" lon="7.2229421"/>
+  <node id="6124371939" lat="51.2747651" lon="7.2229702"/>
+  <node id="6124371940" lat="51.2746950" lon="7.2230177"/>
+  <node id="7393636002" lat="51.2347604" lon="7.0803915">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636003" lat="51.2401953" lon="7.1032692">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="104"/>
+  </node>
+  <node id="7393636004" lat="51.2695384" lon="7.1979532">
+    <tag k="bridge:support" v="pylon"/>
+  </node>
+  <node id="7393636005" lat="51.2340399" lon="7.0765747">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636006" lat="51.2379799" lon="7.0954092">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636007" lat="51.2746920" lon="7.2217243">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636008" lat="51.2335974" lon="7.0756117">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636009" lat="51.2378741" lon="7.0942710">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636010" lat="51.2559979" lon="7.1589516">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636011" lat="51.2331853" lon="7.0747122">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636012" lat="51.2377508" lon="7.0928954">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636014" lat="51.2325479" lon="7.0733108">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636015" lat="51.2371607" lon="7.0902503">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636016" lat="51.2496925" lon="7.1289635">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636017" lat="51.2312702" lon="7.0704897">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636018" lat="51.2361791" lon="7.0878074">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636019" lat="51.2490209" lon="7.1261449">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636021" lat="51.2356762" lon="7.0865650">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636022" lat="51.2485993" lon="7.1146155">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="152"/>
+  </node>
+  <node id="7393636023" lat="51.2352817" lon="7.0855849">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636024" lat="51.2481940" lon="7.1125787">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="147"/>
+  </node>
+  <node id="7393636025" lat="51.2346434" lon="7.0830926">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636026" lat="51.2457874" lon="7.1064289">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="128"/>
+  </node>
+  <node id="7393636027" lat="51.2347224" lon="7.0812506">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636028" lat="51.2347750" lon="7.0799920">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636029" lat="51.2380472" lon="7.0960896">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636030" lat="51.2338808" lon="7.0762288">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636031" lat="51.2379420" lon="7.0950246">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636032" lat="51.2612475" lon="7.1676787">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636033" lat="51.2334386" lon="7.0752653">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636034" lat="51.2378360" lon="7.0938460">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636035" lat="51.2330339" lon="7.0743783">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636036" lat="51.2377135" lon="7.0924990">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636037" lat="51.2509153" lon="7.1317349">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636038" lat="51.2322001" lon="7.0725358">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636039" lat="51.2367247" lon="7.0891663">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636040" lat="51.2493948" lon="7.1268387">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636041" lat="51.2311501" lon="7.0702040">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636042" lat="51.2359101" lon="7.0871377">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636043" lat="51.2488439" lon="7.1258114">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636044" lat="51.2355562" lon="7.0862760">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636045" lat="51.2484003" lon="7.1137571">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="150"/>
+  </node>
+  <node id="7393636046" lat="51.2351630" lon="7.0852798">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636047" lat="51.2480070" lon="7.1103875">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="142"/>
+  </node>
+  <node id="7393636048" lat="51.2346743" lon="7.0823284">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636049" lat="51.2444834" lon="7.1056519">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="123"/>
+  </node>
+  <node id="7393636050" lat="51.2347436" lon="7.0807892">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636051" lat="51.2417656" lon="7.1033488">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="110"/>
+  </node>
+  <node id="7393636052" lat="51.2692114" lon="7.1950171">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636053" lat="51.2347896" lon="7.0795910">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636054" lat="51.2380137" lon="7.0957520">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636055" lat="51.2737713" lon="7.2113356">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636056" lat="51.2337568" lon="7.0759593">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636057" lat="51.2379120" lon="7.0946946">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636058" lat="51.2561408" lon="7.1592685">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636059" lat="51.2333064" lon="7.0749771">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636060" lat="51.2378016" lon="7.0934460">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636061" lat="51.2528831" lon="7.1359416">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636062" lat="51.2326673" lon="7.0735725">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636063" lat="51.2376325" lon="7.0917847">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636064" lat="51.2496477" lon="7.1293030">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636065" lat="51.2319478" lon="7.0719827">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636066" lat="51.2365812" lon="7.0888051">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636067" lat="51.2491980" lon="7.1264763">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="source:position" v="Digitales Orthofoto NRW (10 cm, 2019)"/>
+  </node>
+  <node id="7393636068" lat="51.2309848" lon="7.0697935">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636069" lat="51.2357934" lon="7.0868498">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636070" lat="51.2484842" lon="7.1207785">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="168"/>
+  </node>
+  <node id="7393636071" lat="51.2353970" lon="7.0858776">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636072" lat="51.2482493" lon="7.1129186">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="148"/>
+  </node>
+  <node id="7393636073" lat="51.2350411" lon="7.0849665">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7393636074" lat="51.2460372" lon="7.1066111">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="129"/>
+  </node>
+  <node id="7393636075" lat="51.2346895" lon="7.0819815">
+    <tag k="bridge:support" v="pier"/>
+  </node>
+  <node id="7572373840" lat="51.2408122" lon="7.1032731">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="106"/>
+  </node>
+  <node id="7572373841" lat="51.2408131" lon="7.1032422">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="106"/>
+  </node>
+  <node id="7572373842" lat="51.2410461" lon="7.1032712">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="107"/>
+  </node>
+  <node id="7572373843" lat="51.2410461" lon="7.1032434">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="107"/>
+  </node>
+  <node id="7572373858" lat="51.2466764" lon="7.1071435">
+    <tag k="bridge:support" v="pier"/>
+    <tag k="ref" v="132"/>
+  </node>
+  <node id="7705366209" lat="51.2502034" lon="7.1313038"/>
+  <node id="8892566646" lat="51.2747098" lon="7.2220910"/>
+  <node id="8892566647" lat="51.2747626" lon="7.2223864"/>
+  <node id="8892566648" lat="51.2747434" lon="7.2221811"/>
+  <node id="8892566649" lat="51.2747117" lon="7.2221887"/>
+  <node id="8893158590" lat="51.2558402" lon="7.1543265"/>
+  <node id="9016329932" lat="51.2305737" lon="7.0687517"/>
+  <way id="36388592">
+    <nd ref="271135525"/>
+    <nd ref="271135526"/>
+    <nd ref="9016329932"/>
+    <nd ref="945168413"/>
+    <nd ref="453307716"/>
+    <nd ref="7393636068"/>
+    <nd ref="7393636041"/>
+    <nd ref="271135528"/>
+    <nd ref="7393636017"/>
+    <nd ref="604966234"/>
+    <nd ref="424077644"/>
+    <nd ref="604966236"/>
+    <nd ref="7393636065"/>
+    <nd ref="271135529"/>
+    <nd ref="902519688"/>
+    <nd ref="7393636038"/>
+    <nd ref="604966240"/>
+    <nd ref="7393636014"/>
+    <nd ref="7393636062"/>
+    <nd ref="271135530"/>
+    <nd ref="7393636035"/>
+    <nd ref="7393636011"/>
+    <nd ref="7393636059"/>
+    <nd ref="7393636033"/>
+    <nd ref="7393636008"/>
+    <nd ref="7393636056"/>
+    <nd ref="7393636030"/>
+    <nd ref="7393636005"/>
+    <nd ref="454042501"/>
+    <nd ref="271135532"/>
+    <nd ref="271135534"/>
+    <nd ref="271135535"/>
+    <nd ref="271135536"/>
+    <nd ref="271135540"/>
+    <nd ref="3111246445"/>
+    <nd ref="7393636053"/>
+    <nd ref="7393636028"/>
+    <nd ref="7393636002"/>
+    <nd ref="7393636050"/>
+    <nd ref="7393636027"/>
+    <nd ref="271135541"/>
+    <nd ref="7393636075"/>
+    <nd ref="7393636048"/>
+    <nd ref="424077658"/>
+    <nd ref="7393636025"/>
+    <nd ref="271135542"/>
+    <nd ref="454010410"/>
+    <nd ref="271135546"/>
+    <nd ref="271135547"/>
+    <nd ref="1187544219"/>
+    <nd ref="7393636073"/>
+    <nd ref="7393636046"/>
+    <nd ref="7393636023"/>
+    <nd ref="7393636071"/>
+    <nd ref="454039230"/>
+    <nd ref="7393636044"/>
+    <nd ref="84844274"/>
+    <nd ref="7393636021"/>
+    <nd ref="7393636069"/>
+    <nd ref="7393636042"/>
+    <nd ref="84844273"/>
+    <nd ref="7393636018"/>
+    <nd ref="503987150"/>
+    <nd ref="266775534"/>
+    <nd ref="7393636066"/>
+    <nd ref="7393636039"/>
+    <nd ref="271135552"/>
+    <nd ref="454039232"/>
+    <nd ref="7393636015"/>
+    <nd ref="271135553"/>
+    <nd ref="432030933"/>
+    <nd ref="2657126031"/>
+    <nd ref="454039235"/>
+    <nd ref="7393636063"/>
+    <nd ref="271135555"/>
+    <nd ref="432030934"/>
+    <nd ref="7393636036"/>
+    <nd ref="7393636012"/>
+    <nd ref="7393636060"/>
+    <nd ref="7393636034"/>
+    <nd ref="7393636009"/>
+    <nd ref="7393636057"/>
+    <nd ref="432030935"/>
+    <nd ref="7393636031"/>
+    <nd ref="7393636006"/>
+    <nd ref="7393636054"/>
+    <nd ref="7393636029"/>
+    <nd ref="432883106"/>
+    <nd ref="5306338447"/>
+    <nd ref="5306338448"/>
+    <nd ref="5306338449"/>
+    <nd ref="5306338450"/>
+    <nd ref="5306338453"/>
+    <nd ref="5306338451"/>
+    <nd ref="5306338452"/>
+    <nd ref="271135560"/>
+    <nd ref="5306338454"/>
+    <nd ref="5306338455"/>
+    <nd ref="271135561"/>
+    <nd ref="5306338456"/>
+    <nd ref="271135562"/>
+    <nd ref="271135563"/>
+    <nd ref="454039238"/>
+    <nd ref="271135564"/>
+    <nd ref="271135565"/>
+    <nd ref="454039239"/>
+    <nd ref="271135566"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="note" v="Beim Mappen der Straßen unter der Schwebebahn bitte aufpassen, dass kein gemeinsamer Node zw Straße u Schweb entsteht."/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="tracks" v="2"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="37195413">
+    <nd ref="271135759"/>
+    <nd ref="432883096"/>
+    <nd ref="271135761"/>
+    <nd ref="271135762"/>
+    <nd ref="1530447808"/>
+    <nd ref="271135763"/>
+    <nd ref="1530447812"/>
+    <nd ref="1530447815"/>
+    <nd ref="271135765"/>
+    <nd ref="1530447822"/>
+    <nd ref="271135766"/>
+    <nd ref="271135767"/>
+    <nd ref="432883095"/>
+    <nd ref="1530447836"/>
+    <nd ref="432883094"/>
+    <nd ref="7393636032"/>
+    <nd ref="432883089"/>
+    <nd ref="271135770"/>
+    <nd ref="1530447843"/>
+    <nd ref="1530447845"/>
+    <nd ref="271135772"/>
+    <nd ref="271135773"/>
+    <nd ref="271135774"/>
+    <nd ref="1530447846"/>
+    <nd ref="453045869"/>
+    <nd ref="271135776"/>
+    <nd ref="1530448449"/>
+    <nd ref="1530448450"/>
+    <nd ref="369329107"/>
+    <nd ref="271135777"/>
+    <nd ref="271135778"/>
+    <nd ref="272692551"/>
+    <nd ref="3667347948"/>
+    <nd ref="271135779"/>
+    <nd ref="271135780"/>
+    <nd ref="271135781"/>
+    <nd ref="1530448923"/>
+    <nd ref="271135782"/>
+    <nd ref="271135783"/>
+    <nd ref="271135784"/>
+    <nd ref="1530451251"/>
+    <nd ref="271135785"/>
+    <nd ref="1530451254"/>
+    <nd ref="271135786"/>
+    <nd ref="271135787"/>
+    <nd ref="1530451256"/>
+    <nd ref="271135788"/>
+    <nd ref="271135789"/>
+    <nd ref="1530451271"/>
+    <nd ref="3667347959"/>
+    <nd ref="271135790"/>
+    <nd ref="271135791"/>
+    <nd ref="271135792"/>
+    <nd ref="271135793"/>
+    <nd ref="271135794"/>
+    <nd ref="271135795"/>
+    <nd ref="271135796"/>
+    <nd ref="271135797"/>
+    <nd ref="271135798"/>
+    <nd ref="271135799"/>
+    <nd ref="453044593"/>
+    <nd ref="271135802"/>
+    <nd ref="1530452497"/>
+    <nd ref="271135803"/>
+    <nd ref="271135804"/>
+    <nd ref="1530452492"/>
+    <nd ref="271135805"/>
+    <nd ref="432883087"/>
+    <nd ref="1530453760"/>
+    <nd ref="271135806"/>
+    <nd ref="271135808"/>
+    <nd ref="3714001877"/>
+    <nd ref="1530453761"/>
+    <nd ref="271135809"/>
+    <nd ref="1530453764"/>
+    <nd ref="271135810"/>
+    <nd ref="1530453767"/>
+    <nd ref="1530453769"/>
+    <nd ref="271135811"/>
+    <nd ref="1530455205"/>
+    <nd ref="271135812"/>
+    <nd ref="1530455206"/>
+    <nd ref="271135813"/>
+    <nd ref="432883086"/>
+    <nd ref="271135815"/>
+    <nd ref="432883085"/>
+    <nd ref="369764483"/>
+    <nd ref="271135816"/>
+    <nd ref="1530455756"/>
+    <nd ref="271135817"/>
+    <nd ref="432883099"/>
+    <nd ref="432883083"/>
+    <nd ref="1530455761"/>
+    <nd ref="1530455763"/>
+    <nd ref="271135818"/>
+    <nd ref="432883082"/>
+    <nd ref="271135819"/>
+    <nd ref="7393636052"/>
+    <nd ref="271135820"/>
+    <nd ref="271135821"/>
+    <nd ref="271135822"/>
+    <nd ref="1208305319"/>
+    <nd ref="271135823"/>
+    <nd ref="271135824"/>
+    <nd ref="271135825"/>
+    <nd ref="432883081"/>
+    <nd ref="369767257"/>
+    <nd ref="7393636004"/>
+    <nd ref="272694179"/>
+    <nd ref="1509467674"/>
+    <nd ref="432883080"/>
+    <nd ref="432883078"/>
+    <nd ref="271135827"/>
+    <nd ref="360349529"/>
+    <nd ref="271135830"/>
+    <nd ref="271135835"/>
+    <nd ref="360349532"/>
+    <nd ref="271135842"/>
+    <nd ref="1509467689"/>
+    <nd ref="271135844"/>
+    <nd ref="1509467704"/>
+    <nd ref="271135845"/>
+    <nd ref="271135846"/>
+    <nd ref="271135847"/>
+    <nd ref="271135848"/>
+    <nd ref="271135849"/>
+    <nd ref="453042036"/>
+    <nd ref="271135850"/>
+    <nd ref="1509467725"/>
+    <nd ref="271135851"/>
+    <nd ref="1509467726"/>
+    <nd ref="1509467728"/>
+    <nd ref="271135852"/>
+    <nd ref="271135853"/>
+    <nd ref="271135854"/>
+    <nd ref="271135855"/>
+    <nd ref="271135856"/>
+    <nd ref="271135857"/>
+    <nd ref="271135858"/>
+    <nd ref="271135859"/>
+    <nd ref="271135860"/>
+    <nd ref="271135861"/>
+    <nd ref="1510201852"/>
+    <nd ref="271135862"/>
+    <nd ref="432883076"/>
+    <nd ref="271135863"/>
+    <nd ref="271135864"/>
+    <nd ref="271135865"/>
+    <nd ref="1510201868"/>
+    <nd ref="271135866"/>
+    <nd ref="271135867"/>
+    <nd ref="271135868"/>
+    <nd ref="271135869"/>
+    <nd ref="271135870"/>
+    <nd ref="271135871"/>
+    <nd ref="384740829"/>
+    <nd ref="271135872"/>
+    <nd ref="7393636055"/>
+    <nd ref="271135873"/>
+    <nd ref="453040490"/>
+    <nd ref="1559395815"/>
+    <nd ref="271135874"/>
+    <nd ref="271135875"/>
+    <nd ref="271135876"/>
+    <nd ref="3507214604"/>
+    <nd ref="4919325944"/>
+    <nd ref="271135877"/>
+    <nd ref="271135879"/>
+    <nd ref="271135880"/>
+    <nd ref="1699888166"/>
+    <nd ref="271135881"/>
+    <nd ref="1699888167"/>
+    <nd ref="271135882"/>
+    <nd ref="271135883"/>
+    <nd ref="1699888168"/>
+    <nd ref="271135884"/>
+    <nd ref="1559395817"/>
+    <nd ref="271135885"/>
+    <nd ref="1699888169"/>
+    <nd ref="271135887"/>
+    <nd ref="271135888"/>
+    <nd ref="1559395818"/>
+    <nd ref="271135889"/>
+    <nd ref="1559395819"/>
+    <nd ref="271135890"/>
+    <nd ref="271135892"/>
+    <nd ref="1699888171"/>
+    <nd ref="271135893"/>
+    <nd ref="432883074"/>
+    <nd ref="271135894"/>
+    <nd ref="1699886862"/>
+    <nd ref="453026368"/>
+    <nd ref="5558032621"/>
+    <nd ref="7393636007"/>
+    <nd ref="271135895"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="long_name" v="Wuppertaler Schwebebahn"/>
+    <tag k="long_name:ar" v="قطار فوبرتال المعلق"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="name:ar" v="قطار معلق"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="tracks" v="2"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="224023134">
+    <nd ref="271135897"/>
+    <nd ref="271135896"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="224023986">
+    <nd ref="271135566"/>
+    <nd ref="271135573"/>
+    <nd ref="432883107"/>
+    <nd ref="271135574"/>
+    <nd ref="271135575"/>
+    <nd ref="7393636003"/>
+    <nd ref="271135578"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="tracks" v="2"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="305115093">
+    <nd ref="3096971399"/>
+    <nd ref="489116680"/>
+    <nd ref="489116689"/>
+    <nd ref="271135719"/>
+    <nd ref="489116687"/>
+    <nd ref="489116684"/>
+    <nd ref="367553733"/>
+    <nd ref="271135722"/>
+    <nd ref="271135723"/>
+    <nd ref="271135724"/>
+    <nd ref="432883103"/>
+    <nd ref="271135726"/>
+    <nd ref="271135728"/>
+    <nd ref="271135729"/>
+    <nd ref="271135730"/>
+    <nd ref="271135731"/>
+    <nd ref="432883100"/>
+    <nd ref="271135732"/>
+    <nd ref="8893158590"/>
+    <nd ref="271135733"/>
+    <nd ref="271135734"/>
+    <nd ref="271135735"/>
+    <nd ref="271135737"/>
+    <nd ref="271135738"/>
+    <nd ref="3714004991"/>
+    <nd ref="271135739"/>
+    <nd ref="271135740"/>
+    <nd ref="271135741"/>
+    <nd ref="271135742"/>
+    <nd ref="271135743"/>
+    <nd ref="271135744"/>
+    <nd ref="1334590544"/>
+    <nd ref="3714004992"/>
+    <nd ref="3714004993"/>
+    <nd ref="271135752"/>
+    <nd ref="7393636010"/>
+    <nd ref="7393636058"/>
+    <nd ref="271135753"/>
+    <nd ref="271135754"/>
+    <nd ref="1496565839"/>
+    <nd ref="271135755"/>
+    <nd ref="368278985"/>
+    <nd ref="271135756"/>
+    <nd ref="271135757"/>
+    <nd ref="3714004994"/>
+    <nd ref="432883097"/>
+    <nd ref="2582482552"/>
+    <nd ref="272692299"/>
+    <nd ref="2582482583"/>
+    <nd ref="271135758"/>
+    <nd ref="271135759"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="tracks" v="2"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="305115095">
+    <nd ref="4939062820"/>
+    <nd ref="271135716"/>
+    <nd ref="3096971399"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="covered" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="tracks" v="2"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="326203720">
+    <nd ref="453246005"/>
+    <nd ref="271135580"/>
+    <nd ref="7393636051"/>
+    <nd ref="271135581"/>
+    <nd ref="3280636890"/>
+    <nd ref="3280636891"/>
+    <nd ref="3096915071"/>
+    <nd ref="432030939"/>
+    <nd ref="271135584"/>
+    <nd ref="271135585"/>
+    <nd ref="271135588"/>
+    <nd ref="271135589"/>
+    <nd ref="271135591"/>
+    <nd ref="271135592"/>
+    <nd ref="271135593"/>
+    <nd ref="271135595"/>
+    <nd ref="271135597"/>
+    <nd ref="7393636049"/>
+    <nd ref="271135598"/>
+    <nd ref="271135599"/>
+    <nd ref="1495307899"/>
+    <nd ref="271135603"/>
+    <nd ref="7393636026"/>
+    <nd ref="7393636074"/>
+    <nd ref="271135604"/>
+    <nd ref="271135607"/>
+    <nd ref="380536713"/>
+    <nd ref="7572373858"/>
+    <nd ref="271135608"/>
+    <nd ref="432030940"/>
+    <nd ref="271135609"/>
+    <nd ref="1495307889"/>
+    <nd ref="271135610"/>
+    <nd ref="271135611"/>
+    <nd ref="271135612"/>
+    <nd ref="271135613"/>
+    <nd ref="271135614"/>
+    <nd ref="7393636047"/>
+    <nd ref="271135618"/>
+    <nd ref="271135620"/>
+    <nd ref="467382414"/>
+    <nd ref="271135621"/>
+    <nd ref="7393636024"/>
+    <nd ref="7393636072"/>
+    <nd ref="271135622"/>
+    <nd ref="7393636045"/>
+    <nd ref="271135623"/>
+    <nd ref="7393636022"/>
+    <nd ref="271135625"/>
+    <nd ref="271135626"/>
+    <nd ref="467382403"/>
+    <nd ref="467382407"/>
+    <nd ref="271135627"/>
+    <nd ref="271135628"/>
+    <nd ref="432030941"/>
+    <nd ref="2585429406"/>
+    <nd ref="271135629"/>
+    <nd ref="1609100922"/>
+    <nd ref="271135631"/>
+    <nd ref="2585429370"/>
+    <nd ref="466993386"/>
+    <nd ref="271135633"/>
+    <nd ref="432030942"/>
+    <nd ref="271135635"/>
+    <nd ref="7393636070"/>
+    <nd ref="271135636"/>
+    <nd ref="271135638"/>
+    <nd ref="271135639"/>
+    <nd ref="271135640"/>
+    <nd ref="1495307900"/>
+    <nd ref="271135643"/>
+    <nd ref="1495307904"/>
+    <nd ref="432030945"/>
+    <nd ref="271135644"/>
+    <nd ref="432030946"/>
+    <nd ref="1495307890"/>
+    <nd ref="432030947"/>
+    <nd ref="2598039910"/>
+    <nd ref="271135646"/>
+    <nd ref="2598039946"/>
+    <nd ref="271135647"/>
+    <nd ref="7393636043"/>
+    <nd ref="7393636019"/>
+    <nd ref="7393636067"/>
+    <nd ref="7393636040"/>
+    <nd ref="271135650"/>
+    <nd ref="271135651"/>
+    <nd ref="271135652"/>
+    <nd ref="271135653"/>
+    <nd ref="271135654"/>
+    <nd ref="432030949"/>
+    <nd ref="7393636016"/>
+    <nd ref="7393636064"/>
+    <nd ref="271135661"/>
+    <nd ref="465609116"/>
+    <nd ref="432030951"/>
+    <nd ref="271135668"/>
+    <nd ref="432030950"/>
+    <nd ref="271135670"/>
+    <nd ref="2684844005"/>
+    <nd ref="2684844010"/>
+    <nd ref="2684844013"/>
+    <nd ref="432030952"/>
+    <nd ref="7705366209"/>
+    <nd ref="2684844019"/>
+    <nd ref="271135671"/>
+    <nd ref="7393636037"/>
+    <nd ref="432030953"/>
+    <nd ref="1495307901"/>
+    <nd ref="271135676"/>
+    <nd ref="1494177748"/>
+    <nd ref="271135679"/>
+    <nd ref="271135681"/>
+    <nd ref="432030955"/>
+    <nd ref="2590252905"/>
+    <nd ref="271135682"/>
+    <nd ref="271135683"/>
+    <nd ref="465561694"/>
+    <nd ref="2590252916"/>
+    <nd ref="271135684"/>
+    <nd ref="2590252918"/>
+    <nd ref="7393636061"/>
+    <nd ref="432030956"/>
+    <nd ref="2590252913"/>
+    <nd ref="2590252895"/>
+    <nd ref="271135685"/>
+    <nd ref="2590252902"/>
+    <nd ref="2590252912"/>
+    <nd ref="271135686"/>
+    <nd ref="2590252901"/>
+    <nd ref="2590252908"/>
+    <nd ref="271135690"/>
+    <nd ref="2590252894"/>
+    <nd ref="271135691"/>
+    <nd ref="271135693"/>
+    <nd ref="271135694"/>
+    <nd ref="432030957"/>
+    <nd ref="271135697"/>
+    <nd ref="271135698"/>
+    <nd ref="432030959"/>
+    <nd ref="271135700"/>
+    <nd ref="3125935756"/>
+    <nd ref="366968493"/>
+    <nd ref="271135703"/>
+    <nd ref="465561691"/>
+    <nd ref="271135704"/>
+    <nd ref="271135705"/>
+    <nd ref="271135706"/>
+    <nd ref="489116711"/>
+    <nd ref="271135707"/>
+    <nd ref="271135708"/>
+    <nd ref="271135709"/>
+    <nd ref="271135711"/>
+    <nd ref="271135712"/>
+    <nd ref="271135713"/>
+    <nd ref="4939062820"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="tracks" v="2"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="326203721">
+    <nd ref="271135578"/>
+    <nd ref="3328241006"/>
+    <nd ref="7572373840"/>
+    <nd ref="432883109"/>
+    <nd ref="7572373842"/>
+    <nd ref="3328241066"/>
+    <nd ref="453246005"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="326203722">
+    <nd ref="271135578"/>
+    <nd ref="3328241007"/>
+    <nd ref="7572373841"/>
+    <nd ref="3328241005"/>
+    <nd ref="7572373843"/>
+    <nd ref="3328241065"/>
+    <nd ref="453246005"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="2"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="326352997">
+    <nd ref="4337430955"/>
+    <nd ref="4337430958"/>
+    <nd ref="6124371936"/>
+    <nd ref="4337430961"/>
+    <nd ref="4337430966"/>
+    <nd ref="6124371937"/>
+    <nd ref="271135900"/>
+    <nd ref="271135897"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="326352998">
+    <nd ref="271135895"/>
+    <nd ref="3329847083"/>
+    <nd ref="3329847084"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="366271211">
+    <nd ref="3329847081"/>
+    <nd ref="4337430955"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="366271217">
+    <nd ref="1699886209"/>
+    <nd ref="3329847085"/>
+    <nd ref="271135895"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="366271223">
+    <nd ref="271135896"/>
+    <nd ref="8892566647"/>
+    <nd ref="432883073"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="366271231">
+    <nd ref="3329847056"/>
+    <nd ref="3329847081"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="435850743">
+    <nd ref="4337430955"/>
+    <nd ref="6124371938"/>
+    <nd ref="4337430956"/>
+    <nd ref="6124371940"/>
+    <nd ref="4337430957"/>
+    <nd ref="6124371939"/>
+    <nd ref="271135897"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="435850744">
+    <nd ref="4337430959"/>
+    <nd ref="4337430960"/>
+    <nd ref="4337430961"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="435850745">
+    <nd ref="4337430962"/>
+    <nd ref="4337430963"/>
+    <nd ref="6124371935"/>
+    <nd ref="4337430966"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="435850746">
+    <nd ref="4337430964"/>
+    <nd ref="4337430965"/>
+    <nd ref="6124371934"/>
+    <nd ref="4337430966"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="666559889">
+    <nd ref="432883073"/>
+    <nd ref="8892566648"/>
+    <nd ref="1699886209"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="666559890">
+    <nd ref="3329847084"/>
+    <nd ref="8892566646"/>
+    <nd ref="8892566649"/>
+    <nd ref="3329847056"/>
+    <tag k="alt_name" v="Einschienige Hängebahn System Eugen Langen"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="5"/>
+    <tag k="level" v="2"/>
+    <tag k="monorail" v="hanging"/>
+    <tag k="name" v="Schwebebahn"/>
+    <tag k="railway" v="monorail"/>
+    <tag k="railway:etcs" v="3"/>
+    <tag k="railway:radio" v="TETRA"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <relation id="146380">
+    <member type="node" ref="3667017876" role="stop"/>
+    <member type="way" ref="236096948" role="platform_entry_only"/>
+    <member type="node" ref="454042501" role="stop"/>
+    <member type="way" ref="236096914" role="platform"/>
+    <member type="node" ref="266775534" role="stop"/>
+    <member type="way" ref="236096924" role="platform"/>
+    <member type="node" ref="432883106" role="stop"/>
+    <member type="way" ref="236096939" role="platform"/>
+    <member type="node" ref="432883109" role="stop"/>
+    <member type="way" ref="236096949" role="platform"/>
+    <member type="node" ref="380536713" role="stop"/>
+    <member type="way" ref="236096944" role="platform"/>
+    <member type="node" ref="1609100922" role="stop"/>
+    <member type="way" ref="252506608" role="platform"/>
+    <member type="node" ref="271135646" role="stop"/>
+    <member type="way" ref="253940359" role="platform"/>
+    <member type="node" ref="271135683" role="stop"/>
+    <member type="way" ref="351863229" role="platform"/>
+    <member type="node" ref="3125935756" role="stop"/>
+    <member type="way" ref="351863227" role="platform"/>
+    <member type="node" ref="271135716" role="stop"/>
+    <member type="way" ref="251012381" role="platform"/>
+    <member type="node" ref="271135733" role="stop"/>
+    <member type="way" ref="236096929" role="platform"/>
+    <member type="node" ref="272692299" role="stop"/>
+    <member type="way" ref="236096935" role="platform"/>
+    <member type="node" ref="272692551" role="stop"/>
+    <member type="way" ref="351867964" role="platform"/>
+    <member type="node" ref="271135799" role="stop"/>
+    <member type="way" ref="351863225" role="platform"/>
+    <member type="node" ref="271135812" role="stop"/>
+    <member type="way" ref="351863221" role="platform"/>
+    <member type="node" ref="272694179" role="stop"/>
+    <member type="way" ref="235215208" role="platform"/>
+    <member type="node" ref="271135862" role="stop"/>
+    <member type="way" ref="351863232" role="platform"/>
+    <member type="node" ref="4919325944" role="stop"/>
+    <member type="way" ref="343938722" role="platform"/>
+    <member type="node" ref="3329847056" role="stop"/>
+    <member type="way" ref="326353000" role="platform"/>
+    <member type="way" ref="24950715" role=""/>
+    <member type="way" ref="36388592" role=""/>
+    <member type="way" ref="224023986" role=""/>
+    <member type="way" ref="326203721" role=""/>
+    <member type="way" ref="326203720" role=""/>
+    <member type="way" ref="305115095" role=""/>
+    <member type="way" ref="305115093" role=""/>
+    <member type="way" ref="37195413" role=""/>
+    <member type="way" ref="326352998" role=""/>
+    <member type="way" ref="666559890" role=""/>
+    <tag k="colour" v="#00FFFF"/>
+    <tag k="from" v="Wuppertal Vohwinkel Schwebebahn"/>
+    <tag k="name" v="Schwebebahn: Vohwinkel =&gt; Oberbarmen"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="operator:wikidata" v="Q1729619"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="60"/>
+    <tag k="route" v="monorail"/>
+    <tag k="to" v="Wuppertal Oberbarmen Bahnhof"/>
+    <tag k="type" v="route"/>
+    <tag k="wikidata" v="Q256964"/>
+  </relation>
+  <relation id="2615256">
+    <member type="node" ref="3125935756" role="stop"/>
+    <member type="way" ref="351863226" role="platform"/>
+    <member type="way" ref="351863227" role="platform"/>
+    <tag k="name" v="Ohligsmühle"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="2615801">
+    <member type="node" ref="271135716" role="stop"/>
+    <member type="way" ref="251012381" role="platform"/>
+    <member type="way" ref="230872357" role="platform"/>
+    <tag k="name" v="Wuppertal Hauptbahnhof"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="11"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="2623068">
+    <member type="node" ref="272694179" role="stop"/>
+    <member type="way" ref="194826689" role="platform"/>
+    <member type="way" ref="235215208" role="platform"/>
+    <tag k="name" v="Alter Markt Schwebebahn"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="2973510">
+    <member type="node" ref="432883073" role="stop"/>
+    <member type="way" ref="326352999" role="platform"/>
+    <member type="node" ref="271135876" role="stop"/>
+    <member type="way" ref="343938719" role="platform"/>
+    <member type="node" ref="271135862" role="stop"/>
+    <member type="way" ref="351863233" role="platform"/>
+    <member type="node" ref="272694179" role="stop"/>
+    <member type="way" ref="194826689" role="platform"/>
+    <member type="node" ref="271135812" role="stop"/>
+    <member type="way" ref="351863220" role="platform"/>
+    <member type="node" ref="271135799" role="stop"/>
+    <member type="way" ref="351863224" role="platform"/>
+    <member type="node" ref="272692551" role="stop"/>
+    <member type="way" ref="351867965" role="platform"/>
+    <member type="node" ref="272692299" role="stop"/>
+    <member type="way" ref="252144946" role="platform"/>
+    <member type="node" ref="271135733" role="stop"/>
+    <member type="way" ref="319203357" role="platform"/>
+    <member type="node" ref="271135716" role="stop"/>
+    <member type="way" ref="230872357" role="platform"/>
+    <member type="node" ref="3125935756" role="stop"/>
+    <member type="way" ref="351863226" role="platform"/>
+    <member type="node" ref="271135683" role="stop"/>
+    <member type="way" ref="351863228" role="platform"/>
+    <member type="node" ref="271135646" role="stop"/>
+    <member type="way" ref="253940358" role="platform"/>
+    <member type="node" ref="1609100922" role="stop"/>
+    <member type="way" ref="252506609" role="platform"/>
+    <member type="node" ref="380536713" role="stop"/>
+    <member type="way" ref="351863231" role="platform"/>
+    <member type="node" ref="3328241005" role="stop"/>
+    <member type="way" ref="326203724" role="platform"/>
+    <member type="node" ref="432883106" role="stop"/>
+    <member type="way" ref="351863230" role="platform"/>
+    <member type="node" ref="266775534" role="stop"/>
+    <member type="way" ref="351863223" role="platform"/>
+    <member type="node" ref="454042501" role="stop"/>
+    <member type="way" ref="351863222" role="platform"/>
+    <member type="node" ref="271135511" role="stop"/>
+    <member type="way" ref="239348017" role="platform_exit_only"/>
+    <member type="way" ref="666559889" role=""/>
+    <member type="way" ref="366271217" role=""/>
+    <member type="way" ref="37195413" role=""/>
+    <member type="way" ref="305115093" role=""/>
+    <member type="way" ref="305115095" role=""/>
+    <member type="way" ref="326203720" role=""/>
+    <member type="way" ref="326203722" role=""/>
+    <member type="way" ref="224023986" role=""/>
+    <member type="way" ref="36388592" role=""/>
+    <member type="way" ref="224023131" role=""/>
+    <tag k="colour" v="#00FFFF"/>
+    <tag k="description" v="monorail"/>
+    <tag k="from" v="Wuppertal Oberbarmen Bahnhof"/>
+    <tag k="name" v="Schwebebahn: Oberbarmen =&gt; Vohwinkel"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="operator:wikidata" v="Q1729619"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="60"/>
+    <tag k="route" v="monorail"/>
+    <tag k="to" v="Wuppertal Vohwinkel Schwebebahn"/>
+    <tag k="type" v="route"/>
+    <tag k="wikidata" v="Q256964"/>
+    <tag k="wikipedia" v="de:Wuppertaler Schwebebahn"/>
+  </relation>
+  <relation id="2973533">
+    <member type="node" ref="271135812" role="stop"/>
+    <member type="way" ref="351863221" role="platform"/>
+    <member type="way" ref="351863220" role="platform"/>
+    <member type="node" ref="277048024" role="platform"/>
+    <member type="node" ref="694825102" role="platform"/>
+    <tag k="name" v="Adlerbrücke"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="16"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="2973534">
+    <member type="node" ref="271135733" role="stop"/>
+    <member type="way" ref="236096929" role="platform"/>
+    <member type="way" ref="319203357" role="platform"/>
+    <member type="node" ref="4577169926" role="stop"/>
+    <member type="way" ref="648741780" role="platform"/>
+    <member type="node" ref="600394123" role="platform"/>
+    <member type="node" ref="4577209380" role="stop"/>
+    <member type="way" ref="648741779" role="platform"/>
+    <member type="node" ref="678001147" role="platform"/>
+    <member type="node" ref="678001141" role="platform"/>
+    <tag k="name" v="Kluse"/>
+    <tag k="network" v="VRR"/>
+    <tag k="old_name" v="Kluse / Schauspielhaus"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="12"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="2973535">
+    <member type="node" ref="271135799" role="stop"/>
+    <member type="way" ref="351863224" role="platform"/>
+    <member type="way" ref="351863225" role="platform"/>
+    <member type="node" ref="272683347" role="platform"/>
+    <member type="node" ref="272683303" role="platform"/>
+    <tag k="name" v="Loher Brücke"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="2973536">
+    <member type="node" ref="271135862" role="stop"/>
+    <member type="way" ref="351863232" role="platform"/>
+    <member type="way" ref="351863233" role="platform"/>
+    <member type="node" ref="7149696208" role="stop"/>
+    <member type="way" ref="985119774" role="platform"/>
+    <member type="node" ref="450576693" role="platform"/>
+    <member type="node" ref="7149696209" role="stop"/>
+    <member type="way" ref="985119775" role="platform"/>
+    <member type="node" ref="450871639" role="platform"/>
+    <member type="node" ref="7149696207" role="stop"/>
+    <member type="way" ref="985119776" role="platform"/>
+    <member type="node" ref="768944600" role="platform"/>
+    <tag k="name" v="Werther Brücke"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="18"/>
+    <tag k="ref:IFOPT" v="de:05124:11181"/>
+    <tag k="type" v="public_transport"/>
+    <tag k="vrr:wabe" v="660"/>
+  </relation>
+  <relation id="2973537">
+    <member type="node" ref="7150904245" role=""/>
+    <member type="node" ref="4919325944" role="stop"/>
+    <member type="way" ref="343938722" role="platform"/>
+    <member type="node" ref="271135876" role="stop"/>
+    <member type="way" ref="343938719" role="platform"/>
+    <member type="node" ref="7149696213" role="stop"/>
+    <member type="node" ref="807761954" role="platform"/>
+    <member type="node" ref="7149696214" role="stop"/>
+    <member type="way" ref="985119780" role="platform"/>
+    <member type="node" ref="807762021" role="platform"/>
+    <member type="way" ref="985119779" role="platform"/>
+    <member type="node" ref="7149696212" role="stop"/>
+    <member type="way" ref="985119778" role="platform"/>
+    <member type="node" ref="3667044193" role="platform"/>
+    <member type="node" ref="7149696210" role="stop"/>
+    <member type="way" ref="985119777" role="platform"/>
+    <member type="node" ref="803919899" role="platform"/>
+    <tag k="monorail" v="yes"/>
+    <tag k="name" v="Wupperfeld"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="19"/>
+    <tag k="ref:IFOPT" v="de:05124:11600"/>
+    <tag k="type" v="public_transport"/>
+    <tag k="vrr:wabe" v="660"/>
+  </relation>
+  <relation id="3295806">
+    <member type="node" ref="1609100922" role="stop"/>
+    <member type="way" ref="252506608" role="platform"/>
+    <member type="way" ref="252506609" role="platform"/>
+    <member type="node" ref="3732561020" role=""/>
+    <tag k="fixme" v="duplicate platforms"/>
+    <tag k="name" v="Westende (monorail)"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="3295813">
+    <member type="node" ref="380536713" role="stop"/>
+    <member type="way" ref="236096944" role="platform"/>
+    <member type="way" ref="351863231" role="platform"/>
+    <member type="node" ref="844180774" role="platform"/>
+    <tag k="fixme" v="German name, please"/>
+    <tag k="name" v="Varresbecker Straße (monorail)"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+    <tag k="uic_name" v="Varresbecker Straße, Wuppertal"/>
+    <tag k="uic_ref" v="80664793"/>
+  </relation>
+  <relation id="3295819">
+    <member type="node" ref="3328241005" role="stop"/>
+    <member type="way" ref="326203724" role="platform"/>
+    <member type="node" ref="432883109" role="stop"/>
+    <member type="way" ref="236096949" role="platform"/>
+    <member type="node" ref="6577465672" role=""/>
+    <tag k="name" v="Zoo/Stadion (monorail)"/>
+    <tag k="name:de" v="Zoo/Stadion (Schwebebahn)"/>
+    <tag k="name:en" v="Zoo/Stadion (monorail)"/>
+    <tag k="network" v="VRR"/>
+    <tag k="operator" v="WSW"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="5"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="4557307">
+    <member type="node" ref="844180771" role="stop"/>
+    <member type="way" ref="326339844" role="platform"/>
+    <member type="node" ref="844180760" role="stop"/>
+    <member type="way" ref="326339846" role="platform"/>
+    <member type="node" ref="432883106" role="stop"/>
+    <member type="way" ref="351863230" role="platform"/>
+    <member type="way" ref="236096939" role="platform"/>
+    <tag k="name" v="Sonnborner Straße"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="4"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="5394056">
+    <member type="way" ref="252144946" role="platform"/>
+    <member type="way" ref="236096935" role="platform"/>
+    <member type="node" ref="272692299" role="stop"/>
+    <member type="node" ref="678001158" role="stop"/>
+    <member type="node" ref="678001156" role="stop"/>
+    <member type="way" ref="371501467" role="platform"/>
+    <member type="node" ref="678001184" role="stop"/>
+    <member type="way" ref="371501466" role="platform"/>
+    <member type="way" ref="371501468" role="platform"/>
+    <tag k="name" v="Landgericht"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="5394058">
+    <member type="node" ref="678001208" role="platform"/>
+    <member type="node" ref="678001213" role="platform"/>
+    <member type="node" ref="272692551" role="stop"/>
+    <member type="way" ref="351867965" role="platform"/>
+    <member type="way" ref="351867964" role="platform"/>
+    <tag k="name" v="Völklinger Straße"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="14"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="5394191">
+    <member type="node" ref="573694965" role="platform"/>
+    <member type="node" ref="514968094" role="platform"/>
+    <member type="node" ref="266775534" role="stop"/>
+    <member type="way" ref="351863223" role="platform"/>
+    <member type="way" ref="236096924" role="platform"/>
+    <tag k="name" v="Hammerstein"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="3"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="9731883">
+    <member type="node" ref="454042501" role=""/>
+    <member type="node" ref="3733992535" role=""/>
+    <member type="node" ref="3733992549" role=""/>
+    <member type="way" ref="351863222" role=""/>
+    <member type="way" ref="236096914" role=""/>
+    <tag k="name" v="Bruch"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="2"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="9731972">
+    <member type="node" ref="6577517418" role=""/>
+    <member type="node" ref="432883073" role=""/>
+    <member type="node" ref="3329847056" role=""/>
+    <member type="way" ref="326352999" role=""/>
+    <member type="way" ref="326353000" role=""/>
+    <member type="node" ref="2581352055" role=""/>
+    <member type="node" ref="2581352056" role=""/>
+    <tag k="name" v="Oberbarmen Bahnhof (monorail)"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="ref" v="20"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="9731978">
+    <member type="way" ref="351863228" role=""/>
+    <member type="way" ref="351863229" role=""/>
+    <member type="node" ref="271135683" role=""/>
+    <member type="node" ref="2205843911" role=""/>
+    <member type="node" ref="3827920258" role=""/>
+    <tag k="name" v="Robert-Daum-Platz (monorail)"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+  <relation id="9731998">
+    <member type="node" ref="271135646" role=""/>
+    <member type="way" ref="253940358" role=""/>
+    <member type="way" ref="253940359" role="platform"/>
+    <member type="node" ref="3732549765" role=""/>
+    <tag k="name" v="Pestalozzistraße (monorail)"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+  </relation>
+
+</osm>

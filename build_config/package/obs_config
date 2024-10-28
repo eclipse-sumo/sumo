@@ -1,0 +1,60 @@
+%if 0%{?mandriva_version}
+  Substitute: libnetcdf-devel netcdf-devel
+  Substitute: hdf-devel HDF-devel
+%endif
+%if 0%{?sles_version} == 10
+  Prefer: sqlite-devel
+  Prefer: liblapack3
+%endif
+%if 0%{?suse_version} > 1220
+  Prefer: postgresql-devel
+%endif
+%if 0%{?fedora_version} > 23
+  Prefer: -atlas-sse2 -atlas-sse3 -atlas-sse -atlas-3dnow -atlas-corei2
+%endif
+%if 0%{?fedora_version} > 22
+  Prefer: proj-devel
+%endif
+%if 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version} || 0%{?fedora_version}
+  Prefer: sqlite
+  Prefer: sqlite-devel
+  Prefer: hdf5
+  Prefer: hdf
+  Prefer: netcdf
+  Prefer: fox-devel
+  Prefer: blas
+  Prefer: lapack
+  Prefer: atlas
+  Substitute: gcc-fortran gcc-gfortran
+%endif
+%if 0%{?fedora_version} == 16 || 0%{?mandriva_version}
+  Substitute: Xerces-c-devel xerces-c-devel
+  Substitute: Xerces-c xerces-c
+%endif
+%if 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600 || 0%{?scientificlinux_version} || 0%{?fedora_version}
+  Substitute: libxerces-c-devel xerces-c-devel
+  Substitute: libexpat-devel expat-devel
+  Substitute: libnetcdf-devel netcdf-devel
+%endif
+%if 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
+  Substitute: sqlite3 sqlite
+%endif
+%if 0%{?scientificlinux_version}
+  Prefer: libjpeg
+  Prefer: libjpeg-devel
+%endif
+%if 0%{?debian_version}
+  Prefer: libhdf5-7
+  Prefer: libhdf5-serial-dev
+%endif
+%if 0%{?debian_version} == 1000
+  Ignore: libgl-dev
+  Ignore: libglx-dev
+%endif
+%if 0%{?sle_version} == 150200 && 0%{?is_opensuse}
+  Prefer: libnetcdf15
+%endif
+Prefer: libjpeg-dev
+Prefer: libfontconfig1-dev
+Prefer: libcurl4-gnutls-dev
+Prefer: libfreetype-dev

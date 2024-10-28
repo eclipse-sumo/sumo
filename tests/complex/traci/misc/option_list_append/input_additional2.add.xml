@@ -1,0 +1,3 @@
+<routes>
+	<vType id="bus2" accel="2.6" decel="4.5" sigma="0.5" length="12" minGap="3" maxSpeed="70" vClass="bus" />
+</routes>

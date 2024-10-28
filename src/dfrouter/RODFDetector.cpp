@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -168,7 +168,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
         std::map<SUMOTime, RandomDistributor<int>* >& into) const {
     if (myRoutes == nullptr) {
         if (myType != DISCARDED_DETECTOR && myType != BETWEEN_DETECTOR) {
-            WRITE_ERROR("Missing routes for detector '" + myID + "'.");
+            WRITE_ERRORF(TL("Missing routes for detector '%'."), myID);
         }
         return;
     }
@@ -302,7 +302,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         }
         out.closeTag(); // routeDistribution
     } else {
-        WRITE_ERROR("Detector '" + getID() + "' has no routes!?");
+        WRITE_ERRORF(TL("Detector '%' has no routes!?"), getID());
         return false;
     }
     // insertions
@@ -851,7 +851,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string& file,
                 pos += 1;
             }
             out.openTag(SUMO_TAG_E1DETECTOR).writeAttr(SUMO_ATTR_ID, "validation_" + StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_LANE, det->getLaneID());
-            out.writeAttr(SUMO_ATTR_POSITION, pos).writeAttr(SUMO_ATTR_FREQUENCY, 60);
+            out.writeAttr(SUMO_ATTR_POSITION, pos).writeAttr(SUMO_ATTR_PERIOD, 60);
             if (friendly) {
                 out.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             }
@@ -905,7 +905,7 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows) {
         const std::set<const RODFDetector*>& follower = det->getFollowerDetectors();
         int noFollowerWithRoutes = 0;
         int noPriorWithRoutes = 0;
-        // count occurences of detectors with/without routes
+        // count occurrences of detectors with/without routes
         std::set<const RODFDetector*>::const_iterator j;
         for (j = prior.begin(); j != prior.end(); ++j) {
             if (flows.knows((*j)->getID())) {

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,7 +73,7 @@ public:
     static void addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
 
     /// Parses network location description and registers it with GeoConveHelper::setLoaded
-    static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs);
+    static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs, bool setLoaded = true);
 
 protected:
     /** @brief Constructor
@@ -130,7 +130,7 @@ private:
     void addLane(const SUMOSAXAttributes& attrs);
 
     /** @brief parses stop offsets for the current lane or edge
-     * @param[in] attrs The attributes to get the stop offset sepcifics from
+     * @param[in] attrs The attributes to get the stop offset specifics from
      */
     void addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
 
@@ -140,7 +140,7 @@ private:
     void addJunction(const SUMOSAXAttributes& attrs);
 
 
-    /** @brief Parses a reques and saves selected attributes in myCurrentJunction
+    /** @brief Parses a request and saves selected attributes in myCurrentJunction
      * @param[in] attrs The attributes to get the junction's values from
      */
     void addRequest(const SUMOSAXAttributes& attrs);
@@ -200,6 +200,8 @@ private:
         SVCPermissions changeRight;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom friction for connection
+        double friction;
         /// @brief custom length for connection
         double customLength;
         /// @brief custom shape connection
@@ -220,6 +222,8 @@ private:
     public:
         /// @brief The maximum velocity allowed on this lane
         double maxSpeed;
+        /// @brief The friction on this lane
+        double friction;
         /// @brief This lane's shape (may be custom)
         PositionVector shape;
         /// @brief This lane's connections
@@ -274,6 +278,8 @@ private:
         int priority;
         /// @brief The maximum velocity allowed on this edge (!!!)
         double maxSpeed;
+        /// @brief The friction on this edge
+        //double friction;
         /// @brief This edge's lanes
         std::vector<LaneAttrs*> lanes;
         /// @brief The built edge
@@ -284,6 +290,8 @@ private:
         StopOffset edgeStopOffset;
         /// @brief The position at the start of this edge (kilometrage/mileage)
         double distance;
+        /// @brief the bidi edge
+        std::string bidi;
     };
 
 
@@ -300,7 +308,7 @@ private:
     /** @struct Crossing
      * @brief Describes a pedestrian crossing
      */
-    struct Crossing {
+    struct Crossing : public Parameterised {
         Crossing(const std::string& _edgeID) :
             edgeID(_edgeID), customTLIndex(-1), customTLIndex2(-1) {}
 
@@ -379,7 +387,7 @@ private:
     std::vector<Parameterised*> myLastParameterised;
 
     /// @brief the loaded network version
-    double myNetworkVersion;
+    MMVersion myNetworkVersion;
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
@@ -387,7 +395,7 @@ private:
     /// @brief whether the loaded network was built for lefthand traffic
     bool myAmLefthand;
 
-    /// @brief whether the the written network should have a different "handedness" (LHT/RHT) than the loaded network
+    /// @brief whether the written network should have a different "handedness" (LHT/RHT) than the loaded network
     bool myChangeLefthand;
 
     /// @brief the level of corner detail in the loaded network
@@ -418,6 +426,9 @@ private:
     bool myJunctionsHigherSpeed;
     /// @brief custom settings for internal junction computation
     double myInternalJunctionsVehicleWidth;
+    /// @brief custom settings for junction shape computation
+    bool myJunctionsMinimalShape;
+    bool myJunctionsEndpointShape;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

@@ -33,6 +33,18 @@ no_change_keep_node
 # do not change edge properties but add a new traffic_light node
 set_type
 
+# modify custom length in proportion so that the total custom length is preserved
+preserve_custom_length
+
+# modify custom length in proportion so that the total custom length is preserved (with shape)
+preserve_custom_length2
+
+# modify custom length in proportion so that the total custom length is preserved (split pos is beyond the end of the geometrical length)
+preserve_custom_length3
+
+# modify custom length in proportion so that the total custom length is preserved even when the split-junction is large
+preserve_custom_length_intersection
+
 # three lanes, changing the speed and changing it back, modifying navteq input
 speed_navteq
 
@@ -68,3 +80,12 @@ too_close
 
 # adding splits with duplicate id
 duplicate_id
+
+# preserve type information
+lane_type
+
+# see #12695
+beyond_end
+
+# add a split to a loaded a .net.xml file with bidi edges and preserve the bidi status
+keep_bidi

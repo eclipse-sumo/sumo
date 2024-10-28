@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,9 @@ class GUIMEInductLoop : public MEInductLoop {
 public:
     /// Construtor
     GUIMEInductLoop(const std::string& id, MESegment* s,
-                    double position, const std::string& vTypes,
+                    double position,
+                    const std::string name, const std::string& vTypes,
+                    const std::string& nextEdges,
                     int detectPersons, bool show);
 
     /// Destructor

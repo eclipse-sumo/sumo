@@ -1,0 +1,8 @@
+WARNING: No attributes found for tag 'vehicleSelectors'. (Config)
+WARNING: Parameter switchImpatienceFactor must be non-negative. Ignoring given value: -1.0 (Config)
+WARNING: Given speedFactor -1.0 is invalid. Using default value. (Config)
+WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)
+22.5: WARNING: No vType specified for PlatoonMode 'LEADER' for vehicle 'other.0'. Behavior within platoon is NOT altered. This warning is issued only once. (PVehicle)
+22.5: WARNING: No vType specified for PlatoonMode 'FOLLOWER' for vehicle 'other.0'. Behavior within platoon is NOT altered. This warning is issued only once. (PVehicle)
+22.5: WARNING: No vType specified for PlatoonMode 'CATCHUP' for vehicle 'other.0'. Behavior within platoon is NOT altered. This warning is issued only once. (PVehicle)
+22.5: WARNING: No vType specified for PlatoonMode 'CATCHUP_FOLLOWER' for vehicle 'other.0'. Behavior within platoon is NOT altered. This warning is issued only once. (PVehicle)

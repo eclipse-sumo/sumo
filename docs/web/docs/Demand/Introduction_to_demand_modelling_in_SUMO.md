@@ -15,7 +15,7 @@ edges the vehicle will pass. [sumo](../sumo.md) and
 movements. There are several ways to generate routes for SUMO. The
 choice depends on your available input data:
 
-- Using trip definitions
+## Using trip definitions
 
   As described above, each trip consists at least of the starting and
   the ending edge and the departure time. This is useful for when you
@@ -29,19 +29,19 @@ choice depends on your available input data:
   or you may load the trips directly into [sumo](../sumo.md)
   [(more details)](../Demand/Automatic_Routing.md).
 
-- Using flow definitions
+## Using flow definitions
 
   This is mostly the same approach as using trip definitions, but one
   may join vehicles having the same departure and arrival edge using
   this method
 
-- Using Randomization
+## Using Randomization
 
   This is a quick way to get some traffic if you do not have access to
   any measurements but the results are highly unrealistic. See
   [Tools/Trip\#randomTrips.py](../Tools/Trip.md#randomtripspy)
 
-- Using OD-matrices
+## Using OD-matrices
 
   Origin-Destination-Matrices (or OD-matrices) are often available
   from traffic authorities. They have to be converted to trips using
@@ -51,32 +51,32 @@ choice depends on your available input data:
   and
   [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md).
 
-- Using flow definitions and turning ratios
+## Using flow definitions and turning ratios
 
   One may also leave out the destination edges for flows and use
   turning ratios at junctions instead. See
   [jtrrouter](../jtrrouter.md).
 
-- Using detector data (observation points)
+## Using detector data (observation points)
 
   Induction loops and similar devices are commonly used by authorities
   to measure traffic. Using [dfrouter](../dfrouter.md) you may
   uses this data to generate demand. See
   [Demand/Routes_from_Observation_Points](../Demand/Routes_from_Observation_Points.md).
 
-- By hand
+## By hand
 
   You can of course generate route XML-files by hand. See
   [Definition_of_Vehicles,_Vehicle_Types,_and_Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
 
-- Using population statistics
+## Using population statistics
 
   The program [activitygen](../activitygen.md) can be used to
   turn population statistics into traffic demand. See
   [Demand/Activity-based Demand
   Generation](../Demand/Activity-based_Demand_Generation.md).
 
-- Using data from other sources
+## Using data from other sources
 
   see [SUMO_User_Documentation\#Demand_Modelling](../index.md#demand_modelling)
 
@@ -92,3 +92,6 @@ turning percentages at junctions. [od2trips](../od2trips.md) helps
 you to convert OD-matrices (origin/destination-matrices) into trips. The
 [dfrouter](../dfrouter.md) computes routes from given observation
 point measures.
+
+## Notes
+* With use of netedit it is possible to observe the demand amount distribution of edge-based or TAZ-based relations [network/TAZ related data](../Netedit/editModesData.md).

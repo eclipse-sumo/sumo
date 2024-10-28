@@ -1,3 +1,6 @@
+check_junctions
+intermodal
+
 # ignore collisions
 none
 
@@ -28,4 +31,3 @@ stop_inlap
 
 # the same pair of vehicles has multiple distinct collisions
 warn_repeated
-check_junctions

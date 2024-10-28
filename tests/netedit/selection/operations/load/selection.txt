@@ -1,3 +1,8 @@
-edge:gneE0
-edge:gneE1
-edge:gneE2
+edge:-E0
+edge:-E1
+edge:-E12
+edge:-E9
+edge:E0
+edge:E1
+edge:E12
+edge:E9

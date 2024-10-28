@@ -1,0 +1,19 @@
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (23ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (19ms).
+Loading done.
+Simulation version v1_21_0+0407-08724d0e971 started with time: 0.00.
+Simulation ended at time: 269.00.
+Reason: All vehicles have left the simulation.
+DijkstraRouter answered 8 queries and explored 1.88 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (19ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (17ms).
+Loading state from 'state.xml' ... done (39ms).
+Loading done.
+Simulation version v1_21_0+0407-08724d0e971 started with time: 60.00.
+Simulation ended at time: 269.00.
+Reason: All vehicles have left the simulation.
+DijkstraRouter answered 2 queries and explored 2.00 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).

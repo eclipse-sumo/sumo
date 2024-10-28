@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-05 16:41:19 by Eclipse SUMO netedit Version v1_18_0+0121-c04b76e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-398816.96,-5809707.61" convBoundary="2072.35,575.16,2177.85,706.33" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-23925119#3" from="cluster_261705708_8243171049_987195315_9945733967" to="cluster_259404814_9945733960_9945733961" name="Weerthstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="2126.74,641.06 2148.26,654.34" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="23925119"/>
+        </lane>
+        <param key="origFrom" value="8243171049"/>
+        <param key="origTo" value="259404814"/>
+    </edge>
+    <edge id="1085421712#0" from="9945733963" to="10669437595" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1085421712"/>
+        </lane>
+    </edge>
+    <edge id="1085421712#1" from="10669437595" to="9945733962" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1085421712"/>
+        </lane>
+    </edge>
+    <edge id="1085421712#2" from="9945733962" to="cluster_261705708_8243171049_987195315_9945733967" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="2120.03,650.31 2112.52,646.06" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1085421712"/>
+        </lane>
+        <param key="origTo" value="987195315"/>
+    </edge>
+    <edge id="1085421714#0" from="cluster_261705708_8243171049_987195315_9945733967" to="9945733959" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="2130.34,636.46 2157.26,652.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1085421714"/>
+        </lane>
+        <param key="origFrom" value="9945733967"/>
+    </edge>
+    <edge id="1102336903#0" from="cluster_150751448_8243171047" to="cluster_261705708_8243171049_987195315_9945733967" name="Adlergestell" priority="12" type="highway.primary" numLanes="3" speed="13.89" shape="2169.86,575.16 2144.82,604.19 2119.81,636.71" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="1102336903"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="1102336903"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="1102336903"/>
+        </lane>
+        <param key="origFrom" value="150751448"/>
+        <param key="origTo" value="261705708"/>
+        <param key="ref" value="B 96a"/>
+    </edge>
+    <edge id="23925119#3" from="cluster_259404814_9945733960_9945733961" to="cluster_261705708_8243171049_987195315_9945733967" name="Weerthstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="2148.26,654.34 2126.74,641.06" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="23925119"/>
+        </lane>
+        <param key="origFrom" value="259404814"/>
+        <param key="origTo" value="8243171049"/>
+    </edge>
+    <edge id="40191606" from="cluster_261705708_8243171049_987195315_9945733967" to="3246050936" name="Adlergestell" priority="12" type="highway.primary" numLanes="3" speed="13.89" shape="2112.52,646.06 2108.18,652.42 2089.68,679.56 2077.56,697.35 2076.64,698.71 2072.35,704.88" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="40191606"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="40191606"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="40191606"/>
+        </lane>
+        <param key="origFrom" value="987195315"/>
+        <param key="ref" value="B 96a"/>
+    </edge>
+    <edge id="603467167#1" from="5728699319" to="10669437595" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="603467167"/>
+        </lane>
+    </edge>
+    <edge id="603467167#2" from="10669437595" to="10669437596" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="2121.60,651.02 2124.03,647.59 2126.87,646.00 2139.82,654.02 2140.64,660.18 2139.86,661.08" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="603467167"/>
+        </lane>
+    </edge>
+    <edge id="85088361#1" from="246771374" to="cluster_261705708_8243171049_987195315_9945733967" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="2101.89,639.00 2112.52,646.06" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="85088361"/>
+        </lane>
+        <param key="origTo" value="987195315"/>
+    </edge>
+    <edge id="886496552#4" from="cluster_150751448_8243171047" to="cluster_261705708_8243171049_987195315_9945733967" priority="1" type="highway.path" numLanes="2" speed="5.56" shape="2177.85,580.20 2147.15,615.75 2130.73,636.77" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="886496552"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="886496552"/>
+        </lane>
+        <param key="origFrom" value="8243171047"/>
+        <param key="origTo" value="9945733967"/>
+    </edge>
+    <edge id="886496552#6" from="cluster_261705708_8243171049_987195315_9945733967" to="9945733962" priority="1" type="highway.path" numLanes="2" speed="5.56" shape="2127.14,641.36 2120.43,650.60" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="886496552"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="886496552"/>
+        </lane>
+        <param key="origFrom" value="8243171049"/>
+    </edge>
+    <edge id="886496552#7" from="9945733962" to="10669437594" priority="1" type="highway.path" numLanes="2" speed="5.56" shape="2120.43,650.61 2115.42,657.41 2096.87,684.48 2084.28,701.97 2081.69,705.73" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="886496552"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="886496552"/>
+        </lane>
+    </edge>
+</edges>

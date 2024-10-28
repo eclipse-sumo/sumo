@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-27 09:03:01 by Eclipse SUMO sumo Version v1_12_0+2296-4e99b77
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.13" depart="24.00" departPos="0.00" departSpeed="9.58" speedFactor="1.0000" arrival="475.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="65.00 105.00 145.00 475.00"/>
+    </vehicle>
+
+    <vehicle id="0.14" depart="26.00" departPos="0.00" departSpeed="9.69" speedFactor="1.0000" arrival="775.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="67.00 107.00 147.00 775.00"/>
+    </vehicle>
+
+    <vehicle id="0.15" depart="27.00" departPos="0.00" departSpeed="8.93" speedFactor="1.0000" arrival="1075.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="69.00 109.00 149.00 1075.00"/>
+    </vehicle>
+
+    <vehicle id="0.0" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="1160.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="40.00 80.00 120.00 1160.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="150.00" ended="1160.00"/>
+    </vehicle>
+
+    <vehicle id="0.1" depart="1.00" departPos="0.00" departSpeed="9.19" speedFactor="1.0000" arrival="1162.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="42.00 82.00 122.00 1162.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="151.88" ended="1162.00"/>
+    </vehicle>
+
+    <vehicle id="0.2" depart="2.00" departPos="0.00" departSpeed="8.50" speedFactor="1.0000" arrival="1164.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="44.00 84.00 124.00 1164.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="153.76" ended="1164.00"/>
+    </vehicle>
+
+    <vehicle id="0.3" depart="3.00" departPos="0.00" departSpeed="7.91" speedFactor="1.0000" arrival="1166.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="46.00 86.00 126.00 1166.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="155.64" ended="1166.00"/>
+    </vehicle>
+
+    <vehicle id="0.4" depart="4.00" departPos="0.00" departSpeed="7.40" speedFactor="1.0000" arrival="1168.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="48.00 88.00 128.00 1168.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="157.52" ended="1168.00"/>
+    </vehicle>
+
+    <vehicle id="0.5" depart="5.00" departPos="0.00" departSpeed="6.94" speedFactor="1.0000" arrival="1170.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="50.00 90.00 130.00 1170.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="159.40" ended="1170.00"/>
+    </vehicle>
+
+    <vehicle id="0.6" depart="10.00" departPos="0.00" departSpeed="8.87" speedFactor="1.0000" arrival="1172.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="52.00 92.00 132.00 1172.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="161.28" ended="1172.00"/>
+    </vehicle>
+
+    <vehicle id="0.7" depart="12.00" departPos="0.00" departSpeed="8.96" speedFactor="1.0000" arrival="1174.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="54.00 94.00 134.00 1174.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="163.16" ended="1174.00"/>
+    </vehicle>
+
+    <vehicle id="0.8" depart="14.00" departPos="0.00" departSpeed="9.06" speedFactor="1.0000" arrival="1176.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="56.00 96.00 136.00 1176.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="165.04" ended="1176.00"/>
+    </vehicle>
+
+    <vehicle id="0.9" depart="16.00" departPos="0.00" departSpeed="9.16" speedFactor="1.0000" arrival="1177.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="57.00 97.00 137.00 1177.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="166.92" ended="1177.00"/>
+    </vehicle>
+
+    <vehicle id="0.10" depart="18.00" departPos="0.00" departSpeed="9.26" speedFactor="1.0000" arrival="1179.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="59.00 99.00 139.00 1179.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="168.80" ended="1179.00"/>
+    </vehicle>
+
+    <vehicle id="0.11" depart="20.00" departPos="0.00" departSpeed="9.36" speedFactor="1.0000" arrival="1181.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="61.00 101.00 141.00 1181.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="170.68" ended="1181.00"/>
+    </vehicle>
+
+    <vehicle id="0.12" depart="22.00" departPos="0.00" departSpeed="9.47" speedFactor="1.0000" arrival="1183.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="63.00 103.00 143.00 1183.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="172.56" ended="1183.00"/>
+    </vehicle>
+
+    <vehicle id="0.29" depart="54.00" departPos="0.00" departSpeed="9.51" speedFactor="1.0000" arrival="1558.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="95.00 135.00 175.00 1558.00"/>
+    </vehicle>
+
+    <vehicle id="0.30" depart="56.00" departPos="0.00" departSpeed="9.62" speedFactor="1.0000" arrival="1858.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="97.00 137.00 177.00 1858.00"/>
+    </vehicle>
+
+    <vehicle id="0.31" depart="57.00" departPos="0.00" departSpeed="8.87" speedFactor="1.0000" arrival="2158.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="99.00 139.00 179.00 2158.00"/>
+    </vehicle>
+
+    <vehicle id="0.16" depart="29.00" departPos="0.00" departSpeed="9.03" speedFactor="1.0000" arrival="2171.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="71.00 111.00 151.00 2171.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1160.00" ended="2171.00"/>
+    </vehicle>
+
+    <vehicle id="0.17" depart="31.00" departPos="0.00" departSpeed="9.12" speedFactor="1.0000" arrival="2187.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="72.00 112.00 152.00 2187.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1176.48" ended="2187.00"/>
+    </vehicle>
+
+    <vehicle id="0.18" depart="33.00" departPos="0.00" departSpeed="9.23" speedFactor="1.0000" arrival="2189.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="74.00 114.00 154.00 2189.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1178.96" ended="2189.00"/>
+    </vehicle>
+
+    <vehicle id="0.19" depart="35.00" departPos="0.00" departSpeed="9.33" speedFactor="1.0000" arrival="2192.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="76.00 116.00 156.00 2192.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1181.44" ended="2192.00"/>
+    </vehicle>
+
+    <vehicle id="0.20" depart="37.00" departPos="0.00" departSpeed="9.43" speedFactor="1.0000" arrival="2194.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="78.00 118.00 158.00 2194.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1183.92" ended="2194.00"/>
+    </vehicle>
+
+    <vehicle id="0.21" depart="39.00" departPos="0.00" departSpeed="9.54" speedFactor="1.0000" arrival="2197.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="80.00 120.00 160.00 2197.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1186.40" ended="2197.00"/>
+    </vehicle>
+
+    <vehicle id="0.22" depart="41.00" departPos="0.00" departSpeed="9.65" speedFactor="1.0000" arrival="2199.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="82.00 122.00 162.00 2199.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1188.88" ended="2199.00"/>
+    </vehicle>
+
+    <vehicle id="0.23" depart="42.00" departPos="0.00" departSpeed="8.90" speedFactor="1.0000" arrival="2202.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="84.00 124.00 164.00 2202.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1191.36" ended="2202.00"/>
+    </vehicle>
+
+    <vehicle id="0.24" depart="44.00" departPos="0.00" departSpeed="8.99" speedFactor="1.0000" arrival="2207.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="86.00 126.00 166.00 2207.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1196.79" ended="2207.00"/>
+    </vehicle>
+
+    <vehicle id="0.25" depart="46.00" departPos="0.00" departSpeed="9.09" speedFactor="1.0000" arrival="2215.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="87.00 127.00 167.00 2215.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1204.44" ended="2215.00"/>
+    </vehicle>
+
+    <vehicle id="0.26" depart="48.00" departPos="0.00" departSpeed="9.19" speedFactor="1.0000" arrival="2225.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="89.00 129.00 169.00 2225.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1214.29" ended="2225.00"/>
+    </vehicle>
+
+    <vehicle id="0.27" depart="50.00" departPos="0.00" departSpeed="9.29" speedFactor="1.0000" arrival="2237.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="91.00 131.00 171.00 2237.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1226.35" ended="2237.00"/>
+    </vehicle>
+
+    <vehicle id="0.28" depart="52.00" departPos="0.00" departSpeed="9.40" speedFactor="1.0000" arrival="2251.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="93.00 133.00 173.00 2251.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="1240.61" ended="2251.00"/>
+    </vehicle>
+
+    <vehicle id="0.45" depart="84.00" departPos="0.00" departSpeed="9.43" speedFactor="1.0000" arrival="2607.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="125.00 165.00 205.00 2607.00"/>
+    </vehicle>
+
+    <vehicle id="0.46" depart="86.00" departPos="0.00" departSpeed="9.54" speedFactor="1.0000" arrival="2907.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="127.00 167.00 207.00 2907.00"/>
+    </vehicle>
+
+    <vehicle id="0.32" depart="59.00" departPos="0.00" departSpeed="8.96" speedFactor="1.0000" arrival="3181.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="101.00 141.00 181.00 3181.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2170.00" ended="3181.00"/>
+    </vehicle>
+
+    <vehicle id="0.33" depart="61.00" departPos="0.00" departSpeed="9.06" speedFactor="1.0000" arrival="3197.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="103.00 143.00 183.00 3197.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2186.48" ended="3197.00"/>
+    </vehicle>
+
+    <vehicle id="0.34" depart="63.00" departPos="0.00" departSpeed="9.16" speedFactor="1.0000" arrival="3213.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="104.00 144.00 184.00 3213.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2202.95" ended="3213.00"/>
+    </vehicle>
+
+    <vehicle id="0.35" depart="65.00" departPos="0.00" departSpeed="9.26" speedFactor="1.0000" arrival="3219.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="106.00 146.00 186.00 3219.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2208.39" ended="3219.00"/>
+    </vehicle>
+
+    <vehicle id="0.36" depart="67.00" departPos="0.00" departSpeed="9.36" speedFactor="1.0000" arrival="3224.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="108.00 148.00 188.00 3224.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2213.82" ended="3224.00"/>
+    </vehicle>
+
+    <vehicle id="0.37" depart="69.00" departPos="0.00" departSpeed="9.47" speedFactor="1.0000" arrival="3232.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="110.00 150.00 190.00 3232.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2221.47" ended="3232.00"/>
+    </vehicle>
+
+    <vehicle id="0.38" depart="71.00" departPos="0.00" departSpeed="9.58" speedFactor="1.0000" arrival="3240.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="112.00 152.00 192.00 3240.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2229.11" ended="3240.00"/>
+    </vehicle>
+
+    <vehicle id="0.39" depart="73.00" departPos="0.00" departSpeed="9.69" speedFactor="1.0000" arrival="3247.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="114.00 154.00 194.00 3247.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2236.76" ended="3247.00"/>
+    </vehicle>
+
+    <vehicle id="0.40" depart="74.00" departPos="0.00" departSpeed="8.93" speedFactor="1.0000" arrival="3255.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="116.00 156.00 196.00 3255.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2244.40" ended="3255.00"/>
+    </vehicle>
+
+    <vehicle id="0.41" depart="76.00" departPos="0.00" departSpeed="9.03" speedFactor="1.0000" arrival="3265.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="118.00 158.00 198.00 3265.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2254.26" ended="3265.00"/>
+    </vehicle>
+
+    <vehicle id="0.42" depart="78.00" departPos="0.00" departSpeed="9.12" speedFactor="1.0000" arrival="3275.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="119.00 159.00 199.00 3275.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2264.11" ended="3275.00"/>
+    </vehicle>
+
+    <vehicle id="0.43" depart="80.00" departPos="0.00" departSpeed="9.23" speedFactor="1.0000" arrival="3287.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="121.00 161.00 201.00 3287.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2276.17" ended="3287.00"/>
+    </vehicle>
+
+    <vehicle id="0.44" depart="82.00" departPos="0.00" departSpeed="9.33" speedFactor="1.0000" arrival="3301.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="123.00 163.00 203.00 3301.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="2290.43" ended="3301.00"/>
+    </vehicle>
+
+    <vehicle id="0.47" depart="88.00" departPos="0.00" departSpeed="9.65" speedFactor="1.0000" arrival="4191.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="129.00 169.00 209.00 4191.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="3180.00" ended="4191.00"/>
+    </vehicle>
+
+    <vehicle id="0.48" depart="89.00" departPos="0.00" departSpeed="8.90" speedFactor="1.0000" arrival="4207.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="131.00 171.00 211.00 4207.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="3196.48" ended="4207.00"/>
+    </vehicle>
+
+    <vehicle id="0.49" depart="91.00" departPos="0.00" departSpeed="8.99" speedFactor="1.0000" arrival="4223.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="133.00 173.00 213.00 4223.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="3212.95" ended="4223.00"/>
+    </vehicle>
+
+    <vehicle id="0.50" depart="93.00" departPos="0.00" departSpeed="9.09" speedFactor="1.0000" arrival="4229.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="134.00 174.00 214.00 4229.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="3218.39" ended="4229.00"/>
+    </vehicle>
+
+    <vehicle id="0.51" depart="95.00" departPos="0.00" departSpeed="9.19" speedFactor="1.0000" arrival="4234.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="136.00 176.00 216.00 4234.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="3223.83" ended="4234.00"/>
+    </vehicle>
+
+    <vehicle id="0.52" depart="97.00" departPos="0.00" departSpeed="9.29" speedFactor="1.0000" arrival="4242.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="138.00 178.00 475.00 4242.00"/>
+        <stop lane="1/1to0/1_0" startPos="0.00" endPos="399.00" duration="1000.00" started="3231.47" ended="4242.00"/>
+    </vehicle>
+
+    <vehicle id="2" depart="160.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="4244.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="200.00 240.00 775.00 4244.00"/>
+    </vehicle>
+
+</routes>

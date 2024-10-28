@@ -1,0 +1,11 @@
+# motorway without speed limit
+motorway
+
+# motorway without speed limit
+motorway_overrideUnlimited
+
+# test import of maxspeed:forward and maxspeed:backward
+maxspeed_directional
+
+# abstract speed limits
+zones

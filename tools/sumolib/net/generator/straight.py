@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -16,14 +16,12 @@
 # @date    2013-10-10
 
 from __future__ import absolute_import
+# relative imports don't work if a file is used as a library and executable
+# (https://peps.python.org/pep-0366/#rationale-for-change)
 import os
 import sys
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-    os.path.dirname(__file__), '..', '..', '..', '..')), 'tools'))
-
-from . import network  # noqa
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import network  # noqa
 
 
 def straight(defaultNode=None, defaultEdge=None, centralReservation=0):

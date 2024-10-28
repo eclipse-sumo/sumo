@@ -10,6 +10,9 @@ option_join-dist
 # guess the joined tls
 guess
 
+# types loaded from a patch file override guessing.
+patch_overrides_guess
+
 # avoid joining a large dense cluster of junctions
 guess_large
 
@@ -28,6 +31,12 @@ guess.joining_join
 # test that edge lengths are used instead of junction positions for clustering
 # (important for big junction shapes)
 edge_length
+
+# exlude tls from being joined
+joinExclude
+
+# exlude unknown tls from being joined
+joinExclude_unknown
 
 # test explit specification of joined tls in plain xml input
 specified

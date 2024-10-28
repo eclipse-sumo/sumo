@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,13 +43,15 @@ const int MSPModel::UNDEFINED_DIRECTION(0);
 // parameters shared by all models
 const double MSPModel::SAFETY_GAP(1.0);
 const double MSPModel::SIDEWALK_OFFSET(3);
+const double MSPModel::UNSPECIFIED_POS_LAT(std::numeric_limits<double>::max());
+const double MSPModel::RANDOM_POS_LAT(-std::numeric_limits<double>::max());
 
 
 // ===========================================================================
 // MSPModel method definitions
 // ===========================================================================
 int
-MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
+MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route, int& passedEdges) {
     const MSJunction* junction = nullptr;
     for (ConstMSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
         const MSEdge* edge = *it;
@@ -64,6 +66,7 @@ MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
             }
         }
         junction = dir == FORWARD ? edge->getToJunction() : edge->getFromJunction();
+        passedEdges++;
     }
     return dir;
 }

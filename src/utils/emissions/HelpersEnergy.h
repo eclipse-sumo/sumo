@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,13 @@ public:
      */
     HelpersEnergy();
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return always "Electricity"
+     */
+    std::string getFuel(const SUMOEmissionClass /* c */) const {
+        return "Electricity";
+    }
 
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
@@ -71,14 +78,4 @@ public:
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const EnergyParams* param) const;
-
-    double getDefaultParam(SumoXMLAttr attr) const {
-        return myDefaultParameter.getDouble(attr);
-    }
-
-private:
-    void initDefaultParameter() const;
-
-    /// @brief The default parameter
-    EnergyParams myDefaultParameter;
 };

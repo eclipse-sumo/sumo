@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 
 #include <string>
 #include <stack>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -37,6 +38,9 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
@@ -54,19 +58,23 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"junction",                GLO_JUNCTION},
     {"connection",              GLO_CONNECTION},
     {"crossing",                GLO_CROSSING},
+    {"walkingArea",             GLO_WALKINGAREA},
     {"tlLogic",                 GLO_TLLOGIC},
-    {"type",                    GLO_TYPE},
+    {"edgeType",                GLO_EDGETYPE},
+    {"laneType",                GLO_LANETYPE},
     //
     {"parentChildLine",         GLO_PARENTCHILDLINE},
     //
     {"additional",              GLO_ADDITIONALELEMENT},
+    {"stoppingPlace",           GLO_STOPPING_PLACE},
     {"busStop",                 GLO_BUS_STOP},
+    {"trainStop",               GLO_TRAIN_STOP},
     {"access",                  GLO_ACCESS},
     {"taz",                     GLO_TAZ},
     {"containerStop",           GLO_CONTAINER_STOP},
     {"chargingStation",         GLO_CHARGING_STATION},
-    {"overheadWireSegment",     GLO_OVERHEAD_WIRE_SEGMENT},
     {"parkingArea",             GLO_PARKING_AREA},
+    {"stoppingPlaceLast",       GLO_STOPPING_PLACE_LAST},
     {"parkingSpace",            GLO_PARKING_SPACE},
     {"e1Detector",              GLO_E1DETECTOR},
     {"e1DetectorME",            GLO_E1DETECTOR_ME},
@@ -89,16 +97,24 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"routeProbe",              GLO_ROUTEPROBE},
     {"vaporizer",               GLO_VAPORIZER},
     {"wire",                    GLO_WIRE},
+    {"overheadWireSegment",     GLO_OVERHEAD_WIRE_SEGMENT},
     {"tractionsubstation",      GLO_TRACTIONSUBSTATION},
+    {"additionalLast",          GLO_ADDITIONALELEMENT_LAST},
+    //
+    {"laneArrows",              GLO_LANEARROWS},
     //
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},
+    {"jupedsim.walkable_area",  GLO_JPS_WALKABLEAREA},
+    {"jupedsim.obstacle",       GLO_JPS_OBSTACLE},
+    {"shapeLast",               GLO_SHAPE_LAST},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
     //
     {"route",                   GLO_ROUTE},
+    {"routeEmbedded",           GLO_ROUTE_EMBEDDED},
     //
     {"ride",                    GLO_RIDE},
     {"walk",                    GLO_WALK},
@@ -107,8 +123,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"tranship",                GLO_TRANSHIP},
     //
     {"stop",                    GLO_STOP},
-    {"stopPerson",              GLO_STOP_PERSON},
-    {"stopContainer",           GLO_STOP_CONTAINER},
+    {"stopPlan",                GLO_STOP_PLAN},
     //
     {"vehicle",                 GLO_VEHICLE},
     {"trip",                    GLO_TRIP},
@@ -127,8 +142,9 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},
-    {"frontElement",            GLO_DOTTEDCONTOUR_FRONT},
-    {"dottedContour",           GLO_DOTTEDCONTOUR_INSPECTED},
+    {"frontElement",            GLO_FRONTELEMENT},
+    {"geometryPoint",           GLO_GEOMETRYPOINT},
+    {"dottedContour",           GLO_DOTTEDCONTOUR},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},
     {"testElement",             GLO_TESTELEMENT},
@@ -139,16 +155,17 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
 
 StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInitializer, GLO_MAX);
 const GUIGlID GUIGlObject::INVALID_ID = 0;
+const double GUIGlObject::INVALID_PRIORITY(-std::numeric_limits<double>::max());
 
 // ===========================================================================
-// method definitionsas
+// method definitions
 // ===========================================================================
 
-GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
     myGLObjectType(type),
     myMicrosimID(microsimID),
-    myAmBlocked(false) {
+    myIcon(icon) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
     myFullName = createFullName();
@@ -173,11 +190,48 @@ GUIGlObject::getParentName() const {
 }
 
 
+FXIcon*
+GUIGlObject::getGLIcon() const {
+    return myIcon;
+}
+
+
 GUIParameterTableWindow*
 GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     UNUSED_PARAMETER(&app);
     UNUSED_PARAMETER(&parent);
     return nullptr;
+}
+
+
+bool
+GUIGlObject::isGLObjectLocked() const {
+    // by default unlocked
+    return false;
+}
+
+
+void
+GUIGlObject::markAsFrontElement() {
+    // by default nothing to do
+}
+
+
+void
+GUIGlObject::deleteGLObject() {
+    // by default nothing to do
+}
+
+
+void
+GUIGlObject::selectGLObject() {
+    // by default nothing to do
+}
+
+
+void
+GUIGlObject::updateGLObject() {
+    // by default nothing to update
 }
 
 
@@ -218,7 +272,10 @@ GUIGlObject::setNode(osg::Node* node) {
 
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), nullptr, nullptr, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), myIcon, nullptr, 0);
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy test coordinates to clipboard"), nullptr, ret, MID_COPY_TEST_COORDINATES);
+    }
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -227,7 +284,7 @@ GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, boo
 
 void
 GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Center"), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -236,8 +293,8 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator)
 
 void
 GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Copy name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy name to clipboard"), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy typed name to clipboard"), nullptr, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -247,9 +304,9 @@ GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparato
 void
 GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
     if (gSelected.isSelected(getType(), getGlID())) {
-        GUIDesigns::buildFXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Remove From Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -259,7 +316,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparat
 
 void
 GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Show Parameter"), GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -268,7 +325,7 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSepara
 
 void
 GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Show Type Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWTYPEPARS);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Show Type Parameter"), GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWTYPEPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -277,11 +334,23 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const {
-    GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor position to clipboard"), nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor geo-position to clipboard"), nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
+        // create menu pane for edge operations
+        FXMenuPane* showCursorGeoPositionPane = new FXMenuPane(ret);
+        ret->insertMenuPaneChild(showCursorGeoPositionPane);
+        new FXMenuCascade(ret, TL("Show cursor geo-position in "), nullptr, showCursorGeoPositionPane);
         for (const auto& mapper : app.getOnlineMaps()) {
-            GUIDesigns::buildFXMenuCommand(ret, "Show cursor geo-position in " + mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
+            if (mapper.first == "GeoHack") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GEOHACK), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else if (mapper.first == "Google Maps") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GOOGLEMAPS), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else if (mapper.first == "OSM") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::OSM), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
+            }
         }
     }
 }
@@ -289,7 +358,7 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWind
 
 void
 GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Open Manipulator...", GUIIconSubSys::getIcon(GUIIcon::MANIP), ret, MID_MANIP);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Open Manipulator..."), GUIIconSubSys::getIcon(GUIIcon::MANIP), ret, MID_MANIP);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -328,7 +397,7 @@ GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* re
     buildPositionCopyEntry(ret, app);
     // only show type if isn't empty
     if (type != "") {
-        GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, TLF("type: %", type).c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }
@@ -351,7 +420,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     buildPositionCopyEntry(ret, app);
     // only show type if isn't empty
     if (type != "") {
-        GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, TLF("type: %", type).c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }

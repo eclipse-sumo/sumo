@@ -2,9 +2,16 @@
 
 # cross a road
 2_arm
+2_corner
+
+# one of the edges has no sidewalks
+2_corner_someForbidden
 
 # attempt to specify an invalid crossing
 2_arm_oneway_invalid
+
+# see #12234
+2_arm_invalid
 
 # 3 arm junction where the crossing arm only has a sidewalk on the opposite side
 3_arm_1_opposite_sidewalk_1_crossing
@@ -15,6 +22,20 @@
 # a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
 3_arm_service_entering
 3_arm_unprioritized
+3_arm_unprioritized2
+3_arm_prioritized
+
+# test for #14731
+3_arm_slanted_1sw_missing
+
+# test for #14731
+3_arm_slanted_1sw_missing2
+
+# test for #14731
+3_arm_slanted_1sw_missing3
+
+# second sidewalk on the left side should raise a warning
+3_no_crossings_invalid_sidewalks
 
 # 4 arm junction with crossings on all sides and custom tl indices
 sumonet_customTLIndex
@@ -60,3 +81,6 @@ custom_tll
 
 # railway crossing with pedestrian crossings
 rail_crossing
+
+# see #15136
+custom_shape_proj

@@ -28,5 +28,8 @@ ride_aborted
 # test riding person
 ride_carTriggered
 
+# test riding person
+ride_carTriggered2
+
 # test stopping person	
 stop

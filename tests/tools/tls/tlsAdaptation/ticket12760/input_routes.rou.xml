@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 10:55:06.265969 by cutRoutes.py v1_16_0+0993-e2aecbd
+  options: small2.net.xml 2023-03-03_Kassel_car-routes_281218.rou.xml -o small2.rou.xml
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passenger" vClass="passenger"/>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="68.38" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661111002" id="car105878" toTaz="661101054" type="passenger">
+        <route edges="199271130#5 245656915 -416900349#1 -416900349#0 -59287962#1 -59287962#0 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="92.73" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101056" id="car18179" toTaz="661104005" type="passenger">
+        <route edges="199271130#5 245656915 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="102.79" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661103010" id="car30794" toTaz="661101044" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="164.25" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661111002" id="car106133" toTaz="661101054" type="passenger">
+        <route edges="199271130#5 245656915 -416900349#1 -416900349#0 -59287962#1 -59287962#0 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="211.92" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661110019" id="car101383" toTaz="661101047" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="229.07" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661110019" id="car101361" toTaz="661101036" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="230.60" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101006" id="car915" toTaz="661111055" type="passenger">
+        <route edges="286600591 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="268.40" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661116007" id="car143476" toTaz="661101032" type="passenger">
+        <route edges="199271130#5 245656915 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="282.10" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661114005" id="car129007" toTaz="661101004" type="passenger">
+        <route edges="199271130#5 245656915 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="315.36" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661113021" id="car127419" toTaz="661101054" type="passenger">
+        <route edges="199271130#5 245656915 -416900349#1 -416900349#0 -59287962#1 -59287962#0 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="349.55" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661109009" id="car90642" toTaz="661101047" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="356.45" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661105006" id="car58897" toTaz="661101047" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="371.23" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661114005" id="car129288" toTaz="661104040" type="passenger">
+        <route edges="199271130#5 245656915 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="396.58" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101045" id="car15562" toTaz="661113001" type="passenger">
+        <route edges="245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="451.16" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101056" id="car18197" toTaz="661105011" type="passenger">
+        <route edges="199271130#5 245656915 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="466.80" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661111002" id="car106286" toTaz="661101054" type="passenger">
+        <route edges="199271130#5 245656915 -416900349#1 -416900349#0 -59287962#1 -59287962#0 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="470.54" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661114011" id="car131006" toTaz="661101027" type="passenger">
+        <route edges="199271130#5 245656915 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="471.78" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101017" id="car2448" toTaz="661111053" type="passenger">
+        <route edges="286600591 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="512.68" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661119028" id="car167913" toTaz="661111003" type="passenger">
+        <route edges="286600591 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="518.57" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101032" id="car8988" toTaz="661115012" type="passenger">
+        <route edges="286600591 31821868 245656917#0"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="534.49" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101022" id="car3446" toTaz="661101044" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="538.65" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661101045" id="car15543" toTaz="661108041" type="passenger">
+        <route edges="59287962#1 416900349#0 416900349#1 59287976#0 59287976#1"/>
+    </vehicle>
+    <vehicle arrivalLane="current" arrivalPos="random" depart="543.11" departLane="best" departPos="random_free" departSpeed="max" fromTaz="661109010" id="car90720" toTaz="661101044" type="passenger">
+        <route edges="286600591 19781869 801058347#0 260138610"/>
+    </vehicle>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,16 +44,20 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] departPos lane position in that vehicle must depart when leaves parkingArea
      * @param[in] name Name of ParkingArea
+     * @param[in] badges names which grant access to the parkingArea
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] roadSideCapacity road side capacity of ParkingArea
      * @param[in] width ParkingArea's length
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const std::string& departPos,
-                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const double length,
-                   double angle, const Parameterised::Map& parameters);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+                   const std::string& departPos, const std::string& name, const std::vector<std::string>& badges,
+                   const bool friendlyPosition, const int roadSideCapacity,
+                   const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
+                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEParkingArea();
@@ -65,21 +69,26 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -150,6 +159,12 @@ protected:
     /// @brief Angle of Parking Area
     double myAngle;
 
+    /// @brief lefthand
+    bool myLefthand;
+
+    /// @brief The list of badges that allow accessing the parkingArea
+    std::vector<std::string> myAcceptedBadges;
+
     /// @brief vector with GNELotSpaceDefinition
     std::vector<GNELotSpaceDefinition> myLotSpaceDefinitions;
 
@@ -163,5 +178,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEParkingArea& operator=(const GNEParkingArea&) = delete;
 };
-
-

@@ -1,6 +1,9 @@
 # Tests the constraint API
 getConstraints
 
+# Tests the constraint API
+getConstraints_types
+
 # reverse constraint-based train order and adapt other constraints to avoid deadlock
 swapConstraints
 
@@ -12,6 +15,12 @@ removeConstraints_signalId
 removeConstraints_tripId
 removeConstraints_foeId
 removeConstraints_foeSignal
+
+# update constraints after route change (remove unfulfillable)
+updateConstraints
+
+# adding a constraint
+addConstraint
 
 # tests for automatic deadlock-avoidance after swapConstraints
 swap

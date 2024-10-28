@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 
 // ===========================================================================
 // class declaration
@@ -82,11 +83,15 @@ public:
     /// @brief called when user set the value of an attribute of type int/float/string/bool
     long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-    /// @brief called when user press the open dialog button
-    long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+    /// @brief called when user press the color dialog button
+    long onCmdOpenColorDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the allow dialog button
+    long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEAttributesCreatorRow)
 
     /// @brief generate ID
@@ -106,13 +111,16 @@ private:
     std::string myInvalidValue;
 
     /// @brief Label with the name of the attribute
-    FXLabel* myAttributeLabel = nullptr;
+    MFXLabelTooltip* myAttributeLabel = nullptr;
 
     /// @brief check button to enable/disable Label attribute
     FXCheckButton* myEnableAttributeCheckButton = nullptr;
 
-    /// @brief Button for open color or allow/disallow editor
-    FXButton* myAttributeButton = nullptr;
+    /// @brief Button for open color editor
+    FXButton* myAttributeColorButton = nullptr;
+
+    /// @brief Button for open allow editor
+    FXButton* myAttributeAllowButton = nullptr;
 
     /// @brief textField to modify the default value of string parameters
     FXTextField* myValueTextField = nullptr;
@@ -121,5 +129,5 @@ private:
     FXCheckButton* myValueCheckButton = nullptr;
 
     /// @brief comboBox for discrete vaues
-    FXComboBox* myValueComboBox = nullptr;
+    MFXComboBoxIcon* myValueComboBox = nullptr;
 };

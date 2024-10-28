@@ -1,8 +1,8 @@
 <routes>
     <vTypeDistribution id="DEFAULT_VEHTYPE">
-        <vType id="passenger" length="5.0" guiShape="passenger" osgFile="car-normal-citrus.obj" probability="20" /> 
-        <vType id="bus" length="12.5" height="2.5" guiShape="bus" osgFile="car-minibus-citrus.obj" width="2.4" probability="2"/> 
-        <vType id="truck/trailer" length="16.25" height="2.5" guiShape="truck/trailer" osgFile="car-microcargo-citrus.obj" width="2.6" probability="1"/> 
+        <vType id="passenger" length="5.0" guiShape="passenger" osgFile="car-normal-citrus.obj" probability="20" />
+        <vType id="bus" length="12.5" height="2.5" guiShape="bus" osgFile="car-minibus-citrus.obj" width="2.4" probability="2"/>
+        <vType id="truck/trailer" length="16.25" height="2.5" guiShape="truck/trailer" osgFile="car-microcargo-citrus.obj" width="2.6" probability="1"/>
     </vTypeDistribution>
 
     <route id="WE" edges="166445412 23207363#0"/>

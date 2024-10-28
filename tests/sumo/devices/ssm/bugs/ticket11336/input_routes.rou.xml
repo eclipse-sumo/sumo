@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ER" minGap="0.05" maxSpeed="50.00" speedFactor="1.50" vClass="emergency" color="red" accel="2.0" decel="3.0" >
+        <!-- Commenting either of these parameters will resolve the crash. -->
+        <param key="has.bluelight.device" value="true" />
+        <param key="has.ssm.device" value="true" />
+    </vType>
+    <vType id="Civilian" maxSpeed="50.00" color="white" accel="3.0" decel="6.0" sigma="0.95"></vType>
+    <vehicle id="0.3" type="ER" depart="3.00" departPos="random" departSpeed="max">
+        <route edges="E0 E9 E10 E11 E12 E3" />
+    </vehicle>
+    <vehicle id="0.10" type="ER" depart="10.00" departPos="random" departSpeed="max">
+        <route edges="E0 E9 E10 E11 E12 E3" />
+    </vehicle>
+    <vehicle id="0.11" type="ER" depart="11.00" departPos="random" departSpeed="max">
+        <route edges="E0 E9 E10 E11 E12 E3" />
+    </vehicle>
+    <vehicle id="0.13" type="Civilian" depart="13.00" departPos="random" departSpeed="max">
+        <route edges="E0 E9 E10 E11 E12 E3" />
+    </vehicle>
+</routes>

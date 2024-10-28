@@ -33,13 +33,13 @@
 
         <!-- Phase Parameters -->
         <phase duration="99" minDur="6"  maxDur="19.5" vehext="4" yellow="3.5" red="2" name="1" state="srrsrrsrrsrG"/>
-        <phase duration="99" minDur="25" maxDur="53.5" vehext="5" yellow="4.5" red="2" name="2" state="srrGGrsrrsrg"/>
+        <phase duration="99" minDur="25" maxDur="53.5" vehext="5" yellow="4.5" red="2" name="2" state="srrGGgsrrsrr"/>
         <phase duration="99" minDur="10" maxDur="34.5" vehext="4" yellow="3.5" red="2" name="3" state="srGsrrsrrsrr"/>
-        <phase duration="99" minDur="10" maxDur="19.5" vehext="4" yellow="3.5" red="2" name="4" state="srgsrrsGrsrr"/>
+        <phase duration="99" minDur="10" maxDur="19.5" vehext="4" yellow="3.5" red="2" name="4" state="srrsrrsGgsrr"/>
         <phase duration="99" minDur="6"  maxDur="9.5"  vehext="4" yellow="3.5" red="2" name="5" state="srrsrGsrrsrr"/>
-        <phase duration="99" minDur="25" maxDur="63.5" vehext="5" yellow="4.5" red="2" name="6" state="srrsrgsrrGGr"/>
+        <phase duration="99" minDur="25" maxDur="63.5" vehext="5" yellow="4.5" red="2" name="6" state="srrsrrsrrGGg"/>
         <phase duration="99" minDur="10" maxDur="19.5" vehext="4" yellow="3.5" red="2" name="7" state="srrsrrsrGsrr"/>
-        <phase duration="99" minDur="10" maxDur="34.5" vehext="4" yellow="3.5" red="2" name="8" state="GGrsrrsrgsrr"/>
+        <phase duration="99" minDur="10" maxDur="34.5" vehext="4" yellow="3.5" red="2" name="8" state="GGgsrrsrrsrr"/>
         
     </tlLogic>
 </add>

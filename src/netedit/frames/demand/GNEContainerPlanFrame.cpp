@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,15 +13,17 @@
 /****************************************************************************/
 /// @file    GNEContainerPlanFrame.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    Jun 2019
 ///
 // The Widget for add ContainerPlan elements
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEContainerPlanFrame.h"
 
@@ -34,24 +36,27 @@
 // GNEContainerPlanFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "ContainerPlans"),
-    myRouteHandler("", viewNet->getNet(), true) {
+GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, TL("ContainerPlans")),
+    myRouteHandler("", viewNet->getNet(), true, false) {
 
-    // create container types selector modul
-    myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
+    // create container types selector module
+    myContainerSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
-    // Create tag selector for container plan
-    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    // Create plan selector
+    myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
 
     // Create container parameters
     myContainerPlanAttributes = new GNEAttributesCreator(this);
 
-    // create myPathCreator Module
-    myPathCreator = new GNEPathCreator(this);
+    // create plan creator Module
+    myPlanCreator = new GNEPlanCreator(this);
 
-    // Create GNEElementTree modul
+    // Create GNEElementTree module
     myContainerHierarchy = new GNEElementTree(this);
+
+    // create plan creator legend
+    myPlanCreatorLegend = new GNEPlanCreatorLegend(this);
 }
 
 
@@ -63,25 +68,20 @@ GNEContainerPlanFrame::show() {
     // get containers maps
     const auto& containers = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINER);
     const auto& containerFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINERFLOW);
-    // Only show moduls if there is at least one container
+    // Only show modules if there is at least one container
     if ((containers.size() > 0) || (containerFlows.size() > 0)) {
         // show container selector
         myContainerSelector->showDemandElementSelector();
         // refresh tag selector
-        myContainerPlanTagSelector->refreshTagSelector();
-        // set first container as demand element (this will call demandElementSelected() function)
-        if (containers.size() > 0) {
-            myContainerSelector->setDemandElement(*containers.begin());
-        } else {
-            myContainerSelector->setDemandElement(*containerFlows.begin());
-        }
+        myPlanSelector->refreshPlanSelector();
     } else {
-        // hide all moduls except helpCreation
+        // hide all modules
         myContainerSelector->hideDemandElementSelector();
-        myContainerPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
     // show frame
     GNEFrame::show();
@@ -94,44 +94,87 @@ GNEContainerPlanFrame::hide() {
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
+    // enable undo/redo
+    myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
     // hide frame
     GNEFrame::hide();
 }
 
 
 bool
-GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
-    // first check if container selected is valid
-    if (myContainerSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container isn't valid.");
+GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+    // first check that we clicked over an AC
+    if (viewObjects.getAttributeCarrierFront() == nullptr) {
         return false;
+    }
+    // check if we have to select a new container
+    if (myContainerSelector->getCurrentDemandElement() == nullptr) {
+        if (viewObjects.getDemandElementFront() && viewObjects.getDemandElementFront()->getTagProperty().isContainer()) {
+            // continue depending of number of demand elements under cursor
+            if (viewObjects.getDemandElements().size() > 1) {
+                // Filter containers
+                myContainerSelector->setDemandElements(viewObjects.getDemandElements());
+            } else {
+                // select new container
+                myContainerSelector->setDemandElement(viewObjects.getDemandElementFront());
+            }
+            return true;
+        } else {
+            myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
+            return false;
+        }
     }
     // finally check that container plan selected is valid
-    if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container plan isn't valid.");
+    if (!myPlanSelector->getCurrentPlanTemplate()) {
+        myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
-    // Obtain current container plan tag (only for improve code legibility)
-    SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
-    // declare flags for requirements
-    const bool requireContainerStop = ((containerPlanTag == GNE_TAG_TRANSPORT_CONTAINERSTOP) || (containerPlanTag == GNE_TAG_TRANSHIP_CONTAINERSTOP) ||
-                                       (containerPlanTag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP));
-    const bool requireEdge = ((containerPlanTag == GNE_TAG_TRANSPORT_EDGE) || (containerPlanTag == GNE_TAG_TRANSHIP_EDGE) ||
-                              (containerPlanTag == GNE_TAG_TRANSHIP_EDGES) || (containerPlanTag == GNE_TAG_STOPCONTAINER_EDGE));
-    // continue depending of tag
-    if (requireContainerStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+    // continue depending of marked elements
+    if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
+            (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+        return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
+    } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
+               (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
+        return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
+    } else if (myPlanSelector->markJunctions() && viewObjects.getJunctionFront()) {
+        return myPlanCreator->addJunction(viewObjects.getJunctionFront());
+    } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {
+        return myPlanCreator->addEdge(viewObjects.getLaneFront());
+    } else if (myPlanSelector->markTAZs() && viewObjects.getTAZFront()) {
+        return myPlanCreator->addTAZ(viewObjects.getTAZFront());
     } else {
         return false;
     }
 }
 
 
-GNEPathCreator*
-GNEContainerPlanFrame::getPathCreator() const {
-    return myPathCreator;
+void
+GNEContainerPlanFrame::resetSelectedContainer() {
+    myContainerSelector->setDemandElement(nullptr);
+}
+
+
+GNEPlanCreator*
+GNEContainerPlanFrame::getPlanCreator() const {
+    return myPlanCreator;
+}
+
+
+GNEElementTree*
+GNEContainerPlanFrame::getContainerHierarchy() const {
+    return myContainerHierarchy;
+}
+
+
+GNEDemandElementSelector*
+GNEContainerPlanFrame::getContainerSelector() const {
+    return myContainerSelector;
+}
+
+
+GNEPlanSelector*
+GNEContainerPlanFrame::getPlanSelector() const {
+    return myPlanSelector;
 }
 
 // ===========================================================================
@@ -141,30 +184,29 @@ GNEContainerPlanFrame::getPathCreator() const {
 void
 GNEContainerPlanFrame::tagSelected() {
     // first check if container is valid
-    if (myContainerPlanTagSelector->getCurrentTemplateAC()) {
-        // Obtain current container plan tag (only for improve code legibility)
-        SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    if (myPlanSelector->getCurrentPlanTemplate()) {
         // show container attributes
-        myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
-        // get previous container plan
-        GNEEdge* previousEdge = myContainerSelector->getContainerPlanPreviousEdge();
+        myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
         // set path creator mode depending if previousEdge exist
-        if (previousEdge) {
-            // set path creator mode
-            myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
-            // add previous edge
-            myPathCreator->addEdge(previousEdge, false, false);
+        if (myContainerSelector) {
+            // show path creator mode
+            myPlanCreator->showPlanCreatorModule(myPlanSelector, myContainerSelector->getPreviousPlanElement());
+            // show legend
+            myPlanCreatorLegend->showPlanCreatorLegend();
+            // show container hierarchy
+            myContainerHierarchy->showHierarchicalElementTree(myContainerSelector->getCurrentDemandElement());
         } else {
-            // set path creator mode
-            myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
+            // hide modules
+            myPlanCreator->hidePathCreatorModule();
+            myContainerHierarchy->hideHierarchicalElementTree();
+            myPlanCreatorLegend->hidePlanCreatorLegend();
         }
-        // show container hierarchy
-        myContainerHierarchy->showHierarchicalElementTree(myContainerSelector->getCurrentDemandElement());
     } else {
-        // hide moduls if tag selecte isn't valid
+        // hide modules if tag selected isn't valid
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
 }
 
@@ -174,46 +216,51 @@ GNEContainerPlanFrame::demandElementSelected() {
     // check if a valid container was selected
     if (myContainerSelector->getCurrentDemandElement()) {
         // show container plan tag selector
-        myContainerPlanTagSelector->showTagSelector();
+        myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
-        if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
+        if (myPlanSelector->getCurrentPlanTemplate()) {
             // call tag selected
             tagSelected();
         } else {
             myContainerPlanAttributes->hideAttributesCreatorModule();
-            myPathCreator->hidePathCreatorModule();
+            myPlanCreator->hidePathCreatorModule();
             myContainerHierarchy->hideHierarchicalElementTree();
+            myPlanCreatorLegend->hidePlanCreatorLegend();
         }
     } else {
-        // hide moduls if container selected isn't valid
-        myContainerPlanTagSelector->hideTagSelector();
+        // hide modules if container selected isn't valid
+        myPlanSelector->hidePlanSelector();
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
 }
 
 
-void
-GNEContainerPlanFrame::createPath() {
+bool
+GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties().getTagStr() + " parameters.");
+        return false;
     } else {
         // check if container plan can be created
-        if (myRouteHandler.buildContainerPlan(
-                    myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
-                    myContainerSelector->getCurrentDemandElement(),
-                    myContainerPlanAttributes,
-                    myPathCreator)) {
+        if (myRouteHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(), myContainerSelector->getCurrentDemandElement(),
+                                              myContainerPlanAttributes, myPlanCreator, false)) {
             // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation
-            myPathCreator->abortPathCreation();
+            myPlanCreator->abortPathCreation();
             // refresh using tagSelected
             tagSelected();
             // refresh containerPlan attributes
             myContainerPlanAttributes->refreshAttributesCreator();
+            // enable show all container plans
+            myViewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->setChecked(TRUE);
+            return true;
+        } else {
+            return false;
         }
     }
 }

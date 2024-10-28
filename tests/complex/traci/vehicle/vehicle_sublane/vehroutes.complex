@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-11 13:41:20 by Eclipse SUMO sumo Version v1_12_0+1336-a87ef3e
+<!-- generated on 2023-06-07 22:15:56 by Eclipse SUMO sumo Version v1_17_0+0814-370e580
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -11,7 +11,6 @@
 
     <output>
         <tripinfo-output value="tripinfo.xml"/>
-        <tripinfo-output.write-unfinished value="true"/>
         <tripinfo-output.write-undeparted value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
@@ -29,7 +28,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="55714"/>
+        <remote-port value="45639"/>
     </traci_server>
 
 </configuration>

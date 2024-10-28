@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,55 +36,87 @@
 // GUIDottedGeometry::DottedGeometryColor - methods
 // ---------------------------------------------------------------------------
 
-GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor(const GUIVisualizationSettings& settings) :
-    mySettings(settings),
+GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor() :
     myColorFlag(true) {}
 
 
 const RGBColor
-GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
-    if (type == DottedContourType::INSPECT) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return mySettings.dottedContourSettings.firstInspectedColor;
-        } else {
-            myColorFlag = true;
-            return mySettings.dottedContourSettings.secondInspectedColor;
-        }
-    } else if (type == DottedContourType::FRONT) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return mySettings.dottedContourSettings.firstFrontColor;
-        } else {
-            myColorFlag = true;
-            return mySettings.dottedContourSettings.secondFrontColor;
-        }
-    } else if (type == DottedContourType::GREEN) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::GREEN;
-        } else {
-            myColorFlag = true;
-            return RGBColor::GREEN.changedBrightness(-30);
-        }
-    } else if (type == DottedContourType::MAGENTA) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::MAGENTA;
-        } else {
-            myColorFlag = true;
-            return RGBColor::MAGENTA.changedBrightness(-30);
-        }
-    } else if (type == DottedContourType::ORANGE) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::ORANGE;
-        } else {
-            myColorFlag = true;
-            return RGBColor::ORANGE.changedBrightness(-30);
-        }
-    } else {
-        return RGBColor::BLACK;
+GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings& settings, DottedContourType type) {
+    switch (type) {
+        case DottedContourType::INSPECT:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return settings.dottedContourSettings.firstInspectedColor;
+            } else {
+                myColorFlag = true;
+                return settings.dottedContourSettings.secondInspectedColor;
+            }
+        case DottedContourType::FRONT:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return settings.dottedContourSettings.firstFrontColor;
+            } else {
+                myColorFlag = true;
+                return settings.dottedContourSettings.secondFrontColor;
+            }
+        case DottedContourType::FROM:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::GREEN;
+            } else {
+                myColorFlag = true;
+                return RGBColor::GREEN.changedBrightness(-30);
+            }
+        case DottedContourType::TO:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::MAGENTA;
+            } else {
+                myColorFlag = true;
+                return RGBColor::MAGENTA.changedBrightness(-30);
+            }
+        case DottedContourType::REMOVE:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor(229, 233, 255);
+            } else {
+                myColorFlag = true;
+                return RGBColor(255, 109, 196);
+            }
+        case DottedContourType::SELECT:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::BLUE;
+            } else {
+                myColorFlag = true;
+                return RGBColor::BLUE.changedBrightness(-30);
+            }
+        case DottedContourType::MOVE:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor(220, 0, 0);
+            } else {
+                myColorFlag = true;
+                return RGBColor(220, 0, 0).changedBrightness(-30);
+            }
+        case DottedContourType::OVER:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::ORANGE;
+            } else {
+                myColorFlag = true;
+                return RGBColor::ORANGE.changedBrightness(-30);
+            }
+        case DottedContourType::RELATED:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::CYAN;
+            } else {
+                myColorFlag = true;
+                return RGBColor::CYAN.changedBrightness(-30);
+            }
+        default:
+            return RGBColor::BLACK;
     }
 }
 
@@ -108,44 +140,44 @@ GUIDottedGeometry::DottedGeometryColor::reset() {
 // GUIDottedGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-GUIDottedGeometry::Segment::Segment() :
-    offset(-1) {
-}
+GUIDottedGeometry::Segment::Segment() {}
 
 
 GUIDottedGeometry::Segment::Segment(PositionVector newShape) :
-    shape(newShape),
-    offset(-1) {
+    shape(newShape) {
 }
 
 // ---------------------------------------------------------------------------
 // GUIDottedGeometry - methods
 // ---------------------------------------------------------------------------
 
-GUIDottedGeometry::GUIDottedGeometry() :
-    myWidth(0) {
-}
+GUIDottedGeometry::GUIDottedGeometry() {}
 
 
-GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) :
-    myWidth(s.dottedContourSettings.segmentWidth) {
+GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                     PositionVector shape, const bool closeShape) {
+    // set shape as unresampled shape
+    myUnresampledShape = shape;
     // check if shape has to be closed
-    if (closeShape && (shape.size() > 2)) {
-        shape.closePolygon();
+    if (closeShape && (myUnresampledShape.size() > 2)) {
+        myUnresampledShape.closePolygon();
     }
-    if (shape.size() > 1) {
+    if (myUnresampledShape.size() > 1) {
         // get shape
-        for (int i = 1; i < (int)shape.size(); i++) {
-            myDottedGeometrySegments.push_back(Segment({shape[i - 1], shape[i]}));
+        for (int i = 1; i < (int)myUnresampledShape.size(); i++) {
+            myDottedGeometrySegments.push_back(Segment({myUnresampledShape[i - 1], myUnresampledShape[i]}));
         }
-        // calculate segment length
-        double segmentLength = s.dottedContourSettings.segmentLength;
-        if (shape.length2D() > MAXIMUM_DOTTEDGEOMETRYLENGTH) {
-            segmentLength = shape.length2D() / (MAXIMUM_DOTTEDGEOMETRYLENGTH * 0.5);
-        }
-        // resample
-        for (auto& segment : myDottedGeometrySegments) {
-            segment.shape = segment.shape.resample(segmentLength, true);
+        // check if resample
+        if (d <= GUIVisualizationSettings::Detail::DottedContoursResampled) {
+            // calculate segment length
+            double segmentLength = s.dottedContourSettings.segmentLength;
+            if (myUnresampledShape.length2D() > MAXIMUM_DOTTEDGEOMETRYLENGTH) {
+                segmentLength = myUnresampledShape.length2D() / (MAXIMUM_DOTTEDGEOMETRYLENGTH * 0.5);
+            }
+            // resample all dotted geometries
+            for (auto& segment : myDottedGeometrySegments) {
+                segment.shape = segment.shape.resample(segmentLength, true);
+            }
         }
         // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
@@ -153,55 +185,22 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
 }
 
 
-GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
-                                     const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                                     const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) :
-    myWidth(s.dottedContourSettings.segmentWidth) {
-    // check size of both geometries
-    if ((topDottedGeometry.myDottedGeometrySegments.size() > 0) &&
-            (botDottedGeometry.myDottedGeometrySegments.size() > 0)) {
-        // add extremes
-        if (drawFirstExtrem &&
-                (topDottedGeometry.myDottedGeometrySegments.front().shape.size() > 0) &&
-                (botDottedGeometry.myDottedGeometrySegments.front().shape.size() > 0)) {
-            // add first extreme
-            myDottedGeometrySegments.push_back(Segment({
-                topDottedGeometry.myDottedGeometrySegments.front().shape.front(),
-                botDottedGeometry.myDottedGeometrySegments.front().shape.front()}));
-        }
-        if (drawLastExtrem &&
-                (topDottedGeometry.myDottedGeometrySegments.back().shape.size() > 0) &&
-                (botDottedGeometry.myDottedGeometrySegments.back().shape.size() > 0)) {
-            // add last extreme
-            myDottedGeometrySegments.push_back(Segment({
-                topDottedGeometry.myDottedGeometrySegments.back().shape.back(),
-                botDottedGeometry.myDottedGeometrySegments.back().shape.back()}));
-            // invert offset of second dotted geometry
-            myDottedGeometrySegments.back().offset *= -1;
-        }
-    }
-    // resample
-    for (auto& segment : myDottedGeometrySegments) {
-        segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
-    }
-    // calculate shape rotations and lengths
-    calculateShapeRotationsAndLengths();
-}
-
-
 void
-GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape) {
-    // update settings and width
-    myWidth = s.dottedContourSettings.segmentWidth;
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                        const PositionVector& laneShape) {
+    // set shape as unresampled shape
+    myUnresampledShape = laneShape;
     // reset segments
     myDottedGeometrySegments.clear();
     // get shape
-    for (int i = 1; i < (int)laneShape.size(); i++) {
-        myDottedGeometrySegments.push_back(Segment({laneShape[i - 1], laneShape[i]}));
+    for (int i = 1; i < (int)myUnresampledShape.size(); i++) {
+        myDottedGeometrySegments.push_back(Segment({myUnresampledShape[i - 1], myUnresampledShape[i]}));
     }
-    // resample
-    for (auto& segment : myDottedGeometrySegments) {
-        segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+    // check if resample
+    if (d <= GUIVisualizationSettings::Detail::DottedContoursResampled) {
+        for (auto& segment : myDottedGeometrySegments) {
+            segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+        }
     }
     // calculate shape rotations and lengths
     calculateShapeRotationsAndLengths();
@@ -209,23 +208,26 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const
 
 
 void
-GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
-    // update settings and width
-    myWidth = s.dottedContourSettings.segmentWidth;
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                        PositionVector shape, const bool closeShape) {
+    // set shape as unresampled shape
+    myUnresampledShape = shape;
     // reset segments
     myDottedGeometrySegments.clear();
     // check if shape has to be closed
-    if (closeShape && (shape.size() > 2)) {
-        shape.closePolygon();
+    if (closeShape && (myUnresampledShape.size() > 2)) {
+        myUnresampledShape.closePolygon();
     }
-    if (shape.size() > 1) {
+    if (myUnresampledShape.size() > 1) {
         // get shape
-        for (int i = 1; i < (int)shape.size(); i++) {
-            myDottedGeometrySegments.push_back(Segment({shape[i - 1], shape[i]}));
+        for (int i = 1; i < (int)myUnresampledShape.size(); i++) {
+            myDottedGeometrySegments.push_back(Segment({myUnresampledShape[i - 1], myUnresampledShape[i]}));
         }
-        // resample
-        for (auto& segment : myDottedGeometrySegments) {
-            segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+        // check if resample
+        if (d <= GUIVisualizationSettings::Detail::DottedContoursResampled) {
+            for (auto& segment : myDottedGeometrySegments) {
+                segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+            }
         }
         // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
@@ -234,18 +236,32 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 
 void
-GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor,
-                                      GUIDottedGeometry::DottedContourType type, const double customWidth) const {
-    // get width
-    const double width = (customWidth > 0) ? customWidth : myWidth;
+GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                      DottedGeometryColor& dottedGeometryColor, const double lineWidth, const bool addOffset) const {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
         for (int i = 0; i < ((int)segment.shape.size() - 1); i++) {
             // set color
-            GLHelper::setColor(dottedGeometryColor.getColor(type));
-            // draw box line
-            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), width, 0);
+            GLHelper::setColor(dottedGeometryColor.getColor(s, type));
+            // draw box line depending of addOffset
+            if (addOffset) {
+                GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, -lineWidth);
+            } else {
+                GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth);
+            }
+        }
+    }
+}
+
+
+void
+GUIDottedGeometry::drawInnenGeometry(const double lineWidth) const {
+    // iterate over all segments
+    for (auto& segment : myDottedGeometrySegments) {
+        // iterate over shape
+        for (int i = 0; i < ((int)segment.shape.size() - 1); i++) {
+            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, lineWidth);
         }
     }
 }
@@ -253,141 +269,45 @@ GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor,
 
 void
 GUIDottedGeometry::moveShapeToSide(const double value) {
-    // move 2 side
+    // move to side all dotted geometry segments
     for (auto& segment : myDottedGeometrySegments) {
         segment.shape.move2side(value);
     }
+    // also unresampled shape
+    myUnresampledShape.move2side(value);
 }
 
 
-double
-GUIDottedGeometry::getWidth() const {
-    return myWidth;
-}
-
-
-void
-GUIDottedGeometry::setWidth(const double width) {
-    myWidth = width;
-}
-
-
-void
-GUIDottedGeometry::invertOffset() {
-    // iterate over all segments
-    for (auto& segment : myDottedGeometrySegments) {
-        segment.offset *= -1;
-    }
-}
-
-
-void
-GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s,
-        const PositionVector& shape, const double exaggeration, const double lineWidth) {
-    if (s.drawDottedContour(exaggeration)) {
-        // declare DottedGeometryColor
-        DottedGeometryColor dottedGeometryColor(s);
-        // scale shape using exaggeration and default dotted geometry width
-        PositionVector scaledShape = shape;
-        // scale exaggeration
-        scaledShape.scaleRelative(exaggeration);
-        // calculate dotted geometry
-        GUIDottedGeometry dottedGeometry(s, scaledShape, true);
-        // Push draw matrix
-        GLHelper::pushMatrix();
-        // draw inspect or front dotted contour
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
-        // draw dotted geometry
-        dottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-        // pop matrix
-        GLHelper::popMatrix();
-    }
-}
-
-
-void
-GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s,
-        const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem,
-        const bool drawLastExtrem, const double lineWidth) {
-    if (s.drawDottedContour(exaggeration)) {
-        // declare DottedGeometryColor
-        DottedGeometryColor dottedGeometryColor(s);
-        // calculate center dotted geometry
-        GUIDottedGeometry dottedGeometry(s, shape, false);
-        // make a copy of dotted geometry
-        GUIDottedGeometry topDottedGeometry = dottedGeometry;
-        GUIDottedGeometry botDottedGeometry = dottedGeometry;
-        // move geometries top and bot
-        topDottedGeometry.moveShapeToSide(width * exaggeration);
-        botDottedGeometry.moveShapeToSide(width * exaggeration * -1);
-        // invert offset of top dotted geometry
-        topDottedGeometry.invertOffset();
-        // calculate extremes
-        GUIDottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
-        // Push draw matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
-        // draw top dotted geometry
-        topDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-        // reset color
-        dottedGeometryColor.reset();
-        // draw top dotted geometry
-        botDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-        // change color
-        dottedGeometryColor.changeColor();
-        // draw extrem dotted geometry
-        extremes.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-        // pop matrix
-        GLHelper::popMatrix();
-    }
-}
-
-
-void
-GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s,
-        const Position& pos, const double radius, const double exaggeration) {
-    // continue depending of exaggeratedRadio
-    if ((radius * exaggeration) < 2) {
-        drawDottedContourClosedShape(type, s, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
+Position
+GUIDottedGeometry::getFrontPosition() const {
+    if (myUnresampledShape.size() > 0) {
+        return myUnresampledShape.front();
     } else {
-        drawDottedContourClosedShape(type, s, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
+        return Position::INVALID;
     }
 }
 
 
-void
-GUIDottedGeometry::drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
-        const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
-    if (s.drawDottedContour(exaggeration)) {
-        // create shape
-        PositionVector shape;
-        // make rectangle
-        shape.push_back(Position(0 + width, 0 + height));
-        shape.push_back(Position(0 + width, 0 - height));
-        shape.push_back(Position(0 - width, 0 - height));
-        shape.push_back(Position(0 - width, 0 + height));
-        // move shape
-        shape.add(offsetX, offsetY, 0);
-        // rotate shape
-        shape.rotate2D(DEG2RAD((rot * -1) + 90));
-        // move to position
-        shape.add(pos);
-        // draw using drawDottedContourClosedShape
-        drawDottedContourClosedShape(type, s, shape, exaggeration);
+Position
+GUIDottedGeometry::getBackPosition() const {
+    if (myUnresampledShape.size() > 0) {
+        return myUnresampledShape.back();
+    } else {
+        return Position::INVALID;
     }
+}
+
+
+const PositionVector&
+GUIDottedGeometry::getUnresampledShape() const {
+    return myUnresampledShape;
+}
+
+
+void
+GUIDottedGeometry::clearDottedGeometry() {
+    myDottedGeometrySegments.clear();
+    myUnresampledShape.clear();
 }
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -161,7 +161,7 @@ NGNet::radialToY(double radius, double phi) {
 
 
 void
-NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter) {
+NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter, double attachLength) {
     if (numRadDiv < 3) {
         numRadDiv = 3;
     }
@@ -172,8 +172,16 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
     int ir, ic;
     double angle = (double)(2 * M_PI / numRadDiv); // angle between radial divisions
     NGNode* node;
+    int attachCircle = -1;
+    if (attachLength > 0) {
+        numCircles += 1;
+        attachCircle = numCircles;
+    }
     for (ic = 1; ic < numCircles + 1; ic++) {
         const std::string nodeIDStart = alphabeticalCode(ic, numCircles);
+        if (ic == attachCircle) {
+            spaceRad = attachLength;
+        }
         for (ir = 1; ir < numRadDiv + 1; ir++) {
             // create Node
             const std::string nodeID = (myAlphaIDs ?
@@ -184,13 +192,13 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
             node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
             myNodeList.push_back(node);
             // create Links
-            if (ir > 1) {
+            if (ir > 1 && ic != attachCircle) {
                 connect(findNode(ir - 1, ic), node);
             }
             if (ic > 1) {
                 connect(findNode(ir, ic - 1), node);
             }
-            if (ir == numRadDiv) {
+            if (ir == numRadDiv && ic != attachCircle) {
                 connect(node, findNode(1, ic));
             }
         }
@@ -219,13 +227,11 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
 
 Distribution_Parameterized
 NGNet::getDistribution(const std::string& option) {
-    std::string val = OptionsCont::getOptions().getString(option);
+    const std::string& val = OptionsCont::getOptions().getString(option);
     try {
         return Distribution_Parameterized(option, 0, StringUtils::toDouble(val));
     } catch (NumberFormatException&) {
-        Distribution_Parameterized result(option, 0, 0);
-        result.parse(val, true);
-        return result;
+        return Distribution_Parameterized(val);
     }
 }
 
@@ -243,7 +249,7 @@ NGNet::toNB() const {
         myNetBuilder.getNodeCont().insert(ngNode->buildNBNode(myNetBuilder, perturb));
     }
     const std::string type = OptionsCont::getOptions().getString("default.type");
-    const double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
+    const double bidiProb = OptionsCont::getOptions().getFloat("bidi-probability");
     for (const NGEdge* const ngEdge : myEdgeList) {
         myNetBuilder.getEdgeCont().insert(ngEdge->buildNBEdge(myNetBuilder, type));
         // now, let's append the reverse directions...

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@ class RGBColor;
  * @brief Encapsulated SAX-Attributes
  *
  * This class is an interface for using encapsulated SAX-attributes.
- * Encapsulation is done to allow a common acces without the need to
+ * Encapsulation is done to allow a common access without the need to
  *  import all the Xerces-definitions.
  */
 class SUMOSAXAttributes {
@@ -124,7 +124,7 @@ public:
     /** @brief Tries to read the SUMOTime 'period' attribute
      *
      * If 'period' cannot be found, tries 'freq' as an alias.
-     * 
+     *
      * If an error occurs (the attribute is not there, it is not numeric), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *
@@ -208,7 +208,7 @@ public:
     /**
      * @brief Returns the bool-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2bool.
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2bool throws an
      *  EmptyData-exception which is passed.
@@ -227,7 +227,7 @@ public:
     /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2int.
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2int throws an
      *  EmptyData-exception which is passed.
@@ -247,7 +247,7 @@ public:
     /**
      * @brief Returns the long-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2long.
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2long throws an
      *  EmptyData-exception which is passed.
@@ -267,7 +267,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2str.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2str throws an
      *  EmptyData-exception which is passed.
@@ -282,7 +282,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      *
@@ -297,7 +297,7 @@ public:
     /**
      * @brief Returns the double-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2double.
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2double throws an
      *  EmptyData-exception which is passed.
@@ -317,7 +317,7 @@ public:
     /**
      * @brief Returns the double-value of the named attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     * Tries to retrieve the attribute from the attribute list. The retrieved
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2double.
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2double throws an
      *  EmptyData-exception which is passed.
@@ -335,7 +335,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list.
+     * Tries to retrieve the attribute from the attribute list.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      * @param[in] id The name of the attribute to return the value of
      * @param[in] def The default value to return if the attribute is not in attributes
@@ -423,8 +423,10 @@ INVALID_RETURN(SumoXMLEdgeFunc);
 INVALID_RETURN(SumoXMLNodeType);
 INVALID_RETURN(RightOfWay);
 INVALID_RETURN(FringeType);
+INVALID_RETURN(ParkingType);
 INVALID_RETURN(std::vector<std::string>);
 INVALID_RETURN(std::vector<int>);
+INVALID_RETURN(std::vector<double>);
 
 
 template <typename T>

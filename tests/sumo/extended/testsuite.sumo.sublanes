@@ -7,9 +7,6 @@ variable_speed_signs
 # Tests for dua-inc emissions
 inc-dua
 
-# Tests whether wauts (tls program switches) work
-wauts
-
 # Tests whether stops work
 stops
 

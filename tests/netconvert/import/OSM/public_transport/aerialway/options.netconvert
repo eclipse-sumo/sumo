@@ -1,0 +1,4 @@
+--osm-files osm.xml -o net.net.xml --ptstop-output additional.xml --ptline-output ptlines.xml
+--type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertAerialway.typ.xml
+--no-internal-links
+--railway.topology.repair

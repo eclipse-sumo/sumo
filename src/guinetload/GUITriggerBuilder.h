@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,9 +72,9 @@ protected:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @see MSLaneSpeedTrigger
-     * @exception ProcessError If the XML definition file is errornous
+     * @exception ProcessError If the XML definition file is erroneous
      */
-    virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
+    MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
             const std::string& id, const std::vector<MSLane*>& destLanes,
             const std::string& file) override;
 
@@ -86,12 +86,12 @@ protected:
      * @param[in] net The net the rerouter belongs to
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
-     * @param[in] prob The probability the rerouter reoutes vehicles with
+     * @param[in] prob The probability the rerouter reroutes vehicles with
      */
-    virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
-            const std::string& id, MSEdgeVector& edges,
-            double prob, bool off, SUMOTime timeThreshold,
-            const std::string& vTypes) override;
+    MSTriggeredRerouter* buildRerouter(MSNet& net,
+                                       const std::string& id, MSEdgeVector& edges,
+                                       double prob, bool off, bool optional, SUMOTime timeThreshold,
+                                       const std::string& vTypes, const Position& pos) override;
 
 
     /** @brief Builds a bus stop
@@ -107,9 +107,9 @@ protected:
      * @param[in] element which kind of stop is to be built
      * @exception InvalidArgument If the stop can not be added to the net (is duplicate)
      */
-    virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                    double frompos, double topos, const SumoXMLTag element, std::string string,
-                                    int personCapacity, double parkingLength, RGBColor& color) override;
+    void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
+                            double frompos, double topos, const SumoXMLTag element, std::string string,
+                            int personCapacity, double parkingLength, RGBColor& color) override;
 
 
     /** @brief Builds a parking area
@@ -119,6 +119,7 @@ protected:
      * @param[in] net The net the parking area belongs to
      * @param[in] id The id of the parking area
      * @param[in] lines Names of the lines that halt on this parking area
+     * @param[in] badges Names which grant access to this parking area
      * @param[in] lane The lane the parking area is placed on
      * @param[in] frompos Begin position of the parking area on the lane
      * @param[in] topos End position of the parking area on the lane
@@ -128,13 +129,14 @@ protected:
      * @param[in] angle Angle of the default lot rectangle
      * @exception InvalidArgument If the parking area can not be added to the net (is duplicate)
      */
-    virtual void beginParkingArea(MSNet& net, const std::string& id,
-                                  const std::vector<std::string>& lines, MSLane* lane,
-                                  double frompos, double topos,
-                                  unsigned int capacity,
-                                  double width, double length, double angle, const std::string& name,
-                                  bool onRoad,
-                                  const std::string& departPos) override;
+    void beginParkingArea(MSNet& net, const std::string& id,
+                          const std::vector<std::string>& lines, const std::vector<std::string>& badges,
+                          MSLane* lane, double frompos, double topos,
+                          unsigned int capacity,
+                          double width, double length, double angle, const std::string& name,
+                          bool onRoad,
+                          const std::string& departPos,
+                          bool lefthand) override;
 
 
     /** @brief Builds a charging station
@@ -150,12 +152,15 @@ protected:
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
+     * @param[in] parkingArea The associated parking area
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
-                                      double frompos, double topos, const std::string& name,
-                                      double chargingPower, double efficiency,
-                                      bool chargeInTransit, SUMOTime chargeDelay) override;
+    void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
+                              double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType,
+                              SUMOTime waitingTime, MSParkingArea* parkingArea) override;
+
 
     /** @brief Builds an overhead wire segment
     *
@@ -169,8 +174,8 @@ protected:
     * @param[in] voltageSource If the segment is the place of the connection of a traction substation
     * @exception InvalidArgument If the overhead wire segment can not be added to the net (is duplicate according to the id)
     */
-    virtual void buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane,
-                                          double frompos, double topos, bool voltageSource) override;
+    void buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane,
+                                  double frompos, double topos, bool voltageSource) override;
 
     /** @brief Builds an overhead wire clamp
     *
@@ -181,18 +186,18 @@ protected:
     * @param[in] lane_start The lane, where is the overhead wire segment placed, to the start of which the overhead wire clamp is connected
     * @param[in] lane_end The lane, where is the overhead wire segment placed, to the end of which the overhead wire clamp is connected
     */
-    virtual void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end) override;
+    void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end) override;
     /// @}
 
 
     /** @brief End a parking area
      * (it must be added to the SUMORTree after all parking spaces are loaded
      */
-    virtual void endParkingArea() override;
+    void endParkingArea() override;
 
     /** @brief End a stopping place
      *
      * @exception InvalidArgument If the current stopping place is 0
      */
-    virtual void endStoppingPlace() override;
+    void endStoppingPlace() override;
 };

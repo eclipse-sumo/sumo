@@ -1,0 +1,3 @@
+--osm-files osm.xml
+--keep-edges.by-vclass passenger
+--junctions.join

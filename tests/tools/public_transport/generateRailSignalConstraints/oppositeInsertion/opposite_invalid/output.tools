@@ -1,0 +1,17 @@
+read 5 busStops on 5 edges
+found 3 bidi-stops (max stops per edge 1 on -a)
+read 3 routes (2 unique) and 8 stops at 5 busStops
+processed 2 routes across 5 edges with 0 merging switches
+Found 0 stops after merging switches and 0 signals that guard switches
+Found 0 conflicts
+findFoeInsertionConflicts at stop stop_b
+0 n: 00:02:10 None t1 0 2 passing: True depart: True bidiStop: stop_-b
+1 n: 00:03:00 None t2 1 3 passing: True depart: False
+1 p: 00:02:10 None t1 0 2 n: 00:03:00 None t2 1 3
+   found foe insertion conflict pSignal=J2 nSignal=A pVehId=t1 pTripId=t1
+Found 1 foe insertion conflicts
+findInsertionConflicts at stop stop_b
+0 n: 00:01:20 None t0 1 3 passing: True depart: False invalid
+1 n: 00:02:10 None t1 0 2 passing: True depart: True bidiStop: stop_-b
+2 n: 00:03:00 None t2 1 3 passing: True depart: False
+Found 1 insertion conflicts

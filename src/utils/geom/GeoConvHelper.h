@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -107,6 +107,11 @@ public:
     /// @brief sets the coordinate transformation loaded from a location element
     static void setLoaded(const GeoConvHelper& loaded);
 
+    /// @brief registers the coordinate transformation as having been loaded from the given file
+    static void setLoadedPlain(const std::string& nodFile, const GeoConvHelper& loaded);
+
+    static GeoConvHelper* getLoadedPlain(const std::string& plainFile, const std::string& suffix = ".edg.xml");
+
     /// @brief @brief resets loaded location elements
     static void resetLoaded();
 
@@ -150,6 +155,9 @@ public:
     /// @brief Returns the original projection definition
     const std::string& getProjString() const;
 
+    /// @brief init projString such as 'UTM' in loaded projection
+    void resolveAbstractProjection();
+
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);
 
@@ -175,6 +183,10 @@ private:
 
 #ifdef PROJ_API_FILE
     void initProj(const std::string& proj);
+
+#ifdef PROJ_VERSION_MAJOR
+    bool checkError(projPJ projection) const;
+#endif
 
     /// @brief The proj.4-projection to use
     projPJ myProjection;
@@ -222,6 +234,9 @@ private:
 
     /// @brief the numer of coordinate transformations loaded from location elements
     static int myNumLoaded;
+
+    /// @brief the projections loaded from .nod.xml (to be re-used when loading edg.xml)
+    static std::map<std::string, std::pair<std::string, Position> > myLoadedPlain;
 
     /// @brief make assignment operator private
     GeoConvHelper& operator=(const GeoConvHelper&);

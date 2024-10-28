@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -153,6 +153,9 @@ operator<<(std::ostream& os, const RGBColor& col) {
     }
     if (col == RGBColor::GREY) {
         return os << "grey";
+    }
+    if (col == RGBColor::INVISIBLE) {
+        return os << "invisible";
     }
     os << static_cast<int>(col.myRed) << ","
        << static_cast<int>(col.myGreen) << ","
@@ -315,7 +318,7 @@ RGBColor::parseColor(std::string coldef) {
                 }
             }
         } else {
-            throw InvalidArgument("Invalid color definition '" + coldef + "'");
+            throw FormatException("Invalid color definition '" + coldef + "'");
         }
     }
     return RGBColor(r, g, b, a);
@@ -366,6 +369,9 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, double
 
 RGBColor
 RGBColor::fromHSV(double h, double s, double v) {
+    h = MIN2(MAX2(h, 0.), 360.);
+    s = MIN2(MAX2(s, 0.), 1.);
+    v = MIN2(MAX2(v, 0.), 1.);
     h /= 60.;
     const int i = int(floor(h));
     double f = h - i;
@@ -376,8 +382,8 @@ RGBColor::fromHSV(double h, double s, double v) {
     const unsigned char n = static_cast<unsigned char>(v * (1 - s * f) * 255. + 0.5);
     const unsigned char vv = static_cast<unsigned char>(v * 255. + 0.5);
     switch (i) {
-        case 6:
         case 0:
+        case 6:
             return RGBColor(vv, n, m, 255);
         case 1:
             return RGBColor(n, vv, m, 255);

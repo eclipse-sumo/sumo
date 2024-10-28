@@ -1,2 +1,8 @@
 # whether the devices are properly assigned
 assignment
+
+# override default precision
+tripinfo_precision
+
+# using a vtype file to define the phemlight-parameters
+phemlight_vtype

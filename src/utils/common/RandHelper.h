@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,14 +21,21 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <cassert>
 #include <vector>
 #include <map>
 #include <random>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
@@ -107,9 +114,10 @@ public:
  * @brief Utility functions for using a global, resetable random number generator
  */
 class RandHelper {
+
 public:
     /// @brief Initialises the given options container with random number options
-    static void insertRandOptions();
+    static void insertRandOptions(OptionsCont& oc);
 
     /// @brief Initialises the random number generator with hardware randomness or seed
     static void initRand(SumoRNG* which = nullptr, const bool random = false, const int seed = 23423);
@@ -228,6 +236,12 @@ public:
         }
     }
 
+    template<class T>
+    static void shuffle(std::vector<T>& v, SumoRNG* rng = nullptr) {
+        for (int i = (int)(v.size() - 1); i > 0; --i) {
+            std::swap(*(v.begin() + i), *(v.begin() + rand(i, rng)));
+        }
+    }
 
 protected:
     /// @brief the default random number generator to use

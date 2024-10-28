@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,16 +28,19 @@
 #include <thread>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
-#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/AStarRouter.h>
-#include <utils/router/RouterProvider.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSVehicle.h>
-#include "MSDevice.h"
+#include <microsim/MSRouterDefs.h>
 
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSTransportable;
+
 
 // ===========================================================================
 // class definitions
@@ -62,15 +65,13 @@
  */
 class MSRoutingEngine {
 public:
-    typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider;
-
     /// @brief intialize period edge weight update
     static void initWeightUpdate();
 
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights(SUMOVehicleClass svc);
 
-    /// @brief returns whether any routing actions take place
+    /// @brief returns whether any edge weight updates will take place
     static bool hasEdgeUpdates() {
         return myEdgeWeightSettingCommand != nullptr;
     }
@@ -81,12 +82,16 @@ public:
     }
 
     /// @brief return the cached route or nullptr on miss
-    static const MSRoute* getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
+    static ConstMSRoutePtr getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
+                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
+
+    /// @brief initiate the person rerouting, create router / thread pool on first use
+    static void reroute(MSTransportable& t, const SUMOTime currentTime, const std::string& info,
                         const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
 
     /// @brief adapt the known travel time for an edge
@@ -100,9 +105,13 @@ public:
         return !myWithTaz && myAdaptationInterval >= 0;
     }
 
-    /// @brief return the router instance
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
-            SUMOVehicleClass svc,
+    /// @brief return the vehicle router instance
+    static MSVehicleRouter& getRouterTT(const int rngIndex,
+                                        SUMOVehicleClass svc,
+                                        const MSEdgeVector& prohibited = MSEdgeVector());
+
+    /// @brief return the person router instance
+    static MSTransportableRouter& getIntermodalRouterTT(const int rngIndex,
             const MSEdgeVector& prohibited = MSEdgeVector());
 
     /** @brief Returns the effort to pass an edge
@@ -146,12 +155,12 @@ private:
      * @class RoutingTask
      * @brief the routing task which mainly calls reroute of the vehicle
      */
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(SUMOVehicle& v, const SUMOTime time, const std::string& info,
                     const bool onInit, const bool silent, const MSEdgeVector& prohibited)
             : myVehicle(v), myTime(time), myInfo(info), myOnInit(onInit), mySilent(silent), myProhibited(prohibited) {}
-        void run(FXWorkerThread* context);
+        void run(MFXWorkerThread* context);
     private:
         SUMOVehicle& myVehicle;
         const SUMOTime myTime;
@@ -232,9 +241,10 @@ private:
     static MSRouterProvider* myRouterProvider;
 
     static std::map<std::thread::id, SumoRNG*> myThreadRNGs;
+    static bool myHaveRoutingThreads;
 
     /// @brief The container of pre-calculated routes
-    static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
+    static std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> myCachedRoutes;
 
     /// @brief Coefficient for factoring edge priority into routing weight
     static double myPriorityFactor;

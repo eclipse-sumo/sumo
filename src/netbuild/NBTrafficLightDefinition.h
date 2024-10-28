@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,8 +65,9 @@ class NBTrafficLightLogic;
 class NBTrafficLightDefinition : public Named, public Parameterised {
 public:
 
-    static const SUMOTime UNSPECIFIED_DURATION;
     static const std::string DefaultProgramID;
+    static const SUMOTime UNSPECIFIED_DURATION;
+    static const int MIN_YELLOW_SECONDS;
 
     /**
      * @enum TLColor
@@ -128,7 +129,6 @@ public:
     /// @brief Destructor
     virtual ~NBTrafficLightDefinition();
 
-
     /** @brief Computes the traffic light logic
      *
      * Does some initialisation at first, then calls myCompute to finally
@@ -137,9 +137,7 @@ public:
      * @param[in] oc The options container holding options needed during the building
      * @return The built logic (may be 0)
      */
-    NBTrafficLightLogic* compute(OptionsCont& oc);
-
-
+    NBTrafficLightLogic* compute(const OptionsCont& oc);
 
     /// @name Access to controlled nodes
     /// @{
@@ -156,7 +154,7 @@ public:
     virtual void removeNode(NBNode* node);
 
     /** @brief removes the given connection from the traffic light
-     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
+     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in netedit
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
     virtual void removeConnection(const NBConnection& conn, bool reconstruct = true) {
@@ -257,7 +255,7 @@ public:
      */
     std::vector<std::string> getControlledInnerEdges() const;
 
-    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+    /** @brief Replaces occurrences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
      * @param[in] incoming The edges to use instead if an incoming edge was removed
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
@@ -351,6 +349,8 @@ public:
      * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
     virtual void initNeedsContRelation() const;
 
+    virtual void initRightOnRedConflicts() const;
+
     ///@brief Returns the maximum index controlled by this traffic light and assigned to a connection
     virtual int getMaxIndex() = 0;
 
@@ -374,6 +374,12 @@ public:
     /// @brief get ID and programID together (for convenient debugging)
     std::string getDescription() const;
 
+    /// @brief perform optional final checks
+    virtual void finalChecks() const {}
+
+    /// @brief processing parameter for rail signal edges and nodes
+    static const std::string OSM_DIRECTION;
+    static const std::string OSM_SIGNAL_DIRECTION;
 
 protected:
     /// @brief id for temporary definitions
@@ -470,5 +476,6 @@ protected:
 private:
     static std::set<NBEdge*> collectReachable(EdgeVector outer, const EdgeVector& within, bool checkControlled);
 
+    static bool railSignalUncontrolled(const NBEdge* in, const NBEdge* out);
 
 };

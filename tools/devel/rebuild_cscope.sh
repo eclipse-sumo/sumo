@@ -1,5 +1,5 @@
 #!/bin/bash
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,7 @@
 # @file    rebuild_cscope.sh
 # @author  Jakob Erdmann
 # @date    2015
-# script for building ctags/cscope index files 
+# script for building ctags/cscope index files
 # to be run from the root directory
 
 #export FOXDIR=~/programs/fox-1.6.43

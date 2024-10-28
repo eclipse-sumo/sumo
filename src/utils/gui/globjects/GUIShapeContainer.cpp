@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,9 +43,11 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 bool
 GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                          const std::string& imgFile, bool relativePath, double width, double height, bool /* ignorePruning */) {
-    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height);
+                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string& icon,
+                          double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                          bool /* ignorePruning */) {
+    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon,
+            layer, angle, imgFile, relativePath, width, height);
     FXMutexLock locker(myLock);
     if (!myPOIs.add(id, p)) {
         if (myAllowReplacement) {
@@ -53,7 +55,7 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const 
             myVis.removeAdditionalGLObject(oldP);
             myPOIs.remove(id);
             myPOIs.add(id, p);
-            WRITE_WARNING("Replacing POI '" + id + "'");
+            WRITE_WARNINGF(TL("Replacing POI '%'"), id);
         } else {
             delete p;
             return false;
@@ -78,12 +80,14 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
             myVis.removeAdditionalGLObject(oldP);
             myPolygons.remove(id);
             myPolygons.add(id, p);
-            WRITE_WARNING("Replacing polygon '" + id + "'");
+            WRITE_WARNINGF(TL("Replacing polygon '%'"), id);
         } else {
             delete p;
             return false;
         }
     }
+    bool state = myInactivePolygonTypes.empty() || (std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), type) == myInactivePolygonTypes.end());
+    p->activate(state);
     myVis.addAdditionalGLObject(p);
     return true;
 }
@@ -199,6 +203,39 @@ GUIShapeContainer::getPolygonIDs() const {
 void
 GUIShapeContainer::allowReplacement() {
     myAllowReplacement = true;
+}
+
+
+void
+GUIShapeContainer::setInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
+    myInactivePolygonTypes = inactivePolygonTypes;
+    computeActivePolygons();
+}
+
+
+void
+GUIShapeContainer::addInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
+    myInactivePolygonTypes.insert(inactivePolygonTypes.begin(), inactivePolygonTypes.end());
+    computeActivePolygons();
+}
+
+
+void
+GUIShapeContainer::removeInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
+    for (std::string type : inactivePolygonTypes) {
+        myInactivePolygonTypes.erase(type);
+    }
+    computeActivePolygons();
+}
+
+
+void
+GUIShapeContainer::computeActivePolygons(void) {
+    for (auto polygonWithID : myPolygons) {
+        GUIPolygon* polygon = (GUIPolygon*)polygonWithID.second;
+        bool state = std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), polygon->getShapeType()) == myInactivePolygonTypes.end();
+        polygon->activate(state);
+    }
 }
 
 /****************************************************************************/

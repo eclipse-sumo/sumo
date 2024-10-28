@@ -7,8 +7,8 @@ title: Automatic Routing
 Routing dynamically in the running simulation may be adequate in the
 following situations:
 
-- there is not enough time / computing power to wait for the dynamic
-  user equilibrium
+- there is not enough time / computing power to wait for the [dynamic
+  user equilibrium](Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium)
 - changes to the net occur while the simulation is running
 - vehicles need to adapt their route while running
 
@@ -41,13 +41,16 @@ The options related to this routing are:
 | **--device.rerouting.adaptation-steps** {{DT_INT}}    | 180            | The number of adaptation steps for averaging (enable for values > 0).                     |
 | **--device.rerouting.with-taz**                  | false          | Use [traffic assignment zones (TAZ/districts)](../Demand/Importing_O/D_Matrices.md#describing_the_taz) as routing end points                        |
 | **--device.rerouting.init-with-loaded-weights**  | false          | Use option **--weight-files** for initializing the edge weights at simulation start           |
+| **--device.rerouting.mode**  | 0          | configure handling of [temporary obstructions](../Simulation/Routing.md#handling_of_temporary_obstructions)    |
+
+
 
 Please note that if a vehicle gets a routing device only rerouting *before insertion* is active by default.
 In order to activate periodic rerouting en route set **--device.rerouting.period**.
 
 # Edge weights
 
-If the routing is enabled for any vehicles, the average travel times in
+If the routing is enabled for any vehicle, the average travel times in
 the net are collected for all edges. If a vehicle needs to be routed
 (either because it gets inserted or because a repeated route choice was
 enabled via the ".period" option) it chooses the fastest route to its
@@ -66,7 +69,7 @@ interval may be altered using the ".adaptation-interval" option.
 By setting the option **--device.rerouting.adaptation-weight** {{DT_FLOAT}} the travel speed of each edge is computed as
 
 ```
-FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
+FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
 ```
 
 This averaging takes place with the period set by **--device.rerouting.adaptation-interval**.
@@ -86,7 +89,7 @@ To understand the evolution of edge weights during the simulation it can
 be helpful to look at the values in detail:
 
 - used road coloring *by routing device assumed speed* in
-  [sumo-gui](../sumo-gui.md#changing_the_appearance.2Fvisualisation_of_the_simulation)
+  [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
 - use option **--device.rerouting.output** {{DT_FILE}} to get the raw numbers
 - use [TraCI function
   ''vehicle.getParameter("device.rerouting.edge:EDGEID")](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
@@ -100,7 +103,7 @@ without the need to instantiate the device for them explicitly. Whenever
 an error occurs on routing because no route can be found which includes
 all mandatory edges ("from", "to", and all stop edges in the correct
 order) and is connected (also respecting the vehicle class permissions)
-this is a fatal error and stops th simulation. This can be switched off
+this is a fatal error and stops the simulation. This can be switched off
 by using **--ignore-route-errors** which will leave the route untouched in the error case. If the
 vehicle did not have a route yet (because it was defined using a trip)
 and cannot find one and **--ignore-route-errors** is used, it will not be inserted.
@@ -114,6 +117,16 @@ loaded](../Demand/Importing_O/D_Matrices.md#describing_the_taz).
 Another way for defining the set of vehicles that are equipped with a
 rerouting device is via [generic
 parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
+
+The following parameters are supported as child elements of a `<vType>`, `<vehicle>`, `<trip>` or `<flow>`:
+
+- device.rerouting.period
+- device.rerouting.pre-period
+- device.rerouting.probability
+- device.rerouting.deterministic
+- device.rerouting.mode
+- has.rerouting.device
+
 
 # TraCI
 

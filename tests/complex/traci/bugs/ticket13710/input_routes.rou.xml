@@ -1,0 +1,9 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <route id="r0" edges="VODUGES_beg"/>
+
+    <vehicle id="slow"  route="r0" departPos="40" depart="0"/>
+    <vehicle id="overtaking" route="r0" departPos="0"  depart="0"/>
+
+</routes>

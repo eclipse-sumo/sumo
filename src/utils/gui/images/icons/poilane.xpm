@@ -1,0 +1,30 @@
+/* XPM */
+static const char * poilane_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 8 1",
+"  c gray50",
+". c #880015",
+"X c #ED1C24",
+"o c #CFCFCF",
+"O c white",
+"# c None",
+"k c black",
+"n c #B4B4B4",
+/* pixels */
+"################",
+"######XXX#######",
+"#####XXXX.######",
+"####XXOXXX.#####",
+"####XXXXXX.#####",
+"####XXXXXX.#####",
+"#####XXXX.######",
+"######X..#######",
+"######o o#######",
+"######o o#######",
+"######o o#######",
+"######o o#######",
+"kkkkkkn nkkkkkkk",
+"kkkkkkn nkkkkkkk",
+"kkkkkkk kkkkkkkk",
+"kkkkkkkkkkkkkkkk"
+};

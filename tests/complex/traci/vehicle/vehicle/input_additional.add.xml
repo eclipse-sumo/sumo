@@ -11,6 +11,7 @@
 
     <vType id="electric">
         <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="99999"/>
     </vType>
 
     <vType id="reroutingType">

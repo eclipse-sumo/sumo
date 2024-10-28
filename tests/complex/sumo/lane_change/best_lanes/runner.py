@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,8 @@ import os
 import subprocess
 import sys
 import shutil
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -51,12 +51,12 @@ for root in sorted(roots):
     traci.simulationStep()
     lanes = traci.vehicle.getBestLanes("0")
     sys.stdout.flush()
-    for l in lanes:
-        print("lane %s:" % (l[0]))
-        print("  length: %s" % (l[1]))
-        print("  offset: %s" % (l[3]))
-        print("  allowsContinuation: %s" % (l[4]))
-        print("  over: %s" % (l[5],))
+    for la in lanes:
+        print("lane %s:" % la[0])
+        print("  length:", la[1])
+        print("  offset:", la[3])
+        print("  allowsContinuation:", la[4])
+        print("  over:", la[5])
     traci.close()
     sys.stdout.flush()
 

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-17 14:07:53 by Eclipse SUMO netedit Version v1_15_0+0357-2731b37
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-1044651333#1" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="9217684441" name="Dorfstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="249.50,160.86 250.35,164.96 250.72,166.72 253.75,179.38 262.99,217.95">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="1044651333 234446419"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="1044651333 234446419"/>
+        </lane>
+        <param key="origFrom" value="2453091707"/>
+    </edge>
+    <edge id="-177182139#0" from="1537334925" to="cluster_1537334946_2453091683_7202621463_8355251671_#1more" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="314.35,106.99 312.84,124.65 310.68,127.59 297.30,130.73 297.51,135.28" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="177182139 177182142 35084893"/>
+        </lane>
+        <param key="origTo" value="8355251672"/>
+    </edge>
+    <edge id="-219537544#0" from="cluster_2286860426_8355367933" to="2808961585" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="308.45,160.40 308.53,162.31 308.81,169.03 307.44,182.43 305.07,195.58" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="219537544"/>
+        </lane>
+        <param key="origFrom" value="8355367933"/>
+    </edge>
+    <edge id="-29451624#1" from="1865340668" to="cluster_324258195_8355367939" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="127.68,179.59 127.28,160.01" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="29451624"/>
+        </lane>
+        <param key="origTo" value="8355367939"/>
+    </edge>
+    <edge id="-31578381#5" from="3743082126" to="cluster_429887401_9962387087" name="Chemnitzer Straße" priority="11" type="highway.secondary" numLanes="1" speed="13.89" shape="235.04,85.16 233.04,72.18 231.49,63.79" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="31578381"/>
+        </lane>
+        <param key="origTo" value="429887401"/>
+    </edge>
+    <edge id="-36508752#2" from="cluster_425374237_8355027722" to="2294459637" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="169.76,133.84 170.19,120.31" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="36508752"/>
+        </lane>
+        <param key="origFrom" value="8355027722"/>
+    </edge>
+    <edge id="-370608055#1" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="3743082126" name="Chemnitzer Straße" priority="11" type="highway.secondary" numLanes="1" speed="13.89" shape="243.82,133.58 243.32,131.14 242.81,128.70 235.04,85.16" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="370608055"/>
+        </lane>
+        <param key="origFrom" value="2453091662"/>
+    </edge>
+    <edge id="-37643961" from="441295351" to="8355027720" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="88.80,78.02 112.89,119.15 113.33,126.90 115.24,134.73 116.11,137.27" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="37643961"/>
+        </lane>
+    </edge>
+    <edge id="-771547600#1" from="7202621464" to="cluster_1537334946_2453091683_7202621463_8355251671_#1more" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="274.33,101.81 278.77,136.23" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="771547600"/>
+        </lane>
+        <param key="origTo" value="8355251671"/>
+    </edge>
+    <edge id="1087316315#5" from="cluster_429887401_9962387087" to="9962387081" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="226.48,64.51 230.63,83.88 233.20,98.54 234.39,109.17 234.80,120.43 232.95,128.55 229.71,132.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1087316315"/>
+        </lane>
+        <param key="origFrom" value="9962387087"/>
+    </edge>
+    <edge id="1093614719" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="9568792280" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="252.15,134.74 256.33,135.32 264.77,136.33 268.67,136.30" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="1093614719"/>
+        </lane>
+        <param key="origFrom" value="9962387088"/>
+    </edge>
+    <edge id="1093614720" from="9568792281" to="cluster_2453091662_2453091707_31532419_31532420_#1more" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="269.53,162.54 259.60,163.08 249.50,160.86" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="1093614720"/>
+        </lane>
+        <param key="origTo" value="2453091707"/>
+    </edge>
+    <edge id="1097608864" from="cluster_281370967_8355008115" to="8355027720" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="0.00,148.95 35.30,146.69 51.65,145.45 95.69,141.23 104.57,139.75 116.11,137.27" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="1097608864 899200923 1097608863 899228279"/>
+        </lane>
+        <param key="origFrom" value="8355008115"/>
+    </edge>
+    <edge id="1097608868#0" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="cluster_411628461_8496540348_9568792264_9568792266_#4more" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="252.15,134.74 241.10,75.40 237.57,66.19 225.42,22.45" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1097608868"/>
+        </lane>
+        <param key="origFrom" value="9962387088"/>
+        <param key="origTo" value="9962387091"/>
+    </edge>
+    <edge id="219537544#0" from="2808961585" to="cluster_2286860426_8355367933" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="305.07,195.58 307.44,182.43 308.81,169.03 308.53,162.31 308.45,160.40" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="219537544"/>
+        </lane>
+        <param key="origTo" value="8355367933"/>
+    </edge>
+    <edge id="234446419#4" from="9217684441" to="cluster_2453091662_2453091707_31532419_31532420_#1more" name="Dorfstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="262.99,217.95 253.75,179.38 250.72,166.72 250.35,164.96 249.50,160.86">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="234446419 1044651333"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="234446419 1044651333"/>
+        </lane>
+        <param key="origTo" value="2453091707"/>
+    </edge>
+    <edge id="29451624#1" from="cluster_324258195_8355367939" to="1865340668" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="127.28,160.01 127.68,179.59" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="29451624"/>
+        </lane>
+        <param key="origFrom" value="8355367939"/>
+    </edge>
+    <edge id="300940005#0" from="9568792281" to="2453091696" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="300940005"/>
+        </lane>
+    </edge>
+    <edge id="300940005#1" from="2453091696" to="cluster_1537334946_2453091683_7202621463_8355251671_#1more" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="269.22,152.02 268.86,141.23" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="300940005"/>
+        </lane>
+        <param key="origTo" value="2453091683"/>
+    </edge>
+    <edge id="300940005#2" from="cluster_1537334946_2453091683_7202621463_8355251671_#1more" to="9568792280" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="268.86,141.23 268.67,136.30" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="300940005"/>
+        </lane>
+        <param key="origFrom" value="2453091683"/>
+    </edge>
+    <edge id="304979998#0" from="3095509131" to="cluster_425374237_8355027722" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="4" speed="16.67" shape="143.84,141.51 169.48,141.56" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <param key="origTo" value="425374237"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="304979998#1" from="cluster_425374237_8355027722" to="cluster_2453091662_2453091707_31532419_31532420_#1more" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="4" speed="16.67" shape="169.48,141.56 220.43,141.68 245.52,141.73" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="304979998"/>
+        </lane>
+        <param key="origFrom" value="425374237"/>
+        <param key="origTo" value="31532419"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="304980002#2" from="cluster_4773123930_8355367931_9217684444_9217684445" to="cluster_2286860426_8355367933" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="4" speed="16.67" shape="330.83,149.80 308.05,150.77" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <param key="origFrom" value="9217684445"/>
+        <param key="origTo" value="2286860426"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="304980002#3" from="cluster_2286860426_8355367933" to="2453091696" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="4" speed="16.67" shape="308.05,150.77 280.63,151.65 272.11,151.93 269.22,152.02" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <param key="origFrom" value="2286860426"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="304980002#5" from="2453091696" to="cluster_2453091662_2453091707_31532419_31532420_#1more" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="4" speed="16.67" shape="269.22,152.02 247.80,152.72" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="304980002"/>
+        </lane>
+        <param key="origTo" value="31532420"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="31578377#0" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="cluster_324258195_8355367939" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="2" speed="16.67" shape="247.80,152.72 161.67,154.05 127.27,154.39" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="31578377"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="31578377"/>
+        </lane>
+        <param key="origFrom" value="31532420"/>
+        <param key="origTo" value="324258195"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="31578377#1" from="cluster_324258195_8355367939" to="29917548" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="2" speed="16.67" shape="127.27,154.39 94.41,155.61 52.93,158.87" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="31578377"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="31578377"/>
+        </lane>
+        <param key="origFrom" value="324258195"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="31578378#0" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="cluster_1537334946_2453091683_7202621463_8355251671_#1more" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="2" speed="16.67" shape="245.52,141.73 268.86,141.23" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="31578378"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="31578378"/>
+        </lane>
+        <param key="origFrom" value="31532419"/>
+        <param key="origTo" value="2453091683"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="31578378#3" from="cluster_1537334946_2453091683_7202621463_8355251671_#1more" to="cluster_2286854586_8355251676" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="2" speed="16.67" shape="297.73,140.29 378.13,137.77 462.44,134.46" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="31578378"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="31578378"/>
+        </lane>
+        <param key="origFrom" value="1537334946"/>
+        <param key="origTo" value="2286854586"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="31578381#5" from="cluster_429887401_9962387087" to="3743082126" name="Chemnitzer Straße" priority="11" type="highway.secondary" numLanes="1" speed="13.89" shape="231.49,63.79 233.04,72.18 235.04,85.16" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="31578381"/>
+        </lane>
+        <param key="origFrom" value="429887401"/>
+    </edge>
+    <edge id="35084893#1" from="cluster_1537334946_2453091683_7202621463_8355251671_#1more" to="1537334925" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="297.51,135.28 297.30,130.73 310.68,127.59 312.84,124.65 314.35,106.99" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="35084893 177182142 177182139"/>
+        </lane>
+        <param key="origFrom" value="8355251672"/>
+    </edge>
+    <edge id="36508752#2" from="2294459637" to="cluster_425374237_8355027722" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="170.19,120.31 169.76,133.84" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="36508752"/>
+        </lane>
+        <param key="origTo" value="8355027722"/>
+    </edge>
+    <edge id="370608055#0" from="3743082126" to="cluster_2453091662_2453091707_31532419_31532420_#1more" name="Chemnitzer Straße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="235.04,85.16 242.81,128.70 243.32,131.14 243.82,133.58" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="370608055"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="370608055"/>
+        </lane>
+        <param key="origTo" value="2453091662"/>
+    </edge>
+    <edge id="37643961" from="8355027720" to="441295351" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="116.11,137.27 115.24,134.73 113.33,126.90 112.89,119.15 88.80,78.02" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="37643961"/>
+        </lane>
+    </edge>
+    <edge id="422992108#13" from="cluster_4773123930_8355367931_9217684444_9217684445" to="cluster_2286860426_8355367933" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="331.07,158.38 326.78,159.27 308.45,160.40" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="422992108"/>
+        </lane>
+        <param key="origFrom" value="9217684444"/>
+        <param key="origTo" value="8355367933"/>
+    </edge>
+    <edge id="422992108#14" from="cluster_2286860426_8355367933" to="9568792281" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="308.45,160.40 269.53,162.54" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="422992108"/>
+        </lane>
+        <param key="origFrom" value="8355367933"/>
+    </edge>
+    <edge id="4702398" from="29917549" to="3095509131" name="Alt-Kaulsdorf" priority="12" type="highway.primary" numLanes="2" speed="16.67" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="4702398"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="4702398"/>
+        </lane>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="771547600#1" from="cluster_1537334946_2453091683_7202621463_8355251671_#1more" to="7202621464" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="278.77,136.23 274.33,101.81" allow="pedestrian delivery bicycle">
+        <lane index="0">
+            <param key="origId" value="771547600"/>
+        </lane>
+        <param key="origFrom" value="8355251671"/>
+    </edge>
+    <edge id="899200922#0" from="9568792280" to="cluster_1537334946_2453091683_7202621463_8355251671_#1more" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="268.67,136.30 278.77,136.23" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899200922"/>
+        </lane>
+        <param key="origTo" value="8355251671"/>
+    </edge>
+    <edge id="899200922#2" from="cluster_1537334946_2453091683_7202621463_8355251671_#1more" to="cluster_2286854586_8355251676" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="297.51,135.28 342.49,133.53 390.31,132.31 440.55,130.14 460.82,128.98" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899200922"/>
+        </lane>
+        <param key="origFrom" value="8355251672"/>
+        <param key="origTo" value="8355251676"/>
+    </edge>
+    <edge id="899228279#1" from="8355027720" to="cluster_425374237_8355027722" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="116.11,137.27 126.88,135.83 169.76,133.84" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899228279"/>
+        </lane>
+        <param key="origTo" value="8355027722"/>
+    </edge>
+    <edge id="899228279#2" from="cluster_425374237_8355027722" to="9962387081" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="169.76,133.84 221.46,132.64 229.71,132.78" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899228279"/>
+        </lane>
+        <param key="origFrom" value="8355027722"/>
+    </edge>
+    <edge id="899228279#3" from="9962387081" to="cluster_2453091662_2453091707_31532419_31532420_#1more" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="229.71,132.78 233.55,132.83 243.82,133.58" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899228279"/>
+        </lane>
+        <param key="origTo" value="2453091662"/>
+    </edge>
+    <edge id="899241924#0" from="cluster_2453091662_2453091707_31532419_31532420_#1more" to="cluster_324258195_8355367939" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="249.50,160.86 234.76,158.75 224.93,158.52 127.28,160.01" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899241924"/>
+        </lane>
+        <param key="origFrom" value="2453091707"/>
+        <param key="origTo" value="8355367939"/>
+    </edge>
+    <edge id="899241924#1" from="cluster_324258195_8355367939" to="8355367940" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="127.28,160.01 93.07,161.64" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="899241924"/>
+        </lane>
+        <param key="origFrom" value="8355367939"/>
+    </edge>
+</edges>

@@ -1,0 +1,2 @@
+--sumo-net-file=input_net.net.xml --output=net.net.xml --tls.rebuild
+--keep-edges.in-geo-boundary 10.521967,52.249556,10.585906,52.319634

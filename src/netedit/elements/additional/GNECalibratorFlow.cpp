@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,11 +18,14 @@
 //
 /****************************************************************************/
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibratorFlow.h"
 
@@ -32,20 +35,20 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
+    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
 {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
-    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
-    toogleAttribute(SUMO_ATTR_SPEED, true);
+    toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
+    toggleAttribute(SUMO_ATTR_SPEED, true);
     // reset ID
     id.clear();
 }
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
 {}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
 SUMOVehicleParameter() {
     // update centering boundary without updating grid
@@ -55,8 +58,9 @@ SUMOVehicleParameter() {
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,
+                                     const SUMOVehicleParameter& vehicleParameters) :
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
 {}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
 SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
@@ -76,6 +80,8 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.openTag(SUMO_TAG_FLOW);
         // write vehicle attributes
         write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW, getParentDemandElements().at(0)->getID());
+        // write end
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
         // VPH
@@ -87,9 +93,32 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(toString(GNE_TAG_CALIBRATOR_FLOW) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
-                      "' cannot be written. Either type or vehsPerHour or speed must be enabled");
+        WRITE_WARNING(TLF("calibratorFlow of calibrator '%' cannot be written. Either type or vehsPerHour or speed must be enabled", getParentAdditionals().front()->getID()));
     }
+}
+
+
+bool
+GNECalibratorFlow::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNECalibratorFlow::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNECalibratorFlow::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
+bool
+GNECalibratorFlow::checkDrawMoveContour() const {
+    return false;
 }
 
 
@@ -120,9 +149,7 @@ GNECalibratorFlow::getPositionInView() const {
 
 void
 GNECalibratorFlow::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary.reset();
-    myAdditionalBoundary.add(getPositionInView());
-    myAdditionalBoundary.grow(5);
+    // nothing to update
 }
 
 
@@ -140,16 +167,18 @@ GNECalibratorFlow::getParentName() const {
 
 void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
-    // push rotation matrix
-    GLHelper::pushMatrix();
-    // move to parent additional position
-    glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
-    // rotate
-    glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
-    // draw rerouter interval as listed attribute
-    drawListedAddtional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
-    // pop rotation matrix
-    GLHelper::popMatrix();
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // push rotation matrix
+        GLHelper::pushMatrix();
+        // move to parent additional position
+        glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
+        // rotate
+        glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
+        // draw rerouter interval as listed attribute
+        drawListedAdditional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+        // pop rotation matrix
+        GLHelper::popMatrix();
+    }
 }
 
 
@@ -157,7 +186,7 @@ std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_TYPE:
             return vtypeid;
         case SUMO_ATTR_ROUTE:
@@ -256,6 +285,8 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
             }
+        case SUMO_ATTR_INSERTIONCHECKS:
+            return getInsertionChecks();
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -331,9 +362,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case SUMO_ATTR_INSERTIONCHECKS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -347,9 +379,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) == nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -440,6 +472,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
+        case SUMO_ATTR_INSERTIONCHECKS:
+            return areInsertionChecksValid(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -487,7 +521,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_TYPE:
             if (!isTemplate()) {
@@ -541,24 +575,24 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTLANE:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                parseDepartLane(value, myTagProperty.getTagStr(), id, departLane, departLaneProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTLANE_SET;
             } else {
                 // set default value
-                parseDepartLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                parseDepartLane(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departLane, departLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTLANE_SET;
             }
             break;
         case SUMO_ATTR_DEPARTPOS:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(value, myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
             } else {
                 // set default value
-                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
@@ -569,36 +603,36 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                parseDepartSpeed(value, myTagProperty.getTagStr(), id, departSpeed, departSpeedProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTSPEED_SET;
             } else {
                 // set default value
-                parseDepartSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                parseDepartSpeed(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departSpeed, departSpeedProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTSPEED_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALLANE:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                parseArrivalLane(value, myTagProperty.getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALLANE_SET;
             } else {
                 // set default value
-                parseArrivalLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                parseArrivalLane(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALLANE_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALPOS:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                parseArrivalPos(value, myTagProperty.getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOS_SET;
             } else {
                 // set default value
-                parseArrivalPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                parseArrivalPos(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
             }
@@ -609,12 +643,12 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ARRIVALSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                parseArrivalSpeed(value, myTagProperty.getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALSPEED_SET;
             } else {
                 // set default value
-                parseArrivalSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                parseArrivalSpeed(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALSPEED_SET;
             }
@@ -666,28 +700,31 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                parseDepartPosLat(value, myTagProperty.getTagStr(), id, departPosLat, departPosLatProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
             } else {
                 // set default value
-                parseDepartPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                parseDepartPosLat(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departPosLat, departPosLatProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOSLAT_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
             } else {
                 // set default value
-                parseArrivalPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                parseArrivalPosLat(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }
-            parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            break;
+        case SUMO_ATTR_INSERTIONCHECKS:
+            insertionChecks = parseInsertionChecks(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -717,7 +754,7 @@ GNECalibratorFlow::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoL
 
 
 void
-GNECalibratorFlow::toogleAttribute(SumoXMLAttr key, const bool value) {
+GNECalibratorFlow::toggleAttribute(SumoXMLAttr key, const bool value) {
     switch (key) {
         case SUMO_ATTR_TYPE:
             if (value) {

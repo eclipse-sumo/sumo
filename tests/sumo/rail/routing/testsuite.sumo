@@ -10,6 +10,9 @@ reversal_impossible
 # the train is just as long as the available reversal section. This would make it get stuck in the simulation so routing should fail
 reversal_impossible_slack
 
+# the train is just as long as the first edge of the available reversal section. This should prolong the route to another section to prevent it from getting stuck.
+reversal_possible_slack
+
 # vehicle has sufficient space after the switch but no turn-around connection is defined
 missing_turnaround
 

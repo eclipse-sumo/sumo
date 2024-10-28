@@ -1,0 +1,11 @@
+# subtract all attributes in the input files
+default
+
+# subtract all attributes in the input files
+xml_output
+
+# group output by id
+grouped
+
+# subtract all attributes in the input files
+verbose

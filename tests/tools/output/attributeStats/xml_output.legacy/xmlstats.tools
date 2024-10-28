@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 14:05:03.902957 by attributeStats.py v1_15_0+1154-8389b7e
+  options: <doubleminus>xml-output.flat -p 3 <doubleminus>xml-output stats.xml input_data.xml
+-->
+
+<attributeStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeStats_file.xsd">
+    <statistic description="tripinfo arrival" count="100" min="26.000" minLabel="17" max="301.000" maxLabel="77" mean="161.920" Q1="117.000" median="159.000" Q3="199.000" meanAbs="161.920" medianAbs="159.000" stdDev="54.061">
+        <hist key="50.000" value="2"/>
+        <hist key="100.000" value="26"/>
+        <hist key="150.000" value="33"/>
+        <hist key="200.000" value="25"/>
+        <hist key="250.000" value="11"/>
+        <hist key="300.000" value="3"/>
+    </statistic>
+    <statistic description="tripinfo arrivalPos" count="100" min="81.070" minLabel="63" max="208.450" maxLabel="13" mean="127.772" Q1="85.070" median="117.970" Q3="181.640" meanAbs="127.772" medianAbs="117.970" stdDev="46.010">
+        <hist key="100.000" value="64"/>
+        <hist key="150.000" value="2"/>
+        <hist key="200.000" value="34"/>
+    </statistic>
+    <statistic description="tripinfo arrivalSpeed" count="100" min="10.010" minLabel="95" max="16.160" maxLabel="30" mean="13.230" Q1="12.250" median="13.250" Q3="14.190" meanAbs="13.230" medianAbs="13.250" stdDev="1.305">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo depart" count="100" min="0.000" minLabel="0" max="101.000" maxLabel="96" mean="49.800" Q1="25.000" median="51.000" Q3="77.000" meanAbs="49.800" medianAbs="51.000" stdDev="29.050">
+        <hist key="0.000" value="25"/>
+        <hist key="50.000" value="50"/>
+        <hist key="100.000" value="25"/>
+    </statistic>
+    <statistic description="tripinfo departDelay" count="100" min="0.000" minLabel="17" max="5.000" maxLabel="96" mean="0.300" Q1="0.000" median="0.000" Q3="0.000" meanAbs="0.300" medianAbs="0.000" stdDev="0.866">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo departPos" count="100" min="5.100" minLabel="17" max="5.100" maxLabel="17" mean="5.100" Q1="5.100" median="5.100" Q3="5.100" meanAbs="5.100" medianAbs="5.100" stdDev="0.000">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo departSpeed" count="100" min="0.000" minLabel="17" max="0.000" maxLabel="17" mean="0.000" Q1="0.000" median="0.000" Q3="0.000" meanAbs="0.000" medianAbs="0.000" stdDev="0.000">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo duration" count="100" min="9.000" minLabel="17" max="245.000" maxLabel="22" mean="112.120" Q1="84.000" median="107.000" Q3="140.000" meanAbs="112.120" medianAbs="107.000" stdDev="45.549">
+        <hist key="0.000" value="1"/>
+        <hist key="50.000" value="17"/>
+        <hist key="100.000" value="51"/>
+        <hist key="150.000" value="22"/>
+        <hist key="200.000" value="8"/>
+        <hist key="250.000" value="1"/>
+    </statistic>
+    <statistic description="tripinfo rerouteNo" count="100" min="0.000" minLabel="72" max="1.000" maxLabel="17" mean="0.990" Q1="1.000" median="1.000" Q3="1.000" meanAbs="0.990" medianAbs="1.000" stdDev="0.099">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo routeLength" count="100" min="79.970" minLabel="17" max="2532.030" maxLabel="22" mean="1230.951" Q1="926.580" median="1170.470" Q3="1610.680" meanAbs="1230.951" medianAbs="1170.470" stdDev="525.420">
+        <hist key="100.000" value="1"/>
+        <hist key="350.000" value="1"/>
+        <hist key="400.000" value="2"/>
+        <hist key="450.000" value="3"/>
+        <hist key="550.000" value="4"/>
+        <hist key="600.000" value="2"/>
+        <hist key="650.000" value="1"/>
+        <hist key="700.000" value="4"/>
+        <hist key="750.000" value="1"/>
+        <hist key="800.000" value="2"/>
+        <hist key="850.000" value="2"/>
+        <hist key="900.000" value="2"/>
+        <hist key="950.000" value="8"/>
+        <hist key="1000.000" value="4"/>
+        <hist key="1050.000" value="5"/>
+        <hist key="1100.000" value="6"/>
+        <hist key="1150.000" value="3"/>
+        <hist key="1200.000" value="5"/>
+        <hist key="1250.000" value="2"/>
+        <hist key="1300.000" value="5"/>
+        <hist key="1350.000" value="4"/>
+        <hist key="1400.000" value="5"/>
+        <hist key="1450.000" value="1"/>
+        <hist key="1500.000" value="2"/>
+        <hist key="1600.000" value="3"/>
+        <hist key="1650.000" value="2"/>
+        <hist key="1750.000" value="3"/>
+        <hist key="1800.000" value="2"/>
+        <hist key="1850.000" value="2"/>
+        <hist key="1900.000" value="3"/>
+        <hist key="2050.000" value="3"/>
+        <hist key="2100.000" value="2"/>
+        <hist key="2400.000" value="1"/>
+        <hist key="2450.000" value="3"/>
+        <hist key="2550.000" value="1"/>
+    </statistic>
+    <statistic description="tripinfo speedFactor" count="100" min="0.830" minLabel="24" max="1.180" maxLabel="37" mean="1.002" Q1="0.940" median="1.010" Q3="1.060" meanAbs="1.002" medianAbs="1.010" stdDev="0.086">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo stopTime" count="100" min="0.000" minLabel="17" max="0.000" maxLabel="17" mean="0.000" Q1="0.000" median="0.000" Q3="0.000" meanAbs="0.000" medianAbs="0.000" stdDev="0.000">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo timeLoss" count="100" min="2.700" minLabel="17" max="53.270" maxLabel="22" mean="20.415" Q1="13.240" median="18.780" Q3="26.920" meanAbs="20.415" medianAbs="18.780" stdDev="9.371">
+        <hist key="0.000" value="74"/>
+        <hist key="50.000" value="26"/>
+    </statistic>
+    <statistic description="tripinfo waitingCount" count="100" min="0.000" minLabel="17" max="3.000" maxLabel="96" mean="0.330" Q1="0.000" median="0.000" Q3="1.000" meanAbs="0.330" medianAbs="0.000" stdDev="0.601">
+        <hist key="0.000" value="100"/>
+    </statistic>
+    <statistic description="tripinfo waitingTime" count="100" min="0.000" minLabel="17" max="14.000" maxLabel="96" mean="0.950" Q1="0.000" median="0.000" Q3="1.000" meanAbs="0.950" medianAbs="0.000" stdDev="2.151">
+        <hist key="0.000" value="100"/>
+    </statistic>
+</attributeStats>

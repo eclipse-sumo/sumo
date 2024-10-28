@@ -1,0 +1,7 @@
+usage: addParkingAreaStops2Trips.py [-h] [-c FILE] [-C FILE]
+                                    [--save-template FILE] -r ROUTEFILE
+                                    [-o OUTFILE] -p PARKING [-d DURATION]
+                                    [-u UNTIL] [-l UNTILEND]
+                                    [-b DURATIONBEGIN] [-e DURATIONEND] [-v]
+                                    [--random] [-s SEED]
+addParkingAreaStops2Trips.py: error: the following arguments are required: -r/--route-file, -p/--parking-areas

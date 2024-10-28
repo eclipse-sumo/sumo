@@ -3,6 +3,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="taxi" vClass="taxi" personCapacity="2">
         <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.dropOffDuration" value="0"/>
     </vType>
     <trip id="taxi_0" depart="0.00" type="taxi">
         <stop lane="A0A1_0" triggered="person"/>

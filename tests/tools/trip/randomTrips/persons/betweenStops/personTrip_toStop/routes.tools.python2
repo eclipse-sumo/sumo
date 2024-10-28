@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-07 07:33:34.328813 by randomTrips.py v1_17_0+0758-3e54f75
+<configuration>
+    <additional-files value="input_additional.add.xml"/>
+    <end value="10.0"/>
+    <min-distance value="1.0"/>
+    <net-file value="net2.net.xml"/>
+    <persontrips value="True"/>
+    <route-file value="out.rou.xml"/>
+    <to-stops value="busStop"/>
+    <trip-attributes value="departPos=&quot;random&quot; color=&quot;red&quot; modes=&quot;public&quot;"/>
+</configuration>
+-->
+
+<!-- generated on 2023-06-07 07:33:34 by Eclipse SUMO duarouter Version v1_17_0+0757-e2a74d7
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+        <alternatives-output value="NUL"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00" departPos="random" color="red">
+        <walk edges="left beg2left beg" busStop="bs_0"/>
+    </person>
+    <person id="1" depart="1.00" departPos="random" color="red">
+        <walk edges="beg2left left" busStop="bs_3"/>
+    </person>
+    <person id="2" depart="2.00" departPos="random" color="red">
+        <walk edges="rend end left2end left beg2left beg" busStop="bs_0"/>
+    </person>
+    <person id="3" depart="3.00" departPos="random" color="red">
+        <walk edges="left beg2left beg" busStop="bs_0"/>
+    </person>
+    <person id="4" depart="4.00" departPos="random" color="red">
+        <walk edges="beg2left left" busStop="bs_3"/>
+    </person>
+    <person id="5" depart="5.00" departPos="random" color="red">
+        <walk edges="beg beg2left left" busStop="bs_3"/>
+    </person>
+    <person id="6" depart="6.00" departPos="random" color="red">
+        <walk edges="end left2end left beg2left beg" busStop="bs_0"/>
+    </person>
+    <person id="7" depart="7.00" departPos="random" color="red">
+        <walk edges="end left2end left beg2left beg" busStop="bs_0"/>
+    </person>
+    <person id="8" depart="8.00" departPos="random" color="red">
+        <walk edges="rend end left2end left" busStop="bs_3"/>
+    </person>
+    <person id="9" depart="9.00" departPos="random" color="red">
+        <walk edges="left2end left" busStop="bs_3"/>
+    </person>
+</routes>

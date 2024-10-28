@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,9 +30,9 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
-    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
-{}, {}, {}, {}, {}, {}),
-myNewEdgeDestination(nullptr),
+    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myNewEdgeDestination(nullptr),
 myProbability(0) {
     // reset default values
     resetDefaultValues();
@@ -40,8 +40,8 @@ myProbability(0) {
 
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}),
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
 myNewEdgeDestination(newEdgeDestination),
 myProbability(probability) {
     // update boundary of rerouter parent
@@ -58,6 +58,30 @@ GNEDestProbReroute::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     device.closeTag();
+}
+
+
+bool
+GNEDestProbReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEDestProbReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEDestProbReroute::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
+bool
+GNEDestProbReroute::checkDrawMoveContour() const {
+    return false;
 }
 
 
@@ -88,9 +112,7 @@ GNEDestProbReroute::getPositionInView() const {
 
 void
 GNEDestProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary.reset();
-    myAdditionalBoundary.add(getPositionInView());
-    myAdditionalBoundary.grow(5);
+    // nothing to update
 }
 
 
@@ -109,10 +131,10 @@ GNEDestProbReroute::getParentName() const {
 void
 GNEDestProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw dest prob reroute as listed attribute
-    drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                        1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_DESTPROBREROUTE,
-                        getAttribute(SUMO_ATTR_EDGE) + ": " + getAttribute(SUMO_ATTR_PROB));
+    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+                         1, getParentAdditionals().front()->getDrawPositionIndex(),
+                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_DESTPROBREROUTE,
+                         getAttribute(SUMO_ATTR_EDGE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
 
@@ -120,7 +142,7 @@ std::string
 GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGE:
             return myNewEdgeDestination->getID();
         case SUMO_ATTR_PROB:
@@ -157,7 +179,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_PROB:
         case GNE_ATTR_SELECTED:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -182,12 +204,6 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEDestProbReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNEDestProbReroute::getPopUpID() const {
     return getTagStr();
@@ -208,7 +224,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
             myNewEdgeDestination = myNet->getAttributeCarriers()->retrieveEdge(value);

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,11 +30,11 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Add fromTaz and toTaz to a route file")
-    optParser.add_argument("-r", "--route-file", dest="routefile",
+    optParser.add_argument("-r", "--route-file", category='input', dest="routefile",
                            help="define the input route file (mandatory)")
-    optParser.add_argument("-a", "-taz-files", dest="tazfiles",
+    optParser.add_argument("-a", "-taz-files", category='input', dest="tazfiles",
                            help="define the files to load TAZ (districts) from (mandatory)")
-    optParser.add_argument("-o", "--output-file", dest="outfile",
+    optParser.add_argument("-o", "--output-file", category='output', dest="outfile",
                            help="define the output filename (mandatory)")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
 

@@ -1,0 +1,18 @@
+<additionals>
+
+    <!-- Without errors -->
+    <poly id="jps.obstacle_0" type="jupedsim.obstacle" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+    <!-- non valid ID (missing) -->
+    <poly color="green" type="jupedsim.obstacle" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- non valid ID (invalid) -->
+    <poly id="%%%%;;$$$%" type="jupedsim.obstacle" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- non valid ID (duplicated) -->
+    <poly id="jps.obstacle_0" type="jupedsim.obstacle" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- valid ID -->
+    <poly id="jps.obstacle_1" type="jupedsim.obstacle" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+</additionals>

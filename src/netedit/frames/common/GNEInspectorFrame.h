@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,12 +41,15 @@ class GNEInspectorFrame : public GNEFrame {
     /// @brief FOX-declaration
     FXDECLARE(GNEInspectorFrame)
 
+    /// @brief declare friend class
+    friend class GNEFrameAttributeModules::ParametersEditor;
+
 public:
     // ===========================================================================
     // class NeteditAttributesEditor
     // ===========================================================================
 
-    class NeteditAttributesEditor : public FXGroupBoxModule {
+    class NeteditAttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
 
@@ -124,7 +127,7 @@ public:
     // class GEOAttributesEditor
     // ===========================================================================
 
-    class GEOAttributesEditor : public FXGroupBoxModule {
+    class GEOAttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
 
@@ -188,7 +191,7 @@ public:
     // class TemplateEditor
     // ===========================================================================
 
-    class TemplateEditor : public FXGroupBoxModule {
+    class TemplateEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
@@ -200,7 +203,7 @@ public:
         ~TemplateEditor();
 
         /// @brief show template editor
-        void showTemplateEditor();
+        bool showTemplateEditor();
 
         /// @brief hide template editor
         void hideTemplateEditor();
@@ -239,7 +242,7 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
-        /// @brief update buttons
+        /// @brief update frame buttons
         void updateButtons();
 
     private:
@@ -260,61 +263,10 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersEditor
-    // ===========================================================================
-
-    class ParametersEditor : public FXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::ParametersEditor)
-
-    public:
-        /// @brief constructor
-        ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~ParametersEditor();
-
-        /// @brief show netedit attributes EditorInspector
-        void showParametersEditor();
-
-        /// @brief hide netedit attributes EditorInspector
-        void hideParametersEditor();
-
-        /// @brief refresh netedit attributes
-        void refreshParametersEditor();
-
-        /// @brief get inspector frame parent
-        GNEInspectorFrame* getInspectorFrameParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user clicks over add parameter
-        long onCmdEditParameters(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user udpate the parameter text field
-        long onCmdSetParameters(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(ParametersEditor)
-
-    private:
-        /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief text field for write parameters
-        FXTextField* myTextFieldParameters;
-
-        /// @brief button for edit parameters using specific dialog
-        FXButton* myButtonEditParameters;
-    };
-
-    // ===========================================================================
     // class AdditionalDialog
     // ===========================================================================
 
-    class AdditionalDialog : public FXGroupBoxModule {
+    class AdditionalDialog : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AdditionalDialog)
 
@@ -350,10 +302,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief net net that uses this GNEFrame
      */
-    GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEInspectorFrame();
@@ -366,24 +318,24 @@ public:
 
     /**@brief process click over Viewnet in Supermode Network
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief process click over Viewnet in Supermode Demand
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief process click over Viewnet in Supermode Data
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief Inspect a single element
     void inspectSingleElement(GNEAttributeCarrier* AC);
@@ -433,10 +385,10 @@ protected:
     FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
+    void inspectClickedElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
 
     /// @brief function called after set a valid attribute in AttributeEditor
-    void attributeUpdated();
+    void attributeUpdated(SumoXMLAttr attribute);
 
 private:
     /// @brief Overlapped Inspection
@@ -452,7 +404,7 @@ private:
     GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Parameters editor inspector
-    ParametersEditor* myParametersEditor;
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 
     /// @brief Additional dialog
     AdditionalDialog* myAdditionalDialog;

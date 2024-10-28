@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,12 +23,17 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
+FXDEFMAP(GNEMoveFrame::NetworkModeOptions) NetworkModeOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::NetworkModeOptions::onCmdChangeOption)
+};
 
 FXDEFMAP(GNEMoveFrame::ChangeZInSelection) ChangeZInSelectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue),
@@ -48,9 +53,10 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           FXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    FXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           FXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::NetworkModeOptions,           MFXGroupBoxModule, NetworkModeOptionsMap,  ARRAYNUMBER(NetworkModeOptionsMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions
@@ -61,10 +67,13 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           FXGroupBoxModule, ShiftS
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::CommonModeOptions::CommonModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBoxModule(moveFrameParent->myContentFrame, "Common move options") {
-    // Create checkbox for enable/disable move whole polygons
-    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), "Allow change Lane", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    MFXGroupBoxModule(moveFrameParent, TL("Common move options")) {
+    // Create checkbox for enable/disable allow change lanes
+    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), TL("Allow change lanes"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAllowChangeLanes->setCheck(FALSE);
+    // Create checkbox for enable/disable merge geometry points
+    myMergeGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Merge geometry points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMergeGeometryPoints->setCheck(TRUE);
 }
 
 
@@ -76,16 +85,25 @@ GNEMoveFrame::CommonModeOptions::getAllowChangeLane() const {
     return (myAllowChangeLanes->getCheck() == TRUE);
 }
 
+
+bool
+GNEMoveFrame::CommonModeOptions::getMergeGeometryPoints() const {
+    return (myMergeGeometryPoints->getCheck() == TRUE);
+}
+
 // ---------------------------------------------------------------------------
 // GNEMoveFrame::NetworkModeOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::NetworkModeOptions::NetworkModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBoxModule(moveFrameParent->myContentFrame, "Network move options"),
+    MFXGroupBoxModule(moveFrameParent, TL("Network move options")),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
-    myMoveWholePolygons = new FXCheckButton(getCollapsableFrame(), "Move whole polygons", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMoveWholePolygons = new FXCheckButton(getCollapsableFrame(), TL("Move whole polygons"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myMoveWholePolygons->setCheck(FALSE);
+    // Create checkbox for force draw end geometry points
+    myForceDrawGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Force draw geom. points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myForceDrawGeometryPoints->setCheck(FALSE);
 }
 
 
@@ -115,15 +133,34 @@ GNEMoveFrame::NetworkModeOptions::getMoveWholePolygons() const {
     }
 }
 
+
+bool
+GNEMoveFrame::NetworkModeOptions::getForceDrawGeometryPoints() const {
+    if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+            (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return (myForceDrawGeometryPoints->getCheck() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+long
+GNEMoveFrame::NetworkModeOptions::onCmdChangeOption(FXObject*, FXSelector, void*) {
+    // just update viewNet
+    myMoveFrameParent->getViewNet()->update();
+    return 1;
+}
+
 // ---------------------------------------------------------------------------
 // GNEMoveFrame::DemandModeOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::DemandModeOptions::DemandModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBoxModule(moveFrameParent->myContentFrame, "Demand move options"),
+    MFXGroupBoxModule(moveFrameParent, TL("Demand move options")),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
-    myLeaveStopPersonsConnected = new FXCheckButton(getCollapsableFrame(), "Leave stopPersons connected", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myLeaveStopPersonsConnected = new FXCheckButton(getCollapsableFrame(), TL("Leave stopPersons connected"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myLeaveStopPersonsConnected->setCheck(FALSE);
 }
 
@@ -159,17 +196,17 @@ GNEMoveFrame::DemandModeOptions::getLeaveStopPersonsConnected() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent) :
-    FXGroupBoxModule(moveFrameParent->myContentFrame, "Shift selected edges geometry"),
+    MFXGroupBoxModule(moveFrameParent, TL("Shift selected edges geometry")),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelAttribute);
-    myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelThickedFixed(100));
+    myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueTextField->setText("0");
     // create apply button
-    myApplyZValue = new FXButton(getCollapsableFrame(), "Apply shift value\t\tShift edge geometry orthogonally to driving direction for all selected edges",
-                                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+    myApplyZValue = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Apply shift value"), "", TL("Shift edge geometry orthogonally to driving direction for all selected edges"),
+                    GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
@@ -218,7 +255,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSel
         // get first and last position
         const Position shapeStart = edgeShape.front();
         const Position shapeEnd = edgeShape.back();
-        // set innen geometry
+        // set inner geometry
         edgeShape.pop_front();
         edgeShape.pop_back();
         // set new shape again
@@ -239,22 +276,22 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSel
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFrameParent) :
-    FXGroupBoxModule(moveFrameParent->myContentFrame, "Change Z in selection"),
+    MFXGroupBoxModule(moveFrameParent, TL("Change Z in selection")),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelAttribute);
-    myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelThickedFixed(100));
+    myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myZValueTextField->setText("0");
     // Create all options buttons
-    myAbsoluteValue = new FXRadioButton(getCollapsableFrame(), "Absolute value\t\tSet Z value as absolute",
-                                        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRelativeValue = new FXRadioButton(getCollapsableFrame(), "Relative value\t\tSet Z value as relative",
-                                        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myAbsoluteValue = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("Absolute value"), "", TL("Set Z value as absolute"),
+                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myRelativeValue = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("Relative value"), "", TL("Set Z value as relative"),
+                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create apply button
-    myApplyButton = new FXButton(getCollapsableFrame(), "Apply Z value\t\tApply Z value to all selected junctions",
-                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
+    myApplyButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Apply Z value"), "", TL("Apply Z value to all selected junctions"),
+                    GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
     // set absolute value as default
     myAbsoluteValue->setCheck(true);
     // set info label
@@ -288,9 +325,8 @@ GNEMoveFrame::ChangeZInSelection::disableChangeZInSelection() {
 
 
 long
-GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue(FXObject*, FXSelector, void*) {
-    // just call onCmdApplyZ
-    return onCmdApplyZ(nullptr, 0, nullptr);
+GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue(FXObject* /*obj*/, FXSelector /*sel*/, void*) {
+    return 1;
 }
 
 
@@ -399,16 +435,16 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
     const auto selectedEdges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
     // check if there is edges or junctions
     if ((selectedJunctions.size() > 0) || (selectedEdges.size() > 0)) {
-        // declare minimum and maximun
+        // declare minimum and maximum
         double selectionMinimum = 0;
-        double selectionMaximun = 0;
+        double selectionMaximum = 0;
         // set first values
         if (selectedJunctions.size() > 0) {
             selectionMinimum = selectedJunctions.front()->getNBNode()->getPosition().z();
-            selectionMaximun = selectedJunctions.front()->getNBNode()->getPosition().z();
+            selectionMaximum = selectedJunctions.front()->getNBNode()->getPosition().z();
         } else {
             selectionMinimum = selectedEdges.front()->getNBEdge()->getGeometry().front().z();
-            selectionMaximun = selectedEdges.front()->getNBEdge()->getGeometry().front().z();
+            selectionMaximum = selectedEdges.front()->getNBEdge()->getGeometry().front().z();
         }
         // declare average
         double selectionAverage = 0;
@@ -423,8 +459,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
                 selectionMinimum = z;
             }
             // check max
-            if (z > selectionMaximun) {
-                selectionMaximun = z;
+            if (z > selectionMaximum) {
+                selectionMaximum = z;
             }
             // update average
             selectionAverage += z;
@@ -433,17 +469,17 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
         }
         // iterate over edges
         for (const auto& edge : selectedEdges) {
-            // get innnen geometry
-            const PositionVector innenGeometry = edge->getNBEdge()->getInnerGeometry();
-            // iterate over innenGeometry
-            for (const auto& geometryPoint : innenGeometry) {
+            // get inner geometry
+            const PositionVector innerGeometry = edge->getNBEdge()->getInnerGeometry();
+            // iterate over innerGeometry
+            for (const auto& geometryPoint : innerGeometry) {
                 // check min
                 if (geometryPoint.z() < selectionMinimum) {
                     selectionMinimum = geometryPoint.z();
                 }
                 // check max
-                if (geometryPoint.z() > selectionMaximun) {
-                    selectionMaximun = geometryPoint.z();
+                if (geometryPoint.z() > selectionMaximum) {
+                    selectionMaximum = geometryPoint.z();
                 }
                 // update average
                 selectionAverage += geometryPoint.z();
@@ -459,8 +495,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
                     selectionMinimum = z;
                 }
                 // check max
-                if (z > selectionMaximun) {
-                    selectionMaximun = z;
+                if (z > selectionMaximum) {
+                    selectionMaximum = z;
                 }
                 // update average
                 selectionAverage += z;
@@ -476,8 +512,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
                     selectionMinimum = z;
                 }
                 // check max
-                if (z > selectionMaximun) {
-                    selectionMaximun = z;
+                if (z > selectionMaximum) {
+                    selectionMaximum = z;
                 }
                 // update average
                 selectionAverage += z;
@@ -492,10 +528,10 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
         selectionAverage *= 0.01;
         // set label string
         const std::string labelStr =
-            "- Num geometry points: " + toString(numPoints) + "\n" +
-            "- Selection minimum Z: " + toString(selectionMinimum) + "\n" +
-            "- Selection maximum Z: " + toString(selectionMaximun) + "\n" +
-            "- Selection average Z: " + toString(selectionAverage);
+            TL("- Num geometry points: ") + toString(numPoints) + "\n" +
+            TL("- Selection minimum Z: ") + toString(selectionMinimum) + "\n" +
+            TL("- Selection maximum Z: ") + toString(selectionMaximum) + "\n" +
+            TL("- Selection average Z: ") + toString(selectionAverage);
         // update info label
         myInfoLabel->setText(labelStr.c_str());
     }
@@ -506,24 +542,24 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftShapeGeometry::ShiftShapeGeometry(GNEMoveFrame* moveFrameParent) :
-    FXGroupBoxModule(moveFrameParent->myContentFrame, "Shift shape geometry"),
+    MFXGroupBoxModule(moveFrameParent, TL("Shift shape geometry")),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameX = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(horizontalFrameX, "X value", 0, GUIDesignLabelAttribute);
-    myShiftValueXTextField = new FXTextField(horizontalFrameX, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    new FXLabel(horizontalFrameX, "X value", 0, GUIDesignLabelThickedFixed(100));
+    myShiftValueXTextField = new FXTextField(horizontalFrameX, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueXTextField->setText("0");
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameY = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(horizontalFrameY, "Y value", 0, GUIDesignLabelAttribute);
-    myShiftValueYTextField = new FXTextField(horizontalFrameY, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    new FXLabel(horizontalFrameY, "Y value", 0, GUIDesignLabelThickedFixed(100));
+    myShiftValueYTextField = new FXTextField(horizontalFrameY, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueYTextField->setText("0");
     // create apply button
-    new FXButton(this,
-                 "Shift shape geometry\t\tShift shape geometry orthogonally to driving direction for all selected shapes",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+    GUIDesigns::buildFXButton(this,
+                              TL("Shift shape geometry"), "", TL("Shift shape geometry orthogonally to driving direction for all selected shapes"),
+                              GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
@@ -532,14 +568,14 @@ GNEMoveFrame::ShiftShapeGeometry::~ShiftShapeGeometry() {}
 
 void
 GNEMoveFrame::ShiftShapeGeometry::showShiftShapeGeometry() {
-    // show modul
+    // show module
     show();
 }
 
 
 void
 GNEMoveFrame::ShiftShapeGeometry::hideShiftShapeGeometry() {
-    // hide modul
+    // hide module
     hide();
 }
 
@@ -598,22 +634,43 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 }
 
 // ---------------------------------------------------------------------------
+// GNEMoveFrame::Information - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::Information::Information(GNEMoveFrame* moveFrameParent) :
+    MFXGroupBoxModule(moveFrameParent, TL("Information")) {
+    // create info label
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Click over edge to create or edit geometry point.") + std::string("\n- ") + TL("Shift+click over edge to edit start or end geometry point.")).c_str(), 0, GUIDesignLabelFrameInformation);
+    // create source label
+    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("-Move geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
+    sourceLabel->setBackColor(MFXUtils::getFXColor(RGBColor::ORANGE));
+    // create target label
+    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("-Merge geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
+    targetLabel->setBackColor(MFXUtils::getFXColor(RGBColor::CYAN));
+}
+
+
+GNEMoveFrame::Information::~Information() {}
+
+// ---------------------------------------------------------------------------
 // GNEMoveFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Move") {
+GNEMoveFrame::GNEMoveFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, TL("Move")) {
     // create common mode options
     myCommonModeOptions = new CommonModeOptions(this);
     // create network mode options
     myNetworkModeOptions = new NetworkModeOptions(this);
     // create demand mode options
     myDemandModeOptions = new DemandModeOptions(this);
-    // create shift edge geometry modul
+    // create shift edge geometry module
     myShiftEdgeSelectedGeometry = new ShiftEdgeSelectedGeometry(this);
     // create change z selection
     myChangeZInSelection = new ChangeZInSelection(this);
-    // create shift shape geometry modul
+    // create information label
+    myInformation = new Information(this);
+    // create shift shape geometry module
     myShiftShapeGeometry = new ShiftShapeGeometry(this);
 }
 
@@ -623,8 +680,8 @@ GNEMoveFrame::~GNEMoveFrame() {}
 
 void
 GNEMoveFrame::processClick(const Position& /*clickedPosition*/,
-                           const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderCursor*/,
-                           const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderGrippedCursor*/) {
+                           const GNEViewNetHelper::ViewObjectsSelector& /*viewObjects*/,
+                           const GNEViewNetHelper::ViewObjectsSelector& /*objectsUnderGrippedCursor*/) {
     // currently unused
 }
 

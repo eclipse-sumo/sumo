@@ -40,6 +40,7 @@
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="bidi" type="xsd:string" use="optional"/>
         <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="numLanes" type="xsd:positiveInteger" use="optional"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
@@ -48,7 +49,7 @@
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="sidewalkWidth" type="nonNegativeFloatType"/>
         <xsd:attribute name="bikeLaneWidth" type="nonNegativeFloatType"/>
-        <xsd:attribute name="distance" type="xsd:float"/>
+        <xsd:attribute name="distance" type="floatType"/>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">

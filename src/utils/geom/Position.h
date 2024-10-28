@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,11 +101,18 @@ public:
         myZ = pos.myZ;
     }
 
-    /// @brief Multiplies both positions with the given value
+    /// @brief Multiplies position with the given value
     void mul(double val) {
         myX *= val;
         myY *= val;
         myZ *= val;
+    }
+
+    /// @brief Divides position with the given value
+    void div(double val) {
+        myX /= val;
+        myY /= val;
+        myZ /= val;
     }
 
     /// @brief Multiplies position with the given values
@@ -141,31 +148,43 @@ public:
         myZ += dz;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(double dx, double dy) {
         myX -= dx;
         myY -= dy;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(double dx, double dy, double dz) {
         myX -= dx;
         myY -= dy;
         myZ -= dz;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(const Position& pos) {
         myX -= pos.myX;
         myY -= pos.myY;
         myZ -= pos.myZ;
     }
 
-    /// @brief
-    void norm2d() {
-        double val = sqrt(myX * myX + myY * myY);
-        myX = myX / val;
-        myY = myY / val;
+    /// @brief Computes the length of the given vector
+    inline double length() const {
+        return sqrt(myX * myX + myY * myY + myZ * myZ);
+    }
+
+    /// @brief Computes the length of the given vector neglecting the z coordinate
+    inline double length2D() const {
+        return sqrt(myX * myX + myY * myY);
+    }
+
+    /// @brief Normalizes the given vector
+    inline void norm2D() {
+        const double val = length2D();
+        if (val != 0.) {
+            myX /= val;
+            myY /= val;
+        }
     }
 
     /// @brief output operator
@@ -190,6 +209,11 @@ public:
     /// @brief keep the direction but modify the length of the (location) vector to length * scalar
     Position operator*(double scalar) const {
         return Position(myX * scalar, myY * scalar, myZ * scalar);
+    }
+
+    /// @brief keep the direction but modify the length of the (location) vector to length / scalar
+    Position operator/(double scalar) const {
+        return Position(myX / scalar, myY / scalar, myZ / scalar);
     }
 
     /// @brief keep the direction but modify the length of the (location) vector to length + scalar
@@ -217,28 +241,28 @@ public:
         return myX == p2.myX && myY == p2.myY && myZ == p2.myZ;
     }
 
-    /// @brief difference  operator
+    /// @brief difference operator
     bool operator!=(const Position& p2) const {
         return myX != p2.myX || myY != p2.myY || myZ != p2.myZ;
     }
 
     /// @brief lexicographical sorting for use in maps and sets
     bool operator<(const Position& p2) const {
-        if (myX < p2.myX) {
-            return true;
-        } else if (myY < p2.myY) {
-            return true;
-        } else {
-            return myZ < p2.myZ;
+        if (myX != p2.myX) {
+            return myX < p2.myX;
         }
+        if (myY != p2.myY) {
+            return myY < p2.myY;
+        }
+        return myZ < p2.myZ;
     }
 
-    /// @brief check if two position is almost the sme as other
+    /// @brief check whether the other position has a euclidean distance of less than maxDiv
     bool almostSame(const Position& p2, double maxDiv = POSITION_EPS) const {
         return distanceTo(p2) < maxDiv;
     }
 
-    /// @brief returns the euclidean distance in 3 dimension
+    /// @brief returns the euclidean distance in 3 dimensions
     inline double distanceTo(const Position& p2) const {
         return sqrt(distanceSquaredTo(p2));
     }
@@ -258,9 +282,14 @@ public:
         return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY);
     }
 
-    /// @brief returns the angle in the plane of the vector pointing from here to the other position
+    /// @brief returns the angle in the plane of the vector pointing from here to the other position (in radians between -M_PI and M_PI)
     inline double angleTo2D(const Position& other) const {
         return atan2(other.myY - myY, other.myX - myX);
+    }
+
+    /// @brief returns the slope of the vector pointing from here to the other position (in radians between -M_PI and M_PI)
+    inline double slopeTo2D(const Position& other) const {
+        return atan2(other.myZ - myZ, distanceTo2D(other));
     }
 
     /// @brief returns the cross product between this point and the second one
@@ -272,7 +301,7 @@ public:
     }
 
     /// @brief returns the dot product (scalar product) between this point and the second one
-    inline double dotProduct(const Position& pos) {
+    inline double dotProduct(const Position& pos) const {
         return myX * pos.myX + myY * pos.myY + myZ * pos.myZ;
     }
 

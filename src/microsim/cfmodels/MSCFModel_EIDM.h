@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,7 +71,7 @@ public:
      * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
@@ -82,7 +82,7 @@ public:
      *         due to acceleration capabilities and previous speeds.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] gap The (net) distance to the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle at insertion
      * @see stopSpeed() and insertionFollowSpeed()
      *
@@ -91,18 +91,18 @@ public:
 
 
     /** @brief Returns the maximum safe velocity for following the given leader
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] egoSpeed The FOLLOWERS's speed
      * @param[in] predSpeed The LEADER's speed
      * @param[in] predMaxDecel The LEADER's maximum deceleration
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
+    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
-     * @param[in] gap The (netto) distance to the desired stopping point
+     * @param[in] gap The (net) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
@@ -121,22 +121,23 @@ public:
     /** @brief Computes the vehicle's safe speed
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] gap2pred The (net) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle
      * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @param[in] gap2pred The (net) distance to the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed without a leader
@@ -152,7 +153,7 @@ public:
      * @return EGO's safe speed
      */
     double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                     double maxSpeed, const bool onInsertion = false) const;
+                     double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion);
 
@@ -192,11 +193,22 @@ public:
         }
     }
 
+    /** @brief Returns the maximum speed given the current speed and regarding driving dynamics
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step taking driving dynamics into account
+     */
+    double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        UNUSED_PARAMETER(speed);
+        UNUSED_PARAMETER(veh);
+        return 0;
+    }
+
     /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
      * @param[in] maxSpeed The maximum achievable speed in the next step
      * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
      */
-    double maximumLaneSpeedCF(double maxSpeed, double /*maxSpeedLane*/) const {
+    double maximumLaneSpeedCF(const MSVehicle* const /*veh*/, double maxSpeed, double /*maxSpeedLane*/) const {
         return maxSpeed;
     }
 
@@ -233,6 +245,7 @@ public:
         ret->myv_est_l = 0.;
         ret->myv_est = 0.;
         ret->mys_est = 0.;
+        ret->myrespectMinGap = true;
         ret->myap_update = 0;
         return ret;
     }
@@ -245,7 +258,7 @@ private:
         double wouldacc; // @brief saves the intended accel-value the CF-model would output, if there is no reaction time (accel-value is without coolness and drive-off)
         double lastacc; // @brief saves the intended accel-value when the driver was last updated (reaction time) (accel-value is without coolness and drive-off)
         double realacc; // @brief saves the resulting accel-value between multiple stopSpeed/followSpeed calls that the CF-model will eventually output
-        double lastrealacc; // @brief saves the resulting accel-value the CF-model eventually outputed when the driver was last updated (reaction time)
+        double lastrealacc; // @brief saves the resulting accel-value the CF-model eventually outputted when the driver was last updated (reaction time)
         double realleaderacc; // @brief saves the leader accel-value from the call that resulted in the new speed
         double lastleaderacc; // @brief saves the leader accel-value from the call that resulted in the new speed when the driver was last updated (reaction time)
         double v0_int; // @brief is the internal desired speed of the vehicle
@@ -257,6 +270,7 @@ private:
         double myv_est_l; // @brief saves the speed of the leading vehicle / 0 for a stop at the last driver update (reaction time)
         double myv_est; // @brief saves the speed of the vehicle at the last driver update (reaction time)
         double mys_est; // @brief saves the gap to leading vehicle / next stop at the last driver update (reaction time)
+        bool myrespectMinGap; // @brief saves the information, if minGap was added to the desired gap s* at the last driver update (reaction time)
         int myap_update; // @brief is a number counting the simulation steps since the last driver/vehicle update (reaction time)
         std::vector<std::pair<double, double>> stop; // @brief saves the intended accelerations and distances from all stopSpeed-calculations of the current time step
     };
@@ -269,11 +283,14 @@ private:
     * @param[in] vMax The wanted speed in the next time step
     * @return The corrected speed with dawdling / driving error
     */
-    double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, VehicleVariables* vars) const;
+    double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, const VehicleVariables* vars) const;
+
+    // @brief calculates the slow to start term when driving off
+    double slowToStartTerm(MSVehicle* const veh, const double newSpeed, const double currentSpeed, const double vMax, VehicleVariables* vars) const;
 
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update, const CalcReason usage) const;
 
     // @brief calculates the internal desired speed for the vehicle depending on myTpreview and upcoming turns, intersections and speed limit changes
     void internalspeedlimit(MSVehicle* const veh, const double oldV) const;

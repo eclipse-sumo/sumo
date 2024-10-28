@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,7 +56,9 @@ MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("bluelight", "Bluelight Device", oc);
 
     oc.doRegister("device.bluelight.reactiondist", new Option_Float(25.0));
-    oc.addDescription("device.bluelight.reactiondist", "Bluelight Device", "Set the distance at which other drivers react to the blue light and siren sound");
+    oc.addDescription("device.bluelight.reactiondist", "Bluelight Device", TL("Set the distance at which other drivers react to the blue light and siren sound"));
+    oc.doRegister("device.bluelight.mingapfactor", new Option_Float(1.));
+    oc.addDescription("device.bluelight.mingapfactor", "Bluelight Device", TL("Reduce the minGap for reacting vehicles by the given factor"));
 }
 
 
@@ -65,10 +67,11 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "bluelight", v, false)) {
         if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNINGF("bluelight device is not compatible with mesosim (ignored for vehicle '%')", v.getID());
+            WRITE_WARNINGF(TL("bluelight device is not compatible with mesosim (ignored for vehicle '%')"), v.getID());
         } else {
             MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
-                    getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist"), false));
+                    v.getFloatParam("device.bluelight.reactiondist"),
+                    v.getFloatParam("device.bluelight.mingapfactor"));
             into.push_back(device);
         }
     }
@@ -79,9 +82,10 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-                                       double reactionDist) :
+                                       const double reactionDist, const double minGapFactor) :
     MSVehicleDevice(holder, id),
-    myReactionDist(reactionDist) {
+    myReactionDist(reactionDist),
+    myMinGapFactor(minGapFactor) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << SIMTIME << " initialized device '" << id << "' with myReactionDist=" << myReactionDist << "\n";
 #endif
@@ -177,7 +181,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 continue;
             }
             const int numLanes = (int)veh2->getLane()->getEdge().getNumLanes();
-            // make sure that vehicle are still building the a rescue lane
+            // make sure that vehicles are still building the rescue lane as they might have moved to a new edge or changed lanes
             if (myInfluencedVehicles.count(veh2->getID()) > 0) {
                 // Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = veh2->getSingularType();
@@ -214,13 +218,19 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);//todo change lane back
                 // the vehicles should react according to the distance to the emergency vehicle taken from real world data
-                double reactionProb = 0.189; // todo works only for one second steps
-                if (distanceDelta < 12.5) {
-                    reactionProb = 0.577;
-                }
-                if (reaction < reactionProb) {
+                double reactionProb = (
+                                          distanceDelta < myHolder.getFloatParam("device.bluelight.near-dist", false, 12.5)
+                                          ? myHolder.getFloatParam("device.bluelight.reaction-prob-near", false, 0.577)
+                                          : myHolder.getFloatParam("device.bluelight.reaction-prob-far", false, 0.189));
+                // todo works only for one second steps
+                //std::cout << SIMTIME << " veh2=" << veh2->getID() << " distanceDelta=" << distanceDelta << " reaction=" << reaction << " reactionProb=" << reactionProb << "\n";
+                if (veh2->isActionStep(SIMSTEP) && reaction < reactionProb * veh2->getActionStepLengthSecs()) {
                     myInfluencedVehicles.insert(veh2->getID());
                     myInfluencedTypes.insert(std::make_pair(veh2->getID(), veh2->getVehicleType().getID()));
+                    if (myMinGapFactor != 1.) {
+                        // TODO this is a permanent change to the vtype!
+                        MSNet::getInstance()->getVehicleControl().getVType(veh2->getVehicleType().getID())->getCarFollowModel().setCollisionMinGapFactor(myMinGapFactor);
+                    }
 
                     // Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                     MSVehicleType& t = veh2->getSingularType();
@@ -230,6 +240,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                         align = LatAlignmentDefinition::LEFT;
                     }
                     t.setPreferredLateralAlignment(align);
+                    t.setMinGap(t.getMinGap() * myMinGapFactor);
+                    const_cast<SUMOVTypeParameter&>(t.getParameter()).jmParameter[SUMO_ATTR_JM_STOPLINE_GAP] = toString(myMinGapFactor);
                     // disable strategic lane-changing
 #ifdef DEBUG_BLUELIGHT_RESCUELANE
                     std::cout << SIMTIME << " device=" << getID() << " formingRescueLane=" << veh2->getID()
@@ -266,10 +278,13 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         link->opened(avi.arrivalTime, avi.arrivalSpeed, avi.arrivalSpeed, ego.getLength(),
                      0, ego.getCarFollowModel().getMaxDecel(), ego.getWaitingTime(), ego.getLateralPositionOnLane(), &blockingFoes, true, &ego);
         const SUMOTime timeToArrival = avi.arrivalTime - SIMSTEP;
-        for (const SUMOVehicle* foe : blockingFoes) {
+        for (const SUMOTrafficObject* foe : blockingFoes) {
+            if (!foe->isVehicle()) {
+                continue;
+            }
             const double dist = ego.getPosition().distanceTo2D(foe->getPosition());
             if (dist < myReactionDist) {
-                MSVehicle* microFoe = dynamic_cast<MSVehicle*>(const_cast<SUMOVehicle*>(foe));
+                MSVehicle* microFoe = dynamic_cast<MSVehicle*>(const_cast<SUMOTrafficObject*>(foe));
                 if (microFoe->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
                     // emergency vehicles should not react
                     continue;
@@ -295,7 +310,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             && upcomingEdges.size() > 1) {
         const MSEdge* currentEdge = &ego.getLane()->getEdge();
         // move onto the intersection as if there was a connection from the current lane
-        const MSEdge* next = currentEdge->getInternalFollowingEdge(upcomingEdges[1]);
+        const MSEdge* next = currentEdge->getInternalFollowingEdge(upcomingEdges[1], ego.getVClass());
         if (next == nullptr) {
             next = upcomingEdges[1];
         }

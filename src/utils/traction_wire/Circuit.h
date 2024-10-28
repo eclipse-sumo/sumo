@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,17 +28,18 @@
 
 #include <vector>
 #ifdef HAVE_EIGEN
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4464 5031)
+#endif
 // avoid warnings in clang
 #ifdef __clang__
 #pragma clang system_header
 #endif
-#ifdef WIN32
-#pragma warning(push, 0)
-#endif
-#include "Eigen/Dense"
-#include "Eigen/Geometry"
-#include "Eigen/Sparse"
-#ifdef WIN32
+#include <Eigen/Dense>
+#include <Eigen/Geometry>
+#include <Eigen/Sparse>
+#ifdef _MSC_VER
 #pragma warning(pop)
 #endif
 #endif
@@ -87,7 +88,7 @@ public:
     /**
      * @brief Flag of alpha scaling parameter
      *
-     * returns ALPHA_NOT_APPLIED => alpha shoud be 1
+     * returns ALPHA_NOT_APPLIED => alpha should be 1
      * returns ALPHA_CURRENT_LIMITS => alpha is lower than one due to electric current limits of the substation
      * returns ALPHA_VOLTAGE_LIMITS => alpha is not one due to inability of network to transfer requested power due to overhead wire resistance
      * returns ALPHA_NOT_CONVERGING => number of allowed iterations exceeded
@@ -149,7 +150,7 @@ private:
 #ifdef HAVE_EIGEN
     /*
     *    creates all of the equations that represent the circuit
-    *    in the form Ax = B(1/x) where A and B are matricies
+    *    in the form Ax = B(1/x) where A and B are matrices
     *    @param eqn : A
     *    @param vals : B
     */
@@ -232,7 +233,7 @@ public:
     // cleans up after superposition.
     void cleanUpSP();
 
-    //replaces unusedNode with newNode everywhere in the circuit, modifies the ids of other nodes and elements, descreases the id by one and deletes unusedNode
+    //replaces unusedNode with newNode everywhere in the circuit, modifies the ids of other nodes and elements, decreases the id by one and deletes unusedNode
     void replaceAndDeleteNode(Node* unusedNode, Node* newNode);
 
     // returns lastId
@@ -241,7 +242,7 @@ public:
     };
 
     // decreases lastId by one
-    void descreaseLastId() {
+    void decreaseLastId() {
         lastId--;
     };
 

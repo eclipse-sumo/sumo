@@ -1,0 +1,3 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '1119385764').
+Warning: The traffic light '5061820386' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '5061820386'

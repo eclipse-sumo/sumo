@@ -1,0 +1,27 @@
+/* XPM */
+static const char *closingreroute_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c #187E37",
+". c #ED1C24",
+"X c gray71",
+"o c None",
+"O c white",
+/* pixels */
+"oooooooooooooooo",
+"ooooooooooo  ooo",
+"ooXXoooooo    oo",
+"oXXXXoooo      o",
+"XXXXXXoo        ",
+"ooXXooooooo  ooo",
+"ooXXooooooo  ooo",
+"oo..ooooooo  ooo",
+"o....oooooo  ooo",
+"o.OO.oooooo  ooo",
+"o....oooooo  ooo",
+"oo..ooooooo  ooo",
+"ooXXooooooo  ooo",
+"ooXXo        ooo",
+"ooXXo        ooo",
+"oooooooooooooooo"
+};

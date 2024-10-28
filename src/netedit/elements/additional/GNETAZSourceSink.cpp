@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,7 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional(net, GLO_TAZ, tag, "",
-{}, {}, {}, {}, {}, {}),
+    GNEAdditional(net, GLO_TAZ, tag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {}, {}, {}, {}, {}),
 myDepartWeight(0) {
     // reset default values
     resetDefaultValues();
@@ -44,8 +43,7 @@ myDepartWeight(0) {
 
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "",
-{}, {edge}, {}, {TAZParent}, {}, {}),
+    GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {edge}, {}, {TAZParent}, {}, {}),
 myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
@@ -76,6 +74,30 @@ GNETAZSourceSink::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNETAZSourceSink::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETAZSourceSink::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETAZSourceSink::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
+bool
+GNETAZSourceSink::checkDrawMoveContour() const {
+    return false;
+}
+
+
 double
 GNETAZSourceSink::getDepartWeight() const {
     return myDepartWeight;
@@ -91,12 +113,6 @@ GNETAZSourceSink::updateGeometry() {
 Position
 GNETAZSourceSink::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();
-}
-
-
-double
-GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -132,9 +148,9 @@ GNETAZSourceSink::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
     // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
-    // buld menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    // build menu commands for names
+    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", getTagStr()), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % typed name to clipboard", getTagStr()), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
@@ -153,7 +169,7 @@ std::string
 GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_WEIGHT:
@@ -226,7 +242,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             case SUMO_ATTR_WEIGHT:
             case GNE_ATTR_SELECTED:
             case GNE_ATTR_PARAMETERS:
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 break;
             default:
                 throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -239,8 +255,7 @@ bool
 GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
+            return isValidAdditionalID(value);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_SELECTED:
@@ -285,7 +300,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);

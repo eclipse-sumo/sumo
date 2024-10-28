@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="test" type="train" line="S46" name="fancy name">
+        <route edges="E2 E3"/>
+        <busStop id="bs_0"/>
+        <busStop id="bs_1"/>
+    </ptLine>
+</additional>

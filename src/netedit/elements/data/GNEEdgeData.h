@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,13 +24,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include "GNEGenericData.h"
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEEdgeData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
@@ -49,7 +48,9 @@ public:
     ~GNEEdgeData();
 
     /// @brief get edge data color
-    const RGBColor& getColor() const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
+
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current edge data is visible
     bool isGenericDataVisible() const;
@@ -86,9 +87,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
-
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
@@ -100,22 +98,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object (lane)
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane GNELane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -152,20 +147,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
@@ -182,9 +163,6 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
-
     /// @brief Invalidated copy constructor.
     GNEEdgeData(const GNEEdgeData&) = delete;
 
@@ -193,4 +171,3 @@ private:
 };
 
 /****************************************************************************/
-

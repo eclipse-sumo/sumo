@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,21 +30,16 @@
 // ---------------------------------------------------------------------------
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
-#ifdef _MSC_VER
-/* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
-#pragma warning(disable: 4503)
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
-TraCIAPI::TraCIAPI()
-    : edge(*this), gui(*this), inductionloop(*this),
-      junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
-      person(*this), poi(*this), polygon(*this),
-      rerouter(*this), route(*this), routeprobe(*this),
-      simulation(*this), trafficlights(*this),
-      vehicle(*this), vehicletype(*this),
-      mySocket(nullptr) {
+
+TraCIAPI::TraCIAPI() :
+    edge(*this), gui(*this), inductionloop(*this),
+    junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
+    person(*this), poi(*this), polygon(*this),
+    rerouter(*this), route(*this), routeprobe(*this),
+    simulation(*this), trafficlights(*this),
+    vehicle(*this), vehicletype(*this),
+    mySocket(nullptr) {
+    std::cerr << "TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.\n";
     myDomains[libsumo::RESPONSE_SUBSCRIBE_EDGE_VARIABLE] = &edge;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_GUI_VARIABLE] = &gui;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE] = &junction;
@@ -62,9 +57,6 @@ TraCIAPI::TraCIAPI()
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE] = &vehicle;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE] = &vehicletype;
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 TraCIAPI::~TraCIAPI() {
@@ -732,6 +724,11 @@ TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& v
 // ---------------------------------------------------------------------------
 // TraCIAPI::InductionLoopScope-methods
 // ---------------------------------------------------------------------------
+
+int TraCIAPI::InductionLoopScope::getIntervalVehicleNumber(const std::string& loopID) const {
+    return getInt(libsumo::VAR_LAST_INTERVAL_NUMBER, loopID);
+}
+
 double
 TraCIAPI::InductionLoopScope::getPosition(const std::string& loopID) const {
     return getDouble(libsumo::VAR_POSITION, loopID);
@@ -1444,6 +1441,11 @@ TraCIAPI::SimulationScope::getNetBoundary() const {
 int
 TraCIAPI::SimulationScope::getMinExpectedNumber() const {
     return getInt(libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
+}
+
+std::string
+TraCIAPI::SimulationScope::getOption(const std::string& option) const {
+    return getString(libsumo::VAR_OPTION, option);
 }
 
 int

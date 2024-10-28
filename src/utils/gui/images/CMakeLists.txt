@@ -7,6 +7,10 @@ set(utils_gui_images_STAT_SRCS
    GUITexturesHelper.cpp
    GUITexturesHelper.h
    GUITextures.h
+   POIIcons.cpp
+   POIIcons.h
+   VClassIcons.cpp
+   VClassIcons.h
 )
 
 add_library(utils_gui_images STATIC ${utils_gui_images_STAT_SRCS})

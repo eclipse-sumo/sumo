@@ -1,0 +1,2 @@
+Warning: Invalid pedestrian topology: crossing ':C_c0' across [CE EC] has no target.
+Warning: Discarding invalid crossing ':C_c1' at junction 'C' with edges [CW WC] (no walkingarea found).

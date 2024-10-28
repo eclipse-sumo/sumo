@@ -4,8 +4,14 @@ default
 # replace first stop before the vehicle has departed
 first_init
 
+# test interaction of stopping and setSpeed
+first_init_setSpeed
+
 # replace first stop after the vehicle has departed
 first
+
+# insert a stop that requires looping back to the first stop edge.  (#14883)
+first_loop
 
 # replace first stop while already on the stop edge
 first_later
@@ -35,6 +41,12 @@ second_teleport_oncoming
 # change attributes of second stop without rerouting
 second_change_attribute
 
+# replace second stop after the vehicle has departed. new stop isn't reachable due to rerouter
+second_unreachable_ignore_rerouter
+
+# insert stop on an edge that is dynamically forbidden but the vehicle should ignore it
+stop_forbidden_ignore_rerouter_copy
+
 # insertstop before the last stop
 third
 
@@ -59,3 +71,9 @@ unreachable
 
 # replace first stop while on a junction leading away from the new stop
 on_junction
+
+# insert a stop along the current route
+keepRoute
+
+# insert a stop along the current route
+keepRoute2

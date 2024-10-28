@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -124,7 +124,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
         WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes:: in" + i_str.str());
 #endif
     }
-    return vSpeedInTot / inputLanes.size();
+    return vSpeedInTot / (double)inputLanes.size();
 }
 
 double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
@@ -145,7 +145,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
         WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes:: out" + i_str.str());
 #endif
     }
-    return vSpeedOutTot / outputLanes.size();
+    return vSpeedOutTot / (double)outputLanes.size();
 }
 
 void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {

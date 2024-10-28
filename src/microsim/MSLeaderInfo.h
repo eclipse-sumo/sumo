@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,10 +33,11 @@ class MSLane;
 
 
 // ===========================================================================
-// types definitions
+// type definitions
 // ===========================================================================
 typedef std::pair<const MSVehicle*, double> CLeaderDist;
 typedef std::pair<MSVehicle*, double> LeaderDist;
+
 
 // ===========================================================================
 // class definitions
@@ -47,7 +48,7 @@ typedef std::pair<MSVehicle*, double> LeaderDist;
 class MSLeaderInfo {
 public:
     /// Constructor
-    MSLeaderInfo(const MSLane* lane, const MSVehicle* ego = 0, double latOffset = 0);
+    MSLeaderInfo(const double laneWidth, const MSVehicle* ego = nullptr, const double latOffset = 0.);
 
     /// Destructor
     virtual ~MSLeaderInfo();
@@ -58,7 +59,7 @@ public:
      * @param[in] latOffset The lateral offset that must be added to the position of veh
      * @return The number of free sublanes
      */
-    virtual int addLeader(const MSVehicle* veh, bool beyond, double latOffset = 0);
+    virtual int addLeader(const MSVehicle* veh, bool beyond, double latOffset = 0.);
 
     /// @brief discard all information
     virtual void clear();
@@ -143,10 +144,10 @@ protected:
 class MSLeaderDistanceInfo : public MSLeaderInfo {
 public:
     /// Constructor
-    MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset);
+    MSLeaderDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset);
 
     /// @brief Construct for the non-sublane-case
-    MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy);
+    MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const double laneWidth);
 
     /// Destructor
     virtual ~MSLeaderDistanceInfo();
@@ -165,8 +166,11 @@ public:
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(beyond);
         UNUSED_PARAMETER(latOffset);
-        throw ProcessError("Method not supported");
+        throw ProcessError(TL("Method not supported"));
     }
+
+    /// @brief updatd empty sublanes with vehicles and gaps from other
+    virtual void addLeaders(MSLeaderDistanceInfo& other);
 
     /// @brief discard all information
     virtual void clear();
@@ -183,6 +187,9 @@ public:
 
     /// @brief subtract vehicle length from all gaps if the leader vehicle is driving in the opposite direction
     void fixOppositeGaps(bool isFollower);
+
+    /// @brief add given value to all gaps
+    void patchGaps(double amount);
 
     /// @brief return vehicle with the smalles gap
     CLeaderDist getClosest() const;
@@ -202,7 +209,7 @@ protected:
 class MSCriticalFollowerDistanceInfo : public MSLeaderDistanceInfo {
 public:
     /// Constructor
-    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders = false);
+    MSCriticalFollowerDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset, const bool haveOppositeLeaders = false);
 
     /// Destructor
     virtual ~MSCriticalFollowerDistanceInfo();
@@ -222,14 +229,14 @@ public:
         UNUSED_PARAMETER(gap);
         UNUSED_PARAMETER(latOffset);
         UNUSED_PARAMETER(sublane);
-        throw ProcessError("Method not supported");
+        throw ProcessError(TL("Method not supported"));
     }
 
     virtual int addLeader(const MSVehicle* veh, bool beyond, double latOffset = 0) {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(beyond);
         UNUSED_PARAMETER(latOffset);
-        throw ProcessError("Method not supported");
+        throw ProcessError(TL("Method not supported"));
     }
 
     /// @brief discard all information

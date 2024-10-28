@@ -764,7 +764,7 @@ Quitting (on error).
 Error: Another junction with the id '1' exists.
 Quitting (on error).
 ------------------ net/junction[1]:<duplicate>
-Error: Junction logic '2' was defined twice.
+Error: Another junction with the id '2' exists.
 Quitting (on error).
 ------------------ net/junction[2]:<duplicate>
 Error: Another junction with the id '3' exists.

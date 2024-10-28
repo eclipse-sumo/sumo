@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-28 16:52:49.982340 by generateRailSignalConstraints.py v1_17_0+1330-0c63be8
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <bidi-conflicts value="True"/>
+    <comment.all value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <bidiPredecessor tripId="t0" tl="J1" foes="t1"/>   <!-- busStop=f busStop2=-a2 priorStop=a priorStop2=-f2 arrival=00:03:45 foeArrival=00:03:04 stopArrival=00:04:00 foeStopArrival=00:03:20 -->
+    </railSignalConstraints>
+    <railSignalConstraints id="J0">
+        <bidiPredecessor tripId="t0" tl="J12" foes="t1"/>   <!-- busStop=j busStop2=-f2 priorStop=f priorStop2=-j2 arrival=00:05:25 foeArrival=00:01:22 stopArrival=00:05:40 foeStopArrival=00:01:40 -->
+    </railSignalConstraints>
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
@@ -70,16 +71,21 @@ MSStateHandler::MSStateTimeHandler::getTime(const std::string& fileName) {
     handler.setFileName(fileName);
     handler.myTime = -1;
     SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
-    if (!parser->parseFirst(fileName)) {
+    try {
+        if (!parser->parseFirst(fileName)) {
+            delete parser;
+            throw ProcessError(TLF("Can not read XML-file '%'.", fileName));
+        }
+    } catch (ProcessError&) {
         delete parser;
-        throw ProcessError("Can not read XML-file '" + fileName + "'.");
+        throw;
     }
     // parse
     while (parser->parseNext() && handler.myTime != -1);
     // clean up
     if (handler.myTime == -1) {
         delete parser;
-        throw ProcessError("Could not parse time from state file '" + fileName + "'");
+        throw ProcessError(TLF("Could not parse time from state file '%'", fileName));
     }
     delete parser;
     return handler.myTime;
@@ -109,6 +115,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     myAmLoadingState = true;
     const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
     myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());
+    myAllowInternalRoutes = true;
 }
 
 
@@ -128,6 +135,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     out.writeAttr(SUMO_ATTR_TYPE, MSGlobals::gUseMesoSim ? "meso" : "micro");
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
         out.writeAttr(SUMO_ATTR_CONSTRAINTS, true);
+    }
+    if (MSDriveWay::haveDriveWays()) {
+        out.writeAttr(SUMO_ATTR_RAIL, true);
     }
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
@@ -176,11 +186,15 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
             const std::string& version = attrs.getString(SUMO_ATTR_VERSION);
             if (version != VERSION_STRING) {
-                WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
+                WRITE_WARNINGF(TL("State was written with sumo version % (present: %)!"), version, VERSION_STRING);
             }
             bool ok;
             if (attrs.getOpt<bool>(SUMO_ATTR_CONSTRAINTS, nullptr, ok, false)) {
                 MSRailSignalConstraint::clearAll();
+            }
+            if (attrs.getOpt<bool>(SUMO_ATTR_RAIL, nullptr, ok, false)) {
+                // init before loading any vehicles to ensure that driveways are built early
+                MSRailSignalControl::getInstance();
             }
             break;
         }
@@ -198,7 +212,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE), MSDevice::getEquipmentRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_BT)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_BT), MSDevice_BTreceiver::getEquipmentRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_BT), MSVehicleDevice_BTreceiver::getEquipmentRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DRIVERSTATE), OUProcess::getRNG());
@@ -221,7 +235,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             for (const std::string& laneID : laneIDs) {
                 MSLane* lane = MSLane::dictionary(laneID);
                 if (lane == nullptr) {
-                    throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+                    throw ProcessError(TLF("Unknown lane '%' in loaded state.", laneID));
                 }
                 activeLanes.push_back(lane);
             }
@@ -237,7 +251,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_FLOWSTATE: {
             bool ok;
-            SUMOVehicleParameter* pars = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOWSTATE, attrs, true, true, -1, -1);
+            SUMOVehicleParameter* pars = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOWSTATE, attrs, true, true, -1, -1, true);
             pars->repetitionsDone = attrs.get<int>(SUMO_ATTR_DONE, pars->id.c_str(), ok);
             pars->repetitionTotalOffset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_NEXT, pars->id.c_str(), ok, 0);
             int index = attrs.getInt(SUMO_ATTR_INDEX);
@@ -277,7 +291,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             myCurrentLane = MSLane::dictionary(laneID);
             if (myCurrentLane == nullptr) {
-                throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+                throw ProcessError(TLF("Unknown lane '%' in loaded state.", laneID));
             }
             break;
         }
@@ -329,6 +343,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             MSRailSignalConstraint_Predecessor::loadState(attrs);
             break;
         }
+        case SUMO_TAG_DRIVEWAY: 
+        case SUMO_TAG_SUBDRIVEWAY: { 
+            MSDriveWay::loadState(attrs, element);
+            break;
+        }
         case SUMO_TAG_PARAM: {
             bool ok;
             const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
@@ -365,8 +384,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_PREDECESSOR: // intended fall-through
-        case SUMO_TAG_INSERTION_PREDECESSOR:
-            NLHandler::addPredecessorConstraint(element, attrs, myConstrainedSignal);
+        case SUMO_TAG_INSERTION_PREDECESSOR: // intended fall-through
+        case SUMO_TAG_FOE_INSERTION: // intended fall-through
+        case SUMO_TAG_INSERTION_ORDER: // intended fall-through
+        case SUMO_TAG_BIDI_PREDECESSOR:
+            myLastParameterised = NLHandler::addPredecessorConstraint(element, attrs, myConstrainedSignal);
             break;
         case SUMO_TAG_TLLOGIC: {
             bool ok;
@@ -378,7 +400,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             MSTrafficLightLogic* tl = tlc.get(tlID, programID);
             if (tl == nullptr) {
                 if (programID == "online") {
-                    WRITE_WARNING("Ignoring program '" + programID + "' for traffic light '" + tlID + "' in loaded state");
+                    WRITE_WARNINGF(TL("Ignoring program '%' for traffic light '%' in loaded state"), programID, tlID);
                     return;
                 } else {
                     throw ProcessError("Unknown program '" + programID + "' for traffic light '" + tlID + "'");
@@ -413,7 +435,7 @@ MSStateHandler::myEndElement(int element) {
         }
         case SUMO_TAG_SNAPSHOT: {
             if (myVCAttrs == nullptr) {
-                throw ProcessError("Could not load vehicle control state");
+                throw ProcessError(TL("Could not load vehicle control state"));
             }
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             vc.setState(myVCAttrs->getInt(SUMO_ATTR_NUMBER),
@@ -422,7 +444,7 @@ MSStateHandler::myEndElement(int element) {
                         myVCAttrs->getFloat(SUMO_ATTR_DEPART),
                         myVCAttrs->getFloat(SUMO_ATTR_TIME));
             if (myRemoved > 0) {
-                WRITE_MESSAGE("Removed " + toString(myRemoved) + " vehicles while loading state.");
+                WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);
             }
             break;
@@ -448,10 +470,11 @@ MSStateHandler::closeVehicle() {
         MSRouteHandler::closeVehicle();
         SUMOVehicle* v = vc.getVehicle(vehID);
         if (v == nullptr) {
-            throw ProcessError("Could not load vehicle '" + vehID + "' from state");
+            throw ProcessError(TLF("Could not load vehicle '%' from state", vehID));
         }
         v->setChosenSpeedFactor(myAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR));
         v->loadState(*myAttrs, myOffset);
+
         if (v->hasDeparted()) {
             // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
             MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
@@ -462,6 +485,11 @@ MSStateHandler::closeVehicle() {
             if (MSRailSignalControl::hasInstance()) {
                 // register route for deadlock prevention (vehicleStateChanged would not be called otherwise)
                 MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VehicleState::NEWROUTE, "loadState");
+            }
+            vc.handleTriggeredDepart(v, false);
+            if (v->hasArrived()) {
+                // state was created with active option --keep-after-arrival
+                vc.deleteKeptVehicle(v);
             }
         }
         while (!myDeviceAttrs.empty()) {

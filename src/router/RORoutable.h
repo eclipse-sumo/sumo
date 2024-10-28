@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,12 +110,18 @@ public:
         return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
     }
 
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    bool ignoreTransientPermissions() const {
+        return false;
+    };
 
     /// @brief Returns the vehicle's maximum speed
     inline double getMaxSpeed() const {
-        return myType->maxSpeed;
+        return MIN2(getType()->maxSpeed,
+                    getType()->desiredMaxSpeed * getType()->speedFactor.getParameter()[0]);
     }
-
 
     virtual const ROEdge* getDepartEdge() const = 0;
 

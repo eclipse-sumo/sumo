@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,15 +25,16 @@
 
 #include <vector>
 #include <string>
+#include <microsim/MSStoppingPlace.h>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
-#include <microsim/MSStoppingPlace.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/Position.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <gui/GUIManipulator.h>
 
 
@@ -81,7 +82,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    bool addAccess(MSLane* lane, const double pos, double length);
+    bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);
 
     /// @name inherited from GUIGlObject
     //@{
@@ -121,6 +122,9 @@ public:
     /// @brief Returns the street name
     const std::string getOptionalName() const;
 
+    /// @brief Formats the last free pos value
+    double getCroppedLastFreePos() const;
+
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -129,22 +133,34 @@ public:
 
     //@}
 
+private:
+
+
+    /// @brief init constants for faster rendering
+    void initShape(PositionVector& fgShape,
+                   std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
+                   Position& fgSignPos, double& fgSignRot, bool secondaryShape = false);
 
 private:
     /// @brief The rotations of the shape parts
     std::vector<double> myFGShapeRotations;
+    std::vector<double> myFGShapeRotations2;
 
     /// @brief The lengths of the shape parts
     std::vector<double> myFGShapeLengths;
+    std::vector<double> myFGShapeLengths2;
 
     /// @brief The shape
     PositionVector myFGShape;
+    PositionVector myFGShape2;
 
     /// @brief The position of the sign
     Position myFGSignPos;
+    Position myFGSignPos2;
 
     /// @brief The rotation of the sign
     double myFGSignRot;
+    double myFGSignRot2;
 
     /// @brief The visual width of the stoppling place
     double myWidth;

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,7 +64,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) con
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getBool("random-type") && nb.getTypeCont().size() > 1) {
         auto it = nb.getTypeCont().begin();
-        std::advance(it, RandHelper::rand((int)nb.getTypeCont().size()));;
+        std::advance(it, RandHelper::rand((int)nb.getTypeCont().size()));
         type = it->first;
     }
     int priority = nb.getTypeCont().getEdgeTypePriority(type);
@@ -94,7 +94,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) con
     NBEdge* result = new NBEdge(
         reversed ? myReverseID : myID,
         from, to,
-        type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
+        type, nb.getTypeCont().getEdgeTypeSpeed(type), NBEdge::UNSPECIFIED_FRICTION, lanenumber,
         priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, lsf);
     result->setPermissions(permissions);
     return result;

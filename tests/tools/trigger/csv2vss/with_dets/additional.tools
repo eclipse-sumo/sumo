@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-09-08 13:41:59.174385 by csv2vss.py v1_18_0+1470-17f454d6eb4
+<configuration>
+    <outfile value="out.add.xml"/>
+    <detectorfile value="input_detectors.det.xml"/>
+    <csvfile value="input_flows.txt"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <variableSpeedSign id="vss_A" lanes="A_0">
+        <step time="0.000" speed="5.556"/>
+        <step time="1800.000" speed="13.889"/>
+        <step time="3600.000" speed="2.778"/>
+        <step time="5400.000" speed="11.111"/>
+        <step time="7200.000" speed="33.333"/>
+        <step time="9000.000" speed="41.667"/>
+        <step time="10800.000" speed="30.556"/>
+        <step time="12600.000" speed="38.889"/>
+        <step time="14400.000" speed="13.889"/>
+        <step time="16200.000" speed="27.778"/>
+        <step time="18000.000" speed="16.667"/>
+        <step time="19800.000" speed="25.000"/>
+    </variableSpeedSign>
+</additional>

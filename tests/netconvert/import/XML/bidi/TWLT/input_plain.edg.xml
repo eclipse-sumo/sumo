@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-27 14:46:15 by Eclipse SUMO netconvert Version v1_16_0+1682-96140f8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.internal-link-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-397692.34,-5808546.97" convBoundary="3050.00,1800.00,3200.00,1900.00" origBoundary="13.455920,52.416195,13.575739,52.459222" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-E0" from="J1" to="J0" priority="-1" numLanes="2" speed="13.89" shape="3100.00,1848.40 3050.00,1848.40" bidi="E0"/>
+    <edge id="-E1" from="J2" to="J1" priority="-1" numLanes="2" speed="13.89" shape="3150.00,1848.40 3100.00,1848.40" bidi="E1"/>
+    <edge id="-E2" from="J3" to="J2" priority="-1" numLanes="2" speed="13.89" shape="3200.00,1848.40 3150.00,1848.40" bidi="E2"/>
+    <edge id="-E3" from="J4" to="J1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="-E4" from="J5" to="J2" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="2" speed="13.89" shape="3050.00,1851.60 3100.00,1851.60" bidi="-E0"/>
+    <edge id="E1" from="J1" to="J2" priority="-1" numLanes="2" speed="13.89" shape="3100.00,1851.60 3150.00,1851.60" bidi="-E1"/>
+    <edge id="E2" from="J2" to="J3" priority="-1" numLanes="2" speed="13.89" shape="3150.00,1851.60 3200.00,1851.60" bidi="-E2"/>
+    <edge id="E3" from="J1" to="J4" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E4" from="J2" to="J5" priority="-1" numLanes="1" speed="13.89"/>
+</edges>

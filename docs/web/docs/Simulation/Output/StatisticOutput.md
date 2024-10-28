@@ -15,10 +15,12 @@ The generated XML file looks like this:
 
 ```xml
 <statistics>
+    <performance ''ATTRIBUTES''.../>
     <vehicles ''ATTRIBUTES''.../>
     <teleports ''ATTRIBUTES''.../>
     <safety ''ATTRIBUTES''.../>
     <persons ''ATTRIBUTES''.../>
+    <personTeleports ''ATTRIBUTES''.../>
     <vehicleTripStatistics ''ATTRIBUTES''.../>
     <pedestrianStatistics ''ATTRIBUTES''.../>
     <rideStatistics ''ATTRIBUTES''.../>
@@ -28,22 +30,38 @@ The generated XML file looks like this:
 
 The following output attributes are generated:
 
+## performance
+
+| Attribute Name              | Value Type | Description                                                                  |
+| --------------------------- | ---------- | ---------------------------------------------------------------------------- |
+| **clockBegin**              | time       | Unix time (or hh:mm:ss if `--human-readable-time` is set) when the simulation started                      |
+| **clockEnd**                | time       | Unix time (or hh:mm:ss if `--human-readable-time` is set) when simulation ended                                                 |
+| **clockDuration**           | time       | Time spent executing the simulation (clockEnd - clockBegin)              |
+| **traciDuration**           | s          | Time spent using TraCI |
+| **realTimeFactor**          | #          | Factor describing the (simulated / real) time relation |
+| **vehicleUpdatesPerSecond** | #          | Vehicles present in the simulation per second |
+| **personUpdatesPerSecond**  | #          | Persons present in the simulation per second |
+| **begin**                   | int (time) | Begin time of the simulation |
+| **end**                     | int (time) | End time of the simulation |
+| **duration**                | int (time) | Duration of the simulation (begin - end) |
+
+
 ## vehicles
 
 | Attribute Name | Value Type | Description                                                                  |
 | -------------- | ---------- | ---------------------------------------------------------------------------- |
 | **loaded**     | #          | Number of vehicles that were loaded into the simulation                      |
-| **inserted**   | #          | Number of vehicles inserted                                                  |
-| **running**    | #          | Number of vehicles that were running                                         |
-| **waiting**    | #          | Number of vehicles which were waiting for insertion (could not be inserted)  |
+| **inserted**   | #          | Number of vehicles inserted                                                 |
+| **running**    | #          | Number of vehicles that were running at simulation end                                        |
+| **waiting**    | #          | Number of vehicles with delayed insertion that were still waiting for insertion at simulation end |
 
 
 ## teleports
 
-| Attribute Name  | Value Type | Description                                                                                                                        |
-| --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| **total**       | #          | The total number of teleportations that occured                                                                                    |
-| **jam**         | #          | Number of teleportations due to traffic jam                                                                                        |
+| Attribute Name  | Value Type | Description                                                            |
+| --------------- | ---------- | -------------------------------------------------------------------------------------------------- |
+| **total**       | #          | The total number of teleportations that occurred                                                    |
+| **jam**         | #          | Number of teleportations due to traffic jam                                                          |
 | **yield**       | #          | Number of teleportations due to yield (vehicle is stuck on a low-priority road and did not find a gap in the prioritized traffic)  |
 | **wrongLane**   | #          | Number of teleportations due to the vehicle being stuck on a lane which has no connection to the next edge on its route            |
 
@@ -63,6 +81,15 @@ The following output attributes are generated:
 | **loaded**     | #          | Number of persons that were loaded into the simulation    |
 | **running**    | #          | Number of persons that were running                       |
 | **jammed**     | #          | Number of persons that were jammed during the simulation  |
+
+
+## personTeleports
+
+| Attribute Name | Value Type | Description                                                |
+| -------------- | ---------- | ---------------------------------------------------------- |
+| **total**      | #          | Total number of person teleports that occurred             |
+| **abortWait**  | #          | Number of teleports due to excessive waiting for a ride    |
+| **wrongDest**  | #          | Number of teleports due to riding to the wrong destination |
 
 
 ## vehicleTripStatistics
@@ -124,12 +151,12 @@ When comparing simulations with a fixed end-time, those simulations may differ i
 To include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
 The general idea is to add up the travel time (duration) and the time that was spent waiting for departure (departDelay) for all vehicles that were defined in the input.
 
-To simplify comparison between simulations that have the same number of vehiclles, the attributes 'totalTravelTime' and 'totalDepartDelay' are provided.
+To simplify comparison between simulations that have the same number of vehicles, the attributes 'totalTravelTime' and 'totalDepartDelay' are provided.
 
 An alternative way to compute the sum of travel time and delays is to multiply the averages:
 
 ```
-totalTravelTimeAndDelay = 
+totalTravelTimeAndDelay =
      vehicles.inserted * (vehicleTripStatistics.duration + vehicleTripStatistics.departDelay)
    + vehicles.waiting * vehicleTripStatistics.departDelayWaiting
 ```

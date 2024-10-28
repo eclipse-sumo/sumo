@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,10 +40,27 @@
     } \
 } \
 
+
+#define EXPECT_POSITIONVEC_EQUAL(v1, v2) \
+{ \
+    EXPECT_EQ(v1.size(), v2.size()); \
+    if (v1.size() == v2.size()) { \
+        for (int i = 0; i < (int)v1.size(); ++i) { \
+            EXPECT_DOUBLE_EQ((v1[i].x()), (v2[i].x())); \
+            EXPECT_DOUBLE_EQ((v1[i].y()), (v2[i].y())); \
+            EXPECT_DOUBLE_EQ((v1[i].z()), (v2[i].z())); \
+        } \
+    } \
+} \
+
+
 class PositionVectorTest : public testing::Test {
 protected :
     PositionVector* vectorPolygon;
     PositionVector* vectorLine;
+    PositionVector* vectorTrianglePositiveCoords;
+    PositionVector* vectorTriangleNegativeCoords;
+    PositionVector* vectorRectangleOriginAlignedCorners;
 
     virtual void SetUp() {
         vectorPolygon = new PositionVector();
@@ -56,11 +73,30 @@ protected :
         vectorLine = new PositionVector();
         vectorLine->push_back(Position(0, 0));
         vectorLine->push_back(Position(2, 2));
+
+        vectorTrianglePositiveCoords = new PositionVector();
+        vectorTrianglePositiveCoords->push_back(Position(1, 1));
+        vectorTrianglePositiveCoords->push_back(Position(3, 0));
+        vectorTrianglePositiveCoords->push_back(Position(2, 3));
+
+        vectorTriangleNegativeCoords = new PositionVector();
+        vectorTriangleNegativeCoords->push_back(Position(2, -1));
+        vectorTriangleNegativeCoords->push_back(Position(1, -1));
+        vectorTriangleNegativeCoords->push_back(Position(2, -3));
+
+        vectorRectangleOriginAlignedCorners = new PositionVector();
+        vectorRectangleOriginAlignedCorners->push_back(Position(1, 1));
+        vectorRectangleOriginAlignedCorners->push_back(Position(3, 1));
+        vectorRectangleOriginAlignedCorners->push_back(Position(3, 3));
+        vectorRectangleOriginAlignedCorners->push_back(Position(1, 3));
     }
 
     virtual void TearDown() {
         delete vectorPolygon;
         delete vectorLine;
+        delete vectorTrianglePositiveCoords;
+        delete vectorTriangleNegativeCoords;
+        delete vectorRectangleOriginAlignedCorners;
     }
 
 };
@@ -530,6 +566,7 @@ TEST_F(PositionVectorTest, test_method_distances) {
 
 }
 
+
 /* Test the method 'overlapsWith'*/
 TEST_F(PositionVectorTest, test_method_overlapsWith) {
     PositionVector vec1;
@@ -581,4 +618,85 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     EXPECT_TRUE(vec1.overlapsWith(vec5, 3));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 6));
     EXPECT_FALSE(vec1.overlapsWith(empty));
+}
+
+
+/* Test the method 'sortAsPolyCWByAngle'*/
+TEST_F(PositionVectorTest, test_method_sortAsPolyCWByAngle) {
+    PositionVector vectorTrianglePositiveCoordsClockwiseOrdered;
+    vectorTrianglePositiveCoordsClockwiseOrdered.push_back(Position(2, 3));
+    vectorTrianglePositiveCoordsClockwiseOrdered.push_back(Position(3, 0));
+    vectorTrianglePositiveCoordsClockwiseOrdered.push_back(Position(1, 1));
+    vectorTrianglePositiveCoords->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorTrianglePositiveCoords), vectorTrianglePositiveCoordsClockwiseOrdered);
+
+    PositionVector vectorTriangleNegativeCoordsClockwiseOrdered;
+    vectorTriangleNegativeCoordsClockwiseOrdered.push_back(Position(1, -1));
+    vectorTriangleNegativeCoordsClockwiseOrdered.push_back(Position(2, -1));
+    vectorTriangleNegativeCoordsClockwiseOrdered.push_back(Position(2, -3));
+    vectorTriangleNegativeCoords->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorTriangleNegativeCoords), vectorTriangleNegativeCoordsClockwiseOrdered);
+
+    PositionVector vectorRectangleOriginAlignedCornersClockwiseOrdered;
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(1, 3));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(3, 3));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(3, 1));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(1, 1));
+    vectorRectangleOriginAlignedCorners->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorRectangleOriginAlignedCorners), vectorRectangleOriginAlignedCornersClockwiseOrdered);
+}
+
+
+/* Test the method 'isClockwiseOriented'*/
+TEST_F(PositionVectorTest, test_method_isClockwiseOriented) {
+    EXPECT_FALSE(vectorTrianglePositiveCoords->isClockwiseOriented());
+    EXPECT_FALSE(vectorTriangleNegativeCoords->isClockwiseOriented());
+    EXPECT_FALSE(vectorRectangleOriginAlignedCorners->isClockwiseOriented());
+}
+
+
+/* Test the method 'simplified'*/
+TEST_F(PositionVectorTest, test_method_simplified) {
+    const PositionVector vec1(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result = vec1.simplified();
+    EXPECT_EQ(3, (int)result.size());
+    const PositionVector vec2(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result2 = vec2.simplified();
+    EXPECT_EQ(4, (int)result2.size());
+    const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
+    const PositionVector result3 = vec3.simplified();
+    // std::cout << result3 << std::endl;
+    EXPECT_EQ(3, (int)result3.size());
+
+    const PositionVector vec4(std::vector<Position> {Position(0, 0), Position(0, 8), Position(NUMERICAL_EPS / 2., 7), Position(NUMERICAL_EPS, 6), Position(3. * NUMERICAL_EPS / 2., 5),
+                              Position(2. * NUMERICAL_EPS, 4), Position(3. * NUMERICAL_EPS / 2., 3), Position(NUMERICAL_EPS, 2), Position(NUMERICAL_EPS / 2., 1)
+                                                    });
+    const PositionVector result4 = vec4.simplified();
+    EXPECT_EQ(3, (int)result4.size());
+}
+
+
+/* Test the method 'simplified2'*/
+TEST_F(PositionVectorTest, test_method_simplified2) {
+    const PositionVector vec1(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result = vec1.simplified2(true);
+    EXPECT_EQ(2, (int)result.size());
+    const PositionVector vec2(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result2 = vec2.simplified2(true);
+    EXPECT_EQ(2, (int)result2.size());
+    const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
+    const PositionVector result3 = vec3.simplified2(true);
+    // std::cout << result3 << std::endl;
+    EXPECT_EQ(2, (int)result3.size());
+    EXPECT_DOUBLE_EQ(2., result3.front().y());
+    EXPECT_DOUBLE_EQ(5., result3.back().y());
+
+    const PositionVector vec4(std::vector<Position> {Position(0, 0), Position(0, 8), Position(NUMERICAL_EPS / 2., 7), Position(NUMERICAL_EPS, 6), Position(3. * NUMERICAL_EPS / 2., 5),
+                              Position(2. * NUMERICAL_EPS, 4), Position(3. * NUMERICAL_EPS / 2., 3), Position(NUMERICAL_EPS, 2), Position(NUMERICAL_EPS / 2., 1)
+                                                    });
+    const PositionVector result4 = vec4.simplified2(true);
+    EXPECT_EQ(3, (int)result4.size());
+    EXPECT_DOUBLE_EQ(0., result4.front().y());
+    EXPECT_DOUBLE_EQ(8., result4[1].y());
+    EXPECT_DOUBLE_EQ(4., result4.back().y());
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,12 +15,12 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
-// Modul for edit NETEDIT attributes
+// Modul for edit netedit attributes
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -35,7 +35,7 @@ class GNELane;
 // class definitions
 // ===========================================================================
 
-class GNENeteditAttributes : public FXGroupBoxModule {
+class GNENeteditAttributes : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNENeteditAttributes)
 
@@ -55,44 +55,52 @@ public:
     /// @brief fill valuesMap with netedit attributes
     bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;
 
+    /// @brief draw lane reference
+    void drawLaneReference(const GNELane* lane) const;
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief Called when user changes some element of GNENeteditAttributes
     long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
     /// @brief Called when user press the help button
     long onCmdHelp(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNENeteditAttributes)
 
-private:
     /// @brief list of the reference points
-    enum class AdditionalReferencePoint {
+    enum class ReferencePoint {
         LEFT,
         RIGHT,
         CENTER,
+        EXTENDEDLEFT,
+        EXTENDEDRIGHT,
+        EXTENDED,
         INVALID
     };
-
-    /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
-
-    /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
 
     /// @brief pointer to frame parent
     GNEFrame* myFrameParent;
 
     /// @brief match box with the list of reference points
-    FXComboBox* myReferencePointMatchBox;
+    MFXComboBoxIcon* myReferencePointComboBox;
 
     /// @brief horizontal frame for length
     FXHorizontalFrame* myLengthFrame;
 
     /// @brief textField for length
     FXTextField* myLengthTextField;
+
+    /// @brief horizontal frame for force length
+    FXHorizontalFrame* myForceLengthFrame;
+
+    /// @brief checkbox to enable/disable force length
+    FXCheckButton* myForceLengthCheckButton;
 
     /// @brief horizontal frame for close polygon
     FXHorizontalFrame* myCloseShapeFrame;
@@ -106,12 +114,25 @@ private:
     /// @brief checkbox to enable/disable center element after creation
     FXCheckButton* myCenterViewAfterCreationButton;
 
-    /// @brief Button for help about the reference point
-    FXButton* helpReferencePoint;
+    /// @brief current reference point
+    ReferencePoint myReferencePoint;
 
-    /// @brief Flag to check if current length is valid
-    bool myCurrentLengthValid;
+    /// @brief map with all references
+    std::vector<std::pair<std::string, ReferencePoint> > myReferencePoints;
 
-    /// @brief actual additional reference point selected in the match Box
-    AdditionalReferencePoint myActualAdditionalReferencePoint;
+    /// @brief get element length
+    double getElementLength() const;
+
+    /// @brief return the start position
+    double setStartPosition(const double mouseOverLanePos, double elementLength) const;
+
+    /// @brief return the end position
+    double setEndPosition(const double mouseOverLanePos, double elementLength, const double laneLength) const;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNENeteditAttributes(GNENeteditAttributes*) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNENeteditAttributes& operator=(GNENeteditAttributes*) = delete;
 };

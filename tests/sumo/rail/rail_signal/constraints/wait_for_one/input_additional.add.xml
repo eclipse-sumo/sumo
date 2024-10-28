@@ -2,6 +2,10 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <predecessor tripId="t0" tl="D" foes="t1"/>
+        <predecessor tripId="t0" tl="D" foes="t1">
+            <param key="customInfo" value="test123"/>
+            <param key="foo" value="42"/>
+            <param key="bar" value="23"/>
+        </predecessor>
     </railSignalConstraints>
 </additional>

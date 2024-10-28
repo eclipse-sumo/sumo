@@ -3,7 +3,7 @@ title: Managing Publications
 ---
 
 Publications are stored in an extended
-[bibtex-file](http://sourceforge.net/apps/trac/sumo/browser/trunk/sumo/docs/sumo.bib)
+[bibtex-file](https://sourceforge.net/apps/trac/sumo/browser/trunk/sumo/docs/sumo.bib)
 generated using [JabRef](https://www.jabref.org/).
 
 # Organising

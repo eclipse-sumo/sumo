@@ -1,0 +1,8 @@
+<routes>
+
+    <vType id="t0" sigma="0" minGap="0">
+        <param key="has.friction.device" value="true"/>
+    </vType>
+    <flow id="flow" type="t0" begin="0" number="2" end="360" from="1fi" via="2fi" to="3fi"/>
+
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,9 +33,10 @@
 PCTypeMap::PCTypeMap(const OptionsCont& oc) {
     myDefaultType.id = oc.getString("type");
     myDefaultType.color = RGBColor::parseColor(oc.getString("color"));
+    myDefaultType.icon = oc.getString("icon");
     myDefaultType.layer = oc.getFloat("layer");
     myDefaultType.discard = oc.getBool("discard");
-    myDefaultType.allowFill = oc.getBool("fill");
+    myDefaultType.allowFill = oc.getBool("fill") ? Filltype::FILL : Filltype::NOFILL;
     myDefaultType.prefix = oc.getString("prefix");
 }
 
@@ -44,16 +45,16 @@ PCTypeMap::~PCTypeMap() {}
 
 
 bool
-PCTypeMap::add(const std::string& id, const std::string& newid,
-               const std::string& color, const std::string& prefix,
-               double layer, double angle, const std::string& imgFile,
-               bool discard, bool allowFill) {
+PCTypeMap::add(const std::string& id, const std::string& newid, const std::string& color,
+               const std::string& prefix, const std::string& icon, double layer,
+               double angle, const std::string& imgFile, bool discard, Filltype allowFill) {
     if (has(id)) {
         return false;
     }
     TypeDef td;
     td.id = newid;
     td.color = RGBColor::parseColor(color);
+    td.icon = icon;
     td.layer = layer;
     td.angle = angle;
     td.imgFile = imgFile;

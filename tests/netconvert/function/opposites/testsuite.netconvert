@@ -40,6 +40,9 @@ different_lengths_fix
 # load network with invalid opposites
 load_invalid
 
+# load network with asymmetrical opposites
+load_incomplete
+
 # load network with invalid opposites
 load_invalid_index
 

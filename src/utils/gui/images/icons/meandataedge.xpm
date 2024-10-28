@@ -1,0 +1,31 @@
+/* XPM */
+static const char *meandataedge_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 9 1",
+"  c black",
+". c #007F0E",
+"X c gray50",
+"o c red",
+"O c #FFD800",
+"+ c #0026FF",
+"@ c #C3C3C3",
+"# c none",
+"$ c white",
+/* pixels */
+"@@@@@@@@@@@@@@@@",
+"                ",
+"                ",
+"                ",
+"                ",
+" $$  $$  $$  $$ ",
+"                ",
+"                ",
+"       $$$$$$$$X",
+"       $$++$$$$X",
+"@@@@@@@oo++$$$$X",
+"#######oo++..$$X",
+"#######oo++..OOX",
+"#######oo++..OOX",
+"#######oo++..OOX",
+"#######XXXXXXXXX"
+};

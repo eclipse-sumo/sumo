@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@
 //#define DEBUG_FIND_WAY
 //#define DEBUG_CONSTRUCT_ROUTE
 
-#define DEBUGLINEID "1986097"
+#define DEBUGLINEID ""
 #define DEBUGSTOPID ""
 
 // ===========================================================================
@@ -43,13 +43,11 @@
 // ===========================================================================
 const int NBPTLineCont::FWD(1);
 const int NBPTLineCont::BWD(-1);
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-NBPTLineCont::NBPTLineCont() { }
-
-
 NBPTLineCont::~NBPTLineCont() {
     for (auto& myPTLine : myPTLines) {
         delete myPTLine.second;
@@ -57,49 +55,81 @@ NBPTLineCont::~NBPTLineCont() {
     myPTLines.clear();
 }
 
-void
+
+bool
 NBPTLineCont::insert(NBPTLine* ptLine) {
-    myPTLines[ptLine->getLineID()] = ptLine;
+    if (myPTLines.count(ptLine->getLineID()) == 0) {
+        myPTLines[ptLine->getLineID()] = ptLine;
+        return true;
+    }
+    return false;
 }
 
-void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
-    const bool silent = routeOnly;
+
+NBPTLine*
+NBPTLineCont::retrieve(const std::string& lineID) {
+    if (myPTLines.count(lineID) == 0) {
+        return nullptr;
+    } else {
+        return myPTLines[lineID];
+    }
+}
+
+void
+NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
     for (auto& item : myPTLines) {
         NBPTLine* line = item.second;
-        if (item.second->getMyWays().size() > 0) {
+        if (item.second->getWays().size() > 0) {
             // loaded from OSM rather than ptline input. We can use extra
             // information to reconstruct route and stops
-            constructRoute(line, ec, silent);
+            constructRoute(line, ec);
             if (!routeOnly) {
                 // map stops to ways, using the constructed route for loose stops
                 reviseStops(line, ec, sc);
             }
         }
+        // fix circular line if necessary
+        if (line->getStops().size() > 1
+                && line->getStops().front() == line->getStops().back()
+                && line->getRoute().size() > 1
+                && line->getRoute().front() != line->getRoute().back()) {
+            // we need to duplicate either the first or the last edge depending on the stop locations
+            const std::string firstStopEdge = line->getStops().front()->getEdgeId();
+            const std::string lastStopEdge = line->getStops().back()->getEdgeId();
+            std::vector<NBEdge*> edges = line->getRoute();
+            if (firstStopEdge == edges.back()->getID()) {
+                edges.insert(edges.begin(), edges.back());
+            } else if (lastStopEdge == edges.front()->getID()) {
+                edges.push_back(edges.front());
+            }
+            line->setEdges(edges);
+        }
         line->deleteInvalidStops(ec, sc);
         //line->deleteDuplicateStops();
-        for (NBPTStop* stop : line->getStops()) {
+        for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
             myServedPTStops.insert(stop->getID());
         }
     }
 }
 
+
 void
 NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
-    const std::vector<std::string>& waysIds = line->getMyWays();
+    const std::vector<std::string>& waysIds = line->getWays();
     if (waysIds.size() == 1 && line->getStops().size() > 1) {
         reviseSingleWayStops(line, ec, sc);
         return;
     }
     if (waysIds.size() <= 1) {
-        WRITE_WARNINGF("Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!", line->getLineID());
+        WRITE_WARNINGF(TL("Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!"), line->getLineID());
         return;
     }
     if (line->getRoute().size() == 0) {
-        WRITE_WARNINGF("Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!", line->getLineID());
+        WRITE_WARNINGF(TL("Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!"), line->getLineID());
         return;
     }
-    std::vector<NBPTStop*> stops = line->getStops();
-    for (NBPTStop* stop : stops) {
+    std::vector<std::shared_ptr<NBPTStop> > stops = line->getStops();
+    for (std::shared_ptr<NBPTStop> stop : stops) {
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
         if (stop == nullptr) {
@@ -112,43 +142,38 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
             continue;
         }
         // find directional edge (OSM ways are bidirectional)
-        std::vector<long long int>* way = line->getWaysNodes(stop->getOrigEdgeId());
+        const std::vector<long long int>* const way = line->getWayNodes(stop->getOrigEdgeId());
         if (way == nullptr) {
-            WRITE_WARNINGF("Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). Ignoring!",
+            WRITE_WARNINGF(TL("Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). Ignoring!"),
                            stop->getID(), stop->getOrigEdgeId(), line->getLineID());
             continue;
         }
 
-
         int dir;
-        std::string adjIdPrev;
-        std::string adjIdNext;
+        const std::vector<long long int>* wayPrev = nullptr;
         if (waysIdsIt != waysIds.begin()) {
-            adjIdPrev = *(waysIdsIt - 1);
+            wayPrev = line->getWayNodes(*(waysIdsIt - 1));
         }
+        const std::vector<long long int>* wayNext = nullptr;
         if (waysIdsIt != (waysIds.end() - 1)) {
-            adjIdNext = *(waysIdsIt + 1);
+            wayNext = line->getWayNodes(*(waysIdsIt + 1));
         }
-        std::vector<long long int>* wayPrev = line->getWaysNodes(adjIdPrev);
-        std::vector<long long int>* wayNext = line->getWaysNodes(adjIdNext);
         if (wayPrev == nullptr && wayNext == nullptr) {
-            WRITE_WARNINGF("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!", line->getLineID());
+            WRITE_WARNINGF(TL("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"), line->getLineID());
             continue;
         }
-        long long int wayEnds = *(way->end() - 1);
-        long long int wayBegins = *(way->begin());
-        long long int wayPrevEnds = wayPrev != nullptr ? *(wayPrev->end() - 1) : 0;
-        long long int wayPrevBegins = wayPrev != nullptr ? *(wayPrev->begin()) : 0;
-        long long int wayNextEnds = wayNext != nullptr ? *(wayNext->end() - 1) : 0;
-        long long int wayNextBegins = wayNext != nullptr ? *(wayNext->begin()) : 0;
-        if (wayBegins == wayPrevEnds || wayBegins == wayPrevBegins || wayEnds == wayNextBegins
-                || wayEnds == wayNextEnds) {
+        const long long int wayEnds = way->back();
+        const long long int wayBegins = way->front();
+        const long long int wayPrevEnds = wayPrev != nullptr ? wayPrev->back() : 0;
+        const long long int wayPrevBegins = wayPrev != nullptr ? wayPrev->front() : 0;
+        const long long int wayNextEnds = wayNext != nullptr ? wayNext->back() : 0;
+        const long long int wayNextBegins = wayNext != nullptr ? wayNext->front() : 0;
+        if (wayBegins == wayPrevEnds || wayBegins == wayPrevBegins || wayEnds == wayNextBegins || wayEnds == wayNextEnds) {
             dir = FWD;
-        } else if (wayEnds == wayPrevBegins || wayEnds == wayPrevEnds || wayBegins == wayNextEnds
-                   || wayBegins == wayNextBegins) {
+        } else if (wayEnds == wayPrevBegins || wayEnds == wayPrevEnds || wayBegins == wayNextEnds || wayBegins == wayNextBegins) {
             dir = BWD;
         } else {
-            WRITE_WARNINGF("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!", line->getLineID());
+            WRITE_WARNINGF(TL("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"), line->getLineID());
             continue;
         }
 
@@ -159,16 +184,16 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         if (dir != assignedTo) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
-                WRITE_WARNINGF("Could not re-assign PT stop '%', probably broken osm file.", stop->getID());
+                WRITE_WARNINGF(TL("Could not re-assign PT stop '%', probably broken osm file."), stop->getID());
                 continue;
             }
             if (stop->getLines().size() > 0) {
-                NBPTStop* reverseStop = sc.getReverseStop(stop, ec);
+                std::shared_ptr<NBPTStop> reverseStop = sc.getReverseStop(stop, ec);
                 sc.insert(reverseStop);
                 line->replaceStop(stop, reverseStop);
                 stop = reverseStop;
             } else {
-                WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
+                WRITE_WARNINGF(TL("PT stop '%' has been moved to edge '%'."), stop->getID(), reverse->getID());
             }
             stop->setEdgeId(reverse->getID(), ec);
         }
@@ -178,8 +203,8 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
 
 
 void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
-    const std::vector<std::string>& waysIds = line->getMyWays();
-    for (NBPTStop* stop : line->getStops()) {
+    const std::vector<std::string>& waysIds = line->getWays();
+    for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
         if (stop == nullptr) {
@@ -193,12 +218,12 @@ void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NB
         }
         stop->addLine(line->getRef());
     }
-
 }
 
-NBPTStop*
-NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
-    const std::vector<std::string>& waysIds = line->getMyWays();
+
+std::shared_ptr<NBPTStop>
+NBPTLineCont::findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
+    const std::vector<std::string>& waysIds = line->getWays();
 #ifdef DEBUG_FIND_WAY
     if (stop->getID() == DEBUGSTOPID) {
         std::cout << " stop=" << stop->getID() << " line=" << line->getLineID() << " edgeID=" << stop->getEdgeId() << " origID=" << stop->getOrigEdgeId() << "\n";
@@ -229,10 +254,10 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 stop->setOrigEdgeId(wayID);
             } else if (stop->getEdgeId() != best->getID()) {
                 // stop is used by multiple lines and mapped to different edges.
-                // check if an alterantive stop already exists
-                NBPTStop* newStop = sc.findStop(wayID, stop->getPosition());
+                // check if an alternative stop already exists
+                std::shared_ptr<NBPTStop> newStop = sc.findStop(wayID, stop->getPosition());
                 if (newStop == nullptr) {
-                    newStop = new NBPTStop(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
+                    newStop = std::make_shared<NBPTStop>(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
                     newStop->setEdgeId(best->getID(), ec);  // trigger lane assignment
                     sc.insert(newStop);
                 }
@@ -240,7 +265,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 stop = newStop;
             }
         } else {
-            WRITE_WARNINGF("Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!",
+            WRITE_WARNINGF(TL("Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!"),
                            stop->getID(), line->getLineID(), Named::getIDSecure(best), minDist);
             return nullptr;
         }
@@ -272,7 +297,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 }
             }
             if (waysIdsIt == waysIds.end()) {
-                WRITE_WARNINGF("Cannot assign stop % on edge '%' to pt line '%'. Ignoring!", stop->getID(), stop->getOrigEdgeId(), line->getLineID());
+                WRITE_WARNINGF(TL("Cannot assign stop % on edge '%' to pt line '%'. Ignoring!"), stop->getID(), stop->getOrigEdgeId(), line->getLineID());
             }
         }
     }
@@ -280,43 +305,53 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
 }
 
 
-void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool silent) {
+void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
     std::vector<NBEdge*> edges;
 
     NBNode* first = nullptr;
     NBNode* last = nullptr;
     std::vector<NBEdge*> prevWayEdges;
     std::vector<NBEdge*> prevWayMinusEdges;
-    prevWayEdges.clear();
-    prevWayMinusEdges.clear();
     std::vector<NBEdge*> currentWayEdges;
     std::vector<NBEdge*> currentWayMinusEdges;
-    for (auto it3 = pTLine->getMyWays().begin();
-            it3 != pTLine->getMyWays().end(); it3++) {
+    for (auto it3 = pTLine->getWays().begin(); it3 != pTLine->getWays().end(); it3++) {
 
+        int foundForward = 0;
         if (cont.retrieve(*it3, false) != nullptr) {
             currentWayEdges.push_back(cont.retrieve(*it3, false));
+            foundForward++;
         } else {
             int i = 0;
             while (cont.retrieve(*it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve(*it3 + "#" + std::to_string(i), false)) {
                     currentWayEdges.push_back(cont.retrieve(*it3 + "#" + std::to_string(i), false));
+                    foundForward++;
                 }
                 i++;
             }
         }
 
+        int foundReverse = 0;
         if (cont.retrieve("-" + *it3, false) != nullptr) {
             currentWayMinusEdges.push_back(cont.retrieve("-" + *it3, false));
+            foundReverse++;
         } else {
             int i = 0;
             while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false)) {
-                    currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
+                    currentWayMinusEdges.insert(currentWayMinusEdges.end() - foundReverse,
                                                 cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
+                    foundReverse++;
                 }
                 i++;
             }
+        }
+        bool fakeMinus = false;
+        if (foundReverse == 0 && foundForward > 0 && isRailway(pTLine->getVClass())) {
+            // rail tracks may be used in both directions and are often not tagged as such.
+            // This can be repaired later with option --railway.topology.repair
+            currentWayMinusEdges.insert(currentWayMinusEdges.begin(), currentWayEdges.rbegin(), currentWayEdges.rbegin() + foundForward);
+            fakeMinus = true;
         }
 #ifdef DEBUG_CONSTRUCT_ROUTE
         if (pTLine->getLineID() == DEBUGLINEID) {
@@ -324,25 +359,17 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
                       << " done=" << toString(edges)
                       << " first=" << Named::getIDSecure(first)
                       << " last=" << Named::getIDSecure(last)
-                      << " +=" << toString(currentWayEdges)
-                      << " -=" << toString(currentWayMinusEdges)
+                      << "\n    +=" << toString(currentWayEdges)
+                      << "\n    -=" << toString(currentWayMinusEdges)
+                      << "\n   p+=" << toString(prevWayEdges)
+                      << "\n   p-=" << toString(prevWayMinusEdges)
                       << "\n";
         }
 #endif
         if (currentWayEdges.empty()) {
-#ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) {
-                std::cout << " if0\n";
-            }
-#endif
             continue;
         }
         if (last == currentWayEdges.front()->getFromNode() && last != nullptr) {
-#ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) {
-                std::cout << " if1\n";
-            }
-#endif
             if (!prevWayEdges.empty()) {
                 edges.insert(edges.end(), prevWayEdges.begin(), prevWayEdges.end());
                 prevWayEdges.clear();
@@ -351,11 +378,6 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             edges.insert(edges.end(), currentWayEdges.begin(), currentWayEdges.end());
             last = currentWayEdges.back()->getToNode();
         } else if (last == currentWayEdges.back()->getToNode() && last != nullptr) {
-#ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) {
-                std::cout << " if2\n";
-            }
-#endif
             if (!prevWayEdges.empty()) {
                 edges.insert(edges.end(), prevWayEdges.begin(), prevWayEdges.end());
                 prevWayEdges.clear();
@@ -364,44 +386,28 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             if (currentWayMinusEdges.empty()) {
                 currentWayEdges.clear();
                 last = nullptr;
-#ifdef DEBUG_CONSTRUCT_ROUTE
-                if (pTLine->getLineID() == DEBUGLINEID) {
-                    std::cout << " continue1\n";
-                }
-#endif
                 continue;
             } else {
                 edges.insert(edges.end(), currentWayMinusEdges.begin(), currentWayMinusEdges.end());
-                last = currentWayMinusEdges.back()->getToNode();
+                if (fakeMinus) {
+                    last = currentWayMinusEdges.back()->getFromNode();
+                } else {
+                    last = currentWayMinusEdges.back()->getToNode();
+                }
             }
         } else if (first == currentWayEdges.front()->getFromNode() && first != nullptr) {
-#ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) {
-                std::cout << " if3\n";
-            }
-#endif
             edges.insert(edges.end(), prevWayMinusEdges.begin(), prevWayMinusEdges.end());
             edges.insert(edges.end(), currentWayEdges.begin(), currentWayEdges.end());
             last = currentWayEdges.back()->getToNode();
             prevWayEdges.clear();
             prevWayMinusEdges.clear();
         } else if (first == currentWayEdges.back()->getToNode() && first != nullptr) {
-#ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) {
-                std::cout << " if4\n";
-            }
-#endif
             edges.insert(edges.end(), prevWayMinusEdges.begin(), prevWayMinusEdges.end());
             if (currentWayMinusEdges.empty()) {
                 currentWayEdges.clear();
                 last = nullptr;
                 prevWayEdges.clear();
                 prevWayMinusEdges.clear();
-#ifdef DEBUG_CONSTRUCT_ROUTE
-                if (pTLine->getLineID() == DEBUGLINEID) {
-                    std::cout << " continue2\n";
-                }
-#endif
                 continue;
             } else {
                 edges.insert(edges.end(), currentWayMinusEdges.begin(), currentWayMinusEdges.end());
@@ -410,17 +416,15 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
                 prevWayMinusEdges.clear();
             }
         } else {
+            if (it3 != pTLine->getWays().begin()) {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) {
-                std::cout << " if5\n";
-            }
-#endif
-            if (it3 != pTLine->getMyWays().begin()) {
-                if (!silent) {
-                    WRITE_WARNINGF("Incomplete route for pt line '%'%.", pTLine->getLineID(),
-                                   (pTLine->getName() != "" ? " (" + pTLine->getName() + ")" : ""));
+                if (pTLine->getLineID() == DEBUGLINEID) {
+                    std::cout << " way " << (*it3)
+                              << " is not the start of ptline " << pTLine->getLineID()
+                              << " (" + pTLine->getName() + ")\n";
                 }
-            } else if (pTLine->getMyWays().size() == 1) {
+#endif
+            } else if (pTLine->getWays().size() == 1) {
                 if (currentWayEdges.size() > 0) {
                     edges.insert(edges.end(), currentWayEdges.begin(), currentWayEdges.end());
                 } else {
@@ -441,18 +445,6 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
         currentWayMinusEdges.clear();
     }
     pTLine->setEdges(edges);
-}
-
-
-void
-NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
-    if (oc.isSet("ptline-output")) {
-        for (auto& item : myPTLines) {
-            for (auto edge : item.second->getRoute()) {
-                into.insert(edge->getID());
-            }
-        }
-    }
 }
 
 
@@ -487,10 +479,14 @@ void
 NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     std::map<std::string, SUMOVehicleClass> types;
     types["bus"] = SVC_BUS;
+    types["minibus"] = SVC_BUS;
+    types["trolleybus"] = SVC_BUS;
     types["tram"] = SVC_TRAM;
     types["train"] = SVC_RAIL;
     types["subway"] = SVC_RAIL_URBAN;
     types["light_rail"] = SVC_RAIL_URBAN;
+    types["monorail"] = SVC_RAIL_URBAN;
+    types["aerialway"] = SVC_RAIL_URBAN;
     types["ferry"] = SVC_SHIP;
 
     SUMOAbstractRouter<NBRouterEdge, NBVehicle>* const router = new DijkstraRouter<NBRouterEdge, NBVehicle>(
@@ -498,27 +494,27 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 
     for (auto& item : myPTLines) {
         NBPTLine* line = item.second;
-        std::vector<NBPTStop*> stops = line->getStops();
+        std::vector<std::shared_ptr<NBPTStop> > stops = line->getStops();
         if (stops.size() < 2) {
             continue;
         }
         if (types.count(line->getType()) == 0) {
-            WRITE_WARNINGF("Could not determine vehicle class for public transport line of type '%'.", line->getType());
+            WRITE_WARNINGF(TL("Could not determine vehicle class for public transport line of type '%'."), line->getType());
             continue;
         }
         NBVehicle veh(line->getRef(), types[line->getType()]);
-        std::vector<NBPTStop*> newStops;
-        NBPTStop* from = nullptr;
+        std::vector<std::shared_ptr<NBPTStop> > newStops;
+        std::shared_ptr<NBPTStop> from = nullptr;
         for (auto it = stops.begin(); it != stops.end(); ++it) {
-            NBPTStop* to = *it;
-            NBPTStop* used = *it;
+            std::shared_ptr<NBPTStop> to = *it;
+            std::shared_ptr<NBPTStop> used = *it;
             if (to->getBidiStop() != nullptr) {
                 double best = std::numeric_limits<double>::max();
-                NBPTStop* to2 = to->getBidiStop();
+                std::shared_ptr<NBPTStop> to2 = to->getBidiStop();
                 if (from == nullptr) {
                     if ((it + 1) != stops.end()) {
                         from = to;
-                        NBPTStop* from2 = to2;
+                        std::shared_ptr<NBPTStop> from2 = to2;
                         to = *(it + 1);
                         const double c1 = getCost(ec, *router, from, to, &veh);
                         const double c2 = getCost(ec, *router, from2, to, &veh);
@@ -568,7 +564,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                 if (best < std::numeric_limits<double>::max()) {
                     from = used;
                 } else {
-                    WRITE_WARNINGF("Could not determine direction for line '%' at stop '%'.", line->getLineID(), used->getID());
+                    WRITE_WARNINGF(TL("Could not determine direction for line '%' at stop '%'."), line->getLineID(), used->getID());
                 }
             }
             from = used;
@@ -600,7 +596,7 @@ NBPTLineCont::fixPermissions() {
             NBEdge* e2 = route[i];
             std::vector<NBEdge::Connection> cons = e1->getConnectionsFromLane(-1, e2, -1);
             if (cons.size() == 0) {
-                //WRITE_WARNINGF("Disconnected ptline '%' between edge '%' and edge '%'", line->getLineID(), e1->getID(), e2->getID());
+                //WRITE_WARNINGF(TL("Disconnected ptline '%' between edge '%' and edge '%'"), line->getLineID(), e1->getID(), e2->getID());
             } else {
                 bool ok = false;
                 for (const auto& c : cons) {
@@ -618,9 +614,10 @@ NBPTLineCont::fixPermissions() {
     }
 }
 
+
 double
 NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
-                      const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
+                      const std::shared_ptr<NBPTStop> from, const std::shared_ptr<NBPTStop> to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
     if (fromEdge == nullptr || toEdge == nullptr) {
@@ -631,6 +628,8 @@ NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBV
         } else {
             return std::numeric_limits<double>::max();
         }
+    } else if (fromEdge->getBidiEdge() == toEdge) {
+        return std::numeric_limits<double>::max();
     }
     std::vector<const NBRouterEdge*> route;
     router.compute(fromEdge, toEdge, veh, 0, route);
@@ -654,3 +653,6 @@ NBPTLineCont::getWayID(const std::string& edgeID) {
     }
     return result;
 }
+
+
+/****************************************************************************/

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-09-15 14:58:01 by Eclipse SUMO netedit Version v1_18_0+1488-075030e8e8e
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="slow" vClass="pedestrian" speedFactor="0.8"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00" type="slow">
+        <walk from="E0" to="E2"/>
+        <walk to="E6"/>
+        <walk to="E8"/>
+    </person>
+</routes>

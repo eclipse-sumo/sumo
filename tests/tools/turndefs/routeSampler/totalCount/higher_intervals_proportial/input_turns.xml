@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-17 12:15:16.584965 by generateTurnRatios.py v1_5_0+0115-8285e52
+  options: -r input_routes.rou.xml -o turns.xml -v
+-->
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="generated" begin="0.0" end="100.0">
+        <edgeRelation from="-58.121.42" to="64" count="7"/>
+        <edgeRelation from="45" to="-68" count="3"/>
+    </interval>
+    <interval id="generated" begin="100.0" end="200">
+        <edgeRelation from="-58.121.42" to="64" count="10"/>
+        <edgeRelation from="45" to="-68" count="10"/>
+    </interval>
+</data>

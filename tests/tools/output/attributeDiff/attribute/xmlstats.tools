@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 16:14:34.380041 by attributeDiff.py v1_15_0+1165-6058f1d
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml -a mean
+-->
+
+<attributeDiff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeDiff_file.xsd">
+    <pedestrianStatistics.duration mean="0.0"/>
+    <pedestrianStatistics.number mean="0.0"/>
+    <pedestrianStatistics.routeLength mean="0.0"/>
+    <pedestrianStatistics.timeLoss mean="0.0"/>
+    <persons.jammed mean="0.0"/>
+    <persons.loaded mean="0.0"/>
+    <persons.running mean="0.0"/>
+    <rideStatistics.number mean="0.0"/>
+    <safety.collisions mean="0.0"/>
+    <safety.emergencyStops mean="0.0"/>
+    <teleports.jam mean="0.0"/>
+    <teleports.total mean="0.0"/>
+    <teleports.wrongLane mean="0.0"/>
+    <teleports.yield mean="0.0"/>
+    <transportStatistics.number mean="0.0"/>
+    <vehicleTripStatistics.count mean="-2.0600000000000023"/>
+    <vehicleTripStatistics.departDelay mean="0.0"/>
+    <vehicleTripStatistics.departDelayWaiting mean="0.0"/>
+    <vehicleTripStatistics.duration mean="-0.5800000000000409"/>
+    <vehicleTripStatistics.routeLength mean="-4.110000000000582"/>
+    <vehicleTripStatistics.speed mean="0.03999999999999915"/>
+    <vehicleTripStatistics.timeLoss mean="-0.3800000000000239"/>
+    <vehicleTripStatistics.totalDepartDelay mean="-3.490000000000009"/>
+    <vehicleTripStatistics.totalTravelTime mean="-1177.0"/>
+    <vehicleTripStatistics.waitingTime mean="-1.6099999999999994"/>
+    <vehicles.inserted mean="1.1700000000000728"/>
+    <vehicles.loaded mean="0.0"/>
+    <vehicles.running mean="3.230000000000018"/>
+    <vehicles.waiting mean="-0.020000000000000018"/>
+</attributeDiff>

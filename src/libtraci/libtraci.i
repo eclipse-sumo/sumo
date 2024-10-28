@@ -1,4 +1,5 @@
 %module libtraci
+#define SWIG_MODULE libtraci
 #define LIBTRACI 1
 %{
 #define LIBTRACI 1
@@ -48,6 +49,7 @@
 #ifndef SWIGPYTHON
 %template(TraCIBestLanesVector) std::vector<libsumo::TraCIBestLanesData>;
 %template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
+%template(TraCIJunctionFoeVector) std::vector<libsumo::TraCIJunctionFoe>;
 %template(TraCILinkVector) std::vector<libsumo::TraCILink>;
 %template(TraCILinkVectorVector) std::vector< std::vector<libsumo::TraCILink> >;
 %template(TraCINextTLSVector) std::vector<libsumo::TraCINextTLSData>;

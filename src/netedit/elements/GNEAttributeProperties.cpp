@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,22 +26,14 @@
 #include "GNEAttributeProperties.h"
 #include "GNETagProperties.h"
 
+#include "GNEAttributeCarrier.h"
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties() :
-    myAttribute(SUMO_ATTR_NOTHING),
-    myTagPropertyParent(nullptr),
-    myAttrStr(toString(SUMO_ATTR_NOTHING)),
-    myAttributeProperty(STRING),
-    myDefinition(""),
-    myDefaultValue(""),
-    myDefaultActivated(false),
-    myAttrSynonym(SUMO_ATTR_NOTHING),
-    myMinimumRange(0),
-    myMaximumRange(0) {}
+GNEAttributeProperties::GNEAttributeProperties() {}
 
 
 GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
@@ -75,6 +67,29 @@ GNEAttributeProperties::~GNEAttributeProperties() {}
 
 void
 GNEAttributeProperties::checkAttributeIntegrity() const {
+    // check integrity only in debug mode
+#ifdef DEBUG
+    // check that default values can be parsed (only in debug mode)
+    if (hasDefaultValue()) {
+        if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to int");
+        }
+        if (isFloat() && !GNEAttributeCarrier::canParse<double>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to float");
+        }
+        if (isSUMOTime() && !GNEAttributeCarrier::canParse<SUMOTime>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to SUMOTime");
+        }
+        if (isBool() && !GNEAttributeCarrier::canParse<bool>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to bool");
+        }
+        if (isPosition() && (myDefaultValue.size() > 0) && !GNEAttributeCarrier::canParse<Position>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to position");
+        }
+        if (isColor() && !GNEAttributeCarrier::canParse<RGBColor>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to color");
+        }
+    }
     // check that positive attributes correspond only to a int, floats or SUMOTimes
     if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
         throw FormatException("Only int, floats or SUMOTimes can be positive");
@@ -97,6 +112,11 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
             throw FormatException("invalid range");
         }
     }
+    // check that unique attributes aren't copyables
+    if (isUnique() && isCopyable()) {
+        throw FormatException("Unique attributes aren't copyables");
+    }
+#endif // DEBUG
 }
 
 
@@ -218,16 +238,13 @@ GNEAttributeProperties::getDescription() const {
         }
     }
     if ((myAttributeProperty & POSITIVE) != 0) {
-        pre += "positive ";
+        pre += "non-negative ";
     }
     if ((myAttributeProperty & DISCRETE) != 0) {
         pre += "discrete ";
     }
     if ((myAttributeProperty & UNIQUE) != 0) {
         pre += "unique ";
-    }
-    if ((myAttributeProperty & VCLASSES) != 0) {
-        pre += "vclasses ";
     }
     // type
     if ((myAttributeProperty & INT) != 0) {
@@ -252,7 +269,7 @@ GNEAttributeProperties::getDescription() const {
         type = "color";
     }
     if ((myAttributeProperty & VCLASS) != 0) {
-        type = "VClass";
+        type = "vClass";
     }
     if ((myAttributeProperty & FILENAME) != 0) {
         type = "filename";
@@ -353,7 +370,7 @@ GNEAttributeProperties::isString() const {
 
 
 bool
-GNEAttributeProperties::isposition() const {
+GNEAttributeProperties::isPosition() const {
     return (myAttributeProperty & POSITION) != 0;
 }
 
@@ -379,6 +396,12 @@ GNEAttributeProperties::isPositive() const {
 bool
 GNEAttributeProperties::isColor() const {
     return (myAttributeProperty & COLOR) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isVType() const {
+    return (myAttributeProperty & VTYPE) != 0;
 }
 
 
@@ -425,12 +448,6 @@ GNEAttributeProperties::isDiscrete() const {
 
 
 bool
-GNEAttributeProperties::isVClasses() const {
-    return (myAttributeProperty & VCLASSES) != 0;
-}
-
-
-bool
 GNEAttributeProperties::isExtended() const {
     return (myAttributeProperty & EXTENDED) != 0;
 }
@@ -457,6 +474,12 @@ GNEAttributeProperties::isFlowDefinition() const {
 bool
 GNEAttributeProperties::hasAutomaticID() const {
     return (myAttributeProperty & AUTOMATICID) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isCopyable() const {
+    return (myAttributeProperty & COPYABLE) != 0;
 }
 
 /****************************************************************************/

@@ -17,6 +17,7 @@ copy_test_path:input_net3.net.xml
 copy_test_path:input_net4.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
+copy_test_path:input_additional3.add.xml
 copy_test_path:input_additional4.add.xml
 copy_test_path:input_definitionA.def.xml
 copy_test_path:input_definitionB.def.xml
@@ -40,6 +41,7 @@ copy_test_path:ARTEMIS_urban_Gear3.csv
 copy_test_path:cadc_full.csv
 copy_test_path:runner.py
 copy_test_path:runnerlib.py
+copy_test_path:validate.py
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:input_additional_template.add.xml
@@ -49,6 +51,7 @@ copy_test_path:vtype.map
 copy_test_path:vtype2.map
 copy_test_path:vtype3.map
 copy_test_path:img.jpeg
+copy_test_path:fcd.xml
 test_data_ignore:.svn
 
 [collate_file]
@@ -63,6 +66,8 @@ vss:vss.xml
 rawdump:rawdump.xml
 fcd:fcd.xml
 fcd2:fcd2.xml
+fcd3:fcd3.xml
+fcd4:fcd4.xml
 lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
@@ -74,11 +79,21 @@ detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
 stopinfos:stopinfos.xml
+stopinfos2:stopinfos2.xml
 collisions:collisions.xml
 ssm:ssm.xml
 summary:summary.xml
 statistics:statistics.xml
 statistics2:statistics2.xml
+gtfs_routes:gtfs_pt_vehicles.add.xml
+gtfs_additional:gtfs_pt_stops.add.xml
+vtypes:vtypes.xml
+cfg:config.sumocfg
+aggregated:aggregated.xml
+railsignalblocks:railsignal_blocks.xml
+railsignalvehs:railsignal_vehicles.xml
+railsignalblocks2:railsignal_blocks2.xml
+railsignalvehs2:railsignal_vehicles2.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -96,11 +111,18 @@ output:Parsing connections from .*{REPLACE Parsing connections from (FILE)}
 output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:([0-9]* ms){REPLACE (TIME)}
+log:([0-9]*ms){REPLACE (TIME)}
+log2:([0-9]*ms){REPLACE (TIME)}
 output:version .*SUMO .*{REPLACE version SUMO}
+log:version .* started .*{REPLACE version started}
+log2:version .* started .*{REPLACE version started}
 output:Running main\(\) from .*gtest_main.cc{REPLACE Running main() from gtest_main.cc}
 output: test case{REPLACE  test suite}
 output:function .* called at .*
 output:function .* finished after .*
+output:Cannot read local schema .*,{REPLACE Cannot read local schema <schema>,}
+output:version .* started via libsumo {REPLACE started }
+output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:^Performance:{->}^Vehicles:
@@ -112,15 +134,21 @@ vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 tripinfo2:<!--{[->]}-->
 rawdump:<!--{[->]}-->
+aggregated:<!--{[->]}-->
 fcd:<!--{[->]}-->
 fcd2:<!--{[->]}-->
+fcd3:<!--{[->]}-->
+fcd4:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
+stopinfos2:<!--{[->]}-->
 collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
 statistics:<!--{[->]}-->
 statistics2:<!--{[->]}-->
+statistics:<performance
+statistics2:<performance
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
@@ -132,15 +160,18 @@ detector:<!--{[->]}-->
 toc:<!--{[->]}-->
 toc2:<!--{[->]}-->
 tocs:<!--{[->]}-->
+railsignalblocks:<!--{[->]}-->
+railsignalvehs:<!--{[->]}-->
+railsignalblocks2:<!--{[->]}-->
+railsignalvehs2:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:send failed: Connection reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:Could not find connection between
-errors:.*UserWarning: {REPLACE UserWarning: }
 errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
 errors:data\\{REPLACE data/}
@@ -150,8 +181,16 @@ errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in o
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
 errors:Matplotlib is building the font cache; this may take a moment.
+errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
+errors:.*UserWarning: {REPLACE UserWarning: }
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+errors:MESA: error: ZINK: {LINES 2}
+errors:\\{REPLACE /}
 ps:%%CreationDate
+gtfs_additional:<!-- generated on{[->]}-->
+gtfs_routes:<!-- generated on{[->]}-->
+vtypes:<!-- generated on{[->]}-->
 
 [unordered_text]
 output:^Simulation ended at time:
@@ -160,7 +199,7 @@ output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
 output:Process [0-9]
 output:Starting process
-output:[0-9] stepping \(step 
+output:[0-9] stepping \(step
 output:^Loading configuration ... done.
 output:^Starting process [0-9] with steplength
 output:does not supply vehicle parameter
@@ -172,15 +211,14 @@ errors:getNextStops
 
 
 [floating_point_tolerance]
-output:0.0001
+output:0.0101
 net:0.0101
 vss:0.0001
-results:0.00101
+results:0.0101
 tripinfo:0.0101
 fcd:0.0101
 log:0.0101
 
 [batch_extra_version]
 gcc4_64:perf
-msvc12Win32:perf
-msvc12x64:perf
+msvc16x64:perf

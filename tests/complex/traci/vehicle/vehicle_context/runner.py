@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -42,9 +42,9 @@ sr = traci.simulationStep(1.)
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
                                dist=50,
                                varIDs=(tc.VAR_SPEED, tc.VAR_EMISSIONCLASS))
-sr = traci.simulationStep()
-for vehID, response in sr:
+traci.simulationStep()
+for vehID, response in traci.vehicle.getAllContextSubscriptionResults().items():
     print("t=%s subscriptionResult=%s" % (traci.simulation.getTime(),
-                                          sorted(traci.vehicle.getContextSubscriptionResults(vehID).items())))
+                                          sorted(response.items())))
 
 traci.close()

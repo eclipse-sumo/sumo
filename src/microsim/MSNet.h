@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,7 @@
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <mesosim/MESegment.h>
+#include "MSRouterDefs.h"
 #include "MSJunction.h"
 
 
@@ -108,9 +109,6 @@ public:
         /// @brief The simulation had too many teleports
         SIMSTATE_TOO_MANY_TELEPORTS
     };
-
-    typedef PedestrianRouter<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouter;
-    typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSIntermodalRouter;
 
     /// @brief collision tracking
     struct Collision {
@@ -200,7 +198,7 @@ public:
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
                        bool hasInternalLinks,
                        bool junctionHigherSpeeds,
-                       double version);
+                       const MMVersion& version);
 
 
     /** @brief Returns whether the network has specific vehicle class permissions
@@ -248,6 +246,8 @@ public:
      */
     static void clearAll();
 
+    /// @brief return whether the given flow is known
+    bool hasFlow(const std::string& id) const;
 
     /** @brief Simulates from timestep start to stop
      * @param[in] start The begin time step of the simulation
@@ -262,8 +262,7 @@ public:
     /** @brief Performs a single simulation step
      * @todo Which exceptions may occur?
      */
-    void simulationStep();
-
+    void simulationStep(const bool onlyMove = false);
 
     /** @brief loads routes for the next few steps */
     void loadRoutes();
@@ -273,13 +272,16 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    const std::string generateStatistics(SUMOTime start);
+    const std::string generateStatistics(const SUMOTime start, const long now);
 
     /// @brief write collision output to (xml) file
     void writeCollisions() const;
 
     /// @brief write statistic output to (xml) file
-    void writeStatistics() const;
+    void writeStatistics(const SUMOTime start, const long now) const;
+
+    /// @brief write summary-output to (xml) file
+    void writeSummaryOutput();
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *
@@ -554,6 +556,12 @@ public:
      */
     MSStoppingPlace* getStoppingPlace(const std::string& id, const SumoXMLTag category) const;
 
+    /** @brief Returns the named stopping place by looking through all categories
+     * @param[in] id The id of the stop to return.
+     * @return The named stop, or 0 if no such stop exists
+     */
+    MSStoppingPlace* getStoppingPlace(const std::string& id) const;
+
     /** @brief Returns the stop of the given category close to the given position
      * @param[in] lane the lane of the stop to return.
      * @param[in] pos the position of the stop to return.
@@ -580,7 +588,7 @@ public:
     /// @brief write electrical substation output
     void writeSubstationOutput() const;
 
-    /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
+    /// @brief return wheter the given logic (or rather its wrapper) is selected in the GUI
     virtual bool isSelected(const MSTrafficLightLogic*) const {
         return false;
     }
@@ -588,7 +596,7 @@ public:
     virtual void updateGUI() const { }
 
     /// @brief load state from file and return new time
-    SUMOTime loadState(const std::string& fileName);
+    SUMOTime loadState(const std::string& fileName, const bool catchExceptions);
 
     /// @brief reset state to the beginning without reloading the network
     void quickReload();
@@ -760,14 +768,12 @@ public:
     /* @brief get the router, initialize on first use
      * @param[in] prohibited The vector of forbidden edges (optional)
      */
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
-            const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(const int rngIndex,
-            const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSVehicleRouter& getRouterTT(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSVehicleRouter& getRouterEffort(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouter& getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSIntermodalRouter& getIntermodalRouter(const int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSTransportableRouter& getIntermodalRouter(const int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
-    static void adaptIntermodalRouter(MSIntermodalRouter& router);
+    static void adaptIntermodalRouter(MSTransportableRouter& router);
 
 
     /// @brief return whether the network contains internal links
@@ -796,7 +802,7 @@ public:
     }
 
     /// @brief return the network version
-    double getNetworkVersion() const {
+    MMVersion getNetworkVersion() const {
         return myVersion;
     }
 
@@ -811,6 +817,11 @@ public:
         return myAmInterrupted;
     }
 
+    /// @brief gui may prevent final meanData reset to keep live data visible
+    virtual bool skipFinalReset() const {
+        return false;
+    }
+
     /// @brief find electrical substation by its id
     MSTractionSubstation* findTractionSubstation(const std::string& substationId);
 
@@ -822,6 +833,7 @@ public:
     static const std::string STAGE_MOVEMENTS;
     static const std::string STAGE_LANECHANGE;
     static const std::string STAGE_INSERTIONS;
+    static const std::string STAGE_REMOTECONTROL;
 
 protected:
     /// @brief check all lanes for elevation data
@@ -836,6 +848,10 @@ protected:
     /// @brief remove collisions from the previous simulation step
     void removeOutdatedCollisions();
 
+    /** @brief Performs the parts of the simulation step which happen after the move
+     */
+    void postMoveStep();
+
 protected:
     /// @brief Unique instance of MSNet
     static MSNet* myInstance;
@@ -843,8 +859,11 @@ protected:
     /// @brief Route loader for dynamic loading of routes
     SUMORouteLoaderControl* myRouteLoaders;
 
-    /// @brief Current time step.
+    /// @brief Current time step
     SUMOTime myStep;
+
+    /// @brief whether libsumo triggered a partial step (executeMove)
+    bool myStepCompletionMissing = false;
 
     /// @brief Maximum number of teleports.
     int myMaxTeleports;
@@ -960,7 +979,7 @@ protected:
     bool myLefthand;
 
     /// @brief the network version
-    double myVersion;
+    MMVersion myVersion;
 
     /// @brief end of loaded edgeData
     SUMOTime myEdgeDataEndTime;
@@ -997,10 +1016,10 @@ protected:
      * @note we provide one member for every switchable router type
      * because the class structure makes it inconvenient to use a superclass
      */
-    mutable std::map<int, SUMOAbstractRouter<MSEdge, SUMOVehicle>*> myRouterTT;
-    mutable std::map<int, SUMOAbstractRouter<MSEdge, SUMOVehicle>*> myRouterEffort;
+    mutable std::map<int, MSVehicleRouter*> myRouterTT;
+    mutable std::map<int, MSVehicleRouter*> myRouterEffort;
     mutable std::map<int, MSPedestrianRouter*> myPedestrianRouter;
-    mutable std::map<int, MSIntermodalRouter*> myIntermodalRouter;
+    mutable std::map<int, MSTransportableRouter*> myIntermodalRouter;
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;

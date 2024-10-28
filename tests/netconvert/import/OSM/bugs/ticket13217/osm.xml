@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.8 (2823775 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="47.3663700" minlon="8.5450000" maxlat="47.3664800" maxlon="8.5451200"/>
+ <node id="156384136" visible="true" version="6" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3664676" lon="8.5452621"/>
+ <node id="156384137" visible="true" version="14" changeset="135709620" timestamp="2023-05-04T16:56:44Z" user="d_berger" uid="1234273" lat="47.3664323" lon="8.5451415">
+  <tag k="button_operated" v="no"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="crossing_ref" v="zebra"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="no"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="156384139" visible="true" version="7" changeset="24763956" timestamp="2014-08-15T10:26:26Z" user="t-i" uid="52921" lat="47.3665387" lon="8.5447736"/>
+ <node id="156385113" visible="true" version="4" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3660851" lon="8.5451370"/>
+ <node id="300386714" visible="true" version="7" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3664253" lon="8.5450650"/>
+ <node id="300386715" visible="true" version="5" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3666669" lon="8.5449319"/>
+ <node id="300386717" visible="true" version="15" changeset="135709620" timestamp="2023-05-04T16:56:44Z" user="d_berger" uid="1234273" lat="47.3668986" lon="8.5446373">
+  <tag k="button_operated" v="no"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="crossing_ref" v="zebra"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:direction" v="forward"/>
+  <tag k="traffic_signals:sound" v="no"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="300390846" visible="true" version="17" changeset="135709620" timestamp="2023-05-04T16:56:44Z" user="d_berger" uid="1234273" lat="47.3663339" lon="8.5450680">
+  <tag k="button_operated" v="no"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="crossing_ref" v="zebra"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="tactile_paving" v="no"/>
+  <tag k="traffic_signals:direction" v="forward"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="300391987" visible="true" version="20" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3671469" lon="8.5443961"/>
+ <node id="300391993" visible="true" version="17" changeset="130054672" timestamp="2022-12-14T00:59:17Z" user="d_berger" uid="1234273" lat="47.3666924" lon="8.5456680"/>
+ <node id="300391994" visible="true" version="14" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3665836" lon="8.5454371"/>
+ <node id="300391995" visible="true" version="13" changeset="24763956" timestamp="2014-08-15T10:26:28Z" user="t-i" uid="52921" lat="47.3664718" lon="8.5451074"/>
+ <node id="300391996" visible="true" version="14" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3666430" lon="8.5450039"/>
+ <node id="300391997" visible="true" version="14" changeset="74196494" timestamp="2019-09-07T01:46:14Z" user="sovereign_ch" uid="5755216" lat="47.3668551" lon="8.5447599"/>
+ <node id="360491732" visible="true" version="5" changeset="74196494" timestamp="2019-09-07T01:46:15Z" user="sovereign_ch" uid="5755216" lat="47.3673706" lon="8.5452685"/>
+ <node id="445397649" visible="true" version="5" changeset="128172706" timestamp="2022-10-28T12:11:20Z" user="mottiger" uid="7504544" lat="47.3671887" lon="8.5444862">
+  <tag k="barrier" v="kerb"/>
+ </node>
+ <node id="445397667" visible="true" version="6" changeset="119561268" timestamp="2022-04-11T06:24:35Z" user="TobyL86" uid="3270936" lat="47.3673288" lon="8.5452945">
+  <tag k="barrier" v="kerb"/>
+  <tag k="kerb" v="lowered"/>
+  <tag k="tactile_paving" v="no"/>
+ </node>
+ <node id="445397669" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:15Z" user="sovereign_ch" uid="5755216" lat="47.3668990" lon="8.5457265"/>
+ <node id="445397670" visible="true" version="4" changeset="130054672" timestamp="2022-12-14T00:59:17Z" user="d_berger" uid="1234273" lat="47.3667833" lon="8.5457471"/>
+ <node id="448142325" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:15Z" user="sovereign_ch" uid="5755216" lat="47.3665983" lon="8.5449922"/>
+ <node id="456206140" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:15Z" user="sovereign_ch" uid="5755216" lat="47.3664820" lon="8.5452018"/>
+ <node id="917982626" visible="true" version="5" changeset="74196494" timestamp="2019-09-07T01:46:16Z" user="sovereign_ch" uid="5755216" lat="47.3668599" lon="8.5446958"/>
+ <node id="917982630" visible="true" version="7" changeset="74196494" timestamp="2019-09-07T01:46:16Z" user="sovereign_ch" uid="5755216" lat="47.3662795" lon="8.5450767"/>
+ <node id="917982640" visible="true" version="5" changeset="60520366" timestamp="2018-07-08T23:20:03Z" user="d_berger" uid="1234273" lat="47.3664402" lon="8.5449582">
+  <tag k="crossing" v="no"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="traffic_signals:direction" v="forward"/>
+ </node>
+ <node id="1640256895" visible="true" version="5" changeset="121320105" timestamp="2022-05-22T14:07:42Z" user="LorenzoZH" uid="14524802" lat="47.3669326" lon="8.5457004">
+  <tag k="barrier" v="kerb"/>
+  <tag k="kerb" v="lowered"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="2295061863" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:22Z" user="sovereign_ch" uid="5755216" lat="47.3664798" lon="8.5450566"/>
+ <node id="2858544928" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3671560" lon="8.5454224"/>
+ <node id="2858544931" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3672205" lon="8.5453607"/>
+ <node id="3017726308" visible="true" version="1" changeset="24763956" timestamp="2014-08-15T10:25:58Z" user="t-i" uid="52921" lat="47.3665585" lon="8.5450726"/>
+ <node id="3017726309" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3667302" lon="8.5457161"/>
+ <node id="3017726310" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3667573" lon="8.5448832"/>
+ <node id="3017726314" visible="true" version="4" changeset="120413866" timestamp="2022-05-01T10:23:17Z" user="rh-maps" uid="1416788" lat="47.3669179" lon="8.5446707">
+  <tag k="barrier" v="kerb"/>
+  <tag k="kerb" v="lowered"/>
+  <tag k="tactile_paving" v="no"/>
+ </node>
+ <node id="3017726317" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3669544" lon="8.5445543"/>
+ <node id="3017726324" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3671129" lon="8.5443854"/>
+ <node id="3017726325" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3671283" lon="8.5443850"/>
+ <node id="3017726326" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3671028" lon="8.5443009"/>
+ <node id="3017726328" visible="true" version="1" changeset="24763956" timestamp="2014-08-15T10:25:59Z" user="t-i" uid="52921" lat="47.3671629" lon="8.5444141"/>
+ <node id="3017726330" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3671762" lon="8.5444460"/>
+ <node id="3017728233" visible="true" version="5" changeset="121323211" timestamp="2022-05-22T15:13:19Z" user="LorenzoZH" uid="14524802" lat="47.3673486" lon="8.5449815">
+  <tag k="barrier" v="kerb"/>
+  <tag k="kerb" v="lowered"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="3017728234" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:29Z" user="sovereign_ch" uid="5755216" lat="47.3673670" lon="8.5450301"/>
+ <node id="3907499417" visible="true" version="6" changeset="74196494" timestamp="2019-09-07T01:46:30Z" user="sovereign_ch" uid="5755216" lat="47.3669948" lon="8.5444981"/>
+ <node id="4333534665" visible="true" version="3" changeset="74196494" timestamp="2019-09-07T01:46:30Z" user="sovereign_ch" uid="5755216" lat="47.3666664" lon="8.5456272"/>
+ <node id="4789066610" visible="true" version="4" changeset="74196494" timestamp="2019-09-07T01:46:31Z" user="sovereign_ch" uid="5755216" lat="47.3670424" lon="8.5444225"/>
+ <node id="5321971773" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:35Z" user="sovereign_ch" uid="5755216" lat="47.3667100" lon="8.5456887"/>
+ <node id="5717871982" visible="true" version="3" changeset="119276818" timestamp="2022-04-03T19:45:51Z" user="Metono" uid="12110639" lat="47.3664659" lon="8.5451400">
+  <tag k="barrier" v="kerb"/>
+  <tag k="kerb" v="lowered"/>
+ </node>
+ <node id="5717871984" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:39Z" user="sovereign_ch" uid="5755216" lat="47.3667477" lon="8.5448387"/>
+ <node id="5717871998" visible="true" version="1" changeset="60151207" timestamp="2018-06-25T13:19:54Z" user="d_berger" uid="1234273" lat="47.3662193" lon="8.5450921"/>
+ <node id="6052666719" visible="true" version="2" changeset="74196494" timestamp="2019-09-07T01:46:39Z" user="sovereign_ch" uid="5755216" lat="47.3665325" lon="8.5450391"/>
+ <node id="6778513708" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3664303" lon="8.5450096"/>
+ <node id="6778513709" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3670927" lon="8.5443337"/>
+ <node id="6778513710" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3670775" lon="8.5443666"/>
+ <node id="6778516063" visible="true" version="2" changeset="119276787" timestamp="2022-04-03T19:44:21Z" user="Metono" uid="12110639" lat="47.3667026" lon="8.5456801">
+  <tag k="barrier" v="kerb"/>
+  <tag k="kerb" v="lowered"/>
+ </node>
+ <node id="6778516065" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3664650" lon="8.5451132"/>
+ <node id="6778516066" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3664686" lon="8.5451655"/>
+ <node id="6778516067" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3672671" lon="8.5453293"/>
+ <node id="6778516068" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3671933" lon="8.5453865"/>
+ <node id="6778516069" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3669587" lon="8.5456725"/>
+ <node id="6778516070" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3668390" lon="8.5457439"/>
+ <node id="6778516071" visible="true" version="2" changeset="130054672" timestamp="2022-12-14T00:59:18Z" user="d_berger" uid="1234273" lat="47.3670206" lon="8.5445276"/>
+ <node id="6778516072" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3669484" lon="8.5446256"/>
+ <node id="6778516073" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3671054" lon="8.5443916"/>
+ <node id="6778516074" visible="true" version="1" changeset="74196494" timestamp="2019-09-07T01:46:06Z" user="sovereign_ch" uid="5755216" lat="47.3670831" lon="8.5444232"/>
+ <node id="10836944686" visible="true" version="1" changeset="135299415" timestamp="2023-04-24T12:11:16Z" user="Fijord" uid="10654674" lat="47.3663651" lon="8.5450670"/>
+ <way id="15677579" visible="true" version="18" changeset="115122560" timestamp="2021-12-19T11:33:21Z" user="captaininler" uid="67394">
+  <nd ref="156384139"/>
+  <nd ref="917982640"/>
+  <nd ref="6778513708"/>
+  <nd ref="300386714"/>
+  <tag k="foot" v="no"/>
+  <tag k="highway" v="primary_link"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Utoquai"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="sidewalk" v="no"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="wikidata" v="Q27325821"/>
+ </way>
+ <way id="27361375" visible="true" version="24" changeset="135299415" timestamp="2023-04-24T12:11:16Z" user="Fijord" uid="10654674">
+  <nd ref="156385113"/>
+  <nd ref="5717871998"/>
+  <nd ref="917982630"/>
+  <nd ref="300390846"/>
+  <nd ref="10836944686"/>
+  <nd ref="300386714"/>
+  <tag k="highway" v="secondary_link"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Utoquai"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="wikidata" v="Q27325821"/>
+ </way>
+ <way id="37934518" visible="true" version="13" changeset="130054672" timestamp="2022-12-14T00:59:18Z" user="d_berger" uid="1234273">
+  <nd ref="300391993"/>
+  <nd ref="4333534665"/>
+  <nd ref="300391994"/>
+  <nd ref="456206140"/>
+  <nd ref="6778516066"/>
+  <nd ref="5717871982"/>
+  <nd ref="6778516065"/>
+  <nd ref="300391995"/>
+  <nd ref="3017726308"/>
+  <nd ref="300391996"/>
+  <nd ref="3017726310"/>
+  <nd ref="300391997"/>
+  <nd ref="3017726314"/>
+  <nd ref="6778516072"/>
+  <nd ref="6778516071"/>
+  <nd ref="6778516074"/>
+  <nd ref="6778516073"/>
+  <nd ref="3017726324"/>
+  <nd ref="3017726325"/>
+  <nd ref="300391987"/>
+  <nd ref="3017726328"/>
+  <nd ref="3017726330"/>
+  <nd ref="445397649"/>
+  <nd ref="3017728233"/>
+  <nd ref="3017728234"/>
+  <nd ref="360491732"/>
+  <nd ref="445397667"/>
+  <nd ref="6778516067"/>
+  <nd ref="2858544931"/>
+  <nd ref="6778516068"/>
+  <nd ref="2858544928"/>
+  <nd ref="6778516069"/>
+  <nd ref="1640256895"/>
+  <nd ref="445397669"/>
+  <nd ref="6778516070"/>
+  <nd ref="445397670"/>
+  <nd ref="3017726309"/>
+  <nd ref="5321971773"/>
+  <nd ref="6778516063"/>
+  <nd ref="300391993"/>
+ </way>
+ <way id="141506878" visible="true" version="6" changeset="115099804" timestamp="2021-12-18T15:13:39Z" user="captaininler" uid="67394">
+  <nd ref="300386714"/>
+  <nd ref="156384137"/>
+  <nd ref="156384136"/>
+  <tag k="highway" v="primary_link"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Schoeckstrasse"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="wikidata" v="Q27329185"/>
+ </way>
+ <way id="361838934" visible="true" version="11" changeset="115122560" timestamp="2021-12-19T11:33:21Z" user="captaininler" uid="67394">
+  <nd ref="300386714"/>
+  <nd ref="2295061863"/>
+  <nd ref="6052666719"/>
+  <nd ref="448142325"/>
+  <nd ref="300386715"/>
+  <nd ref="5717871984"/>
+  <nd ref="917982626"/>
+  <nd ref="300386717"/>
+  <nd ref="3017726317"/>
+  <nd ref="3907499417"/>
+  <nd ref="4789066610"/>
+  <nd ref="6778513710"/>
+  <nd ref="6778513709"/>
+  <nd ref="3017726326"/>
+  <tag k="highway" v="secondary_link"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Utoquai"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="wikidata" v="Q27325821"/>
+ </way>
+ <relation id="905866" visible="true" version="8" changeset="130054672" timestamp="2022-12-14T00:59:18Z" user="d_berger" uid="1234273">
+  <member type="way" ref="37934518" role="outer"/>
+  <member type="way" ref="229938668" role="inner"/>
+  <member type="way" ref="229938669" role="inner"/>
+  <tag k="name" v="Bellevueplatz"/>
+  <tag k="place" v="square"/>
+  <tag k="type" v="multipolygon"/>
+  <tag k="wikidata" v="Q27326323"/>
+ </relation>
+ <relation id="3961888" visible="true" version="4" changeset="34735923" timestamp="2015-10-19T15:57:31Z" user="captain_slow" uid="2110714">
+  <member type="way" ref="374407129" role="from"/>
+  <member type="node" ref="156385113" role="via"/>
+  <member type="way" ref="27361348" role="to"/>
+  <tag k="restriction" v="only_straight_on"/>
+  <tag k="type" v="restriction"/>
+ </relation>
+ <relation id="3961889" visible="true" version="2" changeset="32817652" timestamp="2015-07-23T06:43:43Z" user="captain_slow" uid="2110714">
+  <member type="way" ref="361838934" role="from"/>
+  <member type="node" ref="3017726326" role="via"/>
+  <member type="way" ref="297869682" role="to"/>
+  <tag k="restriction" v="only_straight_on"/>
+  <tag k="type" v="restriction"/>
+ </relation>
+ <relation id="3961890" visible="true" version="2" changeset="55186436" timestamp="2018-01-05T13:11:25Z" user="d_berger" uid="1234273">
+  <member type="way" ref="15677722" role="from"/>
+  <member type="node" ref="3017726326" role="via"/>
+  <member type="way" ref="297869679" role="to"/>
+  <tag k="restriction" v="only_straight_on"/>
+  <tag k="type" v="restriction"/>
+ </relation>
+ <relation id="5385976" visible="true" version="1" changeset="32817652" timestamp="2015-07-23T06:43:39Z" user="captain_slow" uid="2110714">
+  <member type="way" ref="27361375" role="from"/>
+  <member type="node" ref="300386714" role="via"/>
+  <member type="way" ref="361838934" role="to"/>
+  <tag k="restriction" v="only_straight_on"/>
+  <tag k="type" v="restriction"/>
+ </relation>
+ <relation id="5385977" visible="true" version="2" changeset="41340457" timestamp="2016-08-09T08:56:39Z" user="VBZDistel" uid="4321227">
+  <member type="way" ref="15677579" role="from"/>
+  <member type="node" ref="300386714" role="via"/>
+  <member type="way" ref="141506878" role="to"/>
+  <tag k="except" v="psv"/>
+  <tag k="restriction" v="only_straight_on"/>
+  <tag k="type" v="restriction"/>
+ </relation>
+</osm>

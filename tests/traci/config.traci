@@ -40,6 +40,7 @@ simstate:<!--{[->]}-->
 simstate:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 output:port
 errors:Socket
+errors:TraCIAPI is deprecated
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:^Performance:{->}^Vehicles:
 log:Simulation.*started with{REPLACE Simulation started with}

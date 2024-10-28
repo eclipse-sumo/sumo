@@ -188,7 +188,9 @@
         <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
     </vehicle>
     <vehicle id="53" depart="53.00">
-        <route edges="-152.80.00 -131 -131.180.00 131"/>
+        <route edges="-152.80.00 -131 -131.180.00 131">
+            <stop edge="75" duration="10"/>
+        </route>
     </vehicle>
     <vehicle id="54" depart="54.00">
         <route edges="123 123.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 43 68"/>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -443,7 +443,7 @@ def getCSVOutput(assignments, path, veh_types, interval):
     while t in assignments:
         for f in files:
             f.write('[' + str(t) + ':' + str(t + interval - 1) + '];')
-        for veh_type in assignments[t].itervalues():
+        for veh_type in assignments[t].values():
             f_mean_travel_time.write(str(veh_type['avgTravelTime']) + ";" + str(veh_type['SDTravelTime']) + ";" +
                                      str(veh_type['quartil25TravelTime']) + ";" + str(veh_type['medianTravelTime']) +
                                      ";" + str(veh_type['quartil75TravelTime']) + ";")

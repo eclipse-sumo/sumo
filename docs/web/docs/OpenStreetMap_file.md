@@ -8,8 +8,8 @@ title: OpenStreetMap file
 | Type of content                  | Map               |
 | Open format?                     | Yes               |
 | SUMO specific?                   | No                |
-| XML Schema                       | [XSD of API v0.6](http://wiki.openstreetmap.org/wiki/API_v0.6/XSD)   |
-| [wiki.openstreetmap.org/wiki/.osm](http://wiki.openstreetmap.org/wiki/.osm) |                   |
+| XML Schema                       | [XSD of API v0.6](https://wiki.openstreetmap.org/wiki/API_v0.6/XSD)   |
+| [wiki.openstreetmap.org/wiki/.osm](https://wiki.openstreetmap.org/wiki/.osm) |                   |
 
 ![Eichstaett.osm.png](images/Eichstaett.osm.png "The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.")
 
@@ -62,11 +62,11 @@ file format lacks in
 ## Software for Viewing, Editing and Processing
 
 The OpenStreetMap wiki lists [a few tools to process OpenStreetMap
-files](http://wiki.openstreetmap.org/wiki/Category:OSM_processing). As a
-graphical editor, **[JOSM](http://josm.openstreetmap.de/)** is very
+files](https://wiki.openstreetmap.org/wiki/Category:OSM_processing). As a
+graphical editor, **[JOSM](https://josm.openstreetmap.de/)** is very
 popular. You can modify roads and tags with it and also run some
 validation checks. The command line editor
-**[Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis)** allows
+**[Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis)** allows
 automated processing of OpenStreetMap data (see, for example,
 [Networks/Import/OpenStreetMap\#Editing OSM
 networks](Networks/Import/OpenStreetMap.md#editing_osm_networks)).

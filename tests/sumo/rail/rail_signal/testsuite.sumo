@@ -87,6 +87,9 @@ circle_backward
 # track layout with a circle and a single railSignal
 circle_1signal
 
+# prevent insertion on short edge before red rail signal
+guard_insertion
+
 # upstream signal that guards switch must take route of approaching trains into account for deciding signal state
 indirect_guard_check_route
 
@@ -101,3 +104,35 @@ stopped_link_conflict2
 
 # approach to conflict link must be guaranteed within some limits (regardless of brakeGap or number of intermediate junctions)
 conflict_lookahead
+
+# expose crash from loading order of files via #13412
+route_as_additional
+
+# insertion checks do not prevent deadlock (related to case2 of #12085)
+deadlock_insertion
+
+# see #14554
+reversal_before_signal
+
+# driveways must register vehicle after it finishes parking
+parking_insertion
+
+# one route ends within the block and another train starts within the block
+end_depart_within
+
+# test flank search beyond route end
+end_within
+
+# a driveway is updated after being used
+update_driveways
+
+# reduce number of "parallel" driveways
+driveway_variants
+
+# corner case that caused a crash
+subDriveWay_short
+
+# corner case that causes a deadlock between 2 vehicles due to invalid driveway matching.
+# 
+# Even after corrected matching, there is still a deadlock because train t4 which enters last never passes a switch or signal and therefore doesnt "see" any conflicts.
+driveWayShort_badMatch

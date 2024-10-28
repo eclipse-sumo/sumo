@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-22 13:58:54 by Eclipse SUMO netedit Version v1_15_0+0513-92dad7d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-T11_0" from="B" to="A" priority="15" numLanes="1" speed="44.44" spreadType="center" allow="rail rail_electric" bidi="T11_0"/>
+    <edge id="-T14_0" from="C" to="B" priority="15" numLanes="1" speed="44.44" spreadType="center" allow="rail rail_electric" bidi="T14_0"/>
+    <edge id="T11_0" from="A" to="B" priority="15" numLanes="1" speed="44.44" spreadType="center" allow="rail rail_electric" bidi="-T11_0"/>
+    <edge id="T14_0" from="B" to="C" priority="15" numLanes="1" speed="44.44" spreadType="center" allow="rail rail_electric" bidi="-T14_0"/>
+</edges>

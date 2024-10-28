@@ -1,0 +1,2 @@
+Vehicle t1 (00:01:50, 00:02:00, 00:01:50, 00:02:00) overtaken by make_t1_invalid (00:02:20, 00:02:30, 00:01:40, 00:01:50) at stop stop_c (index 0)
+Vehicle t1 was overtaken and starts to ignore schedule at stop stop_2c (index 1)

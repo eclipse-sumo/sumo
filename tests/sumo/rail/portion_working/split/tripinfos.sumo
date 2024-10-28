@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 13 09:04:54 2020 by Eclipse SUMO Version v1_5_0+0701-cdebade
+<!-- generated on 2022-11-02 21:52:27 by Eclipse SUMO sumo Version v1_14_1+2192-917af4ddf9e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,5 +41,5 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="159.00" arrivalLane="c_0" arrivalPos="191.72" arrivalSpeed="11.25" duration="159.00" routeLength="564.90" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="57.57" rerouteNo="0" devices="tripinfo_t0 routing_t0" vType="train@t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="t1" depart="55.00" departLane="b_0" departPos="159.90" departSpeed="0.00" departDelay="55.00" arrival="169.00" arrivalLane="e_0" arrivalPos="215.33" arrivalSpeed="13.50" duration="114.00" routeLength="361.86" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="27.27" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="splitTrain" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="55.00" departLane="b_0" departPos="159.90" departSpeed="0.00" departDelay="0.00" arrival="169.00" arrivalLane="e_0" arrivalPos="215.33" arrivalSpeed="13.50" duration="114.00" routeLength="361.86" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="27.27" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="splitTrain" speedFactor="1.00" vaporized=""/>
 </tripinfos>

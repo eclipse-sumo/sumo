@@ -1,0 +1,26 @@
+/* XPM */
+static const char *modeselect_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+". c gray100",
+"x c #0000CC",
+"o c navy",
+"= c black",
+/* pixels */
+"................",
+"xxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxx",
+"x...xxx...xxx...",
+"xxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxx",
+"oooooooooooooooo",
+"oooooooooooooooo",
+"oooooooooooooooo",
+"=...===...===...",
+"=================",
+"=================",
+"=================",
+"................"
+};

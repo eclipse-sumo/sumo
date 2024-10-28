@@ -1,8 +1,8 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // PHEMlight module
-// Copyright (C) 2016-2022 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright (C) 2016-2023 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -141,16 +141,12 @@ namespace PHEMlightdllV5 {
     public:
         class Engine_Data {
         private:
-            ICE_Data* privateICEData;
-            EM_Data* privateEMData;
+            ICE_Data privateICEData;
+            EM_Data privateEMData;
 
         public:
-            ICE_Data* getICEData() const;
-            void setICEData(ICE_Data* value);
-            EM_Data* getEMData() const;
-            void setEMData(EM_Data* value);
-
-            Engine_Data();
+            ICE_Data* getICEData();
+            EM_Data* getEMData();
         };
 
         // Auxiliaries data
@@ -211,32 +207,24 @@ namespace PHEMlightdllV5 {
         private:
             std::string privateType;
             std::string privateVersion;
-            Vehicle_Data* privateVehicleData;
-            Aux_Data* privateAuxiliariesData;
-            Engine_Data* privateEngineData;
-            Rollres_Data* privateRollingResData;
-            FullLoadDrag_Data* privateFLDData;
-            Transmission_Data* privateTransmissionData;
+            Vehicle_Data privateVehicleData;
+            Aux_Data privateAuxiliariesData;
+            Engine_Data privateEngineData;
+            Rollres_Data privateRollingResData;
+            FullLoadDrag_Data privateFLDData;
+            Transmission_Data privateTransmissionData;
 
         public:
             const std::string& getType() const;
             void setType(const std::string& value);
             const std::string& getVersion() const;
             void setVersion(const std::string& value);
-            Vehicle_Data* getVehicleData() const;
-            void setVehicleData(Vehicle_Data* value);
-            Aux_Data* getAuxiliariesData() const;
-            void setAuxiliariesData(Aux_Data* value);
-            Engine_Data* getEngineData() const;
-            void setEngineData(Engine_Data* value);
-            Rollres_Data* getRollingResData() const;
-            void setRollingResData(Rollres_Data* value);
-            FullLoadDrag_Data* getFLDData() const;
-            void setFLDData(FullLoadDrag_Data* value);
-            Transmission_Data* getTransmissionData() const;
-            void setTransmissionData(Transmission_Data* value);
-
-            VEH();
+            Vehicle_Data* getVehicleData();
+            Aux_Data* getAuxiliariesData();
+            Engine_Data* getEngineData();
+            Rollres_Data* getRollingResData();
+            FullLoadDrag_Data* getFLDData();
+            Transmission_Data* getTransmissionData();
         };
 
     };
@@ -255,6 +243,8 @@ namespace PHEMlightdllV5 {
 
 
     private:
+        bool CalcCorrection(Correction* DataCor, Helpers* Helper, VEHPHEMLightJSON::Vehicle_Data* vehicle_Data);
+
         bool Load(std::vector<std::string>& DataPath, Helpers* Helper, Correction* DataCor, bool fleetMix = false);
 
         bool ReadVehicleFile(const std::vector<std::string>& DataPath, const std::string& emissionClass, Helpers* Helper, bool fleetMix, VEHPHEMLightJSON::VEH*& Vehicle);
@@ -280,4 +270,3 @@ namespace PHEMlightdllV5 {
         std::string ReadLine(std::ifstream& s);
     };
 }
-

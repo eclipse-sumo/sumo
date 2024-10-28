@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,13 +51,14 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, double position, double length, const std::string& vTypes,
+    GUIInductLoop(const std::string& id, MSLane* const lane, double position, double length,
+                  std::string name, const std::string& vTypes,
+                  const std::string& nextEdges,
                   int detectPersons, bool show);
 
 
     /// @brief Destructor
     ~GUIInductLoop();
-
 
     /** @brief Returns this detector's visualisation-wrapper
      * @return The wrapper representing the detector

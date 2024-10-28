@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2021-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2021-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,10 +31,10 @@
 // ===========================================================================
 
 
-GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Wires") {
+GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, TL("Wires")) {
 
-    // create item Selector modul for wires
+    // create item Selector module for wires
     myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
@@ -65,14 +65,18 @@ GNEWireFrame::show() {
     myWireTagSelector->refreshTagSelector();
     // show frame
     GNEFrame::show();
+    if (!myWarnedExperimental) {
+        FXMessageBox::warning(getApp(), MBOX_OK, TL("Experimental Part"), "%s", TL("Warning: The netedit overhead editor is still in experimental state."));
+        myWarnedExperimental = true;
+    }
 }
 
 
 bool
-GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEWireFrame::addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // first check that current selected wire is valid
     if (myWireTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected wire isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected wire isn't valid."));
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
@@ -89,11 +93,11 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
     // obtain attributes and values
     myWireAttributes->getAttributesAndValues(myBaseWire, true);
     // fill netedit attributes
-    if (!myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, objectsUnderCursor.getLaneFront())) {
+    if (!myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, viewObjects.getLaneFront())) {
         return false;
     }
     if (tagProperties.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
-        return myConsecutiveLaneSelector->addLane(objectsUnderCursor.getLaneFront());
+        return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
     } else {
         // build wire over view
         return buildWireOverView(tagProperties);
@@ -107,14 +111,14 @@ GNEWireFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void
-GNEWireFrame::createPath() {
+bool
+GNEWireFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for overhead wires)
     if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         if (myConsecutiveLaneSelector->getLanePath().size() == 1) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION) + " needs at least two lane positions");
+            WRITE_WARNINGF(TL("A % needs at least two lane positions"), toString(SUMO_TAG_OVERHEAD_WIRE_SECTION));
         } else if (createBaseWireObject(tagProperty)) {
             // get attributes and values
             myWireAttributes->getAttributesAndValues(myBaseWire, true);
@@ -130,11 +134,11 @@ GNEWireFrame::createPath() {
                 myBaseWire->addDoubleAttribute(SUMO_ATTR_STARTPOS, myConsecutiveLaneSelector->getLanePath().front().second);
                 myBaseWire->addDoubleAttribute(SUMO_ATTR_ENDPOS, myConsecutiveLaneSelector->getLanePath().back().second);
                 // show warning dialogbox and stop check if input parameters are valid
-                if (myWireAttributes->areValuesValid() == false) {
+                if (!myWireAttributes->areValuesValid()) {
                     myWireAttributes->showWarningMessage();
                 } else {
                     // declare additional handler
-                    GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true);
+                    GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true, false);
                     // build additional
                     additionalHandler.parseSumoBaseObject(myBaseWire);
                     // Refresh wire Parent Selector (For additionals that have a limited number of children)
@@ -143,10 +147,12 @@ GNEWireFrame::createPath() {
                     myConsecutiveLaneSelector->abortPathCreation();
                     // refresh additional attributes
                     myWireAttributes->refreshAttributesCreator();
+                    return true;
                 }
             }
         }
     }
+    return false;
 }
 
 
@@ -156,7 +162,7 @@ GNEWireFrame::tagSelected() {
     const auto templateAC = myWireTagSelector->getCurrentTemplateAC();
     // check if templateAC Exist
     if (templateAC) {
-        // show wire attributes modul
+        // show wire attributes module
         myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(templateAC);
@@ -169,7 +175,7 @@ GNEWireFrame::tagSelected() {
             mySelectorWireParent->hideSelectorParentModule();
         }
     } else {
-        // hide all moduls if wire isn't valid
+        // hide all modules if wire isn't valid
         myWireAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
@@ -196,7 +202,7 @@ GNEWireFrame::createBaseWireObject(const GNETagProperties& tagProperty) {
     // check if wire is a overheadWIre
     if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         // get wire under cursor
-        const GNEAdditional* wireUnderCursor = myViewNet->getObjectsUnderCursor().getAdditionalFront();
+        const GNEAdditional* wireUnderCursor = myViewNet->getViewObjectsSelector().getAdditionalFront();
         // if user click over a traction substation, mark int in ParentWireSelector
         if (wireUnderCursor && (wireUnderCursor->getTagProperty().getTag() == SUMO_TAG_TRACTION_SUBSTATION)) {
             // update parent wire selected
@@ -227,12 +233,12 @@ GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
             (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
-        WRITE_WARNING("Currently unsuported. Create rerouter elements using rerouter dialog");
+        WRITE_WARNING(TL("Currently unsupported. Create rerouter elements using rerouter dialog"));
         return false;
     }
     // disable intervals (temporal)
     if (tagProperties.getTag() == SUMO_TAG_STEP) {
-        WRITE_WARNING("Currently unsuported. Create VSS steps elements using VSS dialog");
+        WRITE_WARNING(TL("Currently unsupported. Create VSS steps elements using VSS dialog"));
         return false;
     }
     // Check if ID has to be generated
@@ -247,12 +253,12 @@ GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
     myBaseWire->addDoubleAttribute(SUMO_ATTR_Y, viewPos.y());
     myBaseWire->addDoubleAttribute(SUMO_ATTR_Z, viewPos.z());
     // show warning dialogbox and stop check if input parameters are valid
-    if (myWireAttributes->areValuesValid() == false) {
+    if (!myWireAttributes->areValuesValid()) {
         myWireAttributes->showWarningMessage();
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
         // build wire
         additionalHandler.parseSumoBaseObject(myBaseWire);
         // Refresh wire Parent Selector (For wires that have a limited number of children)

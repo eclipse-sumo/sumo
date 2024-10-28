@@ -1,0 +1,22 @@
+# create personTrips between stops
+betweenStops
+
+# generate vType with the given vehicle_class and extra attributes
+vehicle_class_persontrips
+
+# test pedestrian trips with intermediate waypoints
+intermediate_pedestrians
+pedestrians
+
+# generate random persontrips
+persontrips
+
+# walks between junctions
+pedestrians_junctionTaz
+
+# generate random persontrips between junctions
+persontrips_junctionTaz
+
+# generate random taxi rides
+taxirides
+fringeFactor

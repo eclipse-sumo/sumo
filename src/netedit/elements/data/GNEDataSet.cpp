@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -127,14 +127,14 @@ GNEDataSet::getHierarchicalElement() {
 }
 
 
-const std::string&
-GNEDataSet::getID() const {
-    return myDataSetID;
+GUIGlObject*
+GNEDataSet::getGUIGlObject() {
+    return nullptr;
 }
 
 
-GUIGlObject*
-GNEDataSet::getGUIGlObject() {
+const GUIGlObject*
+GNEDataSet::getGUIGlObject() const {
     return nullptr;
 }
 
@@ -208,6 +208,48 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
 }
 
 
+bool
+GNEDataSet::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawSelectContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawMoveContour() const {
+    return false;
+}
+
+
 void
 GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval wasn't previously inserted
@@ -215,9 +257,9 @@ GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
         // add data interval child
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
         // add reference in attributeCarriers
-        myNet->getAttributeCarriers()->insertDataInterval(dataInterval);
+        myNet->getAttributeCarriers()->insertDataInterval(dataInterval, dataInterval);
     } else {
-        throw ProcessError("DataInterval was already inserted");
+        throw ProcessError(TL("DataInterval was already inserted"));
     }
 }
 
@@ -234,7 +276,7 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteDataInterval(dataInterval);
     } else {
-        throw ProcessError("DataInterval wasn't previously inserted");
+        throw ProcessError(TL("DataInterval wasn't previously inserted"));
     }
 }
 
@@ -258,7 +300,7 @@ GNEDataSet::updateDataIntervalBegin(const double oldBegin) {
         // insert again using new begin
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
     } else {
-        throw ProcessError("DataInterval wasn't previously inserted");
+        throw ProcessError(TL("DataInterval wasn't previously inserted"));
     }
 }
 
@@ -321,7 +363,7 @@ void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -341,30 +383,6 @@ GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-void
-GNEDataSet::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to enable
-}
-
-
-void
-GNEDataSet::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
-}
-
-
-bool
-GNEDataSet::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
-bool
-GNEDataSet::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
 }
 
 
@@ -401,12 +419,6 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
-}
-
-
-void
-GNEDataSet::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw InvalidArgument("Nothing to enable");
 }
 
 

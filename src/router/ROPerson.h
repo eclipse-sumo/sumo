@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 
 #include <string>
 #include <iostream>
+#include <utils/common/Parameterised.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
@@ -79,7 +80,7 @@ public:
      * @brief Every person has a plan comprising of multiple planItems
      *
      */
-    class PlanItem {
+    class PlanItem : public Parameterised {
     public:
         /// @brief Destructor
         virtual ~PlanItem() {}
@@ -99,6 +100,9 @@ public:
         }
         virtual bool needsRouting() const {
             return false;
+        }
+        virtual SUMOVehicleParameter::Stop* getStopParameters() {
+            return nullptr;
         }
 
         virtual SUMOTime getDuration() const = 0;
@@ -131,11 +135,13 @@ public:
         double getDestinationPos() const {
             return (stopDesc.startPos + stopDesc.endPos) / 2;
         }
-        void saveAsXML(OutputDevice& os, const bool /* extended */, const bool /*asTrip*/, OptionsCont& /* options */) const {
-            stopDesc.write(os);
-        }
+        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const;
+
         bool isStop() const {
             return true;
+        }
+        virtual SUMOVehicleParameter::Stop* getStopParameters() {
+            return &stopDesc;
         }
         SUMOTime getDuration() const {
             return stopDesc.duration;
@@ -298,12 +304,12 @@ public:
             from(_from), to(_to), modes(modeSet), dep(departPos), arr(arrivalPos), stopOrigin(_stopOrigin), stopDest(_stopDest), walkFactor(_walkFactor), group(_group) { }
         /// @brief Destructor
         virtual ~PersonTrip() {
-            for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-                delete *it;
+            for (TripItem* const it : myTripItems) {
+                delete it;
             }
-            for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-                delete (*it)->getRouteDefinition();
-                delete *it;
+            for (ROVehicle* const v : myVehicles) {
+                delete v->getRouteDefinition();
+                delete v;
             }
         }
 
@@ -340,7 +346,7 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
-        void updateMOdes(SVCPermissions additionalModes) {
+        void updateModes(SVCPermissions additionalModes) {
             modes |= additionalModes;
         }
 
@@ -358,6 +364,21 @@ public:
         virtual bool needsRouting() const {
             return myTripItems.empty();
         }
+
+        void setItems(std::vector<TripItem*>& newItems, const ROVehicle* const veh) {
+            assert(myTripItems.empty());
+            myTripItems.swap(newItems);
+            for (auto it = myVehicles.begin(); it != myVehicles.end();) {
+                if (*it != veh) {
+                    delete (*it)->getRouteDefinition();
+                    delete (*it);
+                    it = myVehicles.erase(it);
+                } else {
+                    it++;
+                }
+            }
+        }
+
         void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
         void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const;
 
@@ -422,7 +443,8 @@ public:
 
 private:
     bool computeIntermodal(SUMOTime time, const RORouterProvider& provider,
-                           PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
+                           const PersonTrip* const trip, const ROVehicle* const veh,
+                           std::vector<TripItem*>& resultItems, MsgHandler* const errorHandler);
 
 private:
     /**

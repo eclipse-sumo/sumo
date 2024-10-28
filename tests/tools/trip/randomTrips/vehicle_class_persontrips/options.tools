@@ -1,2 +1,0 @@
--n net.net.xml -e 10 -s 42 --vclass pedestrian --vehicle-class pedestrian
---trip-attributes 'color="blue" maxSpeed="3" departPos="random" speedDev="0.1"' --persontrips

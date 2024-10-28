@@ -9,7 +9,7 @@ in [sumo](sumo.md). It is still a stub and needs be expanded.
 
 ## Links
 
-- [Publications on car-following models](Publications.md#car-following_models)
+- [Publications on car-following models](Publications.md#publications_using_sumo)
 - [How to implement a new car-following model](Developer/How_To/Car-Following_Model.md)
 - [More implementation notes on car-following models](Developer/Implementation_Notes/Vehicle_Models.md)
 
@@ -40,7 +40,7 @@ model reaction times and also in order to reduce computational demand
 and thus speed up the simulation.
 
 !!! note
-    The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has it's action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
+    The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has its action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
 
 ### tau
 
@@ -50,11 +50,11 @@ minimum time gap of tau between the rear bumper of their leader and
 their own (front-bumper + minGap) to assure the possibility to brake in
 time when their leader starts braking.
 
-The use of minGap with respect to the desired (minimum) time headway varies by model. I.e. the Krauss model selects a speed that ensures minGap can always be maintaned whereas other models may not do this.
+The use of minGap with respect to the desired (minimum) time headway varies by model. I.e. the Krauss model selects a speed that ensures minGap can always be maintained whereas other models may not do this.
 
 As explained [above](#actionsteplength), the reaction time is defined by the simulation step length and the **actionStepLength** parameter. fundamentally limited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}).
 
-By setting a value of tau that is higher than the reaction time, the driving saftey can be increased since vehicles will use large gaps and have enough time to react. Conversely, setting a value of tau that is lower than the reaction time leads to unsafe driving. In the simulation this can manifest as  high deceleration or even collisions.
+By setting a value of tau that is higher than the reaction time, the driving safety can be increased since vehicles will use large gaps and have enough time to react. Conversely, setting a value of tau that is lower than the reaction time leads to unsafe driving. In the simulation this can manifest as  high deceleration or even collisions.
 
 ### decel, apparentDecel, emergencyDecel
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Sept 2002
 ///
-// A handler which converts occuring elements and attributes into enums
+// A handler which converts occurring elements and attributes into enums
 /****************************************************************************/
 #include <config.h>
 
@@ -37,8 +37,8 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(
-    StringBijection<int>::Entry* tags, int terminatorTag,
-    StringBijection<int>::Entry* attrs, int terminatorAttr,
+    SequentialStringBijection::Entry* tags, int terminatorTag,
+    SequentialStringBijection::Entry* attrs, int terminatorAttr,
     const std::string& file, const std::string& expectedRoot)
     : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file),
       myExpectedRoot(expectedRoot), myNextSectionStart(-1, nullptr) {
@@ -102,7 +102,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string name = StringUtils::transcode(qname);
     if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
-        WRITE_WARNING("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
+        WRITE_WARNINGF(TL("Found root element '%' in file '%' (expected '%')."), name, getFileName(), myExpectedRoot);
     }
     myRootSeen = true;
     myCharactersVector.clear();
@@ -206,8 +206,8 @@ GenericSAXHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseExcepti
     std::ostringstream buf;
     char* pMsg = XERCES_CPP_NAMESPACE::XMLString::transcode(exception.getMessage());
     buf << pMsg << std::endl;
-    buf << " In file '" << getFileName() << "'" << std::endl;
-    buf << " At line/column " << exception.getLineNumber() + 1
+    buf << TL(" In file '") << getFileName() << "'" << std::endl;
+    buf << TL(" At line/column ") << exception.getLineNumber() + 1
         << '/' << exception.getColumnNumber() << "." << std::endl;
     XERCES_CPP_NAMESPACE::XMLString::release(&pMsg);
     return buf.str();

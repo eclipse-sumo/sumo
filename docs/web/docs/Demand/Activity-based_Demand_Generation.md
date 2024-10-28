@@ -11,7 +11,7 @@ have their start or stop location outside the map.
 ## Typical Command Line
 
 ```
-activitygen --net-file <NET> --stat-file <STATISTICS> --output-file <TRIPS> --random
+activitygen --net-file <NET> --stat-file <STATISTICS> --output-file <TRIPS> --random
 ```
 
 <NET\> is a map in form of a SUMO net file, <STATISTICS\> contains the
@@ -27,23 +27,23 @@ You can give [activitygen](../activitygen.md) a first try with the following exa
 While activitygen has been developed
 mainly to generate traffic demand for larger networks, this example
 features the small network shown in the image on the right. Download the
-files [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.net.xml]({{Source}}tests/activitygen/demand_generation/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.stat.xml ]({{Source}}tests/activitygen/demand_generation/activitygen-example.stat.xml ) to follow this example.
+files [{{SUMO}}/tests/activitygen/activitygen-example.net.xml]({{Source}}tests/activitygen/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/activitygen-example.stat.xml ]({{Source}}tests/activitygen/activitygen-example.stat.xml ) to follow this example.
 
 To run this example, use the following commands:
 
 ```
-activitygen --net-file activitygen-example.net.xml \
-            --stat-file activitygen-example.stat.xml \
-            --output-file activitygen-example.trips.rou.xml \
-            --random
+activitygen --net-file activitygen-example.net.xml \
+            --stat-file activitygen-example.stat.xml \
+            --output-file activitygen-example.trips.rou.xml \
+            --random
 
-duarouter --net-file activitygen-example.net.xml \
-          --route-files activitygen-example.trips.rou.xml \
-          --output-file activitygen-example.rou.xml \
-          --ignore-errors
+duarouter --net-file activitygen-example.net.xml \
+          --route-files activitygen-example.trips.rou.xml \
+          --output-file activitygen-example.rou.xml \
+          --ignore-errors
 
-sumo --net-file activitygen-example.net.xml \
-     --route-files activitygen-example.rou.xml
+sumo --net-file activitygen-example.net.xml \
+     --route-files activitygen-example.rou.xml
 ```
 
 The first command generates the net file from the node and edge
@@ -69,8 +69,8 @@ the time of their departure into account during routing (see
 [Demand/Automatic_Routing](../Demand/Automatic_Routing.md))
 
 ```
-sumo --net-file activitygen-example.net.xml \
-     --route-files activitygen-example.trips.rou.xml
+sumo --net-file activitygen-example.net.xml \
+     --route-files activitygen-example.trips.rou.xml
 ```
 
 ## The Statistics File
@@ -619,7 +619,7 @@ take the bus. Public transport travel times are not considered.
 
 ActivityGen was developed as a tool for the evaluation of trust
 scenarios in VANETs. The work was part of the project [Fidens: Trust
-between Cooperative Systems](https://web.archive.org/web/20120313075112/http://www.ldv.ei.tum.de/en/research/fidens/) featuring
+between Cooperative Systems](https://web.archive.org/web/20120313075112/https://www.ldv.ei.tum.de/en/research/fidens/) featuring
 trusted probabilistic knowledge processing in vehicular networks. For
 further documentation on the internals of the model, refer to the source
 code in [{{SUMO}}/src/activitygen]({{Source}}src/activitygen) or ask the [original

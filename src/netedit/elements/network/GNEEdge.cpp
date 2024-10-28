@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,13 +27,23 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"
@@ -60,7 +70,7 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGE), {
     net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())
 },
@@ -120,6 +130,24 @@ GNEEdge::~GNEEdge() {
 }
 
 
+bool
+GNEEdge::isNetworkElementValid() const {
+    if (getFromJunction()->getNBNode()->getPosition() != getToJunction()->getNBNode()->getPosition()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string
+GNEEdge::getNetworkElementProblem() const {
+    return TLF("Parent junctions are in the same position: %, %",
+               toString(getFromJunction()->getNBNode()->getPosition().x()),
+               toString(getFromJunction()->getNBNode()->getPosition().y()));
+}
+
+
 void
 GNEEdge::updateGeometry() {
     // first check if myUpdateGeometry flag is enabled
@@ -159,8 +187,10 @@ GNEEdge::updateGeometry() {
     }
     // update vehicle geometry
     updateVehicleSpreadGeometries();
-    // update vehicle stack labels
+    // update stack labels
     updateVehicleStackLabels();
+    updatePersonStackLabels();
+    updateContainerStackLabels();
 }
 
 
@@ -170,34 +200,320 @@ GNEEdge::getPositionInView() const {
 }
 
 
+bool
+GNEEdge::checkDrawFromContour() const {
+    // get modes and viewParent (for code legibility)
+    const auto& modes = myNet->getViewNet()->getEditModes();
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // continue depending of current status
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if starts in this edge
+        if (inspectedAC->getTagProperty().vehicleEdges() && inspectedAC->hasAttribute(SUMO_ATTR_FROM) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+            return true;
+        }
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // get current GNEPlanCreator
+        GNEPlanCreator* planCreator = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planCreator = viewParent->getPersonFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planCreator = viewParent->getPersonPlanFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planCreator = viewParent->getContainerFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planCreator = viewParent->getContainerPlanFrame()->getPlanCreator();
+        }
+        // continue depending of planCreator
+        if (planCreator) {
+            if (planCreator->getPlanParameteres().fromEdge == getID()) {
+                return true;
+            }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            const auto& selectedEdges = viewParent->getVehicleFrame()->getPathCreator()->getSelectedEdges();
+            // check if this is the first selected edge
+            if ((selectedEdges.size() > 0) && (selectedEdges.front() == this)) {
+                return true;
+            }
+        }
+    } else if (modes.isCurrentSupermodeData()) {
+        // get TAZRelDataFrame
+        const auto& edgeRelDataFrame = viewParent->getEdgeRelDataFrame();
+        if (edgeRelDataFrame->shown()) {
+            // check first Edge
+            if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().empty()) {
+                return false;
+            } else {
+                return edgeRelDataFrame->getPathCreator()->getSelectedEdges().front() == this;
+            }
+        }
+    }
+    // nothing to draw
+    return false;
+}
+
+
+bool
+GNEEdge::checkDrawToContour() const {
+    // get modes and viewParent (for code legibility)
+    const auto& modes = myNet->getViewNet()->getEditModes();
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // continue depending of current status
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if starts in this edge
+        if (inspectedAC->getTagProperty().vehicleEdges() && inspectedAC->hasAttribute(SUMO_ATTR_TO) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+            return true;
+        }
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // get current GNEPlanCreator
+        GNEPlanCreator* planCreator = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planCreator = viewParent->getPersonFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planCreator = viewParent->getPersonPlanFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planCreator = viewParent->getContainerFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planCreator = viewParent->getContainerPlanFrame()->getPlanCreator();
+        }
+        // continue depending of planCreator
+        if (planCreator) {
+            if (planCreator->getPlanParameteres().toEdge == getID()) {
+                return true;
+            }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            const auto& selectedEdges = viewParent->getVehicleFrame()->getPathCreator()->getSelectedEdges();
+            // check if this is the last selected edge
+            if ((selectedEdges.size() > 1) && (selectedEdges.back() == this)) {
+                return true;
+            }
+        }
+    } else if (modes.isCurrentSupermodeData()) {
+        // get TAZRelDataFrame
+        const auto& edgeRelDataFrame = viewParent->getEdgeRelDataFrame();
+        if (edgeRelDataFrame->shown()) {
+            // check last Edge
+            if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().empty()) {
+                return false;
+            } else {
+                return edgeRelDataFrame->getPathCreator()->getSelectedEdges().back() == this;
+            }
+        }
+    }
+    // nothing to draw
+    return false;
+}
+
+
+bool
+GNEEdge::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEEdge::checkDrawOverContour() const {
+    const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
+    // first check if this is the edge under cursor
+    if (viewObjectsSelector.getEdgeFront() != this) {
+        return false;
+    } else {
+        // get modes and viewParent (for code legibility)
+        const auto& modes = myNet->getViewNet()->getEditModes();
+        const auto& viewParent = myNet->getViewNet()->getViewParent();
+        if (modes.isCurrentSupermodeDemand()) {
+            // get current plan selector
+            GNEPlanSelector* planSelector = nullptr;
+            if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+                planSelector = viewParent->getPersonFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+                planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+                planSelector = viewParent->getContainerFrame()->getPlanSelector();
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+                planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
+            }
+            // continue depending of plan selector
+            if (planSelector && planSelector->markEdges()) {
+                return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE);
+            } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+                // get current vehicle template
+                const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+                // check if vehicle can be placed over from-to TAZs
+                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
+                    return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE);
+                }
+            }
+        } else if (modes.isCurrentSupermodeData()) {
+            // get frames
+            const auto& edgeDataFrame = viewParent->getEdgeDataFrame();
+            const auto& edgeRelDataFrame = viewParent->getEdgeRelDataFrame();
+            if (edgeDataFrame->shown()) { 
+                return true;
+            } else if (edgeRelDataFrame->shown()) {
+                // check edges
+                if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().empty()) {
+                    return true;
+                } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().size() == 2) {
+                    return false;
+                } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().front() == this) {
+                    return false;
+                } else if (edgeRelDataFrame->getPathCreator()->getSelectedEdges().back() == this) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        // nothing to draw
+        return false;
+    }
+}
+
+
+bool
+GNEEdge::checkDrawDeleteContour() const {
+    // first check if we're selecting edges or lanes
+    if (myNet->getViewNet()->checkSelectEdges()) {
+        // get edit modes
+        const auto& editModes = myNet->getViewNet()->getEditModes();
+        // check if we're in delete mode
+        if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+            // check lanes
+            for (const auto& lane : myLanes) {
+                if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
+                        (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    return true;
+                }
+            }
+            // check edge
+            if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                return true;
+            }
+            // nothing to draw
+            return false;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEEdge::checkDrawSelectContour() const {
+    // first check if we're selecting edges or lanes
+    if (myNet->getViewNet()->checkSelectEdges()) {
+        // get edit modes
+        const auto& editModes = myNet->getViewNet()->getEditModes();
+        // check if we're in select mode
+        if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+            // check lanes
+            for (const auto& lane : myLanes) {
+                if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
+                        (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    return true;
+                }
+            }
+            // check edge
+            if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                return true;
+            }
+            // nothing to draw
+            return false;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEEdge::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in move mode
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        // check if we're editing this network element
+        const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+        if (editedNetworkElement) {
+            if (editedNetworkElement == this) {
+                return true;
+            } else {
+                // check lanes
+                for (const auto& lane : myLanes) {
+                    if (editedNetworkElement == lane) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            // check lanes
+            for (const auto& lane : myLanes) {
+                if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
+                        (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    return true;
+                }
+            }
+            // check edge
+            if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                return true;
+            }
+        }
+        // nothing to draw
+        return false;
+    } else {
+        return false;
+    }
+}
+
+
 GNEMoveOperation*
 GNEEdge::getMoveOperation() {
-    // get snapRadius
-    const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius;
+    // get geometry point radius
+    const double geometryPointRadius = getGeometryPointRadius();
     // check if edge is selected
     if (isAttributeCarrierSelected()) {
         // check if both junctions are selected
         if (getFromJunction()->isAttributeCarrierSelected() && getToJunction()->isAttributeCarrierSelected()) {
             return processMoveBothJunctionSelected();
         } else if (getFromJunction()->isAttributeCarrierSelected()) {
-            return processMoveFromJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
+            return processMoveFromJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), geometryPointRadius);
         } else if (getToJunction()->isAttributeCarrierSelected()) {
-            return processMoveToJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
+            return processMoveToJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), geometryPointRadius);
         } else if (myNet->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
-            return processNoneJunctionSelected(snapRadius);
+            if (myNet->getAttributeCarriers()->getNumberOfSelectedEdges() == 1) {
+                // special case: when only a single edge is selected, move all shape points (including custom end points)
+                return processMoveBothJunctionSelected();
+            } else {
+                // synchronized movement of a single point
+                return processNoneJunctionSelected(geometryPointRadius);
+            }
         } else {
             // calculate move shape operation (because there are only an edge selected)
-            return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius, false);
+            return calculateMoveShapeOperation(this, myNBEdge->getGeometry(), false);
         }
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius, false);
+        return calculateMoveShapeOperation(this, myNBEdge->getGeometry(), false);
     }
 }
 
 
 void
 GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // get geometry point radius
+    const double geometryPointRadius = getGeometryPointRadius();
     // declare shape to move
     PositionVector shape = myNBEdge->getGeometry();
     // obtain flags for start and end positions
@@ -214,7 +530,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         removeGeometryPoint = false;
     }
     // check distance
-    if (shape[index].distanceSquaredTo2D(clickedPosition) > SNAP_RADIUS_SQUARED) {
+    if (shape[index].distanceSquaredTo2D(clickedPosition) > (geometryPointRadius * geometryPointRadius)) {
         removeGeometryPoint = false;
     }
     // check custom start position
@@ -230,13 +546,13 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         // check if we're removing first geometry proint
         if (index == 0) {
             // commit new geometry start
-            undoList->begin(GUIIcon::EDGE, "remove first geometry point of " + getTagStr());
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, ""));
+            undoList->begin(this, "remove first geometry point of " + getTagStr());
+            GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_START, "", undoList);
             undoList->end();
         } else if (index == lastIndex) {
             // commit new geometry end
-            undoList->begin(GUIIcon::EDGE, "remove last geometry point of " + getTagStr());
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, ""));
+            undoList->begin(this, "remove last geometry point of " + getTagStr());
+            GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_END, "", undoList);
             undoList->end();
         } else {
             // remove geometry point
@@ -245,10 +561,10 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             shape.pop_front();
             shape.pop_back();
             // remove double points
-            shape.removeDoublePoints(SNAP_RADIUS);
+            shape.removeDoublePoints((geometryPointRadius * geometryPointRadius));
             // commit new shape
-            undoList->begin(GUIIcon::EDGE, "remove geometry point of " + getTagStr());
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->begin(this, "remove geometry point of " + getTagStr());
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList);
             undoList->end();
         }
     }
@@ -269,8 +585,10 @@ GNEEdge::hasCustomEndPoints() const {
 
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) const {
+    // get geometry point radius
+    const double geometryPointRadius = getGeometryPointRadius();
     if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
-        return (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED);
+        return (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius));
     } else {
         return false;
     }
@@ -279,8 +597,10 @@ GNEEdge::clickedOverShapeStart(const Position& pos) const {
 
 bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) const {
+    // get geometry point radius
+    const double geometryPointRadius = getGeometryPointRadius();
     if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
-        return (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED);
+        return (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius));
     } else {
         return false;
     }
@@ -289,11 +609,13 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) const {
 
 bool
 GNEEdge::clickedOverGeometryPoint(const Position& pos) const {
+    // get geometry point radius
+    const auto geometryPointRadius = getGeometryPointRadius();
     // first check inner geometry
     const PositionVector innenShape = myNBEdge->getInnerGeometry();
     // iterate over geometry point
     for (const auto& geometryPoint : innenShape) {
-        if (geometryPoint.distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
+        if (geometryPoint.distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius)) {
             return true;
         }
     }
@@ -326,33 +648,46 @@ GNEEdge::getExaggeration(const GUIVisualizationSettings& s) const {
 }
 
 
+Boundary
+GNEEdge::getCenteringBoundary() const {
+    return myEdgeBoundary;
+}
+
+
 void
 GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
     if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
-    // use as boundary the first lane boundary
-    myBoundary = myLanes.front()->getCenteringBoundary();
+    // first add edge boundary
+    myEdgeBoundary = myNBEdge->getGeometry().getBoxBoundary();
     // add lane boundaries
     for (const auto& lane : myLanes) {
-        myBoundary.add(lane->getCenteringBoundary());
-        // add parkingArea boundaries
-        for (const auto& additional : lane->getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
-                myBoundary.add(additional->getCenteringBoundary());
+        const auto laneBoundary = lane->getCenteringBoundary();
+        if (laneBoundary.isInitialised()) {
+            myEdgeBoundary.add(laneBoundary);
+            // add additional and demand boundaries
+            for (const auto& additional : lane->getChildAdditionals()) {
+                const auto additionalBoundary = additional->getCenteringBoundary();
+                if (additionalBoundary.isInitialised()) {
+                    myEdgeBoundary.add(additional->getCenteringBoundary());
+                }
             }
         }
     }
-    // ensure that geometry points are selectable even if the lane geometry is strange
-    for (const Position& pos : myNBEdge->getGeometry()) {
-        myBoundary.add(pos);
+    // add additional and demand boundaries
+    for (const auto& additional : getChildAdditionals()) {
+        const auto additionalBoundary = additional->getCenteringBoundary();
+        if (additionalBoundary.isInitialised()) {
+            myEdgeBoundary.add(additionalBoundary);
+        }
     }
     // add junction positions
-    myBoundary.add(getFromJunction()->getPositionInView());
-    myBoundary.add(getToJunction()->getPositionInView());
+    myEdgeBoundary.add(getFromJunction()->getCenteringBoundary());
+    myEdgeBoundary.add(getToJunction()->getCenteringBoundary());
     // grow boundary
-    myBoundary.grow(10);
+    myEdgeBoundary.grow(5);
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
@@ -368,72 +703,75 @@ GNEEdge::getOptionalName() const {
 
 GUIGLObjectPopupMenu*
 GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // build position copy entry
-    buildPositionCopyEntry(ret, app);
-    return ret;
+    // if we call this function, that's mean that we're clicked over a edge geometry point, then
+    // open the popup dialog of the lane[0] (back)
+    return myLanes.back()->getPopUpMenu(app, parent);
 }
 
 
-GNEEdge*
-GNEEdge::getOppositeEdge() const {
-    return myNet->getAttributeCarriers()->retrieveEdge(getToJunction(), getFromJunction(), false);
+std::vector<GNEEdge*>
+GNEEdge::getOppositeEdges() const {
+    return myNet->getAttributeCarriers()->retrieveEdges(getToJunction(), getFromJunction());
 }
 
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
-    // draw lanes
-    for (const auto& lane : myLanes) {
-        lane->drawGL(s);
-    }
-    // draw child additional
-    for (const auto& additional : getChildAdditionals()) {
-        additional->drawGL(s);
-    }
-    // draw person stops
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
-        for (const auto& stopPersonEdge : getChildDemandElements()) {
-            if (stopPersonEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) {
-                stopPersonEdge->drawGL(s);
-            }
+    // check drawing boundary selection and size boundary
+    if (checkDrawingBoundarySelection() && s.checkDrawEdge(myEdgeBoundary)) {
+        // draw boundary
+        GLHelper::drawBoundary(s, getCenteringBoundary());
+        // get detail level from the first lane
+        const auto d = myLanes.front()->getDrawingConstants()->getDetail();
+        // calculate layer
+        double layer = GLO_EDGE;
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            layer = GLO_FRONTELEMENT;
+        } else if (myLanes.front()->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
+            layer = GLO_JUNCTION + 1.8;
         }
+        // check if draw details
+        if (!s.drawForViewObjectsHandler) {
+            // draw geometry points
+            drawEdgeGeometryPoints(s, d, layer);
+            // draw edge shape (a red line only visible if lane shape is strange)
+            drawEdgeShape(s, d, layer);
+            // draw edge stopOffset
+            drawLaneStopOffset(s, d, layer);
+            // draw edge name
+            drawEdgeName(s);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
+            // draw dotted contour
+            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+        }
+        // calculate edge contour (always before children)
+        calculateEdgeContour(s, d, layer);
+        // draw lanes
+        for (const auto& lane : myLanes) {
+            lane->drawGL(s);
+        }
+        // draw junctions
+        getFromJunction()->drawGL(s);
+        getToJunction()->drawGL(s);
+        // draw childrens
+        drawChildrens(s);
     }
-    // draw vehicles
-    const std::map<const GNELane*, std::vector<GNEDemandElement*> > vehiclesMap = getVehiclesOverEdgeMap();
-    for (const auto& vehicleMap : vehiclesMap) {
-        for (const auto& vehicle : vehicleMap.second) {
-            vehicle->drawGL(s);
-        }
+}
+
+
+void
+GNEEdge::deleteGLObject() {
+    // Check if edge can be deleted
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteEdge(this, myNet->getViewNet()->getUndoList(), false);
     }
-    // draw edge stopOffset
-    drawLaneStopOffset(s);
-    // draw TAZ elements
-    drawTAZElements(s);
-    // draw name if isn't being drawn for selecting
-    drawEdgeName(s);
-    // draw dotted contours
-    if (myLanes.size() > 1) {
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
-        }
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
-        }
-        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(this)) {
-            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::ORANGE, s, this, true, true);
-        }
-    }
+}
+
+
+void
+GNEEdge::updateGLObject() {
+    updateGeometry();
 }
 
 
@@ -445,9 +783,11 @@ GNEEdge::getNBEdge() const {
 
 Position
 GNEEdge::getSplitPos(const Position& clickPos) {
+    // get geometry point radius
+    const double geometryPointRadius = getGeometryPointRadius();
     const PositionVector& geom = myNBEdge->getGeometry();
     int index = geom.indexOfClosest(clickPos, true);
-    if (geom[index].distanceSquaredTo2D(clickPos) < SNAP_RADIUS_SQUARED) {
+    if (geom[index].distanceSquaredTo2D(clickPos) < (geometryPointRadius * geometryPointRadius)) {
         // split at existing geometry point
         return myNet->getViewNet()->snapToActiveGrid(geom[index]);
     } else {
@@ -459,14 +799,16 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
+    // get geometry point radius
+    const double geometryPointRadius = getGeometryPointRadius();
     if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-            (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
-        undoList->begin(GUIIcon::EDGE, "remove endpoint");
+            (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius))) {
+        undoList->begin(this, "remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->end();
     } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-               (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
-        undoList->begin(GUIIcon::EDGE, "remove endpoint");
+               (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius))) {
+        undoList->begin(this, "remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->end();
     } else {
@@ -478,27 +820,29 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             Position newPos = geom.positionAtOffset2D(offset);
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
-            undoList->begin(GUIIcon::EDGE, "set endpoint");
-            int index = geom.indexOfClosest(pos, true);
-            // check if snap to existing geometry
-            if (geom[index].distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
-                pos = geom[index];
-            }
-            Position destPos = getToJunction()->getNBNode()->getPosition();
-            Position sourcePos = getFromJunction()->getNBNode()->getPosition();
+            undoList->begin(this, "set endpoint");
+            const int index = geom.indexOfClosest(pos, true);
+            const Position destPos = getToJunction()->getNBNode()->getPosition();
+            const Position sourcePos = getFromJunction()->getNBNode()->getPosition();
             if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
+                // check if snap to existing geometrypoint
+                if (geom[index].distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius)) {
+                    newPos = geom[index];
+                    // remove existent geometry point to avoid double points
+                    removeGeometryPoint(newPos, undoList);
+                }
                 setAttribute(GNE_ATTR_SHAPE_END, toString(newPos), undoList);
                 getToJunction()->invalidateShape();
             } else {
+                // check if snap to existing geometry point
+                if (geom[index].distanceSquaredTo2D(pos) < (geometryPointRadius * geometryPointRadius)) {
+                    newPos = geom[index];
+                    // remove existent geometry point to avoid double points
+                    removeGeometryPoint(newPos, undoList);
+                }
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
                 getFromJunction()->invalidateShape();
             }
-            /*
-                        // possibly existing inner point is no longer needed
-                        if (myNBEdge->getInnerGeometry().size() > 0 && getEdgeVertexIndex(pos, false) != -1) {
-                            deleteEdgeGeometryPoint(pos, false);
-                        }
-            */
             undoList->end();
         }
     }
@@ -552,7 +896,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     for (const auto& edge : getFromJunction()->getGNEOutgoingEdges()) {
         edge->updateGeometry();
     }
-    // invalidate junction destiny shape
+    // invalidate junction destination shape
     getToJunction()->invalidateShape();
     // iterate over second parent junction edges and update geometry
     for (const auto& edge : getToJunction()->getGNEIncomingEdges()) {
@@ -708,66 +1052,48 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList) {
     // copy edge-specific attributes
-    setAttribute(SUMO_ATTR_NUMLANES,        edgeTemplate->getAttribute(SUMO_ATTR_NUMLANES),         undoList);
-    setAttribute(SUMO_ATTR_TYPE,            edgeTemplate->getAttribute(SUMO_ATTR_TYPE),             undoList);
-    setAttribute(SUMO_ATTR_PRIORITY,        edgeTemplate->getAttribute(SUMO_ATTR_PRIORITY),         undoList);
-    setAttribute(SUMO_ATTR_SPREADTYPE,      edgeTemplate->getAttribute(SUMO_ATTR_SPREADTYPE),       undoList);
-    setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate->getAttribute(GNE_ATTR_STOPOFFSET),        undoList);
-    setAttribute(GNE_ATTR_STOPOEXCEPTION,   edgeTemplate->getAttribute(GNE_ATTR_STOPOEXCEPTION),    undoList);
-    // copy raw values for lane-specific attributes
-    if (isValid(SUMO_ATTR_SPEED, edgeTemplate->getAttribute(SUMO_ATTR_SPEED))) {
-        setAttribute(SUMO_ATTR_SPEED,       edgeTemplate->getAttribute(SUMO_ATTR_SPEED),            undoList);
+    for (const auto& attProperty : myTagProperty) {
+        if (attProperty.isCopyable() && isValid(attProperty.getAttr(), edgeTemplate->getAttribute(attProperty.getAttr()))) {
+            setAttribute(attProperty.getAttr(), edgeTemplate->getAttribute(attProperty.getAttr()), undoList);
+        }
     }
-    if (isValid(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH))) {
-        setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate->getAttribute(SUMO_ATTR_WIDTH),            undoList);
-    }
-    if (isValid(SUMO_ATTR_ENDOFFSET, edgeTemplate->getAttribute(SUMO_ATTR_ENDOFFSET))) {
-        setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate->getAttribute(SUMO_ATTR_ENDOFFSET),        undoList);
-    }
+    // also copy parameters
+    setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ALLOW),          undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED),          undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH),          undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,       edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ENDOFFSET),      undoList);
-        myLanes[i]->setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_STOPOFFSET),      undoList);
-        myLanes[i]->setAttribute(GNE_ATTR_STOPOEXCEPTION,   edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_STOPOEXCEPTION),  undoList);
+        for (const auto& attProperty : edgeTemplate->getLaneTemplates().at(i)->getTagProperty()) {
+            if (attProperty.isCopyable() && myLanes[i]->isValid(attProperty.getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty.getAttr()))) {
+                myLanes[i]->setAttribute(attProperty.getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty.getAttr()),  undoList);
+            }
+        }
+        // also copy parameters
+        myLanes[i]->setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     }
 }
 
 
 void
 GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
+    // get tag properties
+    const auto& edgeProperties = getTagProperty(SUMO_TAG_EDGE);
+    const auto& laneProperties = getTagProperty(SUMO_TAG_LANE);
+    const auto& edgeTypeProperties = getTagProperty(SUMO_TAG_TYPE);
+    const auto& laneTypeProperties = getTagProperty(SUMO_TAG_LANETYPE);
     // set type (only for info)
     setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
-    // set num lanes
-    setAttribute(SUMO_ATTR_NUMLANES, edgeType->getAttribute(SUMO_ATTR_NUMLANES), undoList);
-    // set speed
-    setAttribute(SUMO_ATTR_SPEED, edgeType->getAttribute(SUMO_ATTR_SPEED), undoList);
-    // set allow (no disallow)
-    setAttribute(SUMO_ATTR_ALLOW, edgeType->getAttribute(SUMO_ATTR_ALLOW), undoList);
-    // set spreadType
-    setAttribute(SUMO_ATTR_SPREADTYPE, edgeType->getAttribute(SUMO_ATTR_SPREADTYPE), undoList);
-    // set width
-    setAttribute(SUMO_ATTR_WIDTH, edgeType->getAttribute(SUMO_ATTR_WIDTH), undoList);
-    // set priority
-    setAttribute(SUMO_ATTR_PRIORITY, edgeType->getAttribute(SUMO_ATTR_PRIORITY), undoList);
-    // set parameters
+    // copy attributes
+    for (const auto& attrProperty : edgeTypeProperties) {
+        if (attrProperty.isCopyable() && edgeProperties.hasAttribute(attrProperty.getAttr())) {
+            setAttribute(attrProperty.getAttr(), edgeType->getAttribute(attrProperty.getAttr()), undoList);
+        }
+    }
     setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        // now copy custom lane values
-        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED).size() > 0) {
-            myLanes[i]->setAttribute(SUMO_ATTR_SPEED, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED), undoList);
-        }
-        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW).size() > 0) {
-            myLanes[i]->setAttribute(SUMO_ATTR_ALLOW, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW), undoList);
-        }
-        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_DISALLOW).size() > 0) {
-            myLanes[i]->setAttribute(SUMO_ATTR_DISALLOW, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_DISALLOW), undoList);
-        }
-        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_WIDTH).size() > 0) {
-            myLanes[i]->setAttribute(SUMO_ATTR_WIDTH, edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_WIDTH), undoList);
+        for (const auto& attrProperty : laneTypeProperties) {
+            if (attrProperty.isCopyable() && laneProperties.hasAttribute(attrProperty.getAttr()) && (edgeType->getLaneTypes().at(i)->getAttribute(attrProperty.getAttr()) != laneTypeProperties.getAttributeProperties(attrProperty.getAttr()).getDefaultValue())) {
+                myLanes[i]->setAttribute(attrProperty.getAttr(), edgeType->getLaneTypes().at(i)->getAttribute(attrProperty.getAttr()), undoList);
+            }
         }
         if (edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS).size() > 0) {
             myLanes[i]->setAttribute(GNE_ATTR_PARAMETERS, edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS), undoList);
@@ -808,10 +1134,12 @@ std::string
 GNEEdge::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_FROM:
+        case SUMO_ATTR_FROM_JUNCTION:
             return getFromJunction()->getID();
         case SUMO_ATTR_TO:
+        case SUMO_ATTR_TO_JUNCTION:
             return getToJunction()->getID();
         case SUMO_ATTR_NUMLANES:
             return toString(myNBEdge->getNumLanes());
@@ -837,6 +1165,12 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
                 return "lane specific";
             } else {
                 return toString(myNBEdge->getSpeed());
+            }
+        case SUMO_ATTR_FRICTION:
+            if (myNBEdge->hasLaneSpecificFriction()) {
+                return "lane specific";
+            } else {
+                return toString(myNBEdge->getFriction());
             }
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {
@@ -869,7 +1203,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
                 return toString(myNBEdge->getGeometry().back());
             }
         case GNE_ATTR_BIDIR:
-            return toString(myNBEdge->isBidiRail());
+            return toString(myNBEdge->getBidiEdge() != nullptr);
         case GNE_ATTR_STOPOFFSET:
             return toString(myNBEdge->myEdgeStopOffset.getOffset());
         case GNE_ATTR_STOPOEXCEPTION:
@@ -878,10 +1212,23 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
+        case GNE_ATTR_IS_ROUNDABOUT:
+            return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? True : False;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return myNBEdge->getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+PositionVector
+GNEEdge::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            return myNBEdge->getInnerGeometry();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -908,28 +1255,29 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
-            undoList->begin(GUIIcon::EDGE, "change " + getTagStr() + " attribute");
+            undoList->begin(this, "change " + getTagStr() + " attribute");
             const std::string origValue = myLanes.at(0)->getAttribute(key); // will have intermediate value of "lane specific"
             // lane specific attributes need to be changed via lanes to allow undo
             for (auto it : myLanes) {
                 it->setAttribute(key, value, undoList);
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value, origValue));
+            GNEChange_Attribute::changeAttribute(this, key, value, origValue, undoList);
             undoList->end();
             break;
         }
         case SUMO_ATTR_FROM: {
             if (value != getAttribute(key)) {
-                undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+                undoList->begin(this, "change  " + getTagStr() + "  attribute");
                 // Remove edge from crossings of junction source
                 removeEdgeFromCrossings(getFromJunction(), undoList);
                 // continue changing from junction
                 GNEJunction* originalFirstParentJunction = getFromJunction();
                 getFromJunction()->setLogicValid(false, undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 getFromJunction()->setLogicValid(false, undoList);
                 myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
                 setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
@@ -944,13 +1292,13 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_TO: {
             if (value != getAttribute(key)) {
-                undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
-                // Remove edge from crossings of junction destiny
+                undoList->begin(this, "change  " + getTagStr() + "  attribute");
+                // Remove edge from crossings of junction destination
                 removeEdgeFromCrossings(getToJunction(), undoList);
-                // continue changing destiny junction
+                // continue changing destination junction
                 GNEJunction* originalSecondParentJunction = getToJunction();
                 getToJunction()->setLogicValid(false, undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 getToJunction()->setLogicValid(false, undoList);
                 myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
                 setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
@@ -970,19 +1318,29 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPREADTYPE:
         case SUMO_ATTR_DISTANCE:
         case GNE_ATTR_MODIFICATION_STATUS:
-        case GNE_ATTR_SHAPE_START:
-        case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_STOPOFFSET:
+            // special case for stop offset, because affects to stopOffsetExceptions (#15297)
+            if (canParse<double>(value) && (parse<double>(value) == 0)) {
+                GNEChange_Attribute::changeAttribute(this, GNE_ATTR_STOPOEXCEPTION, "", undoList);
+            }
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
         case GNE_ATTR_STOPOEXCEPTION:
         case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
+        case GNE_ATTR_SHAPE_START:
+        case GNE_ATTR_SHAPE_END: {
+            // due to ENDPOINT_TOLERANCE, force change
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
+            break;
+        }
         case SUMO_ATTR_NAME:
             // user cares about street names. Make sure they appear in the output
             OptionsCont::getOptions().resetWritable();
             OptionsCont::getOptions().set("output.street-names", "true");
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
@@ -990,15 +1348,31 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 setNumLanes(parse<int>(value), undoList);
             }
             break;
+        case GNE_ATTR_BIDIR:
+            undoList->begin(this, "change  " + getTagStr() + "  attribute");
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            if (myNBEdge->getTurnDestination(true) != nullptr) {
+                GNEEdge* bidi = myNet->getAttributeCarriers()->retrieveEdge(myNBEdge->getTurnDestination(true)->getID());
+                GNEChange_Attribute::changeAttribute(bidi, key, value, undoList);
+                if (myNBEdge->getGeometry() != bidi->getNBEdge()->getGeometry().reverse()
+                        && myNBEdge->getGeometry().size() == 2
+                        && bidi->getNBEdge()->getGeometry().size() == 2
+                        && myNBEdge->getBidiEdge() == nullptr) {
+                    // NBEdge::avoidOverlap was already active so we need to reset the
+                    // geometry to its default
+                    resetBothEndpoint(undoList);
+                    bidi->resetBothEndpoint(undoList);
+                }
+            }
+            undoList->end();
+            break;
         case SUMO_ATTR_SHAPE:
             // @note: assumes value of inner geometry!
             // actually the geometry is already updated (incrementally
             // during mouse movement). We set the restore point to the end
             // of the last change-set
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
-        case GNE_ATTR_BIDIR:
-            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1015,17 +1389,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
-            // check that is a valid ID and is different of ID of junction destiny
+            // check that is a valid ID and is different of ID of junction destination
             if (value == getFromJunction()->getID()) {
                 return true;
             } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getToJunction()->getID())) {
-                GNEJunction* junctionFrom = myNet->getAttributeCarriers()->retrieveJunction(value, false);
-                // check that there isn't already another edge with the same From and To Edge
-                if ((junctionFrom != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(junctionFrom, getToJunction(), false) == nullptr)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (myNet->getAttributeCarriers()->retrieveJunction(value, false) != nullptr);
             } else {
                 return false;
             }
@@ -1035,18 +1403,14 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == getToJunction()->getID()) {
                 return true;
             } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getFromJunction()->getID())) {
-                GNEJunction* junctionTo = myNet->getAttributeCarriers()->retrieveJunction(value, false);
-                // check that there isn't already another edge with the same From and To Edge
-                if ((junctionTo != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(getFromJunction(), junctionTo, false) == nullptr)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (myNet->getAttributeCarriers()->retrieveJunction(value, false) != nullptr);
             } else {
                 return false;
             }
         }
         case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_FRICTION:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_NUMLANES:
             return canParse<int>(value) && (parse<double>(value) > 0);
@@ -1079,7 +1443,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < myNBEdge->getLoadedLength();
         case SUMO_ATTR_DISTANCE:
-            return canParse<double>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_SHAPE_START: {
             if (value.empty()) {
                 return true;
@@ -1101,9 +1469,13 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case GNE_ATTR_BIDIR:
-            return false;
+            return canParse<bool>(value) && (!parse<bool>(value) || myNBEdge->isBidiEdge(true));
         case GNE_ATTR_STOPOFFSET:
-            return canParse<int>(value) && (parse<double>(value) >= 0);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) >= 0);
+            }
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
         case GNE_ATTR_SELECTED:
@@ -1120,6 +1492,10 @@ bool
 GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_BIDIR:
+            return myNBEdge->isBidiEdge(true);
+        case GNE_ATTR_STOPOEXCEPTION:
+            return myNBEdge->myEdgeStopOffset.getOffset() > 0;
+        case GNE_ATTR_IS_ROUNDABOUT:
             return false;
         default:
             return true;
@@ -1131,7 +1507,7 @@ bool
 GNEEdge::isAttributeComputed(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_LENGTH:
-            return (myNBEdge->hasLoadedLength() == false);
+            return !myNBEdge->hasLoadedLength();
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {
                 return false;
@@ -1276,169 +1652,105 @@ GNEEdge::updateVehicleStackLabels() {
 
 
 void
-GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    // declare conditions
-    const bool lastLane = (lane == myLanes.back());
-    const bool validScale = (s.scale > 8.0);
-    const bool elevationMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && myNet->getViewNet()->getNetworkViewOptions().editingElevation();
-    // first check conditions
-    if (lastLane && (validScale || elevationMode) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        // Obtain exaggeration of the draw
-        const double exaggeration = getExaggeration(s);
-        // get circle width
-        bool drawBigGeometryPoints = false;
-        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            drawBigGeometryPoints = true;
+GNEEdge::updatePersonStackLabels() {
+    // get lane persons map
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > lanePersonsMap = getPersonsOverEdgeMap();
+    // iterate over lanePersonsMap and obtain a vector with
+    for (const auto& personMap : lanePersonsMap) {
+        // declare map for sort persons using their departpos+length position (StackPosition)
+        std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosPersons;
+        // declare vector of stack demand elements
+        std::vector<GNEEdge::StackDemandElements> stackedPersons;
+        // iterate over persons
+        for (const auto& person : personMap.second) {
+            // get person's depart pos and length
+            const double departPos = person->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+            // make a stack position using departPos and length
+            departPosPersons.push_back(std::make_pair(StackPosition(departPos, 1.8), person));
+            // update depart element geometry
+            person->updateDemandElementGeometry(personMap.first, departPos);
+            // reset person stack label
+            person->updateDemandElementStackLabel(0);
         }
-        if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
-                (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
-            drawBigGeometryPoints = true;
-        }
-        double circleWidth = drawBigGeometryPoints ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
-        double circleWidthSquared = circleWidth * circleWidth;
-        // obtain color
-        RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
-        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
-            // override with special colors (unless the color scheme is based on selection)
-            color = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
-        }
-        GLHelper::setColor(color);
-        // recognize full transparency and simply don't draw
-        if (color.alpha() > 0) {
-            // add edge layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            glTranslated(0, 0, 1);
-            // draw geometry points expect initial and final
-            for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
-                Position pos = myNBEdge->getGeometry()[i];
-                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
-                    GLHelper::pushMatrix();
-                    glTranslated(pos.x(), pos.y(), 0.1);
-                    // resolution of drawn circle depending of the zoom (To improve smoothness)
-                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                    GLHelper::popMatrix();
-                    // draw elevation or special symbols (Start, End and Block)
-                    if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                        GLHelper::pushMatrix();
-                        // Translate to geometry point
-                        glTranslated(pos.x(), pos.y(), 0.2);
-                        // draw Z value
-                        GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
-                        GLHelper::popMatrix();
-                    }
-                }
+
+        // sort departPosPersons
+        std::sort(departPosPersons.begin(), departPosPersons.end());
+        // iterate over departPosPersons
+        for (const auto& departPosPerson : departPosPersons) {
+            // obtain stack position and person
+            const GNEEdge::StackPosition& personStackPosition = departPosPerson.first;
+            GNEDemandElement* person = departPosPerson.second;
+            // if stackedPersons is empty, add a new StackDemandElements
+            if (stackedPersons.empty()) {
+                stackedPersons.push_back(GNEEdge::StackDemandElements(personStackPosition, person));
+            } else if (areStackPositionOverlapped(personStackPosition, stackedPersons.back().getStackPosition())) {
+                // add new person to last inserted stackDemandElements
+                stackedPersons[stackedPersons.size() - 1].addDemandElements(person);
+            } else {
+                // No overlapping, then add a new StackDemandElements
+                stackedPersons.push_back(GNEEdge::StackDemandElements(personStackPosition, person));
             }
-            // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
-            if (drawBigGeometryPoints) {
-                if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-                        (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
-                    // calculate angle
-                    const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
-                    GLHelper::pushMatrix();
-                    glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
-                    // resolution of drawn circle depending of the zoom (To improve smoothness)
-                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
-                    GLHelper::popMatrix();
-                    // draw a "s" over last point depending of drawForRectangleSelection
-                    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        GLHelper::pushMatrix();
-                        glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.2);
-                        GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor(0, 50, 255));
-                        GLHelper::popMatrix();
-                        // draw line between Junction and point
-                        GLHelper::pushMatrix();
-                        glTranslated(0, 0, 0.1);
-                        glLineWidth(4);
-                        GLHelper::drawLine(myNBEdge->getGeometry().front(), getFromJunction()->getNBNode()->getPosition());
-                        // draw line between begin point of last lane shape and the first edge shape point
-                        GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
-                        GLHelper::popMatrix();
-                    }
-                }
-                if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-                        (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
-                    // calculate angle
-                    const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
-                    GLHelper::pushMatrix();
-                    glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
-                    // resolution of drawn circle depending of the zoom (To improve smoothness)
-                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
-                    GLHelper::popMatrix();
-                    // draw a "e" over last point depending of drawForRectangleSelection
-                    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        GLHelper::pushMatrix();
-                        glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.2);
-                        GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor(0, 50, 255));
-                        GLHelper::popMatrix();
-                        // draw line between Junction and point
-                        GLHelper::pushMatrix();
-                        glTranslated(0, 0, 0.1);
-                        glLineWidth(4);
-                        GLHelper::drawLine(myNBEdge->getGeometry().back(), getToJunction()->getNBNode()->getPosition());
-                        // draw line between last point of first lane shape and the last edge shape point
-                        GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
-                        GLHelper::popMatrix();
-                    }
-                }
+        }
+        // iterate over stackedPersons
+        for (const auto& person : stackedPersons) {
+            // only update persons with one or more stack
+            if (person.getDemandElements().size() > 1) {
+                // set stack labels
+                person.getDemandElements().front()->updateDemandElementStackLabel((int)person.getDemandElements().size());
             }
-            // pop edge layer matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
     }
 }
 
 
 void
-GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
-    if (edge->getLanes().size() == 1) {
-        GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GUIDottedGeometry::drawDottedContourShape(type, s, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
-    } else {
-        // set left hand flag
-        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-        // obtain lanes
-        const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
-        const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
-        // obtain a copy of both geometries
-        GUIDottedGeometry dottedGeometryTop(s, topLane->getLaneGeometry().getShape(), false);
-        GUIDottedGeometry dottedGeometryBot(s, botLane->getLaneGeometry().getShape(), false);
-        // obtain both LaneDrawingConstants
-        GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
-        GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
-        // move shapes to side
-        dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
-        dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
-        // invert offset of top dotted geometry
-        dottedGeometryTop.invertOffset();
-        // declare DottedGeometryColor
-        GUIDottedGeometry::DottedGeometryColor dottedGeometryColor(s);
-        // calculate extremes
-        GUIDottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
-        // Push draw matrix
-        GLHelper::pushMatrix();
-        // draw inspect or front dotted contour
-        if (type == GUIDottedGeometry::DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+GNEEdge::updateContainerStackLabels() {
+    // get lane containers map
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneContainersMap = getContainersOverEdgeMap();
+    // iterate over laneContainersMap and obtain a vector with
+    for (const auto& containerMap : laneContainersMap) {
+        // declare map for sort containers using their departpos+length position (StackPosition)
+        std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosContainers;
+        // declare vector of stack demand elements
+        std::vector<GNEEdge::StackDemandElements> stackedContainers;
+        // iterate over containers
+        for (const auto& container : containerMap.second) {
+            // get container's depart pos and length
+            const double departPos = container->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+            // make a stack position using departPos and length
+            departPosContainers.push_back(std::make_pair(StackPosition(departPos, 1.8), container));
+            // update depart element geometry
+            container->updateDemandElementGeometry(containerMap.first, departPos);
+            // reset container stack label
+            container->updateDemandElementStackLabel(0);
         }
-        // draw top dotted geometry
-        dottedGeometryTop.drawDottedGeometry(dottedGeometryColor, type);
-        // reset color
-        dottedGeometryColor.reset();
-        // draw top dotted geometry
-        dottedGeometryBot.drawDottedGeometry(dottedGeometryColor, type);
-        // change color
-        dottedGeometryColor.changeColor();
-        // draw extrem dotted geometry
-        extremes.drawDottedGeometry(dottedGeometryColor, type);
-        // pop matrix
-        GLHelper::popMatrix();
+
+        // sort departPosContainers
+        std::sort(departPosContainers.begin(), departPosContainers.end());
+        // iterate over departPosContainers
+        for (const auto& departPosContainer : departPosContainers) {
+            // obtain stack position and container
+            const GNEEdge::StackPosition& containerStackPosition = departPosContainer.first;
+            GNEDemandElement* container = departPosContainer.second;
+            // if stackedContainers is empty, add a new StackDemandElements
+            if (stackedContainers.empty()) {
+                stackedContainers.push_back(GNEEdge::StackDemandElements(containerStackPosition, container));
+            } else if (areStackPositionOverlapped(containerStackPosition, stackedContainers.back().getStackPosition())) {
+                // add new container to last inserted stackDemandElements
+                stackedContainers[stackedContainers.size() - 1].addDemandElements(container);
+            } else {
+                // No overlapping, then add a new StackDemandElements
+                stackedContainers.push_back(GNEEdge::StackDemandElements(containerStackPosition, container));
+            }
+        }
+        // iterate over stackedContainers
+        for (const auto& container : stackedContainers) {
+            // only update containers with one or more stack
+            if (container.getDemandElements().size() > 1) {
+                // set stack labels
+                container.getDemandElements().front()->updateDemandElementStackLabel((int)container.getDemandElements().size());
+            }
+        }
     }
 }
 
@@ -1463,8 +1775,8 @@ GNEEdge::hasPredecessors() const {
     // get incoming edges
     const auto incomingEdges = getFromJunction()->getGNEIncomingEdges();
     // iterate over connections
-    for (const auto &incomingEdge : incomingEdges) {
-        for (const auto &connection : incomingEdge->getGNEConnections()) {
+    for (const auto& incomingEdge : incomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
             if (connection->getEdgeTo() == this) {
                 return true;
             }
@@ -1474,9 +1786,20 @@ GNEEdge::hasPredecessors() const {
 }
 
 
-bool 
+bool
 GNEEdge::hasSuccessors() const {
     return (myGNEConnections.size() > 0);
+}
+
+
+GNEEdge*
+GNEEdge::getReverseEdge() const {
+    for (const auto& outgoingEdge : getParentJunctions().back()->getGNEOutgoingEdges()) {
+        if (outgoingEdge->getToJunction() == getFromJunction()) {
+            return outgoingEdge;
+        }
+    }
+    return nullptr;
 }
 
 // ===========================================================================
@@ -1532,15 +1855,15 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateEdgeID(this, value);
             // enable save demand elements if there are stops
             for (const auto& stop : getChildDemandElements()) {
-                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
-                    myNet->requireSaveDemandElements(true);
+                if (stop->getTagProperty().isVehicleStop()) {
+                    myNet->getSavingStatus()->requireSaveDemandElements();
                 }
             }
             // also for lanes
             for (const auto& lane : myLanes) {
                 for (const auto& stop : lane->getChildDemandElements()) {
-                    if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
-                        myNet->requireSaveDemandElements(true);
+                    if (stop->getTagProperty().isVehicleStop()) {
+                        myNet->getSavingStatus()->requireSaveDemandElements();
                     }
                 }
             }
@@ -1597,6 +1920,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             myNBEdge->setSpeed(-1, parse<double>(value));
             break;
+        case SUMO_ATTR_FRICTION:
+            myNBEdge->setFriction(-1, parse<double>(value));
+            break;
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "default")) {
                 myNBEdge->setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);
@@ -1612,7 +1938,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             break; // no edge value
         case SUMO_ATTR_DISTANCE:
-            myNBEdge->setDistance(parse<double>(value));
+            if (value.empty()) {
+                myNBEdge->setDistance(0.0);
+            } else {
+                myNBEdge->setDistance(parse<double>(value));
+            }
             break;
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
@@ -1640,7 +1970,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SHAPE_END: {
-            // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
+            // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destination position) and set it back to edge
             Position newShapeEnd;
             if (value == "") {
                 newShapeEnd = getToJunction()->getNBNode()->getPosition();
@@ -1654,7 +1984,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_BIDIR:
-            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
+            myNBEdge->setBidi(parse<bool>(value));
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -1663,14 +1994,14 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_STOPOFFSET:
-            myNBEdge->myEdgeStopOffset.setOffset(parse<double>(value));
+            if (value.empty()) {
+                myNBEdge->myEdgeStopOffset.setOffset(0);
+            } else {
+                myNBEdge->myEdgeStopOffset.setOffset(parse<double>(value));
+            }
             break;
         case GNE_ATTR_STOPOEXCEPTION:
-            if (value.empty()) {
-                myNBEdge->myEdgeStopOffset.reset();
-            } else {
-                myNBEdge->myEdgeStopOffset.setExceptions(value);
-            }
+            myNBEdge->myEdgeStopOffset.setExceptions(value);
             break;
         case GNE_ATTR_PARAMETERS:
             myNBEdge->setParametersStr(value);
@@ -1680,8 +2011,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
-    // check update template
-    if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == getID())) {
+    // check if update template (except for modification status)
+    if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == getID()) &&
+            (key != GNE_ATTR_MODIFICATION_STATUS)) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->updateEdgeTemplate();
     }
     // invalidate path calculator
@@ -1715,23 +2047,23 @@ void
 GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
     if (moveResult.shapeToUpdate.size() > 0) {
-        // get start and end points
-        const Position shapeStart = moveResult.shapeToUpdate.front();
-        const Position shapeEnd = moveResult.shapeToUpdate.back();
         // get innen shape
-        PositionVector innenShape = moveResult.shapeToUpdate;
-        innenShape.pop_front();
-        innenShape.pop_back();
+        PositionVector innenShapeToUpdate = moveResult.shapeToUpdate;
+        innenShapeToUpdate.pop_front();
+        innenShapeToUpdate.pop_back();
         // commit new shape
-        undoList->begin(GUIIcon::EDGE, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        // update start position
         if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), 0) != moveResult.geometryPointsToMove.end()) {
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
+            GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_START, toString(moveResult.shapeToUpdate.front()), undoList);
         }
-        // update shape
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
-        // check if we have to update shape end
-        if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (int)(moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
+        // check if update shape
+        if (innenShapeToUpdate.size() > 0) {
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(innenShapeToUpdate), undoList);
+        }
+        // update end position
+        if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), ((int)moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
+            GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_END, toString(moveResult.shapeToUpdate.back()), undoList);
         }
         undoList->end();
     }
@@ -1741,17 +2073,21 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // begin undo list
-    undoList->begin(GUIIcon::EDGE, "change number of " + toString(SUMO_TAG_LANE) +  "s");
-    // invalidate logic of source/destiny edges
+    undoList->begin(this, "change number of " + toString(SUMO_TAG_LANE) +  "s");
+    // invalidate logic of source/destination edges
     getFromJunction()->setLogicValid(false, undoList);
     getToJunction()->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
+    // remove edge from grid
+    myNet->removeGLObjectFromGrid(this);
+    // save old number of lanes
     const int oldNumLanes = (int)myLanes.size();
-    std::string oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
+    // get opposite ID
+    const auto oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
     if (oppositeID != "") {
         // we'll have a different leftmost lane after adding/removing lanes
-        undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, ""));
+        GNEChange_Attribute::changeAttribute(myLanes.back(), GNE_ATTR_OPPOSITE, "", undoList);
     }
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
@@ -1762,7 +2098,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Lane(this, myLanes[i], myNBEdge->getLaneStruct(i), false), true);
     }
     if (oppositeID != "") {
-        undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, oppositeID));
+        GNEChange_Attribute::changeAttribute(myLanes.back(), GNE_ATTR_OPPOSITE, oppositeID, undoList);
     }
     // enable updateGeometry again
     myUpdateGeometry = true;
@@ -1770,8 +2106,10 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     updateGeometry();
     // end undo list
     undoList->end();
-    // update centering boundary and grid
-    updateCenteringBoundary(true);
+    // update centering boundary (without updating RTREE)
+    updateCenteringBoundary(false);
+    // insert edge in grid again
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -1816,6 +2154,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     }
     // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge->setSpeed(lane->getIndex(), laneAttrs.speed);
+    myNBEdge->setFriction(lane->getIndex(), laneAttrs.friction);
     myNBEdge->setPermissions(laneAttrs.permissions, lane->getIndex());
     myNBEdge->setPreferredVehicleClass(laneAttrs.preferred, lane->getIndex());
     myNBEdge->setEndOffset(lane->getIndex(), laneAttrs.endOffset);
@@ -1830,13 +2169,13 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     */
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
-    // remake connections of all edges of junction source and destiny
-    for (auto i : getFromJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    // remake connections of all edges of junction source and destination
+    for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
+        fromEdge->remakeGNEConnections();
     }
-    // remake connections of all edges of junction source and destiny
-    for (auto i : getToJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    // remake connections of all edges of junction source and destination
+    for (const auto& toEdge : getToJunction()->getChildEdges()) {
+        toEdge->remakeGNEConnections();
     }
     // Update geometry with the new lane
     updateGeometry();
@@ -1883,11 +2222,11 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     */
     // Remake connections of this edge
     remakeGNEConnections();
-    // remake connections of all edges of junction source and destiny
+    // remake connections of all edges of junction source and destination
     for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
         fromEdge->remakeGNEConnections();
     }
-    // remake connections of all edges of junction source and destiny
+    // remake connections of all edges of junction source and destination
     for (const auto& toEdge : getToJunction()->getChildEdges()) {
         toEdge->remakeGNEConnections();
     }
@@ -1903,8 +2242,8 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
     // If a new connection was successfully created
     if (myNBEdge->setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::Lane2LaneInfoType::USER, true, nbCon.mayDefinitelyPass,
                                 nbCon.keepClear, nbCon.contPos, nbCon.visibility,
-                                nbCon.speed, nbCon.customLength, nbCon.customShape, nbCon.uncontrolled)) {
-        // Create  or retrieve existent GNEConnection
+                                nbCon.speed, nbCon.friction, nbCon.customLength, nbCon.customShape, nbCon.uncontrolled)) {
+        // Create or retrieve existent GNEConnection
         GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
         // add it to GNEConnection container
         myGNEConnections.push_back(con);
@@ -1979,10 +2318,10 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
 
 
 void
-GNEEdge::setMicrosimID(const std::string& newID) {
-    GUIGlObject::setMicrosimID(newID);
+GNEEdge::setEdgeID(const std::string& newID) {
+    setNetworkElementID(newID);
     for (const auto& lane : myLanes) {
-        lane->setMicrosimID(getNBEdge()->getLaneID(lane->getIndex()));
+        lane->setNetworkElementID(getNBEdge()->getLaneID(lane->getIndex()));
     }
 }
 
@@ -2021,7 +2360,7 @@ GNEEdge::straightenElevation(GNEUndoList* undoList) {
 
 PositionVector
 GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
-    const OptionsCont& oc = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // distinguish 3 cases:
     // a) if the edge has exactly 3 or 4 points, use these as control points
     // b) if the edge has more than 4 points, use the first 2 and the last 2 as control points
@@ -2073,7 +2412,7 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
             init[2].setz(2 * init[-1].z() - endZ);
         } else {
             bool ok = true;
-            const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
+            const double straightThresh = DEG2RAD(neteditOptions.getFloat("opendrive-output.straight-threshold"));
             init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, nullptr, straightThresh);
         }
 #ifdef DEBUG_SMOOTH_GEOM
@@ -2085,8 +2424,8 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     if (init.size() == 0) {
         return PositionVector::EMPTY;
     } else {
-        const int numPoints = MAX2(oc.getInt("junctions.internal-link-detail"),
-                                   int(old.length2D() / oc.getFloat("opendrive.curve-resolution")));
+        const int numPoints = MAX2(neteditOptions.getInt("junctions.internal-link-detail"),
+                                   int(old.length2D() / neteditOptions.getFloat("opendrive.curve-resolution")));
         return init.bezier(numPoints);
     }
 }
@@ -2096,7 +2435,7 @@ void
 GNEEdge::smooth(GNEUndoList* undoList) {
     PositionVector modifiedShape = smoothShape(myNBEdge->getGeometry(), false);
     if (modifiedShape.size() < 2) {
-        WRITE_WARNING("Could not compute smooth shape for edge '" + getID() + "'");
+        WRITE_WARNINGF(TL("Could not compute smooth shape for edge '%'"), getID());
     } else {
         PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
         setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
@@ -2114,7 +2453,7 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
     }
     PositionVector elevation = smoothShape(elevationBase, true);
     if (elevation.size() <= 2) {
-        WRITE_WARNING("Could not compute smooth elevation for edge '" + getID() + "'");
+        WRITE_WARNINGF(TL("Could not compute smooth elevation for edge '%'"), getID());
     } else {
         PositionVector modifiedShape = myNBEdge->getGeometry();
         if (modifiedShape.size() < 5) {
@@ -2172,7 +2511,7 @@ GNEEdge::getVehiclesOverEdgeMap() const {
             vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
         } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_ROUTE) && (edgeChild->getParentEdges().front() == this)) {
             for (const auto& routeChild : edgeChild->getChildDemandElements()) {
-                if ((routeChild->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (routeChild->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) {
+                if (routeChild->getTagProperty().vehicleRoute()) {
                     vehicles.insert(std::make_pair(routeChild->getAttributeDouble(SUMO_ATTR_DEPART), routeChild));
                 }
             }
@@ -2198,66 +2537,306 @@ GNEEdge::getVehiclesOverEdgeMap() const {
 }
 
 
+const std::map<const GNELane*, std::vector<GNEDemandElement*> >
+GNEEdge::getPersonsOverEdgeMap() const {
+    // declare persons over edge vector
+    std::vector<GNEDemandElement*> personsOverEdge;
+    // declare solution map
+    std::map<const GNELane*, std::vector<GNEDemandElement*> > personsOverEdgeMap;
+    // declare a set of persons (to avoid duplicates)
+    std::set<std::pair<double, GNEDemandElement*> > persons;
+    // first obtain all persons of this edge
+    for (const auto& edgeChild : getChildDemandElements()) {
+        if (edgeChild->getTagProperty().isPlanPerson()) {
+            persons.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
+        }
+    }
+    // reserve
+    personsOverEdge.reserve(persons.size());
+    // iterate over persons
+    for (const auto& person : persons) {
+        // add it over personsOverEdge;
+        personsOverEdge.push_back(person.second);
+    }
+    // now split persons by lanes
+    for (const auto& person : personsOverEdge) {
+        const GNELane* personLane = person->getFirstPathLane();
+        if (personLane) {
+            personsOverEdgeMap[personLane].push_back(person);
+        }
+    }
+    return personsOverEdgeMap;
+}
+
+
+
+const std::map<const GNELane*, std::vector<GNEDemandElement*> >
+GNEEdge::getContainersOverEdgeMap() const {
+    // declare containers over edge vector
+    std::vector<GNEDemandElement*> containersOverEdge;
+    // declare solution map
+    std::map<const GNELane*, std::vector<GNEDemandElement*> > containersOverEdgeMap;
+    // declare a set of containers (to avoid duplicates)
+    std::set<std::pair<double, GNEDemandElement*> > containers;
+    // first obtain all containers of this edge
+    for (const auto& edgeChild : getChildDemandElements()) {
+        if (edgeChild->getTagProperty().isPlanContainer()) {
+            containers.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
+        }
+    }
+    // reserve
+    containersOverEdge.reserve(containers.size());
+    // iterate over containers
+    for (const auto& container : containers) {
+        // add it over containersOverEdge;
+        containersOverEdge.push_back(container.second);
+    }
+    // now split containers by lanes
+    for (const auto& container : containersOverEdge) {
+        const GNELane* containerLane = container->getFirstPathLane();
+        if (containerLane) {
+            containersOverEdgeMap[containerLane].push_back(container);
+        }
+    }
+    return containersOverEdgeMap;
+}
+
+
+void
+GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
+    // first check conditions
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
+        // check if draw geometry points
+        const bool bigGeometryPoints = drawBigGeometryPoints();
+        // Obtain exaggeration of the draw
+        const double exaggeration = getExaggeration(s);
+        // get geometry point radius
+        const double geometryPointRadius = getGeometryPointRadius();
+        // obtain geometry point color
+        RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+            // override with special colors (unless the color scheme is based on selection)
+            geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
+        }
+        // draw geometry points except initial and final
+        for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
+            // obtain geometry point
+            const auto geometryPointPos = myNBEdge->getGeometry()[i];
+            // push geometry point drawing matrix
+            GLHelper::pushMatrix();
+            // set color
+            GLHelper::setColor(geometryPointColor);
+            // move geometry point geometryPointPos
+            glTranslated(geometryPointPos.x(), geometryPointPos.y(), bigGeometryPoints ? GLO_GEOMETRYPOINT : GLO_LANE + 1);
+            // draw filled circle (resolution of drawn circle depending of the zoom, to improve smoothness)
+            GLHelper::drawFilledCircleDetailled(d, geometryPointRadius);
+            // draw elevation or special symbols (Start, End and Block)
+            if ((d <= GUIVisualizationSettings::Detail::Text) && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                // Translate to top
+                glTranslated(0, 0, 0.2);
+                // draw Z value
+                GLHelper::drawText(toString(geometryPointPos.z()), Position(), 0, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
+            }
+            // pop geometry point drawing matrix
+            GLHelper::popMatrix();
+        }
+        // draw start and end points
+        if (bigGeometryPoints) {
+            drawStartGeometryPoint(s, d, geometryPointRadius, layer, exaggeration);
+            drawEndGeometryPoint(s, d, geometryPointRadius, layer, exaggeration);
+        }
+        // draw dotted contour geometry points
+        myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myNBEdge->getGeometry(), geometryPointRadius,
+                exaggeration, s.dottedContourSettings.segmentWidthSmall);
+    }
+}
+
+
+void
+GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                const double geometryPointRadius, const double layer, const double exaggeration) const {
+    // check detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
+        // get first geometry point
+        const auto& startGeometryPointPos = myNBEdge->getGeometry().front();
+        // get flags
+        const bool startPosEdited = (startGeometryPointPos != getParentJunctions().front()->getPositionInView());
+        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        // check drawing conditions
+        if (startPosEdited || forceDraw) {
+            // calculate angle betwen first and second geometry point
+            const double angle = RAD2DEG(startGeometryPointPos.angleTo2D(myNBEdge->getGeometry()[1])) * -1;
+            // get selected geometry points
+            const auto selectedGeometryPoints = gViewObjectsHandler.getGeometryPoints(this);
+            // override with special colors (unless the color scheme is based on selection)
+            if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+                GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
+            } else {
+                GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+            }
+            // push drawing matrix
+            GLHelper::pushMatrix();
+            // move to point position
+            glTranslated(startGeometryPointPos.x(), startGeometryPointPos.y(), GLO_GEOMETRYPOINT);
+            // resolution of drawn circle depending of detail
+            GLHelper::drawFilledCircleDetailled(d, geometryPointRadius, angle + 90, angle + 270);
+            // pop drawing matrix
+            GLHelper::popMatrix();
+            // draw a "s" over last point depending of detail level
+            if (d <= GUIVisualizationSettings::Detail::Text) {
+                // push drawing matrix
+                GLHelper::pushMatrix();
+                // move top
+                glTranslated(0, 0, GLO_GEOMETRYPOINT + 0.1);
+                // draw S
+                GLHelper::drawText("S", startGeometryPointPos, 0, geometryPointRadius, RGBColor(0, 50, 255));
+                // pop drawing matrix
+                GLHelper::popMatrix();
+                // check if draw line between junctions
+                if ((selectedGeometryPoints.size() > 0) && (selectedGeometryPoints.front() == 0)) {
+                    // set base color
+                    GLHelper::setColor(RGBColor::ORANGE);
+                    // push drawing matrix
+                    GLHelper::pushMatrix();
+                    // draw line between geometry point and from junction
+                    const PositionVector lineA = {startGeometryPointPos, getFromJunction()->getNBNode()->getPosition()};
+                    GLHelper::drawBoxLine(lineA[1], RAD2DEG(lineA[0].angleTo2D(lineA[1])) - 90, lineA[0].distanceTo2D(lineA[1]), .1);
+                    // draw line between begin point of last lane shape and the first edge shape point
+                    const PositionVector lineB = {startGeometryPointPos, myNBEdge->getLanes().back().shape.front()};
+                    GLHelper::drawBoxLine(lineB[1], RAD2DEG(lineB[0].angleTo2D(lineB[1])) - 90, lineB[0].distanceTo2D(lineB[1]), .1);
+                    // pop drawing matrix
+                    GLHelper::popMatrix();
+                }
+            }
+            // draw dotted contour geometry points
+            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(), layer,
+                    geometryPointRadius, exaggeration);
+        }
+    }
+}
+
+
+void
+GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const double layer, const double geometryPointRadius, const double exaggeration) const {
+    // check detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
+        // get first geometry point
+        const auto& geometryPointPos = myNBEdge->getGeometry().back();
+        // get flags
+        const bool endPosEdited = (geometryPointPos != getParentJunctions().back()->getPositionInView());
+        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        // check drawing conditions
+        if (endPosEdited || forceDraw) {
+            // calculate angle last and previous geometry point
+            const double angle = RAD2DEG(geometryPointPos.angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
+            // get selected geometry points
+            const auto selectedGeometryPoints = gViewObjectsHandler.getGeometryPoints(this);
+            // override with special colors (unless the color scheme is based on selection)
+            if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+                GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
+            } else {
+                GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+            }
+            // push drawing matrix
+            GLHelper::pushMatrix();
+            // move to point position
+            glTranslated(geometryPointPos.x(), geometryPointPos.y(), GLO_GEOMETRYPOINT);
+            // resolution of drawn circle depending of detail
+            GLHelper::drawFilledCircleDetailled(d, geometryPointRadius, angle + 90, angle + 270);
+            // pop drawing matrix
+            GLHelper::popMatrix();
+            // draw a "s" over last point depending of detail level
+            if (d <= GUIVisualizationSettings::Detail::Text) {
+                // push drawing matrix
+                GLHelper::pushMatrix();
+                // move top
+                glTranslated(0, 0, GLO_GEOMETRYPOINT + 0.1);
+                // draw S
+                GLHelper::drawText("E", geometryPointPos, 0, geometryPointRadius, RGBColor(0, 50, 255));
+                // pop drawing matrix
+                GLHelper::popMatrix();
+                // check if draw line between junctions
+                if ((selectedGeometryPoints.size() > 0) && (selectedGeometryPoints.back() == ((int)myNBEdge->getGeometry().size() - 1))) {
+                    // set base color
+                    GLHelper::setColor(RGBColor::ORANGE);
+                    // push drawing matrix
+                    GLHelper::pushMatrix();
+                    // draw line between geometry point and from junction
+                    const PositionVector lineA = {geometryPointPos, getToJunction()->getNBNode()->getPosition()};
+                    GLHelper::drawBoxLine(lineA[1], RAD2DEG(lineA[0].angleTo2D(lineA[1])) - 90, lineA[0].distanceTo2D(lineA[1]), .1);
+                    // draw line between begin point of last lane shape and the first edge shape point
+                    const PositionVector lineB = {geometryPointPos, myNBEdge->getLanes().back().shape.back()};
+                    GLHelper::drawBoxLine(lineB[1], RAD2DEG(lineB[0].angleTo2D(lineB[1])) - 90, lineB[0].distanceTo2D(lineB[1]), .1);
+                    // pop drawing matrix
+                    GLHelper::popMatrix();
+                }
+            }
+            // draw dotted contour geometry points
+            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(), layer,
+                    geometryPointRadius, exaggeration);
+        }
+    }
+}
+
+
 void
 GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
-    // check  if we can draw it
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
-        // draw the name and/or the street name
-        const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
-        const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge->isBidiRail();
-        // check conditions
-        if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
-            // get first and last lanes
-            const GNELane* firstLane = myLanes[0];
-            const GNELane* lastLane = myLanes[myLanes.size() - 1];
-            // calculate draw position
-            Position drawPosition = firstLane->getLaneShape().positionAtOffset(firstLane->getLaneShape().length() / (double) 2.);
-            drawPosition.add(lastLane->getLaneShape().positionAtOffset(lastLane->getLaneShape().length() / (double) 2.));
-            drawPosition.mul(.5);
-            if (spreadSuperposed) {
-                // move name to the right of the edge and towards its beginning
-                const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
-                const double shiftA = firstLane->getLaneShape().rotationAtOffset(firstLane->getLaneShape().length() / (double) 2.) - DEG2RAD(135);
-                const Position shift(dist * cos(shiftA), dist * sin(shiftA));
-                drawPosition.add(shift);
+    // draw the name and/or the street name
+    const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
+    const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
+    // check conditions
+    if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
+        // get first and last lanes
+        const GNELane* firstLane = myLanes[0];
+        const GNELane* lastLane = myLanes[myLanes.size() - 1];
+        // calculate draw position
+        Position drawPosition = firstLane->getLaneShape().positionAtOffset(firstLane->getLaneShape().length() / (double) 2.);
+        drawPosition.add(lastLane->getLaneShape().positionAtOffset(lastLane->getLaneShape().length() / (double) 2.));
+        drawPosition.mul(.5);
+        if (spreadSuperposed) {
+            // move name to the right of the edge and towards its beginning
+            const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
+            const double shiftA = firstLane->getLaneShape().rotationAtOffset(firstLane->getLaneShape().length() / (double) 2.) - DEG2RAD(135);
+            const Position shift(dist * cos(shiftA), dist * sin(shiftA));
+            drawPosition.add(shift);
+        }
+        // calculate drawing angle
+        double drawAngle = firstLane->getLaneShape().rotationDegreeAtOffset(firstLane->getLaneShape().length() / (double) 2.);
+        drawAngle += 90;
+        // avoid draw inverted text
+        if (drawAngle > 90 && drawAngle < 270) {
+            drawAngle -= 180;
+        }
+        // draw edge name
+        if (s.edgeName.show(this)) {
+            drawName(drawPosition, s.scale, s.edgeName, drawAngle);
+        }
+        // draw street name
+        if (drawStreetName) {
+            GLHelper::drawTextSettings(s.streetName, myNBEdge->getStreetName(), drawPosition, s.scale, drawAngle);
+        }
+        // draw edge values
+        if (s.edgeValue.show(this)) {
+            // get current scheme
+            const int activeScheme = s.laneColorer.getActive();
+            // calculate value depending of active scheme
+            std::string value;
+            if (activeScheme == 12) {
+                // edge param, could be non-numerical
+                value = getNBEdge()->getParameter(s.edgeParam, "");
+            } else if (activeScheme == 13) {
+                // lane param, could be non-numerical
+                value = getNBEdge()->getLaneStruct(lastLane->getIndex()).getParameter(s.laneParam, "");
+            } else {
+                // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                const double doubleValue = lastLane->getColorValue(s, activeScheme);
+                const RGBColor color = s.laneColorer.getScheme().getColor(doubleValue);
+                value = color.alpha() == 0 ? "" : toString(doubleValue);
             }
-            // calculate drawing angle
-            double drawAngle = firstLane->getLaneShape().rotationDegreeAtOffset(firstLane->getLaneShape().length() / (double) 2.);
-            drawAngle += 90;
-            // avoid draw inverted text
-            if (drawAngle > 90 && drawAngle < 270) {
-                drawAngle -= 180;
-            }
-            // draw edge name
-            if (s.edgeName.show(this)) {
-                drawName(drawPosition, s.scale, s.edgeName, drawAngle);
-            }
-            // draw street name
-            if (drawStreetName) {
-                GLHelper::drawTextSettings(s.streetName, myNBEdge->getStreetName(), drawPosition, s.scale, drawAngle);
-            }
-            // draw edge values
-            if (s.edgeValue.show(this)) {
-                // get current scheme
-                const int activeScheme = s.laneColorer.getActive();
-                // calculate value depending of active scheme
-                std::string value;
-                if (activeScheme == 12) {
-                    // edge param, could be non-numerical
-                    value = getNBEdge()->getParameter(s.edgeParam, "");
-                } else if (activeScheme == 13) {
-                    // lane param, could be non-numerical
-                    value = getNBEdge()->getLaneStruct(lastLane->getIndex()).getParameter(s.laneParam, "");
-                } else {
-                    // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
-                    const double doubleValue = lastLane->getColorValue(s, activeScheme);
-                    const RGBColor color = s.laneColorer.getScheme().getColor(doubleValue);
-                    value = color.alpha() == 0 ? "" : toString(doubleValue);
-                }
-                // check if value is empty
-                if (value != "") {
-                    GLHelper::drawTextSettings(s.edgeValue, value, drawPosition, s.scale, drawAngle);
-                }
+            // check if value is empty
+            if (value != "") {
+                GLHelper::drawTextSettings(s.edgeValue, value, drawPosition, s.scale, drawAngle);
             }
         }
     }
@@ -2265,22 +2844,70 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
-    // Push stopOffset matrix
-    GLHelper::pushMatrix();
-    // translate to front (note: Special case)
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-    } else {
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
+GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (d <= GUIVisualizationSettings::Detail::LaneDetails) {
+        // Push stopOffset matrix
+        GLHelper::pushMatrix();
+        // translate to front (note: Special case)
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, layer + 1);
+        if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
+            for (const auto& lane : getLanes()) {
+                lane->drawLaneStopOffset(s);
+            }
+        }
+        // Push stopOffset matrix
+        GLHelper::popMatrix();
     }
-    if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
-        for (const auto& lane : getLanes()) {
-            lane->drawLaneStopOffset(s, myNBEdge->myEdgeStopOffset.getOffset());
+}
+
+
+void
+GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
+    // draw child additional
+    for (const auto& additional : getChildAdditionals()) {
+        additional->drawGL(s);
+    }
+    // draw person stops
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
+        for (const auto& stopEdge : getChildDemandElements()) {
+            if ((stopEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) || (stopEdge->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
+                stopEdge->drawGL(s);
+            }
         }
     }
-    // Push stopOffset matrix
-    GLHelper::popMatrix();
+    // draw vehicles
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > vehiclesMap = getVehiclesOverEdgeMap();
+    for (const auto& vehicleMap : vehiclesMap) {
+        for (const auto& vehicle : vehicleMap.second) {
+            vehicle->drawGL(s);
+        }
+    }
+    // draw TAZ elements
+    drawTAZElements(s);
+}
+
+
+void
+GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
+    // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
+    if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myEdgeBoundary)) {
+        // simply add object in ViewObjectsHandler with full boundary
+        gViewObjectsHandler.addElementUnderCursor(this, layer, false, true);
+    } else {
+        // get geometry point radius
+        const auto geometryPointRadius = getGeometryPointRadius();
+        // check if edit extrems
+        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool firstExtrem = forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());
+        const bool lastExtrem = forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView());
+        // check if we're in move mode
+        const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+        // calculate contour
+        myNetworkElementContour.calculateContourEdge(s, d, this, this, layer, true, true);
+        // calculate edge geometry points
+        myNetworkElementContour.calculateContourEdgeGeometryPoints(s, d, this, geometryPointRadius, moveMode, firstExtrem, lastExtrem);
+    }
 }
 
 
@@ -2290,42 +2917,27 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getNetworkViewOptions().showTAZElements()) {
         std::vector<GNEAdditional*> TAZSourceSinks;
         // get all TAZ source/sinks vinculated with this edge
-        for (const auto &additional : getChildAdditionals()) {
+        for (const auto& additional : getChildAdditionals()) {
             if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) ||
-                (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
+                    (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
                 TAZSourceSinks.push_back(additional);
             }
         }
         if (TAZSourceSinks.size() > 0) {
-            // check if current front element is a Source/sink
-            const auto frontAC = myNet->getViewNet()->getFrontAttributeCarrier();
-            // push all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink == frontAC) {
-                    GLHelper::pushName(TAZSourceSink->getGUIGlObject()->getGlID());
-                }
-            }
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink != frontAC) {
-                    GLHelper::pushName(TAZSourceSink->getGlID());
-                }
-            }
             // check if TAZ Source/sink is selected
             bool selected = false;
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink->isAttributeCarrierSelected()) {
                     selected = true;
                 }
             }
             // iterate over lanes
-            for (const auto &lane : myLanes) {
-                // get lane drawing constants
-                GNELane::LaneDrawingConstants laneDrawingConstants(s, lane);
+            for (const auto& lane : myLanes) {
                 // Push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front (note: Special case)
                 if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                    glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+                    glTranslated(0, 0, GLO_FRONTELEMENT);
                 } else if (lane->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
                     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
                 } else {
@@ -2340,31 +2952,75 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::CYAN);
                 }
                 // draw as box lines
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), 
-                    lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
+                GUIGeometry::drawGeometry(GUIVisualizationSettings::Detail::Level0, lane->getLaneGeometry(),
+                                          lane->getDrawingConstants()->getDrawingWidth());
                 // Pop layer matrix
                 GLHelper::popMatrix();
             }
-            // pop all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink == frontAC) {
-                    GLHelper::popName();
+            /*
+                // check if curently we're inspecting a TAZ Source/Sink
+                for (const auto& TAZSourceSink : TAZSourceSinks) {
+                    if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
+                        drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, this, true, true);
+                    } else if (TAZSourceSink == frontAC) {
+                        drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, this, true, true);
+                    }
                 }
-            }
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink != frontAC) {
-                    GLHelper::popName();
-                }
-            }
-            // check if curently we're inspecting a TAZ Source/Sink
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
-                if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
-                    drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
-                } else if (TAZSourceSink == frontAC) {
-                    drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
-                }
-            }
+            */
         }
+    }
+}
+
+
+void
+GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
+    // avoid draw for railways
+    if ((d <= GUIVisualizationSettings::Detail::LaneDetails) && !myLanes.front()->getDrawingConstants()->drawAsRailway() &&
+            (gViewObjectsHandler.markedFirstGeometryPoint == this)) {
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // translate to front depending of big points
+        if (drawBigGeometryPoints()) {
+            glTranslated(0, 0, GLO_GEOMETRYPOINT - 1);
+        } else {
+            glTranslated(0, 0, layer);
+        }
+        // obtain color
+        RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+            // override with special colors (unless the color scheme is based on selection)
+            geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
+        }
+        // set color
+        GLHelper::setColor(geometryPointColor);
+        // iterate over NBEdge geometry
+        for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
+            // calculate line between previous and current geometry point
+            PositionVector line = {myNBEdge->getGeometry()[i - 1], myNBEdge->getGeometry()[i]};
+            line.move2side(0.2);
+            // draw box line
+            GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
+        }
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+bool
+GNEEdge::drawBigGeometryPoints() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // continue depending of conditions
+    if (!editModes.isCurrentSupermodeNetwork()) {
+        return false;
+    } else if (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+        return true;
+    } else if ((editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
+               (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -2475,12 +3131,11 @@ GNEEdge::processMoveToJunctionSelected(const PositionVector originalShape, const
 
 GNEMoveOperation*
 GNEEdge::processMoveBothJunctionSelected() {
-    // declare a vector for saving geometry points to move (all except extremes)
     std::vector<int> geometryPointsToMove;
-    for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
+    for (int i = 0; i < (int)myNBEdge->getGeometry().size(); i++) {
         geometryPointsToMove.push_back(i);
     }
-    // move entire shape (except extremes)
+    // move entire shape (including extremes)
     return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
 }
 
@@ -2520,5 +3175,12 @@ GNEEdge::processNoneJunctionSelected(const double snapRadius) {
         return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {newIndex});
     }
 }
+
+
+double
+GNEEdge::getGeometryPointRadius() const {
+    return drawBigGeometryPoints() ? SNAP_RADIUS * MIN2(1.0, myNet->getViewNet()->getVisualisationSettings().laneWidthExaggeration) : 0.5;
+}
+
 
 /****************************************************************************/

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-09 09:11:50.892488 by randomTrips.py v1_6_0+2044-f4654a7230
-  options: -n net.net.xml -s 42 <doubleminus>weights-output-prefix weights <doubleminus>via-edge-types highway.motorway,highway.motorway_link
+
+<!-- generated on 2022-07-07 10:55:35.715936 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <net-file value="net.net.xml"/>
+    <via-edge-types value="highway.motorway,highway.motorway_link"/>
+    <weights-output-prefix value="weights"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="314328627" to="-11019967"/>
     <trip id="1" depart="1.00" from="-6272822" to="-60050859"/>

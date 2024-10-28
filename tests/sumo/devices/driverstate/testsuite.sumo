@@ -6,3 +6,7 @@ queue_stop_start_cacc_default
 
 # explicitly apply driver state to cacc
 queue_stop_start_cacc_apply
+free_speed_default
+
+# apply free speed error
+free_speed_eCoef1

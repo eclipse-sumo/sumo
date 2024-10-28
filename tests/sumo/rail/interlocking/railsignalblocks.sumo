@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  2 09:53:22 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
+<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
     </output>
 
     <time>
@@ -26,12 +32,12 @@ SPDX-License-Identifier: EPL-2.0
     </time>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -42,98 +48,101 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="gneJ1">
         <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
-            <driveWay edges="-gneE0 -gneE6">
+            <driveWay id="gneJ1.1" vehicle="ICE0" edges="-gneE0 -gneE6">
                 <forward lanes=":gneJ1_0_0 -gneE0_0 :gneJ0_0_0 -gneE6_0"/>
-                <bidi lanes="gneE0_0 gneE6_0"/>
+                <bidi lanes="gneE0_0 :gneJ0_1_0 gneE6_0"/>
                 <flank lanes=""/>
-                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
+                <foes driveWays="gneJ1.1 gneJ7.d0"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
-            <driveWay edges="gneE1">
+            <driveWay id="gneJ1.0" vehicle="RB1" edges="gneE1">
                 <forward lanes=":gneJ1_1_0 gneE1_0"/>
                 <bidi lanes=""/>
-                <flank lanes=":gneJ1_0_0"/>
-                <protectingSwitches links=""/>
+                <flank lanes=""/>
                 <conflictLinks signals="gneJ1_0"/>
+                <foes driveWays="gneJ1.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ2">
         <link linkIndex="0" from="-gneE3_0" to=":gneJ2_0_0">
-            <driveWay edges="gneE2">
+            <driveWay id="gneJ2.1" vehicle="ICE0" edges="gneE2">
                 <forward lanes=":gneJ2_0_0 gneE2_0"/>
                 <bidi lanes=""/>
-                <flank lanes=":gneJ2_1_0"/>
-                <protectingSwitches links=""/>
+                <flank lanes=""/>
                 <conflictLinks signals="gneJ2_1"/>
+                <foes driveWays="gneJ2.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
-            <driveWay edges="gneE3">
+            <driveWay id="gneJ2.0" vehicle="RB1" edges="gneE3 gneE4">
                 <forward lanes=":gneJ2_1_0 gneE3_0"/>
-                <bidi lanes="-gneE3_0"/>
-                <flank lanes=":gneJ3_0_0 :gneJ3_3_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_0 gneJ3_3"/>
+                <bidi lanes="-gneE3_0 :gneJ3_0_0"
+                    deadlockCheck="-gneE4_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ3_0"/>
+                <foes driveWays="gneJ2.0 gneJ3.1 gneJ5.d0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ3">
         <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
-            <driveWay edges="-gneE3">
+            <driveWay id="gneJ3.1" vehicle="ICE0" edges="-gneE3">
                 <forward lanes=":gneJ3_0_0 -gneE3_0"/>
-                <bidi lanes="gneE3_0"/>
-                <flank lanes=":gneJ3_3_0 :gneJ2_1_0 :gneJ3_2_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_3 gneJ2_1 gneJ3_2"/>
+                <bidi lanes=":gneJ3_3_0 gneE3_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ2_1 gneJ3_2"/>
+                <foes driveWays="gneJ2.0 gneJ3.1"/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0">
-            <driveWay edges="gneE7 gneE8">
-                <forward lanes=":gneJ3_1_0 gneE7_0 :gneJ8_0_0 gneE8_0"/>
-                <bidi lanes="-gneE7_0 -gneE8_0"/>
-                <flank lanes=":gneJ3_4_0 :gneJ3_5_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_4 gneJ3_5"/>
-            </driveWay>
-        </link>
+        <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0"/>
         <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
-            <driveWay edges="gneE4">
+            <driveWay id="gneJ3.2" vehicle="RB2" edges="gneE4">
                 <forward lanes=":gneJ3_2_0 gneE4_0"/>
-                <bidi lanes="-gneE4_0"/>
-                <flank lanes=":gneJ3_5_0 :gneJ3_4_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_5 gneJ3_4"/>
+                <bidi lanes=":gneJ3_1_0 -gneE4_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ3_3"/>
+                <foes driveWays="gneJ3.0 gneJ3.2 gneJ5.d0"/>
             </driveWay>
         </link>
-        <link linkIndex="3" from="-gneE7_0" to=":gneJ3_3_0">
-            <driveWay edges="-gneE3">
-                <forward lanes=":gneJ3_3_0 -gneE3_0"/>
-                <bidi lanes="gneE3_0"/>
-                <flank lanes=":gneJ3_0_0 :gneJ2_1_0 :gneJ3_1_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_0 gneJ2_1 gneJ3_1"/>
-            </driveWay>
-        </link>
-        <link linkIndex="4" from="gneE3_0" to=":gneJ3_4_0">
-            <driveWay edges="gneE7 gneE8">
-                <forward lanes=":gneJ3_4_0 gneE7_0 :gneJ8_0_0 gneE8_0"/>
-                <bidi lanes="-gneE7_0 -gneE8_0"/>
-                <flank lanes=":gneJ3_1_0 :gneJ3_0_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_1 gneJ3_0"/>
-            </driveWay>
-        </link>
-        <link linkIndex="5" from="gneE3_0" to=":gneJ3_5_0">
-            <driveWay edges="gneE4">
-                <forward lanes=":gneJ3_5_0 gneE4_0"/>
-                <bidi lanes="-gneE4_0"/>
-                <flank lanes=":gneJ3_2_0 :gneJ3_3_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_2 gneJ3_3"/>
+        <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
+            <driveWay id="gneJ3.0" vehicle="RB1" edges="gneE4">
+                <forward lanes=":gneJ3_3_0 gneE4_0"/>
+                <bidi lanes=":gneJ3_0_0 -gneE4_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ3_2"/>
+                <foes driveWays="gneJ3.0 gneJ3.2 gneJ5.d0"/>
             </driveWay>
         </link>
     </railSignal>
+    <departJunction id="gneJ5">
+        <driveWay id="gneJ5.d0" vehicle="ICE0" edges="-gneE4 -gneE3">
+            <forward lanes="-gneE4_0"/>
+            <bidi lanes="gneE4_0 :gneJ3_3_0 gneE3_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals="gneJ2_1 gneJ3_2"/>
+            <foes driveWays="gneJ2.0 gneJ3.0 gneJ3.2 gneJ5.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="gneJ10">
+        <driveWay id="gneJ10.d0" vehicle="RB2" edges="-gneE8 -gneE7 gneE4">
+            <forward lanes="-gneE8_0 :gneJ8_1_0 -gneE7_0"/>
+            <bidi lanes="gneE8_0 :gneJ8_0_0 gneE7_0 :gneJ3_1_0"
+                    deadlockCheck="-gneE4_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals="gneJ3_1"/>
+            <foes driveWays="gneJ10.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="gneJ7">
+        <driveWay id="gneJ7.d0" vehicle="RB1" edges="gneE6 gneE0">
+            <forward lanes="gneE6_0 :gneJ0_1_0 gneE0_0"/>
+            <bidi lanes="-gneE6_0 :gneJ0_0_0 -gneE0_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals="gneJ1_0"/>
+            <foes driveWays="gneJ1.1 gneJ7.d0"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

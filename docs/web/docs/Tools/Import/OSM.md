@@ -21,28 +21,28 @@ script *build.bat* to rebuild the random demand.
 Call:
 
 ```
-python tools/osmWebWizard.py
+python tools/osmWebWizard.py
 ```
 
 The script will keep running so you can build multiple scenarios in your
 web-browser. Stop the script when you're done to free up the port again.
 
 !!! caution
-    The script requires the environment variable *SUMO_HOME* to be set [as explained here](../../Basics/Basic_Computer_Skills.md#additional_environment_variables).
+    The script requires the environment variable *SUMO_HOME* to be set [as explained here](../../Basics/Basic_Computer_Skills.md#sumo_home).
 
 # osmGet.py
 
-This script allows downloading a large area from OpenStreetMap. The area to import 
-can be defined with one of the following options: 
+This script allows downloading a large area from OpenStreetMap. The area to import
+can be defined with one of the following options:
 
 - **--bbox** defines the box to retrieve in geo coordinates (west,south,east,north),
 - **--area** allows to define the id of the area to retrieve and
-- **--polygon** calculates the bounding box from polygon data in the specified file. 
+- **--polygon** calculates the bounding box from polygon data in the specified file.
 
 Example:
 
 ```
-python tools/osmGet.py --bbox <bounding-box> --tiles <INT>
+python tools/osmGet.py --bbox <bounding-box> --tiles <INT>
 ```
 
 The additional option **--tiles** allows to split larger areas into multiple tiles and download requests.
@@ -53,16 +53,16 @@ The script creates a sumo network from the given osm file (i.e. from the output 
 Example:
 
 ```
-python tools/osmBuild.py --osm-file <osm-file>
+python tools/osmBuild.py --osm-file <osm-file>
 ```
 
 More additional options can be defined to manage the import. Example:
 
 ```
-python tools/osmBuild.py --osm-file <osm-file> [--vehicle-classes (all|road|publicTransport|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
+python tools/osmBuild.py --osm-file <osm-file> [--vehicle-classes (all|road|publicTransport|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
 ```
 
-The option **--vehicle-classes** allows to filter the roads to import by vehicles classes. 
+The option **--vehicle-classes** allows to filter the roads to import by vehicles classes.
 If "road" is given as parameter, only roads usable by road vehicles are
 extracted, if "passenger" is given, only those accessible by passenger
 vehicles are imported. When selecting "publicTransport" as parameter, only roads usable by road vehicles and
@@ -82,7 +82,7 @@ and **-polyconvert-options**.
 This script import taxi stands from OSM data. Using the option **--type** you can choose which type of element to add in the SUMO network. For example:
 
 ```
-python tools/import/osm/osmTaxiStop.py --osm-file <osm-file> -n <net-file> --type parkingArea
+python tools/import/osm/osmTaxiStop.py --osm-file <osm-file> -n <net-file> --type parkingArea
 ```
 
 Will add the taxi stands as parkingAreas.

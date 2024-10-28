@@ -1,16 +1,19 @@
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... done.
-Parsing edges from osm-file 'osm.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (6ms).
+Parsing edges from osm-file 'osm.xml' ... done (8ms).
 Removing duplicate edges ... done.
-Parsing relations from osm-file 'osm.xml' ... 
-done.
+Parsing relations from osm-file 'osm.xml' ...
+ done (10ms).
  Import done:
    56 nodes loaded.
-   33 types loaded.
+   35 types loaded.
    35 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
 Finding isolated roads ... done (0ms).
+Processing public transport stops ... done (0ms).
+Revising public transport stops based on pt lines ...
+ done (0ms).
 Removing empty nodes and geometry nodes ... done (0ms).
    32 nodes removed.
 Moving network to origin ... done (0ms).
@@ -32,8 +35,8 @@ Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
 Computing node logics ... done (0ms).
-Computing traffic light logics ... 
-done (0ms).
+Computing traffic light logics ...
+ done (0ms).
  12 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -48,5 +51,5 @@ Summary:
   Applied offset     : -355340.39,-5645704.86
   Converted boundary : 0.00,0.00,364.54,256.22
 -----------------------------------------------------
-Writing network ... done (5ms).
+Writing network ... done (2ms).
 Success.

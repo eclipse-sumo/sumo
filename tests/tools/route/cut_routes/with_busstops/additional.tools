@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-27 14:29:18.216000 by cutRoutes.py
+
+<!-- generated on 2022-07-07 11:16:49.349473 by cutRoutes.py v1_13_0+1343-240e5d48340
   options: input_net.net.xml input_routes.rou.xml -a input_additional.add.xml <doubleminus>routes-output out.rou.xml <doubleminus>stops-output out.add.xml
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop endPos="40" id="busstop1" lane="middle_0" lines="100 101 102" name="班霍夫大街" startPos="20"/>
 </additional>

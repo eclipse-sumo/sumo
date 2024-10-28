@@ -1,0 +1,1668 @@
+Running 'HBEFA4/zero'
+Success.
+Running 'HBEFA4/PC_petrol_ltECE'
+Success.
+Running 'HBEFA4/PC_petrol_ECE-15_00'
+Success.
+Running 'HBEFA4/PC_petrol_ECE-15_01_02'
+Success.
+Running 'HBEFA4/PC_petrol_ECE-15_03'
+Success.
+Running 'HBEFA4/PC_petrol_ECE-15_04'
+Success.
+Running 'HBEFA4/PC_petrol_AGV82_(CH)'
+Success.
+Running 'HBEFA4/PC_petrol_conv_other_concepts'
+Success.
+Running 'HBEFA4/PC_petrol_Ucat'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-1'
+Success.
+Running 'HBEFA4/PC_petrol_PreEuro_3WCat_lt1987'
+Success.
+Running 'HBEFA4/PC_petrol_PreEuro_3WCat_1987-90'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-2'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-3'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-4'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-5'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-6ab'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-6c'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-6d-temp'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-6d'
+Success.
+Running 'HBEFA4/PC_petrol_Euro-7'
+Success.
+Running 'HBEFA4/PC_diesel_conv'
+Success.
+Running 'HBEFA4/PC_diesel_1986-1988'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-1'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-2'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-2_(DPF)'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-3'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-3_(DPF)'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-4'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-4_(DPF)'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-5'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-5_other_SU_before_software_update'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-5_EA189_before_software_update'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-5_EA189_after_software_update'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-5_other_SU_after_software_update'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-6ab'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-6ab_SU_before_software_update'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-6ab_SU_after_software_update'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-6c'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-6d-temp'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-6d'
+Success.
+Running 'HBEFA4/PC_diesel_Euro-7'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-2_(CNG)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-2_(P)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-3_(CNG)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-3_(P)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-4_(CNG)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-4_(P)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-5_(CNG)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-5_(P)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-6_(CNG)'
+Success.
+Running 'HBEFA4/PC_CNG_petrol_Euro-6_(P)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-3__(E85)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-3__(P)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-4__(E85)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-4__(P)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-5__(E85)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-5__(P)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-6__(E85)'
+Success.
+Running 'HBEFA4/PC_FFV_Euro-6__(P)'
+Success.
+Running 'HBEFA4/PC_BEV'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-4_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-4_(P)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-5_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-5_(P)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-6d_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-6d_(P)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-6ab_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_petrol_Euro-6ab_(P)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-4_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-4_(D)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-5_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-5_(D)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-6d_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-6d_(D)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-6ab_(El)'
+Success.
+Running 'HBEFA4/PC_PHEV_diesel_Euro-6ab_(D)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-2_(LPG)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-2_(P)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-3_(LPG)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-3_(P)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-4_(LPG)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-4_(P)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-5_(LPG)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-5_(P)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-6_(LPG)'
+Success.
+Running 'HBEFA4/PC_LPG_petrol_Euro-6_(P)'
+Success.
+Running 'HBEFA4/PC_FuelCell'
+Success.
+Running 'HBEFA4/PC_2S_EE'
+Success.
+Running 'HBEFA4/PC_4S_EE'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Conv_lt1981'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Conv_gt1981'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-1'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_3WCat_1987-1990'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-2'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-3'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-4'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-5'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6ab'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6c'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6d-temp'
+Success.
+Running 'HBEFA4/LCV_petrol_M+N1-I_Euro-6d'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Conv_lt1981'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Conv_gt1981'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-1'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_3WCat_1987-1990'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-2'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-3'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-4'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-5'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-6ab'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-6c'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-6d-temp'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-II_Euro-6d'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Conv_lt1981'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Conv_gt1981'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-1'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_3WCat_1987-1990'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-2'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-3'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-4'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-5'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-6ab'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-6c'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-6d-temp'
+Success.
+Running 'HBEFA4/LCV_petrol_N1-III_Euro-6d'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_convlt_1986'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-1'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_XXIII'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-2'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-3'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-3_(DPF)'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-4'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-4_(DPF)'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-5'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-6ab'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-6c'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-6d-temp'
+Success.
+Running 'HBEFA4/LCV_diesel_M+N1-I_Euro-6d'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_convlt_1986'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-1'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_XXIII'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-2'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-3'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-3_(DPF)'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-4'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-4_(DPF)'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-5'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-6ab'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-6c'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-6d-temp'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-II_Euro-6d'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_convlt_1986'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-1'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_XXIII'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-2'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-3'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-3_(DPF)'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-4'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-4_(DPF)'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-5'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-6ab'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-6c'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-6d-temp'
+Success.
+Running 'HBEFA4/LCV_diesel_N1-III_Euro-6d'
+Success.
+Running 'HBEFA4/LCV_2S_EE'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-2_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-2_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-3_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-3_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-4_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-4_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-5_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-5_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-6_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_M+N1-I_Euro-6_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-2_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-2_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-3_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-3_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-4_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-4_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-5_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-5_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-6_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-II_Euro-6_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-2_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-2_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-3_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-3_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-4_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-4_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-5_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-5_(P)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-6_(CNG)'
+Success.
+Running 'HBEFA4/LCV_CNG_petrol_N1-III_Euro-6_(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-3__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-3__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-4__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-4__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-5__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-5__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-6__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_M+N1-I_Euro-6__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-3__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-3__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-4__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-4__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-5__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-5__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-6__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-II_Euro-6__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-3__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-3__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-4__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-4__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-5__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-5__(P)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-6__(E85)'
+Success.
+Running 'HBEFA4/LCV_FFV_N1-III_Euro-6__(P)'
+Success.
+Running 'HBEFA4/LCV_BEV_M+N1-I'
+Success.
+Running 'HBEFA4/LCV_BEV_N1-II'
+Success.
+Running 'HBEFA4/LCV_BEV_N1-IIII'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-5_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-5_(P)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-6_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-6_(P)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-5_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-5_(P)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-6_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-II_Euro-6_(P)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-5_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-5_(P)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-6_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_petrol_N1-III_Euro-6_(P)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_M+N1-I_Euro-5_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_M+N1-I_Euro-5_(D)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_M+N1-I_Euro-6_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_M+N1-I_Euro-6_(D)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-II_Euro-5_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-II_Euro-5_(D)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-II_Euro-6_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-II_Euro-6_(D)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-III_Euro-5_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-III_Euro-5_(D)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-III_Euro-6_(El)'
+Success.
+Running 'HBEFA4/LCV_PHEV_diesel_N1-III_Euro-6_(D)'
+Success.
+Running 'HBEFA4/LCV_FuelCell_N1-III'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_50ties'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_60ties'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_70ties'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_80ties'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-I'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-II'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-III'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_50ties'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_60ties'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_70ties'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_80ties'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-I'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-II'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-III'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_50ties'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_60ties'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_70ties'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_80ties'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-I'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-II'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-III'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-I'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-II'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-III'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-V'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-I'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-II'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-III'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-V'
+Success.
+Running 'HBEFA4/Coach_3-Axes_gt18t_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-I'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-II'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-III'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-V'
+Success.
+Running 'HBEFA4/Coach_Midi_le15t_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/Coach_BEV_Std_le18t'
+Success.
+Running 'HBEFA4/Coach_BEV_3-Axes_gt18t'
+Success.
+Running 'HBEFA4/Coach_BEV_Midi'
+Success.
+Running 'HBEFA4/Coach_FuelCell_Std_le18t'
+Success.
+Running 'HBEFA4/Coach_FuelCell_Std_3-Axes_gt18t'
+Success.
+Running 'HBEFA4/Coach_FuelCell_Std_Midi'
+Success.
+Running 'HBEFA4/Coach_Std_le18t_EE'
+Success.
+Running 'HBEFA4/UBus_Midi_P_le15t_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Midi_P_le15t_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Midi_P_le15t_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_50ties'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_60ties'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_70ties'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_80ties'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-I'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-I_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-II_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-III_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_EGR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-IV_SCRs_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-V_EGR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-V_SCRs_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/UBus_Midi_le15t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_50ties'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_60ties'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_70ties'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_80ties'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-I'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-I_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-II_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-III_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_EGR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-IV_SCRs_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_EGR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-V_SCRs_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_50ties'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_60ties'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_70ties'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_80ties'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-I'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-I_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-II_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-III_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_EGR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-IV_SCRs_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_EGR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCR_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-V_SCRs_(DPF)'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/UBus_Std_le18t_EE'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_EE'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_HEV_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_HEV_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_HEV_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_Ethanol_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_Ethanol_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-II'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-III'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_Ethanol_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_FuelCell_Midi_lt15t'
+Success.
+Running 'HBEFA4/UBus_FuelCell_Std_gt15-18t'
+Success.
+Running 'HBEFA4/UBus_FuelCell_Artic_gt18t'
+Success.
+Running 'HBEFA4/UBus_Electric_Midi_lt15t'
+Success.
+Running 'HBEFA4/UBus_Electric_Std_gt15-18t'
+Success.
+Running 'HBEFA4/UBus_Electric_Artic_gt18t'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_LNG_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_LNG_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Midi_lt15t_LNG_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_LNG_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_LNG_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Std_gt15-18t_LNG_Euro-VI'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_LNG_Euro-IV'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_LNG_Euro-V'
+Success.
+Running 'HBEFA4/UBus_Artic_gt18t_LNG_Euro-VI'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_preEuro'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_Euro-1'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_Euro-2'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_Euro-3'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_Euro-4'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_Euro-5'
+Success.
+Running 'HBEFA4/MC_4S_le250cc_Euro-6'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_preEuro'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_Euro-1'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_Euro-2'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_Euro-3'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_Euro-4'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_Euro-5'
+Success.
+Running 'HBEFA4/MC_4S_gt250cc_Euro-6'
+Success.
+Running 'HBEFA4/Moped_le50cc_(vlt30)_without_cat'
+Success.
+Running 'HBEFA4/Moped_le50cc_(vlt30)_with_cat___FAV4'
+Success.
+Running 'HBEFA4/Moped_le50cc_(vlt30)_EU2'
+Success.
+Running 'HBEFA4/Moped_le50cc_(vlt30)_EU3'
+Success.
+Running 'HBEFA4/Moped_le50cc_(vlt30)_EU4'
+Success.
+Running 'HBEFA4/Moped_le50cc_(vlt30)_EU5'
+Success.
+Running 'HBEFA4/Moped_le50cc_preEuro'
+Success.
+Running 'HBEFA4/Moped_le50cc_Euro-1'
+Success.
+Running 'HBEFA4/Moped_le50cc_Euro-2'
+Success.
+Running 'HBEFA4/Moped_le50cc_Euro-3'
+Success.
+Running 'HBEFA4/Moped_le50cc_Euro-4'
+Success.
+Running 'HBEFA4/Moped_le50cc_Euro-5'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_preEuro'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_Euro-1'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_Euro-2'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_Euro-3'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_Euro-4'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_Euro-5'
+Success.
+Running 'HBEFA4/MC_2S_le250cc_Euro-6'
+Success.
+Running 'HBEFA4/eBike'
+Success.
+Running 'HBEFA4/eScooter'
+Success.
+Running 'HBEFA4/MC_BEV'
+Success.
+Running 'HBEFA4/RT_petrol'
+Success.
+Running 'HBEFA4/RT_le7.5t_50ties'
+Success.
+Running 'HBEFA4/RT_le7.5t_60ties'
+Success.
+Running 'HBEFA4/RT_le7.5t_70ties'
+Success.
+Running 'HBEFA4/RT_le7.5t_80ties'
+Success.
+Running 'HBEFA4/RT_le7_5t_EE'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-I'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-II'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-III'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_le7.5t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_50ties'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_60ties'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_70ties'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_80ties'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_EE'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt7_5-12t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt12-14t_50ties'
+Success.
+Running 'HBEFA4/RT_gt12-14t_60ties'
+Success.
+Running 'HBEFA4/RT_gt12-14t_70ties'
+Success.
+Running 'HBEFA4/RT_gt12-14t_80ties'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt12-14t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt14-20t_50ties'
+Success.
+Running 'HBEFA4/RT_gt14-20t_60ties'
+Success.
+Running 'HBEFA4/RT_gt14-20t_70ties'
+Success.
+Running 'HBEFA4/RT_gt14-20t_80ties'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt14-20t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt20-26t_50ties'
+Success.
+Running 'HBEFA4/RT_gt20-26t_60ties'
+Success.
+Running 'HBEFA4/RT_gt20-26t_70ties'
+Success.
+Running 'HBEFA4/RT_gt20-26t_80ties'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt20-26t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt26-28t_50ties'
+Success.
+Running 'HBEFA4/RT_gt26-28t_60ties'
+Success.
+Running 'HBEFA4/RT_gt26-28t_70ties'
+Success.
+Running 'HBEFA4/RT_gt26-28t_80ties'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt26-28t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt28-32t_50ties'
+Success.
+Running 'HBEFA4/RT_gt28-32t_60ties'
+Success.
+Running 'HBEFA4/RT_gt28-32t_70ties'
+Success.
+Running 'HBEFA4/RT_gt28-32t_80ties'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt28-32t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/RT_gt32t_50ties'
+Success.
+Running 'HBEFA4/RT_gt32t_60ties'
+Success.
+Running 'HBEFA4/RT_gt32t_70ties'
+Success.
+Running 'HBEFA4/RT_gt32t_80ties'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-I'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-II'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-III'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/RT_gt32t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_le7_5t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_lt28t_EE'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt20-28t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_28-34t_EE'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt28-34t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt34-40t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt40-50t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt50-60t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt60t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt14-20t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_50ties'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_60ties'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_70ties'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_80ties'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-I'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-II'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-III'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-IV_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-IV_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-IV_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-V_EGR'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-V_SCR'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-V_SCRs'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VI_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VIs_A-C'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VI_D-E'
+Success.
+Running 'HBEFA4/TT_AT_gt7_5-14t_Euro-VIs_D-E'
+Success.
+Running 'HBEFA4/HGV_CNG_le7_5t_Euro-IV'
+Success.
+Running 'HBEFA4/HGV_CNG_le7_5t_Euro-V'
+Success.
+Running 'HBEFA4/HGV_CNG_le7_5t_Euro-VI'
+Success.
+Running 'HBEFA4/HGV_CNG_gt7_5-12t_Euro-IV'
+Success.
+Running 'HBEFA4/HGV_CNG_gt7_5-12t_Euro-V'
+Success.
+Running 'HBEFA4/HGV_CNG_gt7_5-12t_Euro-VI'
+Success.
+Running 'HBEFA4/HGV_CNG_gt12t_Euro-IV'
+Success.
+Running 'HBEFA4/HGV_CNG_gt12t_Euro-V'
+Success.
+Running 'HBEFA4/HGV_CNG_gt12t_Euro-VI'
+Success.
+Running 'HBEFA4/TT_AT_CNG_Euro-IV'
+Success.
+Running 'HBEFA4/TT_AT_CNG_Euro-V'
+Success.
+Running 'HBEFA4/TT_AT_CNG_Euro-VI'
+Success.
+Running 'HBEFA4/HGV_LNG_le7_5t_Euro-IV'
+Success.
+Running 'HBEFA4/HGV_LNG_le7_5t_Euro-V'
+Success.
+Running 'HBEFA4/HGV_LNG_le7_5t_Euro-VI'
+Success.
+Running 'HBEFA4/HGV_LNG_gt7_5-12t_Euro-IV'
+Success.
+Running 'HBEFA4/HGV_LNG_gt7_5-12t_Euro-V'
+Success.
+Running 'HBEFA4/HGV_LNG_gt7_5-12t_Euro-VI'
+Success.
+Running 'HBEFA4/HGV_LNG_gt12t_Euro-IV'
+Success.
+Running 'HBEFA4/HGV_LNG_gt12t_Euro-V'
+Success.
+Running 'HBEFA4/HGV_LNG_gt12t_Euro-VI'
+Success.
+Running 'HBEFA4/TT_AT_LNG_Euro-IV'
+Success.
+Running 'HBEFA4/TT_AT_LNG_Euro-V'
+Success.
+Running 'HBEFA4/TT_AT_LNG_Euro-VI_(CI)'
+Success.
+Running 'HBEFA4/TT_AT_BEV'
+Success.
+Running 'HBEFA4/RigidTruck_BEV_le7.5t'
+Success.
+Running 'HBEFA4/RigidTruck_BEV_gt7.5-12t'
+Success.
+Running 'HBEFA4/RigidTruck_BEV_gt12t'
+Success.
+Running 'HBEFA4/RigidTruck_PHEV_le7_5t_Euro-VI-(El)'
+Success.
+Running 'HBEFA4/RigidTruck_PHEV_le7_5t_Euro-VI-(D)'
+Success.
+Running 'HBEFA4/RigidTruck_PHEV_gt7_5-12t_Euro-VI-(El)'
+Success.
+Running 'HBEFA4/RigidTruck_PHEV_gt7_5-12t_Euro-VI-(D)'
+Success.
+Running 'HBEFA4/RigidTruck_PHEV_gt12t_Euro-VI-(El)'
+Success.
+Running 'HBEFA4/RigidTruck_PHEV_gt12t_Euro-VI-(D)'
+Success.
+Running 'HBEFA4/TT_AT_PHEV_Euro-VI-(El)'
+Success.
+Running 'HBEFA4/TT_AT_PHEV_Euro-VI-(D)'
+Success.
+Running 'HBEFA4/RigidTruck_FCEV_le7_5t'
+Success.
+Running 'HBEFA4/RigidTruck_FCEV_gt7_5-12t'
+Success.
+Running 'HBEFA4/RigidTruck_FCEV_gt12t'
+Success.
+Running 'HBEFA4/TT_AT_FCEV'
+Success.

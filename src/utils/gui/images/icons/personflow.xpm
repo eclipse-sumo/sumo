@@ -1,0 +1,27 @@
+/* XPM */
+static const char *personflow_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c None",
+". c red",
+"X c #FF6A00",
+"o c #FF7777",
+"E c #FFC093",
+/* pixels */
+"     ooo ....   ",
+"     ooo ....   ",
+"     ooo ....   ",
+"     ooo ....   ",
+"                ",
+"   ooo ........ ",
+"   ooo ........ ",
+"   ooo ........ ",
+"   ooo ........ ",
+"   Eoo X......X ",
+"   ooo ........ ",
+"    oo  ......  ",
+"    oo  ......  ",
+"    oo  ..  ..  ",
+"    oo  ..  ..  ",
+"    oo  ..  ..  "
+};

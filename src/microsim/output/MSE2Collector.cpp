@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -67,10 +67,13 @@
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                              SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                             const std::string& vTypes, int detectPersons) :
+                             const std::string name, const std::string& vTypes,
+                             const std::string& nextEdges,
+                             int detectPersons) :
     MSMoveReminder(id, lane, false),
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myUsage(usage),
+    myName(name),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
     myJamDistanceThreshold(jamDistThreshold),
@@ -86,6 +89,10 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
     myCurrentHaltingsNumber(0),
+    myPreviousMeanOccupancy(0),
+    myPreviousMeanSpeed(0),
+    myPreviousMaxJamLengthInMeters(0),
+    myPreviousNumberOfSeenVehicles(0),
     myOverrideVehNumber(-1) {
     reset();
 
@@ -114,11 +121,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     if (lengthInvalid) {
         // assume that the detector is only located on a single lane
         if (posInvalid) {
-            WRITE_WARNING("No valid detector length and start position given. Assuming startPos = 0 and length = end position");
+            WRITE_WARNING(TL("No valid detector length and start position given. Assuming startPos = 0 and length = end position"));
             startPos = 0;
         }
         if (endPosInvalid) {
-            WRITE_WARNING("No valid detector length and end position given. Assuming endPos = lane length and length = endPos-startPos");
+            WRITE_WARNING(TL("No valid detector length and end position given. Assuming endPos = lane length and length = endPos-startPos"));
             endPos = lane->getLength();
         }
         endPos = endPos < 0 ? lane->getLength() + endPos : endPos;
@@ -163,10 +170,13 @@ MSE2Collector::MSE2Collector(const std::string& id,
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                              SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                             const std::string& vTypes, int detectPersons) :
+                             const std::string name, const std::string& vTypes,
+                             const std::string& nextEdges,
+                             int detectPersons) :
     MSMoveReminder(id, lanes[lanes.size() - 1], false), // assure that lanes.size() > 0 at caller side!!!
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myUsage(usage),
+    myName(name),
     myFirstLane(lanes[0]),
     myLastLane(lanes[lanes.size() - 1]),
     myStartPos(startPos),
@@ -251,9 +261,9 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
     myStartPos = snap(myStartPos, myFirstLane->getLength() - POSITION_EPS, POSITION_EPS);
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     myEndPos = snap(myEndPos, POSITION_EPS, POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     recalculateDetectorLength();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -307,7 +317,7 @@ MSE2Collector::recalculateDetectorLength() {
         }
         previous = *j;
     }
-    // substract uncovered area on first and last lane
+    // subtract uncovered area on first and last lane
     myDetectorLength -= myStartPos;
     myDetectorLength -= myLastLane->getLength() - myEndPos;
 
@@ -331,7 +341,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
     assert(dir == "fw" || dir == "bw");
     bool fw = dir == "fw";
     double linkLength = 0; // linkLength (used if no internal lanes are present)
-    bool substractedLinkLength = false; // whether linkLength was substracted during the last iteration.
+    bool subtractedLinkLength = false; // whether linkLength was subtracted during the last iteration.
 
 #ifdef DEBUG_E2_CONSTRUCTOR
     if (DEBUG_COND) {
@@ -341,7 +351,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
     std::vector<MSLane*> lanes;
     // Selected lanes are stacked into vector 'lanes'. If dir == "bw" lanes will be reversed after this is done.
     // The length is reduced while adding lanes to the detector
-    // First we adjust the starting value for length (in the first iteration, the whole length of the first considered lane is substracted,
+    // First we adjust the starting value for length (in the first iteration, the whole length of the first considered lane is subtracted,
     // while it might only be partially covered by the detector)
     if (fw) {
         assert(myStartPos != std::numeric_limits<double>::max());
@@ -372,7 +382,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
         }
 
 
-        substractedLinkLength = false;
+        subtractedLinkLength = false;
         if (lane != nullptr && !MSGlobals::gUsingInternalLanes && length > POSITION_EPS) {
             // In case wher no internal lanes are used,
             // take into account the link length for the detector range
@@ -383,7 +393,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
                 linkLength = lane->getLinkTo(lanes.back())->getLength();
             }
             length -= linkLength;
-            substractedLinkLength = true;
+            subtractedLinkLength = true;
         }
 
 
@@ -397,8 +407,8 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
 #endif
     }
 
-    if (substractedLinkLength) {
-        // if the link's length was substracted during the last step,
+    if (subtractedLinkLength) {
+        // if the link's length was subtracted during the last step,
         // the start/endPos would lie on a non-existing internal lane,
         // therefore revert and truncate detector part on the non-existing internal lane.
         length += linkLength;
@@ -479,7 +489,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
     myOffsets.clear();
 
     // loop over detector lanes and accumulate offsets with respect to the first lane's begin
-    // (these will be corrected afterwards by substracting the start position.)
+    // (these will be corrected afterwards by subtracting the start position.)
     std::vector<MSLane*>::iterator il = lanes.begin();
 
     // start on an internal lane?
@@ -493,14 +503,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
     }
 #endif
 
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
     while (true) {
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
         // Consider the next internal lanes
         while (internal != nullptr) {
             myLanes.push_back(internal->getID());
@@ -572,7 +575,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
         // find the connection to next
         const MSLink* link = lane->getLinkTo(*il);
         if (link == nullptr) {
-            throw InvalidArgument("Lanes '" + lane->getID() + "' and '" + (*il)->getID() + "' are not consecutive in defintion of e2Detector '" + getID() + "'");
+            throw InvalidArgument("Lanes '" + lane->getID() + "' and '" + (*il)->getID() + "' are not consecutive in definition of e2Detector '" + getID() + "'");
         }
 
         if (!MSGlobals::gUsingInternalLanes) {
@@ -582,7 +585,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
         }
     }
 
-    // Substract distance not covered on the last considered lane
+    // Subtract distance not covered on the last considered lane
     bool fw = myEndPos == std::numeric_limits<double>::max();
     if (fw) {
         myDetectorLength -= myStartPos;
@@ -627,7 +630,15 @@ MSE2Collector::notifyMove(SUMOTrafficObject& veh, double oldPos,
     ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
-    assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
+    if (vi == myVehicleInfos.end()) {
+        const std::string objectType = veh.isPerson() ? "Person" : "Vehicle";
+        if (myNextEdges.size() > 0) {
+            WRITE_WARNING(objectType + " '" + veh.getID() + "' appeared inside detector '" + getID() + "' after previously being filtered out. time=" + time2string(SIMSTEP) + ".");
+        } else {
+            WRITE_WARNING(objectType + " '" + veh.getID() + "' suddenly appeared inside detector '" + getID() + "'. time=" + time2string(SIMSTEP) + ".");
+        }
+        return false;
+    }
 
     const std::string& vehID = veh.getID();
     VehicleInfo& vehInfo = *(vi->second);
@@ -764,7 +775,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
 #endif
     // notifyEnter() should only be called for lanes of the detector
     assert(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) != myLanes.end());
-    assert(veh.getLane() == enteredLane);
+    assert(veh.getLane() == enteredLane || !veh.isVehicle());
 
     // vehicles must be kept if the "inductionloop" wants to detect passeengers
     if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
@@ -894,7 +905,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         if (myLanes.size() > 1) {
             /// code is more complicated because we have to make persons with
             //dir=BACKWARD send a virtual forward-lane-sequence
-            throw ProcessError("Multi-lane e2Detector does not support detecting persons yet");
+            throw ProcessError(TL("Multi-lane e2Detector does not support detecting persons yet"));
         }
         for (MSLane* lane : getLanes()) {
             if (lane->hasPedestrians()) {
@@ -1345,14 +1356,20 @@ MSE2Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    const double meanSpeed = getIntervalMeanSpeed();
+    const double meanOccupancy = getIntervalOccupancy();
+    myPreviousMeanOccupancy = meanOccupancy;
+    myPreviousMeanSpeed = meanSpeed;
+    myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
+    myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
+
     if (dev.isNull()) {
         reset();
         return;
     }
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
-    const double meanSpeed = myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
-    const double meanOccupancy = myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
+
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
@@ -1426,6 +1443,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
         << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
         << "/>\n";
+
     reset();
 }
 
@@ -1535,19 +1553,19 @@ double
 MSE2Collector::getEstimateQueueLength() const {
 
     if (myVehicleInfos.empty()) {
-        return -1;
+        return 0;
     }
 
-    double distance = std::numeric_limits<double>::max();
+    double distance = 0;
     double realDistance = 0;
     bool flowing =  true;
     for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
             it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
-            distance = MIN2(it->second->lastPos, distance);
+        if (it->second->onDetector && it->second->totalTimeOnDetector > 0) {
             //  double distanceTemp = myLane->getLength() - distance;
-            if (it->second->lastSpeed <= 0.5) {
-                realDistance = distance - it->second->length + it->second->minGap;
+            if (it->second->lastSpeed <= myJamHaltingSpeedThreshold) {
+                distance = MAX2(it->second->distToDetectorEnd, distance);
+                realDistance = distance + it->second->length;
                 flowing = false;
             }
             //            DBG(
@@ -1566,7 +1584,7 @@ MSE2Collector::getEstimateQueueLength() const {
     if (flowing) {
         return 0;
     } else {
-        return myLane->getLength() - realDistance;
+        return realDistance;
     }
 }
 

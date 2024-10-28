@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ public:
     // class EdgeTypeSelector
     // ===========================================================================
 
-    class EdgeTypeSelector : public FXGroupBoxModule {
+    class EdgeTypeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::EdgeTypeSelector)
 
@@ -62,17 +62,32 @@ public:
         /// @brief update id in comboBox
         void updateIDinComboBox(const std::string& oldID, const std::string& newID);
 
+        /// @brief check if we're using default edge type
+        bool useDefaultEdgeType() const;
+
+        /// @brief check if we're using default edge type short
+        bool useDefaultEdgeTypeShort() const;
+
         /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
 
-        /// @brief check if we're using default edge type
-        bool useDefaultEdgeType() const;
+        /// @brief void enable checkbox for disable pedestrians
+        void enableCheckBoxDisablePedestrians();
 
         /// @brief get default edgeType
         GNEEdgeType* getDefaultEdgeType() const;
 
         /// @brief get edgeType selected
         GNEEdgeType* getEdgeTypeSelected() const;
+
+        /// @brief check if no pedestrian check button is enabled
+        bool isNoPedestriansEnabled() const;
+
+        /// @brief check if add sidewalk check button is enabled
+        bool isAddSidewalkEnabled() const;
+
+        /// @brief check if add bikelane check button is enabled
+        bool isAddBikelaneEnabled() const;
 
         /// @brief clear edgeType selected
         void clearEdgeTypeSelected();
@@ -94,11 +109,14 @@ public:
         /// @brief Called when the user press button for delete edge type
         long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user press select an edgeType in comboBox
-        long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
+        /// @brief Called when the user press select an edgeType or template in comboBox
+        long onCmdSelectEdgeTypeOrTemplate(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user press create edgeType from Template
         long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
+
+        /// @brief Called when check buttons are updated
+        long onUpdCheckButtons(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -123,13 +141,25 @@ public:
         int myCurrentIndex;
 
         /// @brief create default edge
-        FXRadioButton* myUseDefaultEdgeType = nullptr;
+        FXRadioButton* myCreateDefaultEdgeType = nullptr;
+
+        /// @brief create default edge short
+        FXRadioButton* myCreateDefaultShortEdgeType = nullptr;
+
+        /// @brief no pedestrian check button
+        FXCheckButton* myNoPedestriansCheckButton = nullptr;
+
+        /// @brief add sidewalk check button
+        FXCheckButton* myAddSidewalkCheckButton = nullptr;
+
+        /// @brief add bike check button
+        FXCheckButton* myAddBikelaneCheckButton = nullptr;
 
         /// @brief create custom edge
-        FXRadioButton* myUseCustomEdgeType = nullptr;
+        FXRadioButton* myCreateCustomEdgeType = nullptr;
 
         /// @brief ComboBox for edge types
-        FXComboBox* myEdgeTypesComboBox = nullptr;
+        MFXComboBoxIcon* myEdgeTypesComboBox = nullptr;
 
         /// @brief button for create new edge type
         FXButton* myAddEdgeTypeButton = nullptr;
@@ -145,7 +175,7 @@ public:
     // class LaneTypeSelector
     // ===========================================================================
 
-    class LaneTypeSelector : public FXGroupBoxModule {
+    class LaneTypeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::LaneTypeSelector)
 
@@ -192,7 +222,7 @@ public:
         /// @brief lane index
         int myLaneIndex;
         /// @brief ComboBox for lane types
-        FXComboBox* myLaneTypesComboBox = nullptr;
+        MFXComboBoxIcon* myLaneTypesComboBox = nullptr;
 
         /// @brief button for create new lane type
         FXButton* myAddLaneTypeButton = nullptr;
@@ -205,7 +235,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModule {
+    class Legend : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -216,30 +246,27 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECreateEdgeFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @param oppositeEdge automatically create an opposite edge
      * @param chainEdge create edges in chain mode
      */
-    void processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const bool oppositeEdge, const bool chainEdge);
+    void processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const bool oppositeEdge, const bool chainEdge);
 
     /// @brief abort current edge creation
     void abortEdgeCreation();
 
     /// @brief get junction source for new edge
     const GNEJunction* getJunctionSource() const;
-
-    /// @brief update objects under snapped cursor
-    void updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
 
     /// @brief show create edge frame
     void show();
@@ -278,10 +305,16 @@ protected:
     /// @brief Legend
     GNECreateEdgeFrame::Legend* myLegend = nullptr;
 
-private:
-    /// @brief objects under snapped cursor
-    GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
+    /// @brief disable pedestrians in the given edge (within undoRedo)
+    void disablePedestrians(GNEEdge* edge) const;
 
+    /// @brief add sidewalk in the given edge
+    void addSidewalk(GNEEdge* edge, const std::string& sidewalkWidth) const;
+
+    /// @brief add bikelane in the given edge
+    void addBikelane(GNEEdge* edge, const std::string& bikelaneWidth) const;
+
+private:
     /// @brief source junction for new edge
-    GNEJunction* myCreateEdgeSource;
+    GNEJunction* myJunctionSource;
 };

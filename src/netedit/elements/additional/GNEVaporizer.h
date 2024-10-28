@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,12 +55,35 @@ public:
     */
     GNEMoveOperation* getMoveOperation();
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem();
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /// @name Functions related with geometry of element
     /// @{
-    /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -73,10 +96,12 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
     std::string getParentName() const;
@@ -86,10 +111,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -119,16 +146,12 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
-
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+
     /// @}
 
 protected:
@@ -137,6 +160,9 @@ protected:
 
     /// @brief end time in which this vaporizer is placed
     SUMOTime myEnd;
+
+    /// @brief symbol base contour
+    GNEContour mySymbolBaseContour;
 
 private:
     /// @brief set attribute after validation

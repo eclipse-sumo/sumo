@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep  9 10:11:50 2020 by Eclipse SUMO duarouter Version v1_7_0+0007-9073c1719d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml.rou.xml"/>
+        <alternatives-output value="input_routes.rou.xml.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
+        <route edges="a b c d e f g h i j"/>
+        <stop busStop="a" arrival="10.00"  duration="20.00" until="30.00"/>
+        <stop busStop="f" arrival="140.00" duration="20.00" until="160.00"/>
+        <stop busStop="j" arrival="240.00" duration="20.00" until="260.00"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
+        <route edges="-j2 -i2 -h -g2 -f2 -e2 -d -c -b2 -a2"/>
+        <stop busStop="-j2" arrival="30.00" duration="20.00" until="50.00"/>
+        <stop busStop="-f2" arrival="100.00" duration="20.00" until="120.00"/>
+        <stop busStop="-a2" arrival="200.00" duration="20.00" until="220.00"/>
+    </vehicle>
+</routes>

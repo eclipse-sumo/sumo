@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-01 14:44:21 by Eclipse SUMO sumo Version v1_14_1+2149-ab3f80b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanedata-output value="aggregated.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="150.00" id="DEFAULT_LANEDATA">
+        <edge id="1/1to0/1">
+            <lane id="1/1to0/1_0" sampledSeconds="38.00" traveltime="40.00" overlapTraveltime="40.30" density="0.63" laneDensity="0.63" occupancy="0.19" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="2/1to1/1">
+            <lane id="2/1to1/1_0" sampledSeconds="40.30" traveltime="40.00" overlapTraveltime="40.30" density="0.67" laneDensity="0.67" occupancy="0.20" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="3/1to2/1">
+            <lane id="3/1to2/1_0" sampledSeconds="40.30" traveltime="40.00" overlapTraveltime="40.30" density="0.67" laneDensity="0.67" occupancy="0.20" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="4/1to3/1">
+            <lane id="4/1to3/1_0" sampledSeconds="30.30" traveltime="40.00" overlapTraveltime="40.30" density="0.51" laneDensity="0.51" occupancy="0.15" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+</meandata>

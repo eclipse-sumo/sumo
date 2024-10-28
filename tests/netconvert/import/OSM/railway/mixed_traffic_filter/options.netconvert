@@ -1,0 +1,4 @@
+--osm-files osm.xml.gz
+--no-internal-links
+--keep-edges.by-vclass rail_urban
+--keep-edges.postload

@@ -45,19 +45,19 @@ node "libsumocpp.dll" {
 [sumo2fmi_bridge] --> [libsumocpp2c]
 [libsumocpp2c]  --> [SUMO]
 
-note left of testlibsumofmi2.exe 
+note left of testlibsumofmi2.exe
  test binary for libsumofmi2.dll
 end note
 
-note left of libsumofmi2.dll 
- Dynamic Library for FMI2, 
+note left of libsumofmi2.dll
+ Dynamic Library for FMI2,
  will be distributed as ZIP file
  "sumo-fmi2.fmu"
  in binary format
 end note
 
 note left of [fmi2Functions]
- Implementation of 
+ Implementation of
  required FMI2 functions,
  C file
 end note
@@ -71,14 +71,14 @@ note right of [sumo2fmi_bridge]
 end note
 
 note right of [libsumocpp2c]
- Wrapper for C++ functions 
- in libsumocpp to be called from 
- C functions in FMI, 
+ Wrapper for C++ functions
+ in libsumocpp to be called from
+ C functions in FMI,
  C++ file
 end note
 
 note left of libsumocpp.dll
- Standard libsumocpp from SUMO, 
+ Standard libsumocpp from SUMO,
  shared library in C++
 end note
 @enduml

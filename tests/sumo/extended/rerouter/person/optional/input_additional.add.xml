@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <edgeData id="ed0" file="aggregated.xml" writeAttributes="entered arrived" detectPersons="walk"/>
+
+    <rerouter id="rerouter" edges="beg" optional="1">
+        <interval begin="0" end="86400">
+            <viaProbReroute id="left" probability="1"/>
+            <viaProbReroute id="right" probability="1"/>
+        </interval>
+   </rerouter>
+</additional>

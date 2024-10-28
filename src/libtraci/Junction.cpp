@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,18 @@ Junction::getPosition(const std::string& junctionID, bool includeZ) {
 libsumo::TraCIPositionVector
 Junction::getShape(const std::string& junctionID) {
     return Dom::getPolygon(libsumo::VAR_SHAPE, junctionID);
+}
+
+
+const std::vector<std::string>
+Junction::getIncomingEdges(const std::string& junctionID) {
+    return Dom::getStringVector(libsumo::INCOMING_EDGES, junctionID);
+}
+
+
+const std::vector<std::string>
+Junction::getOutgoingEdges(const std::string& junctionID) {
+    return Dom::getStringVector(libsumo::OUTGOING_EDGES, junctionID);
 }
 
 

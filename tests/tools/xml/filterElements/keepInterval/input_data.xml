@@ -1,0 +1,5 @@
+<data>
+    <foo bar="42" baz="32"/>
+    <foo baz="33"/>
+    <foo bar="42" baz="22"/>
+</data>

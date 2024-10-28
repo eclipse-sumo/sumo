@@ -1,0 +1,32 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+Additional
+trainStop
+lane
+E5_0
+Additional
+chargingStation
+id
+cs_3
+Additional
+containerStop
+id
+cs_3
+Additional
+busStop
+endPos
+>18
+Additional
+parkingArea
+startPos
+
+Additional
+busStop
+lines
+line1
+Additional
+busStop
+lines
+line2
+TestFunctions: Netedit closed successfully

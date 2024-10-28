@@ -14,6 +14,8 @@ SET(netload_STAT_SRCS
    NLBuilder.cpp
    NLHandler.h
    NLHandler.cpp
+   NLNetShapeHandler.h
+   NLNetShapeHandler.cpp
    NLTriggerBuilder.h
    NLTriggerBuilder.cpp
 )

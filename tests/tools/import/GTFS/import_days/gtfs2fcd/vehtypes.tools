@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-06-08 12:00:41.098789 by gtfs2fcd.py v1_9_2+0364-351130300d
+
+<!-- generated on 2022-07-07 11:18:45.475294 by gtfs2fcd.py v1_13_0+1343-240e5d48340
   options: <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>modes bus <doubleminus>fcd output <doubleminus>vtype-output vehtypes.xml <doubleminus>gpsdat output <doubleminus>end 122400
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="bus" vClass="bus"/>
 </additional>

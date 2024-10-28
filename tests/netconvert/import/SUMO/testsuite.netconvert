@@ -5,6 +5,10 @@ stopOffsets
 connections
 customTLS
 
+# network with one actuated and one static tls,
+# test rebuilding with different tlType
+rebuild_tlType
+
 # handle them!
 internal_lanes
 
@@ -97,6 +101,9 @@ merge_overlap
 merge_geo
 merge_geo_overlap
 
+# see #12824
+merge_geo_overlap2
+
 # load geo-encoded patch into geo network
 patch_geo
 
@@ -117,3 +124,16 @@ junction_name
 
 # use stored option in network (#4397)
 internalJunctionVehicleWidth
+
+# build minimal junction shapes
+minimal-shape
+
+# build junctions based on (custom) edge endpoints
+endpoint-shape
+
+# load bidi attribute from input network
+bidi
+no_internal_lanes_add_crossings
+
+# network has a NEMA junction
+NEMA

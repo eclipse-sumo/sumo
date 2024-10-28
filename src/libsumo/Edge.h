@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,21 +61,29 @@ public:
     static double getElectricityConsumption(const std::string& edgeID);
     static int getLastStepVehicleNumber(const std::string& edgeID);
     static double getLastStepMeanSpeed(const std::string& edgeID);
+    static double getMeanFriction(const std::string& edgeID);
     static double getLastStepOccupancy(const std::string& edgeID);
     static int getLastStepHaltingNumber(const std::string& edgeID);
     static double getLastStepLength(const std::string& edgeID);
     static int getLaneNumber(const std::string& edgeID);
     static std::string getStreetName(const std::string& edgeID);
     static const std::vector<std::string> getPendingVehicles(const std::string& edgeID);
+    static double getAngle(const std::string& edgeID, double relativePosition = libsumo::INVALID_DOUBLE_VALUE);
+    static std::string getFromJunction(const std::string& edgeID);
+    static std::string getToJunction(const std::string& edgeID);
+    static std::string getBidiEdge(const std::string& edgeID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
-    static void setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> vector);
-    static void setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes);
+    static void setAllowed(const std::string& edgeID, std::string allowedClasses);
+    static void setAllowed(const std::string& edgeID, std::vector<std::string> allowedClasses);
+    static void setDisallowed(const std::string& edgeID, std::string disallowedClasses);
+    static void setDisallowed(const std::string& edgeID, std::vector<std::string> disallowedClasses);
     static void adaptTraveltime(const std::string& edgeID, double time, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& edgeID, double effort, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& edgeID, double speed);
+    static void setFriction(const std::string& edgeID, double friction);
 
 #ifndef LIBTRACI
 #ifndef SWIG
@@ -90,7 +98,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static void setAllowedSVCPermissions(const std::string& edgeID, int permissions);
+    static void setAllowedSVCPermissions(const std::string& edgeID, long long int permissions);
 
     static MSEdge* getEdge(const std::string& edgeID);
 

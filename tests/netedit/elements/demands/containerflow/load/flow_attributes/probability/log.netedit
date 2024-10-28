@@ -1,0 +1,7 @@
+Error: Invalid repetition probability in the definition of containerFlow 'c_0'.
+Error: Attribute 'probability' in definition of containerFlow 'c_1' Invalid Number Format (double) dummyProb.
+Error: Attribute 'probability' in definition of containerFlow 'c_2' is empty.
+Error: Invalid repetition probability in the definition of containerFlow 'c_3'.
+Error: Invalid repetition probability in the definition of containerFlow 'c_4'.
+Error: Invalid repetition probability in the definition of containerFlow 'c_5'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.02Sep133440.11012/netedit.gui/elements/demands/containerflow/load/flow_attributes/probability/routes.rou.xml failed.

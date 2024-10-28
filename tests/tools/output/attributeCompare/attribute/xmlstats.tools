@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-14 09:34:22.872822 by attributeCompare.py v1_16_0+2059-ccfe441
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml -a timeLoss
+-->
+
+<attributeCompare xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeCompare_file.xsd">
+    <interval.edge>
+        <timeLoss count="48" min="32.84" minLabel="None" max="26855.67" maxLabel="None" mean="7927.24" Q1="380.19" median="761.69" Q3="20259.58" meanAbs="7927.24" medianAbs="761.69" stdDev="10247.48"/>
+     </interval.edge>
+</attributeCompare>

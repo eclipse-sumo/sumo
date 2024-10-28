@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-24 10:54:37.215107 by attributeStats.py v1_16_0+1635-e446ffc
+  options: <doubleminus>abs <doubleminus>xml-output stats.xml input_data.xml
+-->
+
+<attributeStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeStats_file.xsd">
+    <value>
+        <exampleAttr count="6" min="-1212.00" minLabel="38" max="2138.00" maxLabel="17" mean="-116.33" Q1="-1209.00" median="-144.00" Q3="-75.00" meanAbs="829.00" medianAbs="1209.00" stdDev="1116.93">
+        <hist key="-1200.00" value="2"/>
+        <hist key="-200.00" value="1"/>
+        <hist key="-150.00" value="1"/>
+        <hist key="-100.00" value="1"/>
+        <hist key="2150.00" value="1"/>
+        </exampleAttr>
+    </value>
+</attributeStats>

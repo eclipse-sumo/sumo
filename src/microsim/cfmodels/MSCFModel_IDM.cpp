@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
     myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
     // IDM does not drive very precise and may violate minGap on occasion
-    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.5);
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
@@ -75,14 +75,11 @@ MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool /*onInsertion*/) const {
+MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool /*onInsertion*/, const CalcReason /*usage*/) const {
     if (maxSpeed < 0.) {
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
     }
-#ifdef DEBUG_V
-    gDebugFlag1 = DEBUG_COND;
-#endif
     const double secGap = getSecureGap(veh, nullptr, maxSpeed, 0, myDecel);
     double vSafe;
     if (speed <= maxSpeed) {
@@ -104,11 +101,8 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
 
 
 double
-MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason /*usage*/) const {
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
-#ifdef DEBUG_V
-    gDebugFlag1 = DEBUG_COND;
-#endif
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
@@ -127,9 +121,9 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
         // followSpeed function would still return a new speed that involves
         // reasonable braking rather than the actual safe speed (and cause
         // emergency braking in a subsequent step)
-        const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
-        const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel);
-        if (speed2 - speed3 < 1) {
+        const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, pred, CalcReason::FUTURE);
+        const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel, pred, CalcReason::FUTURE);
+        if (speed2 - speed3 < ACCEL2SPEED(1)) {
             return speed2;
         } else {
 #ifdef DEBUG_INSERTION_SPEED
@@ -142,23 +136,39 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 
 double
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
-#ifdef DEBUG_V
-    gDebugFlag1 = DEBUG_COND;
-#endif
+MSCFModel_IDM::insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const {
+    // we want to insert the vehicle in an equilibrium state
+    double result = MSCFModel::insertionStopSpeed(veh, speed, gap);
+    int i = 0;
+    while (result - speed < -ACCEL2SPEED(myDecel) && ++i < 10) {
+        speed = result;
+        result = MSCFModel::insertionStopSpeed(veh, speed, gap);
+    }
+    return result;
+}
+
+
+double
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;
     }
     double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    //std::cout << SIMTIME << " stopSpeed speed=" << speed << " gap=" << gap << " decel=" << decel << " result=" << result << "\n";
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
         result = maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs());
     }
-    //if (result * TS > gap) {
-    //    std::cout << "Maximum stop speed exceeded for gap=" << gap << " result=" << result << " veh=" << veh->getID() << " speed=" << speed << " t=" << SIMTIME << "\n";
-    //}
+    // avoid overshooting the stop location
+    if (gap >= 0) {
+        result = MIN2(result, DIST2SPEED(gap));
+        //if (result * TS > gap) {
+        //    std::cout << "Maximum stop speed exceeded for gap=" << gap << " result=" << result << " veh=" << veh->getID() << " speed=" << speed << " t=" << SIMTIME << "\n";
+        //}
+    }
+
     return result;
 }
 
@@ -202,7 +212,7 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         gap += myType->getMinGap();
     }
 #ifdef DEBUG_V
-    if (gDebugFlag1) {
+    if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << veh->getID() << " gap2pred=" << gap2pred << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed << " desSpeed=" << desSpeed << " rMG=" << respectMinGap << " hw=" << headwayTime << "\n";
     }
 #endif
@@ -215,13 +225,13 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         gap = MAX2(NUMERICAL_EPS, gap); // avoid singularity
         const double acc = myAccel * (1. - pow(newSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) - (s * s) / (gap * gap));
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
+        if (DEBUG_COND) {
             std::cout << "   i=" << i << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
         }
 #endif
         newSpeed = MAX2(0.0, newSpeed + ACCEL2SPEED(acc) / myIterations);
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
+        if (DEBUG_COND) {
             std::cout << " v2=" << newSpeed << " gLC=" << MSGlobals::gComputeLC << "\n";
         }
 #endif

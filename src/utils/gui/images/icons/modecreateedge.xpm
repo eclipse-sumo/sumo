@@ -1,0 +1,26 @@
+/* XPM */
+static const char *modecreateedge_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c black",
+". c #830808",
+"X c #CC0000",
+"o c none",
+/* pixels */
+"oo...ooooooooooo",
+"o.XXX.oooooooooo",
+".XXXXX.ooooooooo",
+".XXXXX.ooooooooo",
+".XXXXX.ooooooooo",
+"o.XXX. ooooooooo",
+"oo...   oooooooo",
+"oooooo   ooooooo",
+"ooooooo   oooooo",
+"oooooooo   ...oo",
+"ooooooooo .XXX.o",
+"ooooooooo.XXXXX.",
+"ooooooooo.XXXXX.",
+"ooooooooo.XXXXX.",
+"oooooooooo.XXX.o",
+"ooooooooooo...oo"
+};

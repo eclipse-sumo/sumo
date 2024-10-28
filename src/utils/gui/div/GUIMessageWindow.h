@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -109,12 +109,17 @@ public:
     /// @brief handle keys
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
 
+    /// @brief The text colors used
+    static FXHiliteStyle* getStyles();
+
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GUIMessageWindow)
 
 private:
     /// @brief class MsgOutputDevice
     class MsgOutputDevice : public OutputDevice {
+
     public:
         /// @brief constructor
         MsgOutputDevice(GUIMessageWindow* msgWindow, GUIEventType type) :
@@ -148,9 +153,14 @@ private:
 
     /// @brief get active string object
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
-    SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
-private:
+    /// @brief get time string object
+    SUMOTime getTimeString(const FXString& text, const FXint pos) const;
+
+    /// @brief fill styles
+    void fillStyles();
+
+    /// @brief main window
     GUIMainWindow* myMainWindow;
 
     /// @brief whether messages are linked to the GUI elements
@@ -160,7 +170,13 @@ private:
     static SUMOTime myBreakPointOffset;
 
     /// @brief The text colors used
-    FXHiliteStyle* myStyles;
+    static FXHiliteStyle* myStyles;
+
+    /// @brief The time text to look for
+    static std::string myTimeText;
+
+    /// @brief The translated type strings text to look for
+    static std::map<std::string, std::string> myTypeStrings;
 
     /// @brief The instances of message retriever encapsulations
     OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;

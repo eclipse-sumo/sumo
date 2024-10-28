@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -219,7 +219,7 @@ public:
             std::copy(best.begin(), best.end(), std::back_inserter(into));
             return true;
         } else if (!silent && myErrorMsgHandler != nullptr) {
-            myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+            myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
         }
         return false;
     }
@@ -257,8 +257,16 @@ public:
         length += e->getLength();
     }
 
+    bool isValid(const std::vector<const E*>& edges, const V* const v) const {
+        for (const E* const e : edges) {
+            if (isProhibited(e, v)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
+    virtual double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
         double time = STEPS2TIME(msTime);
         double effort = 0.;
         double length = 0.;
@@ -269,9 +277,6 @@ public:
         }
         const E* prev = nullptr;
         for (const E* const e : edges) {
-            if (isProhibited(e, v)) {
-                return -1;
-            }
             updateViaCost(prev, e, v, time, effort, *lengthp);
             prev = e;
         }
@@ -279,7 +284,7 @@ public:
     }
 
 
-    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
+    inline double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
         double effort = recomputeCosts(edges, v, msTime, lengthp);
         if (!edges.empty()) {
             double firstEffort = this->getEffort(edges.front(), v, STEPS2TIME(msTime));

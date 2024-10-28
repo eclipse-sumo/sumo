@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-14 09:24:46 by Eclipse SUMO netconvert Version v1_14_1+1726-34809a2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-3361686496" name="Oriente" lane="-329301843#1_0" startPos="0.00" endPos="25.00" friendlyPos="true">
+        <access lane="1055143326_0" pos="26.34" length="2.11" friendlyPos="1"/>
+        <access lane="1055143327_0" pos="6.81" length="27.37" friendlyPos="1"/>
+        <access lane="1055143328#1_0" pos="2.47" length="30.80" friendlyPos="1"/>
+        <access lane="607398811_0" pos="13.00" length="24.49" friendlyPos="1"/>
+        <access lane="933933014_0" pos="27.40" length="29.22" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3361686497" name="Las Torres" lane="-329301843#0_0" startPos="0.00" endPos="25.00" friendlyPos="true">
+        <access lane="1055149203_0" pos="23.46" length="18.96" friendlyPos="1"/>
+        <access lane="1055149204#0_0" pos="20.20" length="23.21" friendlyPos="1"/>
+        <access lane="1055149204#2_0" pos="0.00" length="36.41" friendlyPos="1"/>
+        <access lane="933933016#0_0" pos="27.16" length="5.21" friendlyPos="1"/>
+        <access lane="933933016#1_0" pos="0.00" length="34.20" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3361686498" name="Villa Sierra" lane="-329301843#0_0" startPos="845.68" endPos="870.68" friendlyPos="true">
+        <access lane="-607466636_0" pos="8.80" length="29.85" friendlyPos="1"/>
+        <access lane="458550815#3_0" pos="17.98" length="36.88" friendlyPos="1"/>
+        <access lane="458573627#1_0" pos="41.53" length="26.70" friendlyPos="1"/>
+        <access lane="607466636_0" pos="55.55" length="25.05" friendlyPos="1"/>
+        <access lane="933933018_0" pos="0.00" length="2.25" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3361686496" name="Oriente" lane="329301843#1_0" startPos="515.09" endPos="540.09" friendlyPos="true" lines="H">
+        <access lane="1055143326_0" pos="26.34" length="2.11" friendlyPos="1"/>
+        <access lane="1055143327_0" pos="6.81" length="27.37" friendlyPos="1"/>
+        <access lane="1055143328#1_0" pos="2.47" length="30.80" friendlyPos="1"/>
+        <access lane="607398811_0" pos="13.00" length="24.49" friendlyPos="1"/>
+        <access lane="933933014_0" pos="27.40" length="29.22" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3361686497" name="Las Torres" lane="329301843#0_0" startPos="845.68" endPos="870.68" friendlyPos="true" lines="H">
+        <access lane="1055149203_0" pos="23.46" length="18.96" friendlyPos="1"/>
+        <access lane="1055149204#0_0" pos="20.20" length="23.21" friendlyPos="1"/>
+        <access lane="1055149204#2_0" pos="0.00" length="36.41" friendlyPos="1"/>
+        <access lane="933933016#0_0" pos="27.16" length="5.21" friendlyPos="1"/>
+        <access lane="933933016#1_0" pos="0.00" length="34.20" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3361686498" name="Villa Sierra" lane="329301843#0_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="H">
+        <access lane="-607466636_0" pos="8.80" length="29.85" friendlyPos="1"/>
+        <access lane="458550815#3_0" pos="17.98" length="36.88" friendlyPos="1"/>
+        <access lane="458573627#1_0" pos="41.53" length="26.70" friendlyPos="1"/>
+        <access lane="607466636_0" pos="55.55" length="25.05" friendlyPos="1"/>
+        <access lane="933933018_0" pos="0.00" length="2.25" friendlyPos="1"/>
+    </busStop>
+</additional>

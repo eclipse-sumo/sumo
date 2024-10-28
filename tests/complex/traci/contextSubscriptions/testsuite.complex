@@ -1,3 +1,9 @@
+# test subscribing for every domain around every other domain
+matrix_test
+
+# test subscribing for every domain around every other domain with the default for varIDs
+matrix_test_defaults
+
 # Validation of the range
 range_100m
 range_200m
@@ -18,5 +24,11 @@ person_100m
 # Validation of the range
 person_200m
 
+# should return all objects
+simulation_5
+
 # detect parking vehicles
 parking
+
+# subscriptions in a network with height
+elevated

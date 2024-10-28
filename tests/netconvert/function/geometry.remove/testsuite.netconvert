@@ -3,3 +3,18 @@ no_self_loop
 
 # exclude some edges from being joined
 exclude
+
+# removing geometry should work after merging
+after_merge
+
+# handle overlapping edges running in the same direction
+overlapping_same_dir
+
+# by default, remove "large" geometry nodes as defined by custom edge endpoints
+custom_endpoints_default
+
+# do not remove "large" geometry nodes as defined by custom edge endpoints
+custom_endpoints_keep
+
+# set option to  remove "large" geometry nodes as defined by custom edge endpoints	
+custom_endpoints_remove

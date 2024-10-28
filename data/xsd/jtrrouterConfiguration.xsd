@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-02 19:08:08 by Eclipse SUMO jtrrouter Version v1_12_0+2434-3307e8578f4
+<!-- generated on 2024-10-09 19:54:01 by Eclipse SUMO jtrrouter Version v1_20_0+2262-4c4b720e23e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="jtrrouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -26,6 +26,8 @@
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-year" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-temperature" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="turn-ratio-files" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
@@ -36,6 +38,7 @@
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-vtype-distributions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="emissions.volumetric-fuel" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="named-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
@@ -64,6 +67,8 @@
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-edges-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="turn-defaults" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="sink-edges" type="strArrayOptionType" minOccurs="0"/>
@@ -108,6 +113,9 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="stats-period" type="intOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>

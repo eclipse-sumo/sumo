@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,20 +15,19 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
-// Representation of Stops in NETEDIT
+// Representation of Stops in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
 #include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEStop
- */
-class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
+
+class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -40,9 +39,6 @@ public:
     /// @brief constructor used for stops over lane (only for vehicle/route stops)
     GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
 
-    /// @brief constructor used for stops over edge (only for person/container stops)
-    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
-
     /// @brief destructor
     ~GNEStop();
 
@@ -51,18 +47,12 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    std::string getBegin() const;
-
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -122,22 +112,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -217,6 +204,9 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
+    /// @brief variable used for draw contours
+    GNEContour myStopContour;
+
     /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
     Boundary myMovingGeometryBoundary;
 
@@ -232,30 +222,26 @@ protected:
     /// @brief creation index (using for saving sorted)
     const int myCreationIndex;
 
-    /// @brief get first valid lane
-    const GNELane* getFirstAllowedLane() const;
-
     /// @brief check if vehicle stop can be draw
     bool canDrawVehicleStop() const;
 
-    /// @brief draw vehicle stop
-    void drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw stopPerson over lane
-    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw stopPerson over busStop
-    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const;
-
     /// @brief draw index
     bool drawIndex() const;
+
+    /// @brief draw stop over lane
+    void drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                          const RGBColor& color, const double width, const double exaggeration) const;
+
+    /// @brief draw stop over stoppingPlace
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor& color,
+                                   const double width, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
+    void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
@@ -264,7 +250,13 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw geometry points
-    void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
+    void drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor& baseColor) const;
+
+    /// @brief get pathStopIndex
+    int getPathStopIndex() const;
+
+    /// @brief set stop microsim ID
+    void setStopMicrosimID();
 
     /// @brief Invalidated copy constructor.
     GNEStop(const GNEStop&) = delete;

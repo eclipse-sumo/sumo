@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    drtOnline.py
 # @author  Giuliana Armellini
+# @author  Mirko Barthauer
 # @date    2021-02-15
 
 """
@@ -20,9 +21,9 @@ Simulate Demand Responsive Transport via TraCi
 Track progress https://github.com/eclipse/sumo/issues/8256
 """
 
+from __future__ import print_function
 import os
 import sys
-from argparse import ArgumentParser
 from itertools import combinations
 import subprocess
 import shutil
@@ -31,12 +32,10 @@ import pulp as pl
 import darpSolvers
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib import checkBinary  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import traci  # noqa
 findRoute = traci.simulation.findRoute
 
@@ -44,48 +43,55 @@ findRoute = traci.simulation.findRoute
 def initOptions():
     ap = ArgumentParser()
 
-    ap.add_argument("-n", "--network", dest="network", metavar="FILE",
+    ap.add_argument("-n", "--network", dest="network", category="input", type=ArgumentParser.net_file, metavar="FILE",
                     help="SUMO network file")
-    ap.add_argument("-r", "--reservations", metavar="FILE",
+    ap.add_argument("-r", "--reservations", category="input", type=ArgumentParser.file, metavar="FILE",
                     help="File with reservations (persons)")
-    ap.add_argument("-v", "--taxis", metavar="FILE",
+    ap.add_argument("--taxis", category="input", type=ArgumentParser.file, metavar="FILE",
                     help="File with drt vehicles")
-    ap.add_argument("-c", dest="sumocfg", metavar="FILE",
+    ap.add_argument("--sumocfg", category="input", type=ArgumentParser.file, metavar="FILE",
                     help="Sumo configuration file")
-    ap.add_argument("-s", dest="sumo", default="sumo",
+    ap.add_argument("-s", dest="sumo", default="sumo", type=str, choices=('sumo', 'sumo-gui'),
                     help="Run with sumo (default) or sumo-gui")
-    ap.add_argument("-g", dest="gui_settings", metavar="FILE",
+    ap.add_argument("-g", dest="gui_settings", category="input", type=ArgumentParser.net_file, metavar="FILE",
                     help="Load visualization settings from FILE")
-    ap.add_argument("-o", dest="output", default='tripinfos.xml',
+    ap.add_argument("-o", dest="output", default='tripinfos.xml', category="output", type=ArgumentParser.net_file,
                     help="Name of output file")
-    ap.add_argument("--darp-solver", default='exhaustive_search',
-                    help="Method to solve the DARP problem. Available: exhaustive_search and simple_rerouting")  # noqa
+    ap.add_argument("--darp-solver", default='exhaustive_search', type=str,
+                    help="Method to solve the DARP problem. Available: exhaustive_search and simple_rerouting")
     ap.add_argument("--rtv-time", type=float, default=5,
                     help="Timeout for exhaustive search (default 5 seconds)")
     ap.add_argument("--ilp-time", type=float, default=5,
                     help="Timeout for ILP solver (default 5 seconds)")
     ap.add_argument("--c-ko", type=int, default=1000000000000,
                     help="Cost of ignoring a reservation")
-    ap.add_argument("--cost-per-trip", type=int, default=600,
-                    help="Cost to avoid using multiple vehicles if the travel time of trips is similar (default 600 seconds)")  # noqa
-    ap.add_argument("--drf", dest="drf", type=float, default=2,
-                    help="Factor by which the DRT travel time should not exceed the one of a direct connection (default 2)")  # noqa
-    ap.add_argument("--drf-min", type=int, default=600,
-                    help="Minimum time difference allowed between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")  # noqa
-    ap.add_argument("--max-wait", type=int, default=900,
-                    help="Maximum waiting time for pickup (default 900 seconds)")  # noqa
+    ap.add_argument("--cost-per-trip", type=int, default=600, help="Cost to avoid using multiple vehicles"
+                    " if the travel time of trips is similar (default 600 seconds)")
+    ap.add_argument("--drf", dest="drf", type=float, default=2, help="Factor by which the DRT travel time "
+                    "should not exceed the one of a direct connection (default 2)")
+    ap.add_argument("--drf-min", type=ArgumentParser.time, default=600, help="Minimum time difference allowed "
+                    "between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")
+    ap.add_argument("--max-wait", type=ArgumentParser.time, default=900,
+                    help="Maximum waiting time for pickup (default 900 seconds)")
     ap.add_argument("--max-processing", type=int,
-                    help="Maximum number of attempts to process a request (default unlimited)")  # noqa
+                    help="Maximum number of attempts to process a request (default unlimited)")
     ap.add_argument("--sim-step", type=int, default=30,
-                    help="Step time to collect new reservations (default 30 seconds)")  # noqa
-    ap.add_argument("--end-time", type=int, default=90000,
-                    help="Maximum simulation time to close Traci (default 90000 sec - 25h)")  # noqa
-    ap.add_argument("--routing-algorithm", default='dijkstra',
-                    help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")  # noqa
-    ap.add_argument("--routing-mode", type=int, default=0,
-                    help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
-    ap.add_argument("--dua-times", action='store_true')
-    ap.add_argument("--verbose", action='store_true')
+                    help="Step time to collect new reservations (default 30 seconds)")
+    ap.add_argument("--end-time", type=ArgumentParser.time, default=90000,
+                    help="Maximum simulation time to close Traci (default 90000 sec - 25h)")
+    ap.add_argument("--routing-algorithm", default='dijkstra', choices=('dijkstra', 'astar', 'CH', 'CHWrapper'),
+                    help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")
+    ap.add_argument("--routing-mode", type=int, default=0, help="Mode for shortest path routing. Support: 0 (default) "
+                    "for routing with loaded or default speeds and 1 for routing with averaged historical speeds")
+    ap.add_argument("--dua-times", action='store_true',
+                    help="Calculate travel time between edges with duarouter")
+    ap.add_argument("--tracefile", category="output", type=ArgumentParser.file,
+                    help="log traci commands to the given FILE")
+    ap.add_argument("--tracegetters", action='store_true',
+                    help="include get-methods in tracefile")
+    ap.add_argument("-v", "--verbose", action='store_true')
+    # mainly useful for reproducible tests
+    ap.add_argument("--seed", type=int, help="Set a random seed for the ILP solver")
 
     return ap
 
@@ -110,12 +116,10 @@ def find_dua_times(options):
     with open("temp_dua/dua_file.xml", "w+") as dua_file:
         dua_file.write("<routes>\n")
         for comb_edges in list(combination_edges):
-            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n""" # noqa
-                           % (comb_edges[0], comb_edges[1],
-                              comb_edges[0], comb_edges[1]))
-            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n""" # noqa
-                           % (comb_edges[1], comb_edges[0],
-                              comb_edges[1], comb_edges[0]))
+            dua_file.write('    <trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
+                           % (comb_edges[0], comb_edges[1], comb_edges[0], comb_edges[1]))
+            dua_file.write('    <trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
+                           % (comb_edges[1], comb_edges[0], comb_edges[1], comb_edges[0]))
         dua_file.write("</routes>\n")
 
     # run duarouter:
@@ -150,7 +154,7 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
     """
     # founds the combination of trips that minimize the costs function
 
-    # req_costs = [reservation.cost for reservation in reservations] # TODO to implement req with diff costs/priorities # noqa
+    # req_costs = [reservation.cost for reservation in reservations] # TODO to implement req with diff costs/priorities
     order_trips = costs.keys()
 
     ILP_result = []
@@ -171,19 +175,21 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
     # add constraints
     for index in range(veh_num):
         prob += pl.lpSum([veh_constraints[i][index] * Trips_vars[i]
-                         for i in order_trips]) <= 1, \
-                         "Max_1_trip_per_vehicle_%s" % index
+                         for i in order_trips]) <= 1, "Max_1_trip_per_vehicle_%s" % index
 
     for index in range(res_num):
         prob += pl.lpSum([res_constraints[i][index] * Trips_vars[i]
-                         for i in order_trips]) <= 1, \
-                         "Max_1_trip_per_reservation_%s" % index
+                         for i in order_trips]) <= 1, "Max_1_trip_per_reservation_%s" % index
 
     prob += pl.lpSum([sum(veh_constraints[i]) * Trips_vars[i]
                      for i in order_trips]) >= 1, "Assing_at_least_one_vehicle"
 
     # The problem is solved using PuLP's Solver choice
-    prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
+    cbc_opts = ["RandomS %s" % options.seed] if options.seed else None
+    try:
+        prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time, options=cbc_opts))
+    except pl.apis.core.PulpSolverError:
+        prob.solve(pl.COIN_CMD(msg=0, timeLimit=options.ilp_time, path="/usr/bin/cbc", options=cbc_opts))
 
     if pl.LpStatus[prob.status] != 'Optimal':
         sys.exit("No optimal solution found: %s" % pl.LpStatus[prob.status])
@@ -228,14 +234,14 @@ def main():
         if options.verbose:
             print('Calculate travel time between edges with duarouter')
             if not options.reservations:
-                sys.exit("please specify the reservation file with the option '--reservations'")  # noqa
+                sys.exit("please specify the reservation file with the option '--reservations'")
             if not options.network:
-                sys.exit("please specify the sumo network file with the option '--network'")  # noqa
+                sys.exit("please specify the sumo network file with the option '--network'")
         pairs_dua_times = find_dua_times(options)
     else:
         pairs_dua_times = {}
 
-    traci.start(run_traci)
+    traci.start(run_traci, traceFile=options.tracefile, traceGetters=options.tracegetters)
 
     # execute the TraCI control loop
     step = traci.simulation.getTime() + 10
@@ -266,7 +272,7 @@ def main():
             direct = pairs_dua_times.get("%s_%s" % (res.fromEdge, res.toEdge))
             if direct is None:
                 direct = int(findRoute(res.fromEdge, res.toEdge, veh_type,
-                             res.depart, routingMode=options.routing_mode).travelTime) # noqa
+                             res.depart, routingMode=options.routing_mode).travelTime)
 
             # add new reservation attributes
             setattr(res, 'direct', direct)  # direct travel time
@@ -369,7 +375,7 @@ def main():
 
             # get fleet
             fleet = traci.vehicle.getTaxiFleet(-1)
-            if set(fleet) != set(fleet) & set(traci.vehicle.getIDList()):  # TODO manage teleports # noqa
+            if set(fleet) != set(fleet) & set(traci.vehicle.getIDList()):  # TODO manage teleports
                 print("\nVehicle %s is being teleported, skip to next step" %
                       (set(fleet) - set(traci.vehicle.getIDList())))
                 step += options.sim_step
@@ -390,12 +396,12 @@ def main():
                     veh_edges[veh_edge] = [veh_id]
 
             # remove reservations already served
-            res_id_current = [res.id for res in traci.person.getTaxiReservations(0)]  # noqa
+            res_id_current = [res.id for res in traci.person.getTaxiReservations(0)]
             res_id_served = list(set(res_all.keys()) - set(res_id_current))
             [res_all.pop(key) for key in res_id_served]
 
             # reservations already picked up
-            res_id_picked = [res.id for res in traci.person.getTaxiReservations(8)]  # noqa
+            res_id_picked = [res.id for res in traci.person.getTaxiReservations(8)]
 
             # call DARP solver to find the best routes
             if options.verbose:
@@ -432,8 +438,7 @@ def main():
                 for idx, trip_id in enumerate(trips):
                     # routes[route] = [travel_time, veh_bin, res_bin, value]
                     # TODO specific cost for vehicle can be consider here
-                    bonus_cost = (sum(routes[trip_id][2]) + 1) * \
-                                  options.cost_per_trip
+                    bonus_cost = (sum(routes[trip_id][2]) + 1) * options.cost_per_trip
                     # generate dict with costs
                     costs.update({idx: routes[trip_id][0] + bonus_cost})
                     # generate dict with vehicle used in the trip
@@ -503,7 +508,7 @@ def main():
                                                       edges[idx+1]))
                         if tt_pair is None:
                             tt_pair = int(findRoute(edge, edges[idx+1],
-                                          veh_type, step, routingMode=options.routing_mode).travelTime) # noqa
+                                          veh_type, step, routingMode=options.routing_mode).travelTime)
 
                         if 'pickup' in stop_types[idx]:
                             tt_current_route += tt_pair + veh_time_pickup
@@ -517,8 +522,8 @@ def main():
                     print('Dispatch:', route_id)
                 traci.vehicle.dispatchTaxi(veh_id, stops[1:])
                 # assign vehicle to reservations
-                # TODO to avoid major changes in the pick-up time when assigning new passengers,  # noqa
-                # tw_pickup should be updated, whit some constant X seconds, e.g. 10 Minutes  # noqa
+                # TODO to avoid major changes in the pick-up time when assigning new passengers,
+                # tw_pickup should be updated, whit some constant X seconds, e.g. 10 Minutes
                 for res_id in set(stops[1:]):
                     res = res_all[res_id]
                     res.vehicle = veh_id

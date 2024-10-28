@@ -1,0 +1,2 @@
+-n net.net.xml -s 42 -e 10 --intermediate 3
+--pedestrians

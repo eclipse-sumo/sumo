@@ -20,7 +20,7 @@ Each application has exactly one instance of the **OptionsCont**
 using
 
 ```
-static OptionsCont &OptionsCont::getOptions();
+static OptionsCont &OptionsCont::getOptions();
 ```
 
 Before an application starts registering its options, it must let
@@ -32,13 +32,13 @@ touch of the options sub system for each application looks similar to
 the following which is borrowed from netconvert_main.cpp:
 
 ```
-   OptionsCont &oc = OptionsCont::getOptions();
-   // give some application descriptions
-   oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
-#ifdef WIN32
-   oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (string)VERSION_STRING);
+   OptionsCont &oc = OptionsCont::getOptions();
+   // give some application descriptions
+   oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
+#ifdef WIN32
+   oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (string)VERSION_STRING);
 #else
-   oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (string)VERSION_STRING);
+   oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (string)VERSION_STRING);
 #endif
 ```
 
@@ -60,13 +60,13 @@ To insert an application option into the container, use one of the
 following polymorphs:
 
 ```
-void doRegister(const std::string &name1, Option *v);
+void doRegister(const std::string &name1, Option *v);
 ```
 
 or
 
 ```
-void doRegister(const std::string &name1, char abbr, Option *v);
+void doRegister(const std::string &name1, char abbr, Option *v);
 ```
 
 The parameter "name1" is the name (or one of the possible names, better
@@ -74,7 +74,7 @@ to say) of the inserted option. The character "abbr" within the second
 call is the possible one-char abbreviation of the name.
 
 ```
-Caution: The behavior after adding the same abbreviation for two different options is not defined.
+Caution: The behavior after adding the same abbreviation for two different options is not defined.
 ```
 
 The third parameter is an option that shall be assigned to the name(s).
@@ -108,7 +108,7 @@ example: settings the "verbose"-switch as following, lets the
 application run quiet as default:
 
 ```
-oc.doRegister("verbose", 'v', new Option_Bool(false));
+oc.doRegister("verbose", 'v', new Option_Bool(false));
 ```
 
 #### Adding Synonyms
@@ -119,8 +119,8 @@ shorter name, too, use the following to make the same option accessible
 using both "**name-of-vehicle-that-shall-halt**" and "**v2h**":
 
 ```
-oc.doRegister("name-of-vehicle-that-shall-halt", new Option_String());
-oc.addSynonyme("name-of-vehicle-that-shall-halt", "v2h");
+oc.doRegister("name-of-vehicle-that-shall-halt", new Option_String());
+oc.addSynonyme("name-of-vehicle-that-shall-halt", "v2h");
 ```
 
 ## Retrieving Options
@@ -133,26 +133,26 @@ to assure security of the code. One can determine whether an option is
 set using
 
 ```
-bool OptionsCont::isSet(const std::string &name) const;
+bool OptionsCont::isSet(const std::string &name) const;
 ```
 
 If one has to know whether an option still stores the default value or
 a value was supplied by the user, he/she may call
 
 ```
-bool OptionsCont::isDefault(const std::string &name) const;
+bool OptionsCont::isDefault(const std::string &name) const;
 ```
 
 Dependent on the type of an option, one can retrieve its value using
 the following methods from OptionsCont:
 
 ```
-int OptionsCont::getInt(const std::string &name) const;
-long OptionsCont::getLong(const std::string &name) const;
-std::string OptionsCont::getString(const std::string &name) const;
-float OptionsCont::getFloat(const std::string &name) const;
-const IntVector &OptionsCont::getIntVector(const std::string &name) const;
-const StringVector &OptionsCont::getStringVector(const std::string &name) const;
+int OptionsCont::getInt(const std::string &name) const;
+long OptionsCont::getLong(const std::string &name) const;
+std::string OptionsCont::getString(const std::string &name) const;
+float OptionsCont::getFloat(const std::string &name) const;
+const IntVector &OptionsCont::getIntVector(const std::string &name) const;
+const StringVector &OptionsCont::getStringVector(const std::string &name) const;
 ```
 
 Using an improper method yields an exception.

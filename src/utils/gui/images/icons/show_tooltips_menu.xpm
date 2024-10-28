@@ -1,0 +1,26 @@
+/* XPM */
+static const char * show_tooltips_menu_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c black",
+"X c gray62",
+"o c None",
+"O c #FFFFE1",
+/* pixels */
+" o  o   o  oo o ",
+"    o ooo o o o ",
+"  o o   o o o o ",
+" oo o ooo o o o ",
+" oo o   o o o   ",
+"oooooooooooooooo",
+"oooooo ooooooooo",
+"oooooo  oooooooo",
+"oooooo   ooooooo",
+"ooXXXX    XXXXoo",
+"oXOOOO O OOOOOXo",
+"oXOOOOOOO OOOOXo",
+"oXOOOOOOOOOOOOXo",
+"oXOOOOOOOOOOOOXo",
+"oXOOOOOOOOOOOOXo",
+"ooXXXXXXXXXXXXoo"
+};

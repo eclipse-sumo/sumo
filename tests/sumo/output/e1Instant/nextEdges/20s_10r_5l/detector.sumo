@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-15 09:56:10 by Eclipse SUMO sumo Version v1_13_0+0848-2d39afa
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
+    <instantOut id="straight" time="6.24" state="enter" vehID="straight.0" speed="13.89" length="5.00" type="t1"/>
+    <instantOut id="straight" time="6.60" state="leave" vehID="straight.0" speed="13.89" length="5.00" type="t1" occupancy="0.36"/>
+    <instantOut id="right" time="8.24" state="enter" vehID="right.0" speed="13.89" length="5.00" type="t1"/>
+    <instantOut id="right" time="8.60" state="leave" vehID="right.0" speed="13.89" length="5.00" type="t1" occupancy="0.36"/>
+    <instantOut id="left" time="10.72" state="enter" vehID="left.0" speed="7.41" length="5.00" type="t1"/>
+    <instantOut id="left" time="11.00" state="stay" vehID="left.0" speed="7.41" length="5.00" type="t1"/>
+    <instantOut id="left" time="11.29" state="leave" vehID="left.0" speed="10.01" length="5.00" type="t1" occupancy="0.57"/>
+    <instantOut id="straight" time="12.65" state="enter" vehID="straight.1" speed="12.01" length="5.00" type="t1" gap="6.05"/>
+    <instantOut id="straight" time="13.00" state="stay" vehID="straight.1" speed="12.01" length="5.00" type="t1"/>
+    <instantOut id="straight" time="13.06" state="leave" vehID="straight.1" speed="13.89" length="5.00" type="t1" occupancy="0.41"/>
+    <instantOut id="right" time="14.44" state="enter" vehID="right.1" speed="13.89" length="5.00" type="t1" gap="5.84"/>
+    <instantOut id="right" time="14.80" state="leave" vehID="right.1" speed="13.89" length="5.00" type="t1" occupancy="0.36"/>
+    <instantOut id="left" time="16.74" state="enter" vehID="left.1" speed="7.50" length="5.00" type="t1" gap="5.44"/>
+    <instantOut id="left" time="17.00" state="stay" vehID="left.1" speed="7.50" length="5.00" type="t1"/>
+    <instantOut id="left" time="17.30" state="leave" vehID="left.1" speed="10.10" length="5.00" type="t1" occupancy="0.56"/>
+    <instantOut id="right" time="20.24" state="enter" vehID="right.2" speed="13.89" length="5.00" type="t1" gap="5.44"/>
+    <instantOut id="right" time="20.60" state="leave" vehID="right.2" speed="13.89" length="5.00" type="t1" occupancy="0.36"/>
+    <instantOut id="left" time="22.72" state="enter" vehID="left.2" speed="7.41" length="5.00" type="t1" gap="5.42"/>
+    <instantOut id="left" time="23.00" state="stay" vehID="left.2" speed="7.41" length="5.00" type="t1"/>
+    <instantOut id="left" time="23.29" state="leave" vehID="left.2" speed="10.01" length="5.00" type="t1" occupancy="0.57"/>
+    <instantOut id="left" time="28.72" state="enter" vehID="left.3" speed="7.41" length="5.00" type="t1" gap="5.43"/>
+    <instantOut id="left" time="29.00" state="stay" vehID="left.3" speed="7.41" length="5.00" type="t1"/>
+    <instantOut id="left" time="29.29" state="leave" vehID="left.3" speed="10.01" length="5.00" type="t1" occupancy="0.57"/>
+</instantE1>

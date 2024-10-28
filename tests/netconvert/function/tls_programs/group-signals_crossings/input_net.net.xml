@@ -103,7 +103,7 @@
         <phase duration="5"  state="rrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 WC_0 WC_1 :C_w2_0 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_c1_0 :C_c2_0" shape="100.00,109.40 104.00,109.40 104.00,90.60 100.00,90.60" radius="5.00">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 WC_0 WC_1 :C_w2_0 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_c1_0 :C_c2_0" shape="100.00,109.40 104.00,109.40 104.00,90.60 100.00,90.60">
         <request index="0" response="010000" foes="010000" cont="0"/>
         <request index="1" response="010000" foes="010000" cont="0"/>
         <request index="2" response="100000" foes="100000" cont="0"/>

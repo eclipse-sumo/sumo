@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-26 16:33:51.441030 by split_at_stops.py v1_16_0+0791-bd51cb00584
+<configuration>
+    <network value="input_net.net.xml"/>
+    <route-output value="out.rou.xml"/>
+    <routes value="input_routes.rou.xml"/>
+    <stop-output value="out.xml"/>
+    <stopfile value="input_additional.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop endPos="40.00" id="B" lane="a.30_0" startPos="0">
+        <access lane="b_0" pos="48.40"/>
+    </trainStop>
+    <trainStop endPos="190.00" id="C" lane="a.80_0" startPos="150.00">
+        <access lane="c_0" pos="52.96"/>
+    </trainStop>
+    <trainStop endPos="390.00" id="D" lane="a.80_0" startPos="350.00">
+        <access lane="d_0" pos="44.50"/>
+    </trainStop>
+    <trainStop endPos="10" id="A" lane="a_0" startPos="0">
+    </trainStop>
+    <trainStop endPos="10.00" id="B2" lane="a.70_0" startPos="0.20">
+    </trainStop>
+    <trainStop endPos="150.30" id="C2" lane="a.80_0" startPos="130.00">
+    </trainStop>
+    <trainStop endPos="390.50" id="D2" lane="a.80_0" startPos="350.50">
+    </trainStop>
+</additional>

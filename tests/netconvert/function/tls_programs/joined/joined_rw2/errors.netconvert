@@ -1,0 +1,7 @@
+Warning: Ambiguity in turnarounds computation at junction '122'.
+Warning: Ambiguity in turnarounds computation at junction '125'.
+Warning: Ambiguity in turnarounds computation at junction '127'.
+Warning: Invalid pedestrian topology: crossing ':126_c4' across [15] has no target.
+Warning: Discarding invalid crossing ':126_c5' at junction '126' with edges [46] (no walkingarea found).
+Warning: Discarding invalid crossing ':126_c6' at junction '126' with edges [14 32] (no walkingarea found).
+Warning: The rail crossing '122' does not have any roads.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 
 // ===========================================================================
 // class declaration
@@ -32,13 +33,13 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEFlowEditor : public FXGroupBoxModule {
+class GNEFlowEditor : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEFlowEditor)
 
 public:
     /// @brief constructor
-    GNEFlowEditor(GNEViewNet* viewNet, FXVerticalFrame* contentFrame);
+    GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent);
 
     /// @brief destructor
     ~GNEFlowEditor();
@@ -86,13 +87,13 @@ private:
     GNEViewNet* myViewNet;
 
     /// @brief ComboBox for terminate options (end, number, end/number)
-    FXComboBox* myTerminateComboBox = nullptr;
+    MFXComboBoxIcon* myTerminateComboBox = nullptr;
 
     /// @brief horizontal frame for terminate definition
     FXHorizontalFrame* myTerminateFrameTextField = nullptr;
 
     /// @brief Label for terminate definition
-    FXLabel* myTerminateLabel = nullptr;
+    MFXLabelTooltip* myTerminateLabel = nullptr;
 
     /// @brief textField for terminate attribute
     FXTextField* myTerminateTextField = nullptr;
@@ -101,13 +102,13 @@ private:
     FXHorizontalFrame* mySpacingFrameComboBox = nullptr;
 
     /// @brief ComboBox for spacing comboBox (perHour, period, probability)
-    FXComboBox* mySpacingComboBox = nullptr;
+    MFXComboBoxIcon* mySpacingComboBox = nullptr;
 
     /// @brief horizontal frame for spacing textField
     FXHorizontalFrame* mySpacingFrameTextField = nullptr;
 
     /// @brief Label for spacing
-    FXLabel* mySpacingLabel = nullptr;
+    MFXLabelTooltip* mySpacingLabel = nullptr;
 
     /// @brief textField for spacing attribute
     FXTextField* mySpacingTextField = nullptr;

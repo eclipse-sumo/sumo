@@ -2,11 +2,11 @@ Loading net ... done.
 Loading precomputed net weights from 'input_weights.dump.xml' ... done.
 Skipped until: 0.00
 Building Contraction Hierarchy for vClass='passenger' and time=0.00 (8 edges)
- ... 
+ ...
 Created 2 shortcuts.
 Recomputed priority 11 times.
 done (0ms).
-done.
+ done.
 CHRouter answered 10 queries and explored 6.00 edges on average.
-CHRouter spent 0ms answering queries (0.00ms on average).
+CHRouter spent 0.00s answering queries (0.00ms on average).
 Success.

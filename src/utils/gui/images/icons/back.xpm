@@ -1,0 +1,25 @@
+/* XPM */
+static const char *back_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"o c #287567",
+"  c #71CEBE",
+". c None",
+/* pixels */
+"................",
+"......oo........",
+".....o o........",
+"....o  o........",
+"...o   ooooooooo",
+"..o            o",
+".o             o",
+"o              o",
+"o              o",
+".o             o",
+"..o            o",
+"...o   ooooooooo",
+"....o  o........",
+".....o o........",
+"......oo........",
+"................"
+};

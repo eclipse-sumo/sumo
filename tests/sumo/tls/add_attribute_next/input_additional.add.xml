@@ -18,6 +18,7 @@
         <!-- some extra states -->
         <phase duration="10" state="GGGrrrrrrrGGGrrrrrrr" next="0"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrr" next="0"/>
+        <param key="hotkeyAbort" value="x"/>
     </tlLogic>
 
 

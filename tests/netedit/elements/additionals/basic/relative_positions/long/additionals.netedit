@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-10-02 13:50:23 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="-E0" file="rp_0.xml"/>
+    <!-- Calibrators -->
+    <calibrator id="ca_0" edge="-E0" pos="0.00"/>
+    <calibrator id="ca_1" lane="-E0_2" pos="25.00"/>
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="-E0_0" startPos="45.00" endPos="55.00" friendlyPos="true"/>
+    <trainStop id="ts_0" lane="-E0_1" startPos="40.00" endPos="50.00" friendlyPos="true"/>
+    <containerStop id="ct_0" lane="-E0_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <chargingStation id="cs_0" lane="-E0_0" startPos="15.00" endPos="25.00" friendlyPos="true"/>
+    <parkingArea id="pa_0" lane="-E0_0" startPos="5.00" endPos="15.00" friendlyPos="true">
+        <space x="-30.00" y="20.00"/>
+        <space x="30.00" y="20.00"/>
+    </parkingArea>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="-E0_2" pos="50.00" period="300.00" file="e1_0.xml" friendlyPos="1"/>
+    <instantInductionLoop id="e1i_0" lane="-E0_2" pos="30.00" file="e1i_0.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2_0" lane="-E0_2" pos="35.00" length="10.00" period="300.00" file="e2_0.xml" friendlyPos="1"/>
+    <entryExitDetector id="e3_0" pos="0.00,-20.00" period="300.00" file="e3_0.xml">
+        <detEntry lane="-E0_1" pos="50.00" friendlyPos="1"/>
+        <detExit lane="-E0_1" pos="10.00" friendlyPos="1"/>
+    </entryExitDetector>
+    <!-- Other additionals -->
+    <vaporizer id="-E0" begin="0.00" end="3600.00"/>
+</additional>

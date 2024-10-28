@@ -1,0 +1,3 @@
+Error: Attribute 'speed' in definition of a walk Invalid Number Format (double) dummySpeed.
+Error: Could not build walk in netedit; Attribute speed cannot be negative.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Sep162442.16860\netedit.gui\elements\demands\personplan\walk\common\load\speed\routes.rou.xml failed.

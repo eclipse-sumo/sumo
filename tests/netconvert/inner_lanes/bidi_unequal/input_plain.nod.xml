@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-11 11:56:31 by Eclipse SUMO netedit Version v1_19_0+1778-d338a9b14ff
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-391572.13,-5820466.23" convBoundary="0.00,0.00,50.21,27.98" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="30731492" x="48.24" y="0.00" type="dead_end"/>
+    <node id="4213903960" x="32.32" y="10.84" type="priority"/>
+    <node id="4673135620" x="0.00" y="14.74" type="priority"/>
+    <node id="588181297" x="20.45" y="9.58" type="dead_end"/>
+    <node id="588181300" x="21.39" y="13.45" type="priority"/>
+    <node id="cluster_5534476068_5534476069" x="50.21" y="27.94" type="dead_end">
+        <param key="origEdgeIds" value="59286500#1"/>
+        <param key="origId" value="5534476068 5534476069"/>
+    </node>
+</nodes>

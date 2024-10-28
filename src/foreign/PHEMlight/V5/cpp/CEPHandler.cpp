@@ -1,8 +1,8 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // PHEMlight module
-// Copyright (C) 2016-2022 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright (C) 2016-2023 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,9 +26,10 @@
 #include <sstream>
 #define JSON_USE_IMPLICIT_CONVERSIONS 0
 #include <foreign/nlohmann/json.hpp>
+#include <utils/common/StringUtils.h>
 #include "CEPHandler.h"
 #include "CEP.h"
-//#include "Correction.h"
+#include "Correction.h"
 #include "Helpers.h"
 
 
@@ -50,6 +51,27 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
+    bool CEPHandler::CalcCorrection(Correction* DataCor, Helpers* Helper, VEHPHEMLightJSON::Vehicle_Data* vehicle_Data) {
+            if (DataCor->getUseDet()) {
+                DataCor->setVehMileage(-1);
+                if (vehicle_Data->getMileage() > 0.) {
+                    DataCor->setVehMileage(vehicle_Data->getMileage());
+                }
+
+                if (!DataCor->IniDETfactor(Helper)) {
+                    return false;
+                }
+            }
+            if (DataCor->getUseTNOx()) {
+                if (!DataCor->IniTNOxfactor(Helper)) {
+                    return false;
+                }
+            }
+
+            //Return value
+            return true;
+    }
+
     bool CEPHandler::Load(std::vector<std::string>& DataPath, Helpers* Helper, Correction* DataCor, bool fleetMix) {
         //Deklaration
         // get string identifier for PHEM emission class
@@ -65,17 +87,28 @@ namespace PHEMlightdllV5 {
         VEHPHEMLightJSON::VEH* Vehicle;
 
         if (!ReadVehicleFile(DataPath, emissionRep, Helper, fleetMix, Vehicle)) {
+            delete Vehicle;
             return false;
         }
 
+        if (DataCor != nullptr) {
+            if (!CalcCorrection(DataCor, Helper, Vehicle->getVehicleData())) {
+                delete Vehicle;
+                return false;
+            }
+        }
+
         if (!ReadEmissionData(true, DataPath, emissionRep, Helper, fleetMix, DataCor, headerFCvalues, matrixFCvalues, idlingValuesFCvalues)) {
+            delete Vehicle;
             return false;
         }
         if (!ReadEmissionData(false, DataPath, emissionRep, Helper, fleetMix, DataCor, headerPollutants, matrixPollutants, idlingValuesPollutants)) {
+            delete Vehicle;
             return false;
         }
 
         _ceps.insert(std::make_pair(Helper->getgClass(), new CEP(Vehicle, headerFCvalues, matrixFCvalues, headerPollutants, matrixPollutants, idlingValuesFCvalues, idlingValuesPollutants)));
+        delete Vehicle;
         return true;
     }
 
@@ -128,6 +161,7 @@ namespace PHEMlightdllV5 {
         Vehicle->getVehicleData()->setWheelDiameter(json2double(vd, "WheelDiameter"));
         Vehicle->getVehicleData()->setCw(json2double(vd, "Cw"));
         Vehicle->getVehicleData()->setA(json2double(vd, "A"));
+        Vehicle->getVehicleData()->setMileage(json2double(vd, "Mileage"));
 
         // Auxiliaries
         nlohmann::json::iterator auxDataIt = json.find("AuxiliariesData");
@@ -298,27 +332,22 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& /* Emi */) {
+    double CEPHandler::GetDetTempCor(Correction* DataCor, const std::string& Emi) {
         //Initialisation
         double CorF = 1;
+        std::string emi = Emi;
+        std::transform(emi.begin(), emi.end(), emi.begin(), [](char c) { return (char)::toupper(c); });
 
         if (DataCor != 0) {
-/*            if (DataCor->getUseDet()) {
-                for (std::map<std::string, double>::const_iterator Key = DataCor->DETFactors.begin(); Key != DataCor->DETFactors.end(); ++Key) {
-//                    if (boost::to_upper_copy(Emi) == Key->first->ToUpper()) {
-                    if (Emi == "NOX") {
-                        CorF += (DataCor->DETFactors[Key->first] - 1);
-                        break;
-                    }
-                }
+            if (DataCor->getUseDet() && DataCor->DETFactors.count(emi) > 0) {
+                CorF += DataCor->DETFactors[emi] - 1;
             }
             if (DataCor->getUseTNOx()) {
-//                if (boost::to_upper_copy(Emi)->Contains("NOX")) {
-                if (Emi == "NOX") {
+                if (emi.find("NOX") != std::string::npos) {
                     CorF += (DataCor->getTNOxFactor() - 1);
                 }
             }
-*/        }
+        }
 
         //Return value
         return CorF;
@@ -352,7 +381,10 @@ namespace PHEMlightdllV5 {
     std::string CEPHandler::ReadLine(std::ifstream& s) {
         std::string line;
         std::getline(s, line);
-        line.erase(line.find_last_not_of(" \n\r\t") + 1);
+        size_t lastNWChar = line.find_last_not_of(" \n\r\t");
+        if (lastNWChar != std::string::npos) {
+            line.erase(lastNWChar + 1);
+        }
         return line;
     }
 
@@ -372,61 +404,28 @@ namespace PHEMlightdllV5 {
         privateVersion = value;
     }
 
-    VEHPHEMLightJSON::Vehicle_Data* VEHPHEMLightJSON::VEH::getVehicleData() const {
-        return privateVehicleData;
+    VEHPHEMLightJSON::Vehicle_Data* VEHPHEMLightJSON::VEH::getVehicleData() {
+        return &privateVehicleData;
     }
 
-    void VEHPHEMLightJSON::VEH::setVehicleData(Vehicle_Data* value) {
-        privateVehicleData = value;
+    VEHPHEMLightJSON::Aux_Data* VEHPHEMLightJSON::VEH::getAuxiliariesData() {
+        return &privateAuxiliariesData;
     }
 
-    VEHPHEMLightJSON::Aux_Data* VEHPHEMLightJSON::VEH::getAuxiliariesData() const {
-        return privateAuxiliariesData;
+    VEHPHEMLightJSON::Engine_Data* VEHPHEMLightJSON::VEH::getEngineData() {
+        return &privateEngineData;
     }
 
-    void VEHPHEMLightJSON::VEH::setAuxiliariesData(Aux_Data* value) {
-        privateAuxiliariesData = value;
+    VEHPHEMLightJSON::Rollres_Data* VEHPHEMLightJSON::VEH::getRollingResData() {
+        return &privateRollingResData;
     }
 
-    VEHPHEMLightJSON::Engine_Data* VEHPHEMLightJSON::VEH::getEngineData() const {
-        return privateEngineData;
+    VEHPHEMLightJSON::FullLoadDrag_Data* VEHPHEMLightJSON::VEH::getFLDData() {
+        return &privateFLDData;
     }
 
-    void VEHPHEMLightJSON::VEH::setEngineData(Engine_Data* value) {
-        privateEngineData = value;
-    }
-
-    VEHPHEMLightJSON::Rollres_Data* VEHPHEMLightJSON::VEH::getRollingResData() const {
-        return privateRollingResData;
-    }
-
-    void VEHPHEMLightJSON::VEH::setRollingResData(Rollres_Data* value) {
-        privateRollingResData = value;
-    }
-
-    VEHPHEMLightJSON::FullLoadDrag_Data* VEHPHEMLightJSON::VEH::getFLDData() const {
-        return privateFLDData;
-    }
-
-    void VEHPHEMLightJSON::VEH::setFLDData(FullLoadDrag_Data* value) {
-        privateFLDData = value;
-    }
-
-    VEHPHEMLightJSON::Transmission_Data* VEHPHEMLightJSON::VEH::getTransmissionData() const {
-        return privateTransmissionData;
-    }
-
-    void VEHPHEMLightJSON::VEH::setTransmissionData(Transmission_Data* value) {
-        privateTransmissionData = value;
-    }
-
-    VEHPHEMLightJSON::VEH::VEH() {
-        setVehicleData(new Vehicle_Data());
-        setRollingResData(new Rollres_Data());
-        setEngineData(new Engine_Data());
-        setAuxiliariesData(new Aux_Data());
-        setFLDData(new FullLoadDrag_Data());
-        setTransmissionData(new Transmission_Data());
+    VEHPHEMLightJSON::Transmission_Data* VEHPHEMLightJSON::VEH::getTransmissionData() {
+        return &privateTransmissionData;
     }
 
     const std::string& VEHPHEMLightJSON::Vehicle_Data::getMassType() const {
@@ -549,25 +548,12 @@ namespace PHEMlightdllV5 {
         privateFr4 = value;
     }
 
-    VEHPHEMLightJSON::ICE_Data* VEHPHEMLightJSON::Engine_Data::getICEData() const {
-        return privateICEData;
+    VEHPHEMLightJSON::ICE_Data* VEHPHEMLightJSON::Engine_Data::getICEData() {
+        return &privateICEData;
     }
 
-    void VEHPHEMLightJSON::Engine_Data::setICEData(ICE_Data* value) {
-        privateICEData = value;
-    }
-
-    VEHPHEMLightJSON::EM_Data* VEHPHEMLightJSON::Engine_Data::getEMData() const {
-        return privateEMData;
-    }
-
-    void VEHPHEMLightJSON::Engine_Data::setEMData(EM_Data* value) {
-        privateEMData = value;
-    }
-
-    VEHPHEMLightJSON::Engine_Data::Engine_Data() {
-        setICEData(new ICE_Data());
-        setEMData(new EM_Data());
+    VEHPHEMLightJSON::EM_Data* VEHPHEMLightJSON::Engine_Data::getEMData() {
+        return &privateEMData;
     }
 
     const double& VEHPHEMLightJSON::ICE_Data::getPrated() const {

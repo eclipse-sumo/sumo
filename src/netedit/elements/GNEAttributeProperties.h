@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,17 +52,17 @@ public:
         STRING =            1 << 4,     // Attribute is a string
         POSITION =          1 << 5,     // Attribute is a position defined by doubles (x,y or x,y,z)
         COLOR =             1 << 6,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        VCLASS =            1 << 7,     // Attribute is a VClass (passenger, bus, motorcicle...)
-        POSITIVE =          1 << 8,     // Attribute is positive (Including Zero)
-        UNIQUE =            1 << 9,     // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        FILENAME =          1 << 10,    // Attribute is a filename (string that cannot contains certain characters)
-        DISCRETE =          1 << 11,    // Attribute is discrete (only certain values are allowed)
-        PROBABILITY =       1 << 12,    // Attribute is probability (only allowed values between 0 and 1, including both)
-        ANGLE =             1 << 13,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        LIST =              1 << 14,    // Attribute is a list of other elements separated by spaces
-        SECUENCIAL =        1 << 15,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        DEFAULTVALUE =      1 << 16,    // Attribute owns a static default value
-        VCLASSES =          1 << 17,    // Attribute is a combination of VClasses (allow/disallow)
+        VTYPE =             1 << 7,     // Attribute corresponds to a Vtype or VTypeDistribution
+        VCLASS =            1 << 8,     // Attribute is a VClass (passenger, bus, motorcicle...)
+        POSITIVE =          1 << 9,     // Attribute is positive (Including Zero)
+        UNIQUE =            1 << 10,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        FILENAME =          1 << 11,    // Attribute is a filename (string that cannot contains certain characters)
+        DISCRETE =          1 << 12,    // Attribute is discrete (only certain values are allowed)
+        PROBABILITY =       1 << 13,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ANGLE =             1 << 14,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        LIST =              1 << 15,    // Attribute is a list of other elements separated by spaces
+        SECUENCIAL =        1 << 16,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        DEFAULTVALUE =      1 << 17,    // Attribute owns a static default value
         SYNONYM =           1 << 18,    // Attribute will be written with a different name in der XML
         RANGE =             1 << 19,    // Attribute only accept a range of elements (example: Probability [0,1])
         EXTENDED =          1 << 20,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
@@ -70,6 +70,7 @@ public:
         ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
         FLOWDEFINITION =    1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
         AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
+        COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
     };
 
     /// @brief default constructor
@@ -144,87 +145,90 @@ public:
     /// @brief return true if Attr correspond to an element that only accept a range of values
     bool hasAttrRange() const;
 
-    /// @brief return true if atribute is an integer
+    /// @brief return true if attribute is an integer
     bool isInt() const;
 
-    /// @brief return true if atribute is a float
+    /// @brief return true if attribute is a float
     bool isFloat() const;
 
-    /// @brief return true if atribute is a SUMOTime
+    /// @brief return true if attribute is a SUMOTime
     bool isSUMOTime() const;
 
-    /// @brief return true if atribute is boolean
+    /// @brief return true if attribute is boolean
     bool isBool() const;
 
-    /// @brief return true if atribute is a string
+    /// @brief return true if attribute is a string
     bool isString() const;
 
-    /// @brief return true if atribute is a position
-    bool isposition() const;
+    /// @brief return true if attribute is a position
+    bool isPosition() const;
 
-    /// @brief return true if atribute is a probability
+    /// @brief return true if attribute is a probability
     bool isProbability() const;
 
-    /// @brief return true if atribute is numerical (int or float)
+    /// @brief return true if attribute is numerical (int or float)
     bool isNumerical() const;
 
-    /// @brief return true if atribute is positive
+    /// @brief return true if attribute is positive
     bool isPositive() const;
 
-    /// @brief return true if atribute is a color
+    /// @brief return true if attribute is a color
     bool isColor() const;
 
-    /// @brief return true if atribute is a filename
+    /// @brief return true if attribute is a VType or vTypeDistribution
+    bool isVType() const;
+
+    /// @brief return true if attribute is a filename
     bool isFilename() const;
 
-    /// @brief return true if atribute is a VehicleClass
+    /// @brief return true if attribute is a VehicleClass
     bool isVClass() const;
 
-    /// @brief return true if atribute is a VehicleClass
+    /// @brief return true if attribute is a VehicleClass
     bool isSVCPermission() const;
 
-    /// @brief return true if atribute is a list
+    /// @brief return true if attribute is a list
     bool isList() const;
 
-    /// @brief return true if atribute is sequential
+    /// @brief return true if attribute is sequential
     bool isSecuential() const;
 
-    /// @brief return true if atribute is unique
+    /// @brief return true if attribute is unique
     bool isUnique() const;
 
-    /// @brief return true if atribute is discrete
+    /// @brief return true if attribute is discrete
     bool isDiscrete() const;
 
-    /// @brief return true if atribute is a list of VClasses
-    bool isVClasses() const;
-
-    /// @brief return true if atribute is extended
+    /// @brief return true if attribute is extended
     bool isExtended() const;
 
-    /// @brief return true if atribute requires a update geometry in setAttribute(...)
+    /// @brief return true if attribute requires a update geometry in setAttribute(...)
     bool requireUpdateGeometry() const;
 
-    /// @brief return true if atribute is activatable
+    /// @brief return true if attribute is activatable
     bool isActivatable() const;
 
-    /// @brief return true if atribute is part of a flow definition
+    /// @brief return true if attribute is part of a flow definition
     bool isFlowDefinition() const;
 
     /// @brief return true if attribute ID can generate an automatic ID
     bool hasAutomaticID() const;
 
+    /// @brief return true if attribute ID is copyable
+    bool isCopyable() const;
+
 private:
     /// @brief XML Attribute
-    SumoXMLAttr myAttribute;
+    SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
 
     /// @brief pointer to tagProperty parent
-    GNETagProperties* myTagPropertyParent;
+    GNETagProperties* myTagPropertyParent = nullptr;
 
     /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
     std::string myAttrStr;
 
     /// @brief Property of attribute
-    int myAttributeProperty;
+    int myAttributeProperty = STRING;
 
     /// @brief text with a definition of attribute
     std::string myDefinition;
@@ -233,20 +237,19 @@ private:
     std::string myDefaultValue;
 
     /// @brief default activated (by default false)
-    bool myDefaultActivated;
+    bool myDefaultActivated = false;
 
     /// @brief discrete values that can take this Attribute (by default empty)
     std::vector<std::string> myDiscreteValues;
 
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
-    SumoXMLAttr myAttrSynonym;
+    SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;
 
     /// @brief minimun Range
-    double myMinimumRange;
+    double myMinimumRange = 0;
 
     /// @brief maxium Range
-    double myMaximumRange;
+    double myMaximumRange = 0;
 };
 
 /****************************************************************************/
-

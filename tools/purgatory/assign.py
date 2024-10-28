@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -332,7 +332,7 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
     # Check if the convergence reaches.
     if iter > 1:
         counts = 0
-        for edge in net._edges.itervalues():
+        for edge in net._edges.values():
             stop = edge.stopCheck(options)
             if stop:
                 counts += 1

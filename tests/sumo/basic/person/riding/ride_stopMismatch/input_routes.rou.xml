@@ -1,0 +1,13 @@
+<routes>
+   <vType id="ship" sigma="0" vClass="ship"/>
+   <trip id="v0" depart="0" type="ship">
+       <stop containerStop="cStop" duration="100"/>
+    </trip>
+
+   <person id="p0" depart="triggered">
+        <ride from="e" busStop="bStop" lines="v0"/>
+        <walk to="a"/>
+    </person>
+    
+
+</routes>

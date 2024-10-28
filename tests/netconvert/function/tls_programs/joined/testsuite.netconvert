@@ -1,0 +1,11 @@
+# an example for a joined tls from a real-world network (A391_AS_Weststadt)
+joined_rw
+
+# junction from webwizard scenario (#13508, #13502)
+joined_rw2
+
+# junction from acosta scenarion (#5393)
+joined_with_uncontrolled
+
+# from netedit.checkoutput test netelements/junctions/inspect_tls/tl. see #13502
+joined_with_turnaround

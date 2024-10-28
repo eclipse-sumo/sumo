@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2020-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2020-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@
 // Avoid warnings in windows build because of strcpy instead of strcpy_s,
 // because the latter is not available on all platforms
 #define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:4820 4514 5045)
+#pragma warning(disable:4820 4514 5045 4668 4710)
 #endif
 
 #include <sstream>
@@ -65,7 +65,7 @@ libsumo_load(char* callOptions) {
 }
 
 void
-libsumo_close() {
+libsumo_close(void) {
     libsumo::Simulation::close();
 }
 
@@ -75,7 +75,7 @@ libsumo_step(double time) {
 }
 
 int
-libsumo_vehicle_getIDCount() {
+libsumo_vehicle_getIDCount(void) {
     return libsumo::Vehicle::getIDCount();
 }
 
@@ -163,4 +163,3 @@ libsumo_vehicle_getPosition(ModelInstance* comp, const char** result) {
         abort();
     }
 }
-

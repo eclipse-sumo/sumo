@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,20 +13,22 @@
 /****************************************************************************/
 /// @file    GNEContainerFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    May 2019
 ///
 // The Widget for add container elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
 
 
 // ===========================================================================
@@ -39,10 +41,10 @@ class GNEContainerFrame : public GNEFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEContainerFrame();
@@ -54,13 +56,22 @@ public:
     void hide();
 
     /**@brief add vehicle element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if vehicle was successfully added
      */
-    bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addContainer(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
-    /// @brief get GNEPathCreator modul
-    GNEPathCreator* getPathCreator() const;
+    /// @brief get plan creator module
+    GNEPlanCreator* getPlanCreator() const;
+
+    /// @brief get Type selectors
+    GNEDemandElementSelector* getTypeSelector() const;
+
+    /// @brief get containerPlan selector
+    GNEPlanSelector* getPlanSelector() const;
+
+    /// @brief get attributes creator
+    GNEAttributesCreator* getContainerAttributes() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -70,7 +81,7 @@ protected:
     void demandElementSelected();
 
     /// @brief create path
-    void createPath();
+    bool createPath(const bool useLastRoute);
 
 private:
     /// @brief route handler
@@ -83,10 +94,10 @@ private:
     GNETagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
-    DemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector;
 
-    /// @brief container plan selector (used to select diffent kind of container plan)
-    GNETagSelector* myContainerPlanTagSelector;
+    /// @brief containerPlan selector
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myContainerAttributes;
@@ -97,8 +108,11 @@ private:
     /// @brief Netedit parameter
     GNENeteditAttributes* myNeteditAttributes;
 
-    /// @brief edge path creator (used for Walks, rides and trips)
-    GNEPathCreator* myPathCreator;
+    /// @brief plan creator
+    GNEPlanCreator* myPlanCreator;
+
+    /// @brief plan creator legend
+    GNEPlanCreatorLegend* myPlanCreatorLegend;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

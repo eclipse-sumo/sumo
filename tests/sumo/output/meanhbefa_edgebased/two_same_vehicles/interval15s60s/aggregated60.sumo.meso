@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 15 12:29:54 2016 by SUMO Version dev-SVN-r22302
+<!-- generated on 2022-06-18 12:23:16 by Eclipse SUMO sumo Version v1_13_0+0980-15ac9f724ae
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,10 +18,18 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -33,27 +46,27 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" sampledSeconds="33.00" CO_abs="635.250000" CO2_abs="69703.333333" HC_abs="4.390833" PMx_abs="0.411583" NOx_abs="22.944167" fuel_abs="29.963387" electricity_abs="0"
-            CO_normed="95.287500" CO2_normed="10455.500000" HC_normed="0.658625" PMx_normed="0.061738" NOx_normed="3.441625" fuel_normed="4.494508" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
-        <edge id="4/1to3/1" sampledSeconds="80.00" CO_abs="1540.000000" CO2_abs="168977.777778" HC_abs="10.644444" PMx_abs="0.997778" NOx_abs="55.622222" fuel_abs="72.638515" electricity_abs="0"
-            CO_normed="231.000000" CO2_normed="25346.666667" HC_normed="1.596667" PMx_normed="0.149667" NOx_normed="8.343333" fuel_normed="10.895777" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
+        <edge id="3/1to2/1" sampledSeconds="33.00" CO_abs="635.250000" CO2_abs="69703.333333" HC_abs="4.390833" PMx_abs="0.411583" NOx_abs="22.944167" fuel_abs="22232.833333" electricity_abs="0"
+            CO_normed="95.287500" CO2_normed="10455.500000" HC_normed="0.658625" PMx_normed="0.061738" NOx_normed="3.441625" fuel_normed="3334.925000" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
+        <edge id="4/1to3/1" sampledSeconds="80.00" CO_abs="1540.000000" CO2_abs="168977.777778" HC_abs="10.644444" PMx_abs="0.997778" NOx_abs="55.622222" fuel_abs="53897.777778" electricity_abs="0"
+            CO_normed="231.000000" CO2_normed="25346.666667" HC_normed="1.596667" PMx_normed="0.149667" NOx_normed="8.343333" fuel_normed="8084.666667" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="2/1to1/1" sampledSeconds="73.00" CO_abs="1405.250000" CO2_abs="154192.222222" HC_abs="9.713056" PMx_abs="0.910472" NOx_abs="50.755278" fuel_abs="66.282645" electricity_abs="0"
-            CO_normed="210.787500" CO2_normed="23128.833333" HC_normed="1.456958" PMx_normed="0.136571" NOx_normed="7.613292" fuel_normed="9.942397" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
-        <edge id="3/1to2/1" sampledSeconds="47.00" CO_abs="904.750000" CO2_abs="99274.444444" HC_abs="6.253611" PMx_abs="0.586194" NOx_abs="32.678056" fuel_abs="42.675127" electricity_abs="0"
-            CO_normed="135.712500" CO2_normed="14891.166667" HC_normed="0.938042" PMx_normed="0.087929" NOx_normed="4.901708" fuel_normed="6.401269" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
+        <edge id="2/1to1/1" sampledSeconds="73.00" CO_abs="1405.250000" CO2_abs="154192.222222" HC_abs="9.713056" PMx_abs="0.910472" NOx_abs="50.755278" fuel_abs="49181.722222" electricity_abs="0"
+            CO_normed="210.787500" CO2_normed="23128.833333" HC_normed="1.456958" PMx_normed="0.136571" NOx_normed="7.613292" fuel_normed="7377.258333" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
+        <edge id="3/1to2/1" sampledSeconds="47.00" CO_abs="904.750000" CO2_abs="99274.444444" HC_abs="6.253611" PMx_abs="0.586194" NOx_abs="32.678056" fuel_abs="31664.944444" electricity_abs="0"
+            CO_normed="135.712500" CO2_normed="14891.166667" HC_normed="0.938042" PMx_normed="0.087929" NOx_normed="4.901708" fuel_normed="4749.741667" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="55.00" CO_abs="1058.750000" CO2_abs="116172.222222" HC_abs="7.318056" PMx_abs="0.685972" NOx_abs="38.240278" fuel_abs="49.938979" electricity_abs="0"
-            CO_normed="317.625000" CO2_normed="34851.666667" HC_normed="2.195417" PMx_normed="0.205792" NOx_normed="11.472083" fuel_normed="14.981694" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
-        <edge id="2/1to1/1" sampledSeconds="7.00" CO_abs="134.750000" CO2_abs="14785.555556" HC_abs="0.931389" PMx_abs="0.087306" NOx_abs="4.866944" fuel_abs="6.355870" electricity_abs="0"
-            CO_normed="40.425000" CO2_normed="4435.666667" HC_normed="0.279417" PMx_normed="0.026192" NOx_normed="1.460083" fuel_normed="1.906761" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="36.319257" electricity_perVeh="0"/>
+        <edge id="1/1to0/1" sampledSeconds="55.00" CO_abs="1058.750000" CO2_abs="116172.222222" HC_abs="7.318056" PMx_abs="0.685972" NOx_abs="38.240278" fuel_abs="37054.722222" electricity_abs="0"
+            CO_normed="317.625000" CO2_normed="34851.666667" HC_normed="2.195417" PMx_normed="0.205792" NOx_normed="11.472083" fuel_normed="11116.416667" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
+        <edge id="2/1to1/1" sampledSeconds="7.00" CO_abs="134.750000" CO2_abs="14785.555556" HC_abs="0.931389" PMx_abs="0.087306" NOx_abs="4.866944" fuel_abs="4716.055556" electricity_abs="0"
+            CO_normed="40.425000" CO2_normed="4435.666667" HC_normed="0.279417" PMx_normed="0.026192" NOx_normed="1.460083" fuel_normed="1414.816667" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
     </interval>
 </meandata>

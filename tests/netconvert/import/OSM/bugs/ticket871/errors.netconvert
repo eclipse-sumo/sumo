@@ -1,1 +1,6 @@
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '48120356').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '48120356').
+Warning: Removing pt stop '246422911' on non existing edge '22894125'.
+Warning: Removing pt stop '246422944' on non existing edge '22894125'.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '246422911' (Bahnhof Deutz). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '246422944' (Deutz Fachhochschule). Thus, it will be removed!
+Warning: Not joining junctions 442733,613378773 (parallel outgoing 48273910#1,8078855#0).

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -98,7 +98,7 @@ public:
          *
          * Indicator if the reminders is still active for the passed
          * vehicle/parameters. If false, the vehicle will erase this reminder
-         * from it's reminder-container.
+         * from its reminder-container.
          *
          * @param[in] veh Vehicle that asks this reminder.
          * @param[in] oldPos Position before move.
@@ -142,7 +142,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                           const double numLanes, const double speedLimit, const double defaultTravelTime,
+                           const int numLanes, const double speedLimit, const double defaultTravelTime,
                            const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
@@ -155,6 +155,23 @@ public:
         */
         double getTravelledDistance() const {
             return travelledDistance;
+        }
+
+        SUMOTime getResetTime() const {
+            return resetTime;
+        }
+
+        double getLaneLength() const {
+            return myLaneLength;
+        }
+
+        /// @brief return attribute value
+        virtual double getAttributeValue(SumoXMLAttr a, const SUMOTime period, const double numLanes, const double speedLimit) const {
+            UNUSED_PARAMETER(a);
+            UNUSED_PARAMETER(period);
+            UNUSED_PARAMETER(numLanes);
+            UNUSED_PARAMETER(speedLimit);
+            return 0;
         }
 
     protected:
@@ -173,6 +190,8 @@ public:
         double travelledDistance;
         //@}
 
+        /// @brief time at which collection was reset;
+        SUMOTime resetTime;
     };
 
 
@@ -244,7 +263,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                   const double numLanes, const double speedLimit, const double defaultTravelTime,
+                   const int numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
         int getNumReady() const;
@@ -364,6 +383,17 @@ public:
         return myAmEdgeBased;
     }
 
+    /// @brief return all attributes that are (potentially) written by this output
+    virtual std::vector<std::string> getAttributeNames() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return attribute value for the given lane
+    virtual double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const {
+        UNUSED_PARAMETER(lane);
+        UNUSED_PARAMETER(a);
+        return defaultValue;
+    }
 
 protected:
     /** @brief Create an instance of MeanDataValues
@@ -401,7 +431,7 @@ protected:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*>& edgeValues,
-                   MSEdge* edge, SUMOTime startTime, SUMOTime stopTime);
+                   const MSEdge* const edge, SUMOTime startTime, SUMOTime stopTime);
 
 
     /** @brief Writes aggregate of all edge values into the given stream
@@ -437,6 +467,10 @@ protected:
     virtual bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
                              const SumoXMLTag tag, const std::string id) const;
 
+
+protected:
+    const std::vector<MeanDataValues*>* getEdgeValues(const MSEdge* edge) const;
+
 protected:
     /// @brief the minimum sample seconds
     const double myMinSamples;
@@ -450,11 +484,11 @@ protected:
     /// @brief Whether empty lanes/edges shall be written
     const bool myDumpEmpty;
 
-private:
-    static long long int initWrittenAttributes(const std::string writeAttributes, const std::string& id);
-
     /// @brief Information whether the output shall be edge-based (not lane-based)
     const bool myAmEdgeBased;
+
+private:
+    static long long int initWrittenAttributes(const std::string writeAttributes, const std::string& id);
 
     /// @brief The first and the last time step to write information (-1 indicates always)
     const SUMOTime myDumpBegin, myDumpEnd;
@@ -464,6 +498,9 @@ private:
 
     /// @brief The corresponding first edges
     MSEdgeVector myEdges;
+
+    /// @brief The index in myEdges / myMeasures
+    std::map<const MSEdge*, int> myEdgeIndex;
 
     /// @brief Whether empty lanes/edges shall be written
     const bool myPrintDefaults;

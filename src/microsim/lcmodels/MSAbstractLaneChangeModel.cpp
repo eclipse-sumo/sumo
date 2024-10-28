@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,8 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
-#include "MSAbstractLaneChangeModel.h"
+#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -46,7 +47,9 @@
 #include <microsim/devices/MSDevice_Bluelight.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
+#include "MSLCM_LC2013_CC.h"
 #include "MSLCM_SL2015.h"
+#include "MSAbstractLaneChangeModel.h"
 
 /* -------------------------------------------------------------------------
  * static members
@@ -57,6 +60,8 @@ bool MSAbstractLaneChangeModel::myLCStartedOutput(false);
 bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
 bool MSAbstractLaneChangeModel::myLCXYOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
+
+#define LC_ASSUMED_DECEL 1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
 
 /* -------------------------------------------------------------------------
  * MSAbstractLaneChangeModel-methods
@@ -75,13 +80,15 @@ MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
 MSAbstractLaneChangeModel*
 MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     if (MSGlobals::gLateralResolution > 0 && lcm != LaneChangeModel::SL2015 && lcm != LaneChangeModel::DEFAULT) {
-        throw ProcessError("Lane change model '" + toString(lcm) + "' is not compatible with sublane simulation");
+        throw ProcessError(TLF("Lane change model '%' is not compatible with sublane simulation", toString(lcm)));
     }
     switch (lcm) {
         case LaneChangeModel::DK2008:
             return new MSLCM_DK2008(v);
         case LaneChangeModel::LC2013:
             return new MSLCM_LC2013(v);
+        case LaneChangeModel::LC2013_CC:
+            return new MSLCM_LC2013_CC(v);
         case LaneChangeModel::SL2015:
             return new MSLCM_SL2015(v);
         case LaneChangeModel::DEFAULT:
@@ -91,7 +98,7 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
                 return new MSLCM_SL2015(v);
             }
         default:
-            throw ProcessError("Lane change model '" + toString(lcm) + "' not implemented");
+            throw ProcessError(TLF("Lane change model '%' not implemented", toString(lcm)));
     }
 }
 
@@ -106,6 +113,8 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCanceledStateLeft(LCA_NONE),
     mySpeedLat(0),
     myAccelerationLat(0),
+    myAngleOffset(0),
+    myPreviousAngleOffset(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
@@ -131,6 +140,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
                          // prevent lateral sliding for cars but permit for two-wheelers due to better maneuverability
                          (v.getVClass() & (SVC_BICYCLE | SVC_MOTORCYCLE | SVC_MOPED)) != 0 ? std::numeric_limits<double>::max() : 1.6)),
     mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
+    myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
     myHaveBlueLight(v.getDevice(typeid(MSDevice_Bluelight)) != nullptr), // see MSVehicle::initDevices
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
@@ -202,11 +212,11 @@ MSAbstractLaneChangeModel::saveNeighbors(const int dir, const MSLeaderDistanceIn
 void
 MSAbstractLaneChangeModel::saveNeighbors(const int dir, const std::pair<MSVehicle* const, double>& follower, const std::pair<MSVehicle* const, double>& leader) {
     if (dir == -1) {
-        myLeftFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane());
-        myLeftLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane());
+        myLeftFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane()->getWidth());
+        myLeftLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane()->getWidth());
     } else if (dir == 1) {
-        myRightFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane());
-        myRightLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane());
+        myRightFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane()->getWidth());
+        myRightLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane()->getWidth());
     } else {
         // dir \in {-1,1} !
         assert(false);
@@ -269,6 +279,13 @@ MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
 }
 
 
+bool
+MSAbstractLaneChangeModel::avoidOvertakeRight() const {
+    return (!myAllowOvertakingRight
+            && !myVehicle.congested()
+            && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
+            && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
+}
 
 bool
 MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, double>& leader) {
@@ -290,7 +307,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         myLaneChangeDirection = direction;
         setManeuverDist((target->getWidth() + source->getWidth()) * 0.5 * direction);
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
-        myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
+        myVehicle.switchOnSignal(((direction == 1) != MSGlobals::gLefthand) ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         if (myLCOutput) {
             memorizeGapsAtLCInit();
         }
@@ -408,7 +425,7 @@ MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverD
 
 double
 MSAbstractLaneChangeModel::getAssumedDecelForLaneChangeDuration() const {
-    throw ProcessError("Method getAssumedDecelForLaneChangeDuration() not implemented by model " + toString(myModel));
+    return MAX2(LC_ASSUMED_DECEL, -myVehicle.getAcceleration());
 }
 
 void
@@ -416,6 +433,15 @@ MSAbstractLaneChangeModel::setSpeedLat(double speedLat) {
     myAccelerationLat = SPEED2ACCEL(speedLat - mySpeedLat);
     mySpeedLat = speedLat;
 }
+
+
+void
+MSAbstractLaneChangeModel::resetSpeedLat() {
+    if (MSGlobals::gLaneChangeDuration > 0 && !isChangingLanes()) {
+        setSpeedLat(0);
+    }
+}
+
 
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
@@ -457,7 +483,7 @@ MSLane*
 MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) const {
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         // initialize shadow lane
-        const double overlap = myVehicle.getLateralOverlap(posLat);
+        const double overlap = myVehicle.getLateralOverlap(posLat, lane);
 #ifdef DEBUG_SHADOWLANE
         if (debugVehicle()) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
@@ -714,13 +740,18 @@ MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
 
 
 double
-MSAbstractLaneChangeModel::getAngleOffset() const {
-    const double totalDuration = (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)
-                                  ? SUMO_const_laneWidth / myVehicle.getVehicleType().getMaxSpeedLat()
-                                  : STEPS2TIME(MSGlobals::gLaneChangeDuration));
+MSAbstractLaneChangeModel::calcAngleOffset() {
+    double result = 0.;
+    if (!(fabs(mySpeedLat) < NUMERICAL_EPS && fabs(myPreviousAngleOffset * 180 / M_PI) < NUMERICAL_EPS)) {
+        if (myVehicle.getLength() < sqrt(SPEED2DIST(mySpeedLat) * SPEED2DIST(mySpeedLat) + SPEED2DIST(myVehicle.getSpeed()) * SPEED2DIST(myVehicle.getSpeed()))) {
+            result = atan2(mySpeedLat, myVehicle.getSpeed());
+        } else {
+            result = myPreviousAngleOffset + asin((sin(M_PI / 2 - myPreviousAngleOffset) * (SPEED2DIST(mySpeedLat) - tan(myPreviousAngleOffset) * SPEED2DIST(myVehicle.getSpeed()))) / myVehicle.getLength());
+        }
+    }
 
-    const double angleOffset = 60 / totalDuration * (pastMidpoint() ? 1 - myLaneChangeCompletion : myLaneChangeCompletion);
-    return myLaneChangeDirection * angleOffset;
+    myAngleOffset = result;
+    return result;
 }
 
 
@@ -817,9 +848,11 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
         // LC won't be completed if vehicle stands
         double maneuverDist = remainingManeuverDist;
         const double vModel = computeSpeedLat(maneuverDist, maneuverDist, urgent);
-        if (vModel > 0) {
+        double result = D / vModel;
+        // make sure that the vehicle isn't braking to a stop during the manuever
+        if (vModel > SUMO_const_haltingSpeed && (vModel + myVehicle.getAcceleration() * result) > SUMO_const_haltingSpeed) {
             // unless the model tells us something different
-            return D / vModel;
+            return result;
         } else {
             return -1;
         }
@@ -837,7 +870,7 @@ MSAbstractLaneChangeModel::remainingTime() const {
         if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
             return TIME2STEPS((1. - myLaneChangeCompletion) * myManeuverDist / myVehicle.getVehicleType().getMaxSpeedLat());
         } else {
-            return (SUMOTime)((1. - myLaneChangeCompletion) * MSGlobals::gLaneChangeDuration);
+            return (SUMOTime)((1. - myLaneChangeCompletion) * (double)MSGlobals::gLaneChangeDuration);
         }
     }
     // Using maxSpeedLat(Factor/Standing)
@@ -1061,5 +1094,35 @@ MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
         return myVehicle.getLane()->getParallelOpposite()->getEdge().getNumLanes() + myVehicle.getLane()->getEdge().getNumLanes() - 1 - i;
     } else {
         return i;
+    }
+}
+
+void
+MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) {
+    const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
+    myLCAccelerationAdvices.push_back({accel, ownAdvice});
+}
+
+
+void
+MSAbstractLaneChangeModel::saveState(OutputDevice& out) const {
+    std::vector<std::string> lcState;
+    if (MSGlobals::gLaneChangeDuration > 0) {
+        lcState.push_back(toString(mySpeedLat));
+        lcState.push_back(toString(myLaneChangeCompletion));
+        lcState.push_back(toString(myLaneChangeDirection));
+    }
+    if (lcState.size() > 0) {
+        out.writeAttr(SUMO_ATTR_LCSTATE, lcState);
+    }
+}
+
+void
+MSAbstractLaneChangeModel::loadState(const SUMOSAXAttributes& attrs) {
+    if (attrs.hasAttribute(SUMO_ATTR_LCSTATE)) {
+        std::istringstream bis(attrs.getString(SUMO_ATTR_LCSTATE));
+        bis >> mySpeedLat;
+        bis >> myLaneChangeCompletion;
+        bis >> myLaneChangeDirection;
     }
 }

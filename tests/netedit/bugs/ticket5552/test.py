@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,18 +26,18 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [], False)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
 netedit.selectMode()
 
 # select junctions
-netedit.leftClick(referencePosition, 262, 236)
-netedit.leftClick(referencePosition, 392, 236)
-netedit.leftClick(referencePosition, 324, 174)
-netedit.leftClick(referencePosition, 324, 301)
-netedit.leftClick(referencePosition, 262, 301)
-netedit.leftClick(referencePosition, 392, 174)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # join junctions
 netedit.joinSelectedJunctions()
@@ -46,7 +46,7 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # split and reconect
-netedit.contextualMenuOperation(referencePosition, 324, 236, 12, 0, 0)
+netedit.contextualMenuOperation(referencePosition, 500, 236, 14, 0, 0)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -60,8 +60,8 @@ netedit.rebuildNetwork()
 # Check redo
 netedit.redo(referencePosition, 2)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

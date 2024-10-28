@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -70,6 +70,7 @@ print("version at start", version)
 print("version", traci.getVersion())
 print("loaded?", traci.isLoaded())
 print("endTime", traci.simulation.getEndTime())
+print("net file", traci.simulation.getOption("net-file"))
 
 traci.simulation.subscribe(
     [traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS])
@@ -94,10 +95,20 @@ print("convertGeoRoad", traci.simulation.convertRoad(12, 48.1, True))
 print("convertGeoRoadBus", traci.simulation.convertRoad(12, 48.1, True, "bus"))
 traci.lane.setDisallowed("o_0", ["bus"])
 print("convertGeoRoadBusDisallowed", traci.simulation.convertRoad(12, 48.1, True, "bus"))
-print("distance2D", traci.simulation.getDistance2D(
-    488.65, 501.65, 498.65, 501.65))
+
+pos1 = (488.65, 501.65)
+pos2 = (498.65, 501.65)
+print("distance2D", traci.simulation.getDistance2D(pos1[0], pos1[1], pos2[0], pos2[1]))
+pos1geo = traci.simulation.convertGeo(*pos1)
+pos2geo = traci.simulation.convertGeo(*pos2)
+print("distance2Dgeo", pos1geo, pos2geo,
+      traci.simulation.getDistance2D(pos1geo[0], pos1geo[1],
+                                     pos2geo[0], pos2geo[1], isGeo=True))
+
 print("drivingDistance2D", traci.simulation.getDistance2D(
     488.65, 501.65, 498.65, 501.65, isDriving=True))
+
+
 print("distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.))
 print("drivingDistanceRoad", traci.simulation.getDistanceRoad(
     "o", 0., "2o", 0., isDriving=True))
@@ -140,6 +151,24 @@ print("getParameter busStop.name", traci.simulation.getParameter("bs", "busStop.
 print("getParameter busStop.lane", traci.simulation.getParameter("bs", "busStop.lane"))
 print("getParameter busStop.key2", traci.simulation.getParameter("bs", "busStop.key2"))
 
+print("getParameter stats.vehicles.loaded", traci.simulation.getParameter("", "stats.vehicles.loaded"))
+print("getParameter stats.vehicles.inserted", traci.simulation.getParameter("", "stats.vehicles.inserted"))
+print("getParameter stats.vehicles.running", traci.simulation.getParameter("", "stats.vehicles.running"))
+print("getParameter stats.vehicles.waiting", traci.simulation.getParameter("", "stats.vehicles.waiting"))
+print("getParameter stats.teleports.total", traci.simulation.getParameter("", "stats.teleports.total"))
+print("getParameter stats.teleports.jam", traci.simulation.getParameter("", "stats.teleports.jam"))
+print("getParameter stats.teleports.yield", traci.simulation.getParameter("", "stats.teleports.yield"))
+print("getParameter stats.teleports.wrongLane", traci.simulation.getParameter("", "stats.teleports.wrongLane"))
+print("getParameter stats.safety.collisions", traci.simulation.getParameter("", "stats.safety.collisions"))
+print("getParameter stats.safety.emergencyStops", traci.simulation.getParameter("", "stats.safety.emergencyStops"))
+print("getParameter stats.safety.emergencyBraking", traci.simulation.getParameter("", "stats.safety.emergencyBraking"))
+print("getParameter stats.persons.loaded", traci.simulation.getParameter("", "stats.persons.loaded"))
+print("getParameter stats.persons.running", traci.simulation.getParameter("", "stats.persons.running"))
+print("getParameter stats.persons.jammed", traci.simulation.getParameter("", "stats.persons.jammed"))
+print("getParameter stats.personTeleports.total", traci.simulation.getParameter("", "stats.personTeleports.total"))
+print("getParameter stats.personTeleports.abortWait", traci.simulation.getParameter("", "stats.personTeleports.abortWait"))  # noqa
+print("getParameter stats.personTeleports.wrongDest", traci.simulation.getParameter("", "stats.personTeleports.wrongDest"))  # noqa
+
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
 except traci.TraCIException:
@@ -172,6 +201,11 @@ ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o",
 ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))
 ppStages("findIntermodalRoute (bike,car,public)",
          traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
+
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o", departPos=1e5))
+except traci.TraCIException:
+    pass
 
 traci.vehicle.setSpeedMode("emergencyStopper", 0)
 traci.vehicle.setSpeed("emergencyStopper", 100)

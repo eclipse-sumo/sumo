@@ -30,6 +30,7 @@ stop is an area on a lane. The parameters have the following meanings:
 | color           | color      | see [color definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#colors)                                                                                | "76,170,50"            | Bus stop color. This is only used for visualization purposes.                                                               |
 | lines          | string list | A list of names separated by spaces (' ')                                                    |             | meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes.           |
 | personCapacity  | int | >= 0 | min(6, (endPos-StartPos) * 2.4)  | larger numbers of persons trying to enter will create an upstream jam on the sidewalk.  |
+| parkingLength  | float | >= 0 | (endPos - startPos) | space available for parking vehicles  |
 
 !!! caution
     Please note that bus stops must be added to a config via the *--additional-files* parameter (see {{AdditionalFile}}).
@@ -39,13 +40,13 @@ stop is an area on a lane. The parameters have the following meanings:
 
 ## Access Lanes
 
-Each bus stop may have additional child elements to model access from
+Each bus or train stop may have additional child elements to model access from
 other parts of the network (e.g. road access to a stop on the rail
 network). This takes the following form:
 
 ```xml
 <busStop id="myStop" lane="A_0" startPos="230" endPos="250">
-   <access lane="B_0" pos="150"/>
+   <access lane="B_0" pos="150"/>
 </busStop>
 ```
 
@@ -56,9 +57,14 @@ OSM](../Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_in
 | Attribute Name | Value Type | Value Range         | Description                                                    |
 | -------------- | ---------- | ------------------- | -------------------------------------------------------------- |
 | **lane**       | string     | id                  | The name of the lane from which this stop may also be accessed |
-| **pos**        | float      | position along lane | The position along the lane from which the stop is reached     |
+| **pos**        | float, "random", "doors"      | position along lane | The position along the lane from which the stop is reached     |
 | length         | float      | >= 0 | The distance for computing the access time of pedestrians that use this element|
 | friendlyPos    | bool       |      | Whether an invalid **pos** should be silently converted to the closest correct approximation |
+
+The value `doors` is currently only used when exiting a train or bus. The starting position for a
+subsequent walk of the exiting passengers will be randomly chosen among the door positions of the train or bus.
+The door positions themselves cannot be defined but they are derived from the number of carriages
+and the number of doors per carriage of the vehicle, see [carriage definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#carriages).
 
 # Letting Vehicles stop at a bus stop
 
@@ -66,7 +72,7 @@ Vehicles must be informed that they must stop at a bus stop. The
 following example shows how this can be done (taken from {{SUMO}}*/examples/sumo/busses*):
 
 ```xml
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busstop1" lane="2/1to1/1_0" startPos="20" endPos="40" lines="100 101 102"/>
     <busStop id="busstop2" lane="1/2to0/2_0" startPos="20" endPos="40" lines="100 101"/>
     <busStop id="busstop3" lane="0/1to0/0_0" startPos="20" endPos="40" lines="100 101 102"/>
@@ -95,7 +101,7 @@ at must be correct.
 
 For a complete list of attributes for the "stop"-element of a vehicle
 see
-[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
 ## Incomplete Route Definition
 
@@ -103,24 +109,24 @@ It is also possible to define a bus route without defining all
 intermediate edges:
 
 ```xml
-   <trip id="0" type="BUS" depart="0" color="1,1,0" from="2/0to2/1" to="2/0to2/1">
-       <stop busStop="busstop1" duration="20"/>
-       <stop busStop="busstop2" duration="20"/>
-       <stop busStop="busstop3" duration="20"/>
-       <stop busStop="busstop4" duration="20"/>
-   </trip>
+   <trip id="0" type="BUS" depart="0" color="1,1,0" from="2/0to2/1" to="2/0to2/1">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
 ```
 The vehicle will take the fastest path between *from*-edge and *to*-edge
 that visits all stops in their correct order.
 
-Even the trip attributes 'from' and 'to' can be omitted to let the bus start at the first stop and end at the last. Using `departPos="stop"`, the vehicle will be inserted directly at the first stop in it's route:
+Even the trip attributes 'from' and 'to' can be omitted to let the bus start at the first stop and end at the last. Using `departPos="stop"`, the vehicle will be inserted directly at the first stop in its route:
 ```xml
-   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
-       <stop busStop="busstop1" duration="20"/>
-       <stop busStop="busstop2" duration="20"/>
-       <stop busStop="busstop3" duration="20"/>
-       <stop busStop="busstop4" duration="20"/>
-   </trip>
+   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
 ```
 
 # Public Transport Schedules
@@ -128,17 +134,17 @@ In most cases, public transport runs according to a fixed schedule. Such a sched
 
 !!! note
     Defining a public transport schedule is necessary for [intermodal routing](../IntermodalRouting.md).
-    
+
 !!! caution
     A public transport schedule for [intermodal routing](../IntermodalRouting.md) must be fully defined when loading the simulation. Stops that are defined during the simulation via rerouters or TraCI will not be considered when routing a [`<personTrip>`](../Specification/Persons.md#persontrips).
-  
+
 
 ## Single vehicles and trips
 When defining `until` values for a vehicle and trip, the values denote absolute simulation times.
 Note, that seconds or human-readable times may be used.
 
 ```xml
-<trip="bus" from = "beg" to ="end" line="bus" depart="6:0:0">
+<trip="bus" from="beg" to="end" line="bus" depart="6:0:0">
      <stop busStop="busStopA" until="6:30:00"/>
      <stop busStop="busStopB" until="6:32:30"/>
      <stop busStop="busStopC" until="23700"/>
@@ -149,12 +155,13 @@ Note, that seconds or human-readable times may be used.
 When defining a vehicle flow the `until` times are absolute times for the first vehicle in the flow. For all later vehicles, the times will be shifted according to later departure times (period * vehicleIndex).
 
 The example below defines a flow that inserts two vehicles. The first vehicle will stop until 10,110,210 and the second vehicle will stop until 310,410,510:
+
 ```xml
-    <flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="301" period="300">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
-    </flow>
+<flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="301" period="300">
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
+</flow>
 ```
 
 ## Stops in a stand-alone route
@@ -164,9 +171,9 @@ The example below defines a flow that inserts two vehicles. The first vehicle wi
 
 ```xml
 <route id="busRoute" edges="A B C D E">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
 </route>
 
 <flow id="bus" route="busRoute" line="bus" begin="500" end="801" period="300"/>
@@ -179,9 +186,9 @@ To shorten the input description, a route may also be defined with the attribute
 
 ```xml
 <route id="busRoute" edges="A B C D E" repeat="3" cycleTime="300">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
 </route>
 ```
 
@@ -190,15 +197,15 @@ The `until` times of the stops are shifted by 300s in each cycle and thus the si
 
 ```xml
 <route id="busRoute" edges="A B C D E A B C D E A B C D E" repeat="3" cycleTime="300">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
-                <stop busStop="busStopA" until="310"/>
-                <stop busStop="busStopB" until="410"/>
-                <stop busStop="busStopC" until="510"/>
-                <stop busStop="busStopA" until="610"/>
-                <stop busStop="busStopB" until="710"/>
-                <stop busStop="busStopC" until="810"/>
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
+    <stop busStop="busStopA" until="310"/>
+    <stop busStop="busStopB" until="410"/>
+    <stop busStop="busStopC" until="510"/>
+    <stop busStop="busStopA" until="610"/>
+    <stop busStop="busStopB" until="710"/>
+    <stop busStop="busStopC" until="810"/>
 </route>
 ```
 
@@ -206,9 +213,9 @@ In contrast to a period flow (which also repeats a given stop sequence), this si
 
 !!! caution
     When using attribute `repeat`, the last edge of the route must be connected to the first edge of the route in order to have a valid route definition.
-    
+
 ## Further Schedule Attributes
-The following [stop attributes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) are relevant for public transport schedules:
+The following [stop attributes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints) are relevant for public transport schedules:
 
 - arrival: Defines expected arrival at the public transport stop. When set this causes arrivalDelay to be computed and written in [stop-output](Output/StopOutput.md). It also enables results for the function `traci.vehicle.getStopArrivalDelay`.
 - extension: The maximum time by which a public transport stop may be extended due to boarding passengers
@@ -218,6 +225,12 @@ The following [stop attributes](../Definition_of_Vehicles,_Vehicle_Types,_and_Ro
 - ended: Defines actual time at which the stop ended (i.e. from a real world data source or a prior simulation run). Can be used to override the 'until' attribute by setting sumo option **--use-stop-ended**.
 
 The attributes `started` and `ended` are used to account for real-life modifications to a railway schedule (train order changes), when [generating railSignalConstraints](../Tools/Railways.md#generaterailsignalconstraintspy) for [schedule-based railway simulation](Railways.md#schedule_constraints).
+
+## Visualization Example
+
+<img src="../images/schedule_until.png" width="500px"/>
+
+Generated by [plotXMLAttributes.py](../Tools/Visualization.md#public_transport_schedule).
 
 # Stopping without defining a bus stop
 
@@ -229,7 +242,7 @@ short definition of a vehicle's stop is:
 This means you can either use a bus stop or a lane position to define
 where a vehicle has to stop. For a complete list of attributes for the
 `stop` element of a vehicle see
-[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
 # Passengers
 
@@ -253,10 +266,8 @@ transport lines. The usage of this line data is explained at
 
 ## GTFS
 
-The tool [gtfs2pt.py](../Tools/Import/GTFS.md) can be used to import public transport data for a geo-referenced network. 
+The tool [gtfs2pt.py](../Tools/Import/GTFS.md) can be used to import public transport data for a geo-referenced network.
 
 ## Automatic Schedule Generation
 
 The tool [ptlines2flows.py](../Tools/Misc.md#ptlines2flowspy) can be used to generated a public transport schedule with 'until' and 'duration' values for a given sequence of stops. The schedule times are derived by running a simulation in the background.
-
-

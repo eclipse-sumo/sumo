@@ -1,0 +1,26 @@
+/* XPM */
+static const char *vtype_taxi_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c gray25",
+". c red",
+"X c #808080",
+"o c None",
+/* pixels */
+"oooooooooooooooo",
+"ooXoXoXoXoXoXoXo",
+"oXoXoXoXoXoXoXoo",
+"oooooooooooooooo",
+"o   oo oo o oo o",
+"oo oo o oo ooo o",
+"oo oo   o o oo o",
+"oo oo o o o oo o",
+"oooooooooooooooo",
+"ooXoXoXoXoXoXoXo",
+"oXoXoXoXoXoXoXoo",
+"oooooooooooooooo",
+"o...o.o.o..o..oo",
+"oo.oo...o..o.ooo",
+"oo.ooo.oo.oo..oo",
+"oooooooooooooooo"
+};

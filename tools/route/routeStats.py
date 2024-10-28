@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@ from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <rou.xml> [<rou2.xml>]"""
+    USAGE = """Usage %(prog)s [options] <rou.xml> [<rou2.xml>]"""
     optParser = sumolib.options.ArgumentParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
@@ -69,7 +69,6 @@ def get_options():
 def main():
     options = get_options()
     net = None
-    attribute_retriever = None
     if options.attribute == "length":
         net = sumolib.net.readNet(options.network)
 
@@ -94,7 +93,7 @@ def main():
         def attribute_retriever(vehicle):
             return 3.6 * float(vehicle.routeLength) / (parseTime(vehicle.arrival) - parseTime(vehicle.depart))
     else:
-        sys.exit("Invalid value '%s' for option --attribute" % options.attribute)
+        raise ValueError("Invalid value '%s' for option --attribute" % options.attribute)
 
     lengths = {}
     lengths2 = {}

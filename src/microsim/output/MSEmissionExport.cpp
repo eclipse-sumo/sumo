@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,12 +43,14 @@ void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const SUMOTime period = string2time(oc.getString("device.emissions.period"));
-    const SUMOTime begin = string2time(oc.getString("begin"));
+    const SUMOTime begin = string2time(oc.getString("device.emissions.begin"));
     const bool scaled = oc.getBool("emission-output.step-scaled");
     const bool useGeo = oc.getBool("emission-output.geo");
-    if (period > 0 && (timestep - begin) % period != 0) {
+    if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
+    const SumoXMLAttrMask mask = MSDevice_Emissions::getWrittenAttributes();
+
     of.openTag("timestep").writeAttr("time", time2string(timestep));
     of.setPrecision(precision);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
@@ -67,31 +69,42 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 tmp.addScaled(emiss, TS);
                 emiss = tmp;
             }
-            of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", PollutantsInterface::getName(veh->getVehicleType().getEmissionClass()));
-            of.writeAttr("CO2", emiss.CO2).writeAttr("CO", emiss.CO).writeAttr("HC", emiss.HC).writeAttr("NOx", emiss.NOx);
-            of.writeAttr("PMx", emiss.PMx).writeAttr("fuel", emiss.fuel).writeAttr("electricity", emiss.electricity);
-            of.writeAttr("noise", HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()));
-            of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass);
+            of.openTag("vehicle");
+            of.writeAttr(SUMO_ATTR_ID, veh->getID());
+            of.writeOptionalAttr(SUMO_ATTR_ECLASS, PollutantsInterface::getName(veh->getVehicleType().getEmissionClass()), mask);
+            of.writeOptionalAttr(SUMO_ATTR_CO2, emiss.CO2, mask);
+            of.writeOptionalAttr(SUMO_ATTR_CO, emiss.CO, mask);
+            of.writeOptionalAttr(SUMO_ATTR_HC, emiss.HC, mask);
+            of.writeOptionalAttr(SUMO_ATTR_NOX, emiss.NOx, mask);
+            of.writeOptionalAttr(SUMO_ATTR_PMX, emiss.PMx, mask);
+            of.writeOptionalAttr(SUMO_ATTR_FUEL, emiss.fuel, mask);
+            of.writeOptionalAttr(SUMO_ATTR_ELECTRICITY, emiss.electricity, mask);
+            of.writeOptionalAttr(SUMO_ATTR_NOISE, HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()), mask);
+            of.writeOptionalAttr(SUMO_ATTR_ROUTE, veh->getRoute().getID(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_TYPE, fclass, mask);
             if (MSGlobals::gUseMesoSim) {
                 const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(veh);
-                of.writeAttr("waiting", mesoVeh->getWaitingSeconds());
-                of.writeAttr("edge", veh->getEdge()->getID());
+                of.writeOptionalAttr(SUMO_ATTR_WAITING, mesoVeh->getWaitingSeconds(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
             } else {
                 const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-                of.writeAttr("waiting", microVeh->getWaitingSeconds());
-                of.writeAttr("lane", microVeh->getLane()->getID());
+                of.writeOptionalAttr(SUMO_ATTR_WAITING, microVeh->getWaitingSeconds(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID(), mask);
             }
-            of.writeAttr("pos", veh->getPositionOnLane());
-            of.writeAttr("speed", veh->getSpeed());
-            of.writeAttr("angle", GeomHelper::naviDegree(veh->getAngle()));
+            of.writeOptionalAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_SPEED, veh->getSpeed(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()), mask);
 
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(MAX2(gPrecisionGeo, precision));
                 GeoConvHelper::getFinal().cartesian2geo(pos);
             }
-            of.writeAttr(SUMO_ATTR_X, pos.x());
-            of.writeAttr(SUMO_ATTR_Y, pos.y());
+            of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+            if (MSNet::getInstance()->hasElevation()) {
+                of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
+            }
             of.setPrecision(precision);
 
             of.closeTag();

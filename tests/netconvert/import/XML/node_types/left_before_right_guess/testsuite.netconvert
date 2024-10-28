@@ -1,0 +1,14 @@
+# The default (node will be a right-before-left-node)
+default
+
+# The node is marked as a priority node
+priority_overwrite
+
+# The node is marked as a left_before_right node
+lbr_overwrite
+
+# The node is marked as a traffic-light node
+tls_overwrite
+
+# set a lowe speed threshold so that the junction will be classified as priority
+speed-threshold

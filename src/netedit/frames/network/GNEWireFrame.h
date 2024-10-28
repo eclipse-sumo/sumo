@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2021-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2021-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,10 +39,10 @@ class GNEWireFrame : public GNEFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEWireFrame();
@@ -51,16 +51,16 @@ public:
     void show();
 
     /**@brief add wire element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if wire was successfully added
      */
-    bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get consecutive lane selector
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
-    void createPath();
+    bool createPath(const bool useLastRoute);
 
 protected:
     /// @brief SumoBaseObject used for create wire
@@ -90,4 +90,7 @@ private:
 
     /// @brief Module for select consecutive lanes
     GNEConsecutiveSelector* myConsecutiveLaneSelector;
+
+    /// @brief Warn about experimental state
+    bool myWarnedExperimental = false;
 };

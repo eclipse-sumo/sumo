@@ -21,3 +21,6 @@ changeRelative_invalid
 
 # move fully into the current lane
 changeCurrent
+
+# force changing to a lane that does not continue the route
+lane_deadend

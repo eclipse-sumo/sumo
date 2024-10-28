@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,10 +40,12 @@
  * GUIMEInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
-                                 double position, const std::string& vTypes,
+                                 double position,
+                                 const std::string name, const std::string& vTypes,
+                                 const std::string& nextEdges,
                                  int detectPersons,
                                  bool /*show*/):
-    MEInductLoop(id, s, position, vTypes, detectPersons)
+    MEInductLoop(id, s, position, name, vTypes, nextEdges, detectPersons)
 {}
 
 
@@ -60,7 +62,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 // -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
-    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),
+    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
       myDetector(detector), myPosition(pos) {
     const MSLane* lane = detector.mySegment->getEdge().getLanes()[0];
     myFGPosition = lane->geometryPositionAtOffset(pos);
@@ -139,7 +141,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.0, 2);
     glEnd();
     glBegin(GL_LINES);
-    // without the substracted offsets, lines are partially longer
+    // without the subtracted offsets, lines are partially longer
     //  than the boxes
     glVertex2d(0, 2 - .1);
     glVertex2d(0, -2 + .1);

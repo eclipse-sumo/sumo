@@ -2,6 +2,6 @@ Warning: Person 'p0' could not find sidewalk on edge 'middle', time=0.00.
 Warning: Person 'p1' could not find sidewalk on edge 'end', time=0.00.
 Warning: Person 'p0' could not find sidewalk on edge 'middle', time=8.00.
 Warning: Destination edge 'middle' does not allow pedestrians.
-Warning: Person 'p0' could not find route across junction '2' from walkingArea ':2_w0' to edge 'middle', time=8.00.
-Warning: Person 'p0' could not find sidewalk on edge 'end', time=8.00.
-Warning: Person 'p0' could not find sidewalk on edge 'end', time=36.00.
+Warning: Person 'p0' could not find sidewalk on edge 'middle', time=8.00.
+Warning: Person 'p0' could not find sidewalk on edge 'end', time=16.00.
+Warning: Person 'p0' could not find sidewalk on edge 'end', time=44.00.

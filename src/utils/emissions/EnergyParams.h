@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,14 +22,16 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/emissions/CharacteristicMap.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVTypeParameter;
+
 
 // ===========================================================================
 // class definitions
@@ -39,10 +41,12 @@ class SUMOVTypeParameter;
  * @brief An upper class for objects with additional parameters
  */
 class EnergyParams {
-
 public:
     /// @brief Constructor
     EnergyParams(const SUMOVTypeParameter* typeParams = nullptr);
+
+    /// @brief Constructor
+    EnergyParams(const SUMOEmissionClass c);
 
     /// @brief Constructor
     EnergyParams(const EnergyParams* secondaryParams) : mySecondaryParams(secondaryParams) {}
@@ -64,6 +68,7 @@ public:
     void setDouble(SumoXMLAttr attr, double value);
 
     double getDouble(SumoXMLAttr attr) const;
+    double getDoubleOptional(SumoXMLAttr attr, const double def) const;
 
     /**@brief Returns the value for a given key
      * @param[in] key The key to ask for
@@ -91,10 +96,19 @@ public:
      */
     bool isOff() const;
 
+    static const EnergyParams* getDefault() {
+        if (myDefault == nullptr) {
+            myDefault = new EnergyParams();
+        }
+        return myDefault;
+    }
+
 private:
     /// @brief The key->value maps
     std::map<SumoXMLAttr, double> myMap;
     std::map<SumoXMLAttr, std::vector<double> > myVecMap;
     std::map<SumoXMLAttr, CharacteristicMap> myCharacteristicMapMap;
     const EnergyParams* mySecondaryParams = nullptr;
+
+    static const EnergyParams* myDefault;
 };

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,12 +72,13 @@ public:
      * @see MSLane
      */
     MSLane* addLane(const std::string& id,
-                    double maxSpeed, double length,
+                    double maxSpeed, double friction, double length,
                     const PositionVector& shape, double width,
                     SVCPermissions permissions,
                     SVCPermissions changeLeft, SVCPermissions changeRight,
                     int index, bool isRampAccel,
-                    const std::string& type) override;
+                    const std::string& type,
+                    const PositionVector& outlineShape) override;
 
 
 

@@ -1,0 +1,2 @@
+Success.
+calling  /scr1/sumo/bin/duarouter -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 3600 --no-step-log --no-warnings --remove-loops --vtype-output out.add.xml -o out.rou.xml

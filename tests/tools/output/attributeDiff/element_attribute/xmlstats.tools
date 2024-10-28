@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 16:17:12.225601 by attributeDiff.py v1_15_0+1165-6058f1d
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml -e timeLoss -a mean
+-->
+
+<attributeDiff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeDiff_file.xsd">
+    <timeLoss mean="-0.3800000000000239"/>
+</attributeDiff>

@@ -1,0 +1,17 @@
+waypoint_speed_invalid
+index_invalid
+duration_invalid
+until_invalid
+false_edge
+too_short
+too_close
+
+# error handling
+not_allowed
+
+# check consistency of stop positions and depar/arrival position
+departPos_arrivalPos
+until_order
+
+# Tests handling out-of-order busstops
+busstop_out_of_order_ignore

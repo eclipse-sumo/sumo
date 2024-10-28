@@ -1,0 +1,26 @@
+/* XPM */
+static const char *parkingspace_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c #22B14C",
+". c #34D865",
+"X c #00007f",
+"o c #FFC8C8",
+/* pixels */
+"                ",
+" .............. ",
+" .oooooooooooo. ",
+" .oooooooooooo. ",
+" .oooooooooooo. ",
+" .ooooXXXXoooo. ",
+" .ooooXooXoooo. ",
+" .ooooXXXXoooo. ",
+" .ooooXooooooo. ",
+" .ooooXooooooo. ",
+" .ooooXooooooo. ",
+" .oooooooooooo. ",
+" .oooooooooooo. ",
+" .oooooooooooo. ",
+" .............. ",
+"                "
+};

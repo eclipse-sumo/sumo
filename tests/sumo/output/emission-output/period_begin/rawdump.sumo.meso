@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-26 11:19:38 by Eclipse SUMO sumo Version v1_13_0+1219-dc66695
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <emission-output value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <end value="2"/>
+        <step-length value="0.005"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <emissions>
+        <device.emissions.begin value="0.4"/>
+        <device.emissions.period value="0.25"/>
+    </emissions>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
+    <timestep time="0.400">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+    <timestep time="0.650">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+    <timestep time="0.900">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+    <timestep time="1.150">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+    <timestep time="1.400">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+    <timestep time="1.650">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+    <timestep time="1.900">
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2336.988" CO="0.000" HC="0.024" NOx="0.703" PMx="0.012" fuel="745.403" electricity="0.000" noise="64.568" route="r1" type="DEFAULT_VEHTYPE" waiting="0.000" edge="WC" pos="0.000" speed="13.890" angle="90.000" x="0.000" y="95.050"/>
+    </timestep>
+</emission-export>

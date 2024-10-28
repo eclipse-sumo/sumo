@@ -1,0 +1,3 @@
+function import_gtfs called at Sun, 18 Dec 2022 19:17:57 +0000
+Warning! No GTFS data found for the given date 20200101.
+function import_gtfs finished after 0.129117 seconds

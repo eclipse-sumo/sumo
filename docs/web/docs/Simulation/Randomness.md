@@ -9,7 +9,7 @@ a simulation. They are described below.
 # Random number generation (RNG)
 
 Sumo implements the [Mersenne
-Twister](http://en.wikipedia.org/wiki/Mersenne_twister) algorithm for
+Twister](https://en.wikipedia.org/wiki/Mersenne_twister) algorithm for
 generating random numbers. This random number generator (RNG) is
 initialized with a seed value which defaults to the (arbitrary) value
 **23423**. This setup makes all applications deterministic by default as
@@ -30,6 +30,10 @@ simulation aspects
 The decoupling is done to ensure that loading vehicles does not affect
 simulation behavior of earlier vehicles. All RNGs use the same seed.
 
+## Running repeatedly with different Seeds
+
+The tool [runSeeds.py](../Tools/Misc.md#runseedspy) may be used to efficiently repeat simulations with multiple seeds. See the [FAQ](../FAQ.md#how_to_perform_repeated_simulations_with_different_results) for a guide on how this is done.
+
 # Route Distributions
 
 Vehicles can be added to the simulation with a fixed route (`<vehicle>`) or with an origin-destination pair (`<trip>`).
@@ -37,7 +41,7 @@ A third alternative is to specify a set of routes (`<routeDistribution>`) and le
 
 # Vehicle Type Distributions
 
-A simple way of of modelling a heterogeneous vehicle fleet works by defining a `<vTypeDistribution>` and let each vehicle pick it's type randomly from this distribution. For details, see [vehicle type distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_type_distributions).
+A simple way of of modelling a heterogeneous vehicle fleet works by defining a `<vTypeDistribution>` and let each vehicle pick its type randomly from this distribution. For details, see [vehicle type distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_type_distributions).
 
 # Speed distribution
 
@@ -48,7 +52,7 @@ makes vehicles drive with that factor of the current speed limit. The
 attribute also allows the specification of the parameters of a normal
 distribution with optional cutoffs. The random value is selected once
 for each vehicle at the time of its creation. Using a speed deviation is
-the recommended way for getting a heterogenous mix of vehicle speeds.
+the recommended way for getting a heterogeneous mix of vehicle speeds.
 By default, a speed distribution with a standard deviation of 10% is active.
 For details, see [speed distribution](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
 
@@ -71,15 +75,15 @@ to its departure time, equidistributed on \[0, {{DT_TIME}}\].
 The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md)
 
 ## Binomial distribution
-By definining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`), 
-a vehicle will be emitted randomly with the given probability each second until the end time is reached. 
+By defining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`),
+a vehicle will be emitted randomly with the given probability each second until the end time is reached.
 The number of vehicles inserted this way will be [binomially distributed](https://en.wikipedia.org/wiki/Binomial_distribution).
 When modeling such a flow on a multi-lane road it is recommended to define a `<flow>` for each individual lane because the insertion rate is limited to at most 1 vehicle per second.
 
-When simulating with subsecond time resolution, the random decision for insertion is taken in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length. 
+When simulating with subsecond time resolution, the random decision for insertion is taken in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length.
 !!! note
     The effective flow may be higher at lower step-length because the discretization error is reduced (vehicles usually cannot be inserted in subsequent seconds due to safety constraints and insertion in [every other second does not achieve maximum flow](VehicleInsertion.md#effect_of_simulation_step-length)).
-    
+
 For low probability the distribution of inserted vehicles approximates a [Poisson
 Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
 
@@ -90,17 +94,17 @@ The number of vehicles inserted this way will follow the [Poisson distribution](
 
 !!! note
     The effective [insertion rate](VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) is limited by network capacity and other flow attributes such as `departSpeed` and `departLane`
-    
+
 # Flows with a fixed number of vehicles
 
 The following 2 sections describe attributes for random flows that apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to [flows with a random number of vehicles](#flows_with_a_random_number_of_vehicles) but substitute the `number` attribute for the `end` attribute.
 
 ## Bernoulli Process
-By definining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
+By defining a `<flow>` with attributes `number` and `probability` (instead of `vehsPerHour,number`, or `period`),
 a vehicle will be emitted randomly with the given probability each second until the specified number is reached.
 
 ## Poisson Process
-By definining a `<flow>` with attributes `number` and `period="exp(X")` (instead of `vehsPerHour,number`, or `period`),
+By defining a `<flow>` with attributes `number` and `period="exp(X)"` (instead of `vehsPerHour,number`, or `period`),
 vehicles will emitted with random time-gaps that follow an exponential distribution until the specified number is reached.
 
 ## Router options
@@ -111,14 +115,14 @@ and [jtrrouter](../jtrrouter.md) applications support the option **--randomize-f
 When this option is used, each vehicle defined by a `<flow>`-element will be
 given a random departure time which is equidistributed within the time
 interval of the flow. (By default vehicles of a flow are spaced equally
-in time). The departure times computed this way also achieve a [Poisson process](Poisson_point_process#Simulation)
+in time). The departure times computed this way also achieve a [Poisson process](#poisson_process)
 
 # Departure and arrival attributes
 
 The `<flow>`, `<trip>` and `<vehicle>` elements support the value "random" for their attributes `departLane`, `departPos`,
 `departSpeed` and `arrivalPos`. The value will be chosen randomly on every insertion try (for the
 departure attributes) or whenever there is a need to revalidate the
-arrival value (i.e. after rerouting). The attribute `departPosLat` also supports the value "random". 
+arrival value (i.e. after rerouting). The attribute `departPosLat` also supports the value "random".
 The lateral offset at departure will only affect simulation behavior when using the [sublane model](SublaneModel.md) though it will be visible without this model too.
 
 # Lateral Variation
@@ -127,7 +131,28 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 # Further sources of randomness
 
 - The tool [randomTrips.py](../Tools/Trip.md#randomtripspy) allows generating traffic between random edges. It also supports randomizing arrival rates.
-- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix
+- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix, it also randomizes the departure time within a configurable interval.
 - [duarouter](../duarouter.md) adds randomness when performing [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
 - [duarouter](../duarouter.md) can randomly disturb the fastest-paths by setting option **--weights.random-factor**
 - [Simulation routing can be randomized](../Demand/Automatic_Routing.md#randomness) to ensure usage of alternative routes.
+
+
+# Reproducibility
+
+Generally, all SUMO applications and tools are expected to produce the same results when running the same version repeatedly with the same arguments and inputs. This also includes running on different platforms (Windows/Linux/Mac).
+
+There are some situations that are know to violate this rule (either by design or due to technical reasons) and they are listed in the following.
+
+## Violated reproducibility by design
+
+Option **--random** is supported by many applications ([sumo](../sumo.md), [duarouter](../duarouter.md), ...) and tools ([randomTrips.py](../Tools/Trip.md#randomtripspy), ...). It randomizes the [random seed](#random_number_generation_rng) and thereby gives a different random behavior each run.
+
+## Violated reproducibility for other reasons
+
+The following differences are either due to bugs or hard-to-solve problems in libraries used by SUMO.
+
+### Platform differences
+
+- **Differences in generated networks by platform**: When importing network data with geo-coordinates, the transformation to x,y (Cartesian) coordinates are performed by the [Proj](https://proj.org/). This library has differences from one version to the next and different platforms usually provide different library versions. The same problem may also manifest when using TraCI-functions for coordinate transformations.
+- **Non-deterministic vehicle routing with options --device.rerouting.threads --weights.random-factor** (Issue #10292)
+- **Different Simulation behavior due to using the `log` function**. Observed differences for the EIDM-Model (Issue #8921) and also for Simulations with the DriverState-device. Could in principe also affect the Wiedemann-Model and the ToC-device.

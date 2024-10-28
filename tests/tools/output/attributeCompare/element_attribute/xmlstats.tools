@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-14 09:34:22.997917 by attributeCompare.py v1_16_0+2059-ccfe441
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml -e edge
+-->
+
+<attributeCompare xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeCompare_file.xsd">
+    <edge>
+        <arrived count="48" min="0.00" minLabel="None" max="444.00" maxLabel="None" mean="150.00" Q1="0.00" median="49.00" Q3="417.00" meanAbs="150.00" medianAbs="49.00" stdDev="192.21"/>
+        <density count="48" min="10.43" minLabel="None" max="182.26" maxLabel="None" mean="73.50" Q1="20.01" median="24.72" Q3="144.36" meanAbs="73.50" medianAbs="24.72" stdDev="64.18"/>
+        <departed count="48" min="0.00" minLabel="None" max="469.00" maxLabel="None" mean="150.00" Q1="0.00" median="3.00" Q3="406.00" meanAbs="150.00" medianAbs="3.00" stdDev="198.44"/>
+        <entered count="48" min="0.00" minLabel="None" max="446.00" maxLabel="None" mean="150.00" Q1="0.00" median="47.00" Q3="417.00" meanAbs="150.00" medianAbs="47.00" stdDev="192.72"/>
+        <laneChangedFrom count="48" min="0.00" minLabel="None" max="270.00" maxLabel="None" mean="85.46" Q1="0.00" median="6.00" Q3="225.00" meanAbs="85.46" medianAbs="6.00" stdDev="110.99"/>
+        <laneChangedTo count="48" min="0.00" minLabel="None" max="270.00" maxLabel="None" mean="85.46" Q1="0.00" median="6.00" Q3="225.00" meanAbs="85.46" medianAbs="6.00" stdDev="110.99"/>
+        <laneDensity count="48" min="5.21" minLabel="None" max="91.13" maxLabel="None" mean="36.75" Q1="10.00" median="12.36" Q3="72.18" meanAbs="36.75" medianAbs="12.36" stdDev="32.09"/>
+        <left count="48" min="0.00" minLabel="None" max="469.00" maxLabel="None" mean="150.00" Q1="0.00" median="16.00" Q3="408.00" meanAbs="150.00" medianAbs="16.00" stdDev="193.79"/>
+        <occupancy count="48" min="2.47" minLabel="None" max="44.92" maxLabel="None" mean="18.04" Q1="4.74" median="6.08" Q3="35.70" meanAbs="18.04" medianAbs="6.08" stdDev="15.90"/>
+        <overlapTraveltime count="48" min="7.65" minLabel="None" max="177.41" maxLabel="None" mean="37.82" Q1="7.91" median="43.25" Q3="63.43" meanAbs="37.82" medianAbs="43.25" stdDev="35.28"/>
+        <sampledSeconds count="48" min="371.79" minLabel="None" max="29395.26" maxLabel="None" mean="9929.54" Q1="2632.71" median="3323.21" Q3="23117.33" meanAbs="9929.54" medianAbs="3323.21" stdDev="10796.79"/>
+        <speed count="48" min="0.53" minLabel="None" max="12.36" maxLabel="None" mean="6.75" Q1="1.50" median="11.52" Q3="11.98" meanAbs="6.75" medianAbs="11.52" stdDev="5.23"/>
+        <speedRelative count="48" min="0.04" minLabel="None" max="0.89" maxLabel="None" mean="0.49" Q1="0.11" median="0.83" Q3="0.86" meanAbs="0.49" medianAbs="0.83" stdDev="0.38"/>
+        <timeLoss count="48" min="32.84" minLabel="None" max="26855.67" maxLabel="None" mean="7927.24" Q1="380.19" median="761.69" Q3="20259.58" meanAbs="7927.24" medianAbs="761.69" stdDev="10247.48"/>
+        <traveltime count="48" min="7.26" minLabel="None" max="180.39" maxLabel="None" mean="37.19" Q1="7.51" median="42.76" Q3="62.34" meanAbs="37.19" medianAbs="42.76" stdDev="35.36"/>
+        <waitingTime count="48" min="0.00" minLabel="None" max="19540.00" maxLabel="None" mean="5415.75" Q1="0.00" median="551.00" Q3="13933.00" meanAbs="5415.75" medianAbs="551.00" stdDev="7240.42"/>
+     </edge>
+</attributeCompare>

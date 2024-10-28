@@ -1,0 +1,2 @@
+--meso-lane-queue --vehroute-output=vehroutes.xml --no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--edgedata-output aggregated.xml

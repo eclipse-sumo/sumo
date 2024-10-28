@@ -48,7 +48,6 @@ Step 33.0, tlsPhase 0 (North-South)
 Step 34.0, tlsPhase 0 (North-South)
 Step 35.0, tlsPhase 0 (North-South)
 Step 36.0, tlsPhase 0 (North-South)
-  veh=v4 len=4.5 entry=35.34661929669042 leave=35.64365246994928 type=car
 VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v23 v3 v4 v5 v6 v7 v8 v9 
 vehicle.getParameter: vehValue
 Vehicletype.getAdaptedTraveltime: 200.0
@@ -74,5 +73,5 @@ Trafficlight.getCompleteRedYellowGreenDefinition: {0=0#0#0#GGgGGGrrrr#42.0#42.0#
 Trafficlight.getPhaseDuration: 50.0
 Trafficlight.getNextSwitch: 51.0
 Simulation.convertRoad: gneE2, 57.92, 0
-Simulation.convertGeo: 13.38049279800687,52.50047399596812
+Simulation.convertGeo: 13.380492798007497,52.50047399595011
 Lane.getLinks: -gneE2_0##1#1#0#0.0#M#r#

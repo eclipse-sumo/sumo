@@ -1,0 +1,26 @@
+/* XPM */
+static const char *vtype_rail_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c black",
+". c red",
+"X c #808080",
+"o c None",
+/* pixels */
+"oXXooXXooXXooXXo",
+"                ",
+"oooooooooooooooo",
+"oXXooXXooXXooXXo",
+"oXXooXXooXXooXXo",
+"oXXooXXooXXooXXo",
+"oXXooXXooXXooXXo",
+"oooooooooooooooo",
+"                ",
+"oXXooXXooXXooXXo",
+"oooooooooooooooo",
+"oooooooooooooooo",
+"o...o.o.o..o..oo",
+"oo.oo...o..o.ooo",
+"oo.ooo.oo.oo..oo",
+"oooooooooooooooo"
+};

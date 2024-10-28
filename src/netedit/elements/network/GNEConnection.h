@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief get connection shape
     const PositionVector& getConnectionShape() const;
 
@@ -55,15 +56,44 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
     /// @}
 
     /// @name Functions related with move elements
     /// @{
+
     /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation();
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @}
 
     /// @brief get the name of the edge the vehicles leave
@@ -83,7 +113,6 @@ public:
 
     /// @briefthe get lane index of the outgoing lane
     int getToLaneIndex() const;
-
     /// @brief get Edge::Connection
     NBEdge::Connection& getNBEdgeConnection() const;
 
@@ -97,7 +126,7 @@ public:
     void markConnectionGeometryDeprecated();
 
     /// @brief update internal ID of Connection
-    void updateID();
+    void updateConnectionID();
 
     /// @brief recompute cached myLinkState
     void updateLinkState();
@@ -119,6 +148,9 @@ public:
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -127,6 +159,13 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief delete element
+    void deleteGLObject();
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
+
     /// @}
 
     /* @brief method for setting the special color of the connection
@@ -141,6 +180,12 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in PositionVector format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -204,6 +249,29 @@ private:
 
     /// @brief manage change of tlLinkindices
     void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList);
+
+    /// @brief check if the edgeConnection vinculated with this connection exists
+    bool existNBEdgeConnection() const;
+
+    /// @brief check if draw connection
+    bool checkDrawConnection() const;
+
+    /// @brief get connection color
+    RGBColor getConnectionColor(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw connection
+    void drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                        const PositionVector& shape, const double exaggeration) const;
+
+    /// @brief draw arrows over connections
+    void drawConnectionArrows(const GUIVisualizationSettings& s, const RGBColor& color) const;
+
+    /// @brief draw edge value
+    void drawEdgeValues(const GUIVisualizationSettings& s, const PositionVector& shape) const;
+
+    /// @brief calculate connection contour
+    void calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                    const PositionVector& shape, const double exaggeration) const;
 
     /// @brief Invalidated copy constructor.
     GNEConnection(const GNEConnection&) = delete;

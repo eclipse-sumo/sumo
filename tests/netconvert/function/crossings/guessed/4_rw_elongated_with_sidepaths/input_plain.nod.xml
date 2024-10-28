@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-30 10:02:41 by Eclipse SUMO netedit Version v1_19_0+1989-e5b78432182
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-397611.47,-5809300.41" convBoundary="40.40,817.71,542.90,1241.27" origBoundary="13.494121,52.424732,13.531175,52.435824" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="10211110904" x="250.75" y="1037.16" type="priority"/>
+    <node id="11224967066" x="253.02" y="1034.94" type="priority"/>
+    <node id="11224967069" x="268.20" y="1021.36" type="dead_end"/>
+    <node id="138559868" x="229.78" y="971.54" type="dead_end"/>
+    <node id="1552842823" x="290.25" y="1063.48" type="dead_end"/>
+    <node id="175649026" x="302.30" y="991.06" type="right_before_left"/>
+    <node id="2008877537" x="290.17" y="1007.54" type="dead_end"/>
+    <node id="2008877539" x="287.67" y="1009.73" type="dead_end"/>
+    <node id="2008877542" x="284.64" y="1012.37" type="dead_end"/>
+    <node id="206191819" x="542.90" y="817.71" type="dead_end"/>
+    <node id="206191829" x="40.40" y="1241.27" type="dead_end"/>
+    <node id="206191835" x="443.24" y="885.36" type="dead_end"/>
+    <node id="246758619" x="266.84" y="1040.71" type="priority"/>
+    <node id="283017407" x="103.38" y="1155.14" type="right_before_left"/>
+    <node id="283017766" x="215.52" y="984.30" type="dead_end"/>
+    <node id="290971361" x="270.09" y="1016.51" type="priority"/>
+    <node id="290971408" x="255.62" y="1029.46" type="priority"/>
+    <node id="3246050926" x="237.86" y="1057.52" type="dead_end"/>
+    <node id="665725990" x="281.10" y="1028.34" type="priority"/>
+    <node id="665725993" x="304.78" y="1050.71" type="dead_end"/>
+    <node id="8093954997" x="181.46" y="939.80" type="dead_end"/>
+    <node id="8123931246" x="215.75" y="949.72" type="dead_end"/>
+    <node id="8123931267" x="276.07" y="1014.32" type="priority"/>
+    <node id="cluster_10211110901_10211110909" x="148.14" y="905.34" type="dead_end">
+        <param key="origEdgeIds" value="-1116425700#0 1116425700#0"/>
+        <param key="origId" value="10211110901 10211110909"/>
+    </node>
+    <node id="cluster_2008877556_2008877559_206191834_283017357_#4more" x="264.93" y="1030.76" type="traffic_light" tl="cluster_2008877556_2008877559_206191834_283017357_#4more" tlType="actuated">
+        <param key="origEdgeIds" value="1211598635#1 190289146 26547171#1 27077898#0 318210399#2 318210399#3 862741108 868347087#1"/>
+        <param key="origId" value="2008877556 2008877559 206191834 283017357 283017446 8093954992 8093954993 8123931268"/>
+    </node>
+    <node id="cluster_206191823_206191824_2165987563_2165987564_#1more" x="298.90" y="1062.88" type="dead_end">
+        <param key="origEdgeIds" value="27077900 27077902#0 27077902#1 318210401#2"/>
+        <param key="origId" value="206191823 206191824 2165987563 2165987564 8093954989"/>
+    </node>
+</nodes>

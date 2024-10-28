@@ -1,0 +1,6 @@
+Error: Attribute 'period' in definition of containerFlow 'c_1' is not a valid time value.
+Error: Attribute 'period' in definition of containerFlow 'c_2' is empty.
+Error: Attribute 'period' in definition of containerFlow 'c_2' is empty.
+Error: Invalid repetition rate in the definition of containerFlow 'c_3'.
+Error: Invalid repetition rate in the definition of containerFlow 'c_4'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.02Sep133440.11012/netedit.gui/elements/demands/containerflow/load/flow_attributes/period/routes.rou.xml failed.

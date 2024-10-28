@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-28 18:02:20.865665 by generateRailSignalConstraints.py v1_16_0+1735-3618f24
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <comment.all value="True"/>
+    <params value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <predecessor tripId="t0" tl="D" foes="trip1">
+            <param key="line" value="S4"/>
+            <param key="foeID" value="t1"/>
+            <param key="switch" value="c"/>
+            <param key="busStop" value="stop_c"/>
+            <param key="arrival" value="00:01:40"/>
+            <param key="foeArrival" value="00:00:50"/>
+        </predecessor>
+
+    </railSignalConstraints>
+</additional>

@@ -1,0 +1,4 @@
+calling D:\Wang\sumo_git\tests\\..\bin\duarouter.exe -n net.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 3600 --alternatives-output NUL --no-step-log --additional-files input_additional.add.xml --vtype-output vtype.add.xml --no-warnings -o routes.rou.xml
+Success.
+calling D:\Wang\sumo_git\tests\\..\bin\duarouter.exe -n net.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 3600 --alternatives-output NUL --no-step-log --additional-files input_additional.add.xml --vtype-output vtype.add.xml --no-warnings -o trips.trips.xml.tmp --write-trips
+Success.

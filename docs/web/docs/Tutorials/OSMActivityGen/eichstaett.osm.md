@@ -7,7 +7,7 @@ title: eichstaett.osm
 Map of the German city Eichstätt in the [OpenStreetMap
 format](../../OpenStreetMap_file.md). After the map had been exported
 from OpenStreetMap, a detail was cut out, unnecessary objects were
-deleted and the map has been improved for traffic simulation and for the
+deleted and the map was improved for traffic simulation and for the
 conversion with netconvert. The steps are described in [Tutorials/Import
 from OpenStreetMap](../../Tutorials/Import_from_OpenStreetMap.md). As
 a final step, the XML identifiers were renumbered to positive numbers.
@@ -24,7 +24,7 @@ SUMO network file at
 <tbody>
 <tr class="odd">
 <td><p>Author</p></td>
-<td><p><a href="http://sourceforge.net/users/w-bamberger">W. Bamberger</a></p></td>
+<td><p><a href="https://sourceforge.net/users/w-bamberger">W. Bamberger</a></p></td>
 </tr>
 <tr class="even">
 <td><p>Date</p></td>
@@ -33,7 +33,7 @@ SUMO network file at
 <tr class="odd">
 <td><p>Source</p></td>
 <td><p>
-Map data © <a href="http://www.openstreetmap.org/">OpenStreetMap contributors</a>, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a></p></td>
+Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap contributors</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a></p></td>
 </tr>
 <tr class="even">
 <td><p>History</p></td>
@@ -42,7 +42,7 @@ Map data © <a href="http://www.openstreetmap.org/">OpenStreetMap contributors</
 <tr class="odd">
 <td><p>License</p></td>
 <td><p style="border:1px solid #909090; padding:1px 4px 3px 4px"><img src="../../images/CC-BY-SA-small.png">
-This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>
+This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>
 </td>
 </tr>
 </tbody>

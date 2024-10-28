@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,10 +32,12 @@
 #include "NBAlgorithms_Ramps.h"
 
 #define OFFRAMP_LOOKBACK 500
+#define MIN_SPLIT_LENGTH POSITION_EPS
 
 //#define DEBUG_RAMPS
-#define DEBUGNODEID  "260479469"
+#define DEBUGNODEID  ""
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
+//#define DEBUGCOND(obj) true
 
 // ===========================================================================
 // static members
@@ -48,6 +50,9 @@ const std::string NBRampsComputer::ADDED_ON_RAMP_EDGE("-AddedOnRampEdge");
 // ---------------------------------------------------------------------------
 // NBRampsComputer
 // ---------------------------------------------------------------------------
+
+NBRampsComputer::NBRampsComputer() { }
+
 void
 NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRemove) {
     const bool guessAndAdd = oc.getBool("ramps.guess") && mayAddOrRemove;
@@ -67,16 +72,13 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
         noramps.insert(edges.begin(), edges.end());
     }
     // exclude roundabouts
-    const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
-    for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
-            it_round != roundabouts.end(); ++it_round) {
-        for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
-            noramps.insert((*it_edge)->getID());
+    for (const EdgeSet& round : ec.getRoundabouts()) {
+        for (NBEdge* const edge : round) {
+            noramps.insert(edge->getID());
         }
     }
     // exclude public transport edges
     nb.getPTStopCont().addEdges2Keep(oc, noramps);
-    nb.getPTLineCont().addEdges2Keep(oc, noramps);
     nb.getParkingCont().addEdges2Keep(oc, noramps);
 
     // check whether on-off ramps shall be guessed
@@ -90,6 +92,11 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
         std::set<NBNode*, ComparatorIdLess> potOffRamps;
         for (const auto& i : nc) {
             NBNode* cur = i.second;
+#ifdef DEBUG_RAMPS
+            if (DEBUGCOND(cur)) {
+                std::cout << "check ramps cur=" << cur->getID() << "\n";
+            }
+#endif
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps, minWeaveLength)) {
                 potOnRamps.insert(cur);
             }
@@ -108,14 +115,14 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
     if (oc.isSet("ramps.set") && mayAddOrRemove) {
         std::vector<std::string> edges = oc.getStringVector("ramps.set");
         std::set<NBNode*, ComparatorIdLess> potOnRamps;
-        for (std::vector<std::string>::iterator i = edges.begin(); i != edges.end(); ++i) {
-            NBEdge* e = ec.retrieve(*i);
-            if (noramps.count(*i) != 0) {
-                WRITE_WARNING("Can not build ramp on edge '" + *i + "' - the edge is unsuitable.");
+        for (const std::string& i : edges) {
+            NBEdge* e = ec.retrieve(i);
+            if (noramps.count(i) != 0) {
+                WRITE_WARNINGF(TL("Can not build ramp on edge '%' - the edge is unsuitable."), i);
                 continue;
             }
             if (e == nullptr) {
-                WRITE_WARNING("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
+                WRITE_WARNINGF(TL("Can not build on ramp on edge '%' - the edge is not known."), i);
                 continue;
             }
             NBNode* from = e->getFromNode();
@@ -124,9 +131,9 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
                 potOnRamps.insert(from);
             }
             // load edge again to check offramps
-            e = ec.retrieve(*i);
+            e = ec.retrieve(i);
             if (e == nullptr) {
-                WRITE_WARNING("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
+                WRITE_WARNINGF(TL("Can not build off ramp on edge '%' - the edge is not known."), i);
                 continue;
             }
             NBNode* to = e->getToNode();
@@ -146,6 +153,11 @@ NBRampsComputer::mayNeedOnRamp(NBNode* cur, double minHighwaySpeed, double maxRa
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // may be an on-ramp
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) {
+        std::cout << "check on ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " cont=" << cont->getID() << std::endl;
+    }
+#endif
     if (fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed, noramps)) {
         // prevent short weaving section
         double seen = cont->getLength();
@@ -173,6 +185,11 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, double minHighwaySpeed, double maxR
     // may be an off-ramp
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) {
+        std::cout << "check off ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << std::endl;
+    }
+#endif
     return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed, noramps);
 }
 
@@ -188,7 +205,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = cont->getNumLanes();
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
+    const int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = cont;
     NBEdge* last = cont;
     NBEdge* curr = cont;
@@ -198,7 +215,9 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                // we need to distinguish between loading a .net.xml (connections are defined and applicable)
+                // and manual connection patches (should be post-prcess because the lane wasn't added yet)
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     curr->invalidateConnections(true);
                 }
                 incremented.insert(curr);
@@ -229,21 +248,23 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             }
         }
         // check whether a further split is necessary
-        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength + MIN_SPLIT_LENGTH < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
-            NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtOffset(rampLength - currLength));
-            if (!nc.insert(rn)) {
-                throw ProcessError("Ups - could not build on-ramp for edge '" + curr->getID() + "' (node could not be build)!");
-            }
+            std::string newNodeID = getUnusedID(curr->getID() + "-AddedOnRampNode", nc);
+            std::string newEdgeID = getUnusedID(curr->getID() + ADDED_ON_RAMP_EDGE, ec);
+            NBNode* rn = new NBNode(newNodeID, curr->getGeometry().positionAtOffset(rampLength - currLength));
+            nc.insert(rn);
             std::string name = curr->getID();
-            bool ok = ec.splitAt(dc, curr, rn, curr->getID() + ADDED_ON_RAMP_EDGE, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
-            if (!ok) {
-                WRITE_ERROR("Ups - could not build on-ramp for edge '" + curr->getID() + "'!");
+            const double currShift = myShiftedEdges[curr];
+            if (!ec.splitAt(dc, curr, rn, newEdgeID, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes())) {
+                WRITE_WARNING("Could not build on-ramp for edge '"  + curr->getID() + "' for unknown reason");
                 return;
             }
             //ec.retrieve(name)->invalidateConnections();
-            curr = ec.retrieve(name + ADDED_ON_RAMP_EDGE);
+            curr = ec.retrieve(newEdgeID);
+            // copy shift over
+            myShiftedEdges[curr] = currShift;
             incremented.insert(curr);
             last = curr;
             moveRampRight(curr, toAdd);
@@ -269,12 +290,12 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     if (addLanes) {
         if (potHighway->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!potHighway->addLane2LaneConnections(0, first, potRamp->getNumLanes(), MIN2(first->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         if (potRamp->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!potRamp->addLane2LaneConnections(0, first, 0, potRamp->getNumLanes(), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         patchRampGeometry(potRamp, first, potHighway, false);
@@ -294,7 +315,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = prev->getNumLanes();
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
+    const int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = prev;
     NBEdge* last = prev;
     NBEdge* curr = prev;
@@ -304,7 +325,9 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                // we need to distinguish between loading a .net.xml (connections are defined and applicable)
+                // and manual connection patches (should be post-prcess because the lane wasn't added yet)
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     curr->invalidateConnections(true);
                 }
                 incremented.insert(curr);
@@ -315,7 +338,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             NBNode* prevN = curr->getFromNode();
             if (prevN->getIncomingEdges().size() == 1 && prevN->getOutgoingEdges().size() == 1) {
                 curr = prevN->getIncomingEdges()[0];
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER && toAdd != 0) {
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     // curr might be an onRamp. In this case connections need to be rebuilt
                     curr->invalidateConnections();
                 }
@@ -335,21 +358,23 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             }
         }
         // check whether a further split is necessary
-        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength + MIN_SPLIT_LENGTH < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
             Position pos = curr->getGeometry().positionAtOffset(curr->getGeometry().length() - (rampLength  - currLength));
-            NBNode* rn = new NBNode(curr->getID() + "-AddedOffRampNode", pos);
-            if (!nc.insert(rn)) {
-                throw ProcessError("Ups - could not build off-ramp for edge '" + curr->getID() + "' (node could not be build)!");
-            }
+            std::string newNodeID = getUnusedID(curr->getID() + "-AddedOffRampNode", nc);
+            std::string newEdgeID = getUnusedID(curr->getID() + "-AddedOffRampEdge", ec);
+            NBNode* rn = new NBNode(newNodeID, pos);
+            nc.insert(rn);
             std::string name = curr->getID();
-            bool ok = ec.splitAt(dc, curr, rn, curr->getID(), curr->getID() + "-AddedOffRampEdge", curr->getNumLanes(), curr->getNumLanes() + toAdd);
-            if (!ok) {
-                WRITE_ERROR("Ups - could not build off-ramp for edge '" + curr->getID() + "'!");
+            const double currShift = myShiftedEdges[curr];
+            if (!ec.splitAt(dc, curr, rn, curr->getID(), newEdgeID, curr->getNumLanes(), curr->getNumLanes() + toAdd)) {
+                WRITE_WARNING("Could not build off-ramp for edge '"  + curr->getID() + "' for unknown reason");
                 return;
             }
-            curr = ec.retrieve(name + "-AddedOffRampEdge");
+            curr = ec.retrieve(newEdgeID);
+            // copy shift over
+            myShiftedEdges[curr] = currShift;
             incremented.insert(curr);
             last = curr;
             moveRampRight(curr, toAdd);
@@ -385,10 +410,10 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     if (addLanes) {
         if (first->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!first->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(first->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
             if (!first->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::Lane2LaneInfoType::VALIDATED, false)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         patchRampGeometry(potRamp, first, potHighway, true);
@@ -403,12 +428,16 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     }
     try {
         PositionVector g = ramp->getGeometry();
-        const double offset = (0.5 * addedLanes *
-                               (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+        double offset = (0.5 * addedLanes *
+                         (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+        if (myShiftedEdges.count(ramp) != 0) {
+            offset -= myShiftedEdges[ramp];
+        }
         g.move2side(offset);
         ramp->setGeometry(g);
+        myShiftedEdges[ramp] = offset;
     } catch (InvalidArgument&) {
-        WRITE_WARNING("For edge '" + ramp->getID() + "': could not compute shape.");
+        WRITE_WARNINGF(TL("For edge '%': could not compute shape."), ramp->getID());
     }
 }
 

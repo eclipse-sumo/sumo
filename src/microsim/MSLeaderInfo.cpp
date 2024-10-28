@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,17 +32,12 @@
 
 
 // ===========================================================================
-// static member variables
-// ===========================================================================
-
-
-// ===========================================================================
 // MSLeaderInfo member method definitions
 // ===========================================================================
-MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    myWidth(lane->getWidth()),
+MSLeaderInfo::MSLeaderInfo(const double laneWidth, const MSVehicle* ego, const double latOffset) :
+    myWidth(laneWidth),
     myOffset(0),
-    myVehicles(MAX2(1, int(ceil(myWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
+    myVehicles(MAX2(1, int(ceil(laneWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
     myFreeSublanes((int)myVehicles.size()),
     egoRightMost(-1),
     egoLeftMost(-1),
@@ -76,7 +71,10 @@ MSLeaderInfo::addLeader(const MSVehicle* veh, bool beyond, double latOffset) {
     // map center-line based coordinates into [0, myWidth] coordinates
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    //if (gDebugFlag1) std::cout << " addLeader veh=" << veh->getID() << " beyond=" << beyond << " latOffset=" << latOffset << " rightmost=" << rightmost << " leftmost=" << leftmost << " myFreeSublanes=" << myFreeSublanes << "\n";
+    //if (gDebugFlag1) std::cout << " addLeader veh=" << veh->getID() << " beyond=" << beyond << " latOffset=" << latOffset << " sublaneOffset=" << myOffset
+    //    << " rightmost=" << rightmost << " leftmost=" << leftmost
+    //    << " eRM=" << egoRightMost << " eLM=" << egoLeftMost
+    //        << " myFreeSublanes=" << myFreeSublanes << "\n";
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
                 && (!beyond || myVehicles[sublane] == 0)) {
@@ -134,10 +132,10 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
         leftmost = -2000;
     } else {
         rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-        leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
+        leftmost = MIN2((int)myVehicles.size() - 1, (int)floor(MAX2(0.0, leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
     }
-    //if (veh->getID() == "flow_0.33" && SIMTIME == 264) std::cout << SIMTIME << " veh=" << veh->getID()
-    //    << std::setprecision(10)
+    //if (veh->isSelected()) std::cout << SIMTIME << " veh=" << veh->getID()
+    //    << std::setprecision(2)
     //    << " posLat=" << veh->getLateralPositionOnLane()
     //    << " latOffset=" << latOffset
     //    << " vehCenter=" << vehCenter
@@ -145,6 +143,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     //    << " leftVehSide=" << leftVehSide
     //    << " rightmost=" << rightmost
     //    << " leftmost=" << leftmost
+    //    << " myOffset=" << myOffset
     //    << std::setprecision(2)
     //    << "\n";
 }
@@ -216,19 +215,18 @@ MSLeaderInfo::removeOpposite(const MSLane* lane) {
     }
 }
 
+
 // ===========================================================================
 // MSLeaderDistanceInfo member method definitions
 // ===========================================================================
-
-
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    MSLeaderInfo(lane, ego, latOffset),
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset) :
+    MSLeaderInfo(laneWidth, ego, latOffset),
     myDistances(myVehicles.size(), std::numeric_limits<double>::max()) {
 }
 
 
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy) :
-    MSLeaderInfo(dummy, nullptr, 0),
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const double laneWidth) :
+    MSLeaderInfo(laneWidth, nullptr, 0.),
     myDistances(1, cLeaderDist.second) {
     assert(myVehicles.size() == 1);
     myVehicles[0] = cLeaderDist.first;
@@ -264,6 +262,10 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
+    //if (gDebugFlag1) std::cout << " addLeader veh=" << veh->getID() << " gap=" << gap << " latOffset=" << latOffset << " sublaneOffset=" << myOffset
+    //    << " rightmost=" << rightmost << " leftmost=" << leftmost
+    //    << " eRM=" << egoRightMost << " eLM=" << egoLeftMost
+    //        << " myFreeSublanes=" << myFreeSublanes << "\n";
     for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
         if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
                 && gap < myDistances[sublaneIdx]) {
@@ -276,6 +278,19 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
         }
     }
     return myFreeSublanes;
+}
+
+
+void
+MSLeaderDistanceInfo::addLeaders(MSLeaderDistanceInfo& other) {
+    const int maxSubLane = MIN2(numSublanes(), other.numSublanes());
+    for (int i = 0; i < maxSubLane; i++) {
+        addLeader(other[i].first, other[i].second, 0, i);
+        //if ((myDistances[i] > 0 && myDistances[i] > other.myDistances[i])
+        //        || (other.myDistances[i] < 0 && myDistances[i] < other.myDistances[i])) {
+        //    addLeader(other[i].first, other[i].second, 0, i);
+        //}
+    }
 }
 
 
@@ -329,6 +344,16 @@ MSLeaderDistanceInfo::fixOppositeGaps(bool isFollower) {
     }
 }
 
+
+void
+MSLeaderDistanceInfo::patchGaps(double amount) {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr) {
+            myDistances[i] += amount;
+        }
+    }
+}
+
 CLeaderDist
 MSLeaderDistanceInfo::getClosest() const {
     double minGap = -1;
@@ -365,8 +390,8 @@ MSLeaderDistanceInfo::moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& 
 // ===========================================================================
 
 
-MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders) :
-    MSLeaderDistanceInfo(lane, ego, latOffset),
+MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset, const bool haveOppositeLeaders) :
+    MSLeaderDistanceInfo(laneWidth, ego, latOffset),
     myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()),
     myHaveOppositeLeaders(haveOppositeLeaders)
 { }

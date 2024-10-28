@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,22 +15,22 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2021
 ///
-// Representation of containers in NETEDIT
+// Representation of containers in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
+#include <netedit/elements/GNEContour.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
-
 #include "GNEDemandElement.h"
+#include "GNEDemandElementFlow.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEContainer
- */
-class GNEContainer : public GNEDemandElement, public SUMOVehicleParameter {
+
+class GNEContainer : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:
     /// @brief class used in GUIGLObjectPopupMenu for container transformations
@@ -115,18 +115,12 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Container", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    std::string getBegin() const;
-
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -195,22 +189,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -284,11 +275,17 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    /// @brief variable used for contours
+    GNEContour myContainerContour;
 
-    /// @brief sets the color according to the current scheme index and some vehicle function
-    bool setFunctionalColor(int activeScheme) const;
+    /// @brief get drawing color
+    RGBColor getDrawingColor(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw container as poly
+    void drawAction_drawAsPoly() const;
+
+    /// @brief draw container as image
+    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
 
 private:
     // @brief struct used for calculating container plan geometry segments
@@ -319,8 +316,8 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
+    void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

@@ -1,0 +1,1 @@
+-f input_data.xml -o out.xml -t foo -a baz --keep-values 32

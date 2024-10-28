@@ -16,6 +16,9 @@ crossings_twoSided
 # test offset manipulation
 offset
 
+# test different logic types
+setProgramLogic_types
+
 # Tests the trafficlight API
 railsignal_state
 
@@ -27,3 +30,9 @@ actuated
 
 # tests interaction with actuated traffic light that uses custom switching conditions
 actuated_conditions
+
+# Overwrite signal program with TraCI-generated phases twice
+setLogic_repeated
+
+# try to set an invalid program
+setLogic_duration0

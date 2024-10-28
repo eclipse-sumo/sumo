@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,19 +21,15 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import gzip
-import io
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlopen
+import warnings
 from optparse import OptionParser
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
+# the visualization submodule is not imported to avoid an explicit matplotlib dependency
+from .miscutils import openz
 from .options import pullOptions
 from .xml import writeHeader as writeXMLHeader  # noqa
-# the visualization submodule is not imported to avoid an explicit matplotlib dependency
 
 
 def saveConfiguration(executable, configoptions, filename):
@@ -45,7 +41,7 @@ def call(executable, args):
     optParser = OptionParser()
     pullOptions(executable, optParser)
     cmd = [executable]
-    for option, value in args.__dict__.iteritems():
+    for option, value in args.__dict__.items():
         o = "--" + option.replace("_", "-")
         opt = optParser.get_option(o)
         if opt is not None and value is not None and opt.default != value:
@@ -55,36 +51,37 @@ def call(executable, args):
     return subprocess.call(cmd)
 
 
-def exeExists(binary):
-    if os.name == "nt" and binary[-4:] != ".exe":
-        binary += ".exe"
-    return os.path.exists(binary)
-
-
 def checkBinary(name, bindir=None):
     """
     Checks for the given binary in the places, defined by the environment
     variables SUMO_HOME and <NAME>_BINARY.
     """
-    if name == "sumo-gui":
-        envName = "GUISIM_BINARY"
-    else:
-        envName = name.upper() + "_BINARY"
+
+    def exe(binary):
+        return binary + ".exe" if os.name == "nt" and binary[-4:] != ".exe" else binary
+
+    envName = "GUISIM_BINARY" if name == "sumo-gui" else name.upper() + "_BINARY"
     env = os.environ
-    join = os.path.join
-    if envName in env and exeExists(env.get(envName)):
-        return env.get(envName)
+    if envName in env and os.path.exists(exe(env[envName])):
+        return exe(env[envName])
     if bindir is not None:
-        binary = join(bindir, name)
-        if exeExists(binary):
+        binary = exe(os.path.join(bindir, name))
+        if os.path.exists(binary):
             return binary
     if "SUMO_HOME" in env:
-        binary = join(env.get("SUMO_HOME"), "bin", name)
-        if exeExists(binary):
+        binary = exe(os.path.join(env.get("SUMO_HOME"), "bin", name))
+        if os.path.exists(binary):
             return binary
+    try:
+        import sumo
+        binary = exe(os.path.join(sumo.SUMO_HOME, "bin", name))
+        if os.path.exists(binary):
+            return binary
+    except ImportError:
+        pass
     if bindir is None:
-        binary = os.path.abspath(join(os.path.dirname(__file__), '..', '..', 'bin', name))
-        if exeExists(binary):
+        binary = exe(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'bin', name)))
+        if os.path.exists(binary):
             return binary
     if name[-1] != "D" and name[-5:] != "D.exe":
         binaryD = (name[:-4] if name[-4:] == ".exe" else name) + "D"
@@ -166,6 +163,12 @@ class TeeFile:
                 except OSError:
                     pass
 
+    def close(self):
+        """closes all closable outputs"""
+        for fp in self.files:
+            if fp not in (sys.__stdout__, sys.__stderr__) and hasattr(fp, "close"):
+                fp.close()
+
 
 def _intTime(tStr):
     """
@@ -179,11 +182,6 @@ def _laneID2edgeID(laneID):
 
 
 def open(fileOrURL, tryGZip=True, mode="rb"):
-    try:
-        if fileOrURL.startswith("http"):
-            return io.BytesIO(urlopen(fileOrURL).read())
-        if tryGZip:
-            return gzip.open(fileOrURL)
-    finally:
-        pass
-    return io.open(fileOrURL, mode=mode)
+    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! "
+                  "Use sumolib.miscutils.openz instead.")
+    return openz(fileOrURL, mode, tryGZip=tryGZip)

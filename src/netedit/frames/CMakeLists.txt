@@ -22,8 +22,8 @@ set(netedit_frames_SRCS
    GNEOverlappedInspection.h
    GNEPathCreator.cpp
    GNEPathCreator.h
-   GNEPathLegend.cpp
-   GNEPathLegend.h
+   GNEPathLegendModule.cpp
+   GNEPathLegendModule.h
    GNESelectorParent.cpp
    GNESelectorParent.h
    GNETagSelector.cpp
@@ -36,6 +36,14 @@ set(netedit_frames_SRCS
    GNEFlowEditor.cpp
    GNENeteditAttributes.h
    GNENeteditAttributes.cpp
+   GNETLSTable.h
+   GNETLSTable.cpp
+   GNEPlanSelector.h
+   GNEPlanSelector.cpp
+   GNEPlanCreator.h
+   GNEPlanCreator.cpp
+   GNEPlanCreatorLegend.h
+   GNEPlanCreatorLegend.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@
 #include <microsim/MSRouteHandler.h>
 #include <microsim/output/MSMeanData_Net.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <microsim/trigger/MSTrigger.h>
 
 
 // ===========================================================================
@@ -45,12 +44,13 @@ class MSRouteProbe;
  * @class MSCalibrator
  * @brief Calibrates the flow on a segment to a specified one
  */
-class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput {
+class MSCalibrator : public MSRouteHandler, public Command, public MSDetectorFileOutput {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
-                 const MSEdge* const edge,
-                 MSLane* lane,
+                 MSEdge* const edge,
+                 MSLane* const lane,
+                 MSJunction* const node,
                  const double pos,
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
@@ -58,7 +58,8 @@ public:
                  const MSRouteProbe* probe,
                  const double invalidJamThreshold,
                  const std::string& vTypes,
-                 bool addLaneMeanData = true);
+                 const bool local,
+                 const bool addLaneMeanData);
 
     /** destructor */
     virtual ~MSCalibrator();
@@ -85,11 +86,6 @@ public:
     /** the implementation of the MSTrigger / Command interface.
         Calibrating takes place here. */
     virtual SUMOTime execute(SUMOTime currentTime);
-
-    const std::string& getID() const {
-        /// @note: nedded to resolve ambiguity between MStrigger::getID() and MSDetectorFileOutput::getID()
-        return MSTrigger::getID();
-    }
 
     /// @brief cleanup remaining data structures
     static void cleanup();
@@ -195,8 +191,8 @@ protected:
 
     class VehicleRemover : public MSMoveReminder {
     public:
-        VehicleRemover(MSLane* lane, MSCalibrator* parent) :
-            MSMoveReminder(parent->getID(), lane, true), myParent(parent) {}
+        VehicleRemover(MSLane* const lane, MSCalibrator* const parent, const bool undo = false) :
+            MSMoveReminder(parent->getID(), lane, true), myParent(parent), myUndoCalibration(undo) {}
 
         /// @name inherited from MSMoveReminder
         //@{
@@ -211,16 +207,27 @@ protected:
          * @see Notification
          */
         //@}
-        virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = nullptr);
+
+        /** @brief Checks whether any calibrations need to be undone
+         *
+         * @param[in] veh The leaving vehicle.
+         * @param[in] lastPos Position on the lane when leaving.
+         * @param[in] reason how the vehicle leaves the lane
+         * @see Notification
+         *
+         * @return True if the reminder wants to receive further info.
+         */
+        virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = nullptr);
 
         void disable() {
-            myParent = 0;
+            myParent = nullptr;
         }
 
     private:
         MSCalibrator* myParent;
+        const bool myUndoCalibration;
     };
-    friend class VehicleRemover;
     friend class GUICalibrator;
 
     // @return whether the current state is active (GUI)
@@ -290,9 +297,11 @@ protected:
 
 protected:
     /// @brief the edge on which this calibrator lies
-    const MSEdge* const myEdge;
-    /// @brief the lane on which this calibrator lies (0 if the whole edge is covered at once)
+    MSEdge* const myEdge;
+    /// @brief the lane on which this calibrator lies (nullptr if the whole edge is covered at once)
     MSLane* const myLane;
+    /// @brief the junction on which this calibrator lies (nullptr if is edge or lane specific)
+    MSJunction* const myNode;
     /// @brief the position on the edge where this calibrator lies
     const double myPos;
     /// @brief the route probe to retrieve routes from
@@ -345,13 +354,16 @@ protected:
     /// @brief relative speed threshold for detecting and clearing invalid jam
     double myInvalidJamThreshold;
 
+    /// @brief whether the calibrator needs to undo the calibration after the edge / junction has been left
+    bool myAmLocal;
+
     /// @brief whether the calibrator has registered an invalid jam in the last execution step
     bool myHaveInvalidJam;
 
     /* @brief objects which need to live longer than the MSCalibrator
      * instance which created them */
-    static std::vector<MSMoveReminder*> LeftoverReminders;
-    static std::vector<SUMOVehicleParameter*> LeftoverVehicleParameters;
+    static std::vector<MSMoveReminder*> myLeftoverReminders;
+    static std::vector<SUMOVehicleParameter*> myLeftoverVehicleParameters;
     static std::map<std::string, MSCalibrator*> myInstances;
 
 };

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,7 @@ traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
 traci.person.appendWaitingStage("newPerson", 10, "twiddling thumbs")
 traci.person.appendWalkingStage("newPerson", ["2si", "2o"], 20)
 traci.person.appendWaitingStage("newPerson", 20, "arrived")
-traci.person.setSpeedFactor("newPerson", 1.3)
+traci.person.setSpeedFactor("newPerson", 1.1)
 
 for i in range(3):
     checkStateChanges()
@@ -126,6 +126,7 @@ def check(personID):
     print("remainingStages", traci.person.getRemainingStages(personID))
     print("edges", traci.person.getEdges(personID))
     print("vehicle", traci.person.getVehicle(personID))
+    print("boardingDuration", traci.person.getBoardingDuration(personID))
 
 
 check(personID)
@@ -250,7 +251,7 @@ for i in range(10):
     traci.simulationStep()
 
 remaining = traci.person.getRemainingStages("p3")
-assert(remaining == 1)
+assert remaining == 1
 # replace current stage
 print_remaining_plan("p3", "(before replacement of current stage)")
 traci.person.replaceStage("p3", 0, stage2)
@@ -262,10 +263,12 @@ traci.person.replaceStage("p3", 1, stage4)
 print_remaining_plan("p3", "(after replacement)")
 
 print("speed (before setSpeed)", traci.person.getSpeed("p3"))
-print("maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("type maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("person maxSpeed (before setSpeed)", traci.person.getMaxSpeed("p3"))
 traci.person.setSpeed("p3", 4.2)
 print("speed (after setSpeed)", traci.person.getSpeed("p3"))
-print("maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("type maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("person maxSpeed (after setSpeed)", traci.person.getMaxSpeed("p3"))
 
 for i in range(41):
     traci.simulationStep()

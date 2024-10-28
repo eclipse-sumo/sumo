@@ -1,0 +1,40 @@
+Warning: The referenced geometry information (ref='92499272') is not known
+Warning: The referenced geometry information (ref='271411917') is not known
+Warning: The referenced geometry information (ref='439185051') is not known
+Warning: The referenced geometry information (ref='92486553') is not known
+Warning: The referenced geometry information (ref='271411907') is not known
+Warning: Discarding way '24978202' because it has only 1 node(s)
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '27600092').
+Warning: Discarding way '28384346' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '35162947').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '92142136').
+Warning: Discarding way '136617339' because it has only 1 node(s)
+Warning: Discarding way '291221105' because it has only 1 node(s)
+Warning: Discarding way '332455395' because it has only 1 node(s)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '503589432').
+Warning: Removing pt stop '2275466607' on non existing edge '373181617'.
+Warning: PT line in relation 48677 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 48679 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 51190 with no stops ignored. Probably OSM file is incomplete.
+Warning: No node found for reference '140402611' in relation '446002'.
+Warning: No way found for reference '548370034' in relation '446002'
+Warning: Ignoring restriction relation '446002' with unknown from-way.
+Warning: Ignoring restriction relation '446002' with unknown via.
+Warning: No node found for reference '140402611' in relation '446003'.
+Warning: No way found for reference '4730416' in relation '446003'
+Warning: Ignoring restriction relation '446003' with unknown to-way.
+Warning: Ignoring restriction relation '446003' with unknown via.
+Warning: to-edge '50005673' of restriction relation could not be determined
+Warning: Ignoring restriction relation '1346152'.
+Warning: from-edge '39425853' of restriction relation could not be determined
+Warning: Ignoring restriction relation '1346153'.
+Warning: from-edge '58658650' of restriction relation could not be determined
+Warning: Ignoring restriction relation '1346154'.
+Warning: Cannot revise pt stop localization for pt line '2807088', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '2275466607' from line '2807088'.
+Warning: Cannot revise pt stop localization for pt line '2807115', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '2275466607' from line '2807115'.
+Warning: Removing pt stop '2275466607' on non existing edge ''.
+Warning: Removed 1 pt stops because they could not be assigned to the network
+Warning: 21 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 458 total messages of type: The referenced geometry information (ref='%') is not known

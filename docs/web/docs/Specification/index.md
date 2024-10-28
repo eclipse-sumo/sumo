@@ -79,7 +79,7 @@ created at time "begin". The id of the created vehicles is
 
 Types define physical parameters such as length, acceleration,
 deceleration and maximum speed and give a list of categories cars of
-this type belong to. All theses parameters are identical among all
+this type belong to. All these parameters are identical among all
 vehicles of a type.
 
 <table>
@@ -196,7 +196,7 @@ vehicles of a type.
 <td><p>string</p></td>
 <td></td>
 <td><p>P_7_7</p></td>
-<td><p>the emission class, see <a href="../Models/Emissions.html" title="wikilink">Models/Emissions</a>.</p></td>
+<td><p>the emission class, see <a href="../Models/Emissions.md">Models/Emissions</a>.</p></td>
 </tr>
 <tr class="even">
 <td><p>probability</p></td>
@@ -396,6 +396,9 @@ Stops can be childs of vehicles, routes or persons.
 | ------------------ | ----------------- | ------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | busStop            | string            | valid [bus stop](../Simulation/Public_Transport.md) ids                   | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
 | containerStop      | string            | valid [container stop](../Specification/Logistics.md#container_stops) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
+| parkingArea      | string            | valid [parkingArea](../Simulation/ParkingArea.md) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
+| trainStop      | string            | valid [bus stop](../Simulation/Public_Transport.md) ids (alias for 'busStop' | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
+| chargingStation      | string            | valid [chargingStation](../Models/Electric.md#charging_stations) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
 | lane               | string            | lane id                                                                        | \-                 | the lane id takes the form <edge_id\>_<lane_index\>. the edge has to be part of the corresponding route |
 | endPos             | float(m)          | ε≤endPos≤edge.length                                                           | edge.length        |                                                                                                        |
 | startPos           | float(m)          | 0≤startPos≤endPos-ε                                                            | endPos-ε           |                                                                                                        |

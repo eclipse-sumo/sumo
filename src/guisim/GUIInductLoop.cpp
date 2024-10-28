@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
@@ -28,6 +29,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
+#include <microsim/logging/CastingFunctionBinding_Param.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
@@ -42,9 +44,11 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, double length, const std::string& vTypes,
+                             double position, double length,
+                             std::string name, const std::string& vTypes,
+                             const std::string& nextEdges,
                              int detectPersons, bool show) :
-    MSInductLoop(id, lane, position, length, vTypes, detectPersons, true),
+    MSInductLoop(id, lane, position, length, name, vTypes, nextEdges, detectPersons, true),
     myWrapper(nullptr),
     myShow(show) {
 }
@@ -55,7 +59,7 @@ GUIInductLoop::~GUIInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
-    if (knowsParameter("hotkey")) {
+    if (hasParameter("hotkey")) {
         Command_Hotkey_InductionLoop::registerHotkey(getParameter("hotkey"), this);
     }
     // caller (GUINet) takes responsibility for pointer
@@ -77,7 +81,7 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 // -------------------------------------------------------------------------
 
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
     myDetector(detector), myPosition(pos),
     myHaveLength(myPosition != detector.getEndPosition()),
     mySpecialColor(nullptr) {
@@ -92,8 +96,8 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
         const double endPos = detector.getEndPosition();
         myFGShape = lane.getShape();
         myFGShape = myFGShape.getSubpart(
-                lane.interpolateLanePosToGeometryPos(pos),
-                lane.interpolateLanePosToGeometryPos(endPos));
+                        lane.interpolateLanePosToGeometryPos(pos),
+                        lane.interpolateLanePosToGeometryPos(endPos));
         myFGShapeRotations.reserve(myFGShape.size() - 1);
         myFGShapeLengths.reserve(myFGShape.size() - 1);
         int e = (int) myFGShape.size() - 1;
@@ -133,24 +137,40 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
-    ret->mkItem("position [m]", false, myPosition);
+    ret->mkItem(TL("name"), false, myDetector.getName());
+    ret->mkItem(TL("position [m]"), false, myPosition);
     if (myDetector.getEndPosition() != myPosition) {
-        ret->mkItem("end position [m]", false, myDetector.getEndPosition());
+        ret->mkItem(TL("end position [m]"), false, myDetector.getEndPosition());
     }
-    ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem(TL("lane"), false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
     // values
-    ret->mkItem("entered vehicles [#]", true,
+    ret->mkItem(TL("entered vehicles [-]"), true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));
-    ret->mkItem("speed [m/s]", true,
+    ret->mkItem(TL("speed [m/s]"), true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
-    ret->mkItem("occupancy [%]", true,
+    ret->mkItem(TL("occupancy [%]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy));
-    ret->mkItem("vehicle length [m]", true,
+    ret->mkItem(TL("vehicle length [m]"), true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
-    ret->mkItem("empty time [s]", true,
+    ret->mkItem(TL("empty time [s]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
-    ret->mkItem("occupied time [s]", true,
+    ret->mkItem(TL("occupied time [s]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancyTime));
+    ret->mkItem(TL("interval entered vehicles [#]"), true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, false));
+    ret->mkItem(TL("interval speed [m/s]"), true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, false));
+    ret->mkItem(TL("interval occupancy [%]"), true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, false));
+    ret->mkItem(TL("last interval entered vehicles [#]"), true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, true));
+    ret->mkItem(TL("last interval speed [m/s]"), true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, true));
+    ret->mkItem(TL("last interval occupancy [%]"), true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, true));
     // close building
     ret->closeBuilding(&myDetector);
     return ret;
@@ -169,7 +189,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glColor3d(1, 1, 0);
     if (myHaveLength) {
         GLHelper::pushMatrix();
-        glTranslated(0, 0, getType());
+        glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
         GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, MIN2(1.0, exaggeration), 0, 0);
         if (width * exaggeration > 1) {
 
@@ -210,7 +230,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // classic shape
         GLHelper::pushMatrix();
-        glTranslated(0, 0, getType());
+        glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
         glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
         glRotated(myFGRotation, 0, 0, 1);
         glScaled(exaggeration, exaggeration, 1);

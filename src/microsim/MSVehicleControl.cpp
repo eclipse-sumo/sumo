@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,8 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
+#include "MSEventControl.h"
+#include "MSStop.h"
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/common/FileHelpers.h>
@@ -52,16 +54,19 @@ MSVehicleControl::MSVehicleControl() :
     myTeleportsYield(0),
     myTeleportsWrongLane(0),
     myEmergencyStops(0),
+    myEmergencyBrakingCount(0),
     myStoppedVehicles(0),
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myWaitingForTransportable(0),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
+    myMinDecelerationRail(SUMOVTypeParameter::getDefaultDecel(SVC_RAIL)),
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
 
     initDefaultTypes();
     myScale = OptionsCont::getOptions().getFloat("scale");
+    myKeepTime = string2time(OptionsCont::getOptions().getString("keep-after-arrival"));
 }
 
 
@@ -87,7 +92,11 @@ MSVehicleControl::initDefaultTypes() {
     defTaxiType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_TAXITYPE_ID] = MSVehicleType::build(defTaxiType);
 
-    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
+    SUMOVTypeParameter defRailType(DEFAULT_RAILTYPE_ID, SVC_RAIL);
+    defRailType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVTypeDict[DEFAULT_RAILTYPE_ID] = MSVehicleType::build(defRailType);
+
+    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_CONTAINER);
     // ISO Container TEU (cannot set this based on vClass)
     defContainerType.length = 6.1;
     defContainerType.width = 2.4;
@@ -101,20 +110,22 @@ MSVehicleControl::initDefaultTypes() {
 
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                               const MSRoute* route, MSVehicleType* type,
-                               const bool ignoreStopErrors, const bool fromRouteFile, bool addRouteStops) {
-    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    initVehicle(built, ignoreStopErrors, addRouteStops);
+                               ConstMSRoutePtr route, MSVehicleType* type,
+                               const bool ignoreStopErrors, const VehicleDefinitionSource source, bool addRouteStops) {
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE || source == VehicleDefinitionSource::STATE ? MSRouteHandler::getParsingRNG() : nullptr));
+    initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;
 }
 
 
 void
-MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops) {
+MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops, const VehicleDefinitionSource source) {
     myLoadedVehNo++;
     try {
         built->initDevices();
-        built->addStops(ignoreStopErrors, nullptr, addRouteStops);
+        if (source != VehicleDefinitionSource::STATE) {
+            built->addStops(ignoreStopErrors, nullptr, addRouteStops);
+        }
     } catch (ProcessError&) {
         delete built;
         throw;
@@ -164,7 +175,11 @@ MSVehicleControl::removePending() {
             // close tag after tripinfo (possibly including emissions from another device) have been written
             tripinfoOut->closeTag();
         }
-        deleteVehicle(veh);
+        if (myKeepTime == 0) {
+            deleteVehicle(veh);
+        } else {
+            deleteKeptVehicle(veh);
+        }
     }
     vehs.clear();
     if (tripinfoOut != nullptr) {
@@ -178,6 +193,12 @@ MSVehicleControl::removePending() {
 
 
 void
+MSVehicleControl::deleteKeptVehicle(SUMOVehicle* veh) {
+    myEndedVehNo++;
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new DeleteKeptVehicle(veh), SIMSTEP + myKeepTime);
+}
+
+void
 MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     ++myRunningVehNo;
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
@@ -186,6 +207,8 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users
         myMinDeceleration = MIN2(myMinDeceleration, v.getVehicleType().getCarFollowModel().getMaxDecel());
+    } else if ((v.getVClass() & SVC_RAIL_CLASSES) != 0) {
+        myMinDecelerationRail = MIN2(myMinDecelerationRail, v.getVehicleType().getCarFollowModel().getMaxDecel());
     }
 }
 
@@ -256,6 +279,7 @@ MSVehicleControl::clearState(const bool reinit) {
     myTeleportsYield = 0;
     myTeleportsWrongLane = 0;
     myEmergencyStops = 0;
+    myEmergencyBrakingCount = 0;
     myStoppedVehicles = 0;
     myTotalDepartureDelay = 0;
     myTotalTravelTime = 0;
@@ -268,9 +292,23 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
     if (it == myVehicleDict.end()) {
         // id not in myVehicleDict.
         myVehicleDict[id] = v;
+        handleTriggeredDepart(v, true);
         const SUMOVehicleParameter& pars = v->getParameter();
-        if (pars.departProcedure == DepartDefinition::TRIGGERED || pars.departProcedure == DepartDefinition::CONTAINER_TRIGGERED || pars.departProcedure == DepartDefinition::SPLIT) {
-            const MSEdge* const firstEdge = v->getRoute().getEdges()[0];
+        if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
+            myPTVehicles.push_back(v);
+        }
+        return true;
+    }
+    return false;
+}
+
+
+void
+MSVehicleControl::handleTriggeredDepart(SUMOVehicle* v, bool add) {
+    const SUMOVehicleParameter& pars = v->getParameter();
+    if (pars.departProcedure == DepartDefinition::TRIGGERED || pars.departProcedure == DepartDefinition::CONTAINER_TRIGGERED || pars.departProcedure == DepartDefinition::SPLIT) {
+        const MSEdge* const firstEdge = v->getRoute().getEdges()[pars.departEdge];
+        if (add) {
             if (!MSGlobals::gUseMesoSim) {
                 // position will be checked against person position later
                 static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(nullptr, v->getParameter().departPos);
@@ -283,13 +321,17 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
                 firstEdge->addWaiting(v);
             }
             registerOneWaiting();
+        } else {
+            if (firstEdge->isTazConnector()) {
+                for (MSEdge* out : firstEdge->getSuccessors()) {
+                    out->removeWaiting(v);
+                }
+            } else {
+                firstEdge->removeWaiting(v);
+            }
+            unregisterOneWaiting();
         }
-        if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
-            myPTVehicles.push_back(v);
-        }
-        return true;
     }
-    return false;
 }
 
 
@@ -304,10 +346,12 @@ MSVehicleControl::getVehicle(const std::string& id) const {
 
 
 void
-MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
-    myEndedVehNo++;
-    if (discard) {
-        myDiscarded++;
+MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard, bool wasKept) {
+    if (!wasKept) {
+        myEndedVehNo++;
+        if (discard) {
+            myDiscarded++;
+        }
     }
     if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
@@ -346,7 +390,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType) {
 
 void
 MSVehicleControl::removeVType(const MSVehicleType* vehType) {
-    assert(vehType != 0);
+    assert(vehType != nullptr);
     assert(myVTypeDict.find(vehType->getID()) != myVTypeDict.end());
     myVTypeDict.erase(vehType->getID());
     if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
@@ -427,20 +471,59 @@ MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
 
 const RandomDistributor<MSVehicleType*>*
 MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
-    auto it = myVTypeDistDict.find(typeDistID);
+    const auto it = myVTypeDistDict.find(typeDistID);
     if (it != myVTypeDistDict.end()) {
         return it->second;
-    } else {
-        return nullptr;
     }
+    return nullptr;
+}
+
+
+const std::vector<MSVehicleType*>
+MSVehicleControl::getPedestrianTypes(void) const {
+    std::vector<MSVehicleType*> pedestrianTypes;
+    for (auto const& e : myVTypeDict)
+        if (e.second->getVehicleClass() == SUMOVehicleClass::SVC_PEDESTRIAN) {
+            pedestrianTypes.push_back(e.second);
+        }
+    return pedestrianTypes;
 }
 
 
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first,
-                       i->second->getParameter().departProcedure == DepartDefinition::SPLIT ? "split" : "person or container")
+        SUMOVehicle* veh = i->second;
+        std::string waitReason;
+        if (veh->isStoppedTriggered()) {
+            const MSStop& stop = veh->getNextStop();
+            if (stop.triggered) {
+                waitReason = "for a person that will never come";
+            } else if (stop.containerTriggered) {
+                waitReason = "for a container that will never come";
+            } else if (stop.joinTriggered) {
+                if (stop.pars.join != "") {
+                    waitReason = "to be joined to vehicle '" + stop.pars.join + "'";
+                } else {
+                    waitReason = "for a joining vehicle that will never come";
+                }
+            } else {
+                waitReason = "for an unknown trigger";
+            }
+        } else if (!veh->hasDeparted()) {
+            if (veh->getParameter().departProcedure == DepartDefinition::SPLIT) {
+                waitReason = "for a train from which to split";
+            } else if (veh->getParameter().departProcedure == DepartDefinition::TRIGGERED) {
+                waitReason = "at insertion for a person that will never come";
+            } else if (veh->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                waitReason = "at insertion for a container that will never come";
+            } else {
+                waitReason = "for an unknown departure trigger";
+            }
+        } else {
+            waitReason = "for an unknown reason";
+        }
+        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting %."), i->first, waitReason);
     }
 }
 
@@ -498,12 +581,22 @@ MSVehicleControl::getTeleportCount() const {
 
 
 void
-MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
+MSVehicleControl::adaptIntermodalRouter(MSTransportableRouter& router) const {
     for (const SUMOVehicle* const veh : myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        const MSRoute* const route = MSRoute::dictionary(veh->getParameter().routeid);
+        ConstMSRoutePtr const route = MSRoute::dictionary(veh->getParameter().routeid);
         router.getNetwork()->addSchedule(veh->getParameter(), route == nullptr ? nullptr : &route->getStops());
     }
+}
+
+// ===========================================================================
+// MSVehicleControl::DeleteKeptVehicle method definitions
+// ===========================================================================
+
+SUMOTime
+MSVehicleControl::DeleteKeptVehicle::execute(SUMOTime /*currentTime*/) {
+    MSNet::getInstance()->getVehicleControl().deleteVehicle(myVehicle, false, true);
+    return 0;
 }
 
 /****************************************************************************/

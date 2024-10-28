@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,8 @@ SUMOTime MSGlobals::gTimeToGridlock;
 SUMOTime MSGlobals::gTimeToGridlockHighways;
 double MSGlobals::gGridlockHighwaysSpeed;
 SUMOTime MSGlobals::gTimeToTeleportDisconnected;
+SUMOTime MSGlobals::gTimeToTeleportBidi;
+SUMOTime MSGlobals::gTimeToTeleportRSDeadlock;
 bool MSGlobals::gRemoveGridlocked;
 
 SUMOTime MSGlobals::gTimeToImpatience;
@@ -47,7 +49,7 @@ bool MSGlobals::gEmergencyInsert;
 
 SUMOTime MSGlobals::gLaneChangeDuration;
 
-double MSGlobals::gLateralResolution;
+double MSGlobals::gLateralResolution(-1.); // default for unitTest
 
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
@@ -58,15 +60,16 @@ bool MSGlobals::gOverheadWireSolver;
 bool MSGlobals::gOverheadWireRecuperation;
 bool MSGlobals::gOverheadWireCurrentLimits;
 
-bool MSGlobals::gSemiImplicitEulerUpdate;
+bool MSGlobals::gSemiImplicitEulerUpdate(true); // default for unitTest
 
 SUMOTime MSGlobals::gWaitingTimeMemory;
 
 SUMOTime MSGlobals::gActionStepLength;
 
-double MSGlobals::gDefaultEmergencyDecel(-1); // default for unitTest
+double MSGlobals::gDefaultEmergencyDecel(-1.); // default for unitTest
 
 bool MSGlobals::gUseStopEnded(false);
+bool MSGlobals::gUseStopStarted(false);
 
 bool MSGlobals::gUnitTests(false);
 
@@ -81,6 +84,7 @@ double MSGlobals::gEmergencyDecelWarningThreshold(1);
 
 double MSGlobals::gMinorPenalty(0);
 double MSGlobals::gTLSPenalty(0);
+double MSGlobals::gTurnaroundPenalty(0);
 
 bool MSGlobals::gModelParkingManoeuver;
 
@@ -96,5 +100,7 @@ double MSGlobals::gWeightsSeparateTurns(0);
 SUMOTime MSGlobals::gStartupWaitThreshold(0);
 
 bool MSGlobals::gHaveEmissions(false);
+
+int MSGlobals::gInsertionChecks(0);
 
 /****************************************************************************/

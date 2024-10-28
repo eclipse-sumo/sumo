@@ -1,0 +1,21 @@
+# see #12744
+forward
+
+# see #12744
+forward_with_walkingarea
+
+# see #12744
+# 
+# snippet from the ingolstadt scenario
+forward_with_walkingarea2
+
+# see #12744
+backward
+
+# see #12744
+backward_with_walkingarea
+
+# see #12744
+# 
+# snippet from the ingolstadt scenario
+backward_with_walkingarea2

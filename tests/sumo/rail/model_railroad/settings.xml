@@ -450,7 +450,7 @@
                 <entry color="50.00" threshold="100.00"/>
             </scalingScheme>
         </edges>
-        <vehicles vehicleMode="8" vehicleQuality="2" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="1" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0"
+        <vehicles vehicleMode="0" vehicleQuality="3" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="1" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0"
                   vehicleName_show="0" vehicleName_size="50.00" vehicleName_color="204,153,0" vehicleName_bgColor="128,0,0,0" vehicleName_constantSize="1"
                   vehicleValue_show="0" vehicleValue_size="80.00" vehicleValue_color="cyan" vehicleValue_bgColor="128,0,0,0" vehicleValue_constantSize="1"
                   vehicleText_show="0" vehicleText_size="80.00" vehicleText_color="red" vehicleText_bgColor="128,0,0,0" vehicleText_constantSize="1">
@@ -744,7 +744,7 @@
             </colorScheme>
         </junctions>
         <additionals addMode="0" add_minSize="1.00" add_exaggeration="2.00" add_constantSize="0" add_constantSizeSelected="0" addName_show="0" addName_size="50.00" addName_color="255,0,128" addName_bgColor="128,0,0,0" addName_constantSize="1" addFullName_show="0" addFullName_size="50.00" addFullName_color="255,0,128" addFullName_bgColor="128,0,0,0" addFullName_constantSize="1"/>
-        <pois poi_minSize="0.00" poi_exaggeration="1.00" poi_constantSize="0" poi_constantSizeSelected="0" poiName_show="0" poiName_size="50.00" poiName_color="black" poiName_bgColor="126,229,0" poiName_constantSize="1" poiType_show="1" poiType_size="100.00" poiType_color="black" poiType_bgColor="18,192,0" poiType_constantSize="1">
+        <pois poi_minSize="0.00" poi_exaggeration="1.00" poi_constantSize="0" poi_constantSizeSelected="0" poiName_show="0" poiName_size="50.00" poiName_color="black" poiName_bgColor="126,229,0" poiName_constantSize="1" poiType_show="1" poiType_size="100.00" poiType_color="black" poiType_bgColor="18,192,0" poiType_constantSize="0">
             <colorScheme name="given POI color">
                 <entry color="red"/>
             </colorScheme>

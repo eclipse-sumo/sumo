@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 step 0
 step 1
@@ -27,6 +26,8 @@ haltVeh 0
 vehIds ('horiz',)
 personIds ('p0',)
 waiting time 0.0
+angle (with default relative position) 270.0
+angle (with some relative position) 270.0
 checking occupancy with unicode id 0.0201207243461
 traveltime after adaption 22.368
 adaptedTraveltime after adaption 42.0
@@ -46,13 +47,26 @@ step 4
 step 5
 {16: 1}
 {'2fi': {16: 1}}
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+pending ()
+allow_0 ()
+allow_1 ('bicycle',)
+allow_2 ('pedestrian', 'bicycle')

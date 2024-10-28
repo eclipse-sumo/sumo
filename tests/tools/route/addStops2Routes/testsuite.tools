@@ -5,6 +5,31 @@ default_type_file
 # set stop position
 relpos
 
+# set stop position
+relpos_random
+
+# set stop lane
+lane
+
+# set stop lane
+lane_random
+
+# set relative edge along route
+reledge
+
+# set stop on first edge
+reledge_0
+
+# set relative edge along route
+reledge_random
+duration_random
+
+# assign stops probabilistically
+probability
+
+# tests for adding stops at the end of a route
+waypoints
+
 # tests for adding stops at the end of a trip
 trip
 

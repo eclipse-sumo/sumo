@@ -8,16 +8,16 @@ title: Trip
 (option **-n**). It does so by choosing source and destination edge either
 uniformly at random or with a modified distribution as described below.
 The resulting trips are stored in an XML file (option **-o**, default
-trips.trips.xml) suitable for [duarouter](../duarouter.md) which is
-called automatically if the  option (with a filename for the resulting
-route file) is given. The trips are distributed evenly in an interval
+trips.trips.xml) suitable for [duarouter](../duarouter.md) (which is
+called automatically if option **--route-file** is given).
+The trips are distributed evenly in an interval
 defined by begin (option **-b**, default 0) and end time (option **-e**, default
 3600) in seconds. The number of trips is defined by the repetition rate
 (option **-p**, default 1) in seconds. Every trip has an id consisting of a
 prefix (option **--prefix**, default "") and a running number. Example call:
 
 ```
-python tools/randomTrips.py -n <net-file> -e 50
+python tools/randomTrips.py -n <net-file> -e 50
 ```
 
 The script does not check whether the chosen destination may be reached
@@ -51,19 +51,23 @@ The probabilities for selecting an edge may also be weighted by
 - edge speed (exponentially, by option **--speed-exponent**)
 - [generic edge parameter](../Simulation/GenericParameters.md) (option **--edge-param**)
 - direction of travel (option **--angle-factor** and **--angle**)
+- randomly (option **--random-factor**)
 
 For additional ways to influence edge probabilities call
 
 ```
-python tools/randomTrips.py --help
+python tools/randomTrips.py --help
 ```
 
 ## Traffic Volume / Arrival rate
 
-The arrival rate is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
+The arrival rate (also known as the departure rate or the insertion rate) is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
 generates vehicles with a constant period and arrival rate of (1/period)
 per second. By using values below 1, multiple arrivals per second can be
-achieved.
+achieved. If several {{DT_FLOAT}} numbers are passed, like in **--period 1.0 0.5** (or **--period="1.0,0.5"**) for example, the time interval will be divided equally into subintervals, and the arrival rate for each subinterval is controlled by the corresponding period (in the preceding example, a period of 1.0 will be used for the first subinterval and a period of 0.5 will be used for the second). There are two other ways to specify the insertion rate:
+
+- Either by using the **--insertion-rate** argument (with one or several values as explained before): this is the number of vehicles per hour that the user expects.
+- Or by using the **--insertion-density** argument (with one or several values): this is the number of vehicles per hour per kilometer of road that the user expects (the total length of the road is computed with respect to a certain vehicle class that can be changed with the option **--edge-permission**).
 
 When adding option **--binomial** {{DT_INT}} the arrivals will be randomized using a binomial
 distribution where *n* (the maximum number of simultaneous arrivals) is
@@ -105,7 +109,7 @@ for a fraction disconnected, discarded trips.
 
 Sometimes it is desirable to obtain validated trips rather than routes
 (i.e. to make use of [one-shot route
-assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment).
+assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment)).
 In this case the additional option **--validate** may be used to generate validated
 trips (by first generating valid routes and then converting them back
 into trips).
@@ -116,24 +120,24 @@ With the option **--trip-attributes** {{DT_STR}}, additional parameters can be g
 vehicles (note, usage of the quoting characters).
 
 ```
-python tools/randomTrips.py -n <net-file> 
-  --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
+python tools/randomTrips.py -n <net-file>
+  --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
 This would make the random vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
 
-!!! caution
-    Quoting of trip attributes on Linux must use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
+!!! note
+    Quoting of trip attributes on Linux may also use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ### Setting a vehicle type from an external file
 
 If the generated vehicles should have a specific vehicle type, an {{AdditionalFile}} needs
 to be prepared:
 
-```
+```xml
 <additional>
-  <vType id="myType" maxSpeed="27" vClass="passenger"/>
+  <vType id="myType" maxSpeed="27" vClass="passenger"/>
 </additional>
 ```
 
@@ -141,8 +145,8 @@ Then load this file (assume it was saved as *type.add.xml*) with the
 option --additional-file
 
 ```
-python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
-   --edge-permission passenger
+python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
+   --edge-permission passenger
 ```
 
 Note the use of the option **--edge-permission** (deprecated alias: **--vclass**) which ensures that
@@ -164,12 +168,12 @@ By setting the option **--vehicle-class** a vehicle type definition that specifi
 class will be added to the output files. I.e.
 
 ```
-python tools/randomTrips.py --vehicle-class bus ...
+python tools/randomTrips.py --vehicle-class bus ...
 ```
 
 will add
 
-```
+```xml
 <vType id="bus" vClass="bus"/>
 ```
 
@@ -177,12 +181,12 @@ Any **--trip-attributes** that are applicable to a vehicle type rather than a ve
 placed in the generated `vType` definition automatically:
 
 ```
-python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
+python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
 ```
 
 will add
 
-```
+```xml
 <vType id="bus" vClass="bus" maxSpeed="random"/>
 ```
 
@@ -192,13 +196,17 @@ editing is that it must be repeated when running *randomTrips.py* again.
 
 ## Generating different modes of traffic
 
-- Using the option **--pedestrians** will generated pedestrians instead of vehicles.
-- Using the option **--persontrips** will generated persons with `<persontrip>` definitions. This
+- Using the option **--pedestrians** will generate pedestrians instead of vehicles.
+- Using the option **--persontrips** will generate persons with `<persontrip>` definitions. This
 allows to specify the available traffic modes and thus use
 [IntermodalRouting](../IntermodalRouting.md) to decided whether
 they use public transport, a personal car or walking.
   - walking or public transport: **--trip-attributes "modes=\"public\""**
   - walking, public transport or car **--trip-attributes "modes=\"public car\""**
+- Using the option **--personrides <LINE>** will generate persons with `<ride line="LINE">` definitions.
+- using option **--from-stops busStop** will make persons start with an initial `<stop duration="0">` at a random busStop
+- using option **--to-stops busStop** will make persons end their journey at a random busStop
+
 
 !!! caution
     Quoting of trip attributes on Linux must use the style **--trip-attributes 'modes="public"'**
@@ -209,6 +217,9 @@ To generate longer trips within a network, intermediate way points may
 be generated using the option **--intermediate** {{DT_INT}}. This will add the given number of
 [via-edges](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#incomplete_routes_trips_and_flows)
 to the trip definitions.
+
+!!! caution
+    If the network contains disconnected components, the probability of generating invalid trips grows with the number of intermediate waypoints (since a trip is invalid if any intermediate part is invalid). To avoid this, [make sure your network has only a single component](../netconvert.md#edge_removal).
 
 ## Customized Weights
 
@@ -252,17 +263,20 @@ To obtain trips from two specific locations (edges *a*, and *b*) to
 random destinations, use
 
 ```
-python tools/randomTrips.py --weights-prefix example  ...<other options>...
+python tools/randomTrips.py --weights-prefix example  ...<other options>...
 ```
 
 and define only the file *example.src.xml* as follows:
 
-```
+```xml
 <edgedata>
-  <interval begin="0" end="10"/>
-    <edge id="a" value="0.5"/>
-    <edge id="b" value="0.5"/>
-  </interval>
+  <interval begin="0" end="10"/>
+    <edge id="a" value="0.5"/>
+    <edge id="b" value="0.5"/>
+  </interval>
 </edgedata>
 ```
 
+## Forwarding options to duarouter
+
+When generating the route *.rou.xml* file, duarouter is called. Some arguments are already passed to duarouter directly from arguments received by randomTrips. However, should you need so, you can directly pass an argument to duarouter with the syntax `--duarouter-option value`; for instance using `--duarouter-exit-times true` with randomTrips will forward the argument `--exit-times` to duarouter when it is called, and with the value `true`. Please note that it is compulsory to pass a value together with the option, for instance `--duarouter-exit-times` wouldn't be valid in this context.

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-11 15:52:49 by Eclipse SUMO netedit Version v1_14_1+1603-c56a86c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="1589.00,1511.23" convBoundary="0.00,0.00,20000.00,0.00" origBoundary="-1589.00,-1511.23,1589.00,1511.23" projParameter="!"/>
+
+    <edge id="0" from="start" to="J0" priority="1" spreadType="center">
+        <lane id="0_0" index="0" speed="40.00" length="5000.00" shape="0.00,0.00 5000.00,0.00"/>
+    </edge>
+    <edge id="1" from="J0" to="J1" priority="1" spreadType="center">
+        <lane id="1_0" index="0" speed="40.00" length="5000.00" shape="5000.00,0.00 10000.00,0.00"/>
+    </edge>
+    <edge id="2" from="J1" to="J2" priority="1" spreadType="center">
+        <lane id="2_0" index="0" speed="40.00" length="5000.00" shape="10000.00,0.00 15000.00,0.00"/>
+    </edge>
+    <edge id="3" from="J2" to="end" priority="1" spreadType="center">
+        <lane id="3_0" index="0" speed="40.00" length="5000.00" shape="15000.00,0.00 20000.00,0.00"/>
+    </edge>
+
+    <junction id="J0" type="priority" x="5000.00" y="0.00" incLanes="0_0" intLanes="" shape="5000.00,1.60 5000.00,-1.60 5000.00,1.60">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J1" type="priority" x="10000.00" y="0.00" incLanes="1_0" intLanes="" shape="10000.00,1.60 10000.00,-1.60 10000.00,1.60">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J2" type="priority" x="15000.00" y="0.00" incLanes="2_0" intLanes="" shape="15000.00,1.60 15000.00,-1.60 15000.00,1.60">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="end" type="dead_end" x="20000.00" y="0.00" incLanes="3_0" intLanes="" shape="20000.00,-1.60 20000.00,1.60"/>
+    <junction id="start" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,1.60 0.00,-1.60"/>
+
+    <connection from="0" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

@@ -1,0 +1,23 @@
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+default
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+none
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+teleport
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+remove
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+stoptime_warn
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+stoptime_remove

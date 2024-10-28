@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_lockperson_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+"X c #CC0000",
+"o c None",
+/* pixels */
+"oooooooooooooooo",
+"oooooooooooooooo",
+"ooo   oooo    oo",
+"oo     oo      o",
+"oo ooo oo      o",
+"oo ooo oo      o",
+"o       o      o",
+" XXXXXXX o    oo",
+" XXXXXXX ooooooo",
+" XXXXXXX ooooooo",
+" XXXXXXX o     o",
+"o       o       ",
+"oooooooo        ",
+"ooooooo         ",
+"oooooo          ",
+"oooooo          "
+};

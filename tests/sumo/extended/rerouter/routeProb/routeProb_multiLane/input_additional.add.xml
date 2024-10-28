@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="r0" edges="SC CN"/>
+    <route id="r1" edges="SC CE"/>
+    <route id="r2" edges="SC CW"/>
+
+    <rerouter id="rerouter" edges="SC">
+	   <interval begin="0" end="86400">
+		   <routeProbReroute id="r0" probability="1"/>
+		   <routeProbReroute id="r1" probability="1"/>
+		   <routeProbReroute id="r2" probability="1"/>
+	   </interval>
+   </rerouter>
+</additional>

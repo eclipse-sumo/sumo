@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-17 10:01:41.566388 by gtfs2pt.py v1_17_0+0321-17b203b
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <sort value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="132244371" edges="27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0">
+        <stop busStop="132244371.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132244371.1" duration="10" until="120"/> <!-- Braunschweig Schloss -->
+        <stop busStop="132244371.2" duration="10" until="240"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+        <stop busStop="132244371.3" duration="10" until="360"/> <!-- Braunschweig Friedrich-Wilhelm-Platz -->
+        <stop busStop="132244371.4" duration="10" until="480"/> <!-- Braunschweig Europaplatz -->
+    </route>
+    <route id="132185783" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855">
+        <stop busStop="132185783.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132185783.1" duration="10" until="60"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132185783.2" duration="10" until="120"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132185783.3" duration="10" until="180"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132185783.4" duration="10" until="300"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132185783.5" duration="10" until="360"/> <!-- Braunschweig Goslarsche Straße -->
+    </route>
+    <route id="132185786.trimmed" edges="8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855">
+        <stop busStop="132185783.3" duration="10" until="0"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132185783.4" duration="10" until="120"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132185783.5" duration="10" until="180"/> <!-- Braunschweig Goslarsche Straße -->
+    </route>
+    <route id="132218462" edges="51353826#0 61976434#0 61976434#1 61976434#2 61976434#3 61976434#4 25730283#0 315422093#0 25730281#0 27220157#0 29976721#0 4729561#0 317365383#0 317365383#1 317365382#0 27220209#0">
+        <stop busStop="132218462.0" duration="10" until="0"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+        <stop busStop="132218462.1" duration="10" until="120"/> <!-- Braunschweig Schloss -->
+        <stop busStop="132218462.2" duration="10" until="240"/> <!-- Braunschweig Rathaus -->
+    </route>
+    <route id="132189814" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="132189814.0" duration="10" until="0"/> <!-- Braunschweig Staatstheater -->
+        <stop busStop="132185783.0" duration="10" until="120"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132185783.1" duration="10" until="180"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132185783.2" duration="10" until="240"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132185783.3" duration="10" until="300"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132189814.5" duration="10" until="420"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132189814.6" duration="10" until="480"/> <!-- Braunschweig Südstraße -->
+        <stop busStop="132189814.7" duration="10" until="540"/> <!-- Braunschweig Holzhof -->
+    </route>
+    <route id="132190299" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="132185783.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132185783.1" duration="10" until="60"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132185783.2" duration="10" until="120"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132185783.3" duration="10" until="180"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132189814.5" duration="10" until="300"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132189814.6" duration="10" until="360"/> <!-- Braunschweig Südstraße -->
+        <stop busStop="132189814.7" duration="10" until="420"/> <!-- Braunschweig Holzhof -->
+    </route>
+    <route id="132194506" edges="32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="132194506.0" duration="10" until="0"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+        <stop busStop="132244371.3" duration="10" until="60"/> <!-- Braunschweig Friedrich-Wilhelm-Platz -->
+        <stop busStop="132189814.7" duration="10" until="180"/> <!-- Braunschweig Holzhof -->
+    </route>
+    <route id="132183536" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 316682907 316682910#0 25076286#0 43328051#0">
+        <stop busStop="132183536.0" duration="10" until="0"/> <!-- Braunschweig Holzhof -->
+        <stop busStop="132183536.1" duration="10" until="60"/> <!-- Braunschweig Am Wassertor -->
+        <stop busStop="132183536.2" duration="10" until="180"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+    </route>
+    <vehicle id="132185783.0" route="132185783" type="bus" depart="18890" line="132185783">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+    </vehicle>
+    <vehicle id="132244371.0" route="132244371" type="bus" depart="19970" line="132244371">
+        <param key="gtfs.route_name" value="620"/>
+        <param key="gtfs.trip_headsign" value="Steterburg(Salzgitter) Danziger Straße"/>
+    </vehicle>
+    <vehicle id="132218462.0" route="132218462" type="bus" depart="22610" line="132218462">
+        <param key="gtfs.route_name" value="730"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>
+    </vehicle>
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="36890" line="132189814">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+    </vehicle>
+    <vehicle id="132190299.0" route="132190299" type="bus" depart="43310" line="132190299">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Leiferde"/>
+    </vehicle>
+    <vehicle id="132185786.0" route="132185783" type="bus" depart="86090" line="132185783">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
+    </vehicle>
+</routes>

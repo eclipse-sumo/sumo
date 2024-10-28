@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -62,7 +62,7 @@ class Reservation(object):
 
 def _readReservation(result):
     # compound size and type
-    assert(result.read("!i")[0] == 10)
+    assert result.read("!i")[0] == 10
     id = result.readTypedString()
     persons = result.readTypedStringList()
     group = result.readTypedString()
@@ -82,6 +82,9 @@ _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
 
 
 class PersonDomain(VTypeDomain):
+
+    Reservation = Reservation
+
     def __init__(self):
         VTypeDomain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                              tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
@@ -103,7 +106,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_POSITION, personID)
 
     def getPosition3D(self, personID):
-        """getPosition(string) -> (double, double, double)
+        """getPosition3D(string) -> (double, double, double)
 
         Returns the position of the named person within the last step [m,m,m].
         """
@@ -152,15 +155,8 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
-    def getSpeedFactor(self, personID):
-        """getSpeedFactor(string) -> double
-
-        Returns the quotient of this persons maximum speed and the maximum speed of its type
-        """
-        return self._getUniversal(tc.VAR_SPEED_FACTOR, personID)
-
     def getWaitingTime(self, personID):
-        """getWaitingTime() -> double
+        """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
         speed below 0.1m/s since the last time it was faster than 0.1m/s.
         (basically, the waiting time of a person is reset to 0 every time it moves).
@@ -168,7 +164,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_WAITING_TIME, personID)
 
     def getNextEdge(self, personID):
-        """getNextEdge() -> string
+        """getNextEdge(string) -> string
         If the person is walking, returns the next edge on the persons route
         (including crossing and walkingareas). If there is no further edge or the
         person is in another stage, returns the empty string.
@@ -189,8 +185,8 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_EDGES, personID, "i", nextStageIndex)
 
     def getStage(self, personID, nextStageIndex=0):
-        """getStage(string, int) -> int
-        Returns the the nth stage object (type simulation.Stage)
+        """getStage(string, int) -> stage
+        Returns the nth stage object (type simulation.Stage)
         Attribute type of this object has the following meaning:
           0 for not-yet-departed
           1 for waiting
@@ -204,7 +200,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_STAGE, personID, "i", nextStageIndex)
 
     def getRemainingStages(self, personID):
-        """getStage(string) -> int
+        """getRemainingStages(string) -> int
         Returns the number of remaining stages (at least 1)
         """
         return self._getUniversal(tc.VAR_STAGES_REMAINING, personID)
@@ -239,7 +235,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.SPLIT_TAXI_RESERVATIONS, reservationID, "l", personIDs)
 
     def removeStages(self, personID):
-        """remove(string)
+        """removeStages(string)
         Removes all stages of the person. If no new phases are appended,
         the person will be removed from the simulation in the next simulationStep().
         """
@@ -323,14 +319,21 @@ class PersonDomain(VTypeDomain):
            Reasons are defined in module constants and start with REMOVE_'''
         self._setCmd(tc.REMOVE, personID, "b", reason)
 
+    def moveTo(self, personID, laneID, pos, posLat=tc.INVALID_DOUBLE_VALUE):
+        """moveTo(string, string, double, double) -> None
+
+        Move a person to a new position along its current route.
+        """
+        self._setCmd(tc.VAR_MOVE_TO, personID, "tsdd", 3, laneID, pos, posLat)
+
     def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
-        '''Place person at the given x,y coordinates and force it's angle to
+        '''Place person at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
         natural angle of the edge on which it is driving.
         If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
+        any edge in the network but its route then only consists of that edge.
         If keepRoute is set to 2 the person has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
         edgeID is an optional placement hint to resolve ambiguities.

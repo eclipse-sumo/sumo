@@ -7,7 +7,7 @@ title: LiSuM
 ![LisaSumoIcon.png](../images/LisaSumoIcon.png "LisaSumoIcon.png")
 
 LiSuM is a middleware that couples
-[LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO
+[LISA+](https://www.schlothauer.de/software-lisa) and SUMO
 helping to execute more complex traffic controls on the intersections
 than SUMO originally permits. SUMO communicates with the LISA+ virtual
 controller through LiSuM. Per default LiSuM needs at LISA+ version 7.2
@@ -22,7 +22,7 @@ LiSuM) and VISSIM, a proprietary microscopic 3D traffic simulator.
 
 LiSuM was built on Java technology and thus can be run on any operating
 system supporting Java. LiSuM is licensed (just like SUMO) under the
-[EPLv2](http://www.eclipse.org/legal/epl-v20.html).
+[EPLv2](https://www.eclipse.org/legal/epl-v20.html).
 
 ![flowws.png](../images/Flowws.png "flowws.png")
 SUMO communicates with the LISA+ virtual controller through LiSuM
@@ -40,29 +40,44 @@ LiSuM-Core (the command line version) works with Java 8 as well.
 ![LISASumo.MainWindow.PNG](../images/LISASumo.MainWindow.PNG
 "LISASumo.MainWindow.PNG")LiSuM Main window
 
-The installation of LiSuM is straightforward and it may not present major difficulties. 
-Before compiling and running LiSuM it is recommended to have the following software installed on your computer:
+For running LiSuM it is required to have the following software installed on your computer:
 
-- Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core) 
-- SUMO (version 1.0.1 or later) 
-- and [Apache Maven](https://maven.apache.org/)
+- Java SE Runtime Environment (version 17 and later for lisum-gui and version 7 and later for lisum-core)
+- SUMO (version 1.0.1 or later)
+- openjfx (for lisum-gui, Linux only)
 
-In a command or terminal window execute the Maven command install (`mvn install`) in the traas, lisum-core and lisum-gui folders (in that order).
-For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command. 
+If you downloaded the Windows installer or the Windows zip, LiSuM should already be included and you just need to run:
 
-When LiSuM is started for the first time, the user is prompt to select a
+```
+java -jar "%SUMO_HOME%\bin\lisum-gui.jar"
+```
+
+You can also try to download and run this on Linux but you
+might be better off self-compiling as described below due to Java version mismatches.
+
+### Compiling LiSuM
+
+This will require [Apache Maven](https://maven.apache.org/) and a source distribution or a git repository clone of SUMO.
+In a command or terminal window execute `mvn install` in the tools/contributed/traas, and the tools/contributed/lisum folders (in that order).
+For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command, for example:
+```
+java -jar $SUMO_HOME/tools/contributed/lisum/lisum-core/target/lisum-core-1.0.2-jar-with-dependencies.jar
+java -jar $SUMO_HOME/tools/contributed/lisum/lisum-gui/target/lisum-gui-1.1.jar
+```
+
+## Getting started
+
+When LiSuM is started for the first time, the user is prompted to select a
 directory which is going to be used as the workspace directory. The
 workspace is the directory where LiSuM looks for existing simulation
 projects, where new ones should be stored and where the system
 preferences are saved. If needed use the system preferences window to
 change the workplace path.
 
-## Getting started
-
 Open LiSuM, set the SUMO path in the system preferences dialog window
 and open an existing simulation project from the workspace. In the Tools
 menu, select "Start Lisa+ Virtual Controller" to start an instance of
-the LISA+ Virtual Controller. Pressing Ctrl+p or clicking on the "Play"
+the LISA+ Virtual Controller. Pressing <kbd>Ctrl</kbd> + <kbd>p</kbd> or clicking on the "Play"
 button on the toolbar will open an instance of the sumo-gui, which will
 take control over the system. Almost all menus, toolbars and dialog
 windows of LiSuM get blocked and from hereon the simulation may be
@@ -100,7 +115,7 @@ system.
 
 **Example:**
 
-```
+```xml
 <simulation>
    <input>
       <lisa>lisaDirectory</lisa>
@@ -165,11 +180,11 @@ The configuration file shown above declares the following:
 "LISASumo.ControlUnitsOptionsWindow.PNG")Control units management window
 
 The Control Units Management dialog window gets opened by pressing
-Ctrl+M or by clicking on the "Grid" button on the simulation toolbar. In
+<kbd>Ctrl</kbd> + <kbd>M</kbd> or by clicking on the "Grid" button on the simulation toolbar. In
 this dialog it is possible to change the behavior of all available
 control units of the simulation by turning them off and on, selecting
 the program, or enabling or disabling program settings like VA
-(Verkehrsabhänhig) and ÖV (Öffentliche Verkehrsmittel).
+("Verkehrsabhängig" = actuated) and ÖV ("Öffentliche Verkehrsmittel" = public transport).
 
 It is also possible to deactivate the communication with LISA+ by
 unclicking the check box right of the control units combo box (image
@@ -191,7 +206,7 @@ described using WSDL/XSD files, used to describe SOAP services.
 
 It is necessary that, before starting SUMO, an instance of the LISA+
 Virtual Controller is opened and running (clicking on *Menu: Tools -\>
-Start Lisa+ Virtual Controller* or by pressing Ctrl+r).
+Start Lisa+ Virtual Controller* or by pressing <kbd>Ctrl</kbd> + <kbd>r</kbd>).
 
 Per default the LISA+ Virtual Controller and its configuration file
 (OmlFgServer.ini) are to be found in the

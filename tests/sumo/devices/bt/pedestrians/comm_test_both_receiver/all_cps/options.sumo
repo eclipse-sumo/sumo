@@ -1,0 +1,2 @@
+--device.btreceiver.all-recognitions --device.btreceiver.range 50
+--person-device.btreceiver.explicit left,right --person-device.btsender.explicit left,right --no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml --bt-output bt.xml --tripinfo-output=tripinfos.xml

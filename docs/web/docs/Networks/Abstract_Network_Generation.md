@@ -24,14 +24,14 @@ lengths for x and y directions).
 An example usage for building could be:
 
 ```
-netgenerate --grid --grid.number=10 --grid.length=400 --output-file=MySUMOFile.net.xml
+netgenerate --grid --grid.number=10 --grid.length=400 --output-file=MySUMOFile.net.xml
 ```
 
 or:
 
 ```
-netgenerate --grid --grid.x-number=20 --grid.y-number=5 \
- --grid.y-length=40 --grid.x-length=200 --output-file=MySUMOFile.net.xml
+netgenerate --grid --grid.x-number=20 --grid.y-number=5 \
+ --grid.y-length=40 --grid.x-length=200 --output-file=MySUMOFile.net.xml
 ```
 
 These calls will generate the following networks, respectively:
@@ -54,7 +54,7 @@ specifying **--spider.omit-center** or **--nocenter**. This also gives an easy w
 network. Using for instance
 
 ```
-netgenerate --spider --spider-omit-center --output-file=MySUMOFile.net.xml
+netgenerate --spider --spider-omit-center --output-file=MySUMOFile.net.xml
 ```
 
 will create a circle consisting of 13 elements with a radius of 100m.
@@ -62,15 +62,15 @@ will create a circle consisting of 13 elements with a radius of 100m.
 Two examples of usage:
 
 ```
-netgenerate --spider --spider.arm-number=10 --spider.circle-number=10 \
- --spider.space-radius=100 --output-file=MySUMOFile.net.xml
+netgenerate --spider --spider.arm-number=10 --spider.circle-number=10 \
+ --spider.space-radius=100 --output-file=MySUMOFile.net.xml
 ```
 
 and:
 
 ```
-netgenerate --spider --spider.arm-number=4 --spider.circle-number=3 \
- --spider.space-radius=100 --output-file=MySUMOFile.net.xml
+netgenerate --spider --spider.arm-number=4 --spider.circle-number=3 \
+ --spider.space-radius=100 --output-file=MySUMOFile.net.xml
 ```
 
 These calls will generate the following networks, respectively:
@@ -100,7 +100,7 @@ random networks. Several settings may be changed:
 An example:
 
 ```
-netgenerate --rand -o MySUMOFile.net.xml --rand.iterations=200
+netgenerate --rand -o MySUMOFile.net.xml --rand.iterations=200
 ```
 
 This call will generate the following network:
@@ -109,7 +109,7 @@ This call will generate the following network:
 
 ## Random Grids
 
-By setting the option **--rand.grid**, additional grid structure is enforce during random network generation. 
+By setting the option **--rand.grid**, additional grid structure is enforce during random network generation.
 Newly generated grid nodes, will branch of in cardinal directions from existing nodes at multiples of **--rand.min-distance** up to a distance of **--rand.max-distance**. Since new nodes are connected to multiple existing nodes, there will still be edges at arbitrary angles but the basic structure of the network is grid-like.
 
 ![](../images/Netgen_random_grid1.png){: style="height:380px"}
@@ -117,15 +117,21 @@ Newly generated grid nodes, will branch of in cardinal directions from existing 
 
 # Further Options
 
-All abstract network types share some command line options. 
+All abstract network types share some command line options.
 
 - **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.md#node_types). (i.e. 'priority', 'traffic_light' ,,,)
 - **--turn-lanes**: set number of turn lanes to generate at each junction
-- **--turn-lanes.length**: set length of generated turn lanes
+- **--turn-lanes.length**: set length of generated turn lanes. More specifically:
+  - 0: No separate turning only lanes;
+  - 1: Add a left-turn & turn-around-only lane as the new left-most lane;
+  - 2: Add a left-turn & turn-around-only lane as the new left-most lane, and a right-turn-only lane as the new right-most lane;
+  - 3: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, and a right-turn-only lane as the new right-most lane;
+  - 4: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, a left-turn-only lane as the new left-most-but-two lane, and a right-turn-only lane as the new right-most lane;
+  - 5: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, a left-turn-only lane as the new left-most-but-two lane, a left-turn only lane as the new left-most-but-three lane, and a right-turn-only lane as the new right-most lane.
 - **--perturb.x**: disturb node positions in x direction by a random amount between 0 and FLOAT
 - **--perturb.y**: disturb node positions in y direction by a random amount between 0 and FLOAT
 - **--perturb.z**: disturb node positions in z direction by a random amount between 0 and FLOAT
 
 Further, you can set default values for [streets](../netconvert.md#building_defaults) and [traffic lights](../netconvert.md#tls_building) by using the same
-options as in the [netconvert](../netconvert.md)-application. 
+options as in the [netconvert](../netconvert.md)-application.
 Many other netconvert options such as **--lefthand** are also supported by netgenerate.

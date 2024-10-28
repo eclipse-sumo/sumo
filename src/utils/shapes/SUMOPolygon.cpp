@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@
 
 #include "SUMOPolygon.h"
 
-
 // ===========================================================================
 // member definitions
 // ===========================================================================
@@ -51,6 +50,12 @@ SUMOPolygon::~SUMOPolygon() {}
 const PositionVector&
 SUMOPolygon::getShape() const {
     return myShape;
+}
+
+
+const std::vector<PositionVector>&
+SUMOPolygon::getHoles() const {
+    return myHoles;
 }
 
 
@@ -81,6 +86,11 @@ SUMOPolygon::setLineWidth(double lineWidth) {
 void
 SUMOPolygon::setShape(const PositionVector& shape) {
     myShape = shape;
+}
+
+void
+SUMOPolygon::setHoles(const std::vector<PositionVector>& holes) {
+    myHoles = holes;
 }
 
 

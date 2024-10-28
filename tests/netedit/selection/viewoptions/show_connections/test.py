@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,39 +31,36 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # first rebuild network
 netedit.rebuildNetwork()
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # go to select mode
 netedit.selectMode()
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.edges)
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.crossings)
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+# Rebuild network
+netedit.rebuildNetwork()
 
-# clear selection
-netedit.selectionClear()
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleSmallA,
+                           netedit.positions.selection.rectangleSmallB)
 
-# hidde connections
-netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
-
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
-
-# clear selection
-netedit.selectionClear()
+# remove elements
+netedit.deleteSelectedItems()
 
 # check undo and redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

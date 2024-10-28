@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 10:57:22 by Eclipse SUMO duarouter Version v1_12_0+0320-a562602254b
+<!-- generated on 2024-06-26 13:30:33 by Eclipse SUMO duarouter Version v1_20_0+0837-89657f7d4be
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -36,8 +36,14 @@
         <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
         <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE"/>
 
-        <!-- Determines where to load PHEMlight definitions from. -->
+        <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <phemlight-year value="0" type="INT"/>
+
+        <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->
+        <phemlight-temperature value="1.79769e+308" type="FLOAT"/>
 
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights" type="FILE"/>
@@ -62,6 +68,9 @@
 
         <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
         <keep-vtype-distributions value="false" type="BOOL"/>
+
+        <!-- Return fuel consumption values in (legacy) unit l instead of mg -->
+        <emissions.volumetric-fuel value="false" type="BOOL"/>
 
         <!-- Write vehicles that reference routes by their id -->
         <named-routes value="false" type="BOOL"/>
@@ -168,6 +177,12 @@
         <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
         <weights.minor-penalty value="1.5" type="FLOAT"/>
 
+        <!-- Apply the given time penalty when computing routing costs across a traffic light -->
+        <weights.tls-penalty value="0" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
+        <weights.turnaround-penalty value="5" type="FLOAT"/>
+
         <!-- Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT) -->
         <weights.random-factor value="1" type="FLOAT"/>
 
@@ -187,10 +202,10 @@
         <astar.save-landmark-distances value="" type="FILE"/>
 
         <!-- Use FLOAT as Gawron&apos;s beta -->
-        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT"/>
+        <gawron.beta value="0.9" synonymes="gBeta" type="FLOAT"/>
 
         <!-- Use FLOAT as Gawron&apos;s a -->
-        <gawron.a value="0.05" synonymes="gA" type="FLOAT"/>
+        <gawron.a value="0.5" synonymes="gA" type="FLOAT"/>
 
         <!-- Save routes with near zero probability -->
         <keep-all-routes value="false" type="BOOL"/>
@@ -288,14 +303,14 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.routes value="auto" type="STR"/>
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="local" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
@@ -311,6 +326,15 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
 
         <!-- Continue if a route could not be build -->
         <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
@@ -332,4 +356,4 @@
 
     </random_number>
 
-</configuration>
+</duarouterConfiguration>

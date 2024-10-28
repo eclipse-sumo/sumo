@@ -1,1 +1,1 @@
---precision 5 input_data.xml tools/output/attributeStats.py 
+-e tripinfo -a timeLoss --precision 5 input_data.xml tools/output/attributeStats.py 

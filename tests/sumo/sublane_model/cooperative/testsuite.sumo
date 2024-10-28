@@ -30,3 +30,6 @@ cooperative-1_superconvenient
 
 # disable cooperative changing completely
 cooperative-1
+
+# always make full use of personal speed adaptations
+cooperative0_selfAdvice

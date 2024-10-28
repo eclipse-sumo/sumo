@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@
 
 #include <gtest/gtest.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -66,6 +67,7 @@ TEST(StringUtils, test_method_convertUmlaute) {
     EXPECT_EQ("e", StringUtils::convertUmlaute("\xE9"));
     EXPECT_EQ("E", StringUtils::convertUmlaute("\xC8"));
     EXPECT_EQ("e", StringUtils::convertUmlaute("\xE8"));
+    EXPECT_EQ("normal_string_no_umlaute", StringUtils::convertUmlaute("normal_string_no_umlaute"));
 }
 
 /* Tests the method replace. */
@@ -91,17 +93,6 @@ TEST(StringUtils, test_method_replace_empty_third_argument) {
     EXPECT_EQ("heo", StringUtils::replace("hello", "l", ""));
     EXPECT_EQ("he", StringUtils::replace("hell", "l", ""));
     EXPECT_EQ("test", StringUtils::replace("ltestl", "l", ""));
-}
-
-
-/* Tests the method toTimeString. */
-TEST(StringUtils, test_method_toTimeString) {
-    EXPECT_EQ("-00:00:01", StringUtils::toTimeString(-1));
-    EXPECT_EQ("00:00:00", StringUtils::toTimeString(0));
-    EXPECT_EQ("01:00:00", StringUtils::toTimeString(3600));
-    EXPECT_EQ("00:00:01", StringUtils::toTimeString(1));
-    EXPECT_EQ("49:40:00", StringUtils::toTimeString(178800));
-    EXPECT_EQ("30883:00:01", StringUtils::toTimeString(111178801));
 }
 
 /* Tests the method escapeXML. */
@@ -137,17 +128,17 @@ TEST(StringUtils, test_toLong) {
 }
 
 TEST(StringUtils, test_toDouble) {
-    EXPECT_EQ(0, StringUtils::toDouble("0"));
-    EXPECT_EQ(1, StringUtils::toDouble("+1"));
-    EXPECT_EQ(-1, StringUtils::toDouble("-1"));
-    EXPECT_EQ(1, StringUtils::toDouble("1e0"));
-    EXPECT_EQ(10, StringUtils::toDouble("1e1"));
-    EXPECT_EQ(1, StringUtils::toDouble("1."));
+    EXPECT_EQ(0., StringUtils::toDouble("0"));
+    EXPECT_EQ(1., StringUtils::toDouble("+1"));
+    EXPECT_EQ(-1., StringUtils::toDouble("-1"));
+    EXPECT_EQ(1., StringUtils::toDouble("1e0"));
+    EXPECT_EQ(10., StringUtils::toDouble("1e1"));
+    EXPECT_EQ(1., StringUtils::toDouble("1."));
     EXPECT_EQ(1.1, StringUtils::toDouble("1.1"));
     EXPECT_EQ(.1, StringUtils::toDouble(".1"));
     EXPECT_THROW(StringUtils::toDouble("1,1"), NumberFormatException);
     EXPECT_THROW(StringUtils::toDouble(",1"), NumberFormatException);
-    EXPECT_EQ(100000000000, StringUtils::toDouble("100000000000"));
+    EXPECT_EQ(100000000000., StringUtils::toDouble("100000000000"));
     EXPECT_THROW(StringUtils::toDouble(""), EmptyData);
     EXPECT_THROW(StringUtils::toDouble("1e0x"), NumberFormatException);
     EXPECT_THROW(StringUtils::toDouble("1x"), NumberFormatException);
@@ -172,4 +163,27 @@ TEST(StringUtils, test_toBool) {
     EXPECT_THROW(StringUtils::toBool("1e0"), BoolFormatException);
     EXPECT_THROW(StringUtils::toBool("Trari"), BoolFormatException);
     EXPECT_THROW(StringUtils::toBool("yessir"), BoolFormatException);
+}
+
+TEST(StringUtils, test_parseDist) {
+    EXPECT_EQ(0., StringUtils::parseDist("0"));
+    EXPECT_EQ(1., StringUtils::parseDist("1"));
+    EXPECT_EQ(1., StringUtils::parseDist("1m"));
+    EXPECT_EQ(1., StringUtils::parseDist("1 m"));
+    EXPECT_EQ(1000., StringUtils::parseDist("1 km"));
+    EXPECT_THROW(StringUtils::parseDist(""), EmptyData);
+    EXPECT_THROW(StringUtils::parseDist("1xm"), NumberFormatException);
+}
+
+TEST(StringUtils, test_parseSpeed) {
+    EXPECT_EQ(0., StringUtils::parseSpeed("0"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("1m/s"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("1 m/s"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6 km/h"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6 kmh"));
+    EXPECT_EQ(1., StringUtils::parseSpeed("3.6 kmph"));
+    EXPECT_DOUBLE_EQ(1.609344 / 3.6, StringUtils::parseSpeed("1 mph"));
+    EXPECT_THROW(StringUtils::parseSpeed(""), EmptyData);
+    EXPECT_THROW(StringUtils::parseSpeed("1xm"), NumberFormatException);
 }

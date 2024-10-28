@@ -1,1 +1,3 @@
-Warning: Railway routing failure due to turn-around on short edge 'T14_0' for vehicle 'rail3' time=292.00.
+Warning: Invalid approach information to rail signal 'junction 'w3', link 2' after rerouting for vehicle 'rail4' first driveway edge 'T4_0' time=350.00.
+Warning: Invalid approach information to rail signal 'junction 'w3', link 2' after rerouting for vehicle 'rail5' first driveway edge 'T4_0' time=390.00.
+Warning: Invalid approach information to rail signal 'junction 'w3', link 2' after rerouting for vehicle 'rail6' first driveway edge 'T4_0' time=440.00.

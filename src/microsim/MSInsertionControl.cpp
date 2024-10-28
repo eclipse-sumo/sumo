@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Mon, 12 Mar 2001
 ///
 // Inserts vehicles into the network when their departure time is reached
@@ -60,8 +61,8 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
 
 
 MSInsertionControl::~MSInsertionControl() {
-    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete (i->pars);
+    for (const Flow& f : myFlows) {
+        delete (f.pars);
     }
 }
 
@@ -74,23 +75,19 @@ MSInsertionControl::add(SUMOVehicle* veh) {
 
 bool
 MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
-    const bool loadingFromState = index >= 0;
     if (myFlowIDs.count(pars->id) > 0) {
         return false;
-    } else {
-        Flow flow;
-        flow.pars = pars;
-        flow.index = loadingFromState ? index : 0;
-        flow.scale = initScale(pars->vtypeid);
-        if (!loadingFromState && pars->repetitionProbability < 0 && pars->repetitionOffset < 0) {
-            // init poisson flow (but only the timing)
-            flow.pars->incrementFlow(flow.scale, &myFlowRNG);
-            flow.pars->repetitionsDone--;
-        }
-        myFlows.push_back(flow);
-        myFlowIDs.insert(pars->id);
-        return true;
     }
+    const bool loadingFromState = index >= 0;
+    Flow flow{pars, loadingFromState ? index : 0, initScale(pars->vtypeid)};
+    if (!loadingFromState && pars->repetitionProbability < 0 && pars->repetitionOffset < 0) {
+        // init poisson flow (but only the timing)
+        flow.pars->incrementFlow(flow.scale, &myFlowRNG);
+        flow.pars->repetitionsDone--;
+    }
+    myFlows.emplace_back(flow);
+    myFlowIDs.insert(std::make_pair(pars->id, flow.index));
+    return true;
 }
 
 
@@ -112,6 +109,16 @@ MSInsertionControl::initScale(const std::string vtypeid) {
     } else {
         // rng is not used since vtypeid is not a distribution
         return vc.getVType(vtypeid, nullptr, true)->getParameter().scale;
+    }
+}
+
+
+void
+MSInsertionControl::updateScale(const std::string vtypeid) {
+    for (Flow& f : myFlows) {
+        if (f.pars->vtypeid == vtypeid) {
+            f.scale = initScale(vtypeid);
+        }
     }
 }
 
@@ -154,7 +161,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         return 1;
     }
     if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
-            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck)) {
+            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck || veh->getParameter().departProcedure == DepartDefinition::SPLIT)) {
         // Successful insertion
         return 1;
     }
@@ -219,38 +226,37 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
             typeScale = vtype->getParameter().scale;
         }
-        // only upscaling is considered here
-        double scale = MAX2(1.0, vehControl.getScale() * typeScale);
+        double scale = vehControl.getScale() * typeScale;
         bool tryEmitByProb = pars->repetitionProbability > 0;
-        while ((pars->repetitionProbability < 0
-                && pars->repetitionsDone < pars->repetitionNumber * scale
-                && pars->depart + pars->repetitionTotalOffset <= time)
-                || (tryEmitByProb
-                    && pars->depart <= time
-                    && pars->repetitionEnd > time
-                    // only call rand if all other conditions are met
-                    && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
-              ) {
+        while (scale > 0 && ((pars->repetitionProbability < 0
+                              && pars->repetitionsDone < pars->repetitionNumber * scale
+                              && pars->depart + pars->repetitionTotalOffset <= time)
+                             || (tryEmitByProb
+                                 && pars->depart <= time
+                                 && pars->repetitionEnd > time
+                                 // only call rand if all other conditions are met
+                                 && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
+                            )) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
             newPars->depart = pars->repetitionProbability > 0 ? time : pars->depart + pars->repetitionTotalOffset + computeRandomDepartOffset();
             pars->incrementFlow(scale, &myFlowRNG);
+            myFlowIDs[pars->id] = i->index;
             //std::cout << SIMTIME << " flow=" << pars->id << " done=" << pars->repetitionsDone << " totalOffset=" << STEPS2TIME(pars->repetitionTotalOffset) << "\n";
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
-                const MSRoute* const route = MSRoute::dictionary(pars->routeid);
+                ConstMSRoutePtr const route = MSRoute::dictionary(pars->routeid);
                 if (vtype == nullptr) {
                     vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 }
                 SUMOVehicle* const vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
-                // for equidistant vehicles, up-scaling is done via repetitionOffset
-                // down-scaling is still done via quota (individual vehicles go missing) to preserve as much of the original flow structure as possible
-                bool useScale = pars->repetitionProbability < 0 && scale > 1;
-                int quota = useScale ? 1 : vehControl.getQuota(vehControl.getScale() * typeScale);
+                // for equidistant vehicles, all scaling is done via repetitionOffset (to avoid artefacts, #11441)
+                // for probabilistic vehicles, we use the quota
+                int quota = pars->repetitionProbability < 0 ? 1 : vehControl.getQuota(scale);
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
-                    if (pars->departProcedure == DepartDefinition::GIVEN) {
+                    if (pars->departProcedure == DepartDefinition::GIVEN || pars->departProcedure == DepartDefinition::BEGIN) {
                         add(vehicle);
                     }
                     i->index++;
@@ -261,7 +267,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                                             pars->depart + pars->repetitionsDone * pars->repetitionTotalOffset + computeRandomDepartOffset();
                         SUMOVehicle* const quotaVehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, quotaVehicle);
-                        if (pars->departProcedure == DepartDefinition::GIVEN) {
+                        if (pars->departProcedure == DepartDefinition::GIVEN || pars->departProcedure == DepartDefinition::BEGIN) {
                             add(quotaVehicle);
                         }
                         pars->repetitionsDone++;
@@ -275,11 +281,13 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     /// @note probably obsolete since flows save their state
                     break;
                 }
-                throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
+                throw ProcessError(TLF("Another vehicle with the id '%' exists.", newPars->id));
             }
             vtype = nullptr;
         }
-        if (pars->repetitionsDone == (int)(pars->repetitionNumber * scale + 0.5) || pars->repetitionEnd <= time) {
+        if (time >= pars->repetitionEnd ||
+                (pars->repetitionNumber != std::numeric_limits<int>::max()
+                 && pars->repetitionsDone >= (int)(pars->repetitionNumber * scale + 0.5))) {
             i = myFlows.erase(i);
             MSRoute::checkDist(pars->routeid);
             delete pars;
@@ -360,11 +368,11 @@ MSInsertionControl::getPendingEmits(const MSLane* lane) {
 
 
 void
-MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
+MSInsertionControl::adaptIntermodalRouter(MSTransportableRouter& router) const {
     // fill the public transport router with pre-parsed public transport lines
     for (const Flow& f : myFlows) {
         if (f.pars->line != "") {
-            const MSRoute* const route = MSRoute::dictionary(f.pars->routeid);
+            ConstMSRoutePtr const route = MSRoute::dictionary(f.pars->routeid);
             router.getNetwork()->addSchedule(*f.pars, route == nullptr ? nullptr : &route->getStops());
         }
     }
@@ -382,6 +390,9 @@ MSInsertionControl::saveState(OutputDevice& out) {
         }
         if (flow.pars->repetitionProbability > 0) {
             out.writeAttr(SUMO_ATTR_PROB, flow.pars->repetitionProbability);
+        } else if (flow.pars->poissonRate > 0) {
+            out.writeAttr(SUMO_ATTR_PERIOD, "exp(" + toString(flow.pars->poissonRate) + ")");
+            out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));
         } else {
             out.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(flow.pars->repetitionOffset));
             out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));
@@ -399,10 +410,11 @@ MSInsertionControl::saveState(OutputDevice& out) {
     }
 }
 
+
 void
 MSInsertionControl::clearState() {
-    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete (i->pars);
+    for (const Flow& f : myFlows) {
+        delete (f.pars);
     }
     myFlows.clear();
     myFlowIDs.clear();
@@ -413,15 +425,36 @@ MSInsertionControl::clearState() {
     // myPendingEmitsForLane must not be cleared since it updates itself on the next call
 }
 
+
 SUMOTime
 MSInsertionControl::computeRandomDepartOffset() const {
     if (myMaxRandomDepartOffset > 0) {
         // round to the closest usable simulation step
-        return DELTA_T * int((RandHelper::rand((int)myMaxRandomDepartOffset, MSRouteHandler::getParsingRNG()) + 0.5 * DELTA_T) / DELTA_T);
-    } else {
-        return 0;
+        return DELTA_T * ((RandHelper::rand(myMaxRandomDepartOffset, MSRouteHandler::getParsingRNG()) + DELTA_T / 2) / DELTA_T);
     }
+    return 0;
 }
 
+const SUMOVehicleParameter*
+MSInsertionControl::getFlowPars(const std::string& id) const {
+    if (hasFlow(id)) {
+        for (const Flow& f : myFlows) {
+            if (f.pars->id == id) {
+                return f.pars;
+            }
+        }
+    }
+    return nullptr;
+}
+
+SUMOVehicle*
+MSInsertionControl::getLastFlowVehicle(const std::string& id) const {
+    const auto it = myFlowIDs.find(id);
+    if (it != myFlowIDs.end()) {
+        const std::string vehID = id + "." + toString(it->second);
+        return MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
+    }
+    return nullptr;
+}
 
 /****************************************************************************/

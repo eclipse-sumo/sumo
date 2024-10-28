@@ -34,8 +34,20 @@ customTLIndex2
 # 4 arm junction with 1 crossing (with custom shape), shifted by normalization
 1_customshape_normalized
 
+# 4 arm junction with 1 crossing that has params
+1_crossing_param
+
 # 4 arm junction with crossings on 2 opposite sides
 2_opposite
+
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians permitted on all lanes)
+2_opposite_invalid
+
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians prohibited on all lanes)
+2_opposite_invalid_noSidewalk
+
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians prohibited on all lanes and there is only 1 sidwalk)
+2_opposite_invalid_1Sidewalk
 
 # 4 arm junction with 2 crossings on neighboring sides
 2_neighboring
@@ -107,3 +119,9 @@ bent_priority_tls_oncoming
 
 # large walkingarea should not bulge out into the driving space (#9485)
 large_walkingarea
+
+# 4 arm junction with crossings on all sides and fringe nodes on the outer arms
+complete_fringe
+
+# right turns are separate and need an inside walkingarea
+separate_right_turn_island

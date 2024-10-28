@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,10 +41,6 @@ std::map<const std::string, Connection*> Connection::myConnections;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-/* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
-#pragma warning(disable: 4503)
-#endif
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
     myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(host, port) {
     if (pipe != nullptr) {
@@ -55,9 +51,10 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
             mySocket.connect();
             break;
         } catch (tcpip::SocketException& e) {
+            mySocket.close();
             if (i == numRetries) {
                 close();
-                throw;
+                throw libsumo::FatalTraCIError("Could not connect in " + toString(numRetries + 1) + " tries");
             }
             std::cout << "Could not connect to TraCI server at " << host << ":" << port << " " << e.what() << std::endl;
             std::cout << " Retrying in 1 second" << std::endl;
@@ -76,7 +73,7 @@ Connection::readOutput() {
         result << buffer.data();
         std::string line;
         while (std::getline(result, line)) {
-            if ((errout && line[0] == ' ') || line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
+            if ((errout && (line.empty() || line[0] == ' ')) || line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
                 std::cerr << line << std::endl;
                 errout = true;
             } else {
@@ -91,6 +88,7 @@ Connection::readOutput() {
 void
 Connection::close() {
     if (mySocket.has_client_connection()) {
+        std::unique_lock<std::mutex> lock{ myMutex };
         tcpip::Storage outMsg;
         // command length
         outMsg.writeUnsignedByte(1 + 1);
@@ -121,6 +119,7 @@ Connection::close() {
 
 void
 Connection::simulationStep(double time) {
+    std::unique_lock<std::mutex> lock{myMutex};
     tcpip::Storage outMsg;
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 8);
@@ -149,6 +148,7 @@ Connection::simulationStep(double time) {
 
 void
 Connection::setOrder(int order) {
+    std::unique_lock<std::mutex> lock{ myMutex };
     tcpip::Storage outMsg;
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 4);
@@ -166,7 +166,7 @@ Connection::setOrder(int order) {
 void
 Connection::createCommand(int cmdID, int varID, const std::string* const objID, tcpip::Storage* add) const {
     if (!mySocket.has_client_connection()) {
-        throw libsumo::FatalTraCIError("Not connected.");
+        throw libsumo::FatalTraCIError("Connection already closed.");
     }
     myOutput.reset();
     // command length
@@ -246,6 +246,7 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
     complete.writeUnsignedByte(0);
     complete.writeInt(5 + (int)outMsg.size());
     complete.writeStorage(outMsg);
+    std::unique_lock<std::mutex> lock{ myMutex };
     // send message
     mySocket.sendExact(complete);
 
@@ -274,9 +275,6 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
         cmdStart = inMsg.position();
         cmdLength = inMsg.readUnsignedByte();
         cmdId = inMsg.readUnsignedByte();
-        if (command != cmdId && !ignoreCommandId) {
-            throw libsumo::TraCIException("#Error: received status response to command: " + toString(cmdId) + " but expected: " + toString(command));
-        }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
     } catch (std::invalid_argument&) {
@@ -286,17 +284,20 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
         case libsumo::RTYPE_ERR:
             throw libsumo::TraCIException(msg);
         case libsumo::RTYPE_NOTIMPLEMENTED:
-            throw libsumo::TraCIException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Sent command is not implemented (" + toHex(command) + "), [description: " + msg + "]");
         case libsumo::RTYPE_OK:
             if (acknowledgement != nullptr) {
-                (*acknowledgement) = ".. Command acknowledged (" + toString(command) + "), [description: " + msg + "]";
+                (*acknowledgement) = ".. Command acknowledged (" + toHex(command) + "), [description: " + msg + "]";
             }
             break;
         default:
-            throw libsumo::TraCIException(".. Answered with unknown result code(" + toString(resultType) + ") to command(" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Answered with unknown result code(" + toHex(resultType) + ") to command(" + toHex(command) + "), [description: " + msg + "]");
+    }
+    if (command != cmdId && !ignoreCommandId) {
+        throw libsumo::TraCIException("#Error: received status response to command: " + toHex(cmdId) + " but expected: " + toHex(command));
     }
     if ((cmdStart + cmdLength) != (int) inMsg.position()) {
-        throw libsumo::TraCIException("#Error: command at position " + toString(cmdStart) + " has wrong length");
+        throw libsumo::TraCIException("#Error: command at position " + toHex(cmdStart) + " has wrong length");
     }
 }
 
@@ -325,17 +326,21 @@ Connection::check_commandGetResult(tcpip::Storage& inMsg, int command, int expec
 
 
 tcpip::Storage&
-Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add) {
+Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add, int expectedType) {
     createCommand(command, var, &id, add);
     mySocket.sendExact(myOutput);
     myInput.reset();
     check_resultState(myInput, command);
+    if (expectedType >= 0) {
+        check_commandGetResult(myInput, command, expectedType);
+    }
     return myInput;
 }
 
 
 void
 Connection::addFilter(int var, tcpip::Storage* add) {
+    std::unique_lock<std::mutex> lock{ myMutex };
     createCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, var, nullptr, add);
     mySocket.sendExact(myOutput);
     myInput.reset();
@@ -363,7 +368,6 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     auto p = std::make_shared<libsumo::TraCIPosition>();
                     p->x = inMsg.readDouble();
                     p->y = inMsg.readDouble();
-                    p->z = 0.;
                     into[objectID][variableID] = p;
                     break;
                 }
@@ -449,7 +453,8 @@ Connection::readContextSubscription(int responseID, tcpip::Storage& inMsg) {
     // see also https://github.com/eclipse/sumo/issues/7288
     libsumo::SubscriptionResults& results = myContextSubscriptionResults[responseID][contextID];
     while (numObjects-- > 0) {
-        std::string objectID = inMsg.readString();
+        const std::string& objectID = inMsg.readString();
+        results[objectID]; // instantiate empty map for id lists
         readVariables(inMsg, objectID, variableCount, results);
     }
 }

@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="osmconvert 0.8.10">
+	<bounds minlat="52.739869" minlon="13.196785" maxlat="52.775611" maxlon="13.366151"/>
+	<node id="59292839" lat="52.7464952" lon="13.2564394" version="6"/>
+	<node id="59292840" lat="52.7436142" lon="13.2608393" version="3"/>
+	<node id="59292841" lat="52.7424598" lon="13.2622618" version="5"/>
+	<node id="59292842" lat="52.7403587" lon="13.2642366" version="7"/>
+	<node id="59294704" lat="52.7522514" lon="13.2503528" version="6"/>
+	<node id="59294705" lat="52.7504592" lon="13.2521364" version="6"/>
+	<node id="59294706" lat="52.7477001" lon="13.254922" version="3"/>
+	<node id="59294707" lat="52.7468307" lon="13.2559909" version="5"/>
+	<node id="59298211" lat="52.7513484" lon="13.2512484" version="7">
+		<tag k="railway" v="switch"/>
+		<tag k="railway:switch" v="default"/>
+		<tag k="railway:turnout_side" v="left"/>
+	</node>
+	<node id="294061704" lat="52.7444709" lon="13.2595232" version="7"/>
+	<node id="294061705" lat="52.7448584" lon="13.2588801" version="5"/>
+	<node id="610830379" lat="52.7538009" lon="13.2491709" version="14">
+		<tag k="description" v="S Oranienburg, Gleis 30"/>
+		<tag k="light_rail" v="yes"/>
+		<tag k="name" v="S Oranienburg"/>
+		<tag k="public_transport" v="stop_position"/>
+		<tag k="railway" v="stop"/>
+		<tag k="ref" v="30"/>
+		<tag k="train" v="yes"/>
+	</node>
+	<node id="1333934523" lat="52.7426873" lon="13.2620085" version="1"/>
+	<node id="1333934525" lat="52.7430072" lon="13.2616356" version="1"/>
+	<node id="1333934529" lat="52.7433178" lon="13.2612432" version="1"/>
+	<node id="1333934535" lat="52.744035" lon="13.2602306" version="1"/>
+	<node id="1333934543" lat="52.7455846" lon="13.2577128" version="2">
+		<tag k="railway" v="switch"/>
+		<tag k="railway:switch" v="default"/>
+		<tag k="railway:turnout_side" v="right"/>
+	</node>
+	<node id="1333941265" lat="52.7509442" lon="13.2516562" version="2">
+		<tag k="railway" v="switch"/>
+	</node>
+	<node id="1333941269" lat="52.7517627" lon="13.250842" version="1"/>
+	<node id="1333941272" lat="52.7520024" lon="13.2505879" version="1"/>
+	<node id="1333941274" lat="52.7525472" lon="13.2500849" version="2"/>
+	<node id="1334919908" lat="52.7502838" lon="13.2522963" version="2"/>
+	<node id="1871829683" lat="52.7410706" lon="13.2635815" version="4"/>
+	<node id="1921502460" lat="52.7415091" lon="13.2631773" version="4"/>
+	<node id="2396301421" lat="52.7528287" lon="13.2498659" version="2"/>
+	<node id="2396316667" lat="52.7417448" lon="13.2629592" version="2"/>
+	<node id="3086164685" lat="52.7418375" lon="13.2628719" version="2"/>
+	<node id="3086164690" lat="52.7410123" lon="13.2636361" version="7">
+		<tag k="description" v="S Lehnitz, Gleis 1"/>
+		<tag k="light_rail" v="yes"/>
+		<tag k="name" v="S Lehnitz"/>
+		<tag k="network" v="VBB"/>
+		<tag k="public_transport" v="stop_position"/>
+		<tag k="railway" v="stop"/>
+		<tag k="ref" v="1"/>
+		<tag k="train" v="yes"/>
+	</node>
+	<node id="4087943590" lat="52.7399766" lon="13.264572" version="1"/>
+	<node id="4087943591" lat="52.7401033" lon="13.2644644" version="1"/>
+	<node id="4088041572" lat="52.7524352" lon="13.2501823" version="1"/>
+	<node id="4088041579" lat="52.7533089" lon="13.2495147" version="1"/>
+	<node id="5221601527" lat="52.741701" lon="13.2630001" version="1">
+		<tag k="railway" v="signal"/>
+		<tag k="railway:signal:direction" v="forward"/>
+		<tag k="railway:signal:main" v="DE-ESO:hl"/>
+		<tag k="railway:signal:main:form" v="light"/>
+		<tag k="railway:signal:main:height" v="normal"/>
+		<tag k="railway:signal:main:states" v="DE-ESO:hl1;DE-ESO:hp0"/>
+		<tag k="railway:signal:main:substitute_signal" v="DE-ESO:dr:zs1;DE-ESO:db:zs12"/>
+		<tag k="railway:signal:position" v="right"/>
+		<tag k="ref" v="4413"/>
+	</node>
+	<node id="9254686320" lat="52.7512678" lon="13.2513297" version="1">
+		<tag k="railway:position" v="27"/>
+	</node>
+	<node id="9254686321" lat="52.7441367" lon="13.2600656" version="1">
+		<tag k="railway:position" v="26"/>
+	</node>
+	<way id="26806067" version="14">
+		<nd ref="294061704"/>
+		<nd ref="9254686321"/>
+		<nd ref="1333934535"/>
+		<nd ref="59292840"/>
+		<nd ref="1333934529"/>
+		<nd ref="1333934525"/>
+		<nd ref="1333934523"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="26806068" version="10">
+		<nd ref="294061705"/>
+		<nd ref="294061704"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="27147948" version="11">
+		<nd ref="59294707"/>
+		<nd ref="59292839"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="detail" v="track"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+		<tag k="workrules" v="DE:EBO"/>
+	</way>
+	<way id="27147949" version="12">
+		<nd ref="59292839"/>
+		<nd ref="1333934543"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="118641069" version="5">
+		<nd ref="1333934523"/>
+		<nd ref="59292841"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="118755311" version="6">
+		<nd ref="59294705"/>
+		<nd ref="1334919908"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="detail" v="track"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+		<tag k="workrules" v="DE:EBO"/>
+	</way>
+	<way id="118755348" version="6">
+		<nd ref="1334919908"/>
+		<nd ref="59294706"/>
+		<nd ref="59294707"/>
+		<tag k="detail" v="track"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+		<tag k="workrules" v="DE:EBO"/>
+	</way>
+	<way id="142541378" version="4">
+		<nd ref="1333934543"/>
+		<nd ref="294061705"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="231223355" version="9">
+		<nd ref="610830379"/>
+		<nd ref="4088041579"/>
+		<nd ref="2396301421"/>
+		<tag k="detail" v="track"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="railway:track_ref" v="30"/>
+		<tag k="ref" v="6030"/>
+		<tag k="track_ref" v="30"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+		<tag k="workrules" v="DE:EBO"/>
+	</way>
+	<way id="231223363" version="7">
+		<nd ref="2396301421"/>
+		<nd ref="1333941274"/>
+		<nd ref="4088041572"/>
+		<nd ref="59294704"/>
+		<nd ref="1333941272"/>
+		<nd ref="1333941269"/>
+		<nd ref="59298211"/>
+		<nd ref="9254686320"/>
+		<nd ref="1333941265"/>
+		<nd ref="59294705"/>
+		<tag k="detail" v="track"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+		<tag k="workrules" v="DE:EBO"/>
+	</way>
+	<way id="231224788" version="5">
+		<nd ref="2396316667"/>
+		<nd ref="3086164685"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="231224789" version="5">
+		<nd ref="1871829683"/>
+		<nd ref="1921502460"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="231224790" version="5">
+		<nd ref="1921502460"/>
+		<nd ref="5221601527"/>
+		<nd ref="2396316667"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="layer" v="1"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="231225970" version="9">
+		<nd ref="1333953583"/>
+		<nd ref="5085554840"/>
+		<nd ref="1333953588"/>
+		<nd ref="9254686327"/>
+		<nd ref="1333953604"/>
+		<nd ref="1333953608"/>
+		<nd ref="9254686325"/>
+		<nd ref="1333953611"/>
+		<nd ref="9254686323"/>
+		<nd ref="5221601526"/>
+		<nd ref="1333953617"/>
+		<nd ref="1333953619"/>
+		<nd ref="1333953623"/>
+		<nd ref="1333953630"/>
+		<nd ref="4087943590"/>
+		<nd ref="4087943591"/>
+		<nd ref="59292842"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="304099840" version="3">
+		<nd ref="3086164685"/>
+		<nd ref="59292841"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<way id="304099841" version="6">
+		<nd ref="59292842"/>
+		<nd ref="3086164690"/>
+		<nd ref="1871829683"/>
+		<tag k="electrified" v="rail"/>
+		<tag k="frequency" v="0"/>
+		<tag k="gauge" v="1435"/>
+		<tag k="level" v="1"/>
+		<tag k="operator" v="DB Netz AG"/>
+		<tag k="railway" v="light_rail"/>
+		<tag k="ref" v="6030"/>
+		<tag k="usage" v="main"/>
+		<tag k="voltage" v="750"/>
+	</way>
+	<relation id="1929071" version="176">
+		<member type="node" ref="345160725" role="stop"/>
+		<member type="relation" ref="3680549" role="platform"/>
+		<member type="node" ref="1797290856" role="stop"/>
+		<member type="relation" ref="3227738" role="platform"/>
+		<member type="node" ref="1797290857" role="stop"/>
+		<member type="relation" ref="11749033" role="platform"/>
+		<member type="node" ref="1797290855" role="stop"/>
+		<member type="relation" ref="11762206" role="platform"/>
+		<member type="node" ref="2808764192" role="stop"/>
+		<member type="relation" ref="11762541" role="platform"/>
+		<member type="node" ref="1797290859" role="stop"/>
+		<member type="relation" ref="3218161" role="platform"/>
+		<member type="node" ref="1797290854" role="stop"/>
+		<member type="relation" ref="11762582" role="platform"/>
+		<member type="node" ref="343316746" role="stop"/>
+		<member type="relation" ref="11762597" role="platform"/>
+		<member type="node" ref="3761260322" role="stop"/>
+		<member type="relation" ref="11762598" role="platform"/>
+		<member type="node" ref="305801671" role="stop"/>
+		<member type="relation" ref="11762599" role="platform"/>
+		<member type="node" ref="1797290853" role="stop"/>
+		<member type="relation" ref="5715625" role="platform"/>
+		<member type="node" ref="1797290858" role="stop"/>
+		<member type="relation" ref="6863392" role="platform"/>
+		<member type="node" ref="3761260321" role="stop"/>
+		<member type="relation" ref="3673180" role="platform"/>
+		<member type="node" ref="28092581" role="stop"/>
+		<member type="relation" ref="11762766" role="platform"/>
+		<member type="node" ref="322633812" role="stop"/>
+		<member type="relation" ref="11762770" role="platform"/>
+		<member type="node" ref="322796203" role="stop"/>
+		<member type="relation" ref="3198309" role="platform"/>
+		<member type="node" ref="322796388" role="stop"/>
+		<member type="relation" ref="11762778" role="platform"/>
+		<member type="node" ref="1930939368" role="stop"/>
+		<member type="relation" ref="11762779" role="platform"/>
+		<member type="node" ref="1769645503" role="stop"/>
+		<member type="relation" ref="11762794" role="platform"/>
+		<member type="node" ref="322799089" role="stop"/>
+		<member type="relation" ref="11762796" role="platform"/>
+		<member type="node" ref="1676057413" role="stop"/>
+		<member type="relation" ref="11762833" role="platform"/>
+		<member type="node" ref="1127966949" role="stop"/>
+		<member type="relation" ref="3721106" role="platform"/>
+		<member type="node" ref="1127967030" role="stop"/>
+		<member type="relation" ref="11762850" role="platform"/>
+		<member type="node" ref="1871614108" role="stop"/>
+		<member type="relation" ref="11785728" role="platform"/>
+		<member type="node" ref="1871614104" role="stop"/>
+		<member type="relation" ref="11786065" role="platform"/>
+		<member type="node" ref="3093801264" role="stop"/>
+		<member type="relation" ref="11786068" role="platform"/>
+		<member type="node" ref="30245009" role="stop"/>
+		<member type="relation" ref="11786092" role="platform"/>
+		<member type="node" ref="30244857" role="stop"/>
+		<member type="relation" ref="4061205" role="platform"/>
+		<member type="node" ref="30244899" role="stop"/>
+		<member type="relation" ref="11786122" role="platform"/>
+		<member type="node" ref="30245020" role="stop"/>
+		<member type="relation" ref="11786130" role="platform"/>
+		<member type="node" ref="3092221492" role="stop"/>
+		<member type="relation" ref="11785598" role="platform"/>
+		<member type="node" ref="3092159586" role="stop"/>
+		<member type="relation" ref="11785608" role="platform"/>
+		<member type="node" ref="1920652024" role="stop"/>
+		<member type="relation" ref="11785715" role="platform"/>
+		<member type="node" ref="3086164690" role="stop"/>
+		<member type="relation" ref="11785717" role="platform"/>
+		<member type="node" ref="610830379" role="stop"/>
+		<member type="relation" ref="11785719" role="platform"/>
+		<member type="way" ref="802255092" role=""/>
+		<member type="way" ref="166482107" role=""/>
+		<member type="way" ref="26188526" role=""/>
+		<member type="way" ref="26188527" role=""/>
+		<member type="way" ref="27434265" role=""/>
+		<member type="way" ref="27434267" role=""/>
+		<member type="way" ref="179944773" role=""/>
+		<member type="way" ref="179944765" role=""/>
+		<member type="way" ref="4863610" role=""/>
+		<member type="way" ref="25630317" role=""/>
+		<member type="way" ref="4863613" role=""/>
+		<member type="way" ref="4863611" role=""/>
+		<member type="way" ref="27850757" role=""/>
+		<member type="way" ref="27850758" role=""/>
+		<member type="way" ref="405326552" role=""/>
+		<member type="way" ref="276257641" role=""/>
+		<member type="way" ref="27850759" role=""/>
+		<member type="way" ref="27850760" role=""/>
+		<member type="way" ref="27850769" role=""/>
+		<member type="way" ref="27850771" role=""/>
+		<member type="way" ref="239064526" role=""/>
+		<member type="way" ref="27850772" role=""/>
+		<member type="way" ref="27850773" role=""/>
+		<member type="way" ref="27850774" role=""/>
+		<member type="way" ref="27850775" role=""/>
+		<member type="way" ref="238749571" role=""/>
+		<member type="way" ref="26006057" role=""/>
+		<member type="way" ref="30434115" role=""/>
+		<member type="way" ref="290131716" role=""/>
+		<member type="way" ref="290131715" role=""/>
+		<member type="way" ref="27852877" role=""/>
+		<member type="way" ref="27852878" role=""/>
+		<member type="way" ref="238568513" role=""/>
+		<member type="way" ref="238568515" role=""/>
+		<member type="way" ref="27853062" role=""/>
+		<member type="way" ref="27853064" role=""/>
+		<member type="way" ref="27853058" role=""/>
+		<member type="way" ref="27853060" role=""/>
+		<member type="way" ref="28826753" role=""/>
+		<member type="way" ref="28826754" role=""/>
+		<member type="way" ref="28826750" role=""/>
+		<member type="way" ref="28826751" role=""/>
+		<member type="way" ref="238563876" role=""/>
+		<member type="way" ref="238563879" role=""/>
+		<member type="way" ref="276219536" role=""/>
+		<member type="way" ref="276219535" role=""/>
+		<member type="way" ref="27853252" role=""/>
+		<member type="way" ref="27853253" role=""/>
+		<member type="way" ref="27853402" role=""/>
+		<member type="way" ref="25982725" role=""/>
+		<member type="way" ref="276205112" role=""/>
+		<member type="way" ref="25982729" role=""/>
+		<member type="way" ref="25982730" role=""/>
+		<member type="way" ref="505167442" role=""/>
+		<member type="way" ref="10369591" role=""/>
+		<member type="way" ref="27351297" role=""/>
+		<member type="way" ref="4525882" role=""/>
+		<member type="way" ref="13860451" role=""/>
+		<member type="way" ref="4756360" role=""/>
+		<member type="way" ref="4756357" role=""/>
+		<member type="way" ref="273174491" role=""/>
+		<member type="way" ref="273174488" role=""/>
+		<member type="way" ref="4756358" role=""/>
+		<member type="way" ref="494022018" role=""/>
+		<member type="way" ref="494022024" role=""/>
+		<member type="way" ref="238192694" role=""/>
+		<member type="way" ref="238192695" role=""/>
+		<member type="way" ref="29326643" role=""/>
+		<member type="way" ref="463841062" role=""/>
+		<member type="way" ref="237751548" role=""/>
+		<member type="way" ref="465161746" role=""/>
+		<member type="way" ref="459344271" role=""/>
+		<member type="way" ref="459344269" role=""/>
+		<member type="way" ref="237751551" role=""/>
+		<member type="way" ref="394320751" role=""/>
+		<member type="way" ref="394320750" role=""/>
+		<member type="way" ref="465376249" role=""/>
+		<member type="way" ref="463462760" role=""/>
+		<member type="way" ref="230976795" role=""/>
+		<member type="way" ref="230976794" role=""/>
+		<member type="way" ref="29343804" role=""/>
+		<member type="way" ref="230957293" role=""/>
+		<member type="way" ref="230957295" role=""/>
+		<member type="way" ref="464700828" role=""/>
+		<member type="way" ref="23075534" role=""/>
+		<member type="way" ref="23075533" role=""/>
+		<member type="way" ref="155187890" role=""/>
+		<member type="way" ref="230977081" role=""/>
+		<member type="way" ref="386821327" role=""/>
+		<member type="way" ref="230977080" role=""/>
+		<member type="way" ref="155187888" role=""/>
+		<member type="way" ref="155187885" role=""/>
+		<member type="way" ref="291342460" role=""/>
+		<member type="way" ref="155187889" role=""/>
+		<member type="way" ref="44908524" role=""/>
+		<member type="way" ref="237947343" role=""/>
+		<member type="way" ref="44908527" role=""/>
+		<member type="way" ref="423001851" role=""/>
+		<member type="way" ref="942372146" role=""/>
+		<member type="way" ref="44699861" role=""/>
+		<member type="way" ref="82937705" role=""/>
+		<member type="way" ref="4432923" role=""/>
+		<member type="way" ref="107824637" role=""/>
+		<member type="way" ref="24700884" role=""/>
+		<member type="way" ref="24700885" role=""/>
+		<member type="way" ref="4544118" role=""/>
+		<member type="way" ref="4544119" role=""/>
+		<member type="way" ref="230982679" role=""/>
+		<member type="way" ref="230982677" role=""/>
+		<member type="way" ref="25500997" role=""/>
+		<member type="way" ref="25500998" role=""/>
+		<member type="way" ref="25500993" role=""/>
+		<member type="way" ref="25500994" role=""/>
+		<member type="way" ref="4544120" role=""/>
+		<member type="way" ref="4544117" role=""/>
+		<member type="way" ref="231202514" role=""/>
+		<member type="way" ref="176684200" role=""/>
+		<member type="way" ref="4544121" role=""/>
+		<member type="way" ref="4741025" role=""/>
+		<member type="way" ref="29344144" role=""/>
+		<member type="way" ref="25974955" role=""/>
+		<member type="way" ref="25974956" role=""/>
+		<member type="way" ref="23084321" role=""/>
+		<member type="way" ref="7273325" role=""/>
+		<member type="way" ref="7273328" role=""/>
+		<member type="way" ref="7273273" role=""/>
+		<member type="way" ref="25871547" role=""/>
+		<member type="way" ref="25871555" role=""/>
+		<member type="way" ref="7273305" role=""/>
+		<member type="way" ref="7273297" role=""/>
+		<member type="way" ref="186228101" role=""/>
+		<member type="way" ref="186228102" role=""/>
+		<member type="way" ref="7273294" role=""/>
+		<member type="way" ref="7273287" role=""/>
+		<member type="way" ref="7273276" role=""/>
+		<member type="way" ref="4745660" role=""/>
+		<member type="way" ref="7273369" role=""/>
+		<member type="way" ref="7273367" role=""/>
+		<member type="way" ref="802024929" role=""/>
+		<member type="way" ref="7273347" role=""/>
+		<member type="way" ref="17506817" role=""/>
+		<member type="way" ref="17506816" role=""/>
+		<member type="way" ref="17506819" role=""/>
+		<member type="way" ref="17506818" role=""/>
+		<member type="way" ref="18787907" role=""/>
+		<member type="way" ref="18787906" role=""/>
+		<member type="way" ref="7273342" role=""/>
+		<member type="way" ref="539213050" role=""/>
+		<member type="way" ref="7728022" role=""/>
+		<member type="way" ref="681140411" role=""/>
+		<member type="way" ref="253086401" role=""/>
+		<member type="way" ref="23014906" role=""/>
+		<member type="way" ref="7729026" role=""/>
+		<member type="way" ref="7729025" role=""/>
+		<member type="way" ref="30887106" role=""/>
+		<member type="way" ref="30887107" role=""/>
+		<member type="way" ref="7729034" role=""/>
+		<member type="way" ref="7729032" role=""/>
+		<member type="way" ref="7729021" role=""/>
+		<member type="way" ref="8069421" role=""/>
+		<member type="way" ref="154480484" role=""/>
+		<member type="way" ref="276066064" role=""/>
+		<member type="way" ref="183206488" role=""/>
+		<member type="way" ref="176706536" role=""/>
+		<member type="way" ref="250527585" role=""/>
+		<member type="way" ref="118740554" role=""/>
+		<member type="way" ref="118734325" role=""/>
+		<member type="way" ref="176706539" role=""/>
+		<member type="way" ref="335071690" role=""/>
+		<member type="way" ref="802024945" role=""/>
+		<member type="way" ref="231226864" role=""/>
+		<member type="way" ref="118643422" role=""/>
+		<member type="way" ref="231226865" role=""/>
+		<member type="way" ref="335071688" role=""/>
+		<member type="way" ref="118643421" role=""/>
+		<member type="way" ref="118734318" role=""/>
+		<member type="way" ref="118730694" role=""/>
+		<member type="way" ref="118730695" role=""/>
+		<member type="way" ref="118643429" role=""/>
+		<member type="way" ref="118643417" role=""/>
+		<member type="way" ref="118641063" role=""/>
+		<member type="way" ref="250264679" role=""/>
+		<member type="way" ref="250264685" role=""/>
+		<member type="way" ref="231225971" role=""/>
+		<member type="way" ref="231225973" role=""/>
+		<member type="way" ref="231225970" role=""/>
+		<member type="way" ref="304099841" role=""/>
+		<member type="way" ref="231224789" role=""/>
+		<member type="way" ref="231224790" role=""/>
+		<member type="way" ref="231224788" role=""/>
+		<member type="way" ref="304099840" role=""/>
+		<member type="way" ref="118641069" role=""/>
+		<member type="way" ref="26806067" role=""/>
+		<member type="way" ref="26806068" role=""/>
+		<member type="way" ref="142541378" role=""/>
+		<member type="way" ref="27147949" role=""/>
+		<member type="way" ref="27147948" role=""/>
+		<member type="way" ref="118755348" role=""/>
+		<member type="way" ref="118755311" role=""/>
+		<member type="way" ref="231223363" role=""/>
+		<member type="way" ref="231223355" role=""/>
+		<tag k="colour" v="#D474AE"/>
+		<tag k="from" v="S Wannsee"/>
+		<tag k="interval" v="10"/>
+		<tag k="name" v="S1: S Wannsee =&#62; S Oranienburg"/>
+		<tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+		<tag k="network:metro" v="s-bahn"/>
+		<tag k="network:short" v="VBB"/>
+		<tag k="network:wikidata" v="Q315451"/>
+		<tag k="network:wikipedia" v="de:Verkehrsverbund Berlin-Brandenburg"/>
+		<tag k="operator" v="S-Bahn Berlin GmbH"/>
+		<tag k="public_transport:version" v="2"/>
+		<tag k="ref" v="S1"/>
+		<tag k="route" v="light_rail"/>
+		<tag k="to" v="S Oranienburg"/>
+		<tag k="type" v="route"/>
+		<tag k="wikidata" v="Q2579762"/>
+	</relation>
+</osm>

@@ -1,5 +1,5 @@
-Eclipse SUMO sumo Version v1_13_0+0082-9795b22
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
+ Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -56,6 +56,8 @@ Output Options:
                                         using geo-coordinates (lon/lat)
   --emission-output.step-scaled        Write emission values scaled to the step
                                         length rather than as per-second values
+  --emission-output.attributes STR[]   List attributes that should be included
+                                        in the emission output
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                         precision (default 2)
@@ -66,6 +68,8 @@ Output Options:
   --elechybrid-output.aggregated       Write elecHybrid values into one
                                         aggregated file
   --chargingstations-output FILE       Write data of charging stations
+  --chargingstations-output.aggregated  Write aggregated charging event data
+                                        instead of single time steps
   --overheadwiresegments-output FILE   Write data of overhead wire segments
   --substations-output FILE            Write data of electrical substation
                                         stations
@@ -87,6 +91,8 @@ Output Options:
                                         selection from the given input file
   --fcd-output.attributes STR[]        List attributes that should be included
                                         in the FCD output
+  --fcd-output.filter-shapes STR[]     List shape names that should be used to
+                                        filter the FCD output
   --device.ssm.filter-edges.input-file FILE  Restrict SSM device output to the
                                         edge selection from the given input file
   --full-output FILE                   Save a lot of information for each
@@ -103,6 +109,8 @@ Output Options:
                                         Amitran format
   --summary-output FILE                Save aggregated vehicle departure info
                                         into FILE
+  --summary-output.period TIME         Save summary-output with the given
+                                        period
   --person-summary-output FILE         Save aggregated person counts into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE
   --tripinfo-output.write-unfinished   Write tripinfo output for vehicles which
@@ -110,6 +118,8 @@ Output Options:
   --tripinfo-output.write-undeparted   Write tripinfo output for vehicles which
                                         have not departed at simulation end
                                         because of depart delay
+  --personinfo-output FILE             Save personinfo and containerinfo to
+                                        separate FILE
   --vehroute-output FILE               Save single vehicle route info into FILE
   --vehroute-output.exit-times         Write the exit times for all edges
   --vehroute-output.last-route         Write the last route only
@@ -130,10 +140,13 @@ Output Options:
                                         stops
   --vehroute-output.speedfactor        Write the vehicle speedFactor (defaults
                                         to 'true' if departSpeed is written)
+  --vehroute-output.internal           Include internal edges in the output
   --personroute-output FILE            Save person and container routes to
                                         separate FILE
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
+  --railsignal-vehicle-output FILE     Record entry and exit times of vehicles
+                                        for railsignal blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
                                         (in conjunction with device.btreceiver
                                         and device.btsender)
@@ -149,7 +162,12 @@ Output Options:
   --stop-output.write-unfinished       Write stop output for stops which have
                                         not ended at simulation end
   --collision-output FILE              Write collision information into FILE
+  --edgedata-output FILE               Write aggregated traffic statistics for
+                                        all edges into FILE
+  --lanedata-output FILE               Write aggregated traffic statistics for
+                                        all lanes into FILE
   --statistic-output FILE              Write overall statistics into FILE
+  --deadlock-output FILE               Write reports on deadlocks FILE
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -165,6 +183,12 @@ Output Options:
   --save-state.constraints             Save rail signal constraints
   --save-state.precision INT           Write internal state values with the
                                         given precision (default 2)
+  --pedestrian.jupedsim.wkt FILE       The filename to output the JuPedSim
+                                        network as WKT
+  --pedestrian.jupedsim.wkt.geo        Whether to output JuPedSim network as
+                                        WKT using geo-coordinates (lon/lat)
+  --pedestrian.jupedsim.py FILE        The filename to output the JuPedSim
+                                        setup as Python script
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;
@@ -197,9 +221,15 @@ Processing Options:
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
                                         [none,warn,teleport,remove]
+  --intermodal-collision.action STR    How to deal with collisions between
+                                        vehicle and pedestrian:
+                                        [none,warn,teleport,remove]
   --collision.stoptime TIME            Let vehicle stop for TIME before
                                         performing collision.action (except for
                                         action 'none')
+  --intermodal-collision.stoptime TIME  Let vehicle stop for TIME before
+                                        performing intermodal-collision.action
+                                        (except for action 'none')
   --collision.check-junctions          Enables collisions checks on junctions
   --collision.check-junctions.mingap FLOAT  Increase or decrease sensitivity
                                         for junction collision check
@@ -207,7 +237,12 @@ Processing Options:
                                         maintained to avoid collision detection.
                                         If a negative value is given, the
                                         carFollowModel parameter is used
+  --keep-after-arrival TIME            After a vehicle arrives, keep it in
+                                        memory for the given TIME (for TraCI
+                                        access)
   --max-num-vehicles INT               Delay vehicle insertion to stay within
+                                        the given maximum number
+  --max-num-persons INT                Delay person insertion to stay within
                                         the given maximum number
   --max-num-teleports INT              Abort the simulation if the given
                                         maximum number of teleports is exceeded
@@ -233,10 +268,18 @@ Processing Options:
   --time-to-teleport.remove            Whether vehicles shall be removed after
                                         waiting too long instead of being
                                         teleported
+  --time-to-teleport.remove-constraint  Whether rail-signal-constraint based
+                                        deadlocks shall be cleared by removing a
+                                        constraint
   --time-to-teleport.ride TIME         The waiting time after which persons /
                                         containers waiting for a pickup are
                                         teleported. Negative values disable
                                         teleporting
+  --time-to-teleport.bidi TIME         The waiting time after which vehicles on
+                                        bidirectional edges are teleported
+  --time-to-teleport.railsignal-deadlock TIME  The waiting time after which
+                                        vehicles in a rail-signal based deadlock
+                                        are teleported
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
@@ -251,6 +294,8 @@ Processing Options:
                                         separately for insertion on an edge
   --emergency-insert                   Allow inserting a vehicle in a situation
                                         which requires emergency braking
+  --insertion-checks STR               Override default value for vehicle
+                                        attribute insertionChecks
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                         its depart value drawn uniformly from
                                         [0, TIME]
@@ -261,8 +306,10 @@ Processing Options:
   --tls.all-off                        Switches off all traffic lights.
   --tls.actuated.show-detectors        Sets default visibility for actuation
                                         detectors
-  --tls.actuated.jam-threshold FLOAT   Sets default jam-treshold parameter for
+  --tls.actuated.jam-threshold FLOAT   Sets default jam-threshold parameter for
                                         all actuation detectors
+  --tls.actuated.detector-length FLOAT  Sets default detector length parameter
+                                        for all actuation detectors
   --tls.delay_based.detector-range FLOAT  Sets default range for detecting
                                         delayed vehicles
   --tls.yellow.min-decel FLOAT         Minimum deceleration when braking at
@@ -286,7 +333,7 @@ Processing Options:
   --default.speeddev FLOAT             Select default speed deviation. A
                                         negative value implies vClass specific
                                         defaults (0.1 for the default passenger
-                                        class
+                                        class)
   --default.emergencydecel STR         Select default emergencyDecel value
                                         among ('decel', 'default', FLOAT) which
                                         sets the value either to the same as the
@@ -297,7 +344,7 @@ Processing Options:
                                         overhead wire circuit
   --overhead-wire.recuperation         Enable recuperation from the vehicle
                                         equipped with elecHybrid device into the
-                                        ovrehead wire.
+                                        overhead wire.
   --overhead-wire.substation-current-limits  Enable current limits of traction
                                         substation during solving the overhead
                                         wire electrical circuit.
@@ -305,12 +352,17 @@ Processing Options:
                                         decel capability that must be used to
                                         trigger a warning.
   --parking.maneuver                   Whether parking simulation includes
-                                        manoeuvering time and associated lane
+                                        maneuvering time and associated lane
                                         blocking
   --use-stop-ended                     Override stop until times with stop
                                         ended times when given
+  --use-stop-started                   Override stop arrival times with stop
+                                        started times when given
   --pedestrian.model STR               Select among pedestrian models
                                         ['nonInteracting', 'striping', 'remote']
+  --pedestrian.timegap-crossing FLOAT  Minimal acceptable gap (in seconds)
+                                        between two vehicles before starting to
+                                        cross
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
                                         segmenting a sidewalk (meters) for use
                                         with model 'striping'
@@ -332,16 +384,48 @@ Processing Options:
                                         pedestrians start squeezing through a
                                         jam while on a narrow lane when using
                                         model 'striping'
+  --pedestrian.striping.jamfactor FLOAT  Factor for reducing speed of
+                                        pedestrian in jammed state
   --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
                                         for oncoming pedestrians
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
                                         to reserve for oncoming pedestrians on
                                         crossings and walkingareas
-  --pedestrian.remote.address STR      The address (host:port) of the external
-                                        simulation
+  --pedestrian.striping.reserve-oncoming.max FLOAT  Maximum width in m to
+                                        reserve for oncoming pedestrians
+  --pedestrian.striping.legacy-departposlat  Interpret departPosLat for walks
+                                        in legacy style
+  --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
+                                        points to smooth out lanes within the
+                                        walkingarea
+  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
+                                        simulation (in seconds)
+  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to accept the
+                                        JuPedSim arrival point (in meters)
+  --pedestrian.jupedsim.model STR      The submodel to use in JuPedSim
+                                        ('CollisionFreeSpeed',
+                                        'CollisionFreeSpeedV2',
+                                        'GeneralizedCentrifugalForce',
+                                        'SocialForce')
+  --pedestrian.jupedsim.strength-neighbor-repulsion FLOAT  The neighbor
+                                        repulsion strength of the JuPedSim model
+  --pedestrian.jupedsim.range-neighbor-repulsion FLOAT  The neighbor repulsion
+                                        range of the JuPedSim model (in meters)
+  --pedestrian.jupedsim.strength-geometry-repulsion FLOAT  The geometry
+                                        repulsion strength of the JuPedSim model
+  --pedestrian.jupedsim.range-geometry-repulsion FLOAT  The geometry repulsion
+                                        range of the JuPedSim model (in meters)
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops
+  --mapmatch.distance FLOAT            Maximum distance when mapping input
+                                        coordinates (fromXY etc.) to the road
+                                        network
+  --mapmatch.junctions                 Match positions to junctions instead of
+                                        edges
+  --weights.turnaround-penalty FLOAT   Apply the given time penalty when
+                                        computing routing costs for turnaround
+                                        internal lanes
   --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
                                         speed against vehicle traffic direction
 
@@ -404,6 +488,8 @@ Routing Options:
                                         edge weights
   --device.rerouting.with-taz          Use zones (districts) as routing start-
                                         and endpoints
+  --device.rerouting.mode STR          Set routing flags (8 ignores temporary
+                                        blockages)
   --device.rerouting.init-with-loaded-weights  Use weight files given with
                                         option --weight-files for initializing
                                         edge weights
@@ -424,6 +510,10 @@ Routing Options:
                                         deterministic using a fraction of 1000
   --person-device.rerouting.period TIME  The period with which the person shall
                                         be rerouted
+  --person-device.rerouting.mode STR   Set routing flags (8 ignores temporary
+                                        blockages)
+  --person-device.rerouting.scope STR  Which part of the person plan is to be
+                                        replaced (stage, sequence, or trip)
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -431,13 +521,14 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
+                                        inputs ("never", "local", "auto" or
+                                        "always")
   --xml-validation.net STR             Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
-                                        "always")
+                                        network inputs ("never", "local", "auto"
+                                        or "always")
   --xml-validation.routes STR          Set schema validation scheme of SUMO
-                                        route inputs ("never", "auto" or
-                                        "always")
+                                        route inputs ("never", "local", "auto"
+                                        or "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -446,6 +537,11 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
+  --language STR                       Language to use in messages
   --duration-log.disable               Disable performance reports for
                                         individual simulation steps
   -t, --duration-log.statistics        Enable statistics on vehicle trips
@@ -455,14 +551,21 @@ Report Options:
                                         step-log outputs
 
 Emissions Options:
+  --emissions.volumetric-fuel          Return fuel consumption values in
+                                        (legacy) unit l instead of mg
   --phemlight-path FILE                Determines where to load PHEMlight
-                                        definitions from.
+                                        definitions from
+  --phemlight-year INT                 Enable fleet age modelling with the
+                                        given reference year in PHEMlight5
+  --phemlight-temperature FLOAT        Set ambient temperature to correct NOx
+                                        emissions in PHEMlight5
   --device.emissions.probability FLOAT  The probability for a vehicle to have a
                                         'emissions' device
   --device.emissions.explicit STR[]    Assign a 'emissions' device to named
                                         vehicles
   --device.emissions.deterministic     The 'emissions' devices are set
                                         deterministic using a fraction of 1000
+  --device.emissions.begin STR         Recording begin time for emission-data
   --device.emissions.period STR        Recording period for emission-output
 
 Communication Options:
@@ -483,8 +586,61 @@ Communication Options:
                                         vehicles
   --device.btsender.deterministic      The 'btsender' devices are set
                                         deterministic using a fraction of 1000
+  --person-device.btsender.probability FLOAT  The probability for a person to
+                                        have a 'btsender' device
+  --person-device.btsender.explicit STR[]  Assign a 'btsender' device to named
+                                        persons
+  --person-device.btsender.deterministic  The 'btsender' devices are set
+                                        deterministic using a fraction of 1000
+  --person-device.btreceiver.probability FLOAT  The probability for a person to
+                                        have a 'btreceiver' device
+  --person-device.btreceiver.explicit STR[]  Assign a 'btreceiver' device to
+                                        named persons
+  --person-device.btreceiver.deterministic  The 'btreceiver' devices are set
+                                        deterministic using a fraction of 1000
 
 Battery Options:
+  --device.stationfinder.probability FLOAT  The probability for a vehicle to
+                                        have a 'stationfinder' device
+  --device.stationfinder.explicit STR[]  Assign a 'stationfinder' device to
+                                        named vehicles
+  --device.stationfinder.deterministic  The 'stationfinder' devices are set
+                                        deterministic using a fraction of 1000
+  --device.stationfinder.rescueTime TIME  Time to wait for a rescue vehicle on
+                                        the road side when the battery is empty
+  --device.stationfinder.rescueAction STR  How to deal with a vehicle which has
+                                        to stop due to low battery: [none,
+                                        remove, tow]
+  --device.stationfinder.reserveFactor FLOAT  Scale battery need with this
+                                        factor to account for unexpected traffic
+                                        situations
+  --device.stationfinder.emptyThreshold FLOAT  Battery percentage to go into
+                                        rescue mode
+  --device.stationfinder.radius TIME   Search radius in travel time seconds
+  --device.stationfinder.maxEuclideanDistance FLOAT  Euclidean search distance
+                                        in meters (a negative value disables the
+                                        restriction)
+  --device.stationfinder.repeat TIME   When to trigger a new search if no
+                                        station has been found
+  --device.stationfinder.maxChargePower FLOAT  The maximum charging speed of
+                                        the vehicle battery
+  --device.stationfinder.chargeType STR  Type of energy transfer
+  --device.stationfinder.waitForCharge TIME  After this waiting time vehicle
+                                        searches for a new station when the
+                                        initial one is blocked
+  --device.stationfinder.saturatedChargeLevel FLOAT  Target state of charge
+                                        after which the vehicle stops charging
+  --device.stationfinder.needToChargeLevel FLOAT  State of charge the vehicle
+                                        begins searching for charging stations
+  --device.stationfinder.replacePlannedStop FLOAT  Share of stopping time of
+                                        the next independently planned stop to
+                                        use for charging instead
+  --device.stationfinder.maxDistanceToReplacedStop FLOAT  Maximum distance in
+                                        meters from the original stop to be
+                                        replaced by the charging stop
+  --device.stationfinder.chargingStrategy STR  Set a charging strategy to alter
+                                        time and charging load from the set:
+                                        [none, balanced, latest]
   --device.battery.probability FLOAT   The probability for a vehicle to have a
                                         'battery' device
   --device.battery.explicit STR[]      Assign a 'battery' device to named
@@ -511,34 +667,43 @@ SSM Device Options:
   --device.ssm.deterministic           The 'ssm' devices are set deterministic
                                         using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
-                                        (as a space separated sequence of IDs in
-                                        ('TTC', 'DRAC', 'PET')).
-  --device.ssm.thresholds STR          Specifies thresholds corresponding to
-                                        the specified measures (see
-                                        documentation and watch the order!).
-                                        Only events exceeding the thresholds
-                                        will be logged.
+                                        (as a space or comma-separated sequence
+                                        of IDs in ('TTC', 'DRAC', 'PET', 'PPET',
+                                        'MDRAC'))
+  --device.ssm.thresholds STR          Specifies space or comma-separated
+                                        thresholds corresponding to the
+                                        specified measures (see documentation
+                                        and watch the order!). Only events
+                                        exceeding the thresholds will be logged.
   --device.ssm.trajectories            Specifies whether trajectories will be
                                         logged (if false, only the extremal
-                                        values and times are reported, this is
-                                        the default).
-  --device.ssm.range FLOAT             Specifies the detection range in meters
-                                        (default is 50.00m.). For vehicles below
-                                        this distance from the equipped vehicle,
-                                        SSM values are traced.
+                                        values and times are reported).
+  --device.ssm.range FLOAT             Specifies the detection range in meters.
+                                        For vehicles below this distance from
+                                        the equipped vehicle, SSM values are
+                                        traced.
   --device.ssm.extratime FLOAT         Specifies the time in seconds to be
-                                        logged after a conflict is over (default
-                                        is 5.00secs.). Required >0 if PET is to
-                                        be calculated for crossing conflicts.
+                                        logged after a conflict is over.
+                                        Required >0 if PET is to be calculated
+                                        for crossing conflicts.
+  --device.ssm.mdrac.prt FLOAT         Specifies the perception reaction time
+                                        for MDRAC computation.
   --device.ssm.file STR                Give a global default filename for the
-                                        SSM output.
+                                        SSM output
   --device.ssm.geo                     Whether to use coordinates of the
                                         original reference system in output
-                                        (default is false).
   --device.ssm.write-positions         Whether to write positions (coordinates)
-                                        for each timestep.
+                                        for each timestep
   --device.ssm.write-lane-positions    Whether to write lanes and their
-                                        positions for each timestep.
+                                        positions for each timestep
+  --device.ssm.exclude-conflict-types STR  Which conflicts will be excluded
+                                        from the log according to the conflict
+                                        type they have been classified
+                                        (combination of values in 'ego', 'foe' ,
+                                        '', any numerical valid conflict type
+                                        code). An empty value will log all and
+                                        'ego'/'foe' refer to a certain conflict
+                                        type subset.
 
 ToC Device Options:
   --device.toc.probability FLOAT       The probability for a vehicle to have a
@@ -611,6 +776,11 @@ Driver State Device Options:
                                         coefficient for applying the error to
                                         the perceived distance (error also
                                         scales with distance).
+  --device.driverstate.freeSpeedErrorCoefficient FLOAT  General scaling
+                                        coefficient for applying the error to
+                                        the vehicle's own speed when driving
+                                        without a leader (error also scales with
+                                        own speed).
   --device.driverstate.speedDifferenceChangePerceptionThreshold FLOAT  Base
                                         threshold for recognizing changes in the
                                         speed difference (threshold also scales
@@ -635,6 +805,8 @@ Bluelight Device Options:
   --device.bluelight.reactiondist FLOAT  Set the distance at which other
                                         drivers react to the blue light and
                                         siren sound
+  --device.bluelight.mingapfactor FLOAT  Reduce the minGap for reacting
+                                        vehicles by the given factor
 
 FCD Device Options:
   --device.fcd.probability FLOAT       The probability for a vehicle to have a
@@ -642,6 +814,7 @@ FCD Device Options:
   --device.fcd.explicit STR[]          Assign a 'fcd' device to named vehicles
   --device.fcd.deterministic           The 'fcd' devices are set deterministic
                                         using a fraction of 1000
+  --device.fcd.begin STR               Recording begin time for FCD-data
   --device.fcd.period STR              Recording period for FCD-data
   --device.fcd.radius FLOAT            Record objects in a radius around
                                         equipped vehicles
@@ -693,6 +866,17 @@ GLOSA Device Options:
                                         approaching a green light
   --device.glosa.min-speed FLOAT       Minimum speed when coasting towards a
                                         red light
+  --device.glosa.add-switchtime FLOAT  Additional time the vehicle shall need
+                                        to reach the intersection after the
+                                        signal turns green
+  --device.glosa.use-queue             Use queue in front of the tls for GLOSA
+                                        calculation
+  --device.glosa.override-safety       Override safety features - ignore the
+                                        current light state, always follow
+                                        GLOSA's predicted state
+  --device.glosa.ignore-cfmodel        Vehicles follow a perfect speed
+                                        calculation - ignore speed calculations
+                                        from the CF model if not safety critical
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a
@@ -709,6 +893,28 @@ Vehroutes Device Options:
                                         vehicles
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
+
+Friction Device Options:
+  --device.friction.probability FLOAT  The probability for a vehicle to have a
+                                        'friction' device
+  --device.friction.explicit STR[]     Assign a 'friction' device to named
+                                        vehicles
+  --device.friction.deterministic      The 'friction' devices are set
+                                        deterministic using a fraction of 1000
+  --device.friction.stdDev FLOAT       The measurement noise parameter which
+                                        can be applied to the friction device
+  --device.friction.offset FLOAT       The measurement offset parameter which
+                                        can be applied to the friction device ->
+                                        e.g. to force false measurements
+
+FCD Replay Device Options:
+  --device.fcd-replay.probability FLOAT  The probability for a vehicle to have
+                                        a 'fcd-replay' device
+  --device.fcd-replay.explicit STR[]   Assign a 'fcd-replay' device to named
+                                        vehicles
+  --device.fcd-replay.deterministic    The 'fcd-replay' devices are set
+                                        deterministic using a fraction of 1000
+  --device.fcd-replay.file FILE        FCD file to read
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
@@ -783,6 +989,9 @@ GUI Only Options:
                                         should halt
   --edgedata-files FILE                Load edge/lane weights for visualization
                                         from FILE
+  -N, --alternative-net-file FILE      Load a secondary road network for
+                                        abstract visualization from FILE
+  --selection-file FILE                Load pre-selected elements from FILE
   -D, --demo                           Restart the simulation after ending
                                         (demo mode)
   -T, --disable-textures               Do not load background pictures
@@ -793,6 +1002,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
@@ -808,5 +1019,5 @@ Examples:
   sumo --help
     print help
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    Mon, 13 Jan 2014
 ///
-// The pedestrian following model (prototype)
+// The pedestrian movement model using stripes on sidewalks
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,7 +28,7 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
 #include "MSPerson.h"
-#include "MSPModel.h"
+#include "MSPModel_Interacting.h"
 
 // ===========================================================================
 // class declarations
@@ -43,22 +43,42 @@ class MSJunction;
 // ===========================================================================
 /**
  * @class MSPModel_Striping
- * @brief The pedestrian following model
+ * @brief The pedestrian movement model using stripes on sidewalks
  *
  */
-class MSPModel_Striping : public MSPModel {
+class MSPModel_Striping : public MSPModel_Interacting {
 
     friend class GUIPerson; // for debugging
 
 public:
 
+    struct WalkingAreaPath {
+        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir, double _angleOverride) :
+            from(_from),
+            to(_to),
+            lane(_walkingArea),
+            shape(_shape),
+            dir(_dir),
+            angleOverride(_angleOverride),
+            length(_shape.length()) {
+        }
+
+        const MSLane* const from;
+        const MSLane* const to;
+        const MSLane* const lane; // the walkingArea;
+        const PositionVector shape;
+        const int dir; // the direction when entering this path
+        const double angleOverride;
+        const double length;
+
+    };
+
+    typedef std::map<std::pair<const MSLane*, const MSLane*>, const WalkingAreaPath> WalkingAreaPaths;
+
     /// @brief Constructor (it should not be necessary to construct more than one instance)
     MSPModel_Striping(const OptionsCont& oc, MSNet* net);
 
     ~MSPModel_Striping();
-
-    /// @brief Resets pedestrians when quick-loading state
-    void clearState();
 
     /// @brief register the given person as a pedestrian
     MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
@@ -66,86 +86,82 @@ public:
     /// @brief load the state of the given transportable
     MSTransportableStateAdapter* loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in);
 
-    /// @brief remove the specified person from the pedestrian simulation
-    void remove(MSTransportableStateAdapter* state);
-
-    /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
-     * @param[in] lane The crossing to check
-     * @param[in] vehside The offset to the vehicle side near the start of the crossing
-     * @param[in] vehWidth The width of the vehicle
-     * @param[in] oncomingGap The distance which the vehicle wants to keep from oncoming pedestrians
-     * @param[in] collectBlockers The list of persons blocking the crossing
-     * @return Whether the vehicle must wait
-     */
-    bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth,
-                       double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
-
-    /// @brief whether the given lane has pedestrians on it
-    bool hasPedestrians(const MSLane* lane);
-
-    /// @brief whether movements on intersections are modelled
-    //// @note function declared as member for sake of inheritance (delegates to static function)
-    bool usingInternalLanes();
-
-    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
-
     /// @brief model parameters
     ///@{
 
-    // @brief the width of a pedstrian stripe
+    /// @brief the width of a pedstrian stripe
     static double stripeWidth;
 
-    // @brief the factor for random slow-down
+    /// @brief the factor for random slow-down
     static double dawdling;
 
-    // @brief the safety buffer to vehicles
+    /// @brief the safety buffer to vehicles
     static double minGapToVehicle;
 
-    // @brief the time threshold before becoming jammed
+    /// @brief intermediate points to smooth out lanes within the walkingarea
+    static int myWalkingAreaDetail;
+
+    /// @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
+    /// @brief the factor on speed when jammed
+    static double jamFactor;
 
-    // @brief the distance (in seconds) to look ahead for changing stripes
+    /// @brief use old style departPosLat interpretation
+    static bool myLegacyPosLat;
+
+    /// @brief the distance (in seconds) to look ahead for changing stripes
     static const double LOOKAHEAD_SAMEDIR;
-    // @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)
+    /// @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)
     static const double LOOKAHEAD_ONCOMING;
-    // @brief the distance (in m) to look around for vehicles
+    /// @brief the distance (in m) to look around for vehicles
     static const double LOOKAROUND_VEHICLES;
+    /// @brief the distance (in m) to look ahead for obstacles on a subsequent edge
+    static const double LOOKAHEAD_ONCOMING_DIST;
 
-    // @brief the utility penalty for moving sideways (corresponds to meters)
+    /// @brief the utility penalty for moving sideways (corresponds to meters)
     static const double LATERAL_PENALTY;
 
-    // @brief the utility penalty for obstructed (physically blocking me) stripes (corresponds to meters)
+    /// @brief the utility penalty for obstructed (physically blocking me) stripes (corresponds to meters)
     static const double OBSTRUCTED_PENALTY;
 
-    // @brief the utility penalty for inappropriate (reserved for oncoming traffic or may violate my min gap) stripes (corresponds to meters)
+    /// @brief the utility penalty for inappropriate (reserved for oncoming traffic or may violate my min gap) stripes (corresponds to meters)
     static const double INAPPROPRIATE_PENALTY;
 
-    // @brief the utility penalty for oncoming conflicts on stripes (corresponds to meters)
+    /// @brief the utility penalty for oncoming conflicts on stripes (corresponds to meters)
     static const double ONCOMING_CONFLICT_PENALTY;
 
-    // @brief the minimum utility that indicates obstruction
+    /// @brief the minimum utility that indicates obstruction
     static const double OBSTRUCTION_THRESHOLD;
 
-    // @brief the factor by which pedestrian width is reduced when sqeezing past each other
+    /// @brief the factor by which pedestrian width is reduced when sqeezing past each other
     static const double SQUEEZE;
 
-    // @brief fraction of the leftmost lanes to reserve for oncoming traffic
+    /// @brief fraction of the leftmost lanes to reserve for oncoming traffic
     static double RESERVE_FOR_ONCOMING_FACTOR;
     static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
+    static double RESERVE_FOR_ONCOMING_MAX;
 
-    // @brief the time pedestrians take to reach maximum impatience
+    /// @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;
 
-    // @brief the fraction of forward speed to be used for lateral movemenk
+    /// @brief the fraction of forward speed to be used for lateral movemenk
     static const double LATERAL_SPEED_FACTOR;
 
-    // @brief the minimum distance to the next obstacle in order to start walking after stopped
+    /// @brief the minimum distance to the next obstacle in order to start walking after stopped
     static const double MIN_STARTUP_DIST;
 
     ///@}
+
+    /// @brief Convert the striping to the vehicle lateral position and vice versa.
+    // The striping model uses as lateral position the distance of the center of the pedestrian
+    // to the left boundary of the lane minus a half stripe width, where right is positive.
+    // The vehicle uses the distance to the center of the lane (and left is positive).
+    // The function happens to be self inverse so it can be used to convert in both directions.
+    inline static double posLatConversion(const double posLat, const double laneWidth) {
+        return .5 * (laneWidth - stripeWidth) - posLat;
+    }
 
 
 protected:
@@ -153,22 +169,10 @@ protected:
     static const double DIST_BEHIND;
     static const double DIST_OVERLAP;
 
-    class lane_by_numid_sorter {
-    public:
-        /// comparing operation
-        bool operator()(const MSLane* l1, const MSLane* l2) const {
-            return l1->getNumericalID() < l2->getNumericalID();
-        }
-    };
-
     struct Obstacle;
-    struct WalkingAreaPath;
     class PState;
-    typedef std::vector<PState*> Pedestrians;
-    typedef std::map<const MSLane*, Pedestrians, lane_by_numid_sorter> ActiveLanes;
     typedef std::vector<Obstacle> Obstacles;
-    typedef std::map<const MSLane*, Obstacles, lane_by_numid_sorter> NextLanesObstacles;
-    typedef std::map<std::pair<const MSLane*, const MSLane*>, const WalkingAreaPath> WalkingAreaPaths;
+    typedef std::map<const MSLane*, Obstacles, ComparatorNumericalIdLess> NextLanesObstacles;
     typedef std::map<const MSLane*, double> MinNextLengths;
 
     struct NextLaneInfo {
@@ -184,11 +188,11 @@ protected:
             dir(UNDEFINED_DIRECTION) {
         }
 
-        // @brief the next lane to be used
+        /// @brief the next lane to be used
         const MSLane* lane;
-        // @brief the link from the current lane to the next lane
+        /// @brief the link from the current lane to the next lane
         const MSLink* link;
-        // @brief the direction on the next lane
+        /// @brief the direction on the next lane
         int dir;
     };
 
@@ -208,9 +212,9 @@ protected:
         Obstacle(int dir, double dist = DIST_FAR_AWAY);
         /// @brief create an obstacle from ped for ego moving in dir
         Obstacle(const PState& ped);
-        /// @brief create an obstacle from explict values
-        Obstacle(double _x, double _speed, ObstacleType _type, const std::string& _description, const double width = 0.)
-            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), type(_type), description(_description) {};
+        /// @brief create an obstacle from explicit values
+        Obstacle(double _x, double _speed, ObstacleType _type, const std::string& _description, const double width = 0., const SUMOVehicle* veh = nullptr)
+            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), type(_type), description(_description), vehicle(veh) {};
 
         /// @brief maximal position on the current lane in forward direction
         double xFwd;
@@ -218,29 +222,14 @@ protected:
         double xBack;
         /// @brief speed relative to lane direction (positive means in the same direction)
         double speed;
-        /// @brief whether this obstacle denotes a border or a pedestrian
+        /// @brief whether this obstacle denotes a border, a vehicle or a pedestrian
         ObstacleType type;
         /// @brief the id / description of the obstacle
         std::string description;
-    };
+        /// @brief a pointer to the vehicle if this obstacle is one
+        const SUMOVehicle* vehicle = nullptr;
 
-    struct WalkingAreaPath {
-        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir) :
-            from(_from),
-            to(_to),
-            lane(_walkingArea),
-            shape(_shape),
-            dir(_dir),
-            length(_shape.length()) {
-        }
-
-        const MSLane* const from;
-        const MSLane* const to;
-        const MSLane* const lane; // the walkingArea;
-        const PositionVector shape;
-        const int dir; // the direction when entering this path
-        const double length;
-
+        bool closer(const Obstacle& o, int dir);
     };
 
     class walkingarea_path_sorter {
@@ -264,60 +253,26 @@ protected:
      * @class PState
      * @brief Container for pedestrian state and individual position update function
      */
-    class PState : public MSTransportableStateAdapter {
+    class PState : public MSPModel_InteractingState {
     public:
-
-        /// @brief abstract methods inherited from PedestrianState
-        /// @{
-        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
-        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
-        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
-        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
-        double getSpeed(const MSStageMoving& stage) const;
-        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
-        void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
-                      double lanePosLat, double angle, int routeOffset,
-                      const ConstMSEdgeVector& edges, SUMOTime t);
-        /// @brief whether the transportable is jammed
-        bool isJammed() const;
-        const MSLane* getLane() const;
-        /// @}
-
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
 
         /// @brief constructor for loading state
         PState(MSPerson* person, MSStageMoving* stage, std::istringstream* in = nullptr);
 
         ~PState() {};
-        MSPerson* myPerson;
-        MSStageMoving* myStage;
-        /// @brief the current lane of this pedestrian
-        const MSLane* myLane;
-        /// @brief the advancement along the current lane
-        double myRelX;
-        /// @brief the orthogonal shift on the current lane
-        double myRelY;
-        /// @brief the walking direction on the current lane (1 forward, -1 backward)
-        int myDir;
-        /// @brief the current walking speed
-        double mySpeed;
-        /// @brief the current lateral walking speed
-        double mySpeedLat;
-        /// @brief whether the pedestrian is waiting to start its walk
-        bool myWaitingToEnter;
-        /// @brief the consecutive time spent at speed 0
-        SUMOTime myWaitingTime;
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
+        void moveTo(MSPerson* p, MSLane* lane, double lanePos, double lanePosLat, SUMOTime t);
+        void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
+                      double lanePosLat, double angle, int routeOffset,
+                      const ConstMSEdgeVector& edges, SUMOTime t);
+
         /// @brief information about the upcoming lane
         NextLaneInfo myNLI;
         /// @brief the current walkingAreaPath or 0
         const WalkingAreaPath* myWalkingAreaPath;
-        /// @brief whether the person is jammed
-        bool myAmJammed;
-        /// @brief remote-controlled position
-        Position myRemoteXYPos;
-        /// @brief cached angle
-        mutable double myAngle;
 
         /// @brief return the minimum position on the lane
         virtual double getMinX(const bool includeMinGap = true) const;
@@ -366,11 +321,12 @@ protected:
         /// @brief whether the pedestrian may ignore a red light
         bool ignoreRed(const MSLink* link) const;
 
-        /// @brief return the person id
-        virtual const std::string& getID() const;
-
         /// @brief return the person width
         virtual double getWidth() const;
+
+        virtual ObstacleType getOType() const {
+            return OBSTACLE_PED;
+        }
 
         /// @brief whether the person is currently being controlled via TraCI
         bool isRemoteControlled() const;
@@ -378,6 +334,21 @@ protected:
         /** @brief Saves the current state into the given stream
          */
         void saveState(std::ostringstream& out);
+
+        const MSLane* getNextCrossing() const;
+
+        /// @brief return the lateral offset to the lane center
+        double getLatOffset() const {
+            return posLatConversion(myPosLat, myLane->getWidth());
+        }
+
+        inline double getPosLat() const {
+            return myPosLat;
+        }
+
+        double getPathLength() const;
+        void reverse(const double pathLength, const double usableWidth);
+        void reset(const double edgePos, const double latPos);
 
     protected:
         /// @brief constructor for PStateVehicle
@@ -394,6 +365,14 @@ protected:
         double getMinX(const bool includeMinGap = true) const;
         double getMaxX(const bool includeMinGap = true) const;
         double getWidth() const;
+
+        ObstacleType getOType() const {
+            return OBSTACLE_VEHICLE;
+        }
+
+        const MSVehicle* getVehicle() const {
+            return myVehicle;
+        }
     private:
         const MSVehicle* myVehicle;
         const double myXWidth;
@@ -421,9 +400,9 @@ protected:
 
     public:
         /// comparing operation
-        bool operator()(const PState* p1, const PState* p2) const {
-            if (p1->myRelX != p2->myRelX) {
-                return myDir * p1->myRelX > myDir * p2->myRelX;
+        bool operator()(const MSPModel_InteractingState* p1, const MSPModel_InteractingState* p2) const {
+            if (p1->getEdgePos(0) != p2->getEdgePos(0)) {
+                return myDir * p1->getEdgePos(0) > myDir * p2->getEdgePos(0);
             }
             return p1->getID() < p2->getID();
         }
@@ -437,22 +416,13 @@ protected:
     void moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
     /// @brief move pedestrians forward on one lane
-    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
+    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir, bool debug);
 
     /// @brief handle arrivals and lane advancement
     void arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
     const ActiveLanes& getActiveLanes() {
         return myActiveLanes;
-    }
-
-    /// @brief return the number of active objects
-    int getActiveNumber() {
-        return myNumActivePedestrians;
-    }
-
-    void registerActive() {
-        myNumActivePedestrians++;
     }
 
 private:
@@ -473,6 +443,9 @@ private:
 
     static void initWalkingAreaPaths(const MSNet* net);
 
+    /// @brief creates and inserts all paths into the given map
+    static void insertWalkArePaths(const MSEdge* edge, WalkingAreaPaths& into);
+
     static const WalkingAreaPath* getWalkingAreaPath(const MSEdge* walkingArea, const MSLane* before, const MSLane* after);
 
     /// @brief return an arbitrary path across the given walkingArea
@@ -492,9 +465,6 @@ private:
 
     static void addCloserObstacle(Obstacles& obs, double x, int stripe, int numStripes, const std::string& id, double width, int dir, ObstacleType type);
 
-    /// @brief retrieves the pedestian vector for the given lane (may be empty)
-    Pedestrians& getPedestrians(const MSLane* lane);
-
     /* @brief compute stripe-offset to transform relY values from a lane with origStripes into a lane wit destStrips
      * @note this is called once for transforming nextLane peds to into the current system as obstacles and another time
      * (in reverse) to transform the pedestrian coordinates into the nextLane-coordinates when changing lanes
@@ -507,30 +477,17 @@ private:
     ///@brief retrieve vehicle obstacles on the given lane
     static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0);
 
-    static bool usingInternalLanesStatic();
-
     static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double xWidth, double yWidth, double lateral_offset,
                               double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
 
+    static int getReserved(int stripes, double factor);
+
+    /// @brief register pedestrian approach with the junction model
+    static void registerCrossingApproach(const PState& ped, const MSLane* crossing, const MSLane* beforeWA);
+
 private:
-    /// @brief the total number of active pedestrians
-    int myNumActivePedestrians;
-
-    /// @brief store of all lanes which have pedestrians on them
-    ActiveLanes myActiveLanes;
-
-    /// @brief whether an event for pedestrian processing was added
-    bool myAmActive;
-
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;
     static std::map<const MSEdge*, std::vector<const MSLane*> > myWalkingAreaFoes;
     static MinNextLengths myMinNextLengths;
-
-    /// @brief empty pedestrian vector
-    static Pedestrians noPedestrians;
-
 };
-
-
-

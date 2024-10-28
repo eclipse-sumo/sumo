@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,6 +44,8 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -83,13 +85,11 @@ FXIMPLEMENT(GUITriggeredRerouter::GUIManip_TriggeredRerouter, GUIManipulator, GU
  * GUITriggeredRerouter::GUIManip_TriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
-    GUIMainWindow& app,
-    const std::string& name, GUITriggeredRerouter& o,
-    int /*xpos*/, int /*ypos*/)
-    : GUIManipulator(app, name, 0, 0), myParent(&app),
-      myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
-      myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
-      myObject(&o) {
+    GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o) :
+    GUIManipulator(app, name, 0, 0), myParent(&app),
+    myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
+    myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
+    myObject(&o) {
     myChosenTarget.setTarget(this);
     FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -137,11 +137,11 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     FXGroupBox* gp2 = new FXGroupBox(f1, "Change Route Probability",
                                      GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
                                      0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
-    new FXButton(gp2, "Shift", nullptr, this, MID_SHIFT_PROBS,
-                 BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    GUIDesigns::buildFXButton(gp2, "Shift", "", "", nullptr, this, MID_SHIFT_PROBS,
+                              BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
-                 BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
+                              BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 
 }
 
@@ -232,9 +232,9 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 // -------------------------------------------------------------------------
 
 GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
-        bool off, SUMOTime timeThreshold, const std::string& vTypes, SUMORTree& rtree) :
-    MSTriggeredRerouter(id, edges, prob, off, timeThreshold, vTypes),
-    GUIGlObject_AbstractAdd(GLO_REROUTER, id),
+        bool off, bool optional, SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, SUMORTree& rtree) :
+    MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos),
+    GUIGlObject_AbstractAdd(GLO_REROUTER, id, GUIIconSubSys::getIcon(GUIIcon::REROUTER)),
     myShiftProbDistIndex(0) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
@@ -267,12 +267,12 @@ GUITriggeredRerouter::myEndElement(int element) {
         // add visualisation objects for switches
         if (ri.routeProbs.getProbs().size() > 1) {
             // find last common edge of all routes
-            const MSRoute* route0 = ri.routeProbs.getVals()[0];
+            ConstMSRoutePtr route0 = ri.routeProbs.getVals()[0];
             const MSEdge* lastEdge = nullptr;
             int nextIndex = 0;
             for (int i = 0; i < (int)route0->getEdges().size(); i++) {
                 const MSEdge* cand = route0->getEdges()[i];
-                for (const MSRoute* route : ri.routeProbs.getVals()) {
+                for (ConstMSRoutePtr route : ri.routeProbs.getVals()) {
                     const MSEdge* nextEdge = i < (int)route->getEdges().size() ? route->getEdges()[i] : nullptr;
                     if (nextEdge != cand) {
                         cand = nullptr;
@@ -345,10 +345,9 @@ GUITriggeredRerouter::getExaggeration(const GUIVisualizationSettings& s) const {
 GUIManipulator*
 GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
                                       GUISUMOAbstractView&) {
-    GUIManip_TriggeredRerouter* gui =
-        new GUIManip_TriggeredRerouter(app, getFullName(), *this, 0, 0);
+    GUIManip_TriggeredRerouter* gui = new GUIManip_TriggeredRerouter(app, getFullName(), *this);
     gui->create();
-    gui->show();
+    gui->show(PLACEMENT_SCREEN);
     return gui;
 }
 
@@ -357,7 +356,7 @@ void
 GUITriggeredRerouter::shiftProbs() {
     const RerouteInterval* const ri = getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
     if (ri != nullptr && ri->routeProbs.getProbs().size() > 1) {
-        auto& rp = const_cast<RandomDistributor<const MSRoute*>&>(ri->routeProbs);
+        auto& rp = const_cast<RandomDistributor<ConstMSRoutePtr>&>(ri->routeProbs);
         myShiftProbDistIndex = myShiftProbDistIndex % rp.getProbs().size();
         double prob = rp.getProbs()[myShiftProbDistIndex];
         rp.add(rp.getVals()[myShiftProbDistIndex], -prob);
@@ -384,7 +383,7 @@ GUITriggeredRerouter::shiftProbs() {
  * GUITriggeredRerouterEdge - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex) :
-    GUIGlObject(GLO_REROUTER_EDGE, parent->getID() + ":" + edge->getID()),
+    GUIGlObject(GLO_REROUTER_EDGE, parent->getID() + ":" + edge->getID(), GUIIconSubSys::getIcon(GUIIcon::REROUTER)),
     myParent(parent),
     myEdge(edge),
     myEdgeType(edgeType),

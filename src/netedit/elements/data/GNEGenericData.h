@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
@@ -36,23 +34,22 @@
 #include <netbuild/NBVehicle.h>
 #include <netbuild/NBEdge.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNEViewNet;
 class GNEDataInterval;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEGenericData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathManager::PathElement {
-
+class GNEGenericData : public GNEPathManager::PathElement, public Parameterised, public GNEHierarchicalElement {
 public:
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
@@ -66,7 +63,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
+    GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                    const Parameterised::Map& parameters,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
@@ -78,17 +75,14 @@ public:
     /// @brief Destructor
     virtual ~GNEGenericData();
 
-    /// @brief get generic data color
-    virtual const RGBColor& getColor() const = 0;
-
     /// @brief check if current generic data is visible
     virtual bool isGenericDataVisible() const = 0;
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;
@@ -102,6 +96,32 @@ public:
     /// @brief Returns element position in view
     virtual Position getPositionInView() const = 0;
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /// @name members and functions relative to write data sets into XML
     /// @{
     /**@brief write data set element into a xml file
@@ -109,7 +129,7 @@ public:
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;
 
-    /// @brief check if current data set is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current data set is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isGenericDataValid() const;
 
     /// @brief return a string with the current data set problem (by default empty, can be reimplemented in children)
@@ -145,8 +165,14 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
-    /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+    /// @brief delete element
+    void deleteGLObject();
+
+    /// @brief select element
+    void selectGLObject();
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
@@ -159,40 +185,28 @@ public:
     /// @brief compute pathElement
     virtual void computePathElement() = 0;
 
-    /**@brief Draws partial object (lane)
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane GNELane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
-     */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    /// @brief check if path element is selected
+    bool isPathElementSelected() const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+
+    /**@brief Draws partial object over junction
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
+     */
+    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
     /// @brief get first path lane
     virtual GNELane* getFirstPathLane() const = 0;
 
     /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
-
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
 
     /// @}
 
@@ -224,30 +238,6 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
-
-    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
-     * @param[in] key The attribute key
-     */
-    bool isAttributeComputed(SumoXMLAttr key) const;
-
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
 
@@ -263,7 +253,7 @@ protected:
     GNEDataInterval* myDataIntervalParent;
 
     /// @brief draw filtered attribute
-    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const;
+    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute, const GNEDataInterval* dataIntervalParent) const;
 
     /// @brief check if attribute is visible in inspect, delete or select mode
     bool isVisibleInspectDeleteSelect() const;
@@ -277,12 +267,12 @@ protected:
     /// @brief replace the first parent TAZElement
     void replaceParentTAZElement(const int index, const std::string& value);
 
+    /// @brief get partial ID
+    std::string getPartialID() const;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;
@@ -292,4 +282,3 @@ private:
 };
 
 /****************************************************************************/
-

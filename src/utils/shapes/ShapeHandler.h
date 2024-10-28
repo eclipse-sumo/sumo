@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -93,7 +93,7 @@ protected:
 
 protected:
     /// @brief set default values
-    void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
+    void setDefaults(const std::string& prefix, const RGBColor& color, const std::string& icon, const double layer, const bool fill = false);
 
     /// @brief adds a POI
     void addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
@@ -113,6 +113,9 @@ protected:
 
     /// @brief The default color to use
     RGBColor myDefaultColor;
+
+    /// @brief The default icon to use
+    std::string myDefaultIcon;
 
     /// @brief The default layer to use
     double myDefaultLayer;

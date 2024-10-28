@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-04-20 19:36:51.838193 by $Id$ v1_9_0+0129-5219d47f05
-  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f probability -u routeDist
+
+<!-- generated on 2023-03-27 12:31:54.918081 by routeSampler.py v1_16_0+1672-5d920bc
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <write-flows value="probability"/>
+    <write-route-distribution value="routeDist"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="200.0" -->
     <routeDistribution id="0_routeDist">
-        <route id="0_2" edges="-3 -3.180.00 5" probability="10"/>
+        <route id="0_2" edges="-3 -3.180.00 5" probability="10"/> <!-- (route_0) -->
     </routeDistribution>
 
-    <flow id="0_routeDist" begin="0.00" end="200.00" probability="0.05" route="routeDist"/>
+    <flow id="0_routeDist" begin="0.00" end="200.00" probability="0.0500" route="routeDist"/>
 <!-- begin="200.0" end="400.0" -->
     <routeDistribution id="200_routeDist">
-        <route id="200_0" edges="-3 -3.180.00 11" probability="8"/>
+        <route id="200_0" edges="-3 -3.180.00 11" probability="8"/> <!-- (route_2) -->
     </routeDistribution>
 
-    <flow id="200_routeDist" begin="200.00" end="400.00" probability="0.04" route="routeDist"/>
+    <flow id="200_routeDist" begin="200.00" end="400.00" probability="0.0400" route="routeDist"/>
 </routes>

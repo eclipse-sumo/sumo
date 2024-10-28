@@ -1,0 +1,26 @@
+/* XPM */
+static const char * locate_walkingarea_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c Black",
+". c Gray50",
+"X c Red",
+"o c None",
+/* pixels */
+"ooooooooooo   oo",
+"oooooooooo ooo o",
+"oooooooooooooo o",
+"ooooooooooooo oo",
+"ooo   oooooo ooo",
+"oo  ..  oooooooo",
+"   .. .. ooo ooo",
+" ... .. . oooooo",
+" ..... ..      o",
+" ............. o",
+" ............ oo",
+"             ooo",
+"oooooooooooooooo",
+"               o",
+" XXXXXXXXXXXXX o",
+"               o"
+};

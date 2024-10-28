@@ -1,0 +1,482 @@
+<routes>
+    <trip depart="103748.00" departLane="best" departSpeed="max" id="100019735_100013484_293_0" to="525452872" type="medium" departPos="stop">
+        </trip>
+    <trip depart="106014.82" departLane="best" departSpeed="max" id="100612522_100340936_312_0" to="30429265#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="107052.00" departLane="best" departSpeed="max" id="100044898_100028734_339_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="107111.00" departLane="best" departSpeed="max" id="100081283_100051527_349_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="109420.00" departLane="best" departSpeed="max" id="100082232_100052157_389_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="109760.00" departLane="best" departSpeed="max" id="100040095_100025828_383_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="110104.00" departLane="best" departSpeed="max" id="100149884_100090660_395_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="110260.00" departLane="best" departSpeed="max" id="100008785_100006252_394_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="110647.00" departLane="best" departSpeed="max" id="100132248_100080507_407_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="110792.00" departLane="best" departSpeed="max" id="100145771_100088248_405_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="110809.00" departLane="best" departSpeed="max" id="100140588_100085126_400_0" to="-377715253#3" type="medium" departPos="stop">
+        </trip>
+    <trip depart="110820.00" departLane="best" departSpeed="max" id="100087485_100055195_406_0" to="-38167738#10" type="large" departPos="stop">
+        </trip>
+    <trip depart="111688.00" departLane="best" departSpeed="max" id="100028769_100018941_418_0" to="41290241#4" type="large" departPos="stop">
+        </trip>
+    <trip depart="111733.00" departLane="best" departSpeed="max" id="100140029_100084909_428_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="111862.00" departLane="best" departSpeed="max" id="100162591_100097758_429_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="112202.00" departLane="best" departSpeed="max" id="100021263_100014379_430_0" to="447787390#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="112593.81" departLane="best" departSpeed="max" id="100320234_100186795_424_0" to="30429265#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="112707.00" departLane="best" departSpeed="max" id="100161534_100097132_443_0" to="316764353" type="small" departPos="stop">
+        </trip>
+    <trip depart="112796.67" departLane="best" departSpeed="max" id="100820730_100445825_431_0" to="-316764349#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="112804.00" departLane="best" departSpeed="max" id="100091292_100057396_443_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="112871.84" departLane="best" departSpeed="max" id="100323732_100190293_431_0" to="30429265#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="113098.00" departLane="best" departSpeed="max" id="100155364_100093822_452_0" to="316764353" type="large" departPos="stop">
+        </trip>
+    <trip depart="113193.00" departLane="best" departSpeed="max" id="100088111_100055594_443_0" to="30429265#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="113237.02" departLane="best" departSpeed="max" id="100803526_100438370_433_0" to="30424681#3" type="small" departPos="stop">
+        </trip>
+    <trip depart="113359.00" departLane="best" departSpeed="max" id="100120345_100074030_449_0" to="501199051#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="113373.00" departLane="best" departSpeed="max" id="100032823_100021483_443_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="113446.00" departLane="best" departSpeed="max" id="100161960_100097378_447_0" to="-512158810#6" type="small" departPos="stop">
+        </trip>
+    <trip depart="114000.39" departLane="best" departSpeed="max" id="100426129_100247484_440_0" to="30429265#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="114034.00" departLane="best" departSpeed="max" id="100025186_100016767_460_0" to="501199051#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="114647.00" departLane="best" departSpeed="max" id="100003086_100002239_474_0" to="525452872" type="medium" departPos="stop">
+        </trip>
+    <trip depart="114736.00" departLane="best" departSpeed="max" id="100220064_100129771_466_0" to="207083565#5" type="small" departPos="stop">
+        </trip>
+    <trip depart="114809.00" departLane="best" departSpeed="max" id="100059426_100037772_473_0" to="525452872" type="medium" departPos="stop">
+        </trip>
+    <trip depart="114812.70" departLane="best" departSpeed="max" id="100869313_100472801_457_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="114835.00" departLane="best" departSpeed="max" id="100022333_100015025_468_0" to="23198104#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="114937.00" departLane="best" departSpeed="max" id="100562090_100314089_480_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="114938.00" departLane="best" departSpeed="max" id="100165103_100099208_475_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="115012.00" departLane="best" departSpeed="max" id="100017132_100011887_474_0" to="501199051#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="115017.33" departLane="best" departSpeed="max" id="100279836_100172968_468_0" to="23295226#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="115328.00" departLane="best" departSpeed="max" id="100222667_100131205_485_0" to="447787390#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="115330.54" departLane="best" departSpeed="max" id="100468835_100269866_437_0" to="-316764349#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="115604.00" departLane="best" departSpeed="max" id="100022388_100015053_485_0" to="-24847823#3" type="medium" departPos="stop">
+        </trip>
+    <trip depart="115878.00" departLane="best" departSpeed="max" id="100038000_100024462_485_0" to="321714437#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="115918.00" departLane="best" departSpeed="max" id="100024463_100016315_489_0" to="-24526524#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="116124.00" departLane="best" departSpeed="max" id="100164511_100098862_495_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="116386.00" departLane="best" departSpeed="max" id="100022706_100015222_505_0" to="33049407#4" type="medium" departPos="stop">
+        </trip>
+    <trip depart="116900.00" departLane="best" departSpeed="max" id="100178613_100106894_515_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="117201.00" departLane="best" departSpeed="max" id="100041464_100026629_514_0" to="30429265#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="117246.00" departLane="best" departSpeed="max" id="100611798_100340574_510_0" to="445787491#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="117448.00" departLane="best" departSpeed="max" id="100080698_100051114_518_0" to="41290241#4" type="medium" departPos="stop">
+        </trip>
+    <trip depart="117750.00" departLane="best" departSpeed="max" id="100024337_100016252_526_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="118271.00" departLane="best" departSpeed="max" id="100216222_100127610_531_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="118368.00" departLane="best" departSpeed="max" id="100085236_100053926_536_0" to="23210061" type="medium" departPos="stop">
+        </trip>
+    <trip depart="118396.00" departLane="best" departSpeed="max" id="100039385_100025361_537_0" to="-24526524#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="118627.00" departLane="best" departSpeed="max" id="100028837_100018975_543_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="119471.26" departLane="best" departSpeed="max" id="100819491_100445533_548_0" to="375217310#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="119658.00" departLane="best" departSpeed="max" id="100083463_100052917_547_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="119667.00" departLane="best" departSpeed="max" id="100027536_100018194_556_0" to="-24526524#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="119912.00" departLane="best" departSpeed="max" id="100013937_100009753_560_0" to="-24663733#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="120141.00" departLane="best" departSpeed="max" id="100417009_100245581_563_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="120198.00" departLane="best" departSpeed="max" id="100040271_100025914_570_0" to="30425927#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="120293.00" departLane="best" departSpeed="max" id="100044412_100028450_563_0" to="375217310#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="120366.00" departLane="best" departSpeed="max" id="100084509_100053458_571_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="120484.00" departLane="best" departSpeed="max" id="100141231_100085590_571_0" to="512158812#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="120503.00" departLane="best" departSpeed="max" id="100030003_100019621_566_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="120803.00" departLane="best" departSpeed="max" id="100024110_100016084_568_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="121244.00" departLane="best" departSpeed="max" id="100045120_100028915_587_0" to="30429265#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="122213.00" departLane="best" departSpeed="max" id="100039923_100025738_600_0" to="-230951131#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="122910.00" departLane="best" departSpeed="max" id="100196312_100116781_614_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="123656.00" departLane="best" departSpeed="max" id="100705418_100387909_615_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="123719.00" departLane="best" departSpeed="max" id="100890416_100482497_618_0" to="59383254#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="123910.00" departLane="best" departSpeed="max" id="100032089_100020954_618_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="124029.00" departLane="best" departSpeed="max" id="100148560_100089895_633_0" to="-38167738#10" type="large" departPos="stop">
+        </trip>
+    <trip depart="124940.00" departLane="best" departSpeed="max" id="100022314_100015016_638_0" to="447787390#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="126184.00" departLane="best" departSpeed="max" id="100151023_100091307_659_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="126325.00" departLane="best" departSpeed="max" id="100029584_100019420_665_0" to="207083565#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="126420.00" departLane="best" departSpeed="max" id="100167107_100100403_660_0" to="445787491#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="126558.00" departLane="best" departSpeed="max" id="100031285_100020466_669_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="126592.00" departLane="best" departSpeed="max" id="100033345_100021703_665_0" to="493783055" type="large" departPos="stop">
+        </trip>
+    <trip depart="126725.00" departLane="best" departSpeed="max" id="100211227_100124858_675_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="127103.00" departLane="best" departSpeed="max" id="100433144_100249213_681_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="127145.00" departLane="best" departSpeed="max" id="100187700_100112115_676_0" to="29136146#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="127174.00" departLane="best" departSpeed="max" id="100033115_100021629_674_0" to="-563616438#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="127248.00" departLane="best" departSpeed="max" id="100907050_100491031_685_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="127352.00" departLane="best" departSpeed="max" id="100227520_100133869_677_0" to="320364658#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="127630.00" departLane="best" departSpeed="max" id="100034629_100022462_685_0" to="-60151069#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="127999.00" departLane="best" departSpeed="max" id="100204555_100121242_697_0" to="525452872" type="large" departPos="stop">
+        </trip>
+    <trip depart="128068.00" departLane="best" departSpeed="max" id="100065219_100041253_699_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="128132.00" departLane="best" departSpeed="max" id="100035315_100022907_700_0" to="207083565#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="129170.00" departLane="best" departSpeed="max" id="100020920_100014191_710_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="129348.49" departLane="best" departSpeed="max" id="100016036_100011058_710_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="129486.00" departLane="best" departSpeed="max" id="100081527_100051699_712_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="129558.00" departLane="best" departSpeed="max" id="100039345_100025341_712_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="129661.00" departLane="best" departSpeed="max" id="100032406_100021154_715_0" to="622456655#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="129756.00" departLane="best" departSpeed="max" id="100104394_100065019_720_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="129897.00" departLane="best" departSpeed="max" id="100217548_100128358_725_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="130019.00" departLane="best" departSpeed="max" id="100145591_100088158_730_0" to="525452872" type="large" departPos="stop">
+        </trip>
+    <trip depart="130097.00" departLane="best" departSpeed="max" id="100013868_100009718_730_0" to="512158811#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="130883.18" departLane="best" departSpeed="max" id="100284775_100175437_732_0" to="-316764349#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="130967.00" departLane="best" departSpeed="max" id="100178609_100106892_750_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="130994.00" departLane="best" departSpeed="max" id="100092942_100058454_745_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="131056.45" departLane="best" departSpeed="max" id="100625261_100346360_721_0" to="30429265#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="131172.00" departLane="best" departSpeed="max" id="100021841_100014722_748_0" to="-24526524#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="131175.00" departLane="best" departSpeed="max" id="100137436_100083413_742_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="131228.00" departLane="best" departSpeed="max" id="100040568_100026088_743_0" to="321714434#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="131357.32" departLane="best" departSpeed="max" id="100031173_100020418_735_0" to="60151069#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="131657.00" departLane="best" departSpeed="max" id="100156275_100094362_751_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="131932.00" departLane="best" departSpeed="max" id="100017628_100012166_765_0" to="-159245988#6" type="small" departPos="stop">
+        </trip>
+    <trip depart="131951.00" departLane="best" departSpeed="max" id="100159070_100095858_760_0" to="30429265#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="131954.95" departLane="best" departSpeed="max" id="100864055_100471339_762_0" to="320364658#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="132763.00" departLane="best" departSpeed="max" id="100228522_100134395_776_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="132979.00" departLane="best" departSpeed="max" id="100072211_100045664_781_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="133001.00" departLane="best" departSpeed="max" id="100369742_100226890_783_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="133190.00" departLane="best" departSpeed="max" id="100687734_100379442_775_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="133297.00" departLane="best" departSpeed="max" id="100105417_100065596_781_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="134095.00" departLane="best" departSpeed="max" id="100055583_100035481_790_0" to="-512158810#6" type="medium" departPos="stop">
+        </trip>
+    <trip depart="134445.00" departLane="best" departSpeed="max" id="100121462_100074701_796_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="134494.00" departLane="best" departSpeed="max" id="100035187_100022807_800_0" to="-312649892" type="medium" departPos="stop">
+        </trip>
+    <trip depart="135244.00" departLane="best" departSpeed="max" id="100172529_100103464_815_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="135753.00" departLane="best" departSpeed="max" id="100013367_100009330_820_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="136278.00" departLane="best" departSpeed="max" id="100084548_100053467_835_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="136349.00" departLane="best" departSpeed="max" id="100812757_100442920_825_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="136439.00" departLane="best" departSpeed="max" id="100018116_100012467_839_0" to="-501199049#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="136500.00" departLane="best" departSpeed="max" id="100223891_100131863_839_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="136903.00" departLane="best" departSpeed="max" id="100919631_100496894_839_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="137584.00" departLane="best" departSpeed="max" id="100169781_100101886_856_0" to="321714434#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="137632.00" departLane="best" departSpeed="max" id="100083849_100053083_854_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="138143.00" departLane="best" departSpeed="max" id="100421255_100246480_855_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="138181.00" departLane="best" departSpeed="max" id="100174682_100104655_867_0" to="375217310#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="138285.00" departLane="best" departSpeed="max" id="100085612_100054158_858_0" to="321714437#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="138376.00" departLane="best" departSpeed="max" id="100075996_100047963_863_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="139105.00" departLane="best" departSpeed="max" id="100233867_100137391_876_0" to="-24526524#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="139480.00" departLane="best" departSpeed="max" id="100346477_100213038_885_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="139490.26" departLane="best" departSpeed="max" id="100810765_100441886_882_0" to="-316764349#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="139539.00" departLane="best" departSpeed="max" id="100036445_100023597_879_0" to="375217310#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="139555.02" departLane="best" departSpeed="max" id="100642433_100355957_873_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="139745.00" departLane="best" departSpeed="max" id="100153400_100092703_893_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="140081.00" departLane="best" departSpeed="max" id="100017354_100011990_889_0" to="33274940" type="small" departPos="stop">
+        </trip>
+    <trip depart="140531.00" departLane="best" departSpeed="max" id="100006932_100004979_897_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="140822.00" departLane="best" departSpeed="max" id="100870655_100473393_905_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="140990.00" departLane="best" departSpeed="max" id="100158869_100095757_915_0" to="525452872" type="medium" departPos="stop">
+        </trip>
+    <trip depart="141013.00" departLane="best" departSpeed="max" id="100229238_100134786_912_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="141061.00" departLane="best" departSpeed="max" id="100214872_100126869_905_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="141071.27" departLane="best" departSpeed="max" id="100044313_100028401_893_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="141397.32" departLane="best" departSpeed="max" id="100028608_100018797_905_0" to="23257958#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="141481.00" departLane="best" departSpeed="max" id="100106175_100065958_925_0" to="30429265#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="141807.00" departLane="best" departSpeed="max" id="100632386_100351029_925_0" to="445787491#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="142440.00" departLane="best" departSpeed="max" id="100088785_100055982_940_0" to="5134682" type="medium" departPos="stop">
+        </trip>
+    <trip depart="142571.00" departLane="best" departSpeed="max" id="100022180_100014914_933_0" to="-38167738#10" type="small" departPos="stop">
+        </trip>
+    <trip depart="142590.00" departLane="best" departSpeed="max" id="100019406_100013216_935_0" to="316764351#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="142619.00" departLane="best" departSpeed="max" id="100212141_100125390_931_0" to="501199051#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="142643.54" departLane="best" departSpeed="max" id="100007583_100005356_935_0" to="23295226#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="142657.00" departLane="best" departSpeed="max" id="100193058_100115031_945_0" to="447787390#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="142899.00" departLane="best" departSpeed="max" id="100026203_100017380_943_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="143120.80" departLane="best" departSpeed="max" id="100840808_100462101_938_0" to="59383254#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="143245.00" departLane="best" departSpeed="max" id="100080057_100050658_943_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="143412.00" departLane="best" departSpeed="max" id="100145660_100088192_948_0" to="512158815#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="143681.26" departLane="best" departSpeed="max" id="100149561_100090493_960_0" to="-38167738#10" type="small" departPos="stop">
+        </trip>
+    <trip depart="144133.00" departLane="best" departSpeed="max" id="100165836_100099693_957_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="144291.00" departLane="best" departSpeed="max" id="100870802_100473442_965_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="144322.00" departLane="best" departSpeed="max" id="100029511_100019383_959_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="144508.00" departLane="best" departSpeed="max" id="100765397_100422429_965_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="144532.00" departLane="best" departSpeed="max" id="100219748_100129531_965_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="144699.00" departLane="best" departSpeed="max" id="100499897_100283868_973_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="144716.00" departLane="best" departSpeed="max" id="100055391_100035385_979_0" to="84488280#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="145042.00" departLane="best" departSpeed="max" id="100015101_100010448_975_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="145121.00" departLane="best" departSpeed="max" id="100153491_100092724_979_0" to="525452872" type="medium" departPos="stop">
+        </trip>
+    <trip depart="145346.00" departLane="best" departSpeed="max" id="100009512_100006714_980_0" to="23207363#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="145355.30" departLane="best" departSpeed="max" id="100150572_100091066_965_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="145503.00" departLane="best" departSpeed="max" id="100811763_100442423_982_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="145852.00" departLane="best" departSpeed="max" id="100666138_100367729_995_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="146224.00" departLane="best" departSpeed="max" id="100381223_100232630_995_0" to="501199051#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="146416.00" departLane="best" departSpeed="max" id="100017755_100012287_1005_0" to="4543873#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="146751.00" departLane="best" departSpeed="max" id="100086235_100054509_1009_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="147175.00" departLane="best" departSpeed="max" id="100071370_100045163_1017_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="147353.96" departLane="best" departSpeed="max" id="100160069_100096410_1015_0" to="525452872" type="large" departPos="stop">
+        </trip>
+    <trip depart="147636.00" departLane="best" departSpeed="max" id="100832612_100457656_1021_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="147769.89" departLane="best" departSpeed="max" id="100844570_100463982_1025_0" to="447787390#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="147892.00" departLane="best" departSpeed="max" id="100083849_100053083_1025_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="148075.00" departLane="best" departSpeed="max" id="100039845_100025660_1029_0" to="-4364840#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="148208.00" departLane="best" departSpeed="max" id="100031968_100020902_1035_0" to="316764353" type="medium" departPos="stop">
+        </trip>
+    <trip depart="148915.91" departLane="best" departSpeed="max" id="100025788_100017106_1025_0" to="165574143#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="149005.93" departLane="best" departSpeed="max" id="100018157_100012482_1025_0" to="-8032493#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="149228.00" departLane="best" departSpeed="max" id="100021597_100014567_1047_0" to="30429265#2" type="large" departPos="stop">
+        </trip>
+    <trip depart="149363.00" departLane="best" departSpeed="max" id="100026834_100017763_1054_0" to="165574143#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="149507.00" departLane="best" departSpeed="max" id="100771491_100424768_1055_0" to="447787390#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="149752.26" departLane="best" departSpeed="max" id="100084085_100053282_1054_0" to="-38167738#10" type="small" departPos="stop">
+        </trip>
+    <trip depart="149756.00" departLane="best" departSpeed="max" id="100085547_100054093_1053_0" to="-159245988#6" type="large" departPos="stop">
+        </trip>
+    <trip depart="149822.00" departLane="best" departSpeed="max" id="100620910_100344761_1055_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="149883.00" departLane="best" departSpeed="max" id="100027973_100018465_1055_0" to="165574143#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="150073.00" departLane="best" departSpeed="max" id="100214790_100126828_1065_0" to="445787491#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="150415.00" departLane="best" departSpeed="max" id="100033557_100021826_1071_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="150541.00" departLane="best" departSpeed="max" id="100030490_100019895_1065_0" to="321714437#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="150654.00" departLane="best" departSpeed="max" id="100028508_100018711_1064_0" to="512158815#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="150666.00" departLane="best" departSpeed="max" id="100034671_100022504_1075_0" to="-23312087#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="150769.00" departLane="best" departSpeed="max" id="100021379_100014422_1068_0" to="-533526560#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="150831.00" departLane="best" departSpeed="max" id="100178406_100106743_1076_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="151141.00" departLane="best" departSpeed="max" id="100024326_100016247_1086_0" to="147688814" type="small" departPos="stop">
+        </trip>
+    <trip depart="151408.00" departLane="best" departSpeed="max" id="100152077_100091966_1081_0" to="-512158810#6" type="small" departPos="stop">
+        </trip>
+    <trip depart="151870.00" departLane="best" departSpeed="max" id="100154775_100093460_1085_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="151904.00" departLane="best" departSpeed="max" id="100089974_100056677_1087_0" to="30429265#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="152497.00" departLane="best" departSpeed="max" id="100035440_100023032_1106_0" to="-377715252#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="152808.00" departLane="best" departSpeed="max" id="100189620_100113156_1105_0" to="501199051#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="152809.00" departLane="best" departSpeed="max" id="100024388_100016278_1106_0" to="59383254#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="153663.00" departLane="best" departSpeed="max" id="100149463_100090395_1115_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="153906.00" departLane="best" departSpeed="max" id="100021966_100014777_1131_0" to="33049407#4" type="large" departPos="stop">
+        </trip>
+    <trip depart="154069.00" departLane="best" departSpeed="max" id="100031783_100020810_1131_0" to="-5134673#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="154315.00" departLane="best" departSpeed="max" id="100033462_100021731_1131_0" to="159245989#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="154593.00" departLane="best" departSpeed="max" id="100820342_100445732_1142_0" to="23210061" type="large" departPos="stop">
+        </trip>
+    <trip depart="154642.00" departLane="best" departSpeed="max" id="100020560_100013962_1135_0" to="321714434#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="155345.00" departLane="best" departSpeed="max" id="100032308_100021056_1145_0" to="5137911#3" type="large" departPos="stop">
+        </trip>
+    <trip depart="156221.00" departLane="best" departSpeed="max" id="100028606_100018795_1166_0" to="5229165#6" type="small" departPos="stop">
+        </trip>
+    <trip depart="156265.00" departLane="best" departSpeed="max" id="100028391_100018680_1164_0" to="-26147813#3" type="large" departPos="stop">
+        </trip>
+    <trip depart="156573.67" departLane="best" departSpeed="max" id="100820188_100445696_1170_0" to="23295226#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="156849.77" departLane="best" departSpeed="max" id="100038407_100024743_1145_0" to="321714437#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="156907.00" departLane="best" departSpeed="max" id="100027419_100018136_1182_0" to="321714434#0" type="medium" departPos="stop">
+        </trip>
+    <trip depart="157341.00" departLane="best" departSpeed="max" id="100093301_100058656_1187_0" to="445787491#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="157559.00" departLane="best" departSpeed="max" id="100018740_100012871_1185_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="157652.00" departLane="best" departSpeed="max" id="100021875_100014739_1188_0" to="23198104#2" type="medium" departPos="stop">
+        </trip>
+    <trip depart="158053.00" departLane="best" departSpeed="max" id="100036025_100023304_1195_0" to="23258242#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="158479.00" departLane="best" departSpeed="max" id="100100845_100062980_1205_0" to="-316764349#2" type="small" departPos="stop">
+        </trip>
+    <trip depart="158622.00" departLane="best" departSpeed="max" id="100034923_100022699_1202_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="158917.00" departLane="best" departSpeed="max" id="100033362_100021706_1215_0" to="-312649892" type="medium" departPos="stop">
+        </trip>
+    <trip depart="159357.00" departLane="best" departSpeed="max" id="100020866_100014137_1210_0" to="-533526560#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="159715.00" departLane="best" departSpeed="max" id="100018030_100012424_1225_0" to="-159245988#6" type="medium" departPos="stop">
+        </trip>
+    <trip depart="159762.00" departLane="best" departSpeed="max" id="100233282_100137008_1222_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="159966.00" departLane="best" departSpeed="max" id="100276682_100171391_1224_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="160077.00" departLane="best" departSpeed="max" id="100152347_100092094_1226_0" to="525452872" type="medium" departPos="stop">
+        </trip>
+    <trip depart="161473.00" departLane="best" departSpeed="max" id="100037043_100024012_1246_0" to="321714437#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="162077.00" departLane="best" departSpeed="max" id="100817629_100445064_1265_0" to="445787491#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="162818.00" departLane="best" departSpeed="max" id="100285312_100175706_1278_0" to="5058977#1" type="large" departPos="stop">
+        </trip>
+    <trip depart="163419.00" departLane="best" departSpeed="max" id="100167204_100100451_1280_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="163444.00" departLane="best" departSpeed="max" id="100141996_100086058_1288_0" to="447787390#0" type="large" departPos="stop">
+        </trip>
+    <trip depart="163722.00" departLane="best" departSpeed="max" id="100093303_100058658_1291_0" to="5058977#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="164261.00" departLane="best" departSpeed="max" id="100146972_100088987_1298_0" to="-38167738#10" type="medium" departPos="stop">
+        </trip>
+    <trip depart="164935.00" departLane="best" departSpeed="max" id="100638789_100353306_1305_0" to="501199051#0" type="small" departPos="stop">
+        </trip>
+    <trip depart="165164.00" departLane="best" departSpeed="max" id="100039125_100025169_1311_0" to="-23292244#1" type="small" departPos="stop">
+        </trip>
+    <trip depart="167095.00" departLane="best" departSpeed="max" id="100047644_100030534_1341_0" to="5058977#1" type="medium" departPos="stop">
+        </trip>
+    <trip depart="169944.00" departLane="best" departSpeed="max" id="100021189_100014342_1386_0" to="533525970" type="large" departPos="stop">
+        </trip>
+    <trip depart="172854.00" departLane="best" departSpeed="max" id="100083906_100053140_1441_0" to="525452872" type="small" departPos="stop">
+        </trip>
+    <trip depart="183909.00" departLane="best" departSpeed="max" id="100018092_100012455_1623_0" to="23292244#0" type="medium" departPos="stop">
+        </trip>
+</routes>

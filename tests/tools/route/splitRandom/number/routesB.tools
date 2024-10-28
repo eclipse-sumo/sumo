@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-31 14:50:55.480384 by $Id$ v1_8_0+1885-4fc969a10e
+
+<!-- generated on 2022-07-07 11:17:08.303793 by splitRandom.py v1_13_0+1343-240e5d48340
   options: -r input_routes.rou.xml -n 3000 -a outA.rou.xml -b outB.rou.xml -s 42
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip depart="101397.00" departLane="best" departSpeed="max" from="318881710#0" id="100152146_100092001_256_0" to="5058977#1" type="large"/>
     <trip depart="101750.00" departLane="best" departSpeed="max" from="318881710#0" id="100149408_100090340_252_0" to="5058977#1" type="medium"/>

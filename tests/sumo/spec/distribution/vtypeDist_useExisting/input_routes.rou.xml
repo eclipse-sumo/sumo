@@ -5,4 +5,18 @@
     <flow id="1" begin="0" period="2" number="10" type="vt1">
         <route edges="beg end"/>
     </flow>
+
+    <vTypeDistribution id="vd1">
+        <vType sigma="0" id="v1.1" probability="0.5"/>
+        <vType sigma="0" id="v1.2" probability="0.5"/>
+    </vTypeDistribution>
+    <vTypeDistribution id="vd2">
+        <vType sigma="0" id="v2.1" probability="1"/>
+        <vType sigma="0" id="v2.2" probability="1"/>
+    </vTypeDistribution>
+
+    <vTypeDistribution id="vt2" vTypes="vd1 vd2" probabilities="0.8 0.2"/>
+    <flow id="2" begin="30" period="2" number="10" type="vt2">
+        <route edges="beg end"/>
+    </flow>
 </routes>
