@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-25 09:22+0000\n"
+"PO-Revision-Date: 2024-10-29 10:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5863,21 +5863,25 @@ msgid ""
 "The default algorithm for computing right of way rules ('default', "
 "'edgePriority')"
 msgstr ""
+"L'algoritmo standard per calcolare le regole di precedenze ('default', "
+"'edgePriority')"
 
 #: src/netbuild/NBFrame.cpp:110
 msgid ""
 "Allow building right-before-left junctions when the incoming edge speeds are "
 "below FLOAT (m/s)"
 msgstr ""
+"Permetti di creare incroci con precedenza a destra se i limiti di velocità "
+"degli archi entranti scendono sotto FLOAT (m/s)"
 
 #: src/netbuild/NBFrame.cpp:113
 msgid ""
 "Build left-before-right junctions instead of right-before-left junctions"
-msgstr ""
+msgstr "Crea incroci con precedenza a sinistra invece di precedenza a destra"
 
 #: src/netbuild/NBFrame.cpp:117
 msgid "Omits internal links"
-msgstr ""
+msgstr "Ometti collegamenti interni"
 
 #: src/netbuild/NBFrame.cpp:120
 msgid ""
@@ -9426,15 +9430,15 @@ msgstr ""
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
 msgid "VAS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Semafori VAS non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:154
 msgid "VSPLUS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Semafori VSPLUS non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:162
 msgid "TRENDS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Semafori TRENDS non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 msgid "TL traffic lights are not supported (lsa=%)"
@@ -9478,6 +9482,9 @@ msgstr ""
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
 msgstr ""
+"Esiste già una zona di assegnazione del traffico con il codice "
+"identificativo '%'. La zona di assegnazione del traffico di incrocio non "
+"verrà creata."
 
 #: src/netload/NLBuilder.cpp:231
 msgid ""
@@ -9547,6 +9554,8 @@ msgid ""
 "Shape of lane '%' is broken.\n"
 " Can not build according edge."
 msgstr ""
+"La forma della corsia '%' è rotta.\n"
+" L'arco correspondente non può essere costruito."
 
 #: src/netload/NLHandler.cpp:558
 #, c-format
@@ -11123,30 +11132,32 @@ msgstr "***Avviamento del server su porta % ***"
 #: src/traci-server/TraCIServer.cpp:323
 #, c-format
 msgid "  waiting for % clients..."
-msgstr ""
+msgstr "  aspettando % clienti..."
 
 #: src/traci-server/TraCIServer.cpp:347
 msgid "  client connected"
-msgstr ""
+msgstr "  cliente collegato"
 
 #: src/traci-server/TraCIServer.cpp:480
 msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
 msgstr ""
+"L'ordine di esecuzione (libsumo::CMD_SETORDER) non è stato impostato per "
+"tutti gli clienti TraCI nella fase previa all'esecuzione."
 
 #: src/utils/common/FileHelpers.cpp:73
 msgid "Cannot get file attributes for file '%'!"
-msgstr ""
+msgstr "Gli attributi del file '%' non posssono essere ottenuti!"
 
 #: src/utils/common/FileHelpers.h:318
 msgid "Invalid follower index in route '%'!"
-msgstr ""
+msgstr "Indice di inseguitore invalido nell'itinerario '%'!"
 
 #: src/utils/common/FileHelpers.h:328
 #, c-format
 msgid "An edge within the route '%' is not known!"
-msgstr ""
+msgstr "Un arco dell'itinerario '%' è sconosciuto!"
 
 #: src/utils/common/LinearApproxHelpers.cpp:34
 msgid "Cannot determine the minimum value from an empty map."
