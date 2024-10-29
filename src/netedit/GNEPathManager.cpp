@@ -756,7 +756,7 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
     if (edges.size() > 0) {
         lanes.reserve(edges.size());
         // add first lane
-        if ((firstLaneIndex >= 0) && (firstLaneIndex < edges.front()->getLanes().size())) {
+        if ((firstLaneIndex >= 0) && (firstLaneIndex < (int)edges.front()->getLanes().size())) {
             lanes.push_back(edges.front()->getLanes().at(firstLaneIndex));
         } else {
             lanes.push_back(edges.front()->getLaneByAllowedVClass(vClass));
@@ -768,7 +768,7 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
                 lanes.push_back(edges[i]->getLaneByAllowedVClass(vClass));
             }
             // add last lane
-            if ((lastLaneIndex >= 0) && (lastLaneIndex < edges.back()->getLanes().size())) {
+            if ((lastLaneIndex >= 0) && (lastLaneIndex < (int)edges.back()->getLanes().size())) {
                 lanes.push_back(edges.back()->getLanes().at(lastLaneIndex));
             } else {
                 lanes.push_back(edges.back()->getLaneByAllowedVClass(vClass));
