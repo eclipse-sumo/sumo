@@ -764,7 +764,7 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
         // add rest of lanes
         if (edges.size() > 1) {
             // add middle lanes
-            for (int i = 1; i < ((int)edges.size() - 2); i++) {
+            for (int i = 1; i < ((int)edges.size() - 1); i++) {
                 lanes.push_back(edges[i]->getLaneByAllowedVClass(vClass));
             }
             // add last lane
