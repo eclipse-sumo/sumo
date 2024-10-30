@@ -13,6 +13,9 @@ busstop_stopping_position_assignment_parking
 # provide more parking length than the distance between endPos and startPos
 busstop_parkingLength
 
+# Tests for flexible assignment of stopping positions (#3937)
+busstop_parkingLength_assignment
+
 # non-parking vehicles should stop without blocking parking vehicle egress
 # 
 busstop_parkingLength_mixed
