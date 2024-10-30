@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-30 11:26+0000\n"
+"PO-Revision-Date: 2024-10-30 15:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7546,31 +7546,31 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
-msgstr ""
+msgstr "Leggi rete OSM da uno o più FILE"
 
 #: src/netimport/NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
-msgstr ""
+msgstr "Leggi rete OpenDrive da FILE"
 
 #: src/netimport/NIFrame.cpp:114
 msgid "Read VISUM-net from FILE"
-msgstr ""
+msgstr "Leggi rete VISUM da FILE"
 
 #: src/netimport/NIFrame.cpp:118
 msgid "Read VISSIM-net from FILE"
-msgstr ""
+msgstr "Leggi rete VISSIM da FILE"
 
 #: src/netimport/NIFrame.cpp:123
 msgid "Read RoboCup-net from DIR"
-msgstr ""
+msgstr "Leggi rete RoboCup dal registro DIR"
 
 #: src/netimport/NIFrame.cpp:127
 msgid "Read MATsim-net from FILE"
-msgstr ""
+msgstr "Leggi rete MATsim da FILE"
 
 #: src/netimport/NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
-msgstr ""
+msgstr "Leggi rete ITSUMO da FILE"
 
 #: src/netimport/NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
