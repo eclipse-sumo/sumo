@@ -89,8 +89,8 @@
 #include "MSVehicle.h"
 
 
-#define DEBUG_PLAN_MOVE
-#define DEBUG_PLAN_MOVE_LEADERINFO
+//#define DEBUG_PLAN_MOVE
+//#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
