@@ -1269,7 +1269,7 @@ title: ChangeLog
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
   - Right click on elements above a polygon now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
-  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction wasn't drawn wit magenta dotted contour. Issue #12013 (regression in 1.15.0)
+  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction wasn't drawn with a magenta dotted contour. Issue #12013 (regression in 1.15.0)
   - Fixed crash when using 'convert to roundabout' from the junction context menu. Issue #12355 (regression in 1.15.0)
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034

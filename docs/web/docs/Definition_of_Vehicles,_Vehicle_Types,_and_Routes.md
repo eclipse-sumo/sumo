@@ -810,7 +810,7 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | emergencyDecel               | [vClass-specific](Vehicle_Type_Parameter_Defaults.md) | >= decel | The maximum deceleration ability of vehicles of this type in case of emergency (in m/s^2)       | all models except "Daniel1" |
 | startupDelay                 | 0 | >=0  | The extra delay time before starting to drive after having had to stop. This is not applied after a scheduled `<stop>` except for `carFollowModel="Rail"`      | all models except "Daniel1" |
 | sigma                        | 0.5                                                   | [0,1]    | The driver imperfection (0 denotes perfect driving)                                             | Krauss, SKOrig, PW2009 |
-| sigmaStep                    | step-length                                           | > 0      | The frequence for updating the acceleration associated with driver imperfection. If set to a constant value (i.e *1*), this decouples the driving imperfection from the simulation step-length                                             | Krauss, SKOrig, PW2009 |
+| sigmaStep                    | step-length                                           | > 0      | The frequency for updating the acceleration associated with driver imperfection. If set to a constant value (i.e *1*), this decouples the driving imperfection from the simulation step-length                                             | Krauss, SKOrig, PW2009 |
 | tau                          | 1                                                     | >= 0     | The driver's desired (minimum) time headway. Exact interpretation varies by model. For the default model *Krauss* this is based on the net space between leader back and follower front). For limitations, see [Car-Following-Models\#tau](Car-Following-Models.md#tau)). | all models                                        |
 | k                            |                                                       |          |                                                                                                           | Kerner    |
 | phi                          |                                                       |          |                                                                                                           | Kerner    |
@@ -950,8 +950,8 @@ lists which parameter are used by which model(s).
 | lcTimeToImpatience      | Time to reach maximum impatience (of 1). Impatience grows whenever a lane-change manoeuvre is blocked.. *default: infinity (disables impatience growth)*                                                                                                 | SL2015         |
 | lcAccelLat              | maximum lateral acceleration per second. *default: 1.0*                                                                                                                                                                                                  | SL2015         |
 | lcTurnAlignmentDistance | Distance to an upcoming turn on the vehicles route, below which the alignment should be dynamically adapted to match the turn direction. *default: 0.0 (i.e., disabled)*                                                                                 | SL2015         |
-| lcMaxSpeedLatStanding   | Constant term for lateral speed when standing. Set to 0 to avoid ortogonal sliding. *default: maxSpeedLat (i.e., disabled)*   | LC2013, SL2015         |
-| lcMaxSpeedLatFactor     | Bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor \* getSpeed(). If > 0, this is an upper bound (vehicles change slower at low speed, if < 0 this is a lower bound on speed and should be combined with lcMaxSpeedLatStanding > maxSpeedLat (vehicles change faster at low speed).  *default: 1.0*                                                                                                                          | LC2013, SL2015         |
+| lcMaxSpeedLatStanding   | Constant term for lateral speed when standing. Set to 0 to avoid orthogonal sliding. *default: maxSpeedLat (i.e., disabled)*   | LC2013, SL2015         |
+| lcMaxSpeedLatFactor     | Bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor \* getSpeed(). If > 0, this is an upper bound (vehicles change slower at low speed), if < 0 this is a lower bound on speed and should be combined with lcMaxSpeedLatStanding > maxSpeedLat (vehicles change faster at low speed).  *default: 1.0*                                                                                                                          | LC2013, SL2015         |
 | lcMaxDistLatStanding   | The maximum lateral maneuver distance in *m* while standing (currently used to prevent "sliding" keepRight changes).  *default: 1.6 and 0 for two-wheelers*   | SL2015         |
 | lcLaneDiscipline     | Reluctance to perform speedGain-changes that would place the vehicle across a lane boundary. *default: 0.0*| SL2015         |
 | lcSigma     | Lateral positioning-imperfection. *default: 0.0*                                                                                                                          | LC2013, SL2015         |
@@ -1082,7 +1082,7 @@ following:
 
 ### Using existing types
 
-Multiple distributions can make use of the same types and optionally override their probabilites.
+Multiple distributions can make use of the same types and optionally override their probabilities.
 Previously defined vehicle type distributions can be referenced as well.
 
 ```xml
