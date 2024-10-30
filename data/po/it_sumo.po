@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-10-30 11:20+0000\n"
+"PO-Revision-Date: 2024-10-30 11:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7082,29 +7082,39 @@ msgid ""
 "Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). "
 "Ignoring!"
 msgstr ""
+"Non si può assegnare la fermata '%' sull'arco '%' alla linea di trasporto "
+"pubblico '%' (cammino tra nodi non trovato). Va essere ignorata!"
 
 #: src/netbuild/NBPTLineCont.cpp:162 src/netbuild/NBPTLineCont.cpp:176
 msgid ""
 "Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"
 msgstr ""
+"Non si può rifare la posizione della fermata di trasporto pubblico per causa "
+"di linea di trasporto pubblico incompleta '%'. Va essere ignorata!"
 
 #: src/netbuild/NBPTLineCont.cpp:187
 msgid "Could not re-assign PT stop '%', probably broken osm file."
 msgstr ""
+"Non si è potuto riassegnare la fermata di trasporto pubblico '%'. "
+"Probabilmente un file OSM è rotto."
 
 #: src/netbuild/NBPTLineCont.cpp:196
 msgid "PT stop '%' has been moved to edge '%'."
-msgstr ""
+msgstr "La fermata di trasporto pubblico '%' è stata spostata all'arco '%'."
 
 #: src/netbuild/NBPTLineCont.cpp:268
 msgid ""
 "Could not assign stop '%' to pt line '%' (closest edge '%', distance %). "
 "Ignoring!"
 msgstr ""
+"Non si può assegnare la fermata '%' alla linea di trasporto pubblico '%' ("
+"arco più vicino '%' a % di distanza). Va essere ignorata!"
 
 #: src/netbuild/NBPTLineCont.cpp:300
 msgid "Cannot assign stop % on edge '%' to pt line '%'. Ignoring!"
 msgstr ""
+"Non si può assegnare la fermata % sull'arco '%' alla linea di trasporto "
+"pubblico '%'. Va essere ignorata!"
 
 #: src/netbuild/NBPTLineCont.cpp:502
 msgid ""
