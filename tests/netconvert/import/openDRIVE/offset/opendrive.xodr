@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
  +proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 ]]>
         </geoReference>
-        <offset x="-353137.24" y="-3455639.81" z="0.00" hdg="0"/>
+        <offset x="353137.24" y="3455639.81" z="0.00" hdg="0"/>
     </header>
     <road name="延安高架" length="344.91017735" id="30" junction="-1">
         <link>
