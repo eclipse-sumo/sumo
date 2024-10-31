@@ -186,11 +186,11 @@ following output can be used:
 A vehicle can have either a foreseeable stop on its route or stop at a junction or in a jam.
 In both cases it will still produce emissions / consume energy as long as the motor is running.
 For planned stops SUMO will switch off the engine immediately if the duration is longer than 300s
-(configurable via the vehicle type parameter `shutOffStopDuration`).
+(configurable via the vehicle type [generic parameter](../Simulation/GenericParameters.md) `<param key="shutOffStopDuration" value="300"/>` with a value in seconds).
 
 The automated start/stop also for unplanned stops is not enabled by default but can be set using
-the vehicle type parameter `shutOffAutoDuration`. This expects a value in seconds and will switch
-off the engine automatically if the vehicle does not move for longer than the given time.
+the vehicle type [generic parameter](../Simulation/GenericParameters.md) `<param key="shutOffAutoDuration" value="20"/>`.
+This expects a value in seconds and will switch off the engine automatically if the vehicle does not move for longer than the given time.
 
 # Coasting vehicles
 
