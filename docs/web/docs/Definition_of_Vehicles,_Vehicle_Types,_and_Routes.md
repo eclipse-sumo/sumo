@@ -291,16 +291,11 @@ Determines on which lane the vehicle is tried to be inserted;
 
 - `≥0`: the index of the lane, starting with
   rightmost=0
-- "`random`": a random lane is chosen;
-  please note that a vehicle insertion is not retried if it could not
-  be inserted
-- "`free`": the most free (least occupied)
-  lane is chosen
-- "`allowed`": the "free" lane (see above)
-  of those lane of the depart edge which allow vehicles of the class
-  the vehicle belongs to
-- "`best`": the "free" lane of those who
-  allow the vehicle the longest ride without the need to lane change
+- "`random`": a random lane is chosen (among all lanes that allow the vehicle)
+  Only a single random lane is tested per simulation step
+- "`free`": the most free (least occupied) lane is chosen among all lanes that allow the vehicle
+- "`allowed`": the most free (least occupied) lane is chosen among all lanes that allow the vehicle and also permit continuation to the next route edge
+- "`best`": the most free (least occupied) lane is chosen among all lanes that allow the vehicle and which minimize the required number of future lane changes
 - "`first`": the rightmost lane the vehicle
   may use
 
