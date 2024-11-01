@@ -555,14 +555,14 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
 
 
 MSLane*
-MSEdge::getProbableLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass, double departPos, double speedFactor) const {
+MSEdge::getProbableLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass, double departPos, double maxSpeed) const {
     if (allowed == nullptr) {
         allowed = allowedLanes(vclass);
     }
     MSLane* res = nullptr;
     if (allowed != nullptr) {
         double largestGap = 0;
-        double largestSpeedFactor = 0;
+        double largestSpeed = 0;
         MSLane* resByGap = nullptr;
         double leastOccupancy = std::numeric_limits<double>::max();
         int aIndex = 0;
@@ -575,12 +575,12 @@ MSEdge::getProbableLane(const std::vector<MSLane*>* allowed, const SUMOVehicleCl
             const MSVehicle* last = (*i)->getLastFullVehicle();
             double lastGap = (last != nullptr ? last->getPositionOnLane() : myLength) - departPos;
             // never insert to the left of a vehicle with a larger speedFactor
-            if (lastGap > largestGap && speedFactor >= largestSpeedFactor) {
+            if (lastGap > largestGap && maxSpeed >= largestSpeed) {
                 largestGap = lastGap;
                 resByGap = (*i);
             }
             if (last != nullptr) {
-                largestSpeedFactor = MAX2(largestSpeedFactor, last->getChosenSpeedFactor());
+                largestSpeed = MAX2(largestSpeed, getVehicleMaxSpeed(last));
             }
         }
         if (resByGap != nullptr) {
@@ -696,7 +696,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
             if (veh.getParameter().departLaneProcedure == DepartLaneDefinition::BEST_FREE) {
                 ret = getFreeLane(bestLanes, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             } else {
-                ret = getProbableLane(bestLanes, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false), veh.getChosenSpeedFactor());
+                ret = getProbableLane(bestLanes, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false), getVehicleMaxSpeed(&veh));
             }
             delete bestLanes;
             return ret;
