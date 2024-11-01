@@ -37,3 +37,6 @@ lane_given1
 
 # checks using a random lane
 lane_random
+
+# use the best and most probable lane (based on speedFactor)
+lane_best_prob
