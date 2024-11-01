@@ -970,7 +970,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             if ((next != end && &link->getLane()->getEdge() == *next)
                     && isRailway(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
-                if (link->getTLLogic() != nullptr) {
+                if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0) {
                     if (link == origin) {
                         WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
