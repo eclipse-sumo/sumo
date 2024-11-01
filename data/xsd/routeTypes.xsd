@@ -643,6 +643,7 @@
                     <xsd:enumeration value="allowed"/>
                     <xsd:enumeration value="first"/>
                     <xsd:enumeration value="best"/>
+                    <xsd:enumeration value="best_prob"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>
