@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-04 13:55+0000\n"
+"PO-Revision-Date: 2024-11-04 14:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4786,24 +4786,32 @@ msgstr ""
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:456
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr ""
+"Logica di semaforo attuata '%': Il collegamento con l'indice % non possiede "
+"un rivelatore controllante."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:463
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Il collegamento invalido '%' è stato dato come parametro linkMaxDur nella "
+"logica di semaforo attuata '%' (programma '%')."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:473
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Il collegamento invalido '%' è stato dato come parametro linkMinDur nella "
+"logica di semaforo attuata '%' (programma '%')."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:950
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
 msgstr ""
+"Logica di semaforo attuata '%': la fase di transizione % non dovrebbe "
+"portare a più fasi seguenti"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1115
 msgid "Unmatched parentheses in condition %'"
