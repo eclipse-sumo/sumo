@@ -33,3 +33,9 @@ ticket15440
 
 # rerouting on the last edge to the stop on the same edge
 ticket15552
+
+# crash 
+ticket15667
+
+# crash 
+ticket15667b
