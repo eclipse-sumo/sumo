@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_21_0+0533-1a2fd70ff1a
+Eclipse SUMO netconvert Version v1_21_0+0569-8a49b199df8
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -608,7 +608,7 @@ Formats Options:
   --osm.speedlimit-none FLOAT          The speed limit to be set when there is
                                         no actual speed limit in reality
   --matsim.keep-length                 The edge lengths given in the
-                                        MATSIM-file will be kept
+                                        MATSim-file will be kept
   --matsim.lanes-from-capacity         The lane number will be computed from
                                         the capacity
   --shapefile.street-id STR            Read edge ids from column STR

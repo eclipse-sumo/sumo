@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-31 09:25:17 by Eclipse SUMO netconvert Version v1_21_0+0533-1a2fd70ff1a
+<!-- generated on 2024-11-04 09:11:39 by Eclipse SUMO netconvert Version v1_21_0+0569-8a49b199df8
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -897,7 +897,7 @@
         <!-- The speed limit to be set when there is no actual speed limit in reality -->
         <osm.speedlimit-none value="39.4444" type="FLOAT"/>
 
-        <!-- The edge lengths given in the MATSIM-file will be kept -->
+        <!-- The edge lengths given in the MATSim-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>
 
         <!-- The lane number will be computed from the capacity -->
