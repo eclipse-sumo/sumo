@@ -19,8 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "GUIViewUpdater.h"
+#include <utils/common/MsgHandler.h>
 
+#include "GUIViewUpdater.h"
 
 // ===========================================================================
 // method definitions
@@ -31,19 +32,22 @@ GUIViewUpdater::GUIViewUpdater() {}
 
 bool
 GUIViewUpdater::allowUpdate() const {
-    return myAllowUpdate;
+    return myAllowUpdate == 0;
 }
 
 
 void
 GUIViewUpdater::enableUpdate() {
-    myAllowUpdate = true;
+    myAllowUpdate--;
+    if (myAllowUpdate < 0) {
+        WRITE_ERROR("myAllowUpdate cannot be less than 0");
+    }
 }
 
 
 void
 GUIViewUpdater::disableUpdate() {
-    myAllowUpdate = false;
+    myAllowUpdate++;
 }
 
 /****************************************************************************/

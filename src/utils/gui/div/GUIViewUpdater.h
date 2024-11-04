@@ -42,7 +42,7 @@ public:
 
 private:
     /// @brief allow update
-    bool myAllowUpdate = true;
+    int myAllowUpdate = 0;
 
     /// @brief set copy constructor private
     GUIViewUpdater(const GUIViewUpdater&) = default;

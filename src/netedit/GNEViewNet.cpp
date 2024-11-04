@@ -417,9 +417,9 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
 
 
 void
-GNEViewNet::updateViewNet() const {
+GNEViewNet::updateViewNet(const bool ignoreViewUpdater) const {
     // this call is only used for breakpoints (to check when view is updated)
-    if (gViewUpdater.allowUpdate()) {
+    if (ignoreViewUpdater || gViewUpdater.allowUpdate()) {
         GUISUMOAbstractView::update();
     }
 }
@@ -1536,11 +1536,9 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
         myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-        updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
         myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-        updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
         updateViewNet();
     }
@@ -1561,11 +1559,9 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
         myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-        updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
         // change "delete last created point" depending of shift key
         myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-        updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
         updateViewNet();
     }
@@ -1729,8 +1725,6 @@ GNEViewNet::hotkeyDel() {
             }
         }
     }
-    // update view
-    updateViewNet();
 }
 
 
@@ -2650,8 +2644,6 @@ GNEViewNet::onCmdEgeApplyTemplate(FXObject*, FXSelector, void*) {
         }
         // end copy template
         myUndoList->end();
-        // update view (to see visual changes)
-        updateViewNet();
     }
     return 1;
 }
@@ -2685,7 +2677,6 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
             polygonUnderMouse->simplifyShape();
         }
     }
-    updateViewNet();
     return 1;
 }
 
@@ -2696,7 +2687,6 @@ GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
     if (polygonUnderMouse) {
         polygonUnderMouse->deleteGeometryPoint(getPopupPosition());
     }
-    updateViewNet();
     return 1;
 }
 
@@ -2729,7 +2719,6 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
             polygonUnderMouse->closePolygon();
         }
     }
-    updateViewNet();
     return 1;
 }
 
@@ -2762,7 +2751,6 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
             polygonUnderMouse->openPolygon();
         }
     }
-    updateViewNet();
     return 1;
 }
 
@@ -2803,7 +2791,6 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
             myNet->getViewNet()->getUndoList()->end();
         }
     }
-    updateViewNet();
     return 1;
 }
 
@@ -2813,7 +2800,6 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
     GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
     if (polygonUnderMouse) {
         polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false));
-        updateViewNet();
     }
 
     return 1;
@@ -2998,8 +2984,6 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             additionalHanlder.parseSumoBaseObject(POIBaseObject);
             myUndoList->end();
         }
-        // update view after transform
-        updateViewNet();
     }
     return 1;
 }
@@ -3296,8 +3280,6 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         }
         myUndoList->end();
     }
-    // update viewNet
-    updateViewNet();
     return 1;
 }
 
@@ -3588,7 +3570,6 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->replaceJunctionByGeometry(junction, myUndoList);
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3602,7 +3583,6 @@ GNEViewNet::onCmdSplitJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->splitJunction(junction, false, myUndoList);
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3616,7 +3596,6 @@ GNEViewNet::onCmdSplitJunctionReconnect(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->splitJunction(junction, true, myUndoList);
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3629,7 +3608,6 @@ GNEViewNet::onCmdSelectRoundabout(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->selectRoundabout(junction, myUndoList);
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3642,7 +3620,6 @@ GNEViewNet::onCmdConvertRoundabout(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->createRoundabout(junction, myUndoList);
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3690,7 +3667,6 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         } else {
             myNet->clearJunctionConnections(junction, myUndoList);
         }
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3722,7 +3698,6 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         } else {
             myNet->resetJunctionConnections(junction, myUndoList);
         }
-        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -5770,8 +5745,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
                         myMoveMultipleElements.beginMoveSelection();
-                        // update view
-                        updateViewNet();
                     } else if (!myMoveSingleElement.beginMoveSingleElementNetworkMode()) {
                         // process click  if there isn't movable elements (to move camera using drag an drop)
                         processClick(eventData);
@@ -5812,7 +5785,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 } else if (myViewParent->getAdditionalFrame()->addAdditional(myViewObjectsSelector)) {
                     // save last mouse position
                     myLastClickedPosition = getPositionInformation();
-                    // update view to show the new additional
                     updateViewNet();
                 }
             }
@@ -5837,7 +5809,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 } else {
                     // check if process click was successfully
                     if (myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myViewObjectsSelector)) {
-                        // view net must be always update
                         updateViewNet();
                     }
                     // process click
@@ -5857,7 +5828,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     bool updateTemporalShape = false;
                     // process click
                     myViewParent->getShapeFrame()->processClick(snapToActiveGrid(getPositionInformation()), myViewObjectsSelector, updateTemporalShape);
-                    // view net must be always update
                     updateViewNet();
                     // process click depending of the result of "process click"
                     if (!updateTemporalShape) {
@@ -5885,7 +5855,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create wires if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 myViewParent->getWireFrame()->addWire(myViewObjectsSelector);
-                // update view to show the new wire
                 updateViewNet();
             }
             // process click
@@ -6025,8 +5994,6 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 if (frontAC->isAttributeCarrierSelected()) {
                     // move selected ACs
                     myMoveMultipleElements.beginMoveSelection();
-                    // update view
-                    updateViewNet();
                 } else if (!myMoveSingleElement.beginMoveSingleElementDemandMode()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
                     processClick(eventData);
@@ -6065,10 +6032,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
                 WRITE_WARNING(TL("Control + click to create two stop in the same position"));
             } else if (myViewParent->getStopFrame()->addStop(myViewObjectsSelector, myMouseButtonKeyPressed)) {
+                updateViewNet();
                 // save last mouse position
                 myLastClickedPosition = getPositionInformation();
-                // update view to show the new additional
-                updateViewNet();
             }
             // process click
             processClick(eventData);
@@ -6221,7 +6187,6 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             // avoid create edgeData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeDataFrame()->addEdgeData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
-                    // update view to show the new edge data
                     updateViewNet();
                 }
             }
@@ -6232,7 +6197,6 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             // avoid create edgeData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
-                    // update view to show the new edge data
                     updateViewNet();
                 }
             }
@@ -6243,7 +6207,6 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             // avoid create TAZData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getTAZRelDataFrame()->setTAZ(myViewObjectsSelector)) {
-                    // update view to show the new TAZ data
                     updateViewNet();
                 }
             }
