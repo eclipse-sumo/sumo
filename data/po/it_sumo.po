@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-10-30 11:26+0000\n"
+"PO-Revision-Date: 2024-11-04 13:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -4767,15 +4767,21 @@ msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Il circuito di induzione sconosciuto '%' è stato indicato come rivelatore "
+"per la logica di semaforo '%' (programma '%')."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:245
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
+"Logica di semaforo '%': la durata minima % è troppo corta per un rivelatorea "
+"a distanza di %m."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:413
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
+"Logica di semaforo attuata '%': la fase attuata % no possiede rivelatore "
+"controllante."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:456
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
