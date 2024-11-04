@@ -689,7 +689,15 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
             std::vector<MSLane*>* bestLanes = new std::vector<MSLane*>();
             for (std::vector<MSVehicle::LaneQ>::const_iterator i = bl.begin(); i != bl.end(); ++i) {
                 if (((*i).length - departPos) >= bestLength) {
-                    bestLanes->push_back((*i).lane);
+                    if (isInternal()) {
+                        for (MSLane* lane : *myLanes) {
+                            if (lane->getNormalSuccessorLane() == (*i).lane) {
+                                bestLanes->push_back(lane);
+                            }
+                        }
+                    } else {
+                        bestLanes->push_back((*i).lane);
+                    }
                 }
             }
             MSLane* ret = nullptr;
