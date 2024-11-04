@@ -20,6 +20,9 @@
 #pragma once
 #include <config.h>
 
+// variables used for debug view updater
+//#define DISABLE_VIEWUPDATER
+//#define DEBUG_VIEWUPDATER
 
 // ===========================================================================
 // class definitions
@@ -32,7 +35,7 @@ public:
     GUIViewUpdater();
 
     /// @brief allow update
-    bool allowUpdate() const;
+    bool allowUpdate();
 
     /// @brief enable update
     void enableUpdate();
@@ -43,6 +46,12 @@ public:
 private:
     /// @brief allow update
     int myAllowUpdate = 0;
+
+#ifdef DEBUG_VIEWUPDATER
+    /// @brief counters for number of updates (only for debugging)
+    long int numAllowedUpdates = 0;
+    long int numDisallowedUpdates = 0;
+#endif
 
     /// @brief set copy constructor private
     GUIViewUpdater(const GUIViewUpdater&) = default;

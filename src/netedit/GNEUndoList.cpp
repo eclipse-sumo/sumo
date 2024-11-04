@@ -153,7 +153,7 @@ GNEUndoList::undo() {
         redoList = change;
         myWorking = false;
         // update view net (is called only if gViewUpdater.allowUpdate() is enable)
-        myGNEApplicationWindowParent->getViewNet()->updateViewNet();
+        myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
     }
     // update specific controls
     myGNEApplicationWindowParent->updateControls();
@@ -178,7 +178,7 @@ GNEUndoList::redo() {
         undoList = change;
         myWorking = false;
         // update view net (is called only if gViewUpdater.allowUpdate() is enable)
-        myGNEApplicationWindowParent->getViewNet()->updateViewNet();
+        myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
     }
     // update specific controls
     myGNEApplicationWindowParent->updateControls();
@@ -248,10 +248,10 @@ GNEUndoList::end() {
     myChangeGroups.pop();
     // enable update
     gViewUpdater.enableUpdate();
+    // update view without ignoring viewUpdater (used to avoid slowdows during massive edits)
+    myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
     // check if net has to be updated
     if (myChangeGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
-        // update view without ignoring viewUpdater (used to avoid slowdows during massive edits)
-        myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
         // check if we have to update selector frame
         const auto& editModes = myGNEApplicationWindowParent->getViewNet()->getEditModes();
         if ((editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||

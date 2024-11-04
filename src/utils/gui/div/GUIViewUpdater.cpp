@@ -31,7 +31,19 @@ GUIViewUpdater::GUIViewUpdater() {}
 
 
 bool
-GUIViewUpdater::allowUpdate() const {
+GUIViewUpdater::allowUpdate() {
+#ifdef DISABLE_VIEWUPDATER
+    return true;
+#endif
+
+#ifdef DEBUG_VIEWUPDATER
+    if (myAllowUpdate == 0) {
+        numAllowedUpdates++;
+    } else {
+        numDisallowedUpdates++;
+    }
+    std::cout << "AllowedUpdates: " << numAllowedUpdates << ", disallowedUpdates: " << numDisallowedUpdates << std::endl;
+#endif
     return myAllowUpdate == 0;
 }
 
