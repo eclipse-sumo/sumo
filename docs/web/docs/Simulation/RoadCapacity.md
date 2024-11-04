@@ -106,7 +106,7 @@ Comments
 # Insertion capacity on a 2-lane road
 
 The following table shows road capacities that can be achieved at vehicle
-insertion on a 2-lane road depending on the used vType and insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 4964 veh/hour.
+insertion on a 2-lane road depending on the used insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 4964 veh/hour.
 The script which produces the data points for the table below can be found [here](https://github.com/eclipse-sumo/sumo/tree/main/tests/complex/sumo/insertionCapacity_2lane).
 
 - sigma was constant at 0.5
@@ -126,7 +126,7 @@ The script which produces the data points for the table below can be found [here
 # Insertion capacity on a 3-lane road
 
 The following table shows road capacities that can be achieved at vehicle
-insertion on a 3-lane road depending on the used vType and insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 7447 veh/hour.
+insertion on a 3-lane road depending on the used insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 7447 veh/hour.
 The script which produces the data points for the table below can be found [here](https://github.com/eclipse-sumo/sumo/tree/main/tests/complex/sumo/insertionCapacity_3lane).
 
 - sigma was constant at 0.5
