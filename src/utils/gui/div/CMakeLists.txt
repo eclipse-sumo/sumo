@@ -38,7 +38,7 @@ set(utils_gui_div_STAT_SRCS
    GUIVideoEncoder.h
    GUIViewObjectsHandler.cpp
    GUIViewObjectsHandler.h
-   GUIViewUpdater.h
+   GUIViewUpdater.cpp
    GUIViewUpdater.h
 )
 

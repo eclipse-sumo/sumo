@@ -28,4 +28,22 @@
 
 GUIViewUpdater::GUIViewUpdater() {}
 
+
+bool
+GUIViewUpdater::allowUpdate() const {
+    return myAllowUpdate;
+}
+
+
+void
+GUIViewUpdater::enableUpdate() {
+    myAllowUpdate = true;
+}
+
+
+void
+GUIViewUpdater::disableUpdate() {
+    myAllowUpdate = false;
+}
+
 /****************************************************************************/

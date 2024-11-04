@@ -28,26 +28,26 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/demand/GNERoute.h>
-#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
-#include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <netedit/frames/data/GNEMeanDataFrame.h>
+#include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNERouteDistributionFrame.h>
+#include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/demand/GNETypeDistributionFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
@@ -64,6 +64,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/div/GUIGlobalViewUpdater.h>
 #include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
@@ -418,7 +419,9 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
 void
 GNEViewNet::updateViewNet() const {
     // this call is only used for breakpoints (to check when view is updated)
-    GUISUMOAbstractView::update();
+    if (gViewUpdater.allowUpdate()) {
+        GUISUMOAbstractView::update();
+    }
 }
 
 

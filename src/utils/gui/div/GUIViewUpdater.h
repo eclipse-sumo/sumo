@@ -31,7 +31,19 @@ public:
     /// @brief constructor
     GUIViewUpdater();
 
+    /// @brief allow update
+    bool allowUpdate() const;
+
+    /// @brief enable update
+    void enableUpdate();
+
+    /// @brief disable update
+    void disableUpdate();
+
 private:
+    /// @brief allow update
+    bool myAllowUpdate = true;
+
     /// @brief set copy constructor private
     GUIViewUpdater(const GUIViewUpdater&) = default;
 
