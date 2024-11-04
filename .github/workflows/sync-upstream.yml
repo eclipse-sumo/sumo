@@ -1,0 +1,24 @@
+name: 'sync-upstream'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0/10 * * * *'
+
+jobs:
+  sync_latest_from_upstream:
+    if: github.repository != 'eclipse-sumo/sumo'
+    runs-on: ubuntu-latest
+    name: Sync latest commits from upstream repo
+
+    steps:
+    - name: Checkout target repo
+      uses: actions/checkout@v4
+
+    - name: Sync upstream changes
+      uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
+      with:
+        target_sync_branch: main
+        target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+        upstream_sync_branch: main
+        upstream_sync_repo: eclipse-sumo/sumo
