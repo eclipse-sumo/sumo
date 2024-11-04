@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-10-30 16:24+0100\n"
+"POT-Creation-Date: 2024-11-04 08:38+0100\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hant/>\n"
@@ -1204,7 +1204,7 @@ msgid ""
 "constraints."
 msgstr "受到容量限制，車輛 '%' 忽略在車道 '%' 上觸發的貨櫃停靠點(container triggered stop)。"
 
-#: src/mesosim/MEVehicle.cpp:577
+#: src/mesosim/MEVehicle.cpp:586
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "錯誤:狀態中有無效車輛（可能是在微觀狀態）!"
 
@@ -1274,134 +1274,134 @@ msgstr ""
 msgid "Vehicle '%' has no valid route. %"
 msgstr "車輛 '%' 無有效路徑。 %"
 
-#: src/microsim/MSBaseVehicle.cpp:872
+#: src/microsim/MSBaseVehicle.cpp:882
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
 msgstr ""
 "車輛 '%' 忽略屬性抵達路段(arrivalEdge)= % 其發生在時間=% 的重新導引路徑後（路段長度(routeLength)=%）"
 
-#: src/microsim/MSBaseVehicle.cpp:886
+#: src/microsim/MSBaseVehicle.cpp:896
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "車輛 '%' 將無法抵達給定的位置!"
 
-#: src/microsim/MSBaseVehicle.cpp:906
+#: src/microsim/MSBaseVehicle.cpp:916
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "車輛 '%' 將無法抵達給定的車道 '%_%'!"
 
-#: src/microsim/MSBaseVehicle.cpp:918 src/microsim/MSBaseVehicle.cpp:930
+#: src/microsim/MSBaseVehicle.cpp:928 src/microsim/MSBaseVehicle.cpp:940
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "車輛 '%' 在路段 '%' 上沒有可使用的抵達車道(arrivalLane)。"
 
-#: src/microsim/MSBaseVehicle.cpp:942
+#: src/microsim/MSBaseVehicle.cpp:952
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "車輛 '%' 將無法以給定的速度抵達!"
 
-#: src/microsim/MSBaseVehicle.cpp:958
+#: src/microsim/MSBaseVehicle.cpp:968
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
-#: src/microsim/MSBaseVehicle.cpp:1645
+#: src/microsim/MSBaseVehicle.cpp:1655
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1725 src/microsim/MSBaseVehicle.cpp:1848
-#: src/microsim/MSBaseVehicle.cpp:1957
+#: src/microsim/MSBaseVehicle.cpp:1735 src/microsim/MSBaseVehicle.cpp:1858
+#: src/microsim/MSBaseVehicle.cpp:1967
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1729
+#: src/microsim/MSBaseVehicle.cpp:1739
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1744
+#: src/microsim/MSBaseVehicle.cpp:1754
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1757 src/microsim/MSBaseVehicle.cpp:1969
+#: src/microsim/MSBaseVehicle.cpp:1767 src/microsim/MSBaseVehicle.cpp:1979
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1776 src/microsim/MSBaseVehicle.cpp:1870
-#: src/microsim/MSBaseVehicle.cpp:1997
+#: src/microsim/MSBaseVehicle.cpp:1786 src/microsim/MSBaseVehicle.cpp:1880
+#: src/microsim/MSBaseVehicle.cpp:2007
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1785 src/microsim/MSBaseVehicle.cpp:2006
+#: src/microsim/MSBaseVehicle.cpp:1795 src/microsim/MSBaseVehicle.cpp:2016
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1797 src/microsim/MSBaseVehicle.cpp:2020
+#: src/microsim/MSBaseVehicle.cpp:1807 src/microsim/MSBaseVehicle.cpp:2030
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1852
+#: src/microsim/MSBaseVehicle.cpp:1862
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1933
+#: src/microsim/MSBaseVehicle.cpp:1943
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1961
+#: src/microsim/MSBaseVehicle.cpp:1971
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1977
+#: src/microsim/MSBaseVehicle.cpp:1987
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2274
+#: src/microsim/MSBaseVehicle.cpp:2284
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2287 src/microsim/MSBaseVehicle.cpp:2299
+#: src/microsim/MSBaseVehicle.cpp:2297 src/microsim/MSBaseVehicle.cpp:2309
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2310
+#: src/microsim/MSBaseVehicle.cpp:2320
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2356
+#: src/microsim/MSBaseVehicle.cpp:2366
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2439
+#: src/microsim/MSBaseVehicle.cpp:2449
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2445
+#: src/microsim/MSBaseVehicle.cpp:2455
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2450
+#: src/microsim/MSBaseVehicle.cpp:2460
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2457
+#: src/microsim/MSBaseVehicle.cpp:2467
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2462
+#: src/microsim/MSBaseVehicle.cpp:2472
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2469
+#: src/microsim/MSBaseVehicle.cpp:2479
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2475
+#: src/microsim/MSBaseVehicle.cpp:2485
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2502
+#: src/microsim/MSBaseVehicle.cpp:2512
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
@@ -1413,22 +1413,22 @@ msgstr "中觀模擬內尚未建置得到領導車輛的函數(getLeader)"
 msgid "getFollower not yet implemented for meso"
 msgstr "中觀模擬內尚未建置得到跟隨車輛的函數(getFollower)"
 
-#: src/microsim/MSEdge.cpp:708
+#: src/microsim/MSEdge.cpp:752
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr "選擇新的速度係數(speed factor) % 給車輛 '%' 使用,以符合出發速度 % （最大值 %）。"
 
-#: src/microsim/MSEdge.cpp:1329
+#: src/microsim/MSEdge.cpp:1373
 #, c-format
 msgid "Bidi-edge '%' does not exist"
 msgstr "雙向路段(Bidi-edge) '%' 不存在"
 
-#: src/microsim/MSEdge.cpp:1342
+#: src/microsim/MSEdge.cpp:1386
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr "路口 '%' 和 '%' 之間不明確的可疊加路段(superposable edges)。"
 
-#: src/microsim/MSEdge.cpp:1373
+#: src/microsim/MSEdge.cpp:1417
 #, c-format
 msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
 msgstr "路段'%s'和雙向路段(bidi edge)'%s'沒有符合的雙向車道(bidi lanes)"
@@ -3181,20 +3181,20 @@ msgid ""
 "severity=%, time=%."
 msgstr "車輛 '%' 在車道 '%' 上執行緊急剎車，減速度=%，希望的(wished)=%，嚴重程度=%，時間=%。"
 
-#: src/microsim/MSVehicle.cpp:5755
+#: src/microsim/MSVehicle.cpp:5722
 #, c-format
 msgid "Vehicle '%' aborts stop."
 msgstr "車輛 '%' 放棄停靠。"
 
-#: src/microsim/MSVehicle.cpp:5761
+#: src/microsim/MSVehicle.cpp:5728
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "車輛 '%'跳過停靠站(位於車道'%', 時間為%)."
 
-#: src/microsim/MSVehicle.cpp:7660
+#: src/microsim/MSVehicle.cpp:7627
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "錯誤：狀態中的無效車輛 （可能是中觀(meso)狀態）！"
 
-#: src/microsim/MSVehicle.cpp:7698
+#: src/microsim/MSVehicle.cpp:7665
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "已載入的車輛'%'的操作步驟(action steps)不同步調."
 
@@ -4575,19 +4575,19 @@ msgstr ""
 "未知的車道區域偵測器(laneAreaDetector) '%', 其作為以延遲為主的號誌邏輯(tlLogic) '%' "
 "的自定偵測器,時制計畫(program) '%'。"
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:964
+#: src/microsim/traffic_lights/MSDriveWay.cpp:975
 msgid "Found circular block after % (% edges, length %)"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:1979
+#: src/microsim/traffic_lights/MSDriveWay.cpp:1990
 msgid "Unknown driveWay '%' with route '%'"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:1989
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2000
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2008
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2019
 msgid "Unknown vehicle '%' in driveway '%'"
 msgstr ""
 
@@ -7278,7 +7278,7 @@ msgstr "從資料夾(DIR)中讀取 RoboCup 路網"
 
 #: src/netimport/NIFrame.cpp:127
 msgid "Read MATSim-net from FILE"
-msgstr "從檔案中讀取 MATsim 路網"
+msgstr "從檔案中讀取 MATSim 路網"
 
 #: src/netimport/NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
@@ -7422,7 +7422,7 @@ msgid ""
 msgstr "針對現實中沒有實際限速時所設置的限速"
 
 #: src/netimport/NIFrame.cpp:237
-msgid "The edge lengths given in the MATSIM-file will be kept"
+msgid "The edge lengths given in the MATSim-file will be kept"
 msgstr "MATSIM 檔案中所給定路段長度將被保留"
 
 #: src/netimport/NIFrame.cpp:240
@@ -9499,7 +9499,7 @@ msgstr "產生的路網將依 Amitran 格式寫入檔案內"
 
 #: src/netwrite/NWFrame.cpp:82
 msgid "The generated net will be written to FILE using MATSim format"
-msgstr "產生的路網將依 MATsim 格式寫入檔案內"
+msgstr "產生的路網將依 MATSim 格式寫入檔案內"
 
 #: src/netwrite/NWFrame.cpp:85
 msgid "The generated net will be written to FILE using OpenDRIVE format"
@@ -11799,11 +11799,11 @@ msgstr ""
 msgid "Invalid time value '%' for parameter '%' in % '%'."
 msgstr ""
 
-#: src/utils/vehicle/SUMOVehicleParameter.cpp:687
+#: src/utils/vehicle/SUMOVehicleParameter.cpp:689
 msgid "Invalid % % given for %. Using edge end instead."
 msgstr "無效的 % % 給定給 %。 改用路段末端。"
 
-#: src/utils/vehicle/SUMOVehicleParameter.cpp:737
+#: src/utils/vehicle/SUMOVehicleParameter.cpp:739
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a"
 " boolean"
