@@ -122,8 +122,6 @@ public:
 
     std::string getEdgeID() const;
 
-    int getSegmentIndex() const;
-
     /// @brief adds the blocking foes to the current selection
     void selectBlockingFoes() const;
 

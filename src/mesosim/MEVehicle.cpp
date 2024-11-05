@@ -525,6 +525,13 @@ MEVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     MSGlobals::gMesoNet->changeSegment(this, MSNet::getInstance()->getCurrentTimeStep(), nullptr, reason);
 }
 
+
+int
+MEVehicle::getSegmentIndex() const {
+    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
+}
+
+
 double
 MEVehicle::getRightSideOnEdge(const MSLane* /*lane*/) const {
     if (mySegment == nullptr || mySegment->getIndex() >= getEdge()->getNumLanes()) {

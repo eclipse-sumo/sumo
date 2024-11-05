@@ -898,6 +898,13 @@ enum SumoXMLAttr {
     SUMO_ATTR_ECLASS             = 73,
     SUMO_ATTR_WAITING            = 74,
 
+    // meso-attributes
+    SUMO_ATTR_SEGMENT            = 75,
+    SUMO_ATTR_QUEUE              = 76,
+    SUMO_ATTR_ENTRYTIME          = 77,
+    SUMO_ATTR_EVENTTIME          = 78,
+    SUMO_ATTR_BLOCKTIME          = 79,
+
     /// @}
 
     /// @name common attributes

@@ -258,11 +258,6 @@ GUIMEVehicle::getEdgeID() const {
     return getEdge()->getID();
 }
 
-int
-GUIMEVehicle::getSegmentIndex() const {
-    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
-}
-
 
 void
 GUIMEVehicle::selectBlockingFoes() const {

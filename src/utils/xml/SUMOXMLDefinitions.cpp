@@ -710,6 +710,12 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "route",                  SUMO_ATTR_ROUTE },
     { "eclass",                 SUMO_ATTR_ECLASS },
     { "waiting",                SUMO_ATTR_WAITING },
+    // meso-attributes
+    { "segment",                SUMO_ATTR_SEGMENT },
+    { "queue",                  SUMO_ATTR_QUEUE },
+    { "entryTime",              SUMO_ATTR_ENTRYTIME },
+    { "eventTime",              SUMO_ATTR_EVENTTIME },
+    { "blockTime",              SUMO_ATTR_BLOCKTIME },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },

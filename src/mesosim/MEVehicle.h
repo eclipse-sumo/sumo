@@ -225,6 +225,7 @@ public:
         return mySegment;
     }
 
+    int getSegmentIndex() const;
 
     /** @brief Returns the index of the que the vehicle is in
      * @return The que index

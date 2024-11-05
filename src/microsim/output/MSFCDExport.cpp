@@ -40,6 +40,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <mesosim/MEVehicle.h>
 #include "MSFCDExport.h"
 
 
@@ -162,6 +163,14 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                         arrivalDelay = 0;
                     }
                     of.writeOptionalAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay, mask);
+                }
+                if (MSGlobals::gUseMesoSim) {
+                    const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(veh);
+                    of.writeOptionalAttr(SUMO_ATTR_SEGMENT, mesoVeh->getSegmentIndex(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_QUEUE, mesoVeh->getQueIndex(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ENTRYTIME, mesoVeh->getLastEntryTimeSeconds(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_EVENTTIME, mesoVeh->getEventTimeSeconds(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_BLOCKTIME, mesoVeh->getBlockTime() == SUMOTime_MAX ? -1.0 : mesoVeh->getBlockTimeSeconds(), mask);
                 }
                 of.closeTag();
             }

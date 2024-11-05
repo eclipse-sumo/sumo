@@ -102,6 +102,11 @@ MSDevice_FCD::getDefaultMask() {
     mask.reset(SUMO_ATTR_SPEED_LAT);
     mask.reset(SUMO_ATTR_POSITION_LAT);
     mask.reset(SUMO_ATTR_ARRIVALDELAY);
+    mask.reset(SUMO_ATTR_SEGMENT);
+    mask.reset(SUMO_ATTR_QUEUE);
+    mask.reset(SUMO_ATTR_ENTRYTIME);
+    mask.reset(SUMO_ATTR_EVENTTIME);
+    mask.reset(SUMO_ATTR_BLOCKTIME);
     return mask;
 }
 
