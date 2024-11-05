@@ -559,6 +559,12 @@ call](../TraCI/GenericParameters.md#set_parameter).
 - device.driverstate.headwayChangePerceptionThreshold
 - device.driverstate.maximalReactionTime
 - device.driverstate.originalReactionTime
+- device.stationfinder.needToChargeLevel (double literal)
+- device.stationfinder.saturatedChargeLevel (double literal)
+- device.stationfinder.waitForCharge (double literal)
+- device.stationfinder.repeat (double literal)
+- device.stationfinder.radius (double literal)
+- device.stationfinder.reserveFactor (double literal)
 - device.toc.manualType
 - device.toc.automatedType
 - device.toc.responseTime
