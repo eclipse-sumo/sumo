@@ -795,6 +795,8 @@ enum {
     MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,
     /// @brief enable/disable undo-redo
     MID_GNE_TOGGLE_UNDOREDO,
+    /// @brief enable/disable undo-redo during loading
+    MID_GNE_TOGGLE_UNDOREDO_LOADING,
     /// @brief switch time format
     MID_GNE_TOGGLE_TIMEFORMAT,
 

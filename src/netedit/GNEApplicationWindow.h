@@ -479,8 +479,11 @@ public:
     /// @brief called when toggle checkbox compute network when switching between supermodes
     long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 
-    /// @brief called when toggle checkbox compute network when switching between supermodes
+    /// @brief called when toggle checkbox disable undo redo (processing)
     long onCmdToggleUndoRedo(FXObject*, FXSelector, void*);
+
+    /// @brief called when toggle checkbox disable undo redo during loading (file)
+    long onCmdToggleUndoRedoLoading(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "options" button
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
@@ -569,6 +572,9 @@ public:
     /// @{
     /// @brief check if undo-redo is allow (processing/checkbox)
     bool isUndoRedoAllowed() const;
+
+    /// @brief check if undo-redo during loading is allow (processing/checkbox)
+    bool isUndoRedoLoadingAllowed() const;
 
     /// @brief enable undo-redo temporally (for example, after creating an edge)
     void enableUndoRedoTemporally();
@@ -770,6 +776,9 @@ private:
 
     /// @brief allow undo-redo (read from registry)
     bool myAllowUndoRedo;
+
+    /// @brief allow undo-redo loading (read from registry)
+    bool myAllowUndoRedoLoading;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;

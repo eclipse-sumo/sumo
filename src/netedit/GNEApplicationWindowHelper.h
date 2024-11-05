@@ -179,6 +179,9 @@ struct GNEApplicationWindowHelper {
         /// @brief set JuPedSim view
         void setJuPedSimView();
 
+        /// @brief checkBox for allow undo-redo loading
+        MFXMenuCheckIcon* menuCheckAllowUndoRedoLoading = nullptr;
+
     private:
         /// @brief build netedit config section
         void buildNeteditConfigSection(FXMenuPane* menuPane);

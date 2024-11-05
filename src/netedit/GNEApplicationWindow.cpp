@@ -333,6 +333,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToggleComputeNetworkData),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_UNDOREDO,                                GNEApplicationWindow::onCmdToggleUndoRedo),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_UNDOREDO_LOADING,                        GNEApplicationWindow::onCmdToggleUndoRedoLoading),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onCmdOpenSumoOptionsDialog),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOpenOptionsDialog),
@@ -467,7 +468,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
     myTitlePrefix("netedit " VERSION_STRING),
-    myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE) {
+    myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE),
+    myAllowUndoRedoLoading(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true) == TRUE) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -2365,6 +2367,20 @@ GNEApplicationWindow::onCmdToggleUndoRedo(FXObject*, FXSelector, void*) {
         // drop undo-redo list after changing flag
         myUndoList->clear();
         return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedo", false);
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdToggleUndoRedoLoading(FXObject*, FXSelector, void*) {
+    if (myFileMenuCommands.menuCheckAllowUndoRedoLoading->getCheck() == TRUE) {
+        myAllowUndoRedoLoading = true;
+        return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedoLoading", true);
+    } else {
+        myAllowUndoRedoLoading = false;
+        // drop undo-redo list after changing flag
+        myUndoList->clear();
+        return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedoLoading", false);
     }
 }
 
@@ -4725,6 +4741,12 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
 bool
 GNEApplicationWindow::isUndoRedoAllowed() const {
     return myAllowUndoRedo;
+}
+
+
+bool
+GNEApplicationWindow::isUndoRedoLoadingAllowed() const {
+    return myAllowUndoRedoLoading;
 }
 
 
