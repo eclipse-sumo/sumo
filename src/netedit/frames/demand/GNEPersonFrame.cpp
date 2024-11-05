@@ -23,6 +23,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
@@ -38,7 +40,7 @@
 
 GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Persons")),
-    myRouteHandler("", viewNet->getNet(), true, false),
+    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector module for persons

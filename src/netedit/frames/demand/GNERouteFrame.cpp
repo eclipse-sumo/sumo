@@ -19,11 +19,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/elements/demand/GNERoute.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNENet.h>
 
 #include "GNERouteFrame.h"
 
@@ -186,7 +188,7 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 
 GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Routes")),
-    myRouteHandler("", myViewNet->getNet(), true, false),
+    myRouteHandler("", myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create route mode Selector module

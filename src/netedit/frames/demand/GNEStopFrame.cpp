@@ -21,6 +21,8 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEStopFrame.h"
@@ -117,7 +119,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 
 GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Stops")),
-    myRouteHandler("", viewNet->getNet(), true, false),
+    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector

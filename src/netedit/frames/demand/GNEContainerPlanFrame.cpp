@@ -38,7 +38,7 @@
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("ContainerPlans")),
-    myRouteHandler("", viewNet->getNet(), true, false) {
+    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false) {
 
     // create container types selector module
     myContainerSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});

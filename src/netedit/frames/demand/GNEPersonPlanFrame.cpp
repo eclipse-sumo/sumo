@@ -38,7 +38,7 @@
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("PersonPlans")),
-    myRouteHandler("", viewNet->getNet(), true, false) {
+    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false) {
 
     // create person types selector module
     myPersonSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::PERSON});
