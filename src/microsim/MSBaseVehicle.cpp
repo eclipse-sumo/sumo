@@ -720,8 +720,10 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
 bool
 MSBaseVehicle::hasJump(const MSRouteIterator& it) const {
     for (const MSStop& stop : myStops) {
-        if (stop.edge == it) {
-            return stop.pars.jump >= 0;
+        if (stop.edge == it && stop.pars.jump >= 0) {
+            return true;
+        } else if (stop.edge > it) {
+            return false;
         }
     }
     return false;
