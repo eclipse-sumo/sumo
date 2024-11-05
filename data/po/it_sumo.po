@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-05 09:10+0000\n"
+"PO-Revision-Date: 2024-11-05 09:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1782,11 +1782,11 @@ msgstr "Salva gli itinerari di persone e di contenitori nel FILE distinto"
 
 #: src/microsim/MSFrame.cpp:280
 msgid "Save links states into FILE"
-msgstr ""
+msgstr "Salva stati dei collegamenti in FILE"
 
 #: src/microsim/MSFrame.cpp:283
 msgid "Save railsignal-blocks into FILE"
-msgstr ""
+msgstr "Salva blocchi dei segnali ferroviari in FILE"
 
 #: src/microsim/MSFrame.cpp:286
 msgid "Record entry and exit times of vehicles for railsignal blocks into FILE"
