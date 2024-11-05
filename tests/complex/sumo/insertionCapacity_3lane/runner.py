@@ -61,7 +61,8 @@ for stepLength in [1, 0.1]:
                                      '--extrapolate-departpos', extrapolateDepartPos])
 
                     inserted = list(parse('statistic.xml', 'vehicles'))[0].inserted
-                    values.append((inserted, stepLength, extrapolateDepartPos, sigma, speedDev, departSpeed, departLane))
+                    values.append((inserted, stepLength, extrapolateDepartPos, sigma,
+                                   speedDev, departSpeed, departLane))
 
 # write result table
 with open('log.txt', 'w') as outf:
