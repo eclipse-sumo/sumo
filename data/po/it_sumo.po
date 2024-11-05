@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-04 14:00+0000\n"
+"PO-Revision-Date: 2024-11-05 09:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1684,11 +1684,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:199
 msgid "Save the vehicle trajectories in the Amitran format"
-msgstr ""
+msgstr "Salva le traiettorie dei veicoli in formato Amitran"
 
 #: src/microsim/MSFrame.cpp:204
 msgid "Save aggregated vehicle departure info into FILE"
-msgstr ""
+msgstr "Salva l'informazione aggregata delle partenze dei veicoli in FILE"
 
 #: src/microsim/MSFrame.cpp:207
 msgid "Save summary-output with the given period"
@@ -1723,7 +1723,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:232
 msgid "Write the exit times for all edges"
-msgstr ""
+msgstr "Scrivi le ore di uscita per tutti gli archi"
 
 #: src/microsim/MSFrame.cpp:236
 msgid "Write the last route only"
@@ -1750,6 +1750,8 @@ msgstr ""
 msgid ""
 "Write vehroute output for vehicles which have not arrived at simulation end"
 msgstr ""
+"Scrivi uscita vehroute anche per veicoli non giunti a destinazione alla fine "
+"della simulazione"
 
 #: src/microsim/MSFrame.cpp:261
 msgid "Skip vehroute output for public transport vehicles"
@@ -1767,6 +1769,8 @@ msgstr "Includi informazioni sugli archi tra le fermate"
 msgid ""
 "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)"
 msgstr ""
+"Scrivi il fattore di velocità (speedFactor) del veicolo ('true' se si emette "
+"anche la velocità di partenza)"
 
 #: src/microsim/MSFrame.cpp:273
 msgid "Include internal edges in the output"
