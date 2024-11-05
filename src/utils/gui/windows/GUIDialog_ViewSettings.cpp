@@ -249,8 +249,6 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
         myBackup.copy(gSchemeStorage.get(dataS.text()));
         mySettings = &gSchemeStorage.get(dataS.text());
     }
-    rebuildColorMatrices(true);
-
     myBackgroundColor->setRGBA(MFXUtils::getFXColor(mySettings->backgroundColor));
 
     myBusStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.busStopColor));
@@ -399,6 +397,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myPedestrianNetworkColor->setRGBA(MFXUtils::getFXColor(mySettings->pedestrianNetworkColor));
 
     myParent->setColorScheme(mySettings->name);
+    rebuildColorMatrices(true);
+
     update();
     myParent->update();
     return 1;
