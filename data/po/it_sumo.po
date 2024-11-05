@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-05 10:16+0000\n"
+"PO-Revision-Date: 2024-11-05 10:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1861,42 +1861,45 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:331
 msgid "Use TIME[] as times at which a network state written"
 msgstr ""
+"Utilizza TIME[] come ore nelle quali il stato della rete deve essere scritto"
 
 #: src/microsim/MSFrame.cpp:333
 msgid "save state repeatedly after TIME period"
-msgstr ""
+msgstr "Salva lo stato ripetutamente con l'intervallo TIME"
 
 #: src/microsim/MSFrame.cpp:335
 msgid "Keep only the last INT periodic state files"
-msgstr ""
+msgstr "Mantieni unicamente gli ultimi INT file di stati periodici"
 
 #: src/microsim/MSFrame.cpp:337
 msgid "Prefix for network states"
-msgstr ""
+msgstr "Prefisso dei stati di rete"
 
 #: src/microsim/MSFrame.cpp:339
 msgid "Suffix for network states (.xml.gz or .xml)"
-msgstr ""
+msgstr "Suffisso per stati di rete (.xml.gz o .xml)"
 
 #: src/microsim/MSFrame.cpp:341
 msgid "Files for network states"
-msgstr ""
+msgstr "Uno o più file per stati di rete"
 
 #: src/microsim/MSFrame.cpp:343
 msgid "Save random number generator states"
-msgstr ""
+msgstr "Salva gli stati dei generatori di numeri casuali"
 
 #: src/microsim/MSFrame.cpp:345
 msgid "Save person and container states (experimental)"
-msgstr ""
+msgstr "Salva stati di persone e di contenitori (esperimentale)"
 
 #: src/microsim/MSFrame.cpp:347
 msgid "Save rail signal constraints"
-msgstr ""
+msgstr "Salva restrizioni di segnali ferroviari"
 
 #: src/microsim/MSFrame.cpp:349
 msgid "Write internal state values with the given precision (default 2)"
 msgstr ""
+"Scrivi valori dello stato interno con la precisione indicata (valore "
+"standard 2)"
 
 #: src/microsim/MSFrame.cpp:353
 msgid "Defines the begin time in seconds; The simulation starts at this time"
@@ -7423,7 +7426,7 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
-msgstr ""
+msgstr "Tira numeri di corsie per caso da [1,default.lanenumber]"
 
 #: src/netgen/NGFrame.cpp:71
 msgid "Draw edge priority randomly from [1,default.priority]"
