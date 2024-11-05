@@ -37,5 +37,8 @@ jump_same_end
 # insertion must be delayed when insertion fails (rather than shifted along the route as for teleporting)
 target_occupied
 
+# stop twice on the same edge before the jump
+jump_after_double_stop
+
 # combine jumps with vias
 vias
