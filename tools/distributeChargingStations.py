@@ -113,7 +113,6 @@ def addChildToParent(parentEl, childEl, secondChildTags=[]):
 
 def main(options):
     random.seed(options.seed)
-
     net = sumolib.net.readNet(options.netFile)
     checkSelection = False
     if options.selectionFile is not None:
@@ -314,8 +313,8 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
                         ) if chargingRoadSide == parkingCapacity[0] else (posDownSize[1], endPos)
             spacesToShift = []
             if shiftSpaces > 0:
-                spacesToShift.extend(parkingArea.getChild("space")[shiftSpaces:])
-                remainingSpaces.extend(parkingArea.getChild("space")[:shiftSpaces])
+                spacesToShift.extend(parkingArea.getChild("space")[chargingOnSpaces:])
+                remainingSpaces.extend(parkingArea.getChild("space")[:chargingOnSpaces])
             shiftedPaDict = {t[0]: t[1] for t in parkingArea.getAttributes()}
             shiftedPaDict["id"] = "%s%s" % (shiftedPaDict["id"], options.suffix)
             shiftedPaDict["startPos"] = str(posShift[0])
@@ -334,6 +333,8 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
         if len(remainingSpaces) > 0:
             for remainingSpace in remainingSpaces:
                 addChildToParent(remainingParking, remainingSpace)
+            print("parking %s chargingPoints %d remainingSpaces %d shiftSpaces %d / %d" %
+                  (parkingArea.id, chargingPoints, len(remainingSpaces), len(spacesToShift), shiftSpaces))
         rootCharging.addChild("chargingStation", {"id": csID,
                                                   "lane": parkingArea.lane,
                                                   "startPos": parkingArea.startPos,
