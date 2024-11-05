@@ -2378,8 +2378,6 @@ GNEApplicationWindow::onCmdToggleUndoRedoLoading(FXObject*, FXSelector, void*) {
         return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedoLoading", true);
     } else {
         myAllowUndoRedoLoading = false;
-        // drop undo-redo list after changing flag
-        myUndoList->clear();
         return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedoLoading", false);
     }
 }
@@ -3679,7 +3677,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEGeneralHandler generalHandler(myNet, additionalFile, myAllowUndoRedo, overwriteElements);
+        GNEGeneralHandler generalHandler(myNet, additionalFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load additionals from '") + additionalFile + "'");
         // Run parser
@@ -3701,7 +3699,10 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         myUndoList->end();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update view
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
         update();
     }
     return 1;
@@ -3715,7 +3716,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create general handler
-    GNEGeneralHandler generalHandler(myNet, additionalFile, myAllowUndoRedo, true);
+    GNEGeneralHandler generalHandler(myNet, additionalFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals from '") + additionalFile + "'");
     // clear additionals
@@ -3728,7 +3729,10 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     myUndoList->end();
     // restore validation for additionals
     XMLSubSys::setValidation("auto", "auto", "auto");
-    // update view
+    // check if clear undoList
+    if (!myAllowUndoRedoLoading) {
+        myUndoList->clear();
+    }
     update();
     return 1;
 }
@@ -3877,7 +3881,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create generic handler
-        GNEGeneralHandler handler(myNet, routeFile, myAllowUndoRedo, overwriteElements);
+        GNEGeneralHandler handler(myNet, routeFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + routeFile + "'");
         // Run parser for additionals
@@ -3899,7 +3903,10 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         myUndoList->end();
         // restore validation
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update view
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
         update();
     }
     return 1;
@@ -3913,7 +3920,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create handler
-    GNEGeneralHandler handler(myNet, routeFile, myAllowUndoRedo, true);
+    GNEGeneralHandler handler(myNet, routeFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("reloading demand elements from '%'", routeFile));
     // clear demand elements
@@ -3924,9 +3931,13 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     }
     // end undoList operation and update view
     myUndoList->end();
-    update();
     // restore validation for demand
     XMLSubSys::setValidation("auto", "auto", "auto");
+    // check if clear undoList
+    if (!myAllowUndoRedoLoading) {
+        myUndoList->clear();
+    }
+    update();
     return 1;
 }
 
@@ -4043,7 +4054,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create data handler
-        GNEDataHandler dataHandler(myNet, dataFile, myAllowUndoRedo, overwriteElements);
+        GNEDataHandler dataHandler(myNet, dataFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + dataFile + "'");
         // Run data parser
@@ -4067,7 +4078,10 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myViewNet->getNet()->enableUpdateData();
         // restore validation for data
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
         update();
     }
     return 1;
@@ -4083,7 +4097,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEDataHandler dataHandler(myNet, dataFile, myAllowUndoRedo, false);
+    GNEDataHandler dataHandler(myNet, dataFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
     // begin undoList operation
     myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements from '") + dataFile + "'");
     // clear data elements
@@ -4098,7 +4112,10 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     myUndoList->end();
     // enable update data
     myViewNet->getNet()->enableUpdateData();
-    // update
+    // check if clear undoList
+    if (!myAllowUndoRedoLoading) {
+        myUndoList->clear();
+    }
     update();
     return 1;
 }
@@ -4210,7 +4227,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         // disable validation for meanDatas
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create meanData handler
-        GNEGeneralHandler generalHandler(myNet, meanDataFile, myAllowUndoRedo, overwriteElements);
+        GNEGeneralHandler generalHandler(myNet, meanDataFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("load meanDatas from '") + meanDataFile + "'");
         // Run parser
@@ -4232,7 +4249,10 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         myUndoList->end();
         // restore validation for meanDatas
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update view
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
         update();
     }
     return 1;
@@ -4246,7 +4266,7 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
     // disable validation for meanDatas
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create general handler
-    GNEGeneralHandler generalHandler(myNet, meanDataFile, myAllowUndoRedo, true);
+    GNEGeneralHandler generalHandler(myNet, meanDataFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading meanDatas from '") + meanDataFile + "'");
     // clear meanDatas
@@ -4257,9 +4277,13 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
     }
     // end undoList operation and update view
     myUndoList->end();
-    update();
     // restore validation for meanDatas
     XMLSubSys::setValidation("auto", "auto", "auto");
+    // check if clear undoList
+    if (!myAllowUndoRedoLoading) {
+        myUndoList->clear();
+    }
+    update();
     return 1;
 }
 
@@ -4744,12 +4768,6 @@ GNEApplicationWindow::isUndoRedoAllowed() const {
 }
 
 
-bool
-GNEApplicationWindow::isUndoRedoLoadingAllowed() const {
-    return myAllowUndoRedoLoading;
-}
-
-
 void
 GNEApplicationWindow::enableUndoRedoTemporally() {
     myUndoRedoListEnabled.clear();
@@ -4847,7 +4865,7 @@ GNEApplicationWindow::loadAdditionalElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedo, false);
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // disable validation for additionals
                 XMLSubSys::setValidation("never", "auto", "auto");
                 // Run parser
@@ -4866,6 +4884,10 @@ GNEApplicationWindow::loadAdditionalElements() {
         }
         // end undo list
         myUndoList->end();
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
     }
 }
 
@@ -4895,7 +4917,7 @@ GNEApplicationWindow::loadDemandElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedo, false);
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // disable validation for additionals
                 XMLSubSys::setValidation("never", "auto", "auto");
                 // Run parser
@@ -4910,6 +4932,10 @@ GNEApplicationWindow::loadDemandElements() {
         }
         // end undo list
         myUndoList->end();
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
     }
 }
 
@@ -4933,7 +4959,7 @@ GNEApplicationWindow::loadMeanDataElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading meandatas from '") + file + "'");
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedo, false);
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // disable validation for additionals
                 XMLSubSys::setValidation("never", "auto", "auto");
                 // Run parser
@@ -4948,6 +4974,10 @@ GNEApplicationWindow::loadMeanDataElements() {
         }
         // end undo list
         myUndoList->end();
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
     }
 }
 
@@ -4969,7 +4999,7 @@ GNEApplicationWindow::loadDataElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("Loading data elements from '") + file + "'");
-                GNEDataHandler dataHandler(myNet, file, myAllowUndoRedo, false);
+                GNEDataHandler dataHandler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // disable validation for data elements
                 XMLSubSys::setValidation("never", "auto", "auto");
                 if (!dataHandler.parse()) {
@@ -4980,10 +5010,15 @@ GNEApplicationWindow::loadDataElements() {
                 neteditOptions.set("data-files", file);
                 // disable validation for data elements
                 XMLSubSys::setValidation("auto", "auto", "auto");
+
             }
         }
         // end undolist
         myUndoList->end();
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
         // enable update data
         myViewNet->getNet()->enableUpdateData();
     }

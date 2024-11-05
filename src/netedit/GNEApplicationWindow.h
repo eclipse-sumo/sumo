@@ -573,9 +573,6 @@ public:
     /// @brief check if undo-redo is allow (processing/checkbox)
     bool isUndoRedoAllowed() const;
 
-    /// @brief check if undo-redo during loading is allow (processing/checkbox)
-    bool isUndoRedoLoadingAllowed() const;
-
     /// @brief enable undo-redo temporally (for example, after creating an edge)
     void enableUndoRedoTemporally();
 
