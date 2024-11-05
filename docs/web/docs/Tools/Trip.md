@@ -207,6 +207,8 @@ they use public transport, a personal car or walking.
 - using option **--from-stops busStop** will make persons start with an initial `<stop duration="0">` at a random busStop
 - using option **--to-stops busStop** will make persons end their journey at a random busStop
 
+!!! note
+    To combine trips from multiple calls to **randomTrips.py** in a single simulation, use option **--prefix** and set it to a different value for each call (to ensure distinct vehicle ids).
 
 !!! caution
     Quoting of trip attributes on Linux must use the style **--trip-attributes 'modes="public"'**
