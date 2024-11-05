@@ -810,6 +810,14 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.driverstate.maximalReactionTime
 - device.driverstate.originalReactionTime
 - device.driverstate.actionStepLength
+- device.stationfinder.chargingStation
+- device.stationfinder.batteryNeed
+- device.stationfinder.needToChargeLevel
+- device.stationfinder.saturatedChargeLevel
+- device.stationfinder.waitForCharge
+- device.stationfinder.repeat
+- device.stationfinder.radius
+- device.stationfinder.reserveFactor
 - device.taxi.state
 - device.taxi.customers
 - device.taxi.occupiedTime
