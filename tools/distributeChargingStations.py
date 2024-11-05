@@ -333,8 +333,6 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
         if len(remainingSpaces) > 0:
             for remainingSpace in remainingSpaces:
                 addChildToParent(remainingParking, remainingSpace)
-            print("parking %s chargingPoints %d remainingSpaces %d shiftSpaces %d / %d" %
-                  (parkingArea.id, chargingPoints, len(remainingSpaces), len(spacesToShift), shiftSpaces))
         rootCharging.addChild("chargingStation", {"id": csID,
                                                   "lane": parkingArea.lane,
                                                   "startPos": parkingArea.startPos,
