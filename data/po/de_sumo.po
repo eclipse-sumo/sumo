@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-04 13:55+0000\n"
+"PO-Revision-Date: 2024-11-05 10:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2029,7 +2029,7 @@ msgstr "Dateien für Netzstände"
 
 #: src/microsim/MSFrame.cpp:343
 msgid "Save random number generator states"
-msgstr "Zustände des Zufallszahlengenerators speichern"
+msgstr "Zustände der Zufallszahlengeneratoren speichern"
 
 #: src/microsim/MSFrame.cpp:345
 msgid "Save person and container states (experimental)"
