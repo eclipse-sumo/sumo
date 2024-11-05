@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-05 10:37+0000\n"
+"PO-Revision-Date: 2024-11-06 09:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3691,7 +3691,7 @@ msgid ""
 "level (reached for awareness=minAwareness)."
 msgstr ""
 "Il massimo tempo di reazione (~passo di azione) indotto da una facoltà "
-"percettiva ridotta (raggiunto con awareness=minAwareness)"
+"percettiva ridotta (raggiunto con awareness=minAwareness)."
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:102
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:116
@@ -6044,37 +6044,42 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:141
 msgid "Disables building turnarounds"
-msgstr ""
+msgstr "Disattiva creazione di inversioni a u"
 
 #: src/netbuild/NBFrame.cpp:145
 msgid "Disables building turnarounds at tls-controlled junctions"
 msgstr ""
+"Disattiva creazione di inversioni a u negli incroci controllati da semafori"
 
 #: src/netbuild/NBFrame.cpp:148
 msgid "Disables building turnarounds at geometry-like junctions"
 msgstr ""
+"Disattiva creazione di inversioni a u negli incroci usati per motivi "
+"geometrici"
 
 #: src/netbuild/NBFrame.cpp:151
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr ""
+msgstr "Disattiva creazione di inversioni a u eccetto per vicoli ciechi"
 
 #: src/netbuild/NBFrame.cpp:154
 msgid ""
 "Disables building turnarounds except at at junctions with a dedicated "
 "turning lane"
 msgstr ""
+"Disattiva creazione di inversioni a u eccetto per gli incroci con una corsia "
+"di svolta dedicata"
 
 #: src/netbuild/NBFrame.cpp:157
 msgid "Disables building turnarounds at fringe junctions"
-msgstr ""
+msgstr "Disattiva creazione di inversioni a u negli incroci di bordo rete"
 
 #: src/netbuild/NBFrame.cpp:160
 msgid "Disables building connections to left"
-msgstr ""
+msgstr "Disattiva creazione di collegamenti verso la sinistra"
 
 #: src/netbuild/NBFrame.cpp:164
 msgid "Splits edges across geometry nodes"
-msgstr ""
+msgstr "Separa gli archi ai nodi geometrici"
 
 #: src/netbuild/NBFrame.cpp:168
 msgid ""
