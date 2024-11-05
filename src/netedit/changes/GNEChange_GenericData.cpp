@@ -24,6 +24,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 
 #include "GNEChange_GenericData.h"
@@ -47,17 +50,19 @@ GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool f
 
 
 GNEChange_GenericData::~GNEChange_GenericData() {
-    assert(myGenericData);
-    myGenericData->decRef("GNEChange_GenericData");
-    if (myGenericData->unreferenced() &&
-            myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
-            myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
-        // delete generic data from interval parent
-        myDataIntervalParent->removeGenericDataChild(myGenericData);
-        // delete generic data
-        delete myGenericData;
+    // only continue we have undo-redo mode enabled
+    if (myGenericData->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myGenericData->decRef("GNEChange_GenericData");
+        if (myGenericData->unreferenced() &&
+                myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
+                myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
+            // delete generic data from interval parent
+            myDataIntervalParent->removeGenericDataChild(myGenericData);
+            // delete generic data
+            delete myGenericData;
+        }
     }
 }
 

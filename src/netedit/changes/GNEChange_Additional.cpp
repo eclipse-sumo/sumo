@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_Additional.h"
 
@@ -40,16 +43,19 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
 
 
 GNEChange_Additional::~GNEChange_Additional() {
-    myAdditional->decRef("GNEChange_Additional");
-    if (myAdditional->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr());
-        // make sure that additional isn't in net before removing
-        if (myAdditional->getNet()->getAttributeCarriers()->retrieveAdditional(myAdditional, false)) {
-            // delete additional from net
-            myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
+    // only continue we have undo-redo mode enabled
+    if (myAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myAdditional->decRef("GNEChange_Additional");
+        if (myAdditional->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr());
+            // make sure that additional isn't in net before removing
+            if (myAdditional->getNet()->getAttributeCarriers()->retrieveAdditional(myAdditional, false)) {
+                // delete additional from net
+                myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
+            }
+            delete myAdditional;
         }
-        delete myAdditional;
     }
 }
 

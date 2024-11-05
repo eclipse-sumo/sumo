@@ -22,6 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 
@@ -46,17 +47,20 @@ GNEChange_EdgeType::GNEChange_EdgeType(GNEEdgeType* edgeType, bool forward):
 
 
 GNEChange_EdgeType::~GNEChange_EdgeType() {
-    myEdgeType->decRef("GNEChange_EdgeType");
-    if (myEdgeType->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' GNEChange_EdgeType");
-        // make sure that edgeType isn't in net before removing
-        if (myEdgeType->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeType->getID(), false)) {
-            // delete edgeType from net
-            myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
+    // only continue we have undo-redo mode enabled
+    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myEdgeType->decRef("GNEChange_EdgeType");
+        if (myEdgeType->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' GNEChange_EdgeType");
+            // make sure that edgeType isn't in net before removing
+            if (myEdgeType->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeType->getID(), false)) {
+                // delete edgeType from net
+                myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
+            }
+            // delete edgeType
+            delete myEdgeType;
         }
-        // delete edgeType
-        delete myEdgeType;
     }
 }
 

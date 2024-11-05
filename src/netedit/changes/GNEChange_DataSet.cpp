@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/data/GNEDataSet.h>
 
 #include "GNEChange_DataSet.h"
@@ -41,16 +44,18 @@ GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
 
 
 GNEChange_DataSet::~GNEChange_DataSet() {
-    assert(myDataSet);
-    myDataSet->decRef("GNEChange_DataSet");
-    if (myDataSet->unreferenced() &&
-            myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet->getID(), false)) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
-        // make sure that element isn't in net before removing
-        myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
-        // delete data set
-        delete myDataSet;
+    // only continue we have undo-redo mode enabled
+    if (myDataSet->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myDataSet->decRef("GNEChange_DataSet");
+        if (myDataSet->unreferenced() &&
+                myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet->getID(), false)) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
+            // make sure that element isn't in net before removing
+            myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
+            // delete data set
+            delete myDataSet;
+        }
     }
 }
 

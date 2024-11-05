@@ -19,10 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
-
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <netedit/GNENet.h>
 
 #include "GNEChange_TLS.h"
 
@@ -93,11 +95,14 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
 
 
 GNEChange_TLS::~GNEChange_TLS() {
-    myJunction->decRef("GNEChange_TLS");
-    if (myJunction->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_TLS");
-        delete myJunction;
+    // only continue we have undo-redo mode enabled
+    if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myJunction->decRef("GNEChange_TLS");
+        if (myJunction->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_TLS");
+            delete myJunction;
+        }
     }
 }
 

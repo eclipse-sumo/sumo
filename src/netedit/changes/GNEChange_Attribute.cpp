@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/elements/data/GNEDataSet.h>
 
@@ -69,14 +72,17 @@ GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, c
 
 
 GNEChange_Attribute::~GNEChange_Attribute() {
-    // decrease reference
-    myAC->decRef("GNEChange_Attribute " + toString(myKey));
-    // remove if is unreferenced
-    if (myAC->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " in GNEChange_Attribute");
-        // delete AC
-        delete myAC;
+    // only continue we have undo-redo mode enabled
+    if (myAC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        // decrease reference
+        myAC->decRef("GNEChange_Attribute " + toString(myKey));
+        // remove if is unreferenced
+        if (myAC->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " in GNEChange_Attribute");
+            // delete AC
+            delete myAC;
+        }
     }
 }
 

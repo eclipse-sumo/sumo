@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEChange_Distribution.h"
@@ -67,14 +70,17 @@ GNEChange_Distribution::editValue(GNEDemandElement* distribution, const GNEDeman
 
 
 GNEChange_Distribution::~GNEChange_Distribution() {
-    // decrease reference
-    myDistribution->decRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
-    // remove if is unreferenced
-    if (myDistribution->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "' in GNEChange_Distribution");
-        // delete distribution
-        delete myDistribution;
+    // only continue we have undo-redo mode enabled
+    if (myDistribution->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        // decrease reference
+        myDistribution->decRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
+        // remove if is unreferenced
+        if (myDistribution->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "' in GNEChange_Distribution");
+            // delete distribution
+            delete myDistribution;
+        }
     }
 }
 

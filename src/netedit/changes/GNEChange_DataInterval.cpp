@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 
 #include "GNEChange_DataInterval.h"
@@ -42,18 +45,21 @@ GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bo
 
 
 GNEChange_DataInterval::~GNEChange_DataInterval() {
-    myDataInterval->decRef("GNEChange_DataInterval");
-    if (myDataInterval->unreferenced() &&
-            myDataInterval->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetParent->getID(), false) &&
-            myDataInterval->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataInterval, false)) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" +
-                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-                    myDataInterval->getAttribute(SUMO_ATTR_END) + "] in ~GNEChange_DataInterval()");
-        // check that data interval don't exist
-        myDataSetParent->removeDataIntervalChild(myDataInterval);
-        // delete dataInterval
-        delete myDataInterval;
+    // only continue we have undo-redo mode enabled
+    if (myDataInterval->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myDataInterval->decRef("GNEChange_DataInterval");
+        if (myDataInterval->unreferenced() &&
+                myDataInterval->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetParent->getID(), false) &&
+                myDataInterval->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataInterval, false)) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" +
+                        myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                        myDataInterval->getAttribute(SUMO_ATTR_END) + "] in ~GNEChange_DataInterval()");
+            // check that data interval don't exist
+            myDataSetParent->removeDataIntervalChild(myDataInterval);
+            // delete dataInterval
+            delete myDataInterval;
+        }
     }
 }
 

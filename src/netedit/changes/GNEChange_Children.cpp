@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_Children.h"
 
@@ -60,13 +63,16 @@ GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GN
 
 
 GNEChange_Children::~GNEChange_Children() {
-    myParentDemandElement->decRef("GNEChange_Children");
-    // remove if is unreferenced
-    if (myParentDemandElement->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myParentDemandElement->getTagStr() + " '" + myParentDemandElement->getID() + "' in GNEChange_Children");
-        // delete AC
-        delete myParentDemandElement;
+    // only continue we have undo-redo mode enabled
+    if (myParentDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myParentDemandElement->decRef("GNEChange_Children");
+        // remove if is unreferenced
+        if (myParentDemandElement->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myParentDemandElement->getTagStr() + " '" + myParentDemandElement->getID() + "' in GNEChange_Children");
+            // delete AC
+            delete myParentDemandElement;
+        }
     }
 }
 

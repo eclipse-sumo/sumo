@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_ToggleAttribute.h"
 
@@ -43,14 +46,17 @@ GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, co
 
 
 GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
-    // decrease reference
-    myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
-    // remove if is unreferenced
-    if (myAC->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_ToggleAttribute");
-        // delete AC
-        delete myAC;
+    // only continue we have undo-redo mode enabled
+    if (myAC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        // decrease reference
+        myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
+        // remove if is unreferenced
+        if (myAC->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_ToggleAttribute");
+            // delete AC
+            delete myAC;
+        }
     }
 }
 

@@ -20,9 +20,10 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
 
 #include "GNEChange_DemandElement.h"
 
@@ -43,16 +44,19 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
 
 
 GNEChange_DemandElement::~GNEChange_DemandElement() {
-    myDemandElement->decRef("GNEChange_DemandElement");
-    if (myDemandElement->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr());
-        // make sure that element isn't in net before removing
-        if (myDemandElement->getNet()->getAttributeCarriers()->retrieveDemandElement(myDemandElement, false)) {
-            // remove demand element of network
-            myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
+    // only continue we have undo-redo mode enabled
+    if (myDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myDemandElement->decRef("GNEChange_DemandElement");
+        if (myDemandElement->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr());
+            // make sure that element isn't in net before removing
+            if (myDemandElement->getNet()->getAttributeCarriers()->retrieveDemandElement(myDemandElement, false)) {
+                // remove demand element of network
+                myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
+            }
+            delete myDemandElement;
         }
-        delete myDemandElement;
     }
 }
 

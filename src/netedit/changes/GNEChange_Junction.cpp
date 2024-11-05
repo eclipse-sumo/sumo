@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_Junction.h"
 
@@ -42,11 +45,14 @@ GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
 
 
 GNEChange_Junction::~GNEChange_Junction() {
-    myJunction->decRef("GNEChange_Junction");
-    if (myJunction->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_Junction");
-        delete myJunction;
+    // only continue we have undo-redo mode enabled
+    if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myJunction->decRef("GNEChange_Junction");
+        if (myJunction->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_Junction");
+            delete myJunction;
+        }
     }
 }
 

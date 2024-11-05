@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_Lane.h"
 
@@ -57,20 +60,22 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
 
 
 GNEChange_Lane::~GNEChange_Lane() {
-    assert(myEdge);
-    myEdge->decRef("GNEChange_Lane");
-    if (myEdge->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' in GNEChange_Lane");
-        delete myEdge;
-    }
-    if (myLane) {
-        myLane->decRef("GNEChange_Lane");
-        if (myLane->unreferenced()) {
+    // only continue we have undo-redo mode enabled
+    if (myEdge->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myEdge->decRef("GNEChange_Lane");
+        if (myEdge->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myLane->getTagStr() + " '" + myLane->getID() + "' in GNEChange_Lane");
-            // delete lane
-            delete myLane;
+            WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' in GNEChange_Lane");
+            delete myEdge;
+        }
+        if (myLane) {
+            myLane->decRef("GNEChange_Lane");
+            if (myLane->unreferenced()) {
+                // show extra information for tests
+                WRITE_DEBUG("Deleting unreferenced " + myLane->getTagStr() + " '" + myLane->getID() + "' in GNEChange_Lane");
+                // delete lane
+                delete myLane;
+            }
         }
     }
 }

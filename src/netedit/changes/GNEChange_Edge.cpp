@@ -20,7 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_Edge.h"
 
@@ -52,12 +54,15 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
 
 
 GNEChange_Edge::~GNEChange_Edge() {
-    myEdge->decRef("GNEChange_Edge");
-    if (myEdge->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' GNEChange_Edge");
-        // delete edge
-        delete myEdge;
+    // only continue we have undo-redo mode enabled
+    if (myEdge->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myEdge->decRef("GNEChange_Edge");
+        if (myEdge->unreferenced()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' GNEChange_Edge");
+            // delete edge
+            delete myEdge;
+        }
     }
 }
 

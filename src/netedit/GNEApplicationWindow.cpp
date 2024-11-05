@@ -2357,10 +2357,13 @@ GNEApplicationWindow::onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*
 
 long
 GNEApplicationWindow::onCmdToggleUndoRedo(FXObject*, FXSelector, void*) {
-    myAllowUndoRedo = (myProcessingMenuCommands.menuCheckAllowUndoRedo->getCheck() == TRUE);
-    if (myAllowUndoRedo) {
+    if (myProcessingMenuCommands.menuCheckAllowUndoRedo->getCheck() == TRUE) {
+        myAllowUndoRedo = true;
         return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedo", true);
     } else {
+        myAllowUndoRedo = false;
+        // drop undo-redo list after changing flag
+        myUndoList->clear();
         return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedo", false);
     }
 }
