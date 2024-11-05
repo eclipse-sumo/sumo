@@ -123,3 +123,9 @@ Currently two charging strategies can be set in the stationfinder device using t
 
 - `chargingStrategy="balanced"`: limit the charging power such that charging to the target SoC needs the whole stopping duration ("flat" charging curve)
 - `chargingStrategy="latest"`: still charge at the maximum charge rate but rather than start charging immediately after arrival, start the latest time possible to reach the target SoC
+
+# TraCI
+The internal state of the stationfindedr device can be accessed directly using
+[*traci.vehicle.getParameter*](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
+and
+[*traci.vehicle.setParameter*](../TraCI/Change_Vehicle_State.md#supported_device_parameters).
