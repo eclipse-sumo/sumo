@@ -54,7 +54,7 @@ jobs:
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v2.21.3
         with:
-          package-dir: sumo
+          package-dir: sumo/tools
           output-dir: wheelhouse
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
@@ -71,4 +71,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: setup.py
-          path: sumo/tools/setup.py
+          path: sumo/setup.py
