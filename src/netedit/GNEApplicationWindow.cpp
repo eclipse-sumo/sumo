@@ -4024,7 +4024,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create data handler
-        GNEDataHandler dataHandler(myNet, dataFile, true, overwriteElements);
+        GNEDataHandler dataHandler(myNet, dataFile, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + dataFile + "'");
         // Run data parser
@@ -4064,7 +4064,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEDataHandler dataHandler(myNet, dataFile, true, false);
+    GNEDataHandler dataHandler(myNet, dataFile, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // begin undoList operation
     myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements from '") + dataFile + "'");
     // clear data elements
@@ -4944,7 +4944,7 @@ GNEApplicationWindow::loadDataElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("Loading data elements from '") + file + "'");
-                GNEDataHandler dataHandler(myNet, file, true, false);
+                GNEDataHandler dataHandler(myNet, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
                 // disable validation for data elements
                 XMLSubSys::setValidation("never", "auto", "auto");
                 if (!dataHandler.parse()) {

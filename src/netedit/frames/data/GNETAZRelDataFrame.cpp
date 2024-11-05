@@ -23,6 +23,8 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -181,7 +183,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNINGF(TL("There is already a % defined between TAZ'%' and '%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID(), mySecondTAZ->getID());
         } else if (myGenericDataAttributes->areAttributesValid()) {
             // declare data handler
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             // build data interval object and fill it
             CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());

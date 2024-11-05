@@ -24,6 +24,8 @@
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEEdgeDataFrame.h"
 
@@ -63,7 +65,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
             // create genericData base object
             CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
             // finally create edgeData
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             dataHandler.buildEdgeData(genericDataBaseObject, viewObjects.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
             // delete intervalBaseObject (and genericDataBaseObject)
             delete intervalBaseObject;
