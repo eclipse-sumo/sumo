@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-05 09:28+0000\n"
+"PO-Revision-Date: 2024-11-05 10:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1830,31 +1830,33 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:309
 msgid "Write collision information into FILE"
-msgstr ""
+msgstr "Scrivi informazione su collisioni in FILE"
 
 #: src/microsim/MSFrame.cpp:312
 msgid "Write aggregated traffic statistics for all edges into FILE"
-msgstr ""
+msgstr "Scrivi statistiche aggregate del traffico per tutti gli archi in FILE"
 
 #: src/microsim/MSFrame.cpp:314
 msgid "Write aggregated traffic statistics for all lanes into FILE"
-msgstr ""
+msgstr "Scrivi statistiche aggregate del traffico per tutte le corsie in FILE"
 
 #: src/microsim/MSFrame.cpp:318
 msgid "Write overall statistics into FILE"
-msgstr ""
+msgstr "Scrivi statistiche generali in FILE"
 
 #: src/microsim/MSFrame.cpp:321
 msgid "Write reports on deadlocks FILE"
-msgstr ""
+msgstr "Scrivi notifiche su veicoli bloccati in FILE"
 
 #: src/microsim/MSFrame.cpp:325
 msgid "Save movereminder states of selected vehicles into FILE"
-msgstr ""
+msgstr "Salva stati movereminder dei veicoli selezionati in FILE"
 
 #: src/microsim/MSFrame.cpp:327
 msgid "List of vehicle ids which shall save their movereminder states"
 msgstr ""
+"Elenco di codici identificativi di veicoli che devono registrate i loro "
+"stati movereminder"
 
 #: src/microsim/MSFrame.cpp:331
 msgid "Use TIME[] as times at which a network state written"
