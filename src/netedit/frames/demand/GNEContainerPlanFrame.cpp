@@ -95,7 +95,7 @@ GNEContainerPlanFrame::hide() {
         edge.second->resetCandidateFlags();
     }
     // enable undo/redo
-    myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+    myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedoTemporally();
     // hide frame
     GNEFrame::hide();
 }

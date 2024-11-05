@@ -167,8 +167,8 @@ GNEConsecutiveSelector::addLane(GNELane* lane) {
     myAbortCreationButton->enable();
     // enable finish button
     myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // disable undo/redo temporally
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedoTemporally(TL("route creation"));
     // enable or disable remove last lane button
     if (myLanePath.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -310,7 +310,7 @@ GNEConsecutiveSelector::abortPathCreation() {
     // first check that there is elements
     if (myLanePath.size() > 0) {
         // unblock undo/redo
-        myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+        myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedoTemporally();
         // clear lanes
         clearPath();
         // disable buttons

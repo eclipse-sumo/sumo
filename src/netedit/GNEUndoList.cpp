@@ -434,21 +434,23 @@ GNEUndoList::onCmdUndo(FXObject*, FXSelector, void*) {
 long
 GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
     // first check if Undo Menu command or button has to be disabled
-    const bool enable = canUndo() && !hasCommandGroup() && myGNEApplicationWindowParent->isUndoRedoEnabled().empty();
-    // cast button (see #6209)
+    const bool buttonEnabled = canUndo() && !hasCommandGroup() &&
+                               myGNEApplicationWindowParent->isUndoRedoEnabledTemporally().empty() &&
+                               myGNEApplicationWindowParent->isUndoRedoAllowed();
+    // cast button (see flickering problem #6209)
     const FXButton* button = dynamic_cast<FXButton*>(sender);
     // enable or disable depending of "enable" flag
     if (button) {
         // avoid unnecessary enables/disables (due flickering)
-        if (enable && !button->isEnabled()) {
+        if (buttonEnabled && !button->isEnabled()) {
             sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
             button->update();
-        } else if (!enable && button->isEnabled()) {
+        } else if (!buttonEnabled && button->isEnabled()) {
             sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
             button->update();
         }
     } else {
-        sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(this, buttonEnabled ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     }
     // cast menu command
     FXMenuCommand* menuCommand = dynamic_cast<FXMenuCommand*>(sender);
@@ -457,8 +459,10 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
         // change caption of FXMenuCommand
         std::string caption = undoName();
         // set caption of FXmenuCommand edit/undo
-        if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
-            caption = TL("Cannot Undo in the middle of ") + myGNEApplicationWindowParent->isUndoRedoEnabled();
+        if (!myGNEApplicationWindowParent->isUndoRedoAllowed()) {
+            caption = TL("Disabled undo");
+        } else if (myGNEApplicationWindowParent->isUndoRedoEnabledTemporally().size() > 0) {
+            caption = TL("Cannot Undo in the middle of ") + myGNEApplicationWindowParent->isUndoRedoEnabledTemporally();
         } else if (hasCommandGroup()) {
             caption = TL("Cannot Undo in the middle of ") + myChangeGroups.top()->getDescription();
         } else if (!canUndo()) {
@@ -481,7 +485,9 @@ GNEUndoList::onCmdRedo(FXObject*, FXSelector, void*) {
 long
 GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
     // first check if Redo Menu command or button has to be disabled
-    const bool enable = canRedo() && !hasCommandGroup() && myGNEApplicationWindowParent->isUndoRedoEnabled().empty();
+    const bool enable = canRedo() && !hasCommandGroup() &&
+                        myGNEApplicationWindowParent->isUndoRedoEnabledTemporally().empty() &&
+                        myGNEApplicationWindowParent->isUndoRedoAllowed();
     // cast button (see #6209)
     const FXButton* button = dynamic_cast<FXButton*>(sender);
     // enable or disable depending of "enable" flag
@@ -504,8 +510,10 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
         // change caption of FXMenuCommand
         std::string caption = redoName();
         // set caption of FXmenuCommand edit/undo
-        if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
-            caption = TL("Cannot Redo in the middle of ") + myGNEApplicationWindowParent->isUndoRedoEnabled();
+        if (!myGNEApplicationWindowParent->isUndoRedoAllowed()) {
+            caption = TL("Disabled redo");
+        } else if (myGNEApplicationWindowParent->isUndoRedoEnabledTemporally().size() > 0) {
+            caption = TL("Cannot Redo in the middle of ") + myGNEApplicationWindowParent->isUndoRedoEnabledTemporally();
         } else if (hasCommandGroup()) {
             caption = TL("Cannot Redo in the middle of ") + myChangeGroups.top()->getDescription();
         } else if (!canRedo()) {

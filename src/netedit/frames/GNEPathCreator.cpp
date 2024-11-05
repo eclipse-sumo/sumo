@@ -293,7 +293,7 @@ GNEPathCreator::addJunction(GNEJunction* junction) {
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedoTemporally(TL("creation of path between junctions"));
     // enable or disable remove last junction button
     if (mySelectedJunctions.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -340,7 +340,7 @@ GNEPathCreator::addTAZ(GNETAZ* TAZ) {
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedoTemporally(TL("creation of path between TAZs"));
     // enable or disable remove last TAZ button
     if (mySelectedTAZs.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -412,7 +412,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedoTemporally(TL("creation of path between edges"));
     // enable or disable remove last edge button
     if (mySelectedEdges.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -690,7 +690,7 @@ GNEPathCreator::abortPathCreation() {
     // first check that there is elements
     if ((mySelectedJunctions.size() > 0) || (mySelectedTAZs.size() > 0) || (mySelectedEdges.size() > 0) || myRoute) {
         // unblock undo/redo
-        myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+        myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedoTemporally();
         // clear edges
         clearPath();
         // disable buttons

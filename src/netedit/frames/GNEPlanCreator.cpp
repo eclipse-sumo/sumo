@@ -468,7 +468,7 @@ GNEPlanCreator::abortPathCreation() {
     // first check that there is elements
     if (getNumberOfSelectedElements() > 0) {
         // unblock undo/redo
-        myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+        myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedoTemporally();
         // clear edges
         clearPath();
         // disable buttons
@@ -947,7 +947,7 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedoTemporally("creation of stoppingPlace path");
     // enable or disable remove last item button
     updateRemoveLastItemButton();
     // recalculate path

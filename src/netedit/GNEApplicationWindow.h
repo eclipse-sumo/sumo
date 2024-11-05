@@ -565,17 +565,24 @@ public:
     /// @brief update FXMenuCommands depending of supermode
     void updateSuperModeMenuCommands(const Supermode supermode);
 
-    /// @brief disable undo-redo giving a string with the reason
-    void disableUndoRedo(const std::string& reason);
+    /// @name functions related with undo-redo
+    /// @{
+    /// @brief check if undo-redo is allow (processing/checkbox)
+    bool isUndoRedoAllowed() const;
 
-    /// @brief disable undo-redo
-    void enableUndoRedo();
+    /// @brief enable undo-redo temporally (for example, after creating an edge)
+    void enableUndoRedoTemporally();
 
-    /// @brief check if undo-redo is enabled
-    const std::string& isUndoRedoEnabled() const;
+    /// @brief disable undo-redo temporally giving a string with the reason  (for example, if we're creating an edge)
+    void disableUndoRedoTemporally(const std::string& reason);
+
+    /// @brief check if undo-redo is enabled temporally
+    const std::string& isUndoRedoEnabledTemporally() const;
 
     /// @brief clear undo list
     void clearUndoList();
+
+    /// @}
 
     /// @brief get file Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::FileMenuCommands& getFileMenuCommands();
@@ -760,6 +767,9 @@ private:
 
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
+
+    /// @brief allow undo-redo (read from registry)
+    bool myAllowUndoRedo;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
