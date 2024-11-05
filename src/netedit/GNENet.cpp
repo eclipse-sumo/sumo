@@ -1417,7 +1417,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("additional-files").size() > 0) {
         // Create additional handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, true);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"),
+                                         myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of additional file failed: ") + OptionsCont::getOptions().getString("additional-files"));
