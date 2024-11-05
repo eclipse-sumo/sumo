@@ -24,6 +24,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
@@ -1643,7 +1645,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
         // TAZ created, then return true

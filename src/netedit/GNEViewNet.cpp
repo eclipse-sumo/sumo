@@ -2926,7 +2926,7 @@ GNEViewNet::onCmdFinishShapeEdited(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     // declare additional handler
-    GNEAdditionalHandler additionalHanlder(myNet, true, false);
+    GNEAdditionalHandler additionalHanlder(myNet, myViewParent->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {

@@ -21,6 +21,8 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 
 #include "GNEWireFrame.h"
@@ -138,7 +140,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
                     myWireAttributes->showWarningMessage();
                 } else {
                     // declare additional handler
-                    GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true, false);
+                    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
                     // build additional
                     additionalHandler.parseSumoBaseObject(myBaseWire);
                     // Refresh wire Parent Selector (For additionals that have a limited number of children)
@@ -258,7 +260,7 @@ GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // build wire
         additionalHandler.parseSumoBaseObject(myBaseWire);
         // Refresh wire Parent Selector (For wires that have a limited number of children)

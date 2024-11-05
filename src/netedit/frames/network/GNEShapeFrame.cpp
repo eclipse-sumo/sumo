@@ -24,9 +24,10 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEShapeFrame.h"
 
@@ -402,7 +403,7 @@ GNEShapeFrame::tagSelected() {
 void
 GNEShapeFrame::addShape() {
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // build shape
     additionalHandler.parseSumoBaseObject(myBaseShape);
 }
