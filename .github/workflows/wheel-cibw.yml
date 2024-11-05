@@ -42,7 +42,7 @@ jobs:
       #     package-dir: sumo
       #     output-dir: wheelhouse
       #   env:
-      #     CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
+      #     CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
       #     CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
       #     MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
 
@@ -57,7 +57,7 @@ jobs:
           package-dir: sumo
           output-dir: wheelhouse
         env:
-          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt
+          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           CIBW_BUILD_VERBOSITY: 2
