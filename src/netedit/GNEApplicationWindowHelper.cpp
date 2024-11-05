@@ -1849,8 +1849,13 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     menuCheckRecomputeDataMode = GUIDesigns::buildFXMenuCheckboxIcon(processingMenu,
                                  TL("Recompute Network in Data Mode"), "", "",
                                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp, MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA);
+    // add checkBox for recomputing in data mode
+    menuCheckAllowUndoRedo = GUIDesigns::buildFXMenuCheckboxIcon(processingMenu,
+                             TL("Allow undo-redo"), "", "",
+                             GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO);
     // set default value
-    menuCheckRecomputeDataMode->setCheck(myGNEApp->getApp()->reg().readBoolEntry("netedit", "RecomputeData", true));
+    menuCheckRecomputeDataMode->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "RecomputeData", true));
+    menuCheckAllowUndoRedo->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true));
     // build demand  processing menu commands
     computeDemand = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                     TL("Compute demand"), "F5", TL("Computes demand elements."),
@@ -1892,6 +1897,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showNetworkProcessingMenuCom
     clearInvalidCrossings->enable();
     mySeparatorCheckBox->enable();
     menuCheckRecomputeDataMode->enable();
+    menuCheckAllowUndoRedo->enable();
     // now show it
     computeNetwork->show();
     computeNetworkVolatile->show();
@@ -1900,6 +1906,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showNetworkProcessingMenuCom
     clearInvalidCrossings->show();
     mySeparatorCheckBox->show();
     menuCheckRecomputeDataMode->show();
+    menuCheckAllowUndoRedo->show();
 }
 
 

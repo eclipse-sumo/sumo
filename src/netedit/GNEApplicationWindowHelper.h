@@ -918,6 +918,9 @@ struct GNEApplicationWindowHelper {
         /// @brief checkBox for recomputing when changing data mode
         MFXMenuCheckIcon* menuCheckRecomputeDataMode = nullptr;
 
+        /// @brief checkBox for allow undo-redo
+        MFXMenuCheckIcon* menuCheckAllowUndoRedo = nullptr;
+
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode

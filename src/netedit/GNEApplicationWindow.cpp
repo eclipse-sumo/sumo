@@ -332,6 +332,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToggleComputeNetworkData),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_UNDOREDO,                                GNEApplicationWindow::onCmdToggleUndoRedo),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onCmdOpenSumoOptionsDialog),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOpenOptionsDialog),
@@ -2349,6 +2351,16 @@ GNEApplicationWindow::onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*
         return getApp()->reg().writeBoolEntry("NETEDIT", "RecomputeData", true);
     } else {
         return getApp()->reg().writeBoolEntry("NETEDIT", "RecomputeData", false);
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdToggleUndoRedo(FXObject*, FXSelector, void*) {
+    if (myProcessingMenuCommands.menuCheckAllowUndoRedo->getCheck() == TRUE) {
+        return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedo", true);
+    } else {
+        return getApp()->reg().writeBoolEntry("NETEDIT", "AllowUndoRedo", false);
     }
 }
 

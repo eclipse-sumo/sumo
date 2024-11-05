@@ -786,13 +786,15 @@ enum {
 
     /// @}
 
-    /// @name Toolbar windows messages
+    /// @name Toolbar processing messages
     /// @{
 
     /// @brief compute path manager
     MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
     /// @brief enable/disable computing after switchin between supermodes
     MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,
+    /// @brief enable/disable undo-redo
+    MID_GNE_TOGGLE_UNDOREDO,
     /// @brief switch time format
     MID_GNE_TOGGLE_TIMEFORMAT,
 

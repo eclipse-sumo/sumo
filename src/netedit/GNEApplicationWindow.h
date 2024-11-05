@@ -479,6 +479,9 @@ public:
     /// @brief called when toggle checkbox compute network when switching between supermodes
     long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 
+    /// @brief called when toggle checkbox compute network when switching between supermodes
+    long onCmdToggleUndoRedo(FXObject*, FXSelector, void*);
+
     /// @brief called when user press "options" button
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
 
