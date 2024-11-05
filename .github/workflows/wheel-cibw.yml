@@ -31,20 +31,20 @@ jobs:
           path: sumo
           fetch-depth: 0
 
-      # - name: Preparing wheel eclipse-sumo
-      #   run: |
-      #     cp sumo/build_config/pyproject.toml sumo/
-      #     python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-sumo.py sumo/setup.py
+      - name: Preparing wheel eclipse-sumo
+        run: |
+          cp sumo/build_config/pyproject.toml sumo/
+          python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-sumo.py sumo/setup.py
 
-      # - name: Building wheel eclipse-sumo
-      #   uses: pypa/cibuildwheel@v2.21.3
-      #   with:
-      #     package-dir: sumo
-      #     output-dir: wheelhouse
-      #   env:
-      #     CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
-      #     CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-      #     MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
+      - name: Building wheel eclipse-sumo
+        uses: pypa/cibuildwheel@v2.21.3
+        with:
+          package-dir: sumo
+          output-dir: wheelhouse
+        env:
+          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
 
       - name: Preparing wheel libsumo
         run: |
@@ -63,13 +63,7 @@ jobs:
           CIBW_BUILD_VERBOSITY: 2
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
 
-
       - uses: actions/upload-artifact@v4
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
           path: ./wheelhouse/*.whl
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: setup.py
-          path: sumo/setup.py
