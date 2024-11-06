@@ -299,10 +299,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     buildMeanDataSection(fileMenuMeanDataElements);
     myMeanDataMenuCascade = new FXMenuCascade(fileMenu, TL("MeanData Elements"), GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), fileMenuMeanDataElements);
 
-    // add checkBox for recomputing in data mode
+    // add checkBox for quick load
     new FXMenuSeparator(fileMenu);
     menuCheckAllowUndoRedoLoading = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                                    TL("Allow undo-redo of loaded elements"), "", "",
+                                    TL("Quick load (No undo)"), "", "",
                                     GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO_LOADING);
     // set default value
     menuCheckAllowUndoRedoLoading->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true));
