@@ -26,16 +26,19 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSNet.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <utils/options/OptionsCont.h>
 #include "MSChargingStationExport.h"
+
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 void
-MSChargingStationExport::write(OutputDevice& of, SUMOTime /* timestep */) {
+MSChargingStationExport::write(OutputDevice& of, bool end) {
     // loop through charging stations
+    bool includeUnfinished = end && OptionsCont::getOptions().getBool("chargingstations-output.aggregated.write-unfinished");
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
-        static_cast<MSChargingStation*>(stop.second)->writeAggregatedChargingStationOutput(of);
+        static_cast<MSChargingStation*>(stop.second)->writeAggregatedChargingStationOutput(of, includeUnfinished);
     }
 }

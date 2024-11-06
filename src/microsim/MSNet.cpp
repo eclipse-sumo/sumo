@@ -686,8 +686,12 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().isSet("chargingstations-output") && !OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
-        writeChargingStationOutput();
+    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
+        if (!OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
+            writeChargingStationOutput();
+        } else if (OptionsCont::getOptions().getBool("chargingstations-output.aggregated.write-unfinished")) {
+            MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"), true);
+        }
     }
     if (OptionsCont::getOptions().isSet("overheadwiresegments-output")) {
         writeOverheadWireSegmentOutput();
@@ -1067,7 +1071,7 @@ MSNet::writeOutput() {
 
     // charging station aggregated dumps
     if (OptionsCont::getOptions().isSet("chargingstations-output") && OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
-        MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"), myStep);
+        MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"));
     }
 
     // elecHybrid dumps

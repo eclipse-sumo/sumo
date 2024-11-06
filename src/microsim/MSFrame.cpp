@@ -152,6 +152,8 @@ MSFrame::fillOptions() {
     oc.addDescription("chargingstations-output", "Output", TL("Write data of charging stations"));
     oc.doRegister("chargingstations-output.aggregated", new Option_Bool(false));
     oc.addDescription("chargingstations-output.aggregated", "Output", TL("Write aggregated charging event data instead of single time steps"));
+    oc.doRegister("chargingstations-output.aggregated.write-unfinished", new Option_Bool(false));
+    oc.addDescription("chargingstations-output.aggregated.write-unfinished", "Output", TL("Write aggregated charging event data for vehicles which have not arrived at simulation end"));
 
     oc.doRegister("overheadwiresegments-output", new Option_FileName());
     oc.addDescription("overheadwiresegments-output", "Output", TL("Write data of overhead wire segments"));

@@ -119,7 +119,7 @@ public:
     void writeChargingStationOutput(OutputDevice& output);
 
     /// @brief write ungrouped output (flush data after writing)
-    void writeAggregatedChargingStationOutput(OutputDevice& output);
+    void writeAggregatedChargingStationOutput(OutputDevice& output, bool includeUnfinished = false);
 
 protected:
 
