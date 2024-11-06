@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-05 10:37+0000\n"
+"PO-Revision-Date: 2024-11-06 09:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -6620,7 +6620,7 @@ msgstr "Deaktiviert das Erstellen von Wendefahrbahnen an Randknotenpunkten"
 
 #: src/netbuild/NBFrame.cpp:160
 msgid "Disables building connections to left"
-msgstr "Deaktiviert das Erstellen von Linksverbindungen"
+msgstr "Deaktiviert das Erstellen von Verbindungen Richtung links"
 
 #: src/netbuild/NBFrame.cpp:164
 msgid "Splits edges across geometry nodes"
