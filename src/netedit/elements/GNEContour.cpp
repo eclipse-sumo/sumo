@@ -80,7 +80,7 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
         // calculate closed shape contour
         buildContourClosedShape(s, d, shape, scale);
         // check if position or bondary is within closed shape
-        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary, layer);
+        gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
@@ -94,7 +94,7 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
         // calculate extruded shape
         buildContourExtrudedShape(s, d, shape, extrusionWidth, scale, closeFirstExtrem, closeLastExtrem, offset);
         // check if position or bondary is within extruded shape
-        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary, layer);
+        gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
@@ -108,7 +108,7 @@ GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, co
         // calculate rectangle shape
         buildContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         // check if position or bondary is within rectangle shape
-        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary, layer);
+        gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
@@ -122,7 +122,7 @@ GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const
         // calculate circle shape
         buildContourCircle(s, d, pos, radius, scale);
         // check if position or bondary is within circle shape
-        gViewObjectsHandler.checkCircleElement(d, glObject, pos, (radius * scale), *myContourBoundary, layer);
+        gViewObjectsHandler.checkCircleObject(d, glObject, pos, (radius * scale), *myContourBoundary, layer);
     }
 }
 
@@ -136,7 +136,7 @@ GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVis
         // calculate contour edge shape
         buildContourEdge(s, d, edge, closeFirstExtrem, closeLastExtrem);
         // check if position or bondary is within contour shape
-        gViewObjectsHandler.checkShapeElement(elementToRegister, *myCalculatedShape, *myContourBoundary, layer);
+        gViewObjectsHandler.checkShapeObject(elementToRegister, *myCalculatedShape, *myContourBoundary, layer);
     }
 }
 
@@ -238,8 +238,8 @@ GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s
                 }
             }
             // if list of index is emprt, use nearestPos as pos over shape
-            if (calculatePosOverShape && gViewObjectsHandler.getGeometryPoints(edge).empty()) {
-                gViewObjectsHandler.addPositionOverShape(edge, nearestPos, edge->getType(), nearestOffset);
+            if (calculatePosOverShape && gViewObjectsHandler.getSelectedGeometryPoints(edge).empty()) {
+                gViewObjectsHandler.selectPositionOverShape(edge, nearestPos, edge->getType(), nearestOffset);
             }
         } else {
             // check position within geometry of middle geometry points
@@ -309,9 +309,9 @@ GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, c
         // get gl object
         const auto glObject = AC->getGUIGlObject();
         // get geometry points
-        const auto& geometryPoints = gViewObjectsHandler.getGeometryPoints(glObject);
+        const auto& geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(glObject);
         // get temporal position over shape
-        const auto& posOverShape = gViewObjectsHandler.getPositionOverShape(glObject);
+        const auto& posOverShape = gViewObjectsHandler.getSelectedPositionOverShape(glObject);
         // either draw geometry points or position over shape
         if (geometryPoints.size() > 0) {
             // draw every geometry point

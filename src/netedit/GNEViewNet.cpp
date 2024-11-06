@@ -500,7 +500,7 @@ GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     GLHelper::popMatrix();
     // check if update front element
     if (myFrontAttributeCarrier) {
-        gViewObjectsHandler.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
+        gViewObjectsHandler.updateFrontObject(myFrontAttributeCarrier->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
     myViewObjectsSelector.updateObjects();
@@ -533,7 +533,7 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     GLHelper::popMatrix();
     // check if update front element
     if (myFrontAttributeCarrier) {
-        gViewObjectsHandler.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
+        gViewObjectsHandler.updateFrontObject(myFrontAttributeCarrier->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
     myViewObjectsSelector.updateObjects();

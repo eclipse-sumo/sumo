@@ -2667,7 +2667,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
             // calculate angle betwen first and second geometry point
             const double angle = RAD2DEG(startGeometryPointPos.angleTo2D(myNBEdge->getGeometry()[1])) * -1;
             // get selected geometry points
-            const auto selectedGeometryPoints = gViewObjectsHandler.getGeometryPoints(this);
+            const auto selectedGeometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(this);
             // override with special colors (unless the color scheme is based on selection)
             if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
                 GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
@@ -2731,7 +2731,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
             // calculate angle last and previous geometry point
             const double angle = RAD2DEG(geometryPointPos.angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
             // get selected geometry points
-            const auto selectedGeometryPoints = gViewObjectsHandler.getGeometryPoints(this);
+            const auto selectedGeometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(this);
             // override with special colors (unless the color scheme is based on selection)
             if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
                 GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
@@ -2893,7 +2893,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.addElementUnderCursor(this, layer, false, true);
+        gViewObjectsHandler.selectObject(this, layer, false, true);
     } else {
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();

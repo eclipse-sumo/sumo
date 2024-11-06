@@ -1891,7 +1891,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
         // check if draw with double width
-        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
+        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isObjectSelected(myPlanElement));
         // calculate path width
         double pathWidth = s.widthSettings.walkWidth;
         if (tagProperty.isPlanRide()) {
@@ -1994,7 +1994,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         // calculate path width double
         const double drawingWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
         // check if draw with double width
-        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
+        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isObjectSelected(myPlanElement));
         // get end pos radius
         const double endPosRadius = getEndPosRadius(s, segment, drawHalfWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -2064,7 +2064,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         // calculate path width double
         const double pathWidthDouble = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
         // check if draw with double width
-        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isElementSelected(myPlanElement));
+        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isObjectSelected(myPlanElement));
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // push a draw matrix

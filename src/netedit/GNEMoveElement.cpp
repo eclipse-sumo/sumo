@@ -192,9 +192,9 @@ GNEMoveOperation*
 GNEMoveElement::calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape,
         const bool maintainShapeClosed) {
     // get moved geometry points
-    const auto geometryPoints = gViewObjectsHandler.getGeometryPoints(obj);
+    const auto geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(obj);
     // get pos over shape
-    const auto posOverShape = gViewObjectsHandler.getPositionOverShape(obj);
+    const auto posOverShape = gViewObjectsHandler.getSelectedPositionOverShape(obj);
     // declare shape to move
     PositionVector shapeToMove = originalShape;
     const int lastIndex = (int)shapeToMove.size() - 1;

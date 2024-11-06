@@ -298,7 +298,7 @@ bool
 GNENetworkElement::checkDrawingBoundarySelection() const {
     if (!gViewObjectsHandler.getSelectionBoundary().isInitialised()) {
         return true;
-    } else if (!gViewObjectsHandler.isElementSelected(this)) {
+    } else if (!gViewObjectsHandler.isObjectSelected(this)) {
         return true;
     } else {
         return false;

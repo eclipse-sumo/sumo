@@ -69,28 +69,31 @@ public:
     /// @brief clear selected elements
     void clearSelectedElements();
 
-    /// @brief get selection position (usually the mouse position)
+    /// @name position and boundary functions. used for defining the posion that will be check (usually the mouse position)
+    /// @{
+    /// @brief get selection position
     const Position& getSelectionPosition() const;
 
-    /// @brief get selection boundary (usually the mouse position)
+    /// @brief get selection boundary
     const Boundary& getSelectionBoundary() const;
 
-    /// @brief set selection position (usually the mouse position)
+    /// @brief set selection position
     void setSelectionPosition(const Position& pos);
 
-    /// @brief set selection boundary (usually the mouse position)
+    /// @brief set selection boundary
     void setSelectionBoundary(const Boundary& boundary);
 
-    /// @brief check if element was already selected
-    bool isElementSelected(const GUIGlObject* GLObject) const;
+    /// @}
 
+    /// @name check functions. If the result is positive, the given GLObject will be added to elementUnderCursor
+    /// @{
     /// @brief check boundary parent element
-    bool checkBoundaryParentElement(const GUIGlObject* GLObject, const GUIGlObject* parent, const double layer);
+    bool checkBoundaryParentObject(const GUIGlObject* GLObject, const GUIGlObject* parent, const double layer);
 
     /// @brief check if mouse is within elements geometry (for circles)
-    bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const Position& center, const double radius, const Boundary& circleBoundary,
-                            const double layer);
+    bool checkCircleObject(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+                           const Position& center, const double radius, const Boundary& circleBoundary,
+                           const double layer);
 
     /// @brief check if mouse is within geometry point
     bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
@@ -101,30 +104,37 @@ public:
                                 const PositionVector& shape, const double layer, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector& shape,
-                           const Boundary& shapeBoundary, const double layer);
+    bool checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape,
+                          const Boundary& shapeBoundary, const double layer);
+    /// @}
 
+    /// @name functions used for mark (select) elements
+    /// @{
     /// @brief add element into list of elements under cursor
-    bool addElementUnderCursor(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
+    bool selectObject(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
                                const bool fullBoundary);
 
     /// @brief add geometryPoint into list of elements under cursor
-    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex, const double layer);
+    bool selectGeometryPoint(const GUIGlObject* GLObject, const int newIndex, const double layer);
 
-    /// @brief add position over shape
-    bool addPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double layer, const double offset);
+    /// @brief select position over shape (for example, the position over a lane shape)
+    bool selectPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double layer, const double offset);
+
+    /// @brief check if element was already selected
+    bool isObjectSelected(const GUIGlObject* GLObject) const;
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;
 
     /// @brief get geometry points for the given glObject
-    const std::vector<int>& getGeometryPoints(const GUIGlObject* GLObject) const;
+    const std::vector<int>& getSelectedGeometryPoints(const GUIGlObject* GLObject) const;
 
     /// @brief get position over shape
-    const Position& getPositionOverShape(const GUIGlObject* GLObject) const;
+    const Position& getSelectedPositionOverShape(const GUIGlObject* GLObject) const;
+    /// @}
 
-    /// @brief move front element in elements under cursor (currently used only in netedit)
-    void updateFrontElement(const GUIGlObject* GLObject);
+    /// @brief move the given object to the front (currently used only in netedit)
+    void updateFrontObject(const GUIGlObject* GLObject);
 
     /// @brief isolate edge geometry points (used for moving)
     void isolateEdgeGeometryPoints();
@@ -160,7 +170,7 @@ protected:
     /// @brief selected element sorted by layer
     GLObjectsSortedContainer mySortedSelectedObjects;
 
-    /// @brief map with selected elements and if was selected with full boundary (used only to avoid double seletions)
+    /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
     std::map<const GUIGlObject*, bool> mySelectedObjects;
 
     /// @brief selection boundary

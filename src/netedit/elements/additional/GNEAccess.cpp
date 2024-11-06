@@ -226,7 +226,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // radius depends if mouse is over element
-            const double radius = gViewObjectsHandler.isElementSelected(this) ? 1 : 0.5;
+            const double radius = gViewObjectsHandler.isObjectSelected(this) ? 1 : 0.5;
             // get color
             RGBColor accessColor;
             if (drawUsingSelectColor()) {

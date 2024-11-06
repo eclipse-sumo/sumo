@@ -628,7 +628,7 @@ void
 GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                       const double width, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction, getType())) {
+    if (!gViewObjectsHandler.checkBoundaryParentObject(this, myParentJunction, getType())) {
         // check if calculate contour for geometry points
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myCrossingGeometry.getShape(),
