@@ -302,7 +302,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     // add checkBox for quick load
     new FXMenuSeparator(fileMenu);
     menuCheckAllowUndoRedoLoading = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                                    TL("Quick load (No undo)"), "", "",
+                                    TL("Allow undoing element loading"), "", TL("Allow to undo loading of elements (Slow if a lot of elements are loaded)"),
                                     GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO_LOADING);
     // set default value
     menuCheckAllowUndoRedoLoading->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true));
@@ -1280,6 +1280,11 @@ GNEApplicationWindowHelper::EditMenuCommands::buildUndoRedoMenuCommands(FXMenuPa
     openUndolistDialog = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                          TL("Show undo/redo history"), "", TL("Open undo/redo history dialog."),
                          GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_UNDOLISTDIALOG);
+    // add checkBox for recomputing in data mode
+    menuCheckAllowUndoRedo = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                             TL("Allow undo-redo"), "", "",
+                             GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO);
+    menuCheckAllowUndoRedo->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true));
 }
 
 
@@ -1857,13 +1862,8 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     menuCheckRecomputeDataMode = GUIDesigns::buildFXMenuCheckboxIcon(processingMenu,
                                  TL("Recompute Network in Data Mode"), "", "",
                                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp, MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA);
-    // add checkBox for recomputing in data mode
-    menuCheckAllowUndoRedo = GUIDesigns::buildFXMenuCheckboxIcon(processingMenu,
-                             TL("Allow undo-redo"), "", "",
-                             GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO);
     // set default value
     menuCheckRecomputeDataMode->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "RecomputeData", true));
-    menuCheckAllowUndoRedo->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true));
     // build demand  processing menu commands
     computeDemand = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                     TL("Compute demand"), "F5", TL("Computes demand elements."),
@@ -1905,7 +1905,6 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showNetworkProcessingMenuCom
     clearInvalidCrossings->enable();
     mySeparatorCheckBox->enable();
     menuCheckRecomputeDataMode->enable();
-    menuCheckAllowUndoRedo->enable();
     // now show it
     computeNetwork->show();
     computeNetworkVolatile->show();
@@ -1914,7 +1913,6 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showNetworkProcessingMenuCom
     clearInvalidCrossings->show();
     mySeparatorCheckBox->show();
     menuCheckRecomputeDataMode->show();
-    menuCheckAllowUndoRedo->show();
 }
 
 

@@ -683,6 +683,9 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for open undolist dialog
         FXMenuCommand* openUndolistDialog = nullptr;
 
+        /// @brief checkBox for allow undo-redo
+        MFXMenuCheckIcon* menuCheckAllowUndoRedo = nullptr;
+
         /// @brief network view options
         NetworkViewOptions networkViewOptions;
 
@@ -920,9 +923,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief checkBox for recomputing when changing data mode
         MFXMenuCheckIcon* menuCheckRecomputeDataMode = nullptr;
-
-        /// @brief checkBox for allow undo-redo
-        MFXMenuCheckIcon* menuCheckAllowUndoRedo = nullptr;
 
         /// @}
 
