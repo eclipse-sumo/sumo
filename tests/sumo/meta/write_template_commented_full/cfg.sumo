@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-18 19:15:46 by Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
+<!-- generated on 2024-11-06 11:00:29 by Eclipse SUMO sumo Version v1_21_0+0637-f1850e93215
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -688,7 +688,7 @@
         <device.rerouting.synchronize value="false" type="BOOL"/>
 
         <!-- Allow rerouting triggered by rail signals. -->
-        <device.rerouting.railsignal value="true" type="BOOL"/>
+        <device.rerouting.railsignal value="false" type="BOOL"/>
 
         <!-- Compute separate average speeds for bicycles -->
         <device.rerouting.bike-speeds value="false" type="BOOL"/>
