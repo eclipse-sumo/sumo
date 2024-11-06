@@ -71,7 +71,7 @@ const long long int VEHPARS_ARRIVALEDGE_SET = 2 << 26;
 const long long int VEHPARS_CALIBRATORSPEED_SET = 2 << 27;
 const long long int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 28;
 const long long int VEHPARS_CFMODEL_PARAMS_SET = 2 << 29;
-const long long int VEHPARS_PARKING_BADGES_SET = 2 << 30;
+const long long int VEHPARS_PARKING_BADGES_SET = (long long int)2 << 30;
 const long long int VEHPARS_INSERTION_CHECKS_SET = (long long int)2 << 31;
 
 const int STOP_INDEX_END = -1;
