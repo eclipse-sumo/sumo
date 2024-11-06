@@ -96,7 +96,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s, this, this, false, s.altKeyPressed ? 0 : getShapeLayer(), getWidth(), getHeight());
+        drawInnerPOI(s, this, this, false, getShapeLayer(), getWidth(), getHeight());
         // pop name
         GLHelper::popName();
     }

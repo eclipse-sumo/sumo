@@ -1121,9 +1121,6 @@ public:
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
 
-    /// @brief alt key pressed (only used for draw polygons under other elements in SUMO-GUI, store is not needed)
-    bool altKeyPressed = false;
-
     /// @brief constant for boundary size drawing (20 for slow computers, 10 for quick computers)
     double BoundarySizeDrawing = 15;
 

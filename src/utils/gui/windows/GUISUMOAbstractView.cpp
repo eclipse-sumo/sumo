@@ -1293,13 +1293,6 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects, 
 long
 GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     const FXEvent* e = (FXEvent*) ptr;
-    if (e->state & ALTMASK) {
-        myVisualizationSettings->altKeyPressed = true;
-        // update view (for polygon layers)
-        update();
-    } else {
-        myVisualizationSettings->altKeyPressed = false;
-    }
     // check if process canvas or popup
     if (myPopup != nullptr) {
         return myPopup->onKeyPress(o, sel, ptr);
@@ -1326,11 +1319,6 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
 long
 GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     const FXEvent* e = (FXEvent*) ptr;
-    if ((e->state & ALTMASK) == 0) {
-        myVisualizationSettings->altKeyPressed = false;
-        // update view (for polygon layers)
-        update();
-    }
     // check if process canvas or popup
     if (myPopup != nullptr) {
         return myPopup->onKeyRelease(o, sel, ptr);

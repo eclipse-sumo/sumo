@@ -256,9 +256,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
-            drawInnerPolygon(s, this, this, *myRotatedShape, s.altKeyPressed ? 0 : getShapeLayer(), getFill());
+            drawInnerPolygon(s, this, this, *myRotatedShape, getShapeLayer(), getFill());
         } else {
-            drawInnerPolygon(s, this, this, myShape, s.altKeyPressed ? 0 : getShapeLayer(), getFill());
+            drawInnerPolygon(s, this, this, myShape, getShapeLayer(), getFill());
         }
         // pop name
         GLHelper::popName();
