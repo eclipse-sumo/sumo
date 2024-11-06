@@ -253,6 +253,8 @@ the following structure:
 </chargingstations-export>
 ```
 
+If the option **--chargingstations-output.aggregated.write-unfinished true** is set as well, vehicles still charging at the
+end of the simulation are included as well (but do not contain the chargingEnd attribute).
 Attributes with the same name can be looked up in the [table above](#full_report). The remaining attributes are:
 
 | Name               | Type   | Description                                                      |
