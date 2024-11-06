@@ -86,7 +86,7 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
     oc.addDescription("device.rerouting.synchronize", "Routing", TL("Let rerouting happen at the same time for all vehicles"));
 
-    oc.doRegister("device.rerouting.railsignal", new Option_Bool(true));
+    oc.doRegister("device.rerouting.railsignal", new Option_Bool(false));
     oc.addDescription("device.rerouting.railsignal", "Routing", TL("Allow rerouting triggered by rail signals."));
 
     oc.doRegister("device.rerouting.bike-speeds", new Option_Bool(false));
