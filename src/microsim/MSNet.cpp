@@ -191,9 +191,6 @@ MSNet::getInstance(void) {
 
 void
 MSNet::initStatic() {
-    if (!MSGlobals::gUseMesoSim) {
-        MSVehicle::Influencer::init();
-    }
     MSDriveWay::init();
 }
 

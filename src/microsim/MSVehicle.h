@@ -1403,7 +1403,7 @@ public:
             static std::map<const MSVehicle*, GapControlState*> refVehMap;
 
         private:
-            static GapControlVehStateListener vehStateListener;
+            static GapControlVehStateListener* myVehStateListener;
         };
 
 
@@ -1414,8 +1414,6 @@ public:
         /// @brief Destructor
         ~Influencer();
 
-        /// @brief Static initalization
-        static void init();
         /// @brief Static cleanup
         static void cleanup();
 
@@ -1590,6 +1588,11 @@ public:
         bool ignoreOverlap() const {
             return myTraciLaneChangePriority == LCP_ALWAYS;
         }
+
+    private:
+
+        /// @brief Static initalization
+        void init();
 
     private:
         /// @brief The velocity time line to apply

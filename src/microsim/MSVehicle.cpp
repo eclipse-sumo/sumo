@@ -289,8 +289,7 @@ MSVehicle::Influencer::GapControlVehStateListener::vehicleStateChanged(const SUM
 std::map<const MSVehicle*, MSVehicle::Influencer::GapControlState*>
 MSVehicle::Influencer::GapControlState::refVehMap;
 
-MSVehicle::Influencer::GapControlVehStateListener
-MSVehicle::Influencer::GapControlState::vehStateListener;
+MSVehicle::Influencer::GapControlVehStateListener* MSVehicle::Influencer::GapControlState::myVehStateListener(nullptr);
 
 MSVehicle::Influencer::GapControlState::GapControlState() :
     tauOriginal(-1), tauCurrent(-1), tauTarget(-1), addGapCurrent(-1), addGapTarget(-1),
@@ -304,10 +303,12 @@ MSVehicle::Influencer::GapControlState::~GapControlState() {
 
 void
 MSVehicle::Influencer::GapControlState::init() {
-//    std::cout << "GapControlState::init()" << std::endl;
     if (MSNet::hasInstance()) {
-        MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
-        MSNet::getInstance()->addVehicleStateListener(vsl);
+        if (myVehStateListener == nullptr) {
+            //std::cout << "GapControlState::init()" << std::endl;
+            myVehStateListener = new GapControlVehStateListener();
+            MSNet::getInstance()->addVehicleStateListener(myVehStateListener);
+        }
     } else {
         WRITE_ERROR("MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!")
     }
@@ -315,8 +316,10 @@ MSVehicle::Influencer::GapControlState::init() {
 
 void
 MSVehicle::Influencer::GapControlState::cleanup() {
-    MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
-    MSNet::getInstance()->removeVehicleStateListener(vsl);
+    if (myVehStateListener != nullptr) {
+        MSNet::getInstance()->removeVehicleStateListener(myVehStateListener);
+        delete myVehStateListener;
+    }
 }
 
 void
@@ -407,6 +410,7 @@ void
 MSVehicle::Influencer::activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh) {
     if (myGapControlState == nullptr) {
         myGapControlState = std::make_shared<GapControlState>();
+        init(); // only does things on first call
     }
     myGapControlState->activate(originalTau, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel, refVeh);
 }
