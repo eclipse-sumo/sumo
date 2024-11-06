@@ -92,8 +92,11 @@ public:
     /// @brief get objects in the given boundary
     void updateObjectsInBoundary(const Boundary& boundary);
 
-    /// @brief get objects in the given position
+    /// @brief update objects and boundaries in position
     void updateObjectsInPosition(const Position& pos);
+
+    /// @brief redraw elements
+    void redrawElements();
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -771,6 +774,9 @@ private:
 
     /// @brief drawin toggle (used in drawGLElements to avoid draw elements twice)
     int myDrawingToggle = 0;
+
+    /// @brief number of redrawed elements (used to avoid unnecesary redrawings)
+    size_t myNumberOfRedrawedElements = 0;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

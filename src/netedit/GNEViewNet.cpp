@@ -485,7 +485,7 @@ GNEViewNet::getViewObjectsSelector() const {
 void
 GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     // clear post drawing elements
-    gViewObjectsHandler.clearSelectedElements();
+    gViewObjectsHandler.reset();
     // set selection boundary in gObjectsInPosition
     gViewObjectsHandler.setSelectionBoundary(boundary);
     // push matrix
@@ -510,7 +510,7 @@ GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
 void
 GNEViewNet::updateObjectsInPosition(const Position& pos) {
     // clear post drawing elements
-    gViewObjectsHandler.clearSelectedElements();
+    gViewObjectsHandler.reset();
     // set selection position in gObjectsInPosition
     gViewObjectsHandler.setSelectionPosition(pos);
     // create an small boundary
@@ -537,6 +537,32 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     }
     // after draw elements, update objects under cursor
     myViewObjectsSelector.updateObjects();
+}
+
+
+void
+GNEViewNet::redrawElements() {
+    // first add all inspected elements to redraw objects
+    for (const auto &insectedAC : myInspectedAttributeCarriers) {
+        gViewObjectsHandler.addToRedrawObjects(insectedAC->getGUIGlObject());
+    }
+    // avoid draw twice
+    if (gViewObjectsHandler.getRedrawObjects().size() != myNumberOfRedrawedElements) {
+        // push matrix
+        GLHelper::pushMatrix();
+        // enable draw for object under cursor
+        myVisualizationSettings->drawForViewObjectsHandler = true;
+        // draw all gl elements
+        for (const auto &object : gViewObjectsHandler.getRedrawObjects()) {
+            object->drawGL(*myVisualizationSettings);
+        }
+        // restore draw for object under cursor
+        myVisualizationSettings->drawForViewObjectsHandler = false;
+        // pop matrix
+        GLHelper::popMatrix();
+        // update number of redrawed elements
+        myNumberOfRedrawedElements = gViewObjectsHandler.getRedrawObjects().size();
+    }
 }
 
 
@@ -1313,6 +1339,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
     // first step: update objects under cursor
     updateObjectsInPosition(myNet->getViewNet()->getPositionInformation());
+    // second step: redraw specific objects
+    redrawElements();
     // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
