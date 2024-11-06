@@ -66,8 +66,8 @@ public:
     /// @brief constructor
     GUIViewObjectsHandler();
 
-    /// @brief clear selected elements
-    void clearSelectedElements();
+    /// @brief reset view objects handler
+    void reset();
 
     /// @name position and boundary functions. used for defining the posion that will be check (usually the mouse position)
     /// @{
@@ -131,6 +131,30 @@ public:
 
     /// @brief get position over shape
     const Position& getSelectedPositionOverShape(const GUIGlObject* GLObject) const;
+
+    /// @}
+
+    /// @name functions related with redrawing objects
+    /// @{
+    /// @brief get redrawing objects
+    const std::set<const GUIGlObject*> &getRedrawObjects() const;
+
+    /// @brief get redrawing objects
+    void addToRedrawObjects(const GUIGlObject* GLObject);
+
+    /// @brief redrawed elements
+    int numRedrawedElements = 0;
+
+    /// @}
+
+    /// @name functions related with merging junctions
+    /// @{
+    /// @brief get merging junctions
+    const std::vector<const GNEJunction*>& getMergingJunctions() const;
+
+    /// @brief add to merging junctions (used for marking junctions to merge)
+    bool addMergingJunctions(const GNEJunction* junction);
+
     /// @}
 
     /// @brief move the given object to the front (currently used only in netedit)
@@ -138,12 +162,6 @@ public:
 
     /// @brief isolate edge geometry points (used for moving)
     void isolateEdgeGeometryPoints();
-
-    /// @brief get merging junctions
-    const std::vector<const GNEJunction*>& getMergingJunctions() const;
-
-    /// @brief add to merging junctions (used for marking junctions to merge)
-    bool addMergingJunctions(const GNEJunction* junction);
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -172,6 +190,9 @@ protected:
 
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
     std::map<const GUIGlObject*, bool> mySelectedObjects;
+
+    /// @brief set with element marked for redrawing
+    std::set<const GUIGlObject*> myRedrawObjects;
 
     /// @brief selection boundary
     Boundary mySelectionBoundary;

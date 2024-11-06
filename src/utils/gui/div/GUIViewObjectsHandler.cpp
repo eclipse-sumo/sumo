@@ -33,12 +33,13 @@ GUIViewObjectsHandler::GUIViewObjectsHandler() {}
 
 
 void
-GUIViewObjectsHandler::clearSelectedElements() {
+GUIViewObjectsHandler::reset() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
-    // clear objects under cursor
+    // clear objects containers
     mySortedSelectedObjects.clear();
     mySelectedObjects.clear();
+    myRedrawObjects.clear();
     // reset marked elements
     myMergingJunctions.clear();
     markedEdge = nullptr;
@@ -373,6 +374,37 @@ GUIViewObjectsHandler::getSelectedPositionOverShape(const GUIGlObject* GLObject)
 }
 
 
+const std::set<const GUIGlObject*>&
+GUIViewObjectsHandler::getRedrawObjects() const {
+    return myRedrawObjects;
+}
+
+
+void
+GUIViewObjectsHandler::addToRedrawObjects(const GUIGlObject* GLObject) {
+    myRedrawObjects.insert(GLObject);
+}
+
+
+const std::vector<const GNEJunction*>&
+GUIViewObjectsHandler::getMergingJunctions() const {
+    return myMergingJunctions;
+}
+
+
+bool
+GUIViewObjectsHandler::addMergingJunctions(const GNEJunction* junction) {
+    // avoid insert duplicated junctions
+    for (const auto mergingJunctions : myMergingJunctions) {
+        if (mergingJunctions == junction) {
+            return false;
+        }
+    }
+    myMergingJunctions.push_back(junction);
+    return true;
+}
+
+
 void
 GUIViewObjectsHandler::updateFrontObject(const GUIGlObject* GLObject) {
     ObjectContainer frontElement(nullptr);
@@ -417,25 +449,6 @@ GUIViewObjectsHandler::isolateEdgeGeometryPoints() {
         // add edge with geometry points as front element
         mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(edgeWithGeometryPoints);
     }
-}
-
-
-const std::vector<const GNEJunction*>&
-GUIViewObjectsHandler::getMergingJunctions() const {
-    return myMergingJunctions;
-}
-
-
-bool
-GUIViewObjectsHandler::addMergingJunctions(const GNEJunction* junction) {
-    // avoid insert duplicated junctions
-    for (const auto mergingJunctions : myMergingJunctions) {
-        if (mergingJunctions == junction) {
-            return false;
-        }
-    }
-    myMergingJunctions.push_back(junction);
-    return true;
 }
 
 /****************************************************************************/
