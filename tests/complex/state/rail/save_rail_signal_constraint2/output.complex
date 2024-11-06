@@ -1,17 +1,17 @@
-Loading net-file from 'net.net.xml' ... done (0ms).
-Loading additional-files from 'input_additional.add.xml' ... done (27ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (52ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (18ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (16ms).
 Loading done.
-Simulation version v1_21_0+0063-40d747df57b started with time: 0.00.
+Simulation version v1_21_0+0659-43b65d492c5 started with time: 0.00.
 Simulation ended at time: 269.00.
 Reason: All vehicles have left the simulation.
-DijkstraRouter answered 8 queries and explored 1.88 edges on average.
+DijkstraRouter answered 5 queries and explored 2.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Loading net-file from 'net.net.xml' ... done (1ms).
 Loading additional-files from 'input_additional.add.xml' ... done (16ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (21ms).
-Loading state from 'state.xml' ... done (8ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (16ms).
+Loading state from 'state.xml' ... done (21ms).
 Loading done.
-Simulation version v1_21_0+0063-40d747df57b started with time: 180.00.
+Simulation version v1_21_0+0659-43b65d492c5 started with time: 180.00.
 Simulation ended at time: 269.00.
 Reason: All vehicles have left the simulation.
