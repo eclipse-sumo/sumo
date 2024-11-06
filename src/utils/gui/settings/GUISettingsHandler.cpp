@@ -362,6 +362,8 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.poiType = parseTextSettings("poiType", attrs, mySettings.poiType);
             mySettings.poiText = parseTextSettings("poiText", attrs, mySettings.poiText);
             mySettings.poiColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
+            mySettings.poiUseCustomLayer = StringUtils::toBool(attrs.getStringSecure("poiUseCustomLayer", toString(mySettings.poiUseCustomLayer)));
+            mySettings.poiCustomLayer = StringUtils::toDouble(attrs.getStringSecure("poiCustomLayer", toString(mySettings.poiCustomLayer)));
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_POLYS:
@@ -369,6 +371,8 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.polyName = parseTextSettings("polyName", attrs, mySettings.polyName);
             mySettings.polyType = parseTextSettings("polyType", attrs, mySettings.polyType);
             mySettings.polyColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
+            mySettings.polyUseCustomLayer = StringUtils::toBool(attrs.getStringSecure("polyUseCustomLayer", toString(mySettings.polyUseCustomLayer)));
+            mySettings.polyCustomLayer = StringUtils::toDouble(attrs.getStringSecure("polyCustomLayer", toString(mySettings.polyCustomLayer)));
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:

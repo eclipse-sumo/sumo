@@ -966,6 +966,12 @@ public:
     /// @brief key for rendering poi textual parameter
     std::string poiTextParam;
 
+    /// @brief whether the rendering layer of POIs should be overriden
+    bool poiUseCustomLayer;
+
+    /// @brief the custom layer for POIs
+    double poiCustomLayer;
+
     /// @brief The polygon colorer
     GUIColorer polyColorer;
 
@@ -977,6 +983,12 @@ public:
 
     // Setting bundles for optional drawing polygon types
     GUIVisualizationTextSettings polyType;
+
+    /// @brief whether the rendering layer of polygons should be overriden
+    bool polyUseCustomLayer;
+
+    /// @brief the custom layer for polygons
+    double polyCustomLayer;
     /// @}
 
 

@@ -370,6 +370,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myAddSizePanel->update(mySettings->addSize);
 
     myPoiDetail->setValue(mySettings->poiDetail);
+    myPOIUseCustomLayer->setCheck(mySettings->poiUseCustomLayer);
+    myPOICustomLayer->setValue(mySettings->poiCustomLayer);
     myPOINamePanel->update(mySettings->poiName);
     myPOITypePanel->update(mySettings->poiType);
     myPOITextPanel->update(mySettings->poiText);
@@ -378,6 +380,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myPolyNamePanel->update(mySettings->polyName);
     myPolyTypePanel->update(mySettings->polyType);
     myPolySizePanel->update(mySettings->polySize);
+    myPolyUseCustomLayer->setCheck(mySettings->polyUseCustomLayer);
+    myPolyCustomLayer->setValue(mySettings->polyCustomLayer);
 
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
     myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
@@ -683,11 +687,15 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.poiType = myPOITypePanel->getSettings();
     tmpSettings.poiText = myPOITextPanel->getSettings();
     tmpSettings.poiSize = myPOISizePanel->getSettings();
+    tmpSettings.poiUseCustomLayer = myPOIUseCustomLayer->getCheck();
+    tmpSettings.poiCustomLayer = myPOICustomLayer->getValue();
 
     tmpSettings.polyColorer.setActive(myPolyColorMode->getCurrentItem());
     tmpSettings.polyName = myPolyNamePanel->getSettings();
     tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
+    tmpSettings.polyUseCustomLayer = myPolyUseCustomLayer->getCheck();
+    tmpSettings.polyCustomLayer = myPolyCustomLayer->getValue();
 
     if (mySettings->netedit) {
         tmpSettings.dataValue = myDataValuePanel->getSettings();
@@ -2218,11 +2226,17 @@ GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
     myPoiDetail->setRange(3, 100);
     myPoiDetail->setValue(mySettings->poiDetail);
 
+    myPOIUseCustomLayer = new FXCheckButton(m61, TL("Custom Layer"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myPOIUseCustomLayer->setCheck(mySettings->poiUseCustomLayer);
+    myPOICustomLayer = new FXSpinner(m61, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myPOICustomLayer->setValue(mySettings->poiCustomLayer);
+
     myPOINamePanel = new NamePanel(m61, this, TL("Show poi id"), mySettings->poiName);
     myPOITypePanel = new NamePanel(m61, this, TL("Show poi type"), mySettings->poiType);
     myPOITextPanel = new NamePanel(m61, this, TL("Show poi text param"), mySettings->poiText);
     myPOITextParamKey = new FXComboBox(myPOITextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myPOITextParamKey->setEditable(true);
+
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m62 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
@@ -2247,6 +2261,12 @@ GUIDialog_ViewSettings::buildPolygonsFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m91 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+
+    myPolyUseCustomLayer = new FXCheckButton(m91, TL("Custom Layer"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myPolyUseCustomLayer->setCheck(mySettings->polyUseCustomLayer);
+    myPolyCustomLayer = new FXSpinner(m91, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myPolyCustomLayer->setValue(mySettings->polyCustomLayer);
+
     myPolyNamePanel = new NamePanel(m91, this, TL("Show polygon id"), mySettings->polyName);
     myPolyTypePanel = new NamePanel(m91, this, TL("Show polygon types"), mySettings->polyType);
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);

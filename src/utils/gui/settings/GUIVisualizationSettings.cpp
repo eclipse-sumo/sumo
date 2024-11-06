@@ -633,8 +633,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     poiType(false, 60, RGBColor(0, 127, 70, 255)),
     poiText(false, 80, RGBColor(140, 0, 255, 255)),
     poiTextParam("PARAM_TEXT"),
+    poiUseCustomLayer(false),
+    poiCustomLayer(0),
     polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
     polyType(false, 60, RGBColor(255, 0, 128, 255)),
+    polyUseCustomLayer(false),
+    polyCustomLayer(0),
     dataValue(false, 100, RGBColor::CYAN),
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
@@ -2239,6 +2243,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     poiName.print(dev, "poiName");
     poiType.print(dev, "poiType");
     poiText.print(dev, "poiText");
+    dev.writeAttr("poiUseCustomLayer", poiUseCustomLayer);
+    dev.writeAttr("poiCustomLayer", poiCustomLayer);
     poiColorer.save(dev);
     dev.closeTag();
     // polys
@@ -2246,6 +2252,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     polySize.print(dev, "poly");
     polyName.print(dev, "polyName");
     polyType.print(dev, "polyType");
+    dev.writeAttr("polyUseCustomLayer", polyUseCustomLayer);
+    dev.writeAttr("polyCustomLayer", polyCustomLayer);
     polyColorer.save(dev);
     dev.closeTag();
     // 3D
@@ -2593,6 +2601,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (poiTextParam != v2.poiTextParam) {
         return false;
     }
+    if (poiUseCustomLayer != v2.poiUseCustomLayer) {
+        return false;
+    }
+    if (poiCustomLayer != v2.poiCustomLayer) {
+        return false;
+    }
     if (polySize != v2.polySize) {
         return false;
     }
@@ -2600,6 +2614,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (polyType != v2.polyType) {
+        return false;
+    }
+    if (polyUseCustomLayer != v2.polyUseCustomLayer) {
+        return false;
+    }
+    if (polyCustomLayer != v2.polyCustomLayer) {
         return false;
     }
 

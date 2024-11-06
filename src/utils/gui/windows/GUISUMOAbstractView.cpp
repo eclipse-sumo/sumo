@@ -1318,7 +1318,6 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
 
 long
 GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
-    const FXEvent* e = (FXEvent*) ptr;
     // check if process canvas or popup
     if (myPopup != nullptr) {
         return myPopup->onKeyRelease(o, sel, ptr);

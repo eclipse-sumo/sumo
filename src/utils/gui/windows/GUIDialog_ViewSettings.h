@@ -428,6 +428,8 @@ protected:
     FXCheckButton* myPOIColorInterpolation = nullptr;
     FXComboBox* myPOITextParamKey = nullptr;
     FXSpinner* myPoiDetail = nullptr;
+    FXCheckButton* myPOIUseCustomLayer = nullptr;
+    FXSpinner* myPOICustomLayer = nullptr;
 
     /// @brief Polygons
     MFXComboBoxIcon* myPolyColorMode, *myPolyShapeDetail = nullptr;
@@ -436,6 +438,8 @@ protected:
     std::vector<FXRealSpinner*> myPolyThresholds;
     std::vector<FXButton*> myPolyButtons;
     FXCheckButton* myPolyColorInterpolation = nullptr;
+    FXCheckButton* myPolyUseCustomLayer = nullptr;
+    FXSpinner* myPolyCustomLayer = nullptr;
 
     /// @brief Data
     MFXComboBoxIcon* myDataColorMode = nullptr;
