@@ -1390,7 +1390,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         writeErrorInvalidParent(SUMO_TAG_SOURCE, "", SUMO_TAG_EDGE, edgeID);
     } else {
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
+        for (const auto& TAZElement : edge->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSink = TAZElement;
             }
@@ -1414,7 +1414,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         // now check check if TAZSource exist
         GNEAdditional* TAZSource = nullptr;
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
+        for (const auto& TAZElement : edge->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSource = TAZElement;
             }
@@ -1463,7 +1463,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         // declare TAZ source
         GNEAdditional* TAZSource = nullptr;
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
+        for (const auto& TAZElement : edge->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSource = TAZElement;
             }
@@ -1486,7 +1486,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         }
         GNEAdditional* TAZSink = nullptr;
         // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : TAZ->getChildAdditionals()) {
+        for (const auto& TAZElement : edge->getChildAdditionals()) {
             if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
                 TAZSink = TAZElement;
             }
