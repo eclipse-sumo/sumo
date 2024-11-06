@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-06 14:12+0000\n"
+"PO-Revision-Date: 2024-11-06 15:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6261,85 +6261,97 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:285
 #, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
-msgstr ""
+msgstr "Avverte di geometrie di archi con una pendenza in % al di FLOAT."
 
 #: src/netbuild/NBFrame.cpp:288
 msgid "Smooth edge geometries with a grade above the warning threshold."
 msgstr ""
+"Appiana le geometrie degli archi con una pendenza al di là della soglia di "
+"avvertimento."
 
 #: src/netbuild/NBFrame.cpp:292
 msgid "Turn off normalizing node positions"
-msgstr ""
+msgstr "Disattiva la normalizzazione delle posizioni dei nodi"
 
 #: src/netbuild/NBFrame.cpp:296 src/polyconvert/polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
-msgstr ""
+msgstr "Aggiunge FLOAT alle coordinate x"
 
 #: src/netbuild/NBFrame.cpp:300 src/polyconvert/polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
-msgstr ""
+msgstr "Aggiunge FLOAT alle coordinate y"
 
 #: src/netbuild/NBFrame.cpp:303 src/polyconvert/polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
-msgstr ""
+msgstr "Aggiunge FLOAT alle coordinate z"
 
 #: src/netbuild/NBFrame.cpp:307
 msgid "Flips the y-coordinate along zero"
-msgstr ""
+msgstr "Inverte la coordinata y intorno a zero"
 
 #: src/netbuild/NBFrame.cpp:311
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "Attiva euristica delle rotatorie"
 
 #: src/netbuild/NBFrame.cpp:315
 msgid ""
 "Structures with a circumference above FLOAT threshold are not classified as "
 "roundabout"
 msgstr ""
+"Strutture alla circonferenza sopra al valore soglia FLOAT non verranno "
+"considerate rotatorie"
 
 #: src/netbuild/NBFrame.cpp:318
 msgid "Default visibility when approaching a roundabout"
-msgstr ""
+msgstr "Visibilità standard nell'avvicinarsi a una rotatoria"
 
 #: src/netbuild/NBFrame.cpp:321
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
 msgstr ""
+"Attiva euristica delle corsie della direzione opposta utilizzabili per "
+"sorpassare"
 
 #: src/netbuild/NBFrame.cpp:324
 msgid "Ensure that opposite edges have the same length"
-msgstr ""
+msgstr "Assicurati che gli archi opposti hanno la stessa lunghezza"
 
 #: src/netbuild/NBFrame.cpp:327
 msgid "Enable guessing of network fringe nodes"
-msgstr ""
+msgstr "Attiva euristica dei nodi di bordo rete"
 
 #: src/netbuild/NBFrame.cpp:330
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr ""
+"Ritieni archi sconnessi con un limite di velocità sopra il valore dato come "
+"bordo rete"
 
 #: src/netbuild/NBFrame.cpp:333
 msgid "Assumes left-hand traffic on the network"
-msgstr ""
+msgstr "Assumi circolazione a sinistra nella rete"
 
 #: src/netbuild/NBFrame.cpp:349
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
+"Considera STR[] come elenco di incroci da escludere dal processo di "
+"combinazione"
 
 #: src/netbuild/NBFrame.cpp:361
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr ""
+msgstr "Modifica gli limiti di velocità di tutti gli archi aggiungendone FLOAT"
 
 #: src/netbuild/NBFrame.cpp:364
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr ""
+"Modifica gli limiti di velocità di tutti gli archi moltiplicandoli con FLOAT"
 
 #: src/netbuild/NBFrame.cpp:367
 msgid "Modifies all edge speeds to at least FLOAT"
 msgstr ""
+"Modifica gli limiti di velocità di tutti gli archi alzandoli a almeno FLOAT"
 
 #: src/netbuild/NBFrame.cpp:375
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr ""
+msgstr "Genera INT punti intermedi per appianare gli angoli degli incroci"
 
 #: src/netbuild/NBFrame.cpp:378
 msgid ""
