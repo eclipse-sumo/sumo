@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-06 13:51:35 by Eclipse SUMO sumo Version v1_14_1+15767-5939a6cf29f
+<!-- generated on 2024-11-06 14:44:34 by Eclipse SUMO sumo Version v1_14_1+15782-f4088b8e2d5
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -244,7 +244,7 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
         <device.rerouting.threads value="0" synonymes="routing-threads" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
-        <device.rerouting.railsignal value="true" type="BOOL" help="Allow rerouting triggered by rail signals."/>
+        <device.rerouting.railsignal value="false" type="BOOL" help="Allow rerouting triggered by rail signals."/>
         <device.rerouting.bike-speeds value="false" type="BOOL" help="Compute separate average speeds for bicycles"/>
         <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
         <person-device.rerouting.probability value="-1" type="FLOAT" help="The probability for a person to have a &apos;rerouting&apos; device"/>
