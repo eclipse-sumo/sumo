@@ -264,6 +264,10 @@ and [internal
 junctions](Networks/SUMO_Road_Networks.md#internal_junctions)
 shall be listed in the object locator dialog.
 
+## Screenshots
+
+The current view can be captured as a raster or a vector image file (called snapshot) from inside sumo-gui pressing the apposite button ![icon_camera.png](images/icon_camera.png "Make Snapshot"). If vector image file types are not available, this feature has not been activated in the build process.
+
 # Influencing the simulation
 
 Currently, there is only limited interaction that can be done from
