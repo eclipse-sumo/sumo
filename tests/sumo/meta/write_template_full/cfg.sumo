@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-06 11:00:29 by Eclipse SUMO sumo Version v1_21_0+0637-f1850e93215
+<!-- generated on 2024-11-06 13:51:35 by Eclipse SUMO sumo Version v1_14_1+15767-5939a6cf29f
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -47,6 +47,7 @@
         <elechybrid-output.aggregated value="false" type="BOOL" help="Write elecHybrid values into one aggregated file"/>
         <chargingstations-output value="" type="FILE" help="Write data of charging stations"/>
         <chargingstations-output.aggregated value="false" type="BOOL" help="Write aggregated charging event data instead of single time steps"/>
+        <chargingstations-output.aggregated.write-unfinished value="false" type="BOOL" help="Write aggregated charging event data for vehicles which have not arrived at simulation end"/>
         <overheadwiresegments-output value="" type="FILE" help="Write data of overhead wire segments"/>
         <substations-output value="" type="FILE" help="Write data of electrical substation stations"/>
         <substations-output.precision value="2" type="INT" help="Write substation values with the given precision (default 2)"/>
@@ -243,7 +244,7 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
         <device.rerouting.threads value="0" synonymes="routing-threads" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
-        <device.rerouting.railsignal value="false" type="BOOL" help="Allow rerouting triggered by rail signals."/>
+        <device.rerouting.railsignal value="true" type="BOOL" help="Allow rerouting triggered by rail signals."/>
         <device.rerouting.bike-speeds value="false" type="BOOL" help="Compute separate average speeds for bicycles"/>
         <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
         <person-device.rerouting.probability value="-1" type="FLOAT" help="The probability for a person to have a &apos;rerouting&apos; device"/>

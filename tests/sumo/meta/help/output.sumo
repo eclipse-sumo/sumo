@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_21_0+0440-4a8c48d6e2a
+Eclipse SUMO sumo Version v1_14_1+15767-5939a6cf29f
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -70,6 +70,9 @@ Output Options:
   --chargingstations-output FILE       Write data of charging stations
   --chargingstations-output.aggregated  Write aggregated charging event data
                                         instead of single time steps
+  --chargingstations-output.aggregated.write-unfinished  Write aggregated
+                                        charging event data for vehicles which
+                                        have not arrived at simulation end
   --overheadwiresegments-output FILE   Write data of overhead wire segments
   --substations-output FILE            Write data of electrical substation
                                         stations
