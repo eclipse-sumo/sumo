@@ -142,9 +142,6 @@ public:
     /// @brief get redrawing objects
     void addToRedrawObjects(const GUIGlObject* GLObject);
 
-    /// @brief redrawed elements
-    int numRedrawedElements = 0;
-
     /// @}
 
     /// @name functions related with merging junctions
