@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-06 09:21+0000\n"
+"PO-Revision-Date: 2024-11-06 11:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3006,24 +3006,28 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:300
 #, c-format
 msgid "Vehicle type distribution '%' is empty."
-msgstr ""
+msgstr "La distribuzione di tipi di veicoli '%' è vuota."
 
 #: src/microsim/MSRouteHandler.cpp:304 src/microsim/MSRouteHandler.cpp:969
 #, c-format
 msgid "Another vehicle type (or distribution) with the id '%' exists."
 msgstr ""
+"Esiste già un altro tipo di veicolo (oppure una distribuzione) con lo stesso "
+"codice identificativo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:325 src/router/RORouteHandler.cpp:330
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr ""
+"Gli codici identificativi di itinerari interni vengono ignorati (veicolo "
+"'%')."
 
 #: src/microsim/MSRouteHandler.cpp:344
 msgid "Invalid reference to route '%' in route %."
-msgstr ""
+msgstr "Riferimento invalido all'itinerario '%' nell'itinerario %."
 
 #: src/microsim/MSRouteHandler.cpp:356
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
-msgstr ""
+msgstr "L'attributo 'period' non si usa più. Usa invece 'cycleTime'."
 
 #: src/microsim/MSRouteHandler.cpp:360
 msgid "Invalid cost for route '%'."
@@ -3076,24 +3080,28 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:575
 #, c-format
 msgid "Route distribution '%' is empty."
-msgstr ""
+msgstr "La distribuzione di itinerari '%' è vuota."
 
 #: src/microsim/MSRouteHandler.cpp:615 src/router/RORouteHandler.cpp:573
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
 msgstr ""
+"Il tipo di veicolo '%' con la classe di veicolo pedone può essere usato "
+"soltanto per persone e non per veicolo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:624
 msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
 msgstr ""
+"L'elemento figlio 'route' del veicolo '%' va ignorato perché l'attributo "
+"'route' è stato impostato."
 
 #: src/microsim/MSRouteHandler.cpp:633
 #, c-format
 msgid "Vehicle '%' has no route."
-msgstr ""
+msgstr "Il veicolo '%' non tiene itinerario."
 
 #: src/microsim/MSRouteHandler.cpp:776
 msgid ""
@@ -3116,7 +3124,7 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:1045
 #, c-format
 msgid "Another flow with the id '%' exists."
-msgstr ""
+msgstr "Esiste già un'altro flusso con il codice identificativo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1073
 msgid "Cannot define % stage without %."
