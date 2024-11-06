@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-06 11:23+0000\n"
+"PO-Revision-Date: 2024-11-06 14:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3108,6 +3108,8 @@ msgid ""
 "Could not merge vehicle stops for vehicle '%' into implicitly defined route "
 "'%'"
 msgstr ""
+"Le fermate del veicolo '%' non potevano essere combinate nell'itinerario "
+"implicito '%'"
 
 #: src/microsim/MSRouteHandler.cpp:807
 #: src/microsim/transportables/MSTransportable.cpp:445
@@ -3132,15 +3134,15 @@ msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:1207
 msgid "The busStop '%' is not known%."
-msgstr ""
+msgstr "La fermata di autobus '%' è sconosciuta%."
 
 #: src/microsim/MSRouteHandler.cpp:1213
 msgid "The containerStop '%' is not known%."
-msgstr ""
+msgstr "La fermata di contenitori '%' è sconosciuta%."
 
 #: src/microsim/MSRouteHandler.cpp:1219
 msgid "The parkingArea '%' is not known%."
-msgstr ""
+msgstr "Il parcheggio '%' è sconosciuto%."
 
 #: src/microsim/MSRouteHandler.cpp:1226
 msgid "The chargingStation '%' is not known%."
