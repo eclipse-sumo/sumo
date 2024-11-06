@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-06 14:09+0000\n"
+"PO-Revision-Date: 2024-11-06 14:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3116,12 +3116,16 @@ msgstr ""
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
+"La persona '%' riceve il tipo '%' il cui usa la classe di veicoli inadatta "
+"'%' implicitamente."
 
 #: src/microsim/MSRouteHandler.cpp:950
 msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
 msgstr ""
+"Ci sono una persona e un contenitore con lo stesso codice identificativo "
+"'%'. Dalla versione SUMO 1.9.0 questo è erroneo."
 
 #: src/microsim/MSRouteHandler.cpp:1045
 #, c-format
@@ -3130,7 +3134,7 @@ msgstr "Esiste già un'altro flusso con il codice identificativo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1073
 msgid "Cannot define % stage without %."
-msgstr ""
+msgstr "Non si può definire un tratto % senza %."
 
 #: src/microsim/MSRouteHandler.cpp:1207
 msgid "The busStop '%' is not known%."
