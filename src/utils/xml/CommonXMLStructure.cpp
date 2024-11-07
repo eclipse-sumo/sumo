@@ -831,6 +831,23 @@ CommonXMLStructure::closeSUMOBaseOBject() {
 }
 
 
+void
+CommonXMLStructure::abortSUMOBaseOBject() {
+    // delete current sumo base object and use their parent as sumo base object
+    if (myCurrentSumoBaseObject) {
+        if (mySumoBaseObjectRoot == mySumoBaseObjectRoot) {
+            delete myCurrentSumoBaseObject;
+            myCurrentSumoBaseObject = nullptr;
+            mySumoBaseObjectRoot = nullptr;
+        } else {
+            auto parentSumoBaseObject = myCurrentSumoBaseObject->getParentSumoBaseObject();
+            delete myCurrentSumoBaseObject;
+            myCurrentSumoBaseObject = parentSumoBaseObject;
+        }
+    }
+}
+
+
 CommonXMLStructure::SumoBaseObject*
 CommonXMLStructure::getSumoBaseObjectRoot() const {
     return mySumoBaseObjectRoot;

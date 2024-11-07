@@ -397,8 +397,11 @@ public:
     /// @brief open SUMOBaseOBject
     void openSUMOBaseOBject();
 
-    /// @brief close myTag
+    /// @brief close SUMOBaseOBject
     void closeSUMOBaseOBject();
+
+    /// @brief abort SUMOBaseOBject
+    void abortSUMOBaseOBject();
 
     /// @brief get SumoBaseObject root
     CommonXMLStructure::SumoBaseObject* getSumoBaseObjectRoot() const;
