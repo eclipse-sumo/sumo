@@ -109,8 +109,11 @@ DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             case SUMO_TAG_PARAM:
                 WRITE_WARNING(TL("Data elements cannot load attributes as params"));
+                myCommonXMLStructure.abortSUMOBaseOBject();
                 break;
             default:
+                // tag cannot be parsed in routeHandler
+                myCommonXMLStructure.abortSUMOBaseOBject();
                 break;
         }
     } catch (InvalidArgument& e) {

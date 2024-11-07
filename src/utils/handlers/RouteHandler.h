@@ -233,7 +233,8 @@ private:
     void parseParameters(const SUMOSAXAttributes& attrs);
 
     /// @brief parse nested CarFollowingModel
-    bool parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+    bool parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs,
+                        CommonXMLStructure::SumoBaseObject* vTypeObject);
 
     /// @}
 

@@ -177,8 +177,8 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
                 break;
             default:
                 // tag cannot be parsed in AdditionalHandler
+                myCommonXMLStructure.abortSUMOBaseOBject();
                 return false;
-                break;
         }
     } catch (InvalidArgument& e) {
         writeError(e.what());

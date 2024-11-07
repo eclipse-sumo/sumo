@@ -124,8 +124,17 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
                 break;
             }
             default:
-                // nested CFM attributes
-                return parseNestedCFM(tag, attrs);
+                // get vehicle type Base object
+                const auto vTypeObject = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+                // parse embedded car following model information
+                if (vTypeObject && (vTypeObject->getTag() == SUMO_TAG_VTYPE)) {
+                    // nested CFM attributes
+                    return parseNestedCFM(tag, attrs, vTypeObject);
+                } else {
+                    // tag cannot be parsed in routeHandler
+                    myCommonXMLStructure.abortSUMOBaseOBject();
+                    return false;
+                }
         }
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -233,7 +242,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // vehicles
         case SUMO_TAG_TRIP:
             if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                       obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                    obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
                 // build trip with from-to junctions
                 buildTripJunctions(obj,
                                    obj->getVehicleParameter(),
@@ -250,8 +259,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 // build trip with from-to edges
                 buildTrip(obj,
                           obj->getVehicleParameter(),
-                          obj->hasStringAttribute(SUMO_ATTR_FROM)? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                          obj->hasStringAttribute(SUMO_ATTR_TO)? obj->getStringAttribute(SUMO_ATTR_TO) : "");
+                          obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                          obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "");
             }
             break;
         case SUMO_TAG_VEHICLE:
@@ -283,9 +292,9 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             } else {
                 // build flow with from-to edges
                 buildFlow(obj,
-                    obj->getVehicleParameter(),
-                    obj->hasStringAttribute(SUMO_ATTR_FROM)? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                    obj->hasStringAttribute(SUMO_ATTR_TO)? obj->getStringAttribute(SUMO_ATTR_TO) : "");
+                          obj->getVehicleParameter(),
+                          obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                          obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "");
             }
             break;
         // persons
@@ -917,23 +926,20 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 
 
 bool
-RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
-    // get vehicle type Base object
-    const auto vTypeObject = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    // parse embedded car following model information
-    if (vTypeObject && (vTypeObject->getTag() == SUMO_TAG_VTYPE)) {
-        WRITE_WARNINGF(TL("Defining car-following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
-        // get vType to modify it
-        auto vType = vTypeObject->getVehicleTypeParameter();
-        // parse nested CFM attributes
-        if (SUMOVehicleParserHelper::parseCFMParams(&vType, tag, attrs, true)) {
-            vTypeObject->setVehicleTypeParameter(&vType);
-            return true;
-        } else if (myHardFail) {
-            throw ProcessError(TL("Invalid parsing embedded VType"));
-        } else {
-            writeError(TL("Invalid parsing embedded VType"));
-        }
+RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs,
+                             CommonXMLStructure::SumoBaseObject* vTypeObject) {
+    // write warning info
+    WRITE_WARNINGF(TL("Defining car-following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
+    // get vType to modify it
+    auto vType = vTypeObject->getVehicleTypeParameter();
+    // parse nested CFM attributes
+    if (SUMOVehicleParserHelper::parseCFMParams(&vType, tag, attrs, true)) {
+        vTypeObject->setVehicleTypeParameter(&vType);
+        return true;
+    } else if (myHardFail) {
+        throw ProcessError(TL("Invalid parsing embedded VType"));
+    } else {
+        writeError(TL("Invalid parsing embedded VType"));
     }
     return false;
 }

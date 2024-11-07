@@ -55,8 +55,8 @@ MeanDataHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& a
                 break;
             default:
                 // tag cannot be parsed in MeanDataHandler
+                myCommonXMLStructure.abortSUMOBaseOBject();
                 return false;
-                break;
         }
     } catch (InvalidArgument& e) {
         writeError(e.what());
