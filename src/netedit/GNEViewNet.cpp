@@ -554,11 +554,10 @@ GNEViewNet::redrawContourElements(const Boundary& drawingBoundary) {
     std::set<const GUIGlObject*> redrawObjectsInDrawingBoundary;
     // only draw objects within the drawing boundary
     for (const auto& object : gViewObjectsHandler.getRedrawObjects()) {
-        if (drawingBoundary.contains2D(object->getCenteringBoundary())) {
+        if (drawingBoundary.overlaps2D(object->getCenteringBoundary())) {
             redrawObjectsInDrawingBoundary.insert(object);
         }
     }
-    WRITE_WARNING(toString(redrawObjectsInDrawingBoundary.size()));
     for (const auto& object : redrawObjectsInDrawingBoundary) {
         object->drawGL(*myVisualizationSettings);
     }
