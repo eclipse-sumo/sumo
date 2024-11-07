@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-06 09:21+0000\n"
+"PO-Revision-Date: 2024-11-08 09:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3620,7 +3620,7 @@ msgstr ""
 
 #: src/microsim/MSVehicle.cpp:2873
 msgid "Suspicious right_before_left junction '%'."
-msgstr "Verdächtiger rigth_before_left Knotenpunkt '%'."
+msgstr "Verdächtiger right_before_left Knotenpunkt '%'."
 
 #: src/microsim/MSVehicle.cpp:4635
 msgid " for unknown reasons"
