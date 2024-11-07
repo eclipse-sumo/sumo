@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:59 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2024-11-07 08:55:28 by Eclipse SUMO sumo Version v1_21_0+0661-84329073fbb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -86,18 +86,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T18_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="w3_1 w4_0"/>
-                <foes driveWays="e2.d0 w2.0 w2.2 w3.1 w4.1"/>
-            </driveWay>
-            <driveWay id="w2.2" vehicle="rail1" edges="T11_0 T4_0 T18_0">
-                <forward lanes="T11_0_0"/>
-                <bidi lanes="T13_1_0 T6_1_0"
-                    deadlockCheck="T18_1_0"/>
-                <flank lanes=""/>
-                <conflictLinks signals="w3_0 w4_1"/>
-                <foes driveWays="e2.d0 w2.0 w2.2 w3.1"/>
-                <sidings foe="e2.d0">
-                    <siding start="T4_0" end="T4_0" length="830.66"/>
-                </sidings>
+                <foes driveWays="e2.d0 w2.0 w3.1 w4.1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -108,19 +97,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="T11_0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="w2_1 w3_1"/>
-                <foes driveWays="w2.0 w2.2 w3.1"/>
+                <foes driveWays="w2.0 w3.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="T6_1_0" to="T13_1_0"/>
-        <link linkIndex="2" from="T11_0_0" to="T4_0_0">
-            <driveWay id="w3.2" vehicle="rail1" edges="T4_0 T18_0">
-                <forward lanes="T4_0_0"/>
-                <bidi lanes="T6_1_0 T18_1_0"/>
-                <flank lanes=""/>
-                <conflictLinks signals="w3_0"/>
-                <foes driveWays="w3.2"/>
-            </driveWay>
-        </link>
+        <link linkIndex="2" from="T11_0_0" to="T4_0_0"/>
         <link linkIndex="3" from="T11_0_0" to="T14_0_0">
             <driveWay id="w3.0" vehicle="rail1" edges="T14_0 T18_0">
                 <forward lanes="T14_0_0"/>
@@ -142,22 +123,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="T18_1_0" to="T6_1_0"/>
-        <link linkIndex="2" from="T4_0_0" to="T18_0_0">
-            <driveWay id="w4.2" vehicle="rail1" edges="T18_0">
-                <forward lanes="T18_0_0"/>
-                <bidi lanes="T18_1_0"/>
-                <flank lanes=""/>
-                <conflictLinks signals="w4_3"/>
-                <foes driveWays="e2.d0 w4.0 w4.2"/>
-            </driveWay>
-        </link>
+        <link linkIndex="2" from="T4_0_0" to="T18_0_0"/>
         <link linkIndex="3" from="T14_0_0" to="T18_0_0">
             <driveWay id="w4.0" vehicle="rail1" edges="T18_0">
                 <forward lanes="T18_0_0"/>
                 <bidi lanes="T18_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="w4_2"/>
-                <foes driveWays="e2.d0 w4.0 w4.2"/>
+                <foes driveWays="e2.d0 w4.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -168,10 +141,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T11_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="w2_1 w3_3 w4_2"/>
-            <foes driveWays="e2.d0 w2.0 w2.2 w3.0 w4.0 w4.2"/>
-            <sidings foe="w2.2">
-                <siding start="T16_1" end="T16_1" length="813.44"/>
-            </sidings>
+            <foes driveWays="e2.d0 w2.0 w3.0 w4.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="e1">
