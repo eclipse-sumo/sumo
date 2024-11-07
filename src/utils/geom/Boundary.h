@@ -98,8 +98,11 @@ public:
     /// @brief Returns whether the boundary contains the given coordinate
     bool around(const Position& p, double offset = 0) const;
 
-    /// @brief Returns whether the boundary contains the given 2D coordinate
+    /// @brief Returns whether the boundary contains the given 2D coordinate (position)
     bool around2D(const Position& p, double offset = 0) const;
+
+    /// @brief Returns whether the boundary contains the given 2D coordinate (x-y version)
+    bool around2D(const double x, const double y) const;
 
     /// @brief Returns whether the boundary overlaps with the given polygon
     bool overlapsWith(const AbstractPoly& poly, double offset = 0) const;
@@ -113,7 +116,10 @@ public:
     /// @}
 
     /// @brief return true if this boundary contains the given boundary (only X-Y)
-    double contains(const Boundary& b) const;
+    bool contains2D(const Boundary& b) const;
+
+    /// @brief return true if at least one point of the given boundary is in boundary(only X-Y)
+    bool overlaps2D(const Boundary& b) const;
 
     /// @brief check if Boundary is Initialised
     bool isInitialised() const;

@@ -519,7 +519,7 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     positionBoundary.grow(POSITION_EPS);
     // push matrix
     GLHelper::pushMatrix();
-    // enable draw for object under cursor
+    // enable draw for view objects handler (this calculate the contours)
     myVisualizationSettings->drawForViewObjectsHandler = true;
     // draw all GL elements within the small boundary
     drawGLElements(positionBoundary);
@@ -527,7 +527,7 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     if (myEditModes.isCurrentSupermodeNetwork() && myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
         gViewObjectsHandler.isolateEdgeGeometryPoints();
     }
-    // restore draw for object under cursor
+    // restore draw for view objects handler (this calculate the contours)
     myVisualizationSettings->drawForViewObjectsHandler = false;
     // pop matrix
     GLHelper::popMatrix();
@@ -541,28 +541,31 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
 
 
 void
-GNEViewNet::redrawElements() {
+GNEViewNet::redrawContourElements(const Boundary& drawingBoundary) {
     // first add all inspected elements to redraw objects
-    for (const auto &insectedAC : myInspectedAttributeCarriers) {
+    for (const auto& insectedAC : myInspectedAttributeCarriers) {
         gViewObjectsHandler.addToRedrawObjects(insectedAC->getGUIGlObject());
     }
-    // avoid draw twice
-    if (gViewObjectsHandler.getRedrawObjects().size() != myNumberOfRedrawedElements) {
-        // push matrix
-        GLHelper::pushMatrix();
-        // enable draw for object under cursor
-        myVisualizationSettings->drawForViewObjectsHandler = true;
-        // draw all gl elements
-        for (const auto &object : gViewObjectsHandler.getRedrawObjects()) {
-            object->drawGL(*myVisualizationSettings);
+    // push matrix
+    GLHelper::pushMatrix();
+    // enable draw for view objects handler (this calculate the contours)
+    myVisualizationSettings->drawForViewObjectsHandler = true;
+    // make a copy of redraw objects
+    std::set<const GUIGlObject*> redrawObjectsInDrawingBoundary;
+    // only draw objects within the drawing boundary
+    for (const auto& object : gViewObjectsHandler.getRedrawObjects()) {
+        if (drawingBoundary.contains2D(object->getCenteringBoundary())) {
+            redrawObjectsInDrawingBoundary.insert(object);
         }
-        // restore draw for object under cursor
-        myVisualizationSettings->drawForViewObjectsHandler = false;
-        // pop matrix
-        GLHelper::popMatrix();
-        // update number of redrawed elements
-        myNumberOfRedrawedElements = gViewObjectsHandler.getRedrawObjects().size();
     }
+    WRITE_WARNING(toString(redrawObjectsInDrawingBoundary.size()));
+    for (const auto& object : redrawObjectsInDrawingBoundary) {
+        object->drawGL(*myVisualizationSettings);
+    }
+    // restore draw for view objects handler (this calculate the contours)
+    myVisualizationSettings->drawForViewObjectsHandler = false;
+    // pop matrix
+    GLHelper::popMatrix();
 }
 
 
@@ -1333,14 +1336,14 @@ GNEViewNet::getDrawingToggle() const {
 
 
 int
-GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
+GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
     // first step: update objects under cursor
     updateObjectsInPosition(myNet->getViewNet()->getPositionInformation());
-    // second step: redraw specific objects
-    redrawElements();
+    // second step: redraw contour elements (for example, the path element childrens)
+    redrawContourElements(drawingBoundary);
     // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -1399,7 +1402,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // draw network (boundary
     myNet->drawGL(*myVisualizationSettings);
     // draw all GL elements
-    int hits = drawGLElements(bound);
+    int hits = drawGLElements(drawingBoundary);
     // draw temporal split junction
     drawTemporalSplitJunction();
     // draw temporal roundabout

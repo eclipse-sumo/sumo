@@ -262,7 +262,7 @@ bool
 GNEContour::checkDrawPathContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                  const GNEAttributeCarrier* AC) const {
     // first check if draw dotted contour
-    if (s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
+    if (s.drawForViewObjectsHandler && !s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
         // basic contours
         if (AC->checkDrawFromContour()) {
             return true;

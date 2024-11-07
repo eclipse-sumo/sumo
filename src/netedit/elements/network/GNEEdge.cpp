@@ -351,7 +351,7 @@ GNEEdge::checkDrawOverContour() const {
             // get frames
             const auto& edgeDataFrame = viewParent->getEdgeDataFrame();
             const auto& edgeRelDataFrame = viewParent->getEdgeRelDataFrame();
-            if (edgeDataFrame->shown()) { 
+            if (edgeDataFrame->shown()) {
                 return true;
             } else if (edgeRelDataFrame->shown()) {
                 // check edges
@@ -2891,7 +2891,7 @@ GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
-    if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myEdgeBoundary)) {
+    if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains2D(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
         gViewObjectsHandler.selectObject(this, layer, false, true);
     } else {

@@ -120,7 +120,7 @@ GUIViewObjectsHandler::checkCircleObject(const GUIVisualizationSettings::Detail 
                     return false;
                 }
                 // check if selection boundary contains the centering boundary of object
-                if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
+                if (mySelectionBoundary.contains2D(GLObject->getCenteringBoundary())) {
                     return selectObject(GLObject, layer, false, true);
                 }
                 // check if boundary overlaps
@@ -173,7 +173,7 @@ GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail
             geometryPointBoundary.add(geometryPointPos);
             geometryPointBoundary.grow(radius);
             // check if boundary is whithin selection boundary
-            if (mySelectionBoundary.contains(geometryPointBoundary)) {
+            if (mySelectionBoundary.contains2D(geometryPointBoundary)) {
                 return selectGeometryPoint(GLObject, index, layer);
             } else if (mySelectionBoundary.overlapsWith(geometryPointBoundary)) {
                 return selectGeometryPoint(GLObject, index, layer);
@@ -230,7 +230,7 @@ GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::De
 
 bool
 GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape,
-        const Boundary& shapeBoundary, const double layer) {
+                                        const Boundary& shapeBoundary, const double layer) {
     // first check that object doesn't exist
     if (isObjectSelected(GLObject)) {
         return false;
@@ -240,7 +240,7 @@ GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const Posit
             return false;
         }
         // check if selection boundary contains the centering boundary of object
-        if (mySelectionBoundary.contains(shapeBoundary)) {
+        if (mySelectionBoundary.contains2D(shapeBoundary)) {
             return selectObject(GLObject, layer, false, true);
         }
         // check if shape crosses to selection boundary
@@ -265,8 +265,8 @@ GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const Posit
 
 
 bool
-GUIViewObjectsHandler::selectObject(const GUIGlObject* GLObject, const double layer, 
-        const bool checkDuplicated, const bool fullBoundary) {
+GUIViewObjectsHandler::selectObject(const GUIGlObject* GLObject, const double layer,
+                                    const bool checkDuplicated, const bool fullBoundary) {
     // first check that object doesn't exist
     if (checkDuplicated && isObjectSelected(GLObject)) {
         return false;

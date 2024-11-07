@@ -343,8 +343,8 @@ public:
     /// @brief draw junction path elements
     void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) const;
 
-    /// @brief force draw path (used carefully, ONLY when we're inspecting a path element, due slowdowns)
-    void forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const;
+    /// @brief add path elements to redraw buffer
+    void addPathElementToRedrawBuffer(const GNEPathManager::PathElement* pathElement) const;
 
     /// @brief invalidate lane path
     void invalidateLanePath(const GNELane* lane);

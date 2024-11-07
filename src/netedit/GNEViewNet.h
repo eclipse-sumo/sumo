@@ -95,8 +95,8 @@ public:
     /// @brief update objects and boundaries in position
     void updateObjectsInPosition(const Position& pos);
 
-    /// @brief redraw elements
-    void redrawElements();
+    /// @brief redraw elements only for calculating boundary
+    void redrawContourElements(const Boundary& drawingBoundary);
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -640,7 +640,7 @@ protected:
     GNEViewNet();
 
     /// @brief do paintGL
-    int doPaintGL(int mode, const Boundary& bound);
+    int doPaintGL(int mode, const Boundary& drawingBoundary);
 
     /// @brief called after some features are already initialized
     void doInit();
@@ -774,9 +774,6 @@ private:
 
     /// @brief drawin toggle (used in drawGLElements to avoid draw elements twice)
     int myDrawingToggle = 0;
-
-    /// @brief number of redrawed elements (used to avoid unnecesary redrawings)
-    size_t myNumberOfRedrawedElements = 0;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

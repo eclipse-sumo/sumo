@@ -1849,7 +1849,7 @@ void
 GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                       const double exaggeration, const bool drawBubble) const {
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
-    if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myJunctionBoundary)) {
+    if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains2D(myJunctionBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
         gViewObjectsHandler.selectObject(this, getType(), false, true);
     } else {

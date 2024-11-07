@@ -171,17 +171,25 @@ Boundary::getZRange() const {
 bool
 Boundary::around(const Position& p, double offset) const {
     return
-        (p.x() <= myXmax + offset && p.x() >= myXmin - offset) &&
-        (p.y() <= myYmax + offset && p.y() >= myYmin - offset) &&
-        (p.z() <= myZmax + offset && p.z() >= myZmin - offset);
+        ((p.x() <= myXmax + offset) && (p.x() >= myXmin - offset)) &&
+        ((p.y() <= myYmax + offset) && (p.y() >= myYmin - offset)) &&
+        ((p.z() <= myZmax + offset) && (p.z() >= myZmin - offset));
 }
 
 
 bool
 Boundary::around2D(const Position& p, double offset) const {
     return
-        (p.x() <= myXmax + offset && p.x() >= myXmin - offset) &&
-        (p.y() <= myYmax + offset && p.y() >= myYmin - offset);
+        ((p.x() <= myXmax + offset) && (p.x() >= myXmin - offset)) &&
+        ((p.y() <= myYmax + offset) && (p.y() >= myYmin - offset));
+}
+
+
+bool
+Boundary::around2D(const double x, const double y) const {
+    return
+        ((x <= myXmax) && (x >= myXmin)) &&
+        ((y <= myYmax) && (y >= myYmin));
 }
 
 
@@ -220,10 +228,26 @@ Boundary::crosses(const Position& p1, const Position& p2) const {
 }
 
 
-double
-Boundary::contains(const Boundary& b) const {
+bool
+Boundary::contains2D(const Boundary& b) const {
     if ((myXmin <= b.xmin()) && (myYmin <= b.ymin()) &&
             (myXmax >= b.xmax()) && (myYmax >= b.ymax())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+Boundary::overlaps2D(const Boundary& b) const {
+    if (around2D(b.myXmin, b.myYmin)) {
+        return true;
+    } else if (around2D(b.myXmin, b.myYmax)) {
+        return true;
+    } else if (around2D(b.myXmax, b.myYmin)) {
+        return true;
+    } else if (around2D(b.myXmax, b.myYmax)) {
         return true;
     } else {
         return false;
