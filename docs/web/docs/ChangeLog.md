@@ -89,7 +89,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - Added analysis on the effects of attribute `departLane` on [insertion capacity](Simulation/RoadCapacity.md#insertion_capacity_on_a_2-lane_road).
-- Fixed compatibility issues with Ubunut 24 affecting geo-projections #15618 
+- Fixed compatibility issues with Ubuntu 24 affecting geo-projections #15618 
 - Option **--device.rerouting.railsignal** is now inactive by default #15597 
 
 ## Version 1.21.0 (10.10.2024)
