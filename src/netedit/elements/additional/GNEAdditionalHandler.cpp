@@ -469,51 +469,53 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
         GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
-        // check friendlyPos in small lanes
-        const bool friendlyPosCheck = checkFriendlyPosSmallLanes(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_TAG_LANE, laneID);
-        } else if (!checkLanePosition(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosCheck)) {
-            writeErrorInvalidPosition(SUMO_TAG_LANE_AREA_DETECTOR, id);
-        } else if (length < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH);
-        } else if ((period != -1) && (period < 0)) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD);
-        } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
-            // temporal
-            writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
-        } else if (timeThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-        } else if (speedThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-        } else if (jamThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-        } else if (timeThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-        } else if (speedThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-        } else if (jamThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-        } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-            writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
-        } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-            writeErrorInvalidVTypes(SUMO_TAG_LANE_AREA_DETECTOR, id);
         } else {
-            // build E2 single lane
-            GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, lane, myNet, pos, length, period, trafficLight, filename,
-                    vehicleTypes, nextEdges, detectPersons, name, timeThreshold,
-                    speedThreshold, jamThreshold, friendlyPosCheck, show, parameters);
-            // insert depending of allowUndoRedo
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
-                overwriteAdditional();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
-                myNet->getViewNet()->getUndoList()->end();
+            // check friendlyPos in small lanes
+            const bool friendlyPosCheck = checkFriendlyPosSmallLanes(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
+            if (!checkLanePosition(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosCheck)) {
+                writeErrorInvalidPosition(SUMO_TAG_LANE_AREA_DETECTOR, id);
+            } else if (length < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH);
+            } else if ((period != -1) && (period < 0)) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD);
+            } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
+                // temporal
+                writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
+            } else if (timeThreshold < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
+            } else if (speedThreshold < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
+            } else if (jamThreshold < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
+            } else if (timeThreshold < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
+            } else if (speedThreshold < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
+            } else if (jamThreshold < 0) {
+                writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
+            } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
+                writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
+            } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
+                writeErrorInvalidVTypes(SUMO_TAG_LANE_AREA_DETECTOR, id);
             } else {
-                myNet->getAttributeCarriers()->insertAdditional(detectorE2);
-                lane->addChildElement(detectorE2);
-                detectorE2->incRef("buildDetectorE2");
+                // build E2 single lane
+                GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, lane, myNet, pos, length, period, trafficLight, filename,
+                        vehicleTypes, nextEdges, detectPersons, name, timeThreshold,
+                        speedThreshold, jamThreshold, friendlyPosCheck, show, parameters);
+                // insert depending of allowUndoRedo
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
+                    overwriteAdditional();
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    myNet->getAttributeCarriers()->insertAdditional(detectorE2);
+                    lane->addChildElement(detectorE2);
+                    detectorE2->incRef("buildDetectorE2");
+                }
             }
         }
     } else {
@@ -1922,7 +1924,7 @@ GNEAdditionalHandler::checkFriendlyPosSmallLanes(double pos, const double length
         // check pos + length
         if ((pos + length) > laneLength) {
             return true;
-        }   
+        }
     }
     return false;
 }
