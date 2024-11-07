@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-06 15:03+0000\n"
+"PO-Revision-Date: 2024-11-08 09:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3213,28 +3213,30 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:1473
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
+"La posizione di arrivo di % viene ignorata perché si trova fuori dalla "
+"fermata indicata '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1479 src/router/RORouteHandler.cpp:1116
 msgid "No destination edge for %."
-msgstr ""
+msgstr "Nessun arco di destinazione per %."
 
 #: src/microsim/MSRouteHandler.cpp:1498 src/microsim/MSRouteHandler.cpp:1586
 msgid "Cannot define person stage without person."
-msgstr ""
+msgstr "Non si può definire un tratto di persona senza una persona."
 
 #: src/microsim/MSRouteHandler.cpp:1511 src/router/RORouteHandler.cpp:1136
 msgid "Start edge not defined for person '%'."
-msgstr ""
+msgstr "L'arco di partenza della persona '%' non è stato definito."
 
 #: src/microsim/MSRouteHandler.cpp:1521 src/microsim/MSRouteHandler.cpp:1595
 #: src/router/RORouteHandler.cpp:1147 src/router/RORouteHandler.cpp:1205
 msgid "Non-positive walking duration for '%'."
-msgstr ""
+msgstr "Durata di camminata non positiva per '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1553 src/microsim/MSRouteHandler.cpp:1601
 #: src/router/RORouteHandler.cpp:1209
 msgid "Non-positive walking speed for '%'."
-msgstr ""
+msgstr "Velocità di caminata non positiva per '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1626
 msgid "No edges to walk for person '%'."
@@ -3270,6 +3272,8 @@ msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
 msgstr ""
+"Trasbordo inconsistente del contenitore '%' - necessita di 'edges', 'to', "
+"'containerStop' (oppure un'altro posto qualsiasi per fermarsi)"
 
 #: src/microsim/MSRouteHandler.cpp:1779
 msgid "No edges to tranship container '%'."
@@ -3339,19 +3343,23 @@ msgstr ""
 #: src/microsim/MSVehicle.cpp:1729
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
+"Il veicolo '%' rompe unirsi a un'altro veicolo dopo un'estensione di %s alle "
+"ore %."
 
 #: src/microsim/MSVehicle.cpp:1881
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
-msgstr ""
+msgstr "Il veicolo '%' da separare dal veicolo '%' è sconosciuto (ore %)."
 
 #: src/microsim/MSVehicle.cpp:2019 src/microsim/MSVehicle.cpp:2026
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
+"Il veicolo '%' non può essere unito al veicolo '%' alle ore % dovuto agli "
+"itenerari incompatibili."
 
 #: src/microsim/MSVehicle.cpp:2873
 msgid "Suspicious right_before_left junction '%'."
-msgstr ""
+msgstr "Incrocio right_before_left sospetto '%'."
 
 #: src/microsim/MSVehicle.cpp:4635
 msgid " for unknown reasons"
@@ -9636,31 +9644,31 @@ msgstr "Semafori TRENDS non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 msgid "TL traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Semafori TL non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Semafori POS non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "semafori definiti esternamente non sono supportati (lsa=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Simdauer.cpp:49
 msgid "Simulation duration could not be parsed"
-msgstr ""
+msgstr "La durata della simulazione non poteva essere analizzata"
 
 #: src/netload/NLBuilder.cpp:86
 msgid "Trying to set the effort for the unknown edge '%'."
-msgstr ""
+msgstr "Provo a impostare lo sforzo per l'arco sconosciuto '%'."
 
 #: src/netload/NLBuilder.cpp:101
 msgid "Trying to set the travel time for the unknown edge '%'."
-msgstr ""
+msgstr "Provo a impostare il tempo di percorrenza per l'arco sconosciuto '%'."
 
 #: src/netload/NLBuilder.cpp:130
 msgid "Invalid network, no network version declared."
-msgstr ""
+msgstr "Rete invalida perché senza declarazione di versione di rete."
 
 #: src/netload/NLBuilder.cpp:134
 msgid ""
