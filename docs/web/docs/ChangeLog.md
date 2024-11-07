@@ -11,7 +11,10 @@ title: ChangeLog
   - Fixed routing error on departure #15563
   - Fixed invalid warnings regarding inconsistent loaded stop times #15602
   - Fixed blocked vehicles at busStop with attribute parkingLength #15644
-  - Fixed train collision at rail_crossing #15658 
+  - Fixed train collision at rail_crossing #15658
+  - Fixed crash when route contains internal edge #15667
+  - Fixed invalid error when using jump after stopping twice on the same edge #15635
+  - Added option **--chargingstations-output.aggregated.write-unfinished** to include still running charging process in charging station output #15677 
 
 - netedit
   - Loaded containers starting from stops are now drawn #15567
@@ -32,7 +35,13 @@ title: ChangeLog
   - Turnaround connections are now visible for bidi-rail edges #14486
   - Moving a junction now moves it's custom shape #15456
   - Fixed missing/strange attributes while adding routeprobe #15268
-  - Can now load trips without from / to #15074 
+  - Can now load trips without from / to #15074
+  - Fixed slowdown when loading large TAZ #15674 
+
+- sumo-gui
+  - Fixed framerate drop when zoomed in very far #15666
+  - Fixed missing elements in settings dialog when switching to another viewing scheme while the dialog is open #15637
+  - Hotkey ALT no longer has the effect of rendering all POIs and polygons at layer 0. Instead, the layer can be customized in the settings dialog #15558 
 
 - netconvert 
   - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624 
@@ -48,7 +57,7 @@ title: ChangeLog
   - Added option **--pedestrian.striping.jamfactor** to configure the speed of jammed pedestrians (default 0.25) #15610
   - GLOSA Device now looks several phases into the future and can also take queues into account #15614
   - Added new vType attributes `jmAdvance` and `jmExtraGap` to configure the behavior on junctions for crossing and merging streams of traffic #15654
-  - Added new insertion behavior `departLane="best_prob"` to increase throughput on multi-lane roads #15661 
+  - Added new insertion behavior `departLane="best_prob"` to increase throughput on multi-lane roads #15661
   - railways
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
@@ -61,17 +70,27 @@ title: ChangeLog
 - netedit
   - Additional output now writes chargingStation after parkingArea elements #15628
   - Removed "invert edges" from GNECrossingFrame #15129
+  - Undo-redo functionality can now optionally be disabled to improve operational speed #15663
+  - Undo-redo functionality can now be temporary disabled while loading a file to improve loading speed #15668 
  
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
  
 - netconvert
   - Added support for zipped shape files #15623
+  - street-sign-output now sets the sign angle corresponding to road geometry #15671 
+
+- meso
+  - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
+     
+- TraCI
+  - stationfinder device parameters can now be modified at runtime #15622 
 
 ### Miscellaneous
 
 - Added analysis on the effects of attribute `departLane` on [insertion capacity](Simulation/RoadCapacity.md#insertion_capacity_on_a_2-lane_road).
-
+- Fixed compatibility issues with Ubunut 24 affecting geo-projections #15618 
+- Option **--device.rerouting.railsignal** is now inactive by default #15597 
 
 ## Version 1.21.0 (10.10.2024)
 
