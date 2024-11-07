@@ -258,6 +258,50 @@ GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s
 }
 
 
+bool
+GNEContour::checkDrawPathContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                 const GNEAttributeCarrier* AC) const {
+    // first check if draw dotted contour
+    if (s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
+        // basic contours
+        if (AC->checkDrawFromContour()) {
+            return true;
+        }
+        if (AC->checkDrawToContour()) {
+            return true;
+        }
+        if (AC->checkDrawRelatedContour()) {
+            return true;
+        }
+        if (AC->checkDrawOverContour()) {
+            return true;
+        }
+        // inspect contour
+        if (AC->checkDrawInspectContour()) {
+            return true;
+        }
+        // front contour
+        if (AC->checkDrawFrontContour()) {
+            return true;
+        }
+        // delete contour
+        if (AC->checkDrawDeleteContour()) {
+            return true;
+        }
+        // select contour
+        if (AC->checkDrawSelectContour()) {
+            return true;
+        }
+        // move contour
+        if (AC->checkDrawMoveContour()) {
+            return true;
+        }
+    }
+    // nothing to draw
+    return false;
+}
+
+
 void
 GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                const GNEAttributeCarrier* AC, const double lineWidth, const bool addOffset) const {

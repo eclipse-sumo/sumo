@@ -71,7 +71,7 @@ public:
 
     /// @brief calculate contour (circle elements)
     void calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                     const GUIGlObject* glObject, const Position& pos, double radius, const double layer, 
+                                     const GUIGlObject* glObject, const Position& pos, double radius, const double layer,
                                      const double scale) const;
 
     /// @brief calculate contour edge
@@ -95,8 +95,8 @@ public:
 
     /// @brief calculate contour for middle geometry point
     void calculateContourMiddleGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                              const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                              const double radius, const double scale) const;
+            const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+            const double radius, const double scale) const;
 
     /// @brief calculate contour for all geometry points
     void calculateContourAllGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -111,6 +111,10 @@ public:
 
     /// @brief drawing contour functions
     /// @{
+
+    /// @brief check if draw path contours (if we're inspecting/selecting/deleting a path, we need to draw all path elements)
+    bool checkDrawPathContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const GNEAttributeCarrier* AC) const;
 
     /// @brief draw dotted contours (basics, select, delete, inspect...)
     void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
