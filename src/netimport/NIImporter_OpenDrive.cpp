@@ -2452,7 +2452,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             std::string type = attrs.get<std::string>(OPENDRIVE_ATTR_TYPE, myCurrentEdge.id.c_str(), ok);
             std::string name = attrs.getOpt<std::string>(OPENDRIVE_ATTR_NAME, myCurrentEdge.id.c_str(), ok, "", false);
-            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok);
+            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, id.c_str(), ok);
             int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             bool dynamic = attrs.get<std::string>(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok) == "no" ? false : true;
@@ -2463,7 +2463,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_SIGNALREFERENCE: {
             std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
-            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok);
+            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, id.c_str(), ok);
             int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             OpenDriveSignal signal = OpenDriveSignal(id, "", "", orientationCode, false, s);
