@@ -203,8 +203,8 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
 
     # Direktes Aufrufen von delocate_path für die Binärdateien
     os.chdir(os.path.join(version_dir, name))
-    delocate_path("./lib", lib_filt_func=None, lib_path="./lib")
-    delocate_path("./bin", lib_filt_func=None, lib_path="../lib")
+    delocate_path("./lib", lib_filt_func=None, lib_path="./lib", sanitize_rpaths=True)
+    delocate_path("./bin", lib_filt_func=None, lib_path="../lib", sanitize_rpaths=True)
 
     # Build the framework package
     cwd = os.path.dirname(os.path.abspath(__file__))

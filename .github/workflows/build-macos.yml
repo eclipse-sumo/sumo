@@ -54,9 +54,9 @@ jobs:
 
     - name: Building libjupedsim
       run: |
-        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
+        cmake -B jupedsim-build -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
         cmake --build jupedsim-build -j4 --config Release
-        cmake --install jupedsim-build --config Release
+        sudo cmake --install jupedsim-build --config Release
 
     - name: Building SUMO
       run: |
