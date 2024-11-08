@@ -835,7 +835,7 @@ void
 CommonXMLStructure::abortSUMOBaseOBject() {
     // delete current sumo base object and use their parent as sumo base object
     if (myCurrentSumoBaseObject) {
-        if (mySumoBaseObjectRoot == mySumoBaseObjectRoot) {
+        if (myCurrentSumoBaseObject == mySumoBaseObjectRoot) {
             delete myCurrentSumoBaseObject;
             myCurrentSumoBaseObject = nullptr;
             mySumoBaseObjectRoot = nullptr;
