@@ -121,6 +121,14 @@ the next edge on a vehicles route, the vehicle will decelerate and stop.
 Vehicles will decelerate when approaching the position of a
 [`stop`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
+# Waypoints
+
+Vehicles may decelerate when approaching the position of a
+[`waypoint`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#swaypoints).
+and may lower their speed while in the area of the waypoint.
+This only happens if the configured waypoint speed is lower than the speed, which the vehicle would otherwise use.
+If the waypoint is configured with an `until` attribute, the vehicle may even stop.
+
 # Acceleration / Deceleration constraints
 
 Vehicles can only change their speed by a certain amount each time step.
