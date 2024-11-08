@@ -711,8 +711,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (myParentJunction && (key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
         myParentJunction->updateGeometry();
     }
-    // invalidate path calculator
-    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 

@@ -2540,7 +2540,7 @@ long
 GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
     // first check viewNet
     if (myViewNet && !myViewNet->getNet()->getDemandPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
-        // update path calculator
+        // update demand path calculator
         myViewNet->getNet()->getDemandPathManager()->getPathCalculator()->updatePathCalculator();
     }
     return 1;

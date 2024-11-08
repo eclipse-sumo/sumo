@@ -2156,7 +2156,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
             // check if update path calculator
             if (!myViewNet->myNet->getDemandPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
-                // update DijkstraRouter of RouteCalculatorInstance
+                // update path calculator of demand path manager
                 myViewNet->myNet->getDemandPathManager()->getPathCalculator()->updatePathCalculator();
                 // compute all demand elements
                 myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
@@ -2181,8 +2181,6 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             }
             // check if update path calculator
             if (!myViewNet->myNet->getNetworkPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
-                // update DijkstraRouter of RouteCalculatorInstance
-                myViewNet->myNet->getNetworkPathManager()->getPathCalculator()->updatePathCalculator();
                 // compute all data elements
                 myViewNet->myNet->computeDataElements(myViewNet->myViewParent->getGNEAppWindows());
             }

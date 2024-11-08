@@ -214,7 +214,9 @@ public:
         /// @brief destructor
         ~PathCalculator();
 
-        /// @brief update path calculator (called when SuperModes Demand or Data is selected)
+        /**@brief update DijkstraRouter (needed a good calculation of dijkstra path after modifying network)
+         * @note only needed if this path calculator requiere to use the calculateDijkstraPath(...) functions
+         */
         void updatePathCalculator();
 
         /// @brief calculate Dijkstra path between a list of edges (for example, from-via-to edges)

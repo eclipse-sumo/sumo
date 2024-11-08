@@ -991,8 +991,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (updateTemplate) {
         templateEditor->setEdgeTemplate(myParentEdge);
     }
-    // invalidate path calculator
-    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 

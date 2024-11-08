@@ -2016,8 +2016,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             (key != GNE_ATTR_MODIFICATION_STATUS)) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->updateEdgeTemplate();
     }
-    // invalidate path calculator
-    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 

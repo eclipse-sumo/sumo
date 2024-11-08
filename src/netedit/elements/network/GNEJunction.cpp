@@ -1958,8 +1958,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // invalidate path calculator
-    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 

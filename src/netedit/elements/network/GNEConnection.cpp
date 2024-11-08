@@ -999,7 +999,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         markConnectionGeometryDeprecated();
         updateGeometry();
     }
-    // invalidate path calculator
+    // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
