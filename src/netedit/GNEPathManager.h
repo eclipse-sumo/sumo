@@ -325,14 +325,14 @@ public:
     void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction);
 
     /// @brief calculate path lanes between list of edges (using dijkstra, require path calculator updated)
-    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges);
 
     /// @brief calculate consecutive path edges
-    void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges,
+    void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
                                        const int firstLaneIndex = -1, const int lastLaneIndex = -1);
 
     /// @brief calculate consecutive path lanes
-    void calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes);
+    void calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*>& lanes);
 
     /// @brief remove path
     void removePath(PathElement* pathElement);
@@ -352,8 +352,8 @@ public:
     /// @brief invalidate junction path
     void invalidateJunctionPath(const GNEJunction* junction);
 
-    /// @brief clear demand paths
-    void clearDemandPaths();
+    /// @brief clear segments
+    void clearSegments();
 
 protected:
     /// @brief add segments int laneSegments (called by Segment constructor)
@@ -364,9 +364,6 @@ protected:
 
     /// @brief clear segments from junction and lane Segments (called by Segment destructor)
     void clearSegmentFromJunctionAndLaneSegments(Segment* segment);
-
-    /// @brief clear segments
-    void clearSegments();
 
     /// @brief check if given lanes are connected
     bool connectedLanes(const GNELane* fromLane, const GNELane* toLane) const;
@@ -389,6 +386,9 @@ protected:
 
     /// @brief map with junction segments
     std::map<const GNEJunction*, std::vector<Segment*> > myJunctionSegments;
+
+    /// @brief flag for clear segments quickly
+    bool myCleaningSegments = false;
 
 private:
     /// @brief mark label segment

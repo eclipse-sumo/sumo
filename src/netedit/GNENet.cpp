@@ -1477,7 +1477,7 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
         myPathManager->getPathCalculator()->updatePathCalculator();
     }
     // clear demand paths
-    myPathManager->clearDemandPaths();
+    myPathManager->clearSegments();
     // iterate over all demand elements and compute
     for (const auto& demandElements : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElements.second) {

@@ -80,14 +80,17 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
 
 
 GNEPathManager::Segment::~Segment() {
-    // clear segment from LaneSegments
-    myPathManager->clearSegmentFromJunctionAndLaneSegments(this);
-    // remove references in previous and next segment
-    if (myPreviousSegment) {
-        myPreviousSegment->myNextSegment = nullptr;
-    }
-    if (myNextSegment) {
-        myNextSegment->myPreviousSegment = nullptr;
+    // check if we're cleaning all segments
+    if (!myPathManager->myCleaningSegments) {
+        // clear segment from LaneSegments
+        myPathManager->clearSegmentFromJunctionAndLaneSegments(this);
+        // remove references in previous and next segment
+        if (myPreviousSegment) {
+            myPreviousSegment->myNextSegment = nullptr;
+        }
+        if (myNextSegment) {
+            myNextSegment->myPreviousSegment = nullptr;
+        }
     }
     // delete contour
     delete myContour;
@@ -737,7 +740,7 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
 
 
 void
-GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) {
     // build path
     if (edges.size() > 0) {
         buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges),
@@ -749,7 +752,7 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
 
 
 void
-GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges,
+GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
         const int firstLaneIndex, const int lastLaneIndex) {
     // declare lane vector
     std::vector<GNELane*> lanes;
@@ -781,7 +784,7 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
 
 
 void
-GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes) {
+GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*>& lanes) {
     // first remove path element from paths
     removePath(pathElement);
     // continue depending of number of lanes
@@ -928,22 +931,22 @@ GNEPathManager::invalidateJunctionPath(const GNEJunction* junction) {
 
 
 void
-GNEPathManager::clearDemandPaths() {
-    // declare iterator
-    auto it = myPaths.begin();
-    // iterate over paths
-    while (it != myPaths.end()) {
-        if (it->first->isDemandElement()) {
-            // delete all segments
-            for (const auto& segment : it->second) {
-                delete segment;
-            }
-            // remove path
-            it = myPaths.erase(it);
-        } else {
-            it++;
+GNEPathManager::clearSegments() {
+    // clear segments quickly
+    myCleaningSegments = true;
+    // clear all segments
+    for (const auto& path : myPaths) {
+        // delete all segments
+        for (const auto& segment : path.second) {
+            delete segment;
         }
     }
+    // clear containers
+    myPaths.clear();
+    myJunctionSegments.clear();
+    myLaneSegments.clear();
+    // restore flag
+    myCleaningSegments = false;
 }
 
 
@@ -994,20 +997,6 @@ GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
             myJunctionSegments.erase(junction);
         }
     }
-}
-
-
-void
-GNEPathManager::clearSegments() {
-    // first iterate over paths
-    for (const auto& path : myPaths) {
-        // delete all segments
-        for (const auto& segment : path.second) {
-            delete segment;
-        }
-    }
-    // clear paths
-    myPaths.clear();
 }
 
 
