@@ -147,17 +147,18 @@ void
 RouteHandler::endParseAttributes() {
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     if (obj) {
+        // close SUMOBaseOBject
+        myCommonXMLStructure.closeSUMOBaseOBject();
+        // get parent tag (if exist)
+        const auto parentTag = obj->getParentSumoBaseObject() ? obj->getParentSumoBaseObject()->getTag() : SUMO_TAG_NOTHING;
         switch (obj->getTag()) {
             // specia case for route (because can be embedded)
             case SUMO_TAG_ROUTE:
                 // only parse non-embedded and without distributionsroutes
                 if ((obj->getStringAttribute(SUMO_ATTR_ID).size() > 0) &&
-                        obj->getParentSumoBaseObject() &&
-                        (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION)) {
+                        (parentTag != SUMO_TAG_ROUTE_DISTRIBUTION)) {
                     // parse route and all their childrens
                     parseSumoBaseObject(obj);
                     // delete object (and all of their childrens)
@@ -167,8 +168,7 @@ RouteHandler::endParseAttributes() {
             // demand elements
             case SUMO_TAG_VTYPE:
                 // only parse vTypes without distributions
-                if (obj->getParentSumoBaseObject() &&
-                        (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
+                if (parentTag != SUMO_TAG_VTYPE_DISTRIBUTION) {
                     // parse vType and all their childrens
                     parseSumoBaseObject(obj);
                     // delete object (and all of their childrens)

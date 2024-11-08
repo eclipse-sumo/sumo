@@ -70,17 +70,19 @@ MeanDataHandler::endParseAttributes() {
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
     // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (obj->getTag()) {
-        case SUMO_TAG_MEANDATA_EDGE:
-        case SUMO_TAG_MEANDATA_LANE:
-            parseSumoBaseObject(obj);
-            // delete object
-            delete obj;
-            break;
-        default:
-            break;
+    if (obj) {
+        myCommonXMLStructure.closeSUMOBaseOBject();
+        // check tag
+        switch (obj->getTag()) {
+            case SUMO_TAG_MEANDATA_EDGE:
+            case SUMO_TAG_MEANDATA_LANE:
+                parseSumoBaseObject(obj);
+                // delete object
+                delete obj;
+                break;
+            default:
+                break;
+        }
     }
 }
 

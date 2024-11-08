@@ -191,54 +191,56 @@ void
 AdditionalHandler::endParseAttributes() {
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (obj->getTag()) {
-        // Stopping Places
-        case SUMO_TAG_BUS_STOP:
-        case SUMO_TAG_TRAIN_STOP:
-        case SUMO_TAG_CONTAINER_STOP:
-        case SUMO_TAG_CHARGING_STATION:
-        case SUMO_TAG_PARKING_AREA:
-        // detectors
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-        // TAZs
-        case SUMO_TAG_TAZ:
-        // Variable Speed Sign
-        case SUMO_TAG_VSS:
-        // Calibrator
-        case SUMO_TAG_CALIBRATOR:
-        case GNE_TAG_CALIBRATOR_LANE:
-        // Rerouter
-        case SUMO_TAG_REROUTER:
-        // Route probe
-        case SUMO_TAG_ROUTEPROBE:
-        // Vaporizer (deprecated)
-        case SUMO_TAG_VAPORIZER:
-        // wires
-        case SUMO_TAG_TRACTION_SUBSTATION:
-        case SUMO_TAG_OVERHEAD_WIRE_SECTION:
-        case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
-        // Shapes
-        case SUMO_TAG_POLY:
-        case SUMO_TAG_POI:
-        // JuPedSim
-        case GNE_TAG_JPS_WALKABLEAREA:
-        case GNE_TAG_JPS_OBSTACLE:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
+    if (obj) {
+        // close SUMOBaseOBject
+        myCommonXMLStructure.closeSUMOBaseOBject();
+        // check tag
+        switch (obj->getTag()) {
+            // Stopping Places
+            case SUMO_TAG_BUS_STOP:
+            case SUMO_TAG_TRAIN_STOP:
+            case SUMO_TAG_CONTAINER_STOP:
+            case SUMO_TAG_CHARGING_STATION:
+            case SUMO_TAG_PARKING_AREA:
+            // detectors
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            // TAZs
+            case SUMO_TAG_TAZ:
+            // Variable Speed Sign
+            case SUMO_TAG_VSS:
+            // Calibrator
+            case SUMO_TAG_CALIBRATOR:
+            case GNE_TAG_CALIBRATOR_LANE:
+            // Rerouter
+            case SUMO_TAG_REROUTER:
+            // Route probe
+            case SUMO_TAG_ROUTEPROBE:
+            // Vaporizer (deprecated)
+            case SUMO_TAG_VAPORIZER:
+            // wires
+            case SUMO_TAG_TRACTION_SUBSTATION:
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+            case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+            // Shapes
+            case SUMO_TAG_POLY:
+            case SUMO_TAG_POI:
+            // JuPedSim
+            case GNE_TAG_JPS_WALKABLEAREA:
+            case GNE_TAG_JPS_OBSTACLE:
+                // parse object and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+                break;
+            default:
+                break;
+        }
     }
 }
 
