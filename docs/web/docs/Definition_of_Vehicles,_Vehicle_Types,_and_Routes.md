@@ -1231,7 +1231,7 @@ However, it is also possible to set other requirements that must be met for the 
 - `"false"`: alias for not defining any trigger conditions
 
 ## Waypoints
-By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos.
+By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep at most the defined speed while between startPos end endPos. The actual [vehicle speed](Simulation/VehicleSpeed.md) cannot be higher than it would be without a waypoint.
 
 Special handling of other attributes:
 
