@@ -95,6 +95,12 @@ NBEdge::Connection::getInternalLaneID() const {
 
 
 std::string
+NBEdge::Connection::getInternalViaLaneID() const {
+    return viaID + "_" + toString(internalViaLaneIndex);
+}
+
+
+std::string
 NBEdge::Connection::getDescription(const NBEdge* parent) const {
     return (Named::getIDSecure(parent) + "_" + toString(fromLane) + "->" + Named::getIDSecure(toEdge) + "_" + toString(toLane)
             + (permissions == SVC_UNSPECIFIED ? "" : " (" + getVehicleClassNames(permissions) + ")"));
@@ -1972,6 +1978,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             con.shape = split.first;
             con.foeIncomingLanes = std::vector<std::string>(tmpFoeIncomingLanes.begin(), tmpFoeIncomingLanes.end());
             con.foeInternalLinks = foeInternalLinks; // resolve link indices to lane ids later
+            if (i != myConnections.begin() && (i - 1)->toEdge == con.toEdge && (i - 1)->haveVia)  {
+                --splitIndex;
+                con.internalViaLaneIndex = (i - 1)->internalViaLaneIndex + 1;
+            }
             con.viaID = innerID + "_" + toString(splitIndex + noInternalNoSplits);
             ++splitIndex;
             con.viaShape = split.second;

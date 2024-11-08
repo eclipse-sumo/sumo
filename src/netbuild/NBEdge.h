@@ -292,12 +292,16 @@ public:
 
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex = UNSPECIFIED_INTERNAL_LANE_INDEX;
+        int internalViaLaneIndex = 0;
 
         /// @brief check if Connection is uncontrolled
         bool uncontrolled = false;
 
         /// @brief get ID of internal lane
         std::string getInternalLaneID() const;
+
+        /// @brief get ID of internal lane (second part)
+        std::string getInternalViaLaneID() const;
 
         /// @brief get string describing this connection
         std::string getDescription(const NBEdge* parent) const;
