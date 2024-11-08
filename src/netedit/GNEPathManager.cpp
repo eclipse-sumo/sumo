@@ -952,13 +952,13 @@ GNEPathManager::clearSegments() {
 
 void
 GNEPathManager::addSegmentInLaneSegments(Segment* segment, const GNELane* lane) {
-    myLaneSegments[lane].push_back(segment);
+    myLaneSegments[lane].insert(segment);
 }
 
 
 void
 GNEPathManager::addSegmentInJunctionSegments(Segment* segment, const GNEJunction* junction) {
-    myJunctionSegments[junction].push_back(segment);
+    myJunctionSegments[junction].insert(segment);
 }
 
 
@@ -967,15 +967,7 @@ GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     // check if segment has a lane
     if (segment->getLane()) {
         auto lane = segment->getLane();
-        // remove segment from segments associated with lane
-        auto it = myLaneSegments.at(lane).begin();
-        while (it != myLaneSegments.at(lane).end()) {
-            if (*it == segment) {
-                it = myLaneSegments.at(lane).erase(it);
-            } else {
-                it++;
-            }
-        }
+        myLaneSegments[lane].erase(segment);
         // clear lane if doesn't have more segments
         if (myLaneSegments.at(lane).empty()) {
             myLaneSegments.erase(lane);
@@ -983,15 +975,7 @@ GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     }
     if (segment->getJunction()) {
         auto junction = segment->getJunction();
-        // remove segment from segments associated with junction
-        auto it = myJunctionSegments.at(junction).begin();
-        while (it != myJunctionSegments.at(junction).end()) {
-            if (*it == segment) {
-                it = myJunctionSegments.at(junction).erase(it);
-            } else {
-                it++;
-            }
-        }
+        myJunctionSegments[junction].erase(segment);
         // clear junction if doesn't have more segments
         if (myJunctionSegments.at(junction).empty()) {
             myJunctionSegments.erase(junction);

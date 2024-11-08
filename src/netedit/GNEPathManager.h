@@ -382,10 +382,10 @@ protected:
     std::map<const PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments
-    std::map<const GNELane*, std::vector<Segment*> > myLaneSegments;
+    std::map<const GNELane*, std::set<Segment*> > myLaneSegments;
 
     /// @brief map with junction segments
-    std::map<const GNEJunction*, std::vector<Segment*> > myJunctionSegments;
+    std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
 
     /// @brief flag for clear segments quickly
     bool myCleaningSegments = false;
