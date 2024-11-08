@@ -57,8 +57,11 @@ public:
     /// @brief get saving status
     GNENetHelper::SavingStatus* getSavingStatus() const;
 
-    /// @brief get path manager
-    GNEPathManager* getPathManager();
+    /// @brief get network path manager
+    GNEPathManager* getNetworkPathManager();
+
+    /// @brief get demand path manager
+    GNEPathManager* getDemandPathManager();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -498,8 +501,11 @@ protected:
     /// @brief AttributeCarriers of net
     GNENetHelper::SavingStatus* mySavingStatus;
 
-    /// @brief Path manager
-    GNEPathManager* myPathManager;
+    /// @brief Network path manager
+    GNEPathManager* myNetworkPathManager;
+
+    /// @brief Demand path manager
+    GNEPathManager* myDemandPathManager;
 
     /// @name counters for junction/edge IDs
     // @{

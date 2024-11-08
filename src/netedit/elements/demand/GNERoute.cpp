@@ -388,15 +388,15 @@ void
 GNERoute::computePathElement() {
     // calculate path depending if is embedded
     if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges(),
+        myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges(),
                 (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTLANE),
                 (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALLANE));
     } else {
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
+        myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
     }
     // if path is empty, then calculate path again using SVC_IGNORING
-    if (!myNet->getPathManager()->isPathValid(this)) {
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
+    if (!myNet->getDemandPathManager()->isPathValid(this)) {
+        myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
     }
 }
 
@@ -406,7 +406,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
         // get exaggeration
         const double exaggeration = getExaggeration(s);
         // get detail level
@@ -464,7 +464,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
         // Obtain exaggeration of the draw
         const double routeExaggeration = getExaggeration(s);
         // get detail level

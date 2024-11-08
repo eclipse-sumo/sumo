@@ -62,7 +62,7 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myNeteditAttributes = new GNENeteditAttributes(this);
 
     // create GNEPlanCreator Module
-    myPlanCreator = new GNEPlanCreator(this);
+    myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
 
     // create plan creator legend
     myPlanCreatorLegend = new GNEPlanCreatorLegend(this);

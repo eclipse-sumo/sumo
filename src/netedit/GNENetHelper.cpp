@@ -2511,7 +2511,8 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         myNet->removeGLObjectFromGrid(additional);
     }
     // delete path element
-    myNet->getPathManager()->removePath(additional);
+    myNet->getNetworkPathManager()->removePath(additional);
+    myNet->getDemandPathManager()->removePath(additional);
     // additionals has to be saved
     myNet->getSavingStatus()->requireSaveAdditionals();
 }
@@ -2578,7 +2579,8 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     // remove element from grid
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
-    myNet->getPathManager()->removePath(demandElement);
+    myNet->getNetworkPathManager()->removePath(demandElement);
+    myNet->getDemandPathManager()->removePath(demandElement);
     // check if update demand elements frames
     if (updateFrames) {
         updateDemandElementFrames(demandElement->getTagProperty());

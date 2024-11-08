@@ -55,14 +55,14 @@ FXIMPLEMENT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap
 // ===========================================================================
 
 
-GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) :
+GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath using given vClass
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, fromEdge, toEdge);
+    mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, fromEdge, toEdge);
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, fromEdge, toEdge);
+        mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, fromEdge, toEdge);
         if (mySubPath.empty()) {
             mySubPath = {fromEdge, toEdge};
             myConflictDisconnected = true;
@@ -73,14 +73,14 @@ GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass v
 }
 
 
-GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction) :
+GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath using given vClass
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, fromEdge, toJunction);
+    mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, fromEdge, toJunction);
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, fromEdge, toJunction);
+        mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, fromEdge, toJunction);
         if (mySubPath.empty()) {
             mySubPath = {fromEdge};
             myConflictDisconnected = true;
@@ -92,14 +92,14 @@ GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass v
 }
 
 
-GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge) :
+GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath using given vClass
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, fromJunction, toEdge);
+    mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, fromJunction, toEdge);
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, fromJunction, toEdge);
+        mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, fromJunction, toEdge);
         if (mySubPath.empty()) {
             mySubPath = {toEdge};
             myConflictDisconnected = true;
@@ -111,11 +111,11 @@ GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass v
 }
 
 
-GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction) :
+GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath using the given vClass
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, fromJunction, toJunction);
+    mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, fromJunction, toJunction);
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
         if (mySubPath.empty()) {
@@ -152,9 +152,10 @@ GNEPlanCreator::PlanPath::PlanPath() :
 }
 
 
-GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
+GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent, GNEPathManager* pathManager) :
     MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
+    myPathManager(pathManager),
     myVClass(SVC_PASSENGER),
     myPlanParents(0) {
     // create button for use last route
@@ -585,7 +586,7 @@ GNEPlanCreator::recalculatePath() {
     if (myPlanParameteres.consecutiveEdges.size() > 0) {
         // add every segment
         for (int i = 1; i < (int)myPlanParameteres.consecutiveEdges.size(); i++) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass,
+            myPath.push_back(PlanPath(myPathManager, myVClass,
                                       ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i - 1)),
                                       ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i))));
         }
@@ -622,13 +623,13 @@ GNEPlanCreator::recalculatePath() {
         }
         // continue depending of edges and junctions
         if (fromEdge && toEdge) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, toEdge));
+            myPath.push_back(PlanPath(myPathManager, myVClass, fromEdge, toEdge));
         } else if (fromEdge && !myPlanParameteres.toJunction.empty()) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, ACs->getJunctions().at(myPlanParameteres.toJunction)));
+            myPath.push_back(PlanPath(myPathManager, myVClass, fromEdge, ACs->getJunctions().at(myPlanParameteres.toJunction)));
         } else if (!myPlanParameteres.fromJunction.empty() && toEdge) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, ACs->getJunctions().at(myPlanParameteres.fromJunction), toEdge));
+            myPath.push_back(PlanPath(myPathManager, myVClass, ACs->getJunctions().at(myPlanParameteres.fromJunction), toEdge));
         } else if (!myPlanParameteres.fromJunction.empty() && !myPlanParameteres.toJunction.empty()) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass,
+            myPath.push_back(PlanPath(myPathManager, myVClass,
                                       ACs->getJunctions().at(myPlanParameteres.fromJunction),
                                       ACs->getJunctions().at(myPlanParameteres.toJunction)));
         }

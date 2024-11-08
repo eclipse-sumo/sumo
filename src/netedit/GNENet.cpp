@@ -91,7 +91,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
     mySavingStatus(new GNENetHelper::SavingStatus()),
-    myPathManager(new GNEPathManager(this)) { // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
+    myNetworkPathManager(new GNEPathManager(this)),
+    myDemandPathManager(new GNEPathManager(this)) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // Write GL debug information
@@ -107,8 +108,9 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
-    // delete path manager
-    delete myPathManager;
+    // delete path managers
+    delete myNetworkPathManager;
+    delete myDemandPathManager;
     // delete AttributeCarriers
     delete myAttributeCarriers;
     // delete saving status
@@ -132,8 +134,13 @@ GNENet::getSavingStatus() const {
 
 
 GNEPathManager*
-GNENet::getPathManager() {
-    return myPathManager;
+GNENet::getNetworkPathManager() {
+    return myNetworkPathManager;
+}
+
+GNEPathManager*
+GNENet::getDemandPathManager() {
+    return myDemandPathManager;
 }
 
 
@@ -373,7 +380,8 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // @todo if any of those edges are dead-ends should we remove their orphan junctions as well?
     undoList->begin(GUIIcon::MODEDELETE, TL("delete junction"));
     // invalidate junction path elements
-    myPathManager->invalidateJunctionPath(junction);
+    myNetworkPathManager->invalidateJunctionPath(junction);
+    myDemandPathManager->invalidateJunctionPath(junction);
     // delete junction child demand elements
     while (junction->getChildDemandElements().size() > 0) {
         deleteDemandElement(junction->getChildDemandElements().front(), undoList);
@@ -417,7 +425,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     // iterate over lanes
     for (const auto& lane : edge->getLanes()) {
         // invalidate lane path elements
-        myPathManager->invalidateLanePath(lane);
+        myNetworkPathManager->invalidateLanePath(lane);
+        myDemandPathManager->invalidateLanePath(lane);
         // delete lane additionals
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -586,7 +595,8 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
     } else {
         undoList->begin(GUIIcon::MODEDELETE, TL("delete lane"));
         // invalidate lane path elements
-        myPathManager->invalidateLanePath(lane);
+        myNetworkPathManager->invalidateLanePath(lane);
+        myDemandPathManager->invalidateLanePath(lane);
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -1473,11 +1483,11 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText(TL("Computing demand elements ..."));
     // if we aren't in Demand mode, update path calculator
     if (!myViewNet->getEditModes().isCurrentSupermodeDemand() &&
-            !myPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
-        myPathManager->getPathCalculator()->updatePathCalculator();
+            !myDemandPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
+        myDemandPathManager->getPathCalculator()->updatePathCalculator();
     }
     // clear demand paths
-    myPathManager->clearSegments();
+    myDemandPathManager->clearSegments();
     // iterate over all demand elements and compute
     for (const auto& demandElements : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElements.second) {

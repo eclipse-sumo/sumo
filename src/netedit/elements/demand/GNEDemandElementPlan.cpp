@@ -1133,7 +1133,7 @@ GNEDemandElementPlan::computePlanPathElement() {
     // get vClass
     auto vClass = myPlanElement->getVClass();
     // get path manager
-    auto pathManager = myPlanElement->getNet()->getPathManager();
+    auto pathManager = myPlanElement->getNet()->getDemandPathManager();
     // continue depending of parents
     if (tagProperty.planRoute()) {
         // calculate consecutive path using route edges
@@ -1942,7 +1942,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan element can be drawn
-    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), tagProperty.getTag())) {
+    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), tagProperty.getTag())) {
         // draw boundary
         if (tagProperty.isPlacedInRTree() && s.drawBoundaries) {
             GLHelper::drawBoundary(s, getPlanCenteringBoundary());
@@ -2050,7 +2050,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, tagProperty.getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, tagProperty.getTag())) {
         // draw boundary
         if (tagProperty.isPlacedInRTree() && s.drawBoundaries) {
             GLHelper::drawBoundary(s, getPlanCenteringBoundary());
@@ -2110,10 +2110,10 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
             }
         } else if (segment->getPreviousLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
-                                                                 myPlanElement->getType(), pathWidthDouble, 1, false, true, 0);
+                    myPlanElement->getType(), pathWidthDouble, 1, false, true, 0);
         } else if (segment->getNextLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
-                                                                 myPlanElement->getType(), pathWidthDouble, 1, true, false, 0);
+                    myPlanElement->getType(), pathWidthDouble, 1, true, false, 0);
         }
     }
     // check if draw plan parent

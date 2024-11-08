@@ -137,7 +137,7 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     myVehicleAttributes = new GNEAttributesCreator(this);
 
     // create GNEPathCreator Module
-    myPathCreator = new GNEPathCreator(this);
+    myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
 
     // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);

@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNEPathManager;
 
 // ===========================================================================
 // class definitions
@@ -45,10 +46,10 @@ public:
         Path(const SUMOVehicleClass vClass, GNEEdge* edge);
 
         /// @brief constructor for two edges
-        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+        Path(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
 
         /// @brief constructor for two junctions
-        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
+        Path(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
@@ -81,7 +82,7 @@ public:
     };
 
     /// @brief default constructor
-    GNEPathCreator(GNEFrame* frameParent);
+    GNEPathCreator(GNEFrame* frameParent, GNEPathManager* pathManager);
 
     /// @brief destructor
     ~GNEPathCreator();
@@ -209,6 +210,9 @@ protected:
 
     /// @brief current frame parent
     GNEFrame* myFrameParent;
+
+    /// @brief path manager
+    GNEPathManager* myPathManager;
 
     /// @brief current vClass
     SUMOVehicleClass myVClass;

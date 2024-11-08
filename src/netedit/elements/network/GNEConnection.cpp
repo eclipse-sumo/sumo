@@ -1000,7 +1000,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         updateGeometry();
     }
     // invalidate path calculator
-    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 

@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNEPathManager;
 
 // ===========================================================================
 // class definitions
@@ -42,16 +43,16 @@ public:
 
     public:
         /// @brief constructor for from-to edges
-        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge);
+        PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge);
 
         /// @brief constructor for from edge and to junction
-        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction);
+        PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction);
 
         /// @brief constructor for from junction and to edge
-        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge);
+        PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge);
 
         /// @brief constructor for from-to edges
-        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction);
+        PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
@@ -84,7 +85,7 @@ public:
     };
 
     /// @brief default constructor
-    GNEPlanCreator(GNEFrame* frameParent);
+    GNEPlanCreator(GNEFrame* frameParent, GNEPathManager* pathManager);
 
     /// @brief destructor
     ~GNEPlanCreator();
@@ -177,6 +178,9 @@ protected:
 
     /// @brief current frame parent
     GNEFrame* myFrameParent;
+
+    /// @brief path manager used in this plan creator
+    GNEPathManager* myPathManager;
 
     /// @brief current vClass
     SUMOVehicleClass myVClass;

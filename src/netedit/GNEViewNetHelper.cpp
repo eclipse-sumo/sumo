@@ -2155,9 +2155,9 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             // demand modes require ALWAYS a recomputing
             myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
             // check if update path calculator
-            if (!myViewNet->myNet->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+            if (!myViewNet->myNet->getDemandPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
                 // update DijkstraRouter of RouteCalculatorInstance
-                myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+                myViewNet->myNet->getDemandPathManager()->getPathCalculator()->updatePathCalculator();
                 // compute all demand elements
                 myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
             }
@@ -2180,11 +2180,11 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
                 myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
             }
             // check if update path calculator
-            if (!myViewNet->myNet->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+            if (!myViewNet->myNet->getNetworkPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
                 // update DijkstraRouter of RouteCalculatorInstance
-                myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
-                // compute all demand elements
-                myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
+                myViewNet->myNet->getNetworkPathManager()->getPathCalculator()->updatePathCalculator();
+                // compute all data elements
+                myViewNet->myNet->computeDataElements(myViewNet->myViewParent->getGNEAppWindows());
             }
             // reset TAZ contours (due filling)
             for (const auto& TAZ : myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {

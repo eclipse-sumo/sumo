@@ -1395,7 +1395,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
         }
     }
     // clear pathDraw
-    myNet->getPathManager()->getPathDraw()->clearPathDraw();
+    myNet->getNetworkPathManager()->getPathDraw()->clearPathDraw();
+    myNet->getDemandPathManager()->getPathDraw()->clearPathDraw();
     // update ignore hide by zoom
     myVisualizationSettings->updateIgnoreHideByZoom();
     // draw network (boundary
@@ -3298,7 +3299,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         // obtain vClass
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
-        myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, laneAtPopupPosition->getParentEdge());
+        myNet->getDemandPathManager()->getPathCalculator()->calculateReachability(vClass, laneAtPopupPosition->getParentEdge());
         // select all lanes with reachability greater than 0
         myUndoList->begin(laneAtPopupPosition, TL("select lane reachability"));
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {

@@ -637,7 +637,7 @@ GNEVehicle::isDemandElementValid() const {
         // check vehicles and flows paths
         if (getParentEdges().front() == getParentEdges().back()) {
             return Problem::OK;
-        } else if (myNet->getPathManager()->isPathValid(this)) {
+        } else if (myNet->getDemandPathManager()->isPathValid(this)) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
@@ -646,21 +646,21 @@ GNEVehicle::isDemandElementValid() const {
         // check vehicles and flows paths
         if (getParentJunctions().front() == getParentJunctions().back()) {
             return Problem::OK;
-        } else if (myNet->getPathManager()->isPathValid(this)) {
+        } else if (myNet->getDemandPathManager()->isPathValid(this)) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
         }
     } else if (myTagProperty.vehicleRoute()) {
         // check if exist a valid path using route parent edges
-        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getRouteParent()->getParentEdges()).size() > 0) {
+        if (myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getRouteParent()->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
         }
     } else if (myTagProperty.vehicleRouteEmbedded()) {
         // check if exist a valid path using route child edges
-        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
+        if (myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
@@ -677,7 +677,7 @@ GNEVehicle::getDemandElementProblem() const {
     if (myTagProperty.vehicleEdges()) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (myNet->getDemandPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("There is no valid path between edges '" + getParentEdges().at((int)i - 1)->getID() + "' and '" + getParentEdges().at(i)->getID() + "'");
             }
         }
@@ -690,7 +690,7 @@ GNEVehicle::getDemandElementProblem() const {
         const std::vector<GNEEdge*>& routeEdges = getRouteParent()->getParentEdges();
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)routeEdges.size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+            if (myNet->getDemandPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
@@ -701,7 +701,7 @@ GNEVehicle::getDemandElementProblem() const {
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().at(0)->getParentEdges();
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)routeEdges.size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+            if (myNet->getDemandPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
@@ -948,7 +948,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     // pop draw matrix
                     GLHelper::popMatrix();
                     // draw line between junctions if path isn't valid
-                    if ((getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(this)) {
+                    if ((getParentJunctions().size() > 0) && !myNet->getDemandPathManager()->isPathValid(this)) {
                         drawJunctionLine(this);
                     }
                     // draw stack label
@@ -977,7 +977,7 @@ GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
     if (myTagProperty.vehicleJunctions()) {
         // calculate path
-        myNet->getPathManager()->calculatePath(this, getVClass(), getParentJunctions().front(), getParentJunctions().back());
+        myNet->getDemandPathManager()->calculatePath(this, getVClass(), getParentJunctions().front(), getParentJunctions().back());
     } else if (myTagProperty.vehicleEdges()) {
         // save edges in wich this vehicle has to stop
         std::vector<GNEEdge*> edgeStops;
@@ -1018,7 +1018,7 @@ GNEVehicle::computePathElement() {
                     auto edgePathStop = edgePath;
                     edgePathStop.push_back(edgeStop);
                     edgePathStop.push_back(lastLane->getParentEdge());
-                    auto path = myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edgePathStop);
+                    auto path = myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edgePathStop);
                     if (path.size() > 0) {
                         edgePath.push_back(edgeStop);
                     }
@@ -1032,7 +1032,7 @@ GNEVehicle::computePathElement() {
                         auto edgePathStop = edgePath;
                         edgePathStop.push_back(edgeVia);
                         edgePathStop.push_back(lastLane->getParentEdge());
-                        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edgePathStop).size() > 0) {
+                        if (myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edgePathStop).size() > 0) {
                             edgePath.push_back(edgeVia);
                         }
                     }
@@ -1041,7 +1041,7 @@ GNEVehicle::computePathElement() {
             // add last lane
             edgePath.push_back(lastLane->getParentEdge());
             // calculate path
-            myNet->getPathManager()->calculatePath(this, getVClass(), edgePath);
+            myNet->getDemandPathManager()->calculatePath(this, getVClass(), edgePath);
         }
     }
     // update geometry
@@ -1066,7 +1066,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
                              myNet->getViewNet()->isAttributeCarrierInspected(this);
     // check drawing conditions
     if (segment->getLane() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // calculate width
@@ -1165,7 +1165,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
         }
         // check if add this path element to redraw buffer
         if (segment->getContour()->checkDrawPathContour(s, d, this)) {
-            myNet->getPathManager()->addPathElementToRedrawBuffer(this);
+            myNet->getDemandPathManager()->addPathElementToRedrawBuffer(this);
         }
     }
 }
@@ -1188,7 +1188,7 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
                              myNet->getViewNet()->isAttributeCarrierInspected(this);
     // check drawing conditions
     if (segment->getJunction() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // calculate width

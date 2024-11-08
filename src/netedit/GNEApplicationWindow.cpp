@@ -2539,9 +2539,9 @@ GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void
 long
 GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
     // first check viewNet
-    if (myViewNet && !myViewNet->getNet()->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+    if (myViewNet && !myViewNet->getNet()->getDemandPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
         // update path calculator
-        myViewNet->getNet()->getPathManager()->getPathCalculator()->updatePathCalculator();
+        myViewNet->getNet()->getDemandPathManager()->getPathCalculator()->updatePathCalculator();
     }
     return 1;
 }
@@ -2788,7 +2788,7 @@ GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector /*sel
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // disable
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-        } else if (myViewNet->getNet()->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+        } else if (myViewNet->getNet()->getDemandPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
             // disable
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         } else {

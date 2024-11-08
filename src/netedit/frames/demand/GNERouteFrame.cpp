@@ -198,7 +198,7 @@ GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myRouteAttributes = new GNEAttributesCreator(this);
 
     // create consecutive edges module
-    myPathCreator = new GNEPathCreator(this);
+    myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
 
     // create legend label
     myPathLegend = new GNEPathLegendModule(this);

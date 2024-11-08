@@ -712,7 +712,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         myParentJunction->updateGeometry();
     }
     // invalidate path calculator
-    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 

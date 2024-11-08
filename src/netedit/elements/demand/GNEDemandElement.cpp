@@ -647,7 +647,7 @@ GNEDemandElement::getEdgeStopIndex() const {
             // get last parent edge
             const auto lastEdge = parent->getParentEdges().back();
             bool stop = false;
-            const auto& pathElementSegments = myNet->getPathManager()->getPathElementSegments(parent);
+            const auto& pathElementSegments = myNet->getDemandPathManager()->getPathElementSegments(parent);
             // extract all edges from pathElement parent
             for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
                 if ((*it)->getLane()) {
@@ -845,7 +845,7 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
         edges = getParentEdges();
     }
     // calculate path
-    const auto path = myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edges);
+    const auto path = myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edges);
     // check path size
     if (path.size() > 0) {
         double length = 0;

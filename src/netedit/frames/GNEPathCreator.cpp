@@ -64,14 +64,14 @@ myConflictDisconnected(false) {
 }
 
 
-GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
+GNEPathCreator::Path::Path(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, {edgeFrom, edgeTo});
+    mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, {edgeFrom, edgeTo});
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
+        mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
         if (mySubPath.empty()) {
             mySubPath = { edgeFrom, edgeTo };
             myConflictDisconnected = true;
@@ -82,14 +82,14 @@ GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, G
 }
 
 
-GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
+GNEPathCreator::Path::Path(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, junctionFrom, junctionTo);
+    mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, junctionFrom, junctionTo);
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, junctionFrom, junctionTo);
+        mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, junctionFrom, junctionTo);
         if (mySubPath.empty()) {
             myConflictDisconnected = true;
         } else {
@@ -123,9 +123,10 @@ GNEPathCreator::Path::Path() :
 }
 
 
-GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
+GNEPathCreator::GNEPathCreator(GNEFrame* frameParent, GNEPathManager* pathManager) :
     MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
+    myPathManager(pathManager),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
     myRoute(nullptr) {
@@ -863,11 +864,11 @@ GNEPathCreator::recalculatePath() {
         myPath.push_back(Path(myVClass, edges.front()));
     } else if (mySelectedJunctions.size() == 2) {
         // add path between two junctions
-        myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, mySelectedJunctions.front(), mySelectedJunctions.back()));
+        myPath.push_back(Path(myPathManager, myVClass, mySelectedJunctions.front(), mySelectedJunctions.back()));
     } else {
         // add every segment
         for (int i = 1; i < (int)edges.size(); i++) {
-            myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, edges.at(i - 1), edges.at(i)));
+            myPath.push_back(Path(myPathManager, myVClass, edges.at(i - 1), edges.at(i)));
         }
     }
 }
@@ -876,7 +877,7 @@ GNEPathCreator::recalculatePath() {
 void
 GNEPathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
-    myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
+    myPathManager->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -891,7 +892,7 @@ GNEPathCreator::setSpecialCandidates(GNEEdge* originEdge) {
 void
 GNEPathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
     // first calculate reachability for pedestrians
-    myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(vClass, originEdge);
+    myPathManager->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {

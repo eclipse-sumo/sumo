@@ -992,7 +992,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         templateEditor->setEdgeTemplate(myParentEdge);
     }
     // invalidate path calculator
-    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 
@@ -1122,7 +1123,8 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
         }
     }
     // draw path additional elements
-    myNet->getPathManager()->drawLanePathElements(s, this);
+    myNet->getNetworkPathManager()->drawLanePathElements(s, this);
+    myNet->getDemandPathManager()->drawLanePathElements(s, this);
 }
 
 

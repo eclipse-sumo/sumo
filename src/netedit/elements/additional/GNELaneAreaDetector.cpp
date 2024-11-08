@@ -291,7 +291,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNELaneAreaDetector::computePathElement() {
     // calculate path
-    myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
+    myNet->getNetworkPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
 }
 
 

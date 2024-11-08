@@ -1840,7 +1840,8 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
             demandElement->drawGL(s);
         }
         // draw path additional elements
-        myNet->getPathManager()->drawJunctionPathElements(s, this);
+        myNet->getNetworkPathManager()->drawJunctionPathElements(s, this);
+        myNet->getDemandPathManager()->drawJunctionPathElements(s, this);
     }
 }
 
@@ -1958,7 +1959,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // invalidate path calculator
-    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getNetworkPathManager()->getPathCalculator()->invalidatePathCalculator();
+    myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 

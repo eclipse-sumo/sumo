@@ -50,7 +50,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
     myContainerPlanAttributes = new GNEAttributesCreator(this);
 
     // create plan creator Module
-    myPlanCreator = new GNEPlanCreator(this);
+    myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
 
     // Create GNEElementTree module
     myContainerHierarchy = new GNEElementTree(this);

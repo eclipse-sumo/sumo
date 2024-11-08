@@ -1465,7 +1465,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if (originalVehicle->getTagProperty().vehicleEdges()) {
         // calculate path using from-via-to edges
-        routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+        routeEdges = originalVehicle->getNet()->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // declare edge IDs
     std::vector<std::string> edgeIDs;
@@ -1556,7 +1556,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if (originalVehicle->getTagProperty().vehicleEdges()) {
         // calculate path using from-via-to edges
-        routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+        routeEdges = originalVehicle->getNet()->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // declare edge IDs
     std::vector<std::string> edgeIDs;
@@ -2136,7 +2136,7 @@ GNERouteHandler::canReverse(const GNEDemandElement* element) {
     } else if (element->getTagProperty().vehicleEdges()) {
         return canReverse(element->getNet(), element->getVClass(), element->getParentEdges());
     } else if (element->getTagProperty().vehicleJunctions()) {
-        return (element->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(element->getVClass(),
+        return (element->getNet()->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(element->getVClass(),
                 element->getParentJunctions().back(), element->getParentJunctions().front()).size() > 0);
     } else if (element->getTagProperty().vehicleTAZs()) {
         return true;
@@ -2165,7 +2165,7 @@ GNERouteHandler::canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vec
         // reverse edges
         std::reverse(reverseEdges.begin(), reverseEdges.end());
         // now check if exist a path
-        return (net->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, edges).size() > 0);
+        return (net->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, edges).size() > 0);
     }
 }
 
