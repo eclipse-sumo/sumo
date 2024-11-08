@@ -388,11 +388,9 @@ void
 GNERoute::computePathElement() {
     // calculate path depending if is embedded
     if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        const auto firstLaneIndex = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_DEPARTLANE);
-        const auto lastLaneIndex = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_ARRIVALLANE);
         myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges(),
-                canParse<int>(firstLaneIndex) ? parse<int>(firstLaneIndex) : -1,
-                canParse<int>(lastLaneIndex) ? parse<int>(lastLaneIndex) : -1);
+                (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTLANE),
+                (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALLANE));
     } else {
         myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
     }
