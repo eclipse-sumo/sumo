@@ -92,7 +92,7 @@ jobs:
       run: |
         cd sumo
         python3 -m venv dmgenv
-        dmgenv/bin/python3 -m pip install dmgbuild
+        dmgenv/bin/python3 -m pip install dmgbuild delocate
         dmgenv/bin/python3 tools/build_config/buildMacOSInstaller.py ./cmake-build --verbose
 
     - name: Uploading macOS installer dmg

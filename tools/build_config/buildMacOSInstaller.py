@@ -41,6 +41,12 @@ from sumolib.options import ArgumentParser  # noqa
 from build_config.version import get_pep440_version  # noqa
 
 try:
+    from delocate.cmd.delocate_path import delocate_path
+except ImportError:
+    print("Error: delocate module is not installed. Please install it using 'pip install delocate'.")
+    sys.exit(1)
+
+try:
     from dmgbuild.core import build_dmg
 except ImportError:
     print("Error: dmgbuild module is not installed. Please install it using 'pip install dmgbuild'.")
@@ -193,21 +199,12 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
 
     # Determine library dependencies and copy all from homebrew,
     # which are not libx* or mesa*
-    print(" - Copying all libraries")
-    bin_dir = os.path.join(version_dir, name, "bin")
-    libs_dir = os.path.join(version_dir, name, "lib")
-    all_libraries = set()
-    for root, _, files in os.walk(bin_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            dependencies = get_dependencies(file_path)
-            all_libraries.update(dependencies)
-    filtered_libraries = filter_libraries(all_libraries)
+    print(" - Delocating binaries and copying all libraries  - this may take a while")
 
-    if not os.path.exists(libs_dir):
-        os.makedirs(libs_dir)
-    for lib in filtered_libraries:
-        shutil.copy(lib, libs_dir)
+    # Direktes Aufrufen von delocate_path für die Binärdateien
+    os.chdir(os.path.join(version_dir, name))
+    delocate_path("./lib", lib_filt_func=None, lib_path="./lib")
+    delocate_path("./bin", lib_filt_func=None, lib_path="../lib")
 
     # Build the framework package
     cwd = os.path.dirname(os.path.abspath(__file__))
@@ -255,7 +252,6 @@ def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path, 
     print(" - Creating launcher")
     launcher_content = f"""#!/bin/bash
 export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}"
-export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
 {exec_call}
 """
     launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", app_name)
