@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-11-08 12:33:39 by Eclipse SUMO netconvert Version v1_21_0+0667-84505d7ebe2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -731,9 +731,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":3454709317_4" function="internal">
         <lane id=":3454709317_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.54" length="10.91" shape="701.47,1082.08 700.30,1081.84 698.20,1080.11 697.04,1077.28 696.82,1073.35"/>
-    </edge>
-    <edge id=":3454709317_5" function="internal">
-        <lane id=":3454709317_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.94" length="5.70" shape="701.66,1078.74 700.70,1077.79 700.11,1076.01 700.01,1073.54"/>
+        <lane id=":3454709317_4_1" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.94" length="5.70" shape="701.66,1078.74 700.70,1077.79 700.11,1076.01 700.01,1073.54"/>
     </edge>
     <edge id=":3454709317_2" function="internal">
         <lane id=":3454709317_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="14.41" shape="696.31,1087.75 696.82,1073.35"/>
@@ -2208,7 +2206,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="3454709312" type="dead_end" x="788.20" y="1077.92" incLanes="" intLanes="" shape="788.14,1076.32 788.27,1079.52"/>
-    <junction id="3454709317" type="priority" x="698.00" y="1080.75" incLanes="338392530_0 338392530_1 111325187#1_0 111325187#1_1" intLanes=":3454709317_4_0 :3454709317_5_0 :3454709317_2_0 :3454709317_2_1" shape="705.25,1084.10 705.39,1077.70 703.19,1077.21 702.44,1076.64 701.93,1075.85 701.65,1074.85 701.61,1073.63 695.22,1073.26 694.71,1087.67 701.11,1088.02 701.58,1085.80 702.15,1085.04 702.96,1084.50 703.99,1084.19">
+    <junction id="3454709317" type="priority" x="698.00" y="1080.75" incLanes="338392530_0 338392530_1 111325187#1_0 111325187#1_1" intLanes=":3454709317_4_0 :3454709317_4_1 :3454709317_2_0 :3454709317_2_1" shape="705.25,1084.10 705.39,1077.70 703.19,1077.21 702.44,1076.64 701.93,1075.85 701.65,1074.85 701.61,1073.63 695.22,1073.26 694.71,1087.67 701.11,1088.02 701.58,1085.80 702.15,1085.04 702.96,1084.50 703.99,1084.19">
         <request index="0" response="1100" foes="1100" cont="1"/>
         <request index="1" response="1100" foes="1100" cont="1"/>
         <request index="2" response="0000" foes="0011" cont="0"/>
@@ -2421,7 +2419,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id=":29325979_10_0" type="internal" x="402.33" y="1155.18" incLanes=":29325979_4_0 4619354_0 4619354_1" intLanes=":29325979_6_0 :29325979_6_1"/>
     <junction id=":29325979_11_0" type="internal" x="393.64" y="1153.99" incLanes=":29325979_8_0 -245193868_1 -245193868_2 -245193868_3" intLanes=":29325979_0_0 :29325979_0_1 :29325979_0_2"/>
     <junction id=":3454709317_4_0" type="internal" x="701.47" y="1082.08" incLanes=":3454709317_0_0 111325187#1_0 111325187#1_1" intLanes=":3454709317_2_0 :3454709317_2_1"/>
-    <junction id=":3454709317_5_0" type="internal" x="701.66" y="1078.74" incLanes=":3454709317_0_1 111325187#1_0 111325187#1_1" intLanes=":3454709317_2_0 :3454709317_2_1"/>
+    <junction id=":3454709317_4_1" type="internal" x="701.66" y="1078.74" incLanes=":3454709317_0_1 111325187#1_0 111325187#1_1" intLanes=":3454709317_2_0 :3454709317_2_1"/>
     <junction id=":504921081_13_0" type="internal" x="469.22" y="1157.46" incLanes=":504921081_7_0 -338412122_1" intLanes=":504921081_4_0 :504921081_5_0 :504921081_6_0 :504921081_12_0"/>
     <junction id=":504921081_14_0" type="internal" x="464.04" y="1152.40" incLanes=":504921081_12_0 -338412122_1 -338412122_2" intLanes=":504921081_2_0 :504921081_2_1 :504921081_4_0 :504921081_5_0 :504921081_6_0 :504921081_7_0 :504921081_8_0 :504921081_8_1"/>
     <junction id=":730887355_12_0" type="internal" x="836.74" y="1142.49" incLanes=":730887355_2_0 456455657#1_1 456455657#1_2" intLanes=":730887355_5_0 :730887355_5_1 :730887355_7_0 :730887355_8_0 :730887355_9_0 :730887355_10_0 :730887355_11_0"/>
@@ -3068,8 +3066,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":3454709307_1" to="-338392754#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":3454709317_0" to="111325187#2" fromLane="0" toLane="0" via=":3454709317_4_0" dir="l" state="m"/>
     <connection from=":3454709317_4" to="111325187#2" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":3454709317_0" to="111325187#2" fromLane="1" toLane="1" via=":3454709317_5_0" dir="l" state="m"/>
-    <connection from=":3454709317_5" to="111325187#2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":3454709317_0" to="111325187#2" fromLane="1" toLane="1" via=":3454709317_4_1" dir="l" state="m"/>
+    <connection from=":3454709317_4" to="111325187#2" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":3454709317_2" to="111325187#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3454709317_2" to="111325187#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":3454709331_0" to="28362838#2" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-27 14:12:59 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
+<!-- generated on 2024-11-08 12:33:41 by Eclipse SUMO netconvert Version v1_21_0+0667-84505d7ebe2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1328,9 +1328,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":921128156_5" function="internal">
         <lane id=":921128156_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="6.26" length="4.82" shape="317.19,309.12 317.74,309.66 319.53,310.16 321.68,309.76"/>
-    </edge>
-    <edge id=":921128156_6" function="internal">
-        <lane id=":921128156_6_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.12" length="5.45" shape="317.96,311.22 318.49,311.94 320.50,313.00 322.77,312.77"/>
+        <lane id=":921128156_5_1" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.12" length="5.45" shape="317.96,311.22 318.49,311.94 320.50,313.00 322.77,312.77"/>
     </edge>
     <edge id=":921128156_c0" function="crossing" crossingEdges="78488918#0">
         <lane id=":921128156_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="319.26,308.94 321.44,314.96" outlineShape="321.14,308.26 323.32,314.28 320.65,317.33 322.54,316.68 323.30,314.35 319.56,315.64 317.38,309.62 317.61,307.16 317.83,307.52 318.50,308.13 319.28,308.45 320.15,308.50"/>
@@ -2747,7 +2745,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="7" response="000000000" foes="100000111" cont="0"/>
         <request index="8" response="011111000" foes="011111000" cont="0"/>
     </junction>
-    <junction id="921128156" type="priority" x="314.46" y="314.08" incLanes="284801757#0_0 284801757#0_1 284801757#0_2 284801757#0_3 :921128156_w1_0" intLanes=":921128156_5_0 :921128156_6_0 :921128156_2_0 :921128156_2_1 :921128156_2_2 :921128156_c0_0" shape="311.57,320.45 322.54,316.68 324.06,314.01 321.20,306.11 318.73,304.88 307.65,308.32">
+    <junction id="921128156" type="priority" x="314.46" y="314.08" incLanes="284801757#0_0 284801757#0_1 284801757#0_2 284801757#0_3 :921128156_w1_0" intLanes=":921128156_5_0 :921128156_5_1 :921128156_2_0 :921128156_2_1 :921128156_2_2 :921128156_c0_0" shape="311.57,320.45 322.54,316.68 324.06,314.01 321.20,306.11 318.73,304.88 307.65,308.32">
         <request index="0" response="100000" foes="100000" cont="1"/>
         <request index="1" response="100000" foes="100000" cont="1"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -2762,7 +2760,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id=":296392079_9_0" type="internal" x="758.15" y="213.03" incLanes=":296392079_0_0" intLanes=":296392079_4_0 :296392079_4_1 :296392079_4_2 :296392079_c0_0 :296392079_c1_0"/>
     <junction id=":3004695846_2_0" type="internal" x="739.66" y="152.92" incLanes=":3004695846_0_0" intLanes=":3004695846_c0_0"/>
     <junction id=":921128156_5_0" type="internal" x="317.19" y="309.12" incLanes=":921128156_0_0" intLanes=":921128156_c0_0"/>
-    <junction id=":921128156_6_0" type="internal" x="317.96" y="311.22" incLanes=":921128156_0_1" intLanes=":921128156_c0_0"/>
+    <junction id=":921128156_5_1" type="internal" x="317.96" y="311.22" incLanes=":921128156_0_1" intLanes=":921128156_c0_0"/>
 
     <connection from="-186907170" to="669499120#5" fromLane="1" toLane="1" via=":1976554021_0_0" dir="r" state="m"/>
     <connection from="-186907170" to="186907170" fromLane="1" toLane="1" via=":1976554021_1_0" dir="t" state="m"/>
@@ -3310,8 +3308,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":921128153_4" to="49635577" fromLane="3" toLane="4" dir="s" state="M"/>
     <connection from=":921128156_0" to="78488918#0" fromLane="0" toLane="1" via=":921128156_5_0" dir="r" state="m"/>
     <connection from=":921128156_5" to="78488918#0" fromLane="0" toLane="1" dir="r" state="m"/>
-    <connection from=":921128156_0" to="78488918#0" fromLane="1" toLane="2" via=":921128156_6_0" dir="r" state="m"/>
-    <connection from=":921128156_6" to="78488918#0" fromLane="0" toLane="2" dir="r" state="m"/>
+    <connection from=":921128156_0" to="78488918#0" fromLane="1" toLane="2" via=":921128156_5_1" dir="r" state="m"/>
+    <connection from=":921128156_5" to="78488918#0" fromLane="1" toLane="2" dir="r" state="m"/>
     <connection from=":921128156_2" to="284801757#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":921128156_2" to="284801757#1" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":921128156_2" to="284801757#1" fromLane="2" toLane="3" dir="s" state="M"/>
