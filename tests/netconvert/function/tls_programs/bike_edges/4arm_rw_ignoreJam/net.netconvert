@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-11 15:15:15 by Eclipse SUMO netconvert Version v1_21_0+0699-cd90ce698f1
+<!-- generated on 2024-11-11 15:17:41 by Eclipse SUMO netconvert Version v1_21_0+0699-cd90ce698f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <output.street-names value="true"/>
     </output>
 
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="true"/>
+    </tls_building>
+
     <report>
         <xml-validation value="never"/>
         <ignore-errors.edge-type value="true"/>
@@ -31,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </netconvertConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" tlsIgnoreInternalJunctionJam="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-403479.13,-5818044.13" convBoundary="0.00,0.00,462.44,195.50" origBoundary="13.538030,52.491149,13.671897,52.534358" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -705,21 +709,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="joinedS_2453091696_cluster_1537334946_2453091683_7202621463_8355251671_#1more_cluster_2453091662_2453091707_31532419_31532420_#1more" type="actuated" programID="0" offset="0">
-        <phase duration="31" state="GGGGrrrrrrrrrrrGGGGrrrrrrggggGGGGGrrrrrrrrrrrrrrr" minDur="7" maxDur="50"/>
-        <phase duration="4"  state="yyyyrrrrrrrrrrryyyyrrrrrryyyyyyyyyrrrrrrrrrrrrrrr"/>
-        <phase duration="31" state="rrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrryyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="31" state="rrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrryyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="31" state="rrrrrrrrrrrrGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrryyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="31" state="rrrrrrrrrrrrrrrGGGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="11" state="GGGGrrrrrrrrrrrGGGGrrrrrrggggGGGGGrrrrrrrrrrrrrrr" minDur="7" maxDur="50"/>
+        <phase duration="4"  state="yyyyrrrrrrrrrrrggyyrrrrrrggggyyyyyrrrrrrrrrrrrrrr"/>
+        <phase duration="26" state="rrrrggggggggGGGggrrgrrgrrggggrrrrrgrrgrrGGGgrrrrr" minDur="10" maxDur="100"/>
+        <phase duration="4"  state="rrrryyyyyyyyyyyggrrgrrgrryyyyrrrrryrryrryyyyrrrrr"/>
+        <phase duration="11" state="rrrrrrrrrrrrrrrGGGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGyyyyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="31" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrGGGGGGrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrryyyyrrrrrrrrrrrrrrryyyyyyrrrrrrrrr"/>
-        <phase duration="31" state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrGGGGrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrryyyyrrrrr"/>
-        <phase duration="31" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrGGGGG" minDur="7" maxDur="50"/>
+        <phase duration="11" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrGGGGGGrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrryyyyyyrrrrrrrrr"/>
+        <phase duration="11" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrGGGGG" minDur="7" maxDur="50"/>
         <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrryyyyy"/>
     </tlLogic>
 
@@ -820,33 +818,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="cluster_2453091662_2453091707_31532419_31532420_#1more" type="traffic_light" x="247.76" y="122.28" incLanes="234446419#4_0 234446419#4_1 1093614720_0 304980002#5_0 304980002#5_1 304980002#5_2 304980002#5_3 370608055#0_0 370608055#0_1 899228279#3_0 304979998#1_0 304979998#1_1 304979998#1_2 304979998#1_3" intLanes=":cluster_2453091662_2453091707_31532419_31532420_#1more_0_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_1_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_2_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_30_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_31_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_32_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_6_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_7_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_33_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_34_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_10_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_11_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_11_1 :cluster_2453091662_2453091707_31532419_31532420_#1more_35_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_36_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_15_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_16_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_17_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_37_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_38_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_39_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_21_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_22_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_40_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_41_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_25_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_26_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_26_1 :cluster_2453091662_2453091707_31532419_31532420_#1more_42_0 :cluster_2453091662_2453091707_31532419_31532420_#1more_43_0" shape="245.96,146.72 256.15,144.61 256.07,142.53 256.44,141.89 257.08,141.51 258.00,141.41 259.19,141.56 263.23,112.69 260.07,112.09 257.39,111.12 255.20,109.78 253.49,108.06 252.27,105.96 251.53,103.49 239.51,105.95 239.46,108.09 239.06,108.81 238.39,109.30 237.48,109.56 236.31,109.58 232.32,137.24 235.88,137.58 238.92,138.42 241.45,139.75 243.46,141.58 244.97,143.90">
         <request index="0"  response="000000000000000000000010000000" foes="000001000001000000000010000000" cont="0"/>
         <request index="1"  response="000000000000000001100010000000" foes="000001000001000001100010000000" cont="0"/>
-        <request index="2"  response="011110111000000011100100000000" foes="011110111111000011100110000000" cont="0"/>
-        <request index="3"  response="011100110000111011100110000000" foes="011100110000111011101110000000" cont="1"/>
-        <request index="4"  response="011100100000100011100110000000" foes="011100100000100111101110000000" cont="1"/>
+        <request index="2"  response="011110111000000011100000000000" foes="011110111111000011100110000000" cont="0"/>
+        <request index="3"  response="011100110000111011100010000000" foes="011100110000111011101110000000" cont="1"/>
+        <request index="4"  response="011100100000100011100010000000" foes="011100100000100111101110000000" cont="1"/>
         <request index="5"  response="010000100000100000010001000000" foes="010000100000100000010001000000" cont="1"/>
         <request index="6"  response="010000100000100000010000000000" foes="010000100000100000010000100000" cont="0"/>
-        <request index="7"  response="010000100001000000010000011100" foes="010001100001100000010000011111" cont="0"/>
-        <request index="8"  response="011110111011100011110000011100" foes="011110111111100011110000011100" cont="1"/>
+        <request index="7"  response="010000100000000000010000000100" foes="010001100001100000010000011111" cont="0"/>
+        <request index="8"  response="011110111000100011110000011100" foes="011110111111100011110000011100" cont="1"/>
         <request index="9"  response="001100010000011011110000011000" foes="001100010000011011110000011000" cont="1"/>
         <request index="10" response="000000000000000000000000000000" foes="010000100000100000001111100000" cont="0"/>
-        <request index="11" response="000000000011000000000000011000" foes="110001100011100000001100011110" cont="0"/>
-        <request index="12" response="000000000011000000000000011000" foes="110001100011100000001100011110" cont="0"/>
-        <request index="13" response="001110111011000000000000011000" foes="001110111111100000001100011100" cont="1"/>
+        <request index="11" response="000000000000000000000000000000" foes="110001100011100000001100011110" cont="0"/>
+        <request index="12" response="000000000000000000000000000000" foes="110001100011100000001100011110" cont="0"/>
+        <request index="13" response="001110111000000000000000000000" foes="001110111111100000001100011100" cont="1"/>
         <request index="14" response="001100000000000000000000010000" foes="001100000000000000000000010000" cont="1"/>
         <request index="15" response="000000010000000000000000000000" foes="000000010000000000001000001000" cont="0"/>
         <request index="16" response="001100010000000000000000000000" foes="001100010000000000001000001000" cont="0"/>
-        <request index="17" response="011100110000000011110110000000" foes="011100110000000011110111111000" cont="0"/>
+        <request index="17" response="011100110000000011110010000000" foes="011100110000000011110111111000" cont="0"/>
         <request index="18" response="011100110000000011100110000111" foes="011101110000000011100110000111" cont="1"/>
         <request index="19" response="011100110000000011100100000100" foes="111101110000000011100100000100" cont="1"/>
         <request index="20" response="000010001000000010000100000100" foes="000010001000000010000100000100" cont="1"/>
         <request index="21" response="000000000000000000000000000000" foes="000010000100000010000100000100" cont="0"/>
-        <request index="22" response="000000000011000000000000001000" foes="000010000011111010001100001100" cont="0"/>
-        <request index="23" response="001100000011000001110000011000" foes="011110000011100011110111111100" cont="1"/>
+        <request index="22" response="000000000000000000000000000000" foes="000010000011111010001100001100" cont="0"/>
+        <request index="23" response="001100000000000001110000000000" foes="011110000011100011110111111100" cont="1"/>
         <request index="24" response="011110000011000001100010000011" foes="011110000011000001100010000011" cont="1"/>
         <request index="25" response="000000111000000000000000000000" foes="000001111100000010000100000100" cont="0"/>
-        <request index="26" response="000000000011000000000000011000" foes="000001100011110110001100011100" cont="0"/>
-        <request index="27" response="000000000011000000000000011000" foes="000001100011110110001100011100" cont="0"/>
-        <request index="28" response="000000100011000001110000011000" foes="000001100011100001110111111100" cont="1"/>
+        <request index="26" response="000000000000000000000000000000" foes="000001100011110110001100011100" cont="0"/>
+        <request index="27" response="000000000000000000000000000000" foes="000001100011110110001100011100" cont="0"/>
+        <request index="28" response="000000100000000001110000000000" foes="000001100011100001110111111100" cont="1"/>
         <request index="29" response="000000000010000001100000000000" foes="000000000010000001100000000000" cont="1"/>
         <param key="origEdgeIds" value="-1093614721 -31578380 -370608055#2 1093614718 1093614721 31578380 370608055#2"/>
         <param key="origId" value="2453091662 2453091707 31532419 31532420 9962387088"/>
