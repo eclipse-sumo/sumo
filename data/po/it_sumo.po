@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-11 10:01+0000\n"
+"PO-Revision-Date: 2024-11-11 10:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6588,48 +6588,55 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:800
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
-msgstr ""
+msgstr "tls.layout deve essere 'opposites', 'incoming' o 'alternateOneWay'"
 
 #: src/netbuild/NBFrame.cpp:805
 msgid "default.right-of-way must be one of '%'"
-msgstr ""
+msgstr "default.right-of-way deve essere uno di '%'"
 
 #: src/netbuild/NBFrame.cpp:809
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr ""
+"roundabouts.visibility-distance deve assumere un valore positivo oppure -1"
 
 #: src/netbuild/NBFrame.cpp:825
 msgid "Unknown value for default.spreadtype '%'."
-msgstr ""
+msgstr "Valore sconosciuto per default.spreadtype '%'."
 
 #: src/netbuild/NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
 msgstr ""
+"Non si può specificare l'altezza perché i dati di altezza non sono stati "
+"caricati"
 
 #: src/netbuild/NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
-msgstr ""
+msgstr "Non si potevano ottenere dati di altezza della coordinata %"
 
 #: src/netbuild/NBHeightMapper.cpp:190
 msgid "Could not open shape file '%'."
-msgstr ""
+msgstr "Non si poteva aprire il file di forme '%'."
 
 #: src/netbuild/NBHeightMapper.cpp:204
 msgid ""
 "Could not create geocoordinates converter; check whether proj.4 is installed."
 msgstr ""
+"Non si poteva creare il convertitore di coordinate geografiche; controlla se "
+"proj.4 è stato installato."
 
 #: src/netbuild/NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
-msgstr ""
+msgstr "Il tipo di caratteristiche di mappe d'altezza % viene ignorato"
 
 #: src/netbuild/NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
 msgstr ""
+"Non si può caricare fiel di forme perché SUMO è stato compilato senza "
+"supporto GDAL."
 
 #: src/netbuild/NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
-msgstr ""
+msgstr "Non si può caricare il file GeoTIFF."
 
 #: src/netbuild/NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
