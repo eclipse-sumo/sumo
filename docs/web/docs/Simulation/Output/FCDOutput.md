@@ -70,8 +70,8 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | leaderID | id                   |    |      | The id of the leading vehicle                                                                               |
 | leaderSpeed | m/s               |    |      | The speed of the leader                                                                                     |
 | leaderGap | m                   |    |      | The gap to the leader                                                                                       |
-| segment | m                     |    |  X   | The [segment index within the current edge](Simulation/Meso.md#longitudinal_model)                          |
-| queue | m                       |    |  X   | The [queue index within the current edge](Simulation/Meso.md#longitudinal_model)                            |
+| segment | m                     |    |  X   | The [segment index within the current edge](../Meso.md#longitudinal_model)                                  |
+| queue | m                       |    |  X   | The [queue index within the current edge](../Meso.md#longitudinal_model)                                    |
 | entryTime | m                   |    |  X   | The time at which the vehicle entered the current segment                                                   |
 | eventTime | m                   |    |  X   | The earliest time at which the vehicle can leave the current segment                                        |
 | blockTime | m                   |    |  X   | The time at which the vehicle was blocked from leaving the current segment (or -1 if not blocked)           |
