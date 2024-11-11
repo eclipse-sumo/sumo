@@ -344,6 +344,10 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         // calculate contour and draw dotted geometry
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
                 segment->isFirstSegment(), segment->isLastSegment(), 0);
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
     }
 }
 
@@ -373,6 +377,10 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         }
         // calculate contour
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0);
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
     }
 }
 
