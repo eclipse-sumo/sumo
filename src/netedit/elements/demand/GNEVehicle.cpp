@@ -1164,8 +1164,8 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
             segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getLane()->getLaneShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0);
         }
         // check if add this path element to redraw buffer
-        if (segment->getContour()->checkDrawPathContour(s, d, this)) {
-            myNet->getDemandPathManager()->addPathElementToRedrawBuffer(this);
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
         }
     }
 }

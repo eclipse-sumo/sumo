@@ -842,12 +842,20 @@ GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, cons
 
 
 void
-GNEPathManager::addPathElementToRedrawBuffer(const GNEPathElement* pathElement) const {
-    for (const auto& segment : myPaths.at(pathElement)) {
-        if (segment->getLane()) {
-            gViewObjectsHandler.addToRedrawObjects(segment->getLane());
-        } else if (segment->getJunction()) {
-            gViewObjectsHandler.addToRedrawObjects(segment->getJunction());
+GNEPathManager::redrawPathElements(const GUIVisualizationSettings& s) const {
+    // draw every segment partial
+    for (const auto& pathElementToRedraw : gViewObjectsHandler.getRedrawPathElements()) {
+        const auto it = myPaths.find(pathElementToRedraw);
+        if (it != myPaths.end()) {
+            for (const auto& segment : it->second) {
+                if (segment->getLane()) {
+                    // draw with high offset
+                    it->first->drawLanePartialGL(s, segment, 3);
+                } else if (segment->getJunction()) {
+                    // draw with high offset
+                    it->first->drawJunctionPartialGL(s, segment, 3);
+                }
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNERoute;
+class GNEPathElement;
 
 // ===========================================================================
 // class definitions
@@ -112,7 +113,7 @@ public:
     /// @{
     /// @brief add element into list of elements under cursor
     bool selectObject(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
-                               const bool fullBoundary);
+                      const bool fullBoundary);
 
     /// @brief add geometryPoint into list of elements under cursor
     bool selectGeometryPoint(const GUIGlObject* GLObject, const int newIndex, const double layer);
@@ -134,13 +135,16 @@ public:
 
     /// @}
 
-    /// @name functions related with redrawing objects
+    /// @name functions related with redrawing path elements
     /// @{
     /// @brief get redrawing objects
-    const std::set<const GUIGlObject*> &getRedrawObjects() const;
+    const std::set<const GNEPathElement*>& getRedrawPathElements() const;
 
-    /// @brief get redrawing objects
-    void addToRedrawObjects(const GUIGlObject* GLObject);
+    /// @brief check if the given path element has to be redraw again
+    bool isPathElementMarkForRedraw(const GNEPathElement* pathElement) const;
+
+    /// @brief add path element to redrawing set
+    void addToRedrawPathElements(const GNEPathElement* pathElement);
 
     /// @}
 
@@ -188,8 +192,8 @@ protected:
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
     std::map<const GUIGlObject*, bool> mySelectedObjects;
 
-    /// @brief set with element marked for redrawing
-    std::set<const GUIGlObject*> myRedrawObjects;
+    /// @brief set with path elements marked for redrawing
+    std::set<const GNEPathElement*> myRedrawPathElements;
 
     /// @brief selection boundary
     Boundary mySelectionBoundary;

@@ -96,7 +96,7 @@ public:
     void updateObjectsInPosition(const Position& pos);
 
     /// @brief redraw elements only for calculating boundary
-    void redrawContourElements(const Boundary& drawingBoundary);
+    void redrawPathElementContours();
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to

@@ -271,8 +271,8 @@ public:
     /// @brief draw junction path elements
     void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) const;
 
-    /// @brief add path elements to redraw buffer
-    void addPathElementToRedrawBuffer(const GNEPathElement* pathElement) const;
+    /// @brief redraw path elements saved in gViewObjectsHandler buffer
+    void redrawPathElements(const GUIVisualizationSettings& s) const;
 
     /// @brief invalidate lane path
     void invalidateLanePath(const GNELane* lane);

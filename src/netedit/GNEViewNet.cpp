@@ -541,30 +541,19 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
 
 
 void
-GNEViewNet::redrawContourElements(const Boundary& drawingBoundary) {
-    // first add all inspected elements to redraw objects
-    for (const auto& insectedAC : myInspectedAttributeCarriers) {
-        gViewObjectsHandler.addToRedrawObjects(insectedAC->getGUIGlObject());
-    }
-    // push matrix
-    GLHelper::pushMatrix();
+GNEViewNet::redrawPathElementContours() {
     // enable draw for view objects handler (this calculate the contours)
     myVisualizationSettings->drawForViewObjectsHandler = true;
-    // make a copy of redraw objects
-    std::set<const GUIGlObject*> redrawObjectsInDrawingBoundary;
-    // only draw objects within the drawing boundary
-    for (const auto& object : gViewObjectsHandler.getRedrawObjects()) {
-        if (drawingBoundary.overlaps2D(object->getCenteringBoundary())) {
-            redrawObjectsInDrawingBoundary.insert(object);
-        }
-    }
-    for (const auto& object : redrawObjectsInDrawingBoundary) {
-        object->drawGL(*myVisualizationSettings);
-    }
-    // restore draw for view objects handler (this calculate the contours)
-    myVisualizationSettings->drawForViewObjectsHandler = false;
+    // push matrix
+    GLHelper::pushMatrix();
+    // redraw elements in buffer
+    myNet->getNetworkPathManager()->redrawPathElements(*myVisualizationSettings);
+    myNet->getDemandPathManager()->redrawPathElements(*myVisualizationSettings);
+    myNet->getDataPathManager()->redrawPathElements(*myVisualizationSettings);
     // pop matrix
     GLHelper::popMatrix();
+    // disable drawForViewObjectsHandler
+    myVisualizationSettings->drawForViewObjectsHandler = false;
 }
 
 
@@ -1341,8 +1330,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
     // first step: update objects under cursor
     updateObjectsInPosition(myNet->getViewNet()->getPositionInformation());
-    // second step: redraw contour elements (for example, the path element childrens)
-    redrawContourElements(drawingBoundary);
+    // second step: redraw contour of path elements (needes if we're inspecting a path element like a trip)
+    redrawPathElementContours();
     // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);

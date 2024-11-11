@@ -39,7 +39,7 @@ GUIViewObjectsHandler::reset() {
     // clear objects containers
     mySortedSelectedObjects.clear();
     mySelectedObjects.clear();
-    myRedrawObjects.clear();
+    myRedrawPathElements.clear();
     // reset marked elements
     myMergingJunctions.clear();
     markedEdge = nullptr;
@@ -374,15 +374,26 @@ GUIViewObjectsHandler::getSelectedPositionOverShape(const GUIGlObject* GLObject)
 }
 
 
-const std::set<const GUIGlObject*>&
-GUIViewObjectsHandler::getRedrawObjects() const {
-    return myRedrawObjects;
+
+const std::set<const GNEPathElement*>&
+GUIViewObjectsHandler::getRedrawPathElements() const {
+    return myRedrawPathElements;
+}
+
+
+bool
+GUIViewObjectsHandler::isPathElementMarkForRedraw(const GNEPathElement* pathElement) const {
+    if (myRedrawPathElements.empty()) {
+        return false;
+    } else {
+        return myRedrawPathElements.find(pathElement) != myRedrawPathElements.end();
+    }
 }
 
 
 void
-GUIViewObjectsHandler::addToRedrawObjects(const GUIGlObject* GLObject) {
-    myRedrawObjects.insert(GLObject);
+GUIViewObjectsHandler::addToRedrawPathElements(const GNEPathElement* pathElement) {
+    myRedrawPathElements.insert(pathElement);
 }
 
 
