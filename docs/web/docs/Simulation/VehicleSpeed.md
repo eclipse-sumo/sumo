@@ -124,7 +124,7 @@ Vehicles will decelerate when approaching the position of a
 # Waypoints
 
 Vehicles may decelerate when approaching the position of a
-[`waypoint`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#swaypoints).
+[`waypoint`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#waypoints).
 and may lower their speed while in the area of the waypoint.
 This only happens if the configured waypoint speed is lower than the speed, which the vehicle would otherwise use.
 If the waypoint is configured with an `until` attribute, the vehicle may even stop.
