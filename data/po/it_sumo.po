@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-08 16:04+0000\n"
+"PO-Revision-Date: 2024-11-11 10:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6534,20 +6534,26 @@ msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
 msgstr ""
+"si può dare soltanto una delle opzioni 'keep-edges.in-boundary' e 'keep-edges"
+".in-geo-boundary'"
 
 #: src/netbuild/NBFrame.cpp:756
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
 msgstr ""
+"si può dare soltanto una delle opzioni 'no-internal-links' e 'crossings."
+"guess'"
 
 #: src/netbuild/NBFrame.cpp:760
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr ""
+"si può dare soltanto una delle opzioni 'no-internal-links' e 'walkareas'"
 
 #: src/netbuild/NBFrame.cpp:764
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr ""
+"si può dare soltanto una delle opzioni 'tls.green.time' e 'tls.cycle.time'"
 
 #: src/netbuild/NBFrame.cpp:768
 msgid "default.lanenumber must be at least 1"
