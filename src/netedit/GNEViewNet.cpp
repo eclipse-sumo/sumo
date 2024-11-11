@@ -1328,10 +1328,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
-    // first step: update objects under cursor
-    updateObjectsInPosition(myNet->getViewNet()->getPositionInformation());
-    // second step: redraw contour of path elements (needes if we're inspecting a path element like a trip)
+    // first step: redraw contour of path elements (needes if we're inspecting a path element like a trip)
     redrawPathElementContours();
+    // second step: update objects under cursor
+    updateObjectsInPosition(myNet->getViewNet()->getPositionInformation());
     // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
