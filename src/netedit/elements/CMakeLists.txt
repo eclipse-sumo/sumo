@@ -10,14 +10,16 @@ set(netedit_elements_SRCS
    GNEAttributeProperties.h
    GNECandidateElement.cpp
    GNECandidateElement.h
+   GNEContour.cpp
+   GNEContour.h
    GNEGeneralHandler.cpp
    GNEGeneralHandler.h
    GNEHierarchicalContainer.cpp
    GNEHierarchicalContainer.h
    GNEHierarchicalElement.cpp
    GNEHierarchicalElement.h
-   GNEContour.cpp
-   GNEContour.h
+   GNEPathElement.cpp
+   GNEPathElement.h
    GNETagProperties.cpp
    GNETagProperties.h
    )

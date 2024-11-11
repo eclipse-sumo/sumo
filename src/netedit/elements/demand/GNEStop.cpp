@@ -35,7 +35,7 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
                                 GNEDemandElementPlan(this, -1, -1),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
@@ -59,7 +59,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
+                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter),
 GNEDemandElementPlan(this, -1, -1),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
@@ -86,7 +86,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
+                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter),
 GNEDemandElementPlan(this, -1, -1),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {

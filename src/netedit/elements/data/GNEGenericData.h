@@ -20,24 +20,20 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBVehicle.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <netedit/GNEPathManager.h>
+#include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <netbuild/NBVehicle.h>
-#include <netbuild/NBEdge.h>
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEViewNet;
 class GNEDataInterval;
 
@@ -49,7 +45,8 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEGenericData : public GNEPathManager::PathElement, public Parameterised, public GNEHierarchicalElement {
+class GNEGenericData : public GNEPathElement, public Parameterised, public GNEHierarchicalElement {
+
 public:
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
@@ -179,7 +176,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement

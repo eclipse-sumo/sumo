@@ -20,13 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <netedit/GNEPathManager.h>
 #include <netedit/GNEMoveElement.h>
+#include <netedit/GNEPathManager.h>
 #include <netedit/elements/GNEContour.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 
@@ -46,7 +47,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEAdditional : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEAdditional : public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor
@@ -242,7 +243,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement

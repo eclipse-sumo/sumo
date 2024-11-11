@@ -21,8 +21,8 @@
 #include <config.h>
 
 #include <netedit/GNEMoveElement.h>
-#include <netedit/GNEPathManager.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GUIGeometry.h>
@@ -48,7 +48,7 @@ class GNEJunction;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
+class GNEDemandElement : public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
@@ -266,7 +266,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
     /// @brief compute pathElement
     virtual void computePathElement() = 0;

@@ -34,7 +34,7 @@
 
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
                                 GNEDemandElementPlan(this, -1, -1),
 mySpeed(0) {
     // reset default values
@@ -45,7 +45,7 @@ mySpeed(0) {
 GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                          const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     GNEPathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
 planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
 GNEDemandElementPlan(this, departPosition, arrivalPosition),
