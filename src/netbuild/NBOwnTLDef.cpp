@@ -424,7 +424,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             if (perms == SVC_TRAM) {
                 groupTram = true;
             } else if ((perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY)) == 0) {
-                groupOther = true;
+                if (OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam")) {
+                    // otherwise, we can get a mutual conflict for minor green
+                    // streams which would create deadlock
+                    groupOther = true;
+                }
             }
             // group all edges with the same permissions into a single phase (later)
             if (groupTram || groupOther) {
