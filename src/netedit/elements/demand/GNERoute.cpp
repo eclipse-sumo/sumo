@@ -455,6 +455,10 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         // calculate contour
         segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, exaggeration,
                 segment->isFirstSegment(), segment->isLastSegment(), 0);
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
     }
 }
 
@@ -485,6 +489,10 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         }
         // calculate contour
         segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, routeExaggeration, false, false, 0);
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
     }
 }
 

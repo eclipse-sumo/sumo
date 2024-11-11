@@ -1225,13 +1225,17 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
         if (segment->getPreviousLane() && segment->getNextLane()) {
             // calculate contour and draw dotted geometry
             segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(),
-                    getType(), 0, width, 1, false, false);
+                    getType(), width, 1, false, false, 0);
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, this, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()},
-                    getType(), 0, width, 1, true, true);
+                    getType(), width, 1, true, true, 0);
         } else if (segment->getNextLane() && myTagProperty.vehicleJunctions()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, this, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
-                    getType(), 0, width, 1, true, true);
+                    getType(), width, 1, true, true, 0);
+        }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
         }
     }
 }

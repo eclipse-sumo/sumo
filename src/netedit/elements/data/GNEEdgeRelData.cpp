@@ -207,6 +207,11 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
         if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
             segment->getContour()->calculateContourEdge(s, d, getParentEdges().back(), this, getType(), false, true);
         }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
+
     }
 }
 
@@ -225,6 +230,10 @@ GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const G
         // draw dotted contour
         if (segment->getPreviousLane() && segment->getNextLane()) {
             segment->getContour()->calculateContourEdges(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge());
+        }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
         }
     }
 }

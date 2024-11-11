@@ -2032,6 +2032,10 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         } else {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, myPlanElement->getType(), drawingWidth, 1, false, false, 0);
         }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(myPlanElement) && segment->getContour()->checkDrawPathContour(s, d, myPlanElement)) {
+            gViewObjectsHandler.addToRedrawPathElements(myPlanElement);
+        }
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -2114,6 +2118,10 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         } else if (segment->getNextLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
                     myPlanElement->getType(), pathWidthDouble, 1, true, false, 0);
+        }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(myPlanElement) && segment->getContour()->checkDrawPathContour(s, d, myPlanElement)) {
+            gViewObjectsHandler.addToRedrawPathElements(myPlanElement);
         }
     }
     // check if draw plan parent
