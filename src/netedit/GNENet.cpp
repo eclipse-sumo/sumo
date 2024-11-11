@@ -92,7 +92,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
     mySavingStatus(new GNENetHelper::SavingStatus()),
     myNetworkPathManager(new GNEPathManager(this)),
-    myDemandPathManager(new GNEPathManager(this)) {
+    myDemandPathManager(new GNEPathManager(this)),
+    myDataPathManager(new GNEPathManager(this)) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // Write GL debug information
@@ -111,6 +112,7 @@ GNENet::~GNENet() {
     // delete path managers
     delete myNetworkPathManager;
     delete myDemandPathManager;
+    delete myDataPathManager;
     // delete AttributeCarriers
     delete myAttributeCarriers;
     // delete saving status
@@ -138,9 +140,16 @@ GNENet::getNetworkPathManager() {
     return myNetworkPathManager;
 }
 
+
 GNEPathManager*
 GNENet::getDemandPathManager() {
     return myDemandPathManager;
+}
+
+
+GNEPathManager*
+GNENet::getDataPathManager() {
+    return myDataPathManager;
 }
 
 
@@ -382,6 +391,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // invalidate junction path elements
     myNetworkPathManager->invalidateJunctionPath(junction);
     myDemandPathManager->invalidateJunctionPath(junction);
+    myDataPathManager->invalidateJunctionPath(junction);
     // delete junction child demand elements
     while (junction->getChildDemandElements().size() > 0) {
         deleteDemandElement(junction->getChildDemandElements().front(), undoList);
@@ -427,6 +437,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         // invalidate lane path elements
         myNetworkPathManager->invalidateLanePath(lane);
         myDemandPathManager->invalidateLanePath(lane);
+        myDataPathManager->invalidateLanePath(lane);
         // delete lane additionals
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -597,6 +608,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         // invalidate lane path elements
         myNetworkPathManager->invalidateLanePath(lane);
         myDemandPathManager->invalidateLanePath(lane);
+        myDataPathManager->invalidateLanePath(lane);
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);

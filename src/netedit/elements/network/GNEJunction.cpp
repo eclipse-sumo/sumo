@@ -1842,6 +1842,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
         // draw path additional elements
         myNet->getNetworkPathManager()->drawJunctionPathElements(s, this);
         myNet->getDemandPathManager()->drawJunctionPathElements(s, this);
+        myNet->getDataPathManager()->drawJunctionPathElements(s, this);
     }
 }
 

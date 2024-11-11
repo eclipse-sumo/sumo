@@ -1124,6 +1124,7 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
     // draw path additional elements
     myNet->getNetworkPathManager()->drawLanePathElements(s, this);
     myNet->getDemandPathManager()->drawLanePathElements(s, this);
+    myNet->getDataPathManager()->drawLanePathElements(s, this);
 }
 
 

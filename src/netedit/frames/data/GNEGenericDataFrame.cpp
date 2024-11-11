@@ -620,7 +620,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* 
     myGenericDataAttributes = new GNEFrameAttributeModules::GenericDataAttributes(this);
     // create GNEPathCreator module
     if (pathCreator) {
-        myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getNetworkPathManager());
+        myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDataPathManager());
     }
 }
 

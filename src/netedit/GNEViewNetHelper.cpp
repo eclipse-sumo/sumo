@@ -2179,11 +2179,6 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
                 // demand modes require ALWAYS a recomputing
                 myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
             }
-            // check if update path calculator
-            if (!myViewNet->myNet->getNetworkPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
-                // compute all data elements
-                myViewNet->myNet->computeDataElements(myViewNet->myViewParent->getGNEAppWindows());
-            }
             // reset TAZ contours (due filling)
             for (const auto& TAZ : myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
                 TAZ.second->resetAdditionalContour();

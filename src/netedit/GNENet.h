@@ -63,6 +63,9 @@ public:
     /// @brief get demand path manager
     GNEPathManager* getDemandPathManager();
 
+    /// @brief get data path manager
+    GNEPathManager* getDataPathManager();
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
@@ -506,6 +509,9 @@ protected:
 
     /// @brief Demand path manager
     GNEPathManager* myDemandPathManager;
+
+    /// @brief Data path manager
+    GNEPathManager* myDataPathManager;
 
     /// @name counters for junction/edge IDs
     // @{

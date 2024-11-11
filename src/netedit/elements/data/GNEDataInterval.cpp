@@ -236,7 +236,7 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
         // delete path element
-        myNet->getNetworkPathManager()->removePath(genericData);
+        myNet->getDataPathManager()->removePath(genericData);
         // check if remove from RTREE
         if (genericData->getTagProperty().isPlacedInRTree()) {
             myNet->removeGLObjectFromGrid(genericData);

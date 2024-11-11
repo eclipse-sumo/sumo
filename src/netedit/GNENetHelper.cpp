@@ -2089,6 +2089,8 @@ GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) 
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(genericData);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
+    // delete path element
+    myNet->getDataPathManager()->removePath(genericData);
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
@@ -2512,7 +2514,6 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     }
     // delete path element
     myNet->getNetworkPathManager()->removePath(additional);
-    myNet->getDemandPathManager()->removePath(additional);
     // additionals has to be saved
     myNet->getSavingStatus()->requireSaveAdditionals();
 }
@@ -2579,7 +2580,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     // remove element from grid
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
-    myNet->getNetworkPathManager()->removePath(demandElement);
     myNet->getDemandPathManager()->removePath(demandElement);
     // check if update demand elements frames
     if (updateFrames) {

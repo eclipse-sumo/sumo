@@ -1397,6 +1397,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     // clear pathDraw
     myNet->getNetworkPathManager()->getPathDraw()->clearPathDraw();
     myNet->getDemandPathManager()->getPathDraw()->clearPathDraw();
+    myNet->getDataPathManager()->getPathDraw()->clearPathDraw();
     // update ignore hide by zoom
     myVisualizationSettings->updateIgnoreHideByZoom();
     // draw network (boundary
