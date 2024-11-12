@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-12 08:57+0000\n"
+"PO-Revision-Date: 2024-11-13 11:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -5522,19 +5522,21 @@ msgstr ""
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:381
 msgid "Found % bidirectional rail edges"
-msgstr ""
+msgstr "Trovati % archi ferroviari bidirezionali"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:407
 msgid "Found % railway edges and % railway nodes (% signals)."
-msgstr ""
+msgstr "Trovati % archi ferroviari e % nodi ferrovioari (% segnali)."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:524
 msgid "Added % bidi-edges as extension of existing bidi edges."
 msgstr ""
+"% archi bidirezionali sono stati aggiunti come estensione di archi "
+"bidirezionali preesistenti."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:535
 msgid "Could not find bidi-edge for edge '%'"
-msgstr ""
+msgstr "Non ho potuto trovare l'arco bidirezionale per l'arco '%'"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:640
 msgid "Found % reversible edge sequences between broken rail nodes"
@@ -5603,7 +5605,7 @@ msgstr "% segnali ferroviari sono stati aggiunti a % fermate."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1496
 msgid "Could not straighten corridor %."
-msgstr ""
+msgstr "Non ho potuto appianare il corridoio %."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1501
 msgid "Moved % rail junctions for straightening % corridors."
@@ -11478,20 +11480,21 @@ msgstr "Inizia il generatore di numeri casuali con il valore dato"
 #: src/utils/common/SUMOVehicleClass.cpp:199
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
 msgstr ""
+"Non si possono specificare classi di veicoli e eccezioni allo stesso tempo"
 
 #: src/utils/common/SUMOVehicleClass.cpp:203
 msgid "StopOffset requires an offset value"
-msgstr ""
+msgstr "StopOffset richiede un valore di spostamento"
 
 #: src/utils/common/SUMOVehicleClass.cpp:354
 #, c-format
 msgid "Unknown vehicle class '%' ignored."
-msgstr ""
+msgstr "Ignorata classe di veicoli sconosciuta '%'."
 
 #: src/utils/common/SUMOVehicleClass.cpp:356
 #, c-format
 msgid "Unknown vehicle class '%' encountered."
-msgstr ""
+msgstr "Incontrata classe di veicoli sconosciuta '%'."
 
 #: src/utils/common/SUMOVehicleClass.cpp:398
 msgid ""
@@ -11502,15 +11505,15 @@ msgstr ""
 #: src/utils/common/SUMOVehicleClass.cpp:438
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
-msgstr ""
+msgstr "La classe di veicoli '%' non si usa più - invece scegli '%'."
 
 #: src/utils/common/SystemFrame.cpp:43
 msgid "Loads the named config on startup"
-msgstr ""
+msgstr "Carica la configurazione indicata all'inizio"
 
 #: src/utils/common/SystemFrame.cpp:48
 msgid "Saves current configuration into FILE"
-msgstr ""
+msgstr "Salva la configurazione attuale in FILE"
 
 #: src/utils/common/SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
