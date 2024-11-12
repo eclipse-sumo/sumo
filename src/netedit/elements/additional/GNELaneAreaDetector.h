@@ -203,7 +203,7 @@ private:
     /// @brief draw E2 partial lane
     void drawE2PartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                            const GNEPathManager::Segment* segment, const double offsetFront,
-                           const GUIGeometry& geometry, const double exaggeration) const;
+                           const GUIGeometry& geometry, const double exaggeration, const bool movingGeometryPoints) const;
 
     /// @brief draw E2 partial junction
     void drawE2PartialJunction(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
