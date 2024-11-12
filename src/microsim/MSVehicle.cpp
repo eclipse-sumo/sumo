@@ -1678,6 +1678,16 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
         }
         boardTransportables(stop);
+        if (time > stop.endBoarding) {
+            // for taxi: cancel customers
+            MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+            if (taxiDevice != nullptr) {
+                // may invalidate stops including the current reference
+                taxiDevice->cancelCurrentCustomers();
+                resumeFromStopping();
+                return currentVelocity;
+            }
+        }
         if (!keepStopping() && isOnRoad()) {
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
@@ -1937,12 +1947,6 @@ MSVehicle::boardTransportables(MSStop& stop) {
 
     bool unregister = false;
     if (time > stop.endBoarding) {
-        // for taxi: cancel customers
-        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
-        if (taxiDevice != nullptr) {
-            taxiDevice->cancelCurrentCustomers();
-        }
-
         stop.triggered = false;
         stop.containerTriggered = false;
         if (myAmRegisteredAsWaiting) {
