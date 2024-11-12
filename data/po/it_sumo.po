@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-11 10:57+0000\n"
+"PO-Revision-Date: 2024-11-12 08:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7459,22 +7459,28 @@ msgid ""
 "Apply random spatial perturbation in x direction according to the given "
 "distribution"
 msgstr ""
+"Applica casualmente una perturbazione spaziale nella direzione x in accordo "
+"con la distribuzione indicata"
 
 #: src/netgen/NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according to the given "
 "distribution"
 msgstr ""
+"Applica casualmente una perturbazione spaziale nella direzione y in accordo "
+"con la distribuzione indicata"
 
 #: src/netgen/NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according to the given "
 "distribution"
 msgstr ""
+"Applica casualmente una perturbazione spaziale nella direzione z in accordo "
+"con la distribuzione indicata"
 
 #: src/netgen/NGFrame.cpp:63
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "Definisce la probabilità di costruire un arco per il senso opposto"
 
 #: src/netgen/NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
@@ -7482,11 +7488,11 @@ msgstr "Tira numeri di corsie per caso da [1,default.lanenumber]"
 
 #: src/netgen/NGFrame.cpp:71
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr ""
+msgstr "Tira priorità dell'arco per caso da [1,default.priority]"
 
 #: src/netgen/NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
-msgstr ""
+msgstr "Tira tipo di arco per caso da tutti gli tipi caricati"
 
 #: src/netgen/NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
@@ -7540,27 +7546,27 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:129
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "Il numero di assi nella rete"
 
 #: src/netgen/NGFrame.cpp:134
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "Il numero di cerchi nella rete"
 
 #: src/netgen/NGFrame.cpp:139
 msgid "The distances between the circles"
-msgstr ""
+msgstr "Le distanze tra gli cherchi"
 
 #: src/netgen/NGFrame.cpp:144
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "Ometti il nodo centrale della rete"
 
 #: src/netgen/NGFrame.cpp:152
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "Forza NETGEN a creare una rete casuale"
 
 #: src/netgen/NGFrame.cpp:157
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "Definisce quante volte si può aggiungere un arco alla rete"
 
 #: src/netgen/NGFrame.cpp:162
 msgid "The maximum distance for each edge"
