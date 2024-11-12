@@ -532,7 +532,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
         if (!mainDirectionExplicit && counterOutgoingEdges.find(bestOut) != counterOutgoingEdges.end()) {
             NBEdge* s = counterOutgoingEdges.find(bestOut)->second;
             if (GeomHelper::getMinAngleDiff(bestOut->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
-                s->setJunctionPriority(&n, 1);
+                s->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
             }
         }
         const bool isBent = n.getDirection(best1, bestOut) != LinkDirection::STRAIGHT;
@@ -580,7 +580,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
             }
         }
     }
-    bestFirst->setJunctionPriority(&n, 1);
+    bestFirst->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
     sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestFirst));
 #ifdef DEBUG_SETPRIORITIES
     if (DEBUGCOND) {
@@ -590,7 +590,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
     if (bestOutgoing.size() != 0) {
         extractAndMarkFirst(n, bestOutgoing);
     }
-    bestSecond->setJunctionPriority(&n, 1);
+    bestSecond->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
     sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestSecond));
 #ifdef DEBUG_SETPRIORITIES
     if (DEBUGCOND) {
@@ -641,7 +641,7 @@ NBEdgePriorityComputer::markBestParallel(const NBNode& n, NBEdge* bestFirst, NBE
         if (((GeomHelper::getMinAngleDiff(e->getAngleAtNode(&n), a1) < 10
                 || GeomHelper::getMinAngleDiff(e->getAngleAtNode(&n), a2) < 10))
                 && (p1 & perm) == 0 && (p2 & perm) == 0) {
-            e->setJunctionPriority(&n, 1);
+            e->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
         }
     }
 }
