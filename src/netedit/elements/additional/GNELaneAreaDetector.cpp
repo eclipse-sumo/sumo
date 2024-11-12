@@ -340,13 +340,31 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             // draw additional ID
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
-            if (!movingGeometryPoints) {
+            if (movingGeometryPoints) {
+                // get mouse position
+                const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+                // get snap radius
+                const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+                if (segment->getFromContour() && E2Geometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+                    segment->getFromContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                } else if (segment->getToContour() && E2Geometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+                    segment->getToContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                }
+            } else {
                 segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
         }
         // calculate contour and draw dotted geometry
         segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
                 segment->isFirstSegment(), segment->isLastSegment(), 0);
+        // check if create from-to contours
+        if (segment->getFromContour()) {
+            segment->getFromContour()->calculateContourCircleShape(s, d, this, E2Geometry.getShape().front(),
+                    s.neteditSizeSettings.additionalGeometryPointRadius, getType(), E2Exaggeration);
+        } else if (segment->getToContour()) {
+            segment->getToContour()->calculateContourCircleShape(s, d, this, E2Geometry.getShape().back(),
+                    s.neteditSizeSettings.additionalGeometryPointRadius, getType(), E2Exaggeration);
+        }
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
             gViewObjectsHandler.addToRedrawPathElements(this);
