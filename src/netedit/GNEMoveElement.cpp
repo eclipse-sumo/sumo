@@ -236,9 +236,9 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 // move only second position
                 calculateMoveResult(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset,
                                     0, moveOperation->secondLane->getLaneShapeLength());
-            } else {
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH) {
                 // adjust positions
-                adjustBothPositions(viewNet, moveOperation, moveResult, offset);
+                moveBothMultilanePositions(viewNet, moveOperation, moveResult, offset);
             }
         } else {
             if (moveOperation->operationType == GNEMoveOperation::OperationType::SINGLE_LANE) {
@@ -260,7 +260,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
             }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
-                calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
+                calculateNewLaneChange(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
             } else {
                 moveResult.clearLanes();
             }
@@ -331,19 +331,12 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                                     0, moveOperation->secondLane->getLaneShapeLength());
             } else {
                 // adjust positions
-                adjustBothPositions(viewNet, moveOperation, moveResult, offset);
+                moveBothMultilanePositions(viewNet, moveOperation, moveResult, offset);
             }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
-                calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
-                calculateNewLane(viewNet, moveOperation->secondLane, moveResult.newSecondLane, moveResult.secondLaneOffset);
-            } else {
-                moveResult.clearLanes();
-            }
-            // calculate new lane
-            if (moveOperation->allowChangeLane) {
-                calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
-                calculateNewLane(viewNet, moveOperation->secondLane, moveResult.newSecondLane, moveResult.secondLaneOffset);
+                calculateNewLaneChange(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
+                calculateNewLaneChange(viewNet, moveOperation->secondLane, moveResult.newSecondLane, moveResult.secondLaneOffset);
             } else {
                 moveResult.clearLanes();
             }
@@ -367,13 +360,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
-                calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
-            } else {
-                moveResult.clearLanes();
-            }
-            // calculate new lane
-            if (moveOperation->allowChangeLane) {
-                calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
+                calculateNewLaneChange(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
             } else {
                 moveResult.clearLanes();
             }
@@ -507,7 +494,7 @@ GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet*
 
 
 void
-GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset) {
+GNEMoveElement::calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset) {
     // get cursor position
     const Position cursorPosition = viewNet->getPositionInformation();
     // iterate over edge lanes
@@ -539,7 +526,7 @@ GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* origi
 
 
 void
-GNEMoveElement::adjustBothPositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult& moveResult, const GNEMoveOffset& offset) {
+GNEMoveElement::moveBothMultilanePositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult& moveResult, const GNEMoveOffset& offset) {
     // get lane shape lengths
     const double firstLaneLength = moveOperation->firstLane->getLaneShapeLength();
     const double secondLaneLength = moveOperation->secondLane->getLaneShapeLength();

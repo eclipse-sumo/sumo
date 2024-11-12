@@ -53,6 +53,7 @@ public:
         SINGLE_LANE_MOVE_BOTH,
         MULTIPLE_LANES_MOVE_FIRST,
         MULTIPLE_LANES_MOVE_LAST,
+        MULTIPLE_LANES_MOVE_BOTH,
     };
 
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
@@ -274,11 +275,11 @@ private:
     static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos,
                                     const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset);
 
-    /// @brief calculate new lane
-    static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
+    /// @brief calculate new lane change
+    static void calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
 
-    // @brief adjust both positions
-    static void adjustBothPositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult& moveResult, const GNEMoveOffset& offset);
+    // @brief move both multilane positions (used moving E2 multilane detectors)
+    static void moveBothMultilanePositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult& moveResult, const GNEMoveOffset& offset);
 
     /// @brief calculate width/height shape
     static PositionVector calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult& moveResult);
