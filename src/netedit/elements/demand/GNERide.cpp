@@ -280,7 +280,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNERide::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myArrivalPosition = moveResult.newSecondPos;
+    myArrivalPosition = moveResult.newLastPos;
     // update geometry
     updateGeometry();
 }

@@ -572,7 +572,7 @@ GNEOverheadWire::setMoveShape(const GNEMoveResult& moveResult) {
     } else {
         // change both position
         myStartPos = moveResult.newFirstPos;
-        myEndPos = moveResult.newSecondPos;
+        myEndPos = moveResult.newLastPos;
     }
     // update geometry
     updateGeometry();
@@ -595,7 +595,7 @@ GNEOverheadWire::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* u
     } else {
         // set both positions
         setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newLastPos), undoList);
     }
     // end change attribute
     undoList->end();

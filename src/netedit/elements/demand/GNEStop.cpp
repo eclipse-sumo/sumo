@@ -1380,7 +1380,7 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
     } else {
         // change both position
         startPos = moveResult.newFirstPos;
-        endPos = moveResult.newSecondPos;
+        endPos = moveResult.newLastPos;
         // set lateral offset
         myMoveElementLateralOffset = moveResult.firstLaneOffset;
     }
@@ -1403,7 +1403,7 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     } else {
         // set both
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newLastPos), undoList);
         // check if lane has to be changed
         if (moveResult.newFirstLane) {
             // set new lane

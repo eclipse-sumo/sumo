@@ -685,7 +685,7 @@ GNELaneAreaDetector::setMoveShape(const GNEMoveResult& moveResult) {
     } else {
         // change both position
         myPositionOverLane = moveResult.newFirstPos;
-        myEndPositionOverLane = moveResult.newSecondPos;
+        myEndPositionOverLane = moveResult.newLastPos;
     }
     // update geometry
     updateGeometry();
@@ -708,7 +708,7 @@ GNELaneAreaDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoLis
     } else {
         // set both positions
         setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newLastPos), undoList);
     }
     // end change attribute
     undoList->end();
