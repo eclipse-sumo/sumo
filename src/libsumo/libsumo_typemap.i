@@ -521,4 +521,19 @@ SUBSCRIBE_HELPER(RouteProbe)
 %}
 #endif // SWIGJAVA
 
+#ifdef SWIGJAVA
+// this checking happens just to make static code analysis happy, see https://github.com/swig/swig/issues/2865
+%define JAVA_NULL_CHECKER(traci_class)
+%typemap(check) libsumo::traci_class *self %{
+  if (!$1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "NULL self");
+    return $null;
+  }
+%}
+%enddef
+JAVA_NULL_CHECKER(TraCIResult)
+JAVA_NULL_CHECKER(TraCIPosition)
+JAVA_NULL_CHECKER(TraCIRoadPosition)
+#endif
+
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;
