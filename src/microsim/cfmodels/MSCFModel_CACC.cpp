@@ -106,9 +106,12 @@ MSCFModel_CACC::~MSCFModel_CACC() {}
 
 double
 MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason usage) const {
-    // set "caccVehicleMode" parameter to default value
     if (!MSGlobals::gComputeLC && usage == CalcReason::CURRENT) {
-        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CC_MODE]);
+        CACCVehicleVariables* vars = (CACCVehicleVariables*)veh->getCarFollowVariables();
+        if (vars->lastUpdateTime != MSNet::getInstance()->getCurrentTimeStep()) {
+            // _v was not called in this step
+            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CC_MODE]);
+        }
     }
     return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion, usage);
 }
