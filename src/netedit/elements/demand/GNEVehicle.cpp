@@ -554,11 +554,11 @@ GNEVehicle::getMoveOperation() {
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS)) < (diameter * diameter)) {
             return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE,
                                         myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
-                                        GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST);
+                                        GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST);
         } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS)) < (myArrivalPositionDiameter * myArrivalPositionDiameter)) {
             return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble,
                                         myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
-                                        GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND);
+                                        GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
         }
     }
     // nothing to move
@@ -2285,14 +2285,14 @@ GNEVehicle::toggleAttribute(SumoXMLAttr key, const bool value) {
 void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
     if ((moveResult.newFirstPos != INVALID_DOUBLE) &&
-            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
         // change depart
         departPosProcedure = DepartPosDefinition::GIVEN;
         parametersSet |= VEHPARS_DEPARTPOS_SET;
         departPos = moveResult.newFirstPos;
     }
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
         // change arrival
         arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
         parametersSet |= VEHPARS_ARRIVALPOS_SET;
@@ -2312,7 +2312,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     // check value
     if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // continue depending if we're moving first or last position
-        if (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST) {
+        if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST) {
             // begin change attribute
             undoList->begin(this, TLF("departPos of %", getTagStr()));
             // now set departPos

@@ -900,26 +900,24 @@ GNEAdditional::getMoveOperationSingleLane(const double startPos, const double en
         if (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only start position
             return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
         } else if (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only end position
             return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
         } else {
             return nullptr;
         }
     } else {
         // move both start and end positions
         return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                    allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEBOTH);
+                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_BOTH);
     }
 }
 
 
 GNEMoveOperation*
 GNEAdditional::getMoveOperationMultiLane(const double startPos, const double endPos) {
-    // check if shift is pressed
-    const bool shift = myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed();
     // get snap radius
     const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
     // get mouse position
@@ -929,17 +927,19 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
     fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), startPos, 0);
     toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), endPos, 0);
     // check if we clicked over start or end position
-    if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-        // move using start position
-        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                    false, shift ? GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_FIRST);
-    } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-        // move using end position
-        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                    false, shift ? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
+    if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move using start position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                        false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST);
+        } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move using end position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                        false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
+        }
     } else {
-        return nullptr;
     }
+    return nullptr;
 }
 
 

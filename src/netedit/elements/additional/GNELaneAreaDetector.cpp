@@ -674,12 +674,12 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNELaneAreaDetector::setMoveShape(const GNEMoveResult& moveResult) {
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
         // change only start position
         myPositionOverLane = moveResult.newFirstPos;
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
         // change only end position
         myEndPositionOverLane = moveResult.newFirstPos;
     } else {
@@ -697,12 +697,12 @@ GNELaneAreaDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoLis
     // begin change attribute
     undoList->begin(this, "position of " + getTagStr());
     // set attributes depending of operation type
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
         // set only start position
         setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
         // set only end position
         setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {

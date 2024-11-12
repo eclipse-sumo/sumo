@@ -126,26 +126,26 @@ GNEStop::getMoveOperation() {
             if ((startPos != INVALID_DOUBLE) && (myDemandElementGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
                 // move only start position
                 return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
-                                            allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+                                            allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
             } else if ((endPos != INVALID_DOUBLE) && (myDemandElementGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
                 // move only end position
                 return new GNEMoveOperation(this, getParentLanes().front(), 0, endPos,
-                                            allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+                                            allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
             } else {
                 return nullptr;
             }
         } else if ((startPos != INVALID_DOUBLE) && (endPos != INVALID_DOUBLE)) {
             // move both start and end positions
             return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEBOTH);
+                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_BOTH);
         } else if (startPos != INVALID_DOUBLE) {
             // move only start position
             return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
         } else if (startPos != INVALID_DOUBLE) {
             // move only end position
             return new GNEMoveOperation(this, getParentLanes().front(), 0, endPos,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
         } else {
             // start and end positions undefined, then nothing to move
             return nullptr;
@@ -1363,14 +1363,14 @@ GNEStop::toggleAttribute(SumoXMLAttr key, const bool value) {
 
 void
 GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
-    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+    if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
         // change only start position
         startPos = moveResult.newFirstPos;
         // adjust startPos
         if (startPos > (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS)) {
             startPos = (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS);
         }
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) {
         // change only end position
         endPos = moveResult.newFirstPos;
         // adjust endPos
@@ -1394,10 +1394,10 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // begin change attribute
     undoList->begin(this, "position of " + getTagStr());
     // set attributes depending of operation type
-    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+    if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
         // set only start position
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) {
         // set only end position
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {

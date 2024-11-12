@@ -47,14 +47,12 @@ public:
         WIDTH,
         HEIGHT,
         LENGTH,
-        ONE_LANE,
-        ONE_LANE_MOVEFIRST,
-        ONE_LANE_MOVESECOND,
-        ONE_LANE_MOVEBOTH,
-        TWO_LANES_MOVEFIRST,
-        TWO_LANES_MOVESECOND,
-        TWO_LANES_MOVEBOTH_FIRST,
-        TWO_LANES_MOVEBOTH_SECOND,
+        SINGLE_LANE,
+        SINGLE_LANE_MOVE_FIRST,
+        SINGLE_LANE_MOVE_LAST,
+        SINGLE_LANE_MOVE_BOTH,
+        MULTIPLE_LANES_MOVE_FIRST,
+        MULTIPLE_LANES_MOVE_LAST,
     };
 
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
