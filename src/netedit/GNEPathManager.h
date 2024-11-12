@@ -58,8 +58,14 @@ public:
         /// @brief destructor
         ~Segment();
 
-        /// @brief getcontour associated with segment
+        /// @brief get contour associated with segment
         GNEContour* getContour() const;
+
+        /// @brief get from contour associated with segment (only if this is the first path segment)
+        GNEContour* getFromContour() const;
+
+        /// @brief get to contour associated with segment (only if this is the last path segment)
+        GNEContour* getToContour() const;
 
         /// @brief check if segment is the first path's segment
         bool isFirstSegment() const;
@@ -118,6 +124,12 @@ public:
 
         /// @brief contour associated with segment
         GNEContour* myContour;
+
+        /// @brief from contour, used for moving elements (only in the first segment)
+        GNEContour* myFromContour;
+
+        /// @brief to contour, used for moving elements (only in the last segment)
+        GNEContour* myToContour;
 
     private:
         /// @brief default constructor

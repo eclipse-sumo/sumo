@@ -44,12 +44,21 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEPathElement* el
     myNextSegment(nullptr),
     myPreviousSegment(nullptr),
     myLabelSegment(false),
-    myContour(new GNEContour) {
+    myContour(new GNEContour),
+    myFromContour(nullptr),
+    myToContour(nullptr) {
     // set previous segment
     if (segments.size() > 0) {
         // set previous segment
         myPreviousSegment = segments.back();
         myPreviousSegment->myNextSegment = this;
+        // use to contour of previous segment
+        myToContour = myPreviousSegment->myToContour;
+        myPreviousSegment->myToContour = nullptr;
+    } else {
+        // this is the first segment, then create both from and to contours
+        myFromContour = new GNEContour();
+        myToContour = new GNEContour();
     }
     // add this segment in segments
     segments.push_back(this);
@@ -66,12 +75,21 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEPathElement* el
     myNextSegment(nullptr),
     myPreviousSegment(nullptr),
     myLabelSegment(false),
-    myContour(new GNEContour) {
+    myContour(new GNEContour),
+    myFromContour(nullptr),
+    myToContour(nullptr) {
     // set previous segment
     if (segments.size() > 0) {
         // set previous segment
         myPreviousSegment = segments.back();
         myPreviousSegment->myNextSegment = this;
+        // use to contour of previous segment
+        myToContour = myPreviousSegment->myToContour;
+        myPreviousSegment->myToContour = nullptr;
+    } else {
+        // this is the first segment, then create both from and to contours
+        myFromContour = new GNEContour();
+        myToContour = new GNEContour();
     }
     // add this segment in segments
     segments.push_back(this);
@@ -93,14 +111,32 @@ GNEPathManager::Segment::~Segment() {
             myNextSegment->myPreviousSegment = nullptr;
         }
     }
-    // delete contour
+    // delete contours
     delete myContour;
+    if (myFromContour) {
+        delete myFromContour;
+    }
+    if (myToContour) {
+        delete myToContour;
+    }
 }
 
 
 GNEContour*
 GNEPathManager::Segment::getContour() const {
     return myContour;
+}
+
+
+GNEContour*
+GNEPathManager::Segment::getFromContour() const {
+    return myFromContour;
+}
+
+
+GNEContour*
+GNEPathManager::Segment::getToContour() const {
+    return myToContour;
 }
 
 
