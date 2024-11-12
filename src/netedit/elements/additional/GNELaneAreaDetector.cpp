@@ -339,10 +339,10 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             // draw additional ID
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
                 segment->isFirstSegment(), segment->isLastSegment(), 0);
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
@@ -373,10 +373,10 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             // draw E2 partial
             drawE2PartialJunction(s, d, onlyContour, offsetFront, E2Geometry, E2Exaggeration);
             // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0);
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
             gViewObjectsHandler.addToRedrawPathElements(this);
