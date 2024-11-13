@@ -1,0 +1,10 @@
+Warning: At actuated tlLogic 'C', linkIndex 4,10,16,22 has no controlling detector.
+Warning: Person 'NS.0' is jammed on edge ':C_w0', time=382.00.
+Warning: Person 'NS.2' is jammed on edge ':C_w0', time=558.00.
+Warning: Person 'SN.0' is jammed on edge ':C_w3', time=575.00.
+Warning: Person 'NS.3' is jammed on edge ':C_w0', time=592.00.
+Warning: Person 'NS.4' is jammed on edge ':C_w0', time=620.00.
+Warning: Person 'NS.1' is jammed on edge ':C_w0', time=687.00.
+Warning: Person 'SN.1' is jammed on edge ':C_w3', time=842.00.
+Warning: Person 'SN.3' is jammed on edge ':C_w3', time=1045.00.
+Warning: Person 'SN.2' is jammed on edge ':C_w3', time=1133.00.
