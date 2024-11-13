@@ -140,6 +140,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSTrafficLightLogic::init(nb);
     initAttributeOverride();
     initSwitchingRules();
+    for (int i = 0; i < (int)myPhases.size(); i++) {
+        initTargets(i);
+    }
     if (myLanes.size() == 0) {
         // must be an older network
         WRITE_WARNINGF(TL("Traffic light '%' does not control any links"), getID());
@@ -325,10 +328,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
                     for (MSLink* link : getLinksAt(i)) {
                         if (link->getLane()->isCrossing()) {
-                            while (myCrossingsForPhase.size() <= myInductLoopsForPhase.size()) {
+                            while (myCrossingsForPhase.size() < myPhases.size()) {
                                 myCrossingsForPhase.push_back(std::vector<const MSLink*>());
                             }
-                            myCrossingsForPhase.back().push_back(link);
+                            myCrossingsForPhase[phaseIndex].push_back(link);
                         }
                     }
 
@@ -627,12 +630,72 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
                 const MSPhaseDefinition* nextPhase = myPhases[next];
                 if (nextPhase->earlyTarget != "" || nextPhase->finalTarget != "") {
                     sr.enabled = true;
-                    // simplifies later code
-                    phase->nextPhases = nextPhases;
                 }
             }
         }
+        // simplifies later code
+        phase->nextPhases = nextPhases;
         mySwitchingRules.push_back(sr);
+    }
+}
+
+
+void
+MSActuatedTrafficLightLogic::initTargets(int step) {
+    // next -> target -> transitionTime starting from step
+    std::map<int, std::map<int, SUMOTime> > reached;
+    const std::vector<int>& next = myPhases[step]->nextPhases;
+    for (int n : next) {
+        findTargets(step, n, 0, reached[n]);
+    }
+    for (int target = 0; target < (int)myPhases.size(); target++) {
+        int bestNext = next[0];
+        SUMOTime bestTime = SUMOTime_MAX;
+        for (auto item : reached) {
+            auto it = item.second.find(target);
+            if (it != item.second.end()) {
+                SUMOTime transitionTime = it->second;
+                if (transitionTime < bestTime) {
+                    bestTime = transitionTime;
+                    bestNext = item.first;
+                }
+            }
+        }
+        if (bestTime != SUMOTime_MAX) {
+            myTargets[step][bestNext].push_back(target);
+            //std::cout << " myTargets step=" << step << " bestNext=" << bestNext << " target=" << target << "\n";
+        }
+    }
+}
+
+
+void
+MSActuatedTrafficLightLogic::findTargets(int origStep, int n, SUMOTime priorTransition, std::map<int, SUMOTime>& found) {
+    std::pair<int, SUMOTime> tDur = getTarget(n);
+    int target = tDur.first;
+    int transitionTime = tDur.second + priorTransition;
+    //std::cout << "   findTargets origStep=" << origStep << " n=" << n << " ptt=" << priorTransition << " target=" << target << " tt=" << transitionTime << "\n";
+    if (target == origStep) {
+        // full circle
+        //std::cout << "     foundCircle\n";
+        return;
+    }
+    auto it = found.find(target);
+    if (it != found.end()) {
+        if (it->second <= transitionTime) {
+            //std::cout << "     oldShorterTime=" << it->second << "\n";
+            // found the same target again
+            return;
+        } else {
+            //std::cout << "     newShorterTime=" << it->second << "\n";
+        }
+    } else {
+        //std::cout << "     newTarget\n";
+    }
+    found[target] = transitionTime;
+    //std::cout << "    targetNext=" << toString(myPhases[target]->nextPhases) << "\n";
+    for (int n2 : myPhases[target]->nextPhases) {
+        findTargets(origStep, n2, transitionTime, found);
     }
 }
 
@@ -644,7 +707,7 @@ MSActuatedTrafficLightLogic::getMultiNextTargets() const {
         // find all phase that are the target green phase of a 'next' attribute
         for (const MSPhaseDefinition* p : myPhases) {
             for (int next : p->nextPhases) {
-                result.insert(getTarget(next));
+                result.insert(getTarget(next).first);
             }
         }
     }
@@ -805,7 +868,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
 
     myTraCISwitch = false;
     if (myLinkMinGreenTimes.size() > 0) {
-        SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
+        SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep).first);
         if (linkMinDur > 0) {
             // for multiTarget, the current phase must be extended but if another
             // targer is chosen, earlier switching than linkMinDur is possible
@@ -941,46 +1004,31 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
         }
     }
     for (int step : cands) {
-        int target = getTarget(step);
-        int prio = getPhasePriority(target);
-#ifdef DEBUG_PHASE_SELECTION
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " p=" << myStep << " step=" << step << " target=" << target << " loops=" << myInductLoopsForPhase[target].size() << " prio=" << prio << "\n";
-        }
-#endif
-        if (prio > maxPrio && canExtendLinkGreen(target)) {
-            maxPrio = prio;
-            result = step;
-        }
-    }
-    // prevent starvation in phases that are not direct targets
-    for (const InductLoopInfo& loopInfo : myInductLoops) {
-        int prio = getDetectorPriority(loopInfo);
-        if (prio > maxPrio) {
-            result = cands.front();
-            if (result == myStep) {
-                WRITE_WARNING("At actuated tlLogic '" + getID()
-                              + "', starvation at e1Detector '" + loopInfo.loop->getID()
-                              + "' which cannot be reached from the default phase " + toString(myStep) + ", time=" + time2string(SIMSTEP) + ".");
-            }
-            // use default phase to reach other phases
+        int prio = 0;
+        for (int target : myTargets[myStep][step]) {
+            prio += getPhasePriority(target);
 #ifdef DEBUG_PHASE_SELECTION
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " p=" << myStep << " loop=" << loopInfo.loop->getID() << " prio=" << prio << " next=" << result << "\n";
+                std::cout << SIMTIME << " p=" << myStep << " step=" << step << " target=" << target << " loops=" << myInductLoopsForPhase[target].size() << " prio=" << prio << "\n";
             }
 #endif
-            break;
+        }
+        if (prio > maxPrio && canExtendLinkGreen(getTarget(step).first)) {
+            maxPrio = prio;
+            result = step;
         }
     }
     return result;
 }
 
 
-int
+std::pair<int, SUMOTime>
 MSActuatedTrafficLightLogic::getTarget(int step) const {
     int origStep = step;
+    SUMOTime dur = 0;
     // if step is a transition, find the upcoming green phase
     while (!myPhases[step]->isGreenPhase()) {
+        dur += myPhases[step]->duration;
         if (myPhases[step]->nextPhases.size() > 0 && myPhases[step]->nextPhases.front() >= 0) {
             if (myPhases[step]->nextPhases.size() > 1 && !mySwitchingRules[step].enabled) {
                 WRITE_WARNINGF(TL("At actuated tlLogic '%', transition phase % should not have multiple next phases"), getID(), toString(step));
@@ -991,10 +1039,10 @@ MSActuatedTrafficLightLogic::getTarget(int step) const {
         }
         if (step == origStep) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', infinite transition loop from phase " + toString(origStep));
-            return 0;
+            return std::make_pair(0, 0);
         }
     }
-    return step;
+    return std::make_pair(step, dur);
 }
 
 int

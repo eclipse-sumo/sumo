@@ -228,8 +228,8 @@ protected:
     /// @brief count the number of active detectors for the given step
     int getPhasePriority(int step) const;
 
-    /// @brief get the green phase following step
-    int getTarget(int step) const;
+    /// @brief get the green phase following step and the transition time
+    std::pair<int, SUMOTime> getTarget(int step) const;
 
     /// @brief whether the current phase cannot be continued due to linkMaxDur constraints
     bool maxLinkDurationReached();
@@ -262,6 +262,9 @@ protected:
 
     /// find green phases target by a next attribute
     std::set<int> getMultiNextTargets() const;
+
+    void initTargets(int step);
+    void findTargets(int origStep, int n, SUMOTime priorTransition, std::map<int, SUMOTime>& found);
 
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
@@ -343,6 +346,12 @@ protected:
     std::vector<SwitchingRules> mySwitchingRules;
 
     const std::string myDetectorPrefix;
+
+    /* @brief for every actuated phase,
+     * then for every target phase,
+     * provide the list of green phases that are reached quickest from the target phase
+     */
+    std::map<int, std::map<int, std::vector<int> > > myTargets;
 
     static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };
