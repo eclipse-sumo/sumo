@@ -324,7 +324,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             for (int i = 0; i < numLinks; i++)  {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
                     greenLinks.insert(i);
-                    actuatedLinks.insert(i);
+                    if (phase->isActuated()) {
+                        actuatedLinks.insert(i);
+                    }
 
                     for (MSLink* link : getLinksAt(i)) {
                         if (link->getLane()->isCrossing()) {
@@ -342,7 +344,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                             || weakConflict(i, state)) { // check1e, check1f
                         greenLinks.insert(i);
                         if (!turnaround[i]) {
-                            actuatedLinks.insert(i);
+                            if (phase->isActuated()) {
+                                actuatedLinks.insert(i);
+                            }
                         }
                     } else {
                         greenLinksPermissive.insert(i);
@@ -424,7 +428,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     }
                 }
             }
-            if (loops.size() == 0) {
+            if (loops.size() == 0 && phase->isActuated()) {
                 WRITE_WARNINGF(TL("At actuated tlLogic '%', actuated phase % has no controlling detector."), getID(), toString(phaseIndex));
             }
         }
