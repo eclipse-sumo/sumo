@@ -63,6 +63,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 
 #define DEFAULT_LENGTH_WITH_GAP 7.5
 #define DEFAULT_BIKE_LENGTH_WITH_GAP (getDefaultVehicleLength(SVC_BICYCLE) + 0.5)
+#define DEFAULT_STATIC_MINDUR TIME2STEPS(0) // loop position for non-stretchable phases
 
 #define NO_DETECTOR "NO_DETECTOR"
 #define DEFAULT_CONDITION "DEFAULT"
@@ -163,6 +164,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     // detector distance to avoid it
 
 
+    std::set<int> multiNextTargets = getMultiNextTargets();
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
     // build the induct loops
@@ -184,7 +186,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // only build one detector per lane
                 continue;
             }
-            const SUMOTime minDur = getMinimumMinDuration(lane);
+            const SUMOTime minDur = getMinimumMinDuration(lane, multiNextTargets);
             if (minDur == std::numeric_limits<SUMOTime>::max() && customID == "" && !myBuildAllDetectors) {
                 // only build detector if this lane is relevant for an actuated phase
                 continue;
@@ -307,7 +309,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const int phaseIndex = (int)myInductLoopsForPhase.size();
         std::set<MSInductLoop*> loops;
-        if (phase->isActuated()) {
+        if (phase->isActuated() || multiNextTargets.count(phaseIndex) != 0) {
             const std::string& state = phase->getState();
             // collect indices of all green links for the phase
             std::set<int> greenLinks;
@@ -618,8 +620,23 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
 }
 
 
+std::set<int>
+MSActuatedTrafficLightLogic::getMultiNextTargets() const {
+    std::set<int> result;
+    if (myHasMultiTarget) {
+        // find all phase that are the target green phase of a 'next' attribute
+        for (const MSPhaseDefinition* p : myPhases) {
+            for (int next : p->nextPhases) {
+                result.insert(getTarget(next));
+            }
+        }
+    }
+    return result;
+}
+
+
 SUMOTime
-MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
+MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane, const std::set<int>& multiNextTargets) const {
     SUMOTime result = std::numeric_limits<SUMOTime>::max();
     for (int pI = 0; pI < (int)myPhases.size(); pI++) {
         const MSPhaseDefinition* phase = myPhases[pI];
@@ -630,6 +647,8 @@ MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
                     if (lane == cand) {
                         if (phase->isActuated()) {
                             result = MIN2(result, getMinDur(pI));
+                        } else if (multiNextTargets.count(pI) != 0) {
+                            result = MIN2(result, DEFAULT_STATIC_MINDUR);
                         }
                     }
                 }
@@ -941,12 +960,12 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
 
 
 int
-MSActuatedTrafficLightLogic::getTarget(int step) {
+MSActuatedTrafficLightLogic::getTarget(int step) const {
     int origStep = step;
     // if step is a transition, find the upcoming green phase
     while (!myPhases[step]->isGreenPhase()) {
         if (myPhases[step]->nextPhases.size() > 0 && myPhases[step]->nextPhases.front() >= 0) {
-            if (myPhases[step]->nextPhases.size() > 1) {
+            if (myPhases[step]->nextPhases.size() > 1 && !mySwitchingRules[step].enabled) {
                 WRITE_WARNINGF(TL("At actuated tlLogic '%', transition phase % should not have multiple next phases"), getID(), toString(step));
             }
             step = myPhases[step]->nextPhases.front();

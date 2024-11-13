@@ -191,7 +191,7 @@ protected:
     SUMOTime duration(const double detectionGap) const;
 
     /// @brief get the minimum min duration for all stretchable phases that affect the given lane
-    SUMOTime getMinimumMinDuration(MSLane* lane) const;
+    SUMOTime getMinimumMinDuration(MSLane* lane, const std::set<int>& multiNextTargets) const;
 
     /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and double::max otherwise
      */
@@ -229,7 +229,7 @@ protected:
     int getPhasePriority(int step) const;
 
     /// @brief get the green phase following step
-    int getTarget(int step);
+    int getTarget(int step) const;
 
     /// @brief whether the current phase cannot be continued due to linkMaxDur constraints
     bool maxLinkDurationReached();
@@ -259,6 +259,9 @@ protected:
             return det;
         }
     }
+
+    /// find green phases target by a next attribute
+    std::set<int> getMultiNextTargets() const;
 
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
