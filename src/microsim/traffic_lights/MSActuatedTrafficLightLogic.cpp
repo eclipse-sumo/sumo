@@ -481,7 +481,14 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             myLinkMinGreenTimes[link] = string2time(kv.second);
         }
     }
-    if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0 || mySwitchingRules.size() > 0) {
+    bool haveSwitchingRules = myConditions.size() > 0 || myAssignments.size() > 0 || myFunctions.size() > 0;
+    for (auto sr : mySwitchingRules) {
+        if (sr.enabled) {
+            haveSwitchingRules = true;
+            break;
+        }
+    }
+    if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0 || haveSwitchingRules) {
         myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
         myLinkRedTimes = std::vector<SUMOTime>(myNumLinks, 0);
     }
