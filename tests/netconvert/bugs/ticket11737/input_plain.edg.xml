@@ -140,7 +140,7 @@
             <param key="origId" value="737320747"/>
         </lane>
     </edge>
-    <edge id="gneE12" from="gneJ18" to="gneJ21" priority="-1" numLanes="3" speed="13.89" shape="5798.34,5683.88 5786.19,5679.50" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE12" from="gneJ18" to="gneJ21" priority="12" numLanes="3" speed="13.89" shape="5798.34,5683.88 5786.19,5679.50" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="gneE61" from="gneJ220" to="gneJ21" priority="-1" numLanes="2" speed="13.89" width="2.00">
         <lane index="0" allow="pedestrian"/>
         <lane index="1" allow="bicycle"/>
