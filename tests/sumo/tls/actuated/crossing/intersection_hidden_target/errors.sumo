@@ -1,3 +1,1 @@
-Warning: At actuated tlLogic 'C', actuated phase 3 has no controlling detector.
-Warning: At actuated tlLogic 'C', actuated phase 8 has no controlling detector.
-Warning: At actuated tlLogic 'C', linkIndex 4,5,10,11,16,17,22,23 has no controlling detector.
+Warning: At actuated tlLogic 'C', linkIndex 4,10,16,22 has no controlling detector.
