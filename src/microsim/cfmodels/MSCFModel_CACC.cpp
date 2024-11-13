@@ -288,7 +288,7 @@ MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pre
             double desSpacing = myHeadwayTime * speed;
             double spacingErr = gap2pred - desSpacing;
             double accel = veh->getAcceleration();
-            double speedErr = predSpeed - speed + myHeadwayTime * accel;
+            double speedErr = predSpeed - speed - myHeadwayTime * accel;
 
             if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
                 // gap mode
@@ -423,7 +423,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         double desSpacing = myHeadwayTime * speed;
         double spacingErr = gap2pred - desSpacing;
         double accel = veh->getAcceleration();
-        double speedErr = predSpeed - speed + myHeadwayTime * accel;
+        double speedErr = predSpeed - speed - myHeadwayTime * accel;
 
         if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
             // gap mode
