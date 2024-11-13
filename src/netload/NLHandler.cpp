@@ -794,8 +794,10 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
             type = TrafficLightType::STATIC;
         }
     }
-    //
-    const SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    SUMOTime offset = attrs.getOptOffsetReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    if (offset == SUMOTime_MAX) {
+        offset = string2time(OptionsCont::getOptions().getString("begin"));
+    }
     if (!ok) {
         myCurrentIsBroken = true;
         return;

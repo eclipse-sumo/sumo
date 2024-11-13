@@ -162,6 +162,27 @@ public:
     SUMOTime getOptSUMOTimeReporting(int attr, const char* objectid, bool& ok,
                                      SUMOTime defaultValue, bool report = true) const;
 
+    /** @brief Tries to read given attribute assuming it is a tls offset
+     * (SUMOTime or "begin")
+     *
+     * If the attribute is not existing in the current element, the default value is returned.
+     * If an error occurs on parsing (the attribute is empty, it is not numeric), "ok" is
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * In dependence to the used time representation, either get<int> or get<double>
+     *  is used.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] defaultValue The value to return if the attribute is not within the element
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occurred
+     */
+    SUMOTime getOptOffsetReporting(int attr, const char* objectid, bool& ok,
+                                     SUMOTime defaultValue, bool report = true) const;
 
     /** @brief Tries to read the SUMOTime 'period' attribute
      *
