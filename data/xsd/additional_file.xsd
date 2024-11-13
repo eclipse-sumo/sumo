@@ -685,7 +685,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
-        <xsd:attribute name="offset" type="floatType" use="optional"/>
+        <xsd:attribute name="offset" type="offsetType" use="optional"/>
     </xsd:complexType>
 
 
