@@ -1,8 +1,0 @@
-Warning: Teleporting vehicle 'SN.0'; waited too long (yield), lane='SC_0', time=409.00.
-Warning: Vehicle 'SN.0' ends teleporting on edge 'CN', time=409.00.
-Warning: Teleporting vehicle 'NS.0'; waited too long (yield), lane='NC_0', time=429.00.
-Warning: Vehicle 'NS.0' ends teleporting on edge 'CS', time=429.00.
-Warning: Teleporting vehicle 'SN.1'; waited too long (yield), lane='SC_0', time=713.00.
-Warning: Vehicle 'SN.1' ends teleporting on edge 'CN', time=713.00.
-Warning: Teleporting vehicle 'NS.1'; waited too long (yield), lane='NC_0', time=733.00.
-Warning: Vehicle 'NS.1' ends teleporting on edge 'CS', time=733.00.

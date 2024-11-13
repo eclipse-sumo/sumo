@@ -128,12 +128,12 @@
         <lane id="WC_1" index="1" speed="13.89" length="92.80" shape="0.00,100.00 92.80,100.00"/>
     </edge>
 
-    <tlLogic id="C" type="actuated" programID="0" offset="0">
-        <phase duration="38" state="rrGgrrGg" minDur="5" maxDur="50"/>
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="38" state="rrGgrrGg"/>
         <phase duration="3"  state="rrygrryg"/>
-        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="50"/>
+        <phase duration="6"  state="rrrGrrrG"/>
         <phase duration="3"  state="rrryrrry"/>
-        <phase duration="37" state="GgrrGgrr" minDur="5" maxDur="50"/>
+        <phase duration="37" state="GgrrGgrr"/>
         <phase duration="3"  state="yyrryyrr"/>
     </tlLogic>
 
