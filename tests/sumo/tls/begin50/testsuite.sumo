@@ -36,3 +36,6 @@ sub_off_1_5T
 
 # The subitional program's offset is set to -124 (-2*T)
 sub_off_2T
+
+# symbolic value that matches the begin time (to always start at cycle time 0)
+off_begin
