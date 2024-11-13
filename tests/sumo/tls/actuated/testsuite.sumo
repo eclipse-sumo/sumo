@@ -1,6 +1,9 @@
 # test branching plans (multiple 'next' phases) with default logic
 multiNext
 
+# actuated pedestrian crossing
+crossing
+
 # exclude jammed detectors from gapControl
 jamDetection
 
