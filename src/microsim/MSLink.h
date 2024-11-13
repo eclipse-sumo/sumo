@@ -309,6 +309,11 @@ public:
         return myApproachingVehicles;
     }
 
+    /// @brief return all approaching vehicles
+    const PersonApproachInfos* getApproachingPersons() const {
+        return myApproachingPersons;
+    }
+
     /** @brief Remove all approaching vehicles before quick-loading state */
     void clearState();
 

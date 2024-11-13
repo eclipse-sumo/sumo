@@ -60,6 +60,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 #define DEFAULT_DETECTOR_GAP "2.0"
 #define DEFAULT_INACTIVE_THRESHOLD "180"
 #define DEFAULT_CURRENT_PRIORITY 10
+#define DEFAULT_CROSSING_PRIORITY 100
 
 #define DEFAULT_LENGTH_WITH_GAP 7.5
 #define DEFAULT_BIKE_LENGTH_WITH_GAP (getDefaultVehicleLength(SVC_BICYCLE) + 0.5)
@@ -322,6 +323,16 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
                     greenLinks.insert(i);
                     actuatedLinks.insert(i);
+
+                    for (MSLink* link : getLinksAt(i)) {
+                        if (link->getLane()->isCrossing()) {
+                            while (myCrossingsForPhase.size() <= myInductLoopsForPhase.size()) {
+                                myCrossingsForPhase.push_back(std::vector<const MSLink*>());
+                            }
+                            myCrossingsForPhase.back().push_back(link);
+                        }
+                    }
+
                 } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
                     if (((neverMajor[i] || turnaround[i])  // check1a, 1d
                             && hasMajor(state, getLanesAt(i))) // check1b
@@ -1035,6 +1046,14 @@ MSActuatedTrafficLightLogic::getPhasePriority(int step) const {
     int result = 0;
     for (const InductLoopInfo* loopInfo : myInductLoopsForPhase[step]) {
         result += getDetectorPriority(*loopInfo);
+    }
+    if (myCrossingsForPhase.size() > 0) {
+        for (const MSLink* crossingEntry : myCrossingsForPhase[step]) {
+            auto* aPersons = crossingEntry->getApproachingPersons();
+            if (aPersons && aPersons->size() > 0) {
+                result += DEFAULT_CROSSING_PRIORITY;
+            }
+        }
     }
     return result;
 }

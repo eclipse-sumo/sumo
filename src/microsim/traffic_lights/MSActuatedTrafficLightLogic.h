@@ -266,6 +266,7 @@ protected:
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
+    std::vector<std::vector<const MSLink*> > myCrossingsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
 
