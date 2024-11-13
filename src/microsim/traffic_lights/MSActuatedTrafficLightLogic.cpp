@@ -306,7 +306,6 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
     }
 
-
     for (const MSPhaseDefinition* phase : myPhases) {
         const int phaseIndex = (int)myInductLoopsForPhase.size();
         std::set<MSInductLoop*> loops;
@@ -962,7 +961,7 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
             if (result == myStep) {
                 WRITE_WARNING("At actuated tlLogic '" + getID()
                               + "', starvation at e1Detector '" + loopInfo.loop->getID()
-                              + "' which cannot be reached from the default phase " + toString(myStep) + ".");
+                              + "' which cannot be reached from the default phase " + toString(myStep) + ", time=" + time2string(SIMSTEP) + ".");
             }
             // use default phase to reach other phases
 #ifdef DEBUG_PHASE_SELECTION
@@ -1050,7 +1049,7 @@ MSActuatedTrafficLightLogic::getPhasePriority(int step) const {
     if (myCrossingsForPhase.size() > 0) {
         for (const MSLink* crossingEntry : myCrossingsForPhase[step]) {
             auto* aPersons = crossingEntry->getApproachingPersons();
-            if (aPersons && aPersons->size() > 0) {
+            if (aPersons != nullptr && aPersons->size() > 0) {
                 result += DEFAULT_CROSSING_PRIORITY;
             }
         }
