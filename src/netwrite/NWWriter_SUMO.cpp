@@ -1002,7 +1002,6 @@ NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
     }
 }
 
-
 void
 NWWriter_SUMO::writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions) {
     for (NBConnectionProhibits::const_iterator j = prohibitions.begin(); j != prohibitions.end(); j++) {
@@ -1047,7 +1046,7 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
     into.writeAttr(SUMO_ATTR_ID, logic->getID());
     into.writeAttr(SUMO_ATTR_TYPE, logic->getType());
     into.writeAttr(SUMO_ATTR_PROGRAMID, logic->getProgramID());
-    into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(logic->getOffset()));
+    into.writeAttr(SUMO_ATTR_OFFSET, logic->getOffset() == SUMOTime_MAX ? "begin" : writeSUMOTime(logic->getOffset()));
     // write the phases
     const bool varPhaseLength = logic->getType() != TrafficLightType::STATIC;
     for (const NBTrafficLightLogic::PhaseDefinition& phase : logic->getPhases()) {

@@ -194,7 +194,6 @@ private:
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
     static std::string writeSUMOTime(SUMOTime time);
 
-
     /// @brief the attribute value for a prohibition
     static std::string prohibitionConnection(const NBConnection& c);
 
