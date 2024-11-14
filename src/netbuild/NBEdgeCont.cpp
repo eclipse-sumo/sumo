@@ -2255,6 +2255,7 @@ NBEdgeCont::removeLanesByWidth(NBDistrictCont& dc, const double minWidth) {
         if ((int)indices.size() == edge->getNumLanes()) {
             toRemove.insert(edge);
         } else {
+            std::reverse(indices.begin(), indices.end());
             for (const int i : indices) {
                 edge->deleteLane(i, false, true);
             }
