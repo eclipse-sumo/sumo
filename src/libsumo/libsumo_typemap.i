@@ -521,9 +521,9 @@ SUBSCRIBE_HELPER(RouteProbe)
 %}
 #endif // SWIGJAVA
 
-#ifdef SWIGJAVA
 // this checking happens just to make static code analysis happy, see https://github.com/swig/swig/issues/2865
-%define JAVA_NULL_CHECKER(traci_class)
+#ifdef SWIGJAVA
+%define SELF_NULL_CHECKER(traci_class)
 %typemap(check) libsumo::traci_class *self %{
   if (!$1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "NULL self");
@@ -531,30 +531,40 @@ SUBSCRIBE_HELPER(RouteProbe)
   }
 %}
 %enddef
-JAVA_NULL_CHECKER(TraCIResult)
-JAVA_NULL_CHECKER(TraCIPosition)
-JAVA_NULL_CHECKER(TraCIPositionVector)
-JAVA_NULL_CHECKER(TraCIRoadPosition)
-JAVA_NULL_CHECKER(TraCIColor)
-JAVA_NULL_CHECKER(TraCIInt)
-JAVA_NULL_CHECKER(TraCIDouble)
-JAVA_NULL_CHECKER(TraCIDoubleList)
-JAVA_NULL_CHECKER(TraCIString)
-JAVA_NULL_CHECKER(TraCIStringList)
-JAVA_NULL_CHECKER(TraCIPhase)
-JAVA_NULL_CHECKER(TraCILogic)
-JAVA_NULL_CHECKER(TraCILink)
-JAVA_NULL_CHECKER(TraCIConnection)
-JAVA_NULL_CHECKER(TraCIVehicleData)
-JAVA_NULL_CHECKER(TraCINextTLSData)
-JAVA_NULL_CHECKER(TraCINextStopData)
-JAVA_NULL_CHECKER(TraCINextStopDataVector)
-JAVA_NULL_CHECKER(TraCIBestLanesData)
-JAVA_NULL_CHECKER(TraCIStage)
-JAVA_NULL_CHECKER(TraCIReservation)
-JAVA_NULL_CHECKER(TraCICollision)
-JAVA_NULL_CHECKER(TraCISignalConstraint)
-JAVA_NULL_CHECKER(TraCIJunctionFoe)
 #endif
+#ifdef SWIGPYTHON
+%define SELF_NULL_CHECKER(traci_class)
+%typemap(check) libsumo::traci_class *self %{
+  if (!$1) {
+    PyErr_SetString(PyExc_ValueError, "NULL self");
+    SWIG_fail;
+  }
+%}
+%enddef
+#endif
+SELF_NULL_CHECKER(TraCIResult)
+SELF_NULL_CHECKER(TraCIPosition)
+SELF_NULL_CHECKER(TraCIPositionVector)
+SELF_NULL_CHECKER(TraCIRoadPosition)
+SELF_NULL_CHECKER(TraCIColor)
+SELF_NULL_CHECKER(TraCIInt)
+SELF_NULL_CHECKER(TraCIDouble)
+SELF_NULL_CHECKER(TraCIDoubleList)
+SELF_NULL_CHECKER(TraCIString)
+SELF_NULL_CHECKER(TraCIStringList)
+SELF_NULL_CHECKER(TraCIPhase)
+SELF_NULL_CHECKER(TraCILogic)
+SELF_NULL_CHECKER(TraCILink)
+SELF_NULL_CHECKER(TraCIConnection)
+SELF_NULL_CHECKER(TraCIVehicleData)
+SELF_NULL_CHECKER(TraCINextTLSData)
+SELF_NULL_CHECKER(TraCINextStopData)
+SELF_NULL_CHECKER(TraCINextStopDataVector)
+SELF_NULL_CHECKER(TraCIBestLanesData)
+SELF_NULL_CHECKER(TraCIStage)
+SELF_NULL_CHECKER(TraCIReservation)
+SELF_NULL_CHECKER(TraCICollision)
+SELF_NULL_CHECKER(TraCISignalConstraint)
+SELF_NULL_CHECKER(TraCIJunctionFoe)
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;
