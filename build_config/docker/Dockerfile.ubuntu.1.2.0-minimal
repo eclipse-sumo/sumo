@@ -13,7 +13,7 @@ ENV SUMO_VERSION=1.2.0
 ENV PATH=/opt/sumo/bin:$PATH
 
 RUN apt-get -y update
-RUN apt-get -y install wget cmake libxerces-c-dev
+RUN apt-get -y install cmake libxerces-c-dev wget
 
 RUN cd /opt; wget -q http://downloads.sourceforge.net/project/sumo/sumo/version%20$SUMO_VERSION/sumo-src-$SUMO_VERSION.tar.gz; tar xzf sumo-src-$SUMO_VERSION.tar.gz; mv sumo-$SUMO_VERSION sumo
 RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; cmake ../.. -DSUMO_UTILS=TRUE; make -j8 all examples

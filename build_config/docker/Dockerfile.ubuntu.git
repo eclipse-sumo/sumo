@@ -21,7 +21,7 @@ RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://
 # basic build dependencies
 RUN apt-get -y install $(cat /opt/sumo/build_config/build_req_deb.txt)
 # 3D GUI, video recording
-RUN apt-get -y install libopenscenegraph-dev libavformat-dev libswscale-dev
+RUN apt-get -y install libavformat-dev libopenscenegraph-dev libswscale-dev
 # packages needed for the tools (some are also listed in tools/requirements.txt but we prefer the ubuntu packages)
 RUN apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
 
