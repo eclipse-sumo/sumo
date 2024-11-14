@@ -28,6 +28,15 @@ allred.time_extension
 # insert all red phase on a large junction
 allred.time_large
 
+# customize yellow time
+yellow.time
+
+# customize yellow time
+yellow.time0
+
+# customize green time
+green.time0
+
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right
 
