@@ -131,7 +131,7 @@ Before starting the simulation, make sure that the Delay (![](../images/Delay.pn
 
 Click on Run ![](../images/icon_play.png) (<kbd>Ctrl</kbd> + <kbd>A</kbd>) to start the simulation.
 
-![](../images/HelloWorld_5.gif)
+![](../images/HelloWorld_simulation.gif)
 
 From now on, if we want to run this scenario again we only have to open the SUMO Configuration file (*.sumocfg) in [sumo-gui](../sumo-gui.md) or [sumo](../sumo.md).
 
