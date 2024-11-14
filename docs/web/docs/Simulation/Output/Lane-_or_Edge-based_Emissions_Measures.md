@@ -119,6 +119,10 @@ Notes:
   will cover the complete simulation if no values for begin/end are
   given.
 
+!!! note
+    The **perVeh** outputs are normalized to the mean value that vehicle would consume when driving the full length of the edge. This may leader to a higer value than would be expected from the *abs* output when multiplied by the number of vehicles, whenever vehicles depart or arrive on that edge and do not drive the full length.
+  
+
 ## See Also
 
 - [edge/lane-based network performance measures
