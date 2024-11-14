@@ -2054,7 +2054,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold, b
             }
         }
     }
-    //std::cout << " c=" << joinNamedToString(c, ' ') << " f=" << f << " size=" << c.size() << " thresh=" << laneSpeedThreshold << " tooFast=" << tooFast << "\n";
+    //std::cout << " c=" << joinNamedToString(c, ' ') << " size=" << c.size() << " laneSpeedSum=" << laneSpeedSum << " thresh=" << laneSpeedThreshold << " tooFast=" << tooFast << "\n";
     return !tooFast && laneSpeedSum >= laneSpeedThreshold && c.size() != 0;
 }
 
