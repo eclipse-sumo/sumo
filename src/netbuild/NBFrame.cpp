@@ -764,6 +764,10 @@ NBFrame::checkOptions(OptionsCont& oc) {
         WRITE_ERROR(TL("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"));
         ok = false;
     }
+    if (oc.getInt("tls.green.time") <= 0) {
+        WRITE_ERROR(TL("'tls.green.time' must be positive"));
+        ok = false;
+    }
     if (oc.getInt("default.lanenumber") < 1) {
         WRITE_ERROR(TL("default.lanenumber must be at least 1"));
         ok = false;
