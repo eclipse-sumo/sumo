@@ -188,26 +188,28 @@ TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
 
     const std::string& state = active->getPhases()[index]->getState();
     for (int i = 0; i < (int)state.size(); i++) {
-        for (MSLink* link : active->getLinksAt(i)) {
-            if (link->getLane()->getEdge().isCrossing()) {
-                // walking forwards across
-                for (MSTransportable* person : link->getLaneBefore()->getEdge().getPersons()) {
-                    if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLane()->getEdge().getID()) {
-                        result += 1;
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
+            for (MSLink* link : active->getLinksAt(i)) {
+                if (link->getLane()->getEdge().isCrossing()) {
+                    // walking forwards across
+                    for (MSTransportable* person : link->getLaneBefore()->getEdge().getPersons()) {
+                        if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLane()->getEdge().getID()) {
+                            result += 1;
+                        }
                     }
-                }
-                // walking backwards across
-                MSLane* walkingAreaAcross = link->getLane()->getLinkCont().front()->getLane();
-                for (MSTransportable* person : walkingAreaAcross->getEdge().getPersons()) {
-                    if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLane()->getEdge().getID()) {
-                        result += 1;
+                    // walking backwards across
+                    MSLane* walkingAreaAcross = link->getLane()->getLinkCont().front()->getLane();
+                    for (MSTransportable* person : walkingAreaAcross->getEdge().getPersons()) {
+                        if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLane()->getEdge().getID()) {
+                            result += 1;
+                        }
                     }
-                }
-            } else if (link->getLaneBefore()->getEdge().isCrossing()) {
-                // walking backwards across (in case both sides are separately controlled)
-                for (MSTransportable* person : link->getLane()->getEdge().getPersons()) {
-                    if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLaneBefore()->getEdge().getID()) {
-                        result += 1;
+                } else if (link->getLaneBefore()->getEdge().isCrossing()) {
+                    // walking backwards across (in case both sides are separately controlled)
+                    for (MSTransportable* person : link->getLane()->getEdge().getPersons()) {
+                        if (static_cast<MSPerson*>(person)->getNextEdge() == link->getLaneBefore()->getEdge().getID()) {
+                            result += 1;
+                        }
                     }
                 }
             }
