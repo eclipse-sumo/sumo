@@ -22,7 +22,7 @@ title: ChangeLog
   
 
 - netedit
-  - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.16.0)  
+  - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.19.0)  
   - Loaded containers starting from stops are now drawn #15567
   - ESC aborts creation of edgeRel and tazRel datas #15601
   - Fixed invalid TAZ coloring during mouse hovering in create TAZRel mode #15544
