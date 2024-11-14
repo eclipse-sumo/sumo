@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed platform specific taxi behavior related to pre-booking #15698 (regression in 1.20.0)
   - Fixed rerouting error on the last route edge with a stop #15552
   - Fixed routing error on departure #15563
   - Fixed invalid warnings regarding inconsistent loaded stop times #15602
@@ -14,9 +15,14 @@ title: ChangeLog
   - Fixed train collision at rail_crossing #15658
   - Fixed crash when route contains internal edge #15667
   - Fixed invalid error when using jump after stopping twice on the same edge #15635
-  - Added option **--chargingstations-output.aggregated.write-unfinished** to include still running charging process in charging station output #15677 
+  - Added option **--chargingstations-output.aggregated.write-unfinished** to include still running charging process in charging station output #15677
+  - Fixed invalid value of diagnostic param 'caccVehicleMode' when using carFollowModel *CACC* #15682
+  - Fixed invalid speedErr computation for carFollowModel *CACC* #15683
+  - Actuated traffic light that use the `next` attribute to skip phases now work correctly if the targeted green phase serves no traffic but leads to a subsequent phase which does #15716 
+  
 
 - netedit
+  - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.16.0)  
   - Loaded containers starting from stops are now drawn #15567
   - ESC aborts creation of edgeRel and tazRel datas #15601
   - Fixed invalid TAZ coloring during mouse hovering in create TAZRel mode #15544
@@ -36,7 +42,9 @@ title: ChangeLog
   - Moving a junction now moves it's custom shape #15456
   - Fixed missing/strange attributes while adding routeprobe #15268
   - Can now load trips without from / to #15074
-  - Fixed slowdown when loading large TAZ #15674 
+  - Fixed slowdown when loading large TAZ #15674
+  - Significantly reduced UI freeze when switching to demand mode and many vehicles are loaded #15681
+  - Fixed dotted contour of multilane objects (routes, trips, etc.) #15676 
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -44,10 +52,12 @@ title: ChangeLog
   - Hotkey ALT no longer has the effect of rendering all POIs and polygons at layer 0. Instead, the layer can be customized in the settings dialog #15558 
 
 - netconvert 
-  - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624 
+  - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624
+  - Fixed bug where right-of-way rules could create deadlock at a traffic light #15150 
 
 - TraCI
   - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
+  - Fixed invalid result by `trafficlight.getServedPersonCount` #15715 
     
 ### Enhancements
 
@@ -58,6 +68,10 @@ title: ChangeLog
   - GLOSA Device now looks several phases into the future and can also take queues into account #15614
   - Added new vType attributes `jmAdvance` and `jmExtraGap` to configure the behavior on junctions for crossing and merging streams of traffic #15654
   - Added new insertion behavior `departLane="best_prob"` to increase throughput on multi-lane roads #15661
+  - Stationfinder device now supports state saving and loading #15607
+  - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
+  - Traffic lights of type `actuated` can now use the `next` attribute to switch into fixed-duration phases (and the corresponding lanes will obtain detectors to trigger the switch) #15714
+  - Traffic lights of type `actuated` can now react to a pedestrian crossing #1746 
   - railways
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
@@ -78,19 +92,22 @@ title: ChangeLog
  
 - netconvert
   - Added support for zipped shape files #15623
-  - street-sign-output now sets the sign angle corresponding to road geometry #15671 
+  - street-sign-output now sets the sign angle corresponding to road geometry #15671
+  - traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248 
 
 - meso
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
      
 - TraCI
-  - stationfinder device parameters can now be modified at runtime #15622 
+  - stationfinder device parameters can now be modified at runtime #15622
+  - Added `traci.parkingArea.setAcceptedBadges` and `traci.parkingArea.getAcceptedBadges`  #14807 
 
 ### Miscellaneous
 
 - Added analysis on the effects of attribute `departLane` on [insertion capacity](Simulation/RoadCapacity.md#insertion_capacity_on_a_2-lane_road).
 - Fixed compatibility issues with Ubuntu 24 affecting geo-projections #15618 
-- Option **--device.rerouting.railsignal** is now inactive by default #15597 
+- Option **--device.rerouting.railsignal** is now inactive by default #15597
+- If a turning movement has more than one lane and may wait within the intersection, the lanes after the *internal junction* are now joined into the same internal edge #14776 
 
 ## Version 1.21.0 (10.10.2024)
 
