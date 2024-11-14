@@ -30,6 +30,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
              "-n", "input_net3.net.xml",
+             "-r", "input_routes.rou.xml",
              '--no-step-log',
              ]
             + sys.argv[1:])
@@ -58,17 +59,25 @@ def check():
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseName(tlsID, "setByTraCI")
 traci.trafficlight.setPhaseDuration(tlsID, 23)
-print("waitingPersons", traci.trafficlight.getServedPersonCount(tlsID, 2))
 check()
 defs = traci.trafficlight.getAllProgramLogics(tlsID)
 print("numDefs=%s numPhases=%s" % (len(defs), list(map(lambda d: len(d.getPhases()), defs))))
+
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))
 for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.trafficlight.getSubscriptionResults(tlsID))
+
+for _ in range(80):
+    print("%s waitingPerPhase=%s" % (traci.simulation.getTime(),
+        [traci.trafficlight.getServedPersonCount(tlsID, i) for i, _ in
+            enumerate(defs[0].getPhases())]))
+    traci.simulationStep()
+
 traci.trafficlight.setLinkState(tlsID, 4, 'u')
+
 try:
     traci.trafficlight.setLinkState(tlsID, 16, 'u')
 except traci.TraCIException as e:
