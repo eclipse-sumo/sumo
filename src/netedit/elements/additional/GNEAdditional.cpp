@@ -938,6 +938,8 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
                                         false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
         }
     } else {
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                    false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH);
     }
     return nullptr;
 }

@@ -530,6 +530,19 @@ GNEMoveElement::moveBothMultilanePositions(const GNEViewNet* viewNet, const GNEM
     // get lane shape lengths
     const double firstLaneLength = moveOperation->firstLane->getLaneShapeLength();
     const double lastLaneLength = moveOperation->lastLane->getLaneShapeLength();
+
+
+    // get lane offset
+    const double laneOffsetA = calculateLaneOffset(viewNet, moveOperation->firstLane, moveOperation->firstPosition, moveOperation->firstPosition, offset, 0, firstLaneLength);
+
+    const double laneOffsetB = calculateLaneOffset(viewNet, moveOperation->lastLane, moveOperation->lastPosition, moveOperation->lastPosition, offset, 0, lastLaneLength);
+
+    WRITE_WARNING(toString(laneOffsetA) + " - " + toString(laneOffsetB));
+    // update moveResult
+    //moveResult.newFirstPos = (pos - laneOffset) / lane->getLengthGeometryFactor();
+    //moveResult.newLastPos = 0;
+
+
     /*
     if (moveOperation->operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVEBOTH_FIRST) {
         // move only first position
