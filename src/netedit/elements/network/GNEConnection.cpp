@@ -926,6 +926,10 @@ GNEConnection::getACParametersMap() const {
 
 void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
+    if (!existNBEdgeConnection()) {
+        WRITE_WARNINGF("Cannot restore attribute '%=%' for computed connection from lane '%'", toString(key), value, myFromLane->getID());
+        return;
+    }
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {
         case SUMO_ATTR_PASS:
