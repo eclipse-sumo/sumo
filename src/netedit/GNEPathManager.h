@@ -58,6 +58,8 @@ public:
         /// @brief destructor
         ~Segment();
 
+        /// @name functions related with segment contour
+        /// @{
         /// @brief get contour associated with segment
         GNEContour* getContour() const;
 
@@ -67,12 +69,26 @@ public:
         /// @brief get to contour associated with segment (only if this is the last path segment)
         GNEContour* getToContour() const;
 
+        /// @}
+
+        /// @brief functions related with the other paht segments
+        /// @{
+        /// @brief get next segment
+        Segment* getNextSegment() const;
+
+        /// @brief get previous segment
+        Segment* getPreviousSegment() const;
+
         /// @brief check if segment is the first path's segment
         bool isFirstSegment() const;
 
         /// @brief check if segment is the last path's segment
         bool isLastSegment() const;
 
+        /// @}
+
+        /// @name functions related with GNE elements related with this segment
+        /// @{
         /// @brief get path element
         GNEPathElement* getPathElement() const;
 
@@ -85,19 +101,21 @@ public:
         /// @brief get next lane
         const GNELane* getNextLane() const;
 
+        /// @brief get lane index
+        int getLaneIndex() const;
+
         /// @brief get junction associated with this segment
         const GNEJunction* getJunction() const;
 
-        /// @brief get next segment
-        Segment* getNextSegment() const;
+        /// @brief get lane index
+        int getJunctionIndex() const;
 
-        /// @brief get previous segment
-        Segment* getPreviousSegment() const;
+        /// @}
 
         /// @brief check if segment is label segment
         bool isLabelSegment() const;
 
-        /// @brief mark segment as middle segment
+        /// @brief mark segment as middle segment (used for certain elements as E2 multilane detectors)
         void markSegmentLabel();
 
     protected:
@@ -112,6 +130,12 @@ public:
 
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
+
+        /// @brief lane index
+        int myLaneIndex = 0;
+
+        /// @brief junction index
+        int myJunctionIndex = 0;
 
         /// @brief pointer to next segment (use for draw red line)
         Segment* myNextSegment;

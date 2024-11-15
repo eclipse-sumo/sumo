@@ -55,6 +55,12 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEPathElement* el
         // use to contour of previous segment
         myToContour = myPreviousSegment->myToContour;
         myPreviousSegment->myToContour = nullptr;
+        // update lane index
+        if (myPreviousSegment->myPreviousSegment && myPreviousSegment->myPreviousSegment->myLane) {
+            myLaneIndex = myPreviousSegment->myPreviousSegment->myLaneIndex + 1;
+        } else if (myPreviousSegment->myLane) {
+            myLaneIndex = myPreviousSegment->myLaneIndex + 1;
+        }
     } else {
         // this is the first segment, then create both from and to contours
         myFromContour = new GNEContour();
@@ -86,6 +92,12 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEPathElement* el
         // use to contour of previous segment
         myToContour = myPreviousSegment->myToContour;
         myPreviousSegment->myToContour = nullptr;
+        // update junction index
+        if (myPreviousSegment->myPreviousSegment && myPreviousSegment->myPreviousSegment->myJunction) {
+            myJunctionIndex = myPreviousSegment->myPreviousSegment->myJunctionIndex + 1;
+        } else if (myPreviousSegment->myJunction) {
+            myJunctionIndex = myPreviousSegment->myJunctionIndex + 1;
+        }
     } else {
         // this is the first segment, then create both from and to contours
         myFromContour = new GNEContour();
@@ -140,6 +152,18 @@ GNEPathManager::Segment::getToContour() const {
 }
 
 
+GNEPathManager::Segment*
+GNEPathManager::Segment::getNextSegment() const {
+    return myNextSegment;
+}
+
+
+GNEPathManager::Segment*
+GNEPathManager::Segment::getPreviousSegment() const {
+    return myPreviousSegment;
+}
+
+
 bool
 GNEPathManager::Segment::isFirstSegment() const {
     return (myPreviousSegment == nullptr);
@@ -184,21 +208,21 @@ GNEPathManager::Segment::getNextLane() const {
 }
 
 
+int
+GNEPathManager::Segment::getLaneIndex() const {
+    return myLaneIndex;
+}
+
+
 const GNEJunction*
 GNEPathManager::Segment::getJunction() const {
     return myJunction;
 }
 
 
-GNEPathManager::Segment*
-GNEPathManager::Segment::getNextSegment() const {
-    return myNextSegment;
-}
-
-
-GNEPathManager::Segment*
-GNEPathManager::Segment::getPreviousSegment() const {
-    return myPreviousSegment;
+int
+GNEPathManager::Segment::getJunctionIndex() const {
+    return myJunctionIndex;
 }
 
 
