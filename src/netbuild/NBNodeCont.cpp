@@ -2696,6 +2696,10 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // do not remove joined tls when only removing geometry-like tls
                 continue;
             }
+            if (node->getCrossings().size() > 0) {
+                // keep controlled pedestrian crossings
+                continue;
+            }
             if (guessSignals && node->geometryLike()) {
                 // record signal location
                 for (NBEdge* edge : node->getOutgoingEdges()) {
