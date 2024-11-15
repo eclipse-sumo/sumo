@@ -141,7 +141,7 @@ def main(options):
             i += 1
 
     # insert entries from Semantic Scholar search result
-    lowerToOriginalKeyWords = {keyword.lower(): keyword for keyword in options.keywords}
+    lowerToOriginalKeyWords = {keyword.lower(): keyword for keyword in options.keywords} if options.keywords else {}
 
     blocks = []
     now = datetime.now()
