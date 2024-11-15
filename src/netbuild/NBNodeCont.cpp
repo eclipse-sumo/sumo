@@ -2696,7 +2696,7 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // do not remove joined tls when only removing geometry-like tls
                 continue;
             }
-            if (guessSignals && node->isTLControlled() && node->geometryLike()) {
+            if (guessSignals && node->geometryLike()) {
                 // record signal location
                 for (NBEdge* edge : node->getOutgoingEdges()) {
                     edge->setSignalPosition(node->getPosition(), nullptr);
