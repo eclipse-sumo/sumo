@@ -152,12 +152,13 @@ def main(options):
     usedKeys = []
     newEntries = []
     for paper in papers:
-        keywords = getRelevantKeyWords(paper, lowerToOriginalKeyWords)
-        extension = [(2, keyword, 0, 0) for keyword in keywords if keyword not in alreadyUsedKeywords]
-        if len(extension) > 0:
-            groups.extend([(2, keyword, 0, 0) for keyword in keywords if keyword not in alreadyUsedKeywords])
-        alreadyUsedKeywords.update(keywords)
-        keywords.append(baseGroup)
+        keywords = getRelevantKeyWords(paper, lowerToOriginalKeyWords) if options.keywords else []
+        if len(keywords) > 0:
+            extension = [(2, keyword, 0, 0) for keyword in keywords if keyword not in alreadyUsedKeywords]
+            if len(extension) > 0:
+                groups.extend([(2, keyword, 0, 0) for keyword in keywords if keyword not in alreadyUsedKeywords])
+            alreadyUsedKeywords.update(keywords)
+            keywords.append(baseGroup)
         newBlock = toBibTexBlock(paper, groups=keywords)
         generatedKey = newBlock.key
         i = 0
