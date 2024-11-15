@@ -71,9 +71,8 @@ for step in range(3, 6):
     print(traci.trafficlight.getSubscriptionResults(tlsID))
 
 for _ in range(80):
-    print("%s waitingPerPhase=%s" % (traci.simulation.getTime(),
-        [traci.trafficlight.getServedPersonCount(tlsID, i) for i, _ in
-            enumerate(defs[0].getPhases())]))
+    served = [traci.trafficlight.getServedPersonCount(tlsID, i) for i, _ in enumerate(defs[0].getPhases())]
+    print("%s waitingPerPhase=%s" % (traci.simulation.getTime(), served))
     traci.simulationStep()
 
 traci.trafficlight.setLinkState(tlsID, 4, 'u')
