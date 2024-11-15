@@ -911,6 +911,12 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
         if (pedTime >= minPedTime) {
             // ensure clearing time for pedestrians
             const int pedStates = (int)crossings.size();
+            const bool isSimpleActuatedCrossing = logic->getType() == TrafficLightType::ACTUATED
+                && minDur == UNSPECIFIED_DURATION && logic->getPhases().size() == 2;
+            if (isSimpleActuatedCrossing) {
+                // permit green phase to extend when there are no pedestrians
+                logic->setPhaseNext(0, {0, 1});
+            }
             logic->addStep(pedTime, state, minDur, maxDur, earliestEnd, latestEnd);
 #ifdef DEBUG_PHASES
             if (DEBUGCOND2(logic)) {
