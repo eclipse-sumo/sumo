@@ -15,3 +15,6 @@ input_net_discard_loaded
 
 # discard simple tls
 input_net_discard_simple_actuated
+
+# discard simple tls
+input_net_discard_simple_actuated_rebuild
