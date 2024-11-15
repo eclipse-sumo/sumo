@@ -17,9 +17,10 @@
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
-#include <config.h>
+
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/demand/GNEPlanParents.h>
@@ -940,8 +941,13 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
     } else {
         auto segment = gViewObjectsHandler.getSelectedSegment(this);
         if (segment) {
-            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                        false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH);
+            if (segment->getLaneIndex() == 0) {
+                return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                            false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_FIRST);
+            } else if (segment->getLaneIndex() == ((int)getParentLanes().size() - 1)) {
+                return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                            false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_LAST);
+            }
         }
     }
     return nullptr;

@@ -684,9 +684,29 @@ GNELaneAreaDetector::setMoveShape(const GNEMoveResult& moveResult) {
         // change only end position
         myEndPositionOverLane = moveResult.newFirstPos;
     } else {
-        // change both position
-        myPositionOverLane = moveResult.newFirstPos;
-        myEndPositionOverLane = moveResult.newLastPos;
+        if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_FIRST) {
+            const auto difference = moveResult.newFirstPos - myPositionOverLane;
+            // change start position
+            myPositionOverLane = moveResult.newFirstPos;
+            myEndPositionOverLane += difference;
+        } else if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_LAST) {
+            const auto difference = moveResult.newFirstPos - myEndPositionOverLane;
+            // change end position
+            myPositionOverLane += difference;
+            myEndPositionOverLane = moveResult.newFirstPos;
+        }
+        // end position over lane
+        if (myPositionOverLane < 0) {
+            myPositionOverLane = 0;
+        } else if (myPositionOverLane > getParentLanes().front()->getLaneShapeLength()) {
+            myPositionOverLane = getParentLanes().front()->getLaneShapeLength();
+        }
+        // adjust position over lane
+        if (myEndPositionOverLane < 0) {
+            myEndPositionOverLane = 0;
+        } else if (myEndPositionOverLane > getParentLanes().back()->getLaneShapeLength()) {
+            myEndPositionOverLane = getParentLanes().back()->getLaneShapeLength();
+        }
     }
     // update geometry
     updateGeometry();
@@ -707,9 +727,35 @@ GNELaneAreaDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoLis
         // set only end position
         setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {
-        // set both positions
-        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newLastPos), undoList);
+        double startPos = myPositionOverLane;
+        double endPos = myEndPositionOverLane;
+        // set positions
+        if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_FIRST) {
+            const auto difference = moveResult.newFirstPos - myPositionOverLane;
+            // change start position
+            startPos = moveResult.newFirstPos;
+            endPos += difference;
+        } else if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_LAST) {
+            const auto difference = moveResult.newFirstPos - myEndPositionOverLane;
+            // change end position
+            startPos += difference;
+            endPos = moveResult.newFirstPos;
+        }
+        // end position over lane
+        if (startPos < 0) {
+            startPos = 0;
+        } else if (startPos > getParentLanes().front()->getLaneShapeLength()) {
+            startPos = getParentLanes().front()->getLaneShapeLength();
+        }
+        // adjust position over lane
+        if (endPos < 0) {
+            endPos = 0;
+        } else if (endPos > getParentLanes().back()->getLaneShapeLength()) {
+            endPos = getParentLanes().back()->getLaneShapeLength();
+        }
+        // set only end position
+        setAttribute(SUMO_ATTR_POSITION, toString(startPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), undoList);
     }
     // end change attribute
     undoList->end();

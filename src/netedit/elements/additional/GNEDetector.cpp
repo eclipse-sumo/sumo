@@ -114,7 +114,7 @@ GNEDetector::checkDrawMoveContour() const {
                         return true;
                     }
                 } else {
-                    // this is the start and end points
+                    // this is the start or end point
                     return true;
                 }
             } else {
