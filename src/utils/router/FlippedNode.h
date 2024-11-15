@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -15,8 +15,8 @@
 /// @author  Ruediger Ebendt
 /// @date    01.12.2023
 ///
-// Wrapper around an RONode used for backward search. It swaps incoming 
-// with outgoing edges, and replaces the original edges by reversed 
+// Wrapper around an RONode used for backward search. It swaps incoming
+// with outgoing edges, and replaces the original edges by reversed
 // ones (i.e., by instances of FlippedEdge)
 /****************************************************************************/
 #pragma once
@@ -36,7 +36,7 @@ public:
     /** Constructor
      * @param[in] originalNode The original node
      */
-    FlippedNode(const N* originalNode) : 
+    FlippedNode(const N* originalNode) :
         myOriginalNode(originalNode) {}
 
     /// @brief Destructor
@@ -54,7 +54,7 @@ public:
     const std::string& getID() const {
         return myOriginalNode->getID();
     }
-    
+
     /** @brief Returns the incoming edges of the node
      * @return The incoming edges of the node
      */

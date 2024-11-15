@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,7 +52,7 @@ class AFBuilder {
 public:
     typedef typename AFInfo<E>::FlagInfo FlagInfo;
     typedef AbstractLookupTable<FlippedEdge<E, N, V>, V> FlippedLookupTable;
-    
+
     /** @brief Constructor
      * @param[in] numberOfLevels The number of levels
      * @param[in] edges The container with all edges of the network
@@ -62,20 +62,19 @@ public:
      * @param[in] havePermissions The flag indicating whether edges have permissions which must be respected
      * @param[in] haveRestrictions The flag indicating whether edges have restrictions which must be respected
      * @param[in] toProhibit The list of explicitly prohibited edges
-     */ 
-    AFBuilder(int numberOfLevels, const std::vector<E*>& edges, bool unbuildIsWarning, 
-        typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation, 
-        const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false, 
-        const std::vector<FlippedEdge<E, N, V>*>* toProhibit = nullptr) :
+     */
+    AFBuilder(int numberOfLevels, const std::vector<E*>& edges, bool unbuildIsWarning,
+              typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
+              const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
+              const bool havePermissions = false, const bool haveRestrictions = false,
+              const std::vector<FlippedEdge<E, N, V>*>* toProhibit = nullptr) :
         myEdges(edges),
-        myNumberOfLevels(numberOfLevels), 
-        myNumberOfArcFlags(2 * (myNumberOfLevels - 1)), 
+        myNumberOfLevels(numberOfLevels),
+        myNumberOfArcFlags(2 * (myNumberOfLevels - 1)),
 #ifdef AFBL_DEBUG_LEVEL_0
         myArcFlagsFileName("arcflags.csv"),
 #endif
-        myAmClean(true) 
-    {
+        myAmClean(true) {
         for (const E* const edge : edges) {
             myFlagInfos.push_back(new FlagInfo(edge));
         }
@@ -92,13 +91,13 @@ public:
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Flipped edges / nodes are ready." << std::endl;
 #endif
-        myFlippedPartition = new KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myNumberOfLevels, 
-            myFlippedEdges, havePermissions, haveRestrictions);
+        myFlippedPartition = new KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myNumberOfLevels,
+                myFlippedEdges, havePermissions, haveRestrictions);
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Instantiating arc flag build..." << std::endl;
 #endif
         myArcFlagBuild = new AFBuild<E, N, V>(myFlippedEdges, myFlippedPartition, numberOfLevels, unbuildIsWarning,
-            flippedOperation, flippedLookup, havePermissions, haveRestrictions, toProhibit);
+                                              flippedOperation, flippedLookup, havePermissions, haveRestrictions, toProhibit);
 
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Arc flag build is instantiated (but still uninitialized)." << std::endl;
@@ -122,7 +121,7 @@ public:
      * @param[in] msTime The start time of the routes in milliseconds
      * @param[in] The vehicle
      * @return The vector with the arc flag information
-     */ 
+     */
     std::vector<FlagInfo*>& build(SUMOTime msTime, const V* const vehicle);
     /** @brief Converts a SHARC level number to a partition level number
      * @param[in] sHARCLevel The SHARC level
@@ -134,7 +133,7 @@ public:
 
 protected:
 #ifdef AFBL_DEBUG_LEVEL_0
-    /** @brief Loads already precomputed arc flags from a CSV file (for testing purposes)   
+    /** @brief Loads already precomputed arc flags from a CSV file (for testing purposes)
      * @param[in] fileName The name of the CSV file
      */
     void loadFlagsFromCsv(const std::string fileName);
@@ -143,7 +142,7 @@ protected:
      */
     void saveFlagsToCsv(const std::string fileName);
     /** @brief Returns true iff a file with the given name exists
-     * @param[in] name The name of the file to test for existence 
+     * @param[in] name The name of the file to test for existence
      * @return true iff a file with the given name exists
      */
     bool fileExists(const std::string& name) {
@@ -178,8 +177,7 @@ protected:
 // ===========================================================================
 
 template<class E, class N, class V>
-AFBuilder<E, N, V>::~AFBuilder()
-{
+AFBuilder<E, N, V>::~AFBuilder() {
     delete myArcFlagBuild;
     delete myFlippedPartition;
     for (FlagInfo* flagInfo : myFlagInfos) {
@@ -188,8 +186,7 @@ AFBuilder<E, N, V>::~AFBuilder()
 }
 
 template<class E, class N, class V>
-void AFBuilder<E, N, V>::reset()
-{
+void AFBuilder<E, N, V>::reset() {
     for (FlagInfo* flagInfo : myFlagInfos) {
         flagInfo->reset();
     }
@@ -205,19 +202,17 @@ std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime m
     if (myFlippedPartition->isClean()) {
         myFlippedPartition->init(vehicle);
         myArcFlagBuild->setFlippedPartition(myFlippedPartition);
-    }
-    else {
+    } else {
         myFlippedPartition->reset(vehicle);
     }
     assert(myArcFlagBuild);
 #ifdef AFBL_DEBUG_LEVEL_0
     bool fileExists = this->fileExists(myArcFlagsFileName);
     if (fileExists && myAmClean) {
-        std::cout << "Loading arc flags from file " << myArcFlagsFileName << std::endl; 
+        std::cout << "Loading arc flags from file " << myArcFlagsFileName << std::endl;
         loadFlagsFromCsv(myArcFlagsFileName);
         std::cout << "Arc flags loaded." << std::endl;
-    }
-    else {
+    } else {
 #endif
         myArcFlagBuild->init(msTime, vehicle, myFlagInfos);
 #ifdef AFBL_DEBUG_LEVEL_0
@@ -240,14 +235,13 @@ std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime m
 
 #ifdef AFBL_DEBUG_LEVEL_0
 template<class E, class N, class V>
-void AFBuilder<E, N, V>::saveFlagsToCsv(const std::string fileName)
-{
+void AFBuilder<E, N, V>::saveFlagsToCsv(const std::string fileName) {
     std::ofstream csvFile(fileName);
     for (FlagInfo* flagInfo : myFlagInfos) {
         if ((flagInfo->arcFlags).empty()) {
             // default flag is false / zero
             std::fill_n(std::back_inserter(flagInfo->arcFlags),
-                myNumberOfArcFlags, false);
+                        myNumberOfArcFlags, false);
         }
         for (bool flag : flagInfo->arcFlags) {
             csvFile << flag;
@@ -270,7 +264,7 @@ void AFBuilder<E, N, V>::loadFlagsFromCsv(const std::string fileName) {
     for (FlagInfo* flagInfo : myFlagInfos) {
         (flagInfo->arcFlags).clear();
         std::fill_n(std::back_inserter(flagInfo->arcFlags),
-            myNumberOfArcFlags, false);
+                    myNumberOfArcFlags, false);
         std::string line;
         if (std::getline(csvFile, line)) {
             if (line.empty()) {
@@ -282,8 +276,7 @@ void AFBuilder<E, N, V>::loadFlagsFromCsv(const std::string fileName) {
             while (stringStream.read(&flagAsString[0], 1)) {
                 (flagInfo->arcFlags)[pos++] = (!flagAsString.compare("0") ? 0 : 1);
             }
-        }
-        else {
+        } else {
             result = fileNameCopy.insert(0, "CSV file ");
             throw std::runtime_error(result.append(" has not enough lines - wrong or corrupted file?"));
         }

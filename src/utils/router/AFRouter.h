@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Ruediger Ebendt
 /// @date    01.12.2023
 ///
-// Realizes an arc flag routing algorithm (Hilger et al.) in its multi-level variant 
+// Realizes an arc flag routing algorithm (Hilger et al.) in its multi-level variant
 // (also called "stripped SHARC" by Delling et al.)
 /****************************************************************************/
 #pragma once
@@ -72,8 +72,8 @@
 // ===========================================================================
 /**
  * @class AFRouter
- * Computes the shortest path through a network with an arc flag routing 
- * algorithm (Hilger et al.) in its multi-level variant (also called 
+ * Computes the shortest path through a network with an arc flag routing
+ * algorithm (Hilger et al.) in its multi-level variant (also called
  * "stripped SHARC" by Delling et al.)
  *
  * The template parameters are:
@@ -81,7 +81,7 @@
  * @param N The node class to use (MSJunction/RONode)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
  *
- * The router is edge-based 
+ * The router is edge-based
  * It must know the number of edges for internal reasons
  * and whether a missing connection between two given edges (unbuild route) shall
  * be reported as an error or as a warning
@@ -94,7 +94,7 @@ public:
     typedef typename KDTreePartition<E, N, V>::Cell Cell;
     typedef typename AFInfo<E>::FlagInfo FlagInfo;
     typedef AbstractLookupTable<FlippedEdge<E, N, V>, V> FlippedLookupTable;
-    
+
     /** @brief Returns the edge information for the passed edge
      * @param[in] edge The edge
      * @note Non-const version
@@ -115,7 +115,7 @@ public:
 
     /**
      * @class EdgeInfoComparator
-     * 
+     *
      * Class to compare (and so sort) nodes by their effort
      */
     class EdgeInfoComparator {
@@ -125,8 +125,8 @@ public:
          * @param[in] edgeInfo2 Second edge information
          * @return true iff heuristic effort of first edge information is greater than that of the second
          * @note In case of ties: true iff first edge information's numerical id is greater than that of the second
-         */ 
-        
+         */
+
         bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* edgeInfo1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* edgeInfo2) const {
             if (edgeInfo1->heuristicEffort == edgeInfo2->heuristicEffort) {
                 return edgeInfo1->edge->getNumericalID() > edgeInfo2->edge->getNumericalID();
@@ -146,14 +146,14 @@ public:
      * @param[in] flippedLookup The lookup table for a backward graph  with flipped edges
      * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered or not
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
-     */ 
-    AFRouter(const std::vector<E*>& edges, 
-        const KDTreePartition<E, N, V>* partition,
-        bool unbuildIsWarning,
-        typename SUMOAbstractRouter<E, V>::Operation operation, typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
-        SUMOTime weightPeriod, const std::shared_ptr<const LookupTable> lookup = nullptr,
-        const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+     */
+    AFRouter(const std::vector<E*>& edges,
+             const KDTreePartition<E, N, V>* partition,
+             bool unbuildIsWarning,
+             typename SUMOAbstractRouter<E, V>::Operation operation, typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
+             SUMOTime weightPeriod, const std::shared_ptr<const LookupTable> lookup = nullptr,
+             const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
+             const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("arcFlagRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myFlagInfos(nullptr),
         myPartition(partition),
@@ -162,7 +162,7 @@ public:
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
         myBuilder(new AFBuilder<E, N, V>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
-            flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
+                                         flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
         myType("arcFlagRouter"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -173,8 +173,7 @@ public:
         myFlagContextTimeSum(0),
 #endif
         myLastSettledEdgeCell(nullptr),
-        myTargetEdgeCellLevel0(nullptr)
-    {
+        myTargetEdgeCellLevel0(nullptr) {
         for (const E* const edge : edges) {
             this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edge));
             myMaxSpeed = MAX2(myMaxSpeed, edge->getSpeedLimit() * MAX2(1.0, edge->getLengthGeometryFactor()));
@@ -194,14 +193,14 @@ public:
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered
      */
     AFRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos,
-        const std::vector<E*>& edges, 
-        const KDTreePartition<E, N, V>* partition,
-        bool unbuildIsWarning,
-        typename SUMOAbstractRouter<E, V>::Operation operation, 
-        typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
-        SUMOTime weightPeriod, const std::shared_ptr<const LookupTable> lookup = nullptr,
-        const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+             const std::vector<E*>& edges,
+             const KDTreePartition<E, N, V>* partition,
+             bool unbuildIsWarning,
+             typename SUMOAbstractRouter<E, V>::Operation operation,
+             typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
+             SUMOTime weightPeriod, const std::shared_ptr<const LookupTable> lookup = nullptr,
+             const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
+             const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("arcFlagRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myFlagInfos(nullptr),
         myPartition(partition),
@@ -210,7 +209,7 @@ public:
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
         myBuilder(new AFBuilder<E, N, V>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
-            flippedOperation, flippedLookup, havePermissions, haveRestrictions)), 
+                                         flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
         myType("arcFlagRouter"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -221,8 +220,7 @@ public:
         myFlagContextTimeSum(0),
 #endif
         myLastSettledEdgeCell(nullptr),
-        myTargetEdgeCellLevel0(nullptr)
-    {
+        myTargetEdgeCellLevel0(nullptr) {
         for (const auto& edgeInfo : edgeInfos) {
             this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
             myMaxSpeed = MAX2(myMaxSpeed, edgeInfo.edge->getSpeedLimit() * edgeInfo.edge->getLengthGeometryFactor());
@@ -239,12 +237,12 @@ public:
      * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered
      */
-   AFRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, 
-        const KDTreePartition<E, N, V>* partition,
-        bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, 
-        std::vector<FlagInfo*>* flagInfos, 
-        const std::shared_ptr<const LookupTable> lookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+    AFRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos,
+             const KDTreePartition<E, N, V>* partition,
+             bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
+             std::vector<FlagInfo*>* flagInfos,
+             const std::shared_ptr<const LookupTable> lookup = nullptr,
+             const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("arcFlagRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myFlagInfos(flagInfos),
         myPartition(partition),
@@ -252,7 +250,7 @@ public:
         myMaxSpeed(NUMERICAL_EPS),
         myWeightPeriod(SUMOTime_MAX),
         myValidUntil(SUMOTime_MAX),
-        myBuilder(nullptr), 
+        myBuilder(nullptr),
         myType("arcFlagRouterClone"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -263,8 +261,7 @@ public:
         myFlagContextTimeSum(0),
 #endif
         myLastSettledEdgeCell(nullptr),
-        myTargetEdgeCellLevel0(nullptr)
-    {
+        myTargetEdgeCellLevel0(nullptr) {
         for (const auto& edgeInfo : edgeInfos) {
             this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
             myMaxSpeed = MAX2(myMaxSpeed, edgeInfo.edge->getSpeedLimit() * edgeInfo.edge->getLengthGeometryFactor());
@@ -278,30 +275,29 @@ public:
 
     /// @brief Cloning method
     virtual SUMOAbstractRouter<E, V>* clone() {
-        // I am either a clone myself, or I am already initialized and time-independent 
+        // I am either a clone myself, or I am already initialized and time-independent
         // (i.e., I have been created with a maximum weight period)
-        if (myWeightPeriod == SUMOTime_MAX && myFlagInfos != nullptr) { 
+        if (myWeightPeriod == SUMOTime_MAX && myFlagInfos != nullptr) {
             // we only need the arc infos once:
-            return new AFRouter(this->myEdgeInfos, myPartition, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), 
-                this->myOperation, myFlagInfos, myLookupTable, this->myHavePermissions, this->myHaveRestrictions);
+            return new AFRouter(this->myEdgeInfos, myPartition, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
+                                this->myOperation, myFlagInfos, myLookupTable, this->myHavePermissions, this->myHaveRestrictions);
         }
-        // I am not a clone: I am either uninitialized, or initialized but time-dependent: 
+        // I am not a clone: I am either uninitialized, or initialized but time-dependent:
         // create another such guy (also flagged as a non-clone)
-        return new AFRouter(this->myEdgeInfos, myBuilder->getEdges(), myPartition, 
-            this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
-            this->myOperation, myBuilder->getArcFlagBuild()->getFlippedOperation(),
-            myWeightPeriod, myLookupTable, myBuilder->getArcFlagBuild()->getFlippedLookup(), 
-            this->myHavePermissions, this->myHaveRestrictions);
+        return new AFRouter(this->myEdgeInfos, myBuilder->getEdges(), myPartition,
+                            this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
+                            this->myOperation, myBuilder->getArcFlagBuild()->getFlippedOperation(),
+                            myWeightPeriod, myLookupTable, myBuilder->getArcFlagBuild()->getFlippedLookup(),
+                            this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Converts a partition level number to a SHARC level number
      * @param[in] partitionLevel The partition level
      * @param[in] numberOfPartitionLevels The number of partition levels
      * @return The SHARC level number
-     */ 
-    static int partitionLevel2SHARCLevel(int partitionLevel, int numberOfPartitionLevels)
-    {
-        // heads up: partition levels must start at zero, with zero being an illegal argument 
+     */
+    static int partitionLevel2SHARCLevel(int partitionLevel, int numberOfPartitionLevels) {
+        // heads up: partition levels must start at zero, with zero being an illegal argument
         // (since it would corresponds to level L = V, which is not a valid SHARC level)
         if (partitionLevel <= 0) {
             throw std::invalid_argument("partitionLevel2SHARCLevel: given partition level is zero (0) or below. This does not correspond to a valid SHARC level. Partition levels valid for conversion to SHARC levels go from one to number of partition levels minus one.");
@@ -318,13 +314,12 @@ public:
      * @param[in] numberOfPartitionLevels The number of partition levels
      * @return The partition level number
      */
-    static int sHARCLevel2PartitionLevel(int sHARCLevel, int numberOfPartitionLevels)
-    {
+    static int sHARCLevel2PartitionLevel(int sHARCLevel, int numberOfPartitionLevels) {
         int numberOfSHARCLevels = numberOfPartitionLevels - 1;
         if (sHARCLevel < 0) {
             throw std::invalid_argument("sHARCLevel2PartitionLevel: given SHARC level is negative.");
         }
-        // heads up: SHARC levels must start at zero (0), 
+        // heads up: SHARC levels must start at zero (0),
         // and end at number of partition levels minus two
         if (sHARCLevel > numberOfSHARCLevels - 1) {
             throw std::invalid_argument("sHARCLevel2PartitionLevel: given SHARC level exceeds the number of SHARC levels minus one. Most likely you did not start the SHARC level numbering at zero (0), which is required here.");
@@ -337,24 +332,23 @@ public:
      * @param[in] flagContext The flag context tuple
      * @return The flag indicating whether the arc flag is set or not, wrt given arc flag information and context
      */
-    static bool flag(const FlagInfo* flagInfo, const std::tuple<int, int, bool> flagContext)
-    {
-            assert(flagInfo);
-            return flagInfo->arcFlags.empty() ? true : /* play it safe */
-                (flagInfo->arcFlags)[std::get<0>(flagContext) /* assumed to be the SHARC level */ * 2
-                + std::get<1>(flagContext) /* assumed to be the cell index */];
-            
+    static bool flag(const FlagInfo* flagInfo, const std::tuple<int, int, bool> flagContext) {
+        assert(flagInfo);
+        return flagInfo->arcFlags.empty() ? true : /* play it safe */
+               (flagInfo->arcFlags)[std::get<0>(flagContext) /* assumed to be the SHARC level */ * 2
+                                                             + std::get<1>(flagContext) /* assumed to be the cell index */];
+
     }
 
     /** @brief Returns the arc flags of the passed edge
      * @param[in] edge The edge
      * @return The arc flags of the given edge
-     */ 
+     */
     std::vector<bool>& flags(const E* edge);
-    
+
     /** @brief Trigger arc flags rebuild
      * @param[in] The vehicle
-     */  
+     */
     virtual void reset(const V* const vehicle) {
         if (myValidUntil == 0) {
             myValidUntil = myWeightPeriod;
@@ -371,12 +365,12 @@ public:
         firstCallTime = (SysUtils::getCurrentMillis() - firstCallStart);
         std::cout << "Time spent for arc flags build: " << elapsedMs2string(firstCallTime) << std::endl;
 #endif
-     }
+    }
 
     /** @brief Initialize the arc flag router
      * param[in] edgeID The edge id(entifier)
      * param[in] msTime The start time of the routes in milliseconds
-     */   
+     */
     void init(const int edgeID, const SUMOTime msTime);
     /** @brief Returns the flag context for a route query from given settled edge to the target edge
      * @param[in] settledEdge The settled edge
@@ -395,7 +389,7 @@ public:
      * @param[in] silent The boolean flag indicating whether the method stays silent or puts out messages
      */
     bool compute(const E* from, const E* to, const V* const vehicle,
-        SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+                 SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         assert(from != nullptr && to != nullptr);
         // check whether from and to can be used
         if (this->myEdgeInfos[from->getNumericalID()].prohibited || this->isProhibited(from, vehicle)) {
@@ -417,8 +411,8 @@ public:
                 myValidUntil += myWeightPeriod;
             }
             reset(vehicle);
-        } 
-        // rewind routing start time to building time (this can only be a gross approximation 
+        }
+        // rewind routing start time to building time (this can only be a gross approximation
         // of time-dependent routing)
         msTime = myValidUntil - myWeightPeriod;
 
@@ -447,9 +441,9 @@ public:
 #ifdef AFRO_DEBUG_LEVEL_1
                 std::cout << "Found to, to->getID(): " << to->getID() << std::endl;
                 std::cout << static_cast<double>(numberOfFollowers - numberOfAvoidedFollowers) / static_cast<double>(num_visited)
-                    << " followers considered (out of " << static_cast<double>(numberOfFollowers) / static_cast<double>(num_visited) << ") on average." << std::endl;
+                          << " followers considered (out of " << static_cast<double>(numberOfFollowers) / static_cast<double>(num_visited) << ") on average." << std::endl;
                 std::cout << static_cast<double>(numberOfFollowers - numberOfAvoidedFollowers)
-                    << " followers considered (out of " << static_cast<double>(numberOfFollowers) << ")." << std::endl;
+                          << " followers considered (out of " << static_cast<double>(numberOfFollowers) << ")." << std::endl;
                 std::cout << numberOfEmptyFlagVectors << " out of " << numberOfFollowers << " flag vectors of followers were unassigned (i.e., empty)." << std::endl;
                 std::cout << "num_visited: " << num_visited << std::endl;
 #endif
@@ -465,7 +459,7 @@ public:
 
             // admissible A* heuristic: straight line distance at maximum speed
             // this is calculated from the end of minEdge so it possibly includes via efforts to the followers
-            double heuristic_remaining = 0.; 
+            double heuristic_remaining = 0.;
             double heuristicEffort = minimumInfo->effort + effortDelta + heuristic_remaining;
             // check all ways from the edge with the minimal length
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
@@ -490,16 +484,16 @@ public:
                 if (!flag(followerFlagInfo, flagContext)) {
                     numberOfAvoidedFollowers++;
                     continue;
-                } 
-                
+                }
+
                 // admissible A* heuristic: straight line distance at maximum speed
                 // this is calculated from the end of minEdge so it possibly includes via efforts to the followers
                 if (heuristic_remaining == 0 && std::get<0>(flagContext) == 0 && std::get<2>(flagContext)) {
                     // arrived at the target cell at level 0? use heuristic
                     heuristic_remaining =
                         (myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
-                            myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
-                                minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
+                         myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
+                                                   minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
                     if (heuristic_remaining == UNREACHABLE) {
                         break; // -> skip remaining followers, continue with next min heap element
                     }
@@ -520,15 +514,13 @@ public:
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         this->myFrontierList.push_back(&followerInfo);
                         std::push_heap(this->myFrontierList.begin(), this->myFrontierList.end(), myComparator);
-                    }
-                    else {
+                    } else {
                         auto fi = std::find(this->myFrontierList.begin(), this->myFrontierList.end(), &followerInfo);
                         if (fi == this->myFrontierList.end()) {
                             assert(mayRevisit);
                             this->myFrontierList.push_back(&followerInfo);
                             std::push_heap(this->myFrontierList.begin(), this->myFrontierList.end(), myComparator);
-                        }
-                        else {
+                        } else {
                             std::push_heap(this->myFrontierList.begin(), fi + 1, myComparator);
                         }
                     }
@@ -538,10 +530,10 @@ public:
         this->endQuery(num_visited);
 #ifdef AFRO_DEBUG_LEVEL_1
         std::cout << "Queue ran empty, no solution." << std::endl;
-        std::cout << static_cast<double>(numberOfFollowers - numberOfAvoidedFollowers) / static_cast<double>(num_visited) 
-            << " followers considered (out of " << static_cast<double>(numberOfFollowers) / static_cast<double>(num_visited) << ") on average." << std::endl;
+        std::cout << static_cast<double>(numberOfFollowers - numberOfAvoidedFollowers) / static_cast<double>(num_visited)
+                  << " followers considered (out of " << static_cast<double>(numberOfFollowers) / static_cast<double>(num_visited) << ") on average." << std::endl;
         std::cout << static_cast<double>(numberOfFollowers - numberOfAvoidedFollowers)
-            << " followers considered (out of " << static_cast<double>(numberOfFollowers) << ")." << std::endl;
+                  << " followers considered (out of " << static_cast<double>(numberOfFollowers) << ")." << std::endl;
         std::cout << numberOfEmptyFlagVectors << " out of " << numberOfFollowers << " flag vectors of followers were unassigned (i.e., empty)." << std::endl;
         std::cout << "num_visited: " << num_visited << std::endl;
 #endif
@@ -566,7 +558,7 @@ public:
     }
 
 protected:
-    /// @brief Edge infos containing the associated edge and its arc flags 
+    /// @brief Edge infos containing the associated edge and its arc flags
     std::vector<FlagInfo*>* myFlagInfos;
     /// @brief The partition
     const KDTreePartition<E, N, V>* myPartition;
@@ -644,8 +636,7 @@ void AFRouter<E, N, V>::init(const int edgeID, const SUMOTime msTime) {
 }
 
 template<class E, class N, class V>
-std::tuple<int, int, bool> AFRouter<E, N, V>::flagContextNaive(const E* settledEdge, const E* targetEdge)
-{
+std::tuple<int, int, bool> AFRouter<E, N, V>::flagContextNaive(const E* settledEdge, const E* targetEdge) {
     assert(settledEdge != nullptr && targetEdge != nullptr);
     int sHARCLevel;
     for (sHARCLevel = 0; sHARCLevel < myPartition->getNumberOfLevels() - 1; sHARCLevel++) {
@@ -671,8 +662,8 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContextNaive(const E* settledE
         }
         assert(settledEdgeCell && targetEdgeCell); // we should find both edges on each level
         if (settledEdgeCell->getSupercell() == targetEdgeCell->getSupercell()) {
-            return std::make_tuple(sHARCLevel, targetEdgeCell->isLeftOrLowerCell() ? 0 : 1, 
-                settledEdgeCell == targetEdgeCell);
+            return std::make_tuple(sHARCLevel, targetEdgeCell->isLeftOrLowerCell() ? 0 : 1,
+                                   settledEdgeCell == targetEdgeCell);
         }
     }
     // we should never arrive here
@@ -680,16 +671,15 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContextNaive(const E* settledE
 }
 
 template<class E, class N, class V>
-std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, const E* targetEdge)
-{
+std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, const E* targetEdge) {
     assert(settledEdge != nullptr && targetEdge != nullptr);
     int sHARCLevel = 0; // lowest level with smallest cells
     const Cell* settledEdgeCell = nullptr;
     const Cell* targetEdgeCell = nullptr;
     if (myLastSettledEdgeCell
-        && myLastSettledEdgeCell->contains(settledEdge->getFromJunction())) {
-        // exploit the partial locality of Dijkstra's algorithm: settled edge is still 
-        // in the same cell as the last one? Then we can simply return the 
+            && myLastSettledEdgeCell->contains(settledEdge->getFromJunction())) {
+        // exploit the partial locality of Dijkstra's algorithm: settled edge is still
+        // in the same cell as the last one? Then we can simply return the
         // last flagContext tuple again.
         return myLastFlagContext;
     }
@@ -703,14 +693,14 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, 
         // go through the cells of the level
         for (iter = first; iter != last; iter++) {
             // myPartition is assumed to partition a non-reversed (forward) graph
-            if (!settledEdgeCell 
-                && (*iter)->contains(settledEdge->getFromJunction())) {
+            if (!settledEdgeCell
+                    && (*iter)->contains(settledEdge->getFromJunction())) {
                 settledEdgeCell = *iter;
             }
             if (!targetEdgeCell && myTargetEdgeCellLevel0) {
                 targetEdgeCell = myTargetEdgeCellLevel0;
-            } else if (!targetEdgeCell 
-                && (*iter)->contains(targetEdge->getFromJunction())) {
+            } else if (!targetEdgeCell
+                       && (*iter)->contains(targetEdge->getFromJunction())) {
                 myTargetEdgeCellLevel0 = *iter;
                 targetEdgeCell = myTargetEdgeCellLevel0;
             }
@@ -724,8 +714,7 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, 
         if (!targetEdgeCell && myTargetEdgeCellLevel0) {
             // search only once per query
             targetEdgeCell = myTargetEdgeCellLevel0;
-        }
-        else if (!targetEdgeCell) {
+        } else if (!targetEdgeCell) {
             myTargetEdgeCellLevel0 = myPartition->searchNode(targetEdge->getFromJunction());
             targetEdgeCell = myTargetEdgeCellLevel0; // myTargetEdgeCellLevel0 is reset in init()
         }
@@ -738,7 +727,7 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, 
     }
     myLastSettledEdgeCell = settledEdgeCell;
     std::tuple<int, int, bool> flagContext = std::make_tuple(sHARCLevel, targetEdgeCell->isLeftOrLowerCell() ? 0 : 1,
-        settledEdgeCell == targetEdgeCell);
+            settledEdgeCell == targetEdgeCell);
     myLastFlagContext = flagContext;
     return flagContext;
 }

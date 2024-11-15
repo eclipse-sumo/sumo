@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,9 +15,9 @@
 /// @author  Ruediger Ebendt
 /// @date    01.12.2023
 ///
-// Extension of ReversedEdge, which is a wrapper around a ROEdge  
-// or an MSEdge used for backward search. In contrast to reversed 
-// edges, flipped edges have flipped nodes instead of standard nodes. 
+// Extension of ReversedEdge, which is a wrapper around a ROEdge
+// or an MSEdge used for backward search. In contrast to reversed
+// edges, flipped edges have flipped nodes instead of standard nodes.
 // Introduced for the arc flag router.
 /****************************************************************************/
 #pragma once
@@ -49,11 +49,11 @@ public:
      * @param[in] originalEdge The original (forward) edge
      */
     FlippedEdge(const E* originalEdge) :
-        ReversedEdge<E, V>(originalEdge), 
+        ReversedEdge<E, V>(originalEdge),
         myFromJunction(this->getOriginalEdge()->getToJunction()->getFlippedRoutingNode()),
         myToJunction(this->getOriginalEdge()->getFromJunction()->getFlippedRoutingNode())
     {}
-    
+
     /// @brief Destructor
     ~FlippedEdge() {}
 
@@ -67,11 +67,11 @@ public:
     const FlippedNode<E, N, V>* getToJunction() const {
         return myToJunction;
     }
-    /** @brief Returns the time for travelling on the given edge with the given vehicle at the given time 
+    /** @brief Returns the time for travelling on the given edge with the given vehicle at the given time
      * @param[in] edge The edge
      * @param[in] veh The vehicle
      * @param[in] time The time
-     * @return The time for travelling on the given edge with the given vehicle at the given time 
+     * @return The time for travelling on the given edge with the given vehicle at the given time
      */
     static double getTravelTimeStatic(const FlippedEdge<E, N, V>* const edge, const V* const veh, double time) {
         return edge->getOriginalEdge()->getTravelTime(veh, time);
@@ -108,8 +108,8 @@ public:
         ConstFlippedEdgePairVector& result = myClassesViaSuccessorMap[vClass];
         // this vClass is requested for the first time. rebuild all successors
         for (const auto& viaPair : myViaSuccessors) {
-            if (viaPair.first->getOriginalEdge()->isTazConnector() 
-                || viaPair.first->getOriginalEdge()->isConnectedTo(*(this->getOriginalEdge()), vClass)) {
+            if (viaPair.first->getOriginalEdge()->isTazConnector()
+                    || viaPair.first->getOriginalEdge()->isConnectedTo(*(this->getOriginalEdge()), vClass)) {
                 result.push_back(viaPair);
             }
         }
@@ -139,7 +139,7 @@ public:
     }
     /** @brief Returns the time penalty
      * @return The time penalty
-     */ 
+     */
     double getTimePenalty() const {
         return this->getOriginalEdge()->getTimePenalty();
     }
@@ -164,7 +164,7 @@ public:
     }
     /** @brief Returns the edge priority (road class)
      * @return The edge priority (road class)
-     */ 
+     */
     int getPriority() const {
         return this->getOriginalEdge()->getPriority();
     }
@@ -205,4 +205,3 @@ void FlippedEdge<E, N, V>::init() {
         }
     }
 }
-

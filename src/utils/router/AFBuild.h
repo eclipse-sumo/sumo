@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,7 +70,7 @@ class AFRouter;
 
 /**
  * @class AFBuild
- * @brief Builds the flags for (multi-level) arc flag routing (Hilger et al.) in its multi-level variant 
+ * @brief Builds the flags for (multi-level) arc flag routing (Hilger et al.) in its multi-level variant
  * (also called "stripped SHARC" by Delling et al.)
  *
  * The template parameters are:
@@ -81,7 +81,7 @@ class AFRouter;
 template<class E, class N, class V>
 class AFBuild {
 public:
-    /// @brief Maximum difference of two path lengths considered to be equal   
+    /// @brief Maximum difference of two path lengths considered to be equal
     const double EPS = 0.009;
     typedef typename KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>::Cell Cell;
     typedef typename AFInfo<FlippedEdge<E, N, V>>::ArcInfo ArcInfo;
@@ -98,14 +98,14 @@ public:
      * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered or not
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
      * @param[in] toProhibit The list of explicitly prohibited edges
-     */ 
+     */
     AFBuild(
         const std::vector<FlippedEdge<E, N, V>*>& flippedEdges,
         const KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* const flippedPartition,
-        int numberOfLevels, bool unbuildIsWarning, 
+        int numberOfLevels, bool unbuildIsWarning,
         typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
         const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false, 
+        const bool havePermissions = false, const bool haveRestrictions = false,
         const std::vector<FlippedEdge<E, N, V>*>* toProhibit = nullptr) :
         myFlippedEdges(flippedEdges),
         myFlippedPartition(flippedPartition),
@@ -116,11 +116,10 @@ public:
         myHavePermissions(havePermissions),
         myHaveRestrictions(haveRestrictions),
         myProhibited(toProhibit),
-        myNode2EdgeRouter(new Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myFlippedEdges, 
-            unbuildIsWarning, myFlippedOperation, myFlippedLookupTable, myHavePermissions, myHaveRestrictions)) 
-    {
-        myCentralizedSPTree = new AFCentralizedSPTree<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myFlippedEdges, 
-            myArcInfos, unbuildIsWarning, myNode2EdgeRouter, myHavePermissions, myHaveRestrictions);
+        myNode2EdgeRouter(new Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myFlippedEdges,
+                          unbuildIsWarning, myFlippedOperation, myFlippedLookupTable, myHavePermissions, myHaveRestrictions)) {
+        myCentralizedSPTree = new AFCentralizedSPTree<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myFlippedEdges,
+                myArcInfos, unbuildIsWarning, myNode2EdgeRouter, myHavePermissions, myHaveRestrictions);
         if (toProhibit) {
             myNode2EdgeRouter->prohibit(*toProhibit);
         }
@@ -142,11 +141,11 @@ public:
     }
     /** @brief Initialize the arc flag build
      * @param[in] msTime The start time of the routes in milliseconds
-     * @param[in] vehicle The vehicle 
+     * @param[in] vehicle The vehicle
      * @param[in] flagInfos The arc flag informations
-     */  
+     */
     void init(SUMOTime time, const V* const vehicle, std::vector<FlagInfo*>& flagInfos);
-    /** @brief Set the flipped partition 
+    /** @brief Set the flipped partition
      * param[in] flippedPartition The flipped partition
      */
     void setFlippedPartition(const KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* flippedPartition) {
@@ -155,14 +154,14 @@ public:
     /** @brief Converts a partition level number to a SHARC level number
      * @param[in] partitionLevel The partition level
      * @return The SHARC level number corresponding to the given partition level number
-     */ 
+     */
     int partitionLevel2SHARCLevel(int partitionLevel) {
         return AFRouter<E, N, V>::partitionLevel2SHARCLevel(partitionLevel, myNumberOfLevels);
     }
     /** @brief Converts a SHARC level number to a partition level number
      * @param[in] sHARCLevel The SHARC level
      * @return The partition level number corresponding to the given SHARC level number
-     */ 
+     */
     int sHARCLevel2PartitionLevel(int sHARCLevel) {
         return AFRouter<E, N, V>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
     }
@@ -172,7 +171,7 @@ protected:
      * @param[in] msTime The start time of the routes in milliseconds
      * @param[in] sHARCLevel The SHARC level
      * @param[in] vehicle The vehicle
-     */ 
+     */
     void computeArcFlags(SUMOTime msTime, int sHARCLevel, const V* const vehicle);
     /** @brief Computes the arc flags for a given cell
      * @param[in] msTime The start time of the routes in milliseconds
@@ -188,7 +187,7 @@ protected:
      * @param[in] vehicle The vehicle
      */
     void computeArcFlagsNaive(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle);
-    /** @brief Put the arc flag of the edge in arcInfo  
+    /** @brief Put the arc flag of the edge in arcInfo
      * @note wrt the passed SHARC level, and the boolean flag indicating whether the respective cell is a left or lower one or not
      * @param[in] arcInfo The arc information
      * @param[in] sHARCLevel The SHARC level
@@ -215,15 +214,15 @@ protected:
     const std::vector<FlippedEdge<E, N, V>*>* myProhibited;
     /// @brief The node-to-edge router (for a backward graph with flipped edges)
     Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* myNode2EdgeRouter;
-    /// @brief A Dijkstra based centralized label-correcting algorithm 
+    /// @brief A Dijkstra based centralized label-correcting algorithm
     // @note Builds shortest path trees for all boundary nodes at once
     // @note It operates on a backward graph with flipped edges
     AFCentralizedSPTree<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* myCentralizedSPTree;
     /// @brief The container of arc informations (for the centralized shortest path tree)
     std::vector<ArcInfo*> myArcInfos;
 
-private: 
-    /** @brief Initialize the boundary edges 
+private:
+    /** @brief Initialize the boundary edges
      * param[in] boundaryEdges The boundary edges
      */
     void initBoundaryEdges(const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges);
@@ -232,10 +231,10 @@ private:
      * @param[in] boundaryEdges The boundary edges
      * @param[in] numberOfBoundaryNodes The number of boundary nodes
      */
-    void initSupercellEdges(const Cell* supercell, 
-        const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges, 
-        size_t numberOfBoundaryNodes);
-    /** @brief Helper method for computeArcFlags(), which computes the arc flags for a given cell 
+    void initSupercellEdges(const Cell* supercell,
+                            const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges,
+                            size_t numberOfBoundaryNodes);
+    /** @brief Helper method for computeArcFlags(), which computes the arc flags for a given cell
      * @param[in] msTime The start time of the routes in milliseconds
      * @param[in] sHARCLevel The SHARC level
      * @param[in] cell The cell
@@ -259,7 +258,7 @@ void AFBuild<E, N, V>::init(SUMOTime msTime, const V* const vehicle, std::vector
     for (sHARCLevel = 0; sHARCLevel < myNumberOfLevels - 1; sHARCLevel++) {
 #ifdef AFBU_DEBUG_LEVEL_0
         std::cout << "Starting computation of flags of level " << sHARCLevel << " (levels run from 0 to "
-            << myNumberOfLevels - 2 << ")." << std::endl;
+                  << myNumberOfLevels - 2 << ")." << std::endl;
 #endif
 #ifdef AFBU_DEBUG_LEVEL_2
         if (sHARCLevel != 0) {
@@ -315,8 +314,7 @@ void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, co
             }
 #endif
         }
-    }
-    catch (const std::invalid_argument& e) {
+    } catch (const std::invalid_argument& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
         exit(-1);
     }
@@ -364,8 +362,7 @@ void AFBuild<E, N, V>::computeArcFlagsNaive(SUMOTime msTime, const int sHARCLeve
                     assert(recomputedEffort <= recomputedEffort2);
                 }
 #endif
-            }
-            else {
+            } else {
                 arcInfo->effortsToBoundaryNodes.push_back(UNREACHABLE);
 #ifdef AFBU_DEBUG_LEVEL_2
                 std::cout << "UNREACHABLE!" << std::endl;
@@ -376,7 +373,7 @@ void AFBuild<E, N, V>::computeArcFlagsNaive(SUMOTime msTime, const int sHARCLeve
 #ifdef AFBU_DEBUG_LEVEL_0
     long long int timeSpent = SysUtils::getCurrentMillis() - startTime;
     std::cout << "Initial distance computation spent " + elapsedMs2string(timeSpent) + "." << std::endl;
- #endif
+#endif
 
     // initialize all supercell edges' labels, arc flag vectors for the centralized shortest path tree algorithm / arc flag build
     initSupercellEdges(supercell, boundaryEdges, boundaryNodes.size());
@@ -394,7 +391,7 @@ void AFBuild<E, N, V>::computeArcFlagsNaive(SUMOTime msTime, const int sHARCLeve
 template<class E, class N, class V>
 void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
     const Cell* supercell = cell->getSupercell();
-    const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges = cell->getOutgoingBoundaryEdges(); 
+    const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges = cell->getOutgoingBoundaryEdges();
     const std::vector<const FlippedNode<E, N, V>*>& boundaryNodes = cell->getBoundaryFromNodes();
 #ifdef AFBU_DEBUG_LEVEL_1
     std::cout << "Number of boundary edges: " << boundaryEdges.size() << std::endl;
@@ -429,9 +426,9 @@ void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, co
                 continue;
             }
             double effort = (myNode2EdgeRouter->edgeInfo(boundaryEdge))->effort;
-            const FlippedEdge<E, N, V>* incomingEdge 
-                = (myNode2EdgeRouter->edgeInfo(boundaryEdge))->prev ? 
-                    (myNode2EdgeRouter->edgeInfo(boundaryEdge))->prev->edge : nullptr;
+            const FlippedEdge<E, N, V>* incomingEdge
+                = (myNode2EdgeRouter->edgeInfo(boundaryEdge))->prev ?
+                  (myNode2EdgeRouter->edgeInfo(boundaryEdge))->prev->edge : nullptr;
             (incomingEdgesOfOutgoingBoundaryEdges[boundaryEdge])[index] = incomingEdge;
             arcInfo->effortsToBoundaryNodes.push_back(effort == std::numeric_limits<double>::max() ? UNREACHABLE : effort);
         }
@@ -480,7 +477,7 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
                 continue;
             }
             if ((myNode2EdgeRouter->edgeInfo(supercellEdge))->prohibited
-                || myNode2EdgeRouter->isProhibited(supercellEdge, vehicle)) {
+                    || myNode2EdgeRouter->isProhibited(supercellEdge, vehicle)) {
                 continue;
             }
 #ifdef AFBU_DEBUG_LEVEL_1
@@ -502,13 +499,12 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
     long long int startTime = SysUtils::getCurrentMillis();
 #endif
     std::unordered_set<ArcInfo*> erasedEdges;
-    for (auto iter2 = arcInfosOnAShortestPath.begin(); iter2 != arcInfosOnAShortestPath.end(); )
-    {
+    for (auto iter2 = arcInfosOnAShortestPath.begin(); iter2 != arcInfosOnAShortestPath.end();) {
         const ArcInfo* arcInfo = *iter2;
         assert(!arcInfo->edge->isInternal());
         assert(myNode2EdgeRouter);
         assert(!(myNode2EdgeRouter->edgeInfo(arcInfo->edge))->prohibited
-            && !myNode2EdgeRouter->isProhibited(arcInfo->edge, vehicle));
+               && !myNode2EdgeRouter->isProhibited(arcInfo->edge, vehicle));
         size_t numberOfBoundaryNodes = arcInfo->effortsToBoundaryNodes.size();
         size_t index;
         bool onShortestPath = false;
@@ -533,7 +529,7 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
 
                 // check whether it can be used
                 if ((myNode2EdgeRouter->edgeInfo(follower.first))->prohibited
-                    || myNode2EdgeRouter->isProhibited(follower.first, vehicle)) {
+                        || myNode2EdgeRouter->isProhibited(follower.first, vehicle)) {
                     myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + followerInfo->edge->getID() + "'.");
                     continue;
                 }
@@ -551,11 +547,11 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
                 // add via efforts to current follower to edge effort
                 double length = 0.; // dummy length for call of updateViaEdgeCost
                 myNode2EdgeRouter->updateViaEdgeCost(follower.second, vehicle,
-                    sTime /* has been updated to the time where the edge has been traversed */, edgeEffort, length);
+                                                     sTime /* has been updated to the time where the edge has been traversed */, edgeEffort, length);
                 // test whether edge is on a shortest path to a boundary node
                 if (effort1ToBoundaryNode + edgeEffort /* edge effort incl. via efforts to current follower of edge */
-                    <= effort2ToBoundaryNode /* efforts incl. via efforts to current follower o. e. */
-                    + EPS && effort1ToBoundaryNode + edgeEffort >= effort2ToBoundaryNode - EPS) {
+                        <= effort2ToBoundaryNode /* efforts incl. via efforts to current follower o. e. */
+                        + EPS && effort1ToBoundaryNode + edgeEffort >= effort2ToBoundaryNode - EPS) {
                     onShortestPath = true;
                     break; // a shortest path to one boundary node suffices
                 }
@@ -566,29 +562,28 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
         if (!onShortestPath) {
             erasedEdges.insert(*iter2);
             iter2 = arcInfosOnAShortestPath.erase(iter2); // not on a shortest path, remove it
-        }
-        else {
+        } else {
             ++iter2;
         }
     } // loop over edge infos
 
 #ifdef AFBU_DEBUG_LEVEL_0
     std::cout << "Edges clearly not on a shortest path have been removed. Number of edges on a shortest path is now: "
-        << arcInfosOnAShortestPath.size() << std::endl;
+              << arcInfosOnAShortestPath.size() << std::endl;
 #endif
 
-    // set arc flags (for level sHARCLevel) for all edges completely inside the cell  
-    // (done since these edges all have a to-node inside the cell, i.e. we have to set the own-cell flag for them). 
+    // set arc flags (for level sHARCLevel) for all edges completely inside the cell
+    // (done since these edges all have a to-node inside the cell, i.e. we have to set the own-cell flag for them).
     std::unordered_set<const FlippedEdge<E, N, V>*>* pEdgesInsideCell = cell->edgeSet(vehicle);
     std::unordered_set<const FlippedEdge<E, N, V>*> edgesInsideCell = *pEdgesInsideCell;
 #ifdef AFBU_DEBUG_LEVEL_0
     std::cout << "Adding all edges completely inside the cell to set of edges on a shortest path, cell no:"
-        << cell->getNumber() << std::endl;
+              << cell->getNumber() << std::endl;
 #endif
     for (const FlippedEdge<E, N, V>* edgeInsideCell : edgesInsideCell) {
         ArcInfo* arcInfo = myArcInfos[edgeInsideCell->getNumericalID()];
         if ((myNode2EdgeRouter->edgeInfo(edgeInsideCell))->prohibited
-            || myNode2EdgeRouter->isProhibited(edgeInsideCell, vehicle)) {
+                || myNode2EdgeRouter->isProhibited(edgeInsideCell, vehicle)) {
             continue;
         }
         arcInfosOnAShortestPath.insert(arcInfo);
@@ -606,7 +601,7 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
     std::unordered_set<const FlippedNode<E, N, V>*> erasedNodes;
     for (const ArcInfo* arcInfo : arcInfosOnAShortestPath) {
         assert(!(myNode2EdgeRouter->edgeInfo(arcInfo->edge))->prohibited
-            && !myNode2EdgeRouter->isProhibited(arcInfo->edge, vehicle));
+               && !myNode2EdgeRouter->isProhibited(arcInfo->edge, vehicle));
         nodesOnAShortestPath.insert(arcInfo->edge->getFromJunction());
         nodesOnAShortestPath.insert(arcInfo->edge->getToJunction());
     }
@@ -652,15 +647,14 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
     file << content.str();
     file.close();
 #endif
-    // put arc flags for level 'sHARCLevel' for all supercell edges which are on a shortest path 
+    // put arc flags for level 'sHARCLevel' for all supercell edges which are on a shortest path
     for (ArcInfo* arcInfo : arcInfosOnAShortestPath) {
         putArcFlag(arcInfo, sHARCLevel, cell->isLeftOrLowerCell());
     }
 }
 
 template<class E, class N, class V>
-void AFBuild<E, N, V>::putArcFlag(ArcInfo* arcInfo, const int sHARCLevel, const bool isLeftOrLowerCell)
-{
+void AFBuild<E, N, V>::putArcFlag(ArcInfo* arcInfo, const int sHARCLevel, const bool isLeftOrLowerCell) {
     assert(arcInfo);
     (arcInfo->arcFlags)[sHARCLevel * 2 + (isLeftOrLowerCell ? 0 : 1)] = 1;
 }
@@ -674,7 +668,7 @@ void AFBuild<E, N, V>::initBoundaryEdges(const std::unordered_set<const FlippedE
         arcInfo = myArcInfos[boundaryEdge->getNumericalID()];
         if (arcInfo->arcFlags.empty()) {
             std::fill_n(std::back_inserter(arcInfo->arcFlags),
-                myFlippedPartition->numberOfArcFlags(), false);
+                        myFlippedPartition->numberOfArcFlags(), false);
         }
         arcInfo->effortsToBoundaryNodes.clear();
     }
@@ -703,11 +697,11 @@ void AFBuild<E, N, V>::initSupercellEdges(
             supercellArcInfo = myArcInfos[supercellEdge->getNumericalID()];
             if (supercellArcInfo->arcFlags.empty()) {
                 std::fill_n(std::back_inserter(supercellArcInfo->arcFlags),
-                    myFlippedPartition->numberOfArcFlags(), false);
+                            myFlippedPartition->numberOfArcFlags(), false);
             }
             supercellArcInfo->effortsToBoundaryNodes.clear();
             std::fill_n(std::back_inserter(supercellArcInfo->effortsToBoundaryNodes),
-                numberOfBoundaryNodes, std::numeric_limits<double>::max());
+                        numberOfBoundaryNodes, std::numeric_limits<double>::max());
         }
     }
 }

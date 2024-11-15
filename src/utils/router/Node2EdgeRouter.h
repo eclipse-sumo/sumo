@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,9 +15,9 @@
 /// @author  Ruediger Ebendt
 /// @date    01.01.2024
 ///
-// Simple extension of edge-based AStarRouter, adding a) a new method computeNode2Edge, 
-// which computes a shortest path starting at a given node and ending at a given edge, 
-// and b) a new method computeNode2Edges, which computes shortest paths, each starting 
+// Simple extension of edge-based AStarRouter, adding a) a new method computeNode2Edge,
+// which computes a shortest path starting at a given node and ending at a given edge,
+// and b) a new method computeNode2Edges, which computes shortest paths, each starting
 // at the given node and ending at one of the given edges
 /****************************************************************************/
 #pragma once
@@ -31,15 +31,15 @@
 // ===========================================================================
 /**
  * @class Node2EdgeRouter
- * Computes shortest paths from a node to one edge (using A*) or to all edges 
+ * Computes shortest paths from a node to one edge (using A*) or to all edges
  * (using Dijkstra's algorithm)
  *
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
  *
- * The router is edge-based. It must know the number of edges for internal reasons 
- * and whether a missing connection between two given edges (unbuild route) shall 
+ * The router is edge-based. It must know the number of edges for internal reasons
+ * and whether a missing connection between two given edges (unbuild route) shall
  * be reported as an error or as a warning
  *
  */
@@ -47,7 +47,7 @@ template<class E, class N, class V>
 class Node2EdgeRouter : public AStarRouter<E, V> {
 public:
     typedef AbstractLookupTable<E, V> LookupTable;
- 
+
     /** @brief Returns the edge information for the passed edge
      * @param[in] edge The edge
      * @note Non-const version
@@ -71,9 +71,9 @@ public:
      * @param[in] havePermissions The flag indicating whether to respect edge permissions
      * @param[in] haveRestrictions The flag indicating whether to respect edge restrictions
      */
-    Node2EdgeRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, 
-        const std::shared_ptr<const LookupTable> lookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+    Node2EdgeRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
+                    const std::shared_ptr<const LookupTable> lookup = nullptr,
+                    const bool havePermissions = false, const bool haveRestrictions = false) :
         AStarRouter<E, V>(edges, unbuildIsWarning, operation, lookup, havePermissions, haveRestrictions) {
     }
 
@@ -86,7 +86,7 @@ public:
      * @param[in] haveRestrictions The flag indicating whether to respect edge restrictions
      */
     Node2EdgeRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
-                const bool havePermissions = false, const bool haveRestrictions = false) :
+                    const bool havePermissions = false, const bool haveRestrictions = false) :
         AStarRouter<E, V>(edgeInfos, unbuildIsWarning, operation, lookup, havePermissions, haveRestrictions) {
     }
 
@@ -98,7 +98,7 @@ public:
     /// @brief Cloning method
     virtual SUMOAbstractRouter<E, V>* clone() {
         return new Node2EdgeRouter<E, N, V>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myLookupTable,
-                                     this->myHavePermissions, this->myHaveRestrictions);
+                                            this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Reset method
@@ -124,11 +124,11 @@ public:
      * @param[in] silent The boolean flag indicating whether the method stays silent or puts out messages
      */
     bool computeNode2Edges(const N* fromNode, const std::unordered_set<const E*>& toEdges, const V* const vehicle,
-                 SUMOTime msTime, bool silent = false) {
+                           SUMOTime msTime, bool silent = false) {
         assert(fromNode != nullptr);
         // check whether fromNode and to can be used
         bool found = false;
-        bool allVisited = true; // we try to disprove this 
+        bool allVisited = true; // we try to disprove this
         for (const E* from : fromNode->getOutgoing()) {
             if (from->isInternal()) {
                 continue;
@@ -137,8 +137,7 @@ public:
                 if (!silent) {
                     this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + from->getID() + "'.");
                 }
-            }
-            else {
+            } else {
                 found = true;
                 break;
             }
@@ -250,7 +249,7 @@ public:
      * @param[in] silent The boolean flag indicating whether the method stays silent or puts out messages
      */
     bool computeNode2Edge(const N* fromNode, const E* to, const V* const vehicle,
-        SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+                          SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         assert(fromNode != nullptr && to != nullptr);
         // check whether fromNode and to can be used
         bool found = false;
@@ -262,8 +261,7 @@ public:
                 if (!silent) {
                     this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + from->getID() + "'.");
                 }
-            }
-            else {
+            } else {
                 found = true;
                 break;
             }
@@ -313,8 +311,8 @@ public:
             // admissible A* heuristic: straight line distance at maximum speed
             // this is calculated from the end of minEdge so it possibly includes via efforts to the followers
             const double heuristic_remaining = (this->myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
-                this->myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
-                    minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
+                                                this->myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
+                                                        minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
             //const double heuristic_remaining = 0.;
             if (heuristic_remaining == UNREACHABLE) {
                 continue;
@@ -341,15 +339,13 @@ public:
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         this->myFrontierList.push_back(&followerInfo);
                         std::push_heap(this->myFrontierList.begin(), this->myFrontierList.end(), this->myComparator);
-                    }
-                    else {
+                    } else {
                         auto fi = std::find(this->myFrontierList.begin(), this->myFrontierList.end(), &followerInfo);
                         if (fi == this->myFrontierList.end()) {
                             assert(mayRevisit);
                             this->myFrontierList.push_back(&followerInfo);
                             std::push_heap(this->myFrontierList.begin(), this->myFrontierList.end(), this->myComparator);
-                        }
-                        else {
+                        } else {
                             std::push_heap(this->myFrontierList.begin(), fi + 1, this->myComparator);
                         }
                     }
@@ -386,8 +382,7 @@ public:
         double length = 0.;
         if (lengthp == nullptr) {
             lengthp = &length;
-        }
-        else {
+        } else {
             *lengthp = 0.;
         }
         const E* prev = nullptr;
@@ -462,4 +457,3 @@ void Node2EdgeRouter<E, N, V>::init(std::vector<const E*> fromEdges, const V* co
         this->myFrontierList.push_back(&fromInfo);
     }
 }
-

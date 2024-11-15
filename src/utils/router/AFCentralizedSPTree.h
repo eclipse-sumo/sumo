@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,8 +15,8 @@
 /// @author  Ruediger Ebendt
 /// @date    01.12.2023
 ///
-// Class for a label-correcting algorithm calculating multiple shortest path 
-// trees at once (centralized shortest path tree, cf. Hilger et al.) 
+// Class for a label-correcting algorithm calculating multiple shortest path
+// trees at once (centralized shortest path tree, cf. Hilger et al.)
 // Used for setting the arc flags for the arc flag router
 // @note Intended use is on a backward graph with flipped edges
 /****************************************************************************/
@@ -55,14 +55,13 @@ class AFCentralizedSPTree {
 public:
     typedef typename KDTreePartition<E, N, V>::Cell Cell;
     typedef typename AFInfo<E>::ArcInfo ArcInfo;
- 
+
     class EdgeInfoComparator {
     public:
         /** @brief Constructor
          * @param[in] arcInfos The arc informations
-         */ 
-        EdgeInfoComparator(std::vector<ArcInfo*>& arcInfos) : myArcInfos(arcInfos)
-        {
+         */
+        EdgeInfoComparator(std::vector<ArcInfo*>& arcInfos) : myArcInfos(arcInfos) {
         }
 
         /** @brief Comparing method
@@ -70,9 +69,9 @@ public:
          * @param[in] edgeInfo2 The second edge information
          * @return true iff arc info key of the first edge is greater than that of the second
          * @note In case of ties: returns true iff the numerical id of the first edge is greater that that of the second
-         */ 
-        bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* edgeInfo1, 
-            const typename SUMOAbstractRouter<E, V>::EdgeInfo* edgeInfo2) const {
+         */
+        bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* edgeInfo1,
+                        const typename SUMOAbstractRouter<E, V>::EdgeInfo* edgeInfo2) const {
             int index1 = edgeInfo1->edge->getNumericalID();
             int index2 = edgeInfo2->edge->getNumericalID();
             ArcInfo* arcInfo1 = myArcInfos[index1];
@@ -96,15 +95,15 @@ public:
      * @param[in] effortProvider The effort provider
      * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered or not
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
-     */ 
+     */
     AFCentralizedSPTree(const std::vector<E*>& edges, std::vector<ArcInfo*>& arcInfos, bool unbuildIsWarning,
-        SUMOAbstractRouter<E, V>* effortProvider, 
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+                        SUMOAbstractRouter<E, V>* effortProvider,
+                        const bool havePermissions = false, const bool haveRestrictions = false) :
         myArcInfos(arcInfos),
         myHavePermissions(havePermissions),
         myHaveRestrictions(haveRestrictions),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myEffortProvider(effortProvider), 
+        myEffortProvider(effortProvider),
         myMaxSpeed(NUMERICAL_EPS) {
         for (const E* const edge : edges) {
             myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edge));
@@ -112,33 +111,33 @@ public:
         }
         myComparator = new EdgeInfoComparator(myArcInfos);
     }
- 
+
     /// @brief Destructor
     ~AFCentralizedSPTree() {
         delete myComparator;
     }
-    
-    /** @brief Returns true iff driving the given vehicle on the given edge is prohibited 
+
+    /** @brief Returns true iff driving the given vehicle on the given edge is prohibited
      * @param[in] edge The edge
      * @param[in] vehicle The vehicle
      * @return true iff driving the given vehicle on the given edge is prohibited
-     */ 
+     */
     bool isProhibited(const E* const edge, const V* const vehicle) const {
         return (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
     }
 
     /** @brief Computes a shortest path tree for each boundary edge of the given cell, returns true iff this was successful
      * @note This is done for all such shortest path trees at once (i.e., a centralized shortest path tree is computed, see Hilger et al.)
-     * @param[in] msTime The start time of the paths/routes in milliseconds  
+     * @param[in] msTime The start time of the paths/routes in milliseconds
      * @param[in] cell The cell as a part of a k-d tree partition of the network
      * @param[in] vehicle The vehicle
      * @param[in] incomingEdgesOfOutgoingBoundaryEdges Maps each outgoing boundary edge to its incoming edges
      * @param[in] silent The boolean flag indicating whether the method stays silent or puts out messages
      * @return true iff the centralized shortest path tree could successfully be calculated
-     */ 
-    bool computeCentralizedSPTree(SUMOTime msTime, const Cell* cell, const V* const vehicle, 
-        const std::map<const E*, std::vector<const E*>>& incomingEdgesOfOutgoingBoundaryEdges,
-        bool silent = false) {
+     */
+    bool computeCentralizedSPTree(SUMOTime msTime, const Cell* cell, const V* const vehicle,
+                                  const std::map<const E*, std::vector<const E*>>& incomingEdgesOfOutgoingBoundaryEdges,
+                                  bool silent = false) {
         assert(cell != nullptr);
         const std::unordered_set<const E*>& fromEdges = cell->getOutgoingBoundaryEdges();
         if (fromEdges.empty()) { // nothing to do here
@@ -168,8 +167,7 @@ public:
             ArcInfo* minimumArcInfo = myArcInfos[minEdge->getNumericalID()];
             if (minimumInfo->visited || numberOfVisitedFromEdges < fromEdges.size()) {
                 minIsFromEdge = incomingEdgesOfOutgoingBoundaryEdges.find(minEdge) != incomingEdgesOfOutgoingBoundaryEdges.end();
-            }
-            else {
+            } else {
                 minIsFromEdge = false;
             }
             if (minIsFromEdge) {
@@ -192,7 +190,7 @@ public:
 #ifdef CSPT_DEBUG_LEVEL_0
             if (num_visited % 500 == 0) {
                 std::cout << "num_visited: " << num_visited << ", numberOfTouchedSupercellEdges: " << numberOfTouchedSupercellEdges
-                    << ", minimumArcInfo->key: " << minimumArcInfo->key << std::endl;
+                          << ", minimumArcInfo->key: " << minimumArcInfo->key << std::endl;
             }
 #endif
             std::pop_heap(myFrontierList.begin(), myFrontierList.end(), *myComparator);
@@ -216,10 +214,10 @@ public:
                     continue;
                 }
 
-                if (followerArcInfo->effortsToBoundaryNodes.empty()) { // non-initialized non-supercell edge 
+                if (followerArcInfo->effortsToBoundaryNodes.empty()) { // non-initialized non-supercell edge
                     assert(!supercell->contains(follower.first->getToJunction()));
                     std::fill_n(std::back_inserter(followerArcInfo->effortsToBoundaryNodes),
-                        minimumArcInfo->effortsToBoundaryNodes.size(), std::numeric_limits<double>::max());
+                                minimumArcInfo->effortsToBoundaryNodes.size(), std::numeric_limits<double>::max());
                 }
 
                 double key = std::numeric_limits<double>::max();
@@ -227,22 +225,22 @@ public:
                 bool hasImproved = false;
                 // loop over all boundary nodes
                 for (index = 0; index < followerArcInfo->effortsToBoundaryNodes.size(); index++) {
-                    // is minEdge a from-edge (i.e., an outgoing boundary edge of the passed cell), 
+                    // is minEdge a from-edge (i.e., an outgoing boundary edge of the passed cell),
                     // and 'index' not the index of its from-node (i.e., not of the 'own' boundary node)?
                     if (minIsFromEdge && (incomingEdgesOfOutgoingBoundaryEdges.at(minEdge))[index]) {
-                        // if yes, assign the successor edges of the incoming edge of minEdge on the shortest route from 
+                        // if yes, assign the successor edges of the incoming edge of minEdge on the shortest route from
                         // the boundary node with the index 'index' to followersOfIncomingEdge
-                        assert((incomingEdgesOfOutgoingBoundaryEdges.at(minEdge)).size() 
-                            == followerArcInfo->effortsToBoundaryNodes.size());
-                        const std::vector<std::pair<const E*, const E*>>& followersOfIncomingEdge 
-                            = ((incomingEdgesOfOutgoingBoundaryEdges.at(minEdge))[index])->getViaSuccessors(vClass);
+                        assert((incomingEdgesOfOutgoingBoundaryEdges.at(minEdge)).size()
+                               == followerArcInfo->effortsToBoundaryNodes.size());
+                        const std::vector<std::pair<const E*, const E*>>& followersOfIncomingEdge
+                                = ((incomingEdgesOfOutgoingBoundaryEdges.at(minEdge))[index])->getViaSuccessors(vClass);
                         // is the current follower among said successor edges?
                         bool turningAllowed = false;
                         for (std::pair<const E*, const E*> followerOfIncomingEdge : followersOfIncomingEdge) {
                             if (follower.first == followerOfIncomingEdge.first) {
                                 turningAllowed = true;
                                 break;
-                            }                          
+                            }
                         }
                         // if not, then turning from said incoming edge to the current follower is not allowed
                         // and we mustn't propagate the distance to said boundary node
@@ -253,9 +251,9 @@ public:
                     }
                     // propagate distances to other boundary nodes
                     double effortToFollower = minimumArcInfo->effortsToBoundaryNodes[index] == UNREACHABLE ?
-                        UNREACHABLE : minimumArcInfo->effortsToBoundaryNodes[index] + effortDelta;
+                                              UNREACHABLE : minimumArcInfo->effortsToBoundaryNodes[index] + effortDelta;
                     if (effortToFollower == UNREACHABLE) {
-                        continue; // no need to consider this follower 
+                        continue; // no need to consider this follower
                     }
                     double time = leaveTime;
                     myEffortProvider->updateViaEdgeCost(follower.second, vehicle, time, effortToFollower, length);
@@ -268,7 +266,7 @@ public:
                     }
 
                     if ((!followerInfo.visited || mayRevisit)
-                        && effortToFollower < oldEffort) {
+                            && effortToFollower < oldEffort) {
                         hasImproved = true;
                         followerArcInfo->effortsToBoundaryNodes[index] = effortToFollower;
                     }
@@ -281,21 +279,19 @@ public:
                 if (!wasPushedToHeap) {
                     myFrontierList.push_back(&followerInfo);
                     std::push_heap(myFrontierList.begin(), myFrontierList.end(), *myComparator);
-                }
-                else {
+                } else {
                     auto fi = std::find(myFrontierList.begin(), myFrontierList.end(), &followerInfo);
                     if (fi == myFrontierList.end()) { // has already been expanded, reinsert into frontier
                         assert(mayRevisit);
                         myFrontierList.push_back(&followerInfo);
                         std::push_heap(myFrontierList.begin(), myFrontierList.end(), *myComparator);
-                    }
-                    else {
+                    } else {
                         std::push_heap(myFrontierList.begin(), fi + 1, *myComparator);
                     }
                 }
             } // end follower loop
         } // end while (!myFrontierList.empty())
-  
+
 #ifdef CSPT_DEBUG_LEVEL_0
         std::cout << "centralizedSPTree finished (queue empty)." << std::endl;
 #endif
@@ -306,8 +302,8 @@ protected:
     /** @brief Initialize the arc flag router
      * @param[in] fromEdges The container of from-/head/source edges
      * @param[in] vehicle The vehicle
-     * @param[in] msTime The start time of the paths/routes in milliseconds 
-     */   
+     * @param[in] msTime The start time of the paths/routes in milliseconds
+     */
     void init(std::vector<const E*> fromEdges, const V* const vehicle, SUMOTime msTime);
     /// @brief The min edge heap
     /// @note A container for reusage of the min edge heap
@@ -316,7 +312,7 @@ protected:
     std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFound;
     /// The container of edge information
     std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
-    /// @brief The edge informations specific to arc flag routing 
+    /// @brief The edge informations specific to arc flag routing
     /// @note As opposed to the standard informations in SUMOAbstractRouter<E, V>::EdgeInfo
     std::vector<ArcInfo*>& myArcInfos;
     /// @brief The boolean flag indicating whether edge permissions need to be considered or not

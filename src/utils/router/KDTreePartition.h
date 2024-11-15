@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,9 +15,9 @@
 /// @author  Ruediger Ebendt
 /// @date    01.11.2023
 ///
-// Class for partitioning the router's network's nodes wrt a k-d tree subdivision scheme. 
-// All nodes are inserted at once at creation. Offers an O(log n) method to search a 
-// node within the bottom / leaf cells (i.e., the cell containing the respective node 
+// Class for partitioning the router's network's nodes wrt a k-d tree subdivision scheme.
+// All nodes are inserted at once at creation. Offers an O(log n) method to search a
+// node within the bottom / leaf cells (i.e., the cell containing the respective node
 // is returned). Here, n denotes the number of cells.
 /****************************************************************************/
 #pragma once
@@ -33,19 +33,19 @@
 #include <utility>
 
 #define KDTP_EXCLUDE_INTERNAL_EDGES
-// Use KDTP_KEEP_OUTGOING_BOUNDARY_EDGES and KDTP_KEEP_BOUNDARY_FROM_NODES on a reversed graph to build arc infos 
+// Use KDTP_KEEP_OUTGOING_BOUNDARY_EDGES and KDTP_KEEP_BOUNDARY_FROM_NODES on a reversed graph to build arc infos
 // for the arc flag shortest path routing algorithm
 #define KDTP_KEEP_OUTGOING_BOUNDARY_EDGES
 // Use KDTP_KEEP_INCOMING_BOUNDARY_EDGES on a forward graph to apply arc flag shortest path routing algorithm
 #define KDTP_KEEP_INCOMING_BOUNDARY_EDGES
 //#define KDTP_KEEP_BOUNDARY_EDGES
 //#define KDTP_KEEP_BOUNDARY_NODES
-// Use KDTP_KEEP_BOUNDARY_FROM_NODES on a reversed graph to build arc infos 
+// Use KDTP_KEEP_BOUNDARY_FROM_NODES on a reversed graph to build arc infos
 // for the arc flag shortest path routing algorithm
 #define KDTP_KEEP_BOUNDARY_FROM_NODES
 //#define KDTP_KEEP_BOUNDARY_TO_NODES
 //#define KDTP_FOR_SYNTHETIC_NETWORKS
-// Use KDTP_WRITE_QGIS_FILTERS to filter boundary nodes of cells in QGIS operating on a (e.g. PostGreSQL) database of 
+// Use KDTP_WRITE_QGIS_FILTERS to filter boundary nodes of cells in QGIS operating on a (e.g. PostGreSQL) database of
 // the (e.g. OSM) network
 //#define KDTP_WRITE_QGIS_FILTERS
 #ifdef KDTP_WRITE_QGIS_FILTERS
@@ -96,12 +96,12 @@ public:
      */
     class NodeXComparator {
     public:
-       /** @brief Comparing method for X-axis
-        * @param[in] firstNode The first node
-        * @param[in] secondNode The second node
-        * @return true iff first node's x-coordinate is smaller than that of the second
-        * @note In case of ties: true iff integer interpretation of first node's id is smaller than that of the second
-        */
+        /** @brief Comparing method for X-axis
+         * @param[in] firstNode The first node
+         * @param[in] secondNode The second node
+         * @return true iff first node's x-coordinate is smaller than that of the second
+         * @note In case of ties: true iff integer interpretation of first node's id is smaller than that of the second
+         */
         bool operator()(const N* firstNode, const N* secondNode) const {
             if (firstNode->getPosition().x() == secondNode->getPosition().x()) { // tie
                 std::string str = firstNode->getID();
@@ -139,12 +139,12 @@ public:
     };
 
     /**
-     * @class Cell 
+     * @class Cell
      * @brief Represents an element of the node partition (i.e. a node set)
      */
     class Cell {
     public:
-#ifdef KDTP_FOR_SYNTHETIC_NETWORKS        
+#ifdef KDTP_FOR_SYNTHETIC_NETWORKS
         /** @brief Constructor
          * @note Works recursively, builds the median-based k-d tree
          * @param[in] cells The vector of all cells
@@ -166,40 +166,40 @@ public:
          * @param[in] southernConflictNodes The southern spatial conflict nodes
          * @param[in] westernConflictNodes The western spatial conflict nodes
          * @param[in] isLeftOrLowerCell Boolean flag indicating whether this cell is a left or lower cell or not
-         * @param[in] vehicle The vehicle. 
+         * @param[in] vehicle The vehicle.
          * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered.
          * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered.
          */
-        Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes, int numberOfLevels, 
-            int level, Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, double minY, double maxY, 
-            std::unordered_set<const N*>* northernConflictNodes, std::unordered_set<const N*>* easternConflictNodes, 
-            std::unordered_set<const N*>* southernConflictNodes, std::unordered_set<const N*>* westernConflictNodes, 
-            bool isLeftOrLowerCell, const V* const vehicle, const bool havePermissions, const bool haveRestrictions);
+        Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes, int numberOfLevels,
+             int level, Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, double minY, double maxY,
+             std::unordered_set<const N*>* northernConflictNodes, std::unordered_set<const N*>* easternConflictNodes,
+             std::unordered_set<const N*>* southernConflictNodes, std::unordered_set<const N*>* westernConflictNodes,
+             bool isLeftOrLowerCell, const V* const vehicle, const bool havePermissions, const bool haveRestrictions);
 #else
-         /** @brief Constructor
-          * @note Works recursively, builds the median-based k-d tree
-          * @param[in] cells The vector of all cells
-          * @param[in] levelCells The vector of all level cell vectors
-          * @param[in] sortedNodes The vector of nodes
-          * @note Initially unsorted, after instantiation gets sorted wrt to the k-d tree subdivision scheme
-          * @param[in] numberOfLevels The number of levels
-          * @param[in] level The level
-          * @param[in] axis The axis (X or X)
-          * @param[in] fromInclusive The from-index (inclusive)
-          * @param[in] toExclusive The to-index (exclusive)
-          * @param[in] supercell The supercell
-          * @param[in] minX The minimum X-value of nodes in the cell
-          * @param[in] maxX The maximum X-value of nodes in the cell
-          * @param[in] minY The minimum Y-value of nodes in the cell
-          * @param[in] maxY The maximum Y-value of nodes in the cell
-          * @param[in] isLeftOrLowerCell Boolean flag indicating whether this cell is a left or lower cell or not
-          * @param[in] vehicle The vehicle 
-          * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered or not
-          * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
-          */
-        Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes, 
-            int numberOfLevels, int level, Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, 
-            double minY, double maxY, bool isLeftOrLowerCell, const V* const vehicle, const bool havePermissions, const bool haveRestrictions);
+        /** @brief Constructor
+         * @note Works recursively, builds the median-based k-d tree
+         * @param[in] cells The vector of all cells
+         * @param[in] levelCells The vector of all level cell vectors
+         * @param[in] sortedNodes The vector of nodes
+         * @note Initially unsorted, after instantiation gets sorted wrt to the k-d tree subdivision scheme
+         * @param[in] numberOfLevels The number of levels
+         * @param[in] level The level
+         * @param[in] axis The axis (X or X)
+         * @param[in] fromInclusive The from-index (inclusive)
+         * @param[in] toExclusive The to-index (exclusive)
+         * @param[in] supercell The supercell
+         * @param[in] minX The minimum X-value of nodes in the cell
+         * @param[in] maxX The maximum X-value of nodes in the cell
+         * @param[in] minY The minimum Y-value of nodes in the cell
+         * @param[in] maxY The maximum Y-value of nodes in the cell
+         * @param[in] isLeftOrLowerCell Boolean flag indicating whether this cell is a left or lower cell or not
+         * @param[in] vehicle The vehicle
+         * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered or not
+         * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
+         */
+        Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes,
+             int numberOfLevels, int level, Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX,
+             double minY, double maxY, bool isLeftOrLowerCell, const V* const vehicle, const bool havePermissions, const bool haveRestrictions);
 #endif
 
         /// @brief Destructor
@@ -212,10 +212,10 @@ public:
         Axis getAxis() const {
             return myAxis;
         };
-        /** 
+        /**
          * @brief Returns all edges situated inside the cell
          * @param[in] vehicle The vehicle
-         */ 
+         */
         std::unordered_set<const E*>* edgeSet(const V* const vehicle) const;
         /**
          * @brief Returns the number of edges ending in the cell
@@ -232,7 +232,7 @@ public:
             return myNumber;
         }
         /// @brief Returns the cell's level
-        // @note Level 0: root 
+        // @note Level 0: root
         int getLevel() const {
             return myLevel;
         }
@@ -244,12 +244,12 @@ public:
         }
         /** @brief Returns a pair of iterators (first, last) to iterate over the nodes of the cell
          * @return A pair of iterators (first, last) to iterate over the nodes of the cell
-         */  
-        std::pair<typename std::vector<const N*>::const_iterator, 
+         */
+        std::pair<typename std::vector<const N*>::const_iterator,
             typename std::vector<const N*>::const_iterator> nodeIterators() const;
         /** @brief Returns a new vector of nodes in the cell
          * @return A new vector of nodes in the cell
-         */ 
+         */
         std::vector<const N*>* nodes() const;
 #ifdef KDTP_KEEP_BOUNDARY_NODES
         /// @brief Returns the vector of boundary nodes
@@ -368,16 +368,16 @@ public:
         /** @brief Returns the minimum coordinate of the cell nodes' positions, in the direction of the given axis (X or Y)
          * @param axis The axis
          * @return The minimum coordinate of the cell nodes' positions, in the direction of the given axis (X or Y)
-         */ 
+         */
         double minAxisValue(Axis axis) const;
         /** @brief Returns the minimum coordinate of the cell nodes' positions, in the direction of the cell's axis (X or Y)
          * @return The minimum coordinate of the cell nodes' positions, in the direction of the cell's axis(X or Y)
          */
         double minAxisValue() const;
-       /** @brief Returns the maximum coordinate of the cell nodes' positions, in the direction of the given axis (X or Y)
-        * @param axis The axis
-        * @return The maximum coordinate of the cell nodes' positions, in the direction of the given axis (X or Y)
-        */
+        /** @brief Returns the maximum coordinate of the cell nodes' positions, in the direction of the given axis (X or Y)
+         * @param axis The axis
+         * @return The maximum coordinate of the cell nodes' positions, in the direction of the given axis (X or Y)
+         */
         double maxAxisValue(Axis axis) const;
         /** @brief Returns the maximum coordinate of the cell nodes' positions, in the direction of the cell's axis (X or Y)
          * @return The minimum coordinate of the cell nodes' positions, in the direction of the cell's axis(X or Y)
@@ -471,8 +471,8 @@ public:
      * @param[in] havePermissions The boolean flag indicating whether edge permissions need to be considered or not
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
      */
-    KDTreePartition(int numberOfLevels, const std::vector<E*>& edges, 
-        const bool havePermissions, const bool haveRestrictions);
+    KDTreePartition(int numberOfLevels, const std::vector<E*>& edges,
+                    const bool havePermissions, const bool haveRestrictions);
 
     /// @brief Destructor
     ~KDTreePartition() {
@@ -489,7 +489,7 @@ public:
     /** @brief Delete the k-d tree, and create a new one
      * param[in] vehicle The vehicle
      * @note Recreated wrt the network given at construction and the given edge
-     */ 
+     */
     void reset(const V* const vehicle) {
         delete myRoot;
         init(vehicle);
@@ -506,7 +506,7 @@ public:
      * @note Returns nullptr, if no such cell exists
      * @param[in] number The cell number
      * @return The cell with the given number
-     */ 
+     */
     const Cell* cell(int number) const;
     /// @brief Returns all cells of a level
     const std::vector<const Cell*>& getCellsAtLevel(int level) const {
@@ -529,9 +529,9 @@ public:
      * @note E.g.: number of levels := 3 -> 2 + 2 = 4 bits are required
      * @note No flag(s) for root level 0; each non-leaf cell has two subcells
      * @return The number of arc flags required in a multi-level approach
-     */ 
+     */
     int numberOfArcFlags() const {
-        return 2 * (myNumberOfLevels-1);
+        return 2 * (myNumberOfLevels - 1);
     }
     /// @brief Returns the number of levels L incl. the zeroth level
     // @note Levels go from 0 to L-1
@@ -555,13 +555,13 @@ public:
         return myAmClean;
     }
     /** @brief Search a node in the bottom cells (i.e., return the respective cell)
-     * @note Uses the position of the node and the divisional structure of the k-d tree for the search. 
+     * @note Uses the position of the node and the divisional structure of the k-d tree for the search.
      * @note O(log n) where n = number of cells
      * @param[in] node The node
      * @return The bottom cell containing the node, or nullptr if the node could not be found
      */
     const Cell* searchNode(const N* node) const;
-    
+
 private:
     /** @brief Helper method for {@link #cellNumbers()}.
      * @param node The node
@@ -578,7 +578,7 @@ private:
     const std::vector<E*>& myEdges;
     /// @brief The container with all nodes, sorted wrt to the k-d tree subdivision scheme
     std::vector<const N*> mySortedNodes;
-    /// @brief The cells 
+    /// @brief The cells
     std::vector<const Cell*> myCells;
     /// @brief The cells of all partitions at all levels of the k-d tree subdivision scheme
     std::vector<std::vector<const Cell*>> myLevelCells;
@@ -595,13 +595,13 @@ private:
 // ===========================================================================
 
 template<class E, class N, class V>
-KDTreePartition<E, N, V>::KDTreePartition(int numberOfLevels, const std::vector<E*>& edges, 
-    const bool havePermissions, const bool haveRestrictions) :
+KDTreePartition<E, N, V>::KDTreePartition(int numberOfLevels, const std::vector<E*>& edges,
+        const bool havePermissions, const bool haveRestrictions) :
     myNumberOfLevels(numberOfLevels),
     myEdges(edges),
     myHavePermissions(havePermissions),
     myHaveRestrictions(haveRestrictions),
-    myAmClean(true) /* still uninitialized */ {
+    myAmClean(true) { /* still uninitialized */
     if (numberOfLevels <= 0) {
         throw std::invalid_argument("KDTreePartition::KDTreePartition: zero or negative number of levels has been passed!");
     }
@@ -618,7 +618,7 @@ void KDTreePartition<E, N, V>::init(const V* const vehicle) {
 #endif
     for (E* edge : myEdges) {
         if ((myHavePermissions && edge->prohibits(vehicle))
-            || (myHaveRestrictions && edge->restricts(vehicle))) {
+                || (myHaveRestrictions && edge->restricts(vehicle))) {
             continue;
         }
         const N* node = edge->getFromJunction();
@@ -648,11 +648,11 @@ void KDTreePartition<E, N, V>::init(const V* const vehicle) {
     std::cout << "Calling root cell constructor..." << std::endl;
 #endif
 #ifdef KDTP_FOR_SYNTHETIC_NETWORKS
-    myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1, 
-        nullptr, nullptr, nullptr, nullptr, false, vehicle, havePermissions, haveRestrictions);
+    myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1,
+                      nullptr, nullptr, nullptr, nullptr, false, vehicle, havePermissions, haveRestrictions);
 #else
-    myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1, 
-        false, vehicle, myHavePermissions, myHaveRestrictions);
+    myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1,
+                      false, vehicle, myHavePermissions, myHaveRestrictions);
 #endif
 #ifdef KDTP_DEBUG_LEVEL_1
     std::cout << "Done." << std::endl;
@@ -685,7 +685,7 @@ void KDTreePartition<E, N, V>::init(const V* const vehicle) {
 template<class E, class N, class V>
 const typename KDTreePartition<E, N, V>::Cell* KDTreePartition<E, N, V>::cell(int number) const {
     // for now fast enough since the number of cells is usually small
-    for (const KDTreePartition<E, N, V>::Cell* cell : myCells) { 
+    for (const KDTreePartition<E, N, V>::Cell* cell : myCells) {
         if (cell->getNumber() == number) {
             return cell;
         }
@@ -720,10 +720,10 @@ void KDTreePartition<E, N, V>::cellNumbersAux(const N* node, const Cell* cell, i
 #ifdef KDTP_DEBUG_LEVEL_1
     Axis flippedCellAxis = flip(cell->getAxis());
     double nodeAxisValue = flippedCellAxis == Axis::Y ? node->getPosition().y() : node->getPosition().x();
-    std::cout << "Flipped axis of cell (=parent cell axis): " << (flippedCellAxis == Axis::X ? "X" : "Y") 
-        << ", cell min axis value in flipped axis: " << (flippedCellAxis == Axis::X ? cell->getMinX() : cell->getMinY()) 
-        << ", node axis value in flipped axis: " << nodeAxisValue << ", cell max axis value in flipped axis: " 
-        << (flippedCellAxis == Axis::X ? cell->getMaxX() : cell->getMaxY()) << std::endl;
+    std::cout << "Flipped axis of cell (=parent cell axis): " << (flippedCellAxis == Axis::X ? "X" : "Y")
+              << ", cell min axis value in flipped axis: " << (flippedCellAxis == Axis::X ? cell->getMinX() : cell->getMinY())
+              << ", node axis value in flipped axis: " << nodeAxisValue << ", cell max axis value in flipped axis: "
+              << (flippedCellAxis == Axis::X ? cell->getMaxX() : cell->getMaxY()) << std::endl;
 #endif
     if (cell->contains(node)) {
         // node is inside the cell, hence cell is one of the cells of node
@@ -750,49 +750,49 @@ void KDTreePartition<E, N, V>::cellNumbersAux(const N* node, const Cell* cell, i
 
 template<class E, class N, class V>
 #ifdef KDTP_FOR_SYNTHETIC_NETWORKS
-KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes, int numberOfLevels, int level, 
-    Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, double minY, double maxY, std::unordered_set<const N*>* northernConflictNodes, 
-    std::unordered_set<const N*>* easternConflictNodes, std::unordered_set<const N*>* southernConflictNodes, std::unordered_set<const N*>* westernConflictNodes, const V* const vehicle,
-    const bool havePermissions, const bool haveRestrictions) :
-    myCells(cells), 
-    myLevelCells(levelCells), 
-    mySortedNodes(sortedNodes), 
-    myNumberOfLevels(numberOfLevels), 
-    myLevel(level), myNumber(cellCounter()++), 
-    myAxis(axis), 
-    myFromInclusive(fromInclusive), 
-    myToExclusive(toExclusive), 
-    mySupercell(supercell), 
-    myMinX(minX), 
-    myMaxX(maxX), 
-    myMinY(minY), 
-    myMaxY(maxY), 
-    myNorthernConflictNodes(northernConflictNodes), 
-    myEasternConflictNodes(easternConflictNodes), 
-    mySouthernConflictNodes(southernConflictNodes), 
-    myWesternConflictNodes(westernConflictNodes), 
-    myIsLeftOrLowerCell(isLeftOrLowerCell), 
-    myHavePermissions(havePermissions), 
+KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes, int numberOfLevels, int level,
+                                     Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, double minY, double maxY, std::unordered_set<const N*>* northernConflictNodes,
+                                     std::unordered_set<const N*>* easternConflictNodes, std::unordered_set<const N*>* southernConflictNodes, std::unordered_set<const N*>* westernConflictNodes, const V* const vehicle,
+                                     const bool havePermissions, const bool haveRestrictions) :
+    myCells(cells),
+    myLevelCells(levelCells),
+    mySortedNodes(sortedNodes),
+    myNumberOfLevels(numberOfLevels),
+    myLevel(level), myNumber(cellCounter()++),
+    myAxis(axis),
+    myFromInclusive(fromInclusive),
+    myToExclusive(toExclusive),
+    mySupercell(supercell),
+    myMinX(minX),
+    myMaxX(maxX),
+    myMinY(minY),
+    myMaxY(maxY),
+    myNorthernConflictNodes(northernConflictNodes),
+    myEasternConflictNodes(easternConflictNodes),
+    mySouthernConflictNodes(southernConflictNodes),
+    myWesternConflictNodes(westernConflictNodes),
+    myIsLeftOrLowerCell(isLeftOrLowerCell),
+    myHavePermissions(havePermissions),
     myHaveRestrictions(haveRestrictions),
     myMedianCoordinate(-1.) {
 #else
-KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>*sortedNodes, int numberOfLevels, int level, 
-    Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, double minY, double maxY, bool isLeftOrLowerCell, const V* const vehicle,
-    const bool havePermissions, const bool haveRestrictions) :
-    myCells(cells), 
-    myLevelCells(levelCells), 
-    mySortedNodes(sortedNodes), 
-    myNumberOfLevels(numberOfLevels), 
-    myLevel(level), 
-    myNumber(cellCounter()++), 
-    myAxis(axis), 
-    myFromInclusive(fromInclusive), 
-    myToExclusive(toExclusive), 
-    mySupercell(supercell), 
-    myMinX(minX), 
-    myMaxX(maxX), 
-    myMinY(minY), 
-    myMaxY(maxY), 
+KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vector<std::vector<const Cell*>>* levelCells, std::vector<const N*>* sortedNodes, int numberOfLevels, int level,
+                                     Axis axis, size_t fromInclusive, size_t toExclusive, Cell* supercell, double minX, double maxX, double minY, double maxY, bool isLeftOrLowerCell, const V* const vehicle,
+                                     const bool havePermissions, const bool haveRestrictions) :
+    myCells(cells),
+    myLevelCells(levelCells),
+    mySortedNodes(sortedNodes),
+    myNumberOfLevels(numberOfLevels),
+    myLevel(level),
+    myNumber(cellCounter()++),
+    myAxis(axis),
+    myFromInclusive(fromInclusive),
+    myToExclusive(toExclusive),
+    mySupercell(supercell),
+    myMinX(minX),
+    myMaxX(maxX),
+    myMinY(minY),
+    myMaxY(maxY),
     myIsLeftOrLowerCell(isLeftOrLowerCell),
     myHavePermissions(havePermissions),
     myHaveRestrictions(haveRestrictions),
@@ -807,8 +807,8 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
     (*myCells)[myNumber] = this;
     (*myLevelCells)[myLevel].push_back(this);
 #ifdef KDTP_DEBUG_LEVEL_1
-    std::cout << "Cell number: " << myNumber << ", cell's extent: minX=" << myMinX << ", maxX=" 
-        << myMaxX << ", minY=" << myMinY << ", maxY=" << myMaxY << std::endl;
+    std::cout << "Cell number: " << myNumber << ", cell's extent: minX=" << myMinX << ", maxX="
+              << myMaxX << ", minY=" << myMinY << ", maxY=" << myMaxY << std::endl;
     std::vector<const N*>* cellNodes = nodes();
     int cnt = 0;
     for (const N* node : *cellNodes) {
@@ -856,7 +856,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
         std::unordered_set<const E*> nodeEdgeSet;
 #endif
 #ifdef KDTP_DEBUG_LEVEL_1
-        if ((i++%10000)==0) {
+        if ((i++ % 10000) == 0) {
             std::cout << i << " cell nodes processed..." << std::endl;
         }
 #endif
@@ -926,7 +926,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
         }
 #ifdef KDTP_KEEP_BOUNDARY_TO_NODES
         std::copy(boundaryToNodesSet.begin(), boundaryToNodesSet.end(),
-            std::back_inserter(myBoundaryToNodes));
+                  std::back_inserter(myBoundaryToNodes));
 #endif
 #endif
 #if defined(KDTP_KEEP_OUTGOING_BOUNDARY_EDGES) || defined(KDTP_KEEP_BOUNDARY_FROM_NODES)
@@ -952,8 +952,8 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
             }
         }
 #ifdef KDTP_KEEP_BOUNDARY_FROM_NODES
-        std::copy(boundaryFromNodesSet.begin(), boundaryFromNodesSet.end(), 
-            std::back_inserter(myBoundaryFromNodes));
+        std::copy(boundaryFromNodesSet.begin(), boundaryFromNodesSet.end(),
+                  std::back_inserter(myBoundaryFromNodes));
 #endif
 #endif
     }
@@ -1013,11 +1013,11 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
     file.clear();
     file.open(pathAndFileName.str());
     content.str("");
-    content.clear(); 
+    content.clear();
     content << "<Query>" << qgisFilterString << "</Query>";
     file << content.str();
     file.close();
- #endif
+#endif
 #ifdef KDTP_DEBUG_LEVEL_1
     std::cout << "Done. Now calling the constructor recursively to instantiate the subcells (left or lower one first)..." << std::endl;
 #endif
@@ -1032,19 +1032,18 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
             passMaxX = (*mySortedNodes)[medianIndex]->getPosition().x();
             passMinY = myMinY;
             passMaxY = myMaxY;
-        }
-        else { // lower subcell
+        } else { // lower subcell
             passMinX = myMinX;
             passMaxX = myMaxX;
             passMinY = myMinY;
             passMaxY = (*mySortedNodes)[medianIndex]->getPosition().y();
         }
 #ifdef KDTP_FOR_SYNTHETIC_NETWORKS
-        // notice that nodes with indexes medianIndex and medianIndex+1 may have the same coordinate in the direction of myAxis 
+        // notice that nodes with indexes medianIndex and medianIndex+1 may have the same coordinate in the direction of myAxis
         // (in that case, they are ordered / distributed between the two subcells with a tie-breaking rule)
         // consequently, the spatial extent of cells alone does not suffice to decide whether a node belongs to a certain cell or not
         // therefore, for each of the two subcells, we compute the set of nodes sharing said coordinate (called the set of "spatial conflict nodes")
-        // the size of this set is usually very small compared to the size of the set of all nodes of the subcell  
+        // the size of this set is usually very small compared to the size of the set of all nodes of the subcell
         // with the spatial extent of a cell and its spatial conflict nodes set, a valid test whether a node belongs to the cell becomes available
         // this test is quicker and requires significantly less memory than one based on pre-computed sets of all cell nodes
         std::pair<std::unordered_set<const N*>*, std::unordered_set<const N*>*> conflictNodes = spatialConflictNodes(medianIndex);
@@ -1058,19 +1057,18 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
             passEasternConflictNodes = conflictNodes.first;
             passSouthernConflictNodes = mySouthernConflictNodes;
             passWesternConflictNodes = myWesternConflictNodes;
-        }
-        else { // lower subcell
+        } else { // lower subcell
             passNorthernConflictNodes = conflictNodes.first;
             passEasternConflictNodes = myEasternConflictNodes;
             passSouthernConflictNodes = mySouthernConflictNodes;
             passWesternConflictNodes = myWesternConflictNodes;
         }
-        myLeftOrLowerSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), myFromInclusive, medianIndex + 1, this, 
-            passMinX, passMaxX, passMinY, passMaxY, passNorthernConflictNodes, passEasternConflictNodes, passSouthernConflictNodes, passWesternConflictNodes, true, 
-            vehicle, myHavePermissions, myHaveRestrictions);
+        myLeftOrLowerSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), myFromInclusive, medianIndex + 1, this,
+                                        passMinX, passMaxX, passMinY, passMaxY, passNorthernConflictNodes, passEasternConflictNodes, passSouthernConflictNodes, passWesternConflictNodes, true,
+                                        vehicle, myHavePermissions, myHaveRestrictions);
 #else
-        myLeftOrLowerSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), myFromInclusive, medianIndex + 1, this, 
-            passMinX, passMaxX, passMinY, passMaxY, true, vehicle, myHavePermissions, myHaveRestrictions);
+        myLeftOrLowerSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), myFromInclusive, medianIndex + 1, this,
+                                        passMinX, passMaxX, passMinY, passMaxY, true, vehicle, myHavePermissions, myHaveRestrictions);
 #endif
 #ifdef KDTP_DEBUG_LEVEL_1
         std::cout << "Left or lower call done. Now calling it for the right or upper subcell..." << std::endl;
@@ -1078,15 +1076,14 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
         // determine min/max X/Y-values to pass on to right or upper subcell
         passMinX = -1, passMaxX = -1, passMinY = -1, passMaxY = -1;
         if (myAxis == Axis::X) { // right subcell
-            passMinX = (*mySortedNodes)[medianIndex+1]->getPosition().x();
+            passMinX = (*mySortedNodes)[medianIndex + 1]->getPosition().x();
             passMaxX = myMaxX;
             passMinY = myMinY;
             passMaxY = myMaxY;
-        }
-        else { // upper subcell
+        } else { // upper subcell
             passMinX = myMinX;
             passMaxX = myMaxX;
-            passMinY = (*mySortedNodes)[medianIndex+1]->getPosition().y();
+            passMinY = (*mySortedNodes)[medianIndex + 1]->getPosition().y();
             passMaxY = myMaxY;
         }
 #ifdef KDTP_FOR_SYNTHETIC_NETWORKS
@@ -1096,19 +1093,18 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>*cells, std::vector
             passEasternConflictNodes = myEasternConflictNodes;
             passSouthernConflictNodes = mySouthernConflictNodes;
             passWesternConflictNodes = conflictNodes.second;
-        }
-        else { // upper subcell
+        } else { // upper subcell
             passNorthernConflictNodes = myNorthernConflictNodes;
             passEasternConflictNodes = myEasternConflictNodes;
             passSouthernConflictNodes = conflictNodes.second;
             passWesternConflictNodes = myWesternConflictNodes;
         }
-        myRightOrUpperSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), medianIndex + 1, myToExclusive, this, 
-        passMinX, passMaxX, passMinY, passMaxY, passNorthernConflictNodes, passEasternConflictNodes, passSouthernConflictNodes, passWesternConflictNodes, false, 
-            vehicle, myHavePermissions, myHaveRestrictions);
+        myRightOrUpperSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), medianIndex + 1, myToExclusive, this,
+                                         passMinX, passMaxX, passMinY, passMaxY, passNorthernConflictNodes, passEasternConflictNodes, passSouthernConflictNodes, passWesternConflictNodes, false,
+                                         vehicle, myHavePermissions, myHaveRestrictions);
 #else
-        myRightOrUpperSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), medianIndex + 1, myToExclusive, this, 
-            passMinX, passMaxX, passMinY, passMaxY, false, vehicle, myHavePermissions, myHaveRestrictions);
+        myRightOrUpperSubcell = new Cell(myCells, myLevelCells, mySortedNodes, myNumberOfLevels, myLevel + 1, KDTreePartition::flip(myAxis), medianIndex + 1, myToExclusive, this,
+                                         passMinX, passMaxX, passMinY, passMaxY, false, vehicle, myHavePermissions, myHaveRestrictions);
 #endif
 #ifdef KDTP_DEBUG_LEVEL_1
         std::cout << "Right or upper call done. Returning from constructor..." << std::endl;
@@ -1127,11 +1123,11 @@ double KDTreePartition<E, N, V>::Cell::minAxisValue(Axis axis) const {
 #endif
     if (myHasNodesSortedWrtToMyAxis && axis == myAxis) {
 #ifndef KDTP_DEBUG_LEVEL_1
-        return (myAxis == Axis::Y ? (*mySortedNodes)[myFromInclusive]->getPosition().y() 
-            : (*mySortedNodes)[myFromInclusive]->getPosition().x());
+        return (myAxis == Axis::Y ? (*mySortedNodes)[myFromInclusive]->getPosition().y()
+                : (*mySortedNodes)[myFromInclusive]->getPosition().x());
 #else
-        returnValue = (myAxis == Axis::Y ? (*mySortedNodes)[myFromInclusive]->getPosition().y() 
-            : (*mySortedNodes)[myFromInclusive]->getPosition().x());
+        returnValue = (myAxis == Axis::Y ? (*mySortedNodes)[myFromInclusive]->getPosition().y()
+                       : (*mySortedNodes)[myFromInclusive]->getPosition().x());
 #endif
     }
     double minAxisValue = std::numeric_limits<double>::max();
@@ -1140,7 +1136,7 @@ double KDTreePartition<E, N, V>::Cell::minAxisValue(Axis axis) const {
     typename std::vector<const N*>::const_iterator iter;
     // go through the nodes of the cell
     for (iter = first; iter != last; iter++) {
-        double nodeAxisValue; 
+        double nodeAxisValue;
         nodeAxisValue = (axis == Axis::Y ? (*iter)->getPosition().y() : (*iter)->getPosition().x());
         if (nodeAxisValue < minAxisValue) {
             minAxisValue = nodeAxisValue;
@@ -1148,7 +1144,7 @@ double KDTreePartition<E, N, V>::Cell::minAxisValue(Axis axis) const {
     }
     assert(minAxisValue < std::numeric_limits<double>::max());
 #ifdef KDTP_DEBUG_LEVEL_1
-    assert( (!myHasNodesSortedWrtToMyAxis || axis != myAxis) || minAxisValue == returnValue);
+    assert((!myHasNodesSortedWrtToMyAxis || axis != myAxis) || minAxisValue == returnValue);
 #endif
     return minAxisValue;
 }
@@ -1165,13 +1161,13 @@ double KDTreePartition<E, N, V>::Cell::maxAxisValue(Axis axis) const {
 #endif
     if (myHasNodesSortedWrtToMyAxis && axis == myAxis) {
 #ifndef KDTP_DEBUG_LEVEL_1
-        return (myAxis == Axis::Y ? (*mySortedNodes)[myToExclusive - 1]->getPosition().y() 
-            : (*mySortedNodes)[myToExclusive - 1]->getPosition().x());
+        return (myAxis == Axis::Y ? (*mySortedNodes)[myToExclusive - 1]->getPosition().y()
+                : (*mySortedNodes)[myToExclusive - 1]->getPosition().x());
 #else
-        returnValue = (myAxis == Axis::Y ? (*mySortedNodes)[myToExclusive - 1]->getPosition().y() 
-            : (*mySortedNodes)[myToExclusive - 1]->getPosition().x());
+        returnValue = (myAxis == Axis::Y ? (*mySortedNodes)[myToExclusive - 1]->getPosition().y()
+                       : (*mySortedNodes)[myToExclusive - 1]->getPosition().x());
 #endif
-        
+
     }
     double maxAxisValue = -1;
     typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
@@ -1193,8 +1189,7 @@ double KDTreePartition<E, N, V>::Cell::maxAxisValue(Axis axis) const {
 }
 
 template<class E, class N, class V>
-double KDTreePartition<E, N, V>::Cell::maxAxisValue() const
-{
+double KDTreePartition<E, N, V>::Cell::maxAxisValue() const {
     return maxAxisValue(myAxis);
 }
 
@@ -1210,38 +1205,38 @@ size_t KDTreePartition<E, N, V>::Cell::partition() {
     myHasNodesSortedWrtToMyAxis = true;
     if (mySupercell) {
         // sorting at one level destroys order at higher levels (but preserves the median split property)
-        mySupercell->myHasNodesSortedWrtToMyAxis = false; 
+        mySupercell->myHasNodesSortedWrtToMyAxis = false;
     }
     size_t length = myToExclusive - myFromInclusive;
     size_t medianIndex = myFromInclusive + (length % 2 == 0 ? length / 2 - 1 : (length + 1) / 2 - 1);
 #ifndef KDTP_FOR_SYNTHETIC_NETWORKS
-    // notice that nodes with indexes medianIndex and medianIndex+1 may have the same coordinate in the direction of myAxis - 
-    // in that case, they would be ordered and distributed between the two subcells with a tie-breaking rule, 
+    // notice that nodes with indexes medianIndex and medianIndex+1 may have the same coordinate in the direction of myAxis -
+    // in that case, they would be ordered and distributed between the two subcells with a tie-breaking rule,
     // and the spatial extent of cells alone would not suffice to decide whether a node belongs to a certain cell or not
     // for real-world road networks, this should occur very rarely
-    // therefore, a simple but perfectly acceptable remedy is to shift the median index until the nodes with indexes 
+    // therefore, a simple but perfectly acceptable remedy is to shift the median index until the nodes with indexes
     // medianIndex and medianIndex+1 have different coordinates
     // this will distort the 50%/50% distribution of nodes just a little bit (and only under very rare circumstances)
     // hence we can assume zero impact on performance
-    // note that this may happen more frequently for e.g. synthetic networks placing nodes at a regular, constant grid. 
+    // note that this may happen more frequently for e.g. synthetic networks placing nodes at a regular, constant grid.
     // for this case, a different solution is provided, see code within #ifdef KDTP_FOR_SYNTHETIC_NETWORKS ... #endif
     const N* medianNode = (*mySortedNodes)[medianIndex];
-    const N* afterMedianNode = (*mySortedNodes)[medianIndex+1];
-    double medianNodeCoordinate = myAxis == Axis::X ? medianNode->getPosition().x() 
-        : medianNode->getPosition().y();
-    double afterMedianNodeCoordinate = myAxis == Axis::X ? afterMedianNode->getPosition().x() 
-        : afterMedianNode->getPosition().y();
-    while (medianNodeCoordinate == afterMedianNodeCoordinate && medianIndex<myToExclusive-3) {
+    const N* afterMedianNode = (*mySortedNodes)[medianIndex + 1];
+    double medianNodeCoordinate = myAxis == Axis::X ? medianNode->getPosition().x()
+                                  : medianNode->getPosition().y();
+    double afterMedianNodeCoordinate = myAxis == Axis::X ? afterMedianNode->getPosition().x()
+                                       : afterMedianNode->getPosition().y();
+    while (medianNodeCoordinate == afterMedianNodeCoordinate && medianIndex < myToExclusive - 3) {
 #ifdef KDTP_DEBUG_LEVEL_2
-        std::cout << "Found spatially conflicting nodes." << std::endl; 
+        std::cout << "Found spatially conflicting nodes." << std::endl;
 #endif
         medianIndex++;
         medianNode = (*mySortedNodes)[medianIndex];
         afterMedianNode = (*mySortedNodes)[medianIndex + 1];
-        medianNodeCoordinate = myAxis == Axis::X ? medianNode->getPosition().x() 
-            : medianNode->getPosition().y();
-        afterMedianNodeCoordinate = myAxis == Axis::X ? afterMedianNode->getPosition().x() 
-            : afterMedianNode->getPosition().y();
+        medianNodeCoordinate = myAxis == Axis::X ? medianNode->getPosition().x()
+                               : medianNode->getPosition().y();
+        afterMedianNodeCoordinate = myAxis == Axis::X ? afterMedianNode->getPosition().x()
+                                    : afterMedianNode->getPosition().y();
     }
 #endif
     myMedianCoordinate = medianNodeCoordinate;
@@ -1323,8 +1318,7 @@ size_t KDTreePartition<E, N, V>::Cell::numberOfEdgesEndingInCell(const V* const 
 #ifdef KDTP_EXCLUDE_INTERNAL_EDGES
             if (incomingEdge->isInternal()) {
                 continue;
-            }
-            else {
+            } else {
                 edgeCounter++;
             }
 #endif
@@ -1346,12 +1340,11 @@ size_t KDTreePartition<E, N, V>::Cell::numberOfEdgesStartingInCell(const V* cons
                 continue;
             }
 #ifdef KDTP_EXCLUDE_INTERNAL_EDGES
-           if (outgoingEdge->isInternal()) {
+            if (outgoingEdge->isInternal()) {
                 continue;
-           }
-           else {
-               edgeCounter++;
-           }
+            } else {
+                edgeCounter++;
+            }
         }
 #endif
     }
@@ -1359,11 +1352,11 @@ size_t KDTreePartition<E, N, V>::Cell::numberOfEdgesStartingInCell(const V* cons
 }
 
 template<class E, class N, class V>
-std::pair<typename std::vector<const N*>::const_iterator, 
-    typename std::vector<const N*>::const_iterator> KDTreePartition<E, N, V>::Cell::nodeIterators() const {
+std::pair<typename std::vector<const N*>::const_iterator,
+typename std::vector<const N*>::const_iterator> KDTreePartition<E, N, V>::Cell::nodeIterators() const {
     typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
     typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
-    std::pair<typename std::vector<const N*>::const_iterator, 
+    std::pair<typename std::vector<const N*>::const_iterator,
         typename std::vector<const N*>::const_iterator> iterators = std::make_pair(first, last);
     return iterators;
 }
@@ -1378,11 +1371,11 @@ std::vector<const N*>* KDTreePartition<E, N, V>::Cell::nodes() const {
 
 #ifdef KDTP_FOR_SYNTHETIC_NETWORKS
 template<class E, class N, class V>
-std::pair<std::unordered_set<const N*>*, 
-    std::unordered_set<const N*>*> KDTreePartition<E, N, V>::Cell::spatialConflictNodes(size_t medianIndex) const {
+std::pair<std::unordered_set<const N*>*,
+std::unordered_set<const N*>*> KDTreePartition<E, N, V>::Cell::spatialConflictNodes(size_t medianIndex) const {
     std::unordered_set<const N*>* leftOrLowerSpatialConflictNodes = new std::unordered_set<const N*>();
     std::unordered_set<const N*>* rightOrUpperSpatialConflictNodes = new std::unordered_set<const N*>();
-    std::pair<std::unordered_set<const N*>*, std::unordered_set<const N*>*> spatialConflictNodes 
+    std::pair<std::unordered_set<const N*>*, std::unordered_set<const N*>*> spatialConflictNodes
         = std::make_pair(leftOrLowerSpatialConflictNodes, rightOrUpperSpatialConflictNodes);
     std::vector<const N*>::const_iterator iter, prev;
     if (myAxis == Axis::X) {
@@ -1420,8 +1413,7 @@ bool KDTreePartition<E, N, V>::Cell::isInBounds(const N* node) const {
 }
 
 template<class E, class N, class V>
-bool KDTreePartition<E, N, V>::Cell::contains(const N* node) const
-{
+bool KDTreePartition<E, N, V>::Cell::contains(const N* node) const {
     if (myLevel == 0) { // p.d., the root cell contains all nodes
         return true;
     }
@@ -1494,8 +1486,7 @@ bool KDTreePartition<E, N, V>::Cell::contains(const N* node) const
 }
 
 template<class E, class N, class V>
-const typename KDTreePartition<E, N, V>::Cell* KDTreePartition<E, N, V>::searchNode(const N* node) const
-{
+const typename KDTreePartition<E, N, V>::Cell* KDTreePartition<E, N, V>::searchNode(const N* node) const {
     const typename KDTreePartition<E, N, V>::Cell* cell = myRoot;
     if (!myRoot->contains(node)) {
         return nullptr;
@@ -1504,11 +1495,10 @@ const typename KDTreePartition<E, N, V>::Cell* KDTreePartition<E, N, V>::searchN
         assert(cell);
         double nodeCoordinate = cell->getAxis() == Axis::X ? node->getPosition().x() : node->getPosition().y();
         const typename KDTreePartition<E, N, V>::Cell* nextCell = nodeCoordinate <= cell->getMedianCoordinate() ?
-            cell->getLeftOrLowerSubcell() : cell->getRightOrUpperSubcell();
+                cell->getLeftOrLowerSubcell() : cell->getRightOrUpperSubcell();
         if (nextCell == nullptr) {
             return cell;
-        }
-        else {
+        } else {
             cell = nextCell;
         }
     }
