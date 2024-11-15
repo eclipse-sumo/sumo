@@ -276,9 +276,10 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
          * This is only executed if crossings are imported and not guessed */
         const double crossingWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
 
-        for (const auto& nodeIt : nc) {
-            NBNode* const n = nodeIt.second;
-            if (n->hasParameter("computePedestrianCrossing")) {
+        for (auto item : nodeUsage) {
+            NIOSMNode* osmNode = myOSMNodes.find(item.first)->second;
+            if (osmNode->pedestrianCrossing) {
+                NBNode* n = osmNode->node;
                 EdgeVector incomingEdges = n->getIncomingEdges();
                 EdgeVector outgoingEdges = n->getOutgoingEdges();
                 size_t incomingEdgesNo = incomingEdges.size();
@@ -344,7 +345,6 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                     }
                 }
-                n->unsetParameter("computePedestrianCrossing");
             }
         }
     }
@@ -430,8 +430,6 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
                 delete tlDef;
                 throw ProcessError(TLF("Could not allocate tls '%'.", toString(id)));
             }
-        } else if (n->pedestrianCrossing && myImportCrossings) {
-            node->setParameter("computePedestrianCrossing", "true");
         }
         if (n->railwayBufferStop) {
             node->setParameter("buffer_stop", "true");
