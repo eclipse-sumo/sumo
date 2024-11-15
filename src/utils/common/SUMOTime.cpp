@@ -72,7 +72,8 @@ time2string(SUMOTime t, bool humanReadable) {
         oss << "-";
     }
     // needed for signed zero errors, see #5926
-    t = llabs(t);
+    // llabs(SUMOTime_MIN) would create overflow and must be handleed separately
+    t = t == SUMOTime_MIN ? SUMOTime_MAX : (SUMOTime)llabs(t);
     SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
     if (scale > 1) {
         if (t != SUMOTime_MAX) {
