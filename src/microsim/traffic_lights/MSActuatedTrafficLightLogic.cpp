@@ -677,7 +677,7 @@ void
 MSActuatedTrafficLightLogic::findTargets(int origStep, int n, SUMOTime priorTransition, std::map<int, SUMOTime>& found) {
     std::pair<int, SUMOTime> tDur = getTarget(n);
     int target = tDur.first;
-    int transitionTime = tDur.second + priorTransition;
+    SUMOTime transitionTime = tDur.second + priorTransition;
     //std::cout << "   findTargets origStep=" << origStep << " n=" << n << " ptt=" << priorTransition << " target=" << target << " tt=" << transitionTime << "\n";
     if (target == origStep) {
         // full circle
