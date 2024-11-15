@@ -44,7 +44,9 @@ title: ChangeLog
   - Can now load trips without from / to #15074
   - Fixed slowdown when loading large TAZ #15674
   - Significantly reduced UI freeze when switching to demand mode and many vehicles are loaded #15681
-  - Fixed dotted contour of multilane objects (routes, trips, etc.) #15676 
+  - Fixed dotted contour of multilane objects (routes, trips, etc.) #15676
+  - Fixed crash when undo removes a connection that is being inspected #15724
+  - Fixed crash during undo-redo of edited network #15534 
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -53,11 +55,14 @@ title: ChangeLog
 
 - netconvert 
   - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624
-  - Fixed bug where right-of-way rules could create deadlock at a traffic light #15150 
+  - Fixed bug where right-of-way rules could create deadlock at a traffic light #15150
+  - Fixed bug when removing narrow lanes during import #15718
+  - No longer generating invalid signal plan when giving invalid argument **--tls.green.time** #15719 
 
 - TraCI
   - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
-  - Fixed invalid result by `trafficlight.getServedPersonCount` #15715 
+  - Fixed invalid result by `trafficlight.getServedPersonCount` #15715
+  - Fixed invalid result by `vehicle.couldChangeLane` #10739 
     
 ### Enhancements
 
@@ -93,7 +98,8 @@ title: ChangeLog
 - netconvert
   - Added support for zipped shape files #15623
   - street-sign-output now sets the sign angle corresponding to road geometry #15671
-  - traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248 
+  - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
+  - Actuated pedestrian crossings are now actuated by pedestrians rather than vehicles #7637 
 
 - meso
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
