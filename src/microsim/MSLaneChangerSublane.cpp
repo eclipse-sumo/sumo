@@ -737,6 +737,7 @@ MSLaneChangerSublane::checkChangeSublane(
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
 #endif
+    vehicle->getLaneChangeModel().getCanceledState(laneOffset) |= blocked;
     vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     if (laneOffset != 0) {
         vehicle->getLaneChangeModel().saveNeighbors(laneOffset, neighFollowers, neighLeaders);
