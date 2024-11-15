@@ -367,7 +367,7 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
         }
     } else {
         // don't exaggerate contour
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), width, 1, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), width, 1, true, true, 0, nullptr);
         mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, s.stoppingPlaceSettings.symbolExternalRadius, getType(), exaggeration);
     }
 }

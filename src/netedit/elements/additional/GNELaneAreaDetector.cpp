@@ -284,7 +284,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0, nullptr);
     }
 }
 
@@ -357,7 +357,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         }
         // calculate contour and draw dotted geometry
         segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
-                segment->isFirstSegment(), segment->isLastSegment(), 0);
+                segment->isFirstSegment(), segment->isLastSegment(), 0, segment);
         // check if create from-to contours
         if (segment->getFromContour()) {
             segment->getFromContour()->calculateContourCircleShape(s, d, this, E2Geometry.getShape().front(),
@@ -400,7 +400,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             }
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0, segment);
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
             gViewObjectsHandler.addToRedrawPathElements(this);

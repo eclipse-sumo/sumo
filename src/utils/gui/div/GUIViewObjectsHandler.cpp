@@ -229,8 +229,8 @@ GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::De
 
 
 bool
-GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape,
-                                        const Boundary& shapeBoundary, const double layer) {
+GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape, const Boundary& shapeBoundary,
+                                        const double layer, const GNESegment* segment) {
     // first check that object doesn't exist
     if (isObjectSelected(GLObject)) {
         return false;

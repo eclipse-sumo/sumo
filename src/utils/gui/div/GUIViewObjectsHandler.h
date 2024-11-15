@@ -33,6 +33,7 @@ class GNEEdge;
 class GNELane;
 class GNERoute;
 class GNEPathElement;
+class GNESegment;
 
 // ===========================================================================
 // class definitions
@@ -105,8 +106,8 @@ public:
                                 const PositionVector& shape, const double layer, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape,
-                          const Boundary& shapeBoundary, const double layer);
+    bool checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape, const Boundary& shapeBoundary,
+                          const double layer, const GNESegment* segment);
     /// @}
 
     /// @name functions used for mark (select) elements

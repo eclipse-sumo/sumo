@@ -28,6 +28,7 @@
 
 class GNENet;
 class GNEEdge;
+class GNESegment;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -61,7 +62,7 @@ public:
     void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                        const GUIGlObject* glObject, const PositionVector& shape, const double layer,
                                        const double extrusionWidth, const double scale, const bool closeFirstExtrem,
-                                       const bool closeLastExtrem, const double offset) const;
+                                       const bool closeLastExtrem, const double offset, const GNESegment* segment) const;
 
     /// @brief calculate contour (for rectangled elements)
     void calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

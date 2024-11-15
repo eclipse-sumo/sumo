@@ -38,7 +38,7 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE,
                   GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), "", {}, {}, {}, {}, {}, {}),
                             myPeriod(SUMOTime_MAX_PERIOD),
-    myBegin(0) {
+myBegin(0) {
     // reset default values
     resetDefaultValues();
     // update centering boundary without updating grid
@@ -51,11 +51,11 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, 
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE,
                   GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name, {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPeriod(period),
-    myFilename(filename),
-    myBegin(begin),
-    myVehicleTypes(vehicleTypes) {
+Parameterised(parameters),
+myPeriod(period),
+myFilename(filename),
+myBegin(begin),
+myVehicleTypes(vehicleTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -222,7 +222,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // calculate contour and draw dotted geometry
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.routeProbeSize,
                 s.additionalSettings.routeProbeSize, getType(), 0, 0, 0, routeProbeExaggeration);
-        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), 0.3, routeProbeExaggeration, true, true, 0);
+        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), 0.3, routeProbeExaggeration, true, true, 0, nullptr);
     }
 }
 

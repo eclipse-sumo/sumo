@@ -437,7 +437,7 @@ GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const 
         myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(), exaggeration);
         myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(), exaggeration);
     } else {
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, getType(), width, exaggeration, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, getType(), width, exaggeration, true, true, 0, nullptr);
     }
 }
 

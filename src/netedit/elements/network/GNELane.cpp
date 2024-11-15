@@ -1425,7 +1425,7 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s, const double la
     if (!gViewObjectsHandler.checkBoundaryParentObject(this, myParentEdge, layer)) {
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
-                layer, myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
+                layer, myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset(), nullptr);
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),

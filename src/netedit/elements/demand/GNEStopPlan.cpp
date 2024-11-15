@@ -246,7 +246,7 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
             myStopSignContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour and draw dotted geometry
-        myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0);
+        myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr);
         myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration);
     }
     // check if draw plan parent

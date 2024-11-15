@@ -1036,7 +1036,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
         myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), layer, 1);
     } else {
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), layer,
-                s.neteditSizeSettings.polylineWidth, exaggeration, true, true, 0);
+                s.neteditSizeSettings.polylineWidth, exaggeration, true, true, 0, nullptr);
     }
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
