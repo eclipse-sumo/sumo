@@ -8,22 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
-      - name: Run script
-        run:
+      - name: Install packages
+        run: |
           python -m pip install --upgrade pip
-          python -m pip install requests
-          python -m pip install bibtexparser
-          python tools/build_config/updateBibtex.py --bibtex-input sumo.bib --bibtex-output sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
+          pip install requests
+          pip install bibtexparser
+
+      - name: Run script
+        run: python tools/build_config/updateBibtex.py --bibtex-input docs/sumo.bib --bibtex-output docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
       - name: Pull request
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "main"
-          pr_title: "Bibtex update"
-          pr_draft: true
+        run: |
+          gh_pr_up() { gh pr create $* || gh pr edit $* }
+          gh_pr_up --title "Bibtex update" --body "Update of bibtex file with SemanticScholar data"
