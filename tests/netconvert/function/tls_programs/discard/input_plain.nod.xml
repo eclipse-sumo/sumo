@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-11-15 08:37:40 by Eclipse SUMO netedit Version v1_21_0+0779-d5e88f83d77
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata1/debug/7637/orig.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,500.00,200.00" origBoundary="0.00,0.00,500.00,200.00" projParameter="!"/>
+
+    <node id="A0" x="100.00" y="100.00" type="traffic_light" tl="A0"/>
+    <node id="B0" x="200.00" y="100.00" type="traffic_light" tl="B0"/>
+    <node id="C0" x="300.00" y="100.00" type="traffic_light" tl="C0"/>
+    <node id="D0" x="400.00" y="100.00" type="traffic_light" tl="D0"/>
+    <node id="bottom2" x="300.00" y="0.00" type="dead_end" fringe="outer"/>
+    <node id="bottom3" x="400.00" y="0.00" type="priority" fringe="outer"/>
+    <node id="left0" x="0.00" y="100.00" type="priority" fringe="outer"/>
+    <node id="right0" x="500.00" y="100.00" type="priority" fringe="outer"/>
+    <node id="top2" x="300.00" y="200.00" type="dead_end" fringe="outer"/>
+    <node id="top3" x="400.00" y="200.00" type="priority" fringe="outer"/>
+</nodes>

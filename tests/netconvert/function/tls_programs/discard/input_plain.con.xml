@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-11-15 08:37:40 by Eclipse SUMO netedit Version v1_21_0+0779-d5e88f83d77
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata1/debug/7637/orig.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="A0B0" to="B0C0" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="A0B0" to="B0A0" fromLane="1" toLane="1"/>
+
+    <connection from="A0left0" to="left0A0" fromLane="0" toLane="0"/>
+
+    <connection from="B0A0" to="A0left0" fromLane="1" toLane="0" keepClear="0"/>
+    <connection from="B0A0" to="A0B0" fromLane="1" toLane="1"/>
+
+    <connection from="B0C0" to="C0D0" fromLane="1" toLane="0"/>
+    <connection from="B0C0" to="C0B0" fromLane="1" toLane="1"/>
+
+    <connection from="C0B0" to="B0A0" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="C0B0" to="B0C0" fromLane="1" toLane="1"/>
+
+    <connection from="C0D0" to="D0bottom3" fromLane="0" toLane="0"/>
+    <connection from="C0D0" to="D0right0" fromLane="0" toLane="0"/>
+    <connection from="C0D0" to="D0top3" fromLane="0" toLane="0"/>
+    <connection from="C0D0" to="D0C0" fromLane="0" toLane="0"/>
+
+    <connection from="D0C0" to="C0B0" fromLane="0" toLane="1"/>
+    <connection from="D0C0" to="C0D0" fromLane="0" toLane="0"/>
+
+    <connection from="D0bottom3" to="bottom3D0" fromLane="0" toLane="0"/>
+
+    <connection from="D0right0" to="right0D0" fromLane="0" toLane="0"/>
+
+    <connection from="D0top3" to="top3D0" fromLane="0" toLane="0"/>
+
+    <connection from="bottom3D0" to="D0right0" fromLane="0" toLane="0"/>
+    <connection from="bottom3D0" to="D0top3" fromLane="0" toLane="0"/>
+    <connection from="bottom3D0" to="D0C0" fromLane="0" toLane="0"/>
+    <connection from="bottom3D0" to="D0bottom3" fromLane="0" toLane="0"/>
+
+    <connection from="left0A0" to="A0B0" fromLane="0" toLane="1" keepClear="0"/>
+    <connection from="left0A0" to="A0left0" fromLane="0" toLane="0"/>
+
+    <connection from="right0D0" to="D0top3" fromLane="0" toLane="0"/>
+    <connection from="right0D0" to="D0C0" fromLane="0" toLane="0"/>
+    <connection from="right0D0" to="D0bottom3" fromLane="0" toLane="0"/>
+    <connection from="right0D0" to="D0right0" fromLane="0" toLane="0"/>
+
+    <connection from="top3D0" to="D0C0" fromLane="0" toLane="0"/>
+    <connection from="top3D0" to="D0bottom3" fromLane="0" toLane="0"/>
+    <connection from="top3D0" to="D0right0" fromLane="0" toLane="0"/>
+    <connection from="top3D0" to="D0top3" fromLane="0" toLane="0"/>
+
+    <crossing node="B0" edges="B0A0 A0B0" priority="1" width="4.00" outlineShape="198.00,103.30 198.00,96.70 202.00,95.80 202.00,94.80 198.00,94.80 198.00,96.80 202.00,96.80 202.00,103.20"/>
+    <crossing node="C0" edges="C0D0 D0C0" priority="1" width="4.00" outlineShape="303.50,96.70 303.50,103.30 299.50,103.20 299.50,96.80"/>
+</connections>

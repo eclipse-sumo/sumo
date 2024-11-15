@@ -13,6 +13,9 @@ bike_edges
 # programs for tls that span multiple junctions
 joined
 
+# functions for discarding traffic lights
+discard
+
 # warn about traffic light with a high cycle time
 high_cycle_time
 
