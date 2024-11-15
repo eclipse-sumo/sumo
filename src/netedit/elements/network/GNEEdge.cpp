@@ -2897,7 +2897,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains2D(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.selectObject(this, layer, false, true);
+        gViewObjectsHandler.selectObject(this, layer, false, true, nullptr);
     } else {
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
