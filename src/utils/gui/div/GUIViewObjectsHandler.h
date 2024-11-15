@@ -62,7 +62,7 @@ public:
         double offset = 0;
     };
 
-    /// @brief typedef
+    /// @brief typedef for pack elements sorted by layer
     typedef std::map<double, std::vector<ObjectContainer> > GLObjectsSortedContainer;
 
     /// @brief constructor
@@ -127,6 +127,9 @@ public:
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;
+
+    /// @brief get segment associated with the given GLObject (if exist)
+    const GNESegment* getSelectedSegment(const GUIGlObject* GLObject) const;
 
     /// @brief get geometry points for the given glObject
     const std::vector<int>& getSelectedGeometryPoints(const GUIGlObject* GLObject) const;

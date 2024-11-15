@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -99,10 +100,29 @@ GNEDetector::checkDrawMoveContour() const {
             !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-    } else {
-        return false;
+        if (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this) {
+            // special case for multiple lane area detectors
+            if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+                auto segment = gViewObjectsHandler.getSelectedSegment(this);
+                if (segment && segment->getJunction()) {
+                    return false;
+                } else if (segment && segment->getLane()) {
+                    // ensure that is the first or the last lane
+                    if (segment->getLaneIndex() == 0) {
+                        return true;
+                    } else if (segment->getLaneIndex() == ((int)getParentLanes().size() - 1)) {
+                        return true;
+                    }
+                } else {
+                    // this is the start and end points
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
     }
+    return false;
 }
 
 

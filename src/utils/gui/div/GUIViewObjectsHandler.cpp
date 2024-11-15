@@ -346,6 +346,17 @@ GUIViewObjectsHandler::getSelectedObjects() const {
 }
 
 
+const GNESegment*
+GUIViewObjectsHandler::getSelectedSegment(const GUIGlObject* GLObject) const {
+    auto finder = mySelectedObjects.find(GLObject);
+    if (finder != mySelectedObjects.end()) {
+        return finder->second.second;
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::vector<int>&
 GUIViewObjectsHandler::getSelectedGeometryPoints(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements

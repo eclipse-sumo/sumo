@@ -929,17 +929,20 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
     // check if we clicked over start or end position
     if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move using start position
+            // move first position
             return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
                                         false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST);
         } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move using end position
+            // move last position
             return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
                                         false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
         }
     } else {
-        return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                    false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH);
+        auto segment = gViewObjectsHandler.getSelectedSegment(this);
+        if (segment) {
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
+                                        false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH);
+        }
     }
     return nullptr;
 }
