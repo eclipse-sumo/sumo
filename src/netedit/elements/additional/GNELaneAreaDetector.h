@@ -134,14 +134,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /// @}
 
@@ -202,7 +202,7 @@ private:
 
     /// @brief draw E2 partial lane
     void drawE2PartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                           const GNEPathManager::Segment* segment, const double offsetFront,
+                           const GNESegment* segment, const double offsetFront,
                            const GUIGeometry& geometry, const double exaggeration, const bool movingGeometryPoints) const;
 
     /// @brief draw E2 partial junction

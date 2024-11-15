@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
-// Segment used in Path Manager
+// GNESegment used in Path Manager
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -30,7 +30,7 @@
 
 
 // ===========================================================================
-// class definitions
+// class declaration
 // ===========================================================================
 
 class GNELane;
@@ -38,19 +38,21 @@ class GNEJunction;
 class GNEPathElement;
 class GNEPathManager;
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
-/// @brief segment
-class Segment {
+class GNESegment {
 
 public:
     /// @brief constructor for lanes
-    Segment(GNEPathManager* pathManager, GNEPathElement* element, const GNELane* lane, std::vector<Segment*>& segments);
+    GNESegment(GNEPathManager* pathManager, GNEPathElement* element, const GNELane* lane, std::vector<GNESegment*>& segments);
 
     /// @brief constructor for junctions
-    Segment(GNEPathManager* pathManager, GNEPathElement* element, const GNEJunction* junction, std::vector<Segment*>& segments);
+    GNESegment(GNEPathManager* pathManager, GNEPathElement* element, const GNEJunction* junction, std::vector<GNESegment*>& segments);
 
     /// @brief destructor
-    ~Segment();
+    ~GNESegment();
 
     /// @name functions related with segment contour
     /// @{
@@ -68,10 +70,10 @@ public:
     /// @brief functions related with the other paht segments
     /// @{
     /// @brief get next segment
-    Segment* getNextSegment() const;
+    GNESegment* getNextSegment() const;
 
     /// @brief get previous segment
-    Segment* getPreviousSegment() const;
+    GNESegment* getPreviousSegment() const;
 
     /// @brief check if segment is the first path's segment
     bool isFirstSegment() const;
@@ -132,10 +134,10 @@ protected:
     int myJunctionIndex = 0;
 
     /// @brief pointer to next segment (use for draw red line)
-    Segment* myNextSegment;
+    GNESegment* myNextSegment;
 
     /// @brief pointer to previous segment (use for draw red line)
-    Segment* myPreviousSegment;
+    GNESegment* myPreviousSegment;
 
     /// @brief flag for check if this segment is a label segment
     bool myLabelSegment;
@@ -151,11 +153,11 @@ protected:
 
 private:
     /// @brief default constructor
-    Segment();
+    GNESegment();
 
     /// @brief Invalidated copy constructor.
-    Segment(const Segment&) = delete;
+    GNESegment(const GNESegment&) = delete;
 
     /// @brief Invalidated assignment operator.
-    Segment& operator=(const Segment&) = delete;
+    GNESegment& operator=(const GNESegment&) = delete;
 };

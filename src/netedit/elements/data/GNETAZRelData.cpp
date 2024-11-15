@@ -331,13 +331,13 @@ GNETAZRelData::computePathElement() {
 
 
 void
-GNETAZRelData::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNETAZRelData::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // nothing to draw
 }
 
 
 void
-GNETAZRelData::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNETAZRelData::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // nothing to draw
 }
 

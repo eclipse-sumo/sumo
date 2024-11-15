@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -402,7 +403,7 @@ GNERoute::computePathElement() {
 
 
 void
-GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
@@ -464,7 +465,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
 
 
 void
-GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
@@ -742,7 +743,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
 
 void
 GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const GNEPathManager::Segment* segment, const double offsetFront,
+                               const GNESegment* segment, const double offsetFront,
                                const GUIGeometry& geometry, const double exaggeration) const {
     // get route width
     const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;

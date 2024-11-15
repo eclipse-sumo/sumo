@@ -17,7 +17,9 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -242,7 +244,7 @@ GNEOverheadWire::computePathElement() {
 
 
 void
-GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getLane());
     // check if E2 can be drawn
@@ -323,7 +325,7 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
 
 
 void
-GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if overhead wire can be drawn

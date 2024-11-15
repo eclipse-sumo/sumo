@@ -30,7 +30,7 @@
 
 
 // ===========================================================================
-// class definitions
+// class declaration
 // ===========================================================================
 
 class GNENet;
@@ -39,9 +39,16 @@ class GNELane;
 class GNEJunction;
 class GNEAdditional;
 class GNEPathElement;
+class GNESegment;
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
 class GNEPathManager {
+
+    /// @brief friend class declaration
+    friend class GNESegment;
 
 public:
 
@@ -121,7 +128,7 @@ public:
         bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNELane* lane, SumoXMLTag tag);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const Segment* segment, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNESegment* segment, SumoXMLTag tag);
 
     private:
         /// @brief map for saving tags drawn in lanes
@@ -144,7 +151,7 @@ public:
     const GNEPathElement* getPathElement(const GUIGlObject* GLObject) const;
 
     /// @brief get path segments
-    const std::vector<Segment*>& getPathElementSegments(GNEPathElement* pathElement) const;
+    const std::vector<GNESegment*>& getPathElementSegments(GNEPathElement* pathElement) const;
 
     /// @brief obtain instance of PathDraw
     PathDraw* getPathDraw();
@@ -199,14 +206,14 @@ public:
     void clearSegments();
 
 protected:
-    /// @brief add segments int laneSegments (called by Segment constructor)
-    void addSegmentInLaneSegments(Segment* segment, const GNELane* lane);
+    /// @brief add segments int laneSegments (called by GNESegment constructor)
+    void addSegmentInLaneSegments(GNESegment* segment, const GNELane* lane);
 
-    /// @brief add segments int junctionSegments (called by Segment constructor)
-    void addSegmentInJunctionSegments(Segment* segment, const GNEJunction* junction);
+    /// @brief add segments int junctionSegments (called by GNESegment constructor)
+    void addSegmentInJunctionSegments(GNESegment* segment, const GNEJunction* junction);
 
-    /// @brief clear segments from junction and lane Segments (called by Segment destructor)
-    void clearSegmentFromJunctionAndLaneSegments(Segment* segment);
+    /// @brief clear segments from junction and lane Segments (called by GNESegment destructor)
+    void clearSegmentFromJunctionAndLaneSegments(GNESegment* segment);
 
     /// @brief check if given lanes are connected
     bool connectedLanes(const GNELane* fromLane, const GNELane* toLane) const;
@@ -222,23 +229,23 @@ protected:
     PathDraw* myPathDraw;
 
     /// @brief map with path element and their associated segments
-    std::map<const GNEPathElement*, std::vector<Segment*> > myPaths;
+    std::map<const GNEPathElement*, std::vector<GNESegment*> > myPaths;
 
     /// @brief map with lane segments
-    std::map<const GNELane*, std::set<Segment*> > myLaneSegments;
+    std::map<const GNELane*, std::set<GNESegment*> > myLaneSegments;
 
     /// @brief map with junction segments
-    std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
+    std::map<const GNEJunction*, std::set<GNESegment*> > myJunctionSegments;
 
     /// @brief flag for clear segments quickly
     bool myCleaningSegments = false;
 
 private:
     /// @brief mark label segment
-    void markLabelSegment(const std::vector<Segment*>& segments) const;
+    void markLabelSegment(const std::vector<GNESegment*>& segments) const;
 
     /// @brief empty segments (used in getPathElementSegments)
-    const std::vector<Segment*> myEmptySegments;
+    const std::vector<GNESegment*> myEmptySegments;
 
     /// @brief Invalidated copy constructor.
     GNEPathManager(const GNEPathManager&) = delete;

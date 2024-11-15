@@ -18,14 +18,9 @@
 // class for edge data
 /****************************************************************************/
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -200,7 +195,7 @@ GNEEdgeData::computePathElement() {
 
 
 void
-GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // get color
     const auto color = setColor(s);
     if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
@@ -243,7 +238,7 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
 
 
 void
-GNEEdgeData::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEEdgeData::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // EdgeDatas don't use drawJunctionPartialGL over junction
 }
 

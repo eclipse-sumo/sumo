@@ -18,13 +18,8 @@
 // class for edge relation data
 /****************************************************************************/
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -160,7 +155,7 @@ GNEEdgeRelData::computePathElement() {
 
 
 void
-GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // get color
     const auto color = setColor(s);
     if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
@@ -217,7 +212,7 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
 
 
 void
-GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double /*offsetFront*/) const {
+GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double /*offsetFront*/) const {
     // get color
     const auto color = setColor(s);
     if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {

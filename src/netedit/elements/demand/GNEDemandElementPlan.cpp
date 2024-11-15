@@ -21,6 +21,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
@@ -1933,7 +1934,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
 
 
 void
-GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment,
+GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNESegment* segment,
         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
@@ -2045,7 +2046,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
 
 
 void
-GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment,
+GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNESegment* segment,
         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
@@ -2198,7 +2199,7 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 
 
 double
-GNEDemandElementPlan::getEndPosRadius(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool drawHalfWidth) const {
+GNEDemandElementPlan::getEndPosRadius(const GUIVisualizationSettings& s, const GNESegment* segment, const bool drawHalfWidth) const {
     // check if myPlanElement is the last segment
     if (segment->isLastSegment()) {
         // calculate circle width
@@ -2211,7 +2212,7 @@ GNEDemandElementPlan::getEndPosRadius(const GUIVisualizationSettings& s, const G
 
 
 void
-GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const {
+GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNESegment* segment) const {
     // draw ifcurrent amd next segment is placed over lanes
     if (segment->getNextLane()) {
         // get firstPosition (last position of current lane shape)
@@ -2231,7 +2232,7 @@ GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNE
 
 
 void
-GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const {
+GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNESegment* segment) const {
     // draw the line if previos segment and current segment is placed over lanes
     if (segment->getPreviousLane()) {
         // get firstPosition (last position of current lane shape)

@@ -17,8 +17,10 @@
 ///
 // Representation of vehicles in netedit
 /****************************************************************************/
+
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -1050,7 +1052,7 @@ GNEVehicle::computePathElement() {
 
 
 void
-GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // conditions for draw always in network mode
     const bool drawInNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                    myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
@@ -1172,7 +1174,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
 
 
 void
-GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // conditions for draw always in network mode
     const bool drawInNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                    myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&

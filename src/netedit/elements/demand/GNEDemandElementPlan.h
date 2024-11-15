@@ -165,11 +165,11 @@ protected:
     void drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @brief draw plan partial lane
-    void drawPlanLanePartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront,
+    void drawPlanLanePartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront,
                              const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @brief draw plan partial junction
-    void drawPlanJunctionPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront,
+    void drawPlanJunctionPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront,
                                  const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @}
@@ -188,13 +188,13 @@ protected:
 
 private:
     /// @brief get end position radius
-    double getEndPosRadius(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool drawHalfWidth) const;
+    double getEndPosRadius(const GUIVisualizationSettings& s, const GNESegment* segment, const bool drawHalfWidth) const;
 
     /// @brief draw from arrow
-    void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
+    void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNESegment* segment) const;
 
     /// @brief draw to arrow
-    void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
+    void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNESegment* segment) const;
 
     /// @brief draw to arrow
     void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const;

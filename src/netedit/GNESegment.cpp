@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
-// Segment used in Path Manager
+// GNESegment used in Path Manager
 /****************************************************************************/
 
 #include <netbuild/NBNetBuilder.h>
@@ -33,10 +33,10 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// Segment - methods
+// GNESegment - methods
 // ---------------------------------------------------------------------------
 
-Segment::Segment(GNEPathManager* pathManager, GNEPathElement* element, const GNELane* lane, std::vector<Segment*>& segments) :
+GNESegment::GNESegment(GNEPathManager* pathManager, GNEPathElement* element, const GNELane* lane, std::vector<GNESegment*>& segments) :
     myPathManager(pathManager),
     myPathElement(element),
     myLane(lane),
@@ -73,7 +73,7 @@ Segment::Segment(GNEPathManager* pathManager, GNEPathElement* element, const GNE
 }
 
 
-Segment::Segment(GNEPathManager* pathManager, GNEPathElement* element, const GNEJunction* junction, std::vector<Segment*>& segments) :
+GNESegment::GNESegment(GNEPathManager* pathManager, GNEPathElement* element, const GNEJunction* junction, std::vector<GNESegment*>& segments) :
     myPathManager(pathManager),
     myPathElement(element),
     myLane(nullptr),
@@ -110,7 +110,7 @@ Segment::Segment(GNEPathManager* pathManager, GNEPathElement* element, const GNE
 }
 
 
-Segment::~Segment() {
+GNESegment::~GNESegment() {
     // check if we're cleaning all segments
     if (!myPathManager->myCleaningSegments) {
         // clear segment from LaneSegments
@@ -135,61 +135,61 @@ Segment::~Segment() {
 
 
 GNEContour*
-Segment::getContour() const {
+GNESegment::getContour() const {
     return myContour;
 }
 
 
 GNEContour*
-Segment::getFromContour() const {
+GNESegment::getFromContour() const {
     return myFromContour;
 }
 
 
 GNEContour*
-Segment::getToContour() const {
+GNESegment::getToContour() const {
     return myToContour;
 }
 
 
-Segment*
-Segment::getNextSegment() const {
+GNESegment*
+GNESegment::getNextSegment() const {
     return myNextSegment;
 }
 
 
-Segment*
-Segment::getPreviousSegment() const {
+GNESegment*
+GNESegment::getPreviousSegment() const {
     return myPreviousSegment;
 }
 
 
 bool
-Segment::isFirstSegment() const {
+GNESegment::isFirstSegment() const {
     return (myPreviousSegment == nullptr);
 }
 
 
 bool
-Segment::isLastSegment() const {
+GNESegment::isLastSegment() const {
     return (myNextSegment == nullptr);
 }
 
 
 GNEPathElement*
-Segment::getPathElement() const {
+GNESegment::getPathElement() const {
     return myPathElement;
 }
 
 
 const GNELane*
-Segment::getLane() const {
+GNESegment::getLane() const {
     return myLane;
 }
 
 
 const GNELane*
-Segment::getPreviousLane() const {
+GNESegment::getPreviousLane() const {
     if (myPreviousSegment) {
         return myPreviousSegment->getLane();
     } else {
@@ -199,7 +199,7 @@ Segment::getPreviousLane() const {
 
 
 const GNELane*
-Segment::getNextLane() const {
+GNESegment::getNextLane() const {
     if (myNextSegment) {
         return myNextSegment->getLane();
     } else {
@@ -209,36 +209,36 @@ Segment::getNextLane() const {
 
 
 int
-Segment::getLaneIndex() const {
+GNESegment::getLaneIndex() const {
     return myLaneIndex;
 }
 
 
 const GNEJunction*
-Segment::getJunction() const {
+GNESegment::getJunction() const {
     return myJunction;
 }
 
 
 int
-Segment::getJunctionIndex() const {
+GNESegment::getJunctionIndex() const {
     return myJunctionIndex;
 }
 
 
 bool
-Segment::isLabelSegment() const {
+GNESegment::isLabelSegment() const {
     return myLabelSegment;
 }
 
 
 void
-Segment::markSegmentLabel() {
+GNESegment::markSegmentLabel() {
     myLabelSegment = true;
 }
 
 
-Segment::Segment() :
+GNESegment::GNESegment() :
     myPathManager(nullptr),
     myPathElement(nullptr),
     myLane(nullptr),

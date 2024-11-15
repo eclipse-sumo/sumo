@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -296,7 +297,7 @@ GNELaneAreaDetector::computePathElement() {
 
 
 void
-GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check if E2 can be drawn
     if (segment->getLane() && (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
@@ -374,7 +375,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
 
 
 void
-GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check if E2 can be drawn
     if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && segment->getPreviousLane() && segment->getNextLane() &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
@@ -544,7 +545,7 @@ GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualiz
 
 void
 GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const GNEPathManager::Segment* segment, const double offsetFront,
+                                       const GNESegment* segment, const double offsetFront,
                                        const GUIGeometry& geometry, const double exaggeration, const bool movingGeometryPoints) const {
     // obtain color
     const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
