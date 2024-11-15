@@ -15,6 +15,13 @@
 # @author  Mirko Barthauer
 # @date    2024-10-29
 
+"""
+    This script queries meta data from Semantic Scholar about publications citing one of the papers given by their unique (Semantic Scholar) identifier.
+    Then it writes the results to a text file in bibtex syntax. Optionally it can read an existing bibtex file and integrate existing entries with the new ones,
+    keeping the old annotations / Jabref comments and adding new ones for the new entries. It uses the JabRef group syntax version 3.
+    Moreover it can run a keyword discover algorithm to display the most used keywords in the papers' abstracts.
+"""
+
 
 # https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations /paper_id can be "DOI:10.18653/v1/N18-3011", Semantic Scholar hash "649def34f8be52c8b66281af98ae884c09aef38b" and others)
 
@@ -56,7 +63,7 @@ def main(options):
             callStart = datetime.now()
             params = {'offset': str(offset),
                       'limit': str(offsetLimit),
-                      'fields': 'title,url,authors,year,externalIds,citationCount,venue,journal,publicationTypes',
+                      'fields': 'title,url,authors,year,externalIds,citationCount,abstract,venue,journal,publicationTypes',
                       }
             fullRequest = citationRequestTemplate % (originalDOI, "" if len(params) == 0 else "?%s" % "&".join([
                                                      "%s=%s" % (key, val) for key, val in params.items()]))
