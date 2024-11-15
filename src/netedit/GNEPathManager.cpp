@@ -22,7 +22,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/GNEPathElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <utils/router/DijkstraRouter.h>
 

@@ -18,23 +18,13 @@
 // GNESegment used in Path Manager
 /****************************************************************************/
 
-#include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/elements/GNEPathElement.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <utils/router/DijkstraRouter.h>
 
 #include "GNESegment.h"
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNESegment - methods
-// ---------------------------------------------------------------------------
 
 GNESegment::GNESegment(GNEPathManager* pathManager, GNEPathElement* element, const GNELane* lane, std::vector<GNESegment*>& segments) :
     myPathManager(pathManager),

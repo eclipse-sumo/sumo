@@ -21,13 +21,12 @@
 #include <config.h>
 
 #include <netedit/GNEPathManager.h>
-
+#include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/// @brief
 class GNEPathElement : public GUIGlObject {
 
 public:

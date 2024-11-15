@@ -20,15 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBVehicle.h>
-#include <netedit/elements/GNEContour.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/router/SUMOAbstractRouter.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-
-
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -83,7 +74,7 @@ public:
 
     /// @}
 
-    /// @name functions related with GNE elements related with this segment
+    /// @name functions related with GNE elements associated with this segment
     /// @{
     /// @brief get path element
     GNEPathElement* getPathElement() const;
@@ -108,17 +99,22 @@ public:
 
     /// @}
 
+    /// @name functions related with labeling segments (used for certain elements as E2 multilane detectors)
+    /// @{
+
     /// @brief check if segment is label segment
     bool isLabelSegment() const;
 
-    /// @brief mark segment as middle segment (used for certain elements as E2 multilane detectors)
+    /// @brief mark segment as middle segment
     void markSegmentLabel();
 
+    /// @}
+
 protected:
-    /// @brief path manager
+    /// @brief pointer to path manager
     GNEPathManager* myPathManager;
 
-    /// @brief path element
+    /// @brief path element associated with this segment
     GNEPathElement* myPathElement;
 
     /// @brief lane associated with this segment
@@ -133,10 +129,10 @@ protected:
     /// @brief junction index
     int myJunctionIndex = 0;
 
-    /// @brief pointer to next segment (use for draw red line)
+    /// @brief pointer to next segment
     GNESegment* myNextSegment;
 
-    /// @brief pointer to previous segment (use for draw red line)
+    /// @brief pointer to previous segment
     GNESegment* myPreviousSegment;
 
     /// @brief flag for check if this segment is a label segment

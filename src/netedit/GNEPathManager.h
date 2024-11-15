@@ -25,7 +25,6 @@
 #include <netedit/elements/GNEContour.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
 
@@ -40,6 +39,7 @@ class GNEJunction;
 class GNEAdditional;
 class GNEPathElement;
 class GNESegment;
+class GUIGlObject;
 
 // ===========================================================================
 // class definitions
