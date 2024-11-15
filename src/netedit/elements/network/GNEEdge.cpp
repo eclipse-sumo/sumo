@@ -2272,6 +2272,10 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     // remove their associated GNEConnection
     GNEConnection* connection = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
     if (connection != nullptr) {
+        // before removing, check that the connection isn't being inspected
+        myNet->getViewNet()->removeFromAttributeCarrierInspected(connection);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
+
         connection->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), connection));
         // check if connection is selected
