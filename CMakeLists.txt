@@ -464,6 +464,7 @@ endif (PROJ_FOUND)
 
 find_package(FOX)
 if (FOX_FOUND)
+    set(OpenGL_GL_PREFERENCE LEGACY)
     find_package(OpenGL)
     if (OPENGL_FOUND AND OPENGL_GLU_FOUND)
         include_directories(SYSTEM ${FOX_INCLUDE_DIR})
