@@ -132,13 +132,6 @@ elseif (MSVC)
         option(DISABLEWARNING_C4619 "there is no warning number xxxx" ON)
         option(DISABLEWARNING_C4774 "format string expected not string literal" ON)
         option(DISABLEWARNING_C4571 "structured exceptions (SEH) are no longer caught" ON)
-        option(DISABLEWARNING_C4820 "bytes padding added after data member" ON)
-        option(DISABLEWARNING_C4668 "macro not defined as a preprocessor macro, replacing with '0'" ON)
-        option(DISABLEWARNING_C4710 "function not inlined" ON)
-        option(DISABLEWARNING_C4625 "copy constructor was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C4626 "assignment operator was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C5026 "move constructor was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C5027 "move assignment was implicitly defined as deleted" ON)
     endif()
     # 5264
     if (DISABLEWARNING_C5264)
@@ -176,34 +169,6 @@ elseif (MSVC)
     if (DISABLEWARNING_C4571)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4571")
     endif (DISABLEWARNING_C4571)
-    # 4820
-    if (DISABLEWARNING_C4820)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4820")
-    endif (DISABLEWARNING_C4820)
-    # 4668
-    if (DISABLEWARNING_C4668)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4668")
-    endif (DISABLEWARNING_C4668)
-    # 4710
-    if (DISABLEWARNING_C4710)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4710")
-    endif (DISABLEWARNING_C4710)
-    # 4625
-    if (DISABLEWARNING_C4625)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625")
-    endif (DISABLEWARNING_C4625)
-    # 4626
-    if (DISABLEWARNING_C4626)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4626")
-    endif (DISABLEWARNING_C4626)
-    # 5026
-    if (DISABLEWARNING_C5026)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5026")
-    endif (DISABLEWARNING_C5026)
-    # 5027
-    if (DISABLEWARNING_C5027)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5027")
-    endif (DISABLEWARNING_C5027)
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019

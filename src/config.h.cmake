@@ -121,6 +121,8 @@
     #pragma warning(disable: 5039)
     /* Disable constructor is not implicitly called */
     #pragma warning(disable: 4582)
+    /* Disable destructor is not implicitly called */
+    #pragma warning(disable: 4583)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
