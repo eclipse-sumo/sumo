@@ -90,19 +90,19 @@ public:
      *
      * @param[in] out The OutputDevice to write the information into
      */
-    void saveState(OutputDevice& out) const;
+    void saveState(OutputDevice& out) const override;
 
     /** @brief Loads the state of the device from the given description
      *
      * @param[in] attrs XML attributes describing the current state
      */
-    void loadState(const SUMOSAXAttributes& attrs);
+    void loadState(const SUMOSAXAttributes& attrs) override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief called to update state for parking vehicles
     void notifyParking();
