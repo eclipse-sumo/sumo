@@ -54,7 +54,7 @@ protected:
     }
 
     void parseGeoEdges(const PositionVector& positions, bool geo, SUMOVehicleClass vClass,
-                       std::vector<const E*>& into, const std::string& rid, bool isFrom, bool& ok) {
+                       std::vector<const E*>& into, const std::string& rid, bool isFrom, bool& ok, bool forceEdge = false) {
         if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
             WRITE_ERROR(TL("Cannot convert geo-positions because the network has no geo-reference"));
             return;
@@ -78,7 +78,7 @@ protected:
                 while (bestEdge->isInternal()) {
                     bestEdge = bestEdge->getSuccessors().front();
                 }
-                if (myMapMatchJunctions) {
+                if (myMapMatchJunctions && !forceEdge) {
                     bestEdge = getJunctionTaz(pos, bestEdge, vClass, isFrom);
                     if (bestEdge != nullptr) {
                         into.push_back(bestEdge);

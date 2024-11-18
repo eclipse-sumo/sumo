@@ -1319,7 +1319,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                         vClass = type->getParameter().vehicleClass;
                     }
                 }
-                parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok);
+                parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok, true);
                 if (ok) {
                     edge = geoEdges.front();
                     if (geo) {
@@ -1378,8 +1378,12 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 myActiveTransportablePlan->push_back(new MSStageWaiting(
                         edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
             } else if (myActiveTransportablePlan->back()->getDestination() != edge) {
-                throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
-                                       edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
+                if (myActiveTransportablePlan->back()->getDestination()->isTazConnector()) {
+                    myActiveTransportablePlan->back()->setDestination(edge, toStop);
+                } else {
+                    throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
+                                edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
+                }
             }
             // transporting veh stops somewhere
             else if (myActiveTransportablePlan->back()->getStageType() == MSStageType::WAITING
