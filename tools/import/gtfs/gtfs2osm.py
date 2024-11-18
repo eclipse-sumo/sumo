@@ -123,6 +123,8 @@ def import_gtfs(options, gtfsZip):
 
     if 'trip_headsign' not in trips:
         trips['trip_headsign'] = ''
+    if 'direction_id' not in trips:
+        trips['direction_id'] = ''
     if 'route_short_name' not in routes:
         routes['route_short_name'] = routes['route_long_name']
 
