@@ -25,3 +25,4 @@ value is also shown in the table.
 | start pos                                  | double          | The starting position of the stop along the lane measured in m.  | [getStartPos](https://sumo.dlr.de/pydoc/traci._parkingarea.html#ParkingAreaDomain-getStartPos) |
 | vehicle count                                 | integer          | Get the total number of vehicles stopped at the named parking area.  | [getVehicleCount](https://sumo.dlr.de/pydoc/traci._parkingarea.html#ParkingAreaDomain-getVehicleCount) |
 | vehicle ID                                 | stringList          |  Get the IDs of vehicles stopped at the named parking area.  | [getVehicleIDs](https://sumo.dlr.de/pydoc/traci._parkingarea.html#ParkingAreaDomain-getVehicleIDs) |
+| accepted badges                             | stringList         | Get the accepted badges for parking area access. | [getAcceptedBadges](https://sumo.dlr.de/pydoc/traci._parkingarea.html#ParkingAreaDomain-getAcceptedBadges) |
