@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-18 19:33:31.666051 by matsim_importPlans.py v1_21_0+0842-81aba47c0db
-  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+<!-- generated on 2024-11-18 19:46:01.604704 by matsim_importPlans.py v1_21_0+0842-81aba47c0db
+  options: <doubleminus>no-rides <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="ride"/>
     <vType id="car"/>
     <vType id="bicycle" vClass="bicycle"/>
     <vehicle id="10000001_1" depart="triggered" type="car">
@@ -167,12 +166,6 @@
         <stop edge="49491" until="20:24:22" actType="car interaction"/>
         <stop edge="49491" until="24:0:0" actType="home_48600.0"/>
     </person>
-    <vehicle id="100003501_1" depart="triggered" type="ride">
-        <route edges="121589 139046 122340 154788 10092 114790 57850 57769 57767 154768 58888 105758 58875 54580 64388 53405 3979 66958 149400 54564 43470 72339 149804 71058 151885 94171 157222 132348 132336 157197 94262 30548 157224 157223"/>
-    </vehicle>
-    <vehicle id="100003501_4" depart="triggered" type="ride">
-        <route edges="157223 157224 129389 129913 149596 44775 44798 107892 138264 138266 109107 44789 109110 44805 44803 104411 26265 119742 104428 104432 109111 117695 155520 117800 86410 64581 19789 117737 121589"/>
-    </vehicle>
     <trip id="100003501_6" depart="triggered" from="121589" to="155518" type="bicycle"/>
     <trip id="100003501_7" depart="triggered" from="155518" to="121589" type="bicycle"/>
     <person id="100003501" depart="0:0:0">
@@ -180,11 +173,11 @@
         <param key="subpopulation" value="person"/>
         <stop edge="121589" until="13:59:00" actType="home_82200.0"/>
         <stop edge="121589" until="14:04:37" actType="ride interaction"/>
-        <ride lines="100003501_1" to="157223"/>
+        <!-- ride lines="100003501_1" to="157223" mode="ride"/-->
         <stop edge="157223" until="14:18:06" actType="ride interaction"/>
         <stop edge="157223" until="15:12:42" actType="other_3000.0"/>
         <stop edge="157223" until="15:14:18" actType="ride interaction"/>
-        <ride lines="100003501_4" to="121589"/>
+        <!-- ride lines="100003501_4" to="121589" mode="ride"/-->
         <stop edge="121589" until="15:29:19" actType="ride interaction"/>
         <stop edge="121589" until="17:00:56" actType="home_5400.0"/>
         <ride lines="100003501_6" to="155518"/>
