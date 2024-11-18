@@ -2670,9 +2670,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         lateralShift += (*link)->getLateralShift();
         const bool yellowOrRed = (*link)->haveRed() || (*link)->haveYellow();
         // We distinguish 3 cases when determining the point at which a vehicle stops:
-        // - links that require stopping: here the vehicle needs to stop close to the stop line
-        //   to ensure it gets onto the junction in the next step. Otherwise the vehicle would 'forget'
-        //   that it already stopped and need to stop again. This is necessary pending implementation of #999
+        // - allway_stop: the vehicle should stop close to the stop line but may stop at larger distance
         // - red/yellow light: here the vehicle 'knows' that it will have priority eventually and does not need to stop on a precise spot
         // - other types of minor links: the vehicle needs to stop as close to the junction as necessary
         //   to minimize the time window for passing the junction. If the
@@ -2693,9 +2691,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // On priority link, we should never stop below visibility distance
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, majorStopOffset);
         } else {
-            // On minor link, we should likewise never stop below visibility distance
-            const double minorStopOffset = MAX2(lane->getVehicleStopOffset(this),
+            double minorStopOffset = MAX2(lane->getVehicleStopOffset(this),
                                                 getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+            if ((*link)->getState() == LINKSTATE_ALLWAY_STOP) {
+                minorStopOffset = MAX2(minorStopOffset, getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, 0));
+            }
+            // On minor link, we should likewise never stop below visibility distance
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, minorStopOffset);
         }
 #ifdef DEBUG_PLAN_MOVE
