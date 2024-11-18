@@ -45,7 +45,7 @@ public:
     ~GNEFlowEditor();
 
     /// @brief show GNEFlowEditor modul
-    void showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlows);
+    void showFlowEditor(GNEAttributeCarrier* firstEditedFlow, const std::set<GNEAttributeCarrier*> editedFlows);
 
     /// @brief hide group box
     void hideFlowEditor();
@@ -114,7 +114,10 @@ private:
     FXTextField* mySpacingTextField = nullptr;
 
     /// @brief edited flows
-    std::vector<GNEAttributeCarrier*> myEditedFlows;
+    std::set<GNEAttributeCarrier*> myEditedFlows;
+
+    /// @brief first edited flow
+    GNEAttributeCarrier* myFirstEditedFlow = nullptr;
 
     /// @brief per hours attr (vehicles/person/container)
     SumoXMLAttr myPerHourAttr = SUMO_ATTR_NOTHING;

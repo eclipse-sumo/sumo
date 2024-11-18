@@ -545,20 +545,26 @@ public:
     /// @brief get interval bar
     GNEViewNetHelper::IntervalBar& getIntervalBar();
 
+    /// @brief get first inspected attribute carrier
+    GNEAttributeCarrier* getFirstInspectedAttributeCarrier() const;
+
     /// @brief get inspected attribute carriers
-    const std::vector<GNEAttributeCarrier*>& getInspectedAttributeCarriers() const;
+    const std::set<GNEAttributeCarrier*>& getInspectedAttributeCarriers() const;
 
     /// @brief get lock manager
     GNEViewNetHelper::LockManager& getLockManager();
 
-    /// @brief set inspected attributeCarrier
-    void setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    /// @brief set inspected attributeCarrier (single)
+    void setInspectedAttributeCarriers(GNEAttributeCarrier* AC);
+
+    /// @brief set inspected attributeCarrier (multiples)
+    void setInspectedAttributeCarriers(GNEAttributeCarrier* firstInspectedAC, const std::set<GNEAttributeCarrier*> ACs);
 
     /// @brief check if attribute carrier is being inspected
     bool isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const;
 
     /// @brief remove given AC of list of inspected Attribute Carriers
-    void removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC);
+    void removeFromAttributeCarrierInspected(GNEAttributeCarrier* AC);
 
     /// @brief get front attributeCarrier
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
@@ -754,8 +760,11 @@ private:
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList = nullptr;
 
-    /// @brief current inspected attribute carrier
-    std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
+    /// @brief current inspected attribute carriers (Set needed to avoid slowdowns during deletions)
+    std::set<GNEAttributeCarrier*> myInspectedAttributeCarriers;
+
+    /// @brief front inspected Attribute Carrier
+    GNEAttributeCarrier* myFrontInspectedAttributeCarrier = nullptr;
 
     /// @brief front attribute carrier
     GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;
@@ -788,13 +797,13 @@ private:
     void updateDataModeSpecificControls();
 
     /// @brief delete given network attribute carriers
-    void deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    void deleteNetworkAttributeCarriers(const std::set<GNEAttributeCarrier*>& ACs);
 
     /// @brief delete given demand attribute carriers
-    void deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    void deleteDemandAttributeCarriers(const std::set<GNEAttributeCarrier*>& ACs);
 
     /// @brief delete data attribute carriers
-    void deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    void deleteDataAttributeCarriers(const std::set<GNEAttributeCarrier*>& ACs);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();

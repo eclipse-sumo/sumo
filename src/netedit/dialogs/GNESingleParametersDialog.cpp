@@ -501,11 +501,11 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::P
     myTLDef(nullptr) {
     // call auxiliar constructor
     constructor("Parameters");
-    if (parametersEditor->getInspectorFrameParent()) {
-        // get AC Front
-        const auto AC = parametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
+    const auto firstInspectedAC = parametersEditor->getViewNet()->getFirstInspectedAttributeCarrier();
+    // continue depending if we're in inspector frame
+    if (parametersEditor->getInspectorFrameParent() && firstInspectedAC) {
         // fill myParametersValues
-        myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+        myParametersValues->setParameters(firstInspectedAC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     } else if (parametersEditor->getTypeFrameParent()) {
         // get type
         const auto type = parametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
@@ -615,12 +615,12 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // set parameter in editor creator
         myGenericDataAttributes->setParameters(parameters);
     } else if (myParametersEditor) {
-        if (myParametersEditor->getInspectorFrameParent()) {
-            // get inspected AC
-            const auto AC = myParametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
+        const auto firstInspectedAC = myParametersEditor->getViewNet()->getFirstInspectedAttributeCarrier();
+        // continue depending if we're in inspector frame
+        if (myParametersEditor->getInspectorFrameParent() && firstInspectedAC) {
             // set parameter in AC using undoList
-            myParametersEditor->getViewNet()->getUndoList()->begin(AC, "change parameters");
-            AC->setACParameters(parameters, myParametersEditor->getViewNet()->getUndoList());
+            myParametersEditor->getViewNet()->getUndoList()->begin(firstInspectedAC, "change parameters");
+            firstInspectedAC->setACParameters(parameters, myParametersEditor->getViewNet()->getUndoList());
             myParametersEditor->getViewNet()->getUndoList()->end();
         } else if (myParametersEditor->getTypeFrameParent()) {
             // get type
@@ -664,9 +664,10 @@ GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     if (myGenericDataAttributes) {
         myParametersValues->setParameters(myGenericDataAttributes->getParameters());
     } else if (myParametersEditor) {
+        const auto firstInspectedAC = myParametersEditor->getViewNet()->getFirstInspectedAttributeCarrier();
+        // continue depending if we're in inspector frame
         if (myParametersEditor->getInspectorFrameParent()) {
-            const auto AC = myParametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
-            myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+            myParametersValues->setParameters(firstInspectedAC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
         } else if (myParametersEditor->getTypeFrameParent()) {
             const auto type = myParametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
             myParametersValues->setParameters(type->getACParameters<std::vector<std::pair<std::string, std::string> > >());

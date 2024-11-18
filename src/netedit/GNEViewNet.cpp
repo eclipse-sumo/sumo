@@ -627,8 +627,8 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             // we need to check if we're inspecting a overlapping element
             if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
                     myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
-                    myInspectedAttributeCarriers.size() > 0) {
-                overlappedElement = myInspectedAttributeCarriers.front()->getGUIGlObject();
+                    myFrontInspectedAttributeCarrier) {
+                overlappedElement = myFrontInspectedAttributeCarrier->getGUIGlObject();
                 filteredGLObjects.push_back(overlappedElement);
             }
             bool connections = false;
@@ -1705,7 +1705,7 @@ GNEViewNet::hotkeyDel() {
     if (myEditModes.isCurrentSupermodeNetwork()) {
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) || (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS)) {
             setStatusBarText(TL("Cannot delete in this mode"));
-        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && (myInspectedAttributeCarriers.size() > 0)) {
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && myFrontInspectedAttributeCarrier) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete network inspected elements"));
             deleteNetworkAttributeCarriers(myInspectedAttributeCarriers);
@@ -1721,7 +1721,7 @@ GNEViewNet::hotkeyDel() {
             }
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && (myInspectedAttributeCarriers.size() > 0)) {
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myFrontInspectedAttributeCarrier) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete demand inspected elements"));
             deleteDemandAttributeCarriers(myInspectedAttributeCarriers);
@@ -1737,7 +1737,7 @@ GNEViewNet::hotkeyDel() {
             }
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && (myInspectedAttributeCarriers.size() > 0)) {
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myFrontInspectedAttributeCarrier) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete data inspected elements"));
             deleteDataAttributeCarriers(myInspectedAttributeCarriers);
@@ -1890,7 +1890,13 @@ GNEViewNet::getIntervalBar() {
 }
 
 
-const std::vector<GNEAttributeCarrier*>&
+GNEAttributeCarrier*
+GNEViewNet::getFirstInspectedAttributeCarrier() const {
+    return myFrontInspectedAttributeCarrier;
+}
+
+
+const std::set<GNEAttributeCarrier*>&
 GNEViewNet::getInspectedAttributeCarriers() const {
     return myInspectedAttributeCarriers;
 }
@@ -1903,17 +1909,28 @@ GNEViewNet::getLockManager() {
 
 
 void
-GNEViewNet::setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
+GNEViewNet::setInspectedAttributeCarriers(GNEAttributeCarrier* AC) {
+    myFrontInspectedAttributeCarrier = AC;
+    myInspectedAttributeCarriers.clear();
+    if (AC) {
+        myInspectedAttributeCarriers.insert(AC);
+    }
+}
+
+
+void
+GNEViewNet::setInspectedAttributeCarriers(GNEAttributeCarrier* firstInspectedAC, const std::set<GNEAttributeCarrier*> ACs) {
+    myFrontInspectedAttributeCarrier = firstInspectedAC;
     myInspectedAttributeCarriers = ACs;
 }
 
 
 bool
 GNEViewNet::isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const {
-    if (myInspectedAttributeCarriers.empty()) {
+    if (myFrontInspectedAttributeCarrier == nullptr) {
         return false;
     } else {
-        // search AC in myInspectedAttributeCarriers
+        // search AC in myInspectedAttributeCarriers (we cannot use find() because our argument is a const GNEAttributeCarrier)
         const auto it = std::find(myInspectedAttributeCarriers.begin(), myInspectedAttributeCarriers.end(), AC);
         if (it == myInspectedAttributeCarriers.end()) {
             return false;
@@ -1925,12 +1942,19 @@ GNEViewNet::isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const {
 
 
 void
-GNEViewNet::removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC) {
-    // search AC in myInspectedAttributeCarriers
-    const auto it = std::find(myInspectedAttributeCarriers.begin(), myInspectedAttributeCarriers.end(), AC);
+GNEViewNet::removeFromAttributeCarrierInspected(GNEAttributeCarrier* AC) {
+    auto it = myInspectedAttributeCarriers.find(AC);
     if (it != myInspectedAttributeCarriers.end()) {
         myInspectedAttributeCarriers.erase(it);
-        myViewParent->getInspectorFrame()->inspectMultisection(myInspectedAttributeCarriers);
+        // special case for front attribute
+        if (myFrontInspectedAttributeCarrier == AC) {
+            if (myInspectedAttributeCarriers.size() > 0) {
+                myFrontInspectedAttributeCarrier = (*myInspectedAttributeCarriers.begin());
+            } else {
+                myFrontInspectedAttributeCarrier = nullptr;
+            }
+        }
+        myViewParent->getInspectorFrame()->inspectMultisection(myFrontInspectedAttributeCarrier, myInspectedAttributeCarriers);
     }
 }
 
@@ -3677,7 +3701,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if ((myInspectedAttributeCarriers.size() > 0) && (myInspectedAttributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if (myFrontInspectedAttributeCarrier && (myFrontInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
@@ -3708,7 +3732,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if ((myInspectedAttributeCarriers.size() > 0) && myInspectedAttributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        if (myFrontInspectedAttributeCarrier && (myFrontInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
@@ -4328,14 +4352,14 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockPerson
     if (myDemandViewOptions.menuCheckLockPerson->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(FALSE);
-    } else if ((myInspectedAttributeCarriers.size() > 0) && myInspectedAttributeCarriers.front()->getTagProperty().isPerson()) {
+    } else if (myFrontInspectedAttributeCarrier && myFrontInspectedAttributeCarrier->getTagProperty().isPerson()) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockPerson->update();
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->amChecked()) {
         // obtain locked person or person plan
-        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
+        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myFrontInspectedAttributeCarrier);
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
             if (personOrPersonPlan->getTagProperty().isPerson()) {
@@ -4382,14 +4406,14 @@ GNEViewNet::onCmdToggleLockContainer(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockContainer
     if (myDemandViewOptions.menuCheckLockContainer->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockContainer->setChecked(FALSE);
-    } else if ((myInspectedAttributeCarriers.size() > 0) && myInspectedAttributeCarriers.front()->getTagProperty().isContainer()) {
+    } else if (myFrontInspectedAttributeCarrier && myFrontInspectedAttributeCarrier->getTagProperty().isContainer()) {
         myDemandViewOptions.menuCheckLockContainer->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockContainer->update();
     // lock or unlock current inspected container depending of menuCheckLockContainer value
     if (myDemandViewOptions.menuCheckLockContainer->amChecked()) {
         // obtain locked container or container plan
-        const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
+        const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myFrontInspectedAttributeCarrier);
         if (containerOrContainerPlan) {
             // lock container depending if casted demand element is either a container or a container plan
             if (containerOrContainerPlan->getTagProperty().isContainer()) {
@@ -5221,7 +5245,7 @@ GNEViewNet::updateDataModeSpecificControls() {
 
 
 void
-GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
+GNEViewNet::deleteNetworkAttributeCarriers(const std::set<GNEAttributeCarrier*>& ACs) {
     // iterate over ACs and delete it
     for (const auto& AC : ACs) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
@@ -5272,7 +5296,7 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
 
 
 void
-GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
+GNEViewNet::deleteDemandAttributeCarriers(const std::set<GNEAttributeCarrier*>& ACs) {
     // iterate over ACs and delete it
     for (const auto& AC : ACs) {
         // get demand Element (note: could be already removed if is a child, then hardfail=false)
@@ -5286,7 +5310,7 @@ GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*
 
 
 void
-GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
+GNEViewNet::deleteDataAttributeCarriers(const std::set<GNEAttributeCarrier*>& ACs) {
     // iterate over ACs and delete it
     for (const auto& AC : ACs) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {

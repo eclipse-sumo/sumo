@@ -384,31 +384,26 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, 
 }
 
 
-std::vector<GNEAttributeCarrier*>
+std::set<GNEAttributeCarrier*>
 GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreCurrentSupermode) {
     // get modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // declare vector to save result
-    std::vector<GNEAttributeCarrier*> result;
-    result.reserve(gSelected.getSelected().size());
+    std::set<GNEAttributeCarrier*> result;
     // iterate over all elements of global selection
     for (const auto& glID : gSelected.getSelected()) {
         // obtain AC
         GNEAttributeCarrier* AC = retrieveAttributeCarrier(glID, false);
         // check if attribute carrier exist and is selected
         if (AC && AC->isAttributeCarrierSelected()) {
-            bool insert = false;
             if (ignoreCurrentSupermode) {
-                insert = true;
+                result.insert(AC);
             } else if (editModes.isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
-                insert = true;
+                result.insert(AC);
             } else if (editModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
-                insert = true;
+                result.insert(AC);
             } else if (editModes.isCurrentSupermodeData() && AC->getTagProperty().isDataElement()) {
-                insert = true;
-            }
-            if (insert) {
-                result.push_back(AC);
+                result.insert(AC);
             }
         }
     }

@@ -184,8 +184,8 @@ GNEAdditional::checkDrawFromContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-        // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // get inspected AC
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if starts in TAZ
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
             return true;
@@ -243,8 +243,8 @@ GNEAdditional::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-        // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // get inspected AC
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if starts in TAZ
         if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
             return true;

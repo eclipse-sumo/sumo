@@ -289,7 +289,7 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
     recalc();
     // check if flow editor has to be shown
     if (showFlowEditor) {
-        myFlowEditor->showFlowEditor({ myTemplateAC });
+        myFlowEditor->showFlowEditor(myTemplateAC, { myTemplateAC });
     } else {
         myFlowEditor->hideFlowEditor();
     }

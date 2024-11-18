@@ -150,7 +150,7 @@ GNEJunction::checkDrawFromContour() const {
     // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if starts in this junction
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
@@ -201,7 +201,7 @@ GNEJunction::checkDrawToContour() const {
     // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if ends in this junction
         if (inspectedAC->getTagProperty().vehicleJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
@@ -1668,7 +1668,7 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
         // force draw if we're inspecting a vehicle that start or ends in a junction
         if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // get inspected element
-            const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+            const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
             // check if starts or ends in this junction
             if ((inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
                     (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {

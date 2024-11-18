@@ -245,8 +245,9 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     refreshHierarchicalElementTree();
     // check if inspector frame has to be shown again
     if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front() != myClickedAC) {
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front());
+        const auto inspectedAC = myFrameParent->getViewNet()->getFirstInspectedAttributeCarrier();
+        if (inspectedAC != myClickedAC) {
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(inspectedAC);
         } else {
             // inspect a nullptr element to reset inspector frame
             myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);

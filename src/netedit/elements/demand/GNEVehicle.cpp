@@ -1819,9 +1819,10 @@ std::string
 GNEVehicle::getHierarchyName() const {
     // special case for Trips and flow
     if (myTagProperty.vehicleEdges()) {
+        // get inspected AC
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if we're inspecting a Edge
-        if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() &&
-                myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (inspectedAC && inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
             if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
@@ -1829,8 +1830,8 @@ GNEVehicle::getHierarchyName() const {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
-                for (const auto& i : via) {
-                    if (i == myNet->getViewNet()->getInspectedAttributeCarriers().front()->getID()) {
+                for (const auto& viaEdgeID : via) {
+                    if (viaEdgeID == inspectedAC->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
                 }

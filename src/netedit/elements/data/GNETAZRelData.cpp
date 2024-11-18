@@ -484,18 +484,18 @@ GNETAZRelData::drawTAZRel() const {
     if (!myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom() && !myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
         return false;
     }
+    // get inspected AC
+    const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
     // check if we're inspecting a TAZ
     if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
             (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
-            (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
-        // get TAZ
-        const auto TAZ = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
         // ignore TAZRels with one TAZParent
         if (getParentAdditionals().size() == 2) {
-            if ((getParentAdditionals().front() == TAZ)  &&
+            if ((getParentAdditionals().front() == inspectedAC)  &&
                     myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
                 return true;
-            } else if ((getParentAdditionals().back() == TAZ)  &&
+            } else if ((getParentAdditionals().back() == inspectedAC)  &&
                        myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
                 return true;
             } else {

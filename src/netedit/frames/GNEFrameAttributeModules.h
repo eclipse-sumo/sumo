@@ -109,7 +109,7 @@ public:
         std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
         /// @brief check junction merging
-        bool mergeJunction(SumoXMLAttr attr, const std::vector<GNEAttributeCarrier*>& inspectedACs, const std::string& newVal) const;
+        bool mergeJunction(SumoXMLAttr attr, const std::string& newVal) const;
 
     private:
         /// @brief pointer to AttributesEditor parent

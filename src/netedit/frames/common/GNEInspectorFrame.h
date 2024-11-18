@@ -341,7 +341,7 @@ public:
     void inspectSingleElement(GNEAttributeCarrier* AC);
 
     /// @brief Inspect the given multi-selection
-    void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);
+    void inspectMultisection(GNEAttributeCarrier* firstInspectedAC, const std::set<GNEAttributeCarrier*>& ACs);
 
     /// @brief inspect child of already inspected element
     void inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);

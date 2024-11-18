@@ -1052,7 +1052,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     // in restrict AND replace mode all current selected attribute carriers will be unselected
     if ((setOperation == ModificationMode::Operation::REPLACE) || (setOperation == ModificationMode::Operation::RESTRICT)) {
         // obtain selected ACs depending of current supermode
-        std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
+        auto selectedACs = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
         // add id into ACs to unselect
         for (const auto& selectedAC : selectedACs) {
             ACsToUnselect.insert(std::make_pair(selectedAC->getID(), selectedAC));

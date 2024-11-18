@@ -208,7 +208,7 @@ GNEEdge::checkDrawFromContour() const {
     // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if starts in this edge
         if (inspectedAC->getTagProperty().vehicleEdges() && inspectedAC->hasAttribute(SUMO_ATTR_FROM) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
             return true;
@@ -262,7 +262,7 @@ GNEEdge::checkDrawToContour() const {
     // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
         // check if starts in this edge
         if (inspectedAC->getTagProperty().vehicleEdges() && inspectedAC->hasAttribute(SUMO_ATTR_TO) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
             return true;

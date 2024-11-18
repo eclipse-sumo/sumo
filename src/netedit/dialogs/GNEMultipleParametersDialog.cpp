@@ -560,7 +560,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             }
         }
         // begin change
-        undoList->begin(ACs.front(), "change parameters");
+        undoList->begin(myParametersEditor->getInspectorFrameParent()->getViewNet()->getFirstInspectedAttributeCarrier(), "change parameters");
         // iterate over ACs
         for (const auto& AC : ACs) {
             // remove keys

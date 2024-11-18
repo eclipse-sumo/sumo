@@ -325,9 +325,10 @@ bool
 GNELane::checkDrawFromContour() const {
     // get inspected ACs
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto firstInspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
     // check if we're inspecting a connection
-    if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-            inspectedACs.front()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
+    if ((inspectedACs.size() == 1) && (firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+            firstInspectedAC->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
         return true;
     } else {
         return false;
@@ -339,9 +340,10 @@ bool
 GNELane::checkDrawToContour() const {
     // get inspected ACs
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto firstInspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
     // check if we're inspecting a connection
-    if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-            inspectedACs.front()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
+    if ((inspectedACs.size() == 1) && (firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+            firstInspectedAC->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
         return true;
     } else {
         return false;
@@ -1439,10 +1441,9 @@ RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // get inspected attribute carriers
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
     // declare a RGBColor variable
     RGBColor color;
-    // get inspected AC
-    const GNEAttributeCarrier* inspectedAC = inspectedACs.size() > 0 ? inspectedACs.front() : nullptr;
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (inspectedAC && (!inspectedAC->isAttributeCarrierSelected()) &&
             ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {

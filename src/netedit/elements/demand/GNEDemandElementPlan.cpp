@@ -1810,14 +1810,11 @@ GNEDemandElementPlan::checkDrawPersonPlan() const {
     } else if (viewNet->getDemandViewOptions().getLockedPerson() == myPlanElement->getParentDemandElements().front()) {
         // person parent is locked
         return true;
-    } else if (viewNet->getInspectedAttributeCarriers().empty()) {
-        // nothing is inspected
-        return false;
     } else {
         // get inspected AC
-        const GNEAttributeCarrier* AC = viewNet->getInspectedAttributeCarriers().front();
+        const auto inspectedAC = viewNet->getFirstInspectedAttributeCarrier();
         // check condition
-        if (AC->getTagProperty().isPlanPerson() && AC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
+        if (inspectedAC && inspectedAC->getTagProperty().isPlanPerson() && inspectedAC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
             // common person parent
             return true;
         } else {
@@ -1851,14 +1848,11 @@ GNEDemandElementPlan::checkDrawContainerPlan() const {
     } else if (viewNet->getDemandViewOptions().getLockedContainer() == myPlanElement->getParentDemandElements().front()) {
         // container parent is locked
         return true;
-    } else if (viewNet->getInspectedAttributeCarriers().empty()) {
-        // nothing is inspected
-        return false;
     } else {
         // get inspected AC
-        const GNEAttributeCarrier* AC = viewNet->getInspectedAttributeCarriers().front();
+        const auto inspectedAC = viewNet->getFirstInspectedAttributeCarrier();
         // check condition
-        if (AC->getTagProperty().isPlanContainer() && AC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
+        if (inspectedAC && inspectedAC->getTagProperty().isPlanContainer() && inspectedAC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
             // common container parent
             return true;
         } else {
@@ -1887,12 +1881,10 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const auto d = s.getDetailLevel(1);
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
-        // get inspected attribute carriers
-        const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
-        // get inspected plan
-        const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
+        // get inspected AC
+        const auto inspectedAC = viewNet->getFirstInspectedAttributeCarrier();
         // check if draw with double width
-        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isObjectSelected(myPlanElement));
+        const bool drawHalfWidth = ((inspectedAC != myPlanElement) && (inspectedAC != planParent) && !gViewObjectsHandler.isObjectSelected(myPlanElement));
         // calculate path width
         double pathWidth = s.widthSettings.walkWidth;
         if (tagProperty.isPlanRide()) {
@@ -1950,10 +1942,8 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         }
         // get detail level
         const auto d = s.getDetailLevel(1);
-        // get inspected attribute carriers
-        const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
-        // get inspected plan
-        const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
+        // get inspected AC
+        const auto inspectedAC = viewNet->getFirstInspectedAttributeCarrier();
         // declare path geometry
         GUIGeometry planGeometry;
         // update pathGeometry depending of first and last segment
@@ -1995,7 +1985,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         // calculate path width double
         const double drawingWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
         // check if draw with double width
-        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isObjectSelected(myPlanElement));
+        const bool drawHalfWidth = ((inspectedAC != myPlanElement) && (inspectedAC != planParent) && !gViewObjectsHandler.isObjectSelected(myPlanElement));
         // get end pos radius
         const double endPosRadius = getEndPosRadius(s, segment, drawHalfWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -2062,14 +2052,12 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         }
         // get detail level
         const auto d = s.getDetailLevel(1);
-        // get inspected attribute carriers
-        const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
-        // get inspected plan
-        const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
+        // get inspected AC
+        const auto inspectedAC = viewNet->getFirstInspectedAttributeCarrier();
         // calculate path width double
         const double pathWidthDouble = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
         // check if draw with double width
-        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isObjectSelected(myPlanElement));
+        const bool drawWithDoubleWidth = ((inspectedAC == myPlanElement) || (inspectedAC == planParent) || gViewObjectsHandler.isObjectSelected(myPlanElement));
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // push a draw matrix

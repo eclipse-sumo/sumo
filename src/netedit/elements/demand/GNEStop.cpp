@@ -279,11 +279,11 @@ GNEStop::getVClass() const {
 
 const RGBColor&
 GNEStop::getColor() const {
-    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        // get inspected AC
-        const auto AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+    // get inspected AC
+    const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+    if (inspectedAC) {
         // check if is a route or a vehicle
-        if ((AC->getTagProperty().isRoute() || AC->getTagProperty().isVehicle()) && (AC != getParentDemandElements().front())) {
+        if ((inspectedAC->getTagProperty().isRoute() || inspectedAC->getTagProperty().isVehicle()) && (inspectedAC != getParentDemandElements().front())) {
             return RGBColor::GREY;
         }
     } else if (myNet->getViewNet()->getViewParent()->getStopFrame()->shown()) {

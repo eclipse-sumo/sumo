@@ -127,7 +127,7 @@ struct GNENetHelper {
         std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(Supermode supermode, const bool onlySelected);
 
         /// @brief get all selected attribute carriers (or only relative to current supermode
-        std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(const bool ignoreCurrentSupermode);
+        std::set<GNEAttributeCarrier*> getSelectedAttributeCarriers(const bool ignoreCurrentSupermode);
 
         /// @}
 

@@ -2814,11 +2814,12 @@ GNEViewNetHelper::DemandViewOptions::drawSpreadVehicles() const {
 bool
 GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDemandElement* demandElement) const {
     if (menuCheckHideNonInspectedDemandElements->shown()) {
+        const auto firstInspectedAC = myViewNet->getFirstInspectedAttributeCarrier();
         // check conditions
         if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (myViewNet->getInspectedAttributeCarriers().empty())) {
             // if checkbox is disabled or there isn't insepected element, then return true
             return true;
-        } else if (myViewNet->getInspectedAttributeCarriers().front()->getTagProperty().isDemandElement()) {
+        } else if (firstInspectedAC && firstInspectedAC->getTagProperty().isDemandElement()) {
             if (myViewNet->isAttributeCarrierInspected(demandElement)) {
                 // if inspected element correspond to demandElement, return true
                 return true;
