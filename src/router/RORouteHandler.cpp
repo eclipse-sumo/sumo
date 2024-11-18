@@ -937,7 +937,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     vClass = type->vehicleClass;
                 }
             }
-            parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok);
+            parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok, true);
             if (ok) {
                 edge = geoEdges.front();
                 hasPos = true;
