@@ -226,7 +226,7 @@ protected:
     /// @brief Parameter, Flag: Vehicles it's charging in transit (by default is false)
     bool myChargingInTransit;
 
-    /// @brief Parameter, Moment, wich the vehicle has beging to charging
+    /// @brief Parameter, Moment, which the vehicle has beging to charging
     SUMOTime myChargingStartTime;
 
     /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
