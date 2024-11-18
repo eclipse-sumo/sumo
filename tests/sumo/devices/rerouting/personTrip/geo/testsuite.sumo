@@ -1,0 +1,11 @@
+# test reading trips with geo-coordinates
+geoTrips
+
+# test reading trips with geo-coordinates
+geoTrips_lonLat
+
+# test reading trips with geo-coordinates
+geoTrips_distance
+
+# test mapmatching trips with geo-coordinates to junctions
+geoTrips_junctions
