@@ -1009,6 +1009,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myJunctionEntryTimeNeverYield(SUMOTime_MAX),
     myJunctionConflictEntryTime(SUMOTime_MAX),
     myTimeSinceStartup(TIME2STEPS(3600 * 24)),
+    myHaveStoppedFor(nullptr),
     myInfluencer(nullptr) {
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
@@ -3667,7 +3668,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                            getVehicleType().getLength(),
                                            canBrake ? getImpatience() : 1,
                                            getCarFollowModel().getMaxDecel(),
-                                           getWaitingTime(), getLateralPositionOnLane(),
+                                           getWaitingTimeFor(link), getLateralPositionOnLane(),
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
                                            ignoreRedLink, this, dpi.myDistance));
             if (opened && myLaneChangeModel->getShadowLane() != nullptr) {
@@ -3678,7 +3679,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     opened = yellow || influencerPrio || (opened && parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
-                                                          getWaitingTime(), shadowLatPos, nullptr,
+                                                          getWaitingTimeFor(link), shadowLatPos, nullptr,
                                                           ignoreRedLink, this, dpi.myDistance));
 #ifdef DEBUG_EXEC_MOVE
                     if (DEBUG_COND) {
@@ -3706,9 +3707,9 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                           << "\n";
             }
 #endif
+            double visibilityDistance = link->getFoeVisibilityDistance();
+            bool determinedFoePresence = dpi.myDistance <= visibilityDistance;
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRedLink) {
-                double visibilityDistance = link->getFoeVisibilityDistance();
-                double determinedFoePresence = dpi.myDistance <= visibilityDistance;
                 if (!determinedFoePresence && (canBrake || !yellow)) {
                     vSafe = dpi.myVLinkWait;
                     myHaveToWaitOnNextLink = true;
@@ -3755,6 +3756,9 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                         std::cout << SIMTIME << " veh=" << getID() << " haveToWait (very slow)\n";
                     }
 #endif
+                }
+                if (link->mustStop() && determinedFoePresence && myHaveStoppedFor == nullptr) {
+                    myHaveStoppedFor = link;
                 }
             } else if (link->getState() == LINKSTATE_ZIPPER) {
                 vSafeZipper = MIN2(vSafeZipper,
@@ -4422,6 +4426,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                     if (link->isEntryLink()) {
                         myJunctionEntryTime = MSNet::getInstance()->getCurrentTimeStep();
                         myJunctionEntryTimeNeverYield = myJunctionEntryTime;
+                        myHaveStoppedFor = nullptr;
                     }
                     if (link->isConflictEntryLink()) {
                         myJunctionConflictEntryTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -5347,7 +5352,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                 dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2, getRNG()); // tie braker
             }
             dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                       dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance, getLateralPositionOnLane());
+                                       dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTimeFor(dpi.myLink), dpi.myDistance, getLateralPositionOnLane());
         }
     }
     if (isRailway(getVClass())) {
@@ -5369,7 +5374,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                 if (parallelLink != nullptr) {
                     const double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
                     parallelLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                                 dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance,
+                                                 dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTimeFor(dpi.myLink), dpi.myDistance,
                                                  latOffset);
                     myLaneChangeModel->setShadowApproachingInformation(parallelLink);
                 }
@@ -8139,5 +8144,10 @@ MSVehicle::getPreviousLane(const MSLane* current, int& furtherIndex) const {
     return current;
 }
 
+SUMOTime
+MSVehicle::getWaitingTimeFor(const MSLink* link) const {
+    // this vehicle currently has the highest priority on the allway_stop
+    return link == myHaveStoppedFor ? SUMOTime_MAX : getWaitingTime();
+}
 
 /****************************************************************************/

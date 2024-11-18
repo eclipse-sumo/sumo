@@ -481,6 +481,10 @@ public:
         return myState == LINKSTATE_TL_GREEN_MAJOR || myState == LINKSTATE_TL_GREEN_MINOR;
     }
 
+    inline bool mustStop() const {
+        return myState == LINKSTATE_STOP || myState == LINKSTATE_ALLWAY_STOP;
+    }
+
     inline bool isTLSControlled() const {
         return myLogic != 0;
     }

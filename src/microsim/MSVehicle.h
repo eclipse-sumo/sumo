@@ -674,6 +674,10 @@ public:
         return myWaitingTimeCollector.cumulatedWaitingTime(MSGlobals::gWaitingTimeMemory);
     }
 
+    /// @brief getWaitingTime, but taking into account having stopped for a stop-link
+    SUMOTime getWaitingTimeFor(const MSLink* link) const;
+
+
     /** @brief Returns the SUMOTime spent driving since startup (speed was larger than 0.1m/s)
      *
      * The value is reset if the vehicle halts (moves slower than 0.1m/s)
@@ -1935,6 +1939,7 @@ protected:
 
     /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting episode
     SUMOTime myTimeSinceStartup;
+    const MSLink* myHaveStoppedFor;
 
 protected:
 
