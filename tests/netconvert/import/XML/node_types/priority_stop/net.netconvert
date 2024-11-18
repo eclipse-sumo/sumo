@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:55 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-11-18 15:36:22 by Eclipse SUMO netconvert Version v1_21_0+0840-4964f62e0a5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_nodes.nod.xml"/>
@@ -27,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -184,13 +184,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
     <connection from="3fi" to="2o" fromLane="0" toLane="0" via=":0_8_0" dir="r" state="M"/>
     <connection from="3fi" to="4o" fromLane="0" toLane="0" via=":0_9_0" dir="s" state="M"/>
-    <connection from="3fi" to="1o" fromLane="1" toLane="0" via=":0_10_0" dir="l" state="s"/>
-    <connection from="3fi" to="3o" fromLane="1" toLane="0" via=":0_11_0" dir="t" state="s"/>
+    <connection from="3fi" to="1o" fromLane="1" toLane="0" via=":0_10_0" dir="l" state="m"/>
+    <connection from="3fi" to="3o" fromLane="1" toLane="0" via=":0_11_0" dir="t" state="m"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" via=":3_0_0" dir="t" state="M"/>
     <connection from="4fi" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="M"/>
     <connection from="4fi" to="3o" fromLane="0" toLane="0" via=":0_1_0" dir="s" state="M"/>
-    <connection from="4fi" to="2o" fromLane="1" toLane="0" via=":0_2_0" dir="l" state="s"/>
-    <connection from="4fi" to="4o" fromLane="1" toLane="0" via=":0_3_0" dir="t" state="s"/>
+    <connection from="4fi" to="2o" fromLane="1" toLane="0" via=":0_2_0" dir="l" state="m"/>
+    <connection from="4fi" to="4o" fromLane="1" toLane="0" via=":0_3_0" dir="t" state="m"/>
     <connection from="4o" to="4fi" fromLane="0" toLane="1" via=":4_0_0" dir="t" state="M"/>
 
     <connection from=":0_0" to="1o" fromLane="0" toLane="0" dir="r" state="M"/>
