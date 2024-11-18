@@ -215,6 +215,38 @@ GNEViewNetHelper::LockManager::OperationLocked::getSupermode() const {
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNetHelper::InspectedElements - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::InspectedElements::InspectedElements() {}
+
+
+template<> bool
+GNEViewNetHelper::InspectedElements::isACInspected(GNEAttributeCarrier* AC) const {
+    if (myInspectedACs.empty()) {
+        return false;
+    } else if (myFirstInspectedAC == AC) {
+        return true;
+    } else {
+        return myInspectedACs.find(AC) != myInspectedACs.end();
+    }
+}
+
+
+template<> bool
+GNEViewNetHelper::InspectedElements::isACInspected(const GNEAttributeCarrier* AC) const {
+    if (myInspectedACs.empty()) {
+        return false;
+    } else if (myFirstInspectedAC == AC) {
+        return true;
+    } else {
+        auto it = std::find(myInspectedACs.begin(), myInspectedACs.end(), AC);
+        return it != myInspectedACs.end();
+    }
+}
+
+
+// ---------------------------------------------------------------------------
 // GNEViewNetHelper::ViewObjectsSelector - methods
 // ---------------------------------------------------------------------------
 

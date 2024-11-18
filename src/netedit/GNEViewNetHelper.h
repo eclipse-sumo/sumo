@@ -219,6 +219,32 @@ struct GNEViewNetHelper {
         std::map<GUIGlObjectType, OperationLocked> myLockedElements;
     };
 
+    /// @brief class used for group inspected elements
+    class InspectedElements {
+
+    public:
+        /// @brief constructor
+        InspectedElements();
+
+        // @brief check if the given AC is inspected (template due AC can be constant or not)
+        template<typename T>
+        bool isACInspected(T AC) const;
+
+    protected:
+        /// @brief first inspected element (usually the clicked element)
+        GNEAttributeCarrier* myFirstInspectedAC = nullptr;
+
+        /// @brief set with all inspected ACs
+        std::set<GNEAttributeCarrier*> myInspectedACs;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        InspectedElements(const InspectedElements&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        InspectedElements& operator=(const InspectedElements&) = delete;
+    };
+
     /// @brief class used to group all variables related with objects under cursor after a click over view
     class ViewObjectsSelector {
 
