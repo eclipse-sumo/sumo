@@ -8,7 +8,7 @@ title: Change chargingStation State
 | :------: | :---------------: | :---------------: | :----------: |
 | Variable | chargingStation ID | Type of the value |  New Value   |
 
-Changes the state of a chargingStation light. Because it is possible to change
+Changes the state of a chargingStation. Because it is possible to change
 different values of a chargingStation, the given value may have different
 types. The following values can be changed, the type of the value to
 given is also shown in the table.
