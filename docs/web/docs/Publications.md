@@ -9,13 +9,8 @@ If your publication mentions SUMO, please let us know!
 !!! note
     When citing SUMO in general please use our current reference publication: ["Microscopic Traffic Simulation using SUMO"](https://ieeexplore.ieee.org/document/8569938); Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. IEEE Intelligent Transportation Systems Conference (ITSC), 2018.
 
-If you want to refer explicitly to the software version being used, please use the software DOI like this (the [most recent DOI can be found at Zenodo](https://doi.org/10.5281/zenodo.8345518)):
 
-```
-Alvarez Lopez, P., Banse, A., Barthauer, M., Behrisch, M., Couéraud, B., Erdmann, J., Flötteröd, Y.-P., Hilbrich, R., Nippold, R., & Wagner, P. (2024). Simulation of Urban Mobility (SUMO) (1.21.0). Zenodo. https://doi.org/10.5281/zenodo.13907886
-```
-
-BibTex:
+## BibTex
 
 ```
 @inproceedings{SUMO2018,
@@ -29,6 +24,13 @@ BibTex:
             url = {https://elib.dlr.de/124092/}
  }
 ```
+
+## DOI
+If you want to refer explicitly to the software version being used, please use the corresponding software DOI. You can always find the DOI for the current and previous releases [on Zenodo](https://doi.org/10.5281/zenodo.8345518).
+
+*For version {{ Version }}, use:*
+
+Alvarez Lopez, P., Banse, A., Barthauer, M., Behrisch, M., Couéraud, B., Erdmann, J., Flötteröd, Y.-P., Hilbrich, R., Nippold, R., & Wagner, P. ({{ ReleaseDate[-4:] }}). Simulation of Urban Mobility (SUMO) ({{ Version }}). Zenodo. https://doi.org/{{ DOI }}
 
 # Conference Proceedings
 
