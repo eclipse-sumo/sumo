@@ -2229,6 +2229,7 @@ GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
     myPOIUseCustomLayer = new FXCheckButton(m61, TL("Custom Layer"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myPOIUseCustomLayer->setCheck(mySettings->poiUseCustomLayer);
     myPOICustomLayer = new FXRealSpinner(m61, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myPOICustomLayer->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myPOICustomLayer->setValue(mySettings->poiCustomLayer);
 
     myPOINamePanel = new NamePanel(m61, this, TL("Show poi id"), mySettings->poiName);
@@ -2265,6 +2266,7 @@ GUIDialog_ViewSettings::buildPolygonsFrame(FXTabBook* tabbook) {
     myPolyUseCustomLayer = new FXCheckButton(m91, TL("Custom Layer"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myPolyUseCustomLayer->setCheck(mySettings->polyUseCustomLayer);
     myPolyCustomLayer = new FXRealSpinner(m91, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myPolyCustomLayer->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myPolyCustomLayer->setValue(mySettings->polyCustomLayer);
 
     myPolyNamePanel = new NamePanel(m91, this, TL("Show polygon id"), mySettings->polyName);
