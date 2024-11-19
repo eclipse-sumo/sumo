@@ -231,7 +231,7 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         // remove generic data child
         myGenericDataChildren.erase(it);
         // remove it from inspected ACs and GNEElementTree
-        myDataSetParent->getNet()->getViewNet()->removeFromAttributeCarrierInspected(genericData);
+        myDataSetParent->getNet()->getViewNet()->getInspectedElements()->uninspectAC(genericData);
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();

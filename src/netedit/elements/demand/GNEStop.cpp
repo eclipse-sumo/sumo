@@ -280,7 +280,7 @@ GNEStop::getVClass() const {
 const RGBColor&
 GNEStop::getColor() const {
     // get inspected AC
-    const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+    const auto inspectedAC = myNet->getViewNet()->getInspectedElements()->getFirstAC();
     if (inspectedAC) {
         // check if is a route or a vehicle
         if ((inspectedAC->getTagProperty().isRoute() || inspectedAC->getTagProperty().isVehicle()) && (inspectedAC != getParentDemandElements().front())) {
@@ -977,17 +977,18 @@ GNEStop::getEndGeometryPositionOverLane() const {
 
 bool
 GNEStop::canDrawVehicleStop() const {
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     if (isAttributeCarrierSelected()) {
         return true;
-    } else if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+    } else if (inspectedElements->isACInspected(this)) {
         return true;
-    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+    } else if (inspectedElements->isACInspected(getParentDemandElements().front())) {
         return true;
     } else if (myNet->getViewNet()->getDemandViewOptions().showAllTrips()) {
         return true;
     } else if ((getParentDemandElements().front()->getTagProperty().getTag() == GNE_TAG_VEHICLE_WITHROUTE) ||
                (getParentDemandElements().front()->getTagProperty().getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-        if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front()->getChildDemandElements().front())) {
+        if (inspectedElements->isACInspected(getParentDemandElements().front()->getChildDemandElements().front())) {
             return true;
         } else {
             return false;
@@ -1003,7 +1004,7 @@ GNEStop::drawIndex() const {
     // get stop frame
     const auto stopFrame = myNet->getViewNet()->getViewParent()->getStopFrame();
     // check conditions
-    if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+    if (myNet->getViewNet()->getInspectedElements()->isACInspected(getParentDemandElements().front())) {
         return true;
     } else if (stopFrame->shown() && (stopFrame->getStopParentSelector()->getCurrentDemandElement() == getParentDemandElements().front())) {
         return true;

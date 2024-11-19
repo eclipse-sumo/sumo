@@ -699,10 +699,6 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
     if ((demandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(demandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
         throw ProcessError(TL("Trying to delete a default Vehicle Type"));
     } else {
-        // check if currently is being inspected
-        if (myViewNet->isAttributeCarrierInspected(demandElement)) {
-            myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
-        }
         undoList->begin(GUIIcon::MODEDELETE, TL("delete ") + demandElement->getTagStr());
         // remove all child additional elements of this demandElement calling this function recursively
         while (demandElement->getChildAdditionals().size() > 0) {

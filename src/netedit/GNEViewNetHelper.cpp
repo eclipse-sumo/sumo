@@ -221,7 +221,48 @@ GNEViewNetHelper::LockManager::OperationLocked::getSupermode() const {
 GNEViewNetHelper::InspectedElements::InspectedElements() {}
 
 
-template<> bool
+void
+GNEViewNetHelper::InspectedElements::inspectAC(GNEAttributeCarrier* AC) {
+    myInspectedACs.clear();
+    if (AC) {
+        myFirstInspectedAC = AC;
+        myInspectedACs.insert(AC);
+    } else {
+        myFirstInspectedAC = nullptr;
+    }
+}
+
+
+void
+GNEViewNetHelper::InspectedElements::inspectACs(std::vector<GNEAttributeCarrier*> ACs) {
+    myInspectedACs.clear();
+    if (ACs.size() > 0) {
+        myFirstInspectedAC = ACs.front();
+        for (const auto& AC : ACs) {
+            myInspectedACs.insert(AC);
+        }
+    } else {
+        myFirstInspectedAC = nullptr;
+    }
+}
+
+
+void
+GNEViewNetHelper::InspectedElements::uninspectAC(GNEAttributeCarrier* AC) {
+    auto it = myInspectedACs.find(AC);
+    if (it != myInspectedACs.end()) {
+        myInspectedACs.erase(it);
+        if (myInspectedACs.size() == 0) {
+            myInspectedACs.clear();
+            myFirstInspectedAC = nullptr;
+        } else if (myFirstInspectedAC == AC) {
+            myFirstInspectedAC = (*myInspectedACs.begin());
+        }
+    }
+}
+
+
+bool
 GNEViewNetHelper::InspectedElements::isACInspected(GNEAttributeCarrier* AC) const {
     if (myInspectedACs.empty()) {
         return false;
@@ -233,7 +274,7 @@ GNEViewNetHelper::InspectedElements::isACInspected(GNEAttributeCarrier* AC) cons
 }
 
 
-template<> bool
+bool
 GNEViewNetHelper::InspectedElements::isACInspected(const GNEAttributeCarrier* AC) const {
     if (myInspectedACs.empty()) {
         return false;
@@ -245,6 +286,28 @@ GNEViewNetHelper::InspectedElements::isACInspected(const GNEAttributeCarrier* AC
     }
 }
 
+
+GNEAttributeCarrier*
+GNEViewNetHelper::InspectedElements::getFirstAC() const {
+    return myFirstInspectedAC;
+}
+
+
+const std::set<GNEAttributeCarrier*>&
+GNEViewNetHelper::InspectedElements::getACs() const {
+    return myInspectedACs;
+}
+
+
+bool
+GNEViewNetHelper::InspectedElements::inspectingOneElement() const {
+    return myInspectedACs.size() == 1;
+}
+
+bool
+GNEViewNetHelper::InspectedElements::inspectingMultipleElement() const {
+    return myInspectedACs.size() > 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::ViewObjectsSelector - methods
@@ -2846,25 +2909,25 @@ GNEViewNetHelper::DemandViewOptions::drawSpreadVehicles() const {
 bool
 GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDemandElement* demandElement) const {
     if (menuCheckHideNonInspectedDemandElements->shown()) {
-        const auto firstInspectedAC = myViewNet->getFirstInspectedAttributeCarrier();
+        const auto inspectedACs = myViewNet->getInspectedElements();
         // check conditions
-        if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (myViewNet->getInspectedAttributeCarriers().empty())) {
-            // if checkbox is disabled or there isn't insepected element, then return true
+        if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (inspectedACs->getFirstAC() == nullptr)) {
+            // if checkbox is disabled or there isn't an inspected element, then return true
             return true;
-        } else if (firstInspectedAC && firstInspectedAC->getTagProperty().isDemandElement()) {
-            if (myViewNet->isAttributeCarrierInspected(demandElement)) {
+        } else if (inspectedACs->getFirstAC() && inspectedACs->getFirstAC()->getTagProperty().isDemandElement()) {
+            if (inspectedACs->isACInspected(demandElement)) {
                 // if inspected element correspond to demandElement, return true
                 return true;
             } else {
                 // if demandElement is a route, check if dottedAC is one of their children (Vehicle or Stop)
-                for (const auto& i : demandElement->getChildDemandElements()) {
-                    if (myViewNet->isAttributeCarrierInspected(i)) {
+                for (const auto& demandElementChild : demandElement->getChildDemandElements()) {
+                    if (inspectedACs->isACInspected(demandElementChild)) {
                         return true;
                     }
                 }
                 // if demandElement is a vehicle, check if dottedAC is one of his route Parent
-                for (const auto& i : demandElement->getParentDemandElements()) {
-                    if (myViewNet->isAttributeCarrierInspected(i)) {
+                for (const auto& demandElementParent : demandElement->getParentDemandElements()) {
+                    if (inspectedACs->isACInspected(demandElementParent)) {
                         return true;
                     }
                 }

@@ -271,7 +271,7 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
         // remove data interval child
         myDataIntervalChildren.erase(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN));
         // remove it from inspected elements and GNEElementTree
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(dataInterval);
+        myNet->getViewNet()->getInspectedElements()->uninspectAC(dataInterval);
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataInterval);
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteDataInterval(dataInterval);

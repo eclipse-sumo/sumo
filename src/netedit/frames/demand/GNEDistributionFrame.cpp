@@ -200,6 +200,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionIDs() {
 
 void
 GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
+    const auto inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
     // fill distributions
     const auto distributions = fillDistributionComboBox();
     // update current distribution (used if myCurrentDistribution was deleted during undo-redo)
@@ -217,14 +218,14 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     }
     // continue depending of myCurrentDistribution
     if (myCurrentDistribution) {
-        // set distribtution as inspected element
-        myFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentDistribution});
+        // set distribtution as inspected element (needed for attribute editor)
+        inspectedElements->inspectAC(myCurrentDistribution);
         // show modules
         myAttributesEditor->showAttributeEditorModule(true);
         myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
         // remove inspected elements
-        myFrameParent->getViewNet()->setInspectedAttributeCarriers({});
+        inspectedElements->inspectACs({});
         // hide modules
         myAttributesEditor->hideAttributesEditorModule();
         myDistributionValuesEditor->hideDistributionValuesEditor();
@@ -243,8 +244,8 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             myCurrentDistribution = distribution.second;
             // set color of myTypeMatchBox to black (valid)
             myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
-            // set myCurrentType as inspected element
-            viewNet->setInspectedAttributeCarriers({distribution.second});
+            // set myCurrentType as inspected element (needed for attribute editor)
+            viewNet->getInspectedElements()->inspectAC(distribution.second);
             // show modules
             myAttributesEditor->showAttributeEditorModule(true);
             myDistributionValuesEditor->showDistributionValuesEditor();

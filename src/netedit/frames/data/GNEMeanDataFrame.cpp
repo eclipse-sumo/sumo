@@ -330,6 +330,7 @@ GNEMeanDataFrame::MeanDataSelector::setCurrentMeanData(GNEMeanData* vMeanData) {
 
 void
 GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID) {
+    const auto inspectedElements = myMeanDataFrameParent->getViewNet()->getInspectedElements();
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // get mean datas sorted by ID
@@ -374,11 +375,11 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     if (!afterChangingID) {
         if (myCurrentMeanData) {
             // set myCurrentMeanData as inspected element (needed for attribute editor)
-            myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
+            inspectedElements->inspectAC(myCurrentMeanData);
             myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
         } else {
             // set myCurrentMeanData as inspected element (needed for attribute editor)
-            myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({});
+            inspectedElements->inspectAC({});
             myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
         }
     }
@@ -407,7 +408,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // set myCurrentMeanData as inspected element
-            myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
+            myMeanDataFrameParent->getViewNet()->getInspectedElements()->inspectAC(myCurrentMeanData);
             // show modules if selected item is valid
             myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
             // Write Warning in console if we're in testing mode

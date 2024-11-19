@@ -323,12 +323,10 @@ GNELane::getPositionInView() const {
 
 bool
 GNELane::checkDrawFromContour() const {
-    // get inspected ACs
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
-    const auto firstInspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if we're inspecting a connection
-    if ((inspectedACs.size() == 1) && (firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-            firstInspectedAC->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
+    if (inspectedElements->inspectingOneElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+            inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
         return true;
     } else {
         return false;
@@ -338,12 +336,10 @@ GNELane::checkDrawFromContour() const {
 
 bool
 GNELane::checkDrawToContour() const {
-    // get inspected ACs
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
-    const auto firstInspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if we're inspecting a connection
-    if ((inspectedACs.size() == 1) && (firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-            firstInspectedAC->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
+    if (inspectedElements->inspectingOneElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+            inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
         return true;
     } else {
         return false;
@@ -1439,15 +1435,15 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s, const double la
 
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
-    // get inspected attribute carriers
-    const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // declare a RGBColor variable
     RGBColor color;
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
-    if (inspectedAC && (!inspectedAC->isAttributeCarrierSelected()) &&
-            ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
+    if (inspectedElements->getFirstAC() &&
+            !inspectedElements->getFirstAC()->isAttributeCarrierSelected() &&
+            inspectedElements->getFirstAC()->getTagProperty().vehicleEdges()) {
         // obtain attribute "via"
-        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(inspectedAC->getAttribute(SUMO_ATTR_VIA));
+        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
         for (const auto& edge : viaEdges) {
             // check if parent edge is in the via edges

@@ -226,9 +226,32 @@ struct GNEViewNetHelper {
         /// @brief constructor
         InspectedElements();
 
-        // @brief check if the given AC is inspected (template due AC can be constant or not)
-        template<typename T>
-        bool isACInspected(T AC) const;
+        /// @brief inspect AC
+        void inspectAC(GNEAttributeCarrier* AC);
+
+        /// @brief inspect AC
+        void inspectACs(std::vector<GNEAttributeCarrier*> ACs);
+
+        /// @brief uninspect AC
+        void uninspectAC(GNEAttributeCarrier* AC);
+
+        // @brief check if the given AC is inspected
+        bool isACInspected(GNEAttributeCarrier* AC) const;
+
+        // @brief check if the given AC is inspected (constant)
+        bool isACInspected(const GNEAttributeCarrier* AC) const;
+
+        /// @brief get first AC
+        GNEAttributeCarrier* getFirstAC() const;
+
+        /// @brief set with all inspected ACs
+        const std::set<GNEAttributeCarrier*>& getACs() const;
+
+        /// @brief check if we're inspecting exactly one element
+        bool inspectingOneElement() const;
+
+        /// @brief check if we're inspecting more than one elements
+        bool inspectingMultipleElement() const;
 
     protected:
         /// @brief first inspected element (usually the clicked element)

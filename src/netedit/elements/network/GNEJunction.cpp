@@ -147,10 +147,11 @@ GNEJunction::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+    if (inspectedElements->inspectingOneElement()) {
         // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+        const auto inspectedAC = inspectedElements->getFirstAC();
         // check if starts in this junction
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
@@ -198,10 +199,11 @@ GNEJunction::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+    if (inspectedElements->inspectingOneElement()) {
         // get inspected element
-        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+        const auto inspectedAC = inspectedElements->getFirstAC();
         // check if ends in this junction
         if (inspectedAC->getTagProperty().vehicleJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
@@ -433,7 +435,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 crossing->unselectAttributeCarrier();
             }
             // remove it from inspected ACS
-            myNet->getViewNet()->removeFromAttributeCarrierInspected(crossing);
+            myNet->getViewNet()->getInspectedElements()->uninspectAC(crossing);
             // remove it from net
             myNet->removeGLObjectFromGrid(crossing);
             // remove it from attributeCarriers
@@ -1249,7 +1251,7 @@ GNEJunction::clearWalkingAreas() {
             walkingArea->unselectAttributeCarrier();
         }
         // remove it from inspected ACS
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
+        myNet->getViewNet()->getInspectedElements()->uninspectAC(walkingArea);
         // remove it from net
         myNet->removeGLObjectFromGrid(walkingArea);
         // remove it from attributeCarriers
@@ -1650,6 +1652,7 @@ GNEJunction::setResponsible(bool newVal) {
 bool
 GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check conditions
     if (junctionShapeArea < 4) {
         // force draw if this junction is a candidate
@@ -1666,9 +1669,9 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
             return true;
         }
         // force draw if we're inspecting a vehicle that start or ends in a junction
-        if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        if (inspectedElements->inspectingOneElement()) {
             // get inspected element
-            const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+            const auto inspectedAC = inspectedElements->getFirstAC();
             // check if starts or ends in this junction
             if ((inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
                     (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {

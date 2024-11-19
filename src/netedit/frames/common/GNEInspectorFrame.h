@@ -341,16 +341,19 @@ public:
     void inspectSingleElement(GNEAttributeCarrier* AC);
 
     /// @brief Inspect the given multi-selection
-    void inspectMultisection(GNEAttributeCarrier* firstInspectedAC, const std::set<GNEAttributeCarrier*>& ACs);
+    void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);
+
+    /// @brief Clear all current inspected ACs
+    void clearInspectedAC();
+
+    /// @brief refresh current inspection
+    void refreshInspection();
 
     /// @brief inspect child of already inspected element
     void inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
 
     /// @brief inspect called from DeleteFrame
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
-
-    /// @brief Clear all current inspected ACs
-    void clearInspectedAC();
 
     /// @brief get AttributesEditor
     GNEFrameAttributeModules::AttributesEditor* getAttributesEditor() const;

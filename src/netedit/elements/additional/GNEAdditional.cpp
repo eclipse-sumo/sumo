@@ -182,10 +182,11 @@ GNEAdditional::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+    if (inspectedElements->inspectingOneElement()) {
         // get inspected AC
-        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+        const auto inspectedAC = inspectedElements->getFirstAC();
         // check if starts in TAZ
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
             return true;
@@ -241,10 +242,11 @@ GNEAdditional::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+    if (inspectedElements->inspectingOneElement()) {
         // get inspected AC
-        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+        const auto inspectedAC = inspectedElements->getFirstAC();
         // check if starts in TAZ
         if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
             return true;
@@ -1081,8 +1083,9 @@ GNEAdditional::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols) const {
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if current additional is inspected, front or selected
-    const bool currentDrawEntire = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+    const bool currentDrawEntire = inspectedElements->isACInspected(this) ||
                                    (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
     // push layer matrix
     GLHelper::pushMatrix();
@@ -1091,11 +1094,11 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     // iterate over parent additionals
     for (const auto& parent : getParentAdditionals()) {
         // get inspected flag
-        const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parent);
+        const bool parentInspected = inspectedElements->isACInspected(parent);
         // draw parent lines
         GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(),
                                     (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                    currentDrawEntire || inspected || parent->isAttributeCarrierSelected(), .05);
+                                    currentDrawEntire || parentInspected || parent->isAttributeCarrierSelected(), .05);
     }
     // special case for Parking area reroutes
     if (getTagProperty().getTag() == SUMO_TAG_REROUTER) {
@@ -1106,11 +1109,11 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
                     // get parking area
                     const auto parkingArea = rerouterElement->getParentAdditionals().at(1);
                     // get inspected flag
-                    const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parkingArea);
+                    const bool parkingAreaInspected = inspectedElements->isACInspected(parkingArea);
                     // draw parent lines
                     GUIGeometry::drawParentLine(s, getPositionInView(), parkingArea->getPositionInView(),
                                                 (isAttributeCarrierSelected() || parkingArea->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                                currentDrawEntire || inspected || parkingArea->isAttributeCarrierSelected(), .05);
+                                                currentDrawEntire || parkingAreaInspected || parkingArea->isAttributeCarrierSelected(), .05);
                 }
             }
         }
@@ -1118,18 +1121,18 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     // iterate over child additionals
     for (const auto& child : getChildAdditionals()) {
         // get inspected flag
-        const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(child);
+        const bool childInspected = inspectedElements->isACInspected(child);
         // special case for parking zone reroute
         if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             // draw child line between parking area and rerouter
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                                        (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected(), .05);
+                                       currentDrawEntire || childInspected || child->isAttributeCarrierSelected(), .05);
         } else if (!onlySymbols || child->getTagProperty().isSymbol()) {
             // draw child line
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(),
                                        (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected(), .05);
+                                       currentDrawEntire || childInspected || child->isAttributeCarrierSelected(), .05);
         }
     }
     // pop layer matrix

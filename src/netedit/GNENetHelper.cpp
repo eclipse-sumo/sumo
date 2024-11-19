@@ -384,12 +384,13 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, 
 }
 
 
-std::set<GNEAttributeCarrier*>
+std::vector<GNEAttributeCarrier*>
 GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreCurrentSupermode) {
     // get modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // declare vector to save result
-    std::set<GNEAttributeCarrier*> result;
+    std::vector<GNEAttributeCarrier*> result;
+    result.reserve(gSelected.getSelected().size());
     // iterate over all elements of global selection
     for (const auto& glID : gSelected.getSelected()) {
         // obtain AC
@@ -397,13 +398,13 @@ GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreC
         // check if attribute carrier exist and is selected
         if (AC && AC->isAttributeCarrierSelected()) {
             if (ignoreCurrentSupermode) {
-                result.insert(AC);
+                result.push_back(AC);
             } else if (editModes.isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
-                result.insert(AC);
+                result.push_back(AC);
             } else if (editModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
-                result.insert(AC);
+                result.push_back(AC);
             } else if (editModes.isCurrentSupermodeData() && AC->getTagProperty().isDataElement()) {
-                result.insert(AC);
+                result.push_back(AC);
             }
         }
     }
@@ -1950,7 +1951,7 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
         myDataIntervals.erase(finder);
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(dataInterval);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(dataInterval);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataInterval);
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
@@ -2082,7 +2083,7 @@ GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) 
         myGenericDatas.at(genericData->getTagProperty().getTag()).erase(finder);
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(genericData);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(genericData);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
     // delete path element
     myNet->getDataPathManager()->removePath(genericData);
@@ -2261,7 +2262,7 @@ GNENetHelper::AttributeCarriers::insertJunction(GNEJunction* junction) {
 void
 GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(junction);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(junction);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(junction);
     // Remove from grid and container
     myNet->removeGLObjectFromGrid(junction);
@@ -2292,7 +2293,7 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     // get pointer to create edge frame
     const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(edgeType);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(edgeType);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
@@ -2320,7 +2321,7 @@ GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
 void
 GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(edge);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(edge);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edge);
     // remove edge from visual grid and container
     myNet->removeGLObjectFromGrid(edge);
@@ -2367,7 +2368,7 @@ GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
         myLanes.erase(finder);
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(lane);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(lane);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
 }
 
@@ -2391,7 +2392,7 @@ GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
         myCrossings.erase(finder);
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(crossing);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(crossing);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
 }
 
@@ -2415,7 +2416,7 @@ GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) 
         myWalkingAreas.erase(finder);
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(walkingArea);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
 }
 
@@ -2496,7 +2497,7 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(additional);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(additional);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
     // remove from both container
     myAdditionals.at(tag).erase(itFind);
@@ -2553,7 +2554,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(demandElement);
     viewParent->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     viewParent->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
     viewParent->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
@@ -2608,7 +2609,7 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
         myDataSets.erase(finder);
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(dataSet);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(dataSet);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
     // dataSets has to be saved
     myNet->getSavingStatus()->requireSaveDataElements();
@@ -2638,7 +2639,7 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
         throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(meanData);
+    myNet->getViewNet()->getInspectedElements()->uninspectAC(meanData);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
     // remove from container
     myMeanDatas.at(meanData->getTagProperty().getTag()).erase(itFind);

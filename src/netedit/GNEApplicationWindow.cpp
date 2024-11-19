@@ -2167,7 +2167,7 @@ GNEApplicationWindow::onCmdToggleTimeFormat(FXObject*, FXSelector, void*) {
         }
         // refresh inspector frame
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
-            myViewNet->getViewParent()->getInspectorFrame()->inspectMultisection(myViewNet->getFirstInspectedAttributeCarrier(), myViewNet->getInspectedAttributeCarriers());
+            myViewNet->getViewParent()->getInspectorFrame()->refreshInspection();
         }
     }
     return 1;
@@ -2271,13 +2271,11 @@ long
 GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
-            // get inspected AC
-            GNEAttributeCarrier* inspectedAC = myViewNet->getFirstInspectedAttributeCarrier();
             // set or clear front attribute
-            if (myViewNet->getFrontAttributeCarrier() == inspectedAC) {
+            if (myViewNet->getFrontAttributeCarrier() == myViewNet->getInspectedElements()->getFirstAC()) {
                 myViewNet->setFrontAttributeCarrier(nullptr);
             } else {
-                myViewNet->setFrontAttributeCarrier(inspectedAC);
+                myViewNet->setFrontAttributeCarrier(myViewNet->getInspectedElements()->getFirstAC());
             }
             myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
         } else {

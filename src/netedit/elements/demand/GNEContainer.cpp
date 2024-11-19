@@ -617,16 +617,17 @@ GNEContainer::getPopUpID() const {
 
 std::string
 GNEContainer::getHierarchyName() const {
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // special case for Trips and flow
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // get inspected AC
-        const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
+        const auto inspectedAC = inspectedElements->getFirstAC();
         // check if we're inspecting an Edge
         if (inspectedAC && inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
-            if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
+            if (inspectedElements->isACInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
+            } else if (inspectedElements->isACInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via

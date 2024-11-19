@@ -155,6 +155,7 @@ GNERerouterInterval::getParentName() const {
 
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
+    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // draw rerouter interval as listed attribute
     drawListedAdditional(s, getParentAdditionals().front()->getPositionInView(),
                          0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
@@ -162,8 +163,8 @@ GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // iterate over additionals and check if drawn
     for (const auto& rerouterElement : getChildAdditionals()) {
         // if rerouter or their child is selected, then draw
-        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
+        if (isAttributeCarrierSelected() || inspectedElements->isACInspected(this) ||
+                rerouterElement->isAttributeCarrierSelected() || inspectedElements->isACInspected(rerouterElement) ||
                 (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
             rerouterElement->drawGL(s);
         }
