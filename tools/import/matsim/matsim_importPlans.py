@@ -245,7 +245,7 @@ def main(options):
     persons.sort()
     with open(options.output_file, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="routes")
-        for t in types:
+        for t in sorted(types):
             vClass = ""
             if t in ("bike", "bicycle"):
                 vClass = ' vClass="bicycle"'
