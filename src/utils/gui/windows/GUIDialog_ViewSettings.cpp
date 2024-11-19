@@ -687,14 +687,14 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.poiType = myPOITypePanel->getSettings();
     tmpSettings.poiText = myPOITextPanel->getSettings();
     tmpSettings.poiSize = myPOISizePanel->getSettings();
-    tmpSettings.poiUseCustomLayer = myPOIUseCustomLayer->getCheck();
+    tmpSettings.poiUseCustomLayer = myPOIUseCustomLayer->getCheck() != FALSE;
     tmpSettings.poiCustomLayer = myPOICustomLayer->getValue();
 
     tmpSettings.polyColorer.setActive(myPolyColorMode->getCurrentItem());
     tmpSettings.polyName = myPolyNamePanel->getSettings();
     tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
-    tmpSettings.polyUseCustomLayer = myPolyUseCustomLayer->getCheck();
+    tmpSettings.polyUseCustomLayer = myPolyUseCustomLayer->getCheck() != FALSE;
     tmpSettings.polyCustomLayer = myPolyCustomLayer->getValue();
 
     if (mySettings->netedit) {

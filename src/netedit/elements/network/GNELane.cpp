@@ -1440,7 +1440,6 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s, const double la
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // get inspected attribute carriers
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     const auto inspectedAC = myNet->getViewNet()->getFirstInspectedAttributeCarrier();
     // declare a RGBColor variable
     RGBColor color;

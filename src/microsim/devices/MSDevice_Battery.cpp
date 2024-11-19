@@ -19,10 +19,9 @@
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
-#include <algorithm>
-
 #include <config.h>
 
+#include <algorithm>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>

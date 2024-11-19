@@ -383,7 +383,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
             into.closeTag(); // close the last edge
             // third pass: write via edges
             if (haveVia) {
-                std::string edgeID = "";
+                std::string viaEdgeID = "";
                 for (const NBEdge::Connection& k : elv) {
                     if (!k.haveVia) {
                         continue;
@@ -392,15 +392,15 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                         assert(false); // should never happen. tell me when it does
                         continue;
                     }
-                    if (edgeID != k.viaID) {
-                        if (edgeID != "") {
+                    if (viaEdgeID != k.viaID) {
+                        if (viaEdgeID != "") {
                             // close the previous edge
                             into.closeTag();
                         }
-                        edgeID = k.viaID;
+                        viaEdgeID = k.viaID;
                         // open a new edge
                         into.openTag(SUMO_TAG_EDGE);
-                        into.writeAttr(SUMO_ATTR_ID, edgeID);
+                        into.writeAttr(SUMO_ATTR_ID, viaEdgeID);
                         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
                         if (k.edgeType != "") {
                             into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
