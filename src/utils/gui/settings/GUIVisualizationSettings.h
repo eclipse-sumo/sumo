@@ -603,13 +603,13 @@ public:
         JunctionElement = 1,            // crossings, walking area, connections and internal lanes
         DottedContoursResampled = 1,    // resample dotted contours
         PreciseSelection = 1,           // precise selection using boundaries
+        DottedContours = 1,             // draw dotted contours
 
         Level2 = 2,
         CircleResolution8 = 2,  // circle resolution = 8
         DrawPolygonSquare = 2,  // draw polygons as squares
         VehicleTriangle = 2,    // draw vehicles as triangles
         Additionals = 2,        // draw additional elements
-        DottedContours = 2,     // draw dotted contours
         GeometryBoxLines = 2,   // draw lines instead boxes in GUIGeometry::drawGeometry
 
         Level3 = 3,
