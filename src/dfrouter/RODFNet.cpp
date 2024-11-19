@@ -930,13 +930,14 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
             }
             const RODFDetector& det = detectors.getDetector(*j);
             bool found = false;
-            for (std::map<double, std::vector<std::string> >::iterator k = cliques.begin(); !found && k != cliques.end(); ++k) {
-                if (fabs((*k).first - det.getPos()) < 1) {
-                    (*k).second.push_back(*j);
-                    if ((*k).second.size() > maxClique->size()) {
-                        maxClique = &(*k).second;
+            for (auto& k : cliques) {
+                if (fabs(k.first - det.getPos()) < 1) {
+                    k.second.push_back(*j);
+                    if (maxClique == nullptr || k.second.size() > maxClique->size()) {
+                        maxClique = &k.second;
                     }
                     found = true;
+                    break;
                 }
             }
             if (!found) {

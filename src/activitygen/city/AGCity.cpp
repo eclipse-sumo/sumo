@@ -111,7 +111,7 @@ AGCity::generateWorkPositions() {
         }
     } catch (const std::bad_alloc& e) {
         std::cout << "Number of work positions at bad_alloc exception: " << workPositionCounter << std::endl;
-        throw e;
+        throw;
     }
     //std::cout << "Inner work positions done. " << workPositionCounter << " generated." << std::endl;
 

@@ -35,11 +35,7 @@
 // ===========================================================================
 class AGFreeTime : public AGActivity {
 public:
-    AGFreeTime(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips) :
-        AGActivity(hh, das, prevTrips, 2),
-        freqOut(das->freeTimeActivityRate),
-        nbrDays(1) {};
-    AGFreeTime(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips, int days) :
+    AGFreeTime(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips, int days = 1) :
         AGActivity(hh, das, prevTrips, 2),
         freqOut(das->freeTimeActivityRate),
         nbrDays(days) {};
@@ -98,11 +94,11 @@ private:
      * time ready to do something else
      * everybody is back home
      */
-    int tReady;
+    int tReady = 0;
     /**
      * possible type of trips for this household
      */
-    int possibleType;
+    int possibleType = 0;
 
     static const int DAY;// = 1;
     static const int EVENING;// = 2;
