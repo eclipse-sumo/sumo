@@ -172,7 +172,7 @@ def main(options):
             write_to_file(
                 cut_trips(edges, options, validTaz), f)
         # sort out of memory
-        sort_routes.main([tmpname, '--big', '--outfile', options.output])
+        sort_routes.main([tmpname, '--big', '--outfile', options.output] + (['--verbose'] if options.verbose else []))
     else:
         routes = list(cut_trips(edges, options, validTaz))
         routes.sort(key=lambda v: v[0])

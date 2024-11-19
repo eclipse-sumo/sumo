@@ -28,6 +28,7 @@ from xml.sax import make_parser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import parseTime  # noqa
+import sumolib  # noqa
 
 DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person': 'depart'}
 
@@ -59,7 +60,7 @@ def sort_departs(routefile, outfile, verbose):
         if event == pulldom.START_ELEMENT:
             if root is None:
                 root = parsenode.localName
-                outfile.write("<%s>\n" % root)
+                sumolib.writeXMLHeader(outfile, root=root, includeXMLDeclaration=False)
                 continue
             routes_doc.expandNode(parsenode)
             departAttr = DEPART_ATTRS.get(parsenode.localName)

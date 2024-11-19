@@ -34,7 +34,9 @@ except ImportError:
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
+import sort_routes
 
 
 def get_options(args=None):
@@ -243,7 +245,8 @@ def main(options):
         persons.append((sumolib.miscutils.parseTime(depart), index, outf.getvalue()))
 
     persons.sort()
-    with open(options.output_file, 'w') as outf:
+    tmpout = options.output_file + ".tmp"
+    with open(tmpout, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="routes")
         for t in sorted(types):
             vClass = ""
@@ -254,11 +257,18 @@ def main(options):
             outf.write(xml)
         outf.write('</routes>\n')
     outf.close()
+    # use duarouter for sorting when --vehicles-only is set
     if options.repair or options.remove_loops:
-        args = ["-n", options.net_file, "-r", options.output_file, "-o", options.output_file + ".repaired"]
+        args = ["-n", options.net_file, "-a", tmpout, "-o", options.output_file]
         args += ["--repair"] if options.repair else []
         args += ["--remove-loops"] if options.remove_loops else []
+        args += ["--write-trips", "--write-trips.geo"] if options.prefer_coordinate else []
         subprocess.call([sumolib.checkBinary("duarouter")] + args)
+    elif options.vehicles_only:
+        sort_routes.main([tmpout, '-o', options.output_file])
+    else:
+        os.rename(tmpout, options.output_file)
+
 
 
 if __name__ == "__main__":
