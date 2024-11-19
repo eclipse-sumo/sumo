@@ -293,8 +293,8 @@ GNEViewNetHelper::InspectedElements::isACInspected(const GNEAttributeCarrier* AC
     } else if (myFirstInspectedAC == AC) {
         return true;
     } else {
-        auto it = std::find(myInspectedACs.begin(), myInspectedACs.end(), AC);
-        return it != myInspectedACs.end();
+        // we need a const_cast because our myInspectedACs is a set of non-constant ACs (in this case is safe)
+        return myInspectedACs.find(const_cast<GNEAttributeCarrier*>(AC)) != myInspectedACs.end();
     }
 }
 
