@@ -604,7 +604,7 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
             GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
                                              myShapeWidth.length2D(), myShapeHeight.length2D());
         } else {
-            GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
+            GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), s.poiUseCustomLayer ? s.poiCustomLayer : getShapeLayer(),
                                              myShapeWidth.length2D(), myShapeHeight.length2D());
         }
         // draw geometry points
