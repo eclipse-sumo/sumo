@@ -234,7 +234,7 @@ GNEViewNetHelper::InspectedElements::inspectAC(GNEAttributeCarrier* AC) {
 
 
 void
-GNEViewNetHelper::InspectedElements::inspectACs(std::vector<GNEAttributeCarrier*> ACs) {
+GNEViewNetHelper::InspectedElements::inspectACs(const std::vector<GNEAttributeCarrier*>& ACs) {
     myInspectedACs.clear();
     if (ACs.size() > 0) {
         myFirstInspectedAC = ACs.front();
@@ -259,6 +259,18 @@ GNEViewNetHelper::InspectedElements::uninspectAC(GNEAttributeCarrier* AC) {
             myFirstInspectedAC = (*myInspectedACs.begin());
         }
     }
+}
+
+
+GNEAttributeCarrier*
+GNEViewNetHelper::InspectedElements::getFirstAC() const {
+    return myFirstInspectedAC;
+}
+
+
+const std::set<GNEAttributeCarrier*>&
+GNEViewNetHelper::InspectedElements::getACs() const {
+    return myInspectedACs;
 }
 
 
@@ -287,15 +299,9 @@ GNEViewNetHelper::InspectedElements::isACInspected(const GNEAttributeCarrier* AC
 }
 
 
-GNEAttributeCarrier*
-GNEViewNetHelper::InspectedElements::getFirstAC() const {
-    return myFirstInspectedAC;
-}
-
-
-const std::set<GNEAttributeCarrier*>&
-GNEViewNetHelper::InspectedElements::getACs() const {
-    return myInspectedACs;
+bool
+GNEViewNetHelper::InspectedElements::inspectingElements() const {
+    return myInspectedACs.size() > 0;
 }
 
 
@@ -304,8 +310,9 @@ GNEViewNetHelper::InspectedElements::inspectingSingleElement() const {
     return myInspectedACs.size() == 1;
 }
 
+
 bool
-GNEViewNetHelper::InspectedElements::inspectingMultipleElement() const {
+GNEViewNetHelper::InspectedElements::inspectingMultipleElements() const {
     return myInspectedACs.size() > 1;
 }
 

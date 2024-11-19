@@ -117,7 +117,7 @@ void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // continue if there is edited ACs
-    if (inspectedElements->getACs().size() > 0) {
+    if (inspectedElements->inspectingElements()) {
         // enable all editable elements
         myTextFieldParentAdditional->enable();
         myCheckBoxCloseShape->enable();
@@ -209,7 +209,7 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 void
 GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool forceRefresh) {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-    if (inspectedElements->getACs().size() > 0) {
+    if (inspectedElements->inspectingElements()) {
         // enable or disable mark front element button
         if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == inspectedElements->getFirstAC()) {
             myMarkFrontElementButton->disable();
@@ -256,12 +256,12 @@ void
 GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* clickedAC) {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // check number of inspected ACs
-    if ((inspectedElements->getACs().size() > 0) && clickedAC) {
+    if ((inspectedElements->inspectingElements()) && clickedAC) {
         // check parent tags
         for (const auto& parentTag : inspectedElements->getFirstAC()->getTagProperty().getParentTags()) {
             if (parentTag == clickedAC->getTagProperty().getTag()) {
                 // check if we're changing multiple attributes
-                if (inspectedElements->inspectingMultipleElement()) {
+                if (inspectedElements->inspectingMultipleElements()) {
                     myInspectorFrameParent->myViewNet->getUndoList()->begin(inspectedElements->getFirstAC(), "Change multiple attributes");
                 }
                 // replace the parent of all inspected elements
@@ -269,7 +269,7 @@ GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* cl
                     AC->setAttribute(GNE_ATTR_PARENT, clickedAC->getID(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 // finish change multiple attributes
-                if (inspectedElements->inspectingMultipleElement()) {
+                if (inspectedElements->inspectingMultipleElements()) {
                     myInspectorFrameParent->myViewNet->getUndoList()->end();
                 }
                 // stop select parent
@@ -294,9 +294,9 @@ long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // make sure that ACs has elements
-    if (inspectedElements->getACs().size() > 0) {
+    if (inspectedElements->inspectingElements()) {
         // check if we're changing multiple attributes
-        if (inspectedElements->inspectingMultipleElement()) {
+        if (inspectedElements->inspectingMultipleElements()) {
             myInspectorFrameParent->myViewNet->getUndoList()->begin(inspectedElements->getFirstAC(), "Change multiple attributes");
         }
         if (obj == mySetNewParentButton) {
@@ -331,7 +331,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             }
         }
         // finish change multiple attributes
-        if (inspectedElements->inspectingMultipleElement()) {
+        if (inspectedElements->inspectingMultipleElements()) {
             myInspectorFrameParent->myViewNet->getUndoList()->end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
@@ -423,7 +423,7 @@ void
 GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // make sure that ACs has elements
-    if (inspectedElements->getACs().size() > 0) {
+    if (inspectedElements->inspectingElements()) {
         // enable all editable elements
         myGEOAttributeTextField->enable();
         myUseGEOCheckButton->enable();
@@ -1037,7 +1037,7 @@ GNEInspectorFrame::refreshInspection() {
     myHierarchicalElementTree->hideHierarchicalElementTree();
     myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
-    if (inspectedElements->getACs().size() > 0) {
+    if (inspectedElements->inspectingElements()) {
         // Set header
         std::string headerString;
         if (inspectedElements->getFirstAC()->getTagProperty().isNetworkElement()) {
@@ -1067,11 +1067,11 @@ GNEInspectorFrame::refreshInspection() {
         } else if (inspectedElements->getFirstAC()->getTagProperty().isDataElement()) {
             headerString = "Data: ";
         }
-        if (myViewNet->getInspectedElements()->inspectingMultipleElement()) {
+        if (myViewNet->getInspectedElements()->inspectingMultipleElements()) {
             headerString += toString(inspectedElements->getACs().size()) + " ";
         }
         headerString += inspectedElements->getFirstAC()->getTagStr();
-        if (myViewNet->getInspectedElements()->inspectingMultipleElement()) {
+        if (myViewNet->getInspectedElements()->inspectingMultipleElements()) {
             headerString += "s";
         }
         // Set headerString into header label

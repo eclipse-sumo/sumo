@@ -226,41 +226,55 @@ struct GNEViewNetHelper {
         /// @brief constructor
         InspectedElements();
 
+        /// @name inspect functions
+        /// @{
         /// @brief inspect AC
         void inspectAC(GNEAttributeCarrier* AC);
 
-        /// @brief inspect AC
-        void inspectACs(std::vector<GNEAttributeCarrier*> ACs);
+        /// @brief inspect multiple ACs
+        void inspectACs(const std::vector<GNEAttributeCarrier*>& ACs);
 
         /// @brief uninspect AC
         void uninspectAC(GNEAttributeCarrier* AC);
 
-        // @brief check if the given AC is inspected
-        bool isACInspected(GNEAttributeCarrier* AC) const;
+        /// @}
 
-        // @brief check if the given AC is inspected (constant)
-        bool isACInspected(const GNEAttributeCarrier* AC) const;
-
-        /// @brief get first AC
+        /// @name get functions
+        /// @{
+        /// @brief get first inspected AC (needed because the main container is a set)
         GNEAttributeCarrier* getFirstAC() const;
 
         /// @brief set with all inspected ACs
         const std::set<GNEAttributeCarrier*>& getACs() const;
 
+        /// @}
+
+        /// @name check functions
+        /// @{
+        // @brief check if the given AC is inspected
+        bool isACInspected(GNEAttributeCarrier* AC) const;
+
+        // @brief check if the given constant AC is inspected
+        bool isACInspected(const GNEAttributeCarrier* AC) const;
+
+        /// @brief check if we're inspecting at least one element
+        bool inspectingElements() const;
+
         /// @brief check if we're inspecting exactly one element
         bool inspectingSingleElement() const;
 
         /// @brief check if we're inspecting more than one elements
-        bool inspectingMultipleElement() const;
+        bool inspectingMultipleElements() const;
 
-    protected:
+        /// @}
+
+    private:
         /// @brief first inspected element (usually the clicked element)
         GNEAttributeCarrier* myFirstInspectedAC = nullptr;
 
-        /// @brief set with all inspected ACs
+        /// @brief set with all inspected ACs (we use a set to make deletion of massive elements more quickly)
         std::set<GNEAttributeCarrier*> myInspectedACs;
 
-    private:
         /// @brief Invalidated copy constructor.
         InspectedElements(const InspectedElements&) = delete;
 
