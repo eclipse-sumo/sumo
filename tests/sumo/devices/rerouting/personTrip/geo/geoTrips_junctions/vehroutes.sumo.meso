@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-07 22:27:46 by Eclipse SUMO sumo Version v1_19_0+1200-d6b735e953a
+<!-- generated on 2024-11-19 10:24:10 by Eclipse SUMO sumo Version v1_21_0+0859-2b1fcc0f170
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <processing>
@@ -39,17 +40,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" arrival="137.00">
-        <route edges="beg beg2left left left2end end rend"/>
-        <stop busStop="busStop#1" duration="10.00"/>
-    </vehicle>
+    <person id="2" depart="0.00" arrival="1800.00">
+        <walk edges="beg middle end rend"/>
+    </person>
 
-    <vehicle id="2" depart="0.00" arrival="138.00">
-        <route edges="beg beg2left left left2end end rend"/>
-    </vehicle>
+    <person id="0" depart="0.00" arrival="2170.00">
+        <walk edges="beg middle"/>
+        <stop lane="middle_0" endPos="0.00" duration="10.00"/>
+        <walk edges="middle end rend"/>
+    </person>
 
 </routes>
