@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-18 19:33:31.756415 by matsim_importPlans.py v1_21_0+0842-81aba47c0db
+<!-- generated on 2024-11-19 07:28:10.256062 by matsim_importPlans.py v1_21_0+0853-3c053a3b301
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car"/>
     <vType id="freight"/>
     <vType id="ride"/>
-    <vType id="car"/>
     <trip id="0_0" depart="triggered" fromLonLat="12.441623766883094,51.30168303457315" toLonLat="12.322710508594813,51.31372681762787" type="ride"/>
     <trip id="0_1" depart="triggered" fromLonLat="12.322710508594813,51.31372681762787" toLonLat="12.441623766883094,51.30168303457315" type="car"/>
     <person id="0" depart="0:0:0">

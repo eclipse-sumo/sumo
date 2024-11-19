@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-18 19:46:01.518106 by matsim_importPlans.py v1_21_0+0842-81aba47c0db
+<!-- generated on 2024-11-19 07:28:10.267233 by matsim_importPlans.py v1_21_0+0853-3c053a3b301
   options: <doubleminus>no-bikes <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="ride"/>
     <vType id="car"/>
+    <vType id="ride"/>
     <vehicle id="10000001_1" depart="triggered" type="car">
         <route edges="144395 13185 110920 110771 110773 13324 110367 110369 143404 98098 143528 111248 111278 111280 143420 143410 131204 133161 13679 93161 26733 26730 46537 41913 134075"/>
     </vehicle>
