@@ -21,6 +21,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIGlobalViewUpdater.h>
 
 #include "GNEApplicationWindow.h"
@@ -250,13 +251,19 @@ GNEUndoList::end() {
     gViewUpdater.enableUpdate();
     // update view without ignoring viewUpdater (used to avoid slowdows during massive edits)
     myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
-    // check if net has to be updated
+    // check if net has to be updated (called only if this is the last end
     if (myChangeGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
         // check if we have to update selector frame
         const auto& editModes = myGNEApplicationWindowParent->getViewNet()->getEditModes();
-        if ((editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
-                (editModes.isCurrentSupermodeDemand() && editModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
-                (editModes.isCurrentSupermodeData() && editModes.dataEditMode == DataEditMode::DATA_SELECT)) {
+        if ((editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) ||
+                (editModes.isCurrentSupermodeDemand() && editModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) ||
+                (editModes.isCurrentSupermodeData() && editModes.dataEditMode == DataEditMode::DATA_INSPECT)) {
+            // refresh inspect frame
+            myGNEApplicationWindowParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshInspection();
+        } else if ((editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
+                   (editModes.isCurrentSupermodeDemand() && editModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
+                   (editModes.isCurrentSupermodeData() && editModes.dataEditMode == DataEditMode::DATA_SELECT)) {
+            // update informacion label in selection frame
             myGNEApplicationWindowParent->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
         }
     }
