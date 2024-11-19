@@ -6,8 +6,8 @@ All of the tools described below exist in *tools/output* directory.
 
 ## attributeStats.py
 
-Computes statistics on arbitrary numerical attributes in an xml
-document. (eg. attribute *timeLoss* for element *tripinfo* in
+Computes statistics on arbitrary numerical attributes in one or more xml
+documents. (eg. attribute *timeLoss* for element *tripinfo* in
 [tripinfo-output](../Simulation/Output/TripInfo.md)) and writes the
 results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
 
