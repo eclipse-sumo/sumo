@@ -268,7 +268,7 @@ GNEViewNetHelper::InspectedElements::getFirstAC() const {
 }
 
 
-const std::set<GNEAttributeCarrier*>&
+const std::unordered_set<GNEAttributeCarrier*>&
 GNEViewNetHelper::InspectedElements::getACs() const {
     return myInspectedACs;
 }

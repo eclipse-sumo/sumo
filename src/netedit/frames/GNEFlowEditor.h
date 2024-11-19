@@ -45,7 +45,7 @@ public:
     ~GNEFlowEditor();
 
     /// @brief show GNEFlowEditor modul
-    void showFlowEditor(GNEAttributeCarrier* firstEditedFlow, const std::set<GNEAttributeCarrier*> editedFlows);
+    void showFlowEditor(GNEAttributeCarrier* firstEditedFlow, const std::unordered_set<GNEAttributeCarrier*> editedFlows);
 
     /// @brief hide group box
     void hideFlowEditor();
@@ -114,7 +114,7 @@ private:
     FXTextField* mySpacingTextField = nullptr;
 
     /// @brief edited flows
-    std::set<GNEAttributeCarrier*> myEditedFlows;
+    std::unordered_set<GNEAttributeCarrier*> myEditedFlows;
 
     /// @brief first edited flow
     GNEAttributeCarrier* myFirstEditedFlow = nullptr;

@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <unordered_set>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
@@ -244,8 +245,8 @@ struct GNEViewNetHelper {
         /// @brief get first inspected AC (needed because the main container is a set)
         GNEAttributeCarrier* getFirstAC() const;
 
-        /// @brief set with all inspected ACs
-        const std::set<GNEAttributeCarrier*>& getACs() const;
+        /// @brief has table with all inspected ACs
+        const std::unordered_set<GNEAttributeCarrier*>& getACs() const;
 
         /// @}
 
@@ -273,7 +274,7 @@ struct GNEViewNetHelper {
         GNEAttributeCarrier* myFirstInspectedAC = nullptr;
 
         /// @brief set with all inspected ACs (we use a set to make deletion of massive elements more quickly)
-        std::set<GNEAttributeCarrier*> myInspectedACs;
+        std::unordered_set<GNEAttributeCarrier*> myInspectedACs;
 
         /// @brief Invalidated copy constructor.
         InspectedElements(const InspectedElements&) = delete;

@@ -88,7 +88,7 @@ GNEFlowEditor::~GNEFlowEditor() {}
 
 
 void
-GNEFlowEditor::showFlowEditor(GNEAttributeCarrier* firstEditedFlow, const std::set<GNEAttributeCarrier*> editedFlows) {
+GNEFlowEditor::showFlowEditor(GNEAttributeCarrier* firstEditedFlow, const std::unordered_set<GNEAttributeCarrier*> editedFlows) {
     // update flows
     myEditedFlows = editedFlows;
     myFirstEditedFlow = firstEditedFlow;
