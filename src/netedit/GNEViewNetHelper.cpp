@@ -300,7 +300,7 @@ GNEViewNetHelper::InspectedElements::getACs() const {
 
 
 bool
-GNEViewNetHelper::InspectedElements::inspectingOneElement() const {
+GNEViewNetHelper::InspectedElements::inspectingSingleElement() const {
     return myInspectedACs.size() == 1;
 }
 

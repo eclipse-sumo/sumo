@@ -245,7 +245,7 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // refresh AC Hierarchy
     refreshHierarchicalElementTree();
     // check if inspector frame has to be shown again
-    if (inspectedElements->inspectingOneElement()) {
+    if (inspectedElements->inspectingSingleElement()) {
         if (inspectedElements->getFirstAC() != myClickedAC) {
             myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(inspectedElements->getFirstAC());
         } else {

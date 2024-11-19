@@ -483,7 +483,7 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
     const auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto inspectedElements = viewNet->getInspectedElements();
     // check if we're editing junction position
-    if (inspectedElements->inspectingOneElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
+    if (inspectedElements->inspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
         GNEJunction* movedJunction = viewNet->getNet()->getAttributeCarriers()->retrieveJunction(inspectedElements->getFirstAC()->getID());
         // parse position
@@ -753,7 +753,7 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string& v
         for (const auto& POIIcon : SUMOXMLDefinitions::POIIcons.getValues()) {
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::POIIcons.getString(POIIcon).c_str(), POIIcons::getPOIIcon(POIIcon));
         }
-    } else if ((myACAttr.getAttr() == SUMO_ATTR_RIGHT_OF_WAY) && (inspectedElements->inspectingOneElement()) &&
+    } else if ((myACAttr.getAttr() == SUMO_ATTR_RIGHT_OF_WAY) && (inspectedElements->inspectingSingleElement()) &&
                (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION)) {
         // special case for junction types
         if (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE) == "priority") {
@@ -907,7 +907,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 const bool computed = inspectedElements->inspectingMultipleElement() ? false : inspectedElements->getFirstAC()->isAttributeComputed(attrProperty.getAttr());
                 // if is a Vtype, obtain icon
                 GNEAttributeCarrier* ACParent = nullptr;
-                if (inspectedElements->inspectingOneElement() && attrProperty.isVType()) {
+                if (inspectedElements->inspectingSingleElement() && attrProperty.isVType()) {
                     if (attrProperty.getAttr() == SUMO_ATTR_TYPE) {
                         ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
                         if (ACParent == nullptr) {
@@ -1306,7 +1306,7 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
         // continue depending of frontAC
         if (inspectedElements->getFirstAC() && inspectedElements->getFirstAC()->getTagProperty().hasParameters()) {
             // check if we're editing a single or a multiple AC
-            if (inspectedElements->inspectingOneElement()) {
+            if (inspectedElements->inspectingSingleElement()) {
                 // set text field parameters
                 myTextFieldParameters->setText(inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_PARAMETERS).c_str());
             } else {
@@ -1436,7 +1436,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
                 myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
                 myTextFieldParameters->killFocus();
                 // check inspected parameters
-                if (inspectedElements->inspectingOneElement()) {
+                if (inspectedElements->inspectingSingleElement()) {
                     // begin undo list
                     myInspectorFrameParent->getViewNet()->getUndoList()->begin(inspectedElements->getFirstAC(), "change parameters");
                     // set parameters

@@ -149,11 +149,10 @@ GNEJunction::checkDrawFromContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingOneElement()) {
-        // get inspected element
-        const auto inspectedAC = inspectedElements->getFirstAC();
+    if (inspectedElements->inspectingSingleElement()) {
         // check if starts in this junction
-        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+        if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
@@ -201,11 +200,10 @@ GNEJunction::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingOneElement()) {
-        // get inspected element
-        const auto inspectedAC = inspectedElements->getFirstAC();
+    if (inspectedElements->inspectingSingleElement()) {
         // check if ends in this junction
-        if (inspectedAC->getTagProperty().vehicleJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+        if (inspectedElements->getFirstAC()->getTagProperty().vehicleJunctions() &&
+                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
@@ -1669,12 +1667,12 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
             return true;
         }
         // force draw if we're inspecting a vehicle that start or ends in a junction
-        if (inspectedElements->inspectingOneElement()) {
-            // get inspected element
-            const auto inspectedAC = inspectedElements->getFirstAC();
+        if (inspectedElements->inspectingSingleElement()) {
             // check if starts or ends in this junction
-            if ((inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
-                    (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {
+            if ((inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                    (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
+                    (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_TO_JUNCTION) &&
+                     (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {
                 return true;
             }
         }

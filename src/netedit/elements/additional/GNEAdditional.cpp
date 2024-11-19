@@ -184,13 +184,13 @@ GNEAdditional::checkDrawFromContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingOneElement()) {
-        // get inspected AC
-        const auto inspectedAC = inspectedElements->getFirstAC();
+    if (inspectedElements->inspectingSingleElement()) {
         // check if starts in TAZ
-        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
+        if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_TAZ) &&
+                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
             return true;
-        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+        } else if ((inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+                   (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -244,13 +244,13 @@ GNEAdditional::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingOneElement()) {
-        // get inspected AC
-        const auto inspectedAC = inspectedElements->getFirstAC();
+    if (inspectedElements->inspectingSingleElement()) {
         // check if starts in TAZ
-        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
+        if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_TO_TAZ) &&
+                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
             return true;
-        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+        } else if ((inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+                   (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {

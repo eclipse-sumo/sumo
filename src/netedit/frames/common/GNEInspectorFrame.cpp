@@ -124,7 +124,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
         // obtain tag property (only for improve code legibility)
         const auto& tagValue = inspectedElements->getFirstAC()->getTagProperty();
         // check if item can be mark as front element
-        if (inspectedElements->inspectingOneElement()) {
+        if (inspectedElements->inspectingSingleElement()) {
             // show NeteditAttributesEditor
             show();
             // show button
@@ -346,7 +346,7 @@ long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject*, FXSelector, void*) {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // check number of elements
-    if (inspectedElements->inspectingOneElement()) {
+    if (inspectedElements->inspectingSingleElement()) {
         // mark AC as front element
         myInspectorFrameParent->getViewNet()->setFrontAttributeCarrier(inspectedElements->getFirstAC());
         // disable button
@@ -453,7 +453,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
             } else {
                 myUseGEOCheckButton->disable();
             }
-            if (tagProperty.hasGEOShape() && inspectedElements->inspectingOneElement()) {
+            if (tagProperty.hasGEOShape() && inspectedElements->inspectingSingleElement()) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -713,7 +713,7 @@ void
 GNEInspectorFrame::TemplateEditor::updateButtons() {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // only show set template button if we have exactly one inspected edge
-    if (inspectedElements->inspectingOneElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if (inspectedElements->inspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         mySetTemplateButton->setText((TLF("Set edge '%' as Template", inspectedElements->getFirstAC()->getID())).c_str());
         mySetTemplateButton->show();
     } else {
@@ -722,7 +722,7 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
     // enable or disable clear buttons depending of myEdgeTemplate
     if (myEdgeTemplate) {
         // update caption of copy button
-        if (inspectedElements->inspectingOneElement()) {
+        if (inspectedElements->inspectingSingleElement()) {
             myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into edge '" + inspectedElements->getFirstAC()->getID() + "'").c_str());
         } else {
             myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into " + toString(inspectedElements->getACs().size()) + " selected edges").c_str());
@@ -758,7 +758,7 @@ void
 GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // check number of inspected elements
-    if (inspectedElements->inspectingOneElement()) {
+    if (inspectedElements->inspectingSingleElement()) {
         // get first inspected AC tag
         auto firstInspectedACTag = inspectedElements->getFirstAC()->getTagProperty().getTag();
         // check AC
@@ -805,19 +805,18 @@ long
 GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // check number of inspected elements
-    if (inspectedElements->inspectingOneElement()) {
-        // get first inspected AC
-        auto firstInspectedAC = inspectedElements->getFirstAC();
+    if (inspectedElements->inspectingSingleElement()) {
         // check AC
-        if (firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+        if (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
             // Open rerouter dialog
-            GNERerouterDialog(dynamic_cast<GNERerouter*>(firstInspectedAC));
-        } else if ((firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) || (firstInspectedAC->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_LANE)) {
+            GNERerouterDialog(dynamic_cast<GNERerouter*>(inspectedElements->getFirstAC()));
+        } else if ((inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) ||
+                   (inspectedElements->getFirstAC()->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_LANE)) {
             // Open calibrator dialog
-            GNECalibratorDialog(dynamic_cast<GNECalibrator*>(firstInspectedAC));
-        } else if (firstInspectedAC->getTagProperty().getTag() == SUMO_TAG_VSS) {
+            GNECalibratorDialog(dynamic_cast<GNECalibrator*>(inspectedElements->getFirstAC()));
+        } else if (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_VSS) {
             // Open VSS dialog
-            GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(firstInspectedAC));
+            GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(inspectedElements->getFirstAC()));
         }
     }
     return 1;
@@ -1097,7 +1096,7 @@ GNEInspectorFrame::refreshInspection() {
         myTemplateEditor->showTemplateEditor();
 
         // if we inspect a single Attribute carrier vector, show their children
-        if (inspectedElements->inspectingOneElement()) {
+        if (inspectedElements->inspectingSingleElement()) {
             myHierarchicalElementTree->showHierarchicalElementTree(inspectedElements->getFirstAC());
         }
     } else {

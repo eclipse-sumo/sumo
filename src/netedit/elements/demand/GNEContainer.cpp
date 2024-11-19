@@ -620,10 +620,8 @@ GNEContainer::getHierarchyName() const {
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // special case for Trips and flow
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // get inspected AC
-        const auto inspectedAC = inspectedElements->getFirstAC();
         // check if we're inspecting an Edge
-        if (inspectedAC && inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (inspectedElements->getFirstAC() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
             // check if edge correspond to a "from", "to" or "via" edge
             if (inspectedElements->isACInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
@@ -632,7 +630,7 @@ GNEContainer::getHierarchyName() const {
             } else {
                 // iterate over via
                 for (const auto& viaEdgeID : via) {
-                    if (viaEdgeID == inspectedAC->getID()) {
+                    if (viaEdgeID == inspectedElements->getFirstAC()->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
                 }

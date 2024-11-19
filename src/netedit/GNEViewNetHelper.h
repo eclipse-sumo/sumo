@@ -248,7 +248,7 @@ struct GNEViewNetHelper {
         const std::set<GNEAttributeCarrier*>& getACs() const;
 
         /// @brief check if we're inspecting exactly one element
-        bool inspectingOneElement() const;
+        bool inspectingSingleElement() const;
 
         /// @brief check if we're inspecting more than one elements
         bool inspectingMultipleElement() const;

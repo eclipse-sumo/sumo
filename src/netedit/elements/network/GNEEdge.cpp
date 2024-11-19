@@ -207,7 +207,7 @@ GNEEdge::checkDrawFromContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingOneElement()) {
+    if (inspectedElements->inspectingSingleElement()) {
         // check if starts in this edge
         if (inspectedElements->getFirstAC()->getTagProperty().vehicleEdges() &&
                 inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM) &&
@@ -262,7 +262,7 @@ GNEEdge::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingOneElement()) {
+    if (inspectedElements->inspectingSingleElement()) {
         // check if starts in this edge
         if (inspectedElements->getFirstAC()->getTagProperty().vehicleEdges() &&
                 inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_TO) &&
