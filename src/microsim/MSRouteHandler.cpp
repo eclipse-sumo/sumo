@@ -1803,11 +1803,13 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::initLaneTree(NamedRTree* tree) {
     for (const auto& edge : MSEdge::getAllEdges()) {
-        for (MSLane* lane : edge->getLanes()) {
-            Boundary b = lane->getShape().getBoxBoundary();
-            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-            tree->Insert(cmin, cmax, lane);
+        if (edge->isNormal() || MSGlobals::gUsingInternalLanes) {
+            for (MSLane* lane : edge->getLanes()) {
+                Boundary b = lane->getShape().getBoxBoundary();
+                const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+                const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+                tree->Insert(cmin, cmax, lane);
+            }
         }
     }
 }
