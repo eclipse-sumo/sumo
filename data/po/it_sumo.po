@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-13 11:10+0000\n"
+"PO-Revision-Date: 2024-11-21 15:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -755,11 +755,11 @@ msgstr ""
 
 #: src/duarouter/duarouter_main.cpp:152 src/marouter/marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "Algoritmo di instradamento sconosciuto '%'!"
 
 #: src/duarouter/duarouter_main.cpp:179 src/marouter/marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
-msgstr ""
+msgstr "I dati di peso non sono stati caricati per l'attributo '%'."
 
 #: src/duarouter/duarouter_main.cpp:216
 msgid ""
