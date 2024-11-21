@@ -470,7 +470,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
         if (MSGlobals::gUseMesoSim) {
             return;
         }
-        const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
+        const auto& sel = gSelected.getSelected(GLO_VEHICLE);
         if (sel.size() == 0) {
             // find closest pt vehicle
             double minDist = std::numeric_limits<double>::infinity();
@@ -523,7 +523,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
 
 void
 GUIViewTraffic::onGamingRightClick(Position /*pos*/) {
-    const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
+    const auto& sel = gSelected.getSelected(GLO_VEHICLE);
     if (sel.size() > 0) {
         GUIGlID id = *sel.begin();
         GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));

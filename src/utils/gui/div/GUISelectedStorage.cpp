@@ -75,7 +75,7 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string& filename) {
 }
 
 
-const std::set<GUIGlID>&
+const std::unordered_set<GUIGlID>&
 GUISelectedStorage::SingleTypeSelections::getSelected() const {
     return mySelected;
 }
@@ -160,13 +160,13 @@ GUISelectedStorage::toggleSelection(GUIGlID id) {
 }
 
 
-const std::set<GUIGlID>&
+const std::unordered_set<GUIGlID>&
 GUISelectedStorage::getSelected() const {
     return myAllSelected;
 }
 
 
-const std::set<GUIGlID>&
+const std::unordered_set<GUIGlID>&
 GUISelectedStorage::getSelected(GUIGlObjectType type) {
     return mySelections[type].getSelected();
 }
@@ -174,8 +174,8 @@ GUISelectedStorage::getSelected(GUIGlObjectType type) {
 
 void
 GUISelectedStorage::clear() {
-    for (std::map<GUIGlObjectType, SingleTypeSelections>::iterator it = mySelections.begin(); it != mySelections.end(); it++) {
-        it->second.clear();
+    for (auto& selection : mySelections) {
+        selection.second.clear();
     }
     myAllSelected.clear();
     if (myUpdateTarget) {
@@ -244,8 +244,8 @@ std::string
 GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type) {
     std::string errors;
     const std::set<GUIGlID> ids = loadIDs(filename, errors, type);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        select(*it, false);
+    for (const auto glID : ids) {
+        select(glID, false);
     }
     if (myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
@@ -279,14 +279,14 @@ GUISelectedStorage::remove2Update() {
 
 
 void
-GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& ids) {
+GUISelectedStorage::save(const std::string& filename, const std::unordered_set<GUIGlID>& ids) {
     OutputDevice& dev = OutputDevice::getDevice(filename);
-    for (std::set<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
+    for (const auto glID : ids) {
+        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
         if (object != nullptr) {
             std::string name = object->getFullName();
             dev << name << "\n";
-            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(glID);
         }
     }
     dev.close();

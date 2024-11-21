@@ -22,7 +22,7 @@
 #pragma once
 #include <config.h>
 
-#include <set>
+#include <unordered_set>
 #include <string>
 #include <map>
 #include <fstream>
@@ -156,7 +156,7 @@ public:
     void toggleSelection(GUIGlID id);
 
     /// @brief Returns the set of ids of all selected objects
-    const std::set<GUIGlID>& getSelected() const;
+    const std::unordered_set<GUIGlID>& getSelected() const;
 
     /**  @brief Returns the set of ids of all selected objects' of a certain type
      *
@@ -164,7 +164,7 @@ public:
      * @return A set containing the ids of all selected objects of the given type
      * @see SingleTypeSelections::getSelected
      */
-    const std::set<GUIGlID>& getSelected(GUIGlObjectType type);
+    const std::unordered_set<GUIGlID>& getSelected(GUIGlObjectType type);
 
     /** @brief Clears the list of selected objects
      *
@@ -257,12 +257,11 @@ public:
         /** @brief Returns the list of selected ids
          * @return A list containing the ids of all selected objects
          */
-        const std::set<GUIGlID>& getSelected() const;
+        const std::unordered_set<GUIGlID>& getSelected() const;
 
     private:
         /// @brief The list of selected ids
-        std::set<GUIGlID> mySelected;
-
+        std::unordered_set<GUIGlID> mySelected;
     };
 
     /// @brief set SingleTypeSelections as friend class
@@ -274,14 +273,11 @@ private:
     std::map<GUIGlObjectType, SingleTypeSelections> mySelections;
 
     /// @brief List of selected objects
-    std::set<GUIGlID> myAllSelected;
+    std::unordered_set<GUIGlID> myAllSelected;
 
     /// @brief The dialog to be updated
     UpdateTarget* myUpdateTarget;
 
-    /// @brief load items into the given set, optionally restricting to type
-    std::string load(GUIGlObjectType type, const std::string& filename, bool restrictType, std::set<GUIGlID>& into);
-
     /// @brief saves items from the given set
-    static void save(const std::string& filename, const std::set<GUIGlID>& ids);
+    static void save(const std::string& filename, const std::unordered_set<GUIGlID>& ids);
 };
