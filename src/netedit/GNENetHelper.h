@@ -109,6 +109,19 @@ struct GNENetHelper {
         /// @brief check if shape of given AC (network element) is around the given shape
         bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector& shape) const;
 
+        /// @brief functions related with number of elements sorted by categories
+        /// @{
+        /// @brief get number of current network elements saved in AttributeCarriers
+        int getNumberOfNetworkElements() const;
+
+        /// @brief get number of current demand elements saved in AttributeCarriers (default vTypes are NOT included)
+        int getNumberOfDemandElements() const;
+
+        /// @brief get number of current data elements saved in AttributeCarriers
+        int getNumberOfDataElements() const;
+
+        /// @}
+
         /// @name function for attribute carriers
         /// @{
 
@@ -450,9 +463,6 @@ struct GNENetHelper {
         /// @brief get demand elements
         const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> >& getDemandElements() const;
 
-        /// @brief Return the number of demand elements
-        int getNumberOfDemandElements() const;
-
         /// @brief generate demand element id
         std::string generateDemandElementID(SumoXMLTag tag) const;
 
@@ -760,6 +770,15 @@ struct GNENetHelper {
 
         /// @brief stop index
         int myStopIndex;
+
+        /// @brief number of network elemements inserted in AttributeCarriers
+        int myNumberOfNetworkElements = 0;
+
+        /// @brief number of demand elemements inserted in AttributeCarriers (excluding default vTypes)
+        int myNumberOfDemandElements = 0;
+
+        /// @brief number of data elemements inserted in AttributeCarriers
+        int myNumberOfDataElements = 0;
 
         /// @brief map with the ID and pointer to junctions of net
         std::map<const std::string, GNEJunction*> myJunctions;

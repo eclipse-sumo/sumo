@@ -220,6 +220,24 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
 }
 
 
+int
+GNENetHelper::AttributeCarriers::getNumberOfNetworkElements() const {
+    return myNumberOfNetworkElements;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
+    return myNumberOfDemandElements;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfDataElements() const {
+    return myNumberOfDataElements;
+}
+
+
 GNEAttributeCarrier*
 GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool hardFail) const {
     // obtain blocked GUIGlObject
@@ -452,6 +470,7 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
     myJunctions[junction->getMicrosimID()] = junction;
+    myNumberOfNetworkElements++;
     // expand net boundary
     myNet->expandBoundary(junction->getCenteringBoundary());
     // add edge into grid
@@ -734,6 +753,7 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     edge->setResponsible(false);
     // add edge to internal container of GNENet
     myEdges[edge->getMicrosimID()] = edge;
+    myNumberOfNetworkElements++;
     // insert all lanes
     for (const auto& lane : edge->getLanes()) {
         insertLane(lane);
@@ -1401,25 +1421,6 @@ GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
 const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> >&
 GNENetHelper::AttributeCarriers::getDemandElements() const {
     return myDemandElements;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
-    int counter = 0;
-    for (const auto& demandElementTag : myDemandElements) {
-        if (demandElementTag.first == SUMO_TAG_VTYPE) {
-            // iterate over vehicle types to avoid default vTypes
-            for (const auto& vType : demandElementTag.second) {
-                if (vType.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) != GNEAttributeCarrier::True) {
-                    counter++;
-                }
-            }
-        } else {
-            counter += (int)demandElementTag.second.size();
-        }
-    }
-    return counter;
 }
 
 
@@ -2267,6 +2268,7 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
     // Remove from grid and container
     myNet->removeGLObjectFromGrid(junction);
     myJunctions.erase(junction->getMicrosimID());
+    myNumberOfNetworkElements--;
     myNet->getNetBuilder()->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
@@ -2279,6 +2281,7 @@ GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
     // insert in myEdgeTypes
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
+    myNumberOfNetworkElements++;
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
@@ -2297,6 +2300,7 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
+    myNumberOfNetworkElements--;
     // check if this is the selected edge type in edgeSelector
     if (createEdgeFrame->getEdgeTypeSelector()->getEdgeTypeSelected() == edgeType) {
         createEdgeFrame->getEdgeTypeSelector()->clearEdgeTypeSelected();
@@ -2326,6 +2330,7 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     // remove edge from visual grid and container
     myNet->removeGLObjectFromGrid(edge);
     myEdges.erase(edge->getMicrosimID());
+    myNumberOfNetworkElements--;
     // remove all lanes
     for (const auto& lane : edge->getLanes()) {
         deleteLane(lane);
@@ -2355,6 +2360,7 @@ GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' already exist");
     } else {
         myLanes[lane->getGUIGlObject()] = lane;
+        myNumberOfNetworkElements++;
     }
 }
 
@@ -2366,10 +2372,11 @@ GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' wasn't previously inserted");
     } else {
         myLanes.erase(finder);
+        myNumberOfNetworkElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(lane);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(lane);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
 }
 
 
@@ -2379,6 +2386,7 @@ GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
         throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
     } else {
         myCrossings[crossing->getGUIGlObject()] = crossing;
+        myNumberOfNetworkElements++;
     }
 }
 
@@ -2390,10 +2398,11 @@ GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
         throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' wasn't previously inserted");
     } else {
         myCrossings.erase(finder);
+        myNumberOfNetworkElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
 }
 
 
@@ -2403,6 +2412,7 @@ GNENetHelper::AttributeCarriers::insertWalkingArea(GNEWalkingArea* walkingArea) 
         throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' already exist");
     } else {
         myWalkingAreas[walkingArea->getGUIGlObject()] = walkingArea;
+        myNumberOfNetworkElements++;
     }
 }
 
@@ -2414,10 +2424,11 @@ GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) 
         throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' wasn't previously inserted");
     } else {
         myWalkingAreas.erase(finder);
+        myNumberOfNetworkElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(walkingArea);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(walkingArea);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
 }
 
 
@@ -2427,6 +2438,7 @@ GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
         throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
     } else {
         myConnections[connection->getGUIGlObject()] = connection;
+        myNumberOfNetworkElements++;
     }
 }
 
@@ -2438,6 +2450,10 @@ GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
         throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' wasn't previously inserted");
     } else {
         myConnections.erase(finder);
+        myNumberOfNetworkElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(connection);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
     }
 }
 
@@ -2448,6 +2464,7 @@ GNENetHelper::AttributeCarriers::insertInternalLane(GNEInternalLane* internalLan
         throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' already exist");
     } else {
         myInternalLanes[internalLane->getGUIGlObject()] = internalLane;
+        myNumberOfNetworkElements++;
     }
 }
 
@@ -2459,6 +2476,7 @@ GNENetHelper::AttributeCarriers::deleteInternalLane(GNEInternalLane* internalLan
         throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' wasn't previously inserted");
     } else {
         myInternalLanes.erase(finder);
+        myNumberOfNetworkElements--;
     }
 }
 
@@ -2473,17 +2491,18 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
         if (additional->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
             myAdditionalIDs.at(tag)[additional->getID()] = additional;
         }
+        myNumberOfNetworkElements++;
+        // add element in grid
+        if (additional->getTagProperty().isPlacedInRTree()) {
+            myNet->addGLObjectIntoGrid(additional);
+        }
+        // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
+        if (myNet->isUpdateGeometryEnabled()) {
+            additional->updateGeometry();
+        }
+        // additionals has to be saved
+        myNet->getSavingStatus()->requireSaveAdditionals();
     }
-    // add element in grid
-    if (additional->getTagProperty().isPlacedInRTree()) {
-        myNet->addGLObjectIntoGrid(additional);
-    }
-    // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
-    if (myNet->isUpdateGeometryEnabled()) {
-        additional->updateGeometry();
-    }
-    // additionals has to be saved
-    myNet->getSavingStatus()->requireSaveAdditionals();
 }
 
 
@@ -2495,23 +2514,25 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     // check if additional was previously inserted
     if (itFind == myAdditionals.at(tag).end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' wasn't previously inserted");
+    } else {
+        // remove from both container
+        myAdditionals.at(tag).erase(itFind);
+        if (additional->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
+            myAdditionalIDs.at(tag).erase(myAdditionalIDs.at(tag).find(additional->getID()));
+        }
+        myNumberOfNetworkElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(additional);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
+        // remove element from grid
+        if (additional->getTagProperty().isPlacedInRTree()) {
+            myNet->removeGLObjectFromGrid(additional);
+        }
+        // delete path element
+        myNet->getNetworkPathManager()->removePath(additional);
+        // additionals has to be saved
+        myNet->getSavingStatus()->requireSaveAdditionals();
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(additional);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
-    // remove from both container
-    myAdditionals.at(tag).erase(itFind);
-    if (additional->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
-        myAdditionalIDs.at(tag).erase(myAdditionalIDs.at(tag).find(additional->getID()));
-    }
-    // remove element from grid
-    if (additional->getTagProperty().isPlacedInRTree()) {
-        myNet->removeGLObjectFromGrid(additional);
-    }
-    // delete path element
-    myNet->getNetworkPathManager()->removePath(additional);
-    // additionals has to be saved
-    myNet->getSavingStatus()->requireSaveAdditionals();
 }
 
 
@@ -2522,24 +2543,25 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
     } else {
         myDemandElements.at(tag)[demandElement->getGUIGlObject()] = demandElement;
+        myNumberOfDemandElements++;
         if (demandElement->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
             myDemandElementIDs.at(tag)[demandElement->getID()] = demandElement;
         }
+        // add element in grid
+        myNet->addGLObjectIntoGrid(demandElement);
+        // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
+        if (myNet->isUpdateGeometryEnabled()) {
+            demandElement->updateGeometry();
+        }
+        // compute path element
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+            demandElement->computePathElement();
+        }
+        // update demand elements frames
+        updateDemandElementFrames(demandElement->getTagProperty());
+        // demandElements has to be saved
+        myNet->getSavingStatus()->requireSaveDemandElements();
     }
-    // add element in grid
-    myNet->addGLObjectIntoGrid(demandElement);
-    // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
-    if (myNet->isUpdateGeometryEnabled()) {
-        demandElement->updateGeometry();
-    }
-    // compute path element
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        demandElement->computePathElement();
-    }
-    // update demand elements frames
-    updateDemandElementFrames(demandElement->getTagProperty());
-    // demandElements has to be saved
-    myNet->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -2552,37 +2574,39 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     // check if demandElement was previously inserted
     if (itFind == myDemandElements.at(tag).end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' wasn't previously inserted");
+    } else {
+        // erase it from container
+        myDemandElements.at(tag).erase(itFind);
+        if (demandElement->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
+            myDemandElementIDs.at(tag).erase(myDemandElementIDs.at(tag).find(demandElement->getID()));
+        }
+        myNumberOfDemandElements--;
+        // remove element from grid
+        myNet->removeGLObjectFromGrid(demandElement);
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(demandElement);
+        viewParent->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
+        viewParent->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+        viewParent->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+        if (viewParent->getRouteDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
+            viewParent->getRouteDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
+        }
+        if (viewParent->getTypeDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
+            viewParent->getTypeDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
+        }
+        // if is the last inserted route, remove it from GNEViewNet
+        if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
+            myNet->getViewNet()->setLastCreatedRoute(nullptr);
+        }
+        // delete path element
+        myNet->getDemandPathManager()->removePath(demandElement);
+        // check if update demand elements frames
+        if (updateFrames) {
+            updateDemandElementFrames(demandElement->getTagProperty());
+        }
+        // demandElements has to be saved
+        myNet->getSavingStatus()->requireSaveDemandElements();
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(demandElement);
-    viewParent->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
-    viewParent->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
-    viewParent->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
-    if (viewParent->getRouteDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
-        viewParent->getRouteDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
-    }
-    if (viewParent->getTypeDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
-        viewParent->getTypeDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
-    }
-    // if is the last inserted route, remove it from GNEViewNet
-    if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
-        myNet->getViewNet()->setLastCreatedRoute(nullptr);
-    }
-    // erase it from container
-    myDemandElements.at(tag).erase(itFind);
-    if (demandElement->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
-        myDemandElementIDs.at(tag).erase(myDemandElementIDs.at(tag).find(demandElement->getID()));
-    }
-    // remove element from grid
-    myNet->removeGLObjectFromGrid(demandElement);
-    // delete path element
-    myNet->getDemandPathManager()->removePath(demandElement);
-    // check if update demand elements frames
-    if (updateFrames) {
-        updateDemandElementFrames(demandElement->getTagProperty());
-    }
-    // demandElements has to be saved
-    myNet->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -2592,11 +2616,12 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     } else {
         myDataSets[dataSet->getID()] = dataSet;
+        myNumberOfDataElements++;
+        // dataSets has to be saved
+        myNet->getSavingStatus()->requireSaveDataElements();
+        // mark interval toolbar for update
+        myNet->getViewNet()->getIntervalBar().markForUpdate();
     }
-    // dataSets has to be saved
-    myNet->getSavingStatus()->requireSaveDataElements();
-    // mark interval toolbar for update
-    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -2607,14 +2632,15 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' wasn't previously inserted");
     } else {
         myDataSets.erase(finder);
+        myNumberOfDataElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(dataSet);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
+        // dataSets has to be saved
+        myNet->getSavingStatus()->requireSaveDataElements();
+        // mark interval toolbar for update
+        myNet->getViewNet()->getIntervalBar().markForUpdate();
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(dataSet);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
-    // dataSets has to be saved
-    myNet->getSavingStatus()->requireSaveDataElements();
-    // mark interval toolbar for update
-    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 
@@ -2624,9 +2650,10 @@ GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
         throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' already exist");
     } else {
         myMeanDatas.at(meanData->getTagProperty().getTag()).insert(std::make_pair(meanData->getID(), meanData));
+        myNumberOfDataElements++;
+        // meanDatas has to be saved
+        myNet->getSavingStatus()->requireSaveMeanDatas();
     }
-    // meanDatas has to be saved
-    myNet->getSavingStatus()->requireSaveMeanDatas();
 }
 
 
@@ -2637,18 +2664,20 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
     // check if meanData was previously inserted
     if (itFind == myMeanDatas.at(meanData->getTagProperty().getTag()).end()) {
         throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' wasn't previously inserted");
+    } else {
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(meanData);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
+        // remove from container
+        myMeanDatas.at(meanData->getTagProperty().getTag()).erase(itFind);
+        myNumberOfDataElements--;
+        // remove element from grid
+        if (meanData->getTagProperty().isPlacedInRTree()) {
+            myNet->removeGLObjectFromGrid(meanData);
+        }
+        // meanDatas has to be saved
+        myNet->getSavingStatus()->requireSaveMeanDatas();
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->getInspectedElements().uninspectAC(meanData);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
-    // remove from container
-    myMeanDatas.at(meanData->getTagProperty().getTag()).erase(itFind);
-    // remove element from grid
-    if (meanData->getTagProperty().isPlacedInRTree()) {
-        myNet->removeGLObjectFromGrid(meanData);
-    }
-    // meanDatas has to be saved
-    myNet->getSavingStatus()->requireSaveMeanDatas();
 }
 
 
