@@ -303,10 +303,12 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 void
 MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
     assert(step < (int)phases.size());
+    SUMOTime lastSwitch = myPhases[myStep]->getState() == phases[step]->getState() ? myPhases[myStep]->myLastSwitch : SIMSTEP;
     deletePhases();
     myPhases = phases;
     myStep = step;
     myDefaultCycleTime = computeCycleTime(myPhases);
+    myPhases[myStep]->myLastSwitch = lastSwitch;
 }
 
 
