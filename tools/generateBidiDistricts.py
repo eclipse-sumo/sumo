@@ -47,10 +47,9 @@ def parse_args():
 
 def getCandidates(edge, net, radius):
     candidates = []
-    r = min(radius, sumolib.geomhelper.polyLength(edge.getShape()) / 2)
     for x, y in edge.getShape():
         nearby = set()
-        for edge2, dist in net.getNeighboringEdges(x, y, r):
+        for edge2, dist in net.getNeighboringEdges(x, y, radius):
             nearby.add(edge2)
         candidates.append(nearby)
     return candidates
