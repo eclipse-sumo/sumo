@@ -245,7 +245,7 @@ struct GNEViewNetHelper {
         /// @brief get first inspected AC (needed because the main container is a set)
         GNEAttributeCarrier* getFirstAC() const;
 
-        /// @brief has table with all inspected ACs
+        /// @brief get hash table with all inspected ACs
         const std::unordered_set<GNEAttributeCarrier*>& getACs() const;
 
         /// @}
@@ -259,13 +259,13 @@ struct GNEViewNetHelper {
         bool isACInspected(const GNEAttributeCarrier* AC) const;
 
         /// @brief check if we're inspecting at least one element
-        bool inspectingElements() const;
+        bool isInspectingElements() const;
 
         /// @brief check if we're inspecting exactly one element
-        bool inspectingSingleElement() const;
+        bool isInspectingSingleElement() const;
 
         /// @brief check if we're inspecting more than one elements
-        bool inspectingMultipleElements() const;
+        bool isInspectingMultipleElements() const;
 
         /// @}
 
@@ -273,7 +273,7 @@ struct GNEViewNetHelper {
         /// @brief first inspected element (usually the clicked element)
         GNEAttributeCarrier* myFirstInspectedAC = nullptr;
 
-        /// @brief set with all inspected ACs (we use a set to make deletion of massive elements more quickly)
+        /// @brief hash table with all inspected ACs (we use a set to make deletion of massive elements more quickly)
         std::unordered_set<GNEAttributeCarrier*> myInspectedACs;
 
         /// @brief Invalidated copy constructor.
@@ -311,7 +311,7 @@ struct GNEViewNetHelper {
         /// @brief filter locked elements (except the ignoreFilter)
         void filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter = {});
 
-        /// @brief get front attribute carrier or a pointer to nullptr
+        /// @brief get front GUIGLObject or a pointer to nullptr
         const GUIGlObject* getGUIGlObjectFront() const;
 
         /// @brief get front attribute carrier or a pointer to nullptr

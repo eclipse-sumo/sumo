@@ -325,7 +325,7 @@ bool
 GNELane::checkDrawFromContour() const {
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if we're inspecting a connection
-    if (inspectedElements->inspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+    if (inspectedElements->isInspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
             inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
         return true;
     } else {
@@ -338,7 +338,7 @@ bool
 GNELane::checkDrawToContour() const {
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if we're inspecting a connection
-    if (inspectedElements->inspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+    if (inspectedElements->isInspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
             inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
         return true;
     } else {

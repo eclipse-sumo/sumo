@@ -149,7 +149,7 @@ GNEJunction::checkDrawFromContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingSingleElement()) {
+    if (inspectedElements->isInspectingSingleElement()) {
         // check if starts in this junction
         if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
                 (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
@@ -200,7 +200,7 @@ GNEJunction::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->inspectingSingleElement()) {
+    if (inspectedElements->isInspectingSingleElement()) {
         // check if ends in this junction
         if (inspectedElements->getFirstAC()->getTagProperty().vehicleJunctions() &&
                 (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
@@ -1667,7 +1667,7 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
             return true;
         }
         // force draw if we're inspecting a vehicle that start or ends in a junction
-        if (inspectedElements->inspectingSingleElement()) {
+        if (inspectedElements->isInspectingSingleElement()) {
             // check if starts or ends in this junction
             if ((inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
                     (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||

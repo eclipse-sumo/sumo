@@ -508,7 +508,7 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     const auto inspectedElements = myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedElements();
-    if (inspectedElements->inspectingElements()) {
+    if (inspectedElements->isInspectingElements()) {
         // get undo list
         GNEUndoList* undoList = myParametersEditor->getInspectorFrameParent()->getViewNet()->getUndoList();
         // declare vector for parameters in stringvector format

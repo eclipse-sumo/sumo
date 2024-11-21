@@ -1711,7 +1711,7 @@ GNEViewNet::hotkeyDel() {
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && myInspectedElements->getFirstAC()) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete network inspected elements"));
-            while (myInspectedElements->inspectingElements()) {
+            while (myInspectedElements->isInspectingElements()) {
                 deleteNetworkAttributeCarrier(myInspectedElements->getFirstAC());
             }
             myUndoList->end();
@@ -1731,7 +1731,7 @@ GNEViewNet::hotkeyDel() {
         if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedElements->getFirstAC()) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete demand inspected elements"));
-            while (myInspectedElements->inspectingElements()) {
+            while (myInspectedElements->isInspectingElements()) {
                 deleteDemandAttributeCarrier(myInspectedElements->getFirstAC());
             }
             myUndoList->end();
@@ -1751,7 +1751,7 @@ GNEViewNet::hotkeyDel() {
         if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedElements->getFirstAC()) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete data inspected elements"));
-            while (myInspectedElements->inspectingElements()) {
+            while (myInspectedElements->isInspectingElements()) {
                 deleteDataAttributeCarrier(myInspectedElements->getFirstAC());
             }
             myUndoList->end();

@@ -300,19 +300,19 @@ GNEViewNetHelper::InspectedElements::isACInspected(const GNEAttributeCarrier* AC
 
 
 bool
-GNEViewNetHelper::InspectedElements::inspectingElements() const {
+GNEViewNetHelper::InspectedElements::isInspectingElements() const {
     return myInspectedACs.size() > 0;
 }
 
 
 bool
-GNEViewNetHelper::InspectedElements::inspectingSingleElement() const {
+GNEViewNetHelper::InspectedElements::isInspectingSingleElement() const {
     return myInspectedACs.size() == 1;
 }
 
 
 bool
-GNEViewNetHelper::InspectedElements::inspectingMultipleElements() const {
+GNEViewNetHelper::InspectedElements::isInspectingMultipleElements() const {
     return myInspectedACs.size() > 1;
 }
 

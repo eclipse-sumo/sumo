@@ -487,7 +487,7 @@ GNETAZRelData::drawTAZRel() const {
     }
     // check if we're inspecting a TAZ
     if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
-            inspectedElements->inspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
+            inspectedElements->isInspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
         // ignore TAZRels with one TAZParent
         if (getParentAdditionals().size() == 2) {
             if ((getParentAdditionals().front() == inspectedElements->getFirstAC())  &&
