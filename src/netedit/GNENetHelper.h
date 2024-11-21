@@ -21,6 +21,7 @@
 #pragma once
 #include <config.h>
 
+#include <unordered_map>
 #include <utils/foxtools/fxheader.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <netbuild/NBEdge.h>
@@ -173,7 +174,7 @@ struct GNENetHelper {
         GNECrossing* retrieveCrossing(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get crossings
-        const std::map<const GUIGlObject*, GNECrossing*>& getCrossings() const;
+        const std::unordered_map<const GUIGlObject*, GNECrossing*>& getCrossings() const;
 
         /// @brief return all selected crossings
         std::vector<GNECrossing*> getSelectedCrossings() const;
@@ -193,7 +194,7 @@ struct GNENetHelper {
         GNEWalkingArea* retrieveWalkingArea(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get walkingAreas
-        const std::map<const GUIGlObject*, GNEWalkingArea*>& getWalkingAreas() const;
+        const std::unordered_map<const GUIGlObject*, GNEWalkingArea*>& getWalkingAreas() const;
 
         /// @brief return all selected walkingAreas
         std::vector<GNEWalkingArea*> getSelectedWalkingAreas() const;
@@ -288,7 +289,7 @@ struct GNENetHelper {
         GNELane* retrieveLane(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get lanes
-        const std::map<const GUIGlObject*, GNELane*>& getLanes() const;
+        const std::unordered_map<const GUIGlObject*, GNELane*>& getLanes() const;
 
         /// @brief get selected lanes
         std::vector<GNELane*> getSelectedLanes() const;
@@ -315,7 +316,7 @@ struct GNENetHelper {
         GNEConnection* retrieveConnection(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get connections
-        const std::map<const GUIGlObject*, GNEConnection*>& getConnections() const;
+        const std::unordered_map<const GUIGlObject*, GNEConnection*>& getConnections() const;
 
         /// @brief get selected connections
         std::vector<GNEConnection*> getSelectedConnections() const;
@@ -369,7 +370,7 @@ struct GNENetHelper {
         GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
 
         /// @brief get additionals
-        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> >& getAdditionals() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> >& getAdditionals() const;
 
         /// @brief get selected additionals
         std::vector<GNEAdditional*> getSelectedAdditionals() const;
@@ -447,7 +448,7 @@ struct GNENetHelper {
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
 
         /// @brief get demand elements
-        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> >& getDemandElements() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> >& getDemandElements() const;
 
         /// @brief Return the number of demand elements
         int getNumberOfDemandElements() const;
@@ -530,7 +531,7 @@ struct GNENetHelper {
         GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get all data intervals of network
-        const std::map<const GNEAttributeCarrier*, GNEDataInterval*>& getDataIntervals() const;
+        const std::unordered_map<const GNEAttributeCarrier*, GNEDataInterval*>& getDataIntervals() const;
 
         /// @}
 
@@ -546,7 +547,7 @@ struct GNENetHelper {
         std::vector<GNEGenericData*> getSelectedGenericDatas() const;
 
         /// @brief get all generic datas
-        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEGenericData*> >& getGenericDatas() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*> >& getGenericDatas() const;
 
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
@@ -583,7 +584,7 @@ struct GNENetHelper {
         GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /// @brief get meanDatas
-        const std::map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >& getMeanDatas() const;
+        const std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >& getMeanDatas() const;
 
         /// @brief get number of meanDatas
         int getNumberOfMeanDatas() const;
@@ -764,10 +765,10 @@ struct GNENetHelper {
         std::map<std::string, GNEJunction*> myJunctions;
 
         /// @brief set with crossings
-        std::map<const GUIGlObject*, GNECrossing*> myCrossings;
+        std::unordered_map<const GUIGlObject*, GNECrossing*> myCrossings;
 
         /// @brief set with walkingAreas
-        std::map<const GUIGlObject*, GNEWalkingArea*> myWalkingAreas;
+        std::unordered_map<const GUIGlObject*, GNEWalkingArea*> myWalkingAreas;
 
         /// @brief map with the ID and pointer to edgeTypes of net
         std::map<std::string, GNEEdgeType*> myEdgeTypes;
@@ -776,37 +777,37 @@ struct GNENetHelper {
         std::map<std::string, GNEEdge*> myEdges;
 
         /// @brief map with lanes
-        std::map<const GUIGlObject*, GNELane*> myLanes;
+        std::unordered_map<const GUIGlObject*, GNELane*> myLanes;
 
         /// @brief map with connetions
-        std::map<const GUIGlObject*, GNEConnection*> myConnections;
+        std::unordered_map<const GUIGlObject*, GNEConnection*> myConnections;
 
         /// @brief map with internal lanes
-        std::map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
+        std::unordered_map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
 
         /// @brief map with the tag and pointer to additional elements of net, sorted by IDs
-        std::map<SumoXMLTag, std::map<const std::string, GNEAdditional*> > myAdditionalIDs;
+        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEAdditional*> > myAdditionalIDs;
 
         /// @brief map with the tag and pointer to additional elements of net
-        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
 
         /// @brief map with the tag and pointer to demand elements of net, sorted by IDs
-        std::map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
+        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
 
         /// @brief map with the tag and pointer to additional elements of net
-        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
         /// @brief map with the ID and pointer to all datasets of net
         std::map<const std::string, GNEDataSet*> myDataSets;
 
         /// @brief map with all data intervals of network
-        std::map<const GNEAttributeCarrier*, GNEDataInterval*> myDataIntervals;
+        std::unordered_map<const GNEAttributeCarrier*, GNEDataInterval*> myDataIntervals;
 
         /// @brief map with the tag and pointer to all generic datas
-        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEGenericData*> > myGenericDatas;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*> > myGenericDatas;
 
         /// @brief map with the tag and pointer to meanData elements of net
-        std::map<SumoXMLTag, std::map<const std::string, GNEMeanData*> > myMeanDatas;
+        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*> > myMeanDatas;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

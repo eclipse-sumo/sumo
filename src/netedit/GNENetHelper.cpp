@@ -60,7 +60,7 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     auto additionalTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
                                    GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
     for (const auto& additionalTagProperty : additionalTagProperties) {
-        myAdditionals.insert(std::make_pair(additionalTagProperty.getTag(), std::map<const GUIGlObject*, GNEAdditional*>()));
+        myAdditionals.insert(std::make_pair(additionalTagProperty.getTag(), std::unordered_map<const GUIGlObject*, GNEAdditional*>()));
         if (additionalTagProperty.hasAttribute(SUMO_ATTR_ID)) {
             myAdditionalIDs.insert(std::make_pair(additionalTagProperty.getTag(), std::map<const std::string, GNEAdditional*>()));
         }
@@ -68,19 +68,19 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     // fill demand elements with tags
     auto demandElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandElementTagProperty : demandElementTagProperties) {
-        myDemandElements.insert(std::make_pair(demandElementTagProperty.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(demandElementTagProperty.getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
         if (demandElementTagProperty.hasAttribute(SUMO_ATTR_ID)) {
             myDemandElementIDs.insert(std::make_pair(demandElementTagProperty.getTag(), std::map<const std::string, GNEDemandElement*>()));
         }
     }
     auto stopTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
     for (const auto& stopTagProperty : stopTagProperties) {
-        myDemandElements.insert(std::make_pair(stopTagProperty.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(stopTagProperty.getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
     }
     // fill data elements with tags
     auto genericDataElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
     for (const auto& genericDataElementTagProperty : genericDataElementTagProperties) {
-        myGenericDatas.insert(std::make_pair(genericDataElementTagProperty.getTag(), std::map<const GUIGlObject*, GNEGenericData*>()));
+        myGenericDatas.insert(std::make_pair(genericDataElementTagProperty.getTag(), std::unordered_map<const GUIGlObject*, GNEGenericData*>()));
     }
     // fill meanDatas with tags
     auto meanDataTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
@@ -536,7 +536,7 @@ GNENetHelper::AttributeCarriers::retrieveCrossing(const GUIGlObject* glObject, b
 }
 
 
-const std::map<const GUIGlObject*, GNECrossing*>&
+const std::unordered_map<const GUIGlObject*, GNECrossing*>&
 GNENetHelper::AttributeCarriers::getCrossings() const {
     return myCrossings;
 }
@@ -582,7 +582,7 @@ GNENetHelper::AttributeCarriers::retrieveWalkingArea(const GUIGlObject* glObject
 }
 
 
-const std::map<const GUIGlObject*, GNEWalkingArea*>&
+const std::unordered_map<const GUIGlObject*, GNEWalkingArea*>&
 GNENetHelper::AttributeCarriers::getWalkingAreas() const {
     return myWalkingAreas;
 }
@@ -862,7 +862,7 @@ GNENetHelper::AttributeCarriers::retrieveLane(const GUIGlObject* glObject, bool 
 }
 
 
-const std::map<const GUIGlObject*, GNELane*>&
+const std::unordered_map<const GUIGlObject*, GNELane*>&
 GNENetHelper::AttributeCarriers::getLanes() const {
     return myLanes;
 }
@@ -925,7 +925,7 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const GUIGlObject* glObject,
 }
 
 
-const std::map<const GUIGlObject*, GNEConnection*>&
+const std::unordered_map<const GUIGlObject*, GNEConnection*>&
 GNENetHelper::AttributeCarriers::getConnections() const {
     return myConnections;
 }
@@ -1041,7 +1041,7 @@ GNENetHelper::AttributeCarriers::retrieveRerouterInterval(const std::string& rer
 }
 
 
-const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> >&
 GNENetHelper::AttributeCarriers::getAdditionals() const {
     return myAdditionals;
 }
@@ -1398,7 +1398,7 @@ GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
 }
 
 
-const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> >&
 GNENetHelper::AttributeCarriers::getDemandElements() const {
     return myDemandElements;
 }
@@ -1924,7 +1924,7 @@ GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier*
 }
 
 
-const std::map<const GNEAttributeCarrier*, GNEDataInterval*>&
+const std::unordered_map<const GNEAttributeCarrier*, GNEDataInterval*>&
 GNENetHelper::AttributeCarriers::getDataIntervals() const {
     return myDataIntervals;
 }
@@ -1990,7 +1990,7 @@ GNENetHelper::AttributeCarriers::getSelectedGenericDatas() const {
 }
 
 
-const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEGenericData*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*> >&
 GNENetHelper::AttributeCarriers::getGenericDatas() const {
     return myGenericDatas;
 }
@@ -2208,7 +2208,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
 }
 
 
-const std::map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >&
+const std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >&
 GNENetHelper::AttributeCarriers::getMeanDatas() const {
     return myMeanDatas;
 }
