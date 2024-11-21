@@ -1065,7 +1065,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                             isAttributeCarrierSelected();
     // conditions for draw if is inspected
     const bool isInspected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                             myNet->getViewNet()->getInspectedElements()->isACInspected(this);
+                             myNet->getViewNet()->getInspectedElements().isACInspected(this);
     // check drawing conditions
     if (segment->getLane() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
             myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
@@ -1187,7 +1187,7 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESe
                             isAttributeCarrierSelected();
     // conditions for draw if is inspected
     const bool isInspected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                             myNet->getViewNet()->getInspectedElements()->isACInspected(this);
+                             myNet->getViewNet()->getInspectedElements().isACInspected(this);
     // check drawing conditions
     if (segment->getJunction() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
             myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
@@ -1817,20 +1817,20 @@ GNEVehicle::getPopUpID() const {
 
 std::string
 GNEVehicle::getHierarchyName() const {
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // special case for Trips and flow
     if (myTagProperty.vehicleEdges()) {
         // check if we're inspecting a Edge
-        if (inspectedElements->getFirstAC() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+        if (inspectedElements.getFirstAC() && (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
             // check if edge correspond to a "from", "to" or "via" edge
-            if (inspectedElements->isACInspected(getParentEdges().front())) {
+            if (inspectedElements.isACInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (inspectedElements->isACInspected(getParentEdges().front())) {
+            } else if (inspectedElements.isACInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
                 for (const auto& viaEdgeID : via) {
-                    if (viaEdgeID == inspectedElements->getFirstAC()->getID()) {
+                    if (viaEdgeID == inspectedElements.getFirstAC()->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
                 }

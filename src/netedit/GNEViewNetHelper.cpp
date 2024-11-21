@@ -2916,25 +2916,25 @@ GNEViewNetHelper::DemandViewOptions::drawSpreadVehicles() const {
 bool
 GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDemandElement* demandElement) const {
     if (menuCheckHideNonInspectedDemandElements->shown()) {
-        const auto inspectedACs = myViewNet->getInspectedElements();
+        const auto& inspectedElements = myViewNet->getInspectedElements();
         // check conditions
-        if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (inspectedACs->getFirstAC() == nullptr)) {
+        if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (inspectedElements.getFirstAC() == nullptr)) {
             // if checkbox is disabled or there isn't an inspected element, then return true
             return true;
-        } else if (inspectedACs->getFirstAC() && inspectedACs->getFirstAC()->getTagProperty().isDemandElement()) {
-            if (inspectedACs->isACInspected(demandElement)) {
+        } else if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().isDemandElement()) {
+            if (inspectedElements.isACInspected(demandElement)) {
                 // if inspected element correspond to demandElement, return true
                 return true;
             } else {
                 // if demandElement is a route, check if dottedAC is one of their children (Vehicle or Stop)
                 for (const auto& demandElementChild : demandElement->getChildDemandElements()) {
-                    if (inspectedACs->isACInspected(demandElementChild)) {
+                    if (inspectedElements.isACInspected(demandElementChild)) {
                         return true;
                     }
                 }
                 // if demandElement is a vehicle, check if dottedAC is one of his route Parent
                 for (const auto& demandElementParent : demandElement->getParentDemandElements()) {
-                    if (inspectedACs->isACInspected(demandElementParent)) {
+                    if (inspectedElements.isACInspected(demandElementParent)) {
                         return true;
                     }
                 }

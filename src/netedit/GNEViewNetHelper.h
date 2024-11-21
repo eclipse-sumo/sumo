@@ -218,6 +218,12 @@ struct GNEViewNetHelper {
 
         /// @brief map with locked elements
         std::map<GUIGlObjectType, OperationLocked> myLockedElements;
+
+        /// @brief Invalidated copy constructor.
+        LockManager(const LockManager&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        LockManager& operator=(const LockManager&) = delete;
     };
 
     /// @brief class used for group inspected elements
@@ -469,6 +475,9 @@ struct GNEViewNetHelper {
         private:
             /// @brief Invalidated copy constructor.
             ViewObjectsContainer(const ViewObjectsContainer&) = delete;
+
+            /// @brief Invalidated assignment operator.
+            ViewObjectsContainer& operator=(const ViewObjectsContainer&) = delete;
         };
 
         /// @brief pointer to viewNet
@@ -1085,7 +1094,6 @@ struct GNEViewNetHelper {
         /// @brief current parameters
         std::set<std::string> myParameters;
 
-    private:
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;
 
@@ -1133,6 +1141,12 @@ struct GNEViewNetHelper {
 
         /// @brief move operations
         GNEMoveOperation* myMoveOperation = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        MoveSingleElementModul(const MoveSingleElementModul&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        MoveSingleElementModul& operator=(const MoveSingleElementModul&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
@@ -1190,6 +1204,12 @@ struct GNEViewNetHelper {
 
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;
+
+        /// @brief Invalidated copy constructor.
+        MoveMultipleElementModul(const MoveMultipleElementModul&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        MoveMultipleElementModul& operator=(const MoveMultipleElementModul&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
@@ -1207,6 +1227,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        VehicleOptions(const VehicleOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        VehicleOptions& operator=(const VehicleOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
@@ -1224,6 +1250,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        VehicleTypeOptions(const VehicleTypeOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        VehicleTypeOptions& operator=(const VehicleTypeOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related with selecting using a square or polygon
@@ -1269,6 +1301,12 @@ struct GNEViewNetHelper {
 
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        SelectingArea(const SelectingArea&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SelectingArea& operator=(const SelectingArea&) = delete;
     };
 
     /// @brief struct used to group all variables related with testing
@@ -1292,6 +1330,12 @@ struct GNEViewNetHelper {
 
         /// @brief Height of net in testing mode
         int myTestingHeight = 0;
+
+        /// @brief Invalidated copy constructor.
+        TestingMode(const TestingMode&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        TestingMode& operator=(const TestingMode&) = delete;
     };
 
     /// @brief struct used to group all variables related with common checkable Buttons
@@ -1327,6 +1371,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        CommonCheckableButtons(const CommonCheckableButtons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        CommonCheckableButtons& operator=(const CommonCheckableButtons&) = delete;
     };
 
     /// @brief struct used to group all variables related with Network checkable Buttons
@@ -1386,6 +1436,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        NetworkCheckableButtons(const NetworkCheckableButtons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        NetworkCheckableButtons& operator=(const NetworkCheckableButtons&) = delete;
     };
 
     /// @brief struct used to group all variables related with Demand checkable Buttons
@@ -1445,6 +1501,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        DemandCheckableButtons(const DemandCheckableButtons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        DemandCheckableButtons& operator=(const DemandCheckableButtons&) = delete;
     };
 
     /// @brief struct used to group all variables related with Data checkable Buttons
@@ -1483,6 +1545,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        DataCheckableButtons(const DataCheckableButtons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        DataCheckableButtons& operator=(const DataCheckableButtons&) = delete;
     };
 
     /// @brief struct used to group all variables related with edit shapes of NetworkElements
@@ -1512,6 +1580,12 @@ struct GNEViewNetHelper {
 
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
+
+        /// @brief Invalidated copy constructor.
+        EditNetworkElementShapes(const EditNetworkElementShapes&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        EditNetworkElementShapes& operator=(const EditNetworkElementShapes&) = delete;
     };
 
     /// @brief struct for pack all variables and functions related with Block Icon
@@ -1528,8 +1602,11 @@ struct GNEViewNetHelper {
         /// @brief constructor
         LockIcon();
 
-        /// @brief Invalidated assignment operator
-        LockIcon& operator=(const LockIcon& other) = delete;
+        /// @brief Invalidated copy constructor.
+        LockIcon(const LockIcon&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        LockIcon& operator=(const LockIcon&) = delete;
     };
 
     /// @brief get scaled rainbow colors

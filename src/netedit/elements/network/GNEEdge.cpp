@@ -205,13 +205,13 @@ GNEEdge::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->isInspectingSingleElement()) {
+    if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in this edge
-        if (inspectedElements->getFirstAC()->getTagProperty().vehicleEdges() &&
-                inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM) &&
-                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
+        if (inspectedElements.getFirstAC()->getTagProperty().vehicleEdges() &&
+                inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM) &&
+                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -260,13 +260,13 @@ GNEEdge::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->isInspectingSingleElement()) {
+    if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in this edge
-        if (inspectedElements->getFirstAC()->getTagProperty().vehicleEdges() &&
-                inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_TO) &&
-                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
+        if (inspectedElements.getFirstAC()->getTagProperty().vehicleEdges() &&
+                inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_TO) &&
+                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -2199,7 +2199,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         lane->unselectAttributeCarrier();
     }
     // before removing, check that lane isn't being inspected
-    myNet->getViewNet()->getInspectedElements()->uninspectAC(lane);
+    myNet->getViewNet()->getInspectedElements().uninspectAC(lane);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
     // Delete lane of edge's container
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -2275,7 +2275,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     GNEConnection* connection = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
     if (connection != nullptr) {
         // before removing, check that the connection isn't being inspected
-        myNet->getViewNet()->getInspectedElements()->uninspectAC(connection);
+        myNet->getViewNet()->getInspectedElements().uninspectAC(connection);
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
         connection->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), connection));

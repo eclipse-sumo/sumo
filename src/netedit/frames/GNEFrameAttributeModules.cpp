@@ -194,8 +194,8 @@ GNEFrameAttributeModules::AttributesEditorRow::isAttributesEditorRowValid() cons
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    const auto inspectedElements = viewNet->getInspectedElements();
-    if (inspectedElements->getFirstAC()) {
+    const auto& inspectedElements = viewNet->getInspectedElements();
+    if (inspectedElements.getFirstAC()) {
         // create FXColorDialog
         FXColorDialog colordialog(this, TL("Color Dialog"));
         colordialog.setTarget(this);
@@ -212,17 +212,17 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject*, F
         if (colordialog.execute()) {
             std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
             myValueTextField->setText(newValue.c_str());
-            if (inspectedElements->getFirstAC()->isValid(myACAttr.getAttr(), newValue)) {
+            if (inspectedElements.getFirstAC()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
-                if (inspectedElements->isInspectingMultipleElements()) {
-                    viewNet->getUndoList()->begin(inspectedElements->getFirstAC(), TL("change multiple attributes"));
+                if (inspectedElements.isInspectingMultipleElements()) {
+                    viewNet->getUndoList()->begin(inspectedElements.getFirstAC(), TL("change multiple attributes"));
                 }
                 // Set new value of attribute in all selected ACs
-                for (const auto& inspectedAC : inspectedElements->getACs()) {
+                for (const auto& inspectedAC : inspectedElements.getACs()) {
                     inspectedAC->setAttribute(myACAttr.getAttr(), newValue, viewNet->getUndoList());
                 }
                 // finish change multiple attributes
-                if (inspectedElements->isInspectingMultipleElements()) {
+                if (inspectedElements.isInspectingMultipleElements()) {
                     viewNet->getUndoList()->end();
                 }
                 // If previously value was incorrect, change font color to black
@@ -238,25 +238,25 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject*, F
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    const auto inspectedElements = viewNet->getInspectedElements();
-    if (inspectedElements->getFirstAC()) {
+    const auto& inspectedElements = viewNet->getInspectedElements();
+    if (inspectedElements.getFirstAC()) {
         // if its valid for the first AC than its valid for all (of the same type)
-        if (inspectedElements->isInspectingMultipleElements()) {
-            viewNet->getUndoList()->begin(inspectedElements->getFirstAC(), TL("change multiple attributes"));
+        if (inspectedElements.isInspectingMultipleElements()) {
+            viewNet->getUndoList()->begin(inspectedElements.getFirstAC(), TL("change multiple attributes"));
         }
         // declare accept changes
         bool acceptChanges = false;
         // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowVClassesDialog(viewNet, inspectedElements->getFirstAC(), myACAttr.getAttr(), &acceptChanges).execute();
+        GNEAllowVClassesDialog(viewNet, inspectedElements.getFirstAC(), myACAttr.getAttr(), &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
-            std::string allowed = inspectedElements->getFirstAC()->getAttribute(myACAttr.getAttr());
+            std::string allowed = inspectedElements.getFirstAC()->getAttribute(myACAttr.getAttr());
             // Set new value of attribute in all selected ACs
-            for (const auto& inspectedAC : inspectedElements->getACs()) {
+            for (const auto& inspectedAC : inspectedElements.getACs()) {
                 inspectedAC->setAttribute(myACAttr.getAttr(), allowed, viewNet->getUndoList());
             }
             // finish change multiple attributes
-            if (inspectedElements->isInspectingMultipleElements()) {
+            if (inspectedElements.isInspectingMultipleElements()) {
                 viewNet->getUndoList()->end();
             }
             // update frame parent after attribute successfully set
@@ -270,7 +270,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAllowDialog(FXObject*, F
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectParent(FXObject*, FXSelector, void*) {
     auto viewnet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    viewnet->getViewParent()->getInspectorFrame()->inspectChild(myACParent, viewnet->getInspectedElements()->getFirstAC());
+    viewnet->getViewParent()->getInspectorFrame()->inspectChild(myACParent, viewnet->getInspectedElements().getFirstAC());
     return 1;
 }
 
@@ -279,12 +279,12 @@ long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneUp(FXObject*, FXSelector, void*) {
     // get view net
     auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    const auto inspectedElements = viewNet->getInspectedElements();
-    if (inspectedElements->getFirstAC()) {
+    const auto& inspectedElements = viewNet->getInspectedElements();
+    if (inspectedElements.getFirstAC()) {
         // extract lane
-        auto lane = viewNet->getNet()->getAttributeCarriers()->retrieveLane(inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_LANE));
+        auto lane = viewNet->getNet()->getAttributeCarriers()->retrieveLane(inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_LANE));
         // set next lane
-        inspectedElements->getFirstAC()->setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getID() + "_" + toString(lane->getIndex() + 1), viewNet->getUndoList());
+        inspectedElements.getFirstAC()->setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getID() + "_" + toString(lane->getIndex() + 1), viewNet->getUndoList());
         // update frame parent after attribute successfully set
         myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
     }
@@ -295,12 +295,12 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneUp(FXObject*,
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneDown(FXObject*, FXSelector, void*) {
     auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    const auto inspectedElements = viewNet->getInspectedElements();
-    if (inspectedElements->getFirstAC()) {
+    const auto& inspectedElements = viewNet->getInspectedElements();
+    if (inspectedElements.getFirstAC()) {
         // extract lane
-        auto lane = viewNet->getNet()->getAttributeCarriers()->retrieveLane(inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_LANE));
+        auto lane = viewNet->getNet()->getAttributeCarriers()->retrieveLane(inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_LANE));
         // set next lane
-        inspectedElements->getFirstAC()->setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getID() + "_" + toString(lane->getIndex() - 1), viewNet->getUndoList());
+        inspectedElements.getFirstAC()->setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getID() + "_" + toString(lane->getIndex() - 1), viewNet->getUndoList());
         // update frame parent after attribute successfully set
         myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
     }
@@ -310,7 +310,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneDown(FXObject
 
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    const auto inspectedElements = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedElements();
     // Declare changed value
     std::string newVal;
     // First, obtain the string value of the new attribute depending of their type
@@ -378,18 +378,18 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
     // check if use default value
     const bool useDefaultValue = (newVal.empty() && myACAttr.hasDefaultValue());
     // Check if attribute must be changed
-    if ((inspectedElements->isInspectingElements()) && (inspectedElements->getFirstAC()->isValid(myACAttr.getAttr(), newVal) || useDefaultValue)) {
+    if ((inspectedElements.isInspectingElements()) && (inspectedElements.getFirstAC()->isValid(myACAttr.getAttr(), newVal) || useDefaultValue)) {
         // check if we're merging junction
         if (!mergeJunction(myACAttr.getAttr(), newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
-            if (inspectedElements->isInspectingMultipleElements()) {
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedElements->getFirstAC(), TL("change multiple attributes"));
+            if (inspectedElements.isInspectingMultipleElements()) {
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedElements.getFirstAC(), TL("change multiple attributes"));
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedElements->getFirstAC(), TLF("change % attribute", myACAttr.getTagPropertyParent().getTagStr()));
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedElements.getFirstAC(), TLF("change % attribute", myACAttr.getTagPropertyParent().getTagStr()));
             }
             // Set new value of attribute in all selected ACs
-            for (const auto& inspectedAC : inspectedElements->getACs()) {
+            for (const auto& inspectedAC : inspectedElements.getACs()) {
                 if (useDefaultValue) {
                     inspectedAC->setAttribute(myACAttr.getAttr(), myACAttr.getDefaultValue(), myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
                 } else {
@@ -397,7 +397,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 }
             }
             // finish change multiple attributes or ID Attributes
-            if (inspectedElements->isInspectingMultipleElements()) {
+            if (inspectedElements.isInspectingMultipleElements()) {
                 myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
@@ -438,7 +438,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
 
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
-    const auto inspectedElements = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedElements();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList();
     // check if we have to enable or disable
@@ -447,16 +447,16 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->enable();
         myValueTextField->enable();
         // enable attribute
-        undoList->begin(inspectedElements->getFirstAC(), TL("enable attribute '") + myACAttr.getAttrStr() + "'");
-        inspectedElements->getFirstAC()->enableAttribute(myACAttr.getAttr(), undoList);
+        undoList->begin(inspectedElements.getFirstAC(), TL("enable attribute '") + myACAttr.getAttrStr() + "'");
+        inspectedElements.getFirstAC()->enableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     } else {
         // disable input values
         myValueCheckButton->disable();
         myValueTextField->disable();
         // disable attribute
-        undoList->begin(inspectedElements->getFirstAC(), TL("disable attribute '") + myACAttr.getAttrStr() + "'");
-        inspectedElements->getFirstAC()->disableAttribute(myACAttr.getAttr(), undoList);
+        undoList->begin(inspectedElements.getFirstAC(), TL("disable attribute '") + myACAttr.getAttrStr() + "'");
+        inspectedElements.getFirstAC()->disableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     }
     return 0;
@@ -481,11 +481,11 @@ GNEFrameAttributeModules::AttributesEditorRow::stripWhitespaceAfterComma(const s
 bool
 GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::string& newVal) const {
     const auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    const auto inspectedElements = viewNet->getInspectedElements();
+    const auto& inspectedElements = viewNet->getInspectedElements();
     // check if we're editing junction position
-    if (inspectedElements->isInspectingSingleElement() && (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
+    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
-        GNEJunction* movedJunction = viewNet->getNet()->getAttributeCarriers()->retrieveJunction(inspectedElements->getFirstAC()->getID());
+        GNEJunction* movedJunction = viewNet->getNet()->getAttributeCarriers()->retrieveJunction(inspectedElements.getFirstAC()->getID());
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction
@@ -721,7 +721,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
 
 void
 GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string& value) {
-    const auto inspectedElements = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedElements();
     // clear and enable comboBox
     myValueComboBox->clearItems();
     // fill depeding of ACAttr
@@ -753,13 +753,13 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string& v
         for (const auto& POIIcon : SUMOXMLDefinitions::POIIcons.getValues()) {
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::POIIcons.getString(POIIcon).c_str(), POIIcons::getPOIIcon(POIIcon));
         }
-    } else if ((myACAttr.getAttr() == SUMO_ATTR_RIGHT_OF_WAY) && (inspectedElements->isInspectingSingleElement()) &&
-               (inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION)) {
+    } else if ((myACAttr.getAttr() == SUMO_ATTR_RIGHT_OF_WAY) && (inspectedElements.isInspectingSingleElement()) &&
+               (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION)) {
         // special case for junction types
-        if (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE) == "priority") {
+        if (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TYPE) == "priority") {
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::DEFAULT).c_str(), nullptr);
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::EDGEPRIORITY).c_str(), nullptr);
-        } else if (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE) == "traffic_light") {
+        } else if (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TYPE) == "traffic_light") {
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::DEFAULT).c_str(), nullptr);
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::MIXEDPRIORITY).c_str(), nullptr);
             myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::ALLWAYSTOP).c_str(), nullptr);
@@ -832,7 +832,7 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* framePare
 
 void
 GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool includeExtended) {
-    const auto inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
     myIncludeExtended = includeExtended;
     // first remove all rows
     for (auto& row : myAttributesEditorRows) {
@@ -845,13 +845,13 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
     }
     // declare flag to check if flow editor has to be shown
     bool showFlowEditor = false;
-    if (inspectedElements->isInspectingElements()) {
+    if (inspectedElements.isInspectingElements()) {
         // Iterate over attributes
-        for (const auto& attrProperty : inspectedElements->getFirstAC()->getTagProperty()) {
+        for (const auto& attrProperty : inspectedElements.getFirstAC()->getTagProperty()) {
             // declare flag to show/hide attribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if (inspectedElements->isInspectingMultipleElements() && attrProperty.isUnique()) {
+            if (inspectedElements.isInspectingMultipleElements() && attrProperty.isUnique()) {
                 editAttribute = false;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
@@ -868,7 +868,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occurringValues;
                 // iterate over edited attributes
-                for (const auto& inspectedAC : inspectedElements->getACs()) {
+                for (const auto& inspectedAC : inspectedElements.getACs()) {
                     occurringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
@@ -882,13 +882,13 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 // obtain value to be shown in row
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
-                bool attributeEnabled = inspectedElements->getFirstAC()->isAttributeEnabled(attrProperty.getAttr());
+                bool attributeEnabled = inspectedElements.getFirstAC()->isAttributeEnabled(attrProperty.getAttr());
                 // overwrite value if attribute is disabled (used by LinkIndex)
                 if (!attributeEnabled) {
-                    value = inspectedElements->getFirstAC()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
+                    value = inspectedElements.getFirstAC()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // for types, the following attributes must be always enabled
-                if (inspectedElements->getFirstAC()->getTagProperty().isType() &&
+                if (inspectedElements.getFirstAC()->getTagProperty().isType() &&
                         ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
                          (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
                          (attrProperty.getAttr() == SUMO_ATTR_MAXSPEED) ||
@@ -896,22 +896,22 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                     attributeEnabled = true;
                 }
                 // extra check for Triggered and container Triggered
-                if (inspectedElements->getFirstAC()->getTagProperty().isVehicleStop()) {
-                    if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (inspectedElements->getFirstAC()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                if (inspectedElements.getFirstAC()->getTagProperty().isVehicleStop()) {
+                    if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (inspectedElements.getFirstAC()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
-                    } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (inspectedElements->getFirstAC()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (inspectedElements.getFirstAC()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
                 }
                 // check if this attribute is computed
-                const bool computed = inspectedElements->isInspectingMultipleElements() ? false : inspectedElements->getFirstAC()->isAttributeComputed(attrProperty.getAttr());
+                const bool computed = inspectedElements.isInspectingMultipleElements() ? false : inspectedElements.getFirstAC()->isAttributeComputed(attrProperty.getAttr());
                 // if is a Vtype, obtain icon
                 GNEAttributeCarrier* ACParent = nullptr;
-                if (inspectedElements->isInspectingSingleElement() && attrProperty.isVType()) {
+                if (inspectedElements.isInspectingSingleElement() && attrProperty.isVType()) {
                     if (attrProperty.getAttr() == SUMO_ATTR_TYPE) {
-                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
+                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
                         if (ACParent == nullptr) {
-                            ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
+                            ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
                         }
                     }
                 }
@@ -921,7 +921,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
         }
         // check if Flow editor has to be shown
         if (showFlowEditor) {
-            myAttributesEditorFlow->showFlowEditor(inspectedElements->getFirstAC(), inspectedElements->getACs());
+            myAttributesEditorFlow->showFlowEditor(inspectedElements.getFirstAC(), inspectedElements.getACs());
         } else {
             myAttributesEditorFlow->hideFlowEditor();
         }
@@ -946,15 +946,15 @@ GNEFrameAttributeModules::AttributesEditor::hideAttributesEditorModule() {
 
 void
 GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
-    const auto inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
     // first check if there is inspected attribute carriers
-    if (inspectedElements->isInspectingElements()) {
+    if (inspectedElements.isInspectingElements()) {
         // Iterate over inspected attribute carriers
-        for (const auto& attrProperty : inspectedElements->getFirstAC()->getTagProperty()) {
+        for (const auto& attrProperty : inspectedElements.getFirstAC()->getTagProperty()) {
             // declare flag to show/hide attribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if (inspectedElements->isInspectingMultipleElements() && attrProperty.isUnique()) {
+            if (inspectedElements.isInspectingMultipleElements() && attrProperty.isUnique()) {
                 editAttribute = false;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
@@ -970,7 +970,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occurringValues;
                 // iterate over edited attributes
-                for (const auto& inspectedAC : inspectedElements->getACs()) {
+                for (const auto& inspectedAC : inspectedElements.getACs()) {
                     occurringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
@@ -984,9 +984,9 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // obtain value to be shown in row
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
-                bool attributeEnabled = inspectedElements->getFirstAC()->isAttributeEnabled(attrProperty.getAttr());
+                bool attributeEnabled = inspectedElements.getFirstAC()->isAttributeEnabled(attrProperty.getAttr());
                 // for types, the following attributes must be always enabled
-                if (inspectedElements->getFirstAC()->getTagProperty().isType() &&
+                if (inspectedElements.getFirstAC()->getTagProperty().isType() &&
                         ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
                          (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
                          (attrProperty.getAttr() == SUMO_ATTR_MAXSPEED) ||
@@ -995,18 +995,18 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 }
                 // overwrite value if attribute is disabled (used by LinkIndex)
                 if (!attributeEnabled) {
-                    value = inspectedElements->getFirstAC()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
+                    value = inspectedElements.getFirstAC()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (inspectedElements->getFirstAC()->getTagProperty().isVehicleStop()) {
-                    if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (inspectedElements->getFirstAC()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                if (inspectedElements.getFirstAC()->getTagProperty().isVehicleStop()) {
+                    if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (inspectedElements.getFirstAC()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
-                    } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (inspectedElements->getFirstAC()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (inspectedElements.getFirstAC()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
                 }
                 // check if this attribute is computed
-                const bool computed = inspectedElements->isInspectingMultipleElements() ? false : inspectedElements->getFirstAC()->isAttributeComputed(attrProperty.getAttr());
+                const bool computed = inspectedElements.isInspectingMultipleElements() ? false : inspectedElements.getFirstAC()->isAttributeComputed(attrProperty.getAttr());
                 // Check if Position or Shape refresh has to be forced
                 if ((attrProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
@@ -1015,9 +1015,9 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 } else if (attrProperty.isVType() && (attrProperty.getTagPropertyParent().isVehicle() || attrProperty.getTagPropertyParent().isPerson() ||
                                                       attrProperty.getTagPropertyParent().isContainer())) {
                     // get type/distribution parent
-                    auto typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
+                    auto typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
                     if (typeParent == nullptr) {
-                        typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
+                        typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TYPE), false);
                     }
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, typeParent);
                 } else {
@@ -1043,9 +1043,9 @@ GNEFrameAttributeModules::AttributesEditor::getFrameParent() const {
 long
 GNEFrameAttributeModules::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog if there is inspected ACs
-    if (myFrameParent->getViewNet()->getInspectedElements()->getFirstAC()) {
+    if (myFrameParent->getViewNet()->getInspectedElements().getFirstAC()) {
         // open Help attributes dialog
-        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedElements()->getFirstAC());
+        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedElements().getFirstAC());
     }
     return 1;
 }
@@ -1268,8 +1268,8 @@ GNEFrameAttributeModules::ParametersEditor::getViewNet() const {
 void
 GNEFrameAttributeModules::ParametersEditor::showParametersEditor() {
     if (myInspectorFrameParent) {
-        const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-        if (inspectedElements->getFirstAC() && inspectedElements->getFirstAC()->getTagProperty().hasParameters()) {
+        const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             // refresh ParametersEditor
             refreshParametersEditor();
             // show groupbox
@@ -1302,17 +1302,17 @@ GNEFrameAttributeModules::ParametersEditor::hideParametersEditor() {
 void
 GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
     if (myInspectorFrameParent) {
-        const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
+        const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
         // continue depending of frontAC
-        if (inspectedElements->getFirstAC() && inspectedElements->getFirstAC()->getTagProperty().hasParameters()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             // check if we're editing a single or a multiple AC
-            if (inspectedElements->isInspectingSingleElement()) {
+            if (inspectedElements.isInspectingSingleElement()) {
                 // set text field parameters
-                myTextFieldParameters->setText(inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_PARAMETERS).c_str());
+                myTextFieldParameters->setText(inspectedElements.getFirstAC()->getAttribute(GNE_ATTR_PARAMETERS).c_str());
             } else {
                 // check if parameters of all inspected ACs are different
-                std::string parameters = inspectedElements->getFirstAC()->getAttribute(GNE_ATTR_PARAMETERS);
-                for (const auto& AC : inspectedElements->getACs()) {
+                std::string parameters = inspectedElements.getFirstAC()->getAttribute(GNE_ATTR_PARAMETERS);
+                for (const auto& AC : inspectedElements.getACs()) {
                     if (parameters != AC->getAttribute(GNE_ATTR_PARAMETERS)) {
                         parameters = "different parameters";
                     }
@@ -1323,7 +1323,7 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
             // reset color
             myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
             // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-            if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), inspectedElements->getFirstAC())) {
+            if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), inspectedElements.getFirstAC())) {
                 myTextFieldParameters->enable();
                 myButtonEditParameters->enable();
             } else {
@@ -1368,10 +1368,10 @@ GNEFrameAttributeModules::ParametersEditor::getTypeFrameParent() const {
 long
 GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
     if (myInspectorFrameParent) {
-        const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
+        const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
         // continue depending of frontAC
-        if (inspectedElements->getFirstAC() && inspectedElements->getFirstAC()->getTagProperty().hasParameters()) {
-            if (inspectedElements->isInspectingMultipleElements()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
+            if (inspectedElements.isInspectingMultipleElements()) {
                 // write debug information
                 WRITE_DEBUG("Open multiple parameters dialog");
                 // open multiple parameters dialog
@@ -1427,27 +1427,27 @@ GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
 long
 GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
     if (myInspectorFrameParent) {
-        const auto inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
+        const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
         // continue depending of frontAC
-        if (inspectedElements->getFirstAC() && inspectedElements->getFirstAC()->getTagProperty().hasParameters()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             // check if current given string is valid
-            if (inspectedElements->getFirstAC()->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
+            if (inspectedElements.getFirstAC()->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
                 // parsed parameters ok, then set text field black and continue
                 myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
                 myTextFieldParameters->killFocus();
                 // check inspected parameters
-                if (inspectedElements->isInspectingSingleElement()) {
+                if (inspectedElements.isInspectingSingleElement()) {
                     // begin undo list
-                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(inspectedElements->getFirstAC(), "change parameters");
+                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(inspectedElements.getFirstAC(), "change parameters");
                     // set parameters
-                    inspectedElements->getFirstAC()->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                    inspectedElements.getFirstAC()->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     // end undo list
                     myInspectorFrameParent->getViewNet()->getUndoList()->end();
-                } else if (inspectedElements->isInspectingMultipleElements()) {
+                } else if (inspectedElements.isInspectingMultipleElements()) {
                     // begin undo list
-                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(inspectedElements->getFirstAC(), "change multiple parameters");
+                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(inspectedElements.getFirstAC(), "change multiple parameters");
                     // set parameters in all ACs
-                    for (const auto& inspectedAC : inspectedElements->getACs()) {
+                    for (const auto& inspectedAC : inspectedElements.getACs()) {
                         inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     }
                     // end undo list

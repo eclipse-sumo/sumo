@@ -184,13 +184,13 @@ GNEAdditional::checkDrawFromContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->isInspectingSingleElement()) {
+    if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in TAZ
-        if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_TAZ) &&
-                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
+        if (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM_TAZ) &&
+                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
             return true;
-        } else if ((inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-                   (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
+        } else if ((inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+                   (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -244,13 +244,13 @@ GNEAdditional::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->isInspectingSingleElement()) {
+    if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in TAZ
-        if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_TO_TAZ) &&
-                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
+        if (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_TO_TAZ) &&
+                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
             return true;
-        } else if ((inspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-                   (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
+        } else if ((inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+                   (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -1085,7 +1085,7 @@ void
 GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols) const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if current additional is inspected, front or selected
-    const bool currentDrawEntire = inspectedElements->isACInspected(this) ||
+    const bool currentDrawEntire = inspectedElements.isACInspected(this) ||
                                    (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
     // push layer matrix
     GLHelper::pushMatrix();
@@ -1094,7 +1094,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     // iterate over parent additionals
     for (const auto& parent : getParentAdditionals()) {
         // get inspected flag
-        const bool parentInspected = inspectedElements->isACInspected(parent);
+        const bool parentInspected = inspectedElements.isACInspected(parent);
         // draw parent lines
         GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(),
                                     (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
@@ -1109,7 +1109,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
                     // get parking area
                     const auto parkingArea = rerouterElement->getParentAdditionals().at(1);
                     // get inspected flag
-                    const bool parkingAreaInspected = inspectedElements->isACInspected(parkingArea);
+                    const bool parkingAreaInspected = inspectedElements.isACInspected(parkingArea);
                     // draw parent lines
                     GUIGeometry::drawParentLine(s, getPositionInView(), parkingArea->getPositionInView(),
                                                 (isAttributeCarrierSelected() || parkingArea->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
@@ -1121,7 +1121,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     // iterate over child additionals
     for (const auto& child : getChildAdditionals()) {
         // get inspected flag
-        const bool childInspected = inspectedElements->isACInspected(child);
+        const bool childInspected = inspectedElements.isACInspected(child);
         // special case for parking zone reroute
         if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             // draw child line between parking area and rerouter

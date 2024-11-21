@@ -137,7 +137,7 @@ GNEAttributeCarrier::inGrid() const {
 
 bool
 GNEAttributeCarrier::checkDrawInspectContour() const {
-    return myNet->getViewNet()->getInspectedElements()->isACInspected(this);
+    return myNet->getViewNet()->getInspectedElements().isACInspected(this);
 }
 
 

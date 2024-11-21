@@ -507,8 +507,8 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    const auto inspectedElements = myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedElements();
-    if (inspectedElements->isInspectingElements()) {
+    const auto& inspectedElements = myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedElements();
+    if (inspectedElements.isInspectingElements()) {
         // get undo list
         GNEUndoList* undoList = myParametersEditor->getInspectorFrameParent()->getViewNet()->getUndoList();
         // declare vector for parameters in stringvector format
@@ -560,9 +560,9 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             }
         }
         // begin change
-        undoList->begin(inspectedElements->getFirstAC(), "change parameters");
+        undoList->begin(inspectedElements.getFirstAC(), "change parameters");
         // iterate over ACs
-        for (const auto& AC : inspectedElements->getACs()) {
+        for (const auto& AC : inspectedElements.getACs()) {
             // remove keys
             AC->removeACParametersKeys(keepKeys, undoList);
             // update parameters
@@ -596,7 +596,7 @@ GNEMultipleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // declare a map for key-values
     std::map<std::string, std::vector<std::string> > keyValuesMap;
     // fill keys
-    for (const auto& AC : myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedElements()->getACs()) {
+    for (const auto& AC : myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedElements().getACs()) {
         for (const auto& keyAttribute : AC->getACParametersMap()) {
             keyValuesMap[keyAttribute.first].push_back(keyAttribute.second);
         }

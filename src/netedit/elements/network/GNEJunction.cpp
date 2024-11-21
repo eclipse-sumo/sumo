@@ -147,12 +147,12 @@ GNEJunction::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->isInspectingSingleElement()) {
+    if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in this junction
-        if (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+        if (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
@@ -198,12 +198,12 @@ GNEJunction::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
-    if (inspectedElements->isInspectingSingleElement()) {
+    if (inspectedElements.isInspectingSingleElement()) {
         // check if ends in this junction
-        if (inspectedElements->getFirstAC()->getTagProperty().vehicleJunctions() &&
-                (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+        if (inspectedElements.getFirstAC()->getTagProperty().vehicleJunctions() &&
+                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
@@ -433,7 +433,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 crossing->unselectAttributeCarrier();
             }
             // remove it from inspected ACS
-            myNet->getViewNet()->getInspectedElements()->uninspectAC(crossing);
+            myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
             // remove it from net
             myNet->removeGLObjectFromGrid(crossing);
             // remove it from attributeCarriers
@@ -1249,7 +1249,7 @@ GNEJunction::clearWalkingAreas() {
             walkingArea->unselectAttributeCarrier();
         }
         // remove it from inspected ACS
-        myNet->getViewNet()->getInspectedElements()->uninspectAC(walkingArea);
+        myNet->getViewNet()->getInspectedElements().uninspectAC(walkingArea);
         // remove it from net
         myNet->removeGLObjectFromGrid(walkingArea);
         // remove it from attributeCarriers
@@ -1650,7 +1650,7 @@ GNEJunction::setResponsible(bool newVal) {
 bool
 GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check conditions
     if (junctionShapeArea < 4) {
         // force draw if this junction is a candidate
@@ -1667,12 +1667,12 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
             return true;
         }
         // force draw if we're inspecting a vehicle that start or ends in a junction
-        if (inspectedElements->isInspectingSingleElement()) {
+        if (inspectedElements.isInspectingSingleElement()) {
             // check if starts or ends in this junction
-            if ((inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                    (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
-                    (inspectedElements->getFirstAC()->hasAttribute(SUMO_ATTR_TO_JUNCTION) &&
-                     (inspectedElements->getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {
+            if ((inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                    (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
+                    (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_TO_JUNCTION) &&
+                     (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {
                 return true;
             }
         }

@@ -219,7 +219,7 @@ GNERerouter::getParentName() const {
 
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // draw parent and child lines
@@ -230,14 +230,14 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& interval : getChildAdditionals()) {
             // if rerouter or their intevals are selected, then draw
             if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-                    isAttributeCarrierSelected() || inspectedElements->isACInspected(this) ||
-                    interval->isAttributeCarrierSelected() || inspectedElements->isACInspected(interval) ||
+                    isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
+                    interval->isAttributeCarrierSelected() || inspectedElements.isACInspected(interval) ||
                     (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
                 interval->drawGL(s);
             } else {
                 // if rerouterElements are inspected or selected, then draw
                 for (const auto& rerouterElement : interval->getChildAdditionals()) {
-                    if (rerouterElement->isAttributeCarrierSelected() || inspectedElements->isACInspected(rerouterElement) ||
+                    if (rerouterElement->isAttributeCarrierSelected() || inspectedElements.isACInspected(rerouterElement) ||
                             (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
                         interval->drawGL(s);
                     }

@@ -147,7 +147,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         // refresh vehicle type editor module
         myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
         // set myCurrentType as inspected element (needed for attribute editor)
-        myTypeFrameParent->getViewNet()->getInspectedElements()->inspectAC(myCurrentType);
+        myTypeFrameParent->getViewNet()->getInspectedElements().inspectAC(myCurrentType);
         // show modules
         myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
         myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
@@ -168,7 +168,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // refresh vehicle type editor module
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // set myCurrentType as inspected element (needed for attribute editor)
-            myTypeFrameParent->getViewNet()->getInspectedElements()->inspectAC(myCurrentType);
+            myTypeFrameParent->getViewNet()->getInspectedElements().inspectAC(myCurrentType);
             // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
@@ -419,7 +419,7 @@ GNETypeFrame::show() {
     // refresh vehicle type and Attribute Editor
     myTypeSelector->refreshTypeSelector(true);
     // set myCurrentType as inspected element (needed for attribute editor)
-    myTypeAttributesEditor->getFrameParent()->getViewNet()->getInspectedElements()->inspectAC(myTypeSelector->getCurrentType());
+    myTypeAttributesEditor->getFrameParent()->getViewNet()->getInspectedElements().inspectAC(myTypeSelector->getCurrentType());
     // show modules
     myTypeAttributesEditor->showAttributeEditorModule(false);
     myAttributesEditorExtended->showAttributesEditorExtendedModule();
@@ -449,7 +449,7 @@ GNETypeFrame::attributesEditorExtendedDialogOpened() {
     if (myTypeSelector->getCurrentType()) {
         GNEVehicleTypeDialog(myTypeSelector->getCurrentType(), true);  // NOSONAR, constructor returns after dialog has been closed
         // set myCurrentType as inspected element (needed for attribute editor)
-        myTypeAttributesEditor->getFrameParent()->getViewNet()->getInspectedElements()->inspectAC(myTypeSelector->getCurrentType());
+        myTypeAttributesEditor->getFrameParent()->getViewNet()->getInspectedElements().inspectAC(myTypeSelector->getCurrentType());
         // call "showAttributeEditorModule" to refresh attribute list
         myTypeAttributesEditor->showAttributeEditorModule(false);
         myParametersEditor->refreshParametersEditor();

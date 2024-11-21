@@ -275,7 +275,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
     myLockManager(this),
-    myInspectedElements(new GNEViewNetHelper::InspectedElements()),
     myViewParent(viewParent),
     myNet(net),
     myUndoList(undoList) {
@@ -303,7 +302,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
 
 
 GNEViewNet::~GNEViewNet() {
-    delete myInspectedElements;
 }
 
 
@@ -546,7 +544,7 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
 void
 GNEViewNet::redrawPathElementContours() {
     // if we're inspecting an element, add it to redraw path elements
-    for (const auto& AC : myInspectedElements->getACs()) {
+    for (const auto& AC : myInspectedElements.getACs()) {
         const auto pathElement = dynamic_cast<const GNEPathElement*>(AC);
         if (pathElement) {
             gViewObjectsHandler.addToRedrawPathElements(pathElement);
@@ -630,8 +628,8 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             // we need to check if we're inspecting a overlapping element
             if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
                     myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
-                    myInspectedElements->getFirstAC()) {
-                overlappedElement = myInspectedElements->getFirstAC()->getGUIGlObject();
+                    myInspectedElements.getFirstAC()) {
+                overlappedElement = myInspectedElements.getFirstAC()->getGUIGlObject();
                 filteredGLObjects.push_back(overlappedElement);
             }
             bool connections = false;
@@ -1708,11 +1706,11 @@ GNEViewNet::hotkeyDel() {
     if (myEditModes.isCurrentSupermodeNetwork()) {
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) || (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS)) {
             setStatusBarText(TL("Cannot delete in this mode"));
-        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && myInspectedElements->getFirstAC()) {
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && myInspectedElements.getFirstAC()) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete network inspected elements"));
-            while (myInspectedElements->isInspectingElements()) {
-                deleteNetworkAttributeCarrier(myInspectedElements->getFirstAC());
+            while (myInspectedElements.isInspectingElements()) {
+                deleteNetworkAttributeCarrier(myInspectedElements.getFirstAC());
             }
             myUndoList->end();
         } else {
@@ -1728,11 +1726,11 @@ GNEViewNet::hotkeyDel() {
             }
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedElements->getFirstAC()) {
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedElements.getFirstAC()) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete demand inspected elements"));
-            while (myInspectedElements->isInspectingElements()) {
-                deleteDemandAttributeCarrier(myInspectedElements->getFirstAC());
+            while (myInspectedElements.isInspectingElements()) {
+                deleteDemandAttributeCarrier(myInspectedElements.getFirstAC());
             }
             myUndoList->end();
         } else {
@@ -1748,11 +1746,11 @@ GNEViewNet::hotkeyDel() {
             }
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedElements->getFirstAC()) {
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedElements.getFirstAC()) {
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete data inspected elements"));
-            while (myInspectedElements->isInspectingElements()) {
-                deleteDataAttributeCarrier(myInspectedElements->getFirstAC());
+            while (myInspectedElements.isInspectingElements()) {
+                deleteDataAttributeCarrier(myInspectedElements.getFirstAC());
             }
             myUndoList->end();
         } else {
@@ -1911,8 +1909,8 @@ GNEViewNet::getLockManager() {
 }
 
 
-GNEViewNetHelper::InspectedElements*
-GNEViewNet::getInspectedElements() const {
+GNEViewNetHelper::InspectedElements&
+GNEViewNet::getInspectedElements() {
     return myInspectedElements;
 }
 
@@ -3659,7 +3657,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if (myInspectedElements->getFirstAC() && (myInspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
@@ -3690,7 +3688,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if (myInspectedElements->getFirstAC() && (myInspectedElements->getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
@@ -4310,14 +4308,14 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockPerson
     if (myDemandViewOptions.menuCheckLockPerson->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(FALSE);
-    } else if (myInspectedElements->getFirstAC() && myInspectedElements->getFirstAC()->getTagProperty().isPerson()) {
+    } else if (myInspectedElements.getFirstAC() && myInspectedElements.getFirstAC()->getTagProperty().isPerson()) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockPerson->update();
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->amChecked()) {
         // obtain locked person or person plan
-        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedElements->getFirstAC());
+        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedElements.getFirstAC());
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
             if (personOrPersonPlan->getTagProperty().isPerson()) {
@@ -4364,14 +4362,14 @@ GNEViewNet::onCmdToggleLockContainer(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockContainer
     if (myDemandViewOptions.menuCheckLockContainer->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockContainer->setChecked(FALSE);
-    } else if (myInspectedElements->getFirstAC() && myInspectedElements->getFirstAC()->getTagProperty().isContainer()) {
+    } else if (myInspectedElements.getFirstAC() && myInspectedElements.getFirstAC()->getTagProperty().isContainer()) {
         myDemandViewOptions.menuCheckLockContainer->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockContainer->update();
     // lock or unlock current inspected container depending of menuCheckLockContainer value
     if (myDemandViewOptions.menuCheckLockContainer->amChecked()) {
         // obtain locked container or container plan
-        const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myInspectedElements->getFirstAC());
+        const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myInspectedElements.getFirstAC());
         if (containerOrContainerPlan) {
             // lock container depending if casted demand element is either a container or a container plan
             if (containerOrContainerPlan->getTagProperty().isContainer()) {

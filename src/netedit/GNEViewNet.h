@@ -549,7 +549,7 @@ public:
     GNEViewNetHelper::LockManager& getLockManager();
 
     /// @brief get inspected elements
-    GNEViewNetHelper::InspectedElements* getInspectedElements() const;
+    GNEViewNetHelper::InspectedElements& getInspectedElements();
 
     /// @brief get front attributeCarrier
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
@@ -734,7 +734,7 @@ private:
     GNEViewNetHelper::LockManager myLockManager;
 
     /// @brief inspected element
-    GNEViewNetHelper::InspectedElements* myInspectedElements;
+    GNEViewNetHelper::InspectedElements myInspectedElements;
 
     /// @brief view parent
     GNEViewParent* myViewParent = nullptr;

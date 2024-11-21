@@ -200,7 +200,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionIDs() {
 
 void
 GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
-    const auto inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
+    auto& inspectedElements = myFrameParent->getViewNet()->getInspectedElements();
     // fill distributions
     const auto distributions = fillDistributionComboBox();
     // update current distribution (used if myCurrentDistribution was deleted during undo-redo)
@@ -219,13 +219,13 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     // continue depending of myCurrentDistribution
     if (myCurrentDistribution) {
         // set distribtution as inspected element (needed for attribute editor)
-        inspectedElements->inspectAC(myCurrentDistribution);
+        inspectedElements.inspectAC(myCurrentDistribution);
         // show modules
         myAttributesEditor->showAttributeEditorModule(true);
         myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
         // remove inspected elements
-        inspectedElements->inspectACs({});
+        inspectedElements.inspectACs({});
         // hide modules
         myAttributesEditor->hideAttributesEditorModule();
         myDistributionValuesEditor->hideDistributionValuesEditor();
@@ -245,7 +245,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             // set color of myTypeMatchBox to black (valid)
             myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
             // set myCurrentType as inspected element (needed for attribute editor)
-            viewNet->getInspectedElements()->inspectAC(distribution.second);
+            viewNet->getInspectedElements().inspectAC(distribution.second);
             // show modules
             myAttributesEditor->showAttributeEditorModule(true);
             myDistributionValuesEditor->showDistributionValuesEditor();

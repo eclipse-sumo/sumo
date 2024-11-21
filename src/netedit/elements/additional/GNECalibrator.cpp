@@ -260,7 +260,7 @@ GNECalibrator::getParentName() const {
 
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
-    const auto inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get values
@@ -281,8 +281,8 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& calibratorFlow : getChildAdditionals()) {
             // if calibrator is being inspected or selected, then draw
             if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-                    isAttributeCarrierSelected() || inspectedElements->isACInspected(this) ||
-                    calibratorFlow->isAttributeCarrierSelected() || inspectedElements->isACInspected(calibratorFlow) ||
+                    isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
+                    calibratorFlow->isAttributeCarrierSelected() || inspectedElements.isACInspected(calibratorFlow) ||
                     (myNet->getViewNet()->getFrontAttributeCarrier() == calibratorFlow)) {
                 calibratorFlow->drawGL(s);
             }

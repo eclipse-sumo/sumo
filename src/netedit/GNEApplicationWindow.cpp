@@ -2272,10 +2272,10 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // set or clear front attribute
-            if (myViewNet->getFrontAttributeCarrier() == myViewNet->getInspectedElements()->getFirstAC()) {
+            if (myViewNet->getFrontAttributeCarrier() == myViewNet->getInspectedElements().getFirstAC()) {
                 myViewNet->setFrontAttributeCarrier(nullptr);
             } else {
-                myViewNet->setFrontAttributeCarrier(myViewNet->getInspectedElements()->getFirstAC());
+                myViewNet->setFrontAttributeCarrier(myViewNet->getInspectedElements().getFirstAC());
             }
             myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
         } else {
