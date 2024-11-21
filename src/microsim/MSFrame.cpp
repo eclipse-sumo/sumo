@@ -615,6 +615,8 @@ MSFrame::fillOptions() {
     oc.doRegister("mapmatch.junctions", new Option_Bool(false));
     oc.addDescription("mapmatch.junctions", "Processing", TL("Match positions to junctions instead of edges"));
 
+    oc.doRegister("mapmatch.taz", new Option_Bool(false));
+    oc.addDescription("mapmatch.taz", "Processing", TL("Match positions to taz instead of edges"));
 
     // generic routing options
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));

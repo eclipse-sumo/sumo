@@ -55,6 +55,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool checkSchema) :
     SUMORouteHandler(file, checkSchema ? "routes" : "", true),
     MapMatcher(OptionsCont::getOptions().getBool("mapmatch.junctions"),
+               OptionsCont::getOptions().getBool("mapmatch.taz"),
                OptionsCont::getOptions().getFloat("mapmatch.distance"),
                ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
     myNet(net),
@@ -132,8 +133,16 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok), false, vClass, myActiveRoute, rid, true, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok), true, vClass, myActiveRoute, rid, true, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        }
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok), myActiveRoute, rid, ok);
     }
@@ -184,8 +193,16 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, vClass, myActiveRoute, rid, false, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+        }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, vClass, myActiveRoute, rid, false, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+        }
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid, ok);
     }

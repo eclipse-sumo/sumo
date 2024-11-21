@@ -165,7 +165,7 @@ MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime currentTime) {
 // ---------------------------------------------------------------------------
 MSDevice_FCDReplay::FCDHandler::FCDHandler(const std::string& file) :
     SUMOSAXHandler(file),
-    MapMatcher(OptionsCont::getOptions().getBool("mapmatch.junctions"),
+    MapMatcher(false, false,
                OptionsCont::getOptions().getFloat("mapmatch.distance"),
                MsgHandler::getErrorInstance()) {}
 
