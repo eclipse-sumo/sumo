@@ -372,17 +372,13 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
-    // obtain undoList (only for improve code legibly)
+    const auto& editModes = mySelectorFrameParent->myViewNet->getEditModes();
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
     // declare massive selection
-    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
-    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        massiveSelection = processMassiveNetworkElementSelection(false);
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        massiveSelection = processMassiveDemandElementSelection();
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        massiveSelection = processMassiveDataElementSelection();
-    }
+    MassiveSelection massiveSelection =
+        editModes.isCurrentSupermodeNetwork() ? processMassiveNetworkElementSelection(false) :
+        editModes.isCurrentSupermodeDemand() ? processMassiveDemandElementSelection() :
+        processMassiveDataElementSelection();
     // only continue if there are elements to unselect
     if (massiveSelection.isElementToProcess()) {
         // check if add locked elements
@@ -422,17 +418,13 @@ GNESelectorFrame::SelectionOperation::onCmdDelete(FXObject*, FXSelector, void*) 
 
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
-    // obtain undoList (only for improve code legibly)
+    const auto& editModes = mySelectorFrameParent->myViewNet->getEditModes();
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
     // declare massive selection
-    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
-    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        massiveSelection = processMassiveNetworkElementSelection(true);
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        massiveSelection = processMassiveDemandElementSelection();
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        massiveSelection = processMassiveDataElementSelection();
-    }
+    MassiveSelection massiveSelection =
+        editModes.isCurrentSupermodeNetwork() ? processMassiveNetworkElementSelection(true) :
+        editModes.isCurrentSupermodeDemand() ? processMassiveDemandElementSelection() :
+        processMassiveDataElementSelection();
     // only continue if there are elements to select and unselect
     if (massiveSelection.isElementToProcess()) {
         // check if add locked elements
@@ -534,7 +526,7 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
         }
     }
     // declare massive selection
-    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection(ACs->getNumberOfNetworkElements());
     // iterate over network ACs
     for (const auto& networkAC : networkACs) {
         const auto networkACObjectType = networkAC->getGUIGlObject()->getType();
@@ -555,10 +547,11 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
 
 GNESelectorFrame::SelectionOperation::MassiveSelection
 GNESelectorFrame::SelectionOperation::processMassiveDemandElementSelection() const {
+    const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // declare massive selection
-    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection(ACs->getNumberOfDemandElements());
     // iterate over selectable demand elements
-    for (const auto& demandElementTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements()) {
+    for (const auto& demandElementTag : ACs->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
             if (demandElement.second->getTagProperty().isSelectable()) {
                 const auto networkACObjectType = demandElement.first->getType();
@@ -581,8 +574,9 @@ GNESelectorFrame::SelectionOperation::processMassiveDemandElementSelection() con
 
 GNESelectorFrame::SelectionOperation::MassiveSelection
 GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() const {
+    const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // declare massive selection
-    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection(ACs->getNumberOfDataElements());
     // iterate over selectable demand elements
     for (const auto& genericDataTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
@@ -630,7 +624,10 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 // ModificationMode::SelectionOperation::SelectionHierarchy - methods
 // ---------------------------------------------------------------------------
 
-GNESelectorFrame::SelectionOperation::MassiveSelection::MassiveSelection() {}
+GNESelectorFrame::SelectionOperation::MassiveSelection::MassiveSelection(const int bucketSize) {
+    ACsToSelect.reserve(bucketSize);
+    ACsToUnselect.reserve(bucketSize);
+}
 
 
 GNESelectorFrame::SelectionOperation::MassiveSelection::~MassiveSelection() {}
@@ -639,6 +636,9 @@ GNESelectorFrame::SelectionOperation::MassiveSelection::~MassiveSelection() {}
 inline bool GNESelectorFrame::SelectionOperation::MassiveSelection::isElementToProcess() const {
     return (ACsToSelect.size() + ACsToUnselect.size()) > 0;
 }
+
+
+GNESelectorFrame::SelectionOperation::MassiveSelection::MassiveSelection() {}
 
 // ---------------------------------------------------------------------------
 // ModificationMode::SelectionHierarchy - methods

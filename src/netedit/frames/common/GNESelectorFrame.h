@@ -244,8 +244,8 @@ public:
         /// @brief struct used for massive selections
         struct MassiveSelection {
 
-            /// @brief constructor
-            MassiveSelection();
+            /// @brief constructor with bucket size (normally the max number of elements)
+            MassiveSelection(const int bucketSize);
 
             /// @brief destructor
             ~MassiveSelection();
@@ -261,6 +261,10 @@ public:
 
             /// @brief locked types
             std::map<GUIGlObjectType, bool> lockedTypes;
+
+        private:
+            /// @brief constructor (invalidated)
+            MassiveSelection();
         };
 
         /// @brief process massive network element selection
