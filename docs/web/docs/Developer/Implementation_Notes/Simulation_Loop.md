@@ -50,14 +50,14 @@ simstep -> MSInsertionControl : execute
 ... -> MSVehicle : enterLaneAtInsertion
 end
 
-group TraCI2
-simstep -> TraCIServer : postProcessRemoteControl
-... -> MSVehicle : postProcessRemoteControl
-end
-
-group TraCI3 (only commands after traci.simulation.executeMove)
+group TraCI2 (only commands after traci.simulation.executeMove)
 simstep -> TraCIServer : processCommandsUntilSimStep
 ... -> MSVehicle : getSpeed, setSpeed, ...
+end
+
+group TraCI3 (moveToXY)
+simstep -> TraCIServer : postProcessRemoteControl
+... -> MSVehicle : postProcessRemoteControl
 end
 
 group output
