@@ -28,5 +28,8 @@ dense
 # test mapmatching trips with geo-coordinates to taz
 geoTrips_taz
 
+# test mapmatching trips with geo-coordinates to taz, edge is part of multiple taz
+geoTrips_taz_multi
+
 # test mapmatching trips with geo-coordinates to taz (no taz loaded)
 geoTrips_taz_missing
