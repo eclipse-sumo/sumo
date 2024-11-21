@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-06 14:44:34 by Eclipse SUMO sumo Version v1_14_1+15782-f4088b8e2d5
+<!-- generated on 2024-11-21 13:04:01 by Eclipse SUMO sumo Version v1_21_0+0881-109d9298130
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -593,6 +593,9 @@
 
         <!-- Match positions to junctions instead of edges -->
         <mapmatch.junctions value="false" type="BOOL"/>
+
+        <!-- Match positions to taz instead of edges -->
+        <mapmatch.taz value="false" type="BOOL"/>
 
         <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
         <weights.turnaround-penalty value="5" type="FLOAT"/>
@@ -1403,9 +1406,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

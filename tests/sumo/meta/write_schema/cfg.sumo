@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-06 13:51:37 by Eclipse SUMO sumo Version v1_14_1+15767-5939a6cf29f
+<!-- generated on 2024-11-21 13:04:01 by Eclipse SUMO sumo Version v1_21_0+0881-109d9298130
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -242,6 +242,7 @@
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="mapmatch.taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
@@ -600,7 +601,6 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>

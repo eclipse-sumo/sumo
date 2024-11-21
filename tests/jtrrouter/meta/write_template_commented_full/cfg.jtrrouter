@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-26 13:30:33 by Eclipse SUMO jtrrouter Version v1_20_0+0837-89657f7d4be
+<!-- generated on 2024-11-21 13:04:07 by Eclipse SUMO jtrrouter Version v1_21_0+0881-109d9298130
 -->
 
 <jtrrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -125,6 +125,9 @@
 
         <!-- Match positions to junctions instead of edges -->
         <mapmatch.junctions value="false" type="BOOL"/>
+
+        <!-- Match positions to taz instead of edges -->
+        <mapmatch.taz value="false" type="BOOL"/>
 
         <!-- Aggregate routing queries with the same origin -->
         <bulk-routing value="false" type="BOOL"/>

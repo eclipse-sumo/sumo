@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-06 14:44:34 by Eclipse SUMO sumo Version v1_14_1+15782-f4088b8e2d5
+<!-- generated on 2024-11-21 13:04:01 by Eclipse SUMO sumo Version v1_21_0+0881-109d9298130
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -210,6 +210,7 @@
         <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
         <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
+        <mapmatch.taz value="false" type="BOOL" help="Match positions to taz instead of edges"/>
         <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
         <persontrip.walk-opposite-factor value="1" type="FLOAT" help="Use FLOAT as a factor on walking speed against vehicle traffic direction"/>
     </processing>
@@ -524,7 +525,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
