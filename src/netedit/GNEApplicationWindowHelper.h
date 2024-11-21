@@ -1136,6 +1136,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief SUMO config file
         const std::string myFile;
+
+        /// @brief Invalidated copy constructor.
+        GNESumoConfigHandler(const GNESumoConfigHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        GNESumoConfigHandler& operator=(const GNESumoConfigHandler&) = delete;
     };
 
     /// @brief netedit config handler
@@ -1151,6 +1157,12 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief netedit config file
         const std::string myFile;
+
+        /// @brief Invalidated copy constructor.
+        GNENeteditConfigHandler(const GNENeteditConfigHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        GNENeteditConfigHandler& operator=(const GNENeteditConfigHandler&) = delete;
     };
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
