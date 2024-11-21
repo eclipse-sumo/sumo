@@ -699,10 +699,10 @@ GNENetHelper::AttributeCarriers::retrieveEdges(GNEJunction* from, GNEJunction* t
         throw UnknownElement("Junctions cannot be nullptr");
     }
     std::vector<GNEEdge*> edges;
-    // iterate over Junctions
-    for (const auto& edge : myEdges) {
-        if ((edge.second->getFromJunction() == from) && (edge.second->getToJunction() == to)) {
-            edges.push_back(edge.second);
+    // iterate over outgoing edges of from edge and check to junction
+    for (const auto& edgeTo : from->getGNEOutgoingEdges()) {
+        if (edgeTo->getToJunction() == to) {
+            edges.push_back(edgeTo);
         }
     }
     return edges;
