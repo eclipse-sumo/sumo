@@ -55,6 +55,11 @@ simstep -> TraCIServer : postProcessRemoteControl
 ... -> MSVehicle : postProcessRemoteControl
 end
 
+group TraCI3 (only commands after traci.simulation.executeMove)
+simstep -> TraCIServer : processCommandsUntilSimStep
+... -> MSVehicle : getSpeed, setSpeed, ...
+end
+
 group output
 simstep -> simstep : writeOutput
 ... -> MSVehicle : getSpeed, getPosition, ...
