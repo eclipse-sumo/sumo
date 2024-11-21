@@ -24,3 +24,9 @@ geoTrips_junctions_writeJunctions
 
 # handle mutiple locations on the same edge
 dense
+
+# test reading trips with geo-coordinates and mapping to taz
+geoTrips_taz
+
+# test reading trips with geo-coordinates and mapping to taz (no taz loaded)
+geoTrips_taz_missing
