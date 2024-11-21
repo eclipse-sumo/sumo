@@ -1321,15 +1321,15 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_DISTANCE:
         case GNE_ATTR_MODIFICATION_STATUS:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_STOPOEXCEPTION:
+        case GNE_ATTR_PARAMETERS:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
         case GNE_ATTR_STOPOFFSET:
             // special case for stop offset, because affects to stopOffsetExceptions (#15297)
             if (canParse<double>(value) && (parse<double>(value) == 0)) {
                 GNEChange_Attribute::changeAttribute(this, GNE_ATTR_STOPOEXCEPTION, "", undoList);
             }
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            break;
-        case GNE_ATTR_STOPOEXCEPTION:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case GNE_ATTR_SHAPE_START:
