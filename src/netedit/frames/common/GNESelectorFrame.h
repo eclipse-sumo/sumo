@@ -21,6 +21,7 @@
 #pragma once
 #include <config.h>
 
+#include <unordered_map>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/foxtools/MFXComboBoxIcon.h>
@@ -240,14 +241,36 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
+        /// @brief struct used for massive selections
+        struct MassiveSelection {
+
+            /// @brief constructor
+            MassiveSelection();
+
+            /// @brief destructor
+            ~MassiveSelection();
+
+            /// @brief check if there are element to process
+            bool isElementToProcess() const;
+
+            /// @brief ACs to select (the bool flag shows if element is locked)
+            std::unordered_map<GNEAttributeCarrier*, bool> ACsToSelect;
+
+            /// @brief ACs to select (the bool flag shows if element is locked)
+            std::unordered_map<GNEAttributeCarrier*, bool> ACsToUnselect;
+
+            /// @brief locked types
+            std::map<GUIGlObjectType, bool> lockedTypes;
+        };
+
         /// @brief process massive network element selection
-        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveNetworkElementSelection(const bool filterLanes);
+        MassiveSelection processMassiveNetworkElementSelection(const bool filterLanes) const;
 
         /// @brief process massive demand element selection
-        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDemandElementSelection();
+        MassiveSelection processMassiveDemandElementSelection() const;
 
         /// @brief process massive dataelement selection
-        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDataElementSelection();
+        MassiveSelection processMassiveDataElementSelection() const;
 
         /// @brief ask if continue due locking
         bool askContinueIfLock() const;

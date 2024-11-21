@@ -374,23 +374,23 @@ long
 GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
     // obtain undoList (only for improve code legibly)
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
-    // get element to select/unselect depending of current supermode
-    std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
+    // declare massive selection
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        ACsToSelectUnselect = processMassiveNetworkElementSelection(false);
+        massiveSelection = processMassiveNetworkElementSelection(false);
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        ACsToSelectUnselect = processMassiveDemandElementSelection();
+        massiveSelection = processMassiveDemandElementSelection();
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        ACsToSelectUnselect = processMassiveDataElementSelection();
+        massiveSelection = processMassiveDataElementSelection();
     }
     // only continue if there are elements to unselect
-    if (ACsToSelectUnselect.second.size() > 0) {
+    if (massiveSelection.isElementToProcess()) {
         // check if add locked elements
         bool askedContinueIfLock = false;
         bool addLockedElements = false;
         bool unlockedElements = false;
-        for (const auto& AC : ACsToSelectUnselect.second) {
-            if (AC.first == false) {
+        for (const auto& ACToUnselect : massiveSelection.ACsToUnselect) {
+            if (ACToUnselect.second == false) {
                 // there are unlocked elements
                 unlockedElements = true;
             } else if (!askedContinueIfLock) {
@@ -401,9 +401,9 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
         }
         if (unlockedElements || addLockedElements) {
             mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("clear selection"));
-            for (const auto& AC : ACsToSelectUnselect.second) {
-                if (addLockedElements || !AC.first) {
-                    AC.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            for (const auto& ACToUnselect : massiveSelection.ACsToUnselect) {
+                if (addLockedElements || !ACToUnselect.second) {
+                    ACToUnselect.first->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                 }
             }
             mySelectorFrameParent->myViewNet->getUndoList()->end();
@@ -424,23 +424,23 @@ long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // obtain undoList (only for improve code legibly)
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
-    // get element to select/unselect depending of current supermode
-    std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
+    // declare massive selection
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        ACsToSelectUnselect = processMassiveNetworkElementSelection(true);
+        massiveSelection = processMassiveNetworkElementSelection(true);
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        ACsToSelectUnselect = processMassiveDemandElementSelection();
+        massiveSelection = processMassiveDemandElementSelection();
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        ACsToSelectUnselect = processMassiveDataElementSelection();
+        massiveSelection = processMassiveDataElementSelection();
     }
     // only continue if there are elements to select and unselect
-    if ((ACsToSelectUnselect.first.size() + ACsToSelectUnselect.second.size()) > 0) {
+    if (massiveSelection.isElementToProcess()) {
         // check if add locked elements
         bool askedContinueIfLock = false;
         bool addLockedElements = false;
         bool unlockedElements = false;
-        for (const auto& AC : ACsToSelectUnselect.first) {
-            if (AC.first == false) {
+        for (const auto& ACToSelect : massiveSelection.ACsToSelect) {
+            if (ACToSelect.second == false) {
                 // there are unlocked elements
                 unlockedElements = true;
             } else if (!askedContinueIfLock) {
@@ -449,8 +449,8 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 askedContinueIfLock = true;
             }
         }
-        for (const auto& AC : ACsToSelectUnselect.second) {
-            if (AC.first == false) {
+        for (const auto& ACToUnselect : massiveSelection.ACsToUnselect) {
+            if (ACToUnselect.second == false) {
                 // there are unlocked elements
                 unlockedElements = true;
             } else if (!askedContinueIfLock) {
@@ -461,14 +461,14 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         }
         if (unlockedElements || addLockedElements) {
             mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("invert selection"));
-            for (const auto& AC : ACsToSelectUnselect.first) {
-                if (addLockedElements || !AC.first) {
-                    AC.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& ACToSelect : massiveSelection.ACsToSelect) {
+                if (addLockedElements || !ACToSelect.second) {
+                    ACToSelect.first->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
             }
-            for (const auto& AC : ACsToSelectUnselect.second) {
-                if (addLockedElements || !AC.first) {
-                    AC.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            for (const auto& ACToUnselect : massiveSelection.ACsToUnselect) {
+                if (addLockedElements || !ACToUnselect.second) {
+                    ACToUnselect.first->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                 }
             }
             mySelectorFrameParent->myViewNet->getUndoList()->end();
@@ -491,123 +491,117 @@ GNESelectorFrame::SelectionOperation::onCmdReduce(FXObject*, FXSelector, void*) 
 }
 
 
-std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > >
-GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(const bool filterLanes) {
-    // get attribute carriers (only for improve code legibly)
+GNESelectorFrame::SelectionOperation::MassiveSelection
+GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(const bool filterLanes) const {
     const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    const bool selectEdges = mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges();
     // extract all network elements
-    std::vector<GNEAttributeCarrier*> networkACs;
+    std::unordered_set<GNEAttributeCarrier*> networkACs;
     // add junctions
     for (const auto& junction : ACs->getJunctions()) {
-        networkACs.push_back(junction.second);
+        networkACs.insert(junction.second);
         // due we iterate over all junctions, only it's necessary iterate over incoming edges
         for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
-            if (!filterLanes || mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
-                networkACs.push_back(incomingEdge);
+            if (!filterLanes || selectEdges) {
+                networkACs.insert(incomingEdge);
             }
             // add lanes
-            if (!filterLanes || !mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
+            if (!filterLanes || !selectEdges) {
                 for (const auto& lane : incomingEdge->getLanes()) {
-                    networkACs.push_back(lane);
+                    networkACs.insert(lane);
                 }
             }
             // add connections
             for (const auto& connection : incomingEdge->getGNEConnections()) {
-                networkACs.push_back(connection);
+                networkACs.insert(connection);
             }
         }
         // add crossings
         for (const auto& crossing : junction.second->getGNECrossings()) {
-            networkACs.push_back(crossing);
+            networkACs.insert(crossing);
         }
         // add walkingArea
         for (const auto& walkingArea : junction.second->getGNEWalkingAreas()) {
-            networkACs.push_back(walkingArea);
+            networkACs.insert(walkingArea);
         }
     }
     // add additionals
     for (const auto& additionalTags : ACs->getAdditionals()) {
         for (const auto& additional : additionalTags.second) {
             if (additional.second->getTagProperty().isSelectable()) {
-                networkACs.push_back(additional.second);
+                networkACs.insert(additional.second);
             }
         }
     }
-    // declare set of checked GLTypes to avoid unnecessary calls to isGLObjectLocked()
-    std::map<GUIGlObjectType, bool> checkedTypes;
-    // declare vector in which save ACs to select and unselect
-    std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
+    // declare massive selection
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
     // iterate over network ACs
     for (const auto& networkAC : networkACs) {
         const auto networkACObjectType = networkAC->getGUIGlObject()->getType();
-        // save locking status in checkedTypes
-        if (checkedTypes.find(networkACObjectType) == checkedTypes.end()) {
-            checkedTypes[networkACObjectType] = networkAC->getGUIGlObject()->isGLObjectLocked();
+        // save locking status in lockedTypes
+        if (massiveSelection.lockedTypes.find(networkACObjectType) == massiveSelection.lockedTypes.end()) {
+            massiveSelection.lockedTypes[networkACObjectType] = networkAC->getGUIGlObject()->isGLObjectLocked();
         }
         // save element and their locking status
         if (networkAC->isAttributeCarrierSelected()) {
-            ACsToSelectUnselect.second.push_back(std::make_pair(checkedTypes.at(networkACObjectType), networkAC));
+            massiveSelection.ACsToUnselect[networkAC] = massiveSelection.lockedTypes.at(networkACObjectType);
         } else {
-            ACsToSelectUnselect.first.push_back(std::make_pair(checkedTypes.at(networkACObjectType), networkAC));
+            massiveSelection.ACsToSelect[networkAC] = massiveSelection.lockedTypes.at(networkACObjectType);
         }
     }
-    return ACsToSelectUnselect;
+    return massiveSelection;
 }
 
 
-std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > >
-GNESelectorFrame::SelectionOperation::processMassiveDemandElementSelection() {
-    // declare set of checked GLTypes to avoid unnecessary calls to isGLObjectLocked()
-    std::map<GUIGlObjectType, bool> checkedTypes;
-    // declare vector in which save ACs to select and unselect
-    std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
+GNESelectorFrame::SelectionOperation::MassiveSelection
+GNESelectorFrame::SelectionOperation::processMassiveDemandElementSelection() const {
+    // declare massive selection
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
     // iterate over selectable demand elements
     for (const auto& demandElementTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
             if (demandElement.second->getTagProperty().isSelectable()) {
                 const auto networkACObjectType = demandElement.first->getType();
-                // save locking status in checkedTypes
-                if (checkedTypes.find(networkACObjectType) == checkedTypes.end()) {
-                    checkedTypes[networkACObjectType] = demandElement.first->isGLObjectLocked();
+                // save locking status in lockedTypes
+                if (massiveSelection.lockedTypes.find(networkACObjectType) == massiveSelection.lockedTypes.end()) {
+                    massiveSelection.lockedTypes[networkACObjectType] = demandElement.first->isGLObjectLocked();
                 }
                 // save element and their locking status
                 if (demandElement.second->isAttributeCarrierSelected()) {
-                    ACsToSelectUnselect.second.push_back(std::make_pair(checkedTypes.at(networkACObjectType), demandElement.second));
+                    massiveSelection.ACsToUnselect[demandElement.second] = massiveSelection.lockedTypes.at(networkACObjectType);
                 } else {
-                    ACsToSelectUnselect.first.push_back(std::make_pair(checkedTypes.at(networkACObjectType), demandElement.second));
+                    massiveSelection.ACsToSelect[demandElement.second] = massiveSelection.lockedTypes.at(networkACObjectType);
                 }
             }
         }
     }
-    return ACsToSelectUnselect;
+    return massiveSelection;
 }
 
 
-std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > >
-GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() {
-    // declare set of checked GLTypes to avoid unnecessary calls to isGLObjectLocked()
-    std::map<GUIGlObjectType, bool> checkedTypes;
-    // declare vector in which save ACs to select and unselect
-    std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
+GNESelectorFrame::SelectionOperation::MassiveSelection
+GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() const {
+    // declare massive selection
+    GNESelectorFrame::SelectionOperation::MassiveSelection massiveSelection;
     // iterate over selectable demand elements
     for (const auto& genericDataTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
             if (genericData.second->getTagProperty().isSelectable()) {
                 const auto networkACObjectType = genericData.first->getType();
-                // save locking status in checkedTypes
-                if (checkedTypes.find(networkACObjectType) == checkedTypes.end()) {
-                    checkedTypes[networkACObjectType] = genericData.first->isGLObjectLocked();
+                // save locking status in lockedTypes
+                if (massiveSelection.lockedTypes.find(networkACObjectType) == massiveSelection.lockedTypes.end()) {
+                    massiveSelection.lockedTypes[networkACObjectType] = genericData.first->isGLObjectLocked();
                 }
                 // save element and their locking status
                 if (genericData.second->isAttributeCarrierSelected()) {
-                    ACsToSelectUnselect.second.push_back(std::make_pair(checkedTypes.at(networkACObjectType), genericData.second));
+                    massiveSelection.ACsToUnselect[genericData.second] = massiveSelection.lockedTypes.at(networkACObjectType);
                 } else {
-                    ACsToSelectUnselect.first.push_back(std::make_pair(checkedTypes.at(networkACObjectType), genericData.second));
+                    massiveSelection.ACsToSelect[genericData.second] = massiveSelection.lockedTypes.at(networkACObjectType);
                 }
             }
         }
     }
-    return ACsToSelectUnselect;
+    return massiveSelection;
 }
 
 
@@ -630,6 +624,20 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
         WRITE_DEBUG("Closed FXMessageBox 'confirm selection operation' with 'Yes'");
         return true;
     }
+}
+
+// ---------------------------------------------------------------------------
+// ModificationMode::SelectionOperation::SelectionHierarchy - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::SelectionOperation::MassiveSelection::MassiveSelection() {}
+
+
+GNESelectorFrame::SelectionOperation::MassiveSelection::~MassiveSelection() {}
+
+
+inline bool GNESelectorFrame::SelectionOperation::MassiveSelection::isElementToProcess() const {
+    return (ACsToSelect.size() + ACsToUnselect.size()) > 0;
 }
 
 // ---------------------------------------------------------------------------
