@@ -119,7 +119,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         }
     }
     // from-attributes
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_FROM) && !attrs.hasAttribute(SUMO_ATTR_FROMXY) && !attrs.hasAttribute(SUMO_ATTR_FROMLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
@@ -184,7 +184,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     }
 
     // to-attributes
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_TO) && !attrs.hasAttribute(SUMO_ATTR_TOXY) && !attrs.hasAttribute(SUMO_ATTR_TOLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
