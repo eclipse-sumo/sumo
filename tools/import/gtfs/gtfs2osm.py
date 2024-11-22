@@ -655,11 +655,11 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         print("Generates stops and routes output")
 
     # determine if we need to format times (depart, duration, until) to be human readable or whole seconds
-    ft = humanReadableTime if "hrtime" in options and options.hrtime else lambda x: int(x)
+    ft = humanReadableTime if "hrtime" in options and options.hrtime else int
 
     with sumolib.openz(options.additional_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
-        for stop, value in map_stops.items():
+        for stop, value in sorted(map_stops.items()):
             name, lane, start_pos, end_pos, access, v_type = value[:6]
             typ = "busStop" if v_type == "bus" else "trainStop"
             output_file.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true"%s>\n' %  # noqa
