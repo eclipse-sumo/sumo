@@ -38,6 +38,7 @@ copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
 copy_test_path:vtypes.rou.xml
 copy_test_path:datas.dat.xml
+copy_test_path:netedit.med.add.xml
 
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
@@ -75,6 +76,9 @@ routes:routes.rou.xml
 routes:netedit.rou.xml
 datas:datas.dat.xml
 datas:netedit.dat.xml
+meandatas:meandatas.med.add.xml
+meandatas:netedit.med.add.xml
+
 meandatas:meandatas.dat.xml
 meandatas:netedit.med.dat.xml
 guisettingsoutput:guisettingsoutput.xml
@@ -96,6 +100,9 @@ configmanually:<!-- generated{[->]}-->
 datas:<!-- generated{[->]}-->
 datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 datas:\\{REPLACE /}
+meandatas:<!-- generated{[->]}-->
+meandatas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+meandatas:\\{REPLACE /}
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->

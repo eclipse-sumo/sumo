@@ -4080,10 +4080,34 @@ class TAZRelData:
     class inspectSelection:
         parameters = 3
 
+# edge mean data
+
+
+class edgeMeanData:
+
+    class inspect:
+        id = 6
+        file = 7
+        period = 8
+        begin = 9
+        end = 10
+        excludeEmpty = 11
+        withInternal = 13
+        maxTravelTime = 14
+        minSamples = 15
+        speedThreshold = 5
+        vTypes = 5
+        trackVehicles = 5
+        detectPersons = 5
+        writeAttributes = 5
+        edges = 5
+        edgesFile = 5
+        aggregate = 5
 
 # --------------------------------
 # Dialogs
 # --------------------------------
+
 
 class dialog:
 

@@ -2776,6 +2776,15 @@ def TAZRelData():
     time.sleep(DELAY_CHANGEMODE)
 
 
+def meanData():
+    """
+    @brief change to MeanData mode
+    """
+    typeKey('m')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
 def createDataSet(dataSetID="newDataSet"):
     """
     @brief create dataSet
@@ -2820,6 +2829,45 @@ def createDataInterval(begin="0", end="3600"):
     # go to create new dataSet button
     typeTab()
     # create dataSet
+    typeSpace()
+
+
+def createMeanData():
+    """
+    @brief create mean data
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to create mean data
+    for _ in range(5):
+        typeTab()
+    # create mean data
+    typeSpace()
+
+
+def deleteMeanData():
+    """
+    @brief delete mean data
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to delete mean data
+    for _ in range(6):
+        typeTab()
+    # delete mean data
+    typeSpace()
+
+
+def copyMeanData():
+    """
+    @brief copy mean data
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to copy mean data
+    for _ in range(7):
+        typeTab()
+    # copy mean data
     typeSpace()
 
 #################################################
