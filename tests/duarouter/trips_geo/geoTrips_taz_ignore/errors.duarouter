@@ -1,5 +1,0 @@
-Error: Source taz 'invalid' not known for trip '2'!
-Error: Sink taz 'invalid2' not known for trip '2'!
-Error: The route for vehicle '2' has no edges.
-Error: The route of the vehicle '2' is not known.
-Quitting (on error).
