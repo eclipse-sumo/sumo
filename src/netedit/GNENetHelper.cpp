@@ -2234,6 +2234,20 @@ GNENetHelper::AttributeCarriers::clearMeanDatas() {
 }
 
 
+void
+GNENetHelper::AttributeCarriers::updateMeanDataID(GNEMeanData* meanData, const std::string& newID) {
+    const auto tag = meanData->getTagProperty().getTag();
+    const auto it = myMeanDatas.at(tag).find(meanData->getID());
+    if (it == myMeanDatas.at(tag).end()) {
+        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' doesn't exist in AttributeCarriers.meanDatas");
+    } else {
+        // remove from container, set new Id, and insert it again
+        myMeanDatas.at(tag).erase(it);
+        myMeanDatas.at(tag)[newID] = meanData;
+    }
+}
+
+
 std::string
 GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
     // obtain option container

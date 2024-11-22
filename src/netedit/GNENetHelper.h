@@ -602,6 +602,9 @@ struct GNENetHelper {
         /// @brief clear meanDatas
         void clearMeanDatas();
 
+        /// @brief update meanData ID in container
+        void updateMeanDataID(GNEMeanData* meanData, const std::string& newID);
+
         /// @brief generate meanData id
         std::string generateMeanDataID(SumoXMLTag type) const;
 

@@ -379,6 +379,7 @@ void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            myNet->getAttributeCarriers()->updateMeanDataID(this, value);
             myID = value;
             break;
         case SUMO_ATTR_FILE:
