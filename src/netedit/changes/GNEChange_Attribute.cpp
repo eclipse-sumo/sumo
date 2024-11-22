@@ -39,34 +39,42 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 
 void
 GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, const std::string& value, GNEUndoList* undoList, const bool force) {
-    // create change
-    auto change = new GNEChange_Attribute(AC, key, value);
-    // set force
-    change->myForceChange = force;
-    // check if process change
-    if (change->trueChange()) {
-        undoList->begin(AC, TLF("change '%' attribute in % '%' to '%'", toString(key), AC->getTagStr(), AC->getID(), value));
-        undoList->add(change, true);
-        undoList->end();
+    if (AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        // create change
+        auto change = new GNEChange_Attribute(AC, key, value);
+        // set force
+        change->myForceChange = force;
+        // check if process change
+        if (change->trueChange()) {
+            undoList->begin(AC, TLF("change '%' attribute in % '%' to '%'", toString(key), AC->getTagStr(), AC->getID(), value));
+            undoList->add(change, true);
+            undoList->end();
+        } else {
+            delete change;
+        }
     } else {
-        delete change;
+        AC->setAttribute(key, value);
     }
 }
 
 
 void
 GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, const std::string& value, const std::string& originalValue, GNEUndoList* undoList, const bool force) {
-    // create change
-    auto change = new GNEChange_Attribute(AC, key, value, originalValue);
-    // set force
-    change->myForceChange = force;
-    // check if process change
-    if (change->trueChange()) {
-        undoList->begin(AC, TLF("change '%' attribute in % '%' to '%'", toString(key), AC->getTagStr(), AC->getID(), value));
-        undoList->add(change, true);
-        undoList->end();
+    if (AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        // create change
+        auto change = new GNEChange_Attribute(AC, key, value, originalValue);
+        // set force
+        change->myForceChange = force;
+        // check if process change
+        if (change->trueChange()) {
+            undoList->begin(AC, TLF("change '%' attribute in % '%' to '%'", toString(key), AC->getTagStr(), AC->getID(), value));
+            undoList->add(change, true);
+            undoList->end();
+        } else {
+            delete change;
+        }
     } else {
-        delete change;
+        AC->setAttribute(key, value);
     }
 }
 
