@@ -468,7 +468,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                     vehicle = nullptr;
                     break;
                 } else {
-                    throw e;
+                    throw;
                 }
             }
 #ifdef MSCalibrator_DEBUG
@@ -480,9 +480,9 @@ MSCalibrator::execute(SUMOTime currentTime) {
             bool success = false;
             try {
                 success = myEdge->insertVehicle(*vehicle, currentTime);
-            } catch (const ProcessError& e) {
+            } catch (const ProcessError&) {
                 MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
-                throw e;
+                throw;
             }
             if (success) {
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {

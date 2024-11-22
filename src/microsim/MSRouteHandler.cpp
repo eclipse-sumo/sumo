@@ -692,7 +692,7 @@ MSRouteHandler::closeVehicle() {
                 vehControl.fixVehicleCounts();
                 return;
             } else {
-                throw e;
+                throw;
             }
         }
         const SUMOTime origDepart = myVehicleParameter->depart;
@@ -1399,7 +1399,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     myActiveTransportablePlan->back()->setDestination(edge, toStop);
                 } else {
                     throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
-                                edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
+                                           edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
                 }
             }
             // transporting veh stops somewhere
@@ -1535,7 +1535,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             from = myActiveTransportablePlan->back()->getDestination();
         }
         if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
-            || attrs.hasAttribute(SUMO_ATTR_TOXY) || attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
+                || attrs.hasAttribute(SUMO_ATTR_TOXY) || attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
             to = myActiveRoute.back();
         } // else, to may also be derived from stopping place
 

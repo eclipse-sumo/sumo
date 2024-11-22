@@ -78,11 +78,11 @@ public:
     *
     * @return True (always).
     */
-    bool notifyMove(SUMOTrafficObject& veh, double oldPos,  double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos,  double newPos, double newSpeed) override;
     /// @}
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "battery";
     }
 
@@ -105,10 +105,10 @@ public:
     void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief called to update state for parking vehicles
-    void notifyParking();
+    void notifyParking() override;
 
     /// @brief Called on vehicle deletion to extend tripinfo
-    void generateOutput(OutputDevice* tripinfoOut) const;
+    void generateOutput(OutputDevice* tripinfoOut) const override;
 
 private:
     /** @brief Constructor

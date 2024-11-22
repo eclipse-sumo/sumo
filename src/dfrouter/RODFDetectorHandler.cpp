@@ -89,7 +89,7 @@ RODFDetectorHandler::myStartElement(int element,
             if (myIgnoreErrors) {
                 WRITE_WARNING(e.what());
             } else {
-                throw e;
+                throw;
             }
         }
     }

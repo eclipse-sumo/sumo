@@ -194,7 +194,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                         vehicle = nullptr;
                         break;
                     } else {
-                        throw e;
+                        throw;
                     }
                 }
                 const bool duplicate = vc.getVehicle(newPars->id) != nullptr;
