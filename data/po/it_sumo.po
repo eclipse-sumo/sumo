@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-22 10:05+0000\n"
+"PO-Revision-Date: 2024-11-22 10:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12588,18 +12588,20 @@ msgstr ""
 #: src/utils/xml/GenericHandler.cpp:83 src/utils/xml/GenericSAXHandler.cpp:105
 msgid "Found root element '%' in file '%' (expected '%')."
 msgstr ""
+"L'elemento radice '%' è stato trovato nel file '%' (invece di quello "
+"aspettato '%')."
 
 #: src/utils/xml/GenericSAXHandler.cpp:209
 msgid " In file '"
-msgstr ""
+msgstr " In file '"
 
 #: src/utils/xml/GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr ""
+msgstr " In linea/colonna "
 
 #: src/utils/xml/SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
-msgstr ""
+msgstr "Valore mancante '%' nell'arco '%'."
 
 #: src/utils/xml/SUMOSAXReader.cpp:110 src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
