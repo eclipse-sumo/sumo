@@ -633,7 +633,8 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         myEdge.addWaiting(veh);
     }
     if (veh->isParking()) {
-        veh->setEventTime(stopTime);
+        // parking stops should take at least 1ms
+        veh->setEventTime(MAX2(stopTime, veh->getEventTime() + 1));
         veh->setSegment(this, PARKING_QUEUE);
         myEdge.getLanes()[0]->addParking(veh);  // TODO for GUI only
     } else {
