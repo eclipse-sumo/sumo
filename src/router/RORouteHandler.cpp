@@ -115,7 +115,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     }
     // from-attributes
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_FROM) && !attrs.hasAttribute(SUMO_ATTR_FROMXY) && !attrs.hasAttribute(SUMO_ATTR_FROMLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
@@ -175,7 +175,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     }
 
     // to-attributes
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_TO) && !attrs.hasAttribute(SUMO_ATTR_TOXY) && !attrs.hasAttribute(SUMO_ATTR_TOLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
