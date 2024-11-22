@@ -184,7 +184,7 @@ protected:
 
     MSEdge* retrieveEdge(const std::string& id) override;
 
-    SumoRNG* getRNG();
+    SumoRNG* getRNG() override;
 
 protected:
     /// @brief The current route
