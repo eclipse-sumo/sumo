@@ -33,3 +33,6 @@ geoTrips_taz_multi
 
 # test mapmatching trips with geo-coordinates to taz (no taz loaded)
 geoTrips_taz_missing
+
+# disregard taz information if coordinates are given and option --with-taz is not set
+geoTrips_taz_ignore
