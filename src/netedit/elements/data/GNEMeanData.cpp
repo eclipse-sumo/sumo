@@ -97,10 +97,10 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(myPeriod));
     }
     if (myBegin != -1) {
-        device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+        device.writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(myBegin));
     }
     if (myEnd != -1) {
-        device.writeAttr(SUMO_ATTR_END, myEnd);
+        device.writeAttr(SUMO_ATTR_END, STEPS2TIME(myEnd));
     }
     if (myExcludeEmpty != "default") {
         device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
@@ -304,7 +304,7 @@ bool
 GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty.getTag(), value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty.getTag(), value, false) == nullptr);
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_PERIOD:
@@ -313,7 +313,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return (canParse<double>(value) && (parse<double>(value) >= 0));
+                return (canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0));
             }
         case SUMO_ATTR_EXCLUDE_EMPTY:
             if (canParse<bool>(value)) {
