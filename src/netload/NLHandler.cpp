@@ -1599,34 +1599,34 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         const std::string sinkID = myCurrentDistrictID + "-sink";
         const std::string sourceID = myCurrentDistrictID + "-source";
 
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
-        if (!MSEdge::dictionary(sinkID, sink)) {
-            delete sink;
+        MSEdge* sink = MSEdge::dictionary(sinkID);
+        if (sink == nullptr) {
+            sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+            MSEdge::dictionary(sinkID, sink);
+            sink->initialize(new std::vector<MSLane*>());
+        } else {
             if (OptionsCont::getOptions().getBool("junction-taz")
                     && myNet.getJunctionControl().get(myCurrentDistrictID) != nullptr) {
                 // overwrite junction taz
-                sink = MSEdge::dictionary(sinkID);
                 sink->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
                 WRITE_WARNINGF(TL("Replacing junction-taz '%' with loaded TAZ."), myCurrentDistrictID);
             } else {
                 throw InvalidArgument("Another edge with the id '" + sinkID + "' exists.");
             }
-        } else {
-            sink->initialize(new std::vector<MSLane*>());
         }
-        MSEdge* source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
-        if (!MSEdge::dictionary(sourceID, source)) {
-            delete source;
+        MSEdge* source = MSEdge::dictionary(sourceID);
+        if (source == nullptr) {
+            source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+            MSEdge::dictionary(sourceID, source);
+            source->initialize(new std::vector<MSLane*>());
+        } else {
             if (OptionsCont::getOptions().getBool("junction-taz")
                     && myNet.getJunctionControl().get(myCurrentDistrictID) != nullptr) {
                 // overwrite junction taz
-                source = MSEdge::dictionary(sourceID);
                 source->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
             } else {
                 throw InvalidArgument("Another edge with the id '" + sourceID + "' exists.");
             }
-        } else {
-            source->initialize(new std::vector<MSLane*>());
         }
         sink->setOtherTazConnector(source);
         source->setOtherTazConnector(sink);
