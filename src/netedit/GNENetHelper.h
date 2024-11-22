@@ -783,6 +783,9 @@ struct GNENetHelper {
         /// @brief number of data elemements inserted in AttributeCarriers
         int myNumberOfDataElements = 0;
 
+        /// @brief number of mean data elemements inserted in AttributeCarriers
+        int myNumberOfMeanDataElements = 0;
+
         /// @brief map with the ID and pointer to junctions of net
         std::map<const std::string, GNEJunction*> myJunctions;
 

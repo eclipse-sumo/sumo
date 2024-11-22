@@ -2217,11 +2217,7 @@ GNENetHelper::AttributeCarriers::getMeanDatas() const {
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfMeanDatas() const {
-    int counter = 0;
-    for (const auto& meanDatasTag : myMeanDatas) {
-        counter += (int)meanDatasTag.second.size();
-    }
-    return counter;
+    return myNumberOfMeanDataElements;
 }
 
 
@@ -2664,7 +2660,7 @@ GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
         throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' already exist");
     } else {
         myMeanDatas.at(meanData->getTagProperty().getTag()).insert(std::make_pair(meanData->getID(), meanData));
-        myNumberOfDataElements++;
+        myNumberOfMeanDataElements++;
         // meanDatas has to be saved
         myNet->getSavingStatus()->requireSaveMeanDatas();
     }
@@ -2684,7 +2680,7 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
         // remove from container
         myMeanDatas.at(meanData->getTagProperty().getTag()).erase(itFind);
-        myNumberOfDataElements--;
+        myNumberOfMeanDataElements--;
         // remove element from grid
         if (meanData->getTagProperty().isPlacedInRTree()) {
             myNet->removeGLObjectFromGrid(meanData);
