@@ -147,7 +147,7 @@ def get_element_lines(routefilename, verbose):
 def copy_elements(routefilename, outfilename, element_lines, line_offsets, verbose):
     if verbose:
         print("Copying elements from %s to %s sorted by departure" % (
-        routefilename, outfilename))
+            routefilename, outfilename))
     # don't read binary here for line end conversion
     with open(routefilename) as routefile, open(outfilename, 'w') as outfile:
         # copy header

@@ -569,7 +569,7 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
     return header
 
 
-def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration = True):
+def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=True):
     """
     Writes an XML header with schema information and a comment on how the file has been generated
     (script name, arguments and datetime). Please use this as first call whenever you open a

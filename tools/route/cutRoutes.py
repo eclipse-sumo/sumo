@@ -615,7 +615,8 @@ def main(options):
             with io.open(tmpname, 'w', encoding="utf8") as f:
                 write_to_file(cut_routes(edges, orig_net, options, busStopEdges, ptRoutes, oldPTRoutes), f)
             # sort out of memory
-            sort_routes.main([tmpname, '--big', '--outfile', options.output] + (['--verbose'] if options.verbose else []))
+            sort_routes.main([tmpname, '--big', '--outfile', options.output] +
+                             (['--verbose'] if options.verbose else []))
         else:
             routes = list(cut_routes(edges, orig_net, options, busStopEdges, ptRoutes, oldPTRoutes))
             routes.sort(key=lambda v: v[0])

@@ -16,17 +16,20 @@
 # @date    2024-10-29
 
 """
-    This script queries meta data from Semantic Scholar about publications citing one of the papers given by their unique (Semantic Scholar) identifier.
-    Then it writes the results to a text file in bibtex syntax. Optionally it can read an existing bibtex file and integrate existing entries with the new ones,
-    keeping the old annotations / Jabref comments and adding new ones for the new entries. It uses the JabRef group syntax version 3.
-    Moreover it can run a keyword discover algorithm to display the most used keywords in the papers' abstracts.
+This script queries meta data from Semantic Scholar about publications citing
+one of the papers given by their unique (Semantic Scholar) identifier.
+Then it writes the results to a text file in bibtex syntax. Optionally it can
+read an existing bibtex file and integrate existing entries with the new ones,
+keeping the old annotations / Jabref comments and adding new ones for the new
+entries. It uses the JabRef group syntax version 3.
+Moreover it can run a keyword discover algorithm to display the most used keywords in the papers' abstracts.
 """
 
 
-# https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations /paper_id can be "DOI:10.18653/v1/N18-3011", Semantic Scholar hash "649def34f8be52c8b66281af98ae884c09aef38b" and others)
+# https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations /paper_id can be
+# "DOI:10.18653/v1/N18-3011", Semantic Scholar hash "649def34f8be52c8b66281af98ae884c09aef38b" and others)
 
 import os
-import sys
 import re
 import time
 import argparse
@@ -61,10 +64,11 @@ def main(options):
         while loop:
             # remember call duration to send a limited amout of requests
             callStart = datetime.now()
-            params = {'offset': str(offset),
-                      'limit': str(offsetLimit),
-                      'fields': 'title,url,authors,year,externalIds,citationCount,abstract,venue,journal,publicationTypes',
-                      }
+            params = {
+                'offset': str(offset),
+                'limit': str(offsetLimit),
+                'fields': 'title,url,authors,year,externalIds,citationCount,abstract,venue,journal,publicationTypes',
+            }
             fullRequest = citationRequestTemplate % (originalDOI, "" if len(params) == 0 else "?%s" % "&".join([
                                                      "%s=%s" % (key, val) for key, val in params.items()]))
             print(fullRequest)
@@ -83,8 +87,10 @@ def main(options):
                 print('No matches found. Please try another query.')
                 return
             loop = "next" in results
-            countBefore = len(papers)
-            # papers.extend([d['citingPaper'] for d in results['data'] if 'externalIDs' in d['citingPaper'] and 'DOI' in d['citingPaper']['externalIds']] and d['citingPaper']['citationCount'] >= options.minCitations)
+            # countBefore = len(papers)
+            # papers.extend([d['citingPaper'] for d in results['data'] if 'externalIDs' in d['citingPaper']
+            #  and 'DOI' in d['citingPaper']['externalIds']]
+            #  and d['citingPaper']['citationCount'] >= options.minCitations)
             newPapers = [d['citingPaper'] for d in results['data']
                          if d['citingPaper']['externalIds'] is not None and
                          'DOI' in d['citingPaper']['externalIds'] and
@@ -93,8 +99,9 @@ def main(options):
                          d['citingPaper']['externalIds']['DOI'] not in foundDOI]
             papers.extend(newPapers)
             foundDOI.extend([paper['externalIds']['DOI'] for paper in newPapers])
-            countAfterwards = len(papers)
-            # print("Added %d papers to %d previously found ones from %d found entries" % ((countAfterwards - countBefore), countBefore, len(results["data"])))
+            # countAfterwards = len(papers)
+            # print("Added %d papers to %d previously found ones from %d found entries"
+            #  % ((countAfterwards - countBefore), countBefore, len(results["data"])))
             if loop:
                 offset += total
                 # wait a little
@@ -131,7 +138,7 @@ def main(options):
 
         # sorted list of most used discovered keywords
         maxKeywords = 30
-        # see https://www.analyticsvidhya.com/blog/2022/01/four-of-the-easiest-and-most-effective-methods-of-keyword-extraction-from-a-single-text-using-python/
+        # see https://www.analyticsvidhya.com/blog/2022/01/four-of-the-easiest-and-most-effective-methods-of-keyword-extraction-from-a-single-text-using-python/  # noqa
         sortedKeywords = sorted([(keyword, score) for keyword, score in keywordsTotal.items()],
                                 key=lambda x: x[1], reverse=True)[:maxKeywords]
         print("\n\n%d first automatically discovered keywords:\n" % min(maxKeywords, len(sortedKeywords)))
@@ -229,7 +236,8 @@ def toBibTexBlock(paper, groups=""):
     authors = [a["name"].strip() for a in paper["authors"]]
     lastNames = [a[a.rindex(" ")+1:] for a in authors]
     citKey = "%s%d" % ("%sEtAl" % lastNames[0] if len(lastNames) > 2 else "And".join(lastNames), paper["year"])
-    # authors = [" ".join(["{%s}" % name if name[0].isupper() else name for name in author.split(" ")]) for author in authors]
+    # authors = [" ".join(["{%s}" % name if name[0].isupper() else name for name in author.split(" ")])
+    #  for author in authors]
     entry = bibtexparser.model.Entry(getBibtexType(paper["publicationTypes"]), citKey, [])
     entry.set_field(bibtexparser.model.Field("author", " and ".join(authors)))
     entry.set_field(bibtexparser.model.Field("year", paper["year"]))
@@ -255,7 +263,8 @@ def getOptions(args=None):
     ap.add_argument("--exclude-media", dest="excludeMedia", nargs="+",
                     type=str, help="Exclude results from the given media")
     ap.add_argument("--cited-works", dest="citedWorks", nargs="+", type=str,
-                    help="Give works by their identifiers for which the citing papers should be searched (SemanticScholar hash confirmed, DOI 'DOI:' don't work although mentioned in the API doc)")
+                    help="Give works by their identifiers for which the citing papers should be searched "
+                    "(SemanticScholar hash confirmed, DOI 'DOI:' don't work although mentioned in the API doc)")
     ap.add_argument("--min-citations", dest="minCitations", type=int, default=10,
                     help="Minimum citation count of a paper to be included in the output")
     ap.add_argument("--keywords", nargs="+", type=str, help="Keywords to group the results in bibtex")

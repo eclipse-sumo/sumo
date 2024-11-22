@@ -94,6 +94,7 @@ def getLocation(options, activity, attr, prj=None):
     else:
         return None
 
+
 def skipLeg(options, leg):
     # walk and public transport are not relevant
     if leg.mode.endswith("walk") or leg.mode == "pt":
@@ -103,6 +104,7 @@ def skipLeg(options, leg):
     if options.no_bikes and leg.mode in ("bike", "bicycle"):
         return True
     return False
+
 
 def writeLeg(outf, options, idveh, leg, start, end, types):
     """ Write the vehicles and trips. """
@@ -268,7 +270,6 @@ def main(options):
         sort_routes.main([tmpout, '-o', options.output_file])
     else:
         os.rename(tmpout, options.output_file)
-
 
 
 if __name__ == "__main__":
