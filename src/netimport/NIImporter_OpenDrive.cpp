@@ -2688,15 +2688,13 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
         if (i != std::string::npos) {
             const std::string proj = cdata.substr(i);
             if (proj != "") {
-                GeoConvHelper* result = nullptr;
                 Boundary convBoundary;
                 Boundary origBoundary;
                 // XXX read values from the header
                 convBoundary.add(Position(0, 0));
                 origBoundary.add(Position(0, 0));
                 try {
-                    result = new GeoConvHelper(proj, myOffset, origBoundary, convBoundary);
-                    GeoConvHelper::setLoaded(*result);
+                    GeoConvHelper::setLoaded(GeoConvHelper(proj, myOffset, origBoundary, convBoundary));
                 } catch (ProcessError& e) {
                     WRITE_ERRORF(TL("Could not set projection (%). This can be ignored with --ignore-errors."), std::string(e.what()));
                 }
