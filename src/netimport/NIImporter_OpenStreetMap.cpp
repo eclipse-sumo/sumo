@@ -2075,9 +2075,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             bool hadGap = false;
             int missingBefore = 0;
             int missingAfter = 0;
-            int stopIndex = 0;
             for (long long ref : myStops) {
-                stopIndex++;
                 const auto& nodeIt = myOSMNodes.find(ref);
                 if (nodeIt == myOSMNodes.end()) {
                     if (ptLine->getStops().empty()) {
