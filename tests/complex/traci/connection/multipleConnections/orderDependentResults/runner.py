@@ -25,7 +25,7 @@ import subprocess
 import sys
 import time
 import math
-from multiprocessing import Process, freeze_support
+from multiprocessing import Process
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -97,7 +97,6 @@ def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
 
 
 if __name__ == '__main__':
-    freeze_support()
     numClients = 2
     runNr = 2
     print(" Testing client order dependence ...")

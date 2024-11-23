@@ -24,7 +24,7 @@ import os
 import subprocess
 import sys
 import time
-from multiprocessing import Process, freeze_support
+from multiprocessing import Process
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -87,7 +87,6 @@ def runSingle(sumoEndTime, traciEndTime, numClients, orderOdd=False):
 
 
 if __name__ == '__main__':
-    freeze_support()
     print("----------- Warning Test -----------")
     print(" Run 1")
     sys.stdout.flush()
