@@ -155,7 +155,7 @@ struct GNENetHelper {
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
         /// @brief get junctions
-        const std::map<const std::string, GNEJunction*>& getJunctions() const;
+        const std::map<std::string, GNEJunction*>& getJunctions() const;
 
         /// @brief return selected junctions
         std::vector<GNEJunction*> getSelectedJunctions() const;
@@ -230,7 +230,7 @@ struct GNENetHelper {
         GNEEdgeType* registerEdgeType(GNEEdgeType* edgeType);
 
         /// @brief map with the ID and pointer to edgeTypes of net
-        const std::map<const std::string, GNEEdgeType*>& getEdgeTypes() const;
+        const std::map<std::string, GNEEdgeType*>& getEdgeTypes() const;
 
         /// @brief clear edgeTypes
         void clearEdgeTypes();
@@ -260,7 +260,7 @@ struct GNENetHelper {
         std::vector<GNEEdge*> retrieveEdges(GNEJunction* from, GNEJunction* to) const;
 
         /// @brief map with the ID and pointer to edges of net
-        const std::map<const std::string, GNEEdge*>& getEdges() const;
+        const std::map<std::string, GNEEdge*>& getEdges() const;
 
         /**@brief return all edges
          * @param[in] onlySelected Whether to return only selected edges
@@ -787,7 +787,7 @@ struct GNENetHelper {
         int myNumberOfMeanDataElements = 0;
 
         /// @brief map with the ID and pointer to junctions of net
-        std::map<const std::string, GNEJunction*> myJunctions;
+        std::map<std::string, GNEJunction*> myJunctions;
 
         /// @brief set with crossings
         std::unordered_map<const GUIGlObject*, GNECrossing*> myCrossings;
@@ -796,10 +796,10 @@ struct GNENetHelper {
         std::unordered_map<const GUIGlObject*, GNEWalkingArea*> myWalkingAreas;
 
         /// @brief map with the ID and pointer to edgeTypes of net
-        std::map<const std::string, GNEEdgeType*> myEdgeTypes;
+        std::map<std::string, GNEEdgeType*> myEdgeTypes;
 
         /// @brief map with the ID and pointer to edges of net
-        std::map<const std::string, GNEEdge*> myEdges;
+        std::map<std::string, GNEEdge*> myEdges;
 
         /// @brief map with lanes
         std::unordered_map<const GUIGlObject*, GNELane*> myLanes;

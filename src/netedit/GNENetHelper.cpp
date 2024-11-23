@@ -162,8 +162,8 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
 
 void
 GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
-    std::map<const std::string, GNEEdge*> newEdgeMap;
-    std::map<const std::string, GNEJunction*> newJunctionMap;
+    std::map<std::string, GNEEdge*> newEdgeMap;
+    std::map<std::string, GNEJunction*> newJunctionMap;
     // fill newEdgeMap
     for (const auto& edge : myEdges) {
         edge.second->setEdgeID(edge.second->getNBEdge()->getID());
@@ -445,7 +445,7 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool ha
 }
 
 
-const std::map<const std::string, GNEJunction*>&
+const std::map<std::string, GNEJunction*>&
 GNENetHelper::AttributeCarriers::getJunctions() const {
     return myJunctions;
 }
@@ -655,7 +655,7 @@ GNENetHelper::AttributeCarriers::registerEdgeType(GNEEdgeType* edgeType) {
 }
 
 
-const std::map<const std::string, GNEEdgeType*>&
+const std::map<std::string, GNEEdgeType*>&
 GNENetHelper::AttributeCarriers::getEdgeTypes() const {
     return myEdgeTypes;
 }
@@ -728,7 +728,7 @@ GNENetHelper::AttributeCarriers::retrieveEdges(GNEJunction* from, GNEJunction* t
 }
 
 
-const std::map<const std::string, GNEEdge*>&
+const std::map<std::string, GNEEdge*>&
 GNENetHelper::AttributeCarriers::getEdges() const {
     return myEdges;
 }
