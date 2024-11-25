@@ -412,6 +412,9 @@ struct GNEViewNetHelper {
             /// @brief clear elements
             void clearElements();
 
+            /// @brief reseve memory for all elements
+            void reserve(int size);
+
             /// @brief filter elements
             void filterElements(const std::vector<const GUIGlObject*>& objects);
 

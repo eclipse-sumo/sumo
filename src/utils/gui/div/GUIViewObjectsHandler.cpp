@@ -39,6 +39,7 @@ GUIViewObjectsHandler::reset() {
     // clear objects containers
     mySortedSelectedObjects.clear();
     mySelectedObjects.clear();
+    myNumberOfSelectedObjects = 0;
     myRedrawPathElements.clear();
     // reset marked elements
     myMergingJunctions.clear();
@@ -274,6 +275,7 @@ GUIViewObjectsHandler::selectObject(const GUIGlObject* GLObject, const double la
         auto& layerContainer = mySortedSelectedObjects[layer * -1];
         layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         mySelectedObjects[GLObject] = std::make_pair(fullBoundary, segment);
+        myNumberOfSelectedObjects++;
         return true;
     }
 }
@@ -303,6 +305,7 @@ GUIViewObjectsHandler::selectGeometryPoint(const GUIGlObject* GLObject, const in
     auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
     it->geometryPoints.push_back(newIndex);
     mySelectedObjects[GLObject] = std::make_pair(false, nullptr);
+    myNumberOfSelectedObjects++;
     return true;
 }
 
@@ -330,6 +333,7 @@ GUIViewObjectsHandler::selectPositionOverShape(const GUIGlObject* GLObject, cons
     auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
     it->posOverShape = pos;
     mySelectedObjects[GLObject] = std::make_pair(false, nullptr);
+    myNumberOfSelectedObjects++;
     return true;
 }
 
@@ -384,6 +388,11 @@ GUIViewObjectsHandler::getSelectedPositionOverShape(const GUIGlObject* GLObject)
     return Position::INVALID;
 }
 
+
+int
+GUIViewObjectsHandler::getNumberOfSelectedObjects() const {
+    return myNumberOfSelectedObjects;
+}
 
 
 const std::set<const GNEPathElement*>&

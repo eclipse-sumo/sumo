@@ -327,8 +327,9 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsSelector(GNEViewNet* viewNet) 
 
 void
 GNEViewNetHelper::ViewObjectsSelector::updateObjects() {
-    // clear elements
+    // clear elements and reserve space
     myViewObjects.clearElements();
+    myViewObjects.reserve(gViewObjectsHandler.getNumberOfSelectedObjects());
     // process GUIGLObjects using elements under cursor
     processGUIGlObjects(gViewObjectsHandler.getSelectedObjects());
 }
@@ -684,7 +685,6 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::ViewObjectsContaine
 
 void
 GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::clearElements() {
-    // just clear all containers
     GUIGlObjects.clear();
     attributeCarriers.clear();
     networkElements.clear();
@@ -704,6 +704,30 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::clearElements() {
     edgeDatas.clear();
     edgeRelDatas.clear();
     TAZRelDatas.clear();
+}
+
+
+void
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::reserve(int size) {
+    GUIGlObjects.reserve(size);
+    attributeCarriers.reserve(size);
+    networkElements.reserve(size);
+    additionals.reserve(size);
+    demandElements.reserve(size);
+    junctions.reserve(size);
+    edges.reserve(size);
+    lanes.reserve(size);
+    crossings.reserve(size);
+    walkingAreas.reserve(size);
+    connections.reserve(size);
+    internalLanes.reserve(size);
+    TAZs.reserve(size);
+    POIs.reserve(size);
+    polys.reserve(size);
+    genericDatas.reserve(size);
+    edgeDatas.reserve(size);
+    edgeRelDatas.reserve(size);
+    TAZRelDatas.reserve(size);
 }
 
 
@@ -1848,7 +1872,8 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     // obtain all elements in boundary
     myViewNet->updateObjectsInBoundary(boundary);
     // filter ACsInBoundary depending of current supermode
-    std::unordered_set<GNEAttributeCarrier*> ACsFiltered;
+    std::vector<GNEAttributeCarrier*> ACsFiltered;
+    ACsFiltered.reserve(myViewNet->getViewObjectsSelector().getAttributeCarriers().size());
     for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
         // isGLObjectLockedcheck also if we're in their correspoindient supermode
         if (!AC->getGUIGlObject()->isGLObjectLocked()) {
@@ -1859,12 +1884,12 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
                         ((tagProperty.getTag() == SUMO_TAG_LANE) && selEdges)) {
                     continue;
                 } else {
-                    ACsFiltered.insert(AC);
+                    ACsFiltered.push_back(AC);
                 }
             } else if (tagProperty.isDemandElement()) {
-                ACsFiltered.insert(AC);
+                ACsFiltered.push_back(AC);
             } else if (tagProperty.isGenericData()) {
-                ACsFiltered.insert(AC);
+                ACsFiltered.push_back(AC);
             }
         }
     }

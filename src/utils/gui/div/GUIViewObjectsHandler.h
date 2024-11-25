@@ -137,6 +137,9 @@ public:
     /// @brief get position over shape
     const Position& getSelectedPositionOverShape(const GUIGlObject* GLObject) const;
 
+    /// @brief get number of selected objects
+    int getNumberOfSelectedObjects() const;
+
     /// @}
 
     /// @name functions related with redrawing path elements
@@ -195,6 +198,9 @@ protected:
 
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
     std::map<const GUIGlObject*, std::pair<bool, const GNESegment*> > mySelectedObjects;
+
+    /// @brief number of selected objects
+    int myNumberOfSelectedObjects = 0;
 
     /// @brief set with path elements marked for redrawing
     std::set<const GNEPathElement*> myRedrawPathElements;
