@@ -576,7 +576,7 @@ GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const 
     // Pop layer matrix
     GLHelper::popMatrix();
     // check if this is the label segment
-    if (segment->isLabelSegment() && !s.drawForRectangleSelection) {
+    if (segment->isLabelSegment()) {
         // calculate middle point
         const double middlePoint = (geometry.getShape().length2D() * 0.5);
         // calculate position

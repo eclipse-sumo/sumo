@@ -1722,7 +1722,7 @@ GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
 
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
+    return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails; // reusing the showRails setting
 }
 
 

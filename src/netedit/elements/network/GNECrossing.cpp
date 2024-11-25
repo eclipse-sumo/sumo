@@ -283,7 +283,7 @@ GNECrossing::updateGLObject() {
 void
 GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const {
     // check if draw
-    if (s.drawLinkTLIndex.show(myParentJunction) && !s.drawForRectangleSelection) {
+    if (s.drawLinkTLIndex.show(myParentJunction)) {
         // push matrix
         GLHelper::pushMatrix();
         // move to GLO_Crossing

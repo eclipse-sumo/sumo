@@ -880,7 +880,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
             if (s.checkDrawVehicle(d, isAttributeCarrierSelected())) {
                 // first check if if mouse is enough near to this vehicle to draw it
-                if (s.drawForRectangleSelection && (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
+                if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2)) {
                     // push draw matrix
                     GLHelper::pushMatrix();
                     // Start with the drawing of the area translating matrix to origin
@@ -912,40 +912,34 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
                     }
                     glScaled(exaggeration, upscaleLength, 1);
-                    // check if we're drawing in selecting mode
-                    if (s.drawForRectangleSelection) {
-                        // draw vehicle as a box and don't draw the rest of details
+                    // draw the vehicle depending of detail level
+                    if (d <= GUIVisualizationSettings::Detail::VehiclePoly) {
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
+                    } else if (d <= GUIVisualizationSettings::Detail::VehicleBox) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-                    } else {
-                        // draw the vehicle depending of detail level
-                        if (d <= GUIVisualizationSettings::Detail::VehiclePoly) {
-                            GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
-                        } else if (d <= GUIVisualizationSettings::Detail::VehicleBox) {
-                            GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-                        } else if (d <= GUIVisualizationSettings::Detail::VehicleTriangle) {
-                            GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
-                        }
-                        // check if min gap has to be drawn
-                        if (s.drawMinGap) {
-                            const double minGap = -1 * getTypeParent()->getAttributeDouble(SUMO_ATTR_MINGAP);
-                            glColor3d(0., 1., 0.);
-                            glBegin(GL_LINES);
-                            glVertex2d(0., 0);
-                            glVertex2d(0., minGap);
-                            glVertex2d(-.5, minGap);
-                            glVertex2d(.5, minGap);
-                            glEnd();
-                        }
-                        // drawing name at GLO_MAX fails unless translating z
-                        glTranslated(0, MIN2(length / 2, double(5)), -getType());
-                        glScaled(1 / exaggeration, 1 / upscaleLength, 1);
-                        glRotated(vehicleRotation, 0, 0, -1);
-                        drawName(Position(0, 0), s.scale, getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
-                        // draw line
-                        if (s.vehicleName.show(this) && line != "") {
-                            glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
-                            GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
-                        }
+                    } else if (d <= GUIVisualizationSettings::Detail::VehicleTriangle) {
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
+                    }
+                    // check if min gap has to be drawn
+                    if (s.drawMinGap) {
+                        const double minGap = -1 * getTypeParent()->getAttributeDouble(SUMO_ATTR_MINGAP);
+                        glColor3d(0., 1., 0.);
+                        glBegin(GL_LINES);
+                        glVertex2d(0., 0);
+                        glVertex2d(0., minGap);
+                        glVertex2d(-.5, minGap);
+                        glVertex2d(.5, minGap);
+                        glEnd();
+                    }
+                    // drawing name at GLO_MAX fails unless translating z
+                    glTranslated(0, MIN2(length / 2, double(5)), -getType());
+                    glScaled(1 / exaggeration, 1 / upscaleLength, 1);
+                    glRotated(vehicleRotation, 0, 0, -1);
+                    drawName(Position(0, 0), s.scale, getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
+                    // draw line
+                    if (s.vehicleName.show(this) && line != "") {
+                        glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
+                        GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
                     }
                     // pop draw matrix
                     GLHelper::popMatrix();
@@ -1067,7 +1061,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
     const bool isInspected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                              myNet->getViewNet()->getInspectedElements().isACInspected(this);
     // check drawing conditions
-    if (segment->getLane() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
+    if (segment->getLane() && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
             myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
@@ -1139,7 +1133,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                 // get geometryEndPos
                 const Position geometryEndPosition = getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 // check if endPos can be drawn
-                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
+                if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2)) {
                     // push draw matrix
                     GLHelper::pushMatrix();
                     // Start with the drawing of the area translating matrix to origin
@@ -1189,7 +1183,7 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESe
     const bool isInspected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                              myNet->getViewNet()->getInspectedElements().isACInspected(this);
     // check drawing conditions
-    if (segment->getJunction() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
+    if (segment->getJunction() && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
             myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);

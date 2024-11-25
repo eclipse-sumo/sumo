@@ -1351,37 +1351,34 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     glEnable(GL_DEPTH_TEST);
     // visualize rectangular selection
     mySelectingArea.drawRectangleSelection(myVisualizationSettings->colorSettings.selectionColor);
-    // draw certain elements only if we aren't in rectangle selection mode
-    if (!myVisualizationSettings->drawForRectangleSelection) {
-        // draw decals
-        drawDecals();
-        // draw grid (and update grid button)
-        drawGrid();
-        // update show connections
-        myNetworkViewOptions.menuCheckShowConnections->setChecked(myVisualizationSettings->showLane2Lane);
-        // draw temporal junction
-        drawTemporalJunction();
-        // draw temporal drawing shape
-        drawTemporalDrawingShape();
-        // draw testing elements
-        myTestingMode.drawTestingElements(myApp);
-        // draw temporal E2 multilane detectors
-        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath();
-        // draw temporal overhead wires
-        myViewParent->getWireFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath();
-        // draw temporal trip/flow route
-        myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-        // draw temporal person plan route
-        myViewParent->getPersonFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
-        myViewParent->getPersonPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
-        // draw temporal container plan route
-        myViewParent->getContainerFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
-        myViewParent->getContainerPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
-        // draw temporal route
-        myViewParent->getRouteFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-        // draw temporal edgeRelPath
-        myViewParent->getEdgeRelDataFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-    }
+    // draw decals
+    drawDecals();
+    // draw grid (and update grid button)
+    drawGrid();
+    // update show connections
+    myNetworkViewOptions.menuCheckShowConnections->setChecked(myVisualizationSettings->showLane2Lane);
+    // draw temporal junction
+    drawTemporalJunction();
+    // draw temporal drawing shape
+    drawTemporalDrawingShape();
+    // draw testing elements
+    myTestingMode.drawTestingElements(myApp);
+    // draw temporal E2 multilane detectors
+    myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath();
+    // draw temporal overhead wires
+    myViewParent->getWireFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath();
+    // draw temporal trip/flow route
+    myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+    // draw temporal person plan route
+    myViewParent->getPersonFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+    myViewParent->getPersonPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+    // draw temporal container plan route
+    myViewParent->getContainerFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+    myViewParent->getContainerPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+    // draw temporal route
+    myViewParent->getRouteFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+    // draw temporal edgeRelPath
+    myViewParent->getEdgeRelDataFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
     // check menu checks of supermode demand
     if (myEditModes.isCurrentSupermodeDemand()) {
         // enable or disable menuCheckShowAllPersonPlans depending of there is a locked person

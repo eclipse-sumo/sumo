@@ -1772,9 +1772,8 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
 void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((d <= GUIVisualizationSettings::Detail::TLSIcon) && myNBNode->isTLControlled() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-            !myAmTLSSelected && !s.drawForRectangleSelection) {
+    if ((d <= GUIVisualizationSettings::Detail::TLSIcon) && myNBNode->isTLControlled() && !myAmTLSSelected &&
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS)) {
         GLHelper::pushMatrix();
         const Position pos = myNBNode->getPosition();
         glTranslated(pos.x(), pos.y(), 2.2);
