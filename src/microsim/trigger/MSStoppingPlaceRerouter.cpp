@@ -410,7 +410,6 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
     if (insertStopIndex > 0) {
         posOnLane = 0.;
         // determine preceding edges
-        const ConstMSEdgeVector& routeEdges = route.getEdges();
         for (MSRouteIterator it = veh.getCurrentRouteEdge(); it != rerouteOriginIt; ++it) {
             if (it != rerouteOriginIt) {
                 edgesUpstream.push_back(*it);
@@ -441,7 +440,7 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
             if (!keepCurrentStop) {
                 nextDestStopIndex++;
             }
-            if (stopIndices.size() > nextDestStopIndex) {
+            if ((int)stopIndices.size() > nextDestStopIndex) {
                 nextDestinationIndex = stopIndices[nextDestStopIndex].first;
                 nextDestination = route.getEdges()[nextDestinationIndex];
                 nextPos = stopIndices[nextDestStopIndex].second;
