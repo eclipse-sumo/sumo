@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <vector>
+#include <unordered_map>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
@@ -201,7 +202,7 @@ protected:
     GLObjectsSortedContainer mySortedSelectedObjects;
 
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
-    std::map<const GUIGlObject*, std::pair<bool, const GNESegment*> > mySelectedObjects;
+    std::unordered_map<const GUIGlObject*, std::pair<bool, const GNESegment*> > mySelectedObjects;
 
     /// @brief number of selected objects
     int myNumberOfSelectedObjects = 0;
