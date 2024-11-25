@@ -27,3 +27,6 @@ replaceStop
 
 # All charging stations are deactivated (power set to zero)
 zeroPower
+
+# Vehicles charge if there is a charging station on the same lane as their original stop
+opportunistic
