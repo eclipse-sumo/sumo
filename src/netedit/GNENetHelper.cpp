@@ -417,7 +417,8 @@ GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreC
         if (AC && AC->isAttributeCarrierSelected()) {
             if (ignoreCurrentSupermode) {
                 result.push_back(AC);
-            } else if (editModes.isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+            } else if (editModes.isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() ||
+                       AC->getTagProperty().isAdditionalElement())) {
                 result.push_back(AC);
             } else if (editModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
                 result.push_back(AC);

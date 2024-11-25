@@ -1848,20 +1848,22 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     // obtain all elements in boundary
     myViewNet->updateObjectsInBoundary(boundary);
     // filter ACsInBoundary depending of current supermode
-    std::set<GNEAttributeCarrier*> ACsFiltered;
+    std::unordered_set<GNEAttributeCarrier*> ACsFiltered;
     for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
+        // isGLObjectLockedcheck also if we're in their correspoindient supermode
         if (!AC->getGUIGlObject()->isGLObjectLocked()) {
-            if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
-                if (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) {
-                    if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE && !selEdges)
-                            || (AC->getTagProperty().getTag() == SUMO_TAG_LANE && selEdges)) {
-                        continue;
-                    }
+            const auto& tagProperty = AC->getTagProperty();
+            if (tagProperty.isNetworkElement() || tagProperty.isAdditionalElement()) {
+                // filter edges and lanes
+                if (((tagProperty.getTag() == SUMO_TAG_EDGE) && !selEdges) ||
+                        ((tagProperty.getTag() == SUMO_TAG_LANE) && selEdges)) {
+                    continue;
+                } else {
                     ACsFiltered.insert(AC);
                 }
-            } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
+            } else if (tagProperty.isDemandElement()) {
                 ACsFiltered.insert(AC);
-            } else if (myViewNet->myEditModes.isCurrentSupermodeData() && AC->getTagProperty().isGenericData()) {
+            } else if (tagProperty.isGenericData()) {
                 ACsFiltered.insert(AC);
             }
         }
@@ -1873,8 +1875,8 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     ACToSelect.reserve(ACsFiltered.size());
     ACToUnselect.reserve(ACsFiltered.size());
     // in restrict AND replace mode all current selected attribute carriers will be unselected
-    if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::RESTRICT) ||
-            (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
+    const auto modificationMode = myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode();
+    if ((modificationMode == GNESelectorFrame::ModificationMode::Operation::RESTRICT) || (modificationMode == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
         // obtain selected ACs depending of current supermode
         const auto selectedAC = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
         // add id into ACs to unselect
