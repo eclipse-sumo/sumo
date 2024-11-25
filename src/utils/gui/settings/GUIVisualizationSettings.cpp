@@ -705,7 +705,10 @@ GUIVisualizationSettings::checkDrawJunction(const Boundary& b, const bool select
 
 bool
 GUIVisualizationSettings::checkDrawEdge(const Boundary& b) const {
-    if (disableHideByZoom) {
+    if (drawForViewObjectsHandler) {
+        // needed if we're selecting using a rectangle
+        return true;
+    } else if (disableHideByZoom) {
         return true;
     } else if (myIgnoreHideByZoom) {
         return true;
