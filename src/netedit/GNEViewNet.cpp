@@ -491,12 +491,14 @@ GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     gViewObjectsHandler.setSelectionBoundary(boundary);
     // push matrix
     GLHelper::pushMatrix();
-    // enable draw for object under cursor
+    // enable draw for object under cursor and rectangle selection
     myVisualizationSettings->drawForViewObjectsHandler = true;
+    myVisualizationSettings->drawForRectangleSelection = true;
     // draw all GL elements within the small boundary
     drawGLElements(boundary);
     // restore draw for object under cursor
     myVisualizationSettings->drawForViewObjectsHandler = false;
+    myVisualizationSettings->drawForRectangleSelection = false;
     // pop matrix
     GLHelper::popMatrix();
     // check if update front element

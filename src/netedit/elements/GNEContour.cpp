@@ -76,7 +76,7 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
                                         const GUIGlObject* glObject, const PositionVector& shape, const double layer,
                                         const double scale, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
-    if (s.drawForViewObjectsHandler) {
+    if (s.drawForViewObjectsHandler && !gViewObjectsHandler.checkRectangleSelection(s, glObject, layer, boundaryParent)) {
         // calculate closed shape contour
         buildContourClosedShape(s, d, shape, scale);
         // check if position or bondary is within closed shape
@@ -91,7 +91,7 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
         const double scale, const bool closeFirstExtrem, const bool closeLastExtrem, const double offset,
         const GNESegment* segment, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
-    if (s.drawForViewObjectsHandler) {
+    if (s.drawForViewObjectsHandler && !gViewObjectsHandler.checkRectangleSelection(s, glObject, layer, boundaryParent)) {
         // calculate extruded shape
         buildContourExtrudedShape(s, d, shape, extrusionWidth, scale, closeFirstExtrem, closeLastExtrem, offset);
         // check if position or bondary is within extruded shape
@@ -105,7 +105,7 @@ GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, co
         const GUIGlObject* glObject, const Position& pos, const double width, const double height, const double layer,
         const double offsetX, const double offsetY, const double rot, const double scale, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
-    if (s.drawForViewObjectsHandler) {
+    if (s.drawForViewObjectsHandler && !gViewObjectsHandler.checkRectangleSelection(s, glObject, layer, boundaryParent)) {
         // calculate rectangle shape
         buildContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         // check if position or bondary is within rectangle shape
@@ -119,7 +119,7 @@ GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const
                                         const GUIGlObject* glObject, const Position& pos, double radius, const double layer,
                                         const double scale, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
-    if (s.drawForViewObjectsHandler) {
+    if (s.drawForViewObjectsHandler && !gViewObjectsHandler.checkRectangleSelection(s, glObject, layer, boundaryParent)) {
         // calculate circle shape
         buildContourCircle(s, d, pos, radius, scale);
         // check if position or bondary is within circle shape

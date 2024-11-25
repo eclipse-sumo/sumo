@@ -1420,7 +1420,7 @@ GNELane::drawLane2LaneConnections() const {
 void
 GNELane::calculateLaneContour(const GUIVisualizationSettings& s, const double layer) const {
     // first check if edge parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentObject(this, myParentEdge, layer)) {
+    if (!gViewObjectsHandler.checkBoundaryParentObject(this, layer, myParentEdge)) {
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(),
                 this, myLaneGeometry.getShape(), layer, myDrawingConstants->getDrawingWidth(), 1,

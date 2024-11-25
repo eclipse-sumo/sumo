@@ -85,8 +85,8 @@ GUIViewObjectsHandler::setSelectionBoundary(const Boundary& boundary) {
 
 
 bool
-GUIViewObjectsHandler::checkBoundaryParentObject(const GUIGlObject* GLObject, const GUIGlObject* parent,
-        const double layer) {
+GUIViewObjectsHandler::checkBoundaryParentObject(const GUIGlObject* GLObject, const double layer,
+        const GUIGlObject* parent) {
     // first check if we're selecting for boundary
     if (!mySelectionBoundary.isInitialised()) {
         return false;
@@ -341,6 +341,17 @@ GUIViewObjectsHandler::selectPositionOverShape(const GUIGlObject* GLObject, cons
 bool
 GUIViewObjectsHandler::isObjectSelected(const GUIGlObject* GLObject) const {
     return mySelectedObjects.find(GLObject) != mySelectedObjects.end();
+}
+
+
+bool
+GUIViewObjectsHandler::checkRectangleSelection(const GUIVisualizationSettings& s, const GUIGlObject* GLObject,
+        const double layer, const GUIGlObject* parent) {
+    if (!s.drawForRectangleSelection) {
+        return false;
+    } else {
+        return checkBoundaryParentObject(GLObject, layer, parent);
+    }
 }
 
 

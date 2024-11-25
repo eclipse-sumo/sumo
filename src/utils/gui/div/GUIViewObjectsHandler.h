@@ -90,7 +90,7 @@ public:
     /// @name check functions. If the result is positive, the given GLObject will be added to elementUnderCursor
     /// @{
     /// @brief check boundary parent element
-    bool checkBoundaryParentObject(const GUIGlObject* GLObject, const GUIGlObject* parent, const double layer);
+    bool checkBoundaryParentObject(const GUIGlObject* GLObject, const double layer, const GUIGlObject* parent);
 
     /// @brief check if mouse is within elements geometry (for circles)
     bool checkCircleObject(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
@@ -124,6 +124,10 @@ public:
 
     /// @brief check if element was already selected
     bool isObjectSelected(const GUIGlObject* GLObject) const;
+
+    /// @brief check rectangle selection
+    bool checkRectangleSelection(const GUIVisualizationSettings& s, const GUIGlObject* GLObject,
+                                 const double layer, const GUIGlObject* parent);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;
