@@ -759,7 +759,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
     }
     // calculate contour
-    myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, getType(), 0, 0, 0, exaggeration);
+    myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, getType(), 0, 0, 0, exaggeration, nullptr);
 }
 
 
@@ -859,7 +859,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.56, 2.75, getType(), 0, -2.3, 0, 1);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.56, 2.75, getType(), 0, -2.3, 0, 1, nullptr);
     }
 }
 
@@ -1044,10 +1044,10 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
                                         const double layer, const double exaggeration, const bool filledShape) const {
     // calculate contour depending of contoured shape
     if (filledShape) {
-        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), layer, 1);
+        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), layer, 1, nullptr);
     } else {
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), layer,
-                s.neteditSizeSettings.polylineWidth, exaggeration, true, true, 0, nullptr);
+                s.neteditSizeSettings.polylineWidth, exaggeration, true, true, 0, nullptr, nullptr);
     }
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();

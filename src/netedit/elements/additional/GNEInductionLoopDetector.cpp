@@ -187,7 +187,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour rectangle
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), 2, 1, getType(), 0, 0,
-                myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration, getParentLanes().front()->getParentEdge());
     }
 }
 

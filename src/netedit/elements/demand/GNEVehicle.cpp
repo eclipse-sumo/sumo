@@ -962,7 +962,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 myVehicleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
             // draw squared shape
-            myVehicleContour.calculateContourRectangleShape(s, d, this, vehiclePosition, length * 0.5, width * 0.5, getType(), length * -0.5, 0, vehicleRotation, exaggeration);
+            myVehicleContour.calculateContourRectangleShape(s, d, this, vehiclePosition, length * 0.5, width * 0.5, getType(),
+                    length * -0.5, 0, vehicleRotation, exaggeration, nullptr);
         }
     }
 }
@@ -1155,9 +1156,11 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
         }
         // calculate contour and draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
-            segment->getContour()->calculateContourExtrudedShape(s, d, this, vehicleGeometry.getShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0, segment);
+            segment->getContour()->calculateContourExtrudedShape(s, d, this, vehicleGeometry.getShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
+                    0, segment, segment->getLane()->getParentEdge());
         } else {
-            segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getLane()->getLaneShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0, segment);
+            segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getLane()->getLaneShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
+                    0, segment, segment->getLane()->getParentEdge());
         }
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
@@ -1221,13 +1224,13 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESe
         if (segment->getPreviousLane() && segment->getNextLane()) {
             // calculate contour and draw dotted geometry
             segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(),
-                    getType(), width, 1, false, false, 0, segment);
+                    getType(), width, 1, false, false, 0, segment, segment->getJunction());
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, this, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()},
-                    getType(), width, 1, true, true, 0, segment);
+                    getType(), width, 1, true, true, 0, segment, segment->getJunction());
         } else if (segment->getNextLane() && myTagProperty.vehicleJunctions()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, this, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
-                    getType(), width, 1, true, true, 0, segment);
+                    getType(), width, 1, true, true, 0, segment, segment->getJunction());
         }
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {

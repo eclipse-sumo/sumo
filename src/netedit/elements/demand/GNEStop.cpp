@@ -407,7 +407,13 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             myStopContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), width, exaggeration, true, true, 0, nullptr);
+        if (getParentAdditionals().size() > 0) {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), width, exaggeration, true, true,
+                    0, nullptr, getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        } else {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), width, exaggeration, true, true,
+                    0, nullptr, getParentLanes().front()->getParentEdge());
+        }
     }
 }
 

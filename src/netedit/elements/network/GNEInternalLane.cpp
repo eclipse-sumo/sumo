@@ -214,7 +214,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myInternalLaneGeometry.getShape(), getType(),
-                s.connectionSettings.connectionWidth, 1, true, true, 0, nullptr);
+                s.connectionSettings.connectionWidth, 1, true, true, 0, nullptr, myJunctionParent);
     }
 }
 

@@ -246,8 +246,16 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
             myStopSignContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour and draw dotted geometry
-        myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr);
-        myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration);
+        if (getParentLanes().size() > 0) {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr, getParentLanes().front()->getParentEdge());
+            myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration, getParentLanes().front()->getParentEdge());
+        } else if (getParentEdges().size() > 0) {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr, getParentEdges().front());
+            myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration, getParentEdges().front());
+        } else {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr, getParentAdditionals().front());
+            myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration, getParentAdditionals().front());
+        }
     }
     // check if draw plan parent
     if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {

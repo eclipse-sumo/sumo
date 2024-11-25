@@ -166,7 +166,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // calculate contour rectangle shape
         for (const auto& symbolGeometry : mySymbolGeometries) {
             myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, getType(), 0, 3,
-                    symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                    symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration, getParentEdges().front());
         }
     }
 }

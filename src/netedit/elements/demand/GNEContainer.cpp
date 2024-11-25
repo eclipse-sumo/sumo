@@ -322,7 +322,8 @@ GNEContainer::getCenteringBoundary() const {
 
 
 void
-GNEContainer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEContainer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
+                                const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
@@ -382,7 +383,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // draw line between junctions if container plan isn't valid
             for (const auto& containerPlan : getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isPlanContainer() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getDemandPathManager()->isPathValid(containerPlan)) {
+                if (containerPlan->getTagProperty().isPlanContainer() && (containerPlan->getParentJunctions().size() > 0) &&
+                        !myNet->getDemandPathManager()->isPathValid(containerPlan)) {
                     drawJunctionLine(containerPlan);
                 }
             }
@@ -422,7 +424,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             myContainerContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContainerContour.calculateContourRectangleShape(s, d, this, containerPosition, 0.5, 0.18, getType(), -5.5, 0, 0, exaggeration);
+        myContainerContour.calculateContourRectangleShape(s, d, this, containerPosition, 0.5, 0.18, getType(), -5.5, 0, 0, exaggeration, nullptr);
     }
 }
 

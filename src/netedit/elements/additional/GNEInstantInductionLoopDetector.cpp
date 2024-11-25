@@ -164,7 +164,8 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(),
+                    E1InstantExaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
@@ -174,7 +175,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
         }
         // draw dotted contour
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), 2, 1, getType(), 0, 0,
-                myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration, getParentLanes().front()->getParentEdge());
     }
 }
 

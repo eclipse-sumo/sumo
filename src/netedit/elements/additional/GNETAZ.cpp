@@ -417,7 +417,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             calculateContourPolygons(s, d, getShapeLayer(), TAZExaggeration, getFill());
         }
         // calculate contour for TAZ Center
-        myTAZCenterContour.calculateContourCircleShape(s, d, this, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, getShapeLayer(), TAZExaggeration);
+        myTAZCenterContour.calculateContourCircleShape(s, d, this, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, getShapeLayer(), TAZExaggeration, nullptr);
     }
 }
 

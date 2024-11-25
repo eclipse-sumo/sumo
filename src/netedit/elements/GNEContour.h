@@ -56,24 +56,25 @@ public:
     /// @brief calculate contour (for closed shapes)
     void calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                     const double scale) const;
+                                     const double scale, const GUIGlObject* boundaryParent) const;
 
     /// @brief calculate contour extruded (used in elements formed by a central shape)
     void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                        const GUIGlObject* glObject, const PositionVector& shape, const double layer,
                                        const double extrusionWidth, const double scale, const bool closeFirstExtrem,
-                                       const bool closeLastExtrem, const double offset, const GNESegment* segment) const;
+                                       const bool closeLastExtrem, const double offset, const GNESegment* segment,
+                                       const GUIGlObject* boundaryParent) const;
 
     /// @brief calculate contour (for rectangled elements)
     void calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const GUIGlObject* glObject, const Position& pos, const double width, const double height,
                                         const double layer, const double offsetX, const double offsetY, const double rot,
-                                        const double scale) const;
+                                        const double scale, const GUIGlObject* boundaryParent) const;
 
     /// @brief calculate contour (circle elements)
     void calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const GUIGlObject* glObject, const Position& pos, double radius, const double layer,
-                                     const double scale) const;
+                                     const double scale, const GUIGlObject* boundaryParent) const;
 
     /// @brief calculate contour edge
     void calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

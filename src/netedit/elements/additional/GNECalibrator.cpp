@@ -524,13 +524,21 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
             myCalibratorContours->at(symbolIndex)->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
     }
+    GUIGlObject* parentBoundary = nullptr;
+    if (getParentEdges().size() > 0) {
+        parentBoundary = getParentEdges().front();
+    } else if (getParentLanes().size() > 0) {
+        parentBoundary = getParentLanes().front();
+    }
     // calculate dotted contour
     if (symbolIndex == -1) {
         myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, s.additionalSettings.calibratorWidth,
-                s.additionalSettings.calibratorHeight * 0.5, getType(), 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+                s.additionalSettings.calibratorHeight * 0.5, getType(), 0, s.additionalSettings.calibratorHeight * 0.5, rot,
+                exaggeration, parentBoundary);
     } else if (symbolIndex < (int)myCalibratorContours->size()) {
         myCalibratorContours->at(symbolIndex)->calculateContourRectangleShape(s, d, this, pos, s.additionalSettings.calibratorWidth,
-                s.additionalSettings.calibratorHeight * 0.5, getType(), 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+                s.additionalSettings.calibratorHeight * 0.5, getType(), 0, s.additionalSettings.calibratorHeight * 0.5, rot,
+                exaggeration, parentBoundary);
     }
 }
 

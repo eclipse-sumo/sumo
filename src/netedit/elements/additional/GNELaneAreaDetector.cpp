@@ -284,7 +284,8 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0, nullptr);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width,
+                E2Exaggeration, true, true, 0, nullptr, getParentLanes().front()->getParentEdge());
     }
 }
 
@@ -356,15 +357,15 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             }
         }
         // calculate contour and draw dotted geometry
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
-                segment->isFirstSegment(), segment->isLastSegment(), 0, segment);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width,
+                E2Exaggeration, segment->isFirstSegment(), segment->isLastSegment(), 0, segment, segment->getLane()->getParentEdge());
         // check if create from-to contours
         if (segment->getFromContour()) {
             segment->getFromContour()->calculateContourCircleShape(s, d, this, E2Geometry.getShape().front(),
-                    s.neteditSizeSettings.additionalGeometryPointRadius, getType(), E2Exaggeration);
+                    s.neteditSizeSettings.additionalGeometryPointRadius, getType(), E2Exaggeration, segment->getLane()->getParentEdge());
         } else if (segment->getToContour()) {
             segment->getToContour()->calculateContourCircleShape(s, d, this, E2Geometry.getShape().back(),
-                    s.neteditSizeSettings.additionalGeometryPointRadius, getType(), E2Exaggeration);
+                    s.neteditSizeSettings.additionalGeometryPointRadius, getType(), E2Exaggeration, segment->getLane()->getParentEdge());
         }
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
@@ -400,7 +401,8 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             }
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration, false, false, 0, segment);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), getType(), s.detectorSettings.E2Width, E2Exaggeration,
+                false, false, 0, segment, segment->getJunction());
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
             gViewObjectsHandler.addToRedrawPathElements(this);

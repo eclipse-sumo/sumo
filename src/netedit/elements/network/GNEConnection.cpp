@@ -800,7 +800,8 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
                     exaggeration, true);
         } else {
             // calculate connection shape contour
-            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, getType(), s.connectionSettings.connectionWidth, exaggeration, true, true, 0, nullptr);
+            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, getType(), s.connectionSettings.connectionWidth, exaggeration,
+                    true, true, 0, nullptr, myFromLane->getParentEdge()->getToJunction());
         }
     }
 }

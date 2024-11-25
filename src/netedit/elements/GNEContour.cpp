@@ -74,7 +74,7 @@ GNEContour::clearContour() const {
 void
 GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                        const double scale) const {
+                                        const double scale, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate closed shape contour
@@ -88,7 +88,8 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
 void
 GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GUIGlObject* glObject, const PositionVector& shape, const double layer, const double extrusionWidth,
-        const double scale, const bool closeFirstExtrem, const bool closeLastExtrem, const double offset, const GNESegment* segment) const {
+        const double scale, const bool closeFirstExtrem, const bool closeLastExtrem, const double offset,
+        const GNESegment* segment, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate extruded shape
@@ -102,7 +103,7 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
 void
 GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GUIGlObject* glObject, const Position& pos, const double width, const double height, const double layer,
-        const double offsetX, const double offsetY, const double rot, const double scale) const {
+        const double offsetX, const double offsetY, const double rot, const double scale, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate rectangle shape
@@ -116,7 +117,7 @@ GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, co
 void
 GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const GUIGlObject* glObject, const Position& pos, double radius, const double layer,
-                                        const double scale) const {
+                                        const double scale, const GUIGlObject* boundaryParent) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate circle shape

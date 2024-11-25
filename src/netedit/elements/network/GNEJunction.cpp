@@ -1856,10 +1856,10 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
         gViewObjectsHandler.selectObject(this, getType(), false, true, nullptr);
     } else {
         // always calculate for shape
-        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration);
+        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration, this);
         // check if calculate contour for bubble
         if (drawBubble) {
-            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius, getType(), exaggeration);
+            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius, getType(), exaggeration, this);
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {

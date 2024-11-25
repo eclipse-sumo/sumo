@@ -455,7 +455,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
         }
         // calculate contour
         segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, exaggeration,
-                segment->isFirstSegment(), segment->isLastSegment(), 0, segment);
+                segment->isFirstSegment(), segment->isLastSegment(), 0, segment, segment->getLane()->getParentEdge());
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
             gViewObjectsHandler.addToRedrawPathElements(this);
@@ -489,7 +489,8 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegm
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, routeExaggeration, false, false, 0, segment);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, routeExaggeration,
+                false, false, 0, segment, segment->getJunction());
         // check if add this path element to redraw buffer
         if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
             gViewObjectsHandler.addToRedrawPathElements(this);

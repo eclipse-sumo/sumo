@@ -635,7 +635,8 @@ GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const G
                     getType(), s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration, true);
         } else {
             // calculate contour
-            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), getType(), width, exaggeration, true, true, 0, nullptr);
+            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), getType(),
+                    width, exaggeration, true, true, 0, nullptr, myParentJunction);
         }
     }
 }

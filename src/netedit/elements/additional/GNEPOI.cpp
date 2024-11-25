@@ -627,15 +627,22 @@ GNEPOI::calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualiz
                             const double exaggeration, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
-        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeHeight.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
-        myMovingContourDown.calculateContourCircleShape(s, d, this, myShapeHeight.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
-        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
-        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getShapeLayer(), exaggeration);
-    } else if (getShapeImgFile().empty()) {
-        const double radius = getWidth() > getHeight() ? getWidth() : getHeight();
-        myAdditionalContour.calculateContourCircleShape(s, d, this, *this, radius * 0.5, getShapeLayer(), exaggeration);
+        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeHeight.front(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                getShapeLayer(), exaggeration, nullptr);
+        myMovingContourDown.calculateContourCircleShape(s, d, this, myShapeHeight.back(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                getShapeLayer(), exaggeration, nullptr);
+        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                getShapeLayer(), exaggeration, nullptr);
+        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                getShapeLayer(), exaggeration, nullptr);
     } else {
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, getShapeLayer(), 0, 0, getShapeNaviDegree(), exaggeration);
+        const auto parentEdgeBoundary = (getParentLanes().size() > 0) ? getParentLanes().front()->getParentEdge() : nullptr;
+        if (getShapeImgFile().empty()) {
+            const double radius = getWidth() > getHeight() ? getWidth() : getHeight();
+            myAdditionalContour.calculateContourCircleShape(s, d, this, *this, radius * 0.5, getShapeLayer(), exaggeration, parentEdgeBoundary);
+        } else {
+            myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, getShapeLayer(), 0, 0, getShapeNaviDegree(), exaggeration, parentEdgeBoundary);
+        }
     }
 }
 
