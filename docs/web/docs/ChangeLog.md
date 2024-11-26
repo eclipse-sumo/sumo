@@ -18,11 +18,17 @@ title: ChangeLog
   - Added option **--chargingstations-output.aggregated.write-unfinished** to include still running charging process in charging station output #15677
   - Fixed invalid value of diagnostic param 'caccVehicleMode' when using carFollowModel *CACC* #15682
   - Fixed invalid speedErr computation for carFollowModel *CACC* #15683
-  - Actuated traffic light that use the `next` attribute to skip phases now work correctly if the targeted green phase serves no traffic but leads to a subsequent phase which does #15716 
+  - Actuated traffic light that use the `next` attribute to skip phases now work correctly if the targeted green phase serves no traffic but leads to a subsequent phase which does #15716
+  - Fixed invalid approach speed at allway_stop when setting lane-stopOffset #15449
+  - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
+  - Fixed emergency braking at `allway_stop` in subsecond simulation #15728
+  - Configuring number of doors now takes effect for JuPedSim #15562 
   
 
 - netedit
-  - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.19.0)  
+  - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.19.0)
+  - E2 multilane detectors can be moved avain #15551 (regression in 1.20.0)
+  - Fixed invalid rectangle selection when zoomed out #15766 (regression in 1.20.0)
   - Loaded containers starting from stops are now drawn #15567
   - ESC aborts creation of edgeRel and tazRel datas #15601
   - Fixed invalid TAZ coloring during mouse hovering in create TAZRel mode #15544
@@ -46,23 +52,44 @@ title: ChangeLog
   - Significantly reduced UI freeze when switching to demand mode and many vehicles are loaded #15681
   - Fixed dotted contour of multilane objects (routes, trips, etc.) #15676
   - Fixed crash when undo removes a connection that is being inspected #15724
-  - Fixed crash during undo-redo of edited network #15534 
+  - Fixed crash during undo-redo of edited network #15534
+  - Fixed "freeze" when deleting a large number of elements while also inspecting a large number of elements #15725
+  - Fixed "freeze" when selecting very many elements #15747
+  - Fixed crash when loading taz with the same id as a junction-taz #15759
+  - Fixed invalid use of taz information when coordinates are defined for a trip #15765 
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
   - Fixed missing elements in settings dialog when switching to another viewing scheme while the dialog is open #15637
-  - Hotkey ALT no longer has the effect of rendering all POIs and polygons at layer 0. Instead, the layer can be customized in the settings dialog #15558 
+  - Hotkey ALT no longer has the effect of rendering all POIs and polygons at layer 0. Instead, the layer can be customized in the settings dialog #15558
+  - Fixed invalid breakpoints when clicking time stamps on messages in meso #15780 
 
 - netconvert 
   - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624
   - Fixed bug where right-of-way rules could create deadlock at a traffic light #15150
   - Fixed bug when removing narrow lanes during import #15718
-  - No longer generating invalid signal plan when giving invalid argument **--tls.green.time** #15719 
+  - No longer generating invalid signal plan when giving invalid argument **--tls.green.time** #15719
+  - Fixed invalid linkState for left turns from the major road at junction type `allway_stop` #15737 
+
+- duarouter
+  - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
+  - Fixed invalid use of taz information when coordinates are defined for a trip #15768
+ 
+- meso
+  - Fixed crash when using **--mapmatch.junctions** in a network with internal edges #15741
+  - Fixed crash when using **--time-to-teleport.disconnected** #15751
+  - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777 
 
 - TraCI
   - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
   - Fixed invalid result by `trafficlight.getServedPersonCount` #15715
-  - Fixed invalid result by `vehicle.couldChangeLane` #10739 
+  - Fixed invalid result by `vehicle.couldChangeLane` #10739
+  - Fixd invalid result by `trafficlight.getSpentDuration` after `setProgramLogic` #15753
+  - Fixed non-functional libsumo windows wheels #15516 
+ 
+- Tools
+  - matsim_importPlans.py: no longer writes unsorted trips with option **-vehicles-only** #15743
+  - generateBidiDistricts.py: Option **--radius** now takes effect regardless of edge length #15758 
     
 ### Enhancements
 
@@ -76,7 +103,11 @@ title: ChangeLog
   - Stationfinder device now supports state saving and loading #15607
   - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
   - Traffic lights of type `actuated` can now use the `next` attribute to switch into fixed-duration phases (and the corresponding lanes will obtain detectors to trigger the switch) #15714
-  - Traffic lights of type `actuated` can now react to a pedestrian crossing #1746 
+  - Traffic lights of type `actuated` can now react to a pedestrian crossing #1746
+  - vType attriubte `jmStopLineGap` now applies to allway_stop #15448
+  - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
+  - personTrip now supports geo-coordinates #15739
+  - Added option **--mapmatch.taz** which works similar to **--mapmatch.junctions** but uses arbitrary TAZ definitions #15748 
   - railways
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
@@ -90,7 +121,8 @@ title: ChangeLog
   - Additional output now writes chargingStation after parkingArea elements #15628
   - Removed "invert edges" from GNECrossingFrame #15129
   - Undo-redo functionality can now optionally be disabled to improve operational speed #15663
-  - Undo-redo functionality can now be temporary disabled while loading a file to improve loading speed #15668 
+  - Undo-redo functionality can now be temporary disabled while loading a file to improve loading speed #15668
+  - Improved visibility of short edges #15592 
  
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
@@ -106,7 +138,11 @@ title: ChangeLog
      
 - TraCI
   - stationfinder device parameters can now be modified at runtime #15622
-  - Added `traci.parkingArea.setAcceptedBadges` and `traci.parkingArea.getAcceptedBadges`  #14807 
+  - Added `traci.parkingArea.setAcceptedBadges` and `traci.parkingArea.getAcceptedBadges`  #14807
+ 
+- Tools
+  - matsim_importPlans.py: Added options **-no-bikes** and **--no-rides** for filtering different modes of traffic. #15738
+  - sort_routes.py: Added option **--verbose** #15744 
 
 ### Miscellaneous
 
