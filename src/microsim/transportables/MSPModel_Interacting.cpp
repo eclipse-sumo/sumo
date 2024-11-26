@@ -141,6 +141,7 @@ MSPModel_Interacting::nextBlocking(const MSLane* lane, double minPos, double min
                 std::cout << "  nextBlocking lane=" << lane->getID() << " bidi=" << bidi
                           << " minPos=" << minPos << " minRight=" << minRight << " maxLeft=" << maxLeft
                           << " stopTime=" << stopTime
+                          << " ped=" << ped->getID()
                           << " pedX=" << ped->getEdgePos(0)
                           << " relX2=" << relX2
                           << " center=" << center
