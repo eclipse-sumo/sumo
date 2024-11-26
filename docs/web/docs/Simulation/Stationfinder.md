@@ -36,6 +36,8 @@ The parameters take effect only on vehicles which have been assigned a stationfi
 | replacePlannedStop    | float            | [0;inf[                 | 0                | Share of the time until the departure at the next planned stop used for charging (values >1 will cause skipping the next planned stop) |
 | maxDistanceToReplacedStop | float        | ≥0                      | 300              | Distance in meters along the network from charging station to the next planned stop |
 | chargingStrategy      | string           | {balanced;latest;none}  | none             | Chosen charging strategy (`balanced` will spread the charging across the whole stopping duration, `latest` will shift charging towards the end of the stopping duration) |
+| opportunisticChargeLevel | float         | [0;1]                   | 0                | State of charge below which the vehicle wants to charge nearby planned stops (on the same edge as the planned stop) although not needed to complete its route (named opportunistic charging) |
+| minOpportunityDuration | float (s)       | ≥0                      | 3600             | The minimum expected duration of a planned stop to be used for opportunistic charging |
 
 ## Decision logic for charging
 
