@@ -26,8 +26,9 @@
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
 
-// #define DEBUG_INTERACTING
+//#define DEBUG_INTERACTING
 
+#define DEBUGCOND(PED) ((PED)->getPerson()->isSelected())
 
 // ===========================================================================
 // static members
@@ -74,7 +75,7 @@ MSPModel_Interacting::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* 
         const double leaderBackDist = leaderFrontDist + ped->getPerson()->getVehicleType().getLength();
 #ifdef DEBUG_INTERACTING
         if DEBUGCOND(ped) {
-            std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped->getDirection() << " pX=" << ped->getEdgePos(0) << " pL=" << ped.getLength()
+            std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped->getDirection() << " pX=" << ped->getEdgePos(0) << " pL=" << ped->getPerson()->getVehicleType().getLength()
                       << " vehSide=" << vehSide
                       << " vehWidth=" << vehWidth
                       << " lBD=" << leaderBackDist
@@ -140,7 +141,6 @@ MSPModel_Interacting::nextBlocking(const MSLane* lane, double minPos, double min
                 std::cout << "  nextBlocking lane=" << lane->getID() << " bidi=" << bidi
                           << " minPos=" << minPos << " minRight=" << minRight << " maxLeft=" << maxLeft
                           << " stopTime=" << stopTime
-                          << " pedY=" << ped->getPosLat()
                           << " pedX=" << ped->getEdgePos(0)
                           << " relX2=" << relX2
                           << " center=" << center
@@ -176,8 +176,8 @@ MSPModel_Interacting::unregisterCrossingApproach(const MSPModel_InteractingState
     // person has entered the crossing
     crossing->getIncomingLanes()[0].viaLink->removeApproachingPerson(ped.getPerson());
 #ifdef DEBUG_INTERACTING
-    if DEBUGCOND(ped) {
-        std::cout << SIMTIME << " unregister " << ped->getPerson()->getID() << " at crossing " << crossing->getID() << "\n";
+    if DEBUGCOND(&ped) {
+        std::cout << SIMTIME << " unregister " << ped.getPerson()->getID() << " at crossing " << crossing->getID() << "\n";
     }
 #endif
 }
