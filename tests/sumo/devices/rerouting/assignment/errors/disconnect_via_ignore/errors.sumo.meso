@@ -1,2 +1,4 @@
 Warning: No connection between edge 'end' and edge 'middle' found.
 Warning: No route for vehicle '0' found.
+Warning: Teleporting vehicle '0'; waited too long, from edge 'left':9 to edge 'end':1, time=337.19.
+Warning: Teleporting vehicle '0'; waited too long, from edge 'end':4 to edge 'middle':1, time=652.58.
