@@ -2049,15 +2049,19 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
                 }
                 if (newEdges.count(c.toEdge) == 0) {
                     newEdge = createEdge(in->getToJunction(), out->getFromJunction(), in, undoList);
-                    newEdges[c.toEdge] = newEdge;
-                    newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
+                    if (newEdge) {
+                        newEdges[c.toEdge] = newEdge;
+                        newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
+                    }
                 } else {
                     newEdge = newEdges[c.toEdge];
                     duplicateLane(newEdge->getLanes().back(), undoList, true);
                 }
-                // copy permissions
-                newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
-                        in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
+                if (newEdge) {
+                    // copy permissions
+                    newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
+                            in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
+                }
             }
         }
     }
