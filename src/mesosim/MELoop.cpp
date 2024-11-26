@@ -163,7 +163,7 @@ MELoop::checkCar(MEVehicle* veh) {
         // receiving segment has recently received another vehicle or the junction is blocked
         veh->setEventTime(nextEntry);
     }
-    addLeaderCar(veh, onSegment->getLink(veh));
+    addLeaderCar(veh, teleporting ? nullptr : onSegment->getLink(veh));
 }
 
 
