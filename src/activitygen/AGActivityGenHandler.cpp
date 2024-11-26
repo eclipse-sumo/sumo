@@ -258,8 +258,12 @@ AGActivityGenHandler::parseSchools() {
 void
 AGActivityGenHandler::parseSchool(const SUMOSAXAttributes& attrs) {
     try {
-        std::string edge = attrs.getString(SUMO_ATTR_EDGE);
-        double positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        bool ok = true;
+        std::string edge = attrs.getString(SUMO_ATTR_EDGE, &ok);
+        if (!ok) {
+            throw ProcessError("Cannot parse edge attribute");
+        }
+        double positionOnEdge = attrs.hasAttribute(SUMO_ATTR_POSITION) ? attrs.getFloat(SUMO_ATTR_POSITION) : 0.;
         AGPosition posi(myCity.getStreet(edge), positionOnEdge);
         int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE);
         int endAge = attrs.getInt(AGEN_ATTR_ENDAGE);
@@ -280,8 +284,12 @@ AGActivityGenHandler::parseSchool(const SUMOSAXAttributes& attrs) {
 void
 AGActivityGenHandler::parseBusStation(const SUMOSAXAttributes& attrs) {
     try {
-        std::string edge = attrs.getString(SUMO_ATTR_EDGE);
-        double positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        bool ok = true;
+        std::string edge = attrs.getString(SUMO_ATTR_EDGE, &ok);
+        if (!ok) {
+            throw ProcessError("Cannot parse edge attribute");
+        };
+        double positionOnEdge = attrs.hasAttribute(SUMO_ATTR_POSITION) ? attrs.getFloat(SUMO_ATTR_POSITION) : 0.;
         int id = attrs.getInt(SUMO_ATTR_ID);
         AGPosition posi(myCity.getStreet(edge), positionOnEdge);
         myCity.statData.busStations.insert(std::pair<int, AGPosition>(id, posi));
