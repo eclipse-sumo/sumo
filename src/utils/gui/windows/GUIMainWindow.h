@@ -176,7 +176,7 @@ public:
     }
 
     /// @brief add breakpoint to the application
-    virtual void addBreakpoint(const SUMOTime /* time */) {}
+    virtual void addBreakpoint(SUMOTime /* time */) {}
 
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {

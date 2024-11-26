@@ -2439,8 +2439,11 @@ GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
 
 
 void
-GUIApplicationWindow::addBreakpoint(const SUMOTime time) {
-    if (time >= 0) {
+GUIApplicationWindow::addBreakpoint(SUMOTime time) {
+    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    if (time >= begin) {
+        // ensure breakpoint is valid
+        time -= (time - begin) % DELTA_T;
         std::vector<SUMOTime> breakpoints = retrieveBreakpoints();
         if (std::find(breakpoints.begin(), breakpoints.end(), time) == breakpoints.end()) {
             breakpoints.push_back(time);
