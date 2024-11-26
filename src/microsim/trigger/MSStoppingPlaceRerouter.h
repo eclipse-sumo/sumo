@@ -275,18 +275,18 @@ public:
 protected:
     /// @brief Ask the vehicle about the relevant rerouting parameters and initiate the maximum value data structure
     void readEvaluationWeights(SUMOVehicle& veh, StoppingPlaceParamMap_t& stoppingPlaceParams, StoppingPlaceParamMap_t& stoppingPlaceDefaults, StoppingPlaceParamMap_t& maxValues) {
-        for (StoppingPlaceParamMap_t::iterator it = stoppingPlaceParams.begin(); it != stoppingPlaceParams.end(); ++it) {
-            double value = getWeight(veh, it->first, stoppingPlaceDefaults[it->first]);
-            it->second = value;
-            if (value > maxValues[it->first]) {
-                maxValues[it->first] = value;
+        for (auto& it : stoppingPlaceParams) {
+            const double value = getWeight(veh, it.first, stoppingPlaceDefaults[it.first]);
+            it.second = value;
+            if (value > maxValues[it.first]) {
+                maxValues[it.first] = value;
             }
         }
     }
 
     /// @brief Determine the rerouting origin edge (not necessarily the current edge of the vehicle!)
     const MSRouteIterator determineRerouteOrigin(SUMOVehicle& veh, int insertStopIndex) {
-        const int stopCount = veh.getStops().size();
+        const int stopCount = (int)veh.getStops().size();
         if (insertStopIndex == 0 || stopCount == 0) {
             return veh.getRerouteOrigin();
         }
