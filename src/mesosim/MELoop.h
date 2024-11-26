@@ -139,7 +139,7 @@ private:
      * @param[in] veh The vehicle to teleport
      * @param[in] toSegment The first segment where the vehicle may reenter the network
      */
-    void teleportVehicle(MEVehicle* veh, MESegment* const toSegment);
+    void teleportVehicle(MEVehicle* veh, MESegment* const toSegment, bool disconnected);
 
 private:
     /// @brief leader cars in the segments sorted by exit time
