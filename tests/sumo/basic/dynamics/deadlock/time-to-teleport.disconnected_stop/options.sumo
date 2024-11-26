@@ -1,0 +1,9 @@
+--no-step-log --no-duration-log --net-file=net2.net.xml --route-files=input_routes.rou.xml
+--tls.all-off
+--ignore-route-errors
+--time-to-teleport.disconnected 1
+--device.rerouting.probability 1
+--device.rerouting.pre-period 0
+--device.rerouting.period 32
+
+--vehroute-output vehroutes.xml

@@ -15,5 +15,8 @@ time-to-teleport.remove
 # test option time to teleport
 time-to-teleport.disconnected
 
+# stop after disconnected edge
+time-to-teleport.disconnected_stop
+
 # test option time to teleport
 time-to-teleport.disconnected_higher
