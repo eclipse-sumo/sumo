@@ -145,7 +145,7 @@ class Builder(object):
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
-                    os.makedirs(self.tmp)
+                    os.makedirs(self.tmp, exist_ok=data.get("outputDirExistOk", False))
                     break
                 except Exception:
                     print("Cannot create directory '%s'." % self.tmp, file=sys.stderr)
