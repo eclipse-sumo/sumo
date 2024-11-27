@@ -171,6 +171,9 @@ NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) {
 
 void
 NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, int byLane, bool incoming) {
+    if (by == nullptr) {
+        myReconstructRemovedConnections = true;
+    }
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         if (incoming) {
             (*it).replaceFrom(removed, removedLane, by, byLane);
@@ -195,6 +198,16 @@ NBLoadedSUMOTLDef::amInvalid() const {
         return true;
     }
     if (myIncomingEdges.size() == 0) {
+        return true;
+    }
+    if (myReconstructRemovedConnections) {
+        // check whether at least one connection is valid
+        for (const NBConnection& con : myControlledLinks) {
+            if (isValid(con)) {
+                return false;
+            }
+        }
+        // all invalid
         return true;
     }
     return false;
@@ -451,6 +464,16 @@ NBLoadedSUMOTLDef::registerModifications(bool addedConnections, bool removedConn
     myReconstructRemovedConnections |= removedConnections;
 }
 
+bool
+NBLoadedSUMOTLDef::isValid(const NBConnection& con) const {
+    return (// edge still exists
+            std::find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
+            // connection still exists
+            && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
+            // connection is still set to be controlled
+            && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane()));
+}
+
 void
 NBLoadedSUMOTLDef::reconstructLogic() {
     const bool netedit = NBNetBuilder::runningNetedit();
@@ -505,12 +528,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         // for each connection, check whether it is still valid
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end();) {
             const NBConnection con = (*it);
-            if (// edge still exists
-                std::find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
-                // connection still exists
-                && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
-                // connection is still set to be controlled
-                && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane())) {
+            if (isValid(con)) {
                 it++;
             } else {
                 // remove connection

@@ -240,6 +240,9 @@ private:
     /// @brief return whether all tls link indices are valid
     bool hasValidIndices() const;
 
+    /// @brief return whether the given connection is still valid
+    bool isValid(const NBConnection& con) const;
+
 private:
     /// @brief class for identifying connections
     class connection_equal {
