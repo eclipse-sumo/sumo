@@ -106,7 +106,6 @@ public:
 private:
     /// @brief The key->value maps
     std::map<SumoXMLAttr, double> myMap;
-    std::map<SumoXMLAttr, std::vector<double> > myVecMap;
     std::map<SumoXMLAttr, CharacteristicMap> myCharacteristicMapMap;
     const EnergyParams* mySecondaryParams = nullptr;
 

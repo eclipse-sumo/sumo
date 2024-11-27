@@ -96,13 +96,6 @@ public:
      */
     double getDouble(const std::string& key, const double defaultValue) const;
 
-    /**@brief Returns the value for a given key converted to a list of doubles
-     * @param[in] key The key to ask for
-     * @param[in] defaultValue The default value to return if no value is stored under the key
-     * @return The value stored under the key
-     */
-    std::vector<double> getDoubles(const std::string& key, std::vector<double> defaultValue = std::vector<double>()) const;
-
     /// @brief Clears the parameter map
     void clearParameter();
 

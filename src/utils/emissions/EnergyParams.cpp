@@ -44,9 +44,6 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) :
         for (auto item : myMap) {
             myMap[item.first] = typeParams->getDouble(toString(item.first), item.second);
         }
-        for (auto item : myVecMap) {
-            myVecMap[item.first] = typeParams->getDoubles(toString(item.first), item.second);
-        }
         for (auto item : myCharacteristicMapMap) {
             std::string characteristicMapString = typeParams->getParameter(toString(item.first), "");
             if (characteristicMapString != "") {
@@ -110,7 +107,6 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.96;
     myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION] = 0.0;
     myMap[SUMO_ATTR_ANGLE] = 0.;  // actually angleDiff in the last step
-    // @todo set myVecMap defaults as needed
 
     // Default values for the MMPEVEM, taken from the VW_ID3
     myMap[SUMO_ATTR_WHEELRADIUS] = 0.3588;                // [m]
@@ -160,19 +156,6 @@ EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
         return mySecondaryParams->getDoubleOptional(attr, def);
     }
     return def;
-}
-
-
-const std::vector<double>&
-EnergyParams::getDoubles(SumoXMLAttr attr) const {
-    auto it = myVecMap.find(attr);
-    if (it != myVecMap.end()) {
-        return it->second;
-    }
-    if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getDoubles(attr);
-    }
-    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
 }
 
 
