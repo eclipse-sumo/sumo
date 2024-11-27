@@ -9,3 +9,6 @@ ticket15514
 
 # invalid memory access when deleting narrow lanes
 ticket15718
+
+# invalid network created
+ticket15798
