@@ -277,7 +277,7 @@ def getFlowNumber(flow):
                 period = float(flow.period)
         for attr in ['perHour', 'vehsPerHour']:
             if flow.hasAttribute(attr):
-                period = 3600 / float(flow.getAttributes(attr))
+                period = 3600 / float(flow.getAttribute(attr))
         if period > 0:
             return math.ceil(duration / period)
         else:
