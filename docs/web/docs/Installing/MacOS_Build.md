@@ -81,6 +81,9 @@ The build process can now be triggered with the following command
 cd $SUMO_HOME
 cmake --build build --parallel $(sysctl -n hw.ncpu)
 ```
+
+You may want to also run `make install` or add `$SUMO_HOME/bin` to the `PATH`, in order to easily start `sumo` or any other application from the command line.
+
 ## Optional Steps
 
 ### TraCI as a Service (TraaS)
