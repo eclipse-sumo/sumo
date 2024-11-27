@@ -113,7 +113,7 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net):
                        2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
 
 
-def retrieveMapServerTiles(options, west, south, east, north, decals, net):
+def retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern):
     zoom = 20
     numTiles = options.tiles + 1
     while numTiles > options.tiles:
@@ -134,8 +134,9 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     futures = []
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
-            request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
-            filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
+            request = options.url + pattern.format(z=zoom, y=y, x=x)
+            suffix = ".png" if pattern.endswith(".png") else ".jpeg"
+            filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
             if options.parallel_jobs == 0:
                 worker(options, request, filename)
             else:
@@ -183,7 +184,8 @@ def get_options(args=None):
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
         "google": "https://maps.googleapis.com/maps/api/staticmap",
-        "openstreetmap": "https://tile.openstreetmap.org"
+        "openstreetmap": "https://tile.openstreetmap.org",
+        "berlin2024": "https://tiles.codefor.de/berlin-2024-dop20rgbi"
     }
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
@@ -227,8 +229,9 @@ def get(args=None):
     mapQuest = "mapquest" in options.url
     with sumolib.openz(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
-        if "MapServer" in options.url:
-            retrieveMapServerTiles(options, west, south, east, north, decals, net)
+        if "MapServer" in options.url or "berlin" in options.url:
+            pattern = "/{z}/{x}/{y}.png" if "berlin" in options.url else "/{z}/{y}/{x}"
+            retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern)
         elif "openstreetmap" in options.url or "geofabrik" in options.url:
             retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net)
         else:
