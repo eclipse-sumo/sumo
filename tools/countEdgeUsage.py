@@ -187,7 +187,7 @@ def parseSimple(outf, options):
             if element == 'route':
                 for route in parse_fast(routefile, element, ['id']):
                     print(("Warning: Cannot handle named routes in file '%s'." +
-                           " Use option --elements vehicle,flows instead") % routefile,
+                           " Use option --elements vehicle,flow instead") % routefile,
                           file=sys.stderr)
                     break
             for route in parse_fast(routefile, element, ['edges']):
