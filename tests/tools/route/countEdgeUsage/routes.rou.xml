@@ -12,4 +12,6 @@
 
     <flow id="flow0" begin="4" end="40" color="green" from="k" to="l"/>
 
+    <flow id="flow1" begin="0" end="600" vehsPerHour="36" from="k" to="l"/>
+
 </routes>

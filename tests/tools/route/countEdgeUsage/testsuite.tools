@@ -2,7 +2,7 @@
 basic
 
 # load 2 input files
-# 
+#
 two_inputs
 
 # additional geo poi output
@@ -43,3 +43,6 @@ named_routes_period
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 save_template
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+flow

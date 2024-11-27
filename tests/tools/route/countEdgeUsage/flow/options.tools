@@ -1,0 +1,1 @@
+routes.rou.xml --output-file out.rou.xml --elements vehicle,flow tools/countEdgeUsage.py
