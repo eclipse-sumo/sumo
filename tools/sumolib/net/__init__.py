@@ -200,6 +200,7 @@ class Net:
         self._origIdx = None
         self._proj = None
         self.hasInternal = False
+        self.hasWalkingArea = False
         # store dijsktra heap for reuse if the same origin is used repeatedly
         self._shortestPathCache = None
         self._version = None
@@ -271,6 +272,8 @@ class Net:
             self._id2edge[id] = e
             if function:
                 self.hasInternal = True
+                if function == "walkingarea":
+                    self.hasWalkingArea = True
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length, width, allow=None, disallow=None):
@@ -582,6 +585,12 @@ class Net:
                 return min(-pos, edge.getLength())
             return max(0., edge.getLength() - pos)
 
+        def getToNormalIncoming(edge):
+            if edge.getFunction() == '':
+                return [(e, None) for e in edge.getToNode().getIncoming() if e.getFunction() == '']
+            else:
+                return []
+
         if self.hasInternal:
             appendix = ()
             appendixCost = 0.
@@ -623,14 +632,15 @@ class Net:
                 return None, cost
 
             for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
-                                  e1.getIncoming().items() if ignoreDirection else []):
+                                  e1.getIncoming().items() if ignoreDirection else [],
+                                  getToNormalIncoming(e1) if ignoreDirection and not self.hasWalkingArea else []):
                 # print(cost, e1.getID(), e2.getID(), e2 in seen)
                 if e2 not in seen:
                     newCost = cost + e2.getLength() / speedFunc(e2)
                     if e2 == e1.getBidi():
                         newCost += reversalPenalty
                     minPath = (e2,)
-                    if self.hasInternal:
+                    if self.hasInternal and conn is not None:
                         viaPath, minInternalCost = self.getInternalPath(conn, fastest=fastest)
                         if viaPath is not None:
                             newCost += minInternalCost
