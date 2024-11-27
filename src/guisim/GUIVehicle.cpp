@@ -964,7 +964,7 @@ GUIVehicle::getDriveWays() const {
             result.push_back(dw->getID());
         }
     }
-    return joinToStringSorting(result, " ");
+    return StringUtils::wrapText(joinToStringSorting(result, " "), 60);
 }
 
 double
