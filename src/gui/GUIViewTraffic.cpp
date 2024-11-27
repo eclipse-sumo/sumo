@@ -632,6 +632,19 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
                         check.push_back(prevEdge);
                     }
                 }
+                // and connect to arbitrary incoming if there are no walkingareas
+                if (!MSNet::getInstance()->hasPedestrianNetwork()) {
+                    for (const MSEdge* const in_const : e->getToJunction()->getIncoming()) {
+                        MSEdge* in = const_cast<MSEdge*>(in_const);
+                        if ((in->getPermissions() & svc) == svc &&
+                                (reachableEdges.count(in) == 0 ||
+                                 // revisit edge via faster path
+                                 reachableEdges[in] > traveltime)) {
+                            reachableEdges[in] = traveltime;
+                            check.push_back(in);
+                        }
+                    }
+                }
             }
         }
         gSelected.notifyChanged();
