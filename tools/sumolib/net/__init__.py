@@ -626,7 +626,10 @@ class Net:
                     removeTo = toEdge.getLength() if len(path) > 1 else 0.
                 cost -= removeTo / speedFunc(fromEdge)
                 if self.hasInternal:
-                    return path + appendix, cost + appendixCost
+                    if appendix:
+                        return path + appendix, cost + appendixCost
+                    elif ignoreDirection and self.hasWalkingArea and not withInternal:
+                        return [e for e in path if e.getFunction() == ''], cost
                 return path, cost
             if cost > maxCost:
                 return None, cost
