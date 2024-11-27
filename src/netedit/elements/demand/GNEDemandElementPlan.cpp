@@ -2237,7 +2237,7 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
 
 
 void
-GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const {
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& /* s */, const GUIVisualizationSettings::Detail d, const double endPosRadius) const {
     // check if myPlanElement is the last segment
     if (endPosRadius > 0) {
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
