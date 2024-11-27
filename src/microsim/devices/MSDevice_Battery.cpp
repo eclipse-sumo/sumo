@@ -584,6 +584,9 @@ MSDevice_Battery::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut != nullptr) {
         tripinfoOut->openTag("battery");
         tripinfoOut->writeAttr("depleted", toString(myDepletedCount));
+        tripinfoOut->writeAttr("actualBatteryCapacity", toString(myActualBatteryCapacity));
+        tripinfoOut->writeAttr("totalEnergyConsumed", toString(myTotalConsumption));
+        tripinfoOut->writeAttr("totalEnergyRegenerated", toString(myTotalRegenerated));
         tripinfoOut->closeTag();
     }
 }
