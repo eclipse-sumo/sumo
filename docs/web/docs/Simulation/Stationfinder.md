@@ -110,7 +110,10 @@ The stationfinder device can be configured using the parameters `rescueTime` and
 - `rescueTime="TIME" rescueAction="tow"`: the vehicle will come to a standstill and wait for `TIME` seconds (waiting time for a tow truck). Then it will be teleported to a free charging point, charge and continue its route. Thus the travel from the break down to the charging station is not included in [emissions output](../Simulation/Output/EmissionOutput.md).
 
 ## Interaction with other planned stops
-By default, the stationfinder device will add stops at charging stations without changing any other planned stops. This means the vehicle may need longer to complete its route due to additional charging stops. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
+By default, the stationfinder device will add stops at charging stations without changing any other planned stops. However it checks if there are planned stops at charging stations which have not been created by the device itself.
+In case a charging need is detected and the vehicle stops next at a charging station, the device will refrain from planning an additional stop if the battery capacity is assumed sufficient to reach said stop.
+
+Addind additional stops may influence the vehicle's travel time. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
 This can be modeled using the parameters `replacePlannedStop` and `maxDistanceToReplacedStop` and stops with defined departure times through the `until` attribute (see [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)):
 
 - `replacePlannedStop` > 0: Defines the share of stopping time to be transferred from the next planned stop to charging. If the value exceeds 1, the next planned stop is skipped. If the value is set to 0, no stopping time is transferred.
