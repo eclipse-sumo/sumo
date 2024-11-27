@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-27 14:02:27 by Eclipse SUMO netconvert Version v1_21_0+0981-da72f542b3e
+<!-- generated on 2024-11-27 14:36:47 by Eclipse SUMO netconvert Version v1_21_0+0984-82d1c556ca0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,10 +60,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E1" from="J2" to="J3" priority="-1">
         <lane id="E1_0" index="0" speed="13.89" length="21.65" shape="-53.97,3.81 -32.32,4.16"/>
     </edge>
-
-    <tlLogic id="J3" type="static" programID="0" offset="0">
-        <phase duration="90" state=""/>
-    </tlLogic>
 
     <junction id="J0" type="dead_end" x="-53.65" y="-16.82" incLanes="" intLanes="" shape="-53.65,-16.82 -53.66,-20.02"/>
     <junction id="J1" type="dead_end" x="11.06" y="-16.94" incLanes="E0_0" intLanes="" shape="11.05,-20.14 11.06,-16.94"/>
