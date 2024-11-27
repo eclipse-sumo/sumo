@@ -1,0 +1,41 @@
+ticket5159
+
+# consider edge permissions when computing link direction
+ticket5512
+
+# mutual conflict at junction cluster_2351978965_3491058798_606104206_606104215
+# between links 5 and 6 (right-turning car and left-turning bike)
+ticket5609
+
+# extreme lane widths
+ticket5817
+
+# scurve-stretch with changed default radius
+ticket5881
+
+# invalid network with option geometry.remove.min-length
+ticket6333
+
+# override right-turn-conflict
+ticket6497
+
+# rail turn-arounds should always have linkdir 't'
+ticket6924
+
+# split edge within joined tls
+ticket7016
+
+# wrong internal junction position
+ticket7761
+
+# traffic light corruption when using option --geometry.remove
+ticket8413
+
+# turnaround in input ignored
+ticket8796
+
+# connectivity on bike lane start
+ticket8899
+
+# duplicated roundabout
+ticket9810
