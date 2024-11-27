@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-22 10:17+0000\n"
+"PO-Revision-Date: 2024-11-27 15:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -675,63 +675,75 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:142 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
-msgstr ""
+msgstr "Scegli un metodo di scelta di itinerari: gawron, logit o lohse"
 
 #: src/duarouter/RODUAFrame.cpp:145
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
 msgstr ""
+"Usa il modello c-logit (diventato obsoleto con --route-choice-method logit)"
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Use FLOAT as logit's beta"
-msgstr ""
+msgstr "Usa FLOAT come beta di logit"
 
 #: src/duarouter/RODUAFrame.cpp:153
 msgid "Use FLOAT as logit's gamma"
-msgstr ""
+msgstr "Usa FLOAT come gamma di logit"
 
 #: src/duarouter/RODUAFrame.cpp:157
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
+"Usa FLOAT come theta di logit (valori negativi provocano una estimazione "
+"automatica)"
 
 #: src/duarouter/RODUAFrame.cpp:160 src/microsim/MSFrame.cpp:647
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
+"Usa FLOAT come fattore della velocità pedonale massima durante "
+"l'instradamento intermodale"
 
 #: src/duarouter/RODUAFrame.cpp:163 src/microsim/MSFrame.cpp:650
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
+"Usa FLOAT come fattore della velocità pedonale camminando contro la "
+"direzione del traffico veicolare"
 
 #: src/duarouter/RODUAFrame.cpp:170 src/microsim/MSFrame.cpp:657
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
 msgstr ""
+"Dove i taxi possono far scendere i passeggeri ('allJunctions', 'ptStops')"
 
 #: src/duarouter/RODUAFrame.cpp:173 src/microsim/MSFrame.cpp:660
 msgid "Where taxis can pick up customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Dove i taxi possono far salire passeggeri ('allJunctions, 'ptStops')"
 
 #: src/duarouter/RODUAFrame.cpp:176 src/microsim/MSFrame.cpp:666
 msgid "Estimated time for taxi pickup"
-msgstr ""
+msgstr "Durata estimata per la salita dei passeggeri sul taxi"
 
 #: src/duarouter/RODUAFrame.cpp:179 src/microsim/MSFrame.cpp:669
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr ""
+"Usa FLOAT come lunghezza massima dei treni nell'avvio dell'instradamento "
+"ferrioviario"
 
 #: src/duarouter/RODUAFrame.cpp:216
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
 msgstr ""
+"L'algoritmo di instradamento '%' non permette l'uso dell'attributo di peso "
+"'%'."
 
 #: src/duarouter/RODUAFrame.cpp:220
 #, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
-msgstr ""
+msgstr "L'algoritmo di instradamento '%' non permette instradamento massivo."
 
 #: src/duarouter/RODUAFrame.cpp:228 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
-msgstr ""
+msgstr "Metodo di scelta di itinerario invalido '%'."
 
 #: src/duarouter/RODUAFrame.cpp:232
 msgid ""
