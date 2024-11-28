@@ -88,3 +88,6 @@ ticket15797
 
 # collision without rail signals (involves rail crossing)
 ticket15797b
+
+# crash
+ticket15807
