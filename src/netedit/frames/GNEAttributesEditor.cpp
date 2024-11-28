@@ -116,7 +116,15 @@ GNEAttributesEditor::refreshAttributeTable() {
                 continue;
             }
             // check if force show flow attributes
-            if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
+            if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+                continue;
+            } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
+                continue;
+            }
+            // check if force show GEO attributes
+            if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
+                continue;
+            } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
                 continue;
             }
             myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
@@ -126,7 +134,12 @@ GNEAttributesEditor::refreshAttributeTable() {
         for (int i = itRows; i < MAX_ATTR; i++) {
             myAttributesEditorRows[i]->hideAttributeRow();
         }
-        show();
+        // only show if at least one row was shown
+        if (itRows == 0) {
+            hideAttributeTableModule();
+        } else {
+            show();
+        }
     } else {
         hideAttributeTableModule();
     }

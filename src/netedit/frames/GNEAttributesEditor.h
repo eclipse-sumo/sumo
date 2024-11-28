@@ -48,6 +48,7 @@ public:
     enum EditorOptions {
         EXTENDED_ATTRIBUTES = 1 << 0,
         FLOW_ATTRIBUTES     = 1 << 1,
+        GEO_ATTRIBUTES      = 1 << 2,
     };
 
     /// @brief constructor

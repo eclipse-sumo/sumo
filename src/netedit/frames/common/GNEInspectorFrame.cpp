@@ -56,18 +56,11 @@ FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp)
 };
 
-FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp)
-};
-
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GNEInspectorFrame::TemplateEditor::onCmdClearTemplate),
 };
-
-
 
 FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONAL_DIALOG, GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog),
@@ -76,7 +69,6 @@ FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, MFXGroupBoxModule,  NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     MFXGroupBoxModule,  GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          MFXGroupBoxModule,  TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,        MFXGroupBoxModule,  AdditionalDialogMap,        ARRAYNUMBER(AdditionalDialogMap))
 
@@ -337,7 +329,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
         myInspectorFrameParent->myFlowAttributesEditor->refreshAttributeTable();
-        myInspectorFrameParent->myGEOAttributesEditor->refreshGEOAttributesEditor(true);
+        myInspectorFrameParent->myGEOAttributesEditor->refreshAttributeTable();
     }
     return 1;
 }
@@ -391,172 +383,6 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp(FXObject*,
     getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Closing NeteditAttributesEditor help dialog");
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEInspectorFrame::GEOAttributesEditor - methods
-// ---------------------------------------------------------------------------
-
-GNEInspectorFrame::GEOAttributesEditor::GEOAttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
-    MFXGroupBoxModule(inspectorFrameParent, TL("GEO Attributes")),
-    myInspectorFrameParent(inspectorFrameParent) {
-
-    // Create Frame for GEOAttribute
-    myGEOAttributeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", nullptr, GUIDesignLabelThickedFixed(100));
-    myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-
-    // Create Frame for use GEO
-    myUseGEOFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myUseGEOLabel = new FXLabel(myUseGEOFrame, toString(SUMO_ATTR_GEO).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-
-    // Create help button
-    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
-}
-
-
-GNEInspectorFrame::GEOAttributesEditor::~GEOAttributesEditor() {}
-
-
-void
-GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
-    const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-    // make sure that ACs has elements
-    if (inspectedElements.isInspectingElements()) {
-        // enable all editable elements
-        myGEOAttributeTextField->enable();
-        myUseGEOCheckButton->enable();
-        // obtain tag property (only for improve code legibility)
-        const auto& tagProperty = inspectedElements.getFirstAC()->getTagProperty();
-        // check if item can use a geo position
-        if (tagProperty.hasGEOShape()) {
-            // show GEOAttributesEditor
-            show();
-            // Iterate over AC to obtain values
-            bool value = true;
-            for (const auto& AC : inspectedElements.getACs()) {
-                value &= GNEAttributeCarrier::parse<bool>(AC->getAttribute(SUMO_ATTR_GEO));
-            }
-            // show use geo frame
-            myUseGEOFrame->show();
-            // set UseGEOCheckButton value of and update label (only if geo conversion is defined)
-            if (GeoConvHelper::getFinal().getProjString() != "!") {
-                myUseGEOCheckButton->enable();
-                if (value) {
-                    myUseGEOCheckButton->setCheck(true);
-                    myUseGEOCheckButton->setText("true");
-                } else {
-                    myUseGEOCheckButton->setCheck(false);
-                    myUseGEOCheckButton->setText("false");
-                }
-            } else {
-                myUseGEOCheckButton->disable();
-            }
-            if (tagProperty.hasGEOShape() && inspectedElements.isInspectingSingleElement()) {
-                myGEOAttributeFrame->show();
-                myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
-                myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-                // only allow edit if geo conversion is defined
-                if (GeoConvHelper::getFinal().getProjString() != "!") {
-                    myGEOAttributeTextField->enable();
-                    myGEOAttributeTextField->setText(inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
-                } else {
-                    myGEOAttributeTextField->disable();
-                    myGEOAttributeTextField->setText(TL("No geo-conversion defined"));
-                }
-            }
-        }
-        // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), inspectedElements.getFirstAC()) == false) {
-            myGEOAttributeTextField->disable();
-            myUseGEOCheckButton->disable();
-        }
-    }
-}
-
-
-void
-GNEInspectorFrame::GEOAttributesEditor::hideGEOAttributesEditor() {
-    // hide all elements of GroupBox
-    myGEOAttributeFrame->hide();
-    myUseGEOFrame->hide();
-    // hide groupbox
-    hide();
-}
-
-
-void
-GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRefresh) {
-    const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-    // Check that myGEOAttributeFrame is shown
-    if (inspectedElements.getFirstAC() && (GeoConvHelper::getFinal().getProjString() != "!") && myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
-        if (inspectedElements.getFirstAC()->getTagProperty().hasGEOShape()) {
-            myGEOAttributeTextField->setText(inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
-        }
-        myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-    }
-}
-
-
-long
-GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSelector, void*) {
-    const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-    // make sure that ACs has elements
-    if (inspectedElements.getFirstAC() && (GeoConvHelper::getFinal().getProjString() != "!")) {
-        if (obj == myGEOAttributeTextField) {
-            // obtain tag property (only for improve code legibility)
-            const auto& tagProperty = inspectedElements.getFirstAC()->getTagProperty();
-            // Change GEO Attribute depending of type (Position or shape)
-            if (tagProperty.hasGEOShape()) {
-                if (inspectedElements.getFirstAC()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
-                    inspectedElements.getFirstAC()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
-                    myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-                    myGEOAttributeTextField->killFocus();
-                } else {
-                    myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
-                }
-            } else {
-                throw ProcessError("myGEOAttributeTextField must be hidden because there isn't GEO Attribute to edit");
-            }
-        } else if (obj == myUseGEOCheckButton) {
-            // update GEO Attribute of entire selection
-            for (const auto& AC : inspectedElements.getACs()) {
-                if (myUseGEOCheckButton->getCheck() == 1) {
-                    AC->setAttribute(SUMO_ATTR_GEO, "true", myInspectorFrameParent->myViewNet->getUndoList());
-                    myUseGEOCheckButton->setText("true");
-                } else {
-                    AC->setAttribute(SUMO_ATTR_GEO, "false", myInspectorFrameParent->myViewNet->getUndoList());
-                    myUseGEOCheckButton->setText("false");
-                }
-            }
-        }
-        // force refresh values of Attributes editor and NeteditAttributesEditor
-        myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
-        myInspectorFrameParent->myFlowAttributesEditor->refreshAttributeTable();
-        myInspectorFrameParent->myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
-    }
-    return 1;
-}
-
-
-long
-GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
-    std::ostringstream help;
-    help
-            << TL(" SUMO uses the World Geodetic System 84 (WGS84/UTM).\n")
-            << TL(" For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n")
-            << TL(" in decimal degrees without extra symbols. (N,W..)\n")
-            << TL(" - Longitude: East-west position of a point on the Earth's surface.\n")
-            << TL(" - Latitude: North-south position of a point on the Earth's surface.\n")
-            << TL(" - CheckBox 'geo' enables or disables saving position in GEO coordinates\n");
-    new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-    // "OK"
-    GUIDesigns::buildFXButton(helpDialog, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    helpDialog->create();
-    helpDialog->show();
     return 1;
 }
 
@@ -849,7 +675,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myFlowAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::FLOW_ATTRIBUTES);
 
     // Create GEO Parameters Editor module
-    myGEOAttributesEditor = new GEOAttributesEditor(this);
+    myGEOAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::GEO_ATTRIBUTES);
 
     // create parameters Editor module
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
@@ -1036,7 +862,7 @@ GNEInspectorFrame::refreshInspection() {
     myAttributesEditor->hideAttributeTableModule();
     myFlowAttributesEditor->hideAttributeTableModule();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
-    myGEOAttributesEditor->hideGEOAttributesEditor();
+    myGEOAttributesEditor->hideAttributeTableModule();
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
@@ -1092,8 +918,8 @@ GNEInspectorFrame::refreshInspection() {
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();
 
-        // Show GEO Attributes Editor if we're inspecting elements with GEO Attributes
-        myGEOAttributesEditor->showGEOAttributesEditor();
+        // Show GEO attributes editor
+        myGEOAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
 
         // show parameters editor
         myParametersEditor->showParametersEditor();
@@ -1204,6 +1030,7 @@ void
 GNEInspectorFrame::updateFrameAfterUndoRedo() {
     myAttributesEditor->refreshAttributeTable();
     myFlowAttributesEditor->refreshAttributeTable();
+    myGEOAttributesEditor->refreshAttributeTable();
     myParametersEditor->refreshParametersEditor();
     myHierarchicalElementTree->refreshHierarchicalElementTree();
 }
@@ -1236,7 +1063,7 @@ GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
     myAttributesEditor->refreshAttributeTable();
     myFlowAttributesEditor->refreshAttributeTable();
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
-    myGEOAttributesEditor->refreshGEOAttributesEditor(true);
+    myGEOAttributesEditor->refreshAttributeTable();
 }
 
 

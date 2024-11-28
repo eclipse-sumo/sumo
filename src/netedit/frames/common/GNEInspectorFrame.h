@@ -124,70 +124,6 @@ public:
     };
 
     // ===========================================================================
-    // class GEOAttributesEditor
-    // ===========================================================================
-
-    class GEOAttributesEditor : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
-
-    public:
-        /// @brief constructor
-        GEOAttributesEditor(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~GEOAttributesEditor();
-
-        /// @brief show GEO attributes editor
-        void showGEOAttributesEditor();
-
-        /// @brief hide GEO attributes editor
-        void hideGEOAttributesEditor();
-
-        /// @brief refresh GEO attributes editor
-        void refreshGEOAttributesEditor(bool forceRefresh);
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when user change the current GEO Attribute
-        long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdGEOAttributeHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(GEOAttributesEditor)
-
-    private:
-        /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief horizontal frame for GEOAttribute
-        FXHorizontalFrame* myGEOAttributeFrame;
-
-        /// @brief Label for GEOAttribute
-        FXLabel* myGEOAttributeLabel;
-
-        /// @brief textField for GEOAttribute
-        FXTextField* myGEOAttributeTextField;
-
-        /// @brief horizontal frame for use GEO
-        FXHorizontalFrame* myUseGEOFrame;
-
-        /// @brief Label for use GEO
-        FXLabel* myUseGEOLabel;
-
-        /// @brief checkBox for use GEO
-        FXCheckButton* myUseGEOCheckButton;
-
-        /// @brief button for help
-        FXButton* myHelpButton;
-    };
-
-    // ===========================================================================
     // class TemplateEditor
     // ===========================================================================
 
@@ -407,7 +343,7 @@ private:
     NeteditAttributesEditor* myNeteditAttributesEditor;
 
     /// @brief GEO Attributes editor
-    GEOAttributesEditor* myGEOAttributesEditor;
+    GNEAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
