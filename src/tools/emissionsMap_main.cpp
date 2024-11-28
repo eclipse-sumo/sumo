@@ -86,7 +86,7 @@ void single(const OptionsCont& oc, const std::string& of, const std::string& cla
         }
         energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(vTypeIt->second));
     } else {
-        energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(c));
+        energyParams = std::unique_ptr<EnergyParams>(new EnergyParams());
     }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
@@ -197,7 +197,7 @@ main(int argc, char** argv) {
             }
             const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-class"));
             single(oc, oc.getString("output-file"), oc.getString("emission-class"),
-                    c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
+                   c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
         } else {
             if (!oc.isSet("output-file")) {
                 oc.set("output-file", "./");
@@ -206,8 +206,8 @@ main(int argc, char** argv) {
             for (std::vector<SUMOEmissionClass>::const_iterator ci = classes.begin(); ci != classes.end(); ++ci) {
                 SUMOEmissionClass c = *ci;
                 single(oc, oc.getString("output-file") + PollutantsInterface::getName(c) + ".csv",
-                        PollutantsInterface::getName(c),
-                        c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
+                       PollutantsInterface::getName(c),
+                       c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
             }
         }
     } catch (InvalidArgument& e) {

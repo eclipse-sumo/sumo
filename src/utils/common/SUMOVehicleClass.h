@@ -470,6 +470,10 @@ extern const std::string DEFAULT_RAILTYPE_ID;
 extern const std::set<std::string> DEFAULT_VTYPES;
 
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
+extern const double DEFAULT_VEH_MASS;
+extern const double DEFAULT_VEH_WIDTH;
+extern const double DEFAULT_VEH_HEIGHT;
+extern const double DEFAULT_VEH_SHUT_OFF_STOP;
 
 extern const double DEFAULT_PEDESTRIAN_SPEED;
 extern const double DEFAULT_BICYCLE_SPEED;

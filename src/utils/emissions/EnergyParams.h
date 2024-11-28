@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/ToString.h>
 #include <utils/emissions/CharacteristicMap.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -44,9 +45,6 @@ class EnergyParams {
 public:
     /// @brief Constructor
     EnergyParams(const SUMOVTypeParameter* typeParams = nullptr);
-
-    /// @brief Constructor
-    EnergyParams(const SUMOEmissionClass c);
 
     /// @brief Constructor
     EnergyParams(const EnergyParams* secondaryParams) : mySecondaryParams(secondaryParams) {}
@@ -84,7 +82,10 @@ public:
      */
     const CharacteristicMap& getCharacteristicMap(SumoXMLAttr attr) const;
 
-    void checkParam(const SumoXMLAttr paramKey, const std::string& id, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
+    /// @brief Returns a complete inner description
+    const std::string dump() const {
+        return joinToString(myMap, ", ", ":") + (mySecondaryParams ? mySecondaryParams->dump() : "");
+    }
 
     /** @brief Returns the state of the engine when the vehicle is not moving
      * @return whether the engine is running
@@ -110,4 +111,5 @@ private:
     const EnergyParams* mySecondaryParams = nullptr;
 
     static const EnergyParams* myDefault;
+    static const std::vector<SumoXMLAttr> myParamAttrs;
 };

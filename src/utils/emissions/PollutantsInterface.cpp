@@ -202,8 +202,8 @@ PollutantsInterface::Helper::getCoastingDecel(const SUMOEmissionClass c, const d
         param = EnergyParams::getDefault();
     }
     // the magic numbers below come from a linear interpolation with http://ts-sim-service-ba/svn/simo/trunk/projects/sumo/data/emissions/linear.py
-    const double mass = param->getDouble(SUMO_ATTR_MASS);
-    const double area = param->getDouble(SUMO_ATTR_WIDTH) * param->getDouble(SUMO_ATTR_HEIGHT) * M_PI / 4.;
+    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, DEFAULT_VEH_MASS);
+    const double area = param->getDoubleOptional(SUMO_ATTR_WIDTH, DEFAULT_VEH_WIDTH) * param->getDoubleOptional(SUMO_ATTR_HEIGHT, DEFAULT_VEH_HEIGHT) * M_PI / 4.;
     const double incl = area / mass * -9.05337017 + -0.00017774;
     const double grad = PHEMlightdllV5::Constants::GRAVITY_CONST * slope / 100.;
     return MIN2(0., incl * v + 0.00001066 * mass + -0.38347107 - 20.0 * incl - grad);

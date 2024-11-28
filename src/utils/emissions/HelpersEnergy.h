@@ -78,4 +78,18 @@ public:
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const EnergyParams* param) const;
+
+private:
+    // default values from https://sumo.dlr.de/docs/Models/Electric.html#kia_soul_ev_2020
+    static constexpr double myDefaultMass = 1830.;
+    static constexpr double myDefaultFrontSurfaceArea = 2.6;
+    static constexpr double myDefaultAirDragCoefficient = 0.35;
+    static constexpr double myDefaultRotatingMass = 40.;
+    static constexpr double myDefaultRadialDragCoefficient = 0.1;
+    static constexpr double myDefaultRollDragCoefficient = 0.01;
+    static constexpr double myDefaultConstantPowerIntake = 100.;
+    static constexpr double myDefaultPropulsionEfficiency = 0.98;
+    static constexpr double myDefaultRecuperationEfficiency = 0.96;
+    static constexpr double myDefaultRecuperationEfficiencyByDeceleration = 0.0;
+
 };

@@ -233,7 +233,7 @@ main(int argc, char** argv) {
             }
             energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(vTypeIt->second));
         } else {
-            energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(emissionClass));
+            energyParams = std::unique_ptr<EnergyParams>(new EnergyParams());
         }
 
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");

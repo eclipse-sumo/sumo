@@ -201,48 +201,39 @@ double HelpersMMPEVEM::compute(const SUMOEmissionClass /* c */,
         return 0.0;
     }
 
-    // Extract all required parameters
-    // Vehicle mass
-    const double m = ptr_energyParams->getDouble(SUMO_ATTR_MASS) + ptr_energyParams->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
-    // Wheel radius
-    const double r_wheel = ptr_energyParams->getDouble(SUMO_ATTR_WHEELRADIUS);
-    // Internal moment of inertia
-    const double Theta
-        = ptr_energyParams->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA);
+    // Extract all required parameters, default values taken from the VW_ID3
+    // Vehicle mass [kg]
+    const double m = ptr_energyParams->getDoubleOptional(SUMO_ATTR_MASS, 1794.) + ptr_energyParams->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
+    // Wheel radius [m]
+    const double r_wheel = ptr_energyParams->getDoubleOptional(SUMO_ATTR_WHEELRADIUS, 0.3588);
+    // Internal moment of inertia [kgm^2]
+    const double Theta = ptr_energyParams->getDoubleOptional(SUMO_ATTR_INTERNALMOMENTOFINERTIA, 12.5);
     // Rolling resistance coefficient
-    const double c_rr
-        = ptr_energyParams->getDouble(SUMO_ATTR_ROLLDRAGCOEFFICIENT);
+    const double c_rr = ptr_energyParams->getDoubleOptional(SUMO_ATTR_ROLLDRAGCOEFFICIENT, 0.007);
     // Air drag coefficient
-    const double c_d = ptr_energyParams->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT);
-    // Cross-sectional area of the front of the car
-    const double A_front
-        = ptr_energyParams->getDouble(SUMO_ATTR_FRONTSURFACEAREA);
-    // Gear ratio
-    const double i_gear = ptr_energyParams->getDouble(SUMO_ATTR_GEARRATIO);
-    // Gearbox efficiency
-    const double eta_gear = ptr_energyParams->getDouble(SUMO_ATTR_GEAREFFICIENCY);
-    // Maximum torque
-    const double M_max = ptr_energyParams->getDouble(SUMO_ATTR_MAXIMUMTORQUE);
-    // Maximum power
-    const double P_max = ptr_energyParams->getDouble(SUMO_ATTR_MAXIMUMPOWER);
-    // Maximum recuperation torque
-    const double M_recup_max
-        = ptr_energyParams->getDouble(SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE);
-    // Maximum recuperation power
-    const double P_recup_max
-        = ptr_energyParams->getDouble(SUMO_ATTR_MAXIMUMRECUPERATIONPOWER);
-    // Internal battery resistance
-    const double R_battery
-        = ptr_energyParams->getDouble(SUMO_ATTR_INTERNALBATTERYRESISTANCE);
-    // Nominal battery voltage
-    const double U_battery_0
-        = ptr_energyParams->getDouble(SUMO_ATTR_NOMINALBATTERYVOLTAGE);
-    // Constant power consumption
-    const double P_const
-        = ptr_energyParams->getDouble(SUMO_ATTR_CONSTANTPOWERINTAKE);
+    const double c_d = ptr_energyParams->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, 0.26);
+    // Cross-sectional area of the front of the car [m^2]
+    const double A_front = ptr_energyParams->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, 2.36);
+    // Gear ratio [1]
+    const double i_gear = ptr_energyParams->getDoubleOptional(SUMO_ATTR_GEARRATIO, 10.);
+    // Gearbox efficiency [1]
+    const double eta_gear = ptr_energyParams->getDoubleOptional(SUMO_ATTR_GEAREFFICIENCY, 0.96);
+    // Maximum torque [Nm]
+    const double M_max = ptr_energyParams->getDoubleOptional(SUMO_ATTR_MAXIMUMTORQUE, 310.);
+    // Maximum power [W]
+    const double P_max = ptr_energyParams->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, 107000.);
+    // Maximum recuperation torque [Nm]
+    const double M_recup_max = ptr_energyParams->getDoubleOptional(SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE, 95.5);
+    // Maximum recuperation power [W]
+    const double P_recup_max = ptr_energyParams->getDoubleOptional(SUMO_ATTR_MAXIMUMRECUPERATIONPOWER, 42800.);
+    // Internal battery resistance [Ohm]
+    const double R_battery = ptr_energyParams->getDoubleOptional(SUMO_ATTR_INTERNALBATTERYRESISTANCE, 0.1142);
+    // Nominal battery voltage [V]
+    const double U_battery_0 = ptr_energyParams->getDoubleOptional(SUMO_ATTR_NOMINALBATTERYVOLTAGE, 396.);
+    // Constant power consumption [W]
+    const double P_const = ptr_energyParams->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, 360.);
     // Power loss map
-    const CharacteristicMap& ref_powerLossMap
-        = ptr_energyParams->getCharacteristicMap(SUMO_ATTR_POWERLOSSMAP);
+    const CharacteristicMap& ref_powerLossMap = ptr_energyParams->getCharacteristicMap(SUMO_ATTR_POWERLOSSMAP);
 
     double P = 0.0;  // [W]
     bool b_stateValid = calcPowerConsumption(m, r_wheel, Theta, c_rr, c_d,
