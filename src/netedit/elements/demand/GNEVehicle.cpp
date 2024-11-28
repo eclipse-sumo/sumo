@@ -866,7 +866,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double exaggeration = getExaggeration(s);
         const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
-        const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
         // obtain Position an rotation (depending of draw spread vehicles)
         if ((!drawSpreadVehicles || (mySpreadGeometry.getShape().size() > 0)) && (myDemandElementGeometry.getShape().size() > 0)) {
             const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
