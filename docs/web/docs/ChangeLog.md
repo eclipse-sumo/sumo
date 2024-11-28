@@ -8,6 +8,7 @@ title: ChangeLog
 
 - sumo
   - Fixed platform specific taxi behavior related to pre-booking #15698 (regression in 1.20.0)
+  - Fixed crash on train insertion at rail crossing with pedestrians #15807 (regression in 1.21.0)
   - Fixed rerouting error on the last route edge with a stop #15552
   - Fixed routing error on departure #15563
   - Fixed invalid warnings regarding inconsistent loaded stop times #15602
@@ -22,7 +23,10 @@ title: ChangeLog
   - Fixed invalid approach speed at allway_stop when setting lane-stopOffset #15449
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
   - Fixed emergency braking at `allway_stop` in subsecond simulation #15728
-  - Configuring number of doors now takes effect for JuPedSim #15562 
+  - Configuring number of doors now takes effect for JuPedSim #15562
+  - Fixed collision between vehicles and pedestrians involving lanes of different widths #15770
+  - Fixed train collision in network without rail signals #15797
+  - Pedestrians no longer walk onto rail_crossing at yellow #15808 
   
 
 - netedit
@@ -56,20 +60,24 @@ title: ChangeLog
   - Fixed "freeze" when deleting a large number of elements while also inspecting a large number of elements #15725
   - Fixed "freeze" when selecting very many elements #15747
   - Fixed crash when loading taz with the same id as a junction-taz #15759
-  - Fixed invalid use of taz information when coordinates are defined for a trip #15765 
+  - Fixed invalid use of taz information when coordinates are defined for a trip #15765
+  - Fixed crash when using "split junction and reconnect" #15786 
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
   - Fixed missing elements in settings dialog when switching to another viewing scheme while the dialog is open #15637
   - Hotkey ALT no longer has the effect of rendering all POIs and polygons at layer 0. Instead, the layer can be customized in the settings dialog #15558
-  - Fixed invalid breakpoints when clicking time stamps on messages in meso #15780 
+  - Fixed invalid breakpoints when clicking time stamps on messages in meso #15780
+  - Fixed invalid travel time when computing pedestrian reachability in a non-pedestrian network #15792
+  - Fixed invalid travel times when computing pedestrian and bicycle reachability #15793 
 
 - netconvert 
   - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624
   - Fixed bug where right-of-way rules could create deadlock at a traffic light #15150
   - Fixed bug when removing narrow lanes during import #15718
   - No longer generating invalid signal plan when giving invalid argument **--tls.green.time** #15719
-  - Fixed invalid linkState for left turns from the major road at junction type `allway_stop` #15737 
+  - Fixed invalid linkState for left turns from the major road at junction type `allway_stop` #15737
+  - Fixed invalid tlLogic after processing net with **--keep-edges** #15798 
 
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
@@ -80,6 +88,9 @@ title: ChangeLog
   - Fixed crash when using **--time-to-teleport.disconnected** #15751
   - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777 
 
+- activitygen
+  - fixed crash when attribute is not set #15782 
+
 - TraCI
   - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
   - Fixed invalid result by `trafficlight.getServedPersonCount` #15715
@@ -89,7 +100,10 @@ title: ChangeLog
  
 - Tools
   - matsim_importPlans.py: no longer writes unsorted trips with option **-vehicles-only** #15743
-  - generateBidiDistricts.py: Option **--radius** now takes effect regardless of edge length #15758 
+  - generateBidiDistricts.py: Option **--radius** now takes effect regardless of edge length #15758
+  - countEdgeUsage.py: Fixed misleading warning message #15790
+  - sumolib: Fixed invalid result by `net.getShortestPath(..., ignoreDirection=True)` #15789
+  - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799 
     
 ### Enhancements
 
@@ -142,7 +156,10 @@ title: ChangeLog
  
 - Tools
   - matsim_importPlans.py: Added options **-no-bikes** and **--no-rides** for filtering different modes of traffic. #15738
-  - sort_routes.py: Added option **--verbose** #15744 
+  - sort_routes.py: Added option **--verbose** #15744
+  - osmWebWizard.py: optionally can write output to existing folders #15783
+  - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
+  - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812 
 
 ### Miscellaneous
 
