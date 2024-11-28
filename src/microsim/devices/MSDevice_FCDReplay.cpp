@@ -124,7 +124,15 @@ MSDevice_FCDReplay::~MSDevice_FCDReplay() {
 
 void
 MSDevice_FCDReplay::move(SUMOTime currentTime) {
-    if (myTrajectory == nullptr || myTrajectoryIndex == (int)myTrajectory->size()) {
+    if (myTrajectory == nullptr) {
+        auto it = myHandler->getTrajectories().find(myHolder.getID());
+        if (it == myHandler->getTrajectories().end()) {
+            return;
+        } else {
+            const Trajectory& t = it->second;
+            setTrajectory(&t);
+        }
+    } else if (myTrajectoryIndex == (int)myTrajectory->size()) {
         // removal happens via the usual MSVehicle::hasArrived mechanism
         // TODO we may need to set an arrivalPos
         return;
@@ -138,9 +146,10 @@ MSDevice_FCDReplay::move(SUMOTime currentTime) {
         const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(te.edgeOrLane);
         const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(te.edgeOrLane);
         libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, te.pos.x(), te.pos.y(), te.angle, 7);
-    } else {
+    } else if (te.pos.x() != libsumo::INVALID_DOUBLE_VALUE) {
         libsumo::Vehicle::moveToXY(myHolder.getID(), "", -1, te.pos.x(), te.pos.y(), te.angle, 0);
     }
+    v->getInfluencer().setSpeedMode(0);
     libsumo::Vehicle::setSpeed(myHolder.getID(), te.speed);
     // libsumo::Vehicle::changeLane(myHolder.getID(), laneIdx, TS);
     myTrajectoryIndex++;
@@ -342,6 +351,14 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
             if (vehicleType == nullptr) {
                 throw ProcessError("Unknown vType '" + vType + "'.");
             }
+            if (routeEdges.front() == nullptr) {
+                if (isPerson) {
+                    WRITE_WARNINGF(TL("No edge in fcd replay file for person '%' at time %."), id, time2string(t.front().time));
+                } else {
+                    WRITE_WARNINGF(TL("No lane in fcd replay file for vehicle '%' at time %."), id, time2string(t.front().time));
+                }
+                continue;
+            }
             if (isPerson) {
                 MSTransportable::MSTransportablePlan* plan = makePlan(*params, routeEdges, std::get<4>(desc.second), t);
                 // plan completed, now build the person
@@ -379,7 +396,6 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                     continue;
                 }
                 device->setTrajectory(&t);
-                static_cast<MSVehicle*>(vehicle)->getInfluencer().setSpeedMode(0);
 
                 // repair the route, cannot do this on parsing because a vehicle is needed
                 ConstMSEdgeVector checkedRoute = checkRoute(routeEdges, vehicle);

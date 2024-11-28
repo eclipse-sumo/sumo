@@ -88,7 +88,7 @@ public:
 
     typedef std::vector<TrajectoryEntry> Trajectory;
 
-    void setTrajectory(Trajectory* const t) {
+    void setTrajectory(const Trajectory* const t) {
         myTrajectory = t;
         myTrajectoryIndex = 1;
     }
@@ -116,6 +116,10 @@ private:
             return myTime;
         }
         void updateTrafficObjects(const SUMOTime intervalStart);
+
+        const std::map<std::string, Trajectory>& getTrajectories() {
+            return myTrajectories;
+        }
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -155,7 +159,7 @@ private:
 private:
     static FCDHandler* myHandler;
     static SUMOSAXReader* myParser;
-    Trajectory* myTrajectory = nullptr;
+    const Trajectory* myTrajectory = nullptr;
     int myTrajectoryIndex = 0;
 
 private:
