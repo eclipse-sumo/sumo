@@ -13,6 +13,7 @@
 
 # @file    countEdgeUsage.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2015-08-05
 
 from __future__ import print_function
@@ -253,6 +254,10 @@ def parseTimed(outf, options):
     # parse the elements
     for routefile in options.routefiles:
         for elem in parse(routefile, options.elements2):
+            if elem.hasAttribute("fromJunction"):
+                print("Warning: Cannot handle fromJunction/toJunction attributes in file '%s', thus skipping the %s element." % (routefile, elem.name),
+                      file=sys.stderr)
+                continue
             depart = elem.depart if elem.depart is not None else elem.begin
             if depart != "triggered":
                 depart = parseTime(depart)
