@@ -1035,10 +1035,10 @@ enum {
     MID_GNE_PROTECT_ALL,
     /// @brief unprotect all elements
     MID_GNE_UNPROTECT_ALL,
-    /// @brief move up
-    MID_GNE_MOVEUP,
-    /// @brief move down
-    MID_GNE_MOVEDOWN,
+    /// @brief move lane up
+    MID_GNE_MOVELANE_UP,
+    /// @brief move lane down
+    MID_GNE_MOVELANE_DOWN,
 
     /// @}
 

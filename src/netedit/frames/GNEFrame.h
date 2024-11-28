@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include "GNEFrameAttributeModules.h"
+#include <netedit/frames/GNEAttributeTable.h>
 
 // ===========================================================================
 // class definitions

@@ -459,7 +459,7 @@ GNEAttributesCreatorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     // get allow string
     std::string allow = myValueTextField->getText().text();
     // opena allowDisallow dialog
-    GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
+    GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), myAttrProperties.getAttr(), &allow, &acceptChanges).execute();
     // continue depending of acceptChanges
     if (acceptChanges) {
         // update text field

@@ -309,7 +309,7 @@ GNEMeanDataFrame::MeanDataSelector::showMeanDataSelector() {
 void
 GNEMeanDataFrame::MeanDataSelector::hideMeanDataSelector() {
     // hide attributes editor
-    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
     // hide
     hide();
 }
@@ -330,7 +330,6 @@ GNEMeanDataFrame::MeanDataSelector::setCurrentMeanData(GNEMeanData* vMeanData) {
 
 void
 GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID) {
-    auto& inspectedElements = myMeanDataFrameParent->getViewNet()->getInspectedElements();
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // get mean datas sorted by ID
@@ -374,13 +373,9 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     // check if show attribute editor
     if (!afterChangingID) {
         if (myCurrentMeanData) {
-            // set myCurrentMeanData as inspected element (needed for attribute editor)
-            inspectedElements.inspectAC(myCurrentMeanData);
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData, true);
         } else {
-            // set myCurrentMeanData as inspected element (needed for attribute editor)
-            inspectedElements.inspectAC({});
-            myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+            myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
         }
     }
 }
@@ -407,10 +402,8 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             myMeanDataComboBox->setTextColor(FXRGB(0, 0, 0));
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
-            // set myCurrentMeanData as inspected element
-            myMeanDataFrameParent->getViewNet()->getInspectedElements().inspectAC(myCurrentMeanData);
             // show modules if selected item is valid
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet
@@ -422,7 +415,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // hide all modules if selected item isn't valid
-    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
     // set color of myMeanDataMatchBox to red (invalid)
     myMeanDataComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -445,7 +438,7 @@ GNEMeanDataFrame::GNEMeanDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     // build meanData selector
     myMeanDataSelector = new MeanDataSelector(this);
     // build meanData attributes editor
-    myMeanDataAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
+    myMeanDataAttributesEditor = new GNEAttributeTable(this);
 }
 
 

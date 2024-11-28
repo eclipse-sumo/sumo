@@ -180,8 +180,11 @@ public:
     /// @brief get background color
     unsigned int getBackGroundColor() const;
 
-    /// @brief get attribute (throw error if doesn't exist)
+    /// @brief get attribute propety associated with the given Sumo XML Attribute (throw error if doesn't exist)
     const GNEAttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
+
+    /// @brief get attribute propety by index (throw error if doesn't exist)
+    const GNEAttributeProperties& getAttributeProperties(const int index) const;
 
     /// @brief get begin of attribute values (used for iterate)
     std::vector<GNEAttributeProperties>::const_iterator begin() const;

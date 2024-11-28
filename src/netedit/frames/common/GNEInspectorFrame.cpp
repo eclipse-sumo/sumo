@@ -335,7 +335,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             myInspectorFrameParent->myViewNet->getUndoList()->end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
-        myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
         myInspectorFrameParent->myGEOAttributesEditor->refreshGEOAttributesEditor(true);
     }
     return 1;
@@ -532,7 +532,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
             }
         }
         // force refresh values of Attributes editor and NeteditAttributesEditor
-        myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
         myInspectorFrameParent->myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     }
     return 1;
@@ -693,7 +693,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
         // end copy template
         myInspectorFrameParent->myViewNet->getUndoList()->end();
         // refresh inspector parent
-        myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
     }
     return 1;
 }
@@ -841,7 +841,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myOverlappedInspection = new GNEOverlappedInspection(this);
 
     // Create Attributes Editor module
-    myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
+    myAttributesEditor = new GNEAttributeTable(this);
 
     // Create GEO Parameters Editor module
     myGEOAttributesEditor = new GEOAttributesEditor(this);
@@ -1028,7 +1028,7 @@ GNEInspectorFrame::refreshInspection() {
     myHeaderLeftFrame->hide();
     myBackButton->hide();
     // Hide all elements
-    myAttributesEditor->hideAttributesEditorModule();
+    myAttributesEditor->hideAttributeTableModule();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myParametersEditor->hideParametersEditor();
@@ -1078,7 +1078,7 @@ GNEInspectorFrame::refreshInspection() {
         getFrameHeaderLabel()->setText(headerString.c_str());
 
         // Show attributes editor
-        myAttributesEditor->showAttributeEditorModule(true);
+        myAttributesEditor->showAttributeTableModule(inspectedElements.getACs(), true);
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();
@@ -1145,7 +1145,7 @@ GNEInspectorFrame::clearInspectedAC() {
 }
 
 
-GNEFrameAttributeModules::AttributesEditor*
+GNEAttributeTable*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
 }
@@ -1194,7 +1194,7 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
 void
 GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh Attribute Editor
-    myAttributesEditor->refreshAttributeEditor(false, false);
+    myAttributesEditor->refreshAttributeTable();
     // refresh parametersEditor
     myParametersEditor->refreshParametersEditor();
     // refresh AC Hierarchy
@@ -1226,7 +1226,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSele
 
 void
 GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-    myAttributesEditor->refreshAttributeEditor(false, false);
+    myAttributesEditor->refreshAttributeTable();
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     myGEOAttributesEditor->refreshGEOAttributesEditor(true);
 }

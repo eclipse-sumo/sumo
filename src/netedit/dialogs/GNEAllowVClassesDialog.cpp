@@ -50,22 +50,9 @@ FXIMPLEMENT(GNEAllowVClassesDialog, FXDialogBox, GNEAllowVClassesDialogMap, ARRA
 // member method definitions
 // ===========================================================================
 
-GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges) :
-    FXDialogBox(viewNet->getApp(), ("Edit " + toString(attr) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
+GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet, SumoXMLAttr attr, std::string* allow, bool* acceptChanges) :
+    FXDialogBox(viewNet->getApp(), TLF("Edit vClasses of attribute '%'", toString(attr)).c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
-    myAC(AC),
-    myEditedAttr(attr),
-    myAcceptChanges(acceptChanges),
-    myAllow(nullptr) {
-    // call constructor
-    constructor();
-}
-
-
-GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges) :
-    FXDialogBox(viewNet->getApp(), TL("Edit allow vClasses"), GUIDesignDialogBox),
-    myViewNet(viewNet),
-    myAC(nullptr),
     myEditedAttr(SUMO_ATTR_ALLOW),
     myAcceptChanges(acceptChanges),
     myAllow(allow) {
@@ -147,24 +134,21 @@ GNEAllowVClassesDialog::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
 long
 GNEAllowVClassesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // clear allow and disallow VClasses
-    std::vector<std::string> allowedVehicles, disallowedVehicles;
+    std::vector<std::string> allowedVehicles;
     for (const auto& vClass : myVClassMap) {
         // check if vehicle is allowed depending on the Icon
         if (vClass.second.first->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
             allowedVehicles.push_back(getVehicleClassNames(vClass.first));
-        } else {
-            disallowedVehicles.push_back(getVehicleClassNames(vClass.first));
         }
     }
-    // check if all vehicles are enabled and set new allowed vehicles
-    if (myAC) {
-        myAC->setAttribute(myEditedAttr, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
-    } else {
-        // update strings
+    const auto newAllow = joinToString(allowedVehicles, " ");
+    // only mark as accepted changes if the new vehicles are differents
+    if (newAllow != *myAllow) {
+        // check if all vehicles are enabled and set new allowed vehicles
         *myAllow = joinToString(allowedVehicles, " ");
+        // enable accept flag
+        *myAcceptChanges = true;
     }
-    // enable accept flag
-    *myAcceptChanges = true;
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -183,22 +167,15 @@ GNEAllowVClassesDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEAllowVClassesDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    std::string allow;
-    // set allow depending of myAC
-    if (myAC) {
-        allow = myAC->getAttribute(myEditedAttr);
-    } else {
-        allow = *myAllow;
-    }
     // continue depending of allow
-    if (allow == "all") {
+    if (*myAllow == "all") {
         // iterate over myVClassMap and set all icons as true
         for (const auto& vClass : myVClassMap) {
             vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
         }
     } else {
         // declare string vector for saving all vclasses
-        const std::vector<std::string>& allowStringVector = StringTokenizer(allow).getVector();
+        const std::vector<std::string>& allowStringVector = StringTokenizer(*myAllow).getVector();
         const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
         // iterate over myVClassMap and set icons
         for (const auto& vClass : myVClassMap) {

@@ -42,11 +42,8 @@ class GNEAllowVClassesDialog : public FXDialogBox {
     FXDECLARE(GNEAllowVClassesDialog)
 
 public:
-    /// @brief Constructor (for AC)
-    GNEAllowVClassesDialog(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
-
-    /// @brief Constructor (For
-    GNEAllowVClassesDialog(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges);
+    /// @brief Constructor
+    GNEAllowVClassesDialog(GNEViewNet* viewNet, SumoXMLAttr attr, std::string* allow, bool* acceptChanges);
 
     /// @brief destructor
     ~GNEAllowVClassesDialog();
@@ -76,6 +73,7 @@ public:
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -85,16 +83,13 @@ protected:
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
 
-    /// @brief edited AC
-    GNEAttributeCarrier* myAC;
-
     /// @brief the attribute being edited
     SumoXMLAttr myEditedAttr;
 
-    /// @brief accept changes
+    /// @brief reference for mark that the new set of VClasses was accepted
     bool* myAcceptChanges;
 
-    /// @brief allow vehicles
+    /// @brief reference to allow vehicles. Will be modified with the new allowed vehicles
     std::string* myAllow;
 
     /// @brief accept button
