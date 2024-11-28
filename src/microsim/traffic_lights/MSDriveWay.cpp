@@ -1144,7 +1144,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<cons
 #ifdef DEBUG_CHECK_FLANKS
     std::cout << "  findFlankProtection link=" << link->getDescription() << " origLink=" << origLink->getDescription() << "\n";
 #endif
-    if (link->getCorrespondingEntryLink()->getTLLogic() != nullptr) {
+    if (link->getCorrespondingEntryLink()->getTLLogic() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         MSLink* entry = const_cast<MSLink*>(link->getCorrespondingEntryLink());
         // guarded by signal
 #ifdef DEBUG_CHECK_FLANKS
