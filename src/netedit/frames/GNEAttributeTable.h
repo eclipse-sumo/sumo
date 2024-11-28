@@ -1,0 +1,108 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNEAttributeTable.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Nov 2024
+///
+// Table used for pack GNEAttributeRows
+/****************************************************************************/
+#pragma once
+#include <config.h>
+
+#include <vector>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEFrame;
+class GNEAttributeCarrier;
+class GNEAttributeRow;
+
+// ===========================================================================
+// class GNEAttributeTable
+// ===========================================================================
+
+class GNEAttributeTable : public MFXGroupBoxModule {
+    /// @brief FOX-declaration
+    FXDECLARE(GNEAttributeTable)
+
+    /// @brief declare friend class
+    friend class GNEAttributeRow;
+
+public:
+    /// @brief constructor
+    GNEAttributeTable(GNEFrame* frameParent);
+
+    /// @brief edit attributes of the given AC (usually the edited template AC)
+    void showAttributeTableModule(GNEAttributeCarrier* AC, const bool editExtendedAttributes);
+
+    /// @brief edit attributes of the given hash of ACs (usually the inspected ACs)
+    void showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool editExtendedAttributes);
+
+    /// @brief hide attribute editor
+    void hideAttributeTableModule();
+
+    /// @brief refresh attribute editor
+    void refreshAttributeTable();
+
+    /// @brief pointer to GNEFrame parent
+    GNEFrame* getFrameParent() const;
+
+    /// @name FOX-callbacks
+    /// @{
+    /// @brief Called when user press the help button
+    long onCmdAttributeTableHelp(FXObject*, FXSelector, void*);
+
+    /// @}
+
+protected:
+    /// @brief fox need this
+    FOX_CONSTRUCTOR(GNEAttributeTable)
+
+    /// @brief set attribute in the current ACs (Callend from row)
+    void setAttribute(SumoXMLAttr attr, const std::string& value);
+
+    /// @brief set attribute in the current ACs (Callend from row)
+    void toggleEnableAttribute(SumoXMLAttr attr, const bool value);
+
+    /// @brief inspect parent
+    void inspectParent();
+
+    /// @brief move lane up
+    void moveLaneUp();
+
+    /// @brief move lane down
+    void moveLaneDown();
+
+private:
+    /// @brief pointer to GNEFrame parent
+    GNEFrame* myFrameParent;
+
+    /// @brief current edited ACs
+    std::vector<GNEAttributeCarrier*> myEditedACs;
+
+    /// @brief list of attribute rows
+    std::vector<GNEAttributeRow*> myAttributeRows;
+
+    /// @brief flag to check if we're editing extended attributes
+    bool myEditExtendedAttributes = false;
+
+    /// @brief button for help
+    FXButton* myHelpButton = nullptr;
+
+    /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
+    bool myIncludeExtended;
+};
