@@ -62,10 +62,10 @@ FXIMPLEMENT(GNEAttributeTable,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRA
 // method definitions
 // ===========================================================================
 
-GNEAttributeTable::GNEAttributeTable(GNEFrame* frameParent) :
+GNEAttributeTable::GNEAttributeTable(GNEFrame* frameParent, const int editorOptions) :
     MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent),
-    myIncludeExtended(true) {
+    myEditorOptions(editorOptions) {
     // resize myAttributeRows and fill it with attribute rows
     myAttributeRows.resize(MAX_ATTR);
     for (int i = 0; i < MAX_ATTR; i++) {
@@ -77,21 +77,19 @@ GNEAttributeTable::GNEAttributeTable(GNEFrame* frameParent) :
 
 
 void
-GNEAttributeTable::showAttributeTableModule(GNEAttributeCarrier* AC, const bool editExtendedAttributes) {
+GNEAttributeTable::showAttributeTableModule(GNEAttributeCarrier* AC) {
     myEditedACs.clear();
     myEditedACs.push_back(AC);
-    myEditExtendedAttributes = editExtendedAttributes;
     refreshAttributeTable();
 }
 
 
 void
-GNEAttributeTable::showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool editExtendedAttributes) {
+GNEAttributeTable::showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
     myEditedACs.clear();
     for (const auto& AC : ACs) {
         myEditedACs.push_back(AC);
     }
-    myEditExtendedAttributes = editExtendedAttributes;
     refreshAttributeTable();
 }
 
@@ -114,10 +112,15 @@ GNEAttributeTable::refreshAttributeTable() {
         int itRows = 0;
         for (const auto& attrProperty : myEditedACs.front()->getTagProperty()) {
             // check if show extended attributes
-            if (myEditExtendedAttributes || !attrProperty.isExtended()) {
-                myAttributeRows[itRows]->showAttributeRow(attrProperty);
-                itRows++;
+            if (((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) == 0) && attrProperty.isExtended()) {
+                continue;
             }
+            // check if show flow attributes
+            if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+                continue;
+            }
+            myAttributeRows[itRows]->showAttributeRow(attrProperty);
+            itRows++;
         }
         // hide rest of rows before showing table
         for (int i = itRows; i < MAX_ATTR; i++) {

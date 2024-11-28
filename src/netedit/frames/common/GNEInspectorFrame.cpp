@@ -841,7 +841,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myOverlappedInspection = new GNEOverlappedInspection(this);
 
     // Create Attributes Editor module
-    myAttributesEditor = new GNEAttributeTable(this);
+    myAttributesEditor = new GNEAttributeTable(this, GNEAttributeTable::EditorOptions::EXTENDED_ATTRIBUTES);
 
     // Create GEO Parameters Editor module
     myGEOAttributesEditor = new GEOAttributesEditor(this);
@@ -1078,7 +1078,7 @@ GNEInspectorFrame::refreshInspection() {
         getFrameHeaderLabel()->setText(headerString.c_str());
 
         // Show attributes editor
-        myAttributesEditor->showAttributeTableModule(inspectedElements.getACs(), true);
+        myAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();

@@ -373,7 +373,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     // check if show attribute editor
     if (!afterChangingID) {
         if (myCurrentMeanData) {
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData, true);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData);
         } else {
             myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
         }
@@ -403,7 +403,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData, true);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet
@@ -438,7 +438,7 @@ GNEMeanDataFrame::GNEMeanDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     // build meanData selector
     myMeanDataSelector = new MeanDataSelector(this);
     // build meanData attributes editor
-    myMeanDataAttributesEditor = new GNEAttributeTable(this);
+    myMeanDataAttributesEditor = new GNEAttributeTable(this, GNEAttributeTable::EditorOptions::EXTENDED_ATTRIBUTES);
 }
 
 

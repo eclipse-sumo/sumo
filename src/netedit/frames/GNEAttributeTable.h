@@ -43,14 +43,21 @@ class GNEAttributeTable : public MFXGroupBoxModule {
     friend class GNEAttributeRow;
 
 public:
+
+    /// @brief Options for filter attributes
+    enum EditorOptions {
+        EXTENDED_ATTRIBUTES = 1 << 0,
+        FLOW_ATTRIBUTES     = 1 << 1,
+    };
+
     /// @brief constructor
-    GNEAttributeTable(GNEFrame* frameParent);
+    GNEAttributeTable(GNEFrame* frameParent, const int editorOptions);
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
-    void showAttributeTableModule(GNEAttributeCarrier* AC, const bool editExtendedAttributes);
+    void showAttributeTableModule(GNEAttributeCarrier* AC);
 
     /// @brief edit attributes of the given hash of ACs (usually the inspected ACs)
-    void showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool editExtendedAttributes);
+    void showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs);
 
     /// @brief hide attribute editor
     void hideAttributeTableModule();
@@ -97,12 +104,9 @@ private:
     /// @brief list of attribute rows
     std::vector<GNEAttributeRow*> myAttributeRows;
 
-    /// @brief flag to check if we're editing extended attributes
-    bool myEditExtendedAttributes = false;
-
     /// @brief button for help
     FXButton* myHelpButton = nullptr;
 
-    /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
-    bool myIncludeExtended;
+    /// @brief variable use for packing attribute editor options
+    int myEditorOptions = 0;
 };
