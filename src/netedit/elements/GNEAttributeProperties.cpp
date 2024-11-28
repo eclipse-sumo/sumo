@@ -482,4 +482,10 @@ GNEAttributeProperties::isCopyable() const {
     return (myAttributeProperty & COPYABLE) != 0;
 }
 
+
+bool
+GNEAttributeProperties::isAlwaysEnabled() const {
+    return (myAttributeProperty & ALWAYSENABLED) != 0;
+}
+
 /****************************************************************************/
