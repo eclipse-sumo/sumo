@@ -939,6 +939,14 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
                     && !ignoreFoe(ego, it.first)
                     && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
+                if (ego == nullptr) {
+                    // during insertion
+                    if (myJunction->getType() == SumoXMLNodeType::RAIL_CROSSING) {
+                        continue;
+                    } else {
+                        return true;
+                    }
+                }
                 // check whether braking is feasible (ego might have started to accelerate already)
                 const auto& cfm = ego->getVehicleType().getCarFollowModel();
 #ifdef MSLink_DEBUG_OPENED
