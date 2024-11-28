@@ -1178,6 +1178,21 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<cons
                 findFlankProtection(predLinks.front(), origLink, flank);
             }
         }
+        // check for insertions
+        if (myDepartureDriveways.count(&lane->getEdge()) != 0) {
+            for (MSDriveWay* foe : myDepartureDriveways[&lane->getEdge()]) {
+                if (flankConflict(*foe)) {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "  foe " << foe->getID() << " departs on flank=" << lane->getID() << "\n";
+#endif
+                    myFoes.push_back(foe);
+                } else {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "  cand foe " << foe->getID() << " departs on flank=" << lane->getID() << " rejected\n";
+#endif
+                }
+            }
+        }
     }
 }
 
