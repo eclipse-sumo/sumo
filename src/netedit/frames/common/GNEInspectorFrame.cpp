@@ -841,7 +841,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myOverlappedInspection = new GNEOverlappedInspection(this);
 
     // Create Attributes Editor module
-    myAttributesEditor = new GNEAttributeTable(this, GNEAttributeTable::EditorOptions::EXTENDED_ATTRIBUTES);
+    myAttributesEditor = new GNEAttributeEditor(this, GNEAttributeEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
     // Create GEO Parameters Editor module
     myGEOAttributesEditor = new GEOAttributesEditor(this);
@@ -1145,7 +1145,7 @@ GNEInspectorFrame::clearInspectedAC() {
 }
 
 
-GNEAttributeTable*
+GNEAttributeEditor*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
 }

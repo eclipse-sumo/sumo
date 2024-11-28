@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributeTable.cpp
+/// @file    GNEAttributeEditor.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
@@ -69,7 +69,7 @@ FXIMPLEMENT(GNEAttributeRow,          FXHorizontalFrame,      GNEAttributeRowMap
 // method definitions
 // ===========================================================================
 
-GNEAttributeRow::GNEAttributeRow(GNEAttributeTable* attributeTable) :
+GNEAttributeRow::GNEAttributeRow(GNEAttributeEditor* attributeTable) :
     FXHorizontalFrame(attributeTable->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributeTable(attributeTable) {
     // get static tooltip menu

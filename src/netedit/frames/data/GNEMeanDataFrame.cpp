@@ -438,7 +438,7 @@ GNEMeanDataFrame::GNEMeanDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     // build meanData selector
     myMeanDataSelector = new MeanDataSelector(this);
     // build meanData attributes editor
-    myMeanDataAttributesEditor = new GNEAttributeTable(this, GNEAttributeTable::EditorOptions::EXTENDED_ATTRIBUTES);
+    myMeanDataAttributesEditor = new GNEAttributeEditor(this, GNEAttributeEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 }
 
 

@@ -22,13 +22,13 @@
 
 #include <netedit/elements/GNEAttributeCarrier.h>
 
-#include "GNEAttributeTable.h"
+#include "GNEAttributeEditor.h"
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEAttributeTable;
+class GNEAttributeEditor;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -41,7 +41,7 @@ class GNEAttributeRow : protected FXHorizontalFrame {
 
 public:
     /// @brief constructor
-    GNEAttributeRow(GNEAttributeTable* attributeTable);
+    GNEAttributeRow(GNEAttributeEditor* attributeTable);
 
     /// @brief show attribute row
     void showAttributeRow(const GNEAttributeProperties& attrProperty);
@@ -123,7 +123,7 @@ protected:
 
 private:
     /// @brief pointer to attribute table parent
-    GNEAttributeTable* myAttributeTable;
+    GNEAttributeEditor* myAttributeTable;
 
     /// @brief edited attribute
     SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
