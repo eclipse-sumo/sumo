@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" sigma="0" maxSpeed="25"/>
+    <vType id="car2" sigma="0" maxSpeed="25" emissionClass="PHEMlight5/PC_EU4_G"/>
+    <route id="r1" edges="a"/>
+    <vehicle id="v0" type="car" depart="0" route="r1" departSpeed="max" speedFactor="1"/>
+    <vehicle id="v1" type="car2" depart="100" route="r1" departSpeed="max" speedFactor="1"/>
+</routes>

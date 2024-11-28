@@ -104,6 +104,9 @@ slowDown_subsecond
 # test timing of setAcceleration command
 setAcceleration
 
+# test emission class setting for PHEMlight
+setEmissionClass
+
 # test speed response curve on setting speedFactor
 setSpeedFactor_IDM
 getFollower
