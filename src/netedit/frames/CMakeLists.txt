@@ -44,8 +44,8 @@ set(netedit_frames_SRCS
    GNEPlanCreator.cpp
    GNEPlanCreatorLegend.h
    GNEPlanCreatorLegend.cpp
-   GNEAttributeRow.h
-   GNEAttributeRow.cpp
+   GNEAttributesEditorRow.h
+   GNEAttributesEditorRow.cpp
    GNEAttributesEditor.h
    GNEAttributesEditor.cpp
    )

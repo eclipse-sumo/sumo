@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributeRow.cpp
+/// @file    GNEAttributesEditorRow.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
@@ -42,7 +42,7 @@
 #include <utils/foxtools/MFXLabelTooltip.h>
 
 #include "GNEAttributesEditor.h"
-#include "GNEAttributeRow.h"
+#include "GNEAttributesEditorRow.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -66,10 +66,10 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const int editor
     MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent),
     myEditorOptions(editorOptions) {
-    // resize myAttributeRows and fill it with attribute rows
-    myAttributeRows.resize(MAX_ATTR);
+    // resize myAttributesEditorRows and fill it with attribute rows
+    myAttributesEditorRows.resize(MAX_ATTR);
     for (int i = 0; i < MAX_ATTR; i++) {
-        myAttributeRows[i] = new GNEAttributeRow(this);
+        myAttributesEditorRows[i] = new GNEAttributesEditorRow(this);
     }
     // Create help button
     myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
@@ -98,7 +98,7 @@ void
 GNEAttributesEditor::hideAttributeTableModule() {
     myEditedACs.clear();
     // hide all rows before hidding table
-    for (const auto& row : myAttributeRows) {
+    for (const auto& row : myAttributesEditorRows) {
         row->hideAttributeRow();
     }
     hide();
@@ -119,12 +119,12 @@ GNEAttributesEditor::refreshAttributeTable() {
             if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
                 continue;
             }
-            myAttributeRows[itRows]->showAttributeRow(attrProperty);
+            myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
             itRows++;
         }
         // hide rest of rows before showing table
         for (int i = itRows; i < MAX_ATTR; i++) {
-            myAttributeRows[i]->hideAttributeRow();
+            myAttributesEditorRows[i]->hideAttributeRow();
         }
         show();
     } else {

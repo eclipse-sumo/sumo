@@ -29,7 +29,7 @@
 
 class GNEFrame;
 class GNEAttributeCarrier;
-class GNEAttributeRow;
+class GNEAttributesEditorRow;
 
 // ===========================================================================
 // class GNEAttributesEditor
@@ -40,7 +40,7 @@ class GNEAttributesEditor : public MFXGroupBoxModule {
     FXDECLARE(GNEAttributesEditor)
 
     /// @brief declare friend class
-    friend class GNEAttributeRow;
+    friend class GNEAttributesEditorRow;
 
 public:
 
@@ -101,8 +101,8 @@ private:
     /// @brief current edited ACs
     std::vector<GNEAttributeCarrier*> myEditedACs;
 
-    /// @brief list of attribute rows
-    std::vector<GNEAttributeRow*> myAttributeRows;
+    /// @brief list of attributes editor rows
+    std::vector<GNEAttributesEditorRow*> myAttributesEditorRows;
 
     /// @brief button for help
     FXButton* myHelpButton = nullptr;

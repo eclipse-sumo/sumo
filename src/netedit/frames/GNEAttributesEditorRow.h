@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributeRow.h
+/// @file    GNEAttributesEditorRow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
-// Row used for edit attributes
+// Row used for edit attributes in GNEAttributesEditor
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -35,13 +35,13 @@ class GNEAttributeCarrier;
 // class definitions
 // ===========================================================================
 
-class GNEAttributeRow : protected FXHorizontalFrame {
+class GNEAttributesEditorRow : protected FXHorizontalFrame {
     /// @brief FOX-declaration
-    FXDECLARE(GNEAttributeRow)
+    FXDECLARE(GNEAttributesEditorRow)
 
 public:
     /// @brief constructor
-    GNEAttributeRow(GNEAttributesEditor* attributeTable);
+    GNEAttributesEditorRow(GNEAttributesEditor* attributeTable);
 
     /// @brief show attribute row
     void showAttributeRow(const GNEAttributeProperties& attrProperty);
@@ -83,7 +83,7 @@ public:
 
 protected:
     /// @brief default constructor (needed for FOX)
-    GNEAttributeRow();
+    GNEAttributesEditorRow();
 
     /// @brief get value from edited ACs
     const std::string getAttributeValue(const GNEAttributeProperties& attrProperty) const;
@@ -159,8 +159,8 @@ private:
     MFXButtonTooltip* myValueLaneDownButton = nullptr;
 
     /// @brief Invalidated copy constructor.
-    GNEAttributeRow(GNEAttributeRow*) = delete;
+    GNEAttributesEditorRow(GNEAttributesEditorRow*) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEAttributeRow& operator=(GNEAttributeRow*) = delete;
+    GNEAttributesEditorRow& operator=(GNEAttributesEditorRow*) = delete;
 };

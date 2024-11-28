@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributesEditor.cpp
+/// @file    GNEAttributesEditorRow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
-// Table used for pack GNEAttributeRows
+// Row used for edit attributes in GNEAttributesEditor
 /****************************************************************************/
 #include <config.h>
 
@@ -36,24 +36,24 @@
 #include <utils/gui/images/POIIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEAttributeRow.h"
+#include "GNEAttributesEditorRow.h"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEAttributeRow) GNEAttributeRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                  GNEAttributeRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,             GNEAttributeRow::onCmdToogleEnableAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_COLOR,            GNEAttributeRow::onCmdOpenColorDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_ALLOW,            GNEAttributeRow::onCmdOpenAllowDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,    GNEAttributeRow::onCmdInspectParent),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVELANE_UP,                    GNEAttributeRow::onCmdMoveElementLaneUp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVELANE_DOWN,                  GNEAttributeRow::onCmdMoveElementLaneDown)
+FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                  GNEAttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,             GNEAttributesEditorRow::onCmdToogleEnableAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_COLOR,            GNEAttributesEditorRow::onCmdOpenColorDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_ALLOW,            GNEAttributesEditorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,    GNEAttributesEditorRow::onCmdInspectParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVELANE_UP,                    GNEAttributesEditorRow::onCmdMoveElementLaneUp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVELANE_DOWN,                  GNEAttributesEditorRow::onCmdMoveElementLaneDown)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributeRow,          FXHorizontalFrame,      GNEAttributeRowMap,         ARRAYNUMBER(GNEAttributeRowMap))
+FXIMPLEMENT(GNEAttributesEditorRow,          FXHorizontalFrame,      GNEAttributeRowMap,         ARRAYNUMBER(GNEAttributeRowMap))
 
 // ===========================================================================
 // defines
@@ -69,7 +69,7 @@ FXIMPLEMENT(GNEAttributeRow,          FXHorizontalFrame,      GNEAttributeRowMap
 // method definitions
 // ===========================================================================
 
-GNEAttributeRow::GNEAttributeRow(GNEAttributesEditor* attributeTable) :
+GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTable) :
     FXHorizontalFrame(attributeTable->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributeTable(attributeTable) {
     // get static tooltip menu
@@ -130,7 +130,7 @@ GNEAttributeRow::GNEAttributeRow(GNEAttributesEditor* attributeTable) :
 
 
 void
-GNEAttributeRow::showAttributeRow(const GNEAttributeProperties& attrProperty) {
+GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrProperty) {
     const auto multipleEditedACs = (myAttributeTable->myEditedACs.size() > 1);
     const auto& tagProperty = attrProperty.getTagPropertyParent();
     myAttribute = attrProperty.getAttr();
@@ -202,26 +202,26 @@ GNEAttributeRow::showAttributeRow(const GNEAttributeProperties& attrProperty) {
             myValueLaneUpButton->hide();
             myValueLaneDownButton->hide();
         }
-        // Show GNEAttributeRow
+        // Show GNEAttributesEditorRow
         show();
     }
 }
 
 
 void
-GNEAttributeRow::hideAttributeRow() {
+GNEAttributesEditorRow::hideAttributeRow() {
     hide();
 }
 
 
 bool
-GNEAttributeRow::isAttributeRowShown() const {
+GNEAttributesEditorRow::isAttributeRowShown() const {
     return shown();
 }
 
 
 bool
-GNEAttributeRow::isCurrentValueValid() const {
+GNEAttributesEditorRow::isCurrentValueValid() const {
     if (myValueCheckButton->shown()) {
         // check box have always a valid Value
         return true;
@@ -236,7 +236,7 @@ GNEAttributeRow::isCurrentValueValid() const {
 
 
 long
-GNEAttributeRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     const auto& attrProperty = myAttributeTable->myEditedACs.front()->getTagProperty().getAttributeProperties(myAttribute);
     // create FXColorDialog
     FXColorDialog colordialog(this, TL("Color Dialog"));
@@ -259,7 +259,7 @@ GNEAttributeRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAttributeRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     // declare values to be modified
     std::string allowedVehicles = myValueTextField->getText().text();
     // declare accept changes
@@ -275,28 +275,28 @@ GNEAttributeRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAttributeRow::onCmdInspectParent(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdInspectParent(FXObject*, FXSelector, void*) {
     myAttributeTable->inspectParent();
     return 1;
 }
 
 
 long
-GNEAttributeRow::onCmdMoveElementLaneUp(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdMoveElementLaneUp(FXObject*, FXSelector, void*) {
     myAttributeTable->moveLaneUp();
     return 1;
 }
 
 
 long
-GNEAttributeRow::onCmdMoveElementLaneDown(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdMoveElementLaneDown(FXObject*, FXSelector, void*) {
     myAttributeTable->moveLaneDown();
     return 1;
 }
 
 
 long
-GNEAttributeRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     const auto& editedAC = myAttributeTable->myEditedACs.front();
     const auto& attrProperties = editedAC->getTagProperty().getAttributeProperties(myAttribute);
     // continue depending of clicked object
@@ -378,19 +378,19 @@ GNEAttributeRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 
 long
-GNEAttributeRow::onCmdToogleEnableAttribute(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdToogleEnableAttribute(FXObject*, FXSelector, void*) {
     myAttributeTable->toggleEnableAttribute(myAttribute, myAttributeCheckButton->getCheck() == TRUE);
     return 0;
 }
 
 
-GNEAttributeRow::GNEAttributeRow() :
+GNEAttributesEditorRow::GNEAttributesEditorRow() :
     myAttributeTable(nullptr) {
 }
 
 
 const std::string
-GNEAttributeRow::getAttributeValue(const GNEAttributeProperties& attrProperty) const {
+GNEAttributesEditorRow::getAttributeValue(const GNEAttributeProperties& attrProperty) const {
     // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
     std::set<std::string> values;
     // iterate over edited attributes and insert every value in set
@@ -413,7 +413,7 @@ GNEAttributeRow::getAttributeValue(const GNEAttributeProperties& attrProperty) c
 
 
 void
-GNEAttributeRow::showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool enabled) {
     myAttributeCheckButton->setText(attrProperty.getAttrStr().c_str());
     myAttributeCheckButton->setCheck(enabled);
     myAttributeCheckButton->show();
@@ -428,7 +428,7 @@ GNEAttributeRow::showAttributeCheckButton(const GNEAttributeProperties& attrProp
 
 
 void
-GNEAttributeRow::showAttributeParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
     // set icon and text
     myAttributeParentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
     myAttributeParentButton->setText(attrProperty.getAttrStr().c_str());
@@ -449,7 +449,7 @@ GNEAttributeRow::showAttributeParent(const GNEAttributeProperties& attrProperty,
 
 
 void
-GNEAttributeRow::showAttributeVClass(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties& attrProperty, const bool enabled) {
     // set icon and text
     myAttributeVClassButton->setText(attrProperty.getAttrStr().c_str());
     if (enabled) {
@@ -469,7 +469,7 @@ GNEAttributeRow::showAttributeVClass(const GNEAttributeProperties& attrProperty,
 
 
 void
-GNEAttributeRow::showAttributeColor(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties& attrProperty, const bool enabled) {
     myAttributeColorButton->setText(attrProperty.getAttrStr().c_str());
     myAttributeColorButton->show();
     if (enabled) {
@@ -488,7 +488,7 @@ GNEAttributeRow::showAttributeColor(const GNEAttributeProperties& attrProperty, 
 
 
 void
-GNEAttributeRow::showAttributeLabel(const GNEAttributeProperties& attrProperty) {
+GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties& attrProperty) {
     myAttributeLabel->setText(attrProperty.getAttrStr().c_str());
     myAttributeLabel->show();
     // hide other elements
@@ -502,8 +502,8 @@ GNEAttributeRow::showAttributeLabel(const GNEAttributeProperties& attrProperty) 
 
 
 void
-GNEAttributeRow::showValueCheckButton(const GNEAttributeProperties& attrProperty, const std::string& value,
-                                      const bool computed, const bool enabled) {
+GNEAttributesEditorRow::showValueCheckButton(const GNEAttributeProperties& attrProperty, const std::string& value,
+        const bool computed, const bool enabled) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
@@ -550,8 +550,8 @@ GNEAttributeRow::showValueCheckButton(const GNEAttributeProperties& attrProperty
 
 
 void
-GNEAttributeRow::showValueComboBox(const GNEAttributeProperties& attrProperty, const std::string& value,
-                                   const bool computed, const bool enabled) {
+GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties& attrProperty, const std::string& value,
+        const bool computed, const bool enabled) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
@@ -653,8 +653,8 @@ GNEAttributeRow::showValueComboBox(const GNEAttributeProperties& attrProperty, c
 
 
 void
-GNEAttributeRow::showValueString(const GNEAttributeProperties& attrProperty, const std::string& value,
-                                 const bool enabled, const bool computed) {
+GNEAttributesEditorRow::showValueString(const GNEAttributeProperties& attrProperty, const std::string& value,
+                                        const bool enabled, const bool computed) {
     // clear and enable comboBox
     myValueTextField->setText(value.c_str());
     if (computed) {
@@ -678,7 +678,7 @@ GNEAttributeRow::showValueString(const GNEAttributeProperties& attrProperty, con
 
 
 void
-GNEAttributeRow::showMoveLaneButtons(const std::string& laneID) {
+GNEAttributesEditorRow::showMoveLaneButtons(const std::string& laneID) {
     // retrieve lane
     const auto lane = myAttributeTable->myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(laneID, false);
     // check lane
@@ -704,7 +704,7 @@ GNEAttributeRow::showMoveLaneButtons(const std::string& laneID) {
 
 
 void
-GNEAttributeRow::enableDependingOfSupermode(const GNEAttributeProperties& attrProperty) {
+GNEAttributesEditorRow::enableDependingOfSupermode(const GNEAttributeProperties& attrProperty) {
     const auto& editModes = myAttributeTable->myFrameParent->getViewNet()->getEditModes();
     const auto& tagProperty = attrProperty.getTagPropertyParent();
     // by default we assume that elements are disabled
@@ -760,7 +760,7 @@ GNEAttributeRow::enableDependingOfSupermode(const GNEAttributeProperties& attrPr
 
 /*
 bool
-GNEAttributeRow::mergeJunction(SumoXMLAttr attr, const std::string& newVal) const {
+GNEAttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::string& newVal) const {
     const auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& inspectedElements = viewNet->getInspectedElements();
     // check if we're editing junction position
