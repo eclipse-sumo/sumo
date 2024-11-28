@@ -1,0 +1,1 @@
+{CLEAR} Energy/unknown --vtype soulEV65 --additional-files input_additional.add.xml tests/complex/emissionsMap/energy_custom/runner.py
