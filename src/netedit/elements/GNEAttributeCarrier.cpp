@@ -3196,6 +3196,18 @@ GNEAttributeCarrier::fillShapeElements() {
                                               TL("Angle of rendered image in degree"),
                                               toString(Shape::DEFAULT_ANGLE));
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_GEO,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::GEO | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Enable or disable GEO attributes"),
+                                              toString(Shape::DEFAULT_RELATIVEPATH));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_GEOSHAPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::GEO | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("A custom geo shape for this polygon"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_POI;
     {

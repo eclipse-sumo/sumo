@@ -488,4 +488,10 @@ GNEAttributeProperties::isAlwaysEnabled() const {
     return (myAttributeProperty & ALWAYSENABLED) != 0;
 }
 
+
+bool
+GNEAttributeProperties::isGEO() const {
+    return (myAttributeProperty & GEO) != 0;
+}
+
 /****************************************************************************/

@@ -72,6 +72,7 @@ public:
         AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
         COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
         ALWAYSENABLED =     1 << 26,    // Attribute cannot be disabled
+        GEO =               1 << 27,    // Attribute is of type GEO
     };
 
     /// @brief default constructor
@@ -220,6 +221,9 @@ public:
 
     /// @brief return true if attribute is always enabled
     bool isAlwaysEnabled() const;
+
+    /// @brief return true if attribute is GEO
+    bool isGEO() const;
 
 private:
     /// @brief XML Attribute
