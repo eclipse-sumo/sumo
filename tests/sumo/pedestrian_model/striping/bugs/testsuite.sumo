@@ -61,3 +61,6 @@ ticket15183b
 
 # invalid blockage by pedestrian at red crossing
 ticket15468
+
+# rail crossing at yellow
+ticket15808
