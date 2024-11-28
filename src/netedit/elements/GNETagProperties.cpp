@@ -220,7 +220,7 @@ GNETagProperties::getAttributeProperties(SumoXMLAttr attr) const {
 
 const GNEAttributeProperties&
 GNETagProperties::getAttributeProperties(const int index) const {
-    if (index < 0 || index >= myAttributeProperties.size()) {
+    if (index < 0 || index >= (int)myAttributeProperties.size()) {
         throw ProcessError(TLF("Invalid index '%' used in getAttributeProperties(int)", toString(index)));
     } else {
         return myAttributeProperties.at(index);
