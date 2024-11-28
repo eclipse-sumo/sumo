@@ -70,15 +70,21 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
         if (typeParams->wasSet(VTYPEPARS_MASS_SET)) {
             myMap[SUMO_ATTR_MASS] = typeParams->mass;
         }
-        if (typeParams->wasSet(VTYPEPARS_WIDTH_SET)) {
-            myMap[SUMO_ATTR_WIDTH] = typeParams->width;
+        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
+        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
+        const std::string& ecName = PollutantsInterface::getName(typeParams->emissionClass);
+        if ((typeParams->vehicleClass & (SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE)) == 0 && myMap.count(SUMO_ATTR_FRONTSURFACEAREA) == 0) {
+            if (StringUtils::startsWith(ecName, "MMPEVEM") || StringUtils::startsWith(ecName, "Energy")) {
+                WRITE_WARNINGF(TL("Vehicle type '%' uses the emission class '%' which does not have proper defaults for its vehicle class. "
+                                  "Please use a different emission class or complete the vType definition with further parameters."), typeParams->id, ecName);
+                if (!typeParams->wasSet(VTYPEPARS_MASS_SET)) {
+                    WRITE_WARNING(TL(" And also set a vehicle mass!"));
+                }
+            }
         }
-        if (typeParams->wasSet(VTYPEPARS_HEIGHT_SET)) {
-            myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
-        }
-        if (!StringUtils::startsWith(PollutantsInterface::getName(typeParams->emissionClass), "MMPEVEM")) {
-            if (typeParams->hasParameter(toString(SUMO_ATTR_INTERNALMOMENTOFINERTIA))) {
-                WRITE_WARNINGF(TL("Vehicle type '%' uses the Energy model with parameter 'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead."), typeParams->id);
+        if (!StringUtils::startsWith(ecName, "MMPEVEM")) {
+            if (myMap.count(SUMO_ATTR_INTERNALMOMENTOFINERTIA) > 0) {
+                WRITE_WARNINGF(TL("Vehicle type '%' uses the Energy model parameter 'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead."), typeParams->id);
                 if (!typeParams->hasParameter(toString(SUMO_ATTR_ROTATINGMASS))) {
                     myMap[SUMO_ATTR_ROTATINGMASS] = myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA];
                 }
