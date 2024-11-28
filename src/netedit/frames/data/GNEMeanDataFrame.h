@@ -223,7 +223,7 @@ protected:
     MeanDataSelector* myMeanDataSelector = nullptr;
 
     /// @brief meanData attributes editor
-    GNEAttributeEditor* myMeanDataAttributesEditor = nullptr;
+    GNEAttributesEditor* myMeanDataAttributesEditor = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

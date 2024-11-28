@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributeEditor.h
+/// @file    GNEAttributesEditor.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
@@ -32,12 +32,12 @@ class GNEAttributeCarrier;
 class GNEAttributeRow;
 
 // ===========================================================================
-// class GNEAttributeEditor
+// class GNEAttributesEditor
 // ===========================================================================
 
-class GNEAttributeEditor : public MFXGroupBoxModule {
+class GNEAttributesEditor : public MFXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEAttributeEditor)
+    FXDECLARE(GNEAttributesEditor)
 
     /// @brief declare friend class
     friend class GNEAttributeRow;
@@ -51,7 +51,7 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributeEditor(GNEFrame* frameParent, const int editorOptions);
+    GNEAttributesEditor(GNEFrame* frameParent, const int editorOptions);
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
     void showAttributeTableModule(GNEAttributeCarrier* AC);
@@ -77,7 +77,7 @@ public:
 
 protected:
     /// @brief fox need this
-    FOX_CONSTRUCTOR(GNEAttributeEditor)
+    FOX_CONSTRUCTOR(GNEAttributesEditor)
 
     /// @brief set attribute in the current ACs (Callend from row)
     void setAttribute(SumoXMLAttr attr, const std::string& value);

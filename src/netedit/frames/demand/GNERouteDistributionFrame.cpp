@@ -36,7 +36,7 @@ GNERouteDistributionFrame::GNERouteDistributionFrame(GNEViewParent* viewParent, 
     myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
 
     /// @brief distribution attributes editor
-    myAttributesEditor = new GNEAttributeEditor(this, GNEAttributeEditor::EditorOptions::EXTENDED_ATTRIBUTES);
+    myAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
     // Create route distribution attributes editor
     myDistributionValuesEditor = new GNEDistributionFrame::DistributionValuesEditor(this, myDistributionEditor, myDistributionSelector, myAttributesEditor, SUMO_TAG_ROUTE);

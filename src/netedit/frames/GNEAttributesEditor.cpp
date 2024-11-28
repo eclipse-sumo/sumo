@@ -41,7 +41,7 @@
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 
-#include "GNEAttributeEditor.h"
+#include "GNEAttributesEditor.h"
 #include "GNEAttributeRow.h"
 
 // ===========================================================================
@@ -51,18 +51,18 @@
 // temporal
 #define MAX_ATTR 32
 
-FXDEFMAP(GNEAttributeEditor) GNEAttributeTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAttributeEditor::onCmdAttributeTableHelp)
+FXDEFMAP(GNEAttributesEditor) GNEAttributeTableMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAttributesEditor::onCmdAttributeTableHelp)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributeEditor,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
+FXIMPLEMENT(GNEAttributesEditor,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEAttributeEditor::GNEAttributeEditor(GNEFrame* frameParent, const int editorOptions) :
+GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const int editorOptions) :
     MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent),
     myEditorOptions(editorOptions) {
@@ -77,7 +77,7 @@ GNEAttributeEditor::GNEAttributeEditor(GNEFrame* frameParent, const int editorOp
 
 
 void
-GNEAttributeEditor::showAttributeTableModule(GNEAttributeCarrier* AC) {
+GNEAttributesEditor::showAttributeTableModule(GNEAttributeCarrier* AC) {
     myEditedACs.clear();
     myEditedACs.push_back(AC);
     refreshAttributeTable();
@@ -85,7 +85,7 @@ GNEAttributeEditor::showAttributeTableModule(GNEAttributeCarrier* AC) {
 
 
 void
-GNEAttributeEditor::showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
+GNEAttributesEditor::showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
     myEditedACs.clear();
     for (const auto& AC : ACs) {
         myEditedACs.push_back(AC);
@@ -95,7 +95,7 @@ GNEAttributeEditor::showAttributeTableModule(const std::unordered_set<GNEAttribu
 
 
 void
-GNEAttributeEditor::hideAttributeTableModule() {
+GNEAttributesEditor::hideAttributeTableModule() {
     myEditedACs.clear();
     // hide all rows before hidding table
     for (const auto& row : myAttributeRows) {
@@ -106,7 +106,7 @@ GNEAttributeEditor::hideAttributeTableModule() {
 
 
 void
-GNEAttributeEditor::refreshAttributeTable() {
+GNEAttributesEditor::refreshAttributeTable() {
     if (myEditedACs.size() > 0) {
         // Iterate over tag property of first AC and show row for every attribute
         int itRows = 0;
@@ -134,13 +134,13 @@ GNEAttributeEditor::refreshAttributeTable() {
 
 
 GNEFrame*
-GNEAttributeEditor::getFrameParent() const {
+GNEAttributesEditor::getFrameParent() const {
     return myFrameParent;
 }
 
 
 long
-GNEAttributeEditor::onCmdAttributeTableHelp(FXObject*, FXSelector, void*) {
+GNEAttributesEditor::onCmdAttributeTableHelp(FXObject*, FXSelector, void*) {
     if (myEditedACs.size() > 0) {
         myFrameParent->openHelpAttributesDialog(myEditedACs.front());
     }
@@ -149,7 +149,7 @@ GNEAttributeEditor::onCmdAttributeTableHelp(FXObject*, FXSelector, void*) {
 
 
 void
-GNEAttributeEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
+GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto& tagProperty = myEditedACs.front()->getTagProperty();
     // first check if we're editing a single attribute or an ID
@@ -174,7 +174,7 @@ GNEAttributeEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
 
 
 void
-GNEAttributeEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
+GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto& tagProperty = myEditedACs.front()->getTagProperty();
     // first check if we're editing a single attribute
@@ -200,13 +200,13 @@ GNEAttributeEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
 
 
 void
-GNEAttributeEditor::inspectParent() {
+GNEAttributesEditor::inspectParent() {
     //myFrameParent->getViewNet()->getInspectedElements().inspectAC(
 }
 
 
 void
-GNEAttributeEditor::moveLaneUp() {
+GNEAttributesEditor::moveLaneUp() {
     const auto lane = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(myEditedACs.front()->getAttribute(SUMO_ATTR_LANE), false);
     if (lane) {
         // set next lane
@@ -216,7 +216,7 @@ GNEAttributeEditor::moveLaneUp() {
 
 
 void
-GNEAttributeEditor::moveLaneDown() {
+GNEAttributesEditor::moveLaneDown() {
     const auto lane = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(myEditedACs.front()->getAttribute(SUMO_ATTR_LANE), false);
     if (lane) {
         // set previous lane

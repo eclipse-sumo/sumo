@@ -356,7 +356,7 @@ public:
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief get AttributesEditor
-    GNEAttributeEditor* getAttributesEditor() const;
+    GNEAttributesEditor* getAttributesEditor() const;
 
     /// @brief get Netedit Attributes editor
     GNEInspectorFrame::NeteditAttributesEditor* getNeteditAttributesEditor() const;
@@ -398,7 +398,7 @@ private:
     GNEOverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
-    GNEAttributeEditor* myAttributesEditor;
+    GNEAttributesEditor* myAttributesEditor;
 
     /// @brief Netedit Attributes editor
     NeteditAttributesEditor* myNeteditAttributesEditor;
