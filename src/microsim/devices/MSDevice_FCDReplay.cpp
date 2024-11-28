@@ -324,6 +324,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
     for (const auto& desc : myRoutes) {
         const std::string& id = desc.first;
         const bool isPerson = std::get<2>(desc.second);
+        const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
         Trajectory& t = myTrajectories[id];
         if (t.front().time >= intervalStart) {
             // new vehicle or person
@@ -342,7 +343,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 throw ProcessError("Unknown vType '" + vType + "'.");
             }
             if (isPerson) {
-                MSTransportable::MSTransportablePlan* plan = makePlan(*params, std::get<3>(desc.second), std::get<4>(desc.second), t);
+                MSTransportable::MSTransportablePlan* plan = makePlan(*params, routeEdges, std::get<4>(desc.second), t);
                 // plan completed, now build the person
                 MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
                 person->getSingularType().setVClass(SVC_IGNORING);
@@ -358,7 +359,6 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
             } else {
                 const std::string dummyRouteID = "DUMMY_ROUTE_" + id;
                 const std::vector<SUMOVehicleParameter::Stop> stops;
-                const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
                 ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, routeEdges, true, nullptr, stops);
                 if (!MSRoute::dictionary(dummyRouteID, route)) {
                     throw ProcessError("Could not add route '" + dummyRouteID + "'.");
@@ -396,7 +396,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                     continue;
                 }
                 // TODO optimize: no need to regenerate the whole plan
-                MSTransportable::MSTransportablePlan* plan = makePlan(person->getParameter(), std::get<3>(desc.second), std::get<4>(desc.second), t);
+                MSTransportable::MSTransportablePlan* plan = makePlan(person->getParameter(), routeEdges, std::get<4>(desc.second), t);
                 const int stageIndex = person->getNumRemainingStages() - 1;
                 MSStage* const final = person->getNextStage(stageIndex);
                 bool append = false;
@@ -412,7 +412,6 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 person->removeStage(stageIndex);
             } else {
                 SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-                const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
                 ConstMSEdgeVector checkedRoute = checkRoute(routeEdges, vehicle);
                 if ((int)checkedRoute.size() != vehicle->getRoute().size()) {
                     vehicle->replaceRouteEdges(checkedRoute, -1, 0, "FCDReplay", true);
