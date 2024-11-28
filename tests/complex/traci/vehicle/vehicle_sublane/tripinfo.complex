@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-26 12:57:16 by Eclipse SUMO sumo Version v1_14_1+14996-47cf6512255
+<!-- generated on 2024-11-28 11:48:59 by Eclipse SUMO sumo Version v1_21_0+1016-6ec0787118a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="52357"/>
+        <remote-port value="36145"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -59,7 +59,7 @@
     <tripinfo id="rerouteEffort" depart="136.00" departLane="2fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="3.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalPosLat="0.00" arrivalSpeed="-1.00" duration="29.00" routeLength="275.67" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.83" rerouteNo="1" devices="vehroute_rerouteEffort tripinfo_rerouteEffort" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
     <tripinfo id="pav" depart="139.00" departLane="2fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="5.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalPosLat="0.00" arrivalSpeed="-1.00" duration="26.00" routeLength="177.06" waitingTime="0.00" waitingCount="0" stopTime="2.00" timeLoss="7.07" rerouteNo="0" devices="vehroute_pav tripinfo_pav" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
     <tripinfo id="elVeh" depart="152.00" departLane="2fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalPosLat="0.00" arrivalSpeed="-1.00" duration="13.00" routeLength="93.49" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.65" rerouteNo="0" devices="vehroute_elVeh tripinfo_elVeh battery_elVeh routing_elVeh" vType="long@elVeh" speedFactor="1.00" vaporized="end">
-        <battery depleted="0"/>
+        <battery depleted="0" actualBatteryCapacity="17479.93" totalEnergyConsumed="22.84" totalEnergyRegenerated="2.76"/>
     </tripinfo>
     <tripinfo id="triptest2" depart="-1" departLane="" departPos="-1.00" departPosLat="0.00" departSpeed="-1.00" departDelay="3.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalPosLat="0.00" arrivalSpeed="-1.00" duration="0.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="vehroute_triptest2 tripinfo_triptest2 routing_triptest2" vType="reroutingType" speedFactor="1.00" vaporized="end"/>
     <tripinfo id="noRouteGiven" depart="163.00" departLane="1fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalPosLat="0.00" arrivalSpeed="-1.00" duration="2.00" routeLength="2.21" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.80" rerouteNo="0" devices="vehroute_noRouteGiven tripinfo_noRouteGiven" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
