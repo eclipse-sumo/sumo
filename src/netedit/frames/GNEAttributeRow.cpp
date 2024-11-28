@@ -137,7 +137,7 @@ GNEAttributeRow::showAttributeRow(const GNEAttributeProperties& attrProperty) {
     if (multipleEditedACs && attrProperty.isUnique()) {
         // disable editing for unique attributes in case of multi-selection
         hideAttributeRow();
-    } else if (attrProperty.isFlowDefinition()) {
+    } else if (attrProperty.isFlow()) {
         // disable editing of flow definition attributes, but enable flow editor
         hideAttributeRow();
         //showFlowEditor = true;

@@ -56,7 +56,7 @@ GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, cons
         throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
     }
     // Attributes cannot be flowdefinition and enabilitablet at the same time
-    if ((attributeProperty & FLOWDEFINITION) && (attributeProperty & ACTIVATABLE)) {
+    if ((attributeProperty & FLOW) && (attributeProperty & ACTIVATABLE)) {
         throw FormatException("Attribute '" + toString(attribute) + "' cannot be flowdefinition and activatable at the same time");
     }
 }
@@ -466,8 +466,8 @@ GNEAttributeProperties::isActivatable() const {
 
 
 bool
-GNEAttributeProperties::isFlowDefinition() const {
-    return (myAttributeProperty & FLOWDEFINITION) != 0;
+GNEAttributeProperties::isFlow() const {
+    return (myAttributeProperty & FLOW) != 0;
 }
 
 

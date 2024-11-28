@@ -68,7 +68,7 @@ public:
         EXTENDED =          1 << 20,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
         UPDATEGEOMETRY =    1 << 21,    // Attribute require update geometry at the end of function setAttribute(...)
         ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
-        FLOWDEFINITION =    1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
+        FLOW =              1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
         AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
         COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
         ALWAYSENABLED =     1 << 26,    // Attribute cannot be disabled
@@ -210,7 +210,7 @@ public:
     bool isActivatable() const;
 
     /// @brief return true if attribute is part of a flow definition
-    bool isFlowDefinition() const;
+    bool isFlow() const;
 
     /// @brief return true if attribute ID can generate an automatic ID
     bool hasAutomaticID() const;

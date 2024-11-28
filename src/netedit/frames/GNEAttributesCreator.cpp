@@ -117,7 +117,7 @@ GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject*
             // flag for default attributes
             const bool hasDefaultStaticValue = !attrProperties.hasDefaultValue() || (attrProperties.getDefaultValue() != row->getValue());
             // flag for enablitables attributes
-            const bool isFlowDefinitionAttribute = attrProperties.isFlowDefinition();
+            const bool isFlowDefinitionAttribute = attrProperties.isFlow();
             // flag for Terminatel attributes
             const bool isActivatableAttribute = attrProperties.isActivatable() && row->getAttributeCheckButtonCheck();
             // check if flags configuration allow to include values
@@ -258,7 +258,7 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
             showAttribute = false;
         }
         // check if attribute is a flow definitionattribute
-        if (attribute.isFlowDefinition()) {
+        if (attribute.isFlow()) {
             showAttribute = false;
             showFlowEditor = true;
         }

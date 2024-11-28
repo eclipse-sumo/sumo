@@ -8428,41 +8428,41 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_END,
-                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("End of departure interval"),
                                           "3600");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_NUMBER,
-                                          GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("probability for emitting a flow each second") + std::string("\n") +
                                           TL("(not together with vehsPerHour or period)"),
                                           "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(perHour,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("Number of flows per hour, equally spaced") + std::string("\n") +
                                           TL("(not together with period or probability or poisson)"),
                                           "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("Insert equally spaced flows at that period") + std::string("\n") +
                                           TL("(not together with vehsPerHour or probability or poisson)"),
                                           "2");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PROB,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("probability for emitting a flow each second") + std::string("\n") +
                                           TL("(not together with vehsPerHour or period or poisson)"),
                                           "0.5");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_POISSON,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("Insert flow expected vehicles per second with poisson distributed insertion rate") + std::string("\n") +
                                           TL("(not together with period or vehsPerHour or probability)"),
                                           "0.5");
