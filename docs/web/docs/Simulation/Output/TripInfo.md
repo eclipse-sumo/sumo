@@ -111,7 +111,7 @@ This adds the following line:
 ```xml
 <tripinfos>
     <tripinfo id="<VEHICLE_ID>" ... vtype="<VEHICLE_TYPE_ID>">
-        <battery depleted="..."/>
+        <battery depleted="..." actualBatteryCapacity="..." totalEnergyConsumed="..." totalEnergyRegenerated="..."/>
     </tripinfo>
     ... information about further vehicles ...
 
@@ -120,9 +120,12 @@ This adds the following line:
 
 with the attributes as following
 
-| Name         | Type | Description                                                                        |
-| ------------ | ---- | ---------------------------------------------------------------------------------- |
-| `depleted`   | -   | The times the vehicle wanted to consume more energy than the battery could provide |
+| Name                      | Type | Description                                                                         |
+| ------------------------- | ---- | ----------------------------------------------------------------------------------- |
+| `depleted`                | -    | The times the vehicle wanted to consume more energy than the battery could provide  |
+| `actualBatteryCapacity`   | Wh   | Battery capacity of the vehicle after completing its route                          |
+| `totalEnergyConsumed`     | Wh   | Cumulative sum of energy consumption after completing the route                     |
+| `totalEnergyRegenerated`  | Wh   | Cumulative sum of regenerated energy after completing the route                     |
 
 
 ## Output for vehicles that have not arrived at simulation end
