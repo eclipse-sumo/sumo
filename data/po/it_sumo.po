@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-27 15:04+0000\n"
+"PO-Revision-Date: 2024-11-28 08:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -748,7 +748,7 @@ msgstr "Metodo di scelta di itinerario invalido '%'."
 #: src/duarouter/RODUAFrame.cpp:232
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
-msgstr ""
+msgstr "L'opzione --logit è obsoleta, va usato --route-choice-method logit."
 
 #: src/duarouter/RODUAFrame.cpp:244
 msgid "Cannot derive file name for alternatives output, skipping it."
@@ -782,27 +782,27 @@ msgstr ""
 #: src/jtrrouter/ROJTREdge.cpp:64
 #, c-format
 msgid "The edges '%' and '%' are not connected."
-msgstr ""
+msgstr "Gli archi '%' e '%' non sono connessi."
 
 #: src/jtrrouter/ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
-msgstr ""
+msgstr "Leggi quote di svolta da uno o più FILE"
 
 #: src/jtrrouter/ROJTRFrame.cpp:69
 msgid "Use STR[] as default turn definition"
-msgstr ""
+msgstr "Usa STR[] come definizione di svolta standard"
 
 #: src/jtrrouter/ROJTRFrame.cpp:73
 msgid "Use STR[] as list of sink edges"
-msgstr ""
+msgstr "Usa STR[] come elenco di archi di scarico"
 
 #: src/jtrrouter/ROJTRFrame.cpp:76
 msgid "Whether all edges are allowed as sink edges"
-msgstr ""
+msgstr "Se tutti gli archi possono essere usati come scarico"
 
 #: src/jtrrouter/ROJTRFrame.cpp:79
 msgid "Ignore road restrictions based on vehicle class"
-msgstr ""
+msgstr "Ignora restrizioni basate su la classe di veicolo"
 
 #: src/jtrrouter/ROJTRFrame.cpp:82
 msgid "Allow to re-use a road"
