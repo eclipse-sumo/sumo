@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-28 08:50+0000\n"
+"PO-Revision-Date: 2024-11-28 08:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -806,11 +806,11 @@ msgstr "Ignora restrizioni basate su la classe di veicolo"
 
 #: src/jtrrouter/ROJTRFrame.cpp:82
 msgid "Allow to re-use a road"
-msgstr ""
+msgstr "Permetti di riutilizzare una via"
 
 #: src/jtrrouter/ROJTRFrame.cpp:85
 msgid "Use all source edges as sink edges."
-msgstr ""
+msgstr "Utilizza tutti gli archi di sorgente anche come archi di scarico."
 
 #: src/jtrrouter/ROJTRFrame.cpp:88
 msgid ""
