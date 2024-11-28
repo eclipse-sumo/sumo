@@ -111,12 +111,12 @@ GNEAttributesEditor::refreshAttributeTable() {
         // Iterate over tag property of first AC and show row for every attribute
         int itRows = 0;
         for (const auto& attrProperty : myEditedACs.front()->getTagProperty()) {
-            // check if show extended attributes
+            // check if avoid show extended attributes
             if (((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) == 0) && attrProperty.isExtended()) {
                 continue;
             }
-            // check if show flow attributes
-            if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+            // check if force show flow attributes
+            if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
                 continue;
             }
             myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);

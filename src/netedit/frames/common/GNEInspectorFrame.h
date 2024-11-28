@@ -397,8 +397,11 @@ private:
     /// @brief Overlapped Inspection
     GNEOverlappedInspection* myOverlappedInspection;
 
-    /// @brief Attribute editor
+    /// @brief Attributes editor
     GNEAttributesEditor* myAttributesEditor;
+
+    /// @brief Flow attributes editor
+    GNEAttributesEditor* myFlowAttributesEditor;
 
     /// @brief Netedit Attributes editor
     NeteditAttributesEditor* myNeteditAttributesEditor;

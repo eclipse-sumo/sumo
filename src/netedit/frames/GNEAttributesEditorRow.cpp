@@ -137,10 +137,6 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     if (multipleEditedACs && attrProperty.isUnique()) {
         // disable editing for unique attributes in case of multi-selection
         hideAttributeRow();
-    } else if (attrProperty.isFlow()) {
-        // disable editing of flow definition attributes, but enable flow editor
-        hideAttributeRow();
-        //showFlowEditor = true;
     } else {
         const auto firstEditedAC = myAttributeTable->myEditedACs.front();
         // declare a flag for enabled attributes

@@ -336,6 +336,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
+        myInspectorFrameParent->myFlowAttributesEditor->refreshAttributeTable();
         myInspectorFrameParent->myGEOAttributesEditor->refreshGEOAttributesEditor(true);
     }
     return 1;
@@ -533,6 +534,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
         }
         // force refresh values of Attributes editor and NeteditAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
+        myInspectorFrameParent->myFlowAttributesEditor->refreshAttributeTable();
         myInspectorFrameParent->myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     }
     return 1;
@@ -843,6 +845,9 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     // Create Attributes Editor module
     myAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
+    // Create Flow Attributes Editor module
+    myFlowAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::FLOW_ATTRIBUTES);
+
     // Create GEO Parameters Editor module
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
@@ -1029,6 +1034,7 @@ GNEInspectorFrame::refreshInspection() {
     myBackButton->hide();
     // Hide all elements
     myAttributesEditor->hideAttributeTableModule();
+    myFlowAttributesEditor->hideAttributeTableModule();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myParametersEditor->hideParametersEditor();
@@ -1079,6 +1085,9 @@ GNEInspectorFrame::refreshInspection() {
 
         // Show attributes editor
         myAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
+
+        // Show flow attributes editor
+        myFlowAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();
@@ -1193,11 +1202,9 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
 
 void
 GNEInspectorFrame::updateFrameAfterUndoRedo() {
-    // refresh Attribute Editor
     myAttributesEditor->refreshAttributeTable();
-    // refresh parametersEditor
+    myFlowAttributesEditor->refreshAttributeTable();
     myParametersEditor->refreshParametersEditor();
-    // refresh AC Hierarchy
     myHierarchicalElementTree->refreshHierarchicalElementTree();
 }
 
@@ -1227,6 +1234,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSele
 void
 GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
     myAttributesEditor->refreshAttributeTable();
+    myFlowAttributesEditor->refreshAttributeTable();
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     myGEOAttributesEditor->refreshGEOAttributesEditor(true);
 }
