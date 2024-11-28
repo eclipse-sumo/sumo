@@ -1120,7 +1120,8 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
                 // persons move before vehicles so we subtract DELTA_TO because they cannot rely on vehicles having passed the intersection in the current time step
-                && !link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, nullptr, p.ignoreRed(link), p.getPerson())) {
+                && (!link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, nullptr, p.ignoreRed(link), p.getPerson())
+                    || p.stopForYellow(link))) {
             // prevent movement passed a closed link
             Obstacles closedLink(stripes, Obstacle(p.getEdgePos(0) + dir * (dist - NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
             p.mergeObstacles(currentObs, closedLink);
@@ -2502,6 +2503,26 @@ MSPModel_Striping::PState::ignoreRed(const MSLink* link) const {
             return ignoreRedTime > redDuration;
         } else {
             return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool
+MSPModel_Striping::PState::stopForYellow(const MSLink* link) const {
+    // main use case is at rail_crossing
+    if (link->haveYellow()) {
+        const double ignoreYellowTime = myPerson->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, -1);
+        if (ignoreYellowTime >= 0) {
+            const double yellowDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());
+            if (DEBUGCOND(*this)) {
+                std::cout << SIMTIME << "  ignoreYellowTime=" << ignoreYellowTime << " yellowDuration=" << yellowDuration << "\n";
+            }
+            return ignoreYellowTime < yellowDuration;
+        } else {
+            return true;
         }
     } else {
         return false;

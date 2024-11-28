@@ -321,6 +321,9 @@ protected:
         /// @brief whether the pedestrian may ignore a red light
         bool ignoreRed(const MSLink* link) const;
 
+        /// @brief whether the pedestrian should stop at a yellow light
+        bool stopForYellow(const MSLink* link) const;
+
         /// @brief return the person width
         virtual double getWidth() const;
 
