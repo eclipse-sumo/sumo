@@ -1,5 +1,8 @@
 plain
 
+# replay speed without positions
+speed_only
+
 # points don't form a continuous sequence of edges
 gap
 
