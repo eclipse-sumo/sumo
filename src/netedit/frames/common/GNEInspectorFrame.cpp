@@ -327,9 +327,9 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             myInspectorFrameParent->myViewNet->getUndoList()->end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
-        myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
-        myInspectorFrameParent->myFlowAttributesEditor->refreshAttributeTable();
-        myInspectorFrameParent->myGEOAttributesEditor->refreshAttributeTable();
+        myInspectorFrameParent->myAttributesEditor->refreshAttributesEditor();
+        myInspectorFrameParent->myFlowAttributesEditor->refreshAttributesEditor();
+        myInspectorFrameParent->myGEOAttributesEditor->refreshAttributesEditor();
     }
     return 1;
 }
@@ -521,7 +521,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
         // end copy template
         myInspectorFrameParent->myViewNet->getUndoList()->end();
         // refresh inspector parent
-        myInspectorFrameParent->myAttributesEditor->refreshAttributeTable();
+        myInspectorFrameParent->myAttributesEditor->refreshAttributesEditor();
     }
     return 1;
 }
@@ -859,10 +859,10 @@ GNEInspectorFrame::refreshInspection() {
     myHeaderLeftFrame->hide();
     myBackButton->hide();
     // Hide all elements
-    myAttributesEditor->hideAttributeTableModule();
-    myFlowAttributesEditor->hideAttributeTableModule();
+    myAttributesEditor->hideAttributesEditor();
+    myFlowAttributesEditor->hideAttributesEditor();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
-    myGEOAttributesEditor->hideAttributeTableModule();
+    myGEOAttributesEditor->hideAttributesEditor();
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
@@ -910,16 +910,16 @@ GNEInspectorFrame::refreshInspection() {
         getFrameHeaderLabel()->setText(headerString.c_str());
 
         // Show attributes editor
-        myAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
+        myAttributesEditor->showAttributesEditor(inspectedElements.getACs());
 
         // Show flow attributes editor
-        myFlowAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
+        myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();
 
         // Show GEO attributes editor
-        myGEOAttributesEditor->showAttributeTableModule(inspectedElements.getACs());
+        myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
 
         // show parameters editor
         myParametersEditor->showParametersEditor();
@@ -1028,9 +1028,9 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
 
 void
 GNEInspectorFrame::updateFrameAfterUndoRedo() {
-    myAttributesEditor->refreshAttributeTable();
-    myFlowAttributesEditor->refreshAttributeTable();
-    myGEOAttributesEditor->refreshAttributeTable();
+    myAttributesEditor->refreshAttributesEditor();
+    myFlowAttributesEditor->refreshAttributesEditor();
+    myGEOAttributesEditor->refreshAttributesEditor();
     myParametersEditor->refreshParametersEditor();
     myHierarchicalElementTree->refreshHierarchicalElementTree();
 }
@@ -1060,10 +1060,10 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSele
 
 void
 GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-    myAttributesEditor->refreshAttributeTable();
-    myFlowAttributesEditor->refreshAttributeTable();
+    myAttributesEditor->refreshAttributesEditor();
+    myFlowAttributesEditor->refreshAttributesEditor();
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
-    myGEOAttributesEditor->refreshAttributeTable();
+    myGEOAttributesEditor->refreshAttributesEditor();
 }
 
 

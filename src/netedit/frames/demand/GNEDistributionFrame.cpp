@@ -218,11 +218,11 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     // continue depending of myCurrentDistribution
     if (myCurrentDistribution) {
         // show modules
-        myAttributesEditor->showAttributeTableModule(myCurrentDistribution);
+        myAttributesEditor->showAttributesEditor(myCurrentDistribution);
         myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
         // hide modules
-        myAttributesEditor->hideAttributeTableModule();
+        myAttributesEditor->hideAttributesEditor();
         myDistributionValuesEditor->hideDistributionValuesEditor();
     }
 }
@@ -240,7 +240,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             // set color of myTypeMatchBox to black (valid)
             myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
             // show modules
-            myAttributesEditor->showAttributeTableModule(distribution.second);
+            myAttributesEditor->showAttributesEditor(distribution.second);
             myDistributionValuesEditor->showDistributionValuesEditor();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myDistributionsComboBox->getText() + "' in DistributionSelector").text());
@@ -252,7 +252,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
     // not found, then reset myCurrentDistribution
     myCurrentDistribution = nullptr;
     // hide modules
-    myAttributesEditor->hideAttributeTableModule();
+    myAttributesEditor->hideAttributesEditor();
     myDistributionValuesEditor->hideDistributionValuesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myDistributionsComboBox->setTextColor(FXRGB(255, 0, 0));

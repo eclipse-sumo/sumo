@@ -55,16 +55,16 @@ public:
     GNEAttributesEditor(GNEFrame* frameParent, const int editorOptions);
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
-    void showAttributeTableModule(GNEAttributeCarrier* AC);
+    void showAttributesEditor(GNEAttributeCarrier* AC);
 
     /// @brief edit attributes of the given hash of ACs (usually the inspected ACs)
-    void showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs);
+    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs);
 
     /// @brief hide attribute editor
-    void hideAttributeTableModule();
+    void hideAttributesEditor();
 
     /// @brief refresh attribute editor
-    void refreshAttributeTable();
+    void refreshAttributesEditor();
 
     /// @brief pointer to GNEFrame parent
     GNEFrame* getFrameParent() const;
@@ -72,7 +72,7 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief Called when user press the help button
-    long onCmdAttributeTableHelp(FXObject*, FXSelector, void*);
+    long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
 
     /// @}
 

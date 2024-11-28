@@ -52,7 +52,7 @@
 #define MAX_ATTR 32
 
 FXDEFMAP(GNEAttributesEditor) GNEAttributeTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAttributesEditor::onCmdAttributeTableHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAttributesEditor::onCmdAttributesEditorHelp)
 };
 
 // Object implementation
@@ -77,25 +77,25 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const int editor
 
 
 void
-GNEAttributesEditor::showAttributeTableModule(GNEAttributeCarrier* AC) {
+GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
     myEditedACs.clear();
     myEditedACs.push_back(AC);
-    refreshAttributeTable();
+    refreshAttributesEditor();
 }
 
 
 void
-GNEAttributesEditor::showAttributeTableModule(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
+GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
     myEditedACs.clear();
     for (const auto& AC : ACs) {
         myEditedACs.push_back(AC);
     }
-    refreshAttributeTable();
+    refreshAttributesEditor();
 }
 
 
 void
-GNEAttributesEditor::hideAttributeTableModule() {
+GNEAttributesEditor::hideAttributesEditor() {
     myEditedACs.clear();
     // hide all rows before hidding table
     for (const auto& row : myAttributesEditorRows) {
@@ -106,7 +106,7 @@ GNEAttributesEditor::hideAttributeTableModule() {
 
 
 void
-GNEAttributesEditor::refreshAttributeTable() {
+GNEAttributesEditor::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
         // Iterate over tag property of first AC and show row for every attribute
         int itRows = 0;
@@ -136,12 +136,12 @@ GNEAttributesEditor::refreshAttributeTable() {
         }
         // only show if at least one row was shown
         if (itRows == 0) {
-            hideAttributeTableModule();
+            hideAttributesEditor();
         } else {
             show();
         }
     } else {
-        hideAttributeTableModule();
+        hideAttributesEditor();
     }
 }
 
@@ -153,7 +153,7 @@ GNEAttributesEditor::getFrameParent() const {
 
 
 long
-GNEAttributesEditor::onCmdAttributeTableHelp(FXObject*, FXSelector, void*) {
+GNEAttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     if (myEditedACs.size() > 0) {
         myFrameParent->openHelpAttributesDialog(myEditedACs.front());
     }
@@ -180,7 +180,7 @@ GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
     if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
         undoList->end();
     }
-    refreshAttributeTable();
+    refreshAttributesEditor();
     // update frame parent (needed to update other attribute tables)
     myFrameParent->attributeUpdated(attr);
 }
@@ -206,7 +206,7 @@ GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
         undoList->end();
     }
-    refreshAttributeTable();
+    refreshAttributesEditor();
     // update frame parent (needed to update other attribute tables)
     myFrameParent->attributeUpdated(attr);
 }

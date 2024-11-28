@@ -309,7 +309,7 @@ GNEMeanDataFrame::MeanDataSelector::showMeanDataSelector() {
 void
 GNEMeanDataFrame::MeanDataSelector::hideMeanDataSelector() {
     // hide attributes editor
-    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
+    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditor();
     // hide
     hide();
 }
@@ -373,9 +373,9 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     // check if show attribute editor
     if (!afterChangingID) {
         if (myCurrentMeanData) {
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData);
         } else {
-            myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
+            myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditor();
         }
     }
 }
@@ -403,7 +403,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeTableModule(myCurrentMeanData);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet
@@ -415,7 +415,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // hide all modules if selected item isn't valid
-    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributeTableModule();
+    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditor();
     // set color of myMeanDataMatchBox to red (invalid)
     myMeanDataComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode

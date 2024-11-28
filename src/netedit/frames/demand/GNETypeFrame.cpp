@@ -147,7 +147,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         // refresh vehicle type editor module
         myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
         // show modules
-        myTypeFrameParent->myTypeAttributesEditor->showAttributeTableModule(myCurrentType);
+        myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
         myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
         myTypeFrameParent->myParametersEditor->refreshParametersEditor();
     }
@@ -166,7 +166,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // refresh vehicle type editor module
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // show modules if selected item is valid
-            myTypeFrameParent->myTypeAttributesEditor->showAttributeTableModule(myCurrentType);
+            myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
             // Write Warning in console if we're in testing mode
@@ -180,7 +180,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // refresh vehicle type editor module
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     // hide all modules if selected item isn't valid
-    myTypeFrameParent->myTypeAttributesEditor->hideAttributeTableModule();
+    myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditor();
     myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditorExtendedModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -415,7 +415,7 @@ GNETypeFrame::show() {
     // refresh vehicle type and Attribute Editor
     myTypeSelector->refreshTypeSelector(true);
     // show modules
-    myTypeAttributesEditor->showAttributeTableModule(myTypeSelector->getCurrentType());
+    myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType());
     myAttributesEditorExtended->showAttributesEditorExtendedModule();
     // show frame
     GNEFrame::show();
@@ -443,7 +443,7 @@ GNETypeFrame::attributesEditorExtendedDialogOpened() {
     if (myTypeSelector->getCurrentType()) {
         GNEVehicleTypeDialog(myTypeSelector->getCurrentType(), true);  // NOSONAR, constructor returns after dialog has been closed
         // call "showAttributeEditorModule" to refresh attribute list
-        myTypeAttributesEditor->showAttributeTableModule(myTypeSelector->getCurrentType());
+        myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType());
         myParametersEditor->refreshParametersEditor();
     }
 }
