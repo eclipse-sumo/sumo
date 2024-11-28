@@ -43,8 +43,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myActiveRouteColor(nullptr),
     myCurrentCosts(0.),
     myCurrentVType(nullptr),
-    myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
-    myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
+    myBeginDefault(OptionsCont::getOptions().exists("begin") ? string2time(OptionsCont::getOptions().getString("begin")) : 0),
+    myEndDefault(OptionsCont::getOptions().exists("end") ? string2time(OptionsCont::getOptions().getString("end")) : -1),
     myFirstDepart(-1),
     myInsertStopEdgesAt(-1),
     myAllowInternalRoutes(false) {
