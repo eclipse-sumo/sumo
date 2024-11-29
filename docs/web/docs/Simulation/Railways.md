@@ -150,16 +150,31 @@ train can only leave by reversing direction. [netconvert](../netconvert.md) prov
 
 ## Rail Signals
 
+### Definition
+
 The [node type](../Networks/PlainXML.md#node_descriptions)
 `rail_signal` may be used to define signals which implement [Automatic Block
 Signaling](https://en.wikipedia.org/wiki/Automatic_block_signaling).
 
-By setting the [netconvert](../netconvert.md)-option **--railway.signals.discard** all signals
-can be removed from a network.
+When working with bidirectional tracks, rail signals will affect both directions of travel by default. This can be [changed in netedit](../Netedit/neteditUsageExamples.md#define_rail_signals_that_only_affect_one_track_direction) or by patching with a [connection file with attribute `uncontrolled`](../Networks/PlainXML.html#explicitly_setting_which_edge_lane_is_connected_to_which).
 
-When working with bidirectional tracks, rail signals will affect both directions of travel by default. This can be [changed in netedit](../Netedit/neteditUsageExamples.md#define_rail_signals_that_only_affect_one_track_direction).
+### Import
 
 When importing rail networks from OSM, the rules for [what counts as a rail signal can be customized](../Networks/Import/OpenStreetMap.md#railway_signals) to adapt to the local level of database detail.
+
+By setting the [netconvert](../netconvert.md)-option **--railway.signals.discard** all signals can be removed from a network.
+
+### Heuristic generation
+
+By setting the [netconvert](../netconvert.md)-option **--railway.signal.guess-by-stops**, additional signal based on loaded public transport stops.
+Stops are either loaded from the input (i.e. OSM) or with option **--ptstop-files**.
+
+For each public transport stop, at most two signals will be added:
+
+- a signal at the end of the stop edge (unless the node happens to be a switch)
+- a signal at the start of the stop edge or the next upstream edge that is at least 200m upstream of the stop edge end (unless the node happens to be a switch)
+
+The minimum distance of 200m between the two signals can be customized with option **--osm.stop-outout.length.train**.
 
 ## Rail Crossings
 
