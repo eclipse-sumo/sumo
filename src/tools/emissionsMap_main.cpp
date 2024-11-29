@@ -27,6 +27,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/Option.h>
