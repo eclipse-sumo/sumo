@@ -1032,6 +1032,18 @@ MSFrame::checkOptions() {
             }
         }
     }
+
+    if (oc.isSet("time-to-teleport.railsignal-deadlock")) {
+        SUMOTime t1 = string2time(oc.getString("time-to-teleport"));
+        SUMOTime t2 = string2time(oc.getString("time-to-teleport.railsignal-deadlock"));
+        if (t1 > 0 && t2 > 0 && t1 <= t2) {
+            WRITE_WARNINGF(TL("Railsignal-deadlock will not be detected because time-to-teleport (%) is lower than time-to-teleport.railsignal-deadlock (%)."), time2string(t1), time2string(t2));
+        }
+    }
+
+    oc.doRegister("", new Option_String("-1", "TIME"));
+
+
     if (oc.getFloat("delay") < 0.0) {
         WRITE_ERROR(TL("You need a non-negative delay."));
         ok = false;
