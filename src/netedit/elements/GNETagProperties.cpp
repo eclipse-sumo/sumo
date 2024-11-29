@@ -737,6 +737,12 @@ GNETagProperties::hasDialog() const {
 
 
 bool
+GNETagProperties::hasExtendedAttributes() const {
+    return (myTagProperty & EXTENDED) != 0;
+}
+
+
+bool
 GNETagProperties::hasParameters() const {
     // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
     return (myTagProperty & NOPARAMETERS) == 0;

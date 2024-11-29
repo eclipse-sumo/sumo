@@ -93,11 +93,12 @@ public:
         NOTSELECTABLE =         1 << 7,     // Element cannot be selected
         MASKSTARTENDPOS =       1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
         NOPARAMETERS =          1 << 9,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                 1 << 10,     // Element is placed in RTREE
+        RTREE =                 1 << 10,    // Element is placed in RTREE
         CENTERAFTERCREATION =   1 << 11,    // Camera is moved after element creation
         REQUIRE_PROJ =          1 << 12,    // Element require a geo-projection defined in network
         VCLASS_ICON =           1 << 13,    // Element returns icon depending of their vClass
-        SYMBOL =                1 << 14,    // Symbol elements (VSSSymbols, RerouterSymbols...)
+        SYMBOL =                1 << 14,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
+        EXTENDED =              1 << 15,    // Element contains extended attributes (Usually vTypes)
     };
 
     /// @brief tag parents
@@ -467,6 +468,9 @@ public:
 
     /// @brief return true if tag correspond to an element that can be edited using a dialog
     bool hasDialog() const;
+
+    /// @brief return true if tag correspond to an element that contains extended attributes
+    bool hasExtendedAttributes() const;
 
     /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
     bool hasParameters() const;
