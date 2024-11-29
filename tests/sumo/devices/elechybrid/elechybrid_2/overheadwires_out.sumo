@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-03 17:23:01 by Eclipse SUMO sumo Version v1_19_0+1675-8d4073b0822
+<!-- generated on 2024-11-29 15:32:53 by Eclipse SUMO sumo Version v1_21_0+1057-60fef485bac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="elechybrid_2.net.xml"/>
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.elechybrid.explicit value="test1,test2"/>
     </elechybrid_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <overheadWireSegments-export>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="164.69" chargingBegin="1.00" chargingEnd="6.00" maximumBatteryCapacity="46000.00">
             <step time="1.00" chargingStatus="charging" energyCharged="16.18" partialCharge="16.18" voltage="599.61" actualBatteryCapacity="23010.00"/>
             <step time="2.00" chargingStatus="charging" energyCharged="20.69" partialCharge="36.87" voltage="599.54" actualBatteryCapacity="23020.00"/>
-            <step time="3.00" chargingStatus="charging" energyCharged="25.20" partialCharge="62.07" voltage="599.53" actualBatteryCapacity="23030.00"/>
+            <step time="3.00" chargingStatus="charging" energyCharged="25.21" partialCharge="62.07" voltage="599.53" actualBatteryCapacity="23030.00"/>
             <step time="4.00" chargingStatus="charging" energyCharged="29.73" partialCharge="91.80" voltage="599.57" actualBatteryCapacity="23040.00"/>
             <step time="5.00" chargingStatus="charging" energyCharged="34.26" partialCharge="126.06" voltage="599.69" actualBatteryCapacity="23050.00"/>
             <step time="6.00" chargingStatus="charging" energyCharged="38.63" partialCharge="164.69" voltage="599.90" actualBatteryCapacity="23060.00"/>
@@ -68,51 +68,51 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <overheadWireSegment id="ovrhdSgmnt_-gneE13_0_8" tractionSubstationId="" totalEnergyCharged="0.00" chargingSteps="0" lane="-gneE13_0"/>
     <overheadWireSegment id="ovrhdSgmnt_-gneE14_0_9" tractionSubstationId="" totalEnergyCharged="0.00" chargingSteps="0" lane="-gneE14_0"/>
     <overheadWireSegment id="ovrhdSgmnt_-gneE7_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="0.00" chargingSteps="0" lane="-gneE7_0"/>
-    <overheadWireSegment id="ovrhdSgmnt_-gneE8_0_5" tractionSubstationId="trSubstation2" totalEnergyCharged="13.24" chargingSteps="2" lane="-gneE8_0">
-        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="13.24" chargingBegin="7.00" chargingEnd="8.00" maximumBatteryCapacity="46000.00">
-            <step time="7.00" chargingStatus="charging" energyCharged="5.96" partialCharge="5.96" voltage="599.99" actualBatteryCapacity="23070.51"/>
-            <step time="8.00" chargingStatus="charging" energyCharged="7.27" partialCharge="13.24" voltage="599.98" actualBatteryCapacity="23080.90"/>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE8_0_5" tractionSubstationId="trSubstation2" totalEnergyCharged="13.31" chargingSteps="2" lane="-gneE8_0">
+        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="13.31" chargingBegin="7.00" chargingEnd="8.00" maximumBatteryCapacity="46000.00">
+            <step time="7.00" chargingStatus="charging" energyCharged="5.97" partialCharge="5.97" voltage="599.99" actualBatteryCapacity="23070.51"/>
+            <step time="8.00" chargingStatus="charging" energyCharged="7.34" partialCharge="13.31" voltage="599.98" actualBatteryCapacity="23080.89"/>
         </vehicle>
     </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" totalEnergyCharged="251.06" chargingSteps="11" lane="gneE0_0">
-        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="251.06" chargingBegin="1.00" chargingEnd="11.00" maximumBatteryCapacity="46000.00">
+    <overheadWireSegment id="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" totalEnergyCharged="251.08" chargingSteps="11" lane="gneE0_0">
+        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="251.08" chargingBegin="1.00" chargingEnd="11.00" maximumBatteryCapacity="46000.00">
             <step time="1.00" chargingStatus="charging" energyCharged="16.18" partialCharge="16.18" voltage="699.98" actualBatteryCapacity="23010.00"/>
             <step time="2.00" chargingStatus="charging" energyCharged="20.69" partialCharge="36.87" voltage="699.94" actualBatteryCapacity="23020.00"/>
-            <step time="3.00" chargingStatus="charging" energyCharged="25.20" partialCharge="62.07" voltage="699.86" actualBatteryCapacity="23030.00"/>
+            <step time="3.00" chargingStatus="charging" energyCharged="25.21" partialCharge="62.07" voltage="699.86" actualBatteryCapacity="23030.00"/>
             <step time="4.00" chargingStatus="charging" energyCharged="29.73" partialCharge="91.80" voltage="699.72" actualBatteryCapacity="23040.00"/>
             <step time="5.00" chargingStatus="charging" energyCharged="34.26" partialCharge="126.06" voltage="699.52" actualBatteryCapacity="23050.00"/>
-            <step time="6.00" chargingStatus="charging" energyCharged="38.81" partialCharge="164.86" voltage="699.24" actualBatteryCapacity="23060.00"/>
-            <step time="7.00" chargingStatus="charging" energyCharged="43.37" partialCharge="208.23" voltage="698.87" actualBatteryCapacity="23070.00"/>
-            <step time="8.00" chargingStatus="charging" energyCharged="23.72" partialCharge="231.96" voltage="699.23" actualBatteryCapacity="23080.00"/>
-            <step time="9.00" chargingStatus="charging" energyCharged="5.06" partialCharge="237.02" voltage="699.81" actualBatteryCapacity="23090.60"/>
-            <step time="10.00" chargingStatus="charging" energyCharged="6.36" partialCharge="243.38" voltage="699.73" actualBatteryCapacity="23101.08"/>
-            <step time="11.00" chargingStatus="charging" energyCharged="7.67" partialCharge="251.06" voltage="699.66" actualBatteryCapacity="23111.42"/>
+            <step time="6.00" chargingStatus="charging" energyCharged="38.81" partialCharge="164.87" voltage="699.24" actualBatteryCapacity="23060.00"/>
+            <step time="7.00" chargingStatus="charging" energyCharged="43.37" partialCharge="208.25" voltage="698.87" actualBatteryCapacity="23070.00"/>
+            <step time="8.00" chargingStatus="charging" energyCharged="23.73" partialCharge="231.98" voltage="699.23" actualBatteryCapacity="23080.00"/>
+            <step time="9.00" chargingStatus="charging" energyCharged="5.07" partialCharge="237.04" voltage="699.81" actualBatteryCapacity="23090.60"/>
+            <step time="10.00" chargingStatus="charging" energyCharged="6.36" partialCharge="243.41" voltage="699.73" actualBatteryCapacity="23101.08"/>
+            <step time="11.00" chargingStatus="charging" energyCharged="7.68" partialCharge="251.08" voltage="699.66" actualBatteryCapacity="23111.42"/>
         </vehicle>
     </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" totalEnergyCharged="187.38" chargingSteps="7" lane="gneE1_1">
-        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="187.38" chargingBegin="12.00" chargingEnd="18.00" maximumBatteryCapacity="46000.00">
+    <overheadWireSegment id="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" totalEnergyCharged="191.46" chargingSteps="7" lane="gneE1_1">
+        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="191.46" chargingBegin="12.00" chargingEnd="18.00" maximumBatteryCapacity="46000.00">
             <step time="12.00" chargingStatus="charging" energyCharged="30.22" partialCharge="30.22" voltage="698.53" actualBatteryCapacity="23121.42"/>
-            <step time="13.00" chargingStatus="charging" energyCharged="34.75" partialCharge="64.97" voltage="698.15" actualBatteryCapacity="23131.42"/>
-            <step time="14.00" chargingStatus="charging" energyCharged="39.30" partialCharge="104.27" voltage="697.68" actualBatteryCapacity="23141.42"/>
-            <step time="15.00" chargingStatus="charging" energyCharged="36.14" partialCharge="140.41" voltage="697.64" actualBatteryCapacity="23151.42"/>
-            <step time="16.00" chargingStatus="charging" energyCharged="5.21" partialCharge="145.61" voltage="699.63" actualBatteryCapacity="23162.01"/>
-            <step time="17.00" chargingStatus="charging" energyCharged="6.51" partialCharge="152.12" voltage="699.52" actualBatteryCapacity="23172.47"/>
-            <step time="18.00" chargingStatus="charging" energyCharged="35.26" partialCharge="187.38" voltage="697.21" actualBatteryCapacity="23182.47"/>
+            <step time="13.00" chargingStatus="charging" energyCharged="36.82" partialCharge="67.04" voltage="698.04" actualBatteryCapacity="23131.42"/>
+            <step time="14.00" chargingStatus="charging" energyCharged="39.37" partialCharge="106.41" voltage="697.68" actualBatteryCapacity="23141.42"/>
+            <step time="15.00" chargingStatus="charging" energyCharged="36.23" partialCharge="142.64" voltage="697.63" actualBatteryCapacity="23151.42"/>
+            <step time="16.00" chargingStatus="charging" energyCharged="7.05" partialCharge="149.70" voltage="699.50" actualBatteryCapacity="23161.83"/>
+            <step time="17.00" chargingStatus="charging" energyCharged="6.51" partialCharge="156.21" voltage="699.52" actualBatteryCapacity="23172.29"/>
+            <step time="18.00" chargingStatus="charging" energyCharged="35.26" partialCharge="191.46" voltage="697.21" actualBatteryCapacity="23182.29"/>
         </vehicle>
     </overheadWireSegment>
     <overheadWireSegment id="ovrhdSgmnt_gneE2_0_3" tractionSubstationId="trSubstation1" totalEnergyCharged="0.00" chargingSteps="0" lane="gneE2_0"/>
-    <overheadWireSegment id="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" totalEnergyCharged="133.13" chargingSteps="3" lane="gneE2_1">
-        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="133.13" chargingBegin="19.00" chargingEnd="21.00" maximumBatteryCapacity="46000.00">
-            <step time="19.00" chargingStatus="charging" energyCharged="39.81" partialCharge="39.81" voltage="696.61" actualBatteryCapacity="23192.47"/>
-            <step time="20.00" chargingStatus="charging" energyCharged="44.37" partialCharge="84.18" voltage="695.92" actualBatteryCapacity="23202.47"/>
-            <step time="21.00" chargingStatus="charging" energyCharged="48.95" partialCharge="133.13" voltage="695.12" actualBatteryCapacity="23212.47"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" totalEnergyCharged="136.35" chargingSteps="3" lane="gneE2_1">
+        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="136.35" chargingBegin="19.00" chargingEnd="21.00" maximumBatteryCapacity="46000.00">
+            <step time="19.00" chargingStatus="charging" energyCharged="39.81" partialCharge="39.81" voltage="696.61" actualBatteryCapacity="23192.29"/>
+            <step time="20.00" chargingStatus="charging" energyCharged="46.98" partialCharge="86.78" voltage="695.68" actualBatteryCapacity="23202.29"/>
+            <step time="21.00" chargingStatus="charging" energyCharged="49.57" partialCharge="136.35" voltage="695.05" actualBatteryCapacity="23212.29"/>
         </vehicle>
     </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE6_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="109.47" chargingSteps="3" lane="gneE6_0">
-        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="109.47" chargingBegin="9.00" chargingEnd="11.00" maximumBatteryCapacity="46000.00">
-            <step time="9.00" chargingStatus="charging" energyCharged="31.95" partialCharge="31.95" voltage="599.96" actualBatteryCapacity="23090.90"/>
-            <step time="10.00" chargingStatus="charging" energyCharged="36.49" partialCharge="68.43" voltage="599.74" actualBatteryCapacity="23100.90"/>
-            <step time="11.00" chargingStatus="charging" energyCharged="41.04" partialCharge="109.47" voltage="599.42" actualBatteryCapacity="23110.90"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE6_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="116.35" chargingSteps="3" lane="gneE6_0">
+        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="116.35" chargingBegin="9.00" chargingEnd="11.00" maximumBatteryCapacity="46000.00">
+            <step time="9.00" chargingStatus="charging" energyCharged="32.09" partialCharge="32.09" voltage="599.96" actualBatteryCapacity="23090.89"/>
+            <step time="10.00" chargingStatus="charging" energyCharged="40.74" partialCharge="72.83" voltage="599.71" actualBatteryCapacity="23100.89"/>
+            <step time="11.00" chargingStatus="charging" energyCharged="43.52" partialCharge="116.35" voltage="599.38" actualBatteryCapacity="23110.89"/>
         </vehicle>
     </overheadWireSegment>
 </overheadWireSegments-export>
