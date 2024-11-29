@@ -22,6 +22,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEDemandElementDialog.h"
@@ -137,6 +139,8 @@ GNEDemandElementDialog::acceptChanges() {
     } else {
         myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     }
+    // refresh frame
+    myEditedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->updateControls();
 }
 
 

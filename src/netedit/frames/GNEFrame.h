@@ -100,9 +100,6 @@ public:
     virtual void attributeUpdated(SumoXMLAttr attribute);
 
     /// @brief open GNEAttributesCreator extended dialog
-    virtual void attributesEditorExtendedDialogOpened();
-
-    /// @brief open GNEAttributesCreator extended dialog
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
     /// @brief create path between two elements

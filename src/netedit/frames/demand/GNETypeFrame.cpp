@@ -436,17 +436,4 @@ GNETypeFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
     myTypeEditor->refreshTypeEditorModule();
 }
 
-
-void
-GNETypeFrame::attributesEditorExtendedDialogOpened() {
-    // open vehicle type dialog
-    if (myTypeSelector->getCurrentType()) {
-        GNEVehicleTypeDialog(myTypeSelector->getCurrentType(), true);  // NOSONAR, constructor returns after dialog has been closed
-        // call "showAttributeEditorModule" to refresh attribute list
-        myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType());
-        myParametersEditor->refreshParametersEditor();
-    }
-}
-
-
 /****************************************************************************/

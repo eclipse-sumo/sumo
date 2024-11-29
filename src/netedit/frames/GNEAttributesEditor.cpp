@@ -74,7 +74,7 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     myFrontButton->hide();
     myOpenDialogButton = GUIDesigns::buildFXButton(this, TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
     myOpenDialogButton->hide();
-    myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(this, TL("Open extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
+    myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(this, TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
     myOpenExtendedAttributesButton->hide();
     // resize myAttributesEditorRows and fill it with attribute rows
     myAttributesEditorRows.resize(MAX_ATTR);
@@ -121,8 +121,8 @@ GNEAttributesEditor::refreshAttributesEditor() {
         const auto& tagProperty = myEditedACs.front()->getTagProperty();
         int itRows = 0;
         bool showButtons = false;
-        // check if show netedit attributes
-        if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
+        // check if show netedit attributes (only for single edited ACs)
+        if ((myEditedACs.size() == 1) && ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0)) {
             // front button
             if (tagProperty.isDrawable()) {
                 myFrontButton->show();
@@ -142,8 +142,6 @@ GNEAttributesEditor::refreshAttributesEditor() {
             }
             // extended attributes dialog
             if (tagProperty.hasExtendedAttributes()) {
-                // set icon
-                myOpenExtendedAttributesButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
                 myOpenExtendedAttributesButton->show();
                 showButtons = true;
             } else {
@@ -172,6 +170,10 @@ GNEAttributesEditor::refreshAttributesEditor() {
                     itRows++;
                 }
             }
+            // show help button
+            myHelpButton->show();
+        } else {
+            myHelpButton->hide();
         }
         // hide rest of rows before showing table
         for (int i = itRows; i < MAX_ATTR; i++) {
@@ -209,8 +211,13 @@ GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
-    // open GNEAttributesCreator extended dialog
-    myFrameParent->attributesEditorExtendedDialogOpened();
+    // obtain edited AC (temporal), until unification of
+    const auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty().getTag(), myEditedACs.front()->getID(), false);
+    // open vehicle type dialog
+    if (demandElement) {
+        GNEVehicleTypeDialog(demandElement, true);  // NOSONAR, constructor returns after dialog has been closed
+        refreshAttributesEditor();
+    }
     return 1;
 }
 

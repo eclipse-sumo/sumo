@@ -289,12 +289,6 @@ GNEFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
 
 
 void
-GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemented in all child frames that uses a GNEAttributesCreator editor with extended attributes
-}
-
-
-void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
     // this function has to be reimplemented in all child frames that uses a GNEOverlappedInspection
 }
