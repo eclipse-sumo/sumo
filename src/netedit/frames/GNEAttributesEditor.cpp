@@ -118,27 +118,56 @@ GNEAttributesEditor::hideAttributesEditor() {
 void
 GNEAttributesEditor::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
+        const auto& tagProperty = myEditedACs.front()->getTagProperty();
         // Iterate over tag property of first AC and show row for every attribute
         int itRows = 0;
-        for (const auto& attrProperty : myEditedACs.front()->getTagProperty()) {
-            // check if avoid show extended attributes
-            if (((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) == 0) && attrProperty.isExtended()) {
-                continue;
+        // check if show netedit attributes
+        if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
+            // front button
+            if (tagProperty.isDrawable()) {
+                myFrontButton->show();
+            } else {
+                myFrontButton->hide();
             }
-            // check if force show flow attributes
-            if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
-                continue;
-            } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
-                continue;
+            // edit dialog
+            if (tagProperty.hasDialog()) {
+                // set text and icon
+                myOpenDialogButton->setText(TLF("Open % dialog", tagProperty.getTagStr()).c_str());
+                myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
+                myOpenDialogButton->show();
+            } else {
+                myOpenDialogButton->hide();
             }
-            // check if force show GEO attributes
-            if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
-                continue;
-            } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
-                continue;
+            // extended attributes dialog
+            if (tagProperty.hasExtendedAttributes()) {
+                // set icon
+                myOpenExtendedAttributesButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
+                myOpenExtendedAttributesButton->show();
+            } else {
+                myOpenExtendedAttributesButton->hide();
             }
-            myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
-            itRows++;
+        }
+        // check if show basic attributes
+        if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+            for (const auto& attrProperty : tagProperty) {
+                bool showAttributeRow = true;
+                // check show conditions
+                if (attrProperty.isExtended()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
+                    showAttributeRow = false;
+                }
+                if (showAttributeRow) {
+                    myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
+                    itRows++;
+                }
+            }
         }
         // hide rest of rows before showing table
         for (int i = itRows; i < MAX_ATTR; i++) {
@@ -176,6 +205,8 @@ GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
+    // open GNEAttributesCreator extended dialog
+    myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;
 }
 

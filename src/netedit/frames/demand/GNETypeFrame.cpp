@@ -148,7 +148,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
         // show modules
         myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
-        myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
+        myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
         myTypeFrameParent->myParametersEditor->refreshParametersEditor();
     }
 }
@@ -167,7 +167,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
-            myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
+            myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
@@ -181,7 +181,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditor();
-    myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditorExtendedModule();
+    myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -397,7 +397,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), GNEAttributesEditor::EditorOptions::BASIC_ATTRIBUTES);
 
     // create module for open extended attributes dialog
-    myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
+    myAttributesEditorExtended = new GNEAttributesEditor(this, TL("Extended attributes"), GNEAttributesEditor::EditorOptions::NETEDIT_ATTRIBUTES);
 
     /// create module for edit parameters
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
@@ -416,7 +416,7 @@ GNETypeFrame::show() {
     myTypeSelector->refreshTypeSelector(true);
     // show modules
     myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType());
-    myAttributesEditorExtended->showAttributesEditorExtendedModule();
+    myAttributesEditorExtended->showAttributesEditor(myTypeSelector->getCurrentType());
     // show frame
     GNEFrame::show();
 }

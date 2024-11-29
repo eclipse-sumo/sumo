@@ -47,10 +47,9 @@ public:
     /// @brief Options for filter attributes
     enum EditorOptions {
         BASIC_ATTRIBUTES    = 1 << 0,
-        EXTENDED_ATTRIBUTES = 1 << 1,
-        FLOW_ATTRIBUTES     = 1 << 2,
-        GEO_ATTRIBUTES      = 1 << 3,
-        NETEDIT_ATTRIBUTES  = 1 << 4,   // this include front, additional dialog and extended dialog
+        FLOW_ATTRIBUTES     = 1 << 1,
+        GEO_ATTRIBUTES      = 1 << 2,
+        NETEDIT_ATTRIBUTES  = 1 << 3,   // this include front, additional dialog and extended dialog
     };
 
     /// @brief constructor

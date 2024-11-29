@@ -51,42 +51,6 @@ public:
     // ===========================================================================
 
     class AttributesEditor;
-    class AttributesEditorFlow;
-
-    // ===========================================================================
-    // class AttributesEditorExtended
-    // ===========================================================================
-
-    class AttributesEditorExtended : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::AttributesEditorExtended)
-
-    public:
-        /// @brief constructor
-        AttributesEditorExtended(GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~AttributesEditorExtended();
-
-        /// @brief show AttributesEditorExtended modul
-        void showAttributesEditorExtendedModule();
-
-        /// @brief hide group box
-        void hideAttributesEditorExtendedModule();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when open dialog button is clicked
-        long onCmdOpenDialog(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(AttributesEditorExtended)
-
-    private:
-        /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent = nullptr;
-    };
 
     // ===========================================================================
     // class GenericDataAttributes

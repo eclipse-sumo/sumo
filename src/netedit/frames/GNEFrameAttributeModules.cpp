@@ -43,10 +43,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrameAttributeModules::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog)
-};
-
 FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributeModules::GenericDataAttributes::onCmdEditParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters)
@@ -58,48 +54,12 @@ FXDEFMAP(GNEFrameAttributeModules::ParametersEditor) ParametersEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,      AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
 FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,      GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
 FXIMPLEMENT(GNEFrameAttributeModules::ParametersEditor,             MFXGroupBoxModule,      ParametersEditorMap,            ARRAYNUMBER(ParametersEditorMap))
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::AttributesEditorExtended- methods
-// ---------------------------------------------------------------------------
-
-GNEFrameAttributeModules::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Extended attributes")),
-    myFrameParent(frameParent) {
-    // Create open dialog button
-    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open attributes editor"), "", "", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
-}
-
-
-GNEFrameAttributeModules::AttributesEditorExtended::~AttributesEditorExtended() {}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorExtended::showAttributesEditorExtendedModule() {
-    show();
-}
-
-
-void
-GNEFrameAttributeModules::AttributesEditorExtended::hideAttributesEditorExtendedModule() {
-    hide();
-}
-
-
-long
-GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // open GNEAttributesCreator extended dialog
-    myFrameParent->attributesEditorExtendedDialogOpened();
-    return 1;
-}
 
 // ---------------------------------------------------------------------------
 // GNEFrameAttributeModules::GenericDataAttributes - methods

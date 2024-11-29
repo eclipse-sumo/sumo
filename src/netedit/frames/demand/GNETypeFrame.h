@@ -175,8 +175,8 @@ private:
     /// @brief editorinternal vehicle type attributes
     GNEAttributesEditor* myTypeAttributesEditor = nullptr;
 
-    /// @brief modul for open extended attributes dialog
-    GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
+    /// @brief attributes editor extended
+    GNEAttributesEditor* myAttributesEditorExtended = nullptr;
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
