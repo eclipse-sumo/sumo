@@ -3294,12 +3294,12 @@ GNEAttributeCarrier::fillShapeElements() {
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LON,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::GEO | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("The longitude position of the parking vehicle on the view"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LAT,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::GEO | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("The latitude position of the parking vehicle on the view"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 

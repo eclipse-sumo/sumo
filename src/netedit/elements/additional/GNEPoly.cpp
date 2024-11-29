@@ -524,9 +524,17 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return myID;
         case SUMO_ATTR_SHAPE:
-            return toString(myShape);
+            if ((GeoConvHelper::getFinal().getProjString() != "!") && myGEO) {
+                return TL("Using GEO Shape");
+            } else {
+                return toString(myShape);
+            }
         case SUMO_ATTR_GEOSHAPE:
-            return toString(myGeoShape, gPrecisionGeo);
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                return toString(myGeoShape, gPrecisionGeo);
+            } else {
+                return TL("No geo-conversion defined");
+            }
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_FILL:
@@ -673,12 +681,22 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return true;
-    } else {
-        return false;
+GNEPoly::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                return myGEO == false;
+            } else {
+                return true;
+            }
+        case SUMO_ATTR_GEOSHAPE:
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                return myGEO == true;
+            } else {
+                return false;
+            }
+        default:
+            return true;
     }
 }
 

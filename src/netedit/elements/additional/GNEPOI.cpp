@@ -418,20 +418,26 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(getFriendlyPos());
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
-        case SUMO_ATTR_LON: {
-            // calculate geo position
-            Position GEOPosition(x(), y());
-            GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
-            // return lon
-            return toString(GEOPosition.x(), 8);
-        }
-        case SUMO_ATTR_LAT: {
-            // calculate geo position
-            Position GEOPosition(x(), y());
-            GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
-            // return lat
-            return toString(GEOPosition.y(), 8);
-        }
+        case SUMO_ATTR_LON:
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                // calculate geo position
+                Position GEOPosition(x(), y());
+                GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
+                // return lon
+                return toString(GEOPosition.x(), 8);
+            } else {
+                return TL("No geo-conversion defined");
+            }
+        case SUMO_ATTR_LAT:
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                // calculate geo position
+                Position GEOPosition(x(), y());
+                GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
+                // return lat
+                return toString(GEOPosition.y(), 8);
+            } else {
+                return TL("No geo-conversion defined");
+            }
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_ICON:
@@ -570,12 +576,19 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEPOI::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return true;
-    } else {
-        return false;
+GNEPOI::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            if (myTagProperty.getTag() == GNE_TAG_POIGEO) {
+                return (GeoConvHelper::getFinal().getProjString() != "!");
+            } else {
+                return true;
+            }
+        case SUMO_ATTR_LON:
+        case SUMO_ATTR_LAT:
+            return (GeoConvHelper::getFinal().getProjString() != "!");
+        default:
+            return true;
     }
 }
 

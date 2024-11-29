@@ -153,10 +153,6 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
                 attributeEnabled = false;
             }
         }
-        // extra check for geo shape
-        if ((myAttribute == SUMO_ATTR_GEOSHAPE) && (firstEditedAC->getAttribute(SUMO_ATTR_GEO) == GNEAttributeCarrier::False)) {
-            attributeEnabled = false;
-        }
         // check if this attribute is computed
         const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(myAttribute);
         // get string value depending if attribute is enabled
