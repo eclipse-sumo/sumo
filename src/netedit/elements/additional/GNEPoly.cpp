@@ -689,6 +689,8 @@ GNEPoly::isAttributeEnabled(SumoXMLAttr key) const {
             } else {
                 return true;
             }
+        case SUMO_ATTR_GEO:
+            return GeoConvHelper::getFinal().getProjString() != "!";
         case SUMO_ATTR_GEOSHAPE:
             if (GeoConvHelper::getFinal().getProjString() != "!") {
                 return myGEO == true;
