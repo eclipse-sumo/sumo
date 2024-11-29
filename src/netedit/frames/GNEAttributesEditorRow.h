@@ -89,7 +89,7 @@ protected:
     const std::string getAttributeValue(const GNEAttributeProperties& attrProperty) const;
 
     /// @brief show attribute checkButton
-    void showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool enabled);
+    void showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
 
     /// @brief show attribute parent
     void showAttributeParent(const GNEAttributeProperties& attrProperty, const bool enabled);

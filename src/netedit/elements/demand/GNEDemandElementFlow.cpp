@@ -317,6 +317,8 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_POISSON_SET) != 0;
         case SUMO_ATTR_PROB:
             return (parametersSet & VEHPARS_PROB_SET) != 0;
+        case GNE_ATTR_FLOW_SPACING:
+            return !isFlowAttributeEnabled(SUMO_ATTR_END) || !isFlowAttributeEnabled(SUMO_ATTR_NUMBER);
         default:
             return true;
     }
@@ -365,12 +367,18 @@ GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, Sumo
                 toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
                 toggleFlowAttribute(GNE_ATTR_POISSON, false);
                 toggleFlowAttribute(SUMO_ATTR_PROB, false);
-            } else if (value == toString(SUMO_ATTR_END)) {
-                toggleFlowAttribute(SUMO_ATTR_END, true);
-                toggleFlowAttribute(SUMO_ATTR_NUMBER, false);
-            } else if (value == toString(SUMO_ATTR_NUMBER)) {
-                toggleFlowAttribute(SUMO_ATTR_END, false);
-                toggleFlowAttribute(SUMO_ATTR_NUMBER, true);
+            } else {
+                // if previously end-number was enabled, enable perHour
+                if (isFlowAttributeEnabled(SUMO_ATTR_END) && isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
+                    toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, true);
+                }
+                if (value == toString(SUMO_ATTR_END)) {
+                    toggleFlowAttribute(SUMO_ATTR_END, true);
+                    toggleFlowAttribute(SUMO_ATTR_NUMBER, false);
+                } else if (value == toString(SUMO_ATTR_NUMBER)) {
+                    toggleFlowAttribute(SUMO_ATTR_END, false);
+                    toggleFlowAttribute(SUMO_ATTR_NUMBER, true);
+                }
             }
             break;
         case GNE_ATTR_FLOW_SPACING:

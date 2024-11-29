@@ -153,6 +153,10 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
                 attributeEnabled = false;
             }
         }
+        // extra check for geo shape
+        if ((myAttribute == SUMO_ATTR_GEOSHAPE) && (firstEditedAC->getAttribute(SUMO_ATTR_GEO) == GNEAttributeCarrier::False)) {
+            attributeEnabled = false;
+        }
         // check if this attribute is computed
         const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(myAttribute);
         // get string value depending if attribute is enabled
@@ -169,37 +173,42 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
                 ACParent = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, firstEditedAC->getAttribute(SUMO_ATTR_TYPE), false);
             }
         }
-        // show elements depending of attribute properties
-        if (attrProperty.isActivatable()) {
-            showAttributeCheckButton(attrProperty, attributeEnabled);
-        } else if ((myAttribute == SUMO_ATTR_TYPE) && (tagProperty.isVehicle() || tagProperty.isPerson() || tagProperty.isContainer())) {
-            showAttributeParent(attrProperty, attributeEnabled);
-        } else if (myAttribute == SUMO_ATTR_ALLOW) {
-            showAttributeVClass(attrProperty, attributeEnabled);
-        } else if (myAttribute == SUMO_ATTR_COLOR) {
-            showAttributeColor(attrProperty, attributeEnabled);
+        // if we have a disabled flow attribute, don't show row
+        if (attrProperty.isFlow() && !attributeEnabled) {
+            hideAttributeRow();
         } else {
-            showAttributeLabel(attrProperty);
+            // show elements depending of attribute properties
+            if (attrProperty.isActivatable()) {
+                showAttributeCheckButton(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+            } else if ((myAttribute == SUMO_ATTR_TYPE) && (tagProperty.isVehicle() || tagProperty.isPerson() || tagProperty.isContainer())) {
+                showAttributeParent(attrProperty, attributeEnabled);
+            } else if (myAttribute == SUMO_ATTR_ALLOW) {
+                showAttributeVClass(attrProperty, attributeEnabled);
+            } else if (myAttribute == SUMO_ATTR_COLOR) {
+                showAttributeColor(attrProperty, attributeEnabled);
+            } else {
+                showAttributeLabel(attrProperty);
+            }
+            // continue depending of type of attribute
+            if (attrProperty.isBool()) {
+                showValueCheckButton(attrProperty, value, attributeEnabled, computedAttribute);
+            } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
+                showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
+            } else {
+                showValueString(attrProperty, value, attributeEnabled, computedAttribute);
+            }
+            // check if show move lane buttons
+            if (!multipleEditedACs && !tagProperty.isNetworkElement() && (myAttribute == SUMO_ATTR_LANE)) {
+                showMoveLaneButtons(value);
+                myValueLaneUpButton->show();
+                myValueLaneDownButton->show();
+            } else {
+                myValueLaneUpButton->hide();
+                myValueLaneDownButton->hide();
+            }
+            // Show GNEAttributesEditorRow
+            show();
         }
-        // continue depending of type of attribute
-        if (attrProperty.isBool()) {
-            showValueCheckButton(attrProperty, value, attributeEnabled, computedAttribute);
-        } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
-            showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
-        } else {
-            showValueString(attrProperty, value, attributeEnabled, computedAttribute);
-        }
-        // check if show move lane buttons
-        if (!multipleEditedACs && !tagProperty.isNetworkElement() && (myAttribute == SUMO_ATTR_LANE)) {
-            showMoveLaneButtons(value);
-            myValueLaneUpButton->show();
-            myValueLaneDownButton->show();
-        } else {
-            myValueLaneUpButton->hide();
-            myValueLaneDownButton->hide();
-        }
-        // Show GNEAttributesEditorRow
-        show();
     }
 }
 
@@ -409,9 +418,14 @@ GNEAttributesEditorRow::getAttributeValue(const GNEAttributeProperties& attrProp
 
 
 void
-GNEAttributesEditorRow::showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled) {
     myAttributeCheckButton->setText(attrProperty.getAttrStr().c_str());
-    myAttributeCheckButton->setCheck(enabled);
+    myAttributeCheckButton->setCheck(value);
+    if (enabled) {
+        myAttributeParentButton->enable();
+    } else {
+        myAttributeParentButton->disable();
+    }
     myAttributeCheckButton->show();
     // hide other elements
     myAttributeLabel->hide();
@@ -499,7 +513,7 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties& attrPro
 
 void
 GNEAttributesEditorRow::showValueCheckButton(const GNEAttributeProperties& attrProperty, const std::string& value,
-        const bool computed, const bool enabled) {
+        const bool enabled, const bool computed) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
@@ -547,7 +561,7 @@ GNEAttributesEditorRow::showValueCheckButton(const GNEAttributeProperties& attrP
 
 void
 GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties& attrProperty, const std::string& value,
-        const bool computed, const bool enabled) {
+        const bool enabled, const bool computed) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
@@ -712,36 +726,7 @@ GNEAttributesEditorRow::enableDependingOfSupermode(const GNEAttributeProperties&
     } else if (editModes.isCurrentSupermodeData() && (tagProperty.isDataElement() || tagProperty.isMeanData())) {
         enableElements = true;
     }
-    if (enableElements) {
-        // only enable elements showns
-        if (myAttributeCheckButton->shown()) {
-            myAttributeCheckButton->enable();
-        }
-        if (myAttributeParentButton->shown()) {
-            myAttributeParentButton->enable();
-        }
-        if (myAttributeVClassButton->shown()) {
-            myAttributeVClassButton->enable();
-        }
-        if (myAttributeColorButton->shown()) {
-            myAttributeColorButton->enable();
-        }
-        if (myValueTextField->shown()) {
-            myValueTextField->enable();
-        }
-        if (myValueComboBox->shown()) {
-            myValueComboBox->enable();
-        }
-        if (myValueCheckButton->shown()) {
-            myValueCheckButton->enable();
-        }
-        if (myValueLaneUpButton->shown()) {
-            myValueLaneUpButton->enable();
-        }
-        if (myValueLaneDownButton->shown()) {
-            myValueLaneDownButton->enable();
-        }
-    } else {
+    if (!enableElements) {
         myAttributeCheckButton->disable();
         myAttributeParentButton->disable();
         myAttributeVClassButton->disable();
