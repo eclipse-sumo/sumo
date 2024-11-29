@@ -138,7 +138,6 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     myActualBatteryCapacity(0),   // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),  // [maximumBatteryCapacity >= 0]t
     myOverheadWireChargingPower(0),
-    myLastAngle(NAN),
     myConsum(0),
     myBatteryDischargedLogic(false),
     myCharging(false),            // Initially vehicle don't charge
@@ -551,7 +550,6 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
     }
     myTotalEnergyWasted += energyWasted;
 
-    myLastAngle = veh.getAngle();
     return true; // keep the device
 }
 

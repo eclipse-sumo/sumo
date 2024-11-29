@@ -126,12 +126,12 @@ public:
     /// @brief return alphaBest variable, the best alpha scaling value
     double getAlphaBest() {
         return alphaBest;
-    };
+    }
 
     /// @brief return the reason why `alpha` scaling value has been used
     alphaFlag getAlphaReason() {
         return alphaReason;
-    };
+    }
 
 private:
 

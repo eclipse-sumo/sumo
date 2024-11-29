@@ -228,9 +228,6 @@ protected:
     /// @brief Parameter holding emission device
     MSDevice_Emissions* myEmissionDevice;
 
-    /// @brief Parameter, Vehicle's last angle
-    double myLastAngle;
-
     /// @brief Parameter, Vehicle consumption during a time step (by default is 0.)
     double myConsum;
 
