@@ -973,12 +973,6 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trough dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
-    /// @brief inspect attribute parent element
-    MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,
-    /// @brief edit attribute allow
-    MID_GNE_SET_ATTRIBUTE_ALLOW,
-    /// @brief edit attribute color
-    MID_GNE_SET_ATTRIBUTE_COLOR,
     /// @brief open parameters dialog
     MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)
@@ -1035,12 +1029,33 @@ enum {
     MID_GNE_PROTECT_ALL,
     /// @brief unprotect all elements
     MID_GNE_UNPROTECT_ALL,
-    /// @brief move lane up
-    MID_GNE_MOVELANE_UP,
-    /// @brief move lane down
-    MID_GNE_MOVELANE_DOWN,
-
     /// @}
+
+    /// @name GNEAttributesEditor messages
+    /// @{
+
+    /// @brief mark element as front
+    MID_GNE_ATTRIBUTESEDITOR_FRONT,
+    /// @brief open element dialog
+    MID_GNE_ATTRIBUTESEDITOR_DIALOG,
+    /// @brief open extended attributes
+    MID_GNE_ATTRIBUTESEDITOR_EXTENDED,
+    /// @brief open help dialog
+    MID_GNE_ATTRIBUTESEDITOR_HELP,
+    /// @brief set attribute (string, bool, etc.) in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,
+    /// @brief toogle enable attribute in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE,
+    /// @brief open color dialog in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,
+    /// @brief open allow dialog in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,
+    /// @brief inspect parent
+    MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,
+    /// @brief move lane up
+    MID_GNE_ATTRIBUTESEDITORROW_MOVELANEUP,
+    /// @brief move lane down
+    MID_GNE_ATTRIBUTESEDITORROW_MOVELANEDOWN,
 
     /// @name GNESelectorFrame messages
     /// @{

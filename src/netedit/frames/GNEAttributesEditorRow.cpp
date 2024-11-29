@@ -43,17 +43,17 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                  GNEAttributesEditorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,             GNEAttributesEditorRow::onCmdToogleEnableAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_COLOR,            GNEAttributesEditorRow::onCmdOpenColorDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_ALLOW,            GNEAttributesEditorRow::onCmdOpenAllowDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,    GNEAttributesEditorRow::onCmdInspectParent),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVELANE_UP,                    GNEAttributesEditorRow::onCmdMoveElementLaneUp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVELANE_DOWN,                  GNEAttributesEditorRow::onCmdMoveElementLaneDown)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,           GNEAttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE,  GNEAttributesEditorRow::onCmdToogleEnableAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,        GNEAttributesEditorRow::onCmdOpenColorDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,       GNEAttributesEditorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,          GNEAttributesEditorRow::onCmdInspectParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_MOVELANEUP,             GNEAttributesEditorRow::onCmdMoveLaneUp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_MOVELANEDOWN,           GNEAttributesEditorRow::onCmdMoveLaneDown)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesEditorRow,          FXHorizontalFrame,      GNEAttributeRowMap,         ARRAYNUMBER(GNEAttributeRowMap))
+FXIMPLEMENT(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAYNUMBER(GNEAttributeRowMap))
 
 // ===========================================================================
 // defines
@@ -79,47 +79,47 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
     myAttributeLabel->hide();
     // create lef boolean checkBox for enable/disable attributes
     myAttributeCheckButton = new FXCheckButton(this, "Enable/Disable attribute checkBox", this,
-            MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+            MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
     // create left button for inspect parent
     myAttributeParentButton = new MFXButtonTooltip(this, tooltipMenu, "Inspect parent button", nullptr, this,
-            MID_GNE_SET_ATTRIBUTE_INSPECTPARENT, GUIDesignButtonAttribute);
+            MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT, GUIDesignButtonAttribute);
     myAttributeParentButton->hide();
     // create lef button for edit allow/disallow vClasses
     myAttributeVClassButton = new MFXButtonTooltip(this, tooltipMenu, "Edit vClass button", nullptr, this,
-            MID_GNE_SET_ATTRIBUTE_ALLOW, GUIDesignButtonAttribute);
+            MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG, GUIDesignButtonAttribute);
     myAttributeVClassButton->hide();
     // set tip text for edit vClasses button
     myAttributeVClassButton->setTipText(TL("Open dialog for editing vClasses"));
     myAttributeVClassButton->setHelpText(TL("Open dialog for editing vClasses"));
     // create lef attribute for edit color
     myAttributeColorButton = new MFXButtonTooltip(this, tooltipMenu, "color button", GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this,
-            MID_GNE_SET_ATTRIBUTE_COLOR, GUIDesignButtonAttribute);
+            MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // set tip text for color button
     myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
     myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
     // create right text field for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, tooltipMenu, GUIDesignTextFieldNCol, this,
-            MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+            MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // create right combo box for discrete attributes
     myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium, this,
-                                          MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+                                          MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // Create right check button
-    myValueCheckButton = new FXCheckButton(this, "check button", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myValueCheckButton = new FXCheckButton(this, "check button", this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
     // create right move lane up button
     myValueLaneUpButton = new MFXButtonTooltip(this, tooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this,
-            MID_GNE_MOVELANE_UP, GUIDesignButtonIcon);
+            MID_GNE_ATTRIBUTESEDITORROW_MOVELANEUP, GUIDesignButtonIcon);
     myValueLaneUpButton->hide();
     // set tip texts
     myValueLaneUpButton->setTipText(TL("Move element up one lane"));
     myValueLaneUpButton->setHelpText(TL("Move element up one lane"));
     // create right move lane down button
     myValueLaneDownButton = new MFXButtonTooltip(this, tooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this,
-            MID_GNE_MOVELANE_DOWN, GUIDesignButtonIcon);
+            MID_GNE_ATTRIBUTESEDITORROW_MOVELANEDOWN, GUIDesignButtonIcon);
     myValueLaneDownButton->hide();
     // set tip texts
     myValueLaneDownButton->setTipText(TL("Move element down one lane"));
@@ -283,14 +283,14 @@ GNEAttributesEditorRow::onCmdInspectParent(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAttributesEditorRow::onCmdMoveElementLaneUp(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdMoveLaneUp(FXObject*, FXSelector, void*) {
     myAttributeTable->moveLaneUp();
     return 1;
 }
 
 
 long
-GNEAttributesEditorRow::onCmdMoveElementLaneDown(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdMoveLaneDown(FXObject*, FXSelector, void*) {
     myAttributeTable->moveLaneDown();
     return 1;
 }

@@ -46,9 +46,11 @@ public:
 
     /// @brief Options for filter attributes
     enum EditorOptions {
-        EXTENDED_ATTRIBUTES = 1 << 0,
-        FLOW_ATTRIBUTES     = 1 << 1,
-        GEO_ATTRIBUTES      = 1 << 2,
+        BASIC_ATTRIBUTES    = 1 << 0,
+        EXTENDED_ATTRIBUTES = 1 << 1,
+        FLOW_ATTRIBUTES     = 1 << 2,
+        GEO_ATTRIBUTES      = 1 << 3,
+        NETEDIT_ATTRIBUTES  = 1 << 4,   // this include front, additional dialog and extended dialog
     };
 
     /// @brief constructor
@@ -71,7 +73,16 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief Called when user press the help button
+    /// @brief called when user press the "Mark as front element" button
+    long onCmdMarkAsFront(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the "Open element dialog" button
+    long onCmdOpenElementDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the "Open extended attributes" button
+    long onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the help button
     long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
 
     /// @}
@@ -98,6 +109,15 @@ protected:
 private:
     /// @brief pointer to GNEFrame parent
     GNEFrame* myFrameParent;
+
+    /// @brief pointer to front button
+    FXButton* myFrontButton = nullptr;
+
+    /// @brief pointer to open dialog button (usually additionals)
+    FXButton* myOpenDialogButton = nullptr;
+
+    /// @brief pointer to open extended attributes button
+    FXButton* myOpenExtendedAttributesButton = nullptr;
 
     /// @brief current edited ACs
     std::vector<GNEAttributeCarrier*> myEditedACs;

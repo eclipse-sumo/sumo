@@ -40,9 +40,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAttributesCreatorRow) RowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEAttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_COLOR,    GNEAttributesCreatorRow::onCmdOpenColorDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_ALLOW,    GNEAttributesCreatorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                          GNEAttributesCreatorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,    GNEAttributesCreatorRow::onCmdOpenColorDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,   GNEAttributesCreatorRow::onCmdOpenAllowDialog),
 };
 
 // Object implementation
@@ -64,9 +64,9 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     myAttributeLabel->hide();
     myEnableAttributeCheckButton = new FXCheckButton(this, TL("name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myEnableAttributeCheckButton->hide();
-    myAttributeColorButton = GUIDesigns::buildFXButton(this, toString(SUMO_ATTR_COLOR), "", "", GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this, MID_GNE_SET_ATTRIBUTE_COLOR, GUIDesignButtonAttribute);
+    myAttributeColorButton = GUIDesigns::buildFXButton(this, toString(SUMO_ATTR_COLOR), "", "", GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this, MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
-    myAttributeAllowButton = GUIDesigns::buildFXButton(this, toString(SUMO_ATTR_ALLOW), "", "", GUIIconSubSys::getIcon(GUIIcon::ALLOW), this, MID_GNE_SET_ATTRIBUTE_ALLOW, GUIDesignButtonAttribute);
+    myAttributeAllowButton = GUIDesigns::buildFXButton(this, toString(SUMO_ATTR_ALLOW), "", "", GUIIconSubSys::getIcon(GUIIcon::ALLOW), this, MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG, GUIDesignButtonAttribute);
     myAttributeAllowButton->hide();
     // Create right visual elements
     myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);

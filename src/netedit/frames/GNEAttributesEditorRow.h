@@ -74,10 +74,10 @@ public:
     long onCmdInspectParent(FXObject*, FXSelector, void*);
 
     /// @brief inspect vType/VTypeDistribution parent
-    long onCmdMoveElementLaneUp(FXObject*, FXSelector, void*);
+    long onCmdMoveLaneUp(FXObject*, FXSelector, void*);
 
     /// @brief inspect vType/VTypeDistribution parent
-    long onCmdMoveElementLaneDown(FXObject*, FXSelector, void*);
+    long onCmdMoveLaneDown(FXObject*, FXSelector, void*);
 
     /// @}
 

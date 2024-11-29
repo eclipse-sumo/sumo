@@ -52,7 +52,10 @@
 #define MAX_ATTR 32
 
 FXDEFMAP(GNEAttributesEditor) GNEAttributeTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAttributesEditor::onCmdAttributesEditorHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,     GNEAttributesEditor::onCmdMarkAsFront),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,    GNEAttributesEditor::onCmdOpenElementDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,  GNEAttributesEditor::onCmdOpenExtendedAttributesDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,      GNEAttributesEditor::onCmdAttributesEditorHelp)
 };
 
 // Object implementation
@@ -66,13 +69,20 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
     myEditorOptions(editorOptions) {
+    // create general buttons
+    myFrontButton = GUIDesigns::buildFXButton(this, TL("Mark as front element"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
+    myFrontButton->hide();
+    myOpenDialogButton = GUIDesigns::buildFXButton(this, TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
+    myOpenDialogButton->hide();
+    myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(this, TL("Open extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
+    myOpenExtendedAttributesButton->hide();
     // resize myAttributesEditorRows and fill it with attribute rows
     myAttributesEditorRows.resize(MAX_ATTR);
     for (int i = 0; i < MAX_ATTR; i++) {
         myAttributesEditorRows[i] = new GNEAttributesEditorRow(this);
     }
     // Create help button
-    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -149,6 +159,24 @@ GNEAttributesEditor::refreshAttributesEditor() {
 GNEFrame*
 GNEAttributesEditor::getFrameParent() const {
     return myFrameParent;
+}
+
+
+long
+GNEAttributesEditor::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
