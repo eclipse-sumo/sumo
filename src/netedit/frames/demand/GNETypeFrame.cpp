@@ -394,7 +394,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeSelector = new TypeSelector(this);
 
     // Create vehicle type attributes editor
-    myTypeAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), 0);
+    myTypeAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), GNEAttributesEditor::EditorOptions::BASIC_ATTRIBUTES);
 
     // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);

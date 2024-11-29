@@ -58,25 +58,25 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief try to set new attribute value
+    /// @brief set new string/bool attribute
     long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
-    /// @brief called when user press the enable/disable checkbox
+    /// @brief called when user press the checkBox for toogle enable/disable attribute
     long onCmdToogleEnableAttribute(FXObject*, FXSelector, void*);
 
-    /// @brief open model dialog for edit color
+    /// @brief called when user press "edit color" dialog
     long onCmdOpenColorDialog(FXObject*, FXSelector, void*);
 
-    /// @brief open model dialog for edit allow
+    /// @brief called when user press "open allow" dialog
     long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
 
-    /// @brief inspect parent
+    /// @brief called when user press "inspect parent"
     long onCmdInspectParent(FXObject*, FXSelector, void*);
 
-    /// @brief inspect vType/VTypeDistribution parent
+    /// @brief called when user press "move lane up"
     long onCmdMoveLaneUp(FXObject*, FXSelector, void*);
 
-    /// @brief inspect vType/VTypeDistribution parent
+    /// @brief called when user press "move lane down"
     long onCmdMoveLaneDown(FXObject*, FXSelector, void*);
 
     /// @}
