@@ -36,7 +36,7 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
 
     /// @brief distribution attributes editor
-    myAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
+    myAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
     // Create type distribution attributes editor
     myDistributionValuesEditor = new GNEDistributionFrame::DistributionValuesEditor(this, myDistributionEditor, myDistributionSelector, myAttributesEditor, SUMO_TAG_VTYPE);

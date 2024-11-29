@@ -62,8 +62,8 @@ FXIMPLEMENT(GNEAttributesEditor,  MFXGroupBoxModule,  GNEAttributeTableMap,   AR
 // method definitions
 // ===========================================================================
 
-GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const int editorOptions) :
-    MFXGroupBoxModule(frameParent, TL("Internal attributes")),
+GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, const int editorOptions) :
+    MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
     myEditorOptions(editorOptions) {
     // resize myAttributesEditorRows and fill it with attribute rows

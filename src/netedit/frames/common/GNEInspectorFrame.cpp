@@ -669,13 +669,13 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myOverlappedInspection = new GNEOverlappedInspection(this);
 
     // Create Attributes Editor module
-    myAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
+    myAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
     // Create Flow Attributes Editor module
-    myFlowAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::FLOW_ATTRIBUTES);
+    myFlowAttributesEditor = new GNEAttributesEditor(this, TL("Flow attributes"), GNEAttributesEditor::EditorOptions::FLOW_ATTRIBUTES);
 
     // Create GEO Parameters Editor module
-    myGEOAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditor::EditorOptions::GEO_ATTRIBUTES);
+    myGEOAttributesEditor = new GNEAttributesEditor(this, TL("GEO attributes"), GNEAttributesEditor::EditorOptions::GEO_ATTRIBUTES);
 
     // create parameters Editor module
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);

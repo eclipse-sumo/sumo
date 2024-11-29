@@ -52,7 +52,7 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributesEditor(GNEFrame* frameParent, const int editorOptions);
+    GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, const int editorOptions);
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
     void showAttributesEditor(GNEAttributeCarrier* AC);
