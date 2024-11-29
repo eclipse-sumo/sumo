@@ -59,14 +59,12 @@ public:
         mySecondaryParams = secondaryParams;
     }
 
-    /**@brief Sets a parameter
-     * @param[in] key The parameter's name
-     * @param[in] value The parameter's value
-     */
-    void setDouble(SumoXMLAttr attr, double value);
+    void setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angle);
+
+    double getAngleDiff() const;
 
     double getDouble(SumoXMLAttr attr) const;
-    double getDoubleOptional(SumoXMLAttr attr, const double def) const;
+    double getDoubleOptional(SumoXMLAttr attr, const double def, const bool useStoredDefault = true) const;
 
     /**@brief Returns the value for a given key
      * @param[in] key The key to ask for
@@ -109,6 +107,13 @@ private:
     std::map<SumoXMLAttr, double> myMap;
     std::map<SumoXMLAttr, CharacteristicMap> myCharacteristicMapMap;
     const EnergyParams* mySecondaryParams = nullptr;
+    bool myHaveDefaultMass = false;
+    bool myHaveDefaultFrontSurfaceArea = false;
+    double myStopDurationSeconds = -1.;
+    bool myAmParking = false;
+    double myWaitingTimeSeconds = -1.;
+    double myLastAngle = INVALID_DOUBLE;
+    double myAngle = INVALID_DOUBLE;
 
     static const EnergyParams* myDefault;
     static const std::vector<SumoXMLAttr> myParamAttrs;

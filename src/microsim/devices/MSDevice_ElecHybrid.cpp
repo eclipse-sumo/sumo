@@ -159,9 +159,6 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     veh_pos_tail_elem(nullptr),
     pos_veh_node(nullptr) {
 
-    EnergyParams* const params = myHolder.getEmissionParameters();
-    params->setDouble(SUMO_ATTR_MAXIMUMPOWER, holder.getVehicleType().getParameter().getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100000.));
-
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNINGF(TL("ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), toString(maximumBatteryCapacity));
     } else {
@@ -762,17 +759,6 @@ MSDevice_ElecHybrid::getParameter(const std::string& key) const {
 }
 
 
-double
-MSDevice_ElecHybrid::getParameterDouble(const std::string& key) const {
-    if (key == toString(SUMO_ATTR_MAXIMUMPOWER)) {
-        return myHolder.getEmissionParameters()->getDouble(SUMO_ATTR_MAXIMUMPOWER);
-    } else if (key == toString(SUMO_ATTR_RECUPERATIONEFFICIENCY)) {
-        return myHolder.getEmissionParameters()->getDouble(SUMO_ATTR_RECUPERATIONEFFICIENCY);
-    }
-    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
-}
-
-
 double MSDevice_ElecHybrid::computeChargedEnergy(double energyIn) {
     double energyCharged = energyIn - myConsum;
     /*
@@ -931,9 +917,6 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
         myMaximumBatteryCapacity = doubleValue;
     } else if (key == toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER)) {
         myOverheadWireChargingPower = doubleValue;
-    } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        WRITE_WARNING(TL("Setting the vehicle mass via parameters is deprecated, please use setMass for the vehicle or its type."));
-        myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_MASS, doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
@@ -941,13 +924,11 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
 
 double
 MSDevice_ElecHybrid::acceleration(SUMOVehicle& veh, double power, double oldSpeed) {
-    myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_ANGLE, std::isnan(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
     return PollutantsInterface::getEnergyHelper().acceleration(0, PollutantsInterface::ELEC, oldSpeed, power, veh.getSlope(), myHolder.getEmissionParameters());
 }
 
 double
 MSDevice_ElecHybrid::consumption(SUMOVehicle& veh, double a, double newSpeed) {
-    myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_ANGLE, std::isnan(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
     return PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, newSpeed, a, veh.getSlope(), myHolder.getEmissionParameters()) * TS;
 }
 

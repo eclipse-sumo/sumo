@@ -1166,18 +1166,7 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
     }
     if (myEnergyParams != nullptr) {
         // TODO make the vehicle energy params a derived class which is a move reminder
-        const double duration = myEnergyParams->getDouble(SUMO_ATTR_DURATION);
-        if (isStopped()) {
-            if (duration < 0) {
-                myEnergyParams->setDouble(SUMO_ATTR_DURATION, STEPS2TIME(getNextStop().duration));
-                myEnergyParams->setDouble(SUMO_ATTR_PARKING, isParking() ? 1. : 0.);
-            }
-        } else {
-            if (duration >= 0) {
-                myEnergyParams->setDouble(SUMO_ATTR_DURATION, -1.);
-            }
-        }
-        myEnergyParams->setDouble(SUMO_ATTR_WAITINGTIME, getWaitingSeconds());
+        myEnergyParams->setDynamicValues(isStopped() ? getNextStop().duration : -1, isParking(), getWaitingTime(), getAngle());
     }
 }
 
@@ -2692,7 +2681,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, majorStopOffset);
         } else {
             double minorStopOffset = MAX2(lane->getVehicleStopOffset(this),
-                                                getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+                                          getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
             if ((*link)->getState() == LINKSTATE_ALLWAY_STOP) {
                 minorStopOffset = MAX2(minorStopOffset, getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, 0));
             } else {
@@ -4609,7 +4598,7 @@ MSVehicle::executeMove() {
         elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
         // but the maximum power of the electric motor may be lower
         // it needs to be converted from [W] to [Wh/s] (3600s / 1h) so that TS can be taken into account
-        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER)) / 3600;
+        double maxPower = getEmissionParameters()->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, 100000.) / 3600;
         if (elecHybridOfVehicle->getConsum() / TS > maxPower) {
             // no, we cannot accelerate that fast, recompute the maximum possible acceleration
             double accel = elecHybridOfVehicle->acceleration(*this, maxPower, this->getSpeed());

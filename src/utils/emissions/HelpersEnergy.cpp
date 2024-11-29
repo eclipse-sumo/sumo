@@ -49,7 +49,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     //       Approximation order could be improved. Refs. #2592.
 
     const double lastV = v - ACCEL2SPEED(a);
-    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, myDefaultMass) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
+    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, myDefaultMass, false) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
 
     // calculate power needed for potential energy difference
     double power = mass * GRAVITY * sin(DEG2RAD(slope)) * v;
@@ -66,7 +66,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20C)
     //                    ... with s [m] = v_Veh [m/s] * TS [s]
     // divided by TS to get power instead of energy
-    power += 0.5 * 1.2041 * param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, myDefaultFrontSurfaceArea) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, myDefaultAirDragCoefficient) * v * v * v;
+    power += 0.5 * 1.2041 * param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, myDefaultFrontSurfaceArea, false) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, myDefaultAirDragCoefficient) * v * v * v;
 
     // power needed for Energy loss through Roll resistance [Ws]
     //                    ... (fabs(veh.getSpeed())>=0.01) = 0, if vehicle isn't moving
@@ -78,7 +78,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
 
     // Energy loss through friction by radial force [Ws]
     // If angle of vehicle was changed
-    const double angleDiff = param->getDouble(SUMO_ATTR_ANGLE);
+    const double angleDiff = param->getAngleDiff();
     if (angleDiff != 0.) {
         // Compute new radio
         double radius = SPEED2DIST(v) / fabs(angleDiff);
@@ -153,7 +153,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     //
     // Power used for accelerating, `Prest`, is the total used power minus power wasted by running resistances.
 
-    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, myDefaultMass) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
+    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, myDefaultMass, false) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
     const double rotMass = param->getDoubleOptional(SUMO_ATTR_ROTATINGMASS, myDefaultRotatingMass);
     double const1, const2, const3;
     double Prest;
@@ -200,7 +200,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     // update coefficients of a(P) equation considering energy loss through Air resistance
     // in inverse original formula:      power += 0.5 * 1.2041 * param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT) * v * v * v;
     // i.e. in terms of 'lastV' and 'a': power += 0.5 * rotMass * (lastV^3 + 3* lastV^2 * TS * a +  3* lastV * TS^2 *a^2 + TS^3 * a^3);
-    const double drag = 0.5 * 1.2041 * param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, myDefaultFrontSurfaceArea) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, myDefaultAirDragCoefficient);
+    const double drag = 0.5 * 1.2041 * param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, myDefaultFrontSurfaceArea, false) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, myDefaultAirDragCoefficient);
     Prest -= drag * (v * v * v);
     const1 += drag * (3 * v * v * TS);
     const2 += drag * (3 * v * TS * TS);

@@ -189,7 +189,6 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     // Update Energy from the battery
     EnergyParams* const params = myHolder.getEmissionParameters();
     if (getMaximumBatteryCapacity() != 0) {
-        params->setDouble(SUMO_ATTR_ANGLE, myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
         if (!myTrackFuel && !veh.getVehicleType().getParameter().wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
             // no explicit emission class, we fall back to the energy model; a warning has been issued on creation
             myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(),
@@ -540,9 +539,6 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getMaximumChargeRate());
     } else if (key == toString(SUMO_ATTR_CHARGINGSTATIONID)) {
         return getChargingStationID();
-    } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        WRITE_WARNING(TL("Getting the vehicle mass via parameters is deprecated, please use getMass for the vehicle or its type."));
-        return toString(myHolder.getEmissionParameters()->getDouble(SUMO_ATTR_MASS));
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -562,9 +558,6 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
         setMaximumBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_MAXIMUMCHARGERATE)) {
         setMaximumChargeRate(doubleValue);
-    } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        WRITE_WARNING(TL("Setting the vehicle mass via parameters is deprecated, please use setMass for the vehicle or its type."));
-        myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_MASS, doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

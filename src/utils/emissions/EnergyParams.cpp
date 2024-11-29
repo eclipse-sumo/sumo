@@ -22,6 +22,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 
 #include "PollutantsInterface.h"
@@ -49,13 +50,14 @@ const std::vector<SumoXMLAttr> EnergyParams::myParamAttrs = {
 // method definitions
 // ===========================================================================
 EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
-    myMap[SUMO_ATTR_DURATION] = -1.;
-    myMap[SUMO_ATTR_PARKING] = 0.;
-    myMap[SUMO_ATTR_WAITINGTIME] = -1.;
-    myMap[SUMO_ATTR_ANGLE] = 0.;  // actually angleDiff in the last step
     myCharacteristicMapMap.insert(std::pair<SumoXMLAttr, CharacteristicMap>(SUMO_ATTR_POWERLOSSMAP, CharacteristicMap("2,1|-1e9,1e9;-1e9,1e9|0,0,0,0")));  // P_loss_EM = 0 W for all operating points in the default EV power loss map
 
-    if (typeParams != nullptr) {
+    if (typeParams == nullptr) {
+        myMap[SUMO_ATTR_MASS] = DEFAULT_VEH_MASS;
+        myHaveDefaultMass = true;
+        myMap[SUMO_ATTR_FRONTSURFACEAREA] = DEFAULT_VEH_WIDTH * DEFAULT_VEH_HEIGHT * M_PI / 4.;
+        myHaveDefaultFrontSurfaceArea = true;
+    } else {
         for (SumoXMLAttr attr : myParamAttrs) {
             if (typeParams->hasParameter(toString(attr))) {
                 myMap[attr] = typeParams->getDouble(toString(attr), INVALID_DOUBLE);
@@ -67,13 +69,14 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
                 myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
             }
         }
-        if (typeParams->wasSet(VTYPEPARS_MASS_SET)) {
-            myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        myHaveDefaultMass = !typeParams->wasSet(VTYPEPARS_MASS_SET);
+        if (myMap.count(SUMO_ATTR_FRONTSURFACEAREA) == 0) {
+            myHaveDefaultFrontSurfaceArea = true;
+            myMap[SUMO_ATTR_FRONTSURFACEAREA] = typeParams->width * typeParams->height * M_PI / 4.;
         }
-        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
-        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
         const std::string& ecName = PollutantsInterface::getName(typeParams->emissionClass);
-        if ((typeParams->vehicleClass & (SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE)) == 0 && myMap.count(SUMO_ATTR_FRONTSURFACEAREA) == 0) {
+        if ((typeParams->vehicleClass & (SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE)) == 0 && myHaveDefaultFrontSurfaceArea) {
             if (StringUtils::startsWith(ecName, "MMPEVEM") || StringUtils::startsWith(ecName, "Energy")) {
                 WRITE_WARNINGF(TL("Vehicle type '%' uses the emission class '%' which does not have proper defaults for its vehicle class. "
                                   "Please use a different emission class or complete the vType definition with further parameters."), typeParams->id, ecName);
@@ -98,8 +101,20 @@ EnergyParams::~EnergyParams() {}
 
 
 void
-EnergyParams::setDouble(SumoXMLAttr attr, double value) {
-    myMap[attr] = value;
+EnergyParams::setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angle) {
+    if ((stopDuration >= 0. && myStopDurationSeconds < 0.) || (stopDuration < 0. && myStopDurationSeconds >= 0.)) {
+        myStopDurationSeconds = STEPS2TIME(stopDuration);
+        myAmParking = parking;
+    }
+    myWaitingTimeSeconds = STEPS2TIME(waitingTime);
+    myLastAngle = myAngle;
+    myAngle = angle;
+}
+
+
+double
+EnergyParams::getAngleDiff() const {
+    return myLastAngle == INVALID_DOUBLE ? 0. : GeomHelper::angleDiff(myLastAngle, myAngle);
 }
 
 
@@ -112,18 +127,26 @@ EnergyParams::getDouble(SumoXMLAttr attr) const {
     if (mySecondaryParams != nullptr) {
         return mySecondaryParams->getDouble(attr);
     }
-    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+    throw UnknownElement("Unknown emission model parameter: " + toString(attr));
 }
 
 
 double
-EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
+EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def, const bool useStoredDefault) const {
     auto it = myMap.find(attr);
     if (it != myMap.end() && it->second != INVALID_DOUBLE) {
-        return it->second;
+        if (useStoredDefault) {
+            return it->second;
+        }
+        if (attr == SUMO_ATTR_MASS && !myHaveDefaultMass) {
+            return it->second;
+        }
+        if (attr == SUMO_ATTR_FRONTSURFACEAREA && !myHaveDefaultFrontSurfaceArea) {
+            return it->second;
+        }
     }
     if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getDoubleOptional(attr, def);
+        return mySecondaryParams->getDoubleOptional(attr, def, useStoredDefault);
     }
     return def;
 }
@@ -138,22 +161,20 @@ EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
     if (mySecondaryParams != nullptr) {
         return mySecondaryParams->getCharacteristicMap(attr);
     }
-    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+    throw UnknownElement("Unknown emission model parameter: " + toString(attr));
 }
 
 
 bool
 EnergyParams::isEngineOff() const {
-    // they all got a default in the constructor so getDouble is safe here
-    return getDouble(SUMO_ATTR_DURATION) > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) ||
-           getDouble(SUMO_ATTR_WAITINGTIME) > getDoubleOptional(SUMO_ATTR_SHUT_OFF_AUTO, std::numeric_limits<double>::max());
+    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) ||
+           myWaitingTimeSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_AUTO, std::numeric_limits<double>::max());
 }
 
 
 bool
 EnergyParams::isOff() const {
-    // they all got a default in the constructor so getDouble is safe here
-    return getDouble(SUMO_ATTR_DURATION) > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) && getDouble(SUMO_ATTR_PARKING) > 0.;
+    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) && myAmParking;
 }
 
 
