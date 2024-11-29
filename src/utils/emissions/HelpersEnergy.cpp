@@ -92,7 +92,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
         // EnergyLoss,internalFrictionRadialForce = c [m] * F_rad [N];
         // Energy loss through friction by radial force [Ws]
         // divided by TS to get power instead of energy
-        power += param->getDoubleOptional(SUMO_ATTR_RADIALDRAGCOEFFICIENT, myDefaultRadialDragCoefficient) * mass * v * v / radius * v;
+        power += param->getDoubleOptional(SUMO_ATTR_RADIALDRAGCOEFFICIENT, myDefaultRadialDragCoefficient) * mass * v * v / radius / TS;
     }
 
     // EnergyLoss,constantConsumers
