@@ -15,3 +15,6 @@ triangle_6veh
 
 # deadlock
 circle_3veh
+
+# deadlock detecting cannot work when time-to-teleport is lower than time-to-teleport.railsignal-deadlock
+bad_teleport_option
