@@ -59,7 +59,7 @@ protected:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getFlowAttribute(SumoXMLAttr key) const;
+    std::string getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
      * @param[in] key The attribute key

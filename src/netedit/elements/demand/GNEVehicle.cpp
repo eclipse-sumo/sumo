@@ -1454,7 +1454,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_FLOWPARAMETERS:
             return toString(parametersSet);
         default:
-            return getFlowAttribute(key);
+            return getFlowAttribute(this, key);
     }
 }
 

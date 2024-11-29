@@ -491,7 +491,7 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
-            return getFlowAttribute(key);
+            return getFlowAttribute(this, key);
     }
 }
 

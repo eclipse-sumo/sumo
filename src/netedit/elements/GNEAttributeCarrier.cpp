@@ -8439,6 +8439,20 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr
                                           "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
+    attrProperty = GNEAttributeProperties(GNE_ATTR_FLOW_TERMINATE,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
+                                          TL("Criterium for terminate flow"),
+                                          toString(SUMO_ATTR_END));
+    attrProperty.setDiscreteValues({toString(SUMO_ATTR_END), toString(SUMO_ATTR_NUMBER), toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)});
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(GNE_ATTR_FLOW_SPACING,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
+                                          TL("Criterium for spacing flow"),
+                                          toString(perHour));
+    attrProperty.setDiscreteValues({toString(perHour), toString(SUMO_ATTR_PERIOD), toString(SUMO_ATTR_PROB), toString(GNE_ATTR_POISSON)});
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
     attrProperty = GNEAttributeProperties(SUMO_ATTR_END,
                                           GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
                                           TL("End of departure interval"),

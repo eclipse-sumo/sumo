@@ -1832,7 +1832,10 @@ enum SumoXMLAttr {
     GNE_ATTR_TO_LANEID,
     /// @brief TAZ Center (uses to return the TAZ centroid if center is not defined)
     GNE_ATTR_TAZ_CENTROID,
-
+    /// @brief flow terminating
+    GNE_ATTR_FLOW_TERMINATE,
+    /// @brief flow spacing
+    GNE_ATTR_FLOW_SPACING,
     // virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,
