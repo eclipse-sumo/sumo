@@ -119,13 +119,14 @@ void
 GNEAttributesEditor::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
         const auto& tagProperty = myEditedACs.front()->getTagProperty();
-        // Iterate over tag property of first AC and show row for every attribute
         int itRows = 0;
+        bool showButtons = false;
         // check if show netedit attributes
         if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
             // front button
             if (tagProperty.isDrawable()) {
                 myFrontButton->show();
+                showButtons = true;
             } else {
                 myFrontButton->hide();
             }
@@ -135,6 +136,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 myOpenDialogButton->setText(TLF("Open % dialog", tagProperty.getTagStr()).c_str());
                 myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
                 myOpenDialogButton->show();
+                showButtons = true;
             } else {
                 myOpenDialogButton->hide();
             }
@@ -143,12 +145,14 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 // set icon
                 myOpenExtendedAttributesButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
                 myOpenExtendedAttributesButton->show();
+                showButtons = true;
             } else {
                 myOpenExtendedAttributesButton->hide();
             }
         }
         // check if show basic attributes
         if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+            // Iterate over tag property of first AC and show row for every attribute
             for (const auto& attrProperty : tagProperty) {
                 bool showAttributeRow = true;
                 // check show conditions
@@ -173,8 +177,8 @@ GNEAttributesEditor::refreshAttributesEditor() {
         for (int i = itRows; i < MAX_ATTR; i++) {
             myAttributesEditorRows[i]->hideAttributeRow();
         }
-        // only show if at least one row was shown
-        if (itRows == 0) {
+        // only show if at least one row or button was shown
+        if ((itRows == 0) && !showButtons) {
             hideAttributesEditor();
         } else {
             show();
