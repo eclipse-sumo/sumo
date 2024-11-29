@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-28 08:55+0000\n"
+"PO-Revision-Date: 2024-11-29 17:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -827,7 +827,7 @@ msgstr ""
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:87 src/jtrrouter/jtrrouter_main.cpp:143
 #, c-format
 msgid "The edge '%' declared as a sink is not known."
-msgstr ""
+msgstr "L'arco '%' dichiarato come scarico è sconosciuto."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -836,22 +836,25 @@ msgstr ""
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:128
 #, c-format
 msgid "The edge '%' declared as a source is not known."
-msgstr ""
+msgstr "L'arco '%' dichiarato come sorgente è sconosciuto."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:152
 #, c-format
 msgid ""
 "The edge '%' is not known within the network (within a 'from-edge' tag)."
 msgstr ""
+"L'arco '%' non è conosciuto nella rete (dentro un elemento 'from-edge')."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:172
 #, c-format
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
-msgstr ""
+msgstr "L'arco '%' non è conosciuto nella rete (dentro un elemento 'to-edge')."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:178
 msgid "'probability' must be positive (in definition of to-edge '%')."
 msgstr ""
+"'probability' deve assumere un valore positivo (nella definizione di to-edge "
+"'%')."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:201
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:206
@@ -880,6 +883,8 @@ msgid ""
 "Router for the microscopic, multi-modal traffic simulation SUMO based on "
 "junction turning ratios."
 msgstr ""
+"Instradamento per la simulazione microscopica del traffico multimodale SUMO "
+"basato su quote di svolta."
 
 #: src/libsumo/GUI.cpp:332
 msgid "This system has no OpenGL support. Exiting."
@@ -1044,23 +1049,26 @@ msgstr ""
 
 #: src/marouter/ROMAFrame.cpp:81 src/od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
-msgstr ""
+msgstr "Carica dati di origine/destinazione da uno o più FILE"
 
 #: src/marouter/ROMAFrame.cpp:86 src/od2trips_main.cpp:90
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
 msgstr ""
+"Carica matrice di origine/destinazione in formato AMitran da uno o più FILE"
 
 #: src/marouter/ROMAFrame.cpp:89 src/od2trips_main.cpp:93
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
 msgstr ""
+"Carica matrice di origine/destinazione in formato relazione origine-"
+"destinazione da uno o più FILE"
 
 #: src/marouter/ROMAFrame.cpp:93 src/od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
-msgstr ""
+msgstr "Definisci l'attributo per caricare conteggi (valore standard 'count')"
 
 #: src/marouter/ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
-msgstr ""
+msgstr "L'influenza dei tempi di percorrenza di intervalli anteriori"
 
 #: src/marouter/ROMAFrame.cpp:99
 msgid "Parameter key(s) defining source (and sink) taz"
@@ -1201,30 +1209,35 @@ msgstr ""
 
 #: src/marouter/marouter_main.cpp:388
 msgid "No valid vehicles loaded."
-msgstr ""
+msgstr "Non è stato caricato nessun veicolo valido."
 
 #: src/marouter/marouter_main.cpp:391 src/od2trips_main.cpp:285
 msgid "Loading failed."
-msgstr ""
+msgstr "La carica è fallita."
 
 #: src/mesosim/MELoop.cpp:89 src/microsim/MSVehicleTransfer.cpp:66
 #: src/microsim/MSVehicleTransfer.cpp:188
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
 msgstr ""
+"Il veicolo '%' viene teletrasportato oltre l'arco di arrivo '%' alle ore %."
 
 #: src/mesosim/MELoop.cpp:109
 msgid "Vehicle '%' ends teleporting on edge '%':%, time=%."
-msgstr ""
+msgstr "Il veicolo '%' viene teletrasportato verso l'arco '%':% alle ore %."
 
 #: src/mesosim/MELoop.cpp:175 src/mesosim/MELoop.cpp:205
 msgid "Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."
 msgstr ""
+"Veicolo '%' teletrasportato a causa della lunga attesa dall'arco '%':% alle "
+"ore %."
 
 #: src/mesosim/MELoop.cpp:195
 msgid ""
 "Teleporting vehicle '%'; waited too long, from edge '%':% to edge '%':%, "
 "time=%."
 msgstr ""
+"Veicolo '%' teletrasportato a causa della lunga attesa dall'arco '%':% "
+"all'arco '%':% alle ore %."
 
 #: src/mesosim/METriggeredCalibrator.cpp:129
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -1238,12 +1251,12 @@ msgstr ""
 #: src/mesosim/METriggeredCalibrator.cpp:169
 #: src/microsim/trigger/MSCalibrator.cpp:439
 msgid "No valid routes in calibrator '%'."
-msgstr ""
+msgstr "Nessun itinerario valido nel calibrator '%'."
 
 #: src/mesosim/METriggeredCalibrator.cpp:173
 #: src/microsim/trigger/MSCalibrator.cpp:443
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
-msgstr ""
+msgstr "L'itinerario '%' nel calibrator '%' non contiene l'arco '%'."
 
 #: src/mesosim/MEVehicle.cpp:235
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
