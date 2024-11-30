@@ -542,8 +542,12 @@ Such abstract networks can make it easier so see all tracks and switches on a si
 
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy)
+- The tool [scheduleStats.py](../Tools/Railways.md#schedulestatspy) can be used to check how closely simulated train behavior conforms to a loaded rail schedule w.r.t. punctuality and expected traveltimes between stops.
 
 # Limitations
 
-- Individual rail cars / coupling / uncoupling cannot currently be
-  modeled
+- Individual rail cars / coupling / uncoupling cannot currently be modeled
+- Delay of railroad switches is not modelled
+- Overlap (Durchrutschweg) after a rail signal (which guarantuess safety if a red signal is violated), is currently not modelled by the rail signal safety assessment
+- Axle counters are assumed after every signal and every railway switch and correspondingly, partial driveways (Teilfahrstraßen) are used in the most efficient manner
+- Stretching and shorting of long trains is not modelled
