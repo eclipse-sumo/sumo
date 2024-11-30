@@ -555,7 +555,7 @@ By setting option **--railsignal-block-output FILE**, an output file that contai
 | bidi / lanes              | list of laneIDs                           | The list of oncoming lanes that are in conflict with this driveway |
 | flank / lanes             | list of laneIDs                           | The list of flanking lanes that are in conflict with this driveway |
 | conflictLinks / signals   | list of strings                           | The list of short signal link names (<RAILSIGNAL_ID>_<LINK_INDEX>) that are in conflict with this driveway |
-| foes / driveways          | list of driveWay ids                      | The list of foes driveways. A train may not enter a driveway if any of it's foe driveways is occupied (unless a `<siding>` definition exists for that foe and the siding is currently usable. |
+| foes / driveways          | list of driveWay ids                      | The list of foes driveways. A train may not enter a driveway if any of it's foe driveways is occupied (unless a `<siding>` definition exists for that foe and the siding is currently usable). |
 | sidings / foe             | driveWay id                               | The foe driveWay to which the following list of `<siding>` elements applies |
 | siding / start            | edgeID                                    | The edge on which that siding starts |
 | siding / end              | edgeID                                    | The edge on which that siding ends |
@@ -564,9 +564,9 @@ By setting option **--railsignal-block-output FILE**, an output file that contai
 
 ### Driveway IDs
 
-- normal driveway: <RAIL_SIGNAL_ID>.<INDEX>
-- depart driveway: <JUNCTION_ID>.d<INDEX>
-- subDriveway (Teilfahrstraße): <DRIVEWAY_ID>.<INDEX>
+- normal driveway: `<RAIL_SIGNAL_ID>.<INDEX>`
+- depart driveway: `<JUNCTION_ID>.d<INDEX>`
+- subDriveway (Teilfahrstraße): `<DRIVEWAY_ID>.<INDEX>`
 
 ## railsignal-vehicle-output
 
