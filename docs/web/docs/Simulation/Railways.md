@@ -539,6 +539,9 @@ Such abstract networks can make it easier so see all tracks and switches on a si
   - All outputs that include geometry information (i.e. [fcd-output](Output/FCDOutput.md)) will be according to the network loaded with option **-n**
  - the tool [abstractRail.py](../Tools/Net.md#abstractrailpy) can be used to convert geographic rail networks in abstract rail networks
 
+# Outputs
+
+Rail simulation provides optional outputs related to driveways (Fahrstraßen)
 
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy)
@@ -547,7 +550,9 @@ Such abstract networks can make it easier so see all tracks and switches on a si
 # Limitations
 
 - Individual rail cars / coupling / uncoupling cannot currently be modeled
+- Distant signals (Vorsignale) are not modelled. Instead trains act as if always having full visibility onto the next main signal
 - Delay of railroad switches is not modelled
 - Overlap (Durchrutschweg) after a rail signal (which guarantuess safety if a red signal is violated), is currently not modelled by the rail signal safety assessment
 - Axle counters are assumed after every signal and every railway switch and correspondingly, partial driveways (Teilfahrstraßen) are used in the most efficient manner
 - Stretching and shorting of long trains is not modelled
+- Operational restrictings on reversing trains (Shunting) are not modelled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).
