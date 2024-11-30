@@ -561,7 +561,6 @@ By setting option **--railsignal-block-output FILE**, an output file that contai
 | siding / end              | edgeID                                    | The edge on which that siding ends |
 | siding / length           | float                                     | The length of the siding in meters (a Train may not use a siding if it is shorter than it's own length) |
 | deadlock / foes           | list of driveWay ids                      | The list of foe driveways that could create a deadlock toghether with the current driveway. If all foes are occupied, the current driveway must not be entered (only present when [`<deadlock>` elements](#deadlock_prevention) where loaded into the simulation |
-|
 
 ### Driveway IDs
 
@@ -575,15 +574,15 @@ By setting option **--railsignal-vehicle-output FILE**, an output file that cont
 This file provides the times whenever a vehicle has entered or left a driveway.
 
 | Element / Attribute Name  | Value Type                                | Description                            |
-| --------------- | --------------------------------------------------- | -------------------------------------- |
-| entry / **id**  | id (string)                                         | The id of the vehicle that entered the driveway  |
-| entry / time    | float or HH:MM:SS                                   | The time at which the vehicle entered the driveWay |
-| entry / reason  | string                                              | The reason for entering the driveWay |
-| exit / **id**   | id (string)                                         | The id of the vehicle that left the driveway  |
-| exit / time     | float or HH:MM:SS                                   | The time at which the vehicle left the driveWay |
-| exit / reason   | string                                              | The reason for leaving the driveWay |
-|
-
+| -------------------- | --------------------------------------------------- | -------------------------------------- |
+| driveWay / **id**    | id (string)                                         | The driveWay to which the following `<entry>` and `<exit>` elements apply
+| subDriveWay / **id** | id (string)                                         | The driveWay to which the following `<entry>` and `<exit>` elements apply
+| entry / **id**       | id (string)                                         | The id of the vehicle that entered the driveway  |
+| entry / time         | float or HH:MM:SS                                   | The time at which the vehicle entered the driveWay |
+| entry / reason       | string                                              | The reason for entering the driveWay |
+| exit / **id**        | id (string)                                         | The id of the vehicle that left the driveway  |
+| exit / time          | float or HH:MM:SS                                   | The time at which the vehicle left the driveWay |
+| exit / reason        | string                                              | The reason for leaving the driveWay |
 
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy)
