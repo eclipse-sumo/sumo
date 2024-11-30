@@ -96,6 +96,9 @@
     <xsd:element name="battery">
         <xsd:complexType>
             <xsd:attribute name="depleted" use="required" type="xsd:nonNegativeInteger"/>
+            <xsd:attribute name="actualBatteryCapacity" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="totalEnergyConsumed" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="totalEnergyRegenerated" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
