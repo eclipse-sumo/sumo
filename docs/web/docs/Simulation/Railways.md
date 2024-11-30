@@ -156,7 +156,7 @@ The [node type](../Networks/PlainXML.md#node_descriptions)
 `rail_signal` may be used to define signals which implement [Automatic Block
 Signaling](https://en.wikipedia.org/wiki/Automatic_block_signaling).
 
-When working with bidirectional tracks, rail signals will affect both directions of travel by default. This can be [changed in netedit](../Netedit/neteditUsageExamples.md#define_rail_signals_that_only_affect_one_track_direction) or by patching with a [connection file with attribute `uncontrolled`](../Networks/PlainXML.html#explicitly_setting_which_edge_lane_is_connected_to_which).
+When working with bidirectional tracks, rail signals will affect both directions of travel by default. This can be [changed in netedit](../Netedit/neteditUsageExamples.md#define_rail_signals_that_only_affect_one_track_direction) or by patching with a [connection file with attribute `uncontrolled`](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which).
 
 ### Import
 
