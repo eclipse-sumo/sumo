@@ -540,8 +540,50 @@ Such abstract networks can make it easier so see all tracks and switches on a si
  - the tool [abstractRail.py](../Tools/Net.md#abstractrailpy) can be used to convert geographic rail networks in abstract rail networks
 
 # Outputs
-
 Rail simulation provides optional outputs related to driveways (Fahrstraßen)
+
+## railsignal-block-output
+
+By setting option **--railsignal-block-output FILE**, an output file that contains informations for every drivway / signaling block is written.
+
+| Element / Attribute Name  | Value Type                                | Description                            |
+| --------------- | --------------------------------------------------- | -------------------------------------- |
+| driveway / **id**         | id (string)                               | The if of the driveWay. See below for interpretation  |
+| driveway/ vehicle         | id                                        | The id of the first train that used this driveWay   |
+| driveway / edges          | list of edgeIDs                           | The complete route of the vehicle that first used this drivway   |
+| forward / lanes           | list of laneIDs                           | The list of lanes up to the next signal or the network border | 
+| bidi / lanes              | list of laneIDs                           | The list of oncoming lanes that are in conflict with this driveway |
+| flank / lanes             | list of laneIDs                           | The list of flanking lanes that are in conflict with this driveway |
+| conflictLinks / signals   | list of strings                           | The list of short signal link names (<RAILSIGNAL_ID>_<LINK_INDEX>) that are in conflict with this driveway |
+| foes / driveways          | list of driveWay ids                      | The list of foes driveways. A train may not enter a driveway if any of it's foe driveways is occupied (unless a `<siding>` definition exists for that foe and the siding is currently usable. |
+| sidings / foe             | driveWay id                               | The foe driveWay to which the following list of `<siding>` elements applies |
+| siding / start            | edgeID                                    | The edge on which that siding starts |
+| siding / end              | edgeID                                    | The edge on which that siding ends |
+| siding / length           | float                                     | The length of the siding in meters (a Train may not use a siding if it is shorter than it's own length) |
+| deadlock / foes           | list of driveWay ids                      | The list of foe driveways that could create a deadlock toghether with the current driveway. If all foes are occupied, the current driveway must not be entered (only present when [`<deadlock>` elements](#deadlock_prevention) where loaded into the simulation |
+|
+
+### Driveway IDs
+
+- normal driveway: <RAIL_SIGNAL_ID>.<INDEX>
+- depart driveway: <JUNCTION_ID>.d<INDEX>
+- subDriveway (Teilfahrstraße): <DRIVEWAY_ID>.<INDEX>
+
+## railsignal-vehicle-output
+
+By setting option **--railsignal-vehicle-output FILE**, an output file that contains occupancy informations for every driveway is written.
+This file provides the times whenever a vehicle has entered or left a driveway.
+
+| Element / Attribute Name  | Value Type                                | Description                            |
+| --------------- | --------------------------------------------------- | -------------------------------------- |
+| entry / **id**  | id (string)                                         | The id of the vehicle that entered the driveway  |
+| entry / time    | float or HH:MM:SS                                   | The time at which the vehicle entered the driveWay |
+| entry / reason  | string                                              | The reason for entering the driveWay |
+| exit / **id**   | id (string)                                         | The id of the vehicle that left the driveway  |
+| exit / time     | float or HH:MM:SS                                   | The time at which the vehicle left the driveWay |
+| exit / reason   | string                                              | The reason for leaving the driveWay |
+|
+
 
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy)
