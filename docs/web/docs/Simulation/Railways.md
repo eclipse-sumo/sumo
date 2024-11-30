@@ -441,12 +441,15 @@ However, the default logic only handles the most common cases that involve two o
 - Deadlocks may appear from an interplay of four or more trains.
 - The signal logic does not prevent deadlocks that involve loaded [signal constraints](#schedule_constraints)
 
-The deal with deadlock problems, the simulation provides multiple strategies explained in the following.
+To deal with deadlock problems, the simulation provides multiple strategies explained in the following.
 
 ## Deadlock detection
 
 By setting option **--time-to-teleport.railsignal-deadlock TIME** deadlocks are detected if one of the vehicles involved has been waiting for the given TIME.
 If option **--deadlock-output FILE** is also set, then any detected deadlocks will be written to the given file.
+
+!!! note
+    It is recommended to also set option **--time-to-teleport -1** to disabled teleporting based on waiting time since, trains may sometimes have to wait much longer than cars (which teleport after 300s by default).
 
 ## Deadlock resolution
 
