@@ -35,13 +35,6 @@
 #include "MSDriveWay.h"
 #include "MSRailSignalControl.h"
 
-// typical block length in germany on main lines is 3-5km on branch lines up to 7km
-// special branches that are used by one train exclusively could also be up to 20km in length
-// minimum block size in germany is 37.5m (LZB)
-// larger countries (USA, Russia) might see blocks beyond 20km)
-#define MAX_BLOCK_LENGTH 20000
-#define MAX_SIGNAL_WARNINGS 10
-
 #define DRIVEWAY_SANITY_CHECK
 //#define SUBDRIVEWAY_WARN_NOCONFLICT
 
@@ -68,7 +61,7 @@
 // static value definitions
 // ===========================================================================
 int MSDriveWay::myGlobalDriveWayIndex(0);
-int MSDriveWay::myNumWarnings(0);
+std::set<const MSEdge*> MSDriveWay::myBlockLengthWarnings;
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWays;
@@ -119,7 +112,7 @@ MSDriveWay::~MSDriveWay() {
 void
 MSDriveWay::cleanup() {
     myGlobalDriveWayIndex = 0;
-    myNumWarnings = 0;
+    myBlockLengthWarnings.clear();
     myWriteVehicles = false;
 
     for (auto item : myDepartureDriveways) {
@@ -853,10 +846,11 @@ MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
 
 
 void
-MSDriveWay::buildRoute(const MSLink* origin, double length,
+MSDriveWay::buildRoute(const MSLink* origin,
                        MSRouteIterator next, MSRouteIterator end,
                        LaneVisitedMap& visited,
                        std::set<MSLink*>& flankSwitches) {
+    double length = 0;
     bool seekForwardSignal = true;
     bool seekBidiSwitch = true;
     bool foundUnsafeSwitch = false;
@@ -868,12 +862,16 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                                    << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
     while ((seekForwardSignal || seekBidiSwitch)) {
-        if (length > MAX_BLOCK_LENGTH) {
-            if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-                WRITE_WARNING("Block after " + warnID +
-                              " exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
+        if (length > MSGlobals::gMaxRailSignalBlockLength) {
+            // typical block length in germany on main lines is 3-5km on branch lines up to 7km
+            // special branches that are used by one train exclusively could also be up to 20km in length
+            // minimum block size in germany is 37.5m (LZB)
+            // larger countries (USA, Russia) might see blocks beyond 20km)
+            if (myRoute.size() == 0 || myBlockLengthWarnings.count(myRoute.front()) == 0) {
+                WRITE_WARNINGF("Block after % exceeds maximum length (stopped searching after edge '%' (length=%m).",
+                        warnID, toLane->getEdge().getID(), length);
+                myBlockLengthWarnings.insert(myRoute.front());
             }
-            myNumWarnings++;
             myAbortedBuild = true;
             // length exceeded
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -1259,7 +1257,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     if (fromBidi != nullptr) {
         before.push_back(fromBidi);
     }
-    dw->buildRoute(link, 0., first, end, visited, flankSwitches);
+    dw->buildRoute(link, first, end, visited, flankSwitches);
     dw->myCoreSize = (int)dw->myRoute.size();
     dw->checkFlanks(link, dw->myForward, visited, true, flankSwitches);
     dw->checkFlanks(link, dw->myBidi, visited, false, flankSwitches);

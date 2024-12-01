@@ -103,4 +103,6 @@ bool MSGlobals::gHaveEmissions(false);
 
 int MSGlobals::gInsertionChecks(0);
 
+double MSGlobals::gMaxRailSignalBlockLength(2e4);
+
 /****************************************************************************/

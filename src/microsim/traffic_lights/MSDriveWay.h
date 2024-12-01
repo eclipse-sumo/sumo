@@ -255,7 +255,7 @@ protected:
      *
      * returns edge that is assumed to safe from oncoming-deadlock or nullptr
      */
-    void buildRoute(const MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited, std::set<MSLink*>&);
+    void buildRoute(const MSLink* origin, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited, std::set<MSLink*>&);
 
     /* @brief find switches that threaten this driveway
      * @param[out] flankSwitches collect the switches
@@ -353,8 +353,8 @@ private:
     std::string myFirstVehicle;
 
     static int myGlobalDriveWayIndex;
-    static int myNumWarnings;
     static bool myWriteVehicles;
+    static std::set<const MSEdge*> myBlockLengthWarnings;
 
     /// @brief all driveways passing the given switch (used to look up flank foes)
     static std::map<const MSLink*, std::vector<MSDriveWay*> > mySwitchDriveWays;

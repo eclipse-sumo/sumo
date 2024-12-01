@@ -505,6 +505,9 @@ MSFrame::fillOptions() {
     oc.doRegister("railsignal-moving-block", new Option_Bool(false));
     oc.addDescription("railsignal-moving-block", "Processing", TL("Let railsignals operate in moving-block mode by default"));
 
+    oc.doRegister("railsignal.max-block-length", new Option_Float(2e4));
+    oc.addDescription("railsignal.max-block-length", "Processing", TL("Do not build blocks longer than FLOAT and issue a warning instead"));
+
     oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", TL("Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"));
 
@@ -1137,6 +1140,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire.recuperation");
     MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire.substation-current-limits");
     MSGlobals::gInsertionChecks = SUMOVehicleParameter::parseInsertionChecks(oc.getString("insertion-checks"));
+    MSGlobals::gMaxRailSignalBlockLength = oc.getFloat("railsignal.max-block-length");
 
     MSLane::initCollisionOptions(oc);
 

@@ -184,4 +184,7 @@ public:
 
     /// @brief The default value for insertion checks
     static int gInsertionChecks;
+
+    /// @brief The maximum length of a rail signal block
+    static double gMaxRailSignalBlockLength;
 };
