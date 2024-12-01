@@ -526,6 +526,29 @@ By default, railway tracks are shown in [sumo-gui](../sumo-gui.md) in a distinct
   - show lane direction (direction is otherwise hard to judge for uni-directional tracks)
   - vehicles are shown as *simple shapes* to ensure articulated train shapes follow curves
 
+## Signaling
+
+Rail signal states are shown in sumo-gui as red or green colored bars which are offset towards the righthand side of the track in driving direction. The offset thus indicates the direction of movement to which the signal applies.
+
+The following Objects provide extra information in their context menu to help understand signal switching:
+
+- rail_signal / tlLogic (accessible by right-clicking on the red/green bar)
+  - **req driveway**: The driveWay request by the closest approaching vehicle
+  - **blocking**: The list of foe vehicles which are blocking the requested driveway
+  - **blocking driveways**: The list of foe driveways which are blocking the requested driveway
+  - **rival**: The list of potential foe vehicles that are approaching a foe driveway
+  - **priority**: The list of foe vehicles that are approaching a foe driveway and have received priority over the vehicle that approaches the requested driveway
+  - **constraint**: A description of the [railSignalConstraint](#schedule_constraints) which applies to the closest approaching vehicle and causes this signal to show red
+- vehicle
+  - **driveways**: The list of driveways which this vehicle currently occupies
+- lane
+  - **param:insertionBlocked:VEHICLE_ID**: The driveway requested by VEHICLE_ID on which insertion is currently blocked
+  - **blocking DRIVEWAY_ID**: The list of foe vehicles which are blocking the insertion driveway with DRIVEWAY_ID
+  - **driveWays blocking DRIVEWAY_ID**: the list of foe driveways which are blocking the requested driveway with DRIVEWAY_ID
+ 
+note !!!
+     Street coloring mode [*by insertion backlog*](../sumo-gui.md#edgelane_visualisation_settings) helps to identify the tracks on which insertion is currently blocked.
+
 ## Abstract Networks
 
 Road networks are most often modelled according to their actual layout in [cartesian space](../Geo-Coordinates.md). Such networks have all distances and angles in the same proportions as those of geographical map.
