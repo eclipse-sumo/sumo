@@ -52,6 +52,7 @@ if (FOX_FOUND)
         add_subdirectory(netedit)
     endif ()
 endif ()
+add_subdirectory(afrotest)
 
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
