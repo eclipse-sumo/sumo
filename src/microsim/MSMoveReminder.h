@@ -28,6 +28,7 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringBijection.h>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
 #endif
@@ -122,7 +123,9 @@ public:
         /// @brief The vehicle got vaporized with a vaporizer
         NOTIFICATION_VAPORIZED_VAPORIZER,
         /// @brief The vehicle got removed via stationfinder device
-        NOTIFICATION_VAPORIZED_BREAKDOWN
+        NOTIFICATION_VAPORIZED_BREAKDOWN,
+        /// @brief must be the last one
+        NOTIFICATION_NONE
     };
 
 
@@ -286,6 +289,8 @@ public:
         return false;
     }
 
+    static StringBijection<Notification> Notifications;
+
 protected:
     void removeFromVehicleUpdateValues(SUMOTrafficObject& veh);
 
@@ -303,6 +308,7 @@ protected:
 
 private:
     std::map<long long int, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
+    static StringBijection<Notification>::Entry NotificationValues[];
 
 
 private:

@@ -841,7 +841,7 @@ MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
         od.openTag(ve.isEntry ? "entry" : "exit");
         od.writeAttr(SUMO_ATTR_ID, ve.id);
         od.writeAttr(SUMO_ATTR_TIME, time2string(ve.time));
-        od.writeAttr("reason", ve.reason);
+        od.writeAttr("reason", Notifications.getString(ve.reason));
         od.closeTag(); // event
     }
     od.closeTag(); // driveWay
