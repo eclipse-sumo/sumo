@@ -3,7 +3,7 @@ name: 'sync-upstream'
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0/10 * * * *'
+    - cron:  '10 * * * *'
 
 jobs:
   sync_latest_from_upstream:
