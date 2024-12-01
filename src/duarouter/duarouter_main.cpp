@@ -46,6 +46,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/router/DijkstraRouter.h>
+#include <utils/router/AFRouter.h>
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
@@ -148,6 +149,17 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
+        } else if (routingAlgorithm == "arcflag") {
+            /// @brief The number of levels in the k-d tree partition
+            constexpr auto NUMBER_OF_LEVELS = 5; //or 4 or 8
+            ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+            KDTreePartition<ROEdge, RONode, ROVehicle>* partition = new KDTreePartition<ROEdge, RONode, ROVehicle>(NUMBER_OF_LEVELS, ROEdge::getAllEdges(), net.hasPermissions(), oc.isSet("restriction-params"));
+            partition->init(&defaultVehicle);
+            auto ttFunction = gWeightsRandomFactor > 1 ? &ROEdge::getTravelTimeStaticRandomized : &ROEdge::getTravelTimeStatic;
+            auto reversedTtFunction = gWeightsRandomFactor > 1 ? &FlippedEdge<ROEdge, RONode, ROVehicle>::getTravelTimeStaticRandomized : &FlippedEdge<ROEdge, RONode, ROVehicle>::getTravelTimeStatic;
+            router = new AFRouter<ROEdge, RONode, ROVehicle>(ROEdge::getAllEdges(),
+                    partition, oc.getBool("ignore-errors"), ttFunction, reversedTtFunction, (oc.isSet("weight-files") ? string2time(oc.getString("weight-period")) : SUMOTime_MAX),
+                    nullptr, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else {
             throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }
