@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-25 18:09:05 by Eclipse SUMO sumo Version v1_14_1+16087-b70f89a5e68
+<!-- generated on 2024-12-01 22:08:32 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -206,6 +206,7 @@
             <xsd:element name="tls.delay_based.detector-range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-moving-block" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railsignal.max-block-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>

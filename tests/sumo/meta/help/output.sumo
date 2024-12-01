@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+16087-b70f89a5e68
+Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -319,6 +319,8 @@ Processing Options:
                                         yellow
   --railsignal-moving-block            Let railsignals operate in moving-block
                                         mode by default
+  --railsignal.max-block-length FLOAT  Do not build blocks longer than FLOAT
+                                        and issue a warning instead
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                         until impatience grows from 0 to 1,
                                         defaults to 300, non-positive values

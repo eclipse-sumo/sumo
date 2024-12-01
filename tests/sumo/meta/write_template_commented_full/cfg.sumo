@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-25 18:09:05 by Eclipse SUMO sumo Version v1_14_1+16087-b70f89a5e68
+<!-- generated on 2024-12-01 22:08:32 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -485,6 +485,9 @@
 
         <!-- Let railsignals operate in moving-block mode by default -->
         <railsignal-moving-block value="false" type="BOOL"/>
+
+        <!-- Do not build blocks longer than FLOAT and issue a warning instead -->
+        <railsignal.max-block-length value="20000" type="FLOAT"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="180" type="TIME"/>
