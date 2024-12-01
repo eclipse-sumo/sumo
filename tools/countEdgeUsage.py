@@ -255,7 +255,7 @@ def parseTimed(outf, options):
     for routefile in options.routefiles:
         for elem in parse(routefile, options.elements2):
             if elem.hasAttribute("fromJunction"):
-                print("Warning: Cannot handle fromJunction/toJunction attributes in file '%s', thus skipping the %s element." % (routefile, elem.name),
+                print("Warning: Cannot handle fromJunction/toJunction attributes in file '%s', thus skipping the %s element." % (routefile, elem.name),  # noqa
                       file=sys.stderr)
                 continue
             depart = elem.depart if elem.depart is not None else elem.begin
