@@ -211,6 +211,8 @@ public:
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
     VehicleVector getBlockingVehicles(int linkIndex) override;
     std::string getBlockingVehicleIDs() const;
+    /// @brief return vehicles that block the given driveWay
+    static VehicleVector getBlockingVehicles(const MSDriveWay* dw);
 
     /// @brief return vehicles that approach the intersection/rail signal and are in conflict with vehicles that wish to pass the given linkIndex
     VehicleVector getRivalVehicles(int linkIndex) override;
@@ -226,6 +228,9 @@ public:
 
     std::vector<const MSDriveWay*> getBlockingDriveWays(int linkIndex) override;
     std::string getBlockingDriveWayIDs() const;
+
+    /// @brief return driveways that block the given driveWay
+    static std::vector<const MSDriveWay*> getBlockingDriveWays(const MSDriveWay* dw);
 
     std::string getRequestedDriveWay(int linkIndex) override;
     std::string getRequestedDriveWay() const;
@@ -370,6 +375,10 @@ protected:
 protected:
     /// @brief update vehicle lists for traci calls
     void storeTraCIVehicles(int linkIndex);
+    static void storeTraCIVehicles(const MSDriveWay* dw);
+
+    /// @brief reset temporary storage for injected conflict output
+    static void resetStored();
 
     /// @name traci result storage
     //@{

@@ -73,6 +73,8 @@ public:
         return myGlobalDriveWayIndex > 0;
     }
 
+    static const MSDriveWay* retrieveDepartDriveWay(const MSEdge* edge, const std::string& id);
+
     bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
     bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane);

@@ -861,6 +861,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
         MSEdgeVector occupied;
         if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
+            setParameter("insertionBlocked:" + aVehicle->getID(), dw->getID());
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                 std::cout << "   foe of driveway " + dw->getID() + " has occupied edges " + toString(occupied) << "\n";
@@ -1333,7 +1334,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (isRail) {
         unsetParameter("insertionConstraint:" + aVehicle->getID());
         unsetParameter("insertionOrder:" + aVehicle->getID());
-        unsetParameter("insertionFail:" + aVehicle->getID());
+        unsetParameter("insertionBlocked:" + aVehicle->getID());
         // rail_signal (not traffic_light) requires approach information for
         // switching correctly at the start of the next simulation step
         if (firstRailSignal != nullptr && firstRailSignal->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {

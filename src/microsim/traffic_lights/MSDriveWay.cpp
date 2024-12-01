@@ -2038,5 +2038,14 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
     }
 }
 
+const MSDriveWay*
+MSDriveWay::retrieveDepartDriveWay(const MSEdge* edge, const std::string& id) {
+    for (MSDriveWay* dw : myDepartureDriveways[edge]) {
+        if (dw->getID() == id) {
+            return dw;
+        }
+    }
+    return nullptr;
+}
 
 /****************************************************************************/

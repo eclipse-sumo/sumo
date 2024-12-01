@@ -49,6 +49,8 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include "GUILane.h"
@@ -1066,6 +1068,17 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     if (myBidiLane != nullptr) {
         ret->mkItem(TL("bidi-lane"), false, myBidiLane->getID());
     }
+    // info for blocked departDriveWay
+    for (auto item : getParametersMap()) {
+        if (StringUtils::startsWith(item.first, "insertionBlocked:")) {
+            const MSDriveWay* dw = MSDriveWay::retrieveDepartDriveWay(myEdge, item.second);
+            if (dw != nullptr) {
+                ret->mkItem(("blocking " + dw->getID()).c_str(), false, toString(MSRailSignal::getBlockingVehicles(dw)));
+                ret->mkItem(("driveWays blocking " + dw->getID()).c_str(), false, toString(MSRailSignal::getBlockingDriveWays(dw)));
+            }
+        }
+    }
+
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);
     }

@@ -559,15 +559,30 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
     }
 }
 
-
 void
-MSRailSignal::storeTraCIVehicles(int linkIndex) {
+MSRailSignal::resetStored() {
     myBlockingVehicles.clear();
     myRivalVehicles.clear();
     myPriorityVehicles.clear();
     myConstraintInfo = "";
     myBlockingDriveWays.clear();
     myRequestedDriveWay = "";
+}
+
+
+void
+MSRailSignal::storeTraCIVehicles(const MSDriveWay* dw) {
+    resetStored();
+    myStoreVehicles = true;
+    MSEdgeVector occupied;
+    // call for side effects
+    dw->foeDriveWayOccupied(true, nullptr, occupied);
+    myStoreVehicles = false;
+}
+
+void
+MSRailSignal::storeTraCIVehicles(int linkIndex) {
+    resetStored();
     myStoreVehicles = true;
     LinkInfo& li = myLinkInfos[linkIndex];
     if (li.myLink->getApproaching().size() > 0) {
@@ -620,6 +635,20 @@ MSRailSignal::getRequestedDriveWay(int linkIndex) {
 std::vector<const MSDriveWay*>
 MSRailSignal::getBlockingDriveWays(int linkIndex) {
     storeTraCIVehicles(linkIndex);
+    return myBlockingDriveWays;
+}
+
+
+MSRailSignal::VehicleVector
+MSRailSignal::getBlockingVehicles(const MSDriveWay* dw) {
+    storeTraCIVehicles(dw);
+    return myBlockingVehicles;
+}
+
+
+std::vector<const MSDriveWay*>
+MSRailSignal::getBlockingDriveWays(const MSDriveWay* dw) {
+    storeTraCIVehicles(dw);
     return myBlockingDriveWays;
 }
 
