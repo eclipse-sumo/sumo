@@ -331,9 +331,11 @@ GNEViewNetHelper::MarkFrontElements::markAC(GNEAttributeCarrier* AC) {
 
 void
 GNEViewNetHelper::MarkFrontElements::unmarkAC(GNEAttributeCarrier* AC) {
-    auto it = myMarkedACs.find(AC);
-    if (it != myMarkedACs.end()) {
-        myMarkedACs.erase(it);
+    if (myMarkedACs.size() > 0) {
+        auto it = myMarkedACs.find(AC);
+        if (it != myMarkedACs.end()) {
+            myMarkedACs.erase(it);
+        }
     }
 }
 
