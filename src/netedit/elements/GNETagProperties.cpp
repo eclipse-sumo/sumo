@@ -55,6 +55,17 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
     myParentTags(parentTags),
     myFieldString(fieldString.empty() ? toString(tag) : fieldString),
     myBackgroundColor(backgroundColor) {
+    // if this is a drawable element, add front and select attributes
+    if (isDrawable()) {
+        auto frontElementAttrProperty = GNEAttributeProperties(GNE_ATTR_FRONTELEMENT,
+                                        GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
+                                        TL("Toogle front element"));
+        addAttribute(frontElementAttrProperty);
+        auto selectAttrProperty = GNEAttributeProperties(GNE_ATTR_SELECTED,
+                                  GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
+                                  TL("Toogle select element"));
+        addAttribute(selectAttrProperty);
+    }
 }
 
 

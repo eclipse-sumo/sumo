@@ -1381,6 +1381,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "fromRoute",                          GNE_ATTR_FROM_ROUTE },
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "close shape",                        GNE_ATTR_CLOSESHAPE },
+    { "frontElement",                       GNE_ATTR_FRONTELEMENT },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
