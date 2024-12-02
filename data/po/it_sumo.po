@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-11-29 17:00+0000\n"
+"PO-Revision-Date: 2024-12-02 08:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1022,10 +1022,14 @@ msgstr ""
 #, c-format
 msgid "Automatically setting emergencyDecel to % for vType '%' to match decel."
 msgstr ""
+"La decelerazione di emergenza % del tipo di veicolo '%' è stata impostata "
+"automaticamente per coincidere con la decelerazione."
 
 #: src/libsumo/VehicleType.cpp:351
 msgid "New value of emergencyDecel (%) is lower than decel (%)"
 msgstr ""
+"Il nuovo valore della decelerazione di emergenza (%) è minore della "
+"decelerazione (%)"
 
 #: src/marouter/ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
@@ -1073,57 +1077,63 @@ msgstr "L'influenza dei tempi di percorrenza di intervalli anteriori"
 #: src/marouter/ROMAFrame.cpp:99
 msgid "Parameter key(s) defining source (and sink) taz"
 msgstr ""
+"Chiavi di parametri che definiscono le zone di assegnazione del traffico di "
+"sorgente (e di scarico)"
 
 #: src/marouter/ROMAFrame.cpp:102
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
-msgstr ""
+msgstr "Ignora attributi 'fromTaz' e 'toTaz'"
 
 #: src/marouter/ROMAFrame.cpp:106
 msgid ""
 "Defines the time interval when aggregating single vehicle input; Defaults to "
 "one hour"
 msgstr ""
+"Definisce l'intervallo di aggregazione di dati di veicoli singoli; Il valore "
+"standard è una ora"
 
 #: src/marouter/ROMAFrame.cpp:109
 msgid "Ignore edge priorities when calculating capacities and restraints"
-msgstr ""
+msgstr "Ignora priorità degli archi nel calcolare le capacità e le restrizioni"
 
 #: src/marouter/ROMAFrame.cpp:115
 msgid ""
 "Aggregate routing queries with the same origin for different vehicle types"
 msgstr ""
+"Aggrega richieste di instradamento con la stessa origine ma di tipi di "
+"veicoli differenti"
 
 #: src/marouter/ROMAFrame.cpp:153 src/od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
-msgstr ""
+msgstr "Gradua i flussi caricati con FLOAT"
 
 #: src/marouter/ROMAFrame.cpp:156 src/od2trips_main.cpp:146
 msgid "Defines the name of the vehicle type to use"
-msgstr ""
+msgstr "Definisce il nome di tipo di veicolo da usare"
 
 #: src/marouter/ROMAFrame.cpp:159
 msgid "Defines the prefix for vehicle flow names"
-msgstr ""
+msgstr "Definisce il prefisso dei nomi di flussi di veicoli"
 
 #: src/marouter/ROMAFrame.cpp:162 src/od2trips_main.cpp:152
 msgid "Uses STR[] as a timeline definition"
-msgstr ""
+msgstr "Usa STR[] come definizione dell'asse dei tempi"
 
 #: src/marouter/ROMAFrame.cpp:165 src/od2trips_main.cpp:155
 msgid "Uses STR as a 24h-timeline definition"
-msgstr ""
+msgstr "Usa STR come definizione di un'asse dei tempi h24"
 
 #: src/marouter/ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
-msgstr ""
+msgstr "Mantieni i flussi di traffico di tutti gli intervalli nella rete"
 
 #: src/marouter/ROMAFrame.cpp:172
 msgid "Choose a assignment method: incremental, UE or SUE"
-msgstr ""
+msgstr "Scegli un metodo di assegnazione: incremental, UE o SUE"
 
 #: src/marouter/ROMAFrame.cpp:175
 msgid "Use FLOAT as tolerance when checking for SUE stability"
-msgstr ""
+msgstr "Usa FLOAT come tolleranza per controllare la stabilità di SUE"
 
 #: src/marouter/ROMAFrame.cpp:178
 msgid ""
