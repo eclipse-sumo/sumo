@@ -17,6 +17,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Johannes Rummel
+/// @author  Mirko Barthauer
 /// @date    Mon, 9 Jul 2001
 ///
 // Parser and container for routes during their loading
@@ -34,7 +35,9 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/Command_RouteReplacement.h>
@@ -1279,6 +1282,15 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return result;
         }
         const MSEdge* edge = nullptr;
+        // patch chargingStation stop on a parkingArea
+        if (stop.chargingStation != "") {
+            const MSChargingStation* cs = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION));
+            const MSParkingArea* pa = cs->getParkingArea();
+            if (pa != nullptr) {
+                stop.parkingarea = pa->getID();
+                stop.parking = ParkingType::OFFROAD;
+            }
+        }
         MSStoppingPlace* toStop = retrieveStoppingPlace(attrs, errorSuffix, &stop);
         // if one of the previous stops is defined
         if (toStop != nullptr) {
