@@ -55,6 +55,9 @@ public:
     /// @brief constructor
     GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, const int editorOptions);
 
+    /// @brief pointer to GNEFrame parent
+    GNEFrame* getFrameParent() const;
+
     /// @brief edit attributes of the given AC (usually the edited template AC)
     void showAttributesEditor(GNEAttributeCarrier* AC);
 
@@ -67,8 +70,18 @@ public:
     /// @brief refresh attribute editor
     void refreshAttributesEditor();
 
-    /// @brief pointer to GNEFrame parent
-    GNEFrame* getFrameParent() const;
+    /// @name Functions related with selecting parents
+    /// @{
+    /// @brief check if we're selecting a parent clicking over view
+    bool isSelectingParent() const;
+
+    /// @brief set new parent
+    void setNewParent(const GNEAttributeCarrier* AC);
+
+    /// @brief abort selecting parent
+    void abortSelectingParent() const;
+
+    /// @}
 
     /// @name FOX-callbacks
     /// @{

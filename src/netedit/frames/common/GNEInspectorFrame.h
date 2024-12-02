@@ -46,84 +46,6 @@ class GNEInspectorFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class NeteditAttributesEditor
-    // ===========================================================================
-
-    class NeteditAttributesEditor : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
-
-    public:
-        /// @brief constructor
-        NeteditAttributesEditor(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~NeteditAttributesEditor();
-
-        /// @brief show netedit attributes editor
-        void showNeteditAttributesEditor();
-
-        /// @brief hide netedit attributes editor
-        void hideNeteditAttributesEditor();
-
-        /// @brief refresh netedit attributes
-        void refreshNeteditAttributesEditor(bool forceRefresh);
-
-        /// @brief check if we're selecting a new parent
-        bool isSelectingParent() const;
-
-        /// @brief set new parent
-        void setNewParent(GNEAttributeCarrier* clickedAC);
-
-        /// @brief stop select new parent
-        void stopSelectParent();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user change the current GEO Attribute
-        long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press button "Mark front element"
-        long onCmdMarkFrontElement(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(NeteditAttributesEditor)
-
-    private:
-        /// @brief pointer to inspector frame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief button for set element as front button
-        FXButton* myMarkFrontElementButton;
-
-        /// @brief Label for parent additional
-        FXLabel* myLabelParentAdditional;
-
-        /// @brief pointer for replace the parent additional
-        FXTextField* myTextFieldParentAdditional;
-
-        /// @brief button for set new parent
-        MFXCheckableButton* mySetNewParentButton;
-
-        /// @frame horizontal frame for close shape
-        FXHorizontalFrame* myHorizontalFrameCloseShape;
-
-        /// @brief Label for close shape
-        FXLabel* myLabelCloseShape;
-
-        /// @brief pointer to check box "Block movement"
-        FXCheckButton* myCheckBoxCloseShape;
-
-        /// @brief button for help
-        FXButton* myHelpButton;
-    };
-
-    // ===========================================================================
     // class TemplateEditor
     // ===========================================================================
 
@@ -295,7 +217,7 @@ public:
     GNEAttributesEditor* getAttributesEditor() const;
 
     /// @brief get Netedit Attributes editor
-    GNEInspectorFrame::NeteditAttributesEditor* getNeteditAttributesEditor() const;
+    GNEAttributesEditor* getNeteditAttributesEditor() const;
 
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
@@ -339,11 +261,11 @@ private:
     /// @brief Flow attributes editor
     GNEAttributesEditor* myFlowAttributesEditor;
 
-    /// @brief Netedit Attributes editor
-    NeteditAttributesEditor* myNeteditAttributesEditor;
-
     /// @brief GEO Attributes editor
     GNEAttributesEditor* myGEOAttributesEditor;
+
+    /// @brief Netedit Attributes editor
+    GNEAttributesEditor* myNeteditAttributesEditor;
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;

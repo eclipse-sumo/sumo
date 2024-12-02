@@ -70,11 +70,11 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     myFrameParent(frameParent),
     myEditorOptions(editorOptions) {
     // create general buttons
-    myFrontButton = GUIDesigns::buildFXButton(this, TL("Mark as front element"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
+    myFrontButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Front element"), "", "", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
     myFrontButton->hide();
-    myOpenDialogButton = GUIDesigns::buildFXButton(this, TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
+    myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
     myOpenDialogButton->hide();
-    myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(this, TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
+    myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
     myOpenExtendedAttributesButton->hide();
     // resize myAttributesEditorRows and fill it with attribute rows
     myAttributesEditorRows.resize(MAX_ATTR);
@@ -83,6 +83,12 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     }
     // Create help button
     myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
+}
+
+
+GNEFrame*
+GNEAttributesEditor::getFrameParent() const {
+    return myFrameParent;
 }
 
 
@@ -148,32 +154,29 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 myOpenExtendedAttributesButton->hide();
             }
         }
-        // check if show basic attributes
-        if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
-            // Iterate over tag property of first AC and show row for every attribute
-            for (const auto& attrProperty : tagProperty) {
-                bool showAttributeRow = true;
-                // check show conditions
-                if (attrProperty.isExtended()) {
-                    showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
-                    showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
-                    showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
-                    showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
-                    showAttributeRow = false;
-                }
-                if (showAttributeRow) {
-                    myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
-                    itRows++;
-                }
+        // Iterate over tag property of first AC and show row for every attribute
+        for (const auto& attrProperty : tagProperty) {
+            bool showAttributeRow = true;
+            // check show conditions
+            if (attrProperty.isExtended()) {
+                showAttributeRow = false;
+            } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+                showAttributeRow = false;
+            } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
+                showAttributeRow = false;
+            } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
+                showAttributeRow = false;
+            } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
+                showAttributeRow = false;
+            } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty.isNetedit()) {
+                showAttributeRow = false;
+            } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+                showAttributeRow = true;
             }
-            // show help button
-            myHelpButton->show();
-        } else {
-            myHelpButton->hide();
+            if (showAttributeRow) {
+                myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
+                itRows++;
+            }
         }
         // hide rest of rows before showing table
         for (int i = itRows; i < MAX_ATTR; i++) {
@@ -183,6 +186,12 @@ GNEAttributesEditor::refreshAttributesEditor() {
         if ((itRows == 0) && !showButtons) {
             hideAttributesEditor();
         } else {
+            // check if show help button
+            if (itRows > 0) {
+                myHelpButton->show();
+            } else {
+                myHelpButton->hide();
+            }
             show();
         }
     } else {
@@ -191,9 +200,21 @@ GNEAttributesEditor::refreshAttributesEditor() {
 }
 
 
-GNEFrame*
-GNEAttributesEditor::getFrameParent() const {
-    return myFrameParent;
+bool
+GNEAttributesEditor::isSelectingParent() const {
+    return false;
+}
+
+
+void
+GNEAttributesEditor::setNewParent(const GNEAttributeCarrier* AC) {
+
+}
+
+
+void
+GNEAttributesEditor::abortSelectingParent() const {
+
 }
 
 

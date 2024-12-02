@@ -2078,7 +2078,7 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
                 // show extra information for tests
                 WRITE_DEBUG("Stop select new parent");
                 // and stop select paretn
-                myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->stopSelectParent();
+                myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->abortSelectingParent();
             } else {
                 // show extra information for tests
                 WRITE_DEBUG("Cleaning inspected elements");
@@ -2277,7 +2277,7 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
             } else {
                 myViewNet->setFrontAttributeCarrier(myViewNet->getInspectedElements().getFirstAC());
             }
-            myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
+            myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshAttributesEditor();
         } else {
             myViewNet->setFrontAttributeCarrier(nullptr);
         }
