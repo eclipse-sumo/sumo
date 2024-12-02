@@ -248,7 +248,7 @@ struct GNEViewNetHelper {
 
         /// @name get functions
         /// @{
-        /// @brief get first inspected AC (needed because the main container is a set)
+        /// @brief get first inspected AC (needed because the main container is a hash)
         GNEAttributeCarrier* getFirstAC() const;
 
         /// @brief get hash table with all inspected ACs
@@ -287,6 +287,39 @@ struct GNEViewNetHelper {
 
         /// @brief Invalidated assignment operator.
         InspectedElements& operator=(const InspectedElements&) = delete;
+    };
+
+    /// @brief class used for group front elements
+    class FrontElements {
+
+    public:
+        /// @brief constructor
+        FrontElements();
+
+        /// @brief frontAC AC
+        void frontAC(GNEAttributeCarrier* AC);
+
+        /// @brief unfrontAC AC
+        void unfrontAC(GNEAttributeCarrier* AC);
+
+        /// @brief get hash table with all fronted ACs
+        const std::unordered_set<GNEAttributeCarrier*>& getACs() const;
+
+        // @brief check if the given AC is fronted
+        bool isACFronted(GNEAttributeCarrier* AC) const;
+
+        // @brief check if the given constant AC is fronted
+        bool isACFronted(const GNEAttributeCarrier* AC) const;
+
+    private:
+        /// @brief hash table with all front ACs (we use a set to make deletion of massive elements more quickly)
+        std::unordered_set<GNEAttributeCarrier*> myFrontACs;
+
+        /// @brief Invalidated copy constructor.
+        FrontElements(const FrontElements&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FrontElements& operator=(const FrontElements&) = delete;
     };
 
     /// @brief class used to group all variables related with objects under cursor after a click over view

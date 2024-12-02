@@ -317,6 +317,53 @@ GNEViewNetHelper::InspectedElements::isInspectingMultipleElements() const {
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNetHelper::FrontElements - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::FrontElements::FrontElements() {}
+
+
+void
+GNEViewNetHelper::FrontElements::frontAC(GNEAttributeCarrier* AC) {
+    myFrontACs.insert(AC);
+}
+
+
+void
+GNEViewNetHelper::FrontElements::unfrontAC(GNEAttributeCarrier* AC) {
+    auto it = myFrontACs.find(AC);
+    if (it != myFrontACs.end()) {
+        myFrontACs.erase(it);
+    }
+}
+
+const std::unordered_set<GNEAttributeCarrier*>&
+GNEViewNetHelper::FrontElements::getACs() const {
+    return myFrontACs;
+}
+
+
+bool
+GNEViewNetHelper::FrontElements::isACFronted(GNEAttributeCarrier* AC) const {
+    if (myFrontACs.empty()) {
+        return false;
+    } else {
+        return myFrontACs.find(AC) != myFrontACs.end();
+    }
+}
+
+
+bool
+GNEViewNetHelper::FrontElements::isACFronted(const GNEAttributeCarrier* AC) const {
+    if (myFrontACs.empty()) {
+        return false;
+    } else {
+        // we need a const_cast because our myFrontedACs is a set of non-constant ACs (in this case is safe)
+        return myFrontACs.find(const_cast<GNEAttributeCarrier*>(AC)) != myFrontACs.end();
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNetHelper::ViewObjectsSelector - methods
 // ---------------------------------------------------------------------------
 
@@ -1058,7 +1105,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateAdditionalElements(ViewObjectsConta
     auto additionalElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject, false);
     if (additionalElement) {
         // insert depending if is the front attribute carrier
-        if (additionalElement == myViewNet->getFrontAttributeCarrier()) {
+        if (additionalElement->isDrawingFront()) {
             // insert at front
             container.additionals.insert(container.additionals.begin(), additionalElement);
             container.attributeCarriers.insert(container.attributeCarriers.begin(), additionalElement);
@@ -1126,7 +1173,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateDemandElements(ViewObjectsContainer
     GNEDemandElement* demandElement = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(glObject, false);
     if (demandElement) {
         // insert depending if is the front attribute carrier
-        if (demandElement == myViewNet->getFrontAttributeCarrier()) {
+        if (demandElement->isDrawingFront()) {
             // insert at front
             container.demandElements.insert(container.demandElements.begin(), demandElement);
             container.attributeCarriers.insert(container.attributeCarriers.begin(), demandElement);
