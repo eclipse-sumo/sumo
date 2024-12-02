@@ -448,34 +448,37 @@ private:
     static void fillContainerStopElements();
 
     /// @brief fill common POI attributes
-    static void fillPOIAttributes(SumoXMLTag currentTag);
+    static void fillCommonAttributes(GNETagProperties& tagProperties);
+
+    /// @brief fill common POI attributes
+    static void fillPOIAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
-    static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
+    static void fillCommonVehicleAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
-    static void fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr perHour);
+    static void fillCommonFlowAttributes(GNETagProperties& tagProperties, SumoXMLAttr perHour);
 
     /// @brief fill Car Following Model of Vehicle/Person Types
-    static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);
+    static void fillCarFollowingModelAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill Junction Model Attributes of Vehicle/Person Types
-    static void fillJunctionModelAttributes(SumoXMLTag currentTag);
+    static void fillJunctionModelAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill Junction Model Attributes of Vehicle/Person Types
-    static void fillLaneChangingModelAttributes(SumoXMLTag currentTag);
+    static void fillLaneChangingModelAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill common person attributes (used by person and personFlows)
-    static void fillCommonPersonAttributes(SumoXMLTag currentTag);
+    static void fillCommonPersonAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill common container attributes (used by container and containerFlows)
-    static void fillCommonContainerAttributes(SumoXMLTag currentTag);
+    static void fillCommonContainerAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
+    static void fillCommonStopAttributes(GNETagProperties& tagProperties, const bool waypoint);
 
     /// @brief fill plan from-to attribute
-    static void fillPlanParentAttributes(SumoXMLTag currentTag);
+    static void fillPlanParentAttributes(GNETagProperties& tagProperties);
 
     /// @brief fill person trip common attributes
     static void fillPersonTripCommonAttributes(GNETagProperties& tagProperties);
@@ -499,7 +502,7 @@ private:
     static void fillDataElements();
 
     /// @brief fill stop person attributes
-    static void fillCommonMeanDataAttributes(SumoXMLTag currentTag);
+    static void fillCommonMeanDataAttributes(GNETagProperties& tagProperties);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
