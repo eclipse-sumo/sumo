@@ -8627,31 +8627,33 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes(GNETagProperties& tagProper
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACCEL,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("The acceleration ability of vehicles of this type [m/s^2]"),
-                                          "2.60");
+                                          toString(SUMOVTypeParameter::getDefaultAccel()));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DECEL,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("The deceleration ability of vehicles of this type [m/s^2]"),
-                                          "4.50");
+                                          toString(SUMOVTypeParameter::getDefaultDecel()));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_APPARENTDECEL,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                           TL("The apparent deceleration of the vehicle as used by the standard model [m/s^2]"),
-                                          "4.50");
+                                          toString(SUMOVTypeParameter::getDefaultDecel()));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EMERGENCYDECEL,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                           TL("The maximal physically possible deceleration for the vehicle [m/s^2]"),
-                                          "4.50");
+                                          toString(SUMOVTypeParameter::getDefaultEmergencyDecel(SVC_IGNORING, 
+                                                  SUMOVTypeParameter::getDefaultDecel(),
+                                                  VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT)));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_SIGMA,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::RANGE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("Car-following model parameter"),
-                                          "0.50");
+                                          toString(SUMOVTypeParameter::getDefaultImperfection()));
     attrProperty.setRange(0, 1);
     tagProperties.addAttribute(attrProperty);
 
