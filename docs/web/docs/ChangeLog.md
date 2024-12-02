@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed computation of electricity consumption with respect to radialDragCoefficient #14896 (regression in 1.8.0)
   - Fixed platform specific taxi behavior related to pre-booking #15698 (regression in 1.20.0)
   - Fixed crash on train insertion at rail crossing with pedestrians #15807 (regression in 1.21.0)
   - Fixed rerouting error on the last route edge with a stop #15552
@@ -96,7 +97,8 @@ title: ChangeLog
   - Fixed invalid result by `trafficlight.getServedPersonCount` #15715
   - Fixed invalid result by `vehicle.couldChangeLane` #10739
   - Fixd invalid result by `trafficlight.getSpentDuration` after `setProgramLogic` #15753
-  - Fixed non-functional libsumo windows wheels #15516 
+  - Fixed non-functional libsumo windows wheels #15516
+  - setEmissionClass now works with PHEMlight #15761 
  
 - Tools
   - matsim_importPlans.py: no longer writes unsorted trips with option **-vehicles-only** #15743
@@ -108,6 +110,7 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
+  - Added new [stationfinder device](Simulation/Stationfinder.md) which reroutes electric vehicles to a chargingStation depending on it's state of charge #9663 
   - The new vType attribute `lcContRight` can be used to configure lane choice at a lane split where all lanes have equal strategic value. #15579
   - Added option **--insertion-checks** to set global defaults for vehicle attribute `insertionChecks` #15149
   - Added option **--pedestrian.striping.jamfactor** to configure the speed of jammed pedestrians (default 0.25) #15610
@@ -126,10 +129,14 @@ title: ChangeLog
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
     - Fixed various deadlocks #7493, #13262, #15474
+    - The signal block information that is written by option **--railsignal-block-output** now includes [information about the foe relationships](Simulation/Railways.md#railsignal-block-output) between driveways / blocks #14991
+    - The new option **--railsignal.max-block-length** can be used to customized the threshold for warnings / driveway truncation #15819 
+    - The new option **--railsignal-vehicle-output** can be used to record entry and exit times of vehicles into signal blocks #14990
     - The new option **--time-to-teleport.railsignal-deadlock** can be used to detect signal based deadlocks #15561    
     - The new optioin **--time-to-teleport.remove-constraint** can be used to resolve detected deadlocks which are caused by a signal constraint by deactivating a responsible constraint #14543
-    - The new option **--deadlock-output** can be use to log detected deadlocks and also their resolution
-    - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569 
+    - The new option **--deadlock-output** can be use to log detected deadlocks and also their method of resolution
+    - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569
+    - A warning is given for unreasonable combinations of **--time-to-teleport** options #15816 
 
 - netedit
   - Additional output now writes chargingStation after parkingArea elements #15628
@@ -140,6 +147,7 @@ title: ChangeLog
  
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
+  - The lane parameter dialog provide information on driveway/foes that prevent train insertion #15823 
  
 - netconvert
   - Added support for zipped shape files #15623
@@ -159,7 +167,8 @@ title: ChangeLog
   - sort_routes.py: Added option **--verbose** #15744
   - osmWebWizard.py: optionally can write output to existing folders #15783
   - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
-  - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812 
+  - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812
+  - Added new tool driveways2poly.py for visualizing train driveways #15027
 
 ### Miscellaneous
 
