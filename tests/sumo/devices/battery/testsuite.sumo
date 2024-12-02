@@ -22,6 +22,9 @@ trackFuel_elec
 # leave the road while charging
 chargingStations_parked
 
+# leave the road while charging and parking
+chargingStations_parked_explicit
+
 # leave the road while charging
 chargingStations_parkingCapacity
 
