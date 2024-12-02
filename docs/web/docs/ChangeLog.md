@@ -9,7 +9,7 @@ title: ChangeLog
 - sumo
   - Fixed computation of electricity consumption with respect to radialDragCoefficient #14896 (regression in 1.8.0)
   - Fixed platform specific taxi behavior related to pre-booking #15698 (regression in 1.20.0)
-  - Fixed crash on train insertion at rail crossing with pedestrians #15807 (regression in 1.21.0)
+  - Fixed crash involving pedestrians at pedestrian crossing #15807 (regression in 1.21.0)
   - Fixed rerouting error on the last route edge with a stop #15552
   - Fixed routing error on departure #15563
   - Fixed invalid warnings regarding inconsistent loaded stop times #15602
