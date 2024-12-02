@@ -76,23 +76,21 @@ GNEAttributeCarrier::getNet() const {
 
 
 void
-GNEAttributeCarrier::selectAttributeCarrier(const bool changeFlag) {
-    if (getGUIGlObject() && myTagProperty.isSelectable()) {
-        gSelected.select(getGUIGlObject()->getGlID());
-        if (changeFlag) {
-            mySelected = true;
-        }
+GNEAttributeCarrier::selectAttributeCarrier() {
+    auto glObject = getGUIGlObject();
+    if (glObject && myTagProperty.isSelectable()) {
+        gSelected.select(glObject->getGlID());
+        mySelected = true;
     }
 }
 
 
 void
-GNEAttributeCarrier::unselectAttributeCarrier(const bool changeFlag) {
-    if (getGUIGlObject() && myTagProperty.isSelectable()) {
-        gSelected.deselect(getGUIGlObject()->getGlID());
-        if (changeFlag) {
-            mySelected = false;
-        }
+GNEAttributeCarrier::unselectAttributeCarrier() {
+    auto glObject = getGUIGlObject();
+    if (glObject && myTagProperty.isSelectable()) {
+        gSelected.deselect(glObject->getGlID());
+        mySelected = false;
     }
 }
 
@@ -942,7 +940,11 @@ std::string
 GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
+            if (mySelected) {
+                return True;
+            } else {
+                return False;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

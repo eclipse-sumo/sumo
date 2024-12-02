@@ -72,10 +72,10 @@ public:
     GNENet* getNet() const;
 
     /// @brief select attribute carrier using GUIGlobalSelection
-    void selectAttributeCarrier(const bool changeFlag = true);
+    void selectAttributeCarrier();
 
     /// @brief unselect attribute carrier using GUIGlobalSelection
-    void unselectAttributeCarrier(const bool changeFlag = true);
+    void unselectAttributeCarrier();
 
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
