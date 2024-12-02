@@ -1844,6 +1844,7 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_PARKINGAREA,
     GNE_ATTR_FROM_ROUTE,
     GNE_ATTR_IS_ROUNDABOUT,
+    GNE_ATTR_CLOSESHAPE,
     // @}
 
     /// @name train parameters

@@ -1484,6 +1484,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("Overrides default shape of pedestrian sidewalk"));
         myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_CONNECTION;
     {
@@ -3144,6 +3145,11 @@ GNEAttributeCarrier::fillShapeElements() {
                                               TL("The shape of the polygon"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
+                                              TL("Toogle close or open shape"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The RGBA color with which the polygon shall be displayed"),
@@ -3560,6 +3566,10 @@ GNEAttributeCarrier::fillJuPedSimElements() {
                                               TL("The shape of the walkable area"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
+                                              TL("Toogle close or open walkable area shape"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
@@ -3587,6 +3597,10 @@ GNEAttributeCarrier::fillJuPedSimElements() {
                                               TL("The shape of the obstacle"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
+                                              TL("Toogle close or open obstacle shape"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,

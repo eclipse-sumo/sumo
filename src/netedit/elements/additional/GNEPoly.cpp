@@ -535,6 +535,12 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             } else {
                 return TL("No geo-conversion defined");
             }
+        case GNE_ATTR_CLOSESHAPE:
+            if ((myShape.size() > 1) && (myShape.front() == myShape.back())) {
+                return True;
+            } else {
+                return False;
+            }
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_FILL:
@@ -592,6 +598,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:
+        case GNE_ATTR_CLOSESHAPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_LINEWIDTH:
@@ -626,6 +633,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<PositionVector>(value);
             }
+        case GNE_ATTR_CLOSESHAPE:
+            return canParse<bool>(value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_FILL:
@@ -697,6 +706,8 @@ GNEPoly::isAttributeEnabled(SumoXMLAttr key) const {
             } else {
                 return false;
             }
+        case GNE_ATTR_CLOSESHAPE:
+            return myShape.size() > 1;
         default:
             return true;
     }
@@ -758,6 +769,16 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             // update centering boundary
             updateCenteringBoundary(true);
+            break;
+        }
+        case GNE_ATTR_CLOSESHAPE: {
+            auto shape = myShape;
+            if (parse<bool>(value)) {
+                shape.push_back(shape.front());
+            } else {
+                shape.pop_back();
+            }
+            setAttribute(SUMO_ATTR_SHAPE, toString(shape));
             break;
         }
         case SUMO_ATTR_COLOR:
