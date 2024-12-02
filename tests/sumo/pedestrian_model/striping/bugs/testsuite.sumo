@@ -64,3 +64,6 @@ ticket15468
 
 # rail crossing at yellow
 ticket15808
+
+# pedestrian collision on crossing
+ticket15837
