@@ -422,12 +422,12 @@ To following effects occur:
 - 1a-2a-3b-4b-5a: **W**
 - 1a-2a-3b-4b-5b: **W**
 
-- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors** or **--device.rerouting.mode 8**)
 - 1a-2b-3a-4a-5b: **W**
 - 1a-2b-3a-4b-5a: **W**
 - 1a-2b-3a-4b-5b: **W**
 
-- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors** or **--device.rerouting.mode 8**)
 - 1a-2b-3b-4a-5b: **W**
 - 1a-2b-3b-4b-5a: **W**
 - 1a-2b-3b-4b-5b: **W**
