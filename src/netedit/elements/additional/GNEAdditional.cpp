@@ -467,6 +467,12 @@ GNEAdditional::isGLObjectLocked() const {
 
 
 void
+GNEAdditional::markAsFrontElement() {
+    frontAttributeCarrier();
+}
+
+
+void
 GNEAdditional::deleteGLObject() {
     myNet->deleteAdditional(this, myNet->getViewNet()->getUndoList());
 }

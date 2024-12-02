@@ -229,7 +229,7 @@ GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const G
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
+    getParentAdditionals().front()->drawFront(GLO_REROUTER);
     // set color
     RGBColor color;
     if (getParentAdditionals().front()->isAttributeCarrierSelected()) {

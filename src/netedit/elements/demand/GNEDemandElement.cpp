@@ -328,6 +328,12 @@ GNEDemandElement::isGLObjectLocked() const {
 
 
 void
+GNEDemandElement::markAsFrontElement() {
+    frontAttributeCarrier();
+}
+
+
+void
 GNEDemandElement::deleteGLObject() {
     // we need an special checks due hierarchies
     if (myTagProperty.isPlan()) {

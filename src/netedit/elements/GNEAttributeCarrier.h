@@ -83,8 +83,22 @@ public:
     /// @brief check if attribute carrier must be drawn using selecting color.
     bool drawUsingSelectColor() const;
 
+    /// @name Function related front elements
+    /// @{
+
+    /// @brief front attribute carrier
+    void frontAttributeCarrier();
+
+    /// @brief front attribute carrier
+    void unfrontAttributeCarrier();
+
     /// @brief check if attribute carrier is drawn front
     bool isDrawingFront() const;
+
+    /// @brief check if draw attributeCarrier in front
+    void drawFront(const double typeOrLayer, const double extraOffset = 0) const;
+
+    /// @}
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
@@ -385,9 +399,6 @@ protected:
     void setCommonAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @}
-
-    /// @brief check if draw attributeCarrier in front
-    void drawFront(const double typeOrLayer, const double extraOffset = 0) const;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

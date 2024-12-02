@@ -958,15 +958,13 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::filterElements(cons
 
 void
 GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
-    // get front AC
-    const auto frontGLObject = myViewNet->getFrontGLObject();
     // cast specific network element
     switch (glObject->getType()) {
         case GLO_JUNCTION: {
             // get junction
             auto junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(glObject->getMicrosimID());
             // check front element
-            if (glObject == frontGLObject) {
+            if (junction->isDrawingFront()) {
                 // insert at front
                 container.junctions.insert(container.junctions.begin(), junction);
                 container.networkElements.insert(container.networkElements.begin(), junction);
@@ -985,7 +983,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get edge
             auto edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(glObject->getMicrosimID());
             // check front element
-            if (glObject == frontGLObject) {
+            if (edge->isDrawingFront()) {
                 // insert at front
                 container.edges.insert(container.edges.begin(), edge);
                 container.networkElements.insert(container.networkElements.begin(), edge);
@@ -1004,7 +1002,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get lane
             auto lane = myViewNet->getNet()->getAttributeCarriers()->retrieveLane(glObject);
             // check front element
-            if (glObject == frontGLObject) {
+            if (lane->isDrawingFront()) {
                 // insert at front
                 container.lanes.insert(container.lanes.begin(), lane);
                 container.networkElements.insert(container.networkElements.begin(), lane);
@@ -1023,7 +1021,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get crossing
             auto crossing = myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(glObject);
             // check front element
-            if (glObject == frontGLObject) {
+            if (crossing->isDrawingFront()) {
                 // insert at front
                 container.crossings.insert(container.crossings.begin(), crossing);
                 container.networkElements.insert(container.networkElements.begin(), crossing);
@@ -1042,7 +1040,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get walkingArea
             auto walkingArea = myViewNet->getNet()->getAttributeCarriers()->retrieveWalkingArea(glObject);
             // check front element
-            if (glObject == frontGLObject) {
+            if (walkingArea->isDrawingFront()) {
                 // insert at front
                 container.walkingAreas.insert(container.walkingAreas.begin(), walkingArea);
                 container.networkElements.insert(container.networkElements.begin(), walkingArea);
@@ -1061,7 +1059,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get connection
             auto connection = myViewNet->getNet()->getAttributeCarriers()->retrieveConnection(glObject);
             // check front element
-            if (glObject == frontGLObject) {
+            if (connection->isDrawingFront()) {
                 // insert at front
                 container.connections.insert(container.connections.begin(), connection);
                 container.networkElements.insert(container.networkElements.begin(), connection);
@@ -1080,7 +1078,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get internal lane
             auto internalLane = myViewNet->getNet()->getAttributeCarriers()->retrieveInternalLane(glObject);
             // check front element
-            if (glObject == frontGLObject) {
+            if (internalLane->isDrawingFront()) {
                 // insert at front
                 container.internalLanes.insert(container.internalLanes.begin(), internalLane);
                 container.attributeCarriers.insert(container.attributeCarriers.begin(), internalLane);
@@ -1127,7 +1125,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateShapeElements(ViewObjectsContainer&
         // cast POI
         auto POI = dynamic_cast<GNEPOI*>(myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject));
         // check front element
-        if (glObject == myViewNet->getFrontGLObject()) {
+        if (POI->isDrawingFront()) {
             // insert at front
             container.POIs.insert(container.POIs.begin(), POI);
         } else {
@@ -1138,7 +1136,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateShapeElements(ViewObjectsContainer&
         // cast poly
         auto poly = dynamic_cast<GNEPoly*>(myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject));
         // check front element
-        if (glObject == myViewNet->getFrontGLObject()) {
+        if (poly->isDrawingFront()) {
             // insert at front
             container.polys.insert(container.polys.begin(), poly);
         } else {
@@ -1156,7 +1154,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateTAZElements(ViewObjectsContainer& c
         // cast TAZ
         auto TAZ = dynamic_cast<GNETAZ*>(myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject));
         // check front element
-        if (glObject == myViewNet->getFrontGLObject()) {
+        if (TAZ->isDrawingFront()) {
             // insert at front
             container.TAZs.insert(container.TAZs.begin(), TAZ);
         } else {
@@ -1196,7 +1194,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
             // cast EdgeData
             auto edgeData = dynamic_cast<GNEEdgeData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
             // check front element
-            if (glObject == myViewNet->getFrontGLObject()) {
+            if (edgeData->isDrawingFront()) {
                 // insert at front
                 container.edgeDatas.insert(container.edgeDatas.begin(), edgeData);
                 container.genericDatas.insert(container.genericDatas.begin(), edgeData);
@@ -1215,7 +1213,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
             // cast EdgeData
             auto edgeRelData = dynamic_cast<GNEEdgeRelData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
             // check front element
-            if (glObject == myViewNet->getFrontGLObject()) {
+            if (edgeRelData->isDrawingFront()) {
                 // insert at front
                 container.edgeRelDatas.insert(container.edgeRelDatas.begin(), edgeRelData);
                 container.genericDatas.insert(container.genericDatas.begin(), edgeRelData);
@@ -1234,7 +1232,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
             // cast TAZRelData
             auto TAZRelData = dynamic_cast<GNETAZRelData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
             // check front element
-            if (glObject == myViewNet->getFrontGLObject()) {
+            if (TAZRelData->isDrawingFront()) {
                 // insert at front
                 container.TAZRelDatas.insert(container.TAZRelDatas.begin(), TAZRelData);
                 container.genericDatas.insert(container.genericDatas.begin(), TAZRelData);

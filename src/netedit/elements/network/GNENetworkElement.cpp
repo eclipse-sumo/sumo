@@ -109,7 +109,7 @@ GNENetworkElement::isGLObjectLocked() const {
 
 void
 GNENetworkElement::markAsFrontElement() {
-    myNet->getViewNet()->setFrontAttributeCarrier(this);
+    frontAttributeCarrier();
 }
 
 

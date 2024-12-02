@@ -122,10 +122,33 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
     }
 }
 
+void
+GNEAttributeCarrier::frontAttributeCarrier() {
+    myNet->getViewNet()->getFrontElements().frontAC(this);
+    myFront = true;
+}
+
+
+void
+GNEAttributeCarrier::unfrontAttributeCarrier() {
+    myNet->getViewNet()->getFrontElements().unfrontAC(this);
+    myFront = false;
+}
+
 
 bool
 GNEAttributeCarrier::isDrawingFront() const {
     return myFront;
+}
+
+
+void
+GNEAttributeCarrier::drawFront(double typeOrLayer, const double extraOffset) const {
+    if (myFront) {
+        glTranslated(0, 0, GLO_FRONTELEMENT + extraOffset);
+    } else {
+        glTranslated(0, 0, typeOrLayer + extraOffset);
+    }
 }
 
 
@@ -999,24 +1022,14 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
             }
             break;
         case GNE_ATTR_FRONTELEMENT:
-            myFront = parse<bool>(value);
-            if (myFront) {
-                myNet->getViewNet()->getFrontElements().frontAC(this);
+            if (parse<bool>(value)) {
+                frontAttributeCarrier();
             } else {
-                myNet->getViewNet()->getFrontElements().unfrontAC(this);
+                unfrontAttributeCarrier();
             }
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void
-GNEAttributeCarrier::drawFront(double typeOrLayer, const double extraOffset) const {
-    if (myFront) {
-        glTranslated(0, 0, GLO_FRONTELEMENT + extraOffset);
-    } else {
-        glTranslated(0, 0, typeOrLayer + extraOffset);
     }
 }
 
