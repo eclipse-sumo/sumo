@@ -283,7 +283,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
                     isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
                     calibratorFlow->isAttributeCarrierSelected() || inspectedElements.isACInspected(calibratorFlow) ||
-                    calibratorFlow->isDrawingFront()) {
+                    calibratorFlow->isMarkedForDrawingFront()) {
                 calibratorFlow->drawGL(s);
             }
         }
@@ -476,7 +476,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        drawFront(GLO_CALIBRATOR);
+        drawInLayer(GLO_CALIBRATOR);
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // rotate over lane

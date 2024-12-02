@@ -539,7 +539,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        drawFront(GLO_CROSSING);
+        drawInLayer(GLO_CROSSING);
         // set color
         GLHelper::setColor(crossingColor);
         // draw depending of level of detail

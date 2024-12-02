@@ -727,7 +727,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = myLanes.front()->getDrawingConstants()->getDetail();
         // calculate layer
         double layer = GLO_EDGE;
-        if (myFront) {
+        if (myDrawInFront) {
             layer = GLO_FRONTELEMENT;
         } else if (myLanes.front()->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
             layer = GLO_JUNCTION + 1.8;
@@ -2845,7 +2845,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
         // Push stopOffset matrix
         GLHelper::pushMatrix();
         // translate to front (note: Special case)
-        drawFront(layer + 1);
+        drawInLayer(layer + 1);
         if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             for (const auto& lane : getLanes()) {
                 lane->drawLaneStopOffset(s);
@@ -2931,12 +2931,12 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 // Push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front (note: Special case)
-                if (myFront) {
+                if (myDrawInFront) {
                     glTranslated(0, 0, GLO_FRONTELEMENT);
                 } else if (lane->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
-                    drawFront(GLO_JUNCTION + 0.5);
+                    drawInLayer(GLO_JUNCTION + 0.5);
                 } else {
-                    drawFront(GLO_LANE);
+                    drawInLayer(GLO_LANE);
                 }
                 // move to front
                 glTranslated(0, 0, 0.1);
@@ -2957,7 +2957,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 for (const auto& TAZSourceSink : TAZSourceSinks) {
                     if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
                         drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, this, true, true);
-                    } else if (TAZSourceSink == frontAC) {
+                    } else if (TAZSourceSink == markAC) {
                         drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, this, true, true);
                     }
                 }

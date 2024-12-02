@@ -319,7 +319,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(s.polyUseCustomLayer ? s.polyCustomLayer : getShapeLayer());
+            drawInLayer(s.polyUseCustomLayer ? s.polyCustomLayer : getShapeLayer());
             // draw polygon
             drawPolygon(s, d, color, polyExaggeration);
             // draw contour if don't move whole polygon

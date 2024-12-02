@@ -882,7 +882,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // push draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area translating matrix to origin
-                drawFront(getType());
+                drawInLayer(getType());
                 // translate to drawing position
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
                 glRotated(vehicleRotation, 0, 0, -1);
@@ -1098,7 +1098,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                 // push draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area translating matrix to origin
-                drawFront(getType());
+                drawInLayer(getType());
                 // Set red color
                 GLHelper::setColor(RGBColor::RED);
                 // get firstPosition (last position of current lane shape)
@@ -1121,7 +1121,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                     // push draw matrix
                     GLHelper::pushMatrix();
                     // Start with the drawing of the area translating matrix to origin
-                    drawFront(getType());
+                    drawInLayer(getType());
                     // translate to geometryEndPos
                     glTranslated(geometryEndPosition.x(), geometryEndPosition.y(), 0);
                     // Set person plan color

@@ -1889,7 +1889,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             // push matrix
             GLHelper::pushMatrix();
             // translate to front
-            myPlanElement->drawFront(GLO_TAZ + 1);
+            myPlanElement->drawInLayer(GLO_TAZ + 1);
             // set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw line
@@ -1984,7 +1984,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
-            myPlanElement->drawFront(myPlanElement->getType(), offsetFront);
+            myPlanElement->drawInLayer(myPlanElement->getType(), offsetFront);
             // Set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw geometry depending of drawWithDoubleWidth
@@ -2055,7 +2055,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
             // push a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
-            myPlanElement->drawFront(myPlanElement->getType(), offsetFront);
+            myPlanElement->drawInLayer(myPlanElement->getType(), offsetFront);
             // Set plan color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // check if draw lane2lane connection or a red line

@@ -86,17 +86,17 @@ public:
     /// @name Function related front elements
     /// @{
 
-    /// @brief front attribute carrier
-    void frontAttributeCarrier();
+    /// @brief mark for drawing front
+    void markForDrawingFront();
 
-    /// @brief front attribute carrier
-    void unfrontAttributeCarrier();
+    /// @brief unmark for drawing front
+    void unmarkForDrawingFront();
 
-    /// @brief check if attribute carrier is drawn front
-    bool isDrawingFront() const;
+    /// @brief check if this AC is marked for drawing front
+    bool isMarkedForDrawingFront() const;
 
-    /// @brief check if draw attributeCarrier in front
-    void drawFront(const double typeOrLayer, const double extraOffset = 0) const;
+    /// @brief draw element in the given layer, or in front if corresponding flag is enabled
+    void drawInLayer(const double typeOrLayer, const double extraOffset = 0) const;
 
     /// @}
 
@@ -359,11 +359,11 @@ protected:
     /// @brief pointer to net
     GNENet* myNet = nullptr;
 
-    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    /// @brief boolean to check if this AC is selected (more quickly as checking GUIGlObjectStorage)
     bool mySelected = false;
 
-    /// @brief boolean to check if drawn over front of all elements
-    bool myFront = false;
+    /// @brief boolean to check if drawn this AC over other elements
+    bool myDrawInFront = false;
 
     /// @brief boolean to check if this AC is in grid
     bool myInGrid = false;

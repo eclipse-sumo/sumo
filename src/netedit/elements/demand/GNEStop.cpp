@@ -390,7 +390,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // set Color
             GLHelper::setColor(color);
             // Start with the drawing of the area traslating matrix to origin
-            drawFront(getType());
+            drawInLayer(getType());
             // draw depending if is over lane or over stoppingP
             if (getParentLanes().size() > 0) {
                 drawStopOverLane(s, d, color, width, exaggeration);

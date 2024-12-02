@@ -317,50 +317,40 @@ GNEViewNetHelper::InspectedElements::isInspectingMultipleElements() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::FrontElements - methods
+// GNEViewNetHelper::MarkFrontElements - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::FrontElements::FrontElements() {}
+GNEViewNetHelper::MarkFrontElements::MarkFrontElements() {}
 
 
 void
-GNEViewNetHelper::FrontElements::frontAC(GNEAttributeCarrier* AC) {
-    myFrontACs.insert(AC);
+GNEViewNetHelper::MarkFrontElements::markAC(GNEAttributeCarrier* AC) {
+    myMarkedACs.insert(AC);
 }
 
 
 void
-GNEViewNetHelper::FrontElements::unfrontAC(GNEAttributeCarrier* AC) {
-    auto it = myFrontACs.find(AC);
-    if (it != myFrontACs.end()) {
-        myFrontACs.erase(it);
+GNEViewNetHelper::MarkFrontElements::unmarkAC(GNEAttributeCarrier* AC) {
+    auto it = myMarkedACs.find(AC);
+    if (it != myMarkedACs.end()) {
+        myMarkedACs.erase(it);
     }
 }
+
+
+void
+GNEViewNetHelper::MarkFrontElements::unmarkAll() {
+    // make a copy because container is modified in every iteration
+    const auto copy = myMarkedACs;
+    for (auto& AC : copy) {
+        AC->unmarkForDrawingFront();
+    }
+}
+
 
 const std::unordered_set<GNEAttributeCarrier*>&
-GNEViewNetHelper::FrontElements::getACs() const {
-    return myFrontACs;
-}
-
-
-bool
-GNEViewNetHelper::FrontElements::isACFronted(GNEAttributeCarrier* AC) const {
-    if (myFrontACs.empty()) {
-        return false;
-    } else {
-        return myFrontACs.find(AC) != myFrontACs.end();
-    }
-}
-
-
-bool
-GNEViewNetHelper::FrontElements::isACFronted(const GNEAttributeCarrier* AC) const {
-    if (myFrontACs.empty()) {
-        return false;
-    } else {
-        // we need a const_cast because our myFrontedACs is a set of non-constant ACs (in this case is safe)
-        return myFrontACs.find(const_cast<GNEAttributeCarrier*>(AC)) != myFrontACs.end();
-    }
+GNEViewNetHelper::MarkFrontElements::getACs() const {
+    return myMarkedACs;
 }
 
 // ---------------------------------------------------------------------------
@@ -964,7 +954,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get junction
             auto junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(glObject->getMicrosimID());
             // check front element
-            if (junction->isDrawingFront()) {
+            if (junction->isMarkedForDrawingFront()) {
                 // insert at front
                 container.junctions.insert(container.junctions.begin(), junction);
                 container.networkElements.insert(container.networkElements.begin(), junction);
@@ -983,7 +973,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get edge
             auto edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(glObject->getMicrosimID());
             // check front element
-            if (edge->isDrawingFront()) {
+            if (edge->isMarkedForDrawingFront()) {
                 // insert at front
                 container.edges.insert(container.edges.begin(), edge);
                 container.networkElements.insert(container.networkElements.begin(), edge);
@@ -1002,7 +992,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get lane
             auto lane = myViewNet->getNet()->getAttributeCarriers()->retrieveLane(glObject);
             // check front element
-            if (lane->isDrawingFront()) {
+            if (lane->isMarkedForDrawingFront()) {
                 // insert at front
                 container.lanes.insert(container.lanes.begin(), lane);
                 container.networkElements.insert(container.networkElements.begin(), lane);
@@ -1021,7 +1011,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get crossing
             auto crossing = myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(glObject);
             // check front element
-            if (crossing->isDrawingFront()) {
+            if (crossing->isMarkedForDrawingFront()) {
                 // insert at front
                 container.crossings.insert(container.crossings.begin(), crossing);
                 container.networkElements.insert(container.networkElements.begin(), crossing);
@@ -1040,7 +1030,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get walkingArea
             auto walkingArea = myViewNet->getNet()->getAttributeCarriers()->retrieveWalkingArea(glObject);
             // check front element
-            if (walkingArea->isDrawingFront()) {
+            if (walkingArea->isMarkedForDrawingFront()) {
                 // insert at front
                 container.walkingAreas.insert(container.walkingAreas.begin(), walkingArea);
                 container.networkElements.insert(container.networkElements.begin(), walkingArea);
@@ -1059,7 +1049,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get connection
             auto connection = myViewNet->getNet()->getAttributeCarriers()->retrieveConnection(glObject);
             // check front element
-            if (connection->isDrawingFront()) {
+            if (connection->isMarkedForDrawingFront()) {
                 // insert at front
                 container.connections.insert(container.connections.begin(), connection);
                 container.networkElements.insert(container.networkElements.begin(), connection);
@@ -1078,7 +1068,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
             // get internal lane
             auto internalLane = myViewNet->getNet()->getAttributeCarriers()->retrieveInternalLane(glObject);
             // check front element
-            if (internalLane->isDrawingFront()) {
+            if (internalLane->isMarkedForDrawingFront()) {
                 // insert at front
                 container.internalLanes.insert(container.internalLanes.begin(), internalLane);
                 container.attributeCarriers.insert(container.attributeCarriers.begin(), internalLane);
@@ -1103,7 +1093,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateAdditionalElements(ViewObjectsConta
     auto additionalElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject, false);
     if (additionalElement) {
         // insert depending if is the front attribute carrier
-        if (additionalElement->isDrawingFront()) {
+        if (additionalElement->isMarkedForDrawingFront()) {
             // insert at front
             container.additionals.insert(container.additionals.begin(), additionalElement);
             container.attributeCarriers.insert(container.attributeCarriers.begin(), additionalElement);
@@ -1125,7 +1115,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateShapeElements(ViewObjectsContainer&
         // cast POI
         auto POI = dynamic_cast<GNEPOI*>(myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject));
         // check front element
-        if (POI->isDrawingFront()) {
+        if (POI->isMarkedForDrawingFront()) {
             // insert at front
             container.POIs.insert(container.POIs.begin(), POI);
         } else {
@@ -1136,7 +1126,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateShapeElements(ViewObjectsContainer&
         // cast poly
         auto poly = dynamic_cast<GNEPoly*>(myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject));
         // check front element
-        if (poly->isDrawingFront()) {
+        if (poly->isMarkedForDrawingFront()) {
             // insert at front
             container.polys.insert(container.polys.begin(), poly);
         } else {
@@ -1154,7 +1144,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateTAZElements(ViewObjectsContainer& c
         // cast TAZ
         auto TAZ = dynamic_cast<GNETAZ*>(myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject));
         // check front element
-        if (TAZ->isDrawingFront()) {
+        if (TAZ->isMarkedForDrawingFront()) {
             // insert at front
             container.TAZs.insert(container.TAZs.begin(), TAZ);
         } else {
@@ -1171,7 +1161,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateDemandElements(ViewObjectsContainer
     GNEDemandElement* demandElement = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(glObject, false);
     if (demandElement) {
         // insert depending if is the front attribute carrier
-        if (demandElement->isDrawingFront()) {
+        if (demandElement->isMarkedForDrawingFront()) {
             // insert at front
             container.demandElements.insert(container.demandElements.begin(), demandElement);
             container.attributeCarriers.insert(container.attributeCarriers.begin(), demandElement);
@@ -1194,7 +1184,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
             // cast EdgeData
             auto edgeData = dynamic_cast<GNEEdgeData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
             // check front element
-            if (edgeData->isDrawingFront()) {
+            if (edgeData->isMarkedForDrawingFront()) {
                 // insert at front
                 container.edgeDatas.insert(container.edgeDatas.begin(), edgeData);
                 container.genericDatas.insert(container.genericDatas.begin(), edgeData);
@@ -1213,7 +1203,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
             // cast EdgeData
             auto edgeRelData = dynamic_cast<GNEEdgeRelData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
             // check front element
-            if (edgeRelData->isDrawingFront()) {
+            if (edgeRelData->isMarkedForDrawingFront()) {
                 // insert at front
                 container.edgeRelDatas.insert(container.edgeRelDatas.begin(), edgeRelData);
                 container.genericDatas.insert(container.genericDatas.begin(), edgeRelData);
@@ -1232,7 +1222,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
             // cast TAZRelData
             auto TAZRelData = dynamic_cast<GNETAZRelData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
             // check front element
-            if (TAZRelData->isDrawingFront()) {
+            if (TAZRelData->isMarkedForDrawingFront()) {
                 // insert at front
                 container.TAZRelDatas.insert(container.TAZRelDatas.begin(), TAZRelData);
                 container.genericDatas.insert(container.genericDatas.begin(), TAZRelData);
@@ -1416,9 +1406,9 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
+    const GNEAttributeCarrier* markAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
     // check what type of AC will be moved
-    if (myViewNet->myViewObjectsSelector.getPolyFront() && (frontAC == myViewNet->myViewObjectsSelector.getPolyFront())) {
+    if (myViewNet->myViewObjectsSelector.getPolyFront() && (markAC == myViewNet->myViewObjectsSelector.getPolyFront())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPolyFront()->getMoveOperation();
         // continue if move operation is valid
@@ -1428,7 +1418,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myViewObjectsSelector.getPOIFront() && (frontAC == myViewNet->myViewObjectsSelector.getPOIFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getPOIFront() && (markAC == myViewNet->myViewObjectsSelector.getPOIFront())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPOIFront()->getMoveOperation();
         // continue if move operation is valid
@@ -1438,7 +1428,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() && (frontAC == myViewNet->myViewObjectsSelector.getAdditionalFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() && (markAC == myViewNet->myViewObjectsSelector.getAdditionalFront())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveOperation();
         // continue if move operation is valid
@@ -1448,7 +1438,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myViewObjectsSelector.getJunctionFront() && (frontAC == myViewNet->myViewObjectsSelector.getJunctionFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getJunctionFront() && (markAC == myViewNet->myViewObjectsSelector.getJunctionFront())) {
         // check if over junction there is a geometry point
         if (myViewNet->myViewObjectsSelector.getEdgeFront() && (myViewNet->myViewObjectsSelector.getEdgeFront()->clickedOverGeometryPoint(myRelativeClickedPosition))) {
             // get move operation
@@ -1471,7 +1461,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
                 return false;
             }
         }
-    } else if (myViewNet->myViewObjectsSelector.getEdgeFront() && (frontAC == myViewNet->myViewObjectsSelector.getEdgeFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getEdgeFront() && (markAC == myViewNet->myViewObjectsSelector.getEdgeFront())) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
         if (myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
             // edit end point
@@ -1489,7 +1479,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
                 return false;
             }
         }
-    } else if (myViewNet->myViewObjectsSelector.getLaneFront() && (frontAC == myViewNet->myViewObjectsSelector.getLaneFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getLaneFront() && (markAC == myViewNet->myViewObjectsSelector.getLaneFront())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getLaneFront()->getMoveOperation();
         // continue if move operation is valid
@@ -1511,9 +1501,9 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementDemandMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
+    const GNEAttributeCarrier* markAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
     // check demand element
-    if (myViewNet->myViewObjectsSelector.getDemandElementFront() && (frontAC == myViewNet->myViewObjectsSelector.getDemandElementFront())) {
+    if (myViewNet->myViewObjectsSelector.getDemandElementFront() && (markAC == myViewNet->myViewObjectsSelector.getDemandElementFront())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getDemandElementFront()->getMoveOperation();
         // continue if move operation is valid

@@ -169,7 +169,7 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESe
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
-            drawFront(GLO_EDGERELDATA, offsetFront);
+            drawInLayer(GLO_EDGERELDATA, offsetFront);
             GLHelper::setColor(RGBColor::BLACK);
             // draw box lines
 

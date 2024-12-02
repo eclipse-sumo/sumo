@@ -160,7 +160,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             // Add layer matrix matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(GLO_VAPORIZER);
+            drawInLayer(GLO_VAPORIZER);
             // set base color
             GLHelper::setColor(vaporizerColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

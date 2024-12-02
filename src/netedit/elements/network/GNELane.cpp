@@ -451,7 +451,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     myDrawingConstants->update(s);
     // calculate layer
     double layer = GLO_LANE;
-    if (myParentEdge->isDrawingFront()) {
+    if (myParentEdge->isMarkedForDrawingFront()) {
         layer = GLO_FRONTELEMENT;
     } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
         layer = GLO_JUNCTION + 2;
@@ -1007,7 +1007,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
     // Push layer matrix
     GLHelper::pushMatrix();
     // translate to layer
-    drawFront(layer);
+    drawInLayer(layer);
     // set lane colors
     setLaneColor(s);
     // Check if lane has to be draw as railway and if isn't being drawn for selecting
@@ -1077,7 +1077,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         // push shape edited matrix
         GLHelper::pushMatrix();
         // translate
-        drawFront(GLO_JUNCTION + 1);
+        drawInLayer(GLO_JUNCTION + 1);
         // set selected edge color
         GLHelper::setColor(s.colorSettings.editShapeColor);
         // draw shape around

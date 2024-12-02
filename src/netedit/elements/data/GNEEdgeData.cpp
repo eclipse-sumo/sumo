@@ -208,7 +208,7 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegme
                 // Add a draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area translating matrix to origin
-                drawFront(GLO_EDGEDATA, offsetFront);
+                drawInLayer(GLO_EDGEDATA, offsetFront);
                 GLHelper::setColor(RGBColor::BLACK);
                 // draw geometry
                 GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), laneEdge->getDrawingConstants()->getDrawingWidth());

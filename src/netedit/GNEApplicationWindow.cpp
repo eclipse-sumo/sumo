@@ -2270,25 +2270,19 @@ GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* sender, FXSelector 
 long
 GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
-        if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
-            // get first inspected AC
-            auto inspectedAC = myViewNet->getInspectedElements().getFirstAC();
+        // get first inspected AC
+        auto inspectedAC = myViewNet->getInspectedElements().getFirstAC();
+        if (inspectedAC) {
             // set or clear front attribute
-            if (myViewNet->getFrontElements().isACFronted(inspectedAC)) {
-                inspectedAC->setAttribute(GNE_ATTR_FRONTELEMENT, "false", myUndoList);
+            if (inspectedAC->isMarkedForDrawingFront()) {
+                inspectedAC->unmarkForDrawingFront();
             } else {
-                inspectedAC->setAttribute(GNE_ATTR_FRONTELEMENT, "true", myUndoList);
+                inspectedAC->markForDrawingFront();
             }
-            myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshAttributesEditor();
         } else {
-            // unfront all elements
-            while (myViewNet->getFrontElements().getACs().size() > 0) {
-                myUndoList->begin(myViewNet->getEditModes().currentSupermode, GUIIcon::FRONTELEMENT, TL("front elements"));
-                (*myViewNet->getFrontElements().getACs().begin())->setAttribute(GNE_ATTR_FRONTELEMENT, "false", myUndoList);
-                myUndoList->end();
-            }
+            myViewNet->getMarkFrontElements().unmarkAll();
         }
-        update();
+        myViewNet->update();
     }
     return 1;
 }
@@ -2639,7 +2633,7 @@ GNEApplicationWindow::onUpdNeedsNetworkElement(FXObject* sender, FXSelector, voi
 long
 GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*) {
     // check if net, viewnet and front attribute exist
-    if (myViewNet && (myViewNet->getFrontElements().getACs().size() > 0)) {
+    if (myViewNet && (myViewNet->getMarkFrontElements().getACs().size() > 0)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);

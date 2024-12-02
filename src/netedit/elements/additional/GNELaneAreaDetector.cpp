@@ -525,7 +525,7 @@ GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualiz
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
-    drawFront(GLO_E2DETECTOR);
+    drawInLayer(GLO_E2DETECTOR);
     // set color
     GLHelper::setColor(E2Color);
     // draw geometry

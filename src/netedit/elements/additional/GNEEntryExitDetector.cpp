@@ -139,7 +139,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             // Push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(GLO_DET_ENTRY);
+            drawInLayer(GLO_DET_ENTRY);
             // Set color
             RGBColor color;
             if (drawUsingSelectColor()) {

@@ -392,7 +392,7 @@ GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualiza
     // push later matrix
     GLHelper::pushMatrix();
     // translate to front
-    drawFront(GLO_PARKING_SPACE);
+    drawInLayer(GLO_PARKING_SPACE);
     // set contour color
     GLHelper::setColor(contourColor);
     // draw extern

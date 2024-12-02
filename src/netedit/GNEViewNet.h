@@ -551,8 +551,8 @@ public:
     /// @brief get inspected elements
     GNEViewNetHelper::InspectedElements& getInspectedElements();
 
-    /// @brief get front elements
-    GNEViewNetHelper::FrontElements& getFrontElements();
+    /// @brief get marked for drawing front elements
+    GNEViewNetHelper::MarkFrontElements& getMarkFrontElements();
 
     /// @brief check if an element is being moved
     bool isCurrentlyMovingElements() const;
@@ -728,7 +728,7 @@ private:
     GNEViewNetHelper::InspectedElements myInspectedElements;
 
     /// @brief front element
-    GNEViewNetHelper::FrontElements myFrontElements;
+    GNEViewNetHelper::MarkFrontElements myMarkFrontElements;
 
     /// @brief view parent
     GNEViewParent* myViewParent = nullptr;

@@ -194,7 +194,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myJunctionParent->drawFront(GLO_TLLOGIC);
+            myJunctionParent->drawInLayer(GLO_TLLOGIC);
             // move front again
             glTranslated(0, 0, 0.5);
             // set color

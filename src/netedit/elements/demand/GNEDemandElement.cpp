@@ -329,7 +329,7 @@ GNEDemandElement::isGLObjectLocked() const {
 
 void
 GNEDemandElement::markAsFrontElement() {
-    frontAttributeCarrier();
+    markForDrawingFront();
 }
 
 
@@ -498,7 +498,7 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
     // push draw matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin
-    drawFront(element->getType() + 0.1);
+    drawInLayer(element->getType() + 0.1);
     // set trip color
     GLHelper::setColor(RGBColor::RED);
     // draw line

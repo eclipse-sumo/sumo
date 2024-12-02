@@ -156,7 +156,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(GLO_E1DETECTOR_INSTANT);
+            drawInLayer(GLO_E1DETECTOR_INSTANT);
             // draw E1Instant shape
             drawE1Shape(d, E1InstantExaggeration, mainColor, secondColor);
             // draw E1 Logo

@@ -359,7 +359,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
-            drawFront(getType());
+            drawInLayer(getType());
             // translate and rotate
             glTranslated(containerPosition.x(), containerPosition.y(), 0);
             glRotated(90, 0, 0, 1);

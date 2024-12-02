@@ -198,7 +198,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
                 isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
                 step->isAttributeCarrierSelected() || inspectedElements.isACInspected(step) ||
-                step->isDrawingFront()) {
+                step->isMarkedForDrawingFront()) {
             step->drawGL(s);
         }
     }

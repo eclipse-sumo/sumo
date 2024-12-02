@@ -167,7 +167,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(GLO_BUS_STOP);
+            drawInLayer(GLO_BUS_STOP);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

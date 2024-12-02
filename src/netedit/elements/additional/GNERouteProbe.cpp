@@ -178,7 +178,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             // Add layer matrix matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(GLO_ROUTEPROBE);
+            drawInLayer(GLO_ROUTEPROBE);
             // set base color
             GLHelper::setColor(routeProbeColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

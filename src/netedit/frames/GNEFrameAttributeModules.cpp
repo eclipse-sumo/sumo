@@ -280,7 +280,7 @@ void
 GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-        // continue depending of frontAC
+        // continue depending of markAC
         if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             // check if we're editing a single or a multiple AC
             if (inspectedElements.isInspectingSingleElement()) {
@@ -311,7 +311,7 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
     } else if (myTypeFrameParent) {
         // get type
         GNEDemandElement* type = myTypeFrameParent->getTypeSelector()->getCurrentType();
-        // continue depending of frontAC
+        // continue depending of markAC
         if (type) {
             // set text field parameters
             myTextFieldParameters->setText(type->getAttribute(GNE_ATTR_PARAMETERS).c_str());
@@ -346,7 +346,7 @@ long
 GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-        // continue depending of frontAC
+        // continue depending of markAC
         if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             if (inspectedElements.isInspectingMultipleElements()) {
                 // write debug information
@@ -405,7 +405,7 @@ long
 GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-        // continue depending of frontAC
+        // continue depending of markAC
         if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             // check if current given string is valid
             if (inspectedElements.getFirstAC()->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
@@ -439,7 +439,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
     } else if (myTypeFrameParent) {
         // get type
         GNEDemandElement* type = myTypeFrameParent->getTypeSelector()->getCurrentType();
-        // continue depending of frontAC
+        // continue depending of markAC
         if (type) {
             // check if current given string is valid
             if (type->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {

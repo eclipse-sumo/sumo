@@ -502,7 +502,7 @@ GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     // pop matrix
     GLHelper::popMatrix();
     // check if update front elements
-    for (const auto& AC : myFrontElements.getACs()) {
+    for (const auto& AC : myMarkFrontElements.getACs()) {
         gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
@@ -535,7 +535,7 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     // pop matrix
     GLHelper::popMatrix();
     // check if update front elements
-    for (const auto& AC : myFrontElements.getACs()) {
+    for (const auto& AC : myMarkFrontElements.getACs()) {
         gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
@@ -1914,9 +1914,9 @@ GNEViewNet::getInspectedElements() {
 }
 
 
-GNEViewNetHelper::FrontElements&
-GNEViewNet::getFrontElements() {
-    return myFrontElements;
+GNEViewNetHelper::MarkFrontElements&
+GNEViewNet::getMarkFrontElements() {
+    return myMarkFrontElements;
 }
 
 
@@ -3633,10 +3633,10 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
-        const auto frontElements = myFrontElements.getACs();
+        const auto frontElements = myMarkFrontElements.getACs();
         for (const auto& AC : frontElements) {
             if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-                myFrontElements.unfrontAC(AC);
+                myMarkFrontElements.unmarkAC(AC);
             }
         }
         // check if we're handling a selection
@@ -3667,10 +3667,10 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
-        const auto frontElements = myFrontElements.getACs();
+        const auto frontElements = myMarkFrontElements.getACs();
         for (const auto& AC : frontElements) {
             if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-                myFrontElements.unfrontAC(AC);
+                myMarkFrontElements.unmarkAC(AC);
             }
         }
         // check if we're handling a selection
@@ -5927,11 +5927,11 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
             // get front AC
-            const auto frontAC = myViewObjectsSelector.getAttributeCarrierFront();
+            const auto markAC = myViewObjectsSelector.getAttributeCarrierFront();
             // check conditions
-            if (frontAC) {
+            if (markAC) {
                 // check if we are deleting a selection or an single attribute carrier
-                if (frontAC->isAttributeCarrierSelected()) {
+                if (markAC->isAttributeCarrierSelected()) {
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
@@ -5964,11 +5964,11 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
             // get front AC
-            const auto frontAC = myViewObjectsSelector.getAttributeCarrierFront();
+            const auto markAC = myViewObjectsSelector.getAttributeCarrierFront();
             // check that AC under cursor is a demand element
-            if (frontAC) {
+            if (markAC) {
                 // check if we're moving a set of selected items
-                if (frontAC->isAttributeCarrierSelected()) {
+                if (markAC->isAttributeCarrierSelected()) {
                     // move selected ACs
                     myMoveMultipleElements.beginMoveSelection();
                 } else if (!myMoveSingleElement.beginMoveSingleElementDemandMode()) {

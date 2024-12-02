@@ -123,28 +123,28 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 }
 
 void
-GNEAttributeCarrier::frontAttributeCarrier() {
-    myNet->getViewNet()->getFrontElements().frontAC(this);
-    myFront = true;
+GNEAttributeCarrier::markForDrawingFront() {
+    myNet->getViewNet()->getMarkFrontElements().markAC(this);
+    myDrawInFront = true;
 }
 
 
 void
-GNEAttributeCarrier::unfrontAttributeCarrier() {
-    myNet->getViewNet()->getFrontElements().unfrontAC(this);
-    myFront = false;
+GNEAttributeCarrier::unmarkForDrawingFront() {
+    myNet->getViewNet()->getMarkFrontElements().unmarkAC(this);
+    myDrawInFront = false;
 }
 
 
 bool
-GNEAttributeCarrier::isDrawingFront() const {
-    return myFront;
+GNEAttributeCarrier::isMarkedForDrawingFront() const {
+    return myDrawInFront;
 }
 
 
 void
-GNEAttributeCarrier::drawFront(double typeOrLayer, const double extraOffset) const {
-    if (myFront) {
+GNEAttributeCarrier::drawInLayer(double typeOrLayer, const double extraOffset) const {
+    if (myDrawInFront) {
         glTranslated(0, 0, GLO_FRONTELEMENT + extraOffset);
     } else {
         glTranslated(0, 0, typeOrLayer + extraOffset);
@@ -172,7 +172,7 @@ GNEAttributeCarrier::checkDrawInspectContour() const {
 
 bool
 GNEAttributeCarrier::checkDrawFrontContour() const {
-    return myFront;
+    return myDrawInFront;
 }
 
 
@@ -975,7 +975,7 @@ GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
                 return False;
             }
         case GNE_ATTR_FRONTELEMENT:
-            if (myFront) {
+            if (myDrawInFront) {
                 return True;
             } else {
                 return False;
@@ -990,7 +990,6 @@ void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_FRONTELEMENT:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -1003,7 +1002,6 @@ bool
 GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_FRONTELEMENT:
             return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1019,13 +1017,6 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_FRONTELEMENT:
-            if (parse<bool>(value)) {
-                frontAttributeCarrier();
-            } else {
-                unfrontAttributeCarrier();
             }
             break;
         default:

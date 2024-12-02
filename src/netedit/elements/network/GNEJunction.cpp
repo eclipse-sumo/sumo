@@ -664,7 +664,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front
-                drawFront(GLO_JUNCTION);
+                drawInLayer(GLO_JUNCTION);
                 // draw junction as shape
                 drawJunctionAsShape(s, d, junctionExaggeration);
                 // draw junction as bubble

@@ -720,9 +720,9 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
     GLHelper::pushMatrix();
     // translate to front
     if (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) {
-        drawFront(GLO_CONNECTION, 1);
+        drawInLayer(GLO_CONNECTION, 1);
     } else {
-        drawFront(GLO_CONNECTION, 0);
+        drawInLayer(GLO_CONNECTION, 0);
     }
     // Set color
     GLHelper::setColor(connectionColor);

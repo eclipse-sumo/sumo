@@ -149,7 +149,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // Add a layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            drawFront(GLO_CONTAINER_STOP);
+            drawInLayer(GLO_CONTAINER_STOP);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

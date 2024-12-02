@@ -165,7 +165,7 @@ GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
         // if rerouter or their child is selected, then draw
         if (isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
                 rerouterElement->isAttributeCarrierSelected() || inspectedElements.isACInspected(rerouterElement) ||
-                rerouterElement->isDrawingFront()) {
+                rerouterElement->isMarkedForDrawingFront()) {
             rerouterElement->drawGL(s);
         }
     }

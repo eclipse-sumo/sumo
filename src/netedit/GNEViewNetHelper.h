@@ -290,36 +290,33 @@ struct GNEViewNetHelper {
     };
 
     /// @brief class used for group front elements
-    class FrontElements {
+    class MarkFrontElements {
 
     public:
         /// @brief constructor
-        FrontElements();
+        MarkFrontElements();
 
-        /// @brief frontAC AC
-        void frontAC(GNEAttributeCarrier* AC);
+        /// @brief mark AC as drawing front
+        void markAC(GNEAttributeCarrier* AC);
 
-        /// @brief unfrontAC AC
-        void unfrontAC(GNEAttributeCarrier* AC);
+        /// @brief unmark AC for drawing front
+        void unmarkAC(GNEAttributeCarrier* AC);
+
+        /// @brief unmark all ACs
+        void unmarkAll();
 
         /// @brief get hash table with all fronted ACs
         const std::unordered_set<GNEAttributeCarrier*>& getACs() const;
 
-        // @brief check if the given AC is fronted
-        bool isACFronted(GNEAttributeCarrier* AC) const;
-
-        // @brief check if the given constant AC is fronted
-        bool isACFronted(const GNEAttributeCarrier* AC) const;
-
     private:
-        /// @brief hash table with all front ACs (we use a set to make deletion of massive elements more quickly)
-        std::unordered_set<GNEAttributeCarrier*> myFrontACs;
+        /// @brief hash table with all marked ACs (we use a set to make deletion of massive elements more quickly)
+        std::unordered_set<GNEAttributeCarrier*> myMarkedACs;
 
         /// @brief Invalidated copy constructor.
-        FrontElements(const FrontElements&) = delete;
+        MarkFrontElements(const MarkFrontElements&) = delete;
 
         /// @brief Invalidated assignment operator.
-        FrontElements& operator=(const FrontElements&) = delete;
+        MarkFrontElements& operator=(const MarkFrontElements&) = delete;
     };
 
     /// @brief class used to group all variables related with objects under cursor after a click over view
