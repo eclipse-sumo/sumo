@@ -197,14 +197,35 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     ]
     subprocess.run(cmake_install_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    # Determine library dependencies and copy all from homebrew,
-    # which are not libx* or mesa*
+    # Determine library dependencies
     print(" - Delocating binaries and copying all libraries  - this may take a while")
-
-    # Direktes Aufrufen von delocate_path für die Binärdateien
     os.chdir(os.path.join(version_dir, name))
-    delocate_path("./lib", lib_filt_func=None, lib_path="./lib", sanitize_rpaths=True)
-    delocate_path("./bin", lib_filt_func=None, lib_path="../lib", sanitize_rpaths=True)
+
+    # - libraries that landed in the lib folder need to be delocated as well
+    special_libs = ['liblibsumojni.jnilib', 'liblibtracijni.jnilib', 'libsumocpp.dylib', 'libtracicpp.dylib']
+    for file in special_libs:
+        if os.path.exists(os.path.join(os.path.join(version_dir, name, "lib", file))):
+            shutil.move(f'./lib/{file}', './bin')
+    delocate_path("./bin", lib_filt_func=None, lib_path="./lib", sanitize_rpaths=True)
+    # - and we need to move them back to the lib folder
+    for file in special_libs:
+        if os.path.exists(os.path.join(os.path.join(version_dir, name, "bin", file))):
+            shutil.move(f'./bin/{file}', './lib')
+
+    # Add proj db files from /opt/homebrew/Cellar/proj/<X.Y.Z>/share/proj
+    print(" - Copying proj.db files")
+    proj_dir = "/opt/homebrew/Cellar/proj"
+    proj_file_list = ["GL27", "ITRF2000", "ITRF2008", "ITRF2014", "nad.lst", "nad27", "nad83", "other.extra", "proj.db",
+                      "proj.ini", "projjson.schema.json", "triangulation.schema.json", "world", "CH", "deformation_model.schema.json"]
+    dest_dir = os.path.join(version_dir, name, "share", "proj")
+    if os.path.exists(proj_dir):
+        first_dir = next(iter(os.listdir(proj_dir)), None)
+        if first_dir:
+            source_dir = os.path.join(proj_dir, first_dir, "share/proj")
+            if os.path.exists(source_dir):
+                os.makedirs(dest_dir, exist_ok=True)
+                for file in proj_file_list:
+                    shutil.copy2(os.path.join(source_dir, file), os.path.join(dest_dir, file))
 
     # Build the framework package
     cwd = os.path.dirname(os.path.abspath(__file__))
@@ -229,7 +250,6 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     # Cleanup the temporary directory
     print(" - Cleaning up")
     shutil.rmtree(temp_dir)
-
     return name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
