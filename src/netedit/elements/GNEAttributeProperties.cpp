@@ -494,4 +494,9 @@ GNEAttributeProperties::isGEO() const {
     return (myAttributeProperty & GEO) != 0;
 }
 
+bool
+GNEAttributeProperties::isNetedit() const {
+    return (myAttributeProperty & NETEDIT) != 0;
+}
+
 /****************************************************************************/
