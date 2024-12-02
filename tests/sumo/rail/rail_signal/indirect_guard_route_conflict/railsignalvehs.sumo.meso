@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:58 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2024-12-02 08:17:27 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,8 +48,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="B.A">
         <link linkIndex="0" from="T12_0_0" to="T13_0_0">
             <driveWay id="B.A.0">
-                <entry id="rail2" time="8.00" reason="1"/>
-                <exit id="rail2" time="35.00" reason="1"/>
+                <entry id="rail2" time="8.00" reason="junction"/>
+                <exit id="rail2" time="35.00" reason="junction"/>
             </driveWay>
             <subDriveWay id="B.A.0.0"/>
         </link>
@@ -63,8 +63,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="B.N2">
         <link linkIndex="0" from="T15_0_0" to="T16_0_0">
             <driveWay id="B.N2.0">
-                <entry id="rail2" time="35.00" reason="1"/>
-                <exit id="rail2" time="51.00" reason="9"/>
+                <entry id="rail2" time="35.00" reason="junction"/>
+                <exit id="rail2" time="51.00" reason="arrived"/>
             </driveWay>
         </link>
     </railSignal>
@@ -74,8 +74,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="B.P2">
         <link linkIndex="0" from="T15_1_0" to="T14_1_0">
             <driveWay id="B.P2.0">
-                <entry id="rail1" time="6.00" reason="1"/>
-                <exit id="rail1" time="48.00" reason="9"/>
+                <entry id="rail1" time="6.00" reason="junction"/>
+                <exit id="rail1" time="48.00" reason="arrived"/>
             </driveWay>
             <subDriveWay id="B.P2.0.0"/>
         </link>

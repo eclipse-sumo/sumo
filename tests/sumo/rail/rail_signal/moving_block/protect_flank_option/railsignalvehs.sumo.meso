@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:58 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2024-12-02 08:17:27 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,33 +49,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="gneJ6">
         <link linkIndex="0" from="-a_0" to="-b_0">
             <driveWay id="gneJ6.0">
-                <entry id="EW" time="15.00" reason="1"/>
-                <exit id="EW" time="64.00" reason="9"/>
+                <entry id="EW" time="15.00" reason="junction"/>
+                <exit id="EW" time="64.00" reason="arrived"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ8">
         <link linkIndex="0" from="a_0" to="b_0">
             <driveWay id="gneJ8.0">
-                <entry id="WE0" time="56.00" reason="1"/>
-                <entry id="WE1" time="63.00" reason="1"/>
-                <exit id="WE0" time="178.00" reason="9"/>
-                <exit id="WE1" time="185.00" reason="9"/>
+                <entry id="WE0" time="56.00" reason="junction"/>
+                <entry id="WE1" time="63.00" reason="junction"/>
+                <exit id="WE0" time="178.00" reason="arrived"/>
+                <exit id="WE1" time="185.00" reason="arrived"/>
             </driveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ7">
         <driveWay id="gneJ7.d0">
-            <entry id="EW" time="0.00" reason="0"/>
-            <exit id="EW" time="15.00" reason="1"/>
+            <entry id="EW" time="0.00" reason="departed"/>
+            <exit id="EW" time="15.00" reason="junction"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ0">
         <driveWay id="gneJ0.d0">
-            <entry id="WE0" time="1.00" reason="0"/>
-            <entry id="WE1" time="20.00" reason="0"/>
-            <exit id="WE0" time="56.00" reason="1"/>
-            <exit id="WE1" time="63.00" reason="1"/>
+            <entry id="WE0" time="1.00" reason="departed"/>
+            <entry id="WE1" time="20.00" reason="departed"/>
+            <exit id="WE0" time="56.00" reason="junction"/>
+            <exit id="WE1" time="63.00" reason="junction"/>
         </driveWay>
     </departJunction>
 </railsignal-vehicle-output>

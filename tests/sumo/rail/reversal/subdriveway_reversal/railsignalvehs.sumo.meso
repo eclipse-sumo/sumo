@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:59 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2024-12-02 08:17:28 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,16 +48,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to="b_0">
             <driveWay id="A.0">
-                <entry id="t0" time="8.00" reason="1"/>
-                <exit id="t0" time="50.00" reason="9"/>
+                <entry id="t0" time="8.00" reason="junction"/>
+                <exit id="t0" time="50.00" reason="arrived"/>
             </driveWay>
             <subDriveWay id="A.0.0"/>
             <subDriveWay id="A.0.1"/>
             <driveWay id="A.1">
-                <entry id="t1" time="16.00" reason="1"/>
-                <exit id="t1" time="51.00" reason="1"/>
-                <entry id="t2" time="52.00" reason="1"/>
-                <exit id="t2" time="87.00" reason="1"/>
+                <entry id="t1" time="16.00" reason="junction"/>
+                <exit id="t1" time="51.00" reason="junction"/>
+                <entry id="t2" time="52.00" reason="junction"/>
+                <exit id="t2" time="87.00" reason="junction"/>
             </driveWay>
             <subDriveWay id="A.1.0"/>
         </link>
@@ -65,24 +65,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="D">
         <link linkIndex="0" from="-e_0" to="-d_0">
             <driveWay id="D.0">
-                <entry id="t1" time="51.00" reason="1"/>
-                <exit id="t1" time="82.00" reason="9"/>
-                <entry id="t2" time="87.00" reason="1"/>
-                <exit id="t2" time="118.00" reason="9"/>
+                <entry id="t1" time="51.00" reason="junction"/>
+                <exit id="t1" time="82.00" reason="arrived"/>
+                <entry id="t2" time="87.00" reason="junction"/>
+                <exit id="t2" time="118.00" reason="arrived"/>
             </driveWay>
             <subDriveWay id="D.0.0"/>
         </link>
     </railSignal>
     <departJunction id="J0">
         <driveWay id="J0.d0">
-            <entry id="t0" time="0.00" reason="0"/>
-            <exit id="t0" time="8.00" reason="1"/>
+            <entry id="t0" time="0.00" reason="departed"/>
+            <exit id="t0" time="8.00" reason="junction"/>
         </driveWay>
         <driveWay id="J0.d1">
-            <entry id="t1" time="8.00" reason="0"/>
-            <exit id="t1" time="16.00" reason="1"/>
-            <entry id="t2" time="16.00" reason="0"/>
-            <exit id="t2" time="52.00" reason="1"/>
+            <entry id="t1" time="8.00" reason="departed"/>
+            <exit id="t1" time="16.00" reason="junction"/>
+            <entry id="t2" time="16.00" reason="departed"/>
+            <exit id="t2" time="52.00" reason="junction"/>
         </driveWay>
     </departJunction>
 </railsignal-vehicle-output>
