@@ -2271,15 +2271,22 @@ long
 GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
+            // get first inspected AC
+            auto inspectedAC = myViewNet->getInspectedElements().getFirstAC();
             // set or clear front attribute
-            if (myViewNet->getFrontAttributeCarrier() == myViewNet->getInspectedElements().getFirstAC()) {
-                myViewNet->setFrontAttributeCarrier(nullptr);
+            if (myViewNet->getFrontElements().isACFronted(inspectedAC)) {
+                inspectedAC->setAttribute(GNE_ATTR_FRONTELEMENT, "false", myUndoList);
             } else {
-                myViewNet->setFrontAttributeCarrier(myViewNet->getInspectedElements().getFirstAC());
+                inspectedAC->setAttribute(GNE_ATTR_FRONTELEMENT, "true", myUndoList);
             }
             myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshAttributesEditor();
         } else {
-            myViewNet->setFrontAttributeCarrier(nullptr);
+            // unfront all elements
+            while (myViewNet->getFrontElements().getACs().size() > 0) {
+                myUndoList->begin(myViewNet->getEditModes().currentSupermode, GUIIcon::FRONTELEMENT, TL("front elements"));
+                (*myViewNet->getFrontElements().getACs().begin())->setAttribute(GNE_ATTR_FRONTELEMENT, "false", myUndoList);
+                myUndoList->end();
+            }
         }
         update();
     }
@@ -2632,7 +2639,7 @@ GNEApplicationWindow::onUpdNeedsNetworkElement(FXObject* sender, FXSelector, voi
 long
 GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*) {
     // check if net, viewnet and front attribute exist
-    if (myNet && myViewNet && myViewNet->getFrontAttributeCarrier()) {
+    if (myViewNet && (myViewNet->getFrontElements().getACs().size() > 0)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);

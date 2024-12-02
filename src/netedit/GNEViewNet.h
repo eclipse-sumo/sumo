@@ -551,17 +551,8 @@ public:
     /// @brief get inspected elements
     GNEViewNetHelper::InspectedElements& getInspectedElements();
 
-    /// @brief get front attributeCarrier
-    const GNEAttributeCarrier* getFrontAttributeCarrier() const;
-
-    /// @brief get front glObject
-    const GUIGlObject* getFrontGLObject() const;
-
-    /// @brief set front attributeCarrier
-    void setFrontAttributeCarrier(GNEAttributeCarrier* AC);
-
-    /// @brief draw front attributeCarrier
-    void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
+    /// @brief get front elements
+    GNEViewNetHelper::FrontElements& getFrontElements();
 
     /// @brief check if an element is being moved
     bool isCurrentlyMovingElements() const;
@@ -736,6 +727,9 @@ private:
     /// @brief inspected element
     GNEViewNetHelper::InspectedElements myInspectedElements;
 
+    /// @brief front element
+    GNEViewNetHelper::FrontElements myFrontElements;
+
     /// @brief view parent
     GNEViewParent* myViewParent = nullptr;
 
@@ -747,9 +741,6 @@ private:
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList = nullptr;
-
-    /// @brief front attribute carrier
-    GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;
 
     /// @brief last created route
     GNEDemandElement* myLastCreatedRoute = nullptr;

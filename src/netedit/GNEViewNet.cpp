@@ -501,9 +501,9 @@ GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     myVisualizationSettings->drawForRectangleSelection = false;
     // pop matrix
     GLHelper::popMatrix();
-    // check if update front element
-    if (myFrontAttributeCarrier) {
-        gViewObjectsHandler.updateFrontObject(myFrontAttributeCarrier->getGUIGlObject());
+    // check if update front elements
+    for (const auto& AC : myFrontElements.getACs()) {
+        gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
     myViewObjectsSelector.updateObjects();
@@ -534,9 +534,9 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     myVisualizationSettings->drawForViewObjectsHandler = false;
     // pop matrix
     GLHelper::popMatrix();
-    // check if update front element
-    if (myFrontAttributeCarrier) {
-        gViewObjectsHandler.updateFrontObject(myFrontAttributeCarrier->getGUIGlObject());
+    // check if update front elements
+    for (const auto& AC : myFrontElements.getACs()) {
+        gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
     myViewObjectsSelector.updateObjects();
@@ -1914,36 +1914,9 @@ GNEViewNet::getInspectedElements() {
 }
 
 
-const GNEAttributeCarrier*
-GNEViewNet::getFrontAttributeCarrier() const {
-    return myFrontAttributeCarrier;
-}
-
-
-const GUIGlObject*
-GNEViewNet::getFrontGLObject() const {
-    if (myFrontAttributeCarrier) {
-        return myFrontAttributeCarrier->getGUIGlObject();
-    } else {
-        return nullptr;
-    }
-}
-
-
-void
-GNEViewNet::setFrontAttributeCarrier(GNEAttributeCarrier* AC) {
-    myFrontAttributeCarrier = AC;
-    update();
-}
-
-
-void
-GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset) {
-    if (myFrontAttributeCarrier == AC) {
-        glTranslated(0, 0, GLO_FRONTELEMENT + extraOffset);
-    } else {
-        glTranslated(0, 0, typeOrLayer + extraOffset);
-    }
+GNEViewNetHelper::FrontElements&
+GNEViewNet::getFrontElements() {
+    return myFrontElements;
 }
 
 
@@ -3660,8 +3633,11 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
-        if (myFrontAttributeCarrier != nullptr && (myFrontAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
-            myFrontAttributeCarrier = nullptr;
+        const auto frontElements = myFrontElements.getACs();
+        for (const auto& AC : frontElements) {
+            if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+                myFrontElements.unfrontAC(AC);
+            }
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
@@ -3691,8 +3667,11 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
-        if (myFrontAttributeCarrier != nullptr && (myFrontAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
-            myFrontAttributeCarrier = nullptr;
+        const auto frontElements = myFrontElements.getACs();
+        for (const auto& AC : frontElements) {
+            if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+                myFrontElements.unfrontAC(AC);
+            }
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
