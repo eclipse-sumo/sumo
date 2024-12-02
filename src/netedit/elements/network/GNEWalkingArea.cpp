@@ -339,7 +339,7 @@ GNEWalkingArea::drawWalkingArea(const GUIVisualizationSettings& s, const GUIVisu
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA, 0.1);
+    drawFront(GLO_WALKINGAREA, 0.1);
     // set color
     if (myShapeEdited) {
         GLHelper::setColor(s.colorSettings.editShapeColor);

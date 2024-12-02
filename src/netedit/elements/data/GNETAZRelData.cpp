@@ -265,7 +265,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             // push matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+            drawFront(GLO_TAZ + 1);
             GLHelper::setColor(color);
             // check if update lastWidth
             const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;

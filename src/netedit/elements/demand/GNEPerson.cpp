@@ -361,7 +361,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            drawFront(getType());
             // translate and rotate
             glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);

@@ -232,13 +232,13 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
                     isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
                     interval->isAttributeCarrierSelected() || inspectedElements.isACInspected(interval) ||
-                    (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
+                    interval->isDrawingFront()) {
                 interval->drawGL(s);
             } else {
                 // if rerouterElements are inspected or selected, then draw
                 for (const auto& rerouterElement : interval->getChildAdditionals()) {
                     if (rerouterElement->isAttributeCarrierSelected() || inspectedElements.isACInspected(rerouterElement) ||
-                            (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
+                            rerouterElement->isDrawingFront()) {
                         interval->drawGL(s);
                     }
                 }

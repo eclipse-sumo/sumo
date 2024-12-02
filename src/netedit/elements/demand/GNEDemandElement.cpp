@@ -328,12 +328,6 @@ GNEDemandElement::isGLObjectLocked() const {
 
 
 void
-GNEDemandElement::markAsFrontElement() {
-    myNet->getViewNet()->setFrontAttributeCarrier(this);
-}
-
-
-void
 GNEDemandElement::deleteGLObject() {
     // we need an special checks due hierarchies
     if (myTagProperty.isPlan()) {
@@ -498,7 +492,7 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
     // push draw matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, element->getType() + 0.1);
+    drawFront(element->getType() + 0.1);
     // set trip color
     GLHelper::setColor(RGBColor::RED);
     // draw line

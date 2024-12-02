@@ -241,7 +241,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
+            drawFront(GLO_ACCESS);
             // set color
             GLHelper::setColor(accessColor);
             // translate to geometry position

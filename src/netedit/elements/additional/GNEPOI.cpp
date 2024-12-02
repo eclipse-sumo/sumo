@@ -609,7 +609,7 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
                 const bool movingGeometryPoints) const {
     if (GUIPointOfInterest::checkDraw(s, this)) {
         // draw inner polygon
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        if (myFront) {
             GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
                                              myShapeWidth.length2D(), myShapeHeight.length2D());
         } else {

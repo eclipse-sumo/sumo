@@ -169,7 +169,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
+            drawFront(GLO_E1DETECTOR);
             // draw E1 shape
             drawE1Shape(d, E1Exaggeration, mainColor, secondColor);
             // draw E1 Logo

@@ -383,7 +383,7 @@ GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& 
     // iterate over lanes
     for (const auto& lane : viewObjects.getLanes()) {
         // if parent edge of lane is front element, update clickedLane
-        if (lane->getParentEdge() == myViewNet->getFrontAttributeCarrier()) {
+        if (lane->getParentEdge()->isDrawingFront()) {
             clickedLane = lane;
         }
     }

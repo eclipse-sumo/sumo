@@ -201,7 +201,7 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
             // Add layer matrix matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            drawFront(getType());
             // declare stop color
             // declare central line color
             const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;

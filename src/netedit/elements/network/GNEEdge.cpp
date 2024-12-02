@@ -727,7 +727,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = myLanes.front()->getDrawingConstants()->getDetail();
         // calculate layer
         double layer = GLO_EDGE;
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        if (myFront) {
             layer = GLO_FRONTELEMENT;
         } else if (myLanes.front()->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
             layer = GLO_JUNCTION + 1.8;
@@ -2845,7 +2845,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
         // Push stopOffset matrix
         GLHelper::pushMatrix();
         // translate to front (note: Special case)
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, layer + 1);
+        drawFront(layer + 1);
         if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             for (const auto& lane : getLanes()) {
                 lane->drawLaneStopOffset(s);
@@ -2931,12 +2931,12 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 // Push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front (note: Special case)
-                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                if (myFront) {
                     glTranslated(0, 0, GLO_FRONTELEMENT);
                 } else if (lane->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
-                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
+                    drawFront(GLO_JUNCTION + 0.5);
                 } else {
-                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
+                    drawFront(GLO_LANE);
                 }
                 // move to front
                 glTranslated(0, 0, 0.1);

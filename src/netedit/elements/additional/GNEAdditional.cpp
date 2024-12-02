@@ -467,12 +467,6 @@ GNEAdditional::isGLObjectLocked() const {
 
 
 void
-GNEAdditional::markAsFrontElement() {
-    myNet->getViewNet()->setFrontAttributeCarrier(this);
-}
-
-
-void
 GNEAdditional::deleteGLObject() {
     myNet->deleteAdditional(this, myNet->getViewNet()->getUndoList());
 }
@@ -732,7 +726,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        drawFront(getType());
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
@@ -802,7 +796,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            drawFront(getType());
             // set line color
             GLHelper::setColor(s.additionalSettings.connectionColor);
             // draw both lines
@@ -1085,8 +1079,7 @@ void
 GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols) const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if current additional is inspected, front or selected
-    const bool currentDrawEntire = inspectedElements.isACInspected(this) ||
-                                   (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
+    const bool currentDrawEntire = inspectedElements.isACInspected(this) || myFront || isAttributeCarrierSelected();
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to parentChildLine layer
