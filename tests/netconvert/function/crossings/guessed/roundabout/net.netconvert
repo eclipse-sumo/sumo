@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-02 14:10:52 by Eclipse SUMO netconvert Version v1_21_0+1101-442e7083749
+<!-- generated on 2024-12-02 14:17:54 by Eclipse SUMO netconvert Version v1_21_0+1103-4c639cd733b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -231,40 +231,40 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2 CE_3" intLanes="" shape="200.00,100.00 200.00,89.10 200.00,100.00"/>
     <junction id="J0" type="priority" x="100.00" y="130.00" incLanes="NC_0 NC_1 NC_2 NC_3 E0_0 E0_1 E0_2 E0_3 :J0_w1_0" intLanes=":J0_0_0 :J0_0_1 :J0_6_0 :J0_6_1 :J0_4_0 :J0_4_1 :J0_c0_0" shape="89.10,140.78 110.90,140.78 111.06,139.90 111.26,139.55 111.54,139.26 111.90,139.02 112.34,138.85 111.22,127.80 106.57,129.15 103.02,129.96 100.00,130.23 96.98,129.96 93.43,129.15 88.78,127.80 87.66,138.85 88.46,139.26 88.74,139.55 88.94,139.90 89.06,140.31">
-        <request index="0" response="0010000" foes="1010000" cont="0"/>
-        <request index="1" response="0110000" foes="1110000" cont="0"/>
+        <request index="0" response="1010000" foes="1010000" cont="0"/>
+        <request index="1" response="1110000" foes="1110000" cont="0"/>
         <request index="2" response="1000000" foes="1000000" cont="1"/>
         <request index="3" response="1000000" foes="1000000" cont="1"/>
         <request index="4" response="0000000" foes="0000011" cont="0"/>
         <request index="5" response="0000000" foes="0000010" cont="0"/>
-        <request index="6" response="0000011" foes="0001111" cont="0"/>
+        <request index="6" response="0000000" foes="0001111" cont="0"/>
     </junction>
     <junction id="J1" type="priority" x="130.00" y="100.00" incLanes="EC_0 EC_1 EC_2 EC_3 E1_0 E1_1 E1_2 E1_3 :J1_w1_0" intLanes=":J1_0_0 :J1_0_1 :J1_6_0 :J1_6_1 :J1_4_0 :J1_4_1 :J1_c0_0" shape="140.78,110.90 140.78,89.10 139.90,88.94 139.55,88.74 139.26,88.46 139.02,88.10 138.85,87.66 127.80,88.78 129.15,93.43 129.96,96.98 130.23,100.00 129.96,103.02 129.15,106.57 127.80,111.22 138.85,112.34 139.26,111.54 139.55,111.26 139.90,111.06 140.31,110.94">
-        <request index="0" response="0010000" foes="1010000" cont="0"/>
-        <request index="1" response="0110000" foes="1110000" cont="0"/>
+        <request index="0" response="1010000" foes="1010000" cont="0"/>
+        <request index="1" response="1110000" foes="1110000" cont="0"/>
         <request index="2" response="1000000" foes="1000000" cont="1"/>
         <request index="3" response="1000000" foes="1000000" cont="1"/>
         <request index="4" response="0000000" foes="0000011" cont="0"/>
         <request index="5" response="0000000" foes="0000010" cont="0"/>
-        <request index="6" response="0000011" foes="0001111" cont="0"/>
+        <request index="6" response="0000000" foes="0001111" cont="0"/>
     </junction>
     <junction id="J2" type="priority" x="100.00" y="70.00" incLanes="SC_0 SC_1 SC_2 SC_3 E2_0 E2_1 E2_2 E2_3 :J2_w1_0" intLanes=":J2_0_0 :J2_0_1 :J2_6_0 :J2_6_1 :J2_4_0 :J2_4_1 :J2_c0_0" shape="111.22,72.20 112.34,61.15 111.54,60.74 111.26,60.45 111.06,60.10 110.94,59.69 110.90,59.22 89.10,59.22 88.94,60.10 88.74,60.45 88.46,60.74 88.10,60.98 87.66,61.15 88.78,72.20 93.43,70.85 96.98,70.04 100.00,69.77 103.02,70.04 106.57,70.85">
-        <request index="0" response="0010000" foes="1010000" cont="0"/>
-        <request index="1" response="0110000" foes="1110000" cont="0"/>
+        <request index="0" response="1010000" foes="1010000" cont="0"/>
+        <request index="1" response="1110000" foes="1110000" cont="0"/>
         <request index="2" response="1000000" foes="1000000" cont="1"/>
         <request index="3" response="1000000" foes="1000000" cont="1"/>
         <request index="4" response="0000000" foes="0000011" cont="0"/>
         <request index="5" response="0000000" foes="0000010" cont="0"/>
-        <request index="6" response="0000011" foes="0001111" cont="0"/>
+        <request index="6" response="0000000" foes="0001111" cont="0"/>
     </junction>
     <junction id="J3" type="priority" x="70.00" y="100.00" incLanes="E3_0 E3_1 E3_2 E3_3 WC_0 WC_1 WC_2 WC_3 :J3_w0_0" intLanes=":J3_6_0 :J3_6_1 :J3_2_0 :J3_2_1 :J3_4_0 :J3_4_1 :J3_c0_0" shape="61.15,112.34 72.20,111.22 70.85,106.57 70.04,103.02 69.77,100.00 70.04,96.98 70.85,93.43 72.20,88.78 61.15,87.66 60.74,88.46 60.45,88.74 60.10,88.94 59.69,89.06 59.22,89.10 59.22,110.90 60.10,111.06 60.45,111.26 60.74,111.54 60.98,111.90">
         <request index="0" response="1000000" foes="1000000" cont="1"/>
         <request index="1" response="1000000" foes="1000000" cont="1"/>
         <request index="2" response="0000000" foes="0110000" cont="0"/>
         <request index="3" response="0000000" foes="0100000" cont="0"/>
-        <request index="4" response="0000100" foes="1000100" cont="0"/>
-        <request index="5" response="0001100" foes="1001100" cont="0"/>
-        <request index="6" response="0110000" foes="0110011" cont="0"/>
+        <request index="4" response="1000100" foes="1000100" cont="0"/>
+        <request index="5" response="1001100" foes="1001100" cont="0"/>
+        <request index="6" response="0000000" foes="0110011" cont="0"/>
     </junction>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="100.00,200.00 110.90,200.00 100.00,200.00"/>
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="100.00,0.00 89.10,0.00 100.00,0.00"/>
@@ -342,23 +342,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":J0_c0" to=":J0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J0_w0" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="NC" to=":J0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J0_w1" to=":J0_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":J0_w1" to=":J0_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J0_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="E0" to=":J0_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J1_c0" to=":J1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J1_w0" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="EC" to=":J1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J1_w1" to=":J1_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":J1_w1" to=":J1_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J1_w1" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="E1" to=":J1_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J2_c0" to=":J2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J2_w0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="SC" to=":J2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J2_w1" to=":J2_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":J2_w1" to=":J2_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J2_w1" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="E2" to=":J2_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J3_c0" to=":J3_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J3_w0" to=":J3_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":J3_w0" to=":J3_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J3_w0" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="E3" to=":J3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J3_w1" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
