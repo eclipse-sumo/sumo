@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-12-02 08:31+0000\n"
+"PO-Revision-Date: 2024-12-02 14:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1140,24 +1140,32 @@ msgid ""
 "Use left-turn penalty FLOAT to calculate link travel time when searching "
 "routes"
 msgstr ""
+"Applica una pena di FLOAT alle svolte a sinistra per calcolare il tempo di "
+"percorrenza su collegamenti nell'instradamento"
 
 #: src/marouter/ROMAFrame.cpp:181
 msgid ""
 "Use INTEGER as the number of paths needed to be searched for each OD pair at "
 "each iteration"
 msgstr ""
+"Usa INTEGER come numero di itinerari da cercare per ogni paio di origine e "
+"destinazione per ogni iterazione"
 
 #: src/marouter/ROMAFrame.cpp:184
 msgid "Penalize existing routes with FLOAT to find secondary routes"
-msgstr ""
+msgstr "Penalizza itinerari esistenti con FLOAT per trovare itinerari secondari"
 
 #: src/marouter/ROMAFrame.cpp:188
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
 msgstr ""
+"Usa FLOAT come limite superiore per stabilire i costi di collegamenti "
+"ausiliari"
 
 #: src/marouter/ROMAFrame.cpp:192
 msgid "Use FLOAT as the lower bound to determine auxiliary link cost"
 msgstr ""
+"Usa FLOAT come limite inferiore per stabilire i costi di collegamenti "
+"ausiliari"
 
 #: src/marouter/ROMAFrame.cpp:195
 msgid ""
