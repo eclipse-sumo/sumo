@@ -1108,8 +1108,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             DEBUG_PRINT(currentObs);
         }
         // time gap to pass the intersection ahead of a vehicle.
-        const double passingClearanceTime = p.getPerson()->getFloatParam("pedestrian.timegap-crossing");
-        const double passingLength = p.getLength() + passingClearanceTime * speed;
+        const double passingLength = p.getLength() + p.getPerson()->getTimegapCrossing() * speed;
         // check link state
         if DEBUGCOND(p) {
             gDebugFlag1 = true; // get debug output from MSLink

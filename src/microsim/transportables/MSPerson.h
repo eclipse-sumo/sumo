@@ -167,6 +167,9 @@ public:
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
     void replaceWalk(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
+    inline double getTimegapCrossing() const {
+        return myTimegapCrossing;
+    }
 
     /** @class Influencer
      * @brief Changes the wished person speed and position
@@ -228,6 +231,9 @@ private:
     Influencer* myInfluencer;
 
     double myChosenSpeedFactor;
+
+    /// @brief value may be sampled from distribution and therefore must be cached
+    double myTimegapCrossing;
 
 private:
     /// @brief Invalidated copy constructor.
