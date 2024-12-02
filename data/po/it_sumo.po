@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-11-04 13:13+0100\n"
-"PO-Revision-Date: 2024-12-02 15:38+0000\n"
+"PO-Revision-Date: 2024-12-02 20:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1304,6 +1304,8 @@ msgstr ""
 #: src/mesosim/MEVehicle.cpp:586
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr ""
+"Errore: Veicoli invalidi nello stato (potrebbe trattarsi di uno stato "
+"microscopico)!"
 
 #: src/microsim/MSBaseVehicle.cpp:184
 msgid "Changing a vehicle ID is not permitted"
