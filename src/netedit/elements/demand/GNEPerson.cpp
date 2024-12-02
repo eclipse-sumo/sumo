@@ -484,8 +484,6 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS);
             }
         // Others
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -552,7 +550,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_DEPARTPOS:
         // Other
         case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -581,8 +578,6 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         // Other
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -702,13 +697,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         // Other
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;

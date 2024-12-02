@@ -354,6 +354,32 @@ protected:
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
+    /// @name Functions related with common attributes
+    /// @{
+    /* @brief method for getting the common attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getCommonAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the common attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for check if new value for certain common attribute is valid
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     */
+    bool isCommonValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for setting the common attribute and nothing else (used in GNEChange_Attribute)
+    void setCommonAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @}
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

@@ -39,10 +39,10 @@ class GNEDemandElementFlow : public SUMOVehicleParameter {
 
 protected:
     /// @brief constructor
-    GNEDemandElementFlow(const GNEDemandElement* flowElement);
+    GNEDemandElementFlow(GNEDemandElement* flowElement);
 
     /// @brief constructor with parameters
-    GNEDemandElementFlow(const GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters);
+    GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEDemandElementFlow();
@@ -102,14 +102,14 @@ protected:
     bool isFlowAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief method for setting the attribute and nothing else
-    void setFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
+    void setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
 
     /// @brief toggle flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
     void toggleFlowAttribute(const SumoXMLAttr attribute, const bool value);
 
 private:
     /// @brief set flow default attributes
-    void setDefaultFlowAttributes(const GNEDemandElement* flowElement);
+    void setDefaultFlowAttributes(GNEDemandElement* flowElement);
 
     /// @brief adjust decimal value
     std::string adjustDecimalValue(const double value) const;

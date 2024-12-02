@@ -29,13 +29,13 @@
 // member method definitions
 // ===========================================================================
 
-GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement) {
+GNEDemandElementFlow::GNEDemandElementFlow(GNEDemandElement* flowElement) {
     // set default flow attributes
     setDefaultFlowAttributes(flowElement);
 }
 
 
-GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
+GNEDemandElementFlow::GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
     SUMOVehicleParameter(vehicleParameters) {
     // set default flow attributes
     setDefaultFlowAttributes(flowElement);
@@ -165,7 +165,7 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
                 return "invalid flow spacing";
             }
         default:
-            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
+            return flowElement->getCommonAttribute(key);
     }
 }
 
@@ -200,7 +200,8 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
             GNEChange_Attribute::changeAttribute(flowElement, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return flowElement->setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -257,7 +258,7 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
             }
         }
         default:
-            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
+            return flowElement->isCommonValid(key, value);
     }
 }
 
@@ -326,7 +327,7 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
 
 
 void
-GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
+GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
@@ -407,7 +408,8 @@ GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, Sumo
             }
             break;
         default:
-            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
+            flowElement->setCommonAttribute(key, value);
+            break;
     }
 }
 
@@ -470,7 +472,7 @@ GNEDemandElementFlow::toggleFlowAttribute(const SumoXMLAttr attribute, const boo
 
 
 void
-GNEDemandElementFlow::setDefaultFlowAttributes(const GNEDemandElement* flowElement) {
+GNEDemandElementFlow::setDefaultFlowAttributes(GNEDemandElement* flowElement) {
     // first check that this demand element is a flow
     if (flowElement->getTagProperty().isFlow()) {
         // end

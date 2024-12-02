@@ -17,8 +17,10 @@
 ///
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -933,6 +935,56 @@ GNEAttributeCarrier::resetAttributes() {
 void
 GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw ProcessError(TL("Nothing to toggle, implement in Children"));
+}
+
+
+std::string
+GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 

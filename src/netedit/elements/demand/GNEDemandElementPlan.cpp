@@ -1354,8 +1354,6 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
         case GNE_ATTR_PARENT:
             return myPlanElement->getParentDemandElements().at(0)->getID();
-        case GNE_ATTR_SELECTED:
-            return toString(myPlanElement->isAttributeCarrierSelected());
         case SUMO_ATTR_DEPARTPOS:
             if (myDepartPosition < 0) {
                 return "";
@@ -1404,7 +1402,7 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO_TAZ:
             return myPlanElement->getParentTAZs().back()->getID();
         default:
-            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return myPlanElement->getCommonAttribute(key);
     }
 }
 
@@ -1603,11 +1601,11 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_ARRIVALPOS:
         case SUMO_ATTR_ENDPOS:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            myPlanElement->setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -1630,10 +1628,8 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ENDPOS:
             return GNEAttributeCarrier::canParse<double>(value);
-        case GNE_ATTR_SELECTED:
-            return GNEAttributeCarrier::canParse<bool>(value);
         default:
-            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return myPlanElement->isCommonValid(key, value);
     }
 }
 
@@ -1676,13 +1672,16 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
 
 void
 GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value) {
+    bool recompute = false;
     switch (key) {
         // from-to attributes (needed if we're replacing junction by geometry points and similar operations)
         case SUMO_ATTR_FROM:
             myPlanElement->replaceFirstParentEdge(value);
+            recompute = true;
             break;
         case SUMO_ATTR_TO:
             myPlanElement->replaceLastParentEdge(value);
+            recompute = true;
             break;
         // Common plan attributes
         case GNE_ATTR_PARENT:
@@ -1694,6 +1693,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
             } else {
                 myDepartPosition = GNEAttributeCarrier::parse<double>(value);
             }
+            recompute = true;
             break;
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_ARRIVALPOS:
@@ -1702,21 +1702,16 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
             } else {
                 myArrivalPosition = GNEAttributeCarrier::parse<double>(value);
             }
-            break;
-        case GNE_ATTR_SELECTED:
-            if (GNEAttributeCarrier::parse<bool>(value)) {
-                myPlanElement->selectAttributeCarrier();
-            } else {
-                myPlanElement->unselectAttributeCarrier();
-            }
-            // check if compute geometry and path
-            if (!myPlanElement->isTemplate()) {
-                myPlanElement->updateGeometry();
-                myPlanElement->computePathElement();
-            }
+            recompute = true;
             break;
         default:
-            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            myPlanElement->setCommonAttribute(key, value);
+            break;
+    }
+    // check if compute geometry and path
+    if (recompute && !myPlanElement->isTemplate()) {
+        myPlanElement->updateGeometry();
+        myPlanElement->computePathElement();
     }
 }
 

@@ -470,7 +470,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_TO_LANEID:
             return myToLane->getID();
         case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_FRONTELEMENT:
+            return getCommonAttribute(key);
         case GNE_ATTR_PARENT:
             return getEdgeFrom()->getToJunction()->getID();
         default:
@@ -580,7 +581,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_TYPE:
-        case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // no special handling
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -625,7 +625,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_STATE:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -864,12 +865,10 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return false;
         case SUMO_ATTR_DIR:
             return false;
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -990,18 +989,12 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             nbCon.edgeType = value;
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
         case GNE_ATTR_PARAMETERS:
             nbCon.setParametersStr(value);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value);
+            break;
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
