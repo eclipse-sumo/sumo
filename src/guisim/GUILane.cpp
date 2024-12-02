@@ -686,12 +686,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), halfWidth * exaggeration, cornerDetail, offset);
                 }
             }
+            GLHelper::popMatrix();
 #ifdef GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
             if (myEdge->isInternal() && gSelected.isSelected(getType(), getGlID())) {
                 debugDrawFoeIntersections();
             }
 #endif
-            GLHelper::popMatrix();
             if (s.geometryIndices.show(this)) {
                 GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
             }
@@ -966,6 +966,7 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed, boo
 void
 GUILane::debugDrawFoeIntersections() const {
     GLHelper::pushMatrix();
+    glTranslated(0, 0, 5);
     glColor3d(1.0, 0.3, 0.3);
     const double orthoLength = 0.5;
     const MSLink* link = getLinkCont().front();
@@ -980,7 +981,7 @@ GUILane::debugDrawFoeIntersections() const {
                 ortho.extrapolate(orthoLength - ortho.length(), false, true);
             }
             GLHelper::drawLine(ortho);
-            //std::cout << "foe=" << l->getID() << " lanePos=" << l->getLength() - lengthsBehind[i].second << " pos=" << pos << "\n";
+            //std::cout << "foe=" << l->getID() << " lanePos=" << l->getLength() - conflicts[i].lengthBehindCrossing << " pos=" << pos << "\n";
         }
     }
     GLHelper::popMatrix();
