@@ -44,6 +44,9 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
     // IDM does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
+    if (TS / myIterations > 0.25) {
+        WRITE_WARNINGF("Stepping duration of % for % model in vType % is unsafe", (TS / myIterations), myIDMM ? "IDMM" : "IDM", vtype->getID());
+    }
 }
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
