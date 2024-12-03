@@ -2796,7 +2796,8 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
         }
         if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
             if (!checkOnly) {
-                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled() || isRoundabout());
+                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled()
+                        || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
                 DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
@@ -2839,7 +2840,8 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
                 prevAngle = angle;
             }
             if (!checkOnly) {
-                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled() || isRoundabout());
+                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled()
+                        || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
                 DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;

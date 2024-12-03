@@ -483,6 +483,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("crossings.guess.speed-threshold", "Pedestrian",
                       "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
 
+    oc.doRegister("crossings.guess.roundabout-priority", new Option_Bool(true));
+    oc.addDescription("crossings.guess.roundabout-priority", "Pedestrian",
+                      "Give priority to guessed crossings at roundabouts");
+
     oc.doRegister("walkingareas", new Option_Bool(false));
     oc.addDescription("walkingareas", "Pedestrian", TL("Always build walking areas even if there are no crossings"));
 
