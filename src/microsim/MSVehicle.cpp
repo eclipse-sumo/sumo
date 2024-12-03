@@ -5667,6 +5667,13 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
             myAngle += M_PI;
         }
     }
+    if (MSNet::getInstance()->hasPersons()) {
+        for (MSLane* further : myFurtherLanes) {
+            if (further->mustCheckJunctionCollisions()) {
+                MSNet::getInstance()->getEdgeControl().checkCollisionForInactive(further);
+            }
+        }
+    }
 }
 
 
