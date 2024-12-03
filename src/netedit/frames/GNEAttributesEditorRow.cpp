@@ -141,7 +141,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     // check if this attribute is computed
     const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(myAttribute);
     // get string value depending if attribute is enabled
-    const std::string value = attributeEnabled ? getAttributeValue(attrProperty) : firstEditedAC->getAlternativeValueForDisabledAttributes(myAttribute);
+    const std::string value = getAttributeValue(attributeEnabled);
     // get parent if we're editing single vTypes
     GNEAttributeCarrier* ACParent = nullptr;
     if (!multipleEditedACs && attrProperty.isVType()) {
@@ -387,25 +387,29 @@ GNEAttributesEditorRow::GNEAttributesEditorRow() :
 
 
 const std::string
-GNEAttributesEditorRow::getAttributeValue(const GNEAttributeProperties& attrProperty) const {
-    // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
-    std::set<std::string> values;
-    // iterate over edited attributes and insert every value in set
-    for (const auto& editedAC : myAttributeTable->myEditedACs) {
-        if (editedAC->hasAttribute(attrProperty.getAttr())) {
-            values.insert(editedAC->getAttribute(attrProperty.getAttr()));
+GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
+    if (enabled) {
+        // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
+        std::set<std::string> values;
+        // iterate over edited attributes and insert every value in set
+        for (const auto& editedAC : myAttributeTable->myEditedACs) {
+            if (editedAC->hasAttribute(myAttribute)) {
+                values.insert(editedAC->getAttribute(myAttribute));
+            }
         }
-    }
-    // merge all values in a single string
-    std::ostringstream oss;
-    for (auto it = values.begin(); it != values.end(); it++) {
-        if (it != values.begin()) {
-            oss << " ";
+        // merge all values in a single string
+        std::ostringstream oss;
+        for (auto it = values.begin(); it != values.end(); it++) {
+            if (it != values.begin()) {
+                oss << " ";
+            }
+            oss << *it;
         }
-        oss << *it;
+        // obtain value to be shown in row
+        return oss.str();
+    } else {
+        return myAttributeTable->myEditedACs.front()->getAlternativeValueForDisabledAttributes(myAttribute);
     }
-    // obtain value to be shown in row
-    return oss.str();
 }
 
 

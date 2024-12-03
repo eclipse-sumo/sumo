@@ -83,7 +83,7 @@ protected:
     GNEAttributesEditorRow();
 
     /// @brief get value from edited ACs
-    const std::string getAttributeValue(const GNEAttributeProperties& attrProperty) const;
+    const std::string getAttributeValue(const bool enabled) const;
 
     /// @brief show attribute checkButton
     void showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
