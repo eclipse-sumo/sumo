@@ -204,7 +204,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (hasBattery) {
         ret->mkItem(TL("relative state of charge (SoC) [-]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getRelativeStateOfCharge));
-        ret->mkItem(TL("currently charging [Wh]"), true,
+        ret->mkItem(TL("current timestep charge [Wh]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChargedEnergy));
         ret->mkItem(TL("maximum charge rate [W]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getMaxChargeRate));

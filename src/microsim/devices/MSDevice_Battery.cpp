@@ -154,15 +154,9 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     } else {
         if (!chargeLevelTable.empty() && !chargeCurveTable.empty()) {
             LinearApproxHelpers::setPoints(myChargeCurve, chargeLevelTable, chargeCurveTable);
-            if (!myTrackFuel) {
-                LinearApproxHelpers::scaleValues(myChargeCurve, 1. / 3600);
-            }
             myMaximumChargeRate = LinearApproxHelpers::getMaximumValue(myChargeCurve);
         } else {
             myMaximumChargeRate = maximumChargeRate;
-            if (!myTrackFuel) {
-                myMaximumChargeRate /= 3600.;
-            }
         }
     }
 }
@@ -265,7 +259,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
                 myActChargingStation->setChargingVehicle(true);
 
                 // Calulate energy charged
-                myEnergyCharged = MIN2(MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency(), getMaximumChargeRate()) * TS, getMaximumBatteryCapacity() - getActualBatteryCapacity());
+                myEnergyCharged = MIN2(MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency(), getMaximumChargeRate() * (myTrackFuel ? 1 : 1. / 3600.)) * TS, getMaximumBatteryCapacity() - getActualBatteryCapacity());
 
                 // Update Battery charge
                 setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
