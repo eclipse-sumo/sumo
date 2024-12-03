@@ -51,7 +51,7 @@ GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
-    myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
+    myAttributesCreatorRows.resize(128 /*this will be removed */, nullptr);
     // create myFlowEditor
     myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent);
     // create reset and help button

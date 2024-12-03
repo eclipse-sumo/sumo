@@ -48,9 +48,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-// temporal
-#define MAX_ATTR 32
-
 FXDEFMAP(GNEAttributesEditor) GNEAttributeTableMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,     GNEAttributesEditor::onCmdMarkAsFront),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,    GNEAttributesEditor::onCmdOpenElementDialog),
@@ -69,16 +66,30 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
     myEditorOptions(editorOptions) {
-    // create general buttons
-    myFrontButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Front element"), "", "", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
-    myFrontButton->hide();
-    myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
-    myOpenDialogButton->hide();
-    myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
-    myOpenExtendedAttributesButton->hide();
+    // adjust max number of rows
+    if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+        myMaxNumberOfRows = GNEAttributeCarrier::maxNumberOfEditableAttributes;
+    } else if ((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) {
+        myMaxNumberOfRows = GNEAttributeCarrier::maxNumberOfFlowAttributes;
+    } else if ((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) {
+        myMaxNumberOfRows = GNEAttributeCarrier::maxNumberOfGeoAttributes;
+    } else if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
+        myMaxNumberOfRows = GNEAttributeCarrier::maxNumberOfNeteditAttributes;
+        // create netedit editor buttons
+        myFrontButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Front element"), "", "", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
+        myFrontButton->hide();
+        myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
+        myOpenDialogButton->hide();
+    } else if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
+        // create extended attributes
+        myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
+        myOpenExtendedAttributesButton->hide();
+    } else {
+        throw ProcessError("Invalid editor option");
+    }
     // resize myAttributesEditorRows and fill it with attribute rows
-    myAttributesEditorRows.resize(MAX_ATTR);
-    for (int i = 0; i < MAX_ATTR; i++) {
+    myAttributesEditorRows.resize(myMaxNumberOfRows);
+    for (int i = 0; i < myMaxNumberOfRows; i++) {
         myAttributesEditorRows[i] = new GNEAttributesEditorRow(this);
     }
     // Create help button
@@ -148,42 +159,48 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 } else {
                     myOpenDialogButton->hide();
                 }
-                // extended attributes dialog
-                if (tagProperty.hasExtendedAttributes()) {
-                    myOpenExtendedAttributesButton->show();
-                    showButtons = true;
-                } else {
-                    myOpenExtendedAttributesButton->hide();
+
+            }
+        }
+        if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
+            myOpenExtendedAttributesButton->show();
+            showButtons = true;
+        } else {
+            // Iterate over tag property of first AC and show row for every attribute
+            for (const auto& attrProperty : tagProperty) {
+                bool showAttributeRow = true;
+                // check show conditions
+                if (attrProperty.isExtended()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty.isNetedit()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty.isNetedit()) {
+                    showAttributeRow = false;
+                } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+                    showAttributeRow = true;
+                }
+                if (showAttributeRow) {
+                    if (itRows < myMaxNumberOfRows) {
+                        // only update if row was show successfully
+                        if (myAttributesEditorRows[itRows]->showAttributeRow(attrProperty)) {
+                            itRows++;
+                        }
+                    } else {
+                        throw ProcessError("Invalid maximum number of rows");
+                    }
                 }
             }
         }
-        // Iterate over tag property of first AC and show row for every attribute
-        for (const auto& attrProperty : tagProperty) {
-            bool showAttributeRow = true;
-            // check show conditions
-            if (attrProperty.isExtended()) {
-                showAttributeRow = false;
-            } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
-                showAttributeRow = false;
-            } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
-                showAttributeRow = false;
-            } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
-                showAttributeRow = false;
-            } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
-                showAttributeRow = false;
-            } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty.isNetedit()) {
-                showAttributeRow = false;
-            } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty.isNetedit()) {
-                showAttributeRow = false;
-            } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
-                showAttributeRow = true;
-            }
-            if (showAttributeRow && myAttributesEditorRows[itRows]->showAttributeRow(attrProperty)) {
-                itRows++;
-            }
-        }
         // hide rest of rows before showing table
-        for (int i = itRows; i < MAX_ATTR; i++) {
+        for (int i = itRows; i < myMaxNumberOfRows; i++) {
             myAttributesEditorRows[i]->hideAttributeRow();
         }
         // only show if at least one row or button was shown

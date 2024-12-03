@@ -397,7 +397,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), GNEAttributesEditor::EditorOptions::BASIC_ATTRIBUTES);
 
     // create module for open extended attributes dialog
-    myAttributesEditorExtended = new GNEAttributesEditor(this, TL("Extended attributes"), GNEAttributesEditor::EditorOptions::NETEDIT_ATTRIBUTES);
+    myAttributesEditorExtended = new GNEAttributesEditor(this, TL("Extended attributes"), GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
     /// create module for edit parameters
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);

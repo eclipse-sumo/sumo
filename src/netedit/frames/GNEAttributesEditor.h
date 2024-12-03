@@ -47,9 +47,10 @@ public:
     /// @brief Options for filter attributes
     enum EditorOptions {
         BASIC_ATTRIBUTES    = 1 << 0,
-        FLOW_ATTRIBUTES     = 1 << 1,
-        GEO_ATTRIBUTES      = 1 << 2,
-        NETEDIT_ATTRIBUTES  = 1 << 3,   // this include front, additional dialog and extended dialog
+        EXTENDED_ATTRIBUTES = 1 << 1,
+        FLOW_ATTRIBUTES     = 1 << 2,
+        GEO_ATTRIBUTES      = 1 << 3,
+        NETEDIT_ATTRIBUTES  = 1 << 4
     };
 
     /// @brief constructor
@@ -122,6 +123,9 @@ private:
     /// @brief pointer to GNEFrame parent
     GNEFrame* myFrameParent;
 
+    /// @brief button for help
+    FXButton* myHelpButton;
+
     /// @brief pointer to front button
     FXButton* myFrontButton = nullptr;
 
@@ -137,9 +141,9 @@ private:
     /// @brief list of attributes editor rows
     std::vector<GNEAttributesEditorRow*> myAttributesEditorRows;
 
-    /// @brief button for help
-    FXButton* myHelpButton = nullptr;
-
     /// @brief variable use for packing attribute editor options
     int myEditorOptions = 0;
+
+    /// @brief maximum number of rows used in this attributes editor
+    int myMaxNumberOfRows = 0;
 };

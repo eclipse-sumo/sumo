@@ -9844,17 +9844,14 @@ GNEAttributeCarrier::updateMaxNumberOfAttributes() {
         int flowAttributes = 0;
         int neteditAttributes = 0;
         for (const auto& attributeProperty : tagProperty.second) {
-            if (!attributeProperty.isExtended()) {
-                editableAttributes++;
-            }
-            if (!attributeProperty.isGEO()) {
+            if (attributeProperty.isGEO()) {
                 geoAttributes++;
-            }
-            if (!attributeProperty.isFlow()) {
+            } else if (attributeProperty.isFlow()) {
                 flowAttributes++;
-            }
-            if (!attributeProperty.isNetedit()) {
+            } else if (attributeProperty.isNetedit()) {
                 neteditAttributes++;
+            } else if (!attributeProperty.isExtended()) {
+                editableAttributes++;
             }
         }
         if (maxNumberOfEditableAttributes < editableAttributes) {
