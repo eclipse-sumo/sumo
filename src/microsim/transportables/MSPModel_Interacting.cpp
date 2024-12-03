@@ -68,15 +68,15 @@ MSPModel_Interacting::remove(MSTransportableStateAdapter* state) {
 
 
 bool
-MSPModel_Interacting::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+MSPModel_Interacting::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehCenter, double vehWidth,
                                     double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
     for (const MSPModel_InteractingState* ped : getPedestrians(lane)) {
-        const double leaderFrontDist = (ped->getDirection() == FORWARD ? vehSide - ped->getEdgePos(0) : ped->getEdgePos(0) - vehSide);
+        const double leaderFrontDist = (ped->getDirection() == FORWARD ? vehCenter - ped->getEdgePos(0) : ped->getEdgePos(0) - vehCenter) - vehWidth * 0.5;
         const double leaderBackDist = leaderFrontDist + ped->getPerson()->getVehicleType().getLength();
 #ifdef DEBUG_INTERACTING
         if DEBUGCOND(ped) {
             std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped->getDirection() << " pX=" << ped->getEdgePos(0) << " pL=" << ped->getPerson()->getVehicleType().getLength()
-                      << " vehSide=" << vehSide
+                      << " vehCenter=" << vehCenter
                       << " vehWidth=" << vehWidth
                       << " lBD=" << leaderBackDist
                       << " lFD=" << leaderFrontDist

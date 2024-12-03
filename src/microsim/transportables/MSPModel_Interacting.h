@@ -57,7 +57,7 @@ public:
      * @param[in] collectBlockers The list of persons blocking the crossing
      * @return Whether the vehicle must wait
      */
-    bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+    bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehCenter, double vehWidth,
                        double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
 
     /** @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or nullptr

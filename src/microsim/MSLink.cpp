@@ -1753,10 +1753,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             /// @todo consider lateral position (depending on whether the crossing is encountered on the way in or out)
             // @check lefthand?!
             const bool wayIn = myConflicts[i].lengthBehindCrossing < myLaneBefore->getLength() * 0.5;
-            const double vehSideOffset = (foeDistToCrossing + myLaneBefore->getWidth() * 0.5 - vehWidth * 0.5
+            const double vehCenter = (foeDistToCrossing + myLaneBefore->getWidth() * 0.5
                                           + ego->getLateralPositionOnLane() * (wayIn ? -1 : 1));
             // can access the movement model here since we already checked for existing persons above
-            if (distToPeds >= -MSPModel::SAFETY_GAP && MSNet::getInstance()->getPersonControl().getMovementModel()->blockedAtDist(ego, foeLane, vehSideOffset, vehWidth,
+            if (distToPeds >= -MSPModel::SAFETY_GAP && MSNet::getInstance()->getPersonControl().getMovementModel()->blockedAtDist(ego, foeLane, vehCenter, vehWidth,
                     ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
                     collectBlockers)) {
                 result.emplace_back(nullptr, -1, distToPeds);

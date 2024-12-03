@@ -95,11 +95,11 @@ public:
      * @param[in] collectBlockers The list of persons blocking the crossing
      * @return Whether the vehicle must wait
      */
-    virtual bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+    virtual bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehCenter, double vehWidth,
                                double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
         UNUSED_PARAMETER(ego);
         UNUSED_PARAMETER(lane);
-        UNUSED_PARAMETER(vehSide);
+        UNUSED_PARAMETER(vehCenter);
         UNUSED_PARAMETER(vehWidth);
         UNUSED_PARAMETER(oncomingGap);
         UNUSED_PARAMETER(collectBlockers);
