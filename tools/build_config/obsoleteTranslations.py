@@ -40,6 +40,8 @@ def getOptions(args=None):
     ap.add_argument("--patch", nargs="*", type=str,
                     help="restore obsolete (but still present) translations with sequence of the original \
                     (odd position) and then the new string (even position) from the source code (= gettext msgid)")
+    if options.lang is not None and "en" in options.lang:
+        options.lang.remove("en")
     return ap.parse_args(args)
 
 
