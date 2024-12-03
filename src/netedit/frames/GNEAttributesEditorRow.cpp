@@ -159,7 +159,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
         return hideAttributeRow();
     }
     // front element has their own button, and doesn't use the UndoList
-    if (attrProperty.getAttr() == GNE_ATTR_FRONTELEMENT) {
+    if ((myAttribute == GNE_ATTR_FRONTELEMENT) || (myAttribute == GNE_ATTR_SELECTED)) {
         return hideAttributeRow();
     }
     // if we have a disabled flow attribute, don't show row
@@ -177,7 +177,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
         }
     }
     // don't show stop offset exception if stopOffset is zero
-    if ((attrProperty.getAttr() == GNE_ATTR_STOPOEXCEPTION) &&
+    if ((myAttribute == GNE_ATTR_STOPOEXCEPTION) &&
             (GNEAttributeCarrier::parse<double>(firstEditedAC->getAttribute(GNE_ATTR_STOPOFFSET)) == 0)) {
         return hideAttributeRow();
     }
