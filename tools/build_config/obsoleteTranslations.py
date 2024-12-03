@@ -33,7 +33,7 @@ SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(S
 
 def getOptions(args=None):
     ap = ArgumentParser()
-    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the short codes like en, fr, de)")
+    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the short codes like fr, de)")
     ap.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     ap.add_argument("-o", "--output", type=str, help="path to output file (protocol of obsolete translations)")
     ap.add_argument("--clear", default=False, action="store_true", help="remove obsolete entries from .po files")
