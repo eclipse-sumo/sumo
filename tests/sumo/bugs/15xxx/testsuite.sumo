@@ -45,3 +45,6 @@ ticket15770
 
 # vehicle inserted on pedestrian crossing
 ticket15843
+
+# unsafe approach speed to pedestrian crossing
+ticket15848
