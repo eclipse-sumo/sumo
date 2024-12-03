@@ -47,6 +47,7 @@ FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE,  GNEAttributesEditorRow::onCmdToogleEnableAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,        GNEAttributesEditorRow::onCmdOpenColorDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,       GNEAttributesEditorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_REPARENT,               GNEAttributesEditorRow::onCmdReparent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,          GNEAttributesEditorRow::onCmdInspectParent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_MOVELANEUP,             GNEAttributesEditorRow::onCmdMoveLaneUp),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_MOVELANEDOWN,           GNEAttributesEditorRow::onCmdMoveLaneDown)
@@ -78,13 +79,17 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
     myAttributeLabel = new MFXLabelTooltip(this, tooltipMenu, "Label", nullptr, GUIDesignLabelThickedFixed(100));
     myAttributeLabel->hide();
     // create lef boolean checkBox for enable/disable attributes
-    myAttributeCheckButton = new FXCheckButton(this, "Enable/Disable attribute checkBox", this,
+    myAttributeToogleEnableCheckButton = new FXCheckButton(this, "Enable/Disable attribute checkBox", this,
             MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE, GUIDesignCheckButtonAttribute);
-    myAttributeCheckButton->hide();
+    myAttributeToogleEnableCheckButton->hide();
+    // create left button for reparent
+    myAttributeReparentButton = new MFXButtonTooltip(this, tooltipMenu, "Reparent", nullptr, this,
+            MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
+    myAttributeReparentButton->hide();
     // create left button for inspect parent
-    myAttributeParentButton = new MFXButtonTooltip(this, tooltipMenu, "Inspect parent button", nullptr, this,
+    myAttributeInspectParentButton = new MFXButtonTooltip(this, tooltipMenu, "Inspect parent button", nullptr, this,
             MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT, GUIDesignButtonAttribute);
-    myAttributeParentButton->hide();
+    myAttributeInspectParentButton->hide();
     // create lef button for edit allow/disallow vClasses
     myAttributeVClassButton = new MFXButtonTooltip(this, tooltipMenu, "Edit vClass button", nullptr, this,
             MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG, GUIDesignButtonAttribute);
@@ -183,9 +188,11 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     }
     // show elements depending of attribute properties
     if (attrProperty.isActivatable()) {
-        showAttributeCheckButton(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+        showAttributeToogleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+    } else if ((myAttribute == GNE_ATTR_PARENT)) {
+        showAttributeReparent(attrProperty, attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && (tagProperty.isVehicle() || tagProperty.isPerson() || tagProperty.isContainer())) {
-        showAttributeParent(attrProperty, attributeEnabled);
+        showAttributeInspectParent(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_ALLOW) {
         showAttributeVClass(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_COLOR) {
@@ -264,6 +271,12 @@ GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     if (acceptChanges) {
         myValueTextField->setText(allowedVehicles.c_str(), TRUE);
     }
+    return 1;
+}
+
+
+long
+GNEAttributesEditorRow::onCmdReparent(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -376,7 +389,7 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdToogleEnableAttribute(FXObject*, FXSelector, void*) {
-    myAttributeTable->toggleEnableAttribute(myAttribute, myAttributeCheckButton->getCheck() == TRUE);
+    myAttributeTable->toggleEnableAttribute(myAttribute, myAttributeToogleEnableCheckButton->getCheck() == TRUE);
     return 0;
 }
 
@@ -414,18 +427,19 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
 
 
 void
-GNEAttributesEditorRow::showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled) {
-    myAttributeCheckButton->setText(attrProperty.getAttrStr().c_str());
-    myAttributeCheckButton->setCheck(value);
+GNEAttributesEditorRow::showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled) {
+    myAttributeToogleEnableCheckButton->setText(attrProperty.getAttrStr().c_str());
+    myAttributeToogleEnableCheckButton->setCheck(value);
     if (enabled) {
-        myAttributeParentButton->enable();
+        myAttributeToogleEnableCheckButton->enable();
     } else {
-        myAttributeParentButton->disable();
+        myAttributeToogleEnableCheckButton->disable();
     }
-    myAttributeCheckButton->show();
+    myAttributeToogleEnableCheckButton->show();
     // hide other elements
     myAttributeLabel->hide();
-    myAttributeParentButton->hide();
+    myAttributeReparentButton->hide();
+    myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
     // enable depending of supermode
@@ -434,19 +448,41 @@ GNEAttributesEditorRow::showAttributeCheckButton(const GNEAttributeProperties& a
 
 
 void
-GNEAttributesEditorRow::showAttributeParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attrProperty, const bool enabled) {
     // set icon and text
-    myAttributeParentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
-    myAttributeParentButton->setText(attrProperty.getAttrStr().c_str());
+    myAttributeReparentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
+    myAttributeReparentButton->setText(attrProperty.getAttrStr().c_str());
     if (enabled) {
-        myAttributeParentButton->enable();
+        myAttributeReparentButton->enable();
     } else {
-        myAttributeParentButton->disable();
+        myAttributeReparentButton->disable();
     }
-    myAttributeParentButton->show();
+    myAttributeReparentButton->show();
     // hide other elements
+    myAttributeInspectParentButton->hide();
     myAttributeLabel->hide();
-    myAttributeCheckButton->hide();
+    myAttributeToogleEnableCheckButton->hide();
+    myAttributeVClassButton->hide();
+    myAttributeColorButton->hide();
+    // enable depending of supermode
+    enableDependingOfSupermode(attrProperty);
+}
+
+void
+GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
+    // set icon and text
+    myAttributeInspectParentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
+    myAttributeInspectParentButton->setText(attrProperty.getAttrStr().c_str());
+    if (enabled) {
+        myAttributeInspectParentButton->enable();
+    } else {
+        myAttributeInspectParentButton->disable();
+    }
+    myAttributeInspectParentButton->show();
+    // hide other elements
+    myAttributeReparentButton->hide();
+    myAttributeLabel->hide();
+    myAttributeToogleEnableCheckButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
     // enable depending of supermode
@@ -466,8 +502,9 @@ GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties& attrPr
     myAttributeVClassButton->show();
     // hide other elements
     myAttributeLabel->hide();
-    myAttributeCheckButton->hide();
-    myAttributeParentButton->hide();
+    myAttributeToogleEnableCheckButton->hide();
+    myAttributeReparentButton->hide();
+    myAttributeInspectParentButton->hide();
     myAttributeColorButton->hide();
     // enable depending of supermode
     enableDependingOfSupermode(attrProperty);
@@ -485,8 +522,9 @@ GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties& attrPro
     }
     // hide other elements
     myAttributeLabel->hide();
-    myAttributeCheckButton->hide();
-    myAttributeParentButton->hide();
+    myAttributeToogleEnableCheckButton->hide();
+    myAttributeReparentButton->hide();
+    myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
     // enable depending of supermode
     enableDependingOfSupermode(attrProperty);
@@ -498,8 +536,9 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties& attrPro
     myAttributeLabel->setText(attrProperty.getAttrStr().c_str());
     myAttributeLabel->show();
     // hide other elements
-    myAttributeCheckButton->hide();
-    myAttributeParentButton->hide();
+    myAttributeToogleEnableCheckButton->hide();
+    myAttributeReparentButton->hide();
+    myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
     // enable depending of supermode
@@ -723,8 +762,8 @@ GNEAttributesEditorRow::enableDependingOfSupermode(const GNEAttributeProperties&
         enableElements = true;
     }
     if (!enableElements) {
-        myAttributeCheckButton->disable();
-        myAttributeParentButton->disable();
+        myAttributeToogleEnableCheckButton->disable();
+        myAttributeInspectParentButton->disable();
         myAttributeVClassButton->disable();
         myAttributeColorButton->disable();
         myValueTextField->disable();

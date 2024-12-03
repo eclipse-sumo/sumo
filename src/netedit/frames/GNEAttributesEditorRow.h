@@ -67,6 +67,9 @@ public:
     /// @brief called when user press "open allow" dialog
     long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press reparent button
+    long onCmdReparent(FXObject*, FXSelector, void*);
+
     /// @brief called when user press "inspect parent"
     long onCmdInspectParent(FXObject*, FXSelector, void*);
 
@@ -85,11 +88,14 @@ protected:
     /// @brief get value from edited ACs
     const std::string getAttributeValue(const bool enabled) const;
 
-    /// @brief show attribute checkButton
-    void showAttributeCheckButton(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
+    /// @brief show attribute toogle enable
+    void showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
+
+    /// @brief show attribute reparent
+    void showAttributeReparent(const GNEAttributeProperties& attrProperty, const bool enabled);
 
     /// @brief show attribute parent
-    void showAttributeParent(const GNEAttributeProperties& attrProperty, const bool enabled);
+    void showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled);
 
     /// @brief show attribute vClass
     void showAttributeVClass(const GNEAttributeProperties& attrProperty, const bool enabled);
@@ -129,10 +135,13 @@ private:
     MFXLabelTooltip* myAttributeLabel = nullptr;
 
     /// @brief pointer to attribute menu check
-    FXCheckButton* myAttributeCheckButton = nullptr;
+    FXCheckButton* myAttributeToogleEnableCheckButton = nullptr;
 
-    /// @brief pointer to attribute parent button
-    MFXButtonTooltip* myAttributeParentButton = nullptr;
+    /// @brief pointer to attribute reparent button
+    MFXButtonTooltip* myAttributeReparentButton = nullptr;
+
+    /// @brief pointer to attribute inspect parent button
+    MFXButtonTooltip* myAttributeInspectParentButton = nullptr;
 
     /// @brief pointer to attribute vClass button
     MFXButtonTooltip* myAttributeVClassButton = nullptr;

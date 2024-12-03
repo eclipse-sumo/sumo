@@ -1050,6 +1050,8 @@ enum {
     MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,
     /// @brief open allow dialog in attributes editor row
     MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,
+    /// @brief reparent
+    MID_GNE_ATTRIBUTESEDITORROW_REPARENT,
     /// @brief inspect parent
     MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,
     /// @brief move lane up
