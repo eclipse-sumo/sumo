@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-03 14:22+0100\n"
+"POT-Creation-Date: 2024-12-03 15:04+0100\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/tr/>\n"
@@ -3127,7 +3127,7 @@ msgid "Close the network."
 msgstr "Ağı kapat."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:363
-#: src/netedit/GNEViewNetHelper.cpp:2111
+#: src/netedit/GNEViewNetHelper.cpp:2118
 msgid "Save Netedit Config"
 msgstr "Netedit Yapılandırmasını Kaydet"
 
@@ -3152,7 +3152,7 @@ msgid "Reload netedit configuration."
 msgstr "Netedit yapılandırmasını yeniden yükle."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:381
-#: src/netedit/GNEViewNetHelper.cpp:2116
+#: src/netedit/GNEViewNetHelper.cpp:2123
 msgid "Save Sumo Config"
 msgstr "Sumo Yapılandırmasını Kaydet"
 
@@ -3599,15 +3599,15 @@ msgstr "MeanData kesim/şeritleri oluştur."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:852
 #: src/netedit/GNEApplicationWindowHelper.cpp:1037
-#: src/netedit/GNEViewNetHelper.cpp:2554 src/netedit/GNEViewNetHelper.cpp:2838
+#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:857
 #: src/netedit/GNEApplicationWindowHelper.cpp:1042
 #: src/netedit/GNEApplicationWindowHelper.cpp:1168
-#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
-#: src/netedit/GNEViewNetHelper.cpp:3117
+#: src/netedit/GNEViewNetHelper.cpp:2568 src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:3124
 msgid "Hide junction shape"
 msgstr "Kavşak şeklini gizle"
 
@@ -3617,7 +3617,7 @@ msgstr "Yolda ya da ayrılma pozisyonunda yayılmış araçları çizin"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:867
 #: src/netedit/GNEApplicationWindowHelper.cpp:1183
-#: src/netedit/GNEViewNetHelper.cpp:2575 src/netedit/GNEViewNetHelper.cpp:3136
+#: src/netedit/GNEViewNetHelper.cpp:2582 src/netedit/GNEViewNetHelper.cpp:3143
 msgid "Show demand elements"
 msgstr "Talep elemanlarını göster"
 
@@ -3626,12 +3626,12 @@ msgid "Clicking should target lanes"
 msgstr "Tıklama şeritleri hedeflemelidir"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:877
-#: src/netedit/GNEViewNetHelper.cpp:2588
+#: src/netedit/GNEViewNetHelper.cpp:2595
 msgid "Show connections over junctions"
 msgstr "Kavşaklar üzerindeki bağlantıları göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:882
-#: src/netedit/GNEViewNetHelper.cpp:2595
+#: src/netedit/GNEViewNetHelper.cpp:2602
 msgid "Hide connections"
 msgstr "Bağlantıları gizle"
 
@@ -3640,7 +3640,7 @@ msgid "Show sub-additional elements"
 msgstr "Alt ek öğeleri göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:892
-#: src/netedit/GNEViewNetHelper.cpp:2609
+#: src/netedit/GNEViewNetHelper.cpp:2616
 msgid "Show TAZ elements"
 msgstr "TAB öğelerini göster"
 
@@ -3675,28 +3675,28 @@ msgid "Create an edge in the opposite direction"
 msgstr "Ters yönde bir kesim oluştur"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1047
-#: src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:2859
 msgid "Draw vehicles spread/depart position"
 msgstr "Araçların yayılma/ayrılma pozisyonunu çiz"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1052
 #: src/netedit/GNEApplicationWindowHelper.cpp:1178
-#: src/netedit/GNEViewNetHelper.cpp:2859 src/netedit/GNEViewNetHelper.cpp:3130
+#: src/netedit/GNEViewNetHelper.cpp:2866 src/netedit/GNEViewNetHelper.cpp:3137
 msgid "Show shapes"
 msgstr "Şekilleri göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1057
-#: src/netedit/GNEViewNetHelper.cpp:2866
+#: src/netedit/GNEViewNetHelper.cpp:2873
 msgid "Show all trips"
 msgstr "Tüm seyahatleri göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1062
-#: src/netedit/GNEViewNetHelper.cpp:2873
+#: src/netedit/GNEViewNetHelper.cpp:2880
 msgid "Show all person plans"
 msgstr "Tüm yolcu planlarını göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1067
-#: src/netedit/GNEViewNetHelper.cpp:2880
+#: src/netedit/GNEViewNetHelper.cpp:2887
 msgid "Lock selected person"
 msgstr "Seçili yolcuyu kilitle"
 
@@ -3705,22 +3705,22 @@ msgid "Show all container plans"
 msgstr "Tüm konteyner planlarını göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1077
-#: src/netedit/GNEViewNetHelper.cpp:2894
+#: src/netedit/GNEViewNetHelper.cpp:2901
 msgid "Lock selected container"
 msgstr "Seçili konteyneri kilitle"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1082
-#: src/netedit/GNEViewNetHelper.cpp:2901
+#: src/netedit/GNEViewNetHelper.cpp:2908
 msgid "Show non-inspected demand elements"
 msgstr "Denetlenmeyen talep unsurlarını göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1087
-#: src/netedit/GNEViewNetHelper.cpp:2908
+#: src/netedit/GNEViewNetHelper.cpp:2915
 msgid "Show number of overlapped routes"
 msgstr "Çakışan rota sayısını göster"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1173
-#: src/netedit/GNEViewNetHelper.cpp:3124
+#: src/netedit/GNEViewNetHelper.cpp:3131
 msgid "Show additionals"
 msgstr "Ekleri göster"
 
@@ -5301,178 +5301,178 @@ msgstr "Aynı konumda iki ek oluşturmak için Shift + tıklayın"
 msgid "Control + click to create two stop in the same position"
 msgstr "Aynı konumda iki durak oluşturmak için Control + tıklayın"
 
-#: src/netedit/GNEViewNetHelper.cpp:1628 src/netedit/GNEViewNetHelper.cpp:1649
+#: src/netedit/GNEViewNetHelper.cpp:1635 src/netedit/GNEViewNetHelper.cpp:1656
 msgid "moving selection"
 msgstr "Seçim kaydırılıyor"
 
-#: src/netedit/GNEViewNetHelper.cpp:1835
+#: src/netedit/GNEViewNetHelper.cpp:1842
 msgid "Selection width:"
 msgstr "Seçim genişliği:"
 
-#: src/netedit/GNEViewNetHelper.cpp:1836
+#: src/netedit/GNEViewNetHelper.cpp:1843
 msgid " height:"
 msgstr " yükseklik:"
 
-#: src/netedit/GNEViewNetHelper.cpp:1837
+#: src/netedit/GNEViewNetHelper.cpp:1844
 msgid " diagonal:"
 msgstr " köşegen:"
 
-#: src/netedit/GNEViewNetHelper.cpp:1997
+#: src/netedit/GNEViewNetHelper.cpp:2004
 msgid "selection using rectangle"
 msgstr "dikdörtgen kullanarak seçim"
 
-#: src/netedit/GNEViewNetHelper.cpp:2030
+#: src/netedit/GNEViewNetHelper.cpp:2037
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
 msgstr "Geçersiz pencere boyutu biçimi: 'pencere boyutu' seçeneği için %"
 
-#: src/netedit/GNEViewNetHelper.cpp:2111
+#: src/netedit/GNEViewNetHelper.cpp:2118
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
 msgstr "Kaydet Netedit Config. (Ctrl+Shift+E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2116
+#: src/netedit/GNEViewNetHelper.cpp:2123
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
 msgstr "Kaydet Sumo Config. (Ctrl+Shift+S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2121
+#: src/netedit/GNEViewNetHelper.cpp:2128
 msgid "Save network"
 msgstr "Ağı kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2121
+#: src/netedit/GNEViewNetHelper.cpp:2128
 msgid "Save network. (Ctrl+S)"
 msgstr "Ağı kaydet. (Ctrl+S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2129
+#: src/netedit/GNEViewNetHelper.cpp:2136
 msgid "Save individual files"
 msgstr "Dosyaları ayrık kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2129
+#: src/netedit/GNEViewNetHelper.cpp:2136
 msgid "Save individual files."
 msgstr "Dosyaları ayrık kaydet."
 
-#: src/netedit/GNEViewNetHelper.cpp:2134
+#: src/netedit/GNEViewNetHelper.cpp:2141
 msgid "Save additional elements"
 msgstr "Ek elemanları kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2134
+#: src/netedit/GNEViewNetHelper.cpp:2141
 msgid "Save additional elements. (Ctrl+Shift+A)"
 msgstr "Ek elemanları kaydet. (Ctrl+Shift+A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2139
+#: src/netedit/GNEViewNetHelper.cpp:2146
 msgid "Save demand elements"
 msgstr "Talep elemanlarını kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2139
+#: src/netedit/GNEViewNetHelper.cpp:2146
 msgid "Save demand elements. (Ctrl+Shift+D)"
 msgstr "Talep elemanlarını kaydet. (Ctrl+Shift+D)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2144
+#: src/netedit/GNEViewNetHelper.cpp:2151
 msgid "Save data elements"
 msgstr "Veri elemanlarını kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2144
+#: src/netedit/GNEViewNetHelper.cpp:2151
 msgid "Save data elements. (Ctrl+Shift+B)"
 msgstr "Veri elemanlarını kaydet. (Ctrl+Shift+B)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2149
+#: src/netedit/GNEViewNetHelper.cpp:2156
 msgid "Save mean data elements"
 msgstr "meandata elemanlarını kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2149
+#: src/netedit/GNEViewNetHelper.cpp:2156
 msgid "Save mean data elements. (Ctrl+Shift+M)"
 msgstr "meandata elemanlarını kaydet. (Ctrl+Shift+M)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2182
+#: src/netedit/GNEViewNetHelper.cpp:2189
 msgid "Switch between seconds and HH:MM:SS"
 msgstr "Saniye ve HH:MM:SS arasında geçiş yapma"
 
-#: src/netedit/GNEViewNetHelper.cpp:2242
+#: src/netedit/GNEViewNetHelper.cpp:2249
 #: src/netedit/frames/common/GNEElementSet.cpp:60
 #: src/netedit/frames/common/GNEElementSet.cpp:146
 msgid "Network"
 msgstr "Ağ"
 
-#: src/netedit/GNEViewNetHelper.cpp:2242
+#: src/netedit/GNEViewNetHelper.cpp:2249
 msgid "Edit network elements"
 msgstr "Ağ elemanlarını düzenle"
 
-#: src/netedit/GNEViewNetHelper.cpp:2242
+#: src/netedit/GNEViewNetHelper.cpp:2249
 msgid "Set mode for editing network elements. (F2)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:2247
+#: src/netedit/GNEViewNetHelper.cpp:2254
 #: src/netedit/frames/common/GNEElementSet.cpp:68
 #: src/netedit/frames/common/GNEElementSet.cpp:159
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2161
 msgid "Demand"
 msgstr "Talep"
 
-#: src/netedit/GNEViewNetHelper.cpp:2247
+#: src/netedit/GNEViewNetHelper.cpp:2254
 msgid "Edit traffic demand elements"
 msgstr "Trafik talep elemanlarını düzenle"
 
-#: src/netedit/GNEViewNetHelper.cpp:2247
+#: src/netedit/GNEViewNetHelper.cpp:2254
 msgid "Set mode for editing traffic demand. (F3)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:2252
+#: src/netedit/GNEViewNetHelper.cpp:2259
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2319
 msgid "Data"
 msgstr "Veri"
 
-#: src/netedit/GNEViewNetHelper.cpp:2252
+#: src/netedit/GNEViewNetHelper.cpp:2259
 msgid "Edit data elements"
 msgstr "Veri elemanlarını düzenle"
 
-#: src/netedit/GNEViewNetHelper.cpp:2252
+#: src/netedit/GNEViewNetHelper.cpp:2259
 msgid "Set mode for editing data demand. (F4)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:2260
+#: src/netedit/GNEViewNetHelper.cpp:2267
 msgid "Change netedit view"
 msgstr "Netedit görünümünü değiştir"
 
-#: src/netedit/GNEViewNetHelper.cpp:2260
+#: src/netedit/GNEViewNetHelper.cpp:2267
 msgid "Change netedit view."
 msgstr "Netedit görünümünü değiştirin."
 
-#: src/netedit/GNEViewNetHelper.cpp:2265
+#: src/netedit/GNEViewNetHelper.cpp:2272
 msgid "Set default view"
 msgstr "Varsayılan görünümü ayarlama"
 
-#: src/netedit/GNEViewNetHelper.cpp:2265
+#: src/netedit/GNEViewNetHelper.cpp:2272
 msgid "Set default view."
 msgstr "Varsayılan görünümü ayarlayın."
 
-#: src/netedit/GNEViewNetHelper.cpp:2270
+#: src/netedit/GNEViewNetHelper.cpp:2277
 msgid "Set JuPedSim view"
 msgstr "JuPedSim görünümünü ayarla"
 
-#: src/netedit/GNEViewNetHelper.cpp:2270
+#: src/netedit/GNEViewNetHelper.cpp:2277
 msgid "Set JuPedSim view."
 msgstr "JuPedSim görünümünü ayarlayın."
 
-#: src/netedit/GNEViewNetHelper.cpp:2284
+#: src/netedit/GNEViewNetHelper.cpp:2291
 msgid "Mode already selected"
 msgstr "Mod zaten seçili"
 
-#: src/netedit/GNEViewNetHelper.cpp:2366
+#: src/netedit/GNEViewNetHelper.cpp:2373
 msgid "Network mode already selected"
 msgstr "Ağ modu zaten seçili"
 
-#: src/netedit/GNEViewNetHelper.cpp:2371
+#: src/netedit/GNEViewNetHelper.cpp:2378
 msgid "Save modifications in TLS before change mode"
 msgstr "Mod değiştirmeden önce değişiklikleri TIS'a kaydet"
 
-#: src/netedit/GNEViewNetHelper.cpp:2416
+#: src/netedit/GNEViewNetHelper.cpp:2423
 msgid "Demand mode already selected"
 msgstr "Talep modu zaten seçili"
 
-#: src/netedit/GNEViewNetHelper.cpp:2451
+#: src/netedit/GNEViewNetHelper.cpp:2458
 msgid "Data mode already selected"
 msgstr "Veri modu zaten seçili"
 
-#: src/netedit/GNEViewNetHelper.cpp:2554 src/netedit/GNEViewNetHelper.cpp:2838
+#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
@@ -5480,59 +5480,59 @@ msgstr ""
 "Izgarayı göster ve ızgaraya hareketi kısıtla - görselleştirme seçeneklerinde"
 " ızgara boyutunu tanımla. (Ctrl+G)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
-#: src/netedit/GNEViewNetHelper.cpp:3117
+#: src/netedit/GNEViewNetHelper.cpp:2568 src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:3124
 msgid "Toggle hiding junction shape. (Ctrl+J)"
 msgstr "Kavşak şeklini gizlemeyi aç / kapat. (Ctrl+J)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2568
+#: src/netedit/GNEViewNetHelper.cpp:2575
 msgid "Draw vehicles spread in lane or depart position"
 msgstr "Yolda ya da başlangıç pozisyonunda yayılmış araçları çiz"
 
-#: src/netedit/GNEViewNetHelper.cpp:2568 src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:2575 src/netedit/GNEViewNetHelper.cpp:2859
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr "Yolda ya da başlangıç pozisyonunda yayılmış araçları çiz."
 
-#: src/netedit/GNEViewNetHelper.cpp:2575 src/netedit/GNEViewNetHelper.cpp:3136
+#: src/netedit/GNEViewNetHelper.cpp:2582 src/netedit/GNEViewNetHelper.cpp:3143
 msgid "Toggle show demand elements."
 msgstr "Talep öğelerini göstermeyi aç/kapa."
 
-#: src/netedit/GNEViewNetHelper.cpp:2582
+#: src/netedit/GNEViewNetHelper.cpp:2589
 msgid "Clicks target lanes"
 msgstr "Hedef şeritleri tıklar"
 
-#: src/netedit/GNEViewNetHelper.cpp:2582
+#: src/netedit/GNEViewNetHelper.cpp:2589
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
 "Tıklamanın kenarlar yerine incele / seçme / silme işlemlerini şeritler için "
 "yapmasını aç/kapa."
 
-#: src/netedit/GNEViewNetHelper.cpp:2588
+#: src/netedit/GNEViewNetHelper.cpp:2595
 msgid "Toggle show connections over junctions."
 msgstr "Kavşaklar üzerindeki bağlantıların gösterimini aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2595
+#: src/netedit/GNEViewNetHelper.cpp:2602
 msgid "Toggle hide connections."
 msgstr "Bağlantıları gizlemeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2602
+#: src/netedit/GNEViewNetHelper.cpp:2609
 msgid "Show additional sub-elements"
 msgstr "Ek alt elemanları göster"
 
-#: src/netedit/GNEViewNetHelper.cpp:2602
+#: src/netedit/GNEViewNetHelper.cpp:2609
 msgid "Toggle show additional sub-elements."
 msgstr "Ek alt öğeleri göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2609
+#: src/netedit/GNEViewNetHelper.cpp:2616
 msgid "Toggle show TAZ elements."
 msgstr "TAB elemanlarını göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2616
+#: src/netedit/GNEViewNetHelper.cpp:2623
 msgid "Automatic select junctions"
 msgstr "Kavşakları otomatik seç"
 
-#: src/netedit/GNEViewNetHelper.cpp:2616
+#: src/netedit/GNEViewNetHelper.cpp:2623
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
@@ -5540,11 +5540,11 @@ msgstr ""
 "Birden fazla kesim seçildiğinde bunların birleşme noktalarının otomatik "
 "olarak seçilip seçilmeyeceğini değiştir."
 
-#: src/netedit/GNEViewNetHelper.cpp:2623
+#: src/netedit/GNEViewNetHelper.cpp:2630
 msgid "Apply state to all phases"
 msgstr "Evreyi tüm fazlara uygula"
 
-#: src/netedit/GNEViewNetHelper.cpp:2623
+#: src/netedit/GNEViewNetHelper.cpp:2630
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
@@ -5552,332 +5552,332 @@ msgstr ""
 "Tıklandığında evre değişikliklerinin geçerli TIS planının tüm fazlarına "
 "uygulanıp uygulanmayacağını değiştir."
 
-#: src/netedit/GNEViewNetHelper.cpp:2630
+#: src/netedit/GNEViewNetHelper.cpp:2637
 msgid "Automatic merging junction"
 msgstr "Kavşakların otomatik birleştirilmesi"
 
-#: src/netedit/GNEViewNetHelper.cpp:2630
+#: src/netedit/GNEViewNetHelper.cpp:2637
 msgid "Toggle ask for confirmation before merging junction."
 msgstr "Kavşağı birleştirmeden önce onay istemeyi değiştir."
 
-#: src/netedit/GNEViewNetHelper.cpp:2636
+#: src/netedit/GNEViewNetHelper.cpp:2643
 msgid "Show bubbles"
 msgstr "Baloncukları göster"
 
-#: src/netedit/GNEViewNetHelper.cpp:2636
+#: src/netedit/GNEViewNetHelper.cpp:2643
 msgid "Toggle show bubbles over junctions shapes."
 msgstr "Kavşak şekilleri üzerinde baloncukları göstermeyi değiştir."
 
-#: src/netedit/GNEViewNetHelper.cpp:2643
+#: src/netedit/GNEViewNetHelper.cpp:2650
 msgid "Move elevation"
 msgstr "Yüksekliği taşı"
 
-#: src/netedit/GNEViewNetHelper.cpp:2643
+#: src/netedit/GNEViewNetHelper.cpp:2650
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr "x,y pozisyonu vermek yerine yükseltmek için fare hareketini uygula."
 
-#: src/netedit/GNEViewNetHelper.cpp:2650
+#: src/netedit/GNEViewNetHelper.cpp:2657
 msgid "Edge chain mode"
 msgstr "Kesim zinciri modu"
 
-#: src/netedit/GNEViewNetHelper.cpp:2650
+#: src/netedit/GNEViewNetHelper.cpp:2657
 msgid ""
 "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 "Tek bir tıklamayla ardışık kesimler oluştur (zinciri iptal etmek için ESC'ye"
 " basın)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2657
+#: src/netedit/GNEViewNetHelper.cpp:2664
 msgid "Edge opposite direction"
 msgstr "Kesim ters yön"
 
-#: src/netedit/GNEViewNetHelper.cpp:2657
+#: src/netedit/GNEViewNetHelper.cpp:2664
 msgid "Automatically create an edge in the opposite direction."
 msgstr "Otomatik olarak ters yönde bir kesim oluştur."
 
-#: src/netedit/GNEViewNetHelper.cpp:2859 src/netedit/GNEViewNetHelper.cpp:3130
+#: src/netedit/GNEViewNetHelper.cpp:2866 src/netedit/GNEViewNetHelper.cpp:3137
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr "Şekilleri (Çokgen ve EN'ler) göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2866
+#: src/netedit/GNEViewNetHelper.cpp:2873
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
 "Tüm seyahatleri göstermeyi aç/kapat (güncellenmiş talep gerektirir-F5)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2873
+#: src/netedit/GNEViewNetHelper.cpp:2880
 msgid "Toggle show all person plans."
 msgstr "Tüm yolcu planlarını göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2880
+#: src/netedit/GNEViewNetHelper.cpp:2887
 msgid "Toggle lock selected person."
 msgstr "Seçili kişiyi kilitlemeyi aç / kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2887
+#: src/netedit/GNEViewNetHelper.cpp:2894
 msgid "Show all containers plans"
 msgstr "Tüm konteyner planlarını göster"
 
-#: src/netedit/GNEViewNetHelper.cpp:2887
+#: src/netedit/GNEViewNetHelper.cpp:2894
 msgid "Toggle show all container plans."
 msgstr "Tüm konteyner planlarını göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2894
+#: src/netedit/GNEViewNetHelper.cpp:2901
 msgid "Toggle lock selected container."
 msgstr "Seçili konteyneri kilitlemeyi aç / kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2901
+#: src/netedit/GNEViewNetHelper.cpp:2908
 msgid "Toggle show non-inspected demand elements."
 msgstr "İncelenmeyen talep elemanlarını göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:2908
+#: src/netedit/GNEViewNetHelper.cpp:2915
 msgid "Toggle show number of overlapped routes."
 msgstr "Çakışan rotaların sayısını göstermeyi aç/kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:3124
+#: src/netedit/GNEViewNetHelper.cpp:3131
 msgid "Toggle show additionals."
 msgstr "Ekleri göstermeyi aç / kapat."
 
-#: src/netedit/GNEViewNetHelper.cpp:3142
+#: src/netedit/GNEViewNetHelper.cpp:3149
 msgid "Draw TAZREL drawing mode"
 msgstr "TABİlişkili çizim modunu çizin (TAZREL)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3142
+#: src/netedit/GNEViewNetHelper.cpp:3149
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "TABİlişkili çizim modunu çizmeyi aç/kapat (TAZREL)."
 
-#: src/netedit/GNEViewNetHelper.cpp:3148
+#: src/netedit/GNEViewNetHelper.cpp:3155
 msgid "Toggle draw TAZ fill"
 msgstr "TAZ dolgusu çizmeyi aç / kapat"
 
-#: src/netedit/GNEViewNetHelper.cpp:3154
+#: src/netedit/GNEViewNetHelper.cpp:3161
 msgid "Toggle draw TAZRel only from"
 msgstr "TABİlişkili yalnızca şuradan çizmeyi aç/kapat"
 
-#: src/netedit/GNEViewNetHelper.cpp:3160
+#: src/netedit/GNEViewNetHelper.cpp:3167
 msgid "Toggle draw TAZRel only to"
 msgstr "TABİlişkili yalnızca şuraya çizmeyi aç/kapat"
 
-#: src/netedit/GNEViewNetHelper.cpp:3641
+#: src/netedit/GNEViewNetHelper.cpp:3648
 msgid "Inspect mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3641
+#: src/netedit/GNEViewNetHelper.cpp:3648
 msgid "Mode for inspect elements and change their attributes. (I)"
 msgstr "Elemanları incelemek ve niteliklerini değiştirmek için mod. (I)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3646
+#: src/netedit/GNEViewNetHelper.cpp:3653
 msgid "Delete mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3646
+#: src/netedit/GNEViewNetHelper.cpp:3653
 msgid "Mode for deleting elements. (D)"
 msgstr "Elemanları silmek için mod. (D)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3651
+#: src/netedit/GNEViewNetHelper.cpp:3658
 msgid "Select mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3651
+#: src/netedit/GNEViewNetHelper.cpp:3658
 msgid "Mode for selecting elements. (S)"
 msgstr "Eleman seçme modu. (S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3707 src/netedit/GNEViewNetHelper.cpp:3860
+#: src/netedit/GNEViewNetHelper.cpp:3714 src/netedit/GNEViewNetHelper.cpp:3867
 msgid "Move mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3707 src/netedit/GNEViewNetHelper.cpp:3860
+#: src/netedit/GNEViewNetHelper.cpp:3714 src/netedit/GNEViewNetHelper.cpp:3867
 msgid "Mode for moving elements. (M)"
 msgstr "Elemanları taşımak için mod. (M)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3712
+#: src/netedit/GNEViewNetHelper.cpp:3719
 msgid "Edge mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3712
+#: src/netedit/GNEViewNetHelper.cpp:3719
 msgid "Mode for creating junctions and edges. (E)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3717
+#: src/netedit/GNEViewNetHelper.cpp:3724
 msgid "Traffic light mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3717
+#: src/netedit/GNEViewNetHelper.cpp:3724
 msgid "Mode for editing traffic lights over junctions. (T)"
 msgstr "Kavşaklar üzerindeki trafik ışıklarını düzenleme modu. (T)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3722
+#: src/netedit/GNEViewNetHelper.cpp:3729
 msgid "Connection mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3722
+#: src/netedit/GNEViewNetHelper.cpp:3729
 msgid "Mode for edit connections between lanes. (C)"
 msgstr "Şeritler arasındaki bağlantıları düzenlemek için mod. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3727
+#: src/netedit/GNEViewNetHelper.cpp:3734
 msgid "Prohibition mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3727
+#: src/netedit/GNEViewNetHelper.cpp:3734
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "Bağlantı yasaklarını düzenleme modu. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3732
+#: src/netedit/GNEViewNetHelper.cpp:3739
 msgid "Crossing mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3732
+#: src/netedit/GNEViewNetHelper.cpp:3739
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "Kesimler arasında geçitler oluşturmak için mod. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3737
+#: src/netedit/GNEViewNetHelper.cpp:3744
 msgid "Additional mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3737
+#: src/netedit/GNEViewNetHelper.cpp:3744
 msgid "Mode for creating additional elements. (A)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3742
+#: src/netedit/GNEViewNetHelper.cpp:3749
 msgid "Wire mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3742
+#: src/netedit/GNEViewNetHelper.cpp:3749
 msgid "Mode for editing overhead wires. (W)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3747
+#: src/netedit/GNEViewNetHelper.cpp:3754
 msgid "TAZ mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3747
+#: src/netedit/GNEViewNetHelper.cpp:3754
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "Trafik Atama Bölgeleri oluşturma modu. (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3752
+#: src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Polygon mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3752
+#: src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "Çokgen ve EN'ler oluşturmak için mod. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3757
+#: src/netedit/GNEViewNetHelper.cpp:3764
 msgid "Decal mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3757
+#: src/netedit/GNEViewNetHelper.cpp:3764
 msgid "Mode for editing decals. (U)"
 msgstr "Etiketleri düzenleme modu. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3865
+#: src/netedit/GNEViewNetHelper.cpp:3872
 #: src/netedit/frames/demand/GNERouteFrame.cpp:54
 msgid "Route mode"
 msgstr "Rota modu"
 
-#: src/netedit/GNEViewNetHelper.cpp:3865
+#: src/netedit/GNEViewNetHelper.cpp:3872
 msgid "Mode for creating routes. (R)"
 msgstr "Rota oluşturmak için mod. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3870
+#: src/netedit/GNEViewNetHelper.cpp:3877
 msgid "Route distribution mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3870
+#: src/netedit/GNEViewNetHelper.cpp:3877
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr "Rota dağıtımları oluşturma ve düzenleme modu. (W)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3875
+#: src/netedit/GNEViewNetHelper.cpp:3882
 msgid "Vehicle mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3875
+#: src/netedit/GNEViewNetHelper.cpp:3882
 msgid "Mode for creating vehicles. (V)"
 msgstr "Araçlar oluşturmak için mod. (V)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3880
+#: src/netedit/GNEViewNetHelper.cpp:3887
 msgid "Type mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3880
+#: src/netedit/GNEViewNetHelper.cpp:3887
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3885
+#: src/netedit/GNEViewNetHelper.cpp:3892
 msgid "Type distribution mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3885
+#: src/netedit/GNEViewNetHelper.cpp:3892
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr "Tür dağılımı oluşturma ve düzenleme modu. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3890
+#: src/netedit/GNEViewNetHelper.cpp:3897
 msgid "Stop mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3890
+#: src/netedit/GNEViewNetHelper.cpp:3897
 msgid "Mode for creating stops. (A)"
 msgstr "Durak oluşturmak için mod. (A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3895
+#: src/netedit/GNEViewNetHelper.cpp:3902
 msgid "Person mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3895
+#: src/netedit/GNEViewNetHelper.cpp:3902
 msgid "Mode for creating persons. (P)"
 msgstr "Yolcuları oluşturmak için mod. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3900
+#: src/netedit/GNEViewNetHelper.cpp:3907
 msgid "Person plan mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3900
+#: src/netedit/GNEViewNetHelper.cpp:3907
 msgid "Mode for creating person plans. (L)"
 msgstr "Yolcu planları oluşturma modu. (L)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3905
+#: src/netedit/GNEViewNetHelper.cpp:3912
 msgid "Container mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3905
+#: src/netedit/GNEViewNetHelper.cpp:3912
 msgid "Mode for creating containers. (C)"
 msgstr "Konteyner oluşturma modu. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3910
+#: src/netedit/GNEViewNetHelper.cpp:3917
 msgid "Container plan mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3910
+#: src/netedit/GNEViewNetHelper.cpp:3917
 msgid "Mode for creating container plans. (H)"
 msgstr "Konteyner planları oluşturmak için mod. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4012
+#: src/netedit/GNEViewNetHelper.cpp:4019
 msgid "Edge data mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4012
+#: src/netedit/GNEViewNetHelper.cpp:4019
 msgid "Mode for creating edge datas. (E)"
 msgstr "Kesim verileri oluşturmak için mod. (E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4017
+#: src/netedit/GNEViewNetHelper.cpp:4024
 msgid "Edge relation data mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4017
+#: src/netedit/GNEViewNetHelper.cpp:4024
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "Kesim ilişkili veri oluşturmak için mod. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4022
+#: src/netedit/GNEViewNetHelper.cpp:4029
 msgid "TAZ relation data mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4022
+#: src/netedit/GNEViewNetHelper.cpp:4029
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr "TAB ilişkili veri oluşturmak için mod. (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4027
+#: src/netedit/GNEViewNetHelper.cpp:4034
 msgid "MeanData mode"
 msgstr "MeanData modu"
 
-#: src/netedit/GNEViewNetHelper.cpp:4027
+#: src/netedit/GNEViewNetHelper.cpp:4034
 msgid "Mode for MeanData elements. (M)"
 msgstr "MeanData elemanları için mod. (M)"
 
@@ -6800,7 +6800,7 @@ msgstr "Geçersiz satır türü"
 
 #: src/netedit/dialogs/GNEVehicleTypeDialog.cpp:667
 #: src/netedit/frames/GNEAttributesCreatorRow.cpp:438
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:243
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:236
 #: src/netedit/frames/network/GNETAZFrame.cpp:1252
 msgid "Color Dialog"
 msgstr "Renk İletişim Kutusu"
@@ -12735,18 +12735,18 @@ msgstr ""
 msgid "Edit extended attributes"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditor.cpp:142
+#: src/netedit/frames/GNEAttributesEditor.cpp:144
 #, c-format
 msgid "Open % dialog"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditor.cpp:261
-#: src/netedit/frames/GNEAttributesEditor.cpp:286
+#: src/netedit/frames/GNEAttributesEditor.cpp:269
+#: src/netedit/frames/GNEAttributesEditor.cpp:294
 #, c-format
 msgid "change multiple % attributes"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditor.cpp:264
+#: src/netedit/frames/GNEAttributesEditor.cpp:272
 #, c-format
 msgid "change % attribute"
 msgstr ""
@@ -12771,12 +12771,12 @@ msgstr "Elemanı bir şerit yukarı taşıyın"
 msgid "Move element down one lane"
 msgstr "Elemanı bir şerit aşağı taşıyın"
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:327
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:320
 #, c-format
 msgid "ComboBox value '%' for attribute % of % isn't valid"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:377
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:370
 #, c-format
 msgid "TextField value '%' for attribute % of % isn't valid"
 msgstr ""
@@ -12909,7 +12909,7 @@ msgid "Center"
 msgstr "Merkez"
 
 #: src/netedit/frames/GNEElementTree.cpp:325
-#: src/netedit/frames/common/GNEInspectorFrame.cpp:618
+#: src/netedit/frames/common/GNEInspectorFrame.cpp:616
 msgid "Inspect"
 msgstr "İncele"
 
@@ -17714,1891 +17714,3 @@ msgstr "(Projeksiyon tanımlanmadı)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1713
 msgid "Could not convert coordinates in %."
 msgstr "Koordinatlar % cinsinden dönüştürülemedi."
-
-#~ msgid "MeanDatas saved in '"
-#~ msgstr "Ortalama Veriler (MeanDatas) dosyaya kaydedildi '"
-
-#~ msgid "Saving meanData failed!"
-#~ msgstr "MeanData kaydedilemedi!"
-
-#~ msgid "Edit allow vClasses"
-#~ msgstr "İzin verilen vClass'ları düzenleme"
-
-#~ msgid "change multiple attributes"
-#~ msgstr "birden çok özniteliği değiştir"
-
-#~ msgid "enable attribute '"
-#~ msgstr "' özniteliği etkinleştir"
-
-#~ msgid "disable attribute '"
-#~ msgstr "' özniteliği devre dışı bırak"
-
-#, c-format
-#~ msgid "Inspect % parent"
-#~ msgstr "Kaynağın %'sini inceleyin"
-
-#~ msgid "Open attributes editor"
-#~ msgstr "Öznitelik Düzenleyicisini Aç"
-
-#~ msgid "Mark as front element"
-#~ msgstr "Ön eleman olarak işaretle"
-
-#~ msgid "Set new parent"
-#~ msgstr "Yeni ebeveyn ayarla"
-
-#~ msgid ""
-#~ "- Mark as front element: Mark element as front element (Will be drawn over "
-#~ "all other elements)\n"
-#~ msgstr ""
-#~ "- Ön eleman olarak işaretle: Elemanı ön eleman olarak işaretle (Diğer tüm "
-#~ "elemanların üzerine çizilecektir)\n"
-
-#~ msgid "- Block movement: disable movement in move mode\n"
-#~ msgstr "- Hareketi engelle: hareket modunda hareketi devre dışı bırak\n"
-
-#~ msgid ""
-#~ "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
-#~ "can be moved'.\n"
-#~ msgstr ""
-#~ "- Şekli kısıtla: Şeklin köşelerinin ve kenarlarının taşınmasını devre dışı "
-#~ "bırakın. Tüm şekil hareket ettirilebilir'.\n"
-
-#~ msgid ""
-#~ "- Close shape: Add or remove the last vertex with the same position of first"
-#~ " edge'."
-#~ msgstr ""
-#~ "- Şekli kapat: İlk kesimin aynı konumuna sahip son köşeyi ekleyin veya "
-#~ "kaldırın."
-
-#~ msgid "GEO Attributes"
-#~ msgstr "GEO Öznitelikleri"
-
-#~ msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-#~ msgstr " SUMO, Dünya Jeodezik Sistemi 84'ü (WGS84/UTM) kullanır.\n"
-
-#~ msgid ""
-#~ " For a GEO-referenced network, geo coordinates are represented as pairs of "
-#~ "Longitude and Latitude\n"
-#~ msgstr ""
-#~ " GEO referanslı bir ağ için, coğrafi koordinatlar Boylam ve Enlem çiftleri "
-#~ "olarak temsil edilir.\n"
-
-#~ msgid " in decimal degrees without extra symbols. (N,W..)\n"
-#~ msgstr " ekstra semboller olmadan ondalık derece cinsinden. (N,W..)\n"
-
-#~ msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
-#~ msgstr " - Boylam: Dünya yüzeyindeki bir noktanın doğu-batı konumu.\n"
-
-#~ msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
-#~ msgstr " - Enlem: Dünya yüzeyindeki bir noktanın kuzey-güney konumu.\n"
-
-#~ msgid ""
-#~ " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
-#~ msgstr ""
-#~ " - CheckBox 'geo', GEO koordinatlarında kaydetme konumunu etkinleştirir veya"
-#~ " devre dışı bırakır\n"
-
-#~ msgid "Transport: edge->edge"
-#~ msgstr "Taşıma: kesim->kesim"
-
-#~ msgid "Transport: edge->containerStop"
-#~ msgstr "Taşıma:kesim ->konteynerDurdur"
-
-#~ msgid "Transport: containerStop->edge"
-#~ msgstr "Taşıma: konteynerDurdur->kesim"
-
-#~ msgid "Transport: containerStop->containerStop"
-#~ msgstr "Taşıma: konteynerDurdur->konteynerDurdur"
-
-#~ msgid "Tranship: edge->edge"
-#~ msgstr "Aktarma: kesim->kesim"
-
-#~ msgid "Tranship: edge->containerStop"
-#~ msgstr "Aktarma: kesim->konteynerDurdur"
-
-#~ msgid "Tranship: containerStop->edge"
-#~ msgstr "Aktarma: konteynerDurdur->kesim"
-
-#~ msgid "Tranship: containerStop->containerStop"
-#~ msgstr "Aktarma: konteynerDurdur->konteynerDurdur"
-
-#~ msgid "PersonTrip: edge->edge"
-#~ msgstr "KişiGezisi: kesim->kesim"
-
-#~ msgid "PersonTrip: edge->taz"
-#~ msgstr "KişiGezisi: kesim->taz"
-
-#~ msgid "PersonTrip: edge->junction"
-#~ msgstr "KişiYolculuk: kesim->bağlantı"
-
-#~ msgid "PersonTrip: edge->busStop"
-#~ msgstr "KişiGezisi: kesim->otobusDurağı"
-
-#~ msgid "PersonTrip: edge->trainStop"
-#~ msgstr "KişiGezisi: kesim->trenDurağı"
-
-#~ msgid "PersonTrip: taz->taz"
-#~ msgstr "KişiGezisi: taz->taz"
-
-#~ msgid "PersonTrip: taz->junction"
-#~ msgstr "Kişiyolculuk: taz->bağlantı"
-
-#~ msgid "PersonTrip: taz->busStop"
-#~ msgstr "KişiGezisi: taz->otobüsDurağı"
-
-#~ msgid "PersonTrip: taz->trainStop"
-#~ msgstr "KişiGezisi: taz->trenDurağı"
-
-#~ msgid "PersonTrip: junction->edge"
-#~ msgstr "KişiGezisi: kavşak->kesim"
-
-#~ msgid "PersonTrip: junction->taz"
-#~ msgstr "KişiGezisi: kavşak->taz"
-
-#~ msgid "PersonTrip: junction->junction"
-#~ msgstr "KişiGezisi: kavşak->kavşak"
-
-#~ msgid "PersonTrip: junction->busStop"
-#~ msgstr "KişiGezisi: kavşak->otobüsDurağı"
-
-#~ msgid "PersonTrip: junction->trainStop"
-#~ msgstr "KişiGezisi: kavşak->trenDurağı"
-
-#~ msgid "PersonTrip: busStop->edge"
-#~ msgstr "KişiGezisi: otobüs Durağı->kesim"
-
-#~ msgid "PersonTrip: busStop->taz"
-#~ msgstr "KişiGezisi: otobüsDurak->taz"
-
-#~ msgid "PersonTrip: busStop->busStop"
-#~ msgstr "KişiGezisi: otobüsDurağı->otobüsDurağı"
-
-#~ msgid "PersonTrip: busStop->trainStop"
-#~ msgstr "KişiGezisi: otobüsDurak->trenDurak"
-
-#~ msgid "PersonTrip: trainStop->edge"
-#~ msgstr "KişiGezisi: trenDurak->kesim"
-
-#~ msgid "PersonTrip: trainStop->taz"
-#~ msgstr "KişiGezisi: trenDurak->taz"
-
-#~ msgid "PersonTrip: trainStop->busStop"
-#~ msgstr "KişiGezisi: trenDurak->otobüsDurak"
-
-#~ msgid "PersonTrip: trainStop->trainStop"
-#~ msgstr "KişiGezi: trenDurağı->trenDurağı"
-
-#~ msgid "Walk: edge->edge"
-#~ msgstr "Yürüme: kenar->kenar"
-
-#~ msgid "Walk: edge->taz"
-#~ msgstr "Yürüyüş: kesim->taz"
-
-#~ msgid "Walk: edge->junction"
-#~ msgstr "Yürüyüş: kesim->kavşak"
-
-#~ msgid "Walk: edge->busStop"
-#~ msgstr "Yürüme: kesim->otobüsDurağı"
-
-#~ msgid "Walk: edge->trainStop"
-#~ msgstr "Yürüme: kesim->trenDurdur"
-
-#~ msgid "Walk: taz->taz"
-#~ msgstr "Yürüme: taz->taz"
-
-#~ msgid "Walk: taz->junction"
-#~ msgstr "Yürüyüş: taz->kavşak"
-
-#~ msgid "Walk: taz->busStop"
-#~ msgstr "Yürü: taz->otobüsDurağı"
-
-#~ msgid "Walk: taz->trainStop"
-#~ msgstr "Yürüme: taz->trenDurdur"
-
-#~ msgid "Walk: junction->edge"
-#~ msgstr "Yürüme: kavşak->kesim"
-
-#~ msgid "Walk: junction->taz"
-#~ msgstr "Yürüme: kavşak->taz"
-
-#~ msgid "Walk: junction->junction"
-#~ msgstr "Yürüme: kavşak->kavşak"
-
-#~ msgid "Walk: junction->busStop"
-#~ msgstr "Yürüme: kavşak->otobüs durağı"
-
-#~ msgid "Walk: junction->trainStop"
-#~ msgstr "Yürüme: kavşak->tren durağı"
-
-#~ msgid "Walk: busStop->edge"
-#~ msgstr "Yürüme: otobüs durağı->kenar"
-
-#~ msgid "Walk: busStop->taz"
-#~ msgstr "Yürüme: otobüs durağı->taz"
-
-#~ msgid "Walk: busStop->busStop"
-#~ msgstr "Yürüme: durak otobüs->durak otobüs"
-
-#~ msgid "Walk: busStop->trainStop"
-#~ msgstr "Yürüme: otobüs durağı->tren durağı"
-
-#~ msgid "Walk: trainStop->edge"
-#~ msgstr "Yürümek: tren Durağı->kesim"
-
-#~ msgid "Walk: trainStop->taz"
-#~ msgstr "Yürüme: tren durağı->taz"
-
-#~ msgid "Walk: trainStop->busStop"
-#~ msgstr "Yürüme: tren durağı->otobüs durağı"
-
-#~ msgid "Walk: trainStop->trainStop"
-#~ msgstr "Yürüme: trenDurak->trenDurak"
-
-#~ msgid "Ride: edge->edge"
-#~ msgstr "Sürüş: kesim->kesim"
-
-#~ msgid "Ride: edge->busStop"
-#~ msgstr "Sürüş: kesim->otobüsDurağı"
-
-#~ msgid "Ride: edge->trainStop"
-#~ msgstr "Sürüş: Kesim->trenDurdur"
-
-#~ msgid "Ride: busStop->edge"
-#~ msgstr "Sürüş: otobüs durağı->kesim"
-
-#~ msgid "Ride: busStop->busStop"
-#~ msgstr "Sürüş: otobüs Durağı->otobüs Durağı"
-
-#~ msgid "Ride: busStop->trainStop"
-#~ msgstr "Sürüş: otobüs durağı->tren durağı"
-
-#~ msgid "Ride: trainStop->edge"
-#~ msgstr "Sürüş: trenDur->kesim"
-
-#~ msgid "Stop: edge"
-#~ msgstr "Dur: kesim"
-
-#~ msgid "Stop: containerStop"
-#~ msgstr "Durdur: konteynerDurdur"
-
-#~ msgid "PersonTrip: taz->edge"
-#~ msgstr "KişiGezisi: taz->kesim"
-
-#~ msgid "walk: edges"
-#~ msgstr "yürüyüş: kesimler"
-
-#~ msgid "walk: route"
-#~ msgstr "yürüyüş: rota"
-
-#~ msgid "Walk: taz->edge"
-#~ msgstr "Yürüme: taz->kesim"
-
-#~ msgid "Ride: train->busStop"
-#~ msgstr "Sürüş: tren->otobüs Durağı"
-
-#~ msgid "Ride: train->trainStop"
-#~ msgstr "Sürüş: tren->trenDurak"
-
-#~ msgid "Stop: busStop"
-#~ msgstr "Durak: otobüs durağı"
-
-#~ msgid "Stop: trainStop"
-#~ msgstr "Durak: trenDurağı"
-
-#~ msgid "speed of the container for this tranship in m/s"
-#~ msgstr "Bu aktarma için konteynerin m/s cinsinden hızı"
-
-#~ msgid "Invert edges"
-#~ msgstr "Kesimleri ters çevir"
-
-#~ msgid " Could not decode breakpoint '%'"
-#~ msgstr " Kesme noktası '%' kodu çözülemedi"
-
-#~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
-#~ msgstr "GUISelectedStorage::select (id=%) içinde bilinmeyen nesne."
-
-#~ msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-#~ msgstr "GUISelectedStorage::deselect (id=%) içinde bilinmeyen nesne."
-
-#~ msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-#~ msgstr "GUISelectedStorage::toggleSelection (id=%) içinde bilinmeyen nesne."
-
-#~ msgid "Only one edge must be inspected"
-#~ msgstr "Sadece bir kesim incelenmelidir"
-
-#~ msgid "hide below"
-#~ msgstr "aşağıya sakla"
-
-#~ msgid "hide above"
-#~ msgstr "yukarıya sakla"
-
-#~ msgid "hide below threshold"
-#~ msgstr "eşiğin altında gizle"
-
-#~ msgid "simplify network"
-#~ msgstr "ağı basitleştirin"
-
-#~ msgid "Do you wish to merge junctions '"
-#~ msgstr "Kavşakları birleştirmek istiyor musunuz '"
-
-#~ msgid "' and '"
-#~ msgstr "' ve '"
-
-#~ msgid "' will be eliminated and its roads added to '"
-#~ msgstr "' ortadan kaldırılacak ve yolları ' eklenecek"
-
-#~ msgid "Only one lane per edge will be restricted for "
-#~ msgstr "Kesim başına yalnızca bir şerit dosyadakiler için kısıtlanacaktır "
-
-#~ msgid "Set vclass for "
-#~ msgstr "Şunlar için vclass ayarla "
-
-#~ msgid " to selected lanes"
-#~ msgstr " seçilen şeritlere"
-
-#~ msgid " lanes will be restricted for "
-#~ msgstr " şeritler şunun için kısıtlanacak "
-
-#~ msgid ". Continue?"
-#~ msgstr ". Devam et?"
-
-#~ msgid "Add vclass for "
-#~ msgstr "Şunun için araç sınıfı ekle "
-
-#~ msgid " restrictions for "
-#~ msgstr " Şunun için kısıtlamalar "
-
-#~ msgid " will be added. Continue?"
-#~ msgstr " Eklenecektir. Devam et?"
-
-#~ msgid " from selected lanes"
-#~ msgstr " seçilen şeritlerden"
-
-#~ msgid "Selected lanes and edges haven't a restriction for "
-#~ msgstr "Seçilen şerit ve kenarlarda şunun için bir kısıtlama yok "
-
-#~ msgid " in selected lanes"
-#~ msgstr " seçilen şeritlerde"
-
-#~ msgid " will be removed. Continue?"
-#~ msgstr " kaldırılacaktır. Devam et?"
-
-#~ msgid "Opening HelpAttributes dialog for tag '"
-#~ msgstr "Etiket için HelpAttributes iletişim kutusu açılıyor '"
-
-#~ msgid "' showing "
-#~ msgstr "' gösteriliyor "
-
-#~ msgid " attributes"
-#~ msgstr " Öznitelikler"
-
-#~ msgid "change "
-#~ msgstr "değiştir "
-
-#~ msgid " attribute"
-#~ msgstr " öznitelik"
-
-#~ msgid "Value '"
-#~ msgstr "Değer '"
-
-#~ msgid "' for attribute "
-#~ msgstr "' öznitelik için "
-
-#~ msgid " of "
-#~ msgstr " . "
-
-#~ msgid " isn't valid"
-#~ msgstr " geçerli değil"
-
-#~ msgid "Traffic light"
-#~ msgstr "Trafik Işıkları"
-
-#~ msgid "Prohibition"
-#~ msgstr "Yasak"
-
-#~ msgid "Wire"
-#~ msgstr "Enerji Hattı"
-
-#~ msgid "Create Shapes."
-#~ msgstr "Şekiller Oluşturun."
-
-#~ msgid "EdgeData"
-#~ msgstr "KesimVerisi"
-
-#~ msgid "PersonTrips"
-#~ msgstr "KişiGezileri"
-
-#~ msgid "Transports"
-#~ msgstr "Taşımacılık"
-
-#~ msgid "PoI"
-#~ msgstr "Pol"
-
-#~ msgid "Set mode for edit network elements. (F2)"
-#~ msgstr "Ağ elemanlarını düzenlemek için mod ayarla. (F2)"
-
-#~ msgid "Set mode for edit traffic demand. (F3)"
-#~ msgstr "Trafik talebini düzenlemek için mod ayarla. (F3)"
-
-#~ msgid "Set mode for edit data demand. (F4)"
-#~ msgstr "Veri talebini düzenlemek için mod ayarla. (F4)"
-
-#~ msgid "Set inspect mode"
-#~ msgstr "İnceleme modunu ayarla"
-
-#~ msgid "Set delete mode"
-#~ msgstr "Silme modunu ayarla"
-
-#~ msgid "Set select mode"
-#~ msgstr "Seçim modunu ayarla"
-
-#~ msgid "Set move mode"
-#~ msgstr "Taşıma modunu ayarla"
-
-#~ msgid "Set create edge mode"
-#~ msgstr "Kesim oluşturma modunu ayarla"
-
-#~ msgid "Mode for creating junction and edges. (E)"
-#~ msgstr "Kavşak ve kesim oluşturmak için mod. (E)"
-
-#~ msgid "Set traffic light mode"
-#~ msgstr "Trafik ışığı modunu ayarla"
-
-#~ msgid "Set connection mode"
-#~ msgstr "Bağlantı modunu ayarla"
-
-#~ msgid "Set prohibition mode"
-#~ msgstr "Yasaklama modunu ayarla"
-
-#~ msgid "Set crossing mode"
-#~ msgstr "Geçit modunu ayarla"
-
-#~ msgid "Set additional mode"
-#~ msgstr "Ek modu ayarla"
-
-#~ msgid "Mode for adding additional elements. (A)"
-#~ msgstr "Ek elamanlar eklemek için mod. (A)"
-
-#~ msgid "Set wire mode"
-#~ msgstr "Kablo modunu ayarla"
-
-#~ msgid "Mode for editing wires. (W)"
-#~ msgstr "Kabloları düzenlemek için mod. (W)"
-
-#~ msgid "Set TAZ mode"
-#~ msgstr "TAB modunu ayarla"
-
-#~ msgid "Set polygon mode"
-#~ msgstr "Çokgen modunu ayarla"
-
-#~ msgid "Set decal mode"
-#~ msgstr "Etiket modunu ayarlama"
-
-#~ msgid "Create route mode"
-#~ msgstr "Rota oluşturma modu"
-
-#~ msgid "Set route distribution mode"
-#~ msgstr "Rota dağıtım modunu ayarlama"
-
-#~ msgid "Create vehicle mode"
-#~ msgstr "Araç oluşturma modu"
-
-#~ msgid "Create type mode"
-#~ msgstr "Tip oluşturma modu"
-
-#~ msgid "Mode for creating types (vehicles, person and containers). (T)"
-#~ msgstr "Tip oluşturmak için mod (araç, yolcu ve konteynerler). (T)"
-
-#~ msgid "Create type distribution mode"
-#~ msgstr "Tür dağıtım modu oluşturma"
-
-#~ msgid "Create stop mode"
-#~ msgstr "Durak oluşturma modu"
-
-#~ msgid "Create person mode"
-#~ msgstr "Yaya oluşturma modu"
-
-#~ msgid "Create person plan mode"
-#~ msgstr "Yolcu planı oluşturma modu"
-
-#~ msgid "Create container mode"
-#~ msgstr "Konteyner modu oluştur"
-
-#~ msgid "Create container plan mode"
-#~ msgstr "Konteyner planı oluşturma modu"
-
-#~ msgid "Create edge data mode"
-#~ msgstr "Kesim veri oluşturma modu"
-
-#~ msgid "Create edge relation data mode"
-#~ msgstr "Kesim ilişkili veri oluşturma modu"
-
-#~ msgid "Create TAZ relation data mode"
-#~ msgstr "TAB ilişkili veri oluşturma modu"
-
-#~ msgid "Invalid meanData pointer"
-#~ msgstr "Geçersiz meanData işaretçisi"
-
-#~ msgid "Force draw for position selection"
-#~ msgstr "Pozisyon seçimi için çizimi zorla"
-
-#~ msgid "VariableSpeedSign Symbol"
-#~ msgstr "DeğişkenHızİşareti Sembolü"
-
-#~ msgid "Rerouter Symbol"
-#~ msgstr "Yeniden Yönlendirici Sembol"
-
-#~ msgid ""
-#~ "element must be at least networkElement, additional, TAZ, demandElement, "
-#~ "dataElement or meanData"
-#~ msgstr ""
-#~ "Eleman en az networkElement, additional, TAZ, demandElement, dataElement "
-#~ "veya meanData olmalıdır"
-
-#~ msgid ""
-#~ "element can be only a networkElement, additional, demandElement, dataElement"
-#~ " or meanData at the same time"
-#~ msgstr ""
-#~ "eleman aynı anda sadece bir networkElement, additional, demandElement, "
-#~ "dataElement veya meanData olabilir"
-
-#~ msgid "element can be only a shape, TAZ or wire element at the same time"
-#~ msgstr "eleman aynı anda sadece bir şekil, TAB veya kablo elemanı olabilir"
-
-#~ msgid "Open dialog for editing allowed vClasses"
-#~ msgstr ""
-#~ "İzin verilen araç sınıflarını (vClasses) düzenlemek için iletişim kutusunu "
-#~ "aç"
-
-#~ msgid "VType with vClass == 'ignoring' is oriented to containers"
-#~ msgstr ""
-#~ "vClass == 'ignoring' içeren araç tipi (VType) konteynerlere yöneliktir"
-
-#~ msgid "VType with vClass != 'pedestrian' is not oriented to containers"
-#~ msgstr "vClass != 'yaya' ile VTürü konteynerlere yönelik değildir"
-
-#~ msgid "VType with vClass != 'pedestrian' is not oriented to persons"
-#~ msgstr ""
-#~ "vClass != 'pedestrian' içiren araç tipi (VType) yolculara yönelik değildir"
-
-#~ msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-#~ msgstr "vClass == 'pedestrian' araç türü (VType) yayalara yöneliktir"
-
-#~ msgid ""
-#~ "Lane width for all lanes of this lane in meters (used for visualization)"
-#~ msgstr ""
-#~ "Bu şeridin tüm şeritleri için metre cinsinden şerit genişliği "
-#~ "(görselleştirme için kullanılır)"
-
-#~ msgid "StopContainer Edge"
-#~ msgstr "KonteynerDurdurma Kesimi"
-
-#~ msgid "The ID of the edge the stop shall be located at"
-#~ msgstr "Durağın yerleştirileceği kesimin ID'si"
-
-#~ msgid "Activity displayed for stopped container in GUI and output files "
-#~ msgstr ""
-#~ "GUI ve çıktı dosyalarında durdurulan konteyner için görüntülenen etkinlik "
-
-#~ msgid "StopContainerContainerStop"
-#~ msgstr "DurKonteynerKonteynerDurdur"
-
-#~ msgid "id of the edges to walk"
-#~ msgstr "yürünecek kesimlerin kimliği"
-
-#~ msgid "The id of the route to walk"
-#~ msgstr "Yürünecek rotanın kimliği"
-
-#~ msgid "StopPersonEdge"
-#~ msgstr "DurYayaKesimi"
-
-#~ msgid "StopPersonBusStop"
-#~ msgstr "DurYayaOtobüsDurağı"
-
-#~ msgid "StopPersonTrainStop"
-#~ msgstr "DurYayaTrenDurdur"
-
-#~ msgid "TransportEdge"
-#~ msgstr "UlaşımKesimi"
-
-#~ msgid "The ID of the edge the transport starts at"
-#~ msgstr "Aktarımın başladığı kesimin ID'si"
-
-#~ msgid "The ID of the edge the transport ends at"
-#~ msgstr "Aktarımın sona erdiği kesimin ID'si"
-
-#~ msgid "TransportContainerStop"
-#~ msgstr "TaşımaKonteynerDur"
-
-#~ msgid "ID of the destination container stop"
-#~ msgstr "Hedef konteyner durağının ID'si"
-
-#~ msgid "TranshipEdge"
-#~ msgstr "LimanAktarmaKesimi"
-
-#~ msgid "The ID of the edge the tranship starts at"
-#~ msgstr "Aktarımın başladığı liman kesiminin ID'si"
-
-#~ msgid "The ID of the edge the tranship ends at"
-#~ msgstr "Aktarmanın bittiği liman kesiminin ID'si"
-
-#~ msgid "TranshipContainerStop"
-#~ msgstr "LimanKonteynerDur"
-
-#~ msgid "The name of the edge the tranship starts at"
-#~ msgstr "Aktarmanın başladığı kesimin adı"
-
-#~ msgid "Id of the destination container stop"
-#~ msgstr "Hedef konteyner durağının kimliği"
-
-#~ msgid "TranshipEdges"
-#~ msgstr "LimanKesimleri"
-
-#~ msgid "VaribleSpeedSign Symbol"
-#~ msgstr "DeğişkenHızİşareti Sembolü"
-
-#~ msgid "A ride from busStop to edge needs a busStop and an edge"
-#~ msgstr ""
-#~ "Otobüs durağından (busStop) kesime yolculuk için bir Otobüs durağı (busStop)"
-#~ " ve bir kesim gerekir"
-
-#~ msgid "A transport from busStop to busStop needs two busStops"
-#~ msgstr ""
-#~ "Otobüs durağından (busStop) otobüs durağına (busStop) ulaşım için iki otobüs"
-#~ " durağı (busStop) gerekir"
-
-#~ msgid "A tranship from busStop to busStop needs two busStops"
-#~ msgstr ""
-#~ "Otobüs durağından (busStop) otobüs durağına aktarma için iki otobüs durağı "
-#~ "(busStop) gerekir"
-
-#~ msgid "A tranship with edges attribute needs a list of edges"
-#~ msgstr ""
-#~ "Kesimler özelliğine sahip bir aktarma, kesimlerin bir listesine ihtiyaç "
-#~ "duyar"
-
-#~ msgid "A stop has to be placed over an edge"
-#~ msgstr "Bir durak kesimin üzerine yerleştirilmelidir"
-
-#~ msgid "A stop has to be placed over a busStop"
-#~ msgstr "Bir durak, bir otobüs durağı (busStop) üzerine yerleştirilmelidir"
-
-#~ msgid "VType with vClass != 'ignoring' is not oriented to containers"
-#~ msgstr ""
-#~ "vClass != 'ignoring' içeren araç tipi (VType) konteynerlere yönelik değildir"
-
-#~ msgid "walk: edge->edge"
-#~ msgstr "yürüyüş: kesim->kesim"
-
-#~ msgid "walk: edge->taz"
-#~ msgstr "yürüyüş: kesim->taz"
-
-#~ msgid "walk: edge->busStop"
-#~ msgstr "yürüyüş: kesim->otobüsDurağı"
-
-#~ msgid "walk: edge->trainStop"
-#~ msgstr "yürüyüş: kesim->trenDurdur"
-
-#~ msgid "walk: taz->edge"
-#~ msgstr "yürüyüş: taz->kesim"
-
-#~ msgid "walk: taz->taz"
-#~ msgstr "yürüyüş: taz->taz"
-
-#~ msgid "walk: taz->busStop"
-#~ msgstr "yürüyüş: taz->otobüsDurağı"
-
-#~ msgid "walk: taz->trainStop"
-#~ msgstr "yürüyüş: taz->trenDurdur"
-
-#~ msgid "walk: junction->junction"
-#~ msgstr "yürüyüş: kavşak->kavşak"
-
-#~ msgid "ride: edge->edge"
-#~ msgstr "sürüş: kesim->kesim"
-
-#~ msgid "ride: edge->busStop"
-#~ msgstr "sürüş: kesim->otobüsDurdur"
-
-#~ msgid "ride: edge->trainStop"
-#~ msgstr "sürüş: kesim->trenDurdur"
-
-#~ msgid "BusStop start ID"
-#~ msgstr "Otobüs Durağı başlangıç ID'si"
-
-#~ msgid "A stop has to be placed over a trainStop"
-#~ msgstr "Bir durak bir tren istasyonu üzerine yerleştirilmelidir"
-
-#~ msgid "first select an edge"
-#~ msgstr "Önce Bir Kesim Seçin"
-
-#~ msgid "WaitingAreas"
-#~ msgstr "Bekleme Alanları"
-
-#~ msgid "Prefix for jps waiting area naming"
-#~ msgstr "JPS bekleme alanı isimlendirmesi için önek"
-
-#~ msgid "Prefix for jps source naming"
-#~ msgstr "JPS kaynak adlandırması için önek"
-
-#~ msgid "Prefix for jps sink naming"
-#~ msgstr "JPS çukur isimlendirmesi için önek"
-
-#~ msgid "Prefix for jps waypoints naming"
-#~ msgstr "JPS yol noktaları adlandırması için önek"
-
-#~ msgid "JuPedSim WaitingAera"
-#~ msgstr "JuPedSim BeklemeAlanı"
-
-#~ msgid "The id of the waiting area"
-#~ msgstr "Bekleme alanı ID'si"
-
-#~ msgid "The shape of the waiting area"
-#~ msgstr "Bekleme alanının şekli"
-
-#~ msgid "Waiting area's name"
-#~ msgstr "Bekleme alanının adı"
-
-#~ msgid "add jps waiting area '"
-#~ msgstr "jps bekleme alanı ekle '"
-
-#~ msgid "Sources"
-#~ msgstr "Kaynaklar"
-
-#~ msgid "Sinks"
-#~ msgstr "Çukurlar"
-
-#~ msgid "Waypoints"
-#~ msgstr "Yol Noktaları"
-
-#~ msgid "JuPedSim Source"
-#~ msgstr "JuPedSim Kaynağı"
-
-#~ msgid "The id of the source"
-#~ msgstr "Kaynak ID'si"
-
-#~ msgid "The shape of the source"
-#~ msgstr "Kaynak şekli"
-
-#~ msgid "Source's name"
-#~ msgstr "Kaynağın adı"
-
-#~ msgid "JuPedSim Waypoint"
-#~ msgstr "JuPedSim Geçiş Noktası"
-
-#~ msgid "The id of the waypoint"
-#~ msgstr "Geçiş noktasının ID'si"
-
-#~ msgid "Waypoint's name"
-#~ msgstr "Geçiş noktasını adı"
-
-#~ msgid "The ID of the edge the person trip starts at"
-#~ msgstr "Kişi yolculuğunun başladığı kesimin ID'si"
-
-#~ msgid "The ID of the edge the person trip ends at"
-#~ msgstr "Kişi seyahatinin bittiği kesimin ID'si"
-
-#~ msgid "PersonTripBusStop"
-#~ msgstr "KişiGezisiOtobüsDurağı"
-
-#~ msgid "Id of the destination busStop"
-#~ msgstr "Hedef otobüs durağının kimliği (busStop)"
-
-#~ msgid "PersontripTrainStop"
-#~ msgstr "KişigezisiTrenİstasyonu"
-
-#~ msgid "Id of the destination trainStop"
-#~ msgstr "Varış yerindeki Tren İstasyonun ID'si"
-
-#~ msgid "PersonTripJunctions"
-#~ msgstr "KişiGezisiBağlantıNoktaları"
-
-#~ msgid "The name of the junction the person trip starts at"
-#~ msgstr "Yolcu seyahatinin başladığı kavşağın adı"
-
-#~ msgid "The name of the junction the person trip ends at"
-#~ msgstr "Yolcu seyahatinin sona erdiği kavşağın adı"
-
-#~ msgid "WalkEdge"
-#~ msgstr "YürümeKesimi"
-
-#~ msgid "The ID of the edge the walk starts at"
-#~ msgstr "Yürümenin başladığı kesimin ID'si"
-
-#~ msgid "The ID of the edge the walk ends at"
-#~ msgstr "Yürüyüşün sona erdiği kesimin ID'si"
-
-#~ msgid "WalkBusStop"
-#~ msgstr "YürümeOtobüsDurağı"
-
-#~ msgid "Id of the destination bus stop"
-#~ msgstr "Hedef otobüs durağının kimliği"
-
-#~ msgid "WalkTrainStop"
-#~ msgstr "YürümeTrenİstasyonu"
-
-#~ msgid "ID of the destination train stop"
-#~ msgstr "Varış tren durağının ID'si"
-
-#~ msgid "WalkEdges"
-#~ msgstr "YürümeKesimleri"
-
-#~ msgid "WalkRoute"
-#~ msgstr "YürümeRotası"
-
-#~ msgid "WalkJunctions"
-#~ msgstr "YürümeBağlantıNoktaları"
-
-#~ msgid "The name of the junction the walk starts at"
-#~ msgstr "Yürüyüşün başladığı kavşağın adı"
-
-#~ msgid "The name of the junction the walk ends at"
-#~ msgstr "Yürüyüşün bittiği kavşağın adı"
-
-#~ msgid "RideEdge"
-#~ msgstr "SürüşKesimi"
-
-#~ msgid "The ID of the edge the ride starts at"
-#~ msgstr "Sürüşün başladığı kesimin ID'si"
-
-#~ msgid "The ID of the edge the ride ends at"
-#~ msgstr "Sürüşün bittiği kesimin ID'si"
-
-#~ msgid "ID of the destination bus stop"
-#~ msgstr "Varış otobüs durağının ID'si"
-
-#~ msgid "add jps source '"
-#~ msgstr "jps kaynağı ekle '"
-
-#~ msgid "add jps waypoint '"
-#~ msgstr "jps yol noktası ekle '"
-
-#~ msgid "This personTrip use junctions"
-#~ msgstr "Bu Yolcu Seyahati (personTrip) kavşakları kullanır"
-
-#~ msgid "A person trip from edge to edge needs two edges edge"
-#~ msgstr "Kesimden kesime yolculuk yapan bir kişi iki kesime ihtiyaç duyar"
-
-#~ msgid "A person trip from edge to busStop needs one edge and one busStop"
-#~ msgstr ""
-#~ "Kesimden otobüs durağına giden bir kişi bir kesime ve bir otobüs durağına "
-#~ "ihtiyaç duyar"
-
-#~ msgid "A person trip from edge to trainStop needs one edge and one trainStop"
-#~ msgstr ""
-#~ "Uçtan tren istasyonuna bir kişi seyahati için bir uç ve bir tren istasyonu "
-#~ "gerekir"
-
-#~ msgid "A person trip from junction to junction needs two junctions junction"
-#~ msgstr "Kavşaktan kavşağa seyahat eden bir kişi iki kavşağa ihtiyaç duyar"
-
-#~ msgid "A walk to edge needs a busStop and an edge"
-#~ msgstr "Kesime yürümek için bir otobüs durağı ve bir kesim gerekir"
-
-#~ msgid "A walk to busStop needs two busStops"
-#~ msgstr "Otobüs durağına yürümek için iki otobüs durağı gerekir"
-
-#~ msgid "A walk to trainStop needs two trainStops"
-#~ msgstr "Tren istasyonuna yürüyüş için iki tren istasyonu gerekir"
-
-#~ msgid "A walk with edges needs a list of edges"
-#~ msgstr "Kesimleri olan bir yürüyüşün bir kesim listesine ihtiyacı vardır"
-
-#~ msgid "A route walk needs a route"
-#~ msgstr "Bir rota yürüyüşünün bir rotaya ihtiyacı vardır"
-
-#~ msgid "A ride from busStop to junction needs a busStop and an junction"
-#~ msgstr ""
-#~ "Otobüs durağından (busStop) kavşağa bir yolculuk için bir otobüs durağı "
-#~ "(busStop) ve bir kavşak gerekir"
-
-#~ msgid "A ride from edge to edge needs two edges edge"
-#~ msgstr "Kesimden kesime bir yolculuk için iki kesime ihtiyaç vardır"
-
-#~ msgid "A ride from edge to busStop needs one edge and one busStop"
-#~ msgstr ""
-#~ "Kesimden otobüs durağına (busStop) bir yolculuk için bir kesim ve bir otobüs"
-#~ " durağı (busStop) gerekir"
-
-#~ msgid "A ride from edge to trainStop needs one edge and one trainStop"
-#~ msgstr ""
-#~ "Kesimden tren istasyonuna bir sürüş için bir kesim ve bir tren istasyonu "
-#~ "gerekir"
-
-#~ msgid "This walk use junctions"
-#~ msgstr "Bu yürüyüş kavşakları kullanır"
-
-#~ msgid "reference left"
-#~ msgstr "sol referans"
-
-#~ msgid "reference right"
-#~ msgstr "sağ referans"
-
-#~ msgid "reference center"
-#~ msgstr "referans merkezi̇"
-
-#~ msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
-#~ msgstr "  - Sol Referans, startPos = 70 ve endPos = 100 ile oluşturacaktır."
-
-#~ msgid ""
-#~ "  - Reference Right will create it with startPos = 100 and endPos = 130."
-#~ msgstr "  - Sağ Referans, startPos = 100 ve endPos = 130 ile oluşturacaktır."
-
-#~ msgid ""
-#~ "  - Reference Center will create it with startPos = 85 and endPos = 115."
-#~ msgstr ""
-#~ "  - Referans Merkezi startPos = 85 ve endPos = 115 ile oluşturacaktır."
-
-#~ msgid "Select either default edgeType or a custom edgeType or template"
-#~ msgstr "Varsayılan Kesim Tipi veya özel bir Kesim Tipi ya da şablon seçin"
-
-#~ msgid "&New Network"
-#~ msgstr "Yeni Ağ"
-
-#~ msgid "&Open Network..."
-#~ msgstr "Ağ Aç..."
-
-#~ msgid "Open Netconvert Configura&tion..."
-#~ msgstr "Netconvert Yapılandırması Aç..."
-
-#~ msgid "Import &Foreign Network..."
-#~ msgstr "Harici Ağ Al..."
-
-#~ msgid "&Save Network"
-#~ msgstr "Ağ Kaydet"
-
-#~ msgid "Save Net&work As..."
-#~ msgstr "Ağı Farklı Kaydet..."
-
-#~ msgid "Save Plain XM&L..."
-#~ msgstr "Yalın XML kaydet..."
-
-#~ msgid "Save &Joined Junctions..."
-#~ msgstr "Birleştirilmiş Kavşakları Kaydet..."
-
-#~ msgid "Supermode network."
-#~ msgstr "Supermode ağı."
-
-#~ msgid "Supermode demand."
-#~ msgstr "Supermode talep."
-
-#~ msgid "Supermode data."
-#~ msgstr "Supermode veri."
-
-#~ msgid " (No projection defined)"
-#~ msgstr " (Projeksiyon tanımlanmadı)"
-
-#~ msgid "button"
-#~ msgstr "Buton"
-
-#~ msgid "select item..."
-#~ msgstr "öğe seç..."
-
-#~ msgid "-Select an item in the list or"
-#~ msgstr "-Listeden bir öğe seçin veya"
-
-#~ msgid "click over an element in view"
-#~ msgstr "görünümdeki bir öğenin üzerine tıklayın"
-
-#~ msgid "select sub-item..."
-#~ msgstr "alt öğe seç..."
-
-#~ msgid "-Clicked over multiple"
-#~ msgstr "-Birden fazla tıklandı"
-
-#~ msgid "elements"
-#~ msgstr "Elemanlar"
-
-#~ msgid " - Select an item in the"
-#~ msgstr " - İçinden bir öğe seçin"
-
-#~ msgid " list or click over an"
-#~ msgstr " listeleyin veya üzerine tıklayın"
-
-#~ msgid " element in view"
-#~ msgstr " görünümdeki eleman"
-
-#~ msgid "speed"
-#~ msgstr "Hız"
-
-#~ msgid "Inspect vehicle "
-#~ msgstr "Aracı incele "
-
-#~ msgid "Open a Dialog for Locating a Junction."
-#~ msgstr "Bir Kavşak Bulmak İçin İletişim Kutusu Aç."
-
-#~ msgid "Open a Dialog for Locating an Edge."
-#~ msgstr "Bir Kesim Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating a Vehicle."
-#~ msgstr "Bir Araç Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating a Person."
-#~ msgstr "Bir Yolcu Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating a Container."
-#~ msgstr "Bir Konteyner Belirlemek İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating a Traffic Light."
-#~ msgstr "Bir Trafik Işığı Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating an Additional Structure."
-#~ msgstr "Bir Ek Yapı Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating a Point of Interest."
-#~ msgstr "Bir Etki Noktası Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Open a Dialog for Locating a Polygon."
-#~ msgstr "Bir Çokgen Bulmak İçin İletişim Penceresi Aç."
-
-#~ msgid "Opens current network in NETEDIT."
-#~ msgstr "Mevcut Ağı Netedit'te Açar."
-
-#~ msgid "netedit doesn't support route distributions"
-#~ msgstr "netedit rota dağıtımlarını desteklemiyor"
-
-#~ msgid "Connection edition  cannot be saved because route '"
-#~ msgstr "Route ' nedeniyle bağlantı sürümü kaydedilemiyor"
-
-#~ msgid "' is broken."
-#~ msgstr "' bozuk."
-
-#~ msgid ""
-#~ "Scale traffic from flows and vehicles that are loaded incrementally from "
-#~ "route files."
-#~ msgstr ""
-#~ "Rota Dosyalarından Artımlı Yüklenen Akım ve Araçlardan Oluşan Trafiği "
-#~ "Ölçeklendir."
-
-#~ msgid "EdgeType files (*.tll.xml)"
-#~ msgstr "Kesim Tipi dosyaları (*.tll.xml)"
-
-#~ msgid "Prefix for vType naming"
-#~ msgstr "Araç Tipi adlandırması için önek"
-
-#~ msgid "Save NETEDITConfig"
-#~ msgstr "NETEDITConfig Kaydet"
-
-#~ msgid "Save NETEDITConfig. (Ctrl+Shift+E)"
-#~ msgstr "NETEDITConfig Kaydet (Ctrl+Shift+E)"
-
-#~ msgid "Save SumoConfig"
-#~ msgstr "SumoConfig Kaydet"
-
-#~ msgid "Save SumoConfig. (Ctrl+Shift+S)"
-#~ msgstr "SumoConfig kaydet. (Ctrl+Shift+S)"
-
-#~ msgid "The id of VehicleType"
-#~ msgstr "Araç tipinin kimliği (VehicleType)"
-
-#~ msgid "Vehicle Type Distribution"
-#~ msgstr "Araç Tipi Dağılımı"
-
-#~ msgid "This vehicle type's color"
-#~ msgstr "Bu araç tipinin rengi"
-
-#~ msgid "Whether a person or container or bth may end the stop"
-#~ msgstr ""
-#~ "Bir kişinin veya konteynerin veya bth'nin durmayı sonlandırıp "
-#~ "sonlandıramayacağı"
-
-#~ msgid "Mode for creating person plans. (C)"
-#~ msgstr "Yolcu planları oluşturmak için mod. (C)"
-
-#~ msgid "Mode for creating containers. (P)"
-#~ msgstr "Konteynerler oluşturmak için mod. (P)"
-
-#~ msgid "Undo enable "
-#~ msgstr "Geri alma etkin "
-
-#~ msgid " attribute in '"
-#~ msgstr " şuradaki öznitelik '"
-
-#~ msgid "Redo enable "
-#~ msgstr "Yineleme etkin "
-
-#~ msgid "Copy "
-#~ msgstr "Kopyala "
-
-#~ msgid " name to clipboard"
-#~ msgstr " panoya ad"
-
-#~ msgid " typed name to clipboard"
-#~ msgstr " panoya yazılan ad"
-
-#~ msgid "Could not build access in netedit; The lane '"
-#~ msgstr "netedit'te erişim oluşturulamadı; Şerit '"
-
-#~ msgid "' doesn't support pedestrians"
-#~ msgstr "' yayaları desteklemiyor"
-
-#~ msgid "Could not build parking area with ID '"
-#~ msgstr "Kimlikle (ID) park alanı oluşturulamadı '"
-
-#~ msgid "' in netedit; Invalid departPos over lane."
-#~ msgstr "' netedit'te; Şerit üzerinde geçersiz kalkış pozisyonu (departPos)"
-
-#~ msgid "Could not build lane area detector with ID '"
-#~ msgstr "' Kimliği (ID) ile şerit alanı dedektörü oluşturulamadı"
-
-#~ msgid "' in netedit; invalid traffic light ID."
-#~ msgstr "netedit'te; geçersiz trafik ışığı kimliği (ID)."
-
-#~ msgid "' in netedit; Lanes aren't consecutives."
-#~ msgstr "' netedit'te; Şeritler ardışık değildir."
-
-#~ msgid "Could not build interval with ID '"
-#~ msgstr "' Kimlik (ID) ile aralık oluşturulamadı"
-
-#~ msgid "' in netedit; begin is greater than end."
-#~ msgstr "' netedit'te; başlangıç bitişten daha büyüktür."
-
-#~ msgid "Could not build interval with begin '"
-#~ msgstr "' Başlangıç ile aralık oluşturulamadı"
-
-#~ msgid "' in '"
-#~ msgstr "' içinde '"
-
-#~ msgid "' due overlapping."
-#~ msgstr "' ifadesinin örtüşmesi nedeniyle."
-
-#~ msgid "Could not build Vaporizer with ID '"
-#~ msgstr "' Kimlik (ID) ile Buharlaştırıcı oluşturulamadı"
-
-#~ msgid "Could not build TAZ with ID '"
-#~ msgstr "' Kimlik ile TAB oluşturulamadı"
-
-#~ msgid "' in netedit; Invalid Shape."
-#~ msgstr "' netedit'te; Geçersiz Şekil."
-
-#~ msgid "Could not build overhead wire with ID '"
-#~ msgstr "' kimliğine (ID) sahip havai hat oluşturulamadı"
-
-#~ msgid "Could not build POI with ID '"
-#~ msgstr "' Kimlik (ID) ile EN oluşturulamadı"
-
-#~ msgid "' in netedit; Network requires a geo projection."
-#~ msgstr "' netedit'te; Ağ coğrafi projeksiyon gerektirir."
-
-#~ msgid "Could not build "
-#~ msgstr "Oluşturulamadı "
-
-#~ msgid " with ID '"
-#~ msgstr " ' Kimlik (ID) ile"
-
-#~ msgid "' in netedit; ID contains invalid characters."
-#~ msgstr "' netedit'te; Kimlik (ID) geçersiz karakterler içeriyor."
-
-#~ msgid "' in netedit; Invalid position over lane."
-#~ msgstr "' netedit'te; Şerit üzerinde geçersiz konum."
-
-#~ msgid "' in netedit; declared twice."
-#~ msgstr "' netedit'te; iki kez bildirilmiştir."
-
-#~ msgid " doesn't exist."
-#~ msgstr " yok."
-
-#~ msgid "' in netedit; attribute "
-#~ msgstr "' netedit'te; Öznitelik "
-
-#~ msgid " cannot be negative."
-#~ msgstr " negatif olamaz."
-
-#~ msgid "' in netedit; list of VTypes isn't valid."
-#~ msgstr "' netedit'te; Araç Tipi (VTypes) listesi geçerli değil."
-
-#~ msgid "' in netedit; filename is invalid."
-#~ msgstr "' netedit'te; dosya adı geçersiz."
-
-#~ msgid "' in netedit; list of lanes isn't valid."
-#~ msgstr "' netedit'te; şeritlerin listesi geçerli değil."
-
-#~ msgid " in netedit; "
-#~ msgstr " netedit'te; "
-
-#~ msgid "calibratorFlow of  calibrator '"
-#~ msgstr "' Kalibratörün kalibratör akımı (calibratorFlow)"
-
-#~ msgid ""
-#~ "' cannot be written. Either type or vehsPerHour or speed must be enabled"
-#~ msgstr "' yazılamaz. Tür veya saat başına araç veya hız etkinleştirilmelidir"
-
-#~ msgid "There is already a TAZ rel defined between '"
-#~ msgstr "' arasında tanımlanmış bir TAB ilişkisi zaten var"
-
-#~ msgid "There is already a TAZ rel defined in '"
-#~ msgstr "' içinde tanımlanmış bir TAB ilişkisi zaten var"
-
-#~ msgid "' doesn't exist."
-#~ msgstr "' yok."
-
-#~ msgid " in netedit; edge doesn't exist."
-#~ msgstr " netedit'te; kesim mevcut değil."
-
-#~ msgid " in netedit; attribute '"
-#~ msgstr " netedit'te; öznitelik '"
-
-#~ msgid "There is another "
-#~ msgstr "Başka bir tane daha var "
-
-#~ msgid " with the same ID='"
-#~ msgstr " aynı kimliğe sahip (ID)='"
-
-#~ msgid " need at least one "
-#~ msgstr " en az bir tane gerekir "
-
-#~ msgid " with id '"
-#~ msgstr " ' Kimlik (ID) ile"
-
-#~ msgid "' doesn't exist in "
-#~ msgstr "' içinde yok "
-
-#~ msgid "Invalid definition for "
-#~ msgstr "için geçersiz tanım "
-
-#~ msgid " in "
-#~ msgstr " içinde "
-
-#~ msgid "' cannot be created in "
-#~ msgstr "' içinde oluşturulamaz "
-
-#~ msgid "Invalid vehicle type '"
-#~ msgstr "Geçersiz araç tipi '"
-
-#~ msgid "' used in "
-#~ msgstr "' içinde kullanılan "
-
-#~ msgid " used in "
-#~ msgstr " içinde kullanılan "
-
-#~ msgid "Invalid route '"
-#~ msgstr "Geçersiz rota'"
-
-#~ msgid "Invalid "
-#~ msgstr "Geçersiz "
-
-#~ msgid " is greater than number of lanes"
-#~ msgstr " şerit sayısından daha büyük"
-
-#~ msgid " is greater than vType"
-#~ msgstr " Araç Tipi'nden (vType) daha büyük"
-
-#~ msgid "Invalid person type '"
-#~ msgstr "Geçersiz yolcu tipi '"
-
-#~ msgid "Invalid personFlow type '"
-#~ msgstr "Geçersiz yolcu akımı (personFlow) türü '"
-
-#~ msgid "Containers don't support stops at busStops"
-#~ msgstr "Konteynerler otobüs duraklarındaki durakları desteklemez"
-
-#~ msgid "A transport with edges attribute needs a list of edges"
-#~ msgstr ""
-#~ "Kesimler özelliğine sahip bir taşıma, kesimlerin bir listesine ihtiyaç duyar"
-
-#~ msgid "A route transport needs a route"
-#~ msgstr "Bir rota taşımacılığının bir rotaya ihtiyacı vardır"
-
-#~ msgid "Via edge '"
-#~ msgstr "Kesim üzerinden '"
-
-#~ msgid "- 'Start drawing' or ENTER"
-#~ msgstr "- 'Çizime başla' veya ENTER"
-
-#~ msgid "  to create shape."
-#~ msgstr "  şekil oluşturmak için."
-
-#~ msgid "- 'Stop drawing' or ENTER to"
-#~ msgstr "- 'Çizimi durdur' veya ENTER"
-
-#~ msgid "  finish shape creation."
-#~ msgstr "  şekil oluşturmayı bitir."
-
-#~ msgid "- 'Abort drawing' or ESC to"
-#~ msgstr "- 'Çizimi iptal et' veya ESC"
-
-#~ msgid "  abort shape creation."
-#~ msgstr "  şekil oluşturmayı iptal et."
-
-#~ msgid "- 'Shift + Click' to remove"
-#~ msgstr "- Kaldırmak için 'Shift + Tıkla'"
-
-#~ msgid "  last inserted point."
-#~ msgstr "  Son eklenen nokta."
-
-#~ msgid "-Click over edge to"
-#~ msgstr "-için kesimin üzerine tıkla"
-
-#~ msgid " create or edit"
-#~ msgstr " oluştur veya düzenle"
-
-#~ msgid " geometry point."
-#~ msgstr " geometri noktası."
-
-#~ msgid "-Shift+click over edge"
-#~ msgstr "-Shift+kesim üzerine tıkla"
-
-#~ msgid " to edit start or end"
-#~ msgstr " başlangıcı veya sonu düzenlemek için"
-
-#~ msgid "- Shift+Click to select parent\n"
-#~ msgstr "- Ebeveyn seçmek için Shift+Tıkla\n"
-
-#~ msgid "- Click over a bus stop to\n"
-#~ msgstr "- Bir otobüs durağının üzerine tıklayarak\n"
-
-#~ msgid "  create a stop."
-#~ msgstr "  bir durak oluştur."
-
-#~ msgid "- Click over a container stop\n"
-#~ msgstr "- Bir konteyner durağının üzerine tıkla\n"
-
-#~ msgid "  to create a stop."
-#~ msgstr "  bir durak oluşturmak için."
-
-#~ msgid "- Click over a charging station\n"
-#~ msgstr "- Bir şarj istasyonunun üzerine tıklayın\n"
-
-#~ msgid "- Click over a parking area\n"
-#~ msgstr "- Bir park alanının üzerine tıklayın\n"
-
-#~ msgid "- Click over a lane to create\n"
-#~ msgstr "- Oluşturmak için bir şeridin üzerine tıklayın\n"
-
-#~ msgid "  a stop."
-#~ msgstr "  Bir durak."
-
-#~ msgid "- No stop parents in current\n"
-#~ msgstr "- Mevcut durumda durak ebeveynleri yok\n"
-
-#~ msgid "  network."
-#~ msgstr "  Ağ."
-
-#~ msgid "VType Distributions"
-#~ msgstr "Araç Türü (VType) Dağılımları"
-
-#~ msgid "Show VType Distributions"
-#~ msgstr "Araç Türü (VType) Dağılımlarını Göster"
-
-#~ msgid "- Click over a route to\n"
-#~ msgstr "- Bir rotanın üzerine tıklayarak\n"
-
-#~ msgid "  create a vehicle."
-#~ msgstr "  bir araç oluştur."
-
-#~ msgid "- Select two edges to\n"
-#~ msgstr "- İki kesim seçmek için\n"
-
-#~ msgid "  create a Trip."
-#~ msgstr "  Bir seyahat oluştur."
-
-#~ msgid "  create a vehicle with\n"
-#~ msgstr "  ile bir araç oluştur\n"
-
-#~ msgid "  embedded route."
-#~ msgstr "  gömülü rota."
-
-#~ msgid "- Select two junctions\n"
-#~ msgstr "- İki kavşak seç\n"
-
-#~ msgid "  to create a Trip."
-#~ msgstr "  Seyahat oluşturmak için."
-
-#~ msgid "  create a routeFlow."
-#~ msgstr "  Bir rota akımı oluştur."
-
-#~ msgid "  create a flow."
-#~ msgstr "  Bir akım oluştur."
-
-#~ msgid "  create a flow with\n"
-#~ msgstr "  ile bir akım oluştur\n"
-
-#~ msgid "  to create a flow."
-#~ msgstr "  bir akım oluşturmak için."
-
-#~ msgid "List ofe dges cannot be empty"
-#~ msgstr "Kesim listesi boş olamaz"
-
-#~ msgid "-Hold <SHIFT> while"
-#~ msgstr "<SHIFT> tuşunu basılı tutarken"
-
-#~ msgid " clicking to create"
-#~ msgstr " oluşturmak için tıkla"
-
-#~ msgid " unyielding connections"
-#~ msgstr " Yol vermeyen bağlantılar"
-
-#~ msgid " (pass=true)."
-#~ msgstr " (pass=true)."
-
-#~ msgid "-Hold <CTRL> while"
-#~ msgstr "<CTRL> tuşunu basılı tutarken"
-
-#~ msgid " clicking to create "
-#~ msgstr " oluşturmak için tıklayın "
-
-#~ msgid " conflicting connections"
-#~ msgstr " çatışan bağlantılar"
-
-#~ msgid " (i.e. at zipper nodes"
-#~ msgstr " (örneğin fermuar düğümlerinde"
-
-#~ msgid " or with incompatible"
-#~ msgstr " veya uyumsuz"
-
-#~ msgid " permissions"
-#~ msgstr " izinler"
-
-#~ msgid "- ESC:"
-#~ msgstr "- ESC:"
-
-#~ msgid "  Deselect origin"
-#~ msgstr "  Kaynak seçimini kaldır"
-
-#~ msgid "- Control+Click:"
-#~ msgstr "- Kontrol+Tıkla:"
-
-#~ msgid "  Move view"
-#~ msgstr "  Görünümü taşı"
-
-#~ msgid "- Shift+Click:"
-#~ msgstr "- Shift+Tıkla:"
-
-#~ msgid "  Splits edge in both directions"
-#~ msgstr "  Kesimi her iki yönde de böler"
-
-#~ msgid "- Alt+Shift+Click:"
-#~ msgstr "- Alt+Shift+Tıkla:"
-
-#~ msgid "  Splits edge in one direction"
-#~ msgstr "  Kesimi tek yönde böler"
-
-#~ msgid "-Click over junction to"
-#~ msgstr "-için kavşak üzerine tıklayın"
-
-#~ msgid " mark candidate edges."
-#~ msgstr " aday kesimleri işaretle."
-
-#~ msgid "-Click over candidate"
-#~ msgstr "-Adayın üzerine tıkla"
-
-#~ msgid " edges for selecting."
-#~ msgstr " seçim için kesimler."
-
-#~ msgid "- Toggle Membership:"
-#~ msgstr "- Üyeliği Değiştir:"
-
-#~ msgid "  Create new Sources/Sinks"
-#~ msgstr "  Yeni Kaynaklar/Alıcılar oluştur"
-
-#~ msgid "  with given weights."
-#~ msgstr "  verilen ağırlıklar ile."
-
-#~ msgid "- Keep Membership:"
-#~ msgstr "- Üyeliği Sürdür:"
-
-#~ msgid "- Press ESC to clear"
-#~ msgstr "- Temizlemek için ESC tuşuna basın"
-
-#~ msgid "  current selection."
-#~ msgstr "  Mevcut seçim."
-
-#~ msgid "Accept settings"
-#~ msgstr "Ayarları kabul et"
-
-#~ msgid "Configure Options"
-#~ msgstr "Yapılandırma Seçenekleri"
-
-#~ msgid "SUMO Options"
-#~ msgstr "SUMO Seçenekleri"
-
-#~ msgid "&NetDiff"
-#~ msgstr "NetDiff"
-
-#~ msgid "POI"
-#~ msgstr "EN"
-
-#~ msgid "Poly"
-#~ msgstr "Çokgen"
-
-#~ msgid "There is no lanes in the network"
-#~ msgstr "Ağda Herhangi Bir Şerit Yok"
-
-#~ msgid "There is no edges in the network"
-#~ msgstr "Ağda Herhangi Bir Kesim Yok"
-
-#~ msgid "There is no parking areas in the network"
-#~ msgstr "Ağda Herhangi Bir Park Alanı Yok"
-
-#~ msgid "street name (need not be unique, used for visualization)"
-#~ msgstr "sokak adı (benzersiz olması gerekmez, görselleştirme için kullanılır)"
-
-#~ msgid "Overrids default shape of pedestrian crossing"
-#~ msgstr "Yaya geçidinin varsayılan şeklini geçersiz kılar"
-
-#~ msgid "Overrids default shape of pedestrian sidewalk"
-#~ msgstr "Yaya kaldırımının varsayılan şeklini geçersiz kılar"
-
-#~ msgid "The name of the edge the vehicles leave"
-#~ msgstr "Araçların ayrıldığı kesimin adı"
-
-#~ msgid "The name of the edge the vehicles may reach when leaving 'from'"
-#~ msgstr "Araçların 'dan' ayrılırken ulaşabileceği kesimin adı (from)"
-
-#~ msgid "Number of vehicless per hour, equally spaced"
-#~ msgstr "Saatte araç sayısı, eşit aralıklı"
-
-#~ msgid "The longitud position of the parking vehicle on the view"
-#~ msgstr "Park eden aracın görünüm üzerindeki uzunlamasına konumu"
-
-#~ msgid "The latitud position of the parking vehicle on the view"
-#~ msgstr "Park eden aracın görünüm üzerindeki enlem konumu"
-
-#~ msgid ""
-#~ "The vehicles expected multiplicator for lane speed limits (or a distribution"
-#~ " specifier)"
-#~ msgstr ""
-#~ "Şerit hız sınırları için beklenen araç çarpanı (veya bir dağıtım belirteci)"
-
-#~ msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
-#~ msgstr ""
-#~ "Araçların istenen maksimum hızı (speedFactor ile etkileşim halindedir)."
-
-#~ msgid ""
-#~ "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
-#~ msgstr ""
-#~ "Hız sınırı olmadığında uygulanabilir (bisikletler, bazı otoyollar) [m/s]"
-
-#~ msgid "The model used for car following"
-#~ msgstr "Araç takibi için kullanılan model"
-
-#~ msgid "GAP between carriages"
-#~ msgstr "Vagonlar arasındaki boşluk"
-
-#~ msgid "The name of the edge the trip starts at"
-#~ msgstr "Seyahatin başladığı kesimin adı"
-
-#~ msgid "The name of the edge the trip ends at"
-#~ msgstr "Seyahatin bittiği kesimin adı"
-
-#~ msgid "The id of vehicle"
-#~ msgstr "Araç kimliği"
-
-#~ msgid "The name of the edge the flow starts at"
-#~ msgstr "Akımın başladığı kesimin adı"
-
-#~ msgid "The name of the edge the flow ends at"
-#~ msgstr "Akımın sona erdiği kesimin adı"
-
-#~ msgid "The name of the edge the transport starts at"
-#~ msgstr "Taşımanın başladığı kesimin adı"
-
-#~ msgid "The name of the edge the transport ends at"
-#~ msgstr "Taşımanın bittiği kesimin adı"
-
-#~ msgid "The name of the edge the tranship ends at"
-#~ msgstr "Aktarmanın bittiği kesimin adı"
-
-#~ msgid "The name of the edge the stop shall be located at"
-#~ msgstr "Durağın bulunacağı kesimin adı"
-
-#~ msgid "The name of the edge the person trip starts at"
-#~ msgstr "Yolcu seyahatinin başladığı kesimin adı"
-
-#~ msgid "The name of the edge the person trip ends at"
-#~ msgstr "Yolcu seyahatinin bittiği kesimin adı"
-
-#~ msgid "The name of the edge the walk starts at"
-#~ msgstr "Yürüyüşün başladığı kesimin adı"
-
-#~ msgid "The name of the edge the walk ends at"
-#~ msgstr "Yürüyüşün bittiği kesimin adı"
-
-#~ msgid "The name of the edge the ride starts at"
-#~ msgstr "Yolculuğun başladığı kesimin adı"
-
-#~ msgid "The name of the edge the ride ends at"
-#~ msgstr "Yolculuğun bittiği kesimin adı"
-
-#~ msgid "The name of the edge the edgeRel starts at"
-#~ msgstr "edgeRel'in başladığı kesimin adı"
-
-#~ msgid "The name of the edge the edgeRel ends at"
-#~ msgstr "edgeRel'in bittiği kesimin adı"
-
-#~ msgid ""
-#~ "The maximum traveltime in seconds to write if only very small movements "
-#~ "occur"
-#~ msgstr ""
-#~ "Yalnızca çok küçük hareketlerin meydana gelmesi durumunda yazılacak saniye "
-#~ "cinsinden maksimum seyahat süresi"
-
-#~ msgid " already exist"
-#~ msgstr " zaten var"
-
-#~ msgid "Add Sidewalk"
-#~ msgstr "Kaldırım Ekle"
-
-#~ msgid "Input"
-#~ msgstr "Girdi"
-
-#~ msgid "Processing"
-#~ msgstr "İşleme"
-
-#~ msgid "Building Defaults"
-#~ msgstr "Yapılandırma Varsayılanları"
-
-#~ msgid "Ramp Guessing"
-#~ msgstr "Katılım Tahmini"
-
-#~ msgid "Edge Removal"
-#~ msgstr "Kesim Kaldırma"
-
-#~ msgid "Unregulated Nodes"
-#~ msgstr "Düzenlenmemiş Düğümler"
-
-#~ msgid "Pedestrian"
-#~ msgstr "Yaya"
-
-#~ msgid "Bicycle"
-#~ msgstr "Bisiklet"
-
-#~ msgid "Railway"
-#~ msgstr "Demiryolu"
-
-#~ msgid "Formats"
-#~ msgstr "Formatlar"
-
-#~ msgid "Netedit"
-#~ msgstr "Netedit"
-
-#~ msgid "Visualisation"
-#~ msgstr "Görselleştirme"
-
-#~ msgid "The value must be a float, is:"
-#~ msgstr "Değer bir ondalık olmalıdır:"
-
-#~ msgid "Number format error"
-#~ msgstr "Sayı biçimi hatası"
-
-#~ msgid "The value must be a bool, is:"
-#~ msgstr "Değer bir bulen olmalıdır:"
-
-#, fuzzy
-#~ msgid "NETEDIT configuration saved in '"
-#~ msgstr "Netedit Yapılandırmasını Farklı Kaydet"
-
-#, fuzzy
-#~ msgid "Could not save NETEDIT configuration in '"
-#~ msgstr "Netedit Yapılandırmasını Kaydet"
-
-#, fuzzy
-#~ msgid "SUMO options"
-#~ msgstr "SUMO Seçenekleri"
-
-#, fuzzy
-#~ msgid "Configure SUMO Options."
-#~ msgstr "Yapılandırma Seçenekleri"
-
-#, fuzzy
-#~ msgid "Configure NETEDIT Options."
-#~ msgstr "Yapılandırma Seçenekleri"
-
-#, fuzzy
-#~ msgid "Could not load NETEDIT configuration '"
-#~ msgstr "Netedit Yapılandırmasını Kaydet"
-
-#, fuzzy
-#~ msgid "Save NETEDIT Config file as"
-#~ msgstr "Netedit Yapılandırmasını Farklı Kaydet"
-
-#, fuzzy
-#~ msgid "Open NETEDIT Config file"
-#~ msgstr "NeteditConfig Dosyası Aç"
-
-#, fuzzy
-#~ msgid "trying to move an invalid position"
-#~ msgstr "Geçersiz Pozisyonları Kaydet"
-
-#, fuzzy
-#~ msgid "Invalid additional pointer"
-#~ msgstr "Ekler Dosyasını Farklı Kaydet"
-
-#, fuzzy
-#~ msgid "Invalid demandElement pointer"
-#~ msgstr "Talep Elemanları Dosyasını Kaydet"
-
-#, fuzzy
-#~ msgid "Invalid dataSet pointer"
-#~ msgstr "Geçersiz Şerit"
-
-#~ msgid "attributeCheckButton"
-#~ msgstr "Öznitelik Kontrol Butonu"
-
-#, fuzzy
-#~ msgid "Invalid Cell type"
-#~ msgstr "Geçersiz Şerit"
-
-#, fuzzy
-#~ msgid "loading additionals and meandatas from '"
-#~ msgstr "Ekler Dosyasının Kaydı Başarısız!"
-
-#~ msgid "Performing initial computation ...\n"
-#~ msgstr "Ön Hesaplama Gerçekleştiriliyor...\n"
-
-#~ msgid ""
-#~ "- Reference point: Mark the initial position of the additional element.\n"
-#~ msgstr "- Referans Noktası: Ek Elemanın Başlangıç Pozisyonunu İşaretle.\n"
-
-#~ msgid ""
-#~ "  Example: If you want to create a busStop with a length of 30 in the point "
-#~ "100 of the lane:\n"
-#~ msgstr ""
-#~ "  Örnek: Şeridin 100 Noktasında 30 Uzunluğunda Bir Otobüs Durağı Oluşturmak "
-#~ "İstiyorsanız:\n"
-
-#~ msgid "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
-#~ msgstr ""
-#~ "  - Sol Referans Başlangıç Pozisyonu=70 ve Bitiş Pozisyonu=100 Olarak "
-#~ "Oluşturacak.\n"
-
-#~ msgid ""
-#~ "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
-#~ msgstr ""
-#~ "  - Sağ Referans Başlangıç Pozisyonu=100 ve Bitiş Pozisyonu=130 Olarak "
-#~ "Oluşturacak.\n"
-
-#~ msgid ""
-#~ "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
-#~ msgstr ""
-#~ "  - Merkez Referans Başlangıç Pozisyonu=85 ve Bitiş Pozisyonu=115 Olarak "
-#~ "Oluşturacak.\n"
-
-#~ msgid ""
-#~ "- Block movement: if is enabled, the created additional element will be "
-#~ "blocked. i.e. cannot be moved with\n"
-#~ msgstr ""
-#~ "- Hareketi Engelle: Eğer Aktifse, Oluşturulmuş Ek Eleman Engellenecek. "
-#~ "Birlikte Hareket Ettirilemez\n"
-
-#~ msgid " - Click in the same position\n"
-#~ msgstr " - Aynı Pozisyonda Tıkla\n"
-
-#~ msgid "   for inspect next element\n"
-#~ msgstr "   Sonraki Elemanın İncelenmesi İçin\n"
-
-#~ msgid " - Shift + Click in the same\n"
-#~ msgstr " - Aynı İçinde Shift + Click\n"
-
-#~ msgid "   position for inspect\n"
-#~ msgstr "   İnceleme İçin Pozisyon\n"
-
-#~ msgid "Show Status Line\t\tToggle the Status Bar on/off."
-#~ msgstr "Durum Çubuğunu Göster\t\tDurum Çubuğunu Aç/Kapa."
-
-#~ msgid "Show Message Window\t\tToggle the Message Window on/off."
-#~ msgstr "Mesaj Penceresini Göster\t\tMesaj Penceresini Aç/Kapa."
-
-#~ msgid "\tOpen new 3D view\tOpen a new 3D view."
-#~ msgstr "\tYeni Bir 3B Görünüm Aç\tYeni Bir 3B Görünüm Aç."
-
-#~ msgid ""
-#~ "Emergency Vehicle waiting time:\t\tTime spent waiting accumulated for "
-#~ "emergency vehicles"
-#~ msgstr ""
-#~ "Acil Durum Araçları Bekleme Süresi:\t\tAcil Durum Araçları İçin Birikmiş "
-#~ "Bekleme Süresi"
-
-#~ msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
-#~ msgstr ""
-#~ "Hata Ayıklama: GNEApplicationWindow::dependentBuild (GNE Uygulamaları "
-#~ "Penceresi::Bağıl Yapılandırma) Üst Üste Çağrıldı"
-
-#, fuzzy
-#~ msgid "Opens a dialog for editing viewing are, zoom and rotation."
-#~ msgstr ""
-#~ "Görüntü Alanını, Yakınlaştırmayı ve Döndürmeyi Düzenlemek İçin Bir İletişim "
-#~ "Penceresi Açar."
-
-#~ msgid "OK\t\t"
-#~ msgstr "Tamam\t\t"
-
-#~ msgid "&Load\t\t"
-#~ msgstr "Yükle\t\t"
-
-#~ msgid "&Save\t\t"
-#~ msgstr "Kaydet\t\t"
-
-#~ msgid "Clea&r\t\t"
-#~ msgstr "Temizle\t\t"
-
-#~ msgid "&Close\t\t"
-#~ msgstr "Kapat\t\t"
-
-#~ msgid "&OK\t\t"
-#~ msgstr "Tamam\t\t"
-
-#~ msgid "accept\t\tclose"
-#~ msgstr "Onayla\t\tKapat"
-
-#~ msgid "cancel\t\tclose"
-#~ msgstr "İptal Et\t\tKapat"
-
-#~ msgid "&Accept\t\tclose accepting changes"
-#~ msgstr "Onayla\t\tOnaylanmış Değişiklikleri Kapat"
-
-#~ msgid "&Cancel\t\tclose discarding changes"
-#~ msgstr "İptal Et\t\tOnaylanmamış Değişiklikleri Kapat"
-
-#~ msgid "&Reset\t\treset to previous values"
-#~ msgstr "Sıfırla\t\tÖnceki Değerlere Sıfırla"
-
-#~ msgid "OK\t\tclose"
-#~ msgstr "Tamam\t\tKapat"
-
-#~ msgid "accept\t\tload elements"
-#~ msgstr "Onayla\t\tElemanları Yükle"
-
-#~ msgid "Open TLS Programs file"
-#~ msgstr "TIS Programları Dosyası Aç"
-
-#~ msgid "Reload successfully"
-#~ msgstr "Yeniden Yükleme Başarılı"
-
-#~ msgid "Save demand elements before recomputing with volatile options"
-#~ msgstr ""
-#~ "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Talep Elemanlarını Kaydet"
-
-#~ msgid "Saving demand elements in temporary folder failed!"
-#~ msgstr "Talep Elemanlarının Geçici Dosyaya Kaydı Başarısız!"
-
-#~ msgid "Save data elements before recomputing with volatile options"
-#~ msgstr ""
-#~ "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Veri Elemanlarını Kaydet"
-
-#~ msgid "Saving data elements in temporary folder failed!"
-#~ msgstr "Veri Elemanlarının Geçici Dosyaya Kaydı Başarısız!"
-
-#~ msgid "Save meanDatas before recomputing with volatile options"
-#~ msgstr ""
-#~ "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Ortalama Verileri Kaydet"
-
-#~ msgid "Saving meanDatas in temporary folder failed!"
-#~ msgstr "Ortalama Verilerin Geçici Dosyaya Kaydı Başarısız!"
-
-#~ msgid "Save plain-xml edge-file (other names will be deduced from this)"
-#~ msgstr ""
-#~ "plain-xml edge-file (Yalın XML Kesim Dosyası) Kaydet (Diğer İsimler Buradan "
-#~ "Oluşturulacak)"
-
-#~ msgid "Load same data file"
-#~ msgstr "Aynı Veri Dosyasını Yükle"
-
-#~ msgid "Save additionals before recomputing with volatile options"
-#~ msgstr "Havai Seçeneklerle Yeniden Hesaplamadan Önce Ekleri Kaydet"
-
-#~ msgid "Saving additionals in temporary folder failed!"
-#~ msgstr "Eklerin Geçici Dosyaya Kaydı Başarısız!"
-
-#~ msgid "TraCI"
-#~ msgstr "TraCI (Trafik Kontrol Arayüzü)"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-03 14:22+0100\n"
+"POT-Creation-Date: 2024-12-03 15:04+0100\n"
 "PO-Revision-Date: 2024-09-24 07:30+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
@@ -3139,7 +3139,7 @@ msgid "Close the network."
 msgstr "Cerrar la red."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:363
-#: src/netedit/GNEViewNetHelper.cpp:2111
+#: src/netedit/GNEViewNetHelper.cpp:2118
 msgid "Save Netedit Config"
 msgstr "Guardar configuración de netedit"
 
@@ -3164,7 +3164,7 @@ msgid "Reload netedit configuration."
 msgstr "Recargar configuración de netedit."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:381
-#: src/netedit/GNEViewNetHelper.cpp:2116
+#: src/netedit/GNEViewNetHelper.cpp:2123
 msgid "Save Sumo Config"
 msgstr "Guardar configuración de sumo"
 
@@ -3613,15 +3613,15 @@ msgstr "Crear MeanData para aristas o carriles."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:852
 #: src/netedit/GNEApplicationWindowHelper.cpp:1037
-#: src/netedit/GNEViewNetHelper.cpp:2554 src/netedit/GNEViewNetHelper.cpp:2838
+#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
 msgid "Show grid"
 msgstr "Mostrar rejilla"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:857
 #: src/netedit/GNEApplicationWindowHelper.cpp:1042
 #: src/netedit/GNEApplicationWindowHelper.cpp:1168
-#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
-#: src/netedit/GNEViewNetHelper.cpp:3117
+#: src/netedit/GNEViewNetHelper.cpp:2568 src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:3124
 msgid "Hide junction shape"
 msgstr "Ocultar las formas de los cruces"
 
@@ -3631,7 +3631,7 @@ msgstr "Dibujar vehículos repartidos en el carril o en posición de partida"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:867
 #: src/netedit/GNEApplicationWindowHelper.cpp:1183
-#: src/netedit/GNEViewNetHelper.cpp:2575 src/netedit/GNEViewNetHelper.cpp:3136
+#: src/netedit/GNEViewNetHelper.cpp:2582 src/netedit/GNEViewNetHelper.cpp:3143
 msgid "Show demand elements"
 msgstr "Mostrar elementos de demanda"
 
@@ -3640,12 +3640,12 @@ msgid "Clicking should target lanes"
 msgstr "Cliquear debe referirse a carriles"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:877
-#: src/netedit/GNEViewNetHelper.cpp:2588
+#: src/netedit/GNEViewNetHelper.cpp:2595
 msgid "Show connections over junctions"
 msgstr "Mostrar conexiones sobre los cruces"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:882
-#: src/netedit/GNEViewNetHelper.cpp:2595
+#: src/netedit/GNEViewNetHelper.cpp:2602
 msgid "Hide connections"
 msgstr "Ocultar conexiones"
 
@@ -3654,7 +3654,7 @@ msgid "Show sub-additional elements"
 msgstr "Mostrar elementos sub-adicionales"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:892
-#: src/netedit/GNEViewNetHelper.cpp:2609
+#: src/netedit/GNEViewNetHelper.cpp:2616
 msgid "Show TAZ elements"
 msgstr "Mostrar elementos de zona de análisis de tráfico (TAZ)"
 
@@ -3689,28 +3689,28 @@ msgid "Create an edge in the opposite direction"
 msgstr "Crear una arista en la dirección opuesta"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1047
-#: src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:2859
 msgid "Draw vehicles spread/depart position"
 msgstr "Dibujar vehículos separados / posición de salida"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1052
 #: src/netedit/GNEApplicationWindowHelper.cpp:1178
-#: src/netedit/GNEViewNetHelper.cpp:2859 src/netedit/GNEViewNetHelper.cpp:3130
+#: src/netedit/GNEViewNetHelper.cpp:2866 src/netedit/GNEViewNetHelper.cpp:3137
 msgid "Show shapes"
 msgstr "Mostrar formas (shapes)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1057
-#: src/netedit/GNEViewNetHelper.cpp:2866
+#: src/netedit/GNEViewNetHelper.cpp:2873
 msgid "Show all trips"
 msgstr "Mostrar todos los viajes (trips)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1062
-#: src/netedit/GNEViewNetHelper.cpp:2873
+#: src/netedit/GNEViewNetHelper.cpp:2880
 msgid "Show all person plans"
 msgstr "Mostrar todos los planes de personas"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1067
-#: src/netedit/GNEViewNetHelper.cpp:2880
+#: src/netedit/GNEViewNetHelper.cpp:2887
 msgid "Lock selected person"
 msgstr "Bloquear persona seleccionada"
 
@@ -3719,22 +3719,22 @@ msgid "Show all container plans"
 msgstr "Mostrar todos los planes de contenedor"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1077
-#: src/netedit/GNEViewNetHelper.cpp:2894
+#: src/netedit/GNEViewNetHelper.cpp:2901
 msgid "Lock selected container"
 msgstr "Bloquear contenedor seleccionado"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1082
-#: src/netedit/GNEViewNetHelper.cpp:2901
+#: src/netedit/GNEViewNetHelper.cpp:2908
 msgid "Show non-inspected demand elements"
 msgstr "Mostrar elementos de demanda no inspeccionados"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1087
-#: src/netedit/GNEViewNetHelper.cpp:2908
+#: src/netedit/GNEViewNetHelper.cpp:2915
 msgid "Show number of overlapped routes"
 msgstr "Mostrar número de rutas superpuestas"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1173
-#: src/netedit/GNEViewNetHelper.cpp:3124
+#: src/netedit/GNEViewNetHelper.cpp:3131
 msgid "Show additionals"
 msgstr "Mostrar elementos adicionales"
 
@@ -5332,178 +5332,178 @@ msgstr ""
 msgid "Control + click to create two stop in the same position"
 msgstr "Control + clic para crear dos paradas en la misma posición"
 
-#: src/netedit/GNEViewNetHelper.cpp:1628 src/netedit/GNEViewNetHelper.cpp:1649
+#: src/netedit/GNEViewNetHelper.cpp:1635 src/netedit/GNEViewNetHelper.cpp:1656
 msgid "moving selection"
 msgstr "mover selección"
 
-#: src/netedit/GNEViewNetHelper.cpp:1835
+#: src/netedit/GNEViewNetHelper.cpp:1842
 msgid "Selection width:"
 msgstr "Ancho de la selección:"
 
-#: src/netedit/GNEViewNetHelper.cpp:1836
+#: src/netedit/GNEViewNetHelper.cpp:1843
 msgid " height:"
 msgstr " altura:"
 
-#: src/netedit/GNEViewNetHelper.cpp:1837
+#: src/netedit/GNEViewNetHelper.cpp:1844
 msgid " diagonal:"
 msgstr " diagonal:"
 
-#: src/netedit/GNEViewNetHelper.cpp:1997
+#: src/netedit/GNEViewNetHelper.cpp:2004
 msgid "selection using rectangle"
 msgstr "Selección usando un rectángulo"
 
-#: src/netedit/GNEViewNetHelper.cpp:2030
+#: src/netedit/GNEViewNetHelper.cpp:2037
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
 msgstr "Formato de tamaño de ventana inválido: % para opción 'window-size'"
 
-#: src/netedit/GNEViewNetHelper.cpp:2111
+#: src/netedit/GNEViewNetHelper.cpp:2118
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
 msgstr "Guardar configuración de netedit. (Ctrl+Shift+E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2116
+#: src/netedit/GNEViewNetHelper.cpp:2123
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
 msgstr "Guardar configuración de sumo. (Ctrl+Shift+S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2121
+#: src/netedit/GNEViewNetHelper.cpp:2128
 msgid "Save network"
 msgstr "Guardar red"
 
-#: src/netedit/GNEViewNetHelper.cpp:2121
+#: src/netedit/GNEViewNetHelper.cpp:2128
 msgid "Save network. (Ctrl+S)"
 msgstr "Guardar red. (Ctrl+S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2129
+#: src/netedit/GNEViewNetHelper.cpp:2136
 msgid "Save individual files"
 msgstr "Guardar archivos individuales"
 
-#: src/netedit/GNEViewNetHelper.cpp:2129
+#: src/netedit/GNEViewNetHelper.cpp:2136
 msgid "Save individual files."
 msgstr "Guardar archivos individuales."
 
-#: src/netedit/GNEViewNetHelper.cpp:2134
+#: src/netedit/GNEViewNetHelper.cpp:2141
 msgid "Save additional elements"
 msgstr "Guardar elementos adicionales"
 
-#: src/netedit/GNEViewNetHelper.cpp:2134
+#: src/netedit/GNEViewNetHelper.cpp:2141
 msgid "Save additional elements. (Ctrl+Shift+A)"
 msgstr "Guardar elementos adicionales. (Ctrl+Shift+A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2139
+#: src/netedit/GNEViewNetHelper.cpp:2146
 msgid "Save demand elements"
 msgstr "Guardar elementos de demanda"
 
-#: src/netedit/GNEViewNetHelper.cpp:2139
+#: src/netedit/GNEViewNetHelper.cpp:2146
 msgid "Save demand elements. (Ctrl+Shift+D)"
 msgstr "Guardar elementos de demanda. (Ctrl+Shift+D)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2144
+#: src/netedit/GNEViewNetHelper.cpp:2151
 msgid "Save data elements"
 msgstr "Guardar elementos de datos"
 
-#: src/netedit/GNEViewNetHelper.cpp:2144
+#: src/netedit/GNEViewNetHelper.cpp:2151
 msgid "Save data elements. (Ctrl+Shift+B)"
 msgstr "Guardar elementos de datos. (Ctrl+Shift+B)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2149
+#: src/netedit/GNEViewNetHelper.cpp:2156
 msgid "Save mean data elements"
 msgstr "Guardar elementos meanData"
 
-#: src/netedit/GNEViewNetHelper.cpp:2149
+#: src/netedit/GNEViewNetHelper.cpp:2156
 msgid "Save mean data elements. (Ctrl+Shift+M)"
 msgstr "Guardar elementos meanData. (Ctrl+Shift+M)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2182
+#: src/netedit/GNEViewNetHelper.cpp:2189
 msgid "Switch between seconds and HH:MM:SS"
 msgstr "Cambiar entre segundos y HH:MM:SS"
 
-#: src/netedit/GNEViewNetHelper.cpp:2242
+#: src/netedit/GNEViewNetHelper.cpp:2249
 #: src/netedit/frames/common/GNEElementSet.cpp:60
 #: src/netedit/frames/common/GNEElementSet.cpp:146
 msgid "Network"
 msgstr "Red"
 
-#: src/netedit/GNEViewNetHelper.cpp:2242
+#: src/netedit/GNEViewNetHelper.cpp:2249
 msgid "Edit network elements"
 msgstr "Editar elementos de red"
 
-#: src/netedit/GNEViewNetHelper.cpp:2242
+#: src/netedit/GNEViewNetHelper.cpp:2249
 msgid "Set mode for editing network elements. (F2)"
 msgstr "Establecer modo para editar elementos de red. (F2)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2247
+#: src/netedit/GNEViewNetHelper.cpp:2254
 #: src/netedit/frames/common/GNEElementSet.cpp:68
 #: src/netedit/frames/common/GNEElementSet.cpp:159
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2161
 msgid "Demand"
 msgstr "Demanda"
 
-#: src/netedit/GNEViewNetHelper.cpp:2247
+#: src/netedit/GNEViewNetHelper.cpp:2254
 msgid "Edit traffic demand elements"
 msgstr "Editar elementos de demanda de tráfico"
 
-#: src/netedit/GNEViewNetHelper.cpp:2247
+#: src/netedit/GNEViewNetHelper.cpp:2254
 msgid "Set mode for editing traffic demand. (F3)"
 msgstr "Establecer modo para editar demanda de tráfico. (F3)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2252
+#: src/netedit/GNEViewNetHelper.cpp:2259
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2319
 msgid "Data"
 msgstr "Datos"
 
-#: src/netedit/GNEViewNetHelper.cpp:2252
+#: src/netedit/GNEViewNetHelper.cpp:2259
 msgid "Edit data elements"
 msgstr "Editar elementos de datos"
 
-#: src/netedit/GNEViewNetHelper.cpp:2252
+#: src/netedit/GNEViewNetHelper.cpp:2259
 msgid "Set mode for editing data demand. (F4)"
 msgstr "Establecer modo para editar elementos de datos. (F4)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2260
+#: src/netedit/GNEViewNetHelper.cpp:2267
 msgid "Change netedit view"
 msgstr "Cambiar la interfaz de netedit"
 
-#: src/netedit/GNEViewNetHelper.cpp:2260
+#: src/netedit/GNEViewNetHelper.cpp:2267
 msgid "Change netedit view."
 msgstr "Cambiar la interfaz gráfica de netedit."
 
-#: src/netedit/GNEViewNetHelper.cpp:2265
+#: src/netedit/GNEViewNetHelper.cpp:2272
 msgid "Set default view"
 msgstr "Usar la interfaz predeterminada"
 
-#: src/netedit/GNEViewNetHelper.cpp:2265
+#: src/netedit/GNEViewNetHelper.cpp:2272
 msgid "Set default view."
 msgstr "Usar la interfaz gráfica predeterminada."
 
-#: src/netedit/GNEViewNetHelper.cpp:2270
+#: src/netedit/GNEViewNetHelper.cpp:2277
 msgid "Set JuPedSim view"
 msgstr "Usar la interfaz especial para JuPedSim"
 
-#: src/netedit/GNEViewNetHelper.cpp:2270
+#: src/netedit/GNEViewNetHelper.cpp:2277
 msgid "Set JuPedSim view."
 msgstr "Usar la interfaz gráfica especial para JuPedSim."
 
-#: src/netedit/GNEViewNetHelper.cpp:2284
+#: src/netedit/GNEViewNetHelper.cpp:2291
 msgid "Mode already selected"
 msgstr "Modo ya seleccionado"
 
-#: src/netedit/GNEViewNetHelper.cpp:2366
+#: src/netedit/GNEViewNetHelper.cpp:2373
 msgid "Network mode already selected"
 msgstr "Modo de red ya seleccionado"
 
-#: src/netedit/GNEViewNetHelper.cpp:2371
+#: src/netedit/GNEViewNetHelper.cpp:2378
 msgid "Save modifications in TLS before change mode"
 msgstr "Guardar modificaciones en semáforos (TLS) antes de cambiar de modo"
 
-#: src/netedit/GNEViewNetHelper.cpp:2416
+#: src/netedit/GNEViewNetHelper.cpp:2423
 msgid "Demand mode already selected"
 msgstr "Modo de demanda ya seleccionado"
 
-#: src/netedit/GNEViewNetHelper.cpp:2451
+#: src/netedit/GNEViewNetHelper.cpp:2458
 msgid "Data mode already selected"
 msgstr "Modo de datos ya seleccionado"
 
-#: src/netedit/GNEViewNetHelper.cpp:2554 src/netedit/GNEViewNetHelper.cpp:2838
+#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
@@ -5512,59 +5512,59 @@ msgstr ""
 " la cuadrícula se puede modificar en las opciones de visualización. (Ctrl + "
 "G)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2561 src/netedit/GNEViewNetHelper.cpp:2845
-#: src/netedit/GNEViewNetHelper.cpp:3117
+#: src/netedit/GNEViewNetHelper.cpp:2568 src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:3124
 msgid "Toggle hiding junction shape. (Ctrl+J)"
 msgstr "Alternar si mostrar o no las formas de los cruces. (Ctrl+J)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2568
+#: src/netedit/GNEViewNetHelper.cpp:2575
 msgid "Draw vehicles spread in lane or depart position"
 msgstr "Dibujar vehículos extendidos en el carril o en la posición de inicio"
 
-#: src/netedit/GNEViewNetHelper.cpp:2568 src/netedit/GNEViewNetHelper.cpp:2852
+#: src/netedit/GNEViewNetHelper.cpp:2575 src/netedit/GNEViewNetHelper.cpp:2859
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr "Dibujar vehículos extendidos en el carril o en la posición de inicio."
 
-#: src/netedit/GNEViewNetHelper.cpp:2575 src/netedit/GNEViewNetHelper.cpp:3136
+#: src/netedit/GNEViewNetHelper.cpp:2582 src/netedit/GNEViewNetHelper.cpp:3143
 msgid "Toggle show demand elements."
 msgstr "Alternar mostrar elementos de demanda."
 
-#: src/netedit/GNEViewNetHelper.cpp:2582
+#: src/netedit/GNEViewNetHelper.cpp:2589
 msgid "Clicks target lanes"
 msgstr "Clics seleccionan carriles"
 
-#: src/netedit/GNEViewNetHelper.cpp:2582
+#: src/netedit/GNEViewNetHelper.cpp:2589
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
 "Alternar si cliquear debe inspeccionar/seleccionar/eliminar carriles en "
 "lugar de aristas."
 
-#: src/netedit/GNEViewNetHelper.cpp:2588
+#: src/netedit/GNEViewNetHelper.cpp:2595
 msgid "Toggle show connections over junctions."
 msgstr "Alternar mostrar conexiones sobre cruces."
 
-#: src/netedit/GNEViewNetHelper.cpp:2595
+#: src/netedit/GNEViewNetHelper.cpp:2602
 msgid "Toggle hide connections."
 msgstr "Alternar ocultar conexiones."
 
-#: src/netedit/GNEViewNetHelper.cpp:2602
+#: src/netedit/GNEViewNetHelper.cpp:2609
 msgid "Show additional sub-elements"
 msgstr "Mostar sub-elementos adicionales"
 
-#: src/netedit/GNEViewNetHelper.cpp:2602
+#: src/netedit/GNEViewNetHelper.cpp:2609
 msgid "Toggle show additional sub-elements."
 msgstr "Alternar mostrar sub-elementos adicionales."
 
-#: src/netedit/GNEViewNetHelper.cpp:2609
+#: src/netedit/GNEViewNetHelper.cpp:2616
 msgid "Toggle show TAZ elements."
 msgstr "Alternar mostrar elementos de zona de análisis de tráfico (TAZ)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2616
+#: src/netedit/GNEViewNetHelper.cpp:2623
 msgid "Automatic select junctions"
 msgstr "Seleccionar cruces automáticamente"
 
-#: src/netedit/GNEViewNetHelper.cpp:2616
+#: src/netedit/GNEViewNetHelper.cpp:2623
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
@@ -5572,11 +5572,11 @@ msgstr ""
 "Alternar si al seleccionar multiples aristas también se deban seleccionar o "
 "no sus cruces."
 
-#: src/netedit/GNEViewNetHelper.cpp:2623
+#: src/netedit/GNEViewNetHelper.cpp:2630
 msgid "Apply state to all phases"
 msgstr "Aplicar estado a todas las fases"
 
-#: src/netedit/GNEViewNetHelper.cpp:2623
+#: src/netedit/GNEViewNetHelper.cpp:2630
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
@@ -5584,338 +5584,338 @@ msgstr ""
 "Alternar si clicar debe aplicar o no los cambios de estado a todas las fases"
 " del plan actual del semáforo (TLS)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2630
+#: src/netedit/GNEViewNetHelper.cpp:2637
 msgid "Automatic merging junction"
 msgstr "Unir cruce automáticamente"
 
-#: src/netedit/GNEViewNetHelper.cpp:2630
+#: src/netedit/GNEViewNetHelper.cpp:2637
 msgid "Toggle ask for confirmation before merging junction."
 msgstr "Alternar entre preguntar o no antes de unir un cruce."
 
-#: src/netedit/GNEViewNetHelper.cpp:2636
+#: src/netedit/GNEViewNetHelper.cpp:2643
 msgid "Show bubbles"
 msgstr "Mostrar burbujas"
 
-#: src/netedit/GNEViewNetHelper.cpp:2636
+#: src/netedit/GNEViewNetHelper.cpp:2643
 msgid "Toggle show bubbles over junctions shapes."
 msgstr "Alternar entre mostrar o no burbujas sobre la forma de los cruces."
 
-#: src/netedit/GNEViewNetHelper.cpp:2643
+#: src/netedit/GNEViewNetHelper.cpp:2650
 msgid "Move elevation"
 msgstr "Mover elevación"
 
-#: src/netedit/GNEViewNetHelper.cpp:2643
+#: src/netedit/GNEViewNetHelper.cpp:2650
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr ""
 "Aplicar movimiento del ratón a la elevación en lugar de la las posiciones x "
 "e y."
 
-#: src/netedit/GNEViewNetHelper.cpp:2650
+#: src/netedit/GNEViewNetHelper.cpp:2657
 msgid "Edge chain mode"
 msgstr "Modo cadenas de arista"
 
-#: src/netedit/GNEViewNetHelper.cpp:2650
+#: src/netedit/GNEViewNetHelper.cpp:2657
 msgid ""
 "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 "Crear aristas consecutivas con un solo clic (pulse ESC para cancelar la "
 "cadena)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2657
+#: src/netedit/GNEViewNetHelper.cpp:2664
 msgid "Edge opposite direction"
 msgstr "Arista en dirección opuesta"
 
-#: src/netedit/GNEViewNetHelper.cpp:2657
+#: src/netedit/GNEViewNetHelper.cpp:2664
 msgid "Automatically create an edge in the opposite direction."
 msgstr "Crear una arista en la dirección opuesta automáticamente."
 
-#: src/netedit/GNEViewNetHelper.cpp:2859 src/netedit/GNEViewNetHelper.cpp:3130
+#: src/netedit/GNEViewNetHelper.cpp:2866 src/netedit/GNEViewNetHelper.cpp:3137
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr ""
 "Alternar entre mostrar o no formas (shapes) (Polígonos y puntos de interés)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2866
+#: src/netedit/GNEViewNetHelper.cpp:2873
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
 "Alternar entre mostrar o no todos los viajes (Requiere actualizar demanda - "
 "F5)."
 
-#: src/netedit/GNEViewNetHelper.cpp:2873
+#: src/netedit/GNEViewNetHelper.cpp:2880
 msgid "Toggle show all person plans."
 msgstr "Alternar entre mostrar o no todos los planes para personas."
 
-#: src/netedit/GNEViewNetHelper.cpp:2880
+#: src/netedit/GNEViewNetHelper.cpp:2887
 msgid "Toggle lock selected person."
 msgstr "Alternar entre bloquear o no a la persona seleccionada."
 
-#: src/netedit/GNEViewNetHelper.cpp:2887
+#: src/netedit/GNEViewNetHelper.cpp:2894
 msgid "Show all containers plans"
 msgstr "Mostar todos los planes para contendores"
 
-#: src/netedit/GNEViewNetHelper.cpp:2887
+#: src/netedit/GNEViewNetHelper.cpp:2894
 msgid "Toggle show all container plans."
 msgstr "Alterna entre mostrar o no todos los planes para contenedores."
 
-#: src/netedit/GNEViewNetHelper.cpp:2894
+#: src/netedit/GNEViewNetHelper.cpp:2901
 msgid "Toggle lock selected container."
 msgstr "Alternar entre bloquear o no el contenedor seleccionado."
 
-#: src/netedit/GNEViewNetHelper.cpp:2901
+#: src/netedit/GNEViewNetHelper.cpp:2908
 msgid "Toggle show non-inspected demand elements."
 msgstr "Alternar entre mostrar o no elementos de demanda no inspeccionados."
 
-#: src/netedit/GNEViewNetHelper.cpp:2908
+#: src/netedit/GNEViewNetHelper.cpp:2915
 msgid "Toggle show number of overlapped routes."
 msgstr "Alternar mostrar o no el número de rutas superpuestas."
 
-#: src/netedit/GNEViewNetHelper.cpp:3124
+#: src/netedit/GNEViewNetHelper.cpp:3131
 msgid "Toggle show additionals."
 msgstr "Alternar entre mostrar o no elementos adicionales."
 
-#: src/netedit/GNEViewNetHelper.cpp:3142
+#: src/netedit/GNEViewNetHelper.cpp:3149
 msgid "Draw TAZREL drawing mode"
 msgstr "Modo para dibujar TAZRel"
 
-#: src/netedit/GNEViewNetHelper.cpp:3142
+#: src/netedit/GNEViewNetHelper.cpp:3149
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "Alternar el modo para dibujar TAZRels."
 
-#: src/netedit/GNEViewNetHelper.cpp:3148
+#: src/netedit/GNEViewNetHelper.cpp:3155
 msgid "Toggle draw TAZ fill"
 msgstr "Alternar entre dibujar o no los TAZ rellenos"
 
-#: src/netedit/GNEViewNetHelper.cpp:3154
+#: src/netedit/GNEViewNetHelper.cpp:3161
 msgid "Toggle draw TAZRel only from"
 msgstr "Alternar entre mostrar o no solamente los TAZRel de origen"
 
-#: src/netedit/GNEViewNetHelper.cpp:3160
+#: src/netedit/GNEViewNetHelper.cpp:3167
 msgid "Toggle draw TAZRel only to"
 msgstr "Alternar entre mostrar o no solamente los TAZRel de destino"
 
-#: src/netedit/GNEViewNetHelper.cpp:3641
+#: src/netedit/GNEViewNetHelper.cpp:3648
 msgid "Inspect mode"
 msgstr "Modo de inspección"
 
-#: src/netedit/GNEViewNetHelper.cpp:3641
+#: src/netedit/GNEViewNetHelper.cpp:3648
 msgid "Mode for inspect elements and change their attributes. (I)"
 msgstr "Modo para inspeccionar elementos y cambiar sus atributos. (I)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3646
+#: src/netedit/GNEViewNetHelper.cpp:3653
 msgid "Delete mode"
 msgstr "Modo de borrado"
 
-#: src/netedit/GNEViewNetHelper.cpp:3646
+#: src/netedit/GNEViewNetHelper.cpp:3653
 msgid "Mode for deleting elements. (D)"
 msgstr "Modo para borrar elementos. (D)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3651
+#: src/netedit/GNEViewNetHelper.cpp:3658
 msgid "Select mode"
 msgstr "Modo de selección"
 
-#: src/netedit/GNEViewNetHelper.cpp:3651
+#: src/netedit/GNEViewNetHelper.cpp:3658
 msgid "Mode for selecting elements. (S)"
 msgstr "Modo para seleccionar elementos. (S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3707 src/netedit/GNEViewNetHelper.cpp:3860
+#: src/netedit/GNEViewNetHelper.cpp:3714 src/netedit/GNEViewNetHelper.cpp:3867
 msgid "Move mode"
 msgstr "Modo de movimiento"
 
-#: src/netedit/GNEViewNetHelper.cpp:3707 src/netedit/GNEViewNetHelper.cpp:3860
+#: src/netedit/GNEViewNetHelper.cpp:3714 src/netedit/GNEViewNetHelper.cpp:3867
 msgid "Mode for moving elements. (M)"
 msgstr "Modo para mover elementos. (M)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3712
+#: src/netedit/GNEViewNetHelper.cpp:3719
 msgid "Edge mode"
 msgstr "Modo de arista"
 
-#: src/netedit/GNEViewNetHelper.cpp:3712
+#: src/netedit/GNEViewNetHelper.cpp:3719
 msgid "Mode for creating junctions and edges. (E)"
 msgstr "Modo para crear cruces y aristas. (E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3717
+#: src/netedit/GNEViewNetHelper.cpp:3724
 msgid "Traffic light mode"
 msgstr "Modo de semáforos"
 
-#: src/netedit/GNEViewNetHelper.cpp:3717
+#: src/netedit/GNEViewNetHelper.cpp:3724
 msgid "Mode for editing traffic lights over junctions. (T)"
 msgstr "Modo para editar semáforos (TLS) sobre cruces. (T)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3722
+#: src/netedit/GNEViewNetHelper.cpp:3729
 msgid "Connection mode"
 msgstr "Modo de conexiones"
 
-#: src/netedit/GNEViewNetHelper.cpp:3722
+#: src/netedit/GNEViewNetHelper.cpp:3729
 msgid "Mode for edit connections between lanes. (C)"
 msgstr "Modo para editar conexiones entre carriles. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3727
+#: src/netedit/GNEViewNetHelper.cpp:3734
 msgid "Prohibition mode"
 msgstr "Modo de prohibiciones"
 
-#: src/netedit/GNEViewNetHelper.cpp:3727
+#: src/netedit/GNEViewNetHelper.cpp:3734
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "Modo para editar conexiones prohibidas. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3732
+#: src/netedit/GNEViewNetHelper.cpp:3739
 msgid "Crossing mode"
 msgstr "Modo de cruces peatonales"
 
-#: src/netedit/GNEViewNetHelper.cpp:3732
+#: src/netedit/GNEViewNetHelper.cpp:3739
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "Modo para crear pasos peatonales entre aristas. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3737
+#: src/netedit/GNEViewNetHelper.cpp:3744
 msgid "Additional mode"
 msgstr "Modo de elementos adicionales"
 
-#: src/netedit/GNEViewNetHelper.cpp:3737
+#: src/netedit/GNEViewNetHelper.cpp:3744
 msgid "Mode for creating additional elements. (A)"
 msgstr "Modo para crear elementos adicionales. (A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3742
+#: src/netedit/GNEViewNetHelper.cpp:3749
 msgid "Wire mode"
 msgstr "Modo de catenarias"
 
-#: src/netedit/GNEViewNetHelper.cpp:3742
+#: src/netedit/GNEViewNetHelper.cpp:3749
 msgid "Mode for editing overhead wires. (W)"
 msgstr "Modo para editar catenarias. (W)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3747
+#: src/netedit/GNEViewNetHelper.cpp:3754
 msgid "TAZ mode"
 msgstr "Modo de zonas de análisis de tráfico (TAZ)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3747
+#: src/netedit/GNEViewNetHelper.cpp:3754
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "Modo para crear zonas de análisis de tráfico (TAZ). (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3752
+#: src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Polygon mode"
 msgstr "Modo de polígonos"
 
-#: src/netedit/GNEViewNetHelper.cpp:3752
+#: src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "Modo para crear polígonos y puntos de interés (POI). (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3757
+#: src/netedit/GNEViewNetHelper.cpp:3764
 msgid "Decal mode"
 msgstr "Modo de imágenes de fondo"
 
-#: src/netedit/GNEViewNetHelper.cpp:3757
+#: src/netedit/GNEViewNetHelper.cpp:3764
 msgid "Mode for editing decals. (U)"
 msgstr "Modo para establecer imágenes de fondo. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3865
+#: src/netedit/GNEViewNetHelper.cpp:3872
 #: src/netedit/frames/demand/GNERouteFrame.cpp:54
 msgid "Route mode"
 msgstr "Modo rutas"
 
-#: src/netedit/GNEViewNetHelper.cpp:3865
+#: src/netedit/GNEViewNetHelper.cpp:3872
 msgid "Mode for creating routes. (R)"
 msgstr "Modo para crear rutas. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3870
+#: src/netedit/GNEViewNetHelper.cpp:3877
 msgid "Route distribution mode"
 msgstr "Modo de distribución de rutas"
 
-#: src/netedit/GNEViewNetHelper.cpp:3870
+#: src/netedit/GNEViewNetHelper.cpp:3877
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr "Modo para crear y editar distribuciones de rutas. (W)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3875
+#: src/netedit/GNEViewNetHelper.cpp:3882
 msgid "Vehicle mode"
 msgstr "Modo de vehículo"
 
-#: src/netedit/GNEViewNetHelper.cpp:3875
+#: src/netedit/GNEViewNetHelper.cpp:3882
 msgid "Mode for creating vehicles. (V)"
 msgstr "Modo para crear vehículos. (V)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3880
+#: src/netedit/GNEViewNetHelper.cpp:3887
 msgid "Type mode"
 msgstr "Modo de tipo"
 
-#: src/netedit/GNEViewNetHelper.cpp:3880
+#: src/netedit/GNEViewNetHelper.cpp:3887
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
 msgstr "Modo para crear tipos (de vehículos, personas y contendores). (T)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3885
+#: src/netedit/GNEViewNetHelper.cpp:3892
 msgid "Type distribution mode"
 msgstr "Modo de distribuciones de tipo"
 
-#: src/netedit/GNEViewNetHelper.cpp:3885
+#: src/netedit/GNEViewNetHelper.cpp:3892
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr "Modo para crear y editar distribuciones de tipo. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3890
+#: src/netedit/GNEViewNetHelper.cpp:3897
 msgid "Stop mode"
 msgstr "Modo de paradas"
 
-#: src/netedit/GNEViewNetHelper.cpp:3890
+#: src/netedit/GNEViewNetHelper.cpp:3897
 msgid "Mode for creating stops. (A)"
 msgstr "Modo para crear paradas. (A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3895
+#: src/netedit/GNEViewNetHelper.cpp:3902
 msgid "Person mode"
 msgstr "Modo de personas"
 
-#: src/netedit/GNEViewNetHelper.cpp:3895
+#: src/netedit/GNEViewNetHelper.cpp:3902
 msgid "Mode for creating persons. (P)"
 msgstr "Modo para crear personas. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3900
+#: src/netedit/GNEViewNetHelper.cpp:3907
 msgid "Person plan mode"
 msgstr "Modo de planes de personas"
 
-#: src/netedit/GNEViewNetHelper.cpp:3900
+#: src/netedit/GNEViewNetHelper.cpp:3907
 msgid "Mode for creating person plans. (L)"
 msgstr "Modo para crear planes de personas. (L)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3905
+#: src/netedit/GNEViewNetHelper.cpp:3912
 msgid "Container mode"
 msgstr "Modo de contenedores"
 
-#: src/netedit/GNEViewNetHelper.cpp:3905
+#: src/netedit/GNEViewNetHelper.cpp:3912
 msgid "Mode for creating containers. (C)"
 msgstr "Modo para crear contenedores. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3910
+#: src/netedit/GNEViewNetHelper.cpp:3917
 msgid "Container plan mode"
 msgstr "Modo de planes de contenedores"
 
-#: src/netedit/GNEViewNetHelper.cpp:3910
+#: src/netedit/GNEViewNetHelper.cpp:3917
 msgid "Mode for creating container plans. (H)"
 msgstr "Modo para crear planes para contenedores. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4012
+#: src/netedit/GNEViewNetHelper.cpp:4019
 msgid "Edge data mode"
 msgstr "Modo de datos sobre aristas (edgeData)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4012
+#: src/netedit/GNEViewNetHelper.cpp:4019
 msgid "Mode for creating edge datas. (E)"
 msgstr "Modo para crear datos de aristas (edgeDatas). (E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4017
+#: src/netedit/GNEViewNetHelper.cpp:4024
 msgid "Edge relation data mode"
 msgstr "Modo de relación entre aristas"
 
-#: src/netedit/GNEViewNetHelper.cpp:4017
+#: src/netedit/GNEViewNetHelper.cpp:4024
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "Modo para crear datos de relación entre aristas (edgeRelDatas). (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4022
+#: src/netedit/GNEViewNetHelper.cpp:4029
 msgid "TAZ relation data mode"
 msgstr "Modo de relación entre zonas de análisis de tráfico"
 
-#: src/netedit/GNEViewNetHelper.cpp:4022
+#: src/netedit/GNEViewNetHelper.cpp:4029
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr ""
 "Modo para crear datos de relación entre zonas de análisis de tráfico "
 "(TAZRelDatas). (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4027
+#: src/netedit/GNEViewNetHelper.cpp:4034
 msgid "MeanData mode"
 msgstr "Ir al modo de meanDatas"
 
-#: src/netedit/GNEViewNetHelper.cpp:4027
+#: src/netedit/GNEViewNetHelper.cpp:4034
 msgid "Mode for MeanData elements. (M)"
 msgstr "Modo para crear y editar meanDatas. (M)"
 
@@ -6840,7 +6840,7 @@ msgstr "Tipo de fila inválido"
 
 #: src/netedit/dialogs/GNEVehicleTypeDialog.cpp:667
 #: src/netedit/frames/GNEAttributesCreatorRow.cpp:438
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:243
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:236
 #: src/netedit/frames/network/GNETAZFrame.cpp:1252
 msgid "Color Dialog"
 msgstr "Selección de color"
@@ -12887,18 +12887,18 @@ msgstr ""
 msgid "Edit extended attributes"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditor.cpp:142
+#: src/netedit/frames/GNEAttributesEditor.cpp:144
 #, c-format
 msgid "Open % dialog"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditor.cpp:261
-#: src/netedit/frames/GNEAttributesEditor.cpp:286
+#: src/netedit/frames/GNEAttributesEditor.cpp:269
+#: src/netedit/frames/GNEAttributesEditor.cpp:294
 #, c-format
 msgid "change multiple % attributes"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditor.cpp:264
+#: src/netedit/frames/GNEAttributesEditor.cpp:272
 #, c-format
 msgid "change % attribute"
 msgstr "cambiar atributo %"
@@ -12923,12 +12923,12 @@ msgstr "Mover elemento un carril hacia arriba"
 msgid "Move element down one lane"
 msgstr "Mover elemento un carril hacia abajo"
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:327
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:320
 #, c-format
 msgid "ComboBox value '%' for attribute % of % isn't valid"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:377
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:370
 #, c-format
 msgid "TextField value '%' for attribute % of % isn't valid"
 msgstr ""
@@ -13060,7 +13060,7 @@ msgid "Center"
 msgstr "Centrar"
 
 #: src/netedit/frames/GNEElementTree.cpp:325
-#: src/netedit/frames/common/GNEInspectorFrame.cpp:618
+#: src/netedit/frames/common/GNEInspectorFrame.cpp:616
 msgid "Inspect"
 msgstr "Inspeccionar"
 
@@ -17882,1324 +17882,3 @@ msgstr "(Sin proyección definida)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1713
 msgid "Could not convert coordinates in %."
 msgstr "No se pudieron convertir las coordenadas en %."
-
-#~ msgid "MeanDatas saved in '"
-#~ msgstr "MeanDatas guardados en '"
-
-#~ msgid "Saving meanData failed!"
-#~ msgstr "¡El guardado de los elementos meanData ha fallado!"
-
-#~ msgid "Edit allow vClasses"
-#~ msgstr "Editar permisos de clases de vehículos (vClasses)"
-
-#~ msgid "change multiple attributes"
-#~ msgstr "cambiar múltiples atributos"
-
-#, c-format
-#~ msgid "Value '%' for attribute % of % isn't valid"
-#~ msgstr "El valor '%' del atributo % de % no es válido"
-
-#~ msgid "enable attribute '"
-#~ msgstr "activar atributo '"
-
-#~ msgid "disable attribute '"
-#~ msgstr "desactivar atributo '"
-
-#, c-format
-#~ msgid "Inspect % parent"
-#~ msgstr "Inspeccionar elemento padre de %"
-
-#~ msgid "Open attributes editor"
-#~ msgstr "Abrir editor de atributos"
-
-#~ msgid "Mark as front element"
-#~ msgstr "Marcar como elemento frontal"
-
-#~ msgid "Set new parent"
-#~ msgstr "Establecer nuevo ancestro"
-
-#~ msgid ""
-#~ "- Mark as front element: Mark element as front element (Will be drawn over "
-#~ "all other elements)\n"
-#~ msgstr ""
-#~ "- Marcar como elemento frontal: Marcar elemento como elemento frontal (Se "
-#~ "dibujará sobre el rsto de elementos)\n"
-
-#~ msgid "- Block movement: disable movement in move mode\n"
-#~ msgstr "- Bloquear movimiento. Desactiva el movimiento en modo de movimiento\n"
-
-#~ msgid ""
-#~ "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
-#~ "can be moved'.\n"
-#~ msgstr ""
-#~ "- Bloquear forma: Desactiva el movimiento de los vértices y aristas de la "
-#~ "forma. La forma no se puede mover.\n"
-
-#~ msgid ""
-#~ "- Close shape: Add or remove the last vertex with the same position of first"
-#~ " edge'."
-#~ msgstr ""
-#~ "- Cerrar forma: Añadir o eliminar el último vértice con la misma posición "
-#~ "que la primera arista."
-
-#~ msgid "GEO Attributes"
-#~ msgstr "Atributos GEO"
-
-#~ msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-#~ msgstr " SUMO usa el sistema geodésico mundial System 84 (WGS84/UTM).\n"
-
-#~ msgid ""
-#~ " For a GEO-referenced network, geo coordinates are represented as pairs of "
-#~ "Longitude and Latitude\n"
-#~ msgstr ""
-#~ " Para una red GEO referenciada, las coordenadas geo se representan como "
-#~ "pares de longitud y latitud\n"
-
-#~ msgid " in decimal degrees without extra symbols. (N,W..)\n"
-#~ msgstr " en grados decimales sin símblolos extra. (N,W...)\n"
-
-#~ msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
-#~ msgstr ""
-#~ " - Longitud: posición este-oeste de un punto en la superficie de la "
-#~ "tierra.\n"
-
-#~ msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
-#~ msgstr ""
-#~ " - Latitud: Posición norte-sur de un punto sobre la superficie de la "
-#~ "tierra.\n"
-
-#~ msgid ""
-#~ " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
-#~ msgstr " - El botón 'geo' activa o desactiva el guardado de las coordenadas\n"
-
-#~ msgid "Transport: edge->edge"
-#~ msgstr "Envío: arista->arista"
-
-#~ msgid "Transport: edge->containerStop"
-#~ msgstr "Envío: arista->parada de contenedor"
-
-#~ msgid "Transport: containerStop->edge"
-#~ msgstr "Envío: parada de contenedor->arista"
-
-#~ msgid "Transport: containerStop->containerStop"
-#~ msgstr "Envío: parada de contenedor->parada de contenedor"
-
-#~ msgid "Tranship: edge->edge"
-#~ msgstr "Transbordo: arista->arista"
-
-#~ msgid "Tranship: edge->containerStop"
-#~ msgstr "Transbordo: arista->parada de contenedor"
-
-#~ msgid "Tranship: containerStop->edge"
-#~ msgstr "Transbordo: parada de contenedor->arista"
-
-#~ msgid "Tranship: containerStop->containerStop"
-#~ msgstr "Transbordo: parada de contenedor->parada de contenedor"
-
-#~ msgid "PersonTrip: edge->edge"
-#~ msgstr "Viaje de persona: arista ->arista"
-
-#~ msgid "PersonTrip: edge->taz"
-#~ msgstr "Viaje de persona: arista->zona de análisis de tráfico"
-
-#~ msgid "PersonTrip: edge->junction"
-#~ msgstr "Viaje de persona: arista->cruce"
-
-#~ msgid "PersonTrip: edge->busStop"
-#~ msgstr "Viaje de persona: arista->parada de bus"
-
-#~ msgid "PersonTrip: edge->trainStop"
-#~ msgstr "Viaje de persona: arista->parada de tren"
-
-#~ msgid "PersonTrip: taz->taz"
-#~ msgstr ""
-#~ "Viaje de persona: zona de análisis de tráfico->zona de análisis de tráfico"
-
-#~ msgid "PersonTrip: taz->junction"
-#~ msgstr "Viaje de persona: zona de análisis de tráfico->cruce"
-
-#~ msgid "PersonTrip: taz->busStop"
-#~ msgstr "Viaje de persona: zona de análisis de tráfico->parada de bus"
-
-#~ msgid "PersonTrip: taz->trainStop"
-#~ msgstr "Viaje de persona: zona de análisis de tráfico->parada de tren"
-
-#~ msgid "PersonTrip: junction->edge"
-#~ msgstr "Viaje de persona: cruce->arista"
-
-#~ msgid "PersonTrip: junction->taz"
-#~ msgstr "Viaje de persona: cruce->zona de análisis de tráfico"
-
-#~ msgid "PersonTrip: junction->junction"
-#~ msgstr "Viaje de persona: cruce->cruce"
-
-#~ msgid "PersonTrip: junction->busStop"
-#~ msgstr "Viaje de persona: cruce->parada de bus"
-
-#~ msgid "PersonTrip: junction->trainStop"
-#~ msgstr "Viaje de persona: cruce->parada de tren"
-
-#~ msgid "PersonTrip: busStop->edge"
-#~ msgstr "Viaje de persona: parada de bus->arista"
-
-#~ msgid "PersonTrip: busStop->taz"
-#~ msgstr "Viaje de persona: parada de bus->zona de análisis de tráfico"
-
-#~ msgid "PersonTrip: busStop->busStop"
-#~ msgstr "Viaje de persona: parada de bus->parada de bus"
-
-#~ msgid "PersonTrip: busStop->trainStop"
-#~ msgstr "Viaje de persona: parada de bus->parada de tren"
-
-#~ msgid "PersonTrip: trainStop->edge"
-#~ msgstr "Viaje de persona: parada de tren->arista"
-
-#~ msgid "PersonTrip: trainStop->taz"
-#~ msgstr "Viaje de persona: parada de tren->zona de análisis de tráfico"
-
-#~ msgid "PersonTrip: trainStop->busStop"
-#~ msgstr "Viaje de persona: parada de tren->parada de bus"
-
-#~ msgid "PersonTrip: trainStop->trainStop"
-#~ msgstr "Viaje de persona: parada de tren->parada de tren"
-
-#~ msgid "Walk: edge->edge"
-#~ msgstr "Caminata: arista->arista"
-
-#~ msgid "Walk: edge->taz"
-#~ msgstr "Caminata: arista->zona de análisis de tráfico"
-
-#~ msgid "Walk: edge->junction"
-#~ msgstr "Caminata: arista->cruce"
-
-#~ msgid "Walk: edge->busStop"
-#~ msgstr "Caminata: arista->parada de bus"
-
-#~ msgid "Walk: edge->trainStop"
-#~ msgstr "Caminata: arista->parada de tren"
-
-#~ msgid "Walk: taz->taz"
-#~ msgstr "Caminata: zona de análisis de tráfico->zona de análisis de tráfico"
-
-#~ msgid "Walk: taz->junction"
-#~ msgstr "Caminata: zona de análisis de tráfico->cruce"
-
-#~ msgid "Walk: taz->busStop"
-#~ msgstr "Caminata: zona de análisis de tráfico->parada de bus"
-
-#~ msgid "Walk: taz->trainStop"
-#~ msgstr "Caminata: zona de análisis de tráfico->parada de tren"
-
-#~ msgid "Walk: junction->edge"
-#~ msgstr "Caminata: cruce->arista"
-
-#~ msgid "Walk: junction->taz"
-#~ msgstr "Caminata: cruce->zona de análisis de tráfico"
-
-#~ msgid "Walk: junction->junction"
-#~ msgstr "Caminata: cruce->cruce"
-
-#~ msgid "Walk: junction->busStop"
-#~ msgstr "Caminata: cruce->parada de bus"
-
-#~ msgid "Walk: junction->trainStop"
-#~ msgstr "Caminata: cruce->parada de tren"
-
-#~ msgid "Walk: busStop->edge"
-#~ msgstr "Caminata: parada de bus->arista"
-
-#~ msgid "Walk: busStop->taz"
-#~ msgstr "Caminata: parada de bus->zona de análisis de tráfico"
-
-#~ msgid "Walk: busStop->busStop"
-#~ msgstr "Caminata: parada de bus->parada de bus"
-
-#~ msgid "Walk: busStop->trainStop"
-#~ msgstr "Caminata: parada de bus->parada de tren"
-
-#~ msgid "Walk: trainStop->edge"
-#~ msgstr "Caminata: parada de tren->arista"
-
-#~ msgid "Walk: trainStop->taz"
-#~ msgstr "Caminata: parada de tren->zona de análisis de tráfico"
-
-#~ msgid "Walk: trainStop->busStop"
-#~ msgstr "Caminata: parada de tren->parada de bus"
-
-#~ msgid "Walk: trainStop->trainStop"
-#~ msgstr "Caminata: parada de tren->parada de tren"
-
-#~ msgid "Ride: edge->edge"
-#~ msgstr "Conducción: arista->arista"
-
-#~ msgid "Ride: edge->busStop"
-#~ msgstr "Conducción: arista->parada de bus"
-
-#~ msgid "Ride: edge->trainStop"
-#~ msgstr "Conducción: arista->parada de tren"
-
-#~ msgid "Ride: busStop->edge"
-#~ msgstr "Conducción: parada de bus->arista"
-
-#~ msgid "Ride: busStop->busStop"
-#~ msgstr "Conducción: parada de bus->parada de bus"
-
-#~ msgid "Ride: busStop->trainStop"
-#~ msgstr "Conducción: parada de bus->parada de tren"
-
-#~ msgid "Ride: trainStop->edge"
-#~ msgstr "Conducción: parada de tren->arista"
-
-#~ msgid "Stop: edge"
-#~ msgstr "Parada: arista"
-
-#~ msgid "Stop: containerStop"
-#~ msgstr "Parada: parada de contenedor"
-
-#~ msgid "PersonTrip: taz->edge"
-#~ msgstr "Viaje de persona: zona de análisis de tráfico->arista"
-
-#~ msgid "walk: edges"
-#~ msgstr "caminata: aristas"
-
-#~ msgid "walk: route"
-#~ msgstr "caminata: ruta"
-
-#~ msgid "Walk: taz->edge"
-#~ msgstr "Caminata: zona de análisis de tráfico->arista"
-
-#~ msgid "Ride: train->busStop"
-#~ msgstr "Conducción: tren->parada de bus"
-
-#~ msgid "Ride: train->trainStop"
-#~ msgstr "Conducción: tren->parada de tren"
-
-#~ msgid "Stop: busStop"
-#~ msgstr "Parada: parada de bus"
-
-#~ msgid "Stop: trainStop"
-#~ msgstr "Parada: parada de tren"
-
-#~ msgid "speed of the container for this tranship in m/s"
-#~ msgstr "velocidad del contenedor para este transbordo (en m/s)"
-
-#~ msgid "Invert edges"
-#~ msgstr "Invertir aristas"
-
-#~ msgid " Could not decode breakpoint '%'"
-#~ msgstr " No se puede decodificar el punto de interrupción '%'"
-
-#~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
-#~ msgstr "Objeto desconocido en GUISelectedStorage::select (id=%)."
-
-#~ msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-#~ msgstr "Objeto desconocido en GUISelectedStorage::deselect (id=%)."
-
-#~ msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-#~ msgstr "Objeto desconocido en GUISelectedStorage::toggleSelection (id=%)."
-
-#~ msgid "Only one edge must be inspected"
-#~ msgstr "Solo una arista debe ser inspeccionada"
-
-#~ msgid "hide below"
-#~ msgstr "ocultar menor a"
-
-#~ msgid "hide above"
-#~ msgstr "ocultar mayor a"
-
-#~ msgid "hide below threshold"
-#~ msgstr "ocultar menor a"
-
-#~ msgid "simplify network"
-#~ msgstr "simplificar red"
-
-#~ msgid "Do you wish to merge junctions '"
-#~ msgstr "Desea combinar los cruces '"
-
-#~ msgid "' and '"
-#~ msgstr "' y '"
-
-#~ msgid "' will be eliminated and its roads added to '"
-#~ msgstr "' será eliminado(a) y sus calles agregadas a '"
-
-#~ msgid "Only one lane per edge will be restricted for "
-#~ msgstr "Sólo un carril por arista será restringido a "
-
-#~ msgid "Set vclass for "
-#~ msgstr "Establecer clase de vehículo para "
-
-#~ msgid " to selected lanes"
-#~ msgstr " a los carriles seleccionados"
-
-#~ msgid " lanes will be restricted for "
-#~ msgstr " carriles serán restringidos para "
-
-#~ msgid ". Continue?"
-#~ msgstr ". ¿Continuar?"
-
-#~ msgid "Add vclass for "
-#~ msgstr "Agregar vClass para "
-
-#~ msgid " restrictions for "
-#~ msgstr " restricciones para "
-
-#~ msgid " will be added. Continue?"
-#~ msgstr " será agregado. ¿Continuar?"
-
-#~ msgid " from selected lanes"
-#~ msgstr " de carriles seleccionados"
-
-#~ msgid "Selected lanes and edges haven't a restriction for "
-#~ msgstr "Los carriles y aristas seleccionadas no tienen restricciones para "
-
-#~ msgid " in selected lanes"
-#~ msgstr " en los carriles seleccionados"
-
-#~ msgid " will be removed. Continue?"
-#~ msgstr " será eliminado. ¿Continuar?"
-
-#~ msgid "Opening HelpAttributes dialog for tag '"
-#~ msgstr "Abriendo ventana HelpAttributes para tag '"
-
-#~ msgid "' showing "
-#~ msgstr "' mostrando "
-
-#~ msgid " attributes"
-#~ msgstr " atributos"
-
-#~ msgid "change "
-#~ msgstr "cambiar "
-
-#~ msgid " attribute"
-#~ msgstr " atributo"
-
-#~ msgid "Value '"
-#~ msgstr "Valor '"
-
-#~ msgid "' for attribute "
-#~ msgstr "' para atributo "
-
-#~ msgid " of "
-#~ msgstr " de "
-
-#~ msgid " isn't valid"
-#~ msgstr " no es válido"
-
-#~ msgid "Traffic light"
-#~ msgstr "Semáforo"
-
-#~ msgid "Prohibition"
-#~ msgstr "Prohibiciones"
-
-#~ msgid "Wire"
-#~ msgstr "Catenaria"
-
-#~ msgid "Create Shapes."
-#~ msgstr "Crear formas."
-
-#~ msgid "EdgeData"
-#~ msgstr "Dato de arista"
-
-#~ msgid "PersonTrips"
-#~ msgstr "Viajes de persona"
-
-#~ msgid "Transports"
-#~ msgstr "Envíos"
-
-#~ msgid "PoI"
-#~ msgstr "Punto de interés"
-
-#~ msgid "Set mode for edit network elements. (F2)"
-#~ msgstr "Establecer modo para editar elementos de red. (F2)"
-
-#~ msgid "Set mode for edit traffic demand. (F3)"
-#~ msgstr "Establecer modo para editar demanda de tráfico. (F3)"
-
-#~ msgid "Set mode for edit data demand. (F4)"
-#~ msgstr "Establecer modo para editar elementos de datos. (F4)"
-
-#~ msgid "Set inspect mode"
-#~ msgstr "Ir al modo de inspección"
-
-#~ msgid "Set delete mode"
-#~ msgstr "Ir al modo de borrado"
-
-#~ msgid "Set select mode"
-#~ msgstr "Ir al modo de selección"
-
-#~ msgid "Set move mode"
-#~ msgstr "Ir al modo de movimiento"
-
-#~ msgid "Set create edge mode"
-#~ msgstr "Ir al modo de crear aristas"
-
-#~ msgid "Mode for creating junction and edges. (E)"
-#~ msgstr "Modo para crear cruces y aristas. (E)"
-
-#~ msgid "Set traffic light mode"
-#~ msgstr "Ir al modo de semáforos (TLS)"
-
-#~ msgid "Set connection mode"
-#~ msgstr "Ir al modo de conexiones"
-
-#~ msgid "Set prohibition mode"
-#~ msgstr "Ir al modo de prohibiciones"
-
-#~ msgid "Set crossing mode"
-#~ msgstr "Ir al modo de cruces peatonales (crossings)"
-
-#~ msgid "Set additional mode"
-#~ msgstr "Ir al modo de elementos adicionales"
-
-#~ msgid "Mode for adding additional elements. (A)"
-#~ msgstr "Modo para editar elementos adicionales. (A)"
-
-#~ msgid "Set wire mode"
-#~ msgstr "Ir al modo de catenarias (wires)"
-
-#~ msgid "Mode for editing wires. (W)"
-#~ msgstr "Modo para editar catenarias (wires). (W)"
-
-#~ msgid "Set TAZ mode"
-#~ msgstr "Ir al modo de zonas de análisis de tráfico (TAZ)"
-
-#~ msgid "Set polygon mode"
-#~ msgstr "Ir al modo de polígonos"
-
-#~ msgid "Set decal mode"
-#~ msgstr "Ir al modo de imágenes de fondo"
-
-#~ msgid "Create route mode"
-#~ msgstr "Ir al modo de crear rutas"
-
-#~ msgid "Set route distribution mode"
-#~ msgstr "Ir al modo de distribución de rutas"
-
-#~ msgid "Create vehicle mode"
-#~ msgstr "Ir al modo de crear vehículos"
-
-#~ msgid "Create type mode"
-#~ msgstr "Ir al modo de crear tipos de vehículos/personas/contenedores"
-
-#~ msgid "Mode for creating types (vehicles, person and containers). (T)"
-#~ msgstr "Modo para crear tipos de vehículos/personas/contendores. (T)"
-
-#~ msgid "Create type distribution mode"
-#~ msgstr "Ir al modo de crear distribuciones de tipo"
-
-#~ msgid "Create stop mode"
-#~ msgstr "Ir al modo de paradas"
-
-#~ msgid "Create person mode"
-#~ msgstr "Ir al modo de personas"
-
-#~ msgid "Create person plan mode"
-#~ msgstr "Ir al modo de crear planes para personas"
-
-#~ msgid "Create container mode"
-#~ msgstr "Ir al modo de crear contenedores"
-
-#~ msgid "Create container plan mode"
-#~ msgstr "Ir al modo de crear planes para contenedores"
-
-#~ msgid "Create edge data mode"
-#~ msgstr "Ir al modo de crear datos sobre aristas (edgeData)"
-
-#~ msgid "Create edge relation data mode"
-#~ msgstr "Ir al modo de crear datos de relación entre aristas (edgeRelDatas)"
-
-#~ msgid "Create TAZ relation data mode"
-#~ msgstr ""
-#~ "Ir al modo de crear datos de relación entre zonas de análisis de tráfico "
-#~ "(TAZRelDatas)"
-
-#~ msgid "Invalid meanData pointer"
-#~ msgstr "Puntero hacia un meanData inválido"
-
-#~ msgid "Force draw for position selection"
-#~ msgstr "Forzar dibujado para la selección de posición"
-
-#~ msgid "VariableSpeedSign Symbol"
-#~ msgstr "Símbolo de la señal de velocidad variable"
-
-#~ msgid "element can be only a shape, TAZ or wire element at the same time"
-#~ msgstr "Elemento solo puede ser shape, TAZ o wire element al mismo tiempo"
-
-#~ msgid "Open dialog for editing allowed vClasses"
-#~ msgstr "Abrir ventana para editar clases de vehículo (vClass) permitidos"
-
-#~ msgid "VType with vClass == 'ignoring' is oriented to containers"
-#~ msgstr ""
-#~ "El tipo de vehículo con clase == 'ignoring' está orientado a contenedores"
-
-#~ msgid "VType with vClass != 'pedestrian' is not oriented to containers"
-#~ msgstr ""
-#~ "El tipo de vehículo con clase != 'pedestrian' no está orientado a "
-#~ "contenedores"
-
-#~ msgid "VType with vClass != 'pedestrian' is not oriented to persons"
-#~ msgstr ""
-#~ "El tipo de vehículo con clase != 'pedestrian' no está orientado a personas"
-
-#~ msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-#~ msgstr "Tipo de vehículo con clase == 'pedestrian' está orientado a peatones"
-
-#~ msgid "Double routes aren't allowed"
-#~ msgstr "No se permiten rutas dobles"
-
-#~ msgid "The ID of the edge the stop shall be located at"
-#~ msgstr "El ID de la arista en la que deba ubicarse la parada"
-
-#~ msgid "id of the edges to walk"
-#~ msgstr "ID de las aristas a caminar"
-
-#~ msgid "The id of the route to walk"
-#~ msgstr "El ID de la ruta a caminar"
-
-#~ msgid "Walk: busstop->edge"
-#~ msgstr "Caminata: parada de bus->arista"
-
-#~ msgid "Walk: busstop->taz"
-#~ msgstr "Caminata: parada de bus->zona de análisis de tráfico"
-
-#~ msgid "Walk: busstop->busStop"
-#~ msgstr "Caminata: parada de bus ->parada de bus"
-
-#~ msgid "Walk: busstop->trainStop"
-#~ msgstr "Caminata: parada de bus->parada de tren"
-
-#~ msgid "Walk: train->edge"
-#~ msgstr "Caminata: tren->arista"
-
-#~ msgid "Walk: train->taz"
-#~ msgstr "Caminata: tren->zona de análisis de tráfico"
-
-#~ msgid "Walk: train->busStop"
-#~ msgstr "Caminata: tren->parada de bus"
-
-#~ msgid "Walk: train->trainStop"
-#~ msgstr "Caminata: tren->parada de tren"
-
-#~ msgid "The ID of the edge the transport starts at"
-#~ msgstr "El ID de la arista en la cual inicia el envío"
-
-#~ msgid "The ID of the edge the transport ends at"
-#~ msgstr "El ID de la arista en la cual finaliza el envío"
-
-#~ msgid "ID of the destination container stop"
-#~ msgstr "ID de la parada de contenedor destino"
-
-#~ msgid "The ID of the edge the tranship starts at"
-#~ msgstr "El ID de la arista en la que inicia el transbordo"
-
-#~ msgid "The ID of the edge the tranship ends at"
-#~ msgstr "El ID de la arista en la que finaliza el transbordo"
-
-#~ msgid "The name of the edge the tranship starts at"
-#~ msgstr "El nombre de la arista en la que inicia el transbordo"
-
-#~ msgid "Id of the destination container stop"
-#~ msgstr "ID de la parada de contenedor destino"
-
-#~ msgid "A stop has to be placed over an edge"
-#~ msgstr "Una parada debe colocarse sobre una arista"
-
-#~ msgid "A stop has to be placed over a busStop"
-#~ msgstr "Una parada debe colocarse sobre una busStop"
-
-#~ msgid "VType with vClass != 'ignoring' is not oriented to containers"
-#~ msgstr ""
-#~ "El VType con clase de vehículo (vClass)!= 'ignoring' no está orientado a "
-#~ "contenedores"
-
-#~ msgid "A stop has to be placed over a trainStop"
-#~ msgstr "Una parada debe colocarse sobre una trainStop"
-
-#~ msgid "first select an edge"
-#~ msgstr "primero seleccione una arista"
-
-#~ msgid "Prefix for jps waiting area naming"
-#~ msgstr "Prefijo para el nombre de las áreas de espera de JuPedSim"
-
-#~ msgid "Prefix for jps source naming"
-#~ msgstr "Prefijo para el nombre de las fuentes de JuPedSim"
-
-#~ msgid "Prefix for jps sink naming"
-#~ msgstr "Prefijo para el nombre de los sumideros de JuPedSim"
-
-#~ msgid "Prefix for jps waypoints naming"
-#~ msgstr "Prefijo para el nombre de los puntos de referencia de JuPedSim"
-
-#~ msgid "The id of the waiting area"
-#~ msgstr "El ID del área de espera"
-
-#~ msgid "The shape of the waiting area"
-#~ msgstr "La forma del área de espera"
-
-#~ msgid "Waiting area's name"
-#~ msgstr "Nombre del área de espera"
-
-#~ msgid "add jps waiting area '"
-#~ msgstr "agregar área de espera JuPedSim '"
-
-#~ msgid "Sources"
-#~ msgstr "Fuentes"
-
-#~ msgid "Sinks"
-#~ msgstr "Sumideros"
-
-#~ msgid "Waypoints"
-#~ msgstr "Puntos de referencia"
-
-#~ msgid "The id of the source"
-#~ msgstr "El ID de la fuente"
-
-#~ msgid "The shape of the source"
-#~ msgstr "La forma de la fuente"
-
-#~ msgid "Source's name"
-#~ msgstr "Nombre de la fuente"
-
-#~ msgid "The id of the sink"
-#~ msgstr "El ID del sumidero"
-
-#~ msgid "The shape of the sink"
-#~ msgstr "La forma del sumidero"
-
-#~ msgid "Sink's name"
-#~ msgstr "Nombre del sumidero"
-
-#~ msgid "The id of the waypoint"
-#~ msgstr "El ID del punto de referencia"
-
-#~ msgid "Waypoint's name"
-#~ msgstr "Nombre del punto de referencia"
-
-#~ msgid "The name of the junction the person trip starts at"
-#~ msgstr "El nombre del cruce en el que comienza el viaje de la persona"
-
-#~ msgid "The name of the junction the person trip ends at"
-#~ msgstr "El nombre del cruce en el que finaliza el viaje de la persona"
-
-#~ msgid "add jps source '"
-#~ msgstr "agregar fuente JuPedSim '"
-
-#~ msgid "add jps sink '"
-#~ msgstr "agregar sumidero JuPedSim '"
-
-#~ msgid "add jps waypoint '"
-#~ msgstr "agregar punto de referencia JuPedSim '"
-
-#~ msgid "A person trip from edge to busStop needs one edge and one busStop"
-#~ msgstr ""
-#~ "Un person trip desde una arista hasta una parada de autobús necesita una "
-#~ "arista y una parada de autobús"
-
-#~ msgid "A person trip from junction to junction needs two junctions junction"
-#~ msgstr "Un person trip desde un cruce a otro cruce necesita dos cruces"
-
-#~ msgid "This walk use junctions"
-#~ msgstr "Esta caminata utiliza cruces"
-
-#~ msgid "reference left"
-#~ msgstr "referencia izquierda"
-
-#~ msgid "reference right"
-#~ msgstr "referencia derecha"
-
-#~ msgid "reference center"
-#~ msgstr "referencia central"
-
-#~ msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
-#~ msgstr ""
-#~ "  - Referencia izquierda la creará con una posición de inicio (startPos) de "
-#~ "70, y una posción de fin (endPos) de 100."
-
-#~ msgid ""
-#~ "  - Reference Right will create it with startPos = 100 and endPos = 130."
-#~ msgstr ""
-#~ "  - Referencia derecha la creará con una posición de inicio (startPos ) de "
-#~ "100 y una posición final (endPos) de 130."
-
-#~ msgid ""
-#~ "  - Reference Center will create it with startPos = 85 and endPos = 115."
-#~ msgstr ""
-#~ "  - Referencia central la creará con una posición de inicio (startPos) de 85"
-#~ " y una posición final (endPos) de 115."
-
-#~ msgid "&New Network"
-#~ msgstr "&Nueva red"
-
-#~ msgid "&Open Network..."
-#~ msgstr "&Abrir red..."
-
-#~ msgid "Open Netconvert Configura&tion..."
-#~ msgstr "Abrir configuración de netconvert..."
-
-#~ msgid "Import &Foreign Network..."
-#~ msgstr "&Importar una red externa..."
-
-#~ msgid "&Save Network"
-#~ msgstr "&Guardar red"
-
-#~ msgid "Save Net&work As..."
-#~ msgstr "&Guardar red como..."
-
-#~ msgid "Save Plain XM&L..."
-#~ msgstr "&Guardar red en XML plano..."
-
-#~ msgid "Save &Joined Junctions..."
-#~ msgstr "Guardar y unir cruces (joined junctions)..."
-
-#~ msgid "Supermode network."
-#~ msgstr "Supermodo red."
-
-#~ msgid "Supermode demand."
-#~ msgstr "Supermodo demanda."
-
-#~ msgid "Supermode data."
-#~ msgstr "Supermodo datos."
-
-#~ msgid "button"
-#~ msgstr "botón"
-
-#~ msgid "select item..."
-#~ msgstr "seleccionar ítem..."
-
-#~ msgid "-Select an item in the list or"
-#~ msgstr "-Seleccionar un ítem en la lista o"
-
-#~ msgid "click over an element in view"
-#~ msgstr "clic sobre un elemento en la vista"
-
-#~ msgid "select sub-item..."
-#~ msgstr "seleccionar subelemento..."
-
-#~ msgid "-Clicked over multiple"
-#~ msgstr "- Clic sobre múltiples"
-
-#~ msgid "elements"
-#~ msgstr "elementos"
-
-#~ msgid " - Select an item in the"
-#~ msgstr " - Selecciona un elemento en la"
-
-#~ msgid " list or click over an"
-#~ msgstr " lista o clic sobre un"
-
-#~ msgid " element in view"
-#~ msgstr " elemento en la vista"
-
-#~ msgid "speed"
-#~ msgstr "velocidad"
-
-#~ msgid "Mode for delete elements. (D)"
-#~ msgstr "Modo para borrar elementos. (D)"
-
-#~ msgid "Mode for select elements. (S)"
-#~ msgstr "Modo para seleccionar elementos. (S)"
-
-#~ msgid "Mode for move elements. (M)"
-#~ msgstr "Modo para mover elementos. (M)"
-
-#~ msgid "Mode for edit traffic lights over junctions. (T)"
-#~ msgstr "Modo para editar semáforos (TLS) sobre cruces (junctions). (T)"
-
-#~ msgid "Add To Selected"
-#~ msgstr "Agregar a la selección"
-
-#~ msgid "Inspect vehicle "
-#~ msgstr "Inspeccionar vehículo "
-
-#~ msgid "Open a Dialog for Locating a Junction."
-#~ msgstr "Abrir una ventana para localizar cruces (junctions)."
-
-#~ msgid "Open a Dialog for Locating an Edge."
-#~ msgstr "Abrir una ventana para localizar aristas."
-
-#~ msgid "Open a Dialog for Locating a Vehicle."
-#~ msgstr "Abrir ventana para localizar vehículos."
-
-#~ msgid "Open a Dialog for Locating a Person."
-#~ msgstr "Abrir una ventana para localizar personas."
-
-#~ msgid "Open a Dialog for Locating a Container."
-#~ msgstr "Abrir una ventana para localizar contenedores."
-
-#~ msgid "Open a Dialog for Locating a Traffic Light."
-#~ msgstr "Abrir una ventana para localizar semáforos."
-
-#~ msgid "Open a Dialog for Locating an Additional Structure."
-#~ msgstr "Abrir una ventana para localizar estructuras adicionales."
-
-#~ msgid "Open a Dialog for Locating a Point of Interest."
-#~ msgstr "Abrir una ventana para localizar puntos de interés."
-
-#~ msgid "Open a Dialog for Locating a Polygon."
-#~ msgstr "Abrir ventana para localizar polígonos."
-
-#~ msgid "Current type dist."
-#~ msgstr "Distribución de tipo actual"
-
-#~ msgid "Distribution editor"
-#~ msgstr "Editor de distribución"
-
-#~ msgid "Undo enable % attribute in '%'"
-#~ msgstr "Deshacer activación del atributo % en '%'"
-
-#~ msgid "Route distribution probability"
-#~ msgstr "Probabilidad de distribución de la ruta"
-
-#~ msgid "Type distribution probability"
-#~ msgstr "Probabilidad de distribución de tipo"
-
-#~ msgid "Opens current network in NETEDIT."
-#~ msgstr "Abrir red actual en NETEDIT."
-
-#~ msgid "netedit doesn't support route distributions"
-#~ msgstr "netedit no soporta distribuciones de rutas"
-
-#~ msgid "' is broken."
-#~ msgstr "' está roto."
-
-#~ msgid ""
-#~ "Scale traffic from flows and vehicles that are loaded incrementally from "
-#~ "route files."
-#~ msgstr ""
-#~ "Escalar el tráfico de flujos y vehículos que se cargan de forma incremental "
-#~ "desde los archivos de rutas."
-
-#~ msgid "EdgeType files (*.tll.xml)"
-#~ msgstr "Archivos EdgeType (*.tll.xml)"
-
-#~ msgid "Prefix for vType naming"
-#~ msgstr "Prefijo para el nombre de los tipos de vehículos"
-
-#~ msgid "Save NETEDITConfig"
-#~ msgstr "Guardar neteditconfig"
-
-#~ msgid "Save NETEDITConfig. (Ctrl+Shift+E)"
-#~ msgstr "Guardar neteditconfig. (Ctrl+Shift+E)"
-
-#~ msgid "Save SumoConfig"
-#~ msgstr "Guardar sumoconfig"
-
-#~ msgid "Save SumoConfig. (Ctrl+Shift+S)"
-#~ msgstr "Guardar sumoconfig. (Ctrl+Shift+S)"
-
-#~ msgid "The id of VehicleType"
-#~ msgstr "La ID del tipo de vehículo"
-
-#~ msgid "Vehicle Type Distribution"
-#~ msgstr "Distribución de tipos de vehículos"
-
-#~ msgid "This vehicle type's color"
-#~ msgstr "El color del tipo de vehículo"
-
-#~ msgid "Whether a person or container or bth may end the stop"
-#~ msgstr "Si una persona, contenedor o similar debe finalizar la parada"
-
-#~ msgid "Invalid % used in % '%'. % is greater than vType %"
-#~ msgstr "% usado en % '%' no válido. % es mayor que el vtype %"
-
-#~ msgid "Invalid person type '%' used in % '%'."
-#~ msgstr "El tipo de persona '%' usada en % '%' no es válida."
-
-#~ msgid "Invalid personFlow type '%' used in % '%'."
-#~ msgstr "El tipo de flujo de personas '%' usada en % '%' no es válida."
-
-#~ msgid "Invalid container type '%' used in % '%'."
-#~ msgstr "El tipo de contenedor '%' usada en % '%' no es válida."
-
-#~ msgid "Invalid containerFlow type '%' used in % '%'."
-#~ msgstr "El tipo de flujo de contenedores '%' usada en % '%' no es válida."
-
-#~ msgid "Mode for creating person plans. (C)"
-#~ msgstr "Modo para crear planes para personas. (C)"
-
-#~ msgid "Mode for creating containers. (P)"
-#~ msgstr "Modo para crear contenedores (P)"
-
-#~ msgid "Undo enable "
-#~ msgstr "Deshacer activar "
-
-#~ msgid " attribute in '"
-#~ msgstr " atributo en '"
-
-#~ msgid "Redo enable "
-#~ msgstr "Rehacer activar "
-
-#~ msgid "Copy "
-#~ msgstr "Copiar "
-
-#~ msgid " name to clipboard"
-#~ msgstr " nombre al portapapeles"
-
-#~ msgid " typed name to clipboard"
-#~ msgstr " nombre y tipo al portapapeles"
-
-#~ msgid "Could not build access in netedit; The lane '"
-#~ msgstr "No se puede crear el acceso en Netedit. El carril (lane) '"
-
-#~ msgid "' doesn't support pedestrians"
-#~ msgstr "' no permite peatones"
-
-#~ msgid "Could not build parking area with ID '"
-#~ msgstr "No se puede crear el area de estacionamiento con ID '"
-
-#~ msgid "' in netedit; Invalid departPos over lane."
-#~ msgstr "' en Netedit. Posición de inicio inválida sobre el carril (lane)."
-
-#~ msgid "Could not build TAZ with ID '"
-#~ msgstr "No se puede crear la zona de análisis de tráfico (TAZ) con ID '"
-
-#~ msgid "' in netedit; Invalid Shape."
-#~ msgstr "' en netedit. Forma inválida."
-
-#~ msgid " in netedit; edge doesn't exist."
-#~ msgstr " en netedit; la calle (edge) no existe."
-
-#~ msgid " in netedit; attribute '"
-#~ msgstr " en netedit; atributo '"
-
-#~ msgid "- 'Start drawing' or ENTER"
-#~ msgstr "- 'Comenzar dibujado' o ENTER"
-
-#~ msgid "  to create shape."
-#~ msgstr "  para crear la forma."
-
-#~ msgid "- 'Stop drawing' or ENTER to"
-#~ msgstr "- 'Dejar de dibujar' o ENTER para"
-
-#~ msgid "  finish shape creation."
-#~ msgstr "  finalizar la creación de la forma."
-
-#~ msgid "- 'Abort drawing' or ESC to"
-#~ msgstr "- 'Detener dibujado' o ESC para"
-
-#~ msgid "  abort shape creation."
-#~ msgstr "  detener la creación de la forma."
-
-#~ msgid "- 'Shift + Click' to remove"
-#~ msgstr "- 'Shift + Click' para eliminar"
-
-#~ msgid "  last inserted point."
-#~ msgstr "  el último punto creado."
-
-#~ msgid "-Click over edge to"
-#~ msgstr "-Click sobre una calle (edge) para"
-
-#~ msgid " create or edit"
-#~ msgstr " crear o editar"
-
-#~ msgid " geometry point."
-#~ msgstr " punto geométrico."
-
-#~ msgid "- Select two junctions\n"
-#~ msgstr "- Seleccionar dos cruces (junctions)\n"
-
-#~ msgid "  to create a Trip."
-#~ msgstr "  para crear un viaje (trip)."
-
-#~ msgid "List ofe dges cannot be empty"
-#~ msgstr "La lista de calles (edges) no puede estar vacia"
-
-#~ msgid "- Control+Click:"
-#~ msgstr "- Control+Click:"
-
-#~ msgid "  Move view"
-#~ msgstr "  Mover vista"
-
-#~ msgid "- Shift+Click:"
-#~ msgstr "- Shift+Click:"
-
-#~ msgid "  Splits edge in both directions"
-#~ msgstr "  Dividir calles (edges) en ambas direcciones"
-
-#~ msgid "- Alt+Shift+Click:"
-#~ msgstr "- Alt+Shift+Click:"
-
-#~ msgid "  Splits edge in one direction"
-#~ msgstr "  Dividir calle (edge) en una dirección"
-
-#~ msgid "Configure Options"
-#~ msgstr "Configurar opciones"
-
-#~ msgid "SUMO Options"
-#~ msgstr "Opciones de sumo"
-
-#~ msgid "&NetDiff"
-#~ msgstr "&NetDiff"
-
-#~ msgid "POI"
-#~ msgstr "Punto de interés (POI)"
-
-#~ msgid "Poly"
-#~ msgstr "Polígono"
-
-#~ msgid "There is no lanes in the network"
-#~ msgstr "No hay carriles (lanes) en la red"
-
-#~ msgid "There is no edges in the network"
-#~ msgstr "No hay calles (edges) en la red"
-
-#~ msgid "There is no parking areas in the network"
-#~ msgstr "No hay áreas de parqueo en la red"
-
-#~ msgid "Number of vehicless per hour, equally spaced"
-#~ msgstr "Número de vehículos por hora, distribuidos uniformemente"
-
-#~ msgid "The longitud position of the parking vehicle on the view"
-#~ msgstr "La longitud (posición) del vehículo aparcado en la vista"
-
-#~ msgid "The latitud position of the parking vehicle on the view"
-#~ msgstr "La latitud (posición) del vehículo aparcado en la vista"
-
-#~ msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
-#~ msgstr ""
-#~ "La velocidad máxima deseada del vehículo (interactúa con speedFactor)."
-
-#~ msgid "The model used for car following"
-#~ msgstr "El modelo utilizado para seguimiento vehicular"
-
-#~ msgid "GAP between carriages"
-#~ msgstr "Espacio entre vagones"
-
-#~ msgid "The id of vehicle"
-#~ msgstr "La ID del vehículo"
-
-#~ msgid "The name of the edge the flow starts at"
-#~ msgstr "El nombre de la calle (edge) en la que el flujo (flow) debe comenzar"
-
-#~ msgid "The name of the edge the flow ends at"
-#~ msgstr "El nombre de la calle (edge) en la que el flujo (flow) debe terminar"
-
-#~ msgid "The name of the edge the stop shall be located at"
-#~ msgstr "El nombre de la calle (edge) en el que se ubicará la parada"
-
-#~ msgid "The name of the edge the person trip starts at"
-#~ msgstr ""
-#~ "El nombre de la calle (edge) en la que comienza el viaje de la persona"
-
-#~ msgid "The name of the edge the person trip ends at"
-#~ msgstr ""
-#~ "El nombre de la calle (edge) en la que finaliza el viaje de la persona"
-
-#~ msgid "If myTlDef is null, forward cannot be false"
-#~ msgstr "Si myTlDef es nulo, forward no puede ser false"
-
-#~ msgid ""
-#~ "If attribute mask the start and end position, bot attribute has to be "
-#~ "defined"
-#~ msgstr ""
-#~ "Si un atributo enmascara las posiciones de inicio y final, ambos atributos "
-#~ "deben estar definidos"
-
-#~ msgid "RecomputeData"
-#~ msgstr "Recalcular datos"
-
-#~ msgid "Open a configuration file (netedit o NETCONVERT config)"
-#~ msgstr "Abrir un archivo de configuración (de netedit o netconvert)"
-
-#~ msgid "1.5"
-#~ msgstr "1.5"
-
-#~ msgid "-1.00"
-#~ msgstr "-1.00"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "red"
-#~ msgstr "rojo"
-
-#~ msgid "0.0"
-#~ msgstr "0.0"
-
-#~ msgid " destiny"
-#~ msgstr " destino"
-
-#~ msgid "Language (needs restart)"
-#~ msgstr "Idioma (requiere reiniciar)"
-
-#~ msgid "A gui-network was not yet constructed."
-#~ msgstr "Una red visual no se ha construido todavía."
-
-#~ msgid "NETEDIT configuration saved in '"
-#~ msgstr "Configuración de netedit guardada en '"
-
-#~ msgid "Could not save NETEDIT configuration in '"
-#~ msgstr "No se puede guardar la configuración de netedit en '"
-
-#~ msgid "SUMO options"
-#~ msgstr "Opciones de sumo"
-
-#~ msgid "Configure SUMO Options."
-#~ msgstr "Configurar opciones de sumo."
-
-#~ msgid "Configure NETEDIT Options."
-#~ msgstr "Configurar opciones de netedit."
-
-#~ msgid "trying to move an invalid position"
-#~ msgstr "intentando mover a una posición inválida"
-
-#~ msgid "ViewNet doesn't exist"
-#~ msgstr "la vista de la red no existe"
-
-#~ msgid "GUIGlObject does not match the declared type"
-#~ msgstr "GUIGlObject no encaja con el tipo declarado"
-
-#~ msgid "Attempted to retrieve non-existant GUIGlObject"
-#~ msgstr "Intento de obtener un GUIGlObject que no existe"
-
-#~ msgid "Attempted to retrieve non-existant additional (string)"
-#~ msgstr "Intento de obtener un elemento adicional que no existe (string)"
-
-#~ msgid "Attempted to retrieve non-existant additional (AttributeCarrier)"
-#~ msgstr ""
-#~ "Intento de obtener un elemento adicional que no existe (AttributeCarrier)"
-
-#~ msgid "Attempted to retrieve non-existant rerouter interval"
-#~ msgstr "Intento de obtener un intervalo de rerouter que no existe"
-
-#~ msgid "Invalid additional pointer"
-#~ msgstr "Puntero hacia un elemento adicional inválido"
-
-#~ msgid "Invalid demandElement pointer"
-#~ msgstr "Puntero de demandElement inválido"
-
-#~ msgid "Invalid dataSet pointer"
-#~ msgstr "Puntero hacia un conjunto de datos (dataSet) inválido"
-
-#~ msgid "GNEChangeGroup::begin: already working on undo or redo"
-#~ msgstr "GNEChangeGroup::begin: Ya en mitad de un undo-redo"
-
-#~ msgid "GNEChangeGroup::end: no matching call to begin"
-#~ msgstr "GNEChangeGroup::end: No se ha llamado previamente a begin"
-
-#~ msgid "GNEChangeGroup::end: already working on undo or redo"
-#~ msgstr "GNEChangeGroup::end: en mitad de un undo-redo"
-
-#~ msgid "GNEChangeGroup::add: nullptr change argument"
-#~ msgstr "GNEChangeGroup::add: puntero vacio change como argumento"
-
-#~ msgid "GNEChangeGroup::add: already working on undo or redo"
-#~ msgstr "GNEChangeGroup::add: en mitad de un undo-redo"
-
-#~ msgid "GNEChangeGroup::abort: no matching call to begin"
-#~ msgstr "GNEChangeGroup::abort: no hay un begin previo"
-
-#~ msgid "GNEChangeGroup::abort: already working on undo or redo"
-#~ msgstr "GNEChangeGroup::abort: en mitad de un undo-redo"
-
-#~ msgid "invalid expecte supermode"
-#~ msgstr "Supermodo esperado inválido"
-
-#~ msgid "ChooserDialog already deleted"
-#~ msgstr "ChooserDialog ya eliminado"
-
-#~ msgid "Unregistered chooserDialog"
-#~ msgstr "ChooserDialog no registrado"
-
-#~ msgid "Attribute wasn't found in myTagPropertyParent"
-#~ msgstr "Atributo no encontrado en myTagPropertyParent"
-
-#~ msgid "Attr doesn't support synonym"
-#~ msgstr "El atributo no soporta sinónimos"
-
-#~ msgid "Attr doesn't support range"
-#~ msgstr "El atributo no soporta rangos de intervalos"
-
-#~ msgid "invalid templateAC in showAttributesCreatorModule"
-#~ msgstr "templateAC inválido en showAttributesCreatorModule"
-
-#~ msgid "attributeCheckButton"
-#~ msgstr "attributeCheckButton"
-
-#~ msgid "Invalid call to onCmdOpenAttributeDialog"
-#~ msgstr "Llamada inválida a onCmdOpenAttributeDialog"
-
-#~ msgid "Invalid Cell type"
-#~ msgstr "Tipo de celda inválida"
-
-#~ msgid "Cell doesn't have a textField"
-#~ msgstr "La celda no tiene un campo de texto"
-
-#~ msgid "invalid tag property"
-#~ msgstr "propiedad de etiqueta inválida"
-
-#~ msgid "Non-supported tagProperty in ACTemplate"
-#~ msgstr "Propiedad de etiqueta no soportada en ACTemplate"
-
-#~ msgid "There is no invalid crossings to remove."
-#~ msgstr "No hay pasos peatonales (crossings) inválidos para eliminar."
-
-#~ msgid "Crossings will be cleared. Continue?."
-#~ msgstr "Los pasos peatonales (crossings) se eliminarán. ¿Continuar?"
-
-#~ msgid "loading additionals and meandatas from '"
-#~ msgstr "cargando elementos adicionales y meanDatas desde '"
-
-#~ msgid ""
-#~ "  Example: If you want to create a busStop with a length of 30 in the point "
-#~ "100 of the lane:\n"
-#~ msgstr ""
-#~ "  Ejemplo: Si tu quieres crear una parada de bus (busStop) con un largo de "
-#~ "30 en el punto 100 del carril (lane):\n"
-
-#~ msgid ""
-#~ "- Block movement: if is enabled, the created additional element will be "
-#~ "blocked. i.e. cannot be moved with\n"
-#~ msgstr ""
-#~ "- Bloquear movimiento: Si está activo, el elemento adicional creado se "
-#~ "bloqueará, ej. no se puede mover con\n"
-
-#~ msgid ""
-#~ "element must be at leas networkElement, additional, TAZ, demandElement or "
-#~ "dataElement"
-#~ msgstr ""
-#~ "Un elemento debe ser al menos networkElement, additional, TAZ, demandElement"
-#~ " o dataElement"
-
-#~ msgid ""
-#~ "element can be only a networkElement, additional, demandElement or "
-#~ "dataElement at the same time"
-#~ msgstr ""
-#~ "elemento solo puede ser networkElement, additional, demandElement o "
-#~ "dataElement al mismo tiempo"
-
-#~ msgid ""
-#~ "- Reference point: Mark the initial position of the additional element.\n"
-#~ msgstr ""
-#~ "- Punto de referencia: Marca la posición inicial del elemento adicional.\n"
-
-#~ msgid " - Click in the same position\n"
-#~ msgstr " - Click en la misma posición\n"
-
-#~ msgid "   for inspect next element\n"
-#~ msgstr "   para inspeccionar el siguiente elemento\n"
-
-#~ msgid " - Shift + Click in the same\n"
-#~ msgstr " - Shift + Click en la misma\n"
-
-#~ msgid "   position for inspect\n"
-#~ msgstr "   posición para inspeccionar\n"
-
-#~ msgid "Show Message Window\t\tToggle the Message Window on/off."
-#~ msgstr "Mostar ventana de mensajes\t\tAlternar la ventana de mensajes."
-
-#~ msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
-#~ msgstr "DEBUG: GNEApplicationWindow::dependentBuild called twice"
-
-#~ msgid "Opens a dialog for editing viewing are, zoom and rotation."
-#~ msgstr ""
-#~ "Abre una ventana para editar el área de visualización, nivel de zoom y "
-#~ "rotación."
-
-#~ msgid "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui."
-#~ msgstr ""
-#~ "Cargar elementos adicionales en sumo-gui\t\tCargar elementos adicionales en "
-#~ "sumo-gui."

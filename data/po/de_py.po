@@ -133,6 +133,3 @@ msgstr "Deine Punkte"
 #: D:\Repos\sumo/tools/game\runner.py:92
 msgid "Continue"
 msgstr "Weiter"
-
-#~ msgid "N/A"
-#~ msgstr "NV"
