@@ -1349,7 +1349,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
     { "isBidi",                             GNE_ATTR_BIDIR },
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
-    { "parentItem",                         GNE_ATTR_PARENT },
+    { "parent",                             GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
     { "genericParameter",                   GNE_ATTR_PARAMETERS },
     { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },

@@ -8404,6 +8404,13 @@ GNEAttributeCarrier::fillCommonAttributes(GNETagProperties& tagProperties) {
                                   TL("Toogle select element"));
         tagProperties.addAttribute(selectAttrProperty);
     }
+    // check if element can be reparent
+    if (tagProperties.canBeReparent()) {
+        auto frontElementAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
+                                        GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
+                                        TL("Change element parent"));
+        tagProperties.addAttribute(frontElementAttrProperty);
+    }
 }
 
 
