@@ -80,3 +80,6 @@ paths_around_joinAnyway
 
 # roundabout with crossings on all sides
 roundabout
+
+# roundabout with crossings on all sides
+roundabout_noPriority
