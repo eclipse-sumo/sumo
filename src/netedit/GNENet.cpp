@@ -2922,7 +2922,7 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
     if (myViewNet != nullptr) {
-        myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
+        myViewNet->getViewParent()->getInspectorFrame()->clearInspection();
     }
     // Reset Grid
     myGrid.reset();

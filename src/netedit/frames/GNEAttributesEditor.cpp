@@ -128,7 +128,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
         int itRows = 0;
         bool showButtons = false;
         // check if show netedit attributes (only for single edited ACs)
-        if ((myEditedACs.size() == 1) && ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0)) {
+        if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
             // front button
             if (tagProperty.isDrawable()) {
                 myFrontButton->show();
@@ -136,22 +136,25 @@ GNEAttributesEditor::refreshAttributesEditor() {
             } else {
                 myFrontButton->hide();
             }
-            // edit dialog
-            if (tagProperty.hasDialog()) {
-                // set text and icon
-                myOpenDialogButton->setText(TLF("Open % dialog", tagProperty.getTagStr()).c_str());
-                myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
-                myOpenDialogButton->show();
-                showButtons = true;
-            } else {
-                myOpenDialogButton->hide();
-            }
-            // extended attributes dialog
-            if (tagProperty.hasExtendedAttributes()) {
-                myOpenExtendedAttributesButton->show();
-                showButtons = true;
-            } else {
-                myOpenExtendedAttributesButton->hide();
+            // specific for single edited attributes
+            if (myEditedACs.size() == 1) {
+                // edit dialog
+                if (tagProperty.hasDialog()) {
+                    // set text and icon
+                    myOpenDialogButton->setText(TLF("Open % dialog", tagProperty.getTagStr()).c_str());
+                    myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
+                    myOpenDialogButton->show();
+                    showButtons = true;
+                } else {
+                    myOpenDialogButton->hide();
+                }
+                // extended attributes dialog
+                if (tagProperty.hasExtendedAttributes()) {
+                    myOpenExtendedAttributesButton->show();
+                    showButtons = true;
+                } else {
+                    myOpenExtendedAttributesButton->hide();
+                }
             }
         }
         // Iterate over tag property of first AC and show row for every attribute
@@ -168,13 +171,14 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 showAttributeRow = false;
             } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
                 showAttributeRow = false;
+            } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty.isNetedit()) {
+                showAttributeRow = false;
             } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty.isNetedit()) {
                 showAttributeRow = false;
             } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
                 showAttributeRow = true;
             }
-            if (showAttributeRow) {
-                myAttributesEditorRows[itRows]->showAttributeRow(attrProperty);
+            if (showAttributeRow && myAttributesEditorRows[itRows]->showAttributeRow(attrProperty)) {
                 itRows++;
             }
         }
@@ -220,6 +224,10 @@ GNEAttributesEditor::abortSelectingParent() const {
 
 long
 GNEAttributesEditor::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
+    // front all edited ACs
+    for (auto& AC : myEditedACs) {
+        AC->markForDrawingFront();
+    }
     return 1;
 }
 

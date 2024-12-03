@@ -196,13 +196,13 @@ public:
     bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief Inspect a single element
-    void inspectSingleElement(GNEAttributeCarrier* AC);
+    void inspectElement(GNEAttributeCarrier* AC);
 
-    /// @brief Inspect the given multi-selection
-    void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);
+    /// @brief Inspect the given elements
+    void inspectElements(const std::vector<GNEAttributeCarrier*>& ACs);
 
-    /// @brief Clear all current inspected ACs
-    void clearInspectedAC();
+    /// @brief clear inspection
+    void clearInspection();
 
     /// @brief refresh current inspection
     void refreshInspection();

@@ -43,17 +43,14 @@ public:
     /// @brief constructor
     GNEAttributesEditorRow(GNEAttributesEditor* attributeTable);
 
-    /// @brief show attribute row
-    void showAttributeRow(const GNEAttributeProperties& attrProperty);
+    /// @brief return true if attribute row was successfully show
+    bool showAttributeRow(const GNEAttributeProperties& attrProperty);
 
-    /// @brief hide attribute row
-    void hideAttributeRow();
+    /// @brief hide attribute row (always return false)
+    bool hideAttributeRow();
 
     /// @brief check if current attribute row is shown
     bool isAttributeRowShown() const;
-
-    /// @brief check if current attribute of TextField/ComboBox is valid
-    bool isCurrentValueValid() const;
 
     /// @name FOX-callbacks
     /// @{

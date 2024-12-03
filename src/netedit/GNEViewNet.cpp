@@ -3630,7 +3630,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
         if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
-            myViewParent->getInspectorFrame()->clearInspectedAC();
+            myViewParent->getInspectorFrame()->clearInspection();
         }
         // make sure that connections isn't the front attribute
         const auto frontElements = myMarkFrontElements.getACs();
@@ -3664,7 +3664,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
         if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
-            myViewParent->getInspectorFrame()->clearInspectedAC();
+            myViewParent->getInspectorFrame()->clearInspection();
         }
         // make sure that connections isn't the front attribute
         const auto frontElements = myMarkFrontElements.getACs();
@@ -6117,7 +6117,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             myViewObjectsSelector.filterLockedElements();
             // process left click in Inspector Frame
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                myViewParent->getInspectorFrame()->inspectSingleElement(AC);
+                myViewParent->getInspectorFrame()->inspectElement(AC);
             } else {
                 myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myViewObjectsSelector);
             }

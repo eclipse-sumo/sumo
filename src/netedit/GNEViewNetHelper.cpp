@@ -262,6 +262,13 @@ GNEViewNetHelper::InspectedElements::uninspectAC(GNEAttributeCarrier* AC) {
 }
 
 
+void
+GNEViewNetHelper::InspectedElements::clearInspectedElements() {
+    myFirstInspectedAC = nullptr;
+    myInspectedACs.clear();
+}
+
+
 GNEAttributeCarrier*
 GNEViewNetHelper::InspectedElements::getFirstAC() const {
     return myFirstInspectedAC;

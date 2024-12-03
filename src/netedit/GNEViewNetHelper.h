@@ -244,6 +244,9 @@ struct GNEViewNetHelper {
         /// @brief uninspect AC
         void uninspectAC(GNEAttributeCarrier* AC);
 
+        /// @brief clear inspected AC
+        void clearInspectedElements();
+
         /// @}
 
         /// @name get functions

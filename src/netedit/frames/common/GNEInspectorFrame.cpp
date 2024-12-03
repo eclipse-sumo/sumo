@@ -383,8 +383,7 @@ GNEInspectorFrame::~GNEInspectorFrame() {}
 
 void
 GNEInspectorFrame::show() {
-    // inspect a null element to reset inspector frame
-    inspectSingleElement(nullptr);
+    refreshInspection();
     // stop select new element
     myNeteditAttributesEditor->abortSelectingParent();
     // show
@@ -505,8 +504,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
 
 
 void
-GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
-    auto& inspectedElements = myViewNet->getInspectedElements();
+GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
     std::vector<GNEAttributeCarrier*> itemsToInspect;
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     if (AC) {
@@ -526,15 +524,22 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
             itemsToInspect.push_back(AC);
         }
     }
-    inspectedElements.inspectACs(itemsToInspect);
-    refreshInspection();
+    inspectElements(itemsToInspect);
 }
 
 void
-GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs) {
+GNEInspectorFrame::inspectElements(const std::vector<GNEAttributeCarrier*>& ACs) {
     myViewNet->getInspectedElements().inspectACs(ACs);
     refreshInspection();
 }
+
+
+void
+GNEInspectorFrame::clearInspection() {
+    myViewNet->getInspectedElements().clearInspectedElements();
+    refreshInspection();
+}
+
 
 void
 GNEInspectorFrame::refreshInspection() {
@@ -542,7 +547,12 @@ GNEInspectorFrame::refreshInspection() {
     // hide back button
     myHeaderLeftFrame->hide();
     myBackButton->hide();
-    // Hide all elements
+    // Show all attribute editors (will be automatically hidden if there are no elements to inspect)
+    myAttributesEditor->showAttributesEditor(inspectedElements.getACs());
+    myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
+    myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs());
+    myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
+    // Hide other moduls
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
@@ -589,18 +599,6 @@ GNEInspectorFrame::refreshInspection() {
         // Set headerString into header label
         getFrameHeaderLabel()->setText(headerString.c_str());
 
-        // Show attributes editor
-        myAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-
-        // Show flow attributes editor
-        myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-
-        // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
-        myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-
-        // Show GEO attributes editor
-        myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-
         // show parameters editor
         myParametersEditor->showParametersEditor();
 
@@ -631,7 +629,7 @@ GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* pr
     if (myPreviousElementInspect != nullptr) {
         // disable myPreviousElementDelete to avoid inconsistences
         myPreviousElementDelete = nullptr;
-        inspectSingleElement(AC);
+        inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
     }
@@ -646,17 +644,10 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
     if (myPreviousElementDelete != nullptr) {
         // disable myPreviousElementInspect to avoid inconsistences
         myPreviousElementInspect = nullptr;
-        inspectSingleElement(AC);
+        inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
     }
-}
-
-
-void
-GNEInspectorFrame::clearInspectedAC() {
-    // simply inspect multi selection with empty values
-    inspectMultisection({});
 }
 
 
@@ -694,7 +685,7 @@ long
 GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     // Inspect previous element or go back to Delete Frame
     if (myPreviousElementInspect) {
-        inspectSingleElement(myPreviousElementInspect);
+        inspectElement(myPreviousElementInspect);
         myPreviousElementInspect = nullptr;
     } else if (myPreviousElementDelete != nullptr) {
         myPreviousElementDelete = nullptr;
@@ -718,7 +709,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
 
 void
 GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
-    inspectSingleElement(AC);
+    inspectElement(AC);
     // update view (due dotted contour)
     myViewNet->updateViewNet();
 }
@@ -731,7 +722,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSele
     // check if selection is blocked
     if (AC) {
         // inspect front element
-        inspectSingleElement(AC);
+        inspectElement(AC);
         // show Overlapped Inspection module
         myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
     }

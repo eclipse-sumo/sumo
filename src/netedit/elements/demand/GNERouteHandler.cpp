@@ -1523,7 +1523,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1626,7 +1626,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1691,7 +1691,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1768,7 +1768,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1812,7 +1812,7 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1865,7 +1865,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1909,7 +1909,7 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1962,7 +1962,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
             // get created element
             auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
             // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
         }
     }
 }
@@ -1999,7 +1999,7 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newPerson);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(newPerson);
     }
 }
 
@@ -2040,7 +2040,7 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newPerson);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(newPerson);
     }
 }
 
@@ -2078,7 +2078,7 @@ GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newContainer);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(newContainer);
     }
 }
 
@@ -2119,7 +2119,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newContainer);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(newContainer);
     }
 }
 

@@ -129,110 +129,103 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
 
 
 
-void
+bool
 GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrProperty) {
-    const auto multipleEditedACs = (myAttributeTable->myEditedACs.size() > 1);
-    const auto& tagProperty = attrProperty.getTagPropertyParent();
     myAttribute = attrProperty.getAttr();
-    if (multipleEditedACs && attrProperty.isUnique()) {
-        // disable editing for unique attributes in case of multi-selection
-        hideAttributeRow();
-    } else {
-        const auto firstEditedAC = myAttributeTable->myEditedACs.front();
-        // declare a flag for enabled attributes
-        bool attributeEnabled = firstEditedAC->isAttributeEnabled(myAttribute);
-        // certain attributes are always enabled (usually vType attributes)
-        if (attrProperty.isAlwaysEnabled()) {
-            attributeEnabled = true;
+    const auto& tagProperty = attrProperty.getTagPropertyParent();
+    const auto firstEditedAC = myAttributeTable->myEditedACs.front();
+    // check if we're editing multiple ACs
+    const auto multipleEditedACs = (myAttributeTable->myEditedACs.size() > 1);
+    // declare flag for show attribute enabled
+    const bool attributeEnabled = attrProperty.isAlwaysEnabled() ? true : firstEditedAC->isAttributeEnabled(myAttribute);
+    // check if this attribute is computed
+    const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(myAttribute);
+    // get string value depending if attribute is enabled
+    const std::string value = attributeEnabled ? getAttributeValue(attrProperty) : firstEditedAC->getAlternativeValueForDisabledAttributes(myAttribute);
+    // get parent if we're editing single vTypes
+    GNEAttributeCarrier* ACParent = nullptr;
+    if (!multipleEditedACs && attrProperty.isVType()) {
+        const auto& ACs = myAttributeTable->myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+        // parent can be either type or distribution
+        if (myAttribute == SUMO_ATTR_TYPE) {
+            ACParent = ACs->retrieveDemandElement(SUMO_TAG_VTYPE, firstEditedAC->getAttribute(SUMO_ATTR_TYPE), false);
         }
-        // extra check for person and container expected, because depends of triggered
-        if (tagProperty.isVehicleStop()) {
-            if ((myAttribute == SUMO_ATTR_EXPECTED) && (firstEditedAC->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
-                attributeEnabled = false;
-            } else if ((myAttribute == SUMO_ATTR_EXPECTED_CONTAINERS) && (firstEditedAC->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
-                attributeEnabled = false;
-            }
-        }
-        // check if this attribute is computed
-        const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(myAttribute);
-        // get string value depending if attribute is enabled
-        const std::string value = attributeEnabled ? getAttributeValue(attrProperty) : firstEditedAC->getAlternativeValueForDisabledAttributes(myAttribute);
-        // get parent if we're editing single vTypes
-        GNEAttributeCarrier* ACParent = nullptr;
-        if (!multipleEditedACs && attrProperty.isVType()) {
-            const auto& ACs = myAttributeTable->myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
-            // parent can be either type or distribution
-            if (myAttribute == SUMO_ATTR_TYPE) {
-                ACParent = ACs->retrieveDemandElement(SUMO_TAG_VTYPE, firstEditedAC->getAttribute(SUMO_ATTR_TYPE), false);
-            }
-            if (ACParent == nullptr) {
-                ACParent = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, firstEditedAC->getAttribute(SUMO_ATTR_TYPE), false);
-            }
-        }
-        // if we have a disabled flow attribute, don't show row
-        if (attrProperty.isFlow() && !attributeEnabled) {
-            hideAttributeRow();
-        } else {
-            // show elements depending of attribute properties
-            if (attrProperty.isActivatable()) {
-                showAttributeCheckButton(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
-            } else if ((myAttribute == SUMO_ATTR_TYPE) && (tagProperty.isVehicle() || tagProperty.isPerson() || tagProperty.isContainer())) {
-                showAttributeParent(attrProperty, attributeEnabled);
-            } else if (myAttribute == SUMO_ATTR_ALLOW) {
-                showAttributeVClass(attrProperty, attributeEnabled);
-            } else if (myAttribute == SUMO_ATTR_COLOR) {
-                showAttributeColor(attrProperty, attributeEnabled);
-            } else {
-                showAttributeLabel(attrProperty);
-            }
-            // continue depending of type of attribute
-            if (attrProperty.isBool()) {
-                showValueCheckButton(attrProperty, value, attributeEnabled, computedAttribute);
-            } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
-                showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
-            } else {
-                showValueString(attrProperty, value, attributeEnabled, computedAttribute);
-            }
-            // check if show move lane buttons
-            if (!multipleEditedACs && !tagProperty.isNetworkElement() && (myAttribute == SUMO_ATTR_LANE)) {
-                showMoveLaneButtons(value);
-                myValueLaneUpButton->show();
-                myValueLaneDownButton->show();
-            } else {
-                myValueLaneUpButton->hide();
-                myValueLaneDownButton->hide();
-            }
-            // Show GNEAttributesEditorRow
-            show();
+        if (ACParent == nullptr) {
+            ACParent = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, firstEditedAC->getAttribute(SUMO_ATTR_TYPE), false);
         }
     }
+    // hide editing for unique attributes in case of multi-selection
+    if (multipleEditedACs && attrProperty.isUnique()) {
+        return hideAttributeRow();
+    }
+    // front element has their own button, and doesn't use the UndoList
+    if (attrProperty.getAttr() == GNE_ATTR_FRONTELEMENT) {
+        return hideAttributeRow();
+    }
+    // if we have a disabled flow attribute, don't show row
+    if (attrProperty.isFlow() && !attributeEnabled) {
+        return hideAttributeRow();
+    }
+    // expected and joins depend of triggered
+    if (tagProperty.isVehicleStop() && !attributeEnabled) {
+        if (myAttribute == SUMO_ATTR_EXPECTED) {
+            return hideAttributeRow();
+        } else if (myAttribute == SUMO_ATTR_EXPECTED_CONTAINERS) {
+            return hideAttributeRow();
+        } else if (myAttribute == SUMO_ATTR_JOIN) {
+            return hideAttributeRow();
+        }
+    }
+    // don't show stop offset exception if stopOffset is zero
+    if ((attrProperty.getAttr() == GNE_ATTR_STOPOEXCEPTION) &&
+            (GNEAttributeCarrier::parse<double>(firstEditedAC->getAttribute(GNE_ATTR_STOPOFFSET)) == 0)) {
+        return hideAttributeRow();
+    }
+    // show elements depending of attribute properties
+    if (attrProperty.isActivatable()) {
+        showAttributeCheckButton(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+    } else if ((myAttribute == SUMO_ATTR_TYPE) && (tagProperty.isVehicle() || tagProperty.isPerson() || tagProperty.isContainer())) {
+        showAttributeParent(attrProperty, attributeEnabled);
+    } else if (myAttribute == SUMO_ATTR_ALLOW) {
+        showAttributeVClass(attrProperty, attributeEnabled);
+    } else if (myAttribute == SUMO_ATTR_COLOR) {
+        showAttributeColor(attrProperty, attributeEnabled);
+    } else {
+        showAttributeLabel(attrProperty);
+    }
+    // continue depending of type of attribute
+    if (attrProperty.isBool()) {
+        showValueCheckButton(attrProperty, value, attributeEnabled, computedAttribute);
+    } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
+        showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
+    } else {
+        showValueString(attrProperty, value, attributeEnabled, computedAttribute);
+    }
+    // check if show move lane buttons
+    if (!multipleEditedACs && !tagProperty.isNetworkElement() && (myAttribute == SUMO_ATTR_LANE)) {
+        showMoveLaneButtons(value);
+        myValueLaneUpButton->show();
+        myValueLaneDownButton->show();
+    } else {
+        myValueLaneUpButton->hide();
+        myValueLaneDownButton->hide();
+    }
+    // Show row
+    show();
+    return true;
 }
 
 
-void
+bool
 GNEAttributesEditorRow::hideAttributeRow() {
     hide();
+    return false;
 }
 
 
 bool
 GNEAttributesEditorRow::isAttributeRowShown() const {
     return shown();
-}
-
-
-bool
-GNEAttributesEditorRow::isCurrentValueValid() const {
-    if (myValueCheckButton->shown()) {
-        // check box have always a valid Value
-        return true;
-    } else if (myValueTextField->shown()) {
-        return ((myValueTextField->getTextColor() == TEXTCOLOR_BLACK) || (myValueTextField->getTextColor() == TEXTCOLOR_BLUE));
-    } else if (myValueComboBox->shown()) {
-        return ((myValueComboBox->getTextColor() == TEXTCOLOR_BLACK) || (myValueComboBox->getTextColor() == TEXTCOLOR_BLUE));
-    } else {
-        return false;
-    }
 }
 
 

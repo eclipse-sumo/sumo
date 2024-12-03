@@ -2083,7 +2083,7 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
                 // show extra information for tests
                 WRITE_DEBUG("Cleaning inspected elements");
                 // clear inspected elements
-                myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
+                myViewNet->getViewParent()->getInspectorFrame()->clearInspection();
             }
         } else {
             // abort current operation

@@ -247,10 +247,10 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if inspector frame has to be shown again
     if (inspectedElements.isInspectingSingleElement()) {
         if (inspectedElements.getFirstAC() != myClickedAC) {
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(inspectedElements.getFirstAC());
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(inspectedElements.getFirstAC());
         } else {
             // inspect a nullptr element to reset inspector frame
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->clearInspection();
         }
     }
     return 1;
