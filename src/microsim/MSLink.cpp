@@ -380,7 +380,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     }
 
                     if (foeLane->getEdge().isCrossing()) {
-                        const_cast<MSLink*>(getCorrespondingEntryLink())->updateDistToFoePedCrossing(intersections1.back());
+                        const MSLink* before = myInternalLaneBefore->getCanonicalPredecessorLane()->getLinkTo(myInternalLaneBefore);
+                        const_cast<MSLink*>(before)->updateDistToFoePedCrossing(intersections1.back());
                     };
                 }
 
