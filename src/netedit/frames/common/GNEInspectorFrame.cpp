@@ -385,7 +385,7 @@ void
 GNEInspectorFrame::show() {
     refreshInspection();
     // stop select new element
-    myNeteditAttributesEditor->abortSelectingParent();
+    myNeteditAttributesEditor->abortReparenting();
     // show
     GNEFrame::show();
 }

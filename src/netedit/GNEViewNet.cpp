@@ -5604,7 +5604,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // now filter locked elements
             myViewObjectsSelector.filterLockedElements();
             // check if we're selecting a new parent for the current inspected element
-            if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
+            if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
             } else {
                 // process left click in Inspector Frame

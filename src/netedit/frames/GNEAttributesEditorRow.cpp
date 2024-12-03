@@ -277,6 +277,7 @@ GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdReparent(FXObject*, FXSelector, void*) {
+    myAttributeTable->enableReparent();
     return 1;
 }
 
@@ -754,7 +755,9 @@ GNEAttributesEditorRow::enableDependingOfSupermode(const GNEAttributeProperties&
     const auto& tagProperty = attrProperty.getTagPropertyParent();
     // by default we assume that elements are disabled
     bool enableElements = false;
-    if (editModes.isCurrentSupermodeNetwork() && (tagProperty.isNetworkElement() || tagProperty.isAdditionalElement())) {
+    if (myAttributeTable->isReparenting()) {
+        enableElements = false;
+    } else if (editModes.isCurrentSupermodeNetwork() && (tagProperty.isNetworkElement() || tagProperty.isAdditionalElement())) {
         enableElements = true;
     } else if (editModes.isCurrentSupermodeDemand() && tagProperty.isDemandElement()) {
         enableElements = true;
@@ -763,6 +766,7 @@ GNEAttributesEditorRow::enableDependingOfSupermode(const GNEAttributeProperties&
     }
     if (!enableElements) {
         myAttributeToogleEnableCheckButton->disable();
+        myAttributeReparentButton->disable();
         myAttributeInspectParentButton->disable();
         myAttributeVClassButton->disable();
         myAttributeColorButton->disable();

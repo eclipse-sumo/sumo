@@ -74,13 +74,16 @@ public:
     /// @name Functions related with selecting parents
     /// @{
     /// @brief check if we're selecting a parent clicking over view
-    bool isSelectingParent() const;
+    bool isReparenting() const;
+
+    /// @brief check if the given AC can be a new parent
+    bool checkNewParent(const GNEAttributeCarrier* AC) const;
 
     /// @brief set new parent
     void setNewParent(const GNEAttributeCarrier* AC);
 
     /// @brief abort selecting parent
-    void abortSelectingParent() const;
+    void abortReparenting();
 
     /// @}
 
@@ -109,6 +112,9 @@ protected:
 
     /// @brief set attribute in the current ACs (Callend from row)
     void toggleEnableAttribute(SumoXMLAttr attr, const bool value);
+
+    /// @brief void enable reparent
+    void enableReparent();
 
     /// @brief inspect parent
     void inspectParent();
@@ -140,6 +146,9 @@ private:
 
     /// @brief list of attributes editor rows
     std::vector<GNEAttributesEditorRow*> myAttributesEditorRows;
+
+    /// @brief check if we're reparent
+    SumoXMLTag myReparentTag = SUMO_TAG_NOTHING;
 
     /// @brief variable use for packing attribute editor options
     int myEditorOptions = 0;

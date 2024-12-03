@@ -222,20 +222,27 @@ GNEAttributesEditor::refreshAttributesEditor() {
 
 
 bool
-GNEAttributesEditor::isSelectingParent() const {
-    return false;
+GNEAttributesEditor::isReparenting() const {
+    return myReparentTag != SUMO_TAG_NOTHING;
+}
+
+
+bool
+GNEAttributesEditor::checkNewParent(const GNEAttributeCarrier* AC) const {
+    return AC->getTagProperty().getTag() == myReparentTag;
 }
 
 
 void
 GNEAttributesEditor::setNewParent(const GNEAttributeCarrier* AC) {
-
+    refreshAttributesEditor();
 }
 
 
 void
-GNEAttributesEditor::abortSelectingParent() const {
-
+GNEAttributesEditor::abortReparenting() {
+    myReparentTag = SUMO_TAG_NOTHING;
+    refreshAttributesEditor();
 }
 
 
@@ -325,6 +332,15 @@ GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     refreshAttributesEditor();
     // update frame parent (needed to update other attribute tables)
     myFrameParent->attributeUpdated(attr);
+}
+
+void
+GNEAttributesEditor::enableReparent() {
+    if (myEditedACs.front()->getTagProperty().getParentTags().size() > 0) {
+        myReparentTag = myEditedACs.front()->getTagProperty().getParentTags().front();
+        refreshAttributesEditor();
+        myFrameParent->getViewNet()->update();
+    }
 }
 
 

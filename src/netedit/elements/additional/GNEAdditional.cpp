@@ -26,6 +26,7 @@
 #include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
@@ -299,7 +300,12 @@ GNEAdditional::checkDrawToContour() const {
 
 bool
 GNEAdditional::checkDrawRelatedContour() const {
-    return false;
+    const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor();
+    if (neteditAttributesEditor->isReparenting()) {
+        return neteditAttributesEditor->checkNewParent(this);
+    } else {
+        return false;
+    }
 }
 
 
