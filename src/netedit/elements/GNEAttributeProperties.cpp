@@ -18,16 +18,9 @@
 // Abstract Base class for tag properties used in GNEAttributeCarrier
 /****************************************************************************/
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
-#include "GNEAttributeProperties.h"
-#include "GNETagProperties.h"
-
 #include "GNEAttributeCarrier.h"
-
+#include "GNETagProperties.h"
+#include "GNEAttributeProperties.h"
 
 // ===========================================================================
 // method definitions

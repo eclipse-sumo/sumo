@@ -40,11 +40,11 @@
 
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myTagProperties;
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myMergedPlanTagProperties;
+int GNEAttributeCarrier::maxNumberOfEditableAttributes = 0;
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
-const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
 const Parameterised::Map GNEAttributeCarrier::PARAMETERS_EMPTY;
 const std::string GNEAttributeCarrier::True = toString(true);
 const std::string GNEAttributeCarrier::False = toString(false);
@@ -1052,10 +1052,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillContainerStopElements();
     //data
     fillDataElements();
-    // add common attributes
+    // add common attributes to all elements
     for (auto& tagProperty : myTagProperties) {
         fillCommonAttributes(tagProperty.second);
     }
+    // update max number of editable attributes
+    updateMaxNumberOfEditableAttributes();
     // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
     for (const auto& tagProperty : myTagProperties) {
         tagProperty.second.checkTagIntegrity();
@@ -8645,7 +8647,7 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes(GNETagProperties& tagProper
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EMERGENCYDECEL,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                           TL("The maximal physically possible deceleration for the vehicle [m/s^2]"),
-                                          toString(SUMOVTypeParameter::getDefaultEmergencyDecel(SVC_IGNORING, 
+                                          toString(SUMOVTypeParameter::getDefaultEmergencyDecel(SVC_IGNORING,
                                                   SUMOVTypeParameter::getDefaultDecel(),
                                                   VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT)));
     tagProperties.addAttribute(attrProperty);
@@ -9828,6 +9830,22 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(GNETagProperties& tagPropertie
                                           TL("Whether the traffic statistic of all edges shall be aggregated into a single value"),
                                           "0");
     tagProperties.addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::updateMaxNumberOfEditableAttributes() {
+    for (const auto& tagProperty : myTagProperties) {
+        int editableAttributes = 0;
+        for (const auto& attributeProperty : tagProperty.second) {
+            if (!attributeProperty.isExtended()) {
+                editableAttributes++;
+            }
+        }
+        if (maxNumberOfEditableAttributes < editableAttributes) {
+            maxNumberOfEditableAttributes = editableAttributes;
+        }
+    }
 }
 
 

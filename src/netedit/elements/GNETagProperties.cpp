@@ -18,18 +18,13 @@
 // Abstract Base class for tag properties used in GNEAttributeCarrier
 /****************************************************************************/
 
-
-// ===========================================================================
-// defines
-// ===========================================================================
-
-#define MAXNUMBEROFATTRIBUTES 128
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNETagProperties.h"
+
+// ===========================================================================
+// static members
+// ===========================================================================
+
+const size_t GNETagProperties::myMaxNumberOfAttributes = 128;
 
 // ===========================================================================
 // method definitions
@@ -171,7 +166,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
-    if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
+    if ((myAttributeProperties.size() + 1) >= myMaxNumberOfAttributes) {
         throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty.getAttrStr()));
     } else {
         // Check that attribute wasn't already inserted

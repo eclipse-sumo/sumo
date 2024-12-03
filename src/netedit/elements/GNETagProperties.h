@@ -532,6 +532,9 @@ private:
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor = 0;
+
+    /// @brief max number of attributes allowed for every tag property
+    static const size_t myMaxNumberOfAttributes;
 };
 
 /****************************************************************************/
