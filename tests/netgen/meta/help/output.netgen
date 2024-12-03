@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_21_0+0533-1a2fd70ff1a
+Eclipse SUMO netgenerate Version v1_21_0+1145-26b70b44877
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -455,6 +455,8 @@ Pedestrian Options:
   --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
                                         crossings across edges with a speed
                                         above the threshold
+  --crossings.guess.roundabout-priority  Give priority to guessed crossings at
+                                        roundabouts
   --walkingareas                       Always build walking areas even if there
                                         are no crossings
   --walkingareas.join-dist FLOAT       Do not create a walkingarea between
