@@ -543,10 +543,6 @@ GNEInspectorFrame::refreshInspection() {
     myHeaderLeftFrame->hide();
     myBackButton->hide();
     // Hide all elements
-    myAttributesEditor->hideAttributesEditor();
-    myFlowAttributesEditor->hideAttributesEditor();
-    myNeteditAttributesEditor->hideAttributesEditor();
-    myGEOAttributesEditor->hideAttributesEditor();
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
@@ -740,16 +736,5 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSele
         myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
     }
 }
-
-
-void
-GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-    myAttributesEditor->refreshAttributesEditor();
-    myFlowAttributesEditor->refreshAttributesEditor();
-    myNeteditAttributesEditor->refreshAttributesEditor();
-    myGEOAttributesEditor->refreshAttributesEditor();
-}
-
-
 
 /****************************************************************************/

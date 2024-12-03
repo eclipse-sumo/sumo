@@ -248,9 +248,6 @@ protected:
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
     void inspectClickedElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
 
-    /// @brief function called after set a valid attribute in AttributeEditor
-    void attributeUpdated(SumoXMLAttr attribute);
-
 private:
     /// @brief Overlapped Inspection
     GNEOverlappedInspection* myOverlappedInspection;

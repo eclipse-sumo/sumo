@@ -313,9 +313,10 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         const std::string newValue = myValueComboBox->getText().text();
         // check if the new comboBox value is valid
         if (editedAC->isValid(myAttribute, newValue)) {
-            myAttributeTable->setAttribute(myAttribute, newValue);
             myValueComboBox->setTextColor(TEXTCOLOR_BLACK);
             myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+            myValueTextField->killFocus();
+            myAttributeTable->setAttribute(myAttribute, newValue);
         } else {
             // edit colors
             myValueComboBox->setTextColor(TEXTCOLOR_RED);
@@ -362,8 +363,10 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         const std::string newValue = myValueTextField->getText().text();
         // check if the new textField value is valid
         if (editedAC->isValid(myAttribute, newValue)) {
-            myAttributeTable->setAttribute(myAttribute, newValue);
             myValueTextField->setTextColor(TEXTCOLOR_BLACK);
+            myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+            myValueTextField->killFocus();
+            myAttributeTable->setAttribute(myAttribute, newValue);
         } else {
             // edit colors
             myValueTextField->setTextColor(TEXTCOLOR_RED);
