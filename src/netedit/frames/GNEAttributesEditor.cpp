@@ -235,7 +235,8 @@ GNEAttributesEditor::checkNewParent(const GNEAttributeCarrier* AC) const {
 
 void
 GNEAttributesEditor::setNewParent(const GNEAttributeCarrier* AC) {
-    refreshAttributesEditor();
+    myEditedACs.front()->setAttribute(GNE_ATTR_PARENT, AC->getID(), myFrameParent->getViewNet()->getUndoList());
+    abortReparenting();
 }
 
 
@@ -333,6 +334,7 @@ GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     // update frame parent (needed to update other attribute tables)
     myFrameParent->attributeUpdated(attr);
 }
+
 
 void
 GNEAttributesEditor::enableReparent() {
