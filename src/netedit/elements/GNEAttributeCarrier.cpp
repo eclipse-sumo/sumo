@@ -41,6 +41,9 @@
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myTagProperties;
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myMergedPlanTagProperties;
 int GNEAttributeCarrier::maxNumberOfEditableAttributes = 0;
+int GNEAttributeCarrier::maxNumberOfGeoAttributes = 0;
+int GNEAttributeCarrier::maxNumberOfFlowAttributes = 0;
+int GNEAttributeCarrier::maxNumberOfNeteditAttributes = 0;
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
@@ -1057,7 +1060,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         fillCommonAttributes(tagProperty.second);
     }
     // update max number of editable attributes
-    updateMaxNumberOfEditableAttributes();
+    updateMaxNumberOfAttributes();
     // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
     for (const auto& tagProperty : myTagProperties) {
         tagProperty.second.checkTagIntegrity();
@@ -9834,16 +9837,37 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(GNETagProperties& tagPropertie
 
 
 void
-GNEAttributeCarrier::updateMaxNumberOfEditableAttributes() {
+GNEAttributeCarrier::updateMaxNumberOfAttributes() {
     for (const auto& tagProperty : myTagProperties) {
         int editableAttributes = 0;
+        int geoAttributes = 0;
+        int flowAttributes = 0;
+        int neteditAttributes = 0;
         for (const auto& attributeProperty : tagProperty.second) {
             if (!attributeProperty.isExtended()) {
                 editableAttributes++;
             }
+            if (!attributeProperty.isGEO()) {
+                geoAttributes++;
+            }
+            if (!attributeProperty.isFlow()) {
+                flowAttributes++;
+            }
+            if (!attributeProperty.isNetedit()) {
+                neteditAttributes++;
+            }
         }
         if (maxNumberOfEditableAttributes < editableAttributes) {
             maxNumberOfEditableAttributes = editableAttributes;
+        }
+        if (maxNumberOfGeoAttributes < geoAttributes) {
+            maxNumberOfGeoAttributes = geoAttributes;
+        }
+        if (maxNumberOfFlowAttributes < flowAttributes) {
+            maxNumberOfFlowAttributes = flowAttributes;
+        }
+        if (maxNumberOfNeteditAttributes < neteditAttributes) {
+            maxNumberOfNeteditAttributes = neteditAttributes;
         }
     }
 }

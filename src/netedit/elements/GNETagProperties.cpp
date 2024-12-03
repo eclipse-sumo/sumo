@@ -20,11 +20,7 @@
 
 #include "GNETagProperties.h"
 
-// ===========================================================================
-// static members
-// ===========================================================================
-
-const size_t GNETagProperties::myMaxNumberOfAttributes = 128;
+#define MAXATTRIBUTES 128
 
 // ===========================================================================
 // method definitions
@@ -166,7 +162,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
-    if ((myAttributeProperties.size() + 1) >= myMaxNumberOfAttributes) {
+    if ((myAttributeProperties.size() + 1) >= MAXATTRIBUTES) {
         throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty.getAttrStr()));
     } else {
         // Check that attribute wasn't already inserted

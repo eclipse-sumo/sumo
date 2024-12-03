@@ -343,6 +343,15 @@ public:
     /// @brief max number of editable (non extended) attributes (needed for attributes editor)
     static int maxNumberOfEditableAttributes;
 
+    /// @brief max number of geo attributes (needed for geo attributes editor)
+    static int maxNumberOfGeoAttributes;
+
+    /// @brief max number of flow attributes (needed for geo attributes editor)
+    static int maxNumberOfFlowAttributes;
+
+    /// @brief max number of netedit attributes (needed for netedit attributes editor)
+    static int maxNumberOfNeteditAttributes;
+
     /// @brief empty parameter maps (used by ACs without parameters)
     static const Parameterised::Map PARAMETERS_EMPTY;
 
@@ -524,8 +533,8 @@ private:
     /// @brief fill stop person attributes
     static void fillCommonMeanDataAttributes(GNETagProperties& tagProperties);
 
-    /// @brief update max number of editable attributes
-    static void updateMaxNumberOfEditableAttributes();
+    /// @brief update max number of attributes by type
+    static void updateMaxNumberOfAttributes();
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
