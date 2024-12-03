@@ -2682,6 +2682,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         } else {
             double minorStopOffset = MAX2(lane->getVehicleStopOffset(this),
                                           getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "  minorStopOffset=" << minorStopOffset << " distToFoePedCrossing=" << (*link)->getDistToFoePedCrossing() << "\n";
+            }
+#endif
             if ((*link)->getState() == LINKSTATE_ALLWAY_STOP) {
                 minorStopOffset = MAX2(minorStopOffset, getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, 0));
             } else {

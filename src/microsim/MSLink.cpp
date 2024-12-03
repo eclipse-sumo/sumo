@@ -933,6 +933,13 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
     }
     if (myApproachingPersons != nullptr && !haveRed()) {
         for (const auto& it : *myApproachingPersons) {
+//#ifdef MSLink_DEBUG_OPENED
+//            if (gDebugFlag1) {
+//                std::cout << SIMTIME << ": " << ego->getID() << " check person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime 
+//                    << " lTime=" << leaveTime << " foeLTime=" << it.second.leavingTime
+//                    << " dist=" << dist << "\n";
+//            }
+//#endif
             if ((ego == nullptr
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
