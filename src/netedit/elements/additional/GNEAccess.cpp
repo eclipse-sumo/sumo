@@ -221,12 +221,16 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Obtain exaggeration
         const double accessExaggeration = getExaggeration(s);
+        // adjust radius depending of mode and distance to mouse position
+        double radius = 0.5;
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myAdditionalGeometry.getShape().front()) < 1) {
+            radius = 1;
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-            // radius depends if mouse is over element
-            const double radius = gViewObjectsHandler.isObjectSelected(this) ? 1 : 0.5;
             // get color
             RGBColor accessColor;
             if (drawUsingSelectColor()) {
@@ -247,7 +251,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // translate to geometry position
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
             // draw circle
-            GLHelper::drawFilledCircleDetailled(d, radius);
+            GLHelper::drawFilledCircleDetailled(d, radius * accessExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
@@ -256,7 +260,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1, getType(),
+        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), radius, getType(),
                 accessExaggeration, getParentLanes().front()->getParentEdge());
     }
 }
