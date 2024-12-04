@@ -26,6 +26,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/network/GNECrossingFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
@@ -267,7 +268,7 @@ GNEJunction::checkDrawToContour() const {
 
 bool
 GNEJunction::checkDrawRelatedContour() const {
-    return false;
+    return (myNet->getViewNet()->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this);
 }
 
 
