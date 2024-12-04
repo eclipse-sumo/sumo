@@ -56,7 +56,7 @@ public:
     /// @brief calculate contour (for closed shapes)
     void calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                     const double scale, const GUIGlObject* boundaryParent) const;
+                                     const double scale, const GUIGlObject* boundaryParent, const bool addToSelectedObjects = true) const;
 
     /// @brief calculate contour extruded (used in elements formed by a central shape)
     void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -130,6 +130,10 @@ public:
     /// @brief draw innen contour (currently used only in walkingAreas)
     void drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const PositionVector& shape, const double scale, const double lineWidth) const;
+
+    /// @brief draw dotted contour (call out of this class only in special cases, for example in WalkingAreas)
+    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                           const double lineWidth, const bool addOffset) const;
     /// @}
 
 private:
@@ -174,10 +178,6 @@ private:
     void buildContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                            const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
     /// @}
-
-    /// @brief draw dotted contour
-    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                           const double lineWidth, const bool addOffset) const;
 
     /// @brief Invalidated copy constructor.
     GNEContour(const GNEContour&) = delete;

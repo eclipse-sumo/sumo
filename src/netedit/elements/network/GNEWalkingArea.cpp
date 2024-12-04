@@ -161,23 +161,29 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // don't draw this walking area if we're editing their junction parent
         const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
         if (!editedNetworkElement || (editedNetworkElement != myParentJunction)) {
+            const auto contourMode = drawInContourMode();
             // get detail level
             const auto d = s.getDetailLevel(walkingAreaExaggeration);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
             if (!s.drawForViewObjectsHandler) {
                 // draw walking area
-                drawWalkingArea(s, d, walkingAreaShape, walkingAreaExaggeration);
+                if (!contourMode) {
+                    drawWalkingArea(s, d, walkingAreaShape, walkingAreaExaggeration);
+                }
                 // draw walkingArea name
                 if (s.cwaEdgeName.show(this)) {
                     drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
                 }
                 // draw dotted contour
-                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                if (contourMode) {
+                    myNetworkElementContour.drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, s.dottedContourSettings.segmentWidth, false);
+                } else {
+                    myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                }
             }
             // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
-            if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentObject(this, getType(), myParentJunction)) {
-                myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, getType(), walkingAreaExaggeration, myParentJunction);
-            }
+            myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, getType(),
+                    walkingAreaExaggeration, myParentJunction, !contourMode);
         }
     }
 }
@@ -364,13 +370,15 @@ GNEWalkingArea::drawInContourMode() const {
     const auto& modes = myNet->getViewNet()->getEditModes();
     // check modes
     if (!modes.isCurrentSupermodeNetwork()) {
-        return false;
-    } else if (modes.networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-        return false;
-    } else if (modes.networkEditMode != NetworkEditMode::NETWORK_CONNECT) {
-        return false;
-    } else {
         return true;
+    } else if (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+        return true;
+    } else if (modes.networkEditMode == NetworkEditMode::NETWORK_DELETE) {
+        return true;
+    } else if (modes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
+        return true;
+    } else {
+        return false;
     }
 }
 

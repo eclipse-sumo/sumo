@@ -74,13 +74,15 @@ GNEContour::clearContour() const {
 void
 GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                        const double scale, const GUIGlObject* boundaryParent) const {
+                                        const double scale, const GUIGlObject* boundaryParent, const bool addToSelectedObjects) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && !gViewObjectsHandler.checkRectangleSelection(s, glObject, layer, boundaryParent)) {
         // calculate closed shape contour
         buildContourClosedShape(s, d, shape, scale);
         // check if position or bondary is within closed shape
-        gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer, nullptr);
+        if (addToSelectedObjects) {
+            gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer, nullptr);
+        }
     }
 }
 
@@ -422,6 +424,24 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIV
 
 
 void
+GNEContour::drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                              const double lineWidth, const bool addOffset) const {
+    // reset dotted geometry color
+    myDottedGeometryColor.reset();
+    // Push draw matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+    // draw dotted geometries
+    for (const auto& dottedGeometry : *myDottedGeometries) {
+        dottedGeometry.drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth, addOffset);
+    }
+    // pop matrix
+    GLHelper::popMatrix();
+}
+
+
+void
 GNEContour::buildContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                     const PositionVector& shape, const double scale) const {
     // set calculated shape
@@ -590,24 +610,6 @@ GNEContour::buildContourEdges(const GUIVisualizationSettings& /*s*/, const GUIVi
                               const GNEEdge* /* fromEdge */, const GNEEdge* /* toEdge */) const {
 
     // finish
-}
-
-
-void
-GNEContour::drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                              const double lineWidth, const bool addOffset) const {
-    // reset dotted geometry color
-    myDottedGeometryColor.reset();
-    // Push draw matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    glTranslated(0, 0, GLO_DOTTEDCONTOUR);
-    // draw dotted geometries
-    for (const auto& dottedGeometry : *myDottedGeometries) {
-        dottedGeometry.drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth, addOffset);
-    }
-    // pop matrix
-    GLHelper::popMatrix();
 }
 
 /****************************************************************************/
