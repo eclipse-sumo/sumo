@@ -709,8 +709,8 @@ void
 MSDevice_StationFinder::implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge, const MSChargingStation* cs) {
     myChargeLimits.clear();
     if (myChargingStrategy == CHARGINGSTRATEGY_BALANCED) {
-        const double balancedCharge = plannedCharge / STEPS2TIME(end - begin);
-        myChargeLimits.push_back({ begin, balancedCharge });
+        const double balancedChargeRate = plannedCharge / STEPS2TIME(end - begin) * 3600.;
+        myChargeLimits.push_back({ begin, balancedChargeRate });
         myChargeLimits.push_back({ end, -1});
     } else { // CHARGINGSTRATEGY_LATEST
         SUMOTime expectedDuration = myBattery->estimateChargingDuration(plannedCharge, cs->getChargingPower(false) * cs->getEfficency());
