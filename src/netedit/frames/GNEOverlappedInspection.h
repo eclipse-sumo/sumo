@@ -46,11 +46,14 @@ public:
     /// @brief destructor
     ~GNEOverlappedInspection();
 
-    /// @brief show template editor
+    /// @brief show overlapped inspection
     void showOverlappedInspection(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
 
-    /// @brief hide template editor
-    void hideOverlappedInspection();
+    /// @brief show template editor
+    void refreshOverlappedInspection();
+
+    /// @brief clear overlapped inspection
+    void clearOverlappedInspection();
 
     /// @brief check if overlappedInspection modul is shown
     bool overlappedInspectionShown() const;

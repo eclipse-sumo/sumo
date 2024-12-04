@@ -73,9 +73,8 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 void
 GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
-    // first clear myOverlappedACs
     myOverlappedACs.clear();
-    // get cliked ACs
+    mySavedClickedPosition = clickedPosition;
     auto clickedACs = viewObjects.getAttributeCarriers();
     // check if filter edges
     if ((clickedACs.size() > 0) && (clickedACs.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
@@ -112,9 +111,21 @@ GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ViewOb
             myOverlappedACs.push_back(AC);
         }
     }
+    refreshOverlappedInspection();
+}
+
+
+void
+GNEOverlappedInspection::clearOverlappedInspection() {
+    myOverlappedACs.clear();
+    refreshOverlappedInspection();
+}
+
+
+void
+GNEOverlappedInspection::refreshOverlappedInspection() {
     // continue depending of number of myOverlappedACs
     if (myOverlappedACs.size() > 1) {
-        mySavedClickedPosition = clickedPosition;
         // by default we inspect first element
         myItemIndex = 0;
         // update text of current index button
@@ -134,13 +145,6 @@ GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ViewOb
         // hide GNEOverlappedInspection modul
         hide();
     }
-}
-
-
-void
-GNEOverlappedInspection::hideOverlappedInspection() {
-    // hide GNEOverlappedInspection modul
-    hide();
 }
 
 

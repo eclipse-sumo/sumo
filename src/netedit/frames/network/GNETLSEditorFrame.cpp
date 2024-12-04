@@ -150,8 +150,7 @@ GNETLSEditorFrame::~GNETLSEditorFrame() {
 
 void
 GNETLSEditorFrame::show() {
-    // hide myOverlappedInspection
-    myOverlappedInspection->hideOverlappedInspection();
+    myOverlappedInspection->clearOverlappedInspection();
     // show
     GNEFrame::show();
 }
@@ -172,7 +171,7 @@ GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelp
         myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
         // hide if we inspect only one junction
         if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
-            myOverlappedInspection->hideOverlappedInspection();
+            myOverlappedInspection->clearOverlappedInspection();
         }
         // check if we're adding or removing joined TLSs
         if (myTLSJunction->isJoiningJunctions()) {

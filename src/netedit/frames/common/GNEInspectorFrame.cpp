@@ -555,12 +555,13 @@ GNEInspectorFrame::refreshInspection() {
     myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
+    // resfresh overlapped modul
+    myOverlappedInspection->refreshOverlappedInspection();
     // Hide other moduls
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
-    myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (inspectedElements.isInspectingElements()) {
         // Set header
@@ -686,10 +687,10 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSele
     const auto AC = viewObjects.getAttributeCarrierFront();
     // check if selection is blocked
     if (AC) {
-        // inspect front element
-        inspectElement(AC);
         // show Overlapped Inspection module
         myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
+        // inspect front element
+        inspectElement(AC);
     }
 }
 
