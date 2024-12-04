@@ -107,13 +107,13 @@ protected:
     void showAttributeLabel(const GNEAttributeProperties& attrProperty);
 
     /// @brief show value for check button
-    void showValueCheckButton(const GNEAttributeProperties& attrProperty, const std::string& value, const bool enabled, const bool computed);
+    void showValueCheckButton(const std::string& value, const bool enabled, const bool computed);
 
     /// @brief show value for combo Box
     void showValueComboBox(const GNEAttributeProperties& attrProperty, const std::string& value, const bool enabled, const bool computed);
 
     /// @brief show value for strings
-    void showValueString(const GNEAttributeProperties& attrProperty, const std::string& value, const bool enabled, const bool computed);
+    void showValueString(const std::string& value, const bool enabled, const bool computed);
 
     /// @brief show move lane buttons
     void showMoveLaneButtons(const std::string& laneID);

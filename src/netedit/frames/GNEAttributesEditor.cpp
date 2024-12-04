@@ -143,6 +143,12 @@ GNEAttributesEditor::refreshAttributesEditor() {
             // front button
             if (tagProperty.isDrawable()) {
                 myFrontButton->show();
+                // disable if we're reparenting
+                if (isReparenting()) {
+                    myOpenDialogButton->disable();
+                } else {
+                    myOpenDialogButton->enable();
+                }
                 showButtons = true;
             } else {
                 myFrontButton->hide();
@@ -154,6 +160,12 @@ GNEAttributesEditor::refreshAttributesEditor() {
                     // set text and icon
                     myOpenDialogButton->setText(TLF("Open % dialog", tagProperty.getTagStr()).c_str());
                     myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
+                    // disable if we're reparenting
+                    if (isReparenting()) {
+                        myOpenDialogButton->disable();
+                    } else {
+                        myOpenDialogButton->enable();
+                    }
                     myOpenDialogButton->show();
                     showButtons = true;
                 } else {
@@ -340,7 +352,7 @@ void
 GNEAttributesEditor::enableReparent() {
     if (myEditedACs.front()->getTagProperty().getParentTags().size() > 0) {
         myReparentTag = myEditedACs.front()->getTagProperty().getParentTags().front();
-        myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshInspection();
+        refreshAttributesEditor();
         myFrameParent->getViewNet()->update();
     }
 }

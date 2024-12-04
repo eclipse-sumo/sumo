@@ -200,11 +200,11 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     }
     // continue depending of type of attribute
     if (attrProperty.isBool()) {
-        showValueCheckButton(attrProperty, value, attributeEnabled, computedAttribute);
+        showValueCheckButton(value, attributeEnabled, computedAttribute);
     } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
         showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
     } else {
-        showValueString(attrProperty, value, attributeEnabled, computedAttribute);
+        showValueString(value, attributeEnabled, computedAttribute);
     }
     // check if show move lane buttons
     if (!multipleEditedACs && !tagProperty.isNetworkElement() && (myAttribute == SUMO_ATTR_LANE)) {
@@ -541,7 +541,7 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties& attrPro
 
 
 void
-GNEAttributesEditorRow::showValueCheckButton(const GNEAttributeProperties& attrProperty, const std::string& value,
+GNEAttributesEditorRow::showValueCheckButton(const std::string& value,
         const bool enabled, const bool computed) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
@@ -581,7 +581,7 @@ GNEAttributesEditorRow::showValueCheckButton(const GNEAttributeProperties& attrP
         myValueLaneDownButton->hide();
     } else {
         // show value as string
-        showValueString(attrProperty, value, enabled, computed);
+        showValueString(value, enabled, computed);
     }
 }
 
@@ -682,14 +682,13 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties& attrProp
         myValueLaneDownButton->hide();
     } else {
         // show value as string
-        showValueString(attrProperty, value, computed, enabled);
+        showValueString(value, computed, enabled);
     }
 }
 
 
 void
-GNEAttributesEditorRow::showValueString(const GNEAttributeProperties& attrProperty, const std::string& value,
-                                        const bool enabled, const bool computed) {
+GNEAttributesEditorRow::showValueString(const std::string& value, const bool enabled, const bool computed) {
     // clear and enable comboBox
     myValueTextField->setText(value.c_str());
     if (computed) {
