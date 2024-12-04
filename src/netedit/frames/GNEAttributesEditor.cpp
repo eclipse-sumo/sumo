@@ -22,29 +22,16 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewNetHelper.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/dialogs/GNEMultipleParametersDialog.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
-#include <utils/common/Parameterised.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/foxtools/MFXLabelTooltip.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
-#include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/POIIcons.h>
-#include <utils/gui/images/VClassIcons.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAttributesEditor.h"
 #include "GNEAttributesEditorRow.h"
@@ -278,15 +265,15 @@ long
 GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
     // check number of inspected elements
     if (myEditedACs.size() == 1) {
-        const auto tag = myEditedACs.front()->getTagProperty().getTag();
+        const auto editedTag = myEditedACs.front()->getTagProperty().getTag();
         // check AC
-        if (tag == SUMO_TAG_REROUTER) {
+        if (editedTag == SUMO_TAG_REROUTER) {
             // Open rerouter dialog
             GNERerouterDialog(dynamic_cast<GNERerouter*>(myEditedACs.front()));
-        } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
+        } else if ((editedTag == SUMO_TAG_CALIBRATOR) || (editedTag == GNE_TAG_CALIBRATOR_LANE)) {
             // Open calibrator dialog
             GNECalibratorDialog(dynamic_cast<GNECalibrator*>(myEditedACs.front()));
-        } else if (tag == SUMO_TAG_VSS) {
+        } else if (editedTag == SUMO_TAG_VSS) {
             // Open VSS dialog
             GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(myEditedACs.front()));
         }

@@ -120,45 +120,6 @@ public:
         GNEEdgeTemplate* myEdgeTemplate;
     };
 
-    // ===========================================================================
-    // class AdditionalDialog
-    // ===========================================================================
-
-    class AdditionalDialog : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::AdditionalDialog)
-
-    public:
-        /// @brief constructor
-        AdditionalDialog(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~AdditionalDialog();
-
-        /// @brief show netedit attributes editor
-        void showAdditionalDialog();
-
-        /// @brief hide netedit attributes editor
-        void hideAdditionalDialog();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user click over open additional dialog
-        long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(AdditionalDialog)
-
-    private:
-        /// @brief pointer to inspector frame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief button for open additional dialog
-        FXButton* myOpenAdditionalDialog;
-    };
-
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief net net that uses this GNEFrame
@@ -260,9 +221,6 @@ private:
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
-
-    /// @brief Additional dialog
-    AdditionalDialog* myAdditionalDialog;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;

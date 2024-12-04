@@ -17,24 +17,16 @@
 ///
 // Row used for edit attributes in GNEAttributesEditor
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/dialogs/GNEMultipleParametersDialog.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/images/POIIcons.h>
-#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/VClassIcons.h>
 
 #include "GNEAttributesEditorRow.h"
 

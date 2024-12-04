@@ -18,28 +18,17 @@
 ///
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/elements/additional/GNERerouter.h>
-#include <netedit/elements/additional/GNECalibrator.h>
-#include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
-#include <netedit/dialogs/GNEMultipleParametersDialog.h>
-#include <netedit/dialogs/GNERerouterDialog.h>
-#include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEInspectorFrame.h"
-#include "GNEDeleteFrame.h"
 
 
 // ===========================================================================
@@ -56,14 +45,9 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GNEInspectorFrame::TemplateEditor::onCmdClearTemplate),
 };
 
-FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONAL_DIALOG, GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog),
-};
-
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          MFXGroupBoxModule,  TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,        MFXGroupBoxModule,  AdditionalDialogMap,        ARRAYNUMBER(AdditionalDialogMap))
+FXIMPLEMENT(GNEInspectorFrame,                  FXVerticalFrame,    GNEInspectorFrameMap,   ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================
@@ -252,89 +236,6 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEInspectorFrame::AdditionalDialog - methods
-// ---------------------------------------------------------------------------
-
-GNEInspectorFrame::AdditionalDialog::AdditionalDialog(GNEInspectorFrame* inspectorFrameParent) :
-    MFXGroupBoxModule(inspectorFrameParent, TL("Additional dialog")),
-    myInspectorFrameParent(inspectorFrameParent) {
-    // Create mark as front element button
-    myOpenAdditionalDialog = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Additional dialog"), "", "", nullptr, this, MID_OPEN_ADDITIONAL_DIALOG, GUIDesignButton);
-}
-
-
-GNEInspectorFrame::AdditionalDialog::~AdditionalDialog() {}
-
-
-void
-GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
-    const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-    // check number of inspected elements
-    if (inspectedElements.isInspectingSingleElement()) {
-        // get first inspected AC tag
-        auto firstInspectedACTag = inspectedElements.getFirstAC()->getTagProperty().getTag();
-        // check AC
-        if (firstInspectedACTag == SUMO_TAG_REROUTER) {
-            // update button
-            myOpenAdditionalDialog->setText(TL("Open rerouter dialog"));
-            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::REROUTER));
-            // show module
-            show();
-        } else if (firstInspectedACTag == SUMO_TAG_CALIBRATOR) {
-            // update button
-            myOpenAdditionalDialog->setText(TL("Open calibrator dialog"));
-            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
-            // show module
-            show();
-        } else if (firstInspectedACTag == GNE_TAG_CALIBRATOR_LANE) {
-            // update button
-            myOpenAdditionalDialog->setText(TL("Open calibrator lane dialog"));
-            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
-            // show module
-            show();
-        } else if (firstInspectedACTag == SUMO_TAG_VSS) {
-            // update button
-            myOpenAdditionalDialog->setText(TL("Open VSS dialog"));
-            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN));
-            // show module
-            show();
-        }
-    } else {
-        // hide module
-        hide();
-    }
-}
-
-
-void
-GNEInspectorFrame::AdditionalDialog::hideAdditionalDialog() {
-    // hide groupbox
-    hide();
-}
-
-
-long
-GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
-    const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-    // check number of inspected elements
-    if (inspectedElements.isInspectingSingleElement()) {
-        // check AC
-        if (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
-            // Open rerouter dialog
-            GNERerouterDialog(dynamic_cast<GNERerouter*>(inspectedElements.getFirstAC()));
-        } else if ((inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) ||
-                   (inspectedElements.getFirstAC()->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_LANE)) {
-            // Open calibrator dialog
-            GNECalibratorDialog(dynamic_cast<GNECalibrator*>(inspectedElements.getFirstAC()));
-        } else if (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_VSS) {
-            // Open VSS dialog
-            GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(inspectedElements.getFirstAC()));
-        }
-    }
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
 // GNEInspectorFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -363,9 +264,6 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
 
     // Create Netedit Attributes Editor module
     myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorOptions::NETEDIT_ATTRIBUTES);
-
-    // create additional dialog
-    myAdditionalDialog = new AdditionalDialog(this);
 
     // Create Template editor module
     myTemplateEditor = new TemplateEditor(this);
@@ -559,7 +457,6 @@ GNEInspectorFrame::refreshInspection() {
     myOverlappedInspection->refreshOverlappedInspection();
     // Hide other moduls
     myParametersEditor->hideParametersEditor();
-    myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
     // If vector of attribute Carriers contain data
@@ -605,9 +502,6 @@ GNEInspectorFrame::refreshInspection() {
 
         // show parameters editor
         myParametersEditor->showParametersEditor();
-
-        // show additional dialog
-        myAdditionalDialog->showAdditionalDialog();
 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
         myTemplateEditor->showTemplateEditor();
