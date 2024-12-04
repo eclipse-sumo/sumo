@@ -188,7 +188,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     if (attrProperty.isActivatable()) {
         showAttributeToogleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
     } else if ((myAttribute == GNE_ATTR_PARENT)) {
-        showAttributeReparent(attrProperty, attributeEnabled);
+        showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
         showAttributeInspectParent(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_ALLOW) {
@@ -448,10 +448,7 @@ GNEAttributesEditorRow::showAttributeToogleEnable(const GNEAttributeProperties& 
 
 
 void
-GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attrProperty,
-        const bool enabled) {
-    // set icon and text
-    myAttributeReparentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
+GNEAttributesEditorRow::showAttributeReparent(const bool enabled) {
     if (enabled) {
         myAttributeReparentButton->enable();
     } else {
@@ -468,8 +465,7 @@ GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attr
 
 
 void
-GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties& attrProperty,
-        const bool enabled) {
+GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
     // set icon and text
     myAttributeInspectParentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
     myAttributeInspectParentButton->setText(attrProperty.getAttrStr().c_str());

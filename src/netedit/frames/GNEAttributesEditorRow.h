@@ -92,7 +92,7 @@ protected:
     void showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
 
     /// @brief show attribute reparent
-    void showAttributeReparent(const GNEAttributeProperties& attrProperty, const bool enabled);
+    void showAttributeReparent(const bool enabled);
 
     /// @brief show attribute parent
     void showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled);
