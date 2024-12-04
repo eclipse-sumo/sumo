@@ -285,6 +285,9 @@ public:
     /// @brief clear edges (used when user press ESC key in Crossing mode)
     void clearEdgesHotkey();
 
+    /// @brief get edge selector modul
+    GNECrossingFrame::EdgesSelector* getEdgesSelector() const;
+
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNECrossingFrame)

@@ -568,7 +568,7 @@ GNECrossingFrame::hide() {
 void
 GNECrossingFrame::addCrossing(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // If current element is a junction
-    if (viewObjects.getJunctionFront()) {
+    if (viewObjects.getJunctionFront() && (viewObjects.getAttributeCarriers().front() == viewObjects.getJunctionFront())) {
         // change label
         myJunctionInformation->updateCurrentJunctionLabel(viewObjects.getJunctionFront()->getID());
         // Enable edge selector and crossing parameters
@@ -611,6 +611,12 @@ GNECrossingFrame::clearEdgesHotkey() {
         myEdgeSelector->restoreEdgeColors();
         myEdgeSelector->disableEdgeSelector();
     }
+}
+
+
+GNECrossingFrame::EdgesSelector*
+GNECrossingFrame::getEdgesSelector() const {
+    return myEdgeSelector;
 }
 
 /****************************************************************************/
