@@ -47,7 +47,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_GOBACK,  GNEInspectorFrame::onCmdGoBack)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT,  GNEInspectorFrame::onCmdInspectPreviousElement)
 };
 
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
@@ -339,13 +339,10 @@ GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSele
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Inspector"),
-    myPreviousElementInspect(nullptr),
-    myPreviousElementDelete(nullptr),
-    myPreviousElementDeleteWasMarked(false) {
+    GNEFrame(viewParent, viewNet, "Inspector") {
 
     // Create back button
-    myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonRectangular);
+    myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonRectangular);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
@@ -504,7 +501,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
 
 
 void
-GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
+GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousInspectedAC) {
     std::vector<GNEAttributeCarrier*> itemsToInspect;
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     if (AC) {
@@ -524,12 +521,13 @@ GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
             itemsToInspect.push_back(AC);
         }
     }
-    inspectElements(itemsToInspect);
+    inspectElements(itemsToInspect, previousInspectedAC);
 }
 
 void
-GNEInspectorFrame::inspectElements(const std::vector<GNEAttributeCarrier*>& ACs) {
+GNEInspectorFrame::inspectElements(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousInspectedAC) {
     myViewNet->getInspectedElements().inspectACs(ACs);
+    myPreviousInspectedAC = previousInspectedAC;
     refreshInspection();
 }
 
@@ -544,9 +542,14 @@ GNEInspectorFrame::clearInspection() {
 void
 GNEInspectorFrame::refreshInspection() {
     const auto& inspectedElements = myViewNet->getInspectedElements();
-    // hide back button
-    myHeaderLeftFrame->hide();
-    myBackButton->hide();
+    // check if show back button
+    if (myPreviousInspectedAC) {
+        myHeaderLeftFrame->show();
+        myBackButton->show();
+    } else {
+        myHeaderLeftFrame->hide();
+        myBackButton->hide();
+    }
     // Show all attribute editors (will be automatically hidden if there are no elements to inspect)
     myAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
@@ -622,35 +625,6 @@ GNEInspectorFrame::refreshInspection() {
 }
 
 
-void
-GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
-    // Show back button if myPreviousElementInspect was defined
-    myPreviousElementInspect = previousElement;
-    if (myPreviousElementInspect != nullptr) {
-        // disable myPreviousElementDelete to avoid inconsistences
-        myPreviousElementDelete = nullptr;
-        inspectElement(AC);
-        myHeaderLeftFrame->show();
-        myBackButton->show();
-    }
-}
-
-
-void
-GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
-    myPreviousElementDelete = previousElement;
-    myPreviousElementDeleteWasMarked = previousElementWasMarked;
-    // Show back button if myPreviousElementDelete is valid
-    if (myPreviousElementDelete != nullptr) {
-        // disable myPreviousElementInspect to avoid inconsistences
-        myPreviousElementInspect = nullptr;
-        inspectElement(AC);
-        myHeaderLeftFrame->show();
-        myBackButton->show();
-    }
-}
-
-
 GNEAttributesEditor*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
@@ -682,17 +656,8 @@ GNEInspectorFrame::getHierarchicalElementTree() const {
 
 
 long
-GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
-    // Inspect previous element or go back to Delete Frame
-    if (myPreviousElementInspect) {
-        inspectElement(myPreviousElementInspect);
-        myPreviousElementInspect = nullptr;
-    } else if (myPreviousElementDelete != nullptr) {
-        myPreviousElementDelete = nullptr;
-        // Hide inspect frame and show delete frame
-        hide();
-        myViewNet->getViewParent()->getDeleteFrame()->show();
-    }
+GNEInspectorFrame::onCmdInspectPreviousElement(FXObject*, FXSelector, void*) {
+    inspectElement(myPreviousInspectedAC, nullptr);
     return 1;
 }
 

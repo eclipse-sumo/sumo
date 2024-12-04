@@ -1105,7 +1105,7 @@ enum {
     /// @{
 
     /// @brief go back to the previous element
-    MID_GNE_INSPECTORFRAME_GOBACK,
+    MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT,
 
     /// @}
 

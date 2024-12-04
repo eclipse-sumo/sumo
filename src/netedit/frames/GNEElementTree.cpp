@@ -183,9 +183,7 @@ GNEElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
 
 long
 GNEElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    if ((myHE != nullptr) && (myClickedAC != nullptr)) {
-        myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myHE);
-    }
+    myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(myClickedAC, myHE);
     return 1;
 }
 

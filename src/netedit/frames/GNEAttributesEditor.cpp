@@ -350,7 +350,7 @@ void
 GNEAttributesEditor::inspectParent() {
     const auto type = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myEditedACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
     if (type) {
-        myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(type);
+        myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(type, myEditedACs.front());
     }
 }
 

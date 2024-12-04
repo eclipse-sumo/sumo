@@ -196,22 +196,16 @@ public:
     bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief Inspect a single element
-    void inspectElement(GNEAttributeCarrier* AC);
+    void inspectElement(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousInspectedAC = nullptr);
 
     /// @brief Inspect the given elements
-    void inspectElements(const std::vector<GNEAttributeCarrier*>& ACs);
+    void inspectElements(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousInspectedAC = nullptr);
 
     /// @brief clear inspection
     void clearInspection();
 
     /// @brief refresh current inspection
     void refreshInspection();
-
-    /// @brief inspect child of already inspected element
-    void inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
-
-    /// @brief inspect called from DeleteFrame
-    void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief get AttributesEditor
     GNEAttributesEditor* getAttributesEditor() const;
@@ -231,8 +225,8 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief called when user toggle the go back button
-    long onCmdGoBack(FXObject*, FXSelector, void*);
+    /// @brief called when user press inspet previous elemnt button
+    long onCmdInspectPreviousElement(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
@@ -279,12 +273,6 @@ private:
     /// @brief Back Button
     FXButton* myBackButton;
 
-    /// @brief Pointer to previous element called by Inspector Frame
-    GNEAttributeCarrier* myPreviousElementInspect;
-
-    /// @brief pointer to previous element called by Delete Frame
-    GNEAttributeCarrier* myPreviousElementDelete;
-
-    /// @brief flag to ckec if myPreviousElementDelete was marked in Delete Frame
-    bool myPreviousElementDeleteWasMarked;
+    /// @brief Pointer to previous element inspected
+    GNEAttributeCarrier* myPreviousInspectedAC = nullptr;
 };

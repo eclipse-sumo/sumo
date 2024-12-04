@@ -107,6 +107,9 @@ protected:
     /// @brief fox need this
     FOX_CONSTRUCTOR(GNEAttributesEditor)
 
+    /// @name functions called from GNEAttributesEditorRow
+    /// @{
+
     /// @brief set attribute in the current ACs (Callend from row)
     void setAttribute(SumoXMLAttr attr, const std::string& value);
 
@@ -116,7 +119,7 @@ protected:
     /// @brief void enable reparent
     void enableReparent();
 
-    /// @brief inspect parent
+    /// @brief inspect parent (Callend from row)
     void inspectParent();
 
     /// @brief move lane up
@@ -124,6 +127,8 @@ protected:
 
     /// @brief move lane down
     void moveLaneDown();
+
+    /// @}
 
 private:
     /// @brief pointer to GNEFrame parent
