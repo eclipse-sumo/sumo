@@ -284,7 +284,11 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_PARENT:
-            return getParentAdditionals().at(0)->getID();
+            if (isTemplate()) {
+                return "";
+            } else {
+                return getParentAdditionals().at(0)->getID();
+            }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:

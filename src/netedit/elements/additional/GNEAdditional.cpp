@@ -186,13 +186,12 @@ GNEAdditional::checkDrawFromContour() const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
-        // check if starts in TAZ
-        if (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM_TAZ) &&
-                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
-            return true;
-        } else if ((inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-                   (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
-            return true;
+        const auto inspectedAC = inspectedElements.getFirstAC();
+        // check conditions
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ)) {
+            return (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID());
+        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL)) {
+            return (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID());
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
@@ -244,15 +243,22 @@ GNEAdditional::checkDrawToContour() const {
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
-    // continue depending of current status
-    if (inspectedElements.isInspectingSingleElement()) {
-        // check if starts in TAZ
-        if (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_TO_TAZ) &&
-                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
-            return true;
-        } else if ((inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-                   (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
-            return true;
+    // check conditions
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
+        return false;
+    } else if (inspectedElements.isInspectingSingleElement()) {
+        const auto inspectedAC = inspectedElements.getFirstAC();
+        // check conditions
+        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ)) {
+            return (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID());
+        } else if (inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
+            return (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID());
+        } else if (inspectedAC->hasAttribute(GNE_ATTR_PARENT)) {
+            // check all parent tags
+            const auto& parentTags = inspectedAC->getTagProperty().getParentTags();
+            if (std::find(parentTags.begin(), parentTags.end(), myTagProperty.getTag()) != parentTags.end()) {
+                return (inspectedAC->getAttribute(GNE_ATTR_PARENT) == getID());
+            }
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator

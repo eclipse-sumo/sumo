@@ -284,7 +284,11 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SLOPE:
             return toString(mySlope);
         case GNE_ATTR_PARENT:
-            return getParentAdditionals().at(0)->getID();
+            if (isTemplate()) {
+                return "";
+            } else {
+                return getParentAdditionals().at(0)->getID();
+            }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
