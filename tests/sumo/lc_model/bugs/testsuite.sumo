@@ -50,3 +50,6 @@ ticket14587
 
 # invalid cooperative changing ahead of roundabout	
 ticket15854
+
+# deadlock with 3 vehicles
+ticket15857
