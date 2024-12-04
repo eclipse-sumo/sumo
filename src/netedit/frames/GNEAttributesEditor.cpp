@@ -190,7 +190,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 if (showAttributeRow) {
                     if (itRows < myMaxNumberOfRows) {
                         // only update if row was show successfully
-                        if (myAttributesEditorRows[itRows]->showAttributeRow(attrProperty)) {
+                        if (myAttributesEditorRows[itRows]->showAttributeRow(attrProperty, isReparenting())) {
                             itRows++;
                         }
                     } else {
@@ -340,7 +340,7 @@ void
 GNEAttributesEditor::enableReparent() {
     if (myEditedACs.front()->getTagProperty().getParentTags().size() > 0) {
         myReparentTag = myEditedACs.front()->getTagProperty().getParentTags().front();
-        refreshAttributesEditor();
+        myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshInspection();
         myFrameParent->getViewNet()->update();
     }
 }

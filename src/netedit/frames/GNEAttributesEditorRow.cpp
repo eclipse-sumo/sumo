@@ -132,10 +132,8 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
 }
 
 
-
-
 bool
-GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrProperty) {
+GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrProperty, const bool forceDisable) {
     myAttribute = attrProperty.getAttr();
     const auto& tagProperty = attrProperty.getTagPropertyParent();
     const auto firstEditedAC = myAttributeTable->myEditedACs.front();
@@ -217,6 +215,8 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
         myValueLaneUpButton->hide();
         myValueLaneDownButton->hide();
     }
+    // enable depending of supermode
+    enableElements(attrProperty, forceDisable);
     // Show row
     show();
     return true;
@@ -428,7 +428,8 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
 
 
 void
-GNEAttributesEditorRow::showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled) {
+GNEAttributesEditorRow::showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value,
+        const bool enabled) {
     myAttributeToogleEnableCheckButton->setText(attrProperty.getAttrStr().c_str());
     myAttributeToogleEnableCheckButton->setCheck(value);
     if (enabled) {
@@ -443,13 +444,12 @@ GNEAttributesEditorRow::showAttributeToogleEnable(const GNEAttributeProperties& 
     myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
 void
-GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attrProperty,
+        const bool enabled) {
     // set icon and text
     myAttributeReparentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
     if (enabled) {
@@ -464,13 +464,12 @@ GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attr
     myAttributeToogleEnableCheckButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
 void
-GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties& attrProperty,
+        const bool enabled) {
     // set icon and text
     myAttributeInspectParentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
     myAttributeInspectParentButton->setText(attrProperty.getAttrStr().c_str());
@@ -486,13 +485,12 @@ GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties&
     myAttributeToogleEnableCheckButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
 void
-GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties& attrProperty,
+        const bool enabled) {
     // set icon and text
     myAttributeVClassButton->setText(attrProperty.getAttrStr().c_str());
     if (enabled) {
@@ -507,13 +505,12 @@ GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties& attrPr
     myAttributeReparentButton->hide();
     myAttributeInspectParentButton->hide();
     myAttributeColorButton->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
 void
-GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties& attrProperty, const bool enabled) {
+GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties& attrProperty,
+        const bool enabled) {
     myAttributeColorButton->setText(attrProperty.getAttrStr().c_str());
     myAttributeColorButton->show();
     if (enabled) {
@@ -527,8 +524,6 @@ GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties& attrPro
     myAttributeReparentButton->hide();
     myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
@@ -542,8 +537,6 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties& attrPro
     myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
@@ -586,8 +579,6 @@ GNEAttributesEditorRow::showValueCheckButton(const GNEAttributeProperties& attrP
         myValueComboBox->hide();
         myValueLaneUpButton->hide();
         myValueLaneDownButton->hide();
-        // enable depending of supermode
-        enableDependingOfSupermode(attrProperty);
     } else {
         // show value as string
         showValueString(attrProperty, value, enabled, computed);
@@ -689,8 +680,6 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties& attrProp
         myValueCheckButton->hide();
         myValueLaneUpButton->hide();
         myValueLaneDownButton->hide();
-        // enable depending of supermode
-        enableDependingOfSupermode(attrProperty);
     } else {
         // show value as string
         showValueString(attrProperty, value, computed, enabled);
@@ -718,8 +707,6 @@ GNEAttributesEditorRow::showValueString(const GNEAttributeProperties& attrProper
     // hide other value elements
     myValueCheckButton->hide();
     myValueComboBox->hide();
-    // enable depending of supermode
-    enableDependingOfSupermode(attrProperty);
 }
 
 
@@ -750,12 +737,12 @@ GNEAttributesEditorRow::showMoveLaneButtons(const std::string& laneID) {
 
 
 void
-GNEAttributesEditorRow::enableDependingOfSupermode(const GNEAttributeProperties& attrProperty) {
+GNEAttributesEditorRow::enableElements(const GNEAttributeProperties& attrProperty, const bool forceDisable) {
     const auto& editModes = myAttributeTable->myFrameParent->getViewNet()->getEditModes();
     const auto& tagProperty = attrProperty.getTagPropertyParent();
     // by default we assume that elements are disabled
     bool enableElements = false;
-    if (myAttributeTable->isReparenting()) {
+    if (forceDisable) {
         enableElements = false;
     } else if (editModes.isCurrentSupermodeNetwork() && (tagProperty.isNetworkElement() || tagProperty.isAdditionalElement())) {
         enableElements = true;

@@ -44,7 +44,7 @@ public:
     GNEAttributesEditorRow(GNEAttributesEditor* attributeTable);
 
     /// @brief return true if attribute row was successfully show
-    bool showAttributeRow(const GNEAttributeProperties& attrProperty);
+    bool showAttributeRow(const GNEAttributeProperties& attrProperty, const bool forceDisable);
 
     /// @brief hide attribute row (always return false)
     bool hideAttributeRow();
@@ -118,8 +118,8 @@ protected:
     /// @brief show move lane buttons
     void showMoveLaneButtons(const std::string& laneID);
 
-    /// @brief check if enable or disable depending of current supermode
-    void enableDependingOfSupermode(const GNEAttributeProperties& attrProperty);
+    /// @brief check if enable or disable all elements depending of current supermode or forceDisable
+    void enableElements(const GNEAttributeProperties& attrProperty, const bool forceDisable);
 
     /// @brief check junction merging
     /// bool mergeJunction(SumoXMLAttr attr, const std::string& newVal) const;
