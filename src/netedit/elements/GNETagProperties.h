@@ -288,6 +288,9 @@ public:
     /// @brief return true if tag correspond to a container element
     bool isContainer() const;
 
+    /// @brief return true if tag correspond to an element with a type as a first parent
+    bool hasTypeParent() const;
+
     /// @}
 
     /// @brief plans

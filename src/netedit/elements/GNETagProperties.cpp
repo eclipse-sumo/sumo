@@ -398,6 +398,12 @@ GNETagProperties::isContainer() const {
 
 
 bool
+GNETagProperties::hasTypeParent() const {
+    return isVehicle() || isPerson() || isContainer();
+}
+
+
+bool
 GNETagProperties::isPlan() const {
     return isPlanPerson() || isPlanContainer();
 }

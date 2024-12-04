@@ -191,7 +191,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
         showAttributeToogleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
     } else if ((myAttribute == GNE_ATTR_PARENT)) {
         showAttributeReparent(attrProperty, attributeEnabled);
-    } else if ((myAttribute == SUMO_ATTR_TYPE) && (tagProperty.isVehicle() || tagProperty.isPerson() || tagProperty.isContainer())) {
+    } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
         showAttributeInspectParent(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_ALLOW) {
         showAttributeVClass(attrProperty, attributeEnabled);
@@ -452,7 +452,6 @@ void
 GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attrProperty, const bool enabled) {
     // set icon and text
     myAttributeReparentButton->setIcon(GUIIconSubSys::getIcon(attrProperty.getTagPropertyParent().getGUIIcon()));
-    myAttributeReparentButton->setText(attrProperty.getAttrStr().c_str());
     if (enabled) {
         myAttributeReparentButton->enable();
     } else {
@@ -468,6 +467,7 @@ GNEAttributesEditorRow::showAttributeReparent(const GNEAttributeProperties& attr
     // enable depending of supermode
     enableDependingOfSupermode(attrProperty);
 }
+
 
 void
 GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled) {
