@@ -62,6 +62,10 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
                   << "\n";
     }
 #endif
+    if (neigh.lane == inner.lane && curr.bestContinuations.size() < neigh.bestContinuations.size()) {
+        // the current lane does not continue to the roundabout and we need a strategic change first.
+        return 0;
+    }
 
     int roundaboutJunctionsAhead = 0;
     bool enteredRoundabout = false;
