@@ -103,7 +103,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
     myValueTextField->hide();
     // create right combo box for discrete attributes
     myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems, this,
-                                          MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignComboBoxAttribute);
+            MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // Create right check button
     myValueCheckButton = new FXCheckButton(this, "check button", this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignCheckButton);
