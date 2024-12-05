@@ -176,7 +176,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw dotted contour
                 if (contourMode) {
-                    myNetworkElementContour.drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, s.dottedContourSettings.segmentWidth, false);
+                    myNetworkElementContour.drawDottedContour(s, GUIDottedGeometry::DottedContourType::WALKINGAREA, s.dottedContourSettings.segmentWidth, false);
                 } else {
                     myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
                 }

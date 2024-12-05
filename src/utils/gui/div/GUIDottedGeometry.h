@@ -32,15 +32,16 @@ class GUIDottedGeometry {
 public:
     /// @enum for dotted cotour type
     enum class DottedContourType {
-        INSPECT,    // Inspecting element
-        REMOVE,     // Mouse over element to remove
-        SELECT,     // Mouse over element to select
-        MOVE,       // Mouse over element to move
-        FRONT,      // Element marked as "front element"
-        OVER,       // Mouse over element (orange)
-        FROM,       // Element marked as from (green)
-        TO,         // Element marked as to (magenta)
-        RELATED,    // Element marked as related (cyan)
+        INSPECT,        // Inspecting element
+        REMOVE,         // Mouse over element to remove
+        SELECT,         // Mouse over element to select
+        MOVE,           // Mouse over element to move
+        FRONT,          // Element marked as "front element"
+        OVER,           // Mouse over element (orange)
+        FROM,           // Element marked as from (green)
+        TO,             // Element marked as to (magenta)
+        RELATED,        // Element marked as related (cyan)
+        WALKINGAREA,    // Used if we're drawing walking areas in contour mode 
         NOTHING
     };
 

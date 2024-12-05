@@ -115,6 +115,8 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
                 myColorFlag = true;
                 return RGBColor::CYAN.changedBrightness(-30);
             }
+        case DottedContourType::WALKINGAREA:
+            return settings.junctionColorer.getScheme().getColor(6);
         default:
             return RGBColor::BLACK;
     }
