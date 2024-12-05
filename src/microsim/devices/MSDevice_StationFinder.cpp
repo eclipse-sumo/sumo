@@ -624,6 +624,9 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
             expectedConsumption = totalConsumption / (passedTime - stopDiscount) * remainingTime;
         } else {
             // fallback consumption rate for vehicles starting with low battery
+            if (!myHolder.getVehicleType().getParameter().wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
+                WRITE_ERRORF("The stationfinder device needs emission parameters for range estimation but no emission class has been set for the vehicle '%'", myHolder.getID());
+            }
             const double speed = MIN2(myHolder.getMaxSpeed(), myHolder.getLane()->getSpeedLimit());
             EnergyParams* const params = myHolder.getEmissionParameters();
             expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), PollutantsInterface::ELEC,
@@ -632,7 +635,7 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
         if (includeEmptySoC) {
             expectedConsumption += MAX2(0., myEmptySoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
         }
-        expectedConsumption /= myHolder.getEmissionParameters()->getDouble(SUMO_ATTR_PROPULSIONEFFICIENCY);
+        expectedConsumption /= myHolder.getEmissionParameters()->getDoubleOptional(SUMO_ATTR_PROPULSIONEFFICIENCY, 1.);
         return expectedConsumption;
     }
     return 0.;
