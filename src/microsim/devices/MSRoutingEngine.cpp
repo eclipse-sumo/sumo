@@ -386,7 +386,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     if (routingAlgorithm == "dijkstra") {
         router = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, nullptr, true);
     } else if (routingAlgorithm == "astar") {
-        typedef AStarRouter<MSEdge, SUMOVehicle> AStar;
+        typedef AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher> AStar;
         std::shared_ptr<const AStar::LookupTable> lookup = nullptr;
         if (oc.isSet("astar.all-distances")) {
             lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
@@ -398,7 +398,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                 string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, hasPermissions, 1);
             lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &chrouter,
-                     nullptr, vehicle, "", oc.getInt("device.rerouting.threads"));
+                     nullptr, vehicle, "", oc.getInt("device.rerouting.threads"), MSNet::getInstance()->getMapMatcher());
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         router = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);

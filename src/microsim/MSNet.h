@@ -822,6 +822,8 @@ public:
         return false;
     }
 
+    MSMapMatcher* getMapMatcher() const;
+
     /// @brief find electrical substation by its id
     MSTractionSubstation* findTractionSubstation(const std::string& substationId);
 

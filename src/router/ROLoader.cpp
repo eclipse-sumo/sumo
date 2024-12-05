@@ -304,5 +304,13 @@ ROLoader::writeStats(const SUMOTime time, const SUMOTime start, const SUMOTime a
     }
 }
 
-
+SUMORouteHandler*
+ROLoader::getRouteHandler() {
+    auto loader = myLoaders.getFirstLoader();
+    if (loader != nullptr) {
+        return loader->getRouteHandler();
+    } else {
+        return nullptr;
+    }
+}
 /****************************************************************************/

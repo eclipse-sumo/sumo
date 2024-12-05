@@ -59,6 +59,7 @@
 #include <utils/router/IntermodalRouter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMORouteLoader.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
@@ -1513,7 +1514,7 @@ MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);
             }
-            myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
+            myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
         }
     }
     myRouterTT[rngIndex]->prohibit(prohibited);
@@ -1638,6 +1639,17 @@ MSNet::warnOnce(const std::string& typeAndID) {
         return true;
     }
     return false;
+}
+
+
+MSMapMatcher* 
+MSNet::getMapMatcher() const {
+    auto loader = myRouteLoaders->getFirstLoader();
+    if (loader != nullptr) {
+        return dynamic_cast<MSMapMatcher*>(loader->getRouteHandler());
+    } else {
+        return nullptr;
+    }
 }
 
 void

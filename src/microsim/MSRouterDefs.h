@@ -23,6 +23,7 @@
 #include <memory>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/RouterProvider.h>
+#include <utils/common/MapMatcher.h>
 
 
 // ===========================================================================
@@ -40,3 +41,4 @@ typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider
 typedef SUMOAbstractRouter<MSEdge, SUMOVehicle> MSVehicleRouter;
 typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSTransportableRouter;
 typedef PedestrianRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSPedestrianRouter;
+typedef MapMatcher<MSEdge, MSLane, MSJunction> MSMapMatcher;

@@ -31,7 +31,6 @@
 // ===========================================================================
 class SUMORouteLoader;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -67,6 +66,9 @@ public:
     bool haveAllLoaded() const {
         return myAllLoaded;
     }
+
+    /// @brief return a route loader
+    SUMORouteLoader* getFirstLoader() const;
 
 private:
     /// @brief the first time step for which vehicles were loaded

@@ -58,8 +58,9 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
     typedef SUMOAbstractRouter<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
+    typedef MapMatcher<E, L, N> _MapMatcher;
     typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip> _InternalDijkstra;
-    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip> _InternalAStar;
+    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip, _MapMatcher> _InternalAStar;
 
 public:
     struct TripItem {

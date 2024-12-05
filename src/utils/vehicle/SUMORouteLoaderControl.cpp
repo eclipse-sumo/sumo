@@ -82,4 +82,12 @@ SUMORouteLoaderControl::loadNext(SUMOTime step) {
 }
 
 
+SUMORouteLoader*
+SUMORouteLoaderControl::getFirstLoader() const {
+    if (myRouteLoaders.size() > 0) {
+        return myRouteLoaders.front();
+    }
+    return nullptr;
+}
+
 /****************************************************************************/

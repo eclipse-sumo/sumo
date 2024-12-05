@@ -37,6 +37,7 @@ class OptionsCont;
 class ROAbstractEdgeBuilder;
 class RONet;
 class ROVehicle;
+class SUMORouteHandler;
 
 
 // ===========================================================================
@@ -77,6 +78,8 @@ public:
     /** @brief Loads routes from all previously build route loaders */
     void processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime increment,
                        RONet& net, const RORouterProvider& provider);
+
+    SUMORouteHandler* getRouteHandler();
 
 protected:
     /** @brief Opens route handler of the given type

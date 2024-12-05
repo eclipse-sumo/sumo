@@ -47,7 +47,7 @@
  * @brief Builds arc flags for shortest path search with the arc flag router
  */
 
-template<class E, class N, class V>
+template<class E, class N, class V, class M>
 class AFBuilder {
 public:
     typedef typename AFInfo<E>::FlagInfo FlagInfo;
@@ -96,7 +96,7 @@ public:
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Instantiating arc flag build..." << std::endl;
 #endif
-        myArcFlagBuild = new AFBuild<E, N, V>(myFlippedEdges, myFlippedPartition, numberOfLevels, unbuildIsWarning,
+        myArcFlagBuild = new AFBuild<E, N, V, M>(myFlippedEdges, myFlippedPartition, numberOfLevels, unbuildIsWarning,
                                               flippedOperation, flippedLookup, havePermissions, haveRestrictions, toProhibit);
 
 #ifdef AFBL_DEBUG_LEVEL_0
@@ -108,7 +108,7 @@ public:
     ~AFBuilder();
 
     /// @brief Returns the arc flag build
-    AFBuild<E, N, V>* getArcFlagBuild() {
+    AFBuild<E, N, V, M>* getArcFlagBuild() {
         return myArcFlagBuild;
     }
     /// @brief Returns the edges
@@ -128,7 +128,7 @@ public:
      * @return The partition level number
      */
     int sHARCLevel2PartitionLevel(int sHARCLevel) {
-        return AFRouter<E, N, V>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
+        return AFRouter<E, N, V, M>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
     }
 
 protected:
@@ -159,7 +159,7 @@ protected:
     /// @brief The flag informations
     std::vector<FlagInfo*> myFlagInfos;
     /// @brief The arc flag build
-    AFBuild<E, N, V>* myArcFlagBuild;
+    AFBuild<E, N, V, M>* myArcFlagBuild;
     /// @brief The number of levels of the k-d tree partition of the network
     int myNumberOfLevels;
     /// @brief The number of arc flags per each edge
@@ -176,8 +176,8 @@ protected:
 // method definitions
 // ===========================================================================
 
-template<class E, class N, class V>
-AFBuilder<E, N, V>::~AFBuilder() {
+template<class E, class N, class V, class M>
+AFBuilder<E, N, V, M>::~AFBuilder() {
     delete myArcFlagBuild;
     delete myFlippedPartition;
     for (FlagInfo* flagInfo : myFlagInfos) {
@@ -185,16 +185,16 @@ AFBuilder<E, N, V>::~AFBuilder() {
     }
 }
 
-template<class E, class N, class V>
-void AFBuilder<E, N, V>::reset() {
+template<class E, class N, class V, class M>
+void AFBuilder<E, N, V, M>::reset() {
     for (FlagInfo* flagInfo : myFlagInfos) {
         flagInfo->reset();
     }
     myAmClean = true;
 }
 
-template<class E, class N, class V>
-std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime msTime, const V* const vehicle) {
+template<class E, class N, class V, class M>
+std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V, M>::build(SUMOTime msTime, const V* const vehicle) {
     if (!myAmClean) {
         reset();
     }
@@ -234,8 +234,8 @@ std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime m
 }
 
 #ifdef AFBL_DEBUG_LEVEL_0
-template<class E, class N, class V>
-void AFBuilder<E, N, V>::saveFlagsToCsv(const std::string fileName) {
+template<class E, class N, class V, class M>
+void AFBuilder<E, N, V, M>::saveFlagsToCsv(const std::string fileName) {
     std::ofstream csvFile(fileName);
     for (FlagInfo* flagInfo : myFlagInfos) {
         if ((flagInfo->arcFlags).empty()) {
@@ -251,8 +251,8 @@ void AFBuilder<E, N, V>::saveFlagsToCsv(const std::string fileName) {
     csvFile.close();
 }
 
-template<class E, class N, class V>
-void AFBuilder<E, N, V>::loadFlagsFromCsv(const std::string fileName) {
+template<class E, class N, class V, class M>
+void AFBuilder<E, N, V, M>::loadFlagsFromCsv(const std::string fileName) {
     assert(myAmClean);
     std::string fileNameCopy = fileName;
     std::ifstream csvFile(fileNameCopy);

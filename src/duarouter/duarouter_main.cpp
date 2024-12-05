@@ -38,6 +38,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 #ifdef HAVE_FOX
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #endif
@@ -113,7 +114,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         if (routingAlgorithm == "dijkstra") {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "astar") {
-            typedef AStarRouter<ROEdge, ROVehicle> AStar;
+            typedef AStarRouter<ROEdge, ROVehicle, ROMapMatcher> AStar;
             std::shared_ptr<const AStar::LookupTable> lookup;
             if (oc.isSet("astar.all-distances")) {
                 lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
@@ -131,8 +132,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 }
                 DijkstraRouter<ReversedEdge<ROEdge, ROVehicle>, ROVehicle> backward(reversed, true, &ReversedEdge<ROEdge, ROVehicle>::getTravelTimeStatic);
                 ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+                ROMapMatcher* mapMatcher = dynamic_cast<ROMapMatcher*>(loader.getRouteHandler());
                 lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &forward, &backward, &defaultVehicle,
-                         oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
+                         oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"), mapMatcher);
             }
             router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, lookup, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CH" && !net.hasPermissions()) {
@@ -157,7 +159,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             partition->init(&defaultVehicle);
             auto ttFunction = gWeightsRandomFactor > 1 ? &ROEdge::getTravelTimeStaticRandomized : &ROEdge::getTravelTimeStatic;
             auto reversedTtFunction = gWeightsRandomFactor > 1 ? &FlippedEdge<ROEdge, RONode, ROVehicle>::getTravelTimeStaticRandomized : &FlippedEdge<ROEdge, RONode, ROVehicle>::getTravelTimeStatic;
-            router = new AFRouter<ROEdge, RONode, ROVehicle>(ROEdge::getAllEdges(),
+            router = new AFRouter<ROEdge, RONode, ROVehicle, ROMapMatcher>(ROEdge::getAllEdges(),
                     partition, oc.getBool("ignore-errors"), ttFunction, reversedTtFunction, (oc.isSet("weight-files") ? string2time(oc.getString("weight-period")) : SUMOTime_MAX),
                     nullptr, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else {

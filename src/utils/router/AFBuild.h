@@ -61,7 +61,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-template<class E, class N, class V>
+template<class E, class N, class V, class M>
 class AFRouter;
 
 // ===========================================================================
@@ -78,7 +78,7 @@ class AFRouter;
  * @param N The node class to use (MSJunction/RONode)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
  */
-template<class E, class N, class V>
+template<class E, class N, class V, class M>
 class AFBuild {
 public:
     /// @brief Maximum difference of two path lengths considered to be equal
@@ -116,7 +116,7 @@ public:
         myHavePermissions(havePermissions),
         myHaveRestrictions(haveRestrictions),
         myProhibited(toProhibit),
-        myNode2EdgeRouter(new Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myFlippedEdges,
+        myNode2EdgeRouter(new Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V, M>(myFlippedEdges,
                           unbuildIsWarning, myFlippedOperation, myFlippedLookupTable, myHavePermissions, myHaveRestrictions)) {
         myCentralizedSPTree = new AFCentralizedSPTree<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myFlippedEdges,
                 myArcInfos, unbuildIsWarning, myNode2EdgeRouter, myHavePermissions, myHaveRestrictions);
@@ -156,14 +156,14 @@ public:
      * @return The SHARC level number corresponding to the given partition level number
      */
     int partitionLevel2SHARCLevel(int partitionLevel) {
-        return AFRouter<E, N, V>::partitionLevel2SHARCLevel(partitionLevel, myNumberOfLevels);
+        return AFRouter<E, N, V, M>::partitionLevel2SHARCLevel(partitionLevel, myNumberOfLevels);
     }
     /** @brief Converts a SHARC level number to a partition level number
      * @param[in] sHARCLevel The SHARC level
      * @return The partition level number corresponding to the given SHARC level number
      */
     int sHARCLevel2PartitionLevel(int sHARCLevel) {
-        return AFRouter<E, N, V>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
+        return AFRouter<E, N, V, M>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
     }
 
 protected:
@@ -213,7 +213,7 @@ protected:
     /// @brief The list of explicitly prohibited edges
     const std::vector<FlippedEdge<E, N, V>*>* myProhibited;
     /// @brief The node-to-edge router (for a backward graph with flipped edges)
-    Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* myNode2EdgeRouter;
+    Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V, M>* myNode2EdgeRouter;
     /// @brief A Dijkstra based centralized label-correcting algorithm
     // @note Builds shortest path trees for all boundary nodes at once
     // @note It operates on a backward graph with flipped edges
@@ -247,8 +247,8 @@ private:
 // method definitions
 // ===========================================================================
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::init(SUMOTime msTime, const V* const vehicle, std::vector<FlagInfo*>& flagInfos) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::init(SUMOTime msTime, const V* const vehicle, std::vector<FlagInfo*>& flagInfos) {
     if (myArcInfos.empty()) {
         for (const FlippedEdge<E, N, V>* const flippedEdge : myFlippedEdges) {
             myArcInfos.push_back(new ArcInfo(flippedEdge));
@@ -281,8 +281,8 @@ void AFBuild<E, N, V>::init(SUMOTime msTime, const V* const vehicle, std::vector
     myArcInfos.clear();
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, const V* const vehicle) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, const V* const vehicle) {
     try {
         assert(myFlippedPartition);
         const std::vector<const Cell*>& levelCells = myFlippedPartition->getCellsAtLevel(sHARCLevel2PartitionLevel(sHARCLevel));
@@ -320,8 +320,8 @@ void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, co
     }
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::computeArcFlagsNaive(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::computeArcFlagsNaive(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
     const Cell* supercell = cell->getSupercell();
     const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges = cell->getOutgoingBoundaryEdges();
     const std::vector<const FlippedNode<E, N, V>*>& boundaryNodes = cell->getBoundaryFromNodes();
@@ -388,8 +388,8 @@ void AFBuild<E, N, V>::computeArcFlagsNaive(SUMOTime msTime, const int sHARCLeve
 #endif
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
     const Cell* supercell = cell->getSupercell();
     const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges = cell->getOutgoingBoundaryEdges();
     const std::vector<const FlippedNode<E, N, V>*>& boundaryNodes = cell->getBoundaryFromNodes();
@@ -458,8 +458,8 @@ void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, co
 #endif
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel, const Cell* cell, const V* const vehicle) {
     const Cell* supercell = cell->getSupercell();
     std::pair<typename std::vector<const FlippedNode<E, N, V>*>::const_iterator,
         typename std::vector<const FlippedNode<E, N, V>*>::const_iterator> supercellNodeIterators = supercell->nodeIterators();
@@ -653,14 +653,14 @@ void AFBuild<E, N, V>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLevel,
     }
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::putArcFlag(ArcInfo* arcInfo, const int sHARCLevel, const bool isLeftOrLowerCell) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::putArcFlag(ArcInfo* arcInfo, const int sHARCLevel, const bool isLeftOrLowerCell) {
     assert(arcInfo);
     (arcInfo->arcFlags)[sHARCLevel * 2 + (isLeftOrLowerCell ? 0 : 1)] = 1;
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::initBoundaryEdges(const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges) {
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::initBoundaryEdges(const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges) {
     // initialization of arc flag vectors
     for (const FlippedEdge<E, N, V>* boundaryEdge : boundaryEdges) {
         assert(!boundaryEdge->isInternal());
@@ -674,8 +674,8 @@ void AFBuild<E, N, V>::initBoundaryEdges(const std::unordered_set<const FlippedE
     }
 }
 
-template<class E, class N, class V>
-void AFBuild<E, N, V>::initSupercellEdges(
+template<class E, class N, class V, class M>
+void AFBuild<E, N, V, M>::initSupercellEdges(
     const Cell* supercell,
     const std::unordered_set<const FlippedEdge<E, N, V>*>& boundaryEdges,
     size_t numberOfBoundaryNodes) {

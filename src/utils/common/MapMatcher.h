@@ -43,18 +43,8 @@
 
 template<class E, class L, class N>
 class MapMatcher {
-protected:
-    MapMatcher(bool matchJunctions, bool matchTAZ, double matchDistance, MsgHandler* errorOutput):
-        myMapMatchTAZ(matchTAZ),
-        myLaneTree(nullptr),
-        myMapMatchJunctions(matchJunctions),
-        myMapMatchingDistance(matchDistance),
-        myErrorOutput(errorOutput) {}
 
-    virtual ~MapMatcher() {
-        delete myLaneTree;
-    }
-
+public:
     void parseGeoEdges(const PositionVector& positions, bool geo, SUMOVehicleClass vClass,
                        std::vector<const E*>& into, const std::string& rid, bool isFrom, bool& ok, bool forceEdge = false) {
         if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
@@ -102,6 +92,19 @@ protected:
         }
     }
 
+
+
+protected:
+    MapMatcher(bool matchJunctions, bool matchTAZ, double matchDistance, MsgHandler* errorOutput):
+        myMapMatchTAZ(matchTAZ),
+        myLaneTree(nullptr),
+        myMapMatchJunctions(matchJunctions),
+        myMapMatchingDistance(matchDistance),
+        myErrorOutput(errorOutput) {}
+
+    virtual ~MapMatcher() {
+        delete myLaneTree;
+    }
 
     /// @brief find closest lane within distance for the given position or nullptr
     const L* getClosestLane(const Position& pos, SUMOVehicleClass vClass, double distance = -1.) {

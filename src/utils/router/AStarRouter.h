@@ -72,12 +72,12 @@
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V>
+template<class E, class V, class M>
 class AStarRouter : public SUMOAbstractRouter<E, V> {
 public:
     typedef AbstractLookupTable<E, V> LookupTable;
     typedef FullLookupTable<E, V> FLT;
-    typedef LandmarkLookupTable<E, V> LMLT;
+    typedef LandmarkLookupTable<E, V, M> LMLT;
 
     /**
      * @class EdgeInfoComparator
@@ -121,7 +121,7 @@ public:
     virtual ~AStarRouter() {}
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new AStarRouter<E, V>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
+        return new AStarRouter<E, V, M>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
                                      this->myHavePermissions, this->myHaveRestrictions);
     }
 

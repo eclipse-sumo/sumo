@@ -54,6 +54,10 @@ public:
     /// @brief returns the first departure time that was ever read
     SUMOTime getFirstDepart() const;
 
+    SUMORouteHandler* getRouteHandler() {
+        return myHandler;
+    };
+
 private:
     /// @brief the used SAXReader
     SUMOSAXReader* myParser;

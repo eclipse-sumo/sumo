@@ -49,6 +49,7 @@ class ROAbstractEdgeBuilder;
 class OptionsCont;
 class OutputDevice;
 
+typedef MapMatcher<ROEdge, ROLane, RONode> ROMapMatcher;
 
 // ===========================================================================
 // class definitions

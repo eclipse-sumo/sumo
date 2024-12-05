@@ -87,7 +87,7 @@
  * be reported as an error or as a warning
  *
  */
-template<class E, class N, class V>
+template<class E, class N, class V, class M>
 class AFRouter : public SUMOAbstractRouter<E, V> {
 public:
     typedef AbstractLookupTable<E, V> LookupTable;
@@ -161,7 +161,7 @@ public:
         myMaxSpeed(NUMERICAL_EPS),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
-        myBuilder(new AFBuilder<E, N, V>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
+        myBuilder(new AFBuilder<E, N, V, M>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
                                          flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
         myType("arcFlagRouter"),
         myQueryVisits(0),
@@ -208,7 +208,7 @@ public:
         myMaxSpeed(NUMERICAL_EPS),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
-        myBuilder(new AFBuilder<E, N, V>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
+        myBuilder(new AFBuilder<E, N, V, M>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
                                          flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
         myType("arcFlagRouter"),
         myQueryVisits(0),
@@ -573,7 +573,7 @@ protected:
     /// @brief The validity duration of the current flag infos (exclusive)
     SUMOTime myValidUntil;
     /// @brief The builder
-    AFBuilder<E, N, V>* myBuilder;
+    AFBuilder<E, N, V, M>* myBuilder;
     /// @brief The type of this router
     /// @note The one in SUMOAbstractRouter is private, required for more flexible performance logging (see below)
     const std::string myType;
@@ -603,8 +603,8 @@ private:
 // method definitions
 // ===========================================================================
 
-template<class E, class N, class V>
-std::vector<bool>& AFRouter<E, N, V>::flags(const E* edge) {
+template<class E, class N, class V, class M>
+std::vector<bool>& AFRouter<E, N, V, M>::flags(const E* edge) {
     assert(edge);
     if (!myFlagInfos) {
         throw std::runtime_error("flag infos not initialized, call compute() at least once before calling flags().");
@@ -612,8 +612,8 @@ std::vector<bool>& AFRouter<E, N, V>::flags(const E* edge) {
     return ((*myFlagInfos)[edge->getNumericalID()])->arcFlags;
 }
 
-template<class E, class N, class V>
-void AFRouter<E, N, V>::init(const int edgeID, const SUMOTime msTime) {
+template<class E, class N, class V, class M>
+void AFRouter<E, N, V, M>::init(const int edgeID, const SUMOTime msTime) {
     // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
     myTargetEdgeCellLevel0 = nullptr;
     for (auto& edgeInfo : this->myFrontierList) {
@@ -635,8 +635,8 @@ void AFRouter<E, N, V>::init(const int edgeID, const SUMOTime msTime) {
     }
 }
 
-template<class E, class N, class V>
-std::tuple<int, int, bool> AFRouter<E, N, V>::flagContextNaive(const E* settledEdge, const E* targetEdge) {
+template<class E, class N, class V, class M>
+std::tuple<int, int, bool> AFRouter<E, N, V, M>::flagContextNaive(const E* settledEdge, const E* targetEdge) {
     assert(settledEdge != nullptr && targetEdge != nullptr);
     int sHARCLevel;
     for (sHARCLevel = 0; sHARCLevel < myPartition->getNumberOfLevels() - 1; sHARCLevel++) {
@@ -670,8 +670,8 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContextNaive(const E* settledE
     throw std::runtime_error("flagContext: relevant level could not be determined.");
 }
 
-template<class E, class N, class V>
-std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, const E* targetEdge) {
+template<class E, class N, class V, class M>
+std::tuple<int, int, bool> AFRouter<E, N, V, M>::flagContext(const E* settledEdge, const E* targetEdge) {
     assert(settledEdge != nullptr && targetEdge != nullptr);
     int sHARCLevel = 0; // lowest level with smallest cells
     const Cell* settledEdgeCell = nullptr;
@@ -732,22 +732,22 @@ std::tuple<int, int, bool> AFRouter<E, N, V>::flagContext(const E* settledEdge, 
     return flagContext;
 }
 
-template<class E, class N, class V>
-void AFRouter<E, N, V>::startQuery() {
+template<class E, class N, class V, class M>
+void AFRouter<E, N, V, M>::startQuery() {
     myNumQueries++;
     myQueryStartTime = SysUtils::getCurrentMillis();
     SUMOAbstractRouter<E, V>::startQuery();
 }
 
-template<class E, class N, class V>
-void AFRouter<E, N, V>::endQuery(int visits) {
+template<class E, class N, class V, class M>
+void AFRouter<E, N, V, M>::endQuery(int visits) {
     myQueryVisits += visits;
     myQueryTimeSum += (SysUtils::getCurrentMillis() - myQueryStartTime);
     SUMOAbstractRouter<E, V>::endQuery(visits);
 }
 
-template<class E, class N, class V>
-void AFRouter<E, N, V>::reportStatistics() {
+template<class E, class N, class V, class M>
+void AFRouter<E, N, V, M>::reportStatistics() {
     if (myNumQueries > 0) {
         WRITE_MESSAGE(myType + " answered " + toString(myNumQueries) + " queries and explored " + toString((double)myQueryVisits / (double)myNumQueries) + " edges on average.");
         WRITE_MESSAGE(myType + " spent " + elapsedMs2string(myQueryTimeSum) + " answering queries (" + toString((double)myQueryTimeSum / (double)myNumQueries) + " ms on average).");
@@ -757,8 +757,8 @@ void AFRouter<E, N, V>::reportStatistics() {
     }
 }
 
-template<class E, class N, class V>
-void AFRouter<E, N, V>::resetStatistics() {
+template<class E, class N, class V, class M>
+void AFRouter<E, N, V, M>::resetStatistics() {
     myNumQueries = 0;
     myQueryVisits = 0;
     myQueryTimeSum = 0;

@@ -43,8 +43,8 @@
  * be reported as an error or as a warning
  *
  */
-template<class E, class N, class V>
-class Node2EdgeRouter : public AStarRouter<E, V> {
+template<class E, class N, class V, class M>
+class Node2EdgeRouter : public AStarRouter<E, V, M> {
 public:
     typedef AbstractLookupTable<E, V> LookupTable;
 
@@ -74,7 +74,7 @@ public:
     Node2EdgeRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
                     const std::shared_ptr<const LookupTable> lookup = nullptr,
                     const bool havePermissions = false, const bool haveRestrictions = false) :
-        AStarRouter<E, V>(edges, unbuildIsWarning, operation, lookup, havePermissions, haveRestrictions) {
+        AStarRouter<E, V, M>(edges, unbuildIsWarning, operation, lookup, havePermissions, haveRestrictions) {
     }
 
     /** @brief Cloning constructor
@@ -87,7 +87,7 @@ public:
      */
     Node2EdgeRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
                     const bool havePermissions = false, const bool haveRestrictions = false) :
-        AStarRouter<E, V>(edgeInfos, unbuildIsWarning, operation, lookup, havePermissions, haveRestrictions) {
+        AStarRouter<E, V, M>(edgeInfos, unbuildIsWarning, operation, lookup, havePermissions, haveRestrictions) {
     }
 
     /// @brief Destructor
@@ -97,7 +97,7 @@ public:
 
     /// @brief Cloning method
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new Node2EdgeRouter<E, N, V>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myLookupTable,
+        return new Node2EdgeRouter<E, N, V, M>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myLookupTable,
                                             this->myHavePermissions, this->myHaveRestrictions);
     }
 
@@ -419,8 +419,8 @@ protected:
 // method definitions
 // ===========================================================================
 
-template<class E, class N, class V>
-void Node2EdgeRouter<E, N, V>::updateViaCostUpToEdge(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
+template<class E, class N, class V, class M>
+void Node2EdgeRouter<E, N, V, M>::updateViaCostUpToEdge(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
     assert(prev && e);
     for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
         if (follower.first == e) {
@@ -430,8 +430,8 @@ void Node2EdgeRouter<E, N, V>::updateViaCostUpToEdge(const E* const prev, const 
     }
 }
 
-template<class E, class N, class V>
-void Node2EdgeRouter<E, N, V>::init(std::vector<const E*> fromEdges, const V* const vehicle, const SUMOTime msTime) {
+template<class E, class N, class V, class M>
+void Node2EdgeRouter<E, N, V, M>::init(std::vector<const E*> fromEdges, const V* const vehicle, const SUMOTime msTime) {
     // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
     for (auto& edgeInfo : this->myFrontierList) {
         edgeInfo->reset();

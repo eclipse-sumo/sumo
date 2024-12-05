@@ -28,6 +28,7 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
 #endif
+#include <utils/common/MapMatcher.h>
 #include <utils/router/ReversedEdge.h>
 #include <utils/router/SUMOAbstractRouter.h>
 
@@ -100,12 +101,12 @@ private:
 };
 
 
-template<class E, class V>
+template<class E, class V, class M>
 class LandmarkLookupTable : public AbstractLookupTable<E, V> {
 public:
     LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router,
                         SUMOAbstractRouter<ReversedEdge<E, V>, V>* reverseRouter,
-                        const V* defaultVehicle, const std::string& outfile, const int maxNumThreads) {
+                        const V* defaultVehicle, const std::string& outfile, const int maxNumThreads, M* mapMatcher) {
         myFirstNonInternal = -1;
         std::map<std::string, int> numericID;
         for (E* e : edges) {
@@ -147,6 +148,31 @@ public:
                 myFromLandmarkDists.push_back(std::vector<double>(0));
                 myToLandmarkDists.push_back(std::vector<double>(0));
                 landmarks.push_back(edges[it->second + myFirstNonInternal]);
+            } else if (st.size() == 2) {
+                // geo landmark
+                try {
+                    std::string lonStr = st.get(0);
+                    if (!lonStr.empty() && lonStr.back() == ',') {
+                        // remove trailing comma
+                        lonStr = lonStr.substr(0, lonStr.size() - 1);
+                    }
+                    double lon = StringUtils::toDouble(lonStr);
+                    double lat = StringUtils::toDouble(st.get(1));
+                    std::vector<const E*> edges;
+                    bool ok;
+                    mapMatcher->parseGeoEdges(PositionVector({Position(lon, lat)}), true, SVC_IGNORING, edges, "LMLT", false, ok, true);
+                    if (edges.size() != 1) {
+                        throw ProcessError(TLF("Invalid coordinate in landmark file, could not find edge at  '%'", line));
+                    }
+                    std::string lm = edges.front()->getID();
+                    const auto& it = numericID.find(lm);
+                    myLandmarks[lm] = numLandMarks++;
+                    myFromLandmarkDists.push_back(std::vector<double>(0));
+                    myToLandmarkDists.push_back(std::vector<double>(0));
+                    landmarks.push_back(edges[it->second + myFirstNonInternal]);
+                } catch (NumberFormatException& e) {
+                    throw ProcessError(TLF("Broken landmark file, could not parse '%' as coordinates", line));
+                }
             } else if (st.size() == 4) {
                 // legacy style landmark table
                 const std::string lm = st.get(0);
