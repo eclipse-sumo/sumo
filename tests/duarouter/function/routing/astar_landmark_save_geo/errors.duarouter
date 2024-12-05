@@ -1,2 +1,3 @@
-Error: Broken landmark file, unexpected number of entries (1) for edge '52.428360,'.
+Error: No edge found near position 52.428360,13.519901 within the route LMLT.
+Error: Invalid coordinate in landmark file, could not find edge at  '52.428360, 13.519901'
 Quitting (on error).
