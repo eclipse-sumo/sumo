@@ -12,6 +12,9 @@ optimum
 # straight call of the script
 simple
 
+# increment the amount of traffic over time
+ramp_up
+
 # straight call of the script
 save_config
 

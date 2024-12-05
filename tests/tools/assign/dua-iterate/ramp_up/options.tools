@@ -1,0 +1,2 @@
+-n input_net.net.xml -t input_trips.trips.xml -l 6
+--inc-base 4
