@@ -185,6 +185,7 @@ are safety related:
   takes the same value as **decel**
 - [driver imperfection modelled with the
   *driverstate*-device](../Driver_State.md)
+- option **--emergency-insert** permits insertion of vehicles at *dangerous* speeds as long as they are are still recoverable with the use of emergency braking
 
 ## Lane-Changing Model
 
