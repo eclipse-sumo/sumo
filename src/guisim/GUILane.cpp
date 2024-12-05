@@ -532,10 +532,6 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     GLHelper::pushName(getGlID());
     const bool s2 = s.secondaryShape;
-    const bool isCrossing = myEdge->isCrossing();
-    const bool isWalkingArea = myEdge->isWalkingArea();
-    const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
-    bool mustDrawMarkings = false;
     double exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
@@ -543,47 +539,48 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s, s.laneScaler.getActive(), s2));
     }
-    const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
-    const bool detailZoom = s.scale * exaggeration > 5;
-    const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal);
-    const bool drawRails = drawAsRailway(s);
-    const PositionVector& baseShape = getShape(s2);
-    if (s.trueZ) {
-        glTranslated(0, 0, baseShape.getMinZ());
-    } else {
-        if (isCrossing) {
-            // draw internal lanes on top of junctions
-            glTranslated(0, 0, GLO_JUNCTION + 0.1);
-        } else if (isWalkingArea) {
-            // draw internal lanes on top of junctions
-            glTranslated(0, 0, GLO_JUNCTION + 0.3);
-        } else if (isWaterway(myPermissions)) {
-            // draw waterways below normal roads
-            glTranslated(0, 0, getType() - 0.2);
-        } else if (myPermissions == SVC_SUBWAY) {
-            // draw subways further below
-            glTranslated(0, 0, getType() - 0.4);
-        } else {
-            glTranslated(0, 0, getType());
-        }
-    }
     // set lane color
     const RGBColor color = setColor(s);
-    auto& shapeColors = getShapeColors(s2);
-    if (MSGlobals::gUseMesoSim) {
-        shapeColors.clear();
-        const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)->getSegmentColors();
-        if (segmentColors.size() > 0) {
-            // apply segment specific shape colors
-            //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
-            for (int ii = 0; ii < (int)baseShape.size() - 1; ++ii) {
-                shapeColors.push_back(segmentColors[myShapeSegments[ii]]);
+    // recognize full transparency and simply don't draw
+    if (color.alpha() != 0 && s.scale * exaggeration > s.laneMinSize) {
+
+        const bool isCrossing = myEdge->isCrossing();
+        const bool isWalkingArea = myEdge->isWalkingArea();
+        const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
+        const PositionVector& baseShape = getShape(s2);
+        const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
+        if (s.trueZ) {
+            glTranslated(0, 0, baseShape.getMinZ());
+        } else {
+            if (isCrossing) {
+                // draw internal lanes on top of junctions
+                glTranslated(0, 0, GLO_JUNCTION + 0.1);
+            } else if (isWalkingArea) {
+                // draw internal lanes on top of junctions
+                glTranslated(0, 0, GLO_JUNCTION + 0.3);
+            } else if (isWaterway(myPermissions)) {
+                // draw waterways below normal roads
+                glTranslated(0, 0, getType() - 0.2);
+            } else if (myPermissions == SVC_SUBWAY) {
+                // draw subways further below
+                glTranslated(0, 0, getType() - 0.4);
+            } else {
+                glTranslated(0, 0, getType());
             }
         }
-    }
-    // recognize full transparency and simply don't draw
-    bool hiddenBidi = getBidiLane() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
-    if (color.alpha() != 0 && s.scale * exaggeration > s.laneMinSize) {
+        auto& shapeColors = getShapeColors(s2);
+        if (MSGlobals::gUseMesoSim) {
+            shapeColors.clear();
+            const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)->getSegmentColors();
+            if (segmentColors.size() > 0) {
+                // apply segment specific shape colors
+                //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
+                for (int ii = 0; ii < (int)baseShape.size() - 1; ++ii) {
+                    shapeColors.push_back(segmentColors[myShapeSegments[ii]]);
+                }
+            }
+        }
+
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
         if (!isInternal
@@ -602,8 +599,15 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             GLHelper::popMatrix();
+
         } else {
+
             GUINet* net = (GUINet*) MSNet::getInstance();
+            bool mustDrawMarkings = false;
+            bool hiddenBidi = getBidiLane() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
+            const bool detailZoom = s.scale * exaggeration > 5;
+            const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal);
+            const bool drawRails = drawAsRailway(s);
             const bool spreadSuperposed = s.spreadSuperposed && myBidiLane != nullptr;
             if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
@@ -762,19 +766,19 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::popMatrix();
                 }
             }
-        }
-        if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
-            drawMarkings(s, exaggeration);
-        }
-        if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi
-                && MSGlobals::gUsingInternalLanes
-                && getNormalSuccessorLane()->getPermissions() == SVC_BICYCLE && getNormalPredecessorLane()->getPermissions() == SVC_BICYCLE) {
-            drawBikeMarkings();
-        }
-        if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
-                && !(myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER) && allowsChangingRight(SVC_PASSENGER))) {
-            // draw lane changing prohibitions on junction
-            drawJunctionChangeProhibitions();
+            if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
+                drawMarkings(s, exaggeration);
+            }
+            if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi
+                    && MSGlobals::gUsingInternalLanes
+                    && getNormalSuccessorLane()->getPermissions() == SVC_BICYCLE && getNormalPredecessorLane()->getPermissions() == SVC_BICYCLE) {
+                drawBikeMarkings();
+            }
+            if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
+                    && !(myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER) && allowsChangingRight(SVC_PASSENGER))) {
+                // draw lane changing prohibitions on junction
+                drawJunctionChangeProhibitions();
+            }
         }
     } else {
         GLHelper::popMatrix();
