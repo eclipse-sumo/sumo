@@ -10,6 +10,7 @@ title: ChangeLog
   - Fixed computation of electricity consumption with respect to radialDragCoefficient #14896 (regression in 1.8.0)
   - Fixed platform specific taxi behavior related to pre-booking #15698 (regression in 1.20.0)
   - Fixed crash involving pedestrians at pedestrian crossing #15807 (regression in 1.21.0)
+  - Fixed reduced simulation speed of pedestrians (~ factor 5) #15825 (regression in 1.21.0)
   - Fixed rerouting error on the last route edge with a stop #15552
   - Fixed routing error on departure #15563
   - Fixed invalid warnings regarding inconsistent loaded stop times #15602
@@ -27,7 +28,12 @@ title: ChangeLog
   - Configuring number of doors now takes effect for JuPedSim #15562
   - Fixed collision between vehicles and pedestrians involving lanes of different widths #15770
   - Fixed train collision in network without rail signals #15797
-  - Pedestrians no longer walk onto rail_crossing at yellow #15808 
+  - Pedestrians no longer walk onto rail_crossing at yellow #15808
+  - Fixed collision at pedestrian crossing #15837
+  - Fixed bug wehre a collision between vehicles back and pedestrian on crossing was not detected #15847
+  - Fixed unsafe driving at prioritized crossing #15848
+  - Fixed invalid lanechanging state ahead of roundabout which could cause lane changing to fail in dense traffic #15854
+  - Fixed lanechanging deadlock involving 3 vehicles #15857 
   
 
 - netedit
@@ -62,7 +68,9 @@ title: ChangeLog
   - Fixed "freeze" when selecting very many elements #15747
   - Fixed crash when loading taz with the same id as a junction-taz #15759
   - Fixed invalid use of taz information when coordinates are defined for a trip #15765
-  - Fixed crash when using "split junction and reconnect" #15786 
+  - Fixed crash when using "split junction and reconnect" #15786
+  - Attribute input by pasting with ctrl+V is now working #6018
+  - Short edges are now clickable in crossing mode #15795 
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -124,7 +132,8 @@ title: ChangeLog
   - vType attriubte `jmStopLineGap` now applies to allway_stop #15448
   - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
   - personTrip now supports geo-coordinates #15739
-  - Added option **--mapmatch.taz** which works similar to **--mapmatch.junctions** but uses arbitrary TAZ definitions #15748 
+  - Added option **--mapmatch.taz** which works similar to **--mapmatch.junctions** but uses arbitrary TAZ definitions #15748
+  - Added warning if IDM internal stepping is configured too large #15836 
   - railways
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
@@ -153,7 +162,8 @@ title: ChangeLog
   - Added support for zipped shape files #15623
   - street-sign-output now sets the sign angle corresponding to road geometry #15671
   - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
-  - Actuated pedestrian crossings are now actuated by pedestrians rather than vehicles #7637 
+  - Actuated pedestrian crossings are now actuated by pedestrians rather than vehicles #7637
+  - Pedestrian crossings created by option **--crossings.guess** are now given priority. The old behavior can be obtained by setting option **--crossings.guess.roundabout-priority false** #15833 
 
 - meso
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
@@ -169,6 +179,8 @@ title: ChangeLog
   - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
   - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812
   - Added new tool driveways2poly.py for visualizing train driveways #15027
+  - dxf2jupedsim.py: now supports projection 'none'
+  - scaleTimeline.py: This is a new tool for modifying the ammound of traffic defined in a route file based on a time line #10498 
 
 ### Miscellaneous
 
