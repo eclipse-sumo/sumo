@@ -153,3 +153,6 @@ setStop_default_state
 
 # test meso-specific functions
 meso
+
+# Input and output parameters of stationfinder and battery devices
+stationfinder
