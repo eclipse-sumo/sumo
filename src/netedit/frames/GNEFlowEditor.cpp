@@ -56,13 +56,13 @@ GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     auto terminatelabel = new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelThickedFixed(100));
     terminatelabel->setTipText("Terminate attribute");
-    myTerminateComboBox = new MFXComboBoxIcon(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    myTerminateComboBox = new MFXComboBoxIcon(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create comboBox for spacing
     mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     auto spacingAttribute = new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelThickedFixed(100));
     spacingAttribute->setTipText("Terminate attribute");
-    mySpacingComboBox = new MFXComboBoxIcon(mySpacingFrameComboBox, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    mySpacingComboBox = new MFXComboBoxIcon(mySpacingFrameComboBox, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
                                             this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for option A
     myTerminateFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);

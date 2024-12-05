@@ -65,23 +65,23 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myMatchGenericDataString(nullptr) {
     // Create MFXComboBoxIcon for interval
     new FXLabel(getCollapsableFrame(), TL("Interval [begin, end]"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myIntervalSelector = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myIntervalSelector = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
     // Create MFXComboBoxIcon for generic datas
-    myMatchGenericDataTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    myMatchGenericDataTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create textfield for begin and end
     myTAZHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myFromTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myFromTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                             this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
-    myToTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myToTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                           this, MID_GNE_SELECTORFRAME_TOTAZ, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchGenericDataAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myMatchGenericDataAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
     myMatchGenericDataString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);

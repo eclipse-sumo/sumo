@@ -91,7 +91,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     MFXGroupBoxModule(frameParent, TL("Plan type")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
-    myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsLarge,
+    myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
                                           this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // get net
     const auto net = myFrameParent->getViewNet()->getNet();

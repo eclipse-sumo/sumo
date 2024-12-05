@@ -77,6 +77,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
     // create left button for reparent
     myAttributeReparentButton = new MFXButtonTooltip(this, tooltipMenu, "Reparent", nullptr, this,
             MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
+    myAttributeReparentButton->setHelpText(TL("Change parent of this element"));
     myAttributeReparentButton->hide();
     // create left button for inspect parent
     myAttributeInspectParentButton = new MFXButtonTooltip(this, tooltipMenu, "Inspect parent button", nullptr, this,
@@ -101,7 +102,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
             MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // create right combo box for discrete attributes
-    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium, this,
+    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems, this,
                                           MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // Create right check button

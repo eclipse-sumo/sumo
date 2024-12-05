@@ -59,7 +59,7 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myReferencePoints.push_back(std::make_pair(TL("Extended Right"), ReferencePoint::EXTENDEDRIGHT));
     myReferencePoints.push_back(std::make_pair(TL("Extended"), ReferencePoint::EXTENDED));
     // Create FXListBox for the reference points and fill it
-    myReferencePointComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    myReferencePointComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     for (const auto& referencePoint : myReferencePoints) {
         myReferencePointComboBox->appendIconItem(referencePoint.first.c_str());

@@ -93,7 +93,7 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType 
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsLarge,
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // set current tag type without notifying
     setCurrentTagType(myTagType, onlyDrawables, false);
