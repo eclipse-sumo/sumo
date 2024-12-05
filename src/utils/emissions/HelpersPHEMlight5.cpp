@@ -127,6 +127,12 @@ HelpersPHEMlight5::getFuel(const SUMOEmissionClass c) const {
 
 
 double
+HelpersPHEMlight5::getWeight(const SUMOEmissionClass c) const {
+    return myCEPs.find(c)->second->getVehicleMass();
+}
+
+
+double
 HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower, const double ratedPower) const {
     return currCep->GetEmission(e, p, v, &myHelper, drivingPower, ratedPower);
 }

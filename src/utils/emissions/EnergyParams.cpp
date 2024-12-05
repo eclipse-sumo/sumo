@@ -71,6 +71,12 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
         }
         myMap[SUMO_ATTR_MASS] = typeParams->mass;
         myHaveDefaultMass = !typeParams->wasSet(VTYPEPARS_MASS_SET);
+        if (myHaveDefaultMass) {
+            const double ecMass = PollutantsInterface::getWeight(typeParams->emissionClass);
+            if (ecMass != -1.) {
+                myMap[SUMO_ATTR_MASS] = ecMass;
+            }
+        }
         if (myMap.count(SUMO_ATTR_FRONTSURFACEAREA) == 0) {
             myHaveDefaultFrontSurfaceArea = true;
             myMap[SUMO_ATTR_FRONTSURFACEAREA] = typeParams->width * typeParams->height * M_PI / 4.;
@@ -79,7 +85,7 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
         if ((typeParams->vehicleClass & (SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE)) == 0 && myHaveDefaultFrontSurfaceArea) {
             if (StringUtils::startsWith(ecName, "MMPEVEM") || StringUtils::startsWith(ecName, "Energy")) {
                 WRITE_WARNINGF(TL("Vehicle type '%' uses the emission class '%' which does not have proper defaults for its vehicle class. "
-                                  "Please use a different emission class or complete the vType definition with further parameters."), typeParams->id, ecName);
+                                  "Please use a different emission model or complete the vType definition with further parameters."), typeParams->id, ecName);
                 if (!typeParams->wasSet(VTYPEPARS_MASS_SET)) {
                     WRITE_WARNING(TL(" And also set a vehicle mass!"));
                 }

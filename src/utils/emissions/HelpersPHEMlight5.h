@@ -65,6 +65,13 @@ public:
      */
     std::string getFuel(const SUMOEmissionClass c) const;
 
+    /** @brief Returns a reference weight in kg described by this emission class
+     * This implementation returns the value from the corresponding veh description file.
+     * @param[in] c the emission class
+     * @return a reference weight
+     */
+    double getWeight(const SUMOEmissionClass c) const;
+
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity

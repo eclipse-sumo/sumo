@@ -117,4 +117,10 @@ private:
 
     static const EnergyParams* myDefault;
     static const std::vector<SumoXMLAttr> myParamAttrs;
+
+    /// @brief invalidate copy constructor
+    EnergyParams(const EnergyParams& s) = delete;
+
+    /// @brief invalidate assignment operator
+    EnergyParams& operator=(const EnergyParams& s) = delete;
 };

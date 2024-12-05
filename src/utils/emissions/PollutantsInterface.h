@@ -311,7 +311,7 @@ public:
     /** @brief Returns a representative weight for the given emission class
      * see http://colombo-fp7.eu/deliverables/COLOMBO_D4.2_ExtendedPHEMSUMO_v1.7.pdf
      * @param[in] c The vehicle emission class
-     * @return the weight in kg if it matters, 0 otherwise
+     * @return the weight in kg if it matters, -1 otherwise
      */
     static double getWeight(const SUMOEmissionClass c);
 
