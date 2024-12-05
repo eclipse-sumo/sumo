@@ -521,6 +521,8 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getActualBatteryCapacity());
     } else if (key == toString(SUMO_ATTR_ENERGYCONSUMED)) {
         return toString(getConsum());
+    } else if (key == "chargePower") {
+        return toString(getEnergyCharged() * 3600.);
     } else if (key == toString(SUMO_ATTR_TOTALENERGYCONSUMED)) {
         return toString(getTotalConsumption());
     } else if (key == toString(SUMO_ATTR_TOTALENERGYREGENERATED)) {
