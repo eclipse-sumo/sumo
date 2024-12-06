@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-06 19:41:33 by Eclipse SUMO sumo Version v1_21_0+1242-c8e77caeb0f
+<!-- generated on 2024-12-06 19:56:28 by Eclipse SUMO sumo Version v1_21_0+1244-e0b331a91c8
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
         <tripinfo-output value="tripinfo.xml"/>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.dua value="true"/>
     </output>
 
     <report>
@@ -26,7 +28,7 @@
     </vehroutes_device>
 
     <traci_server>
-        <remote-port value="53779"/>
+        <remote-port value="34559"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -38,6 +40,10 @@
         <ride from="railEW" to="railEW" busStop="stopA_W" lines="train2:1" intended="train_train2:1.0" depart="599.00"/> <!-- A -->
         <walk edges="accessA" busStop="stopA_N"/> <!-- A -->
         <ride from="railSN" to="railSN" busStop="stopB_N" lines="train1:0" intended="train_train1:0.1" depart="1001.00"/> <!-- B -->
+    </person>
+
+    <person id="p1" depart="1.00" arrival="1199.00">
+        <walk edges="A0B0 A1A0 accessB" busStop="stopB_N"/> <!-- B -->
     </person>
 
 </routes>

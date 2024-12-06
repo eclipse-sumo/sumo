@@ -37,8 +37,10 @@ cmd = [
     sumoBinary,
     "-n", "input_net.net.xml",
     "-a", "input_additional.add.xml,input_additional2.add.xml",
+    "-r", "input_routes.rou.xml",
     "--tripinfo-output", "tripinfo.xml",
     "--vehroute-output", "vehroutes.xml",
+    "--vehroute-output.dua",
     "--device.tripinfo.probability", "0",
     "--device.vehroute.probability", "0",
     "--no-step-log"]
@@ -46,12 +48,24 @@ traci.start(cmd)
 
 
 traci.simulationStep()
+traci.vehicle.add("taxi_0", "", "taxi")
+
 pID = "p0"
 traci.person.add(pID, "A0B0", 900) 
 stage = traci.simulation.Stage(
     type=traci.constants.STAGE_TRIP,
     vType="DEFAULT_BIKETYPE DEFAULT_VEHTYPE",
     line="car public", edges=[], destStop="stopB_N",
+    arrivalPos=100)
+
+traci.person.appendStage(pID, stage)
+
+pID = "p1"
+traci.person.add(pID, "A0B0", 900) 
+stage = traci.simulation.Stage(
+    type=traci.constants.STAGE_TRIP,
+    vType="DEFAULT_BIKETYPE DEFAULT_VEHTYPE",
+    line="taxi", edges=[], destStop="stopB_N",
     arrivalPos=100)
 
 traci.person.appendStage(pID, stage)
