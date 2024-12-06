@@ -289,16 +289,13 @@ GNEConsecutiveSelector::drawTemporalConsecutiveLanePath() const {
             // Pop matrix
             GLHelper::popMatrix();
         }
-        /*
-            // draw points
-            const RGBColor pointColor = RGBColor::RED;
-            // positions
-            const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
-            const Position lastPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
+        // draw points
+        if (shapes.size() > 0) {
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, nullptr, myFrameParent->getViewNet()->getPositionInformation(), {firstPosition, lastPosition},
-                                            pointColor, RGBColor::WHITE, s.neteditSizeSettings.polylineWidth, 1, false, true);
-        */
+            GUIGeometry::drawGeometryPoints(GUIVisualizationSettings::Detail::AdditionalDetails,
+            {shapes.front().front(), shapes.back().back()}, RGBColor::RED,
+            myFrameParent->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius, 1, false);
+        }
         // Pop last matrix
         GLHelper::popMatrix();
     }
