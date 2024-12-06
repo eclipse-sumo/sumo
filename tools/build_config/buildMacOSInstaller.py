@@ -270,23 +270,6 @@ export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Curren
     print(" - Copying icons")
     shutil.copy(icns_path, os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "iconfile.icns"))
 
-    # Copy default font.conf
-    print(" - Creating default font configuration")
-    font_cfg_dir = os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "etc", "fonts")
-    os.makedirs(font_cfg_dir, exist_ok=True)
-    font_cfg_file = os.path.join(font_cfg_dir, "fonts.conf")
-    font_cfg_content = """<?xml version="1.0"?>
-<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-<fontconfig>
-    <description>Default configuration file</description>
-    <dir>/System/Library/Fonts</dir>
-    <dir>/Library/Fonts</dir>
-	<dir>~/Library/Fonts</dir>
-</fontconfig>
-"""
-    with open(font_cfg_file, "w") as file:
-        file.write(font_cfg_content)
-
     # Create plist file
     print(" - Creating plist file")
     plist_file = os.path.join(temp_dir, f"{app_name}.app", "Contents", "Info.plist")
