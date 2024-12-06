@@ -546,7 +546,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
         if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
             drawCrossingDetailed(width, exaggeration);
         } else {
-            GLHelper::drawBoxLines(myCrossingGeometry.getShape(), width);
+            GUIGeometry::drawGeometry(d, myCrossingGeometry, width);
         }
         // draw shape points only in Network supemode
         if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
