@@ -40,7 +40,7 @@ new entries from the search engine [Semantic Scholar](https://www.semanticschola
 refer to one of the SUMO reference publications. The script is called like this:
 
 ```python
-python tools/bibtexUpdate.py --bibtex-input docs/sumo.bib --bibtex-output docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
+python tools/build_config/bibtexUpdate.py --bibtex-input docs/sumo.bib --bibtex-output docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
 ```
 
 The example call takes the current version of the bibtex file and overwrites it. 
