@@ -27,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIGeometry.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
 #pragma warning(disable: 4505 5219) // do not warn about unused functions and implicit float conversions
@@ -422,15 +423,9 @@ GLHelper::drawBoxLines(const PositionVector& geom1,
 
 void
 GLHelper::drawBoxLines(const PositionVector& geom, double width) {
-    int e = (int) geom.size() - 1;
-    for (int i = 0; i < e; i++) {
-        const Position& f = geom[i];
-        const Position& s = geom[i + 1];
-        drawBoxLine(f,
-                    RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y()))),
-                    f.distanceTo(s),
-                    width);
-    }
+    // first convert to GUIGeometry to avoid graphical errors with Z value (see #13992)
+    const auto geometry = GUIGeometry(geom);
+    drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
 }
 
 
