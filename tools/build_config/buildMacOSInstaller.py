@@ -34,6 +34,7 @@ import string
 import subprocess
 import sys
 import tempfile
+from glob import iglob
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.options import ArgumentParser  # noqa
@@ -73,30 +74,6 @@ def parse_args(def_dmg_name, def_pkg_name):
     op.add_option("-v", "--verbose", action="store_true", default=False, help="tell me more")
 
     return op.parse_args()
-
-
-def get_dependencies(file_path):
-    try:
-        output = subprocess.check_output(["otool", "-L", file_path], stderr=subprocess.STDOUT).decode("utf-8")
-        # Skip the first line which is the file name
-        lines = output.split("\n")[1:]
-        dependencies = [line.split()[0] for line in lines if line]
-        return dependencies
-    except subprocess.CalledProcessError as e:
-        print(f"Error running otool on {file_path}: {e.output.decode('utf-8')}", file=sys.stderr)
-        sys.exit(1)
-
-
-def filter_libraries(libraries):
-    filtered_libraries = []
-    for lib in libraries:
-        if (
-            lib.startswith("/opt/homebrew")
-            and not lib.startswith("/opt/homebrew/opt/mesa")
-            and not lib.startswith("/opt/homebrew/opt/libx")
-        ):
-            filtered_libraries.append(lib)
-    return filtered_libraries
 
 
 def create_installer_conclusion_content(framework_name):
@@ -197,20 +174,30 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     ]
     subprocess.run(cmake_install_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    # We need to add a symlink to the binary folder to have the same folder structure
+    os.symlink("../../bin", os.path.join(version_dir, name, "share", "sumo", "bin"))
+
     # Determine library dependencies
     print(" - Delocating binaries and copying all libraries  - this may take a while")
     os.chdir(os.path.join(version_dir, name))
 
     # - libraries that landed in the lib folder need to be delocated as well
-    special_libs = ['liblibsumojni.jnilib', 'liblibtracijni.jnilib', 'libsumocpp.dylib', 'libtracicpp.dylib']
-    for file in special_libs:
-        if os.path.exists(os.path.join(os.path.join(version_dir, name, "lib", file))):
-            shutil.move(f'./lib/{file}', './bin')
+    lib_dir = os.path.join(version_dir, name, "lib")
+    bin_dir = os.path.join(version_dir, name, "bin")
+
+    for pattern in ("*.jnilib", "*.dylib"):
+        for file in iglob(os.path.join(lib_dir, pattern)):
+            file_name = os.path.basename(file)
+            shutil.move(os.path.join(lib_dir, file_name), os.path.join(bin_dir, file_name))
+
+    # Start the delocation of the libraries and binaries
     delocate_path("./bin", lib_filt_func=None, lib_path="./lib", sanitize_rpaths=True)
+
     # - and we need to move them back to the lib folder
-    for file in special_libs:
-        if os.path.exists(os.path.join(os.path.join(version_dir, name, "bin", file))):
-            shutil.move(f'./bin/{file}', './lib')
+    for pattern in ("*.jnilib", "*.dylib"):
+        for file in iglob(os.path.join(bin_dir, pattern)):
+            file_name = os.path.basename(file)
+            shutil.move(os.path.join(bin_dir, file_name), os.path.join(lib_dir, file_name))
 
     # Add proj db files from /opt/homebrew/Cellar/proj/<X.Y.Z>/share/proj
     print(" - Copying proj.db files")
@@ -271,7 +258,7 @@ def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path, 
 
     print(" - Creating launcher")
     launcher_content = f"""#!/bin/bash
-export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}"
+export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/share/sumo"
 {exec_call}
 """
     launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", app_name)
@@ -282,6 +269,23 @@ export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Curren
     # Copy the icons
     print(" - Copying icons")
     shutil.copy(icns_path, os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "iconfile.icns"))
+
+    # Copy default font.conf
+    print(" - Creating default font configuration")
+    font_cfg_dir = os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "etc", "fonts")
+    os.makedirs(font_cfg_dir, exist_ok=True)
+    font_cfg_file = os.path.join(font_cfg_dir, "fonts.conf")
+    font_cfg_content = """<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+    <description>Default configuration file</description>
+    <dir>/System/Library/Fonts</dir>
+    <dir>/Library/Fonts</dir>
+	<dir>~/Library/Fonts</dir>
+</fontconfig>
+"""
+    with open(font_cfg_file, "w") as file:
+        file.write(font_cfg_content)
 
     # Create plist file
     print(" - Creating plist file")
@@ -477,7 +481,7 @@ def main():
     app_list = [
         (
             "SUMO sumo-gui",
-            'exec "$SUMO_HOME/bin/sumo-gui" "$@"',
+            'exec "$SUMO_HOME/bin/sumo-gui" "$@" &',
             framework_pkg[0],
             f"{base_id}.apps.sumo-gui",
             version,
@@ -485,7 +489,7 @@ def main():
         ),
         (
             "SUMO netedit",
-            'exec "$SUMO_HOME/bin/netedit" "$@"',
+            'exec "$SUMO_HOME/bin/netedit" "$@" &',
             framework_pkg[0],
             f"{base_id}.apps.netedit",
             version,
@@ -494,8 +498,8 @@ def main():
         (
             "SUMO Scenario Wizard",
             (
-                "python  $SUMO_HOME/share/sumo/tools/osmWebWizard.py &> /dev/null ||"
-                "python3 $SUMO_HOME/share/sumo/tools/osmWebWizard.py &> /dev/null"
+                "python  $SUMO_HOME/share/sumo/tools/osmWebWizard.py ||"
+                "python3 $SUMO_HOME/share/sumo/tools/osmWebWizard.py  &"
             ),
             framework_pkg[0],
             f"{base_id}.apps.scenario-wizard",
