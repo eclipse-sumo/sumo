@@ -212,6 +212,7 @@ gtfs_missing:gtfs_missing.xml
 gtfs_routes:gtfs_pt_vehicles.add.xml
 gtfs_additional:gtfs_pt_stops.add.xml
 aggregatebattery:aggregatebattery.xml
+landmarks:landmarks.txt
 
 [collate_script]
 osmimport:$SUMO_HOME/tests/unzip.py
