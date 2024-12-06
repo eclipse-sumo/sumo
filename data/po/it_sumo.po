@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-03 14:21+0100\n"
-"PO-Revision-Date: 2024-12-02 20:21+0000\n"
+"PO-Revision-Date: 2024-12-06 14:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1201,38 +1201,44 @@ msgid ""
 "maximal number of inner iterations for user equilibrium calculation in the "
 "stochastic user assignment"
 msgstr ""
+"numero massimo di iterationi interne per calcolare l'equilibrio degli utenti "
+"nell'assegnazione stocastica"
 
 #: src/marouter/ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
-msgstr ""
+msgstr "Usa FLOAT come beta di (c-)logit per il fattore di comunità"
 
 #: src/marouter/ROMAFrame.cpp:227
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr ""
+msgstr "Usa FLOAT come gamma di (c-)logit per il fattore di comunità"
 
 #: src/marouter/ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr ""
+msgstr "Usa FLOAT come theta di (c-)logit"
 
 #: src/marouter/ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
-msgstr ""
+msgstr "Metodo di assegnazione '%' invalido."
 
 #: src/marouter/ROMAFrame.cpp:247
 msgid ""
 "Contraction hierarchies do not work with k shortest path search (please use "
 "a different routing algorithm)!"
 msgstr ""
+"Le gerarchie di contrazione non funzionano con i k cammini minimi (utilizza "
+"un algoritmo di instradamento diverso)!"
 
 #: src/marouter/ROMARouteHandler.cpp:87
 msgid "No origin or no destination given, ignoring '%'!"
-msgstr ""
+msgstr "'%' viene ignorato poiché né origine né destinazione è stata data!"
 
 #: src/marouter/marouter_main.cpp:239
 msgid ""
 "Deterministic user equilibrium ('UE') is not implemented yet, using "
 "stochastic method ('SUE')."
 msgstr ""
+"L'equilibrio deterministico degli utenti ('UE') non è ancora stato "
+"implementato, perciò si usa il metodo stocastico ('SUE')."
 
 #: src/marouter/marouter_main.cpp:324 src/od2trips_main.cpp:315
 msgid "No output file given."
