@@ -158,14 +158,17 @@ public:
                     }
                     double lon = StringUtils::toDouble(lonStr);
                     double lat = StringUtils::toDouble(st.get(1));
-                    std::vector<const E*> edges;
+                    std::vector<const E*> mapped;
                     bool ok;
-                    mapMatcher->parseGeoEdges(PositionVector({Position(lon, lat)}), true, SVC_IGNORING, edges, "LMLT", false, ok, true);
-                    if (edges.size() != 1) {
+                    mapMatcher->parseGeoEdges(PositionVector({Position(lon, lat)}), true, SVC_IGNORING, mapped, "LMLT", false, ok, true);
+                    if (mapped.size() != 1) {
                         throw ProcessError(TLF("Invalid coordinate in landmark file, could not find edge at  '%'", line));
                     }
-                    std::string lm = edges.front()->getID();
+                    std::string lm = mapped.front()->getID();
                     const auto& it = numericID.find(lm);
+                    if (it == numericID.end()) {
+                        throw ProcessError(TLF("Landmark edge '%' does not exist in the network.", lm));
+                    }
                     myLandmarks[lm] = numLandMarks++;
                     myFromLandmarkDists.push_back(std::vector<double>(0));
                     myToLandmarkDists.push_back(std::vector<double>(0));
