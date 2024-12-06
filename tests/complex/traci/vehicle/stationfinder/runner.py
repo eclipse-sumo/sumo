@@ -45,10 +45,11 @@ vehID = "el"
 s = step()
 for i in range(20):
     if "el" in traci.vehicle.getIDList():
-        print(('%.2f batteryNeed="%s" chargingStation="%s" chargePower="%s" usedAverage=""') % (
+        print(('%.2f batteryNeed="%s" chargingStation="%s" chargePower="%s" usedAverage="%s"') % (
             s, traci.vehicle.getParameter(vehID, "device.stationfinder.batteryNeed"),
             traci.vehicle.getParameter(vehID, "device.stationfinder.chargingStation"),
-            traci.vehicle.getParameter(vehID, "device.battery.chargePower")
+            traci.vehicle.getParameter(vehID, "device.battery.chargePower"),
+            traci.vehicle.getParameter(vehID, "device.battery.usedAverage"),
         ))
     s = step()
 
