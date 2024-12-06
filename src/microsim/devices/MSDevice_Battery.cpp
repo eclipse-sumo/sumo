@@ -523,6 +523,8 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getConsum());
     } else if (key == "chargePower") {
         return toString(getEnergyCharged() * 3600.);
+    } else if (key == "usedAverage") {
+        return toString(getTotalConsumption() * 3600 / STEPS2TIME(SIMSTEP - myHolder.getDeparture()));
     } else if (key == toString(SUMO_ATTR_TOTALENERGYCONSUMED)) {
         return toString(getTotalConsumption());
     } else if (key == toString(SUMO_ATTR_TOTALENERGYREGENERATED)) {
