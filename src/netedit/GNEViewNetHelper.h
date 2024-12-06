@@ -338,6 +338,12 @@ struct GNEViewNetHelper {
         /// @brief filter (remove) lanes
         void filterLanes();
 
+        /// @brief filter (remove) connections
+        void filterConnections();
+
+        /// @brief filter (remove) crossings
+        void filterCrossings();
+
         /// @brief filter (remove) polys and POIs
         void filterShapes();
 

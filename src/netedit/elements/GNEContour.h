@@ -56,14 +56,15 @@ public:
     /// @brief calculate contour (for closed shapes)
     void calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                     const double scale, const GUIGlObject* boundaryParent, const bool addToSelectedObjects = true) const;
+                                     const double scale, const GUIGlObject* boundaryParent,
+                                     const bool addToSelectedObjects = true) const;
 
     /// @brief calculate contour extruded (used in elements formed by a central shape)
     void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                        const GUIGlObject* glObject, const PositionVector& shape, const double layer,
                                        const double extrusionWidth, const double scale, const bool closeFirstExtrem,
                                        const bool closeLastExtrem, const double offset, const GNESegment* segment,
-                                       const GUIGlObject* boundaryParent) const;
+                                       const GUIGlObject* boundaryParent, const bool addToSelectedObjects = true) const;
 
     /// @brief calculate contour (for rectangled elements)
     void calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

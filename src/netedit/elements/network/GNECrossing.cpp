@@ -630,9 +630,13 @@ GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const G
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myCrossingGeometry.getShape(),
                     getType(), s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration, true);
         } else {
-            // calculate contour
+            // in move mode, add to selected object if this is the edited element
+            const auto& editModes = myNet->getViewNet()->getEditModes();
+            const bool addToSelectedObjects = (editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) ?
+                                              (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) : true;
+            // calculate contour and
             myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), getType(),
-                    width, exaggeration, true, true, 0, nullptr, myParentJunction);
+                    width, exaggeration, true, true, 0, nullptr, myParentJunction, addToSelectedObjects);
         }
     }
 }

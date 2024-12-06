@@ -91,13 +91,15 @@ void
 GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GUIGlObject* glObject, const PositionVector& shape, const double layer, const double extrusionWidth,
         const double scale, const bool closeFirstExtrem, const bool closeLastExtrem, const double offset,
-        const GNESegment* segment, const GUIGlObject* boundaryParent) const {
+        const GNESegment* segment, const GUIGlObject* boundaryParent, const bool addToSelectedObjects) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && !gViewObjectsHandler.checkRectangleSelection(s, glObject, layer, boundaryParent)) {
         // calculate extruded shape
         buildContourExtrudedShape(s, d, shape, extrusionWidth, scale, closeFirstExtrem, closeLastExtrem, offset);
         // check if position or bondary is within extruded shape
-        gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer, segment);
+        if (addToSelectedObjects) {
+            gViewObjectsHandler.checkShapeObject(glObject, *myCalculatedShape, *myContourBoundary, layer, segment);
+        }
     }
 }
 

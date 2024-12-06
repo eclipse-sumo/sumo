@@ -404,6 +404,28 @@ GNEViewNetHelper::ViewObjectsSelector::filterLanes() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::filterConnections() {
+    // get all connections to filter
+    std::vector<const GUIGlObject*> connections;
+    for (const auto& connection : myViewObjects.connections) {
+        connections.push_back(connection);
+    }
+    myViewObjects.filterElements(connections);
+}
+
+
+void
+GNEViewNetHelper::ViewObjectsSelector::filterCrossings() {
+    // get all crossings to filter
+    std::vector<const GUIGlObject*> crossings;
+    for (const auto& crossing : myViewObjects.crossings) {
+        crossings.push_back(crossing);
+    }
+    myViewObjects.filterElements(crossings);
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterShapes() {
     // get all elements to filter
     std::vector<const GUIGlObject*> shapes;

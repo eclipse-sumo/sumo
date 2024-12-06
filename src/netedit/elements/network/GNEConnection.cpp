@@ -783,9 +783,13 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, getType(), s.neteditSizeSettings.connectionGeometryPointRadius,
                     exaggeration, true);
         } else {
+            // in move mode, add to selected object if this is the edited element
+            const auto& editModes = myNet->getViewNet()->getEditModes();
+            const bool addToSelectedObjects = (editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) ?
+                                              (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) : true;
             // calculate connection shape contour
             myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, getType(), s.connectionSettings.connectionWidth, exaggeration,
-                    true, true, 0, nullptr, myFromLane->getParentEdge()->getToJunction());
+                    true, true, 0, nullptr, myFromLane->getParentEdge()->getToJunction(), addToSelectedObjects);
         }
     }
 }

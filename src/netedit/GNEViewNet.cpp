@@ -5714,6 +5714,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     processClick(eventData);
                 }
             } else {
+                // filter connections and crossings, because are moved setting custom shape
+                myViewObjectsSelector.filterConnections();
+                myViewObjectsSelector.filterCrossings();
                 // get AC under cursor
                 auto AC = myViewObjectsSelector.getAttributeCarrierFront();
                 // check that AC is an network or additional element
