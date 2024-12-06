@@ -75,58 +75,41 @@ GNEConnection::getConnectionShape() const {
 
 void
 GNEConnection::updateGeometry() {
+    // check if adjust shape
     if (myShapeDeprecated && existNBEdgeConnection()) {
         // Get shape of from and to lanes
         const NBEdge::Connection& nbCon = getNBEdgeConnection();
-        // obtain lane shape from
-        PositionVector laneShapeFrom;
-        if ((int)getEdgeFrom()->getNBEdge()->getLanes().size() > nbCon.fromLane) {
-            laneShapeFrom = getEdgeFrom()->getNBEdge()->getLanes().at(nbCon.fromLane).shape;
-        } else {
-            return;
-        }
-        // obtain lane shape to
-        PositionVector laneShapeTo;
-        if ((int)nbCon.toEdge->getLanes().size() > nbCon.toLane) {
-            laneShapeTo = nbCon.toEdge->getLanes().at(nbCon.toLane).shape;
-        } else {
-            return;
-        }
+        // obtain lane shapes
+        auto laneShapeFrom = myFromLane->getLaneShape();
+        auto laneShapeTo = myToLane->getLaneShape();
         // Calculate shape of connection depending of the size of Junction shape
-        // value obtained from GNEJunction::drawgl
-        if (nbCon.customShape.size() != 0) {
+        if (nbCon.customShape.size() > 0) {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
-        } else {
-            if (nbCon.shape.size() > 1) {
-                PositionVector connectionShape;
-                if (nbCon.shape.front() == nbCon.shape.back()) {
-                    laneShapeFrom.move2side(0.7);
-                    laneShapeTo.move2side(0.7);
-                    connectionShape.push_back(laneShapeFrom.back());
-                    connectionShape.push_back(laneShapeTo.front());
-                } else {
-                    connectionShape = nbCon.shape;
-                }
-                // only append via shape if it exists
-                if (nbCon.haveVia) {
-                    connectionShape.append(nbCon.viaShape);
-                }
-                myConnectionGeometry.updateGeometry(connectionShape);
+        } else if (nbCon.shape.size() > 1) {
+            PositionVector connectionShape;
+            if (nbCon.shape.front() == nbCon.shape.back()) {
+                laneShapeFrom.move2side(0.7);
+                laneShapeTo.move2side(0.7);
+                connectionShape.push_back(laneShapeFrom.back());
+                connectionShape.push_back(laneShapeTo.front());
             } else {
-                // Calculate shape so something can be drawn immediately
-                myConnectionGeometry.updateGeometry(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
-                                                        laneShapeFrom, laneShapeTo, NUM_POINTS,
-                                                        getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                                                        (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                                                        (double) 5. * (double) nbCon.toEdge->getNumLanes()));
+                connectionShape = nbCon.shape;
             }
+            // only append via shape if it exists
+            if (nbCon.haveVia) {
+                connectionShape.append(nbCon.viaShape);
+            }
+            myConnectionGeometry.updateGeometry(connectionShape);
+        } else if (myFromLane->getLane2laneConnections().exist(myToLane)) {
+            myConnectionGeometry = myFromLane->getLane2laneConnections().getLane2laneGeometry(myToLane);
+        } else {
+            myConnectionGeometry.clearGeometry();
         }
         // check if internal junction marker must be calculated
-        if (nbCon.haveVia && (nbCon.shape.size() != 0)) {
+        if (nbCon.haveVia && (nbCon.shape.size() > 0)) {
             // create marker for internal junction waiting position (contPos)
             const double orthoLength = 0.5;
-            Position pos = nbCon.shape.back();
-            myInternalJunctionMarker = nbCon.shape.getOrthogonal(pos, 10, true, 0.1);
+            myInternalJunctionMarker = nbCon.shape.getOrthogonal(nbCon.shape.back(), 10, true, 0.1);
             if (myInternalJunctionMarker.length() < orthoLength) {
                 myInternalJunctionMarker.extrapolate(orthoLength - myInternalJunctionMarker.length());
             }
