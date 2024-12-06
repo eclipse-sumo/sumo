@@ -219,7 +219,7 @@ def main(options):
 
 
 def formatName(name):
-    return u"".join([unicodedata.normalize("NFD", x)[0] for x in name if x not in ("'", "‐")])
+    return u"".join([unicodedata.normalize("NFKD", x)[0] for x in name if x not in ("'", "‐")])
 
 
 def getRelevantKeyWords(paper, keywords):
@@ -241,8 +241,6 @@ def toBibTexBlock(paper, groups=""):
     authors = [a["name"].strip() for a in paper["authors"]]
     lastNames = [a[a.rindex(" ")+1:] for a in [formatName(author) for author in authors]]
     citKey = "%s%d" % ("%sEtAl" % lastNames[0] if len(lastNames) > 2 else "And".join(lastNames), paper["year"])
-    # authors = [" ".join(["{%s}" % name if name[0].isupper() else name for name in author.split(" ")])
-    #  for author in authors]
     entry = bibtexparser.model.Entry(getBibtexType(paper["publicationTypes"]), citKey, [])
     entry.set_field(bibtexparser.model.Field("author", " and ".join(authors)))
     entry.set_field(bibtexparser.model.Field("year", paper["year"]))
