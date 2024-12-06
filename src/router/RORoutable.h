@@ -146,16 +146,18 @@ public:
      * @exception IOError If something fails (not yet implemented)
      */
     void write(OutputDevice* os, OutputDevice* const altos,
-               OutputDevice* const typeos, OptionsCont& options) const {
-        if (os != nullptr) {
-            if (altos == nullptr && typeos == nullptr) {
-                saveAsXML(*os, os, false, options);
-            } else {
-                saveAsXML(*os, typeos, false, options);
+               OutputDevice* const typeos, OptionsCont& options, int quota) const {
+        for (int i = 0; i < quota; i++) {
+            if (os != nullptr) {
+                if (altos == nullptr && typeos == nullptr) {
+                    saveAsXML(*os, os, false, options, i);
+                } else {
+                    saveAsXML(*os, typeos, false, options, i);
+                }
             }
-        }
-        if (altos != nullptr) {
-            saveAsXML(*altos, typeos, true, options);
+            if (altos != nullptr) {
+                saveAsXML(*altos, typeos, true, options, i);
+            }
         }
     }
 
@@ -176,7 +178,7 @@ protected:
      * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    virtual void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const = 0;
+    virtual void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex=0) const = 0;
 
 
 private:

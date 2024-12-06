@@ -450,7 +450,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
 
 
 void
-ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
+ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex) const {
     // write the person's vehicles
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     if (!writeTrip) {
@@ -469,7 +469,14 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     }
 
     // write the person
-    getParameter().write(os, options, SUMO_TAG_PERSON);
+    if (cloneIndex == 0) {
+        getParameter().write(os, options, SUMO_TAG_PERSON);
+    } else {
+        SUMOVehicleParameter p = getParameter();
+        // @note id collisions may occur if scale-suffic occurs in other vehicle ids
+        p.id += options.getString("scale-suffix") + toString(cloneIndex);
+        p.write(os, options, SUMO_TAG_PERSON);
+    }
 
     for (const PlanItem* const it : myPlan) {
         it->saveAsXML(os, asAlternatives, writeTrip, options);

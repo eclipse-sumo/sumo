@@ -726,6 +726,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
         myThreadPool.waitAll();
 #endif
     }
+    const double scale = options.exists("scale-suffix") ? options.getFloat("scale") : 1;
     // write all vehicles (and additional structures)
     while (myRoutables.size() != 0 || myContainers.size() != 0) {
         // get the next vehicle, person or container
@@ -752,7 +753,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 // ok, check whether it has been routed
                 if (r->getRoutingSuccess()) {
                     // write the route
-                    r->write(myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
+                    int quota = getScalingQuota(scale, myWrittenRouteNo);
+                    r->write(myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options, quota);
                     myWrittenRouteNo++;
                 } else {
                     myDiscardedRouteNo++;
