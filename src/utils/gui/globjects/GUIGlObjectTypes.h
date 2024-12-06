@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Sept 2002
 ///
 // A list of object types which may be displayed within the gui
@@ -80,10 +81,10 @@ enum GUIGlObjectType {
     GLO_TRAIN_STOP = 103,
     /// @brief a containerStop
     GLO_CONTAINER_STOP = 104,
-    /// @brief a chargingStation
-    GLO_CHARGING_STATION = 105,
     /// @brief a ParkingArea
-    GLO_PARKING_AREA = 106,
+    GLO_PARKING_AREA = 105,
+    /// @brief a chargingStation
+    GLO_CHARGING_STATION = 106,
     /// @brief reserved GLO type for packing all StoppingPlace elements
     GLO_STOPPING_PLACE_LAST = 107,
     /// @brief a ParkingSpace
