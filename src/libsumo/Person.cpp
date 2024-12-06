@@ -30,6 +30,7 @@
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSStageWalking.h>
+#include <microsim/transportables/MSStageTrip.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDispatch_TraCI.h>
 #include <libsumo/TraCIConstants.h>
@@ -639,6 +640,62 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
                 throw TraCIException("Duration for person: '" + personID + "' must not be negative");
             }
             return new MSStageWaiting(p->getArrivalEdge(), nullptr, TIME2STEPS(stage.travelTime), 0, p->getArrivalPos(), stage.description, false);
+        }
+        case STAGE_TRIP: {
+            MSTransportable* p = getPerson(personID);
+            ConstMSEdgeVector edges;
+            try {
+                MSEdge::parseEdgesList(stage.edges, edges, "<unknown>");
+            } catch (ProcessError& e) {
+                throw TraCIException(e.what());
+            }
+            if ((edges.size() == 0 && bs == nullptr) || edges.size() > 1) {
+                throw TraCIException("A trip should be defined with a destination edge or a destination stop for person '" + personID + "'.");
+            }
+            const MSEdge* to = nullptr;
+            if (bs != nullptr) {
+                to = &bs->getLane().getEdge();
+                if (edges.size() > 0 && to != edges.back()) {
+                    throw TraCIException("Mismatching destination edge and destination stop edge for person '" + personID + "'.");
+                }
+            } else {
+                to = edges.back();
+            }
+            SVCPermissions modeSet = 0;
+            MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+            for (std::string vtypeid : StringTokenizer(stage.vType).getVector()) {
+                const MSVehicleType* const vType = vehControl.getVType(vtypeid);
+                if (vType == nullptr) {
+                    throw TraCIException("The vehicle type '" + vtypeid + "' in a trip for person '" + personID + "' is not known.");
+                }
+                modeSet |= (vType->getVehicleClass() == SVC_BICYCLE) ? SVC_BICYCLE : SVC_PASSENGER;
+            }
+            if (stage.line.empty()) {
+                modeSet = p->getParameter().modes;
+            } else {
+                std::string errorMsg;
+                if (!SUMOVehicleParameter::parsePersonModes(stage.line, "person", personID, modeSet, errorMsg)) {
+                    throw TraCIException(errorMsg);
+                }
+            }
+            bool hasArrivalPos = stage.arrivalPos != INVALID_DOUBLE_VALUE;
+            double arrivalPos = stage.arrivalPos;
+            if (hasArrivalPos) {
+                if (fabs(arrivalPos) > to->getLength()) {
+                    throw TraCIException("Invalid arrivalPos for walking stage of person '" + personID + "'.");
+                }
+                if (arrivalPos < 0) {
+                    arrivalPos += to->getLength();
+                }
+            }
+            const MSStage* cur = p->getCurrentStage();
+            double walkfactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
+            std::string group = stage.intended; //OptionsCont::getOptions().getString("persontrip.default.group");
+            const SUMOTime duration = -1;
+            const double speed = -1;
+            return new MSStageTrip(cur->getDestination(), cur->getDestinationStop(), to, bs,
+                                   duration, modeSet, stage.vType, speed, walkfactor, group,
+                                   MSPModel::UNSPECIFIED_POS_LAT, hasArrivalPos, arrivalPos);
         }
         default:
             return nullptr;
