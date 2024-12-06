@@ -41,7 +41,7 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
                                      const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
                                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
     MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
-    myChargeInTransit(chargeInTransit) {
+    myChargeInTransit(chargeInTransit), myChargeType(chargeType) {
     if (chargingPower < 0) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGINGPOWER), getID(), toString(chargingPower)))
     } else {
@@ -57,15 +57,10 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     } else {
         myChargeDelay = chargeDelay;
     }
-    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
-        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGETYPE), getID(), chargeType))
-    } else {
-        myChargeDelay = chargeDelay;
-    }
     if (waitingTime < 0) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_WAITINGTIME), getID(), toString(waitingTime)))
     } else {
-        myChargeDelay = chargeDelay;
+        myWaitingTime = waitingTime;
     }
     if (getBeginLanePosition() > getEndLanePosition()) {
         WRITE_WARNING(TLF("ChargingStation with ID='%' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));

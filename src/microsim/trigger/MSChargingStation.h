@@ -121,6 +121,15 @@ public:
     /// @brief write ungrouped output (flush data after writing)
     void writeAggregatedChargingStationOutput(OutputDevice& output, bool includeUnfinished = false);
 
+    /// @brief check chargeType input for accepted value and warn if not found
+    static const std::string checkChargeType(const std::string& chargeType) {
+        if (chargeType != "normal" && chargeType != "battery" && chargeType != "fuel") {
+            WRITE_WARNING(TLF("Encountered invalid charging station % '%'. Will use 'normal' instead.", toString(SUMO_ATTR_CHARGETYPE), chargeType));
+            return "normal";
+        }
+        return chargeType;
+    }
+
 protected:
 
     /// @brief struct to save information for the chargingStation output
@@ -177,7 +186,7 @@ protected:
     SUMOTime myChargeDelay = 0;
 
     /// @brief charge type
-    const std::string myChargeType = "normal";
+    const std::string myChargeType;
 
     /// @brief waiting time
     SUMOTime myWaitingTime = 0;
