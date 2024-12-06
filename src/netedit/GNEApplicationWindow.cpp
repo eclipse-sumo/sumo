@@ -3170,7 +3170,7 @@ long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // first check if we have to set the output filename
-    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("net-file").empty()) {
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("net-file").empty()) {
         neteditOptions.set("net-file", *(static_cast<std::string*>(ptr)) + ".net.xml");
     }
     // function onCmdSaveNetworkAs must be executed if this is the first save
@@ -3356,11 +3356,11 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         // get patter file
         auto patterFile = StringUtils::replace(neteditConfigFile, ".netecfg", "");
         // save all elements giving automatic names based on patter if their file isn't defined
-        onCmdSaveNetwork(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveAdditionals(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveDemandElements(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveDataElements(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveMeanDatas(nullptr, MID_GNE_FORCESAVE, &patterFile);
+        onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveAdditionals(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
         // configuration
         std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
         if (out.good()) {
@@ -3443,10 +3443,10 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
         // get config file without extension
         auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
         // save all elements giving automatic names based on patter in their file isn't defined
-        onCmdSaveNetwork(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveAdditionals(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveDemandElements(nullptr, MID_GNE_FORCESAVE, &patterFile);
-        onCmdSaveMeanDatas(nullptr, MID_GNE_FORCESAVE, &patterFile);
+        onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveAdditionals(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
+        onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile);
         // set input in sumo options
         setInputInSumoOptions(ignoreAdditionals, ignoreDemandElements);
         // if we have trips or flow over junctions, add option junction-taz
@@ -3752,14 +3752,16 @@ long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if we have to set the output filename
-    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("additional-files").empty()) {
-        neteditOptions.set("additional-files", *(static_cast<std::string*>(ptr)) + ".add.xml");
-    }
-    if (myNet->getSavingStatus()->isAdditionalsSaved() && (sel != MID_GNE_FORCESAVE)) {
+    if (myNet->getSavingStatus()->isAdditionalsSaved()) {
         // nothing to save
         return 1;
-    } else if (neteditOptions.getString("additional-files").empty()) {
+    }
+    // check if we have to set the output filename
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("additional-files").empty()) {
+        neteditOptions.set("additional-files", *(static_cast<std::string*>(ptr)) + ".add.xml");
+    }
+    // check if we have to open save as dialog
+    if (neteditOptions.getString("additional-files").empty()) {
         // choose file to save
         return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {
@@ -3956,14 +3958,16 @@ long
 GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // check saving conditions
+    if (myNet->getSavingStatus()->isDemandElementsSaved()) {
+        return 1;
+    }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("route-files").empty()) {
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("route-files").empty()) {
         neteditOptions.set("route-files", *(static_cast<std::string*>(ptr)) + ".rou.xml");
     }
-    // check saving conditions
-    if (myNet->getSavingStatus()->isDemandElementsSaved() && (sel != MID_GNE_FORCESAVE)) {
-        return 1;
-    } else if (neteditOptions.getString("route-files").empty()) {
+    // check if we have to open save as dialog
+    if (neteditOptions.getString("route-files").empty()) {
         return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
         // Start saving demand elements
@@ -4135,14 +4139,17 @@ long
 GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if we have to set the output filename
-    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("data-files").empty()) {
-        neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".dat.xml");
-    }
-    if (myNet->getSavingStatus()->isDataElementsSaved() && (sel != MID_GNE_FORCESAVE)) {
+    // check saving conditions
+    if (myNet->getSavingStatus()->isDataElementsSaved()) {
         // nothing to save
         return 1;
-    } else if (neteditOptions.getString("data-files").empty()) {
+    }
+    // check if we have to set the output filename
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("data-files").empty()) {
+        neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".dat.xml");
+    }
+    // check if we have to open save as dialog
+    if (neteditOptions.getString("data-files").empty()) {
         return onCmdSaveDataElementsAs(sender, sel, ptr);
     } else {
         // Start saving data elements
@@ -4302,14 +4309,16 @@ long
 GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // check saving conditions
+    if (myNet->getSavingStatus()->isMeanDatasSaved()) {
+        return 1;
+    }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("meandata-files").empty()) {
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("meandata-files").empty()) {
         neteditOptions.set("meandata-files", *(static_cast<std::string*>(ptr)) + ".med.add.xml");
     }
-    // check saving conditions
-    if (myNet->getSavingStatus()->isMeanDatasSaved() && (sel != MID_GNE_FORCESAVE)) {
-        return 1;
-    } else if (neteditOptions.getString("meandata-files").empty()) {
+    // check if we have to open save as dialog
+    if (neteditOptions.getString("meandata-files").empty()) {
         return onCmdSaveMeanDatasAs(sender, sel, ptr);
     } else {
         // Start saving demand elements
@@ -4499,7 +4508,7 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges() {
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before close' with 'Yes'");
-            if (onCmdSaveDemandElements(nullptr, MID_GNE_FORCESAVE, nullptr) == 1) {
+            if (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1) {
                 // demand elements successfully saved
                 return true;
             } else {
@@ -4543,7 +4552,7 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges() {
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save data elements before close' with 'Yes'");
-            if (onCmdSaveDataElements(nullptr, MID_GNE_FORCESAVE, nullptr) == 1) {
+            if (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1) {
                 // data elements successfully saved
                 return true;
             } else {
@@ -4587,7 +4596,7 @@ GNEApplicationWindow::continueWithUnsavedMeanDataElementChanges() {
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save meanData elements before close' with 'Yes'");
-            if (onCmdSaveMeanDatas(nullptr, MID_GNE_FORCESAVE, nullptr) == 1) {
+            if (onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1) {
                 // meanData elements successfully saved
                 return true;
             } else {
