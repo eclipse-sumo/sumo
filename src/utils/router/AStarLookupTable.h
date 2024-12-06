@@ -235,7 +235,7 @@ public:
                             // The CHRouter needs initialization
                             // before it gets cloned, so we do a dummy routing which is not in parallel
                             std::vector<const E*> route;
-                            router->compute(landmark, landmark, defaultVehicle, 0, route);
+                            router->compute(landmark, landmark, defaultVehicle, 0, route, true);
                         } else {
                             reverseRouter->setAutoBulkMode(true);
                         }
@@ -266,6 +266,8 @@ public:
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
                 const E* landmark = landmarks[i];
                 const double lmCost = router->recomputeCosts({landmark}, defaultVehicle, 0);
+                int unreachableFrom = 0;
+                int unreachableTo = 0;
                 for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
                     const E* edge = edges[j];
                     double distFrom = -1;
@@ -286,14 +288,14 @@ public:
                             std::vector<const ReversedEdge<E, V>*> reversedRoute;
                             // compute from-distance (skip taz-sources and other unreachable edges)
                             if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
-                                if (router->compute(landmark, edge, defaultVehicle, 0, route)) {
+                                if (router->compute(landmark, edge, defaultVehicle, 0, route, true)) {
                                     distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
                                     route.clear();
                                 }
                             }
                             // compute to-distance (skip unreachable landmarks)
                             if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
-                                if (router->compute(edge, landmark, defaultVehicle, 0, route)) {
+                                if (router->compute(edge, landmark, defaultVehicle, 0, route, true)) {
                                     distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
                                     route.clear();
                                 }
@@ -302,6 +304,16 @@ public:
                     }
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
+                    if (distFrom == -1) {
+                        unreachableFrom++;
+                    }
+                    if (distTo == -1) {
+                        unreachableTo++;
+                    }
+                }
+                if (unreachableFrom > 0 || unreachableTo > 0) {
+                    WRITE_WARNINGF("Landmark % not reachable from % edges and is unable to reach % out of % total edges", 
+                            landmark->getID(), unreachableFrom, unreachableTo, numericID.size());
                 }
             }
         }
@@ -412,18 +424,18 @@ private:
 
         const std::pair<double, double> compute(const E* src, const E* dest, const double costOff) {
             double fromResult = -1.;
-            if (myRouter->compute(src, dest, myVehicle, 0, myRoute)) {
+            if (myRouter->compute(src, dest, myVehicle, 0, myRoute, true)) {
                 fromResult = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
                 myRoute.clear();
             }
             double toResult = -1.;
             if (myReversedRouter != nullptr) {
-                if (myReversedRouter->compute(src->getReversedRoutingEdge(), dest->getReversedRoutingEdge(), myVehicle, 0, myReversedRoute)) {
+                if (myReversedRouter->compute(src->getReversedRoutingEdge(), dest->getReversedRoutingEdge(), myVehicle, 0, myReversedRoute, true)) {
                     toResult = MAX2(0.0, myReversedRouter->recomputeCosts(myReversedRoute, myVehicle, 0) + costOff);
                     myReversedRoute.clear();
                 }
             } else {
-                if (myRouter->compute(dest, src, myVehicle, 0, myRoute)) {
+                if (myRouter->compute(dest, src, myVehicle, 0, myRoute, true)) {
                     toResult = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
                     myRoute.clear();
                 }
