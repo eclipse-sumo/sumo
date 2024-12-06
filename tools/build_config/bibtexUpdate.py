@@ -35,6 +35,7 @@ import time
 import argparse
 import requests
 import bibtexparser
+import unicodedata
 from datetime import datetime
 
 ArticleTypeMap = {
@@ -217,6 +218,10 @@ def main(options):
             f.write(bibText)
 
 
+def formatName(name):
+    return u"".join([unicodedata.normalize("NFD", x)[0] for x in name if x not in ("'", "‐")])
+
+
 def getRelevantKeyWords(paper, keywords):
     result = []
     lowerTitle = paper["title"].lower()
@@ -234,7 +239,7 @@ def getBibtexType(semanticScholarType):
 def toBibTexBlock(paper, groups=""):
     # generate citation key
     authors = [a["name"].strip() for a in paper["authors"]]
-    lastNames = [a[a.rindex(" ")+1:] for a in authors]
+    lastNames = [a[a.rindex(" ")+1:] for a in [formatName(author) for author in authors]]
     citKey = "%s%d" % ("%sEtAl" % lastNames[0] if len(lastNames) > 2 else "And".join(lastNames), paper["year"])
     # authors = [" ".join(["{%s}" % name if name[0].isupper() else name for name in author.split(" ")])
     #  for author in authors]
