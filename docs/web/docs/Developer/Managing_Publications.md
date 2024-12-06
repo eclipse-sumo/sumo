@@ -38,11 +38,9 @@ Although the publications can be edited manually using JabRef, there is an autom
 new entries from the search engine [Semantic Scholar](https://www.semanticscholar.org/). The script 
 **SUMO_HOME/tools/build_config/bibtexUpdate.py** can be used to query the most cited articles which 
 refer to one of the SUMO reference publications. The script is called like this:
-
-```python
+```
 python tools/build_config/bibtexUpdate.py --bibtex-input docs/sumo.bib --bibtex-output docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
 ```
-
 The example call takes the current version of the bibtex file and overwrites it. 
 It queries the works citing the SUMO reference publications given by their Semantic Scholar hashes 
 in **--cited-works** and includes only those with at least **--min-citations**. Publications can be excluded from the 
