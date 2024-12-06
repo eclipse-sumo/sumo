@@ -3169,6 +3169,10 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
+    if (myNet->getSavingStatus()->isNetworkSaved()) {
+        // nothing to save
+        return 1;
+    }
     // first check if we have to set the output filename
     if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("net-file").empty()) {
         neteditOptions.set("net-file", *(static_cast<std::string*>(ptr)) + ".net.xml");
