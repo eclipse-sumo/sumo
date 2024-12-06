@@ -233,6 +233,12 @@ Most network objects can be colored according to their selection status
 (*color by selection*) and selected network elements may be manipulated
 as a group in [netedit](Netedit/index.md).
 
+### Loading a selection automatically
+
+By setting option **--selection-file FILE** a selection file as described above can be given to **sumo-gui** at startup.
+Any objects that are loaded at the start of the simulation will be selected immediately. 
+Any persons, vehicles or containers that were not loaded will be selected once they are loaded at a later simulation time.
+
 ## Locating Objects
 
 All simulation objects can be located based on their ID by using the
