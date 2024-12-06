@@ -2038,7 +2038,7 @@ GNEEdge::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
-    if (moveResult.shapeToUpdate.size() > 0) {
+    if (moveResult.shapeToUpdate.size() > 1) {
         // get innen shape
         PositionVector innenShapeToUpdate = moveResult.shapeToUpdate;
         innenShapeToUpdate.pop_front();
