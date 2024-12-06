@@ -183,7 +183,8 @@ public:
      * @param[in] type The type of the objects to load if changed from default
      * @return error messages if errors occurred or the empty string
      */
-    std::string load(const std::string& filename, GUIGlObjectType type = GLO_MAX);
+    std::string load(const std::string& filename, GUIGlObjectType type = GLO_MAX, std::ostream* dynamicNotFound = nullptr);
+    std::string load(std::istream& strm, GUIGlObjectType type = GLO_MAX, std::ostream* dynamicNotFound = nullptr);
 
     /** @brief Loads a selection list (optionally with restricted type) and
      * returns the ids of all active objects
@@ -194,7 +195,7 @@ public:
      * @param[in] maxErrors The maximum Number of errors to return
      * @return the set of loaded ids
      */
-    std::set<GUIGlID> loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type = GLO_MAX, int maxErrors = 16);
+    std::set<GUIGlID> loadIDs(std::istream& strm, std::string& msgOut, GUIGlObjectType type = GLO_MAX, std::ostream* dynamicNotFound = nullptr, int maxErrors = 16);
 
     /** @brief Saves a selection list
      *

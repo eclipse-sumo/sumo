@@ -585,6 +585,8 @@ protected:
     /// @brief breakpoint dialog
     GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
 
+    std::stringstream* myDynamicSelection = nullptr;
+
 private:
     /// @brief starts to load a simulation
     void loadConfigOrNet(const std::string& file);

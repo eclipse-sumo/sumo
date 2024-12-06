@@ -193,16 +193,11 @@ GUISelectedStorage::notifyChanged() {
 
 
 std::set<GUIGlID>
-GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type, int maxErrors) {
+GUISelectedStorage::loadIDs(std::istream& strm, std::string& msgOut, GUIGlObjectType type, std::ostream* dynamicNotFound, int maxErrors) {
     std::set<GUIGlID> result;
     std::ostringstream msg;
-    std::ifstream strm(filename.c_str());
     int numIgnored = 0;
     int numMissing = 0;
-    if (!strm.good()) {
-        msgOut = TLF("Could not open '%'.\n", filename);
-        return result;
-    }
     while (strm.good()) {
         std::string line;
         strm >> line;
@@ -225,13 +220,19 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
             }
         } else {
             numMissing++;
-            if (numIgnored + numMissing <= maxErrors) {
-                msg << TLF("Item '%' not found\n", line);
+            if (dynamicNotFound != nullptr && (
+                        StringUtils::startsWith(line, "vehicle:") ||
+                        StringUtils::startsWith(line, "person:") ||
+                        StringUtils::startsWith(line, "container:"))) {
+                (*dynamicNotFound) << line << "\n";
+            } else {
+                if (numIgnored + numMissing <= maxErrors) {
+                    msg << TLF("Item '%' not found\n", line);
+                }
             }
             continue;
         }
     }
-    strm.close();
     if (numIgnored + numMissing > maxErrors) {
         msg << "...\n" << TLF("% objects ignored, % objects not found\n", numIgnored, numMissing);
     }
@@ -241,9 +242,21 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
 
 
 std::string
-GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type) {
+GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type, std::ostream* dynamicNotFound) {
+    std::ifstream strm(filename.c_str());
+    if (!strm.good()) {
+        return TLF("Could not open '%'.\n", filename);
+    }
+    std::string errors = load(strm, type, dynamicNotFound);
+    strm.close();
+    return errors;
+}
+
+
+std::string
+GUISelectedStorage::load(std::istream& strm, GUIGlObjectType type, std::ostream* dynamicNotFound) {
     std::string errors;
-    const std::set<GUIGlID> ids = loadIDs(filename, errors, type);
+    const std::set<GUIGlID> ids = loadIDs(strm, errors, type, dynamicNotFound);
     for (const auto glID : ids) {
         select(glID, false);
     }

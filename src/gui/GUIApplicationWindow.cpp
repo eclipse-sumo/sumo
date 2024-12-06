@@ -1920,9 +1920,23 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myRunThread->getBreakpointLock().unlock();
             }
             if (!OptionsCont::getOptions().isDefault("selection-file")) {
-                std::string msg = gSelected.load(OptionsCont::getOptions().getString("selection-file"));
+                delete myDynamicSelection;
+                myDynamicSelection = new std::stringstream();
+                std::string msg = gSelected.load(OptionsCont::getOptions().getString("selection-file"), GLO_MAX, myDynamicSelection);
                 if (msg != "") {
                     WRITE_ERRORF("Errors while loading selection: %", msg.c_str());
+                }
+                if (!myDynamicSelection->str().empty()) {
+                    std::string dummy;
+                    int numNotFound = 0;
+                    while (myDynamicSelection->good()) {
+                        (*myDynamicSelection) >> dummy;
+                        numNotFound++;
+                    }
+                    myDynamicSelection->clear(); // first clear error state before seek works
+                    myDynamicSelection->seekg(0);
+                    // @note for some reason the last line is read twice
+                    WRITE_MESSAGEF("% dynamic objects not present while loading selection", numNotFound - 1);
                 }
             }
             myTLSGame = OptionsCont::getOptions().getString("game.mode") == "tls";
@@ -2012,6 +2026,19 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     }
     if (myRunThread->simulationIsStartable()) {
         getApp()->forceRefresh(); // restores keyboard focus
+    }
+    // try to load dynamic selection
+    if (myDynamicSelection != nullptr) {
+        std::stringstream tmp;
+        gSelected.load(*myDynamicSelection, GLO_MAX, &tmp);
+        if (tmp.str().empty()) {
+            delete myDynamicSelection;
+            myDynamicSelection = nullptr;
+        } else {
+            myDynamicSelection->str(tmp.str());
+            myDynamicSelection->clear(); // first clear error state before seek works
+            myDynamicSelection->seekg(0);
+        }
     }
     updateChildren();
     update();
