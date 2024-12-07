@@ -269,7 +269,7 @@ public:
                 int unreachableFrom = 0;
                 int unreachableTo = 0;
                 for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
-                    const E* edge = edges[j];
+                    const E* const edge = edges[j];
                     double distFrom = -1;
                     double distTo = -1;
                     if (landmark == edge) {
@@ -304,16 +304,18 @@ public:
                     }
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
-                    if (distFrom == -1) {
-                        unreachableFrom++;
-                    }
-                    if (distTo == -1) {
-                        unreachableTo++;
+                    if (!edge->isTazConnector()) {
+                        if (distFrom == -1) {
+                            unreachableFrom++;
+                        }
+                        if (distTo == -1) {
+                            unreachableTo++;
+                        }
                     }
                 }
                 if (unreachableFrom > 0 || unreachableTo > 0) {
-                    WRITE_WARNINGF("Landmark % not reachable from % edges and is unable to reach % out of % total edges", 
-                            landmark->getID(), unreachableFrom, unreachableTo, numericID.size());
+                    WRITE_WARNINGF(TL("Landmark % is not reachable from % edges and is unable to reach % out of % total edges."),
+                                   landmark->getID(), unreachableFrom, unreachableTo, numericID.size());
                 }
             }
         }
