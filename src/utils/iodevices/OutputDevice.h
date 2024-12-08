@@ -22,6 +22,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <iostream>
 
 #include <string>
 #include <map>
@@ -29,16 +30,24 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "PlainXMLFormatter.h"
+#include "ParquetFormatter.h"
+#include "StreamDevices.h"
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+// Create an ENUM of the different writers (XML and Parquet)
+enum class OutputWriterType {
+    XML,
+    PARQUET
+};
+
 /**
  * @class OutputDevice
  * @brief Static storage of an output device and its base (abstract) implementation
  *
- * OutputDevices are basically a capsule around an std::ostream, which give a
+ * OutputDevices are basically a capsule around an StreamDevice, which give a
  *  unified access to sockets, files and stdout.
  *
  * Usually, an application builds as many output devices as needed. Each
@@ -95,8 +104,8 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static bool createDeviceByOption(const std::string& optionName,
-                                     const std::string& rootElement = "",
-                                     const std::string& schemaFile = "");
+        const std::string& rootElement = "",
+        const std::string& schemaFile = "");
 
 
     /** @brief Returns the device described by the option
@@ -139,9 +148,12 @@ public:
     /// @brief Constructor
     OutputDevice(const int defaultIndentation = 0, const std::string& filename = "");
 
+    /// @brief Constructor
+    OutputDevice(const std::string& filename, OutputFormatter* formatter);
+
 
     /// @brief Destructor
-    virtual ~OutputDevice();
+    virtual ~OutputDevice() = default;
 
 
     /** @brief returns the information whether one can write into the device
@@ -167,7 +179,7 @@ public:
     /** @brief Sets the precision or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
-    void setPrecision(int precision = gPrecision);
+    virtual void setPrecision(int precision = gPrecision);
 
     /// @brief return precision set on the device
     int precision();
@@ -190,14 +202,14 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string& rootElement,
-                        const std::string& schemaFile,
-                        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>(),
-                        bool includeConfig = true);
+        const std::string& schemaFile,
+        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>(),
+        bool includeConfig = true);
 
 
     template <typename E>
     bool writeHeader(const SumoXMLTag& rootElement) {
-        return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getOStream(), rootElement);
+        return getFormatter().writeHeader(getOStream(), rootElement);
     }
 
 
@@ -210,7 +222,7 @@ public:
      * @param[in] xmlElement Name of element to open
      * @return The OutputDevice for further processing
      */
-    OutputDevice& openTag(const std::string& xmlElement);
+    virtual OutputDevice& openTag(const std::string& xmlElement);
 
 
     /** @brief Opens an XML tag
@@ -220,7 +232,7 @@ public:
      * @param[in] xmlElement Id of the element to open
      * @return The OutputDevice for further processing
      */
-    OutputDevice& openTag(const SumoXMLTag& xmlElement);
+    virtual OutputDevice& openTag(const SumoXMLTag& xmlElement);
 
 
     /** @brief Closes the most recently opened tag and optionally adds a comment
@@ -233,7 +245,7 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(const std::string& comment = "");
+    virtual bool closeTag(const std::string& comment = "");
 
 
 
@@ -252,8 +264,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-        return *this;
+        return writeAttr(toString(attr), val);
     }
 
     inline bool useAttribute(const SumoXMLAttr attr, SumoXMLAttrMask attributeMask) const {
@@ -271,7 +282,7 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
         assert((int)attr <= 63);
         if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            writeAttr(attr, val);
         }
         return *this;
     }
@@ -279,7 +290,7 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, SumoXMLAttrMask attributeMask) {
         assert((int)attr <= (int)attributeMask.size());
         if (attributeMask.none() || useAttribute(attr, attributeMask)) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            writeAttr(attr, val);
         }
         return *this;
     }
@@ -293,7 +304,24 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        switch (this->getType())
+        {
+        case OutputWriterType::XML:
+            // cast the writer to the correct type
+            getFormatter<PlainXMLFormatter>().writeAttr(getOStream(), attr, val);
+            break;
+        case OutputWriterType::PARQUET:
+#ifdef HAVE_PARQUET
+            // cast the writer to the correct type
+            getFormatter<ParquetFormatter>().writeAttr(getOStream(), attr, val);
+#else
+            throw IOError("Parquet output is not supported in this build. Please recompile with the correct options.");
+#endif
+            break;
+        default:
+            throw IOError("Unknown output writer type");
+            break;
+        }
         return *this;
     }
 
@@ -341,7 +369,14 @@ public:
      */
     template <class T>
     OutputDevice& operator<<(const T& t) {
-        getOStream() << t;
+        // getOStream() << t;
+        // get the correct formatter
+        if (this->getOStream().allowRaw()) {
+            writeRaw(t);
+        }
+        else {
+            throw IOError("Raw output is not allowed for this output device");
+        }
         postWriteHook();
         return *this;
     }
@@ -354,16 +389,50 @@ public:
         return myFormatter->wroteHeader();
     }
 
+    /// @todo should move to the formatter
+    /// @brief Returns the type of the output device
+    virtual void setOSFlags(std::ios_base::fmtflags flags) {
+        getOStream().setOSFlags(flags);
+    }
+
+    // @brief handle the raw write
+    template <typename T>
+    void writeRaw(const T& val) {
+        // cast the writer to the correct type
+        if (this->getType() == OutputWriterType::XML) {
+            getFormatter<PlainXMLFormatter>().writeRaw(getOStream(), val);
+        }
+        else {
+            throw IOError("Raw output is not supported for this output type");
+        }
+    }
+
 protected:
     /// @brief Returns the associated ostream
-    virtual std::ostream& getOStream() = 0;
+    virtual StreamDevice& getOStream() {
+        return *myStreamDevice;
+    };
 
+    /// @brief Returns the associated ostream
+    template <typename T>
+    T* getStreamDevice() {
+        return static_cast<T*>(myStreamDevice);
+    }
 
+    /// @brief Returns whether the output device is a parquet
+    virtual OutputWriterType getType() const {
+        return OutputWriterType::XML;
+    }
     /** @brief Called after every write access.
      *
      * Default implementation does nothing.
      */
     virtual void postWriteHook();
+
+    /// @brief Returns the formatter
+    OutputFormatter& getFormatter() {
+        return *myFormatter;
+    }
 
 
 private:
@@ -376,9 +445,17 @@ private:
 protected:
     const std::string myFilename;
 
-private:
+    /// @brief the stream device
+    std::unique_ptr<StreamDevice> myStreamDevice{nullptr};
+
     /// @brief The formatter for XML
-    OutputFormatter* const myFormatter;
+    std::unique_ptr<OutputFormatter> myFormatter{nullptr};
+
+    /// @brief return a type casted formatter
+    template <typename T>
+    T& getFormatter() {
+        return static_cast<T&>(*myFormatter);
+    }
 
 private:
     /// @brief Invalidated copy constructor.
@@ -386,5 +463,4 @@ private:
 
     /// @brief Invalidated assignment operator.
     OutputDevice& operator=(const OutputDevice&) = delete;
-
 };

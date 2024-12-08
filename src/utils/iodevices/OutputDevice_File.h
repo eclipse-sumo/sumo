@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include "OutputDevice.h"
+#include "StreamDevices.h"
 
 
 // ===========================================================================
@@ -44,10 +45,6 @@ public:
      */
     OutputDevice_File(const std::string& fullName, const bool compressed = false);
 
-
-    /// @brief Destructor
-    ~OutputDevice_File();
-
     /** @brief returns the information whether the device will discard all output
      * @return Whether the device redirects to /dev/null
      */
@@ -55,22 +52,7 @@ public:
         return myAmNull;
     }
 
-
-protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return The used stream
-     */
-    std::ostream& getOStream() override;
-    /// @}
-
-
 private:
-    /// The wrapped ofstream
-    std::ostream* myFileStream = nullptr;
-
     /// am I redirecting to /dev/null
     bool myAmNull = false;
 
