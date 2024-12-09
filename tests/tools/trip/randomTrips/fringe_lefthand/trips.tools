@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-09 15:44:36.359326 by randomTrips.py v1_21_0+1253-8d02063055e
+<configuration>
+    <net-file value="net.net.xml"/>
+    <fringe-factor value="max"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>
