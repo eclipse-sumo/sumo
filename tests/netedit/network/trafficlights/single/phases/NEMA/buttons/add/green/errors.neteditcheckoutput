@@ -1,0 +1,4 @@
+Warning: Program '0' at tlLogic 'J0' is incompatible with logic at junction 'J0' (mutual conflict between link indices 2,7 tl indices 2,7 phase 1).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
+Warning: At NEMA tlLogic 'J0', actuated phase 1 has no controlling detector

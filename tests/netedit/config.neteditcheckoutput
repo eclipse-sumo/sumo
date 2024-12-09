@@ -4,6 +4,7 @@ binary:$SUMO_BINARY
 
 copy_test_path:net.netedit
 copy_test_path:additionals.netedit
+copy_test_path:meandatas.netedit
 copy_test_path:routes.netedit
 copy_test_path:datas.netedit
 copy_test_path:shapes.netedit
@@ -131,7 +132,7 @@ c2x_transmitted_info:<!--{[->]}-->
 c2x_vehicle_in_range:<!--{[->]}-->
 c2x_saved_info_freq:<!--{[->]}-->
 c2x_edge_near_info:<!--{[->]}-->
-errors:Leaked object at 
+errors:Leaked object at
 errors:\*\*\* \d+ leaks found
 errors:delete: freed
 errors:warning: debug_new used with placement new
