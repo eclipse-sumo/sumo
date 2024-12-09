@@ -96,6 +96,7 @@ In addition to these hotkeys, [all hotkeys for moving and zooming in
 sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 
 - <Button-Left\>: Execute mode specific action
+  - in 'Inspect'-mode repeated clicks on the same location cycle through objects at that location
 - <Button-Right\>: Open context-menu
 - <Button-Right-Drag\>: Change zoom
 - <Button-Left-Drag\>: Move the view around (*panning*)
@@ -119,6 +120,9 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
   - in 'Create Edge'-mode, allow moving the view without defining junctions
   - in 'Create Additional'-mode, allow moving the view without adding additionals
   - in 'POI-Poly'-mode, allow moving the view without adding POIs
+- <kbd>ALT</kbd>:
+  - in 'Inspect'-mode: <Button-Left\> inspects individual object instead of selection (when object is selected)
+  - in 'Inspect'-mode: <Button-Right\> opens a menu for selecting among all objects at the same location
 - <kbd>Enter</kbd>:
   - in 'Inspect'-mode: confirm attribute changes
   - in 'Connect'-mode: deselect current lane and save all changes
