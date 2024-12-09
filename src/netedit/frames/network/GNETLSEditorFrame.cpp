@@ -1724,7 +1724,18 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*) {
-    // just switch program
+    // check if program is valid (user may input arbitrary text)
+    bool found = false;
+    for (const auto& TLSDefinition : myTLSDefinitions) {
+        if (TLSDefinition->getProgramID() == myProgramComboBox->getText().text()) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        // reset field to a valid program
+        myProgramComboBox->setText(myTLSDefinitions.front()->getProgramID().c_str());
+    }
     switchProgram();
     return 1;
 }
