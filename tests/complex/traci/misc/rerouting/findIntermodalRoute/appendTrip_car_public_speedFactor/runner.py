@@ -51,7 +51,7 @@ traci.simulationStep()
 traci.vehicle.add("taxi_0", "", "taxi")
 
 pID = "p0"
-traci.person.add(pID, "A0B0", 900) 
+traci.person.add(pID, "A0B0", 900)
 stage = traci.simulation.Stage(
     type=traci.constants.STAGE_TRIP,
     vType="DEFAULT_BIKETYPE DEFAULT_VEHTYPE",
@@ -61,7 +61,7 @@ stage = traci.simulation.Stage(
 traci.person.appendStage(pID, stage)
 
 pID = "p1"
-traci.person.add(pID, "A0B0", 900) 
+traci.person.add(pID, "A0B0", 900)
 stage = traci.simulation.Stage(
     type=traci.constants.STAGE_TRIP,
     line="taxi", edges=[], destStop="stopB_N",
