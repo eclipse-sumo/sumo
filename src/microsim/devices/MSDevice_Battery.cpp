@@ -78,15 +78,6 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         if (sf != nullptr) {
             sf->setBattery(device);
         }
-        /*
-        if (sf != nullptr) {
-            if (device->tracksFuel()) {
-                WRITE_WARNINGF("The stationfinder device cannot be used together with fuel-powered vehicles like '%' yet.", v.getID());
-            } else {
-                sf->setBattery(device);
-            }
-        }
-        */
     }
 }
 
