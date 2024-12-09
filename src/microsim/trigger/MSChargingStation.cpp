@@ -109,7 +109,7 @@ MSChargingStation::getChargeDelay() const {
 }
 
 
-const MSChargingStation::ChargeType
+MSChargingStation::ChargeType
 MSChargingStation::getChargeType() const {
     return myChargeType;
 }

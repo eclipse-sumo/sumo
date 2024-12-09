@@ -114,7 +114,7 @@ public:
     SUMOTime getChargeDelay() const;
 
     /// @brief Get charge type
-    const ChargeType getChargeType() const;
+    ChargeType getChargeType() const;
 
     /// @brief Get waiting time
     SUMOTime getWaitingTime() const;
