@@ -362,10 +362,11 @@ class RandomEdgeGenerator:
         normalizer = 100.0 / max(1, max(map(self.weight_fun, self.net._edges)))
         weights = [(self.weight_fun(e) * normalizer, e.getID()) for e in self.net.getEdges()]
         weights.sort(reverse=True)
+        total = sum([w for w, e in weights])
         with open(fname, 'w+') as f:
             f.write('<edgedata>\n')
-            f.write('    <interval id="%s" begin="%s" end="%s">\n' % (
-                interval_id, begin, end))
+            f.write('    <interval id="%s" begin="%s" end="%s" totalWeight="%0.2f">\n' % (
+                interval_id, begin, end, total))
             for weight, edgeID in weights:
                 f.write('        <edge id="%s" value="%0.2f"/>\n' %
                         (edgeID, weight))
