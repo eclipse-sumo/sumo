@@ -75,7 +75,9 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // Add device to vehicle
         into.push_back(device);
 
-        sf->setBattery(device);
+        if (sf != nullptr) {
+            sf->setBattery(device);
+        }
         /*
         if (sf != nullptr) {
             if (device->tracksFuel()) {
