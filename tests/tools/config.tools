@@ -5,6 +5,7 @@ copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:net2.net.xml
+copy_test_path:net3.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
 copy_test_path:three_split.net.xml
@@ -89,6 +90,7 @@ copy_test_path:gtfs.zip
 copy_test_path:battery.xml
 copy_test_path:input.dxf
 copy_test_path:log.txt
+copy_test_path:input_edge_types.txt
 
 [collate_file]
 scaledObj:scaledObj.rou.xml
