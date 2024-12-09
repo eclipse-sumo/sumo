@@ -468,7 +468,7 @@ GUILane::drawArrows(bool secondaryShape) const {
                 break;
             case LinkDirection::TURN_LEFTHAND:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), -90, .5, .05);
                 GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (double) 1, (double) .25);
                 break;
