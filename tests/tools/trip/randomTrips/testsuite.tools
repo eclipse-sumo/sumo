@@ -80,12 +80,6 @@ viaEdgeType
 # Test for having the options "additional-files" and "vtype-output" and vClass
 additional_and_vClass
 
-# only permit fringe origins/destinations
-fringe_factor_max
-
-# detect fringe in lefthand network
-fringe_lefthand
-
 # do not start/end trips on roundabout
 roundabout
 
