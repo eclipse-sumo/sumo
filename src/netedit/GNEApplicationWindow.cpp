@@ -3169,7 +3169,7 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
-    if (myNet->getSavingStatus()->isNetworkSaved()) {
+    if (myNet->getSavingStatus()->isNetworkSaved() && neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
     }
@@ -3756,7 +3756,7 @@ long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    if (myNet->getSavingStatus()->isAdditionalsSaved()) {
+    if (myNet->getSavingStatus()->isAdditionalsSaved() && neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
     }
@@ -3963,7 +3963,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myNet->getSavingStatus()->isDemandElementsSaved()) {
+    if (myNet->getSavingStatus()->isDemandElementsSaved() && neteditOptions.getBool("force-saving")) {
         return 1;
     }
     // check if we have to set the output filename
@@ -4144,7 +4144,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myNet->getSavingStatus()->isDataElementsSaved()) {
+    if (myNet->getSavingStatus()->isDataElementsSaved() && neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
     }
@@ -4314,7 +4314,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myNet->getSavingStatus()->isMeanDatasSaved()) {
+    if (myNet->getSavingStatus()->isMeanDatasSaved() && neteditOptions.getBool("force-saving")) {
         return 1;
     }
     // check if we have to set the output filename
@@ -4867,8 +4867,9 @@ GNEApplicationWindow::loadAdditionalElements() {
         neteditOptions.set("additional-files", additionalFiles.front());
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("loading additional elements from '") + toString(additionalFiles) + "'");
-        // iterate over every additional file
+        // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = additionalFiles.size() == 1;
+        // iterate over every additional file
         for (const auto& file : additionalFiles) {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
@@ -4920,7 +4921,9 @@ GNEApplicationWindow::loadDemandElements() {
         neteditOptions.set("route-files", demandFiles.front());
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + toString(demandFiles) + "'");
-        // iterate over every additional file
+        // use this flag for mark all elements as saved after loading, if it was sucessfully
+        bool setSaved = demandFiles.size() == 1;
+        // iterate over every demand file
         for (const auto& file : demandFiles) {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
@@ -4933,6 +4936,7 @@ GNEApplicationWindow::loadDemandElements() {
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
                 }
+                setSaved &= !handler.isErrorCreatingElement();
                 // set additionals in SumoConfig
                 setInputInSumoOptions(false, false);
                 // disable validation for additionals
@@ -4941,6 +4945,9 @@ GNEApplicationWindow::loadDemandElements() {
         }
         // end undo list
         myUndoList->end();
+        if (setSaved) {
+            myNet->getSavingStatus()->demandElementsSaved();
+        }
         // check if clear undoList
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
@@ -4962,7 +4969,9 @@ GNEApplicationWindow::loadMeanDataElements() {
         neteditOptions.set("meandata-files", meanDataFiles.front());
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::MODEMEANDATA, TL("loading meanDatas from '") + toString(meanDataFiles) + "'");
-        // iterate over every additional file
+        // use this flag for mark all elements as saved after loading, if it was sucessfully
+        bool setSaved = meanDataFiles.size() == 1;
+        // iterate over every meanData file
         for (const auto& file : meanDataFiles) {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
@@ -4975,6 +4984,7 @@ GNEApplicationWindow::loadMeanDataElements() {
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
                 }
+                setSaved &= !handler.isErrorCreatingElement();
                 // set additionals in sumo options
                 setInputInSumoOptions(false, false);
                 // disable validation for additionals
@@ -4983,6 +4993,9 @@ GNEApplicationWindow::loadMeanDataElements() {
         }
         // end undo list
         myUndoList->end();
+        if (setSaved) {
+            myNet->getSavingStatus()->meanDatasSaved();
+        }
         // check if clear undoList
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
@@ -5003,6 +5016,8 @@ GNEApplicationWindow::loadDataElements() {
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + toString(dataFiles) + "'");
+        // use this flag for mark all elements as saved after loading, if it was sucessfully
+        bool setSaved = dataFiles.size() == 1;
         // iterate over every data file
         for (const auto& file : dataFiles) {
             // check if ignore missing imputs
@@ -5014,6 +5029,7 @@ GNEApplicationWindow::loadDataElements() {
                 if (!dataHandler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
                 }
+                setSaved &= !dataHandler.isErrorCreatingElement();
                 // set first dataElementsFiles as default file
                 neteditOptions.resetWritable();
                 neteditOptions.set("data-files", file);
@@ -5024,6 +5040,9 @@ GNEApplicationWindow::loadDataElements() {
         }
         // end undolist
         myUndoList->end();
+        if (setSaved) {
+            myNet->getSavingStatus()->dataElementsSaved();
+        }
         // check if clear undoList
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
