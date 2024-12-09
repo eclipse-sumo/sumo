@@ -1,6 +1,9 @@
 # A vehicle limits the charging rate to fulfil a charging strategy
 chargingStrategy
 
+# Vehicle heading to different charging stations depending on their charge type (fuel, normal)
+chargeType
+
 # Vehicles break down due to low battery and gets teleported backwards on the same edge.
 breakdown_teleport_backwards
 
