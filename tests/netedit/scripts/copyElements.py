@@ -1,14 +1,7 @@
 import os
 import shutil
 
-# Path of the file to be copied
-source_file = r"D:\archivo.txt"
-
-# Path of the base folder where the file will be copied
-base_folder = r"C:\SUMO"
-
-# Name of the reference file that must exist in the folder
-reference_file = "ejemplo.txt"
+# Function to copy a file if a reference file exists in the folder
 
 
 def copy_file_if_reference_exists(source_file, base_folder, reference_file):
@@ -31,9 +24,19 @@ def copy_file_if_reference_exists(source_file, base_folder, reference_file):
                     print(f"File copied to: {destination_folder}")
                 except Exception as e:
                     print(f"Could not copy the file to '{destination_folder}': {e}")
-            else:
-                print(f"The reference file '{reference_file}' was not found in '{destination_folder}'.")
 
 
-# Run the function
-copy_file_if_reference_exists(source_file, base_folder, reference_file)
+# Main block
+if __name__ == "__main__":
+
+    # Path of the file to be copied
+    source_file = r"D:\meandatas.netedit"
+
+    # Path of the base folder where the file will be copied
+    base_folder = r"D:\SUMO"
+
+    # Name of the reference file that must exist in the folder
+    reference_file = "routes.netedit"
+
+    # Call the function
+    copy_file_if_reference_exists(source_file, base_folder, reference_file)
