@@ -49,6 +49,46 @@ class MSDevice_Battery;
 class MSChargingStation : public MSStoppingPlace {
 
 public:
+    enum ChargeType {
+        CHARGETYPE_NORMAL = 0,
+        CHARGETYPE_BATTERYEXCHANGE,
+        CHARGETYPE_FUEL
+    };
+
+    /** @brief Get the string representation of a charge type
+    * @param[in] type The charge type to represent
+    */
+    static inline std::string chargeTypeToString(ChargeType type) {
+        if (type == CHARGETYPE_NORMAL) {
+            return "normal";
+        } else if (type == CHARGETYPE_BATTERYEXCHANGE) {
+            return "battery-exchange";
+        } else if (type == CHARGETYPE_FUEL) {
+            return "fuel";
+        } else {
+            WRITE_WARNING(TL("Encountered an unknown charge type. Assuming charge type 'normal'."));
+            return "normal";
+        }
+    }
+
+    /** @brief Get the charge type from its string representation
+    * @param[in] repr The string to convert into charge type
+    */
+    static inline ChargeType stringToChargeType(const std::string& repr) {
+        if (repr == "normal") {
+            return ChargeType::CHARGETYPE_NORMAL;
+        } else if (repr == "battery-exchange") {
+            return ChargeType::CHARGETYPE_BATTERYEXCHANGE;
+        } else if (repr == "fuel") {
+            return ChargeType::CHARGETYPE_FUEL;
+        } else {
+            WRITE_WARNINGF("Encountered an unknown charge type string '%'. Assuming charge type 'normal'.", repr);
+            return ChargeType::CHARGETYPE_NORMAL;
+        }
+    }
+
+public:
+
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
                       const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
@@ -74,7 +114,7 @@ public:
     SUMOTime getChargeDelay() const;
 
     /// @brief Get charge type
-    const std::string& getChargeType() const;
+    const ChargeType getChargeType() const;
 
     /// @brief Get waiting time
     SUMOTime getWaitingTime() const;
@@ -120,15 +160,6 @@ public:
 
     /// @brief write ungrouped output (flush data after writing)
     void writeAggregatedChargingStationOutput(OutputDevice& output, bool includeUnfinished = false);
-
-    /// @brief check chargeType input for accepted value and warn if not found
-    static const std::string checkChargeType(const std::string& chargeType) {
-        if (chargeType != "normal" && chargeType != "battery" && chargeType != "fuel") {
-            WRITE_WARNING(TLF("Encountered invalid charging station % '%'. Will use 'normal' instead.", toString(SUMO_ATTR_CHARGETYPE), chargeType));
-            return "normal";
-        }
-        return chargeType;
-    }
 
 protected:
 
@@ -186,7 +217,7 @@ protected:
     SUMOTime myChargeDelay = 0;
 
     /// @brief charge type
-    const std::string myChargeType;
+    const ChargeType myChargeType;
 
     /// @brief waiting time
     SUMOTime myWaitingTime = 0;

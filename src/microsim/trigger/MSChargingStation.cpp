@@ -41,7 +41,7 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
                                      const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
                                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
     MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
-    myChargeInTransit(chargeInTransit), myChargeType(chargeType) {
+    myChargeInTransit(chargeInTransit), myChargeType(stringToChargeType(chargeType)) {
     if (chargingPower < 0) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGINGPOWER), getID(), toString(chargingPower)))
     } else {
@@ -109,7 +109,7 @@ MSChargingStation::getChargeDelay() const {
 }
 
 
-const std::string&
+const MSChargingStation::ChargeType
 MSChargingStation::getChargeType() const {
     return myChargeType;
 }

@@ -391,6 +391,9 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         if (cs->getEfficency() < NUMERICAL_EPS || cs->getChargingPower(false) < NUMERICAL_EPS) {
             continue;
         }
+        if (cs->getChargeType() != myBattery->getChargeType()) {
+            continue;
+        }
         if (cs->getParkingArea() != nullptr && !cs->getParkingArea()->accepts(&myVeh)) {
             // skip stations where the linked parking area does not grant access to the device holder
             continue;
@@ -629,7 +632,8 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
             }
             const double speed = MIN2(myHolder.getMaxSpeed(), myHolder.getLane()->getSpeedLimit());
             EnergyParams* const params = myHolder.getEmissionParameters();
-            expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), PollutantsInterface::ELEC,
+            PollutantsInterface::EmissionType emType = myBattery->tracksFuel() ? PollutantsInterface::FUEL : PollutantsInterface::ELEC;
+            expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), emType,
                                   speed * 0.8, 0., 0., params) * (remainingTime - passedTime);
         }
         if (includeEmptySoC) {

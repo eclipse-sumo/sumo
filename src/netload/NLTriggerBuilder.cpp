@@ -167,7 +167,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     MSParkingArea* parkingArea = getParkingArea(attrs, "parkingArea", id);
 
     // check charge type
-    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
+    if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         throw InvalidArgument("The chargeType to use within MSLaneSpeedTrigger '" + id + "' is invalid.");
     }
 

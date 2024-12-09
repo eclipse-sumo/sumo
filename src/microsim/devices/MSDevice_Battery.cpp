@@ -75,9 +75,16 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // Add device to vehicle
         into.push_back(device);
 
+        sf->setBattery(device);
+        /*
         if (sf != nullptr) {
-            sf->setBattery(device);
+            if (device->tracksFuel()) {
+                WRITE_WARNINGF("The stationfinder device cannot be used together with fuel-powered vehicles like '%' yet.", v.getID());
+            } else {
+                sf->setBattery(device);
+            }
         }
+        */
     }
 }
 
@@ -148,6 +155,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
                           "Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!"),
                        holder.getID());
     }
+    myChargeType = (myTrackFuel) ? MSChargingStation::ChargeType::CHARGETYPE_FUEL : MSChargingStation::ChargeType::CHARGETYPE_NORMAL;
 
     if (maximumChargeRate < 0) {
         WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMCHARGERATE), toString(maximumChargeRate));
@@ -227,7 +235,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
         MSChargingStation* const cs = static_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION));
         const MSParkingArea* pa = cs->getParkingArea();
-        if (((veh.getSpeed() < myStoppingThreshold) || cs->getChargeInTransit()) && (pa == nullptr || veh.isParking())) {
+        if (((veh.getSpeed() < myStoppingThreshold) || cs->getChargeInTransit()) && (pa == nullptr || veh.isParking()) && cs->getChargeType() == myChargeType) {
             // Set Flags Stopped/intransit to
             if (veh.getSpeed() < myStoppingThreshold) {
                 // vehicle ist almost stopped, then is charging stopped
@@ -511,6 +519,18 @@ double
 MSDevice_Battery::getMaximumChargeRate() const {
     double baseVal = (myChargeCurve.empty()) ? myMaximumChargeRate : LinearApproxHelpers::getInterpolatedValue(myChargeCurve, myActualBatteryCapacity / myMaximumBatteryCapacity);
     return (myChargeLimit < 0) ? baseVal : MIN2(myChargeLimit, baseVal);
+}
+
+
+bool
+MSDevice_Battery::tracksFuel() const {
+    return myTrackFuel;
+}
+
+
+MSChargingStation::ChargeType
+MSDevice_Battery::getChargeType() const {
+    return myChargeType;
 }
 
 

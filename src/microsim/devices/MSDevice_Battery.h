@@ -46,6 +46,7 @@ class MSDevice_StationFinder;
  */
 class MSDevice_Battery : public MSVehicleDevice {
 public:
+
     /** @brief Inserts MSDevice_Example-options
     * @param[filled] oc The options container to add the options to
     */
@@ -171,6 +172,12 @@ public:
     /// @brief Get current charge rate in W depending on the state of charge
     double getMaximumChargeRate() const;
 
+    /// @brief Whether the battery device is actually used as a tank of a combustion vehicle
+    bool tracksFuel() const;
+
+    /// @brief Get the charge type
+    MSChargingStation::ChargeType getChargeType() const;
+
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
@@ -258,6 +265,9 @@ protected:
 
     /// @brief whether to track fuel consumption instead of electricity
     bool myTrackFuel;
+
+    /// @brief the accepted charge type
+    MSChargingStation::ChargeType myChargeType;
 
 
 private:
