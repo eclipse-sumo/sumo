@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-03 14:21+0100\n"
-"PO-Revision-Date: 2024-12-09 12:09+0000\n"
+"PO-Revision-Date: 2024-12-09 14:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1543,29 +1543,33 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2451 src/microsim/MSBaseVehicle.cpp:2449
 msgid "Invalid device parameter '%' for vehicle '%'."
-msgstr ""
+msgstr "Parametro di attrezzo '%' invalido per veicolo '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2457 src/microsim/MSBaseVehicle.cpp:2455
 msgid "Vehicle '%' does not support device parameter '%' (%)."
-msgstr ""
+msgstr "Il veicolo '%' non supporta il parametro di attrezzo '%' (%)."
 
 #: src/microsim/MSBaseVehicle.cpp:2462 src/microsim/MSBaseVehicle.cpp:2460
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
+"Il veicolo mesoscopico '%' non supporta parametri del modello di cambi "
+"corsia."
 
 #: src/microsim/MSBaseVehicle.cpp:2469 src/microsim/MSBaseVehicle.cpp:2467
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
+"Il veicolo '%' non supporta il parametro del modello di cambio corsia '%' "
+"(%)."
 
 #: src/microsim/MSBaseVehicle.cpp:2474 src/microsim/MSBaseVehicle.cpp:2472
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
-msgstr ""
+msgstr "Il veicolo mesoscopico '%' non supporta parametri del modello di guida."
 
 #: src/microsim/MSBaseVehicle.cpp:2481 src/microsim/MSBaseVehicle.cpp:2479
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
-msgstr ""
+msgstr "Il veicolo '%' non supporta il parametro del modello di guida '%' (%)."
 
 #: src/microsim/MSBaseVehicle.cpp:2487 src/microsim/MSBaseVehicle.cpp:2485
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
