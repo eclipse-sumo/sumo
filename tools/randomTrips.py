@@ -36,6 +36,7 @@ from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 from sumolib.net.lane import is_vehicle_class  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
+MAROUTER = sumolib.checkBinary('marouter')
 
 SOURCE_SUFFIX = ".src.xml"
 DEST_SUFFIX = ".dst.xml"
@@ -46,7 +47,7 @@ MAXIMIZE_FACTOR = "max"
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate trips between random locations",
-                                        allowed_programs=['duarouter'])
+                                        allowed_programs=['duarouter', 'marouter'])
     # input
     op.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=op.net_file,
                     help="define the net file (mandatory)")
@@ -163,6 +164,8 @@ def get_options(args=None):
     op.add_argument("--random-routing-factor", dest="randomRoutingFactor", default=1, type=float,
                     help="Edge weights for routing are dynamically disturbed "
                     "by a random factor drawn uniformly from [1,FLOAT)")
+    op.add_argument("--marouter", default=False, action="store_true",
+                    help="Compute routes with marouter instead of duarouter")
     op.add_argument("--validate", default=False, action="store_true",
                     help="Whether to produce trip output that is already checked for connectivity")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
@@ -862,22 +865,13 @@ def main(options):
         fouttrips.write("</routes>\n")
 
     # call duarouter for routes or validated trips
-    args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
+    args = ['-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
             '--begin', str(options.begin), '--end', str(options.end),
-            '--alternatives-output', 'NUL',
             '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
-    if options.carWalkMode is not None:
-        args += ['--persontrip.transfer.car-walk', options.carWalkMode]
-    if options.walkfactor is not None:
-        args += ['--persontrip.walkfactor', str(options.walkfactor)]
-    if options.walkoppositefactor is not None:
-        args += ['--persontrip.walk-opposite-factor', str(options.walkoppositefactor)]
     if options.remove_loops:
         args += ['--remove-loops']
-    if options.randomRoutingFactor != 1:
-        args += ['--weights.random-factor', str(options.randomRoutingFactor)]
     if options.vtypeout is not None:
         args += ['--vtype-output', options.vtypeout]
     if options.junctionTaz:
@@ -887,17 +881,32 @@ def main(options):
     else:
         args += ['-v']
 
+    duargs = [DUAROUTER, '--alternatives-output', 'NUL'] + args
+    maargs = [MAROUTER] + args
+
+    if options.carWalkMode is not None:
+        duargs += ['--persontrip.transfer.car-walk', options.carWalkMode]
+    if options.walkfactor is not None:
+        duargs += ['--persontrip.walkfactor', str(options.walkfactor)]
+    if options.walkoppositefactor is not None:
+        duargs += ['--persontrip.walk-opposite-factor', str(options.walkoppositefactor)]
+    if options.randomRoutingFactor != 1:
+        duargs += ['--weights.random-factor', str(options.randomRoutingFactor)]
+
     options_to_forward = sumolib.options.get_prefixed_options(options)
-    if 'duarouter' in options_to_forward:
-        for option in options_to_forward['duarouter']:
-            option[0] = '--' + option[0]
-            if option[0] not in args:
-                args += option
-            else:
-                raise ValueError("The argument '%s' has already been passed without the duarouter prefix." % option[0])
+    for router, routerargs in [('duarouter', duargs), ('marouter', maargs)]:
+        if router in options_to_forward:
+            for option in options_to_forward[router]:
+                option[0] = '--' + option[0]
+                if option[0] not in routerargs:
+                    routerargs += option
+                else:
+                    raise ValueError("The argument '%s' has already been passed without the %s prefix." % (option[0], router))
+
 
     if options.routefile:
-        args2 = args + ['-o', options.routefile]
+        args2 = (maargs if options.marouter else duargs)[:]
+        args2 += ['-o', options.routefile]
         if options.verbose:
             print("calling", " ".join(args2))
             sys.stdout.flush()
@@ -908,7 +917,7 @@ def main(options):
     if options.validate:
         # write to temporary file because the input is read incrementally
         tmpTrips = options.tripfile + ".tmp"
-        args2 = args + ['-o', tmpTrips, '--write-trips']
+        args2 = duargs + ['-o', tmpTrips, '--write-trips']
         if options.junctionTaz:
             args2 += ['--write-trips.junctions']
         if options.verbose:
