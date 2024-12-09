@@ -1,5 +1,5 @@
 <edgedata>
-    <interval id="src" begin="0" end="3600">
+    <interval id="src" begin="0" end="3600" totalWeight="2200.00">
         <edge id="6272827#1" value="100.00"/>
         <edge id="6272827#0" value="100.00"/>
         <edge id="6272822" value="100.00"/>
