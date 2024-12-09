@@ -535,7 +535,7 @@ def main(options):
     busStopEdges = {}
     if options.stops_output:
         busStops = io.open(options.stops_output, 'w', encoding="utf8")
-        writeHeader(busStops, os.path.basename(__file__), 'additional')
+        writeHeader(busStops, os.path.basename(__file__), 'additional', options=options)
     if options.additional_input:
         num_busstops = 0
         kept_busstops = 0
@@ -572,7 +572,7 @@ def main(options):
         busStops.close()
 
     def write_to_file(vehicles, f):
-        writeHeader(f, os.path.basename(__file__), 'routes')
+        writeHeader(f, os.path.basename(__file__), 'routes', options=options)
         numRefs = defaultdict(int)
         for _, v in vehicles:
             if options.trips and v.name == "vehicle":
@@ -596,7 +596,7 @@ def main(options):
         options.routeFiles = options.pt_input.split(",")
         ptExternalRoutes = {}
         with io.open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w', encoding="utf8") as f:
-            writeHeader(f, os.path.basename(__file__), 'routes')
+            writeHeader(f, os.path.basename(__file__), 'routes', options=options)
             for _, v in cut_routes(edges, orig_net, options, busStopEdges, None, oldPTRoutes, True):
                 f.write(v.toXML(u'    '))
                 if v.name == "route":

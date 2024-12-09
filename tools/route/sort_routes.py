@@ -153,7 +153,8 @@ def copy_elements(routefilename, outfilename, element_lines, line_offsets, verbo
         # copy header
         for line in routefile:
             outfile.write(line)
-            if '<routes' in line:
+            # find start of the route file but ignore option in header comment
+            if '<routes' in line and not 'value=' in line:
                 break
         for _, start, end in element_lines:
             # convert from 1-based to 0-based indices
