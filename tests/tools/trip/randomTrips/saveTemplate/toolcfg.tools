@@ -2,6 +2,7 @@
     <net-file value="None" type="net_file" help="define the net file (mandatory)" category="input" required="true"/>
     <additional-files value="None" type="additional_file" help="define additional files to be loaded by the router" category="input"/>
     <weights-prefix value="None" type="file" help="loads probabilities for being source, destination and via-edge from the files named 'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml" category="input"/>
+    <edge-type-file value="None" type="string" help="Load a file that defines probability factors for specific edge types (each line with 'TYPE FLOAT')" category="input"/>
     <output-trip-file value="trips.trips.xml" type="route_file" help="define the output trip filename" category="output"/>
     <route-file value="None" type="route_file" help="generates route file with duarouter" category="output"/>
     <vtype-output value="None" type="file" help="Store generated vehicle types in a separate file" category="output"/>
