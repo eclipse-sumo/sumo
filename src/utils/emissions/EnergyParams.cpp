@@ -118,6 +118,19 @@ EnergyParams::setDynamicValues(const SUMOTime stopDuration, const bool parking, 
 }
 
 
+void
+EnergyParams::setMass(const double mass) {
+    myMap[SUMO_ATTR_MASS] = mass;
+    myHaveDefaultMass = false;
+}
+
+
+void
+EnergyParams::setTransportableMass(const double mass) {
+    myTransportableMass = mass;
+}
+
+
 double
 EnergyParams::getAngleDiff() const {
     return myLastAngle == INVALID_DOUBLE ? 0. : GeomHelper::angleDiff(myLastAngle, myAngle);

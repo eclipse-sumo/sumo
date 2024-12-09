@@ -259,6 +259,7 @@ void
 MSVehicleType::setMass(double mass) {
     myParameter.mass = mass;
     myParameter.parametersSet |= VTYPEPARS_MASS_SET;
+    const_cast<EnergyParams&>(myEnergyParams).setMass(mass);
 }
 
 

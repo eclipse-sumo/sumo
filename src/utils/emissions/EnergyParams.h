@@ -60,6 +60,13 @@ public:
     }
 
     void setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angle);
+    void setMass(const double mass);
+
+    double getTransportableMass() const {
+        return myTransportableMass;
+    }
+
+    void setTransportableMass(const double mass);
 
     double getAngleDiff() const;
 
@@ -114,6 +121,7 @@ private:
     double myWaitingTimeSeconds = -1.;
     double myLastAngle = INVALID_DOUBLE;
     double myAngle = INVALID_DOUBLE;
+    double myTransportableMass = 0.;
 
     static const EnergyParams* myDefault;
     static const std::vector<SumoXMLAttr> myParamAttrs;

@@ -204,7 +204,7 @@ public:
      * @return The mass of this vehicle type
      */
     inline double getMass() const {
-        return myParameter.mass;
+        return myEnergyParams.getDouble(SUMO_ATTR_MASS);
     }
 
 
