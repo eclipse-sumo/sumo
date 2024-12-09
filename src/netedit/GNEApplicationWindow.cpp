@@ -3169,7 +3169,7 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
-    if (myNet->getSavingStatus()->isNetworkSaved() && neteditOptions.getBool("force-saving")) {
+    if (myNet->getSavingStatus()->isNetworkSaved() && !neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
     }
@@ -3756,7 +3756,7 @@ long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    if (myNet->getSavingStatus()->isAdditionalsSaved() && neteditOptions.getBool("force-saving")) {
+    if (myNet->getSavingStatus()->isAdditionalsSaved() && !neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
     }
@@ -3963,7 +3963,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myNet->getSavingStatus()->isDemandElementsSaved() && neteditOptions.getBool("force-saving")) {
+    if (myNet->getSavingStatus()->isDemandElementsSaved() && !neteditOptions.getBool("force-saving")) {
         return 1;
     }
     // check if we have to set the output filename
@@ -4144,7 +4144,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myNet->getSavingStatus()->isDataElementsSaved() && neteditOptions.getBool("force-saving")) {
+    if (myNet->getSavingStatus()->isDataElementsSaved() && !neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
     }
@@ -4314,7 +4314,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myNet->getSavingStatus()->isMeanDatasSaved() && neteditOptions.getBool("force-saving")) {
+    if (myNet->getSavingStatus()->isMeanDatasSaved() && !neteditOptions.getBool("force-saving")) {
         return 1;
     }
     // check if we have to set the output filename
