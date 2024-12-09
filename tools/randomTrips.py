@@ -55,6 +55,8 @@ def get_options(args=None):
     op.add_argument("--weights-prefix", category="input", dest="weightsprefix", type=op.file,
                     help="loads probabilities for being source, destination and via-edge from the files named " +
                     "'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml")
+    op.add_argument("--edge-type-file", category="input", dest="typeFactorFile",
+                    help="Load a file that defines probability factors for specific edge types (each line with 'TYPE FLOAT')")
     # output
     op.add_argument("-o", "--output-trip-file", category="output", dest="tripfile", type=op.route_file,
                     default="trips.trips.xml",
@@ -281,6 +283,14 @@ def get_options(args=None):
         except ValueError:
             raise ValueError("--fringe-factor argument must be a float or 'max'.")
 
+    
+    options.typeFactors = defaultdict(lambda : 1.0)
+    if options.typeFactorFile:
+        with open(options.typeFactorFile) as tff:
+            for line in tff:
+                typeID, factor = line.split()
+                options.typeFactors[typeID] = float(factor)
+
     return options
 
 
@@ -487,6 +497,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 prob *= (angleDiff * (options.angle_weight - 1) + 1)
             else:
                 prob *= ((180 - angleDiff) * (options.angle_weight - 1) + 1)
+        prob *= options.typeFactors[edge.getType()]
 
         return prob
     return edge_probability
