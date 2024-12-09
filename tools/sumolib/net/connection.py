@@ -23,6 +23,7 @@ class Connection:
     # constants as defined in sumo/src/utils/xml/SUMOXMLDefinitions.cpp
     LINKDIR_STRAIGHT = "s"
     LINKDIR_TURN = "t"
+    LINKDIR_TURN_LEFTHAND = "T"
     LINKDIR_LEFT = "l"
     LINKDIR_RIGHT = "r"
     LINKDIR_PARTLEFT = "L"

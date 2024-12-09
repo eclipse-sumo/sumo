@@ -255,7 +255,8 @@ class Edge:
                 elif connections == self._outgoing:
                     return self.getToNode().getFringe() is not None
             cons = sum([c for c in connections.values()], [])
-            return len([c for c in cons if c._direction != Connection.LINKDIR_TURN]) == 0
+            return len([c for c in cons if c._direction not in (
+                Connection.LINKDIR_TURN, Connection.LINKDIR_TURN_LEFTHAND)]) == 0
 
     def allows(self, vClass):
         """true if this edge has a lane which allows the given vehicle class"""
