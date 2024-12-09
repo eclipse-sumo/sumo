@@ -34,6 +34,9 @@ minimum_distance_fringe
 # disturb fastest-path-search
 random-routing-factor
 
+# call marouter instead of duarouter
+marouter
+
 # consider vehicle class when picking source- and destination edges if option --vclass is used
 vclass
 
