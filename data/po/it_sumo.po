@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-03 14:21+0100\n"
-"PO-Revision-Date: 2024-12-06 14:51+0000\n"
+"PO-Revision-Date: 2024-12-09 12:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1242,17 +1242,21 @@ msgstr ""
 
 #: src/marouter/marouter_main.cpp:324 src/od2trips_main.cpp:315
 msgid "No output file given."
-msgstr ""
+msgstr "Non è stato indicato un file di uscita."
 
 #: src/marouter/marouter_main.cpp:341
 msgid ""
 "Import O/D-matrices for macroscopic traffic assignment to generate SUMO "
 "routes."
 msgstr ""
+"Importa matrici O/D per l'assegnazzione macroscopica del traffico per "
+"generare itineraro SUMO."
 
 #: src/marouter/marouter_main.cpp:377
 msgid "No districts loaded, will use edge ids!"
 msgstr ""
+"Nessun distretto è stato caricato e perciò verranno usati gli codici "
+"identificativi degli archi!"
 
 #: src/marouter/marouter_main.cpp:388
 msgid "No valid vehicles loaded."
@@ -1288,11 +1292,11 @@ msgstr ""
 #: src/mesosim/METriggeredCalibrator.cpp:129
 #: src/microsim/trigger/MSCalibrator.cpp:628
 msgid "Clearing jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "Risolvo la congestione al calibrator '%' alle ore %."
 
 #: src/mesosim/METriggeredCalibrator.cpp:137
 msgid "Could not clear jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "La congestione al calibrator '%' non poteva essere risolta alle ore %."
 
 #: src/mesosim/METriggeredCalibrator.cpp:169
 #: src/microsim/trigger/MSCalibrator.cpp:439
@@ -1307,12 +1311,16 @@ msgstr "L'itinerario '%' nel calibrator '%' non contiene l'arco '%'."
 #: src/mesosim/MEVehicle.cpp:235
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
 msgstr ""
+"Tuttora non è ancora possibile combinare fermate nella simulazione "
+"mesoscopica (veicolo '%', segmento '%')."
 
 #: src/mesosim/MEVehicle.cpp:262
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
 msgstr ""
+"Il veicolo '%' ha più fermate sul segmento '%' alle ore % (lo stop-output "
+"verrà fusionato)."
 
 #: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1701
 #: src/microsim/MSVehicle.cpp:1697
@@ -1320,6 +1328,8 @@ msgstr ""
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
 msgstr ""
+"Il veicolo '%' ignora la fermata suscitata su corsia '%' dovuto alle "
+"restrizioni di capacità."
 
 #: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1716
 #: src/microsim/MSVehicle.cpp:1712
@@ -1328,6 +1338,8 @@ msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
 "constraints."
 msgstr ""
+"Il veicolo '%' ignora la fermata suscitata di contenitori sulla corsia '%' "
+"dovuto alle restrizioni di capacità."
 
 #: src/mesosim/MEVehicle.cpp:593 src/mesosim/MEVehicle.cpp:586
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
