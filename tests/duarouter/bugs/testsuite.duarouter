@@ -62,3 +62,7 @@ ticket13506
 
 # invalid pedestrian route
 ticket15177
+
+# invalid route via prohibited connection
+# 
+ticket15883
