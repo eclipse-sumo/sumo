@@ -128,12 +128,12 @@ std::vector<SumoXMLAttr>
 GNEMeanDataHandler::parseAttributes(const SumoXMLTag tag, const std::vector<std::string>& attrStrs) {
     std::vector<SumoXMLAttr> attrs;
     for (const auto& attrStr : attrStrs) {
-        if (SUMOXMLDefinitions::Tags.hasString(attrStr)) {
+        if (SUMOXMLDefinitions::Attrs.hasString(attrStr)) {
+            attrs.push_back(static_cast<SumoXMLAttr>(SUMOXMLDefinitions::Attrs.get(attrStr)));
+        } else {
             writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("Attribute '%' doesn't exist.", attrStr));
             attrs.clear();
             return attrs;
-        } else {
-            attrs.push_back(static_cast<SumoXMLAttr>(SUMOXMLDefinitions::Attrs.get(attrStr)));
         }
     }
     return attrs;

@@ -372,10 +372,10 @@ GNEAttributeCarrier::parse(const std::string& value) {
     std::vector<SumoXMLAttr> attributes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& attributeStr : attributesStr) {
-        if (SUMOXMLDefinitions::Tags.hasString(attributeStr)) {
+        if (SUMOXMLDefinitions::Attrs.hasString(attributeStr)) {
             attributes.push_back(static_cast<SumoXMLAttr>(SUMOXMLDefinitions::Attrs.get(attributeStr)));
         } else {
-            throw InvalidArgument("Error parsing attributes. Attribute '" + attributeStr + "'  doesn't exist");
+            throw FormatException("Error parsing attributes. Attribute '" + attributeStr + "'  doesn't exist");
         }
     }
     return attributes;
