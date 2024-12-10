@@ -80,6 +80,9 @@ public:
      */
     ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority);
 
+    /** @brief Constructor for dummy edge, only used when building the connectivity graph **/
+    ROEdge(const std::string& id, SVCPermissions p);
+
 
     /// Destructor
     virtual ~ROEdge();

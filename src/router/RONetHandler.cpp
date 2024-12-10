@@ -311,7 +311,18 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         throw ProcessError("invalid toLane '" + toString(toLane) + "' in connection to '" + toID + "'.");
     }
     if (myIgnoreInternal || viaID == "") {
-        from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
+        std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, "");
+        std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "");
+        ROEdge* dummyVia = nullptr;
+        SVCPermissions permissions;
+        if (allow == "" && disallow == "") {
+            permissions = SVC_UNSPECIFIED;
+        } else {
+            // dummyVia is only needed to hold permissions
+            permissions = parseVehicleClasses(allow, disallow);
+            dummyVia = new ROEdge("dummyVia_" + from->getLanes()[fromLane]->getID() + "->" + to->getLanes()[toLane]->getID(), permissions);
+        }
+        from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], dummyVia);
         from->addSuccessor(to, nullptr, dir);
         if (to->isCrossing()) {
             to->setTimePenalty(myTLSPenalty);

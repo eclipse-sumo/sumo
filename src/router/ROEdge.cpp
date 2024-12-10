@@ -84,6 +84,24 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 }
 
 
+ROEdge::ROEdge(const std::string& id, SVCPermissions p) :
+    Named(id),
+    myFromJunction(nullptr),
+    myToJunction(nullptr),
+    myIndex(-1),
+    myPriority(0),
+    mySpeed(std::numeric_limits<double>::max()),
+    myLength(0),
+    myAmSink(false),
+    myAmSource(false),
+    myUsingTTTimeLine(false),
+    myUsingETimeLine(false),
+    myCombinedPermissions(p),
+    myOtherTazConnector(nullptr),
+    myTimePenalty(0)
+{ }
+
+
 ROEdge::~ROEdge() {
     for (ROLane* const lane : myLanes) {
         delete lane;
