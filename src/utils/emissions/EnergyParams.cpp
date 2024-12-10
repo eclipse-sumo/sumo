@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    EnergyParams.cpp
 /// @author  Jakob Erdmann
+/// @author  Michael Behrisch
 /// @date    Sept 2021
 ///
 // A class for parameters used by the emission models
@@ -132,6 +133,12 @@ EnergyParams::setTransportableMass(const double mass) {
 
 
 double
+EnergyParams::getTotalMass(const double defaultEmptyMass, const double defaultLoading) const {
+    return getDoubleOptional(SUMO_ATTR_MASS, defaultEmptyMass) + getDoubleOptional(SUMO_ATTR_LOADING, defaultLoading) + getTransportableMass();
+}
+
+
+double
 EnergyParams::getAngleDiff() const {
     return myLastAngle == INVALID_DOUBLE ? 0. : GeomHelper::angleDiff(myLastAngle, myAngle);
 }
@@ -151,21 +158,23 @@ EnergyParams::getDouble(SumoXMLAttr attr) const {
 
 
 double
-EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def, const bool useStoredDefault) const {
+EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
     auto it = myMap.find(attr);
     if (it != myMap.end() && it->second != INVALID_DOUBLE) {
-        if (useStoredDefault) {
-            return it->second;
-        }
-        if (attr == SUMO_ATTR_MASS && !myHaveDefaultMass) {
-            return it->second;
-        }
-        if (attr == SUMO_ATTR_FRONTSURFACEAREA && !myHaveDefaultFrontSurfaceArea) {
+        if (attr == SUMO_ATTR_MASS) {
+            if (!myHaveDefaultMass) {
+                return it->second;
+            }
+        } else if (attr == SUMO_ATTR_FRONTSURFACEAREA) {
+            if (!myHaveDefaultFrontSurfaceArea) {
+                return it->second;
+            }
+        } else {
             return it->second;
         }
     }
     if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getDoubleOptional(attr, def, useStoredDefault);
+        return mySecondaryParams->getDoubleOptional(attr, def);
     }
     return def;
 }

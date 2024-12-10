@@ -59,6 +59,15 @@ public:
         return "Electricity";
     }
 
+    /** @brief Returns a reference weight in kg described by this emission class
+     * This implementation returns the default mass for this model.
+     * @param[in] c the emission class
+     * @return a reference weight
+     */
+    double getWeight(const SUMOEmissionClass /* c */) const {
+        return 1794.;
+    }
+
     /**
      * \brief Compute the amount of emitted pollutants for an emission class in a
      *        given state.

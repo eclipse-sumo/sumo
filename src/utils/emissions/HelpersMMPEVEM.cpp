@@ -165,17 +165,12 @@ bool calcPowerConsumption(double m, double r_wheel, double Theta, double c_rr,
 }
 
 
-
-
 /**
  * \brief Constructor
  */
 HelpersMMPEVEM::HelpersMMPEVEM()
     : PollutantsInterface::Helper("MMPEVEM", MMPEVEM_BASE, MMPEVEM_BASE + 1)
 { }
-
-
-
 
 
 /**
@@ -194,7 +189,7 @@ HelpersMMPEVEM::HelpersMMPEVEM()
  * \returns The electric power consumption [Wh/s] or 0 for all other emission
  *          types
  */
-double HelpersMMPEVEM::compute(const SUMOEmissionClass /* c */,
+double HelpersMMPEVEM::compute(const SUMOEmissionClass c,
                                const PollutantsInterface::EmissionType e, const double v, const double a,
                                const double slope, const EnergyParams* ptr_energyParams) const {
     if (e != PollutantsInterface::ELEC) {
@@ -203,7 +198,7 @@ double HelpersMMPEVEM::compute(const SUMOEmissionClass /* c */,
 
     // Extract all required parameters, default values taken from the VW_ID3
     // Vehicle mass [kg]
-    const double m = ptr_energyParams->getDoubleOptional(SUMO_ATTR_MASS, 1794., false) + ptr_energyParams->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
+    const double m = ptr_energyParams->getTotalMass(getWeight(c), 0.);
     // Wheel radius [m]
     const double r_wheel = ptr_energyParams->getDoubleOptional(SUMO_ATTR_WHEELRADIUS, 0.3588);
     // Internal moment of inertia [kgm^2]
@@ -213,7 +208,7 @@ double HelpersMMPEVEM::compute(const SUMOEmissionClass /* c */,
     // Air drag coefficient
     const double c_d = ptr_energyParams->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, 0.26);
     // Cross-sectional area of the front of the car [m^2]
-    const double A_front = ptr_energyParams->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, 2.36, false);
+    const double A_front = ptr_energyParams->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, 2.36);
     // Gear ratio [1]
     const double i_gear = ptr_energyParams->getDoubleOptional(SUMO_ATTR_GEARRATIO, 10.);
     // Gearbox efficiency [1]
