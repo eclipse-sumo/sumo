@@ -60,7 +60,6 @@ spec:
     }
   }
   environment {
-    GITHUB_TOKEN = env.GH_TOKEN
     REPO_OWNER = "eclipse-sumo"
     REPO_NAME = "sumo"
     WORKFLOW_ID = "build-macos.yml"
@@ -74,7 +73,7 @@ spec:
             // Step 1: Find the last successful workflow run
             def workflowRunsResponse = sh(
               script: """
-                curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s \
+                curl -H "Authorization: Bearer ${GH_TOKEN}" -s \
                 "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/runs?status=success"
               """,
               returnStdout: true
@@ -88,7 +87,7 @@ spec:
             // Step 2: Get the artifact list for the last successful run
             def artifactsResponse = sh(
               script: """
-                curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s \
+                curl -H "Authorization: Bearer ${GH_TOKEN}" -s \
                 "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/${lastRunId}/artifacts"
               """,
               returnStdout: true
@@ -101,7 +100,7 @@ spec:
 
             // Step 3: Download the artifact
             sh """
-              curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -L \
+              curl -H "Authorization: Bearer ${GH_TOKEN}" -L \
               "${artifact.archive_download_url}" --output ${ARTIFACT_NAME}.zip
             """
 
