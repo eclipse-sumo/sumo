@@ -53,3 +53,6 @@ ticket15854
 
 # deadlock with 3 vehicles
 ticket15857
+
+# deadlock on junction
+ticket15887
