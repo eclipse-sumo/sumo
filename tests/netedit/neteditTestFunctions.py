@@ -2870,6 +2870,21 @@ def copyMeanData():
     # copy mean data
     typeSpace()
 
+
+def changeMeanData(meanData):
+    """
+    @brief change mean data
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to delete mean data
+    for _ in range(2):
+        typeTab()
+    # set mean data
+    pasteIntoTextField(meanData)
+    # delete mean data
+    typeTab()
+
 #################################################
     # Contextual menu
 #################################################

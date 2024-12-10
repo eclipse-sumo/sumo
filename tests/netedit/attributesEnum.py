@@ -4095,14 +4095,38 @@ class edgeMeanData:
         withInternal = 13
         maxTravelTime = 14
         minSamples = 15
-        speedThreshold = 5
-        vTypes = 5
-        trackVehicles = 5
-        detectPersons = 5
-        writeAttributes = 5
-        edges = 5
-        edgesFile = 5
-        aggregate = 5
+        speedThreshold = 16
+        vTypes = 17
+        trackVehicles = 18
+        detectPersons = 19
+        writeAttributes = 20
+        edges = 21
+        edgesFile = 22
+        aggregate = 23
+
+# lane mean data
+
+
+class laneMeanData:
+
+    class inspect:
+        id = 6
+        file = 7
+        period = 8
+        begin = 9
+        end = 10
+        excludeEmpty = 11
+        withInternal = 13
+        maxTravelTime = 14
+        minSamples = 15
+        speedThreshold = 16
+        vTypes = 17
+        trackVehicles = 18
+        detectPersons = 19
+        writeAttributes = 20
+        edges = 21
+        edgesFile = 22
+        aggregate = 23
 
 # --------------------------------
 # Dialogs
