@@ -89,7 +89,7 @@ GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     ret->mkItem(TL("charging efficiency [#]"), false, myEfficiency);
     ret->mkItem(TL("charge in transit [true/false]"), false, myChargeInTransit);
     ret->mkItem(TL("charge delay [s]"), false, STEPS2TIME(myChargeDelay));
-    ret->mkItem(TL("charge type"), false, myChargeType);
+    ret->mkItem(TL("charge type"), false, chargeTypeToString(myChargeType));
     ret->mkItem(TL("waiting time [s]"), false, STEPS2TIME(myWaitingTime));
     // close building
     ret->closeBuilding();
