@@ -293,7 +293,7 @@ both. The algorithm for selecting the preferred stripe is based on the
 direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
 walk in that stripe without a collision. The model assumes that the pedestrian
-can fit into a single strip when walking in its center. When **--pedestrian.striping-width** {{DT_FLOAT}}
+can fit into a single strip when walking in its center. When **--pedestrian.striping.stripe-width** {{DT_FLOAT}}
 is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occur.
 The warning to change the stripe-width will then be shown during simulation.
 
