@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-03 14:21+0100\n"
+"POT-Creation-Date: 2024-12-10 17:05+0100\n"
 "PO-Revision-Date: 2024-12-09 12:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
-"applications/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/applications/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -649,123 +648,136 @@ msgstr ""
 "Nachschlagetabelle für die Astar ALT-Variante in der angegebenen Datei "
 "speichern"
 
-#: src/duarouter/RODUAFrame.cpp:117 src/marouter/ROMAFrame.cpp:206
+#: src/duarouter/RODUAFrame.cpp:110 src/microsim/MSFrame.cpp:425
+msgid ""
+"Scale demand by the given factor (by discarding or duplicating vehicles)"
+msgstr ""
+"Nachfrage anhand des gegebenen Faktors skalieren (durch Ausrangieren oder "
+"Duplizieren von Fahrzeugen)"
+
+#: src/duarouter/RODUAFrame.cpp:113 src/microsim/MSFrame.cpp:428
+msgid "Suffix to be added when creating ids for cloned vehicles"
+msgstr ""
+"Beim Erstellen von IDs für geklonte Fahrzeuge muss ein Suffix hinzugefügt "
+"werden"
+
+#: src/duarouter/RODUAFrame.cpp:124 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
 msgstr "FLOAT in Gawron als beta verwenden"
 
-#: src/duarouter/RODUAFrame.cpp:121 src/marouter/ROMAFrame.cpp:210
+#: src/duarouter/RODUAFrame.cpp:128 src/marouter/ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
 msgstr "FLOAT in Gawron als alpha verwenden"
 
-#: src/duarouter/RODUAFrame.cpp:124 src/jtrrouter/ROJTRFrame.cpp:62
+#: src/duarouter/RODUAFrame.cpp:131 src/jtrrouter/ROJTRFrame.cpp:62
 #: src/marouter/ROMAFrame.cpp:213
 msgid "Write exit times (weights) for each edge"
 msgstr "Austrittszeiten (gewichtet) für jede Kante schreiben"
 
-#: src/duarouter/RODUAFrame.cpp:127 src/microsim/MSFrame.cpp:257
+#: src/duarouter/RODUAFrame.cpp:134 src/microsim/MSFrame.cpp:257
 msgid "Include total route length in the output"
 msgstr "Totale Routenlänge in die Ausgabe inkludieren"
 
-#: src/duarouter/RODUAFrame.cpp:130 src/marouter/ROMAFrame.cpp:216
+#: src/duarouter/RODUAFrame.cpp:137 src/marouter/ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
 msgstr "Routen mit einer Wahrscheinlichkeit von nahezu null speichern"
 
-#: src/duarouter/RODUAFrame.cpp:133 src/marouter/ROMAFrame.cpp:219
+#: src/duarouter/RODUAFrame.cpp:140 src/marouter/ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
 msgstr "Nur Routen aus der Eingabe wiederverwenden, keine neuen berechnen"
 
-#: src/duarouter/RODUAFrame.cpp:136
+#: src/duarouter/RODUAFrame.cpp:143
 msgid "The probability of keeping the old route"
 msgstr "Die Wahrscheinlichkeit, die alte Route beizubehalten"
 
-#: src/duarouter/RODUAFrame.cpp:139
+#: src/duarouter/RODUAFrame.cpp:146
 msgid "Route all public transport input"
 msgstr "Routen für Öffentlichen Verkehr bestimmen"
 
-#: src/duarouter/RODUAFrame.cpp:142 src/marouter/ROMAFrame.cpp:202
+#: src/duarouter/RODUAFrame.cpp:149 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
 msgstr "Wähle eine Methode zur Routenauswahl: gawron, logit oder lohse"
 
-#: src/duarouter/RODUAFrame.cpp:145
+#: src/duarouter/RODUAFrame.cpp:152
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
 msgstr ""
 "C-Logit-Modell verwenden (veraltet zugunsten von --route-choice-method "
 "logit)"
 
-#: src/duarouter/RODUAFrame.cpp:149
+#: src/duarouter/RODUAFrame.cpp:156
 msgid "Use FLOAT as logit's beta"
 msgstr "FLOAT in Logit als beta verwenden"
 
-#: src/duarouter/RODUAFrame.cpp:153
+#: src/duarouter/RODUAFrame.cpp:160
 msgid "Use FLOAT as logit's gamma"
 msgstr "FLOAT in Logit als gamma verwenden"
 
-#: src/duarouter/RODUAFrame.cpp:157
+#: src/duarouter/RODUAFrame.cpp:164
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
 "FLOAT in Logit als theta verwenden (negative Werte bedeuten automatische "
 "Schätzung)"
 
-#: src/duarouter/RODUAFrame.cpp:160 src/microsim/MSFrame.cpp:654
+#: src/duarouter/RODUAFrame.cpp:167 src/microsim/MSFrame.cpp:654
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
 "Verwendet FLOAT als Faktor für die Höchstgeschwindigkeit von Fußgängern "
 "während des intermodalen Routings"
 
-#: src/duarouter/RODUAFrame.cpp:163 src/microsim/MSFrame.cpp:657
+#: src/duarouter/RODUAFrame.cpp:170 src/microsim/MSFrame.cpp:657
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
 "FLOAT als Faktor für die Gehgeschwindigkeit entgegen der Fahrtrichtung des "
 "Fahrzeugs verwenden"
 
-#: src/duarouter/RODUAFrame.cpp:170 src/microsim/MSFrame.cpp:664
+#: src/duarouter/RODUAFrame.cpp:177 src/microsim/MSFrame.cpp:664
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
 msgstr "Wo Taxis Kunden absetzen können ('allJunctions, 'ptStops')"
 
-#: src/duarouter/RODUAFrame.cpp:173 src/microsim/MSFrame.cpp:667
+#: src/duarouter/RODUAFrame.cpp:180 src/microsim/MSFrame.cpp:667
 msgid "Where taxis can pick up customers ('allJunctions, 'ptStops')"
 msgstr "Wo Taxis Kunden abholen können ('allJunctions, 'ptStops')"
 
-#: src/duarouter/RODUAFrame.cpp:176 src/microsim/MSFrame.cpp:673
+#: src/duarouter/RODUAFrame.cpp:183 src/microsim/MSFrame.cpp:673
 msgid "Estimated time for taxi pickup"
 msgstr "Geschätzte Zeit für die Taxiabholung"
 
-#: src/duarouter/RODUAFrame.cpp:179 src/microsim/MSFrame.cpp:676
+#: src/duarouter/RODUAFrame.cpp:186 src/microsim/MSFrame.cpp:676
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr ""
 "FLOAT als maximale Zuglänge bei der Initialisierung des Bahnrouters "
 "verwenden"
 
-#: src/duarouter/RODUAFrame.cpp:216
+#: src/duarouter/RODUAFrame.cpp:223
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
 msgstr ""
 "Der Routing-Algorithmus '%' unterstützt das Gewichtsattribut '%' nicht."
 
-#: src/duarouter/RODUAFrame.cpp:220
+#: src/duarouter/RODUAFrame.cpp:227
 #, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
 msgstr "Der Routing-Algorithmus '%' unterstützt kein Massenrouting."
 
-#: src/duarouter/RODUAFrame.cpp:228 src/marouter/ROMAFrame.cpp:243
+#: src/duarouter/RODUAFrame.cpp:235 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
 msgstr "Ungültige Routenauswahlmethode '%'."
 
-#: src/duarouter/RODUAFrame.cpp:232
+#: src/duarouter/RODUAFrame.cpp:239
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
 msgstr ""
 "Die --logit Option ist veraltet, bitte nutze --route-choice-method logit."
 
-#: src/duarouter/RODUAFrame.cpp:244
+#: src/duarouter/RODUAFrame.cpp:251
 msgid "Cannot derive file name for alternatives output, skipping it."
 msgstr ""
 "Der Dateiname für die alternative Ausgabe kann nicht erlangt werden, "
 "überspringe es."
 
-#: src/duarouter/RODUAFrame.cpp:251
+#: src/duarouter/RODUAFrame.cpp:258
 msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
@@ -773,20 +785,20 @@ msgstr ""
 "Die Option --write-trips.junctions hat keine Auswirken wenn --write-trips "
 "deaktiviert ist."
 
-#: src/duarouter/duarouter_main.cpp:109
+#: src/duarouter/duarouter_main.cpp:110
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
 msgstr "Der Routing-Algorithmus '%' unterstützt keine Einschränkungsparameter"
 
-#: src/duarouter/duarouter_main.cpp:164 src/marouter/marouter_main.cpp:180
+#: src/duarouter/duarouter_main.cpp:166 src/marouter/marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
 msgstr "Unbekannter Routing-Algorithmus '%'!"
 
-#: src/duarouter/duarouter_main.cpp:191 src/marouter/marouter_main.cpp:210
+#: src/duarouter/duarouter_main.cpp:193 src/marouter/marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
 msgstr "Es wurden keine Gewichtsdaten für das Attribut '%' geladen."
 
-#: src/duarouter/duarouter_main.cpp:228
+#: src/duarouter/duarouter_main.cpp:230
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
@@ -971,7 +983,7 @@ msgstr "Person '%' wurde entfernt, obwohl es von TraCI kontrolliert wurde"
 msgid "Found % meanData definitions with id '%'."
 msgstr "MeanData-Definitionen mit ID '%' gefunden."
 
-#: src/libsumo/Person.cpp:548
+#: src/libsumo/Person.cpp:549
 #, c-format
 msgid ""
 "Departure time=% for person '%' is in the past; using current time=% "
@@ -980,7 +992,7 @@ msgstr ""
 "Abfahrtszeit % für Person '%' liegt in der Vergangenheit; Stattdessen wird "
 "die aktuelle Zeit % verwendet."
 
-#: src/libsumo/Person.cpp:937 src/libsumo/Vehicle.cpp:1790
+#: src/libsumo/Person.cpp:994 src/libsumo/Vehicle.cpp:1790
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr ""
 "Konnte die Position auf Fahrstreifen '%' an seitlicher Position % nicht "
@@ -1625,7 +1637,7 @@ msgstr ""
 
 #: src/microsim/MSEdge.cpp:1425
 #, c-format
-msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
+msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
 msgstr ""
 "Kante '%s' und Zweirichtungs-Kante '%s' haben keine übereinstimmende "
 "Zweirichtungs-Fahrstreifen"
@@ -2205,19 +2217,6 @@ msgid ""
 msgstr ""
 "Bricht die Simulation ab, wenn die angegebene maximale Anzahl an Teleporten "
 "überschritten wird"
-
-#: src/microsim/MSFrame.cpp:425
-msgid ""
-"Scale demand by the given factor (by discarding or duplicating vehicles)"
-msgstr ""
-"Nachfrage anhand des gegebenen Faktors skalieren (durch Ausrangieren oder "
-"Duplizieren von Fahrzeugen)"
-
-#: src/microsim/MSFrame.cpp:428
-msgid "Suffix to be added when creating ids for cloned vehicles"
-msgstr ""
-"Beim Erstellen von IDs für geklonte Fahrzeuge muss ein Suffix hinzugefügt "
-"werden"
 
 #: src/microsim/MSFrame.cpp:431
 msgid ""
@@ -3220,15 +3219,15 @@ msgstr ""
 msgid "Method not supported"
 msgstr "Methode wird nicht unterstützt"
 
-#: src/microsim/MSNet.cpp:189 src/router/RONet.cpp:60
+#: src/microsim/MSNet.cpp:190 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
 msgstr "Ein Netz wurde noch nicht aufgebaut."
 
-#: src/microsim/MSNet.cpp:221 src/router/RONet.cpp:83
+#: src/microsim/MSNet.cpp:222 src/router/RONet.cpp:83
 msgid "A network was already constructed."
 msgstr "Es bestand schon ein fertiges Netz."
 
-#: src/microsim/MSNet.cpp:286
+#: src/microsim/MSNet.cpp:287
 msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
@@ -3236,65 +3235,65 @@ msgstr ""
 "Die Option weights.separate-turns wird nur unterstützt, wenn mehrere interne"
 " Spuren simuliert werden"
 
-#: src/microsim/MSNet.cpp:397
+#: src/microsim/MSNet.cpp:398
 msgid "Simulation version % started with time: %."
 msgstr "Simulationsversion % startet mit der Zeit: %."
 
-#: src/microsim/MSNet.cpp:677
+#: src/microsim/MSNet.cpp:678
 msgid "Simulation ended at time: %."
 msgstr "Simulation zur Zeit % beendet."
 
-#: src/microsim/MSNet.cpp:679
+#: src/microsim/MSNet.cpp:680
 msgid "Reason: "
 msgstr "Grund: "
 
-#: src/microsim/MSNet.cpp:939
+#: src/microsim/MSNet.cpp:940
 msgid "The final simulation step has been reached."
 msgstr "Der letzte Simulationsschritt wurde erreicht."
 
-#: src/microsim/MSNet.cpp:941
+#: src/microsim/MSNet.cpp:942
 msgid "All vehicles have left the simulation."
 msgstr "Alle Fahrzeuge haben die Simulation verlassen."
 
-#: src/microsim/MSNet.cpp:943
+#: src/microsim/MSNet.cpp:944
 msgid "TraCI requested termination."
 msgstr "Über TraCI wurde das Simulationsende angefragt."
 
-#: src/microsim/MSNet.cpp:945
+#: src/microsim/MSNet.cpp:946
 msgid "An error occurred (see log)."
 msgstr "Es ist ein Fehler aufgetreten (siehe Protokoll)."
 
-#: src/microsim/MSNet.cpp:947
+#: src/microsim/MSNet.cpp:948
 msgid "Interrupted."
 msgstr "Unterbrochen."
 
-#: src/microsim/MSNet.cpp:949
+#: src/microsim/MSNet.cpp:950
 msgid "Too many teleports."
 msgstr "Zu viele Teleports."
 
-#: src/microsim/MSNet.cpp:951
+#: src/microsim/MSNet.cpp:952
 msgid "TraCI issued load command."
 msgstr "TraCI hat eine Ladeanweisung ausgegeben."
 
-#: src/microsim/MSNet.cpp:953
+#: src/microsim/MSNet.cpp:954
 msgid "Unknown reason."
 msgstr "Unbekannter Grund."
 
-#: src/microsim/MSNet.cpp:1514
+#: src/microsim/MSNet.cpp:1515
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
 "TraCI und Triggers können keine Routen-Algorithmen '%' nutzen. Nutze statt "
 "dessen 'astar'."
 
-#: src/microsim/MSNet.cpp:1654 src/netload/NLBuilder.cpp:432
+#: src/microsim/MSNet.cpp:1666 src/netload/NLBuilder.cpp:432
 #: src/router/ROLoader.cpp:237 src/tools/emissionsDrivingCycle_main.cpp:221
 #: src/tools/emissionsMap_main.cpp:75
 #, c-format
 msgid "Loading of % failed."
 msgstr "Laden von % fehlgeschlagen."
 
-#: src/microsim/MSNet.cpp:1674
+#: src/microsim/MSNet.cpp:1686
 #, c-format
 msgid "Loading state from '%' failed."
 msgstr "Laden vom Stand '%' ist fehlgeschlagen."
@@ -3719,7 +3718,7 @@ msgstr "Fahrzeug '%' bricht Wartevorgang ab %."
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr "Fahrzeug '%' beendet teleport auf der Kante '%', Zeit=%."
 
-#: src/microsim/MSVehicleType.cpp:323
+#: src/microsim/MSVehicleType.cpp:324
 #, c-format
 msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
@@ -3728,7 +3727,7 @@ msgstr ""
 "Der Fahrzeugtyp '%' definiert sowohl ein 'mass'- als auch ein "
 "'vehicleMass'-Attribut. Das 'mass'-Attribut wird bevorzugt."
 
-#: src/microsim/MSVehicleType.cpp:325
+#: src/microsim/MSVehicleType.cpp:326
 #, c-format
 msgid ""
 "The vType '%' has a 'vehicleMass' parameter, which is deprecated. Please use"
@@ -3739,7 +3738,7 @@ msgstr ""
 "nutze stattdessen das 'mass'-Attribut (für das leere Fahrzeug) und ggf. das "
 "'loading'-Attribut für die Zuladung."
 
-#: src/microsim/MSVehicleType.cpp:337
+#: src/microsim/MSVehicleType.cpp:338
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
@@ -3747,7 +3746,7 @@ msgstr ""
 "Der Wert von 'emergencyDecel' (%) sollte höher sein als 'decel' (%) für den "
 "Fahrzeugtyp '%'."
 
-#: src/microsim/MSVehicleType.cpp:340
+#: src/microsim/MSVehicleType.cpp:341
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
@@ -3755,7 +3754,7 @@ msgstr ""
 "Der Wert von 'emergencyDecel' (%) ist niedriger als 'apparentDecel' (%) für "
 "den Fahrzeugtyp '%', was zu Kollisionen führen kann."
 
-#: src/microsim/MSVehicleType.cpp:462
+#: src/microsim/MSVehicleType.cpp:463
 #, c-format
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause"
@@ -3764,7 +3763,7 @@ msgstr ""
 "Der Wert von Tau=% im Fahrzeugtyp '%' ist kleiner als die Schrittweite der "
 "Simulation, es kann zu Kollisionen führen."
 
-#: src/microsim/MSVehicleType.cpp:468
+#: src/microsim/MSVehicleType.cpp:469
 #, c-format
 msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
@@ -3776,7 +3775,7 @@ msgstr ""
 "Standardfahrzeugkapazität sicherzustellen. Option --meso-lane-queue für "
 "multimodale mesoskopische Sumo Simulation setzen"
 
-#: src/microsim/MSVehicleType.cpp:478
+#: src/microsim/MSVehicleType.cpp:479
 msgid ""
 "The battery device is active for vType '%' but no emission class is set. The"
 " emission class Energy/unknown will be used, please consider setting an "
@@ -3942,7 +3941,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Battery.cpp:126
 #: src/microsim/devices/MSDevice_Battery.cpp:140
-#: src/microsim/devices/MSDevice_Battery.cpp:153
+#: src/microsim/devices/MSDevice_Battery.cpp:154
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
@@ -3968,13 +3967,13 @@ msgstr ""
 "da sonst Batterieausgangsdaten zu den Emissionsausgangsdaten inkonsistent "
 "werden können!"
 
-#: src/microsim/devices/MSDevice_Battery.cpp:211
+#: src/microsim/devices/MSDevice_Battery.cpp:206
 msgid "Battery of vehicle '%' is depleted, time=%."
 msgstr "Die Batterie des Fahrzeugs '%' wurde zur Zeit % entleert."
 
-#: src/microsim/devices/MSDevice_Battery.cpp:376
-#: src/microsim/devices/MSDevice_Battery.cpp:386
-#: src/microsim/devices/MSDevice_Battery.cpp:396
+#: src/microsim/devices/MSDevice_Battery.cpp:371
+#: src/microsim/devices/MSDevice_Battery.cpp:381
+#: src/microsim/devices/MSDevice_Battery.cpp:391
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
 msgstr ""
 "Es wird versucht, in das Batteriegerät von Fahrzeug '%' ein ungültiges % (%)"
@@ -4835,11 +4834,11 @@ msgstr ""
 "Das Fahrzeug '%' möchte wegen niedrigem Ladestand auf Fahrstreifen % "
 "(Position %) halten (Ladestand % zur Zeit %)."
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:484
+#: src/microsim/devices/MSDevice_StationFinder.cpp:487
 msgid "Problem with inserting the charging station stop for vehicle %."
 msgstr "Problem beim Einfügen des Ladestationshalts für Fahrzeug %."
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:504
+#: src/microsim/devices/MSDevice_StationFinder.cpp:507
 msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station"
 " nearby."
@@ -4847,7 +4846,7 @@ msgstr ""
 "Das Fahrzeug '%' möchte zur Zeit % laden, findet aber keine nahegelegene "
 "Ladestation."
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:576
+#: src/microsim/devices/MSDevice_StationFinder.cpp:579
 msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
@@ -4855,25 +4854,25 @@ msgstr ""
 "Es ist keine Ladestation verfügbar, wohin das Fahrzeug '%' zur Zeit % "
 "teleportiert werden kann. Deshalb wird das Fahrzeug entfernt."
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:692
+#: src/microsim/devices/MSDevice_StationFinder.cpp:699
 msgid "The charging rate limit of vehicle '%' is lifted at time=%"
 msgstr ""
 "Die Ladeleistungsbegrenzung des Fahrzeugs '%' wird zur Zeit % aufgehoben"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:694
+#: src/microsim/devices/MSDevice_StationFinder.cpp:701
 msgid "The charging rate of vehicle '%' is limited to % at time=%"
 msgstr "Die Ladeleistung des Fahrzeugs '%' wird auf % begrenzt (zur Zeit=%)"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:758
+#: src/microsim/devices/MSDevice_StationFinder.cpp:765
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr ""
 "Der Parameter '%' wird von der Einrichtung des Typs '%' nicht unterstützt"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:768
+#: src/microsim/devices/MSDevice_StationFinder.cpp:775
 msgid "Setting parameter '%' requires a number for device of type '%'"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:783
+#: src/microsim/devices/MSDevice_StationFinder.cpp:790
 msgid "Setting parameter '%' is not supported for device of type '%'"
 msgstr ""
 
@@ -5848,13 +5847,16 @@ msgstr ""
 #: src/microsim/trigger/MSChargingStation.cpp:51
 #: src/microsim/trigger/MSChargingStation.cpp:56
 #: src/microsim/trigger/MSChargingStation.cpp:61
-#: src/microsim/trigger/MSChargingStation.cpp:66
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
 msgstr "Attribut % der Ladestation mit der ID='%' ist ungültig (%)."
 
-#: src/microsim/trigger/MSChargingStation.cpp:71
+#: src/microsim/trigger/MSChargingStation.cpp:66
 msgid "ChargingStation with ID='%' doesn't have a valid position (% < %)."
 msgstr "Die Ladestation mit ID='%' hat keine gültige Position (% < %)."
+
+#: src/microsim/trigger/MSChargingStation.h:69
+msgid "Encountered an unknown charge type. Assuming charge type 'normal'."
+msgstr ""
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -6990,11 +6992,11 @@ msgstr ""
 msgid "Forces rectangular cuts between lanes and intersections"
 msgstr "Erzwingt rechtwinklige Schnitte zwischen Fahrstreifen und Kreuzungen"
 
-#: src/netbuild/NBFrame.cpp:487
+#: src/netbuild/NBFrame.cpp:491
 msgid "Always build walking areas even if there are no crossings"
 msgstr "Baut immer Laufflächen, auch wenn keine Kreuzungen vorhanden sind"
 
-#: src/netbuild/NBFrame.cpp:490
+#: src/netbuild/NBFrame.cpp:494
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
@@ -7002,20 +7004,20 @@ msgstr ""
 "Keine walkingArea zwischen maximal FLOAT voneinander entfernten Gehwegen "
 "erstellen, die durch einen Fußgängerknotenpunkt verbunden sind"
 
-#: src/netbuild/NBFrame.cpp:529
+#: src/netbuild/NBFrame.cpp:533
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr ""
 "STR[] als Liste der von der Vereinigung auszuschließenden IDs interpretieren"
 
-#: src/netbuild/NBFrame.cpp:638
+#: src/netbuild/NBFrame.cpp:642
 msgid "Only keep edges with speed in meters/second > FLOAT"
 msgstr "Behalte nur Kanten mit Geschwindigkeit in Metern/Sekunde > FLOAT"
 
-#: src/netbuild/NBFrame.cpp:642
+#: src/netbuild/NBFrame.cpp:646
 msgid "Remove edges in STR[]"
 msgstr "Kanten in STR[] entfernen"
 
-#: src/netbuild/NBFrame.cpp:646
+#: src/netbuild/NBFrame.cpp:650
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
@@ -7023,7 +7025,7 @@ msgstr ""
 "Behalte nur Kanten in STR[] oder solche, die aufgrund anderer keep-edges- "
 "oder remove-edge-Optionen erhalten bleiben"
 
-#: src/netbuild/NBFrame.cpp:649
+#: src/netbuild/NBFrame.cpp:653
 msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from "
 "sumo-gui are also supported) or those which are kept due to other keep-edges"
@@ -7034,7 +7036,7 @@ msgstr ""
 "anderer Optionen zum Beibehalten von Kanten oder zum Entfernen von Kanten "
 "beibehalten werden"
 
-#: src/netbuild/NBFrame.cpp:652
+#: src/netbuild/NBFrame.cpp:656
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
@@ -7042,11 +7044,11 @@ msgstr ""
 "Kanten in FILE entfernen. (Jede ID in einer einzelnen Zeile. Auswahldateien "
 "von Sumo-GUI werden ebenfalls unterstützt)"
 
-#: src/netbuild/NBFrame.cpp:656
+#: src/netbuild/NBFrame.cpp:660
 msgid "Remove edges after loading, patching and joining"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:660
+#: src/netbuild/NBFrame.cpp:664
 msgid ""
 "Only keep edges which are located within the given boundary (given either as"
 " CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon "
@@ -7056,7 +7058,7 @@ msgstr ""
 " kartesische Eckkoordinaten <xmin,ymin,xmax,ymax> oder als Polygon "
 "<x0,y0,x1,y1,...> angegeben)"
 
-#: src/netbuild/NBFrame.cpp:663
+#: src/netbuild/NBFrame.cpp:667
 msgid ""
 "Only keep edges which are located within the given boundary (given either as"
 " GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon"
@@ -7066,52 +7068,52 @@ msgstr ""
 " geodätische Eckkoordinaten <lon-min,lat-min,lon-max,lat-max> oder als "
 "Polygon <lon0,lat0,lon1,lat1,...> angegeben)"
 
-#: src/netbuild/NBFrame.cpp:667
+#: src/netbuild/NBFrame.cpp:671
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr "Nur Kanten behalten, die eine der Fahrzeugklassen in STR[] zulassen"
 
-#: src/netbuild/NBFrame.cpp:670
+#: src/netbuild/NBFrame.cpp:674
 msgid "Remove edges which allow only vclasses from STR[]"
 msgstr ""
 "Ausschließlich für Fahrzeugklassen in STR[] zugelassene Kanten entfernen"
 
-#: src/netbuild/NBFrame.cpp:673
+#: src/netbuild/NBFrame.cpp:677
 msgid "Only keep edges where type is in STR[]"
 msgstr "Nur Kanten behalten, deren Typ in STR[] enhalten ist"
 
-#: src/netbuild/NBFrame.cpp:676
+#: src/netbuild/NBFrame.cpp:680
 msgid "Only keep the INT largest weakly connected components"
 msgstr "Behalte nur die INT größten schwach verbundenen Komponenten"
 
-#: src/netbuild/NBFrame.cpp:679
+#: src/netbuild/NBFrame.cpp:683
 msgid "Remove edges where type is in STR[]"
 msgstr "Kanten mit einem in STR[] enthaltenen Typ entfernen"
 
-#: src/netbuild/NBFrame.cpp:683
+#: src/netbuild/NBFrame.cpp:687
 msgid "Removes isolated edges"
 msgstr "Isolierte Kanten entfernen"
 
-#: src/netbuild/NBFrame.cpp:687
+#: src/netbuild/NBFrame.cpp:691
 msgid "Only keep lanes with width in meters > FLOAT"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:693
+#: src/netbuild/NBFrame.cpp:697
 msgid "All nodes will be unregulated"
 msgstr "Alle Knoten werden unreguliert sein"
 
-#: src/netbuild/NBFrame.cpp:698
+#: src/netbuild/NBFrame.cpp:702
 msgid "Do not regulate nodes in STR[]"
 msgstr "Knoten in STR[] nicht regulieren"
 
-#: src/netbuild/NBFrame.cpp:702
+#: src/netbuild/NBFrame.cpp:706
 msgid "Do not regulate district nodes"
 msgstr "Bezirksknoten nicht regulieren"
 
-#: src/netbuild/NBFrame.cpp:708
+#: src/netbuild/NBFrame.cpp:712
 msgid "Enable ramp-guessing"
 msgstr "Zufahrtsrampenheuristik aktivieren"
 
-#: src/netbuild/NBFrame.cpp:711
+#: src/netbuild/NBFrame.cpp:715
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
@@ -7119,40 +7121,40 @@ msgstr ""
 "Auffahrten erraten und, falls vorhanden, Beschleunigungsfahrstreifen "
 "markieren, aber keine neuen Fahrstreifen hinzufügen"
 
-#: src/netbuild/NBFrame.cpp:715
+#: src/netbuild/NBFrame.cpp:719
 msgid "Treat edges with speed > FLOAT as no ramps"
 msgstr "Kanten mit Geschwindigkeit > FLOAT nicht als Rampen behandeln"
 
-#: src/netbuild/NBFrame.cpp:719
+#: src/netbuild/NBFrame.cpp:723
 msgid "Treat edges with speed < FLOAT as no highways"
 msgstr "Kanten mit Geschwindigkeit < FLOAT nicht als Autobahnen behandeln"
 
-#: src/netbuild/NBFrame.cpp:723
+#: src/netbuild/NBFrame.cpp:727
 msgid "Use FLOAT as ramp-length"
 msgstr "FLOAT als Rampenlänge verwenden"
 
-#: src/netbuild/NBFrame.cpp:727
+#: src/netbuild/NBFrame.cpp:731
 msgid "Use FLOAT as minimum ramp-length"
 msgstr "FLOAT als minimale Rampenlänge verwenden"
 
-#: src/netbuild/NBFrame.cpp:731
+#: src/netbuild/NBFrame.cpp:735
 msgid "Tries to handle the given edges as ramps"
 msgstr "Versucht, die angegebenen Kanten als Auffahrten zu behandeln"
 
-#: src/netbuild/NBFrame.cpp:734
+#: src/netbuild/NBFrame.cpp:738
 msgid "Do not consider the given edges as ramps"
 msgstr "Die angegebenen Kanten nicht als Auffahrten betrachten"
 
-#: src/netbuild/NBFrame.cpp:738
+#: src/netbuild/NBFrame.cpp:742
 msgid "Avoids edge splitting"
 msgstr "Vermeidet Kantenaufteilung"
 
-#: src/netbuild/NBFrame.cpp:748
+#: src/netbuild/NBFrame.cpp:752
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
 msgstr "nicht unterstützter Wert '%' für die Option '--tls.default-type'"
 
-#: src/netbuild/NBFrame.cpp:752
+#: src/netbuild/NBFrame.cpp:756
 msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
@@ -7160,7 +7162,7 @@ msgstr ""
 "nur eine der Optionen 'keep-edges.in-boundary' oder 'keep-edges.in-geo-"
 "boundary' darf gegeben werden"
 
-#: src/netbuild/NBFrame.cpp:756
+#: src/netbuild/NBFrame.cpp:760
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be "
 "given"
@@ -7168,40 +7170,40 @@ msgstr ""
 "Nur eine der Optionen 'no-internal-links' oder 'crossings.guess' darf "
 "gegeben werden"
 
-#: src/netbuild/NBFrame.cpp:760
+#: src/netbuild/NBFrame.cpp:764
 msgid ""
 "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr ""
 "Nur eine der Optionen 'no-internal-links' oder 'walkareas' darf gegeben "
 "werden"
 
-#: src/netbuild/NBFrame.cpp:764
+#: src/netbuild/NBFrame.cpp:768
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr ""
 "nur einer der Optionen 'tls.green.time' oder 'tls.cycle.time' darf gegeben "
 "werden"
 
-#: src/netbuild/NBFrame.cpp:768
+#: src/netbuild/NBFrame.cpp:772
 msgid "'tls.green.time' must be positive"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:772
+#: src/netbuild/NBFrame.cpp:776
 msgid "default.lanenumber must be at least 1"
 msgstr "default.lanenumber muss mindestens 1 sein"
 
-#: src/netbuild/NBFrame.cpp:780
+#: src/netbuild/NBFrame.cpp:784
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
 "nur eine der Optionen 'default.disallow' oder 'default.allow' darf gegeben "
 "sein"
 
-#: src/netbuild/NBFrame.cpp:784
+#: src/netbuild/NBFrame.cpp:788
 msgid "junctions.internal-link-detail must >= 2"
 msgstr "unctions.internal-link-detail muss >= 2"
 
-#: src/netbuild/NBFrame.cpp:789
+#: src/netbuild/NBFrame.cpp:793
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '"
 "--no-internal-links' will be disabled."
@@ -7209,7 +7211,7 @@ msgstr ""
 "Die Option 'junctions.scurve-stretch' erfordert, dass interne Fahrstreifen "
 "arbeiten. Option '--no-internal-links' wird deaktiviert."
 
-#: src/netbuild/NBFrame.cpp:796
+#: src/netbuild/NBFrame.cpp:800
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
@@ -7217,20 +7219,20 @@ msgstr ""
 "Option 'default.junctions.radius' ist kleiner als Option 'junctions.small-"
 "radius'"
 
-#: src/netbuild/NBFrame.cpp:804
+#: src/netbuild/NBFrame.cpp:808
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
 msgstr ""
 "LSA-Layout muss entweder 'opposites', 'incoming' oder 'alternateOneWay' sein"
 
-#: src/netbuild/NBFrame.cpp:809
+#: src/netbuild/NBFrame.cpp:813
 msgid "default.right-of-way must be one of '%'"
 msgstr "default.right-of-way muss einer von '%' sein"
 
-#: src/netbuild/NBFrame.cpp:813
+#: src/netbuild/NBFrame.cpp:817
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr "roundabouts.visibility-distance muss positiv oder -1 sein"
 
-#: src/netbuild/NBFrame.cpp:829
+#: src/netbuild/NBFrame.cpp:833
 msgid "Unknown value for default.spreadtype '%'."
 msgstr "Unbekannter Wert für default.spreadtype '%'."
 
@@ -7662,7 +7664,7 @@ msgstr "Für Knotenpunkt '%': Shape konnte nicht berechnet werden."
 msgid "Something went wrong during the building of a connection..."
 msgstr "Etwas ist schiefgegangen bei der Erstellung einer Verbindung..."
 
-#: src/netbuild/NBNode.cpp:2902
+#: src/netbuild/NBNode.cpp:2904
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
@@ -7670,7 +7672,7 @@ msgstr ""
 "Ungültige Fußgängerfurt '%' am Knotenpunkt '%' mit Kanten [%] wird verworfen"
 " (keine walkingArea gefunden)."
 
-#: src/netbuild/NBNode.cpp:3068
+#: src/netbuild/NBNode.cpp:3070
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
@@ -7678,7 +7680,7 @@ msgstr ""
 "Ungültige Fußgängerfurt '%' am Knotenpunkt '%' mit Kanten [%] wird verworfen"
 " (kein Fahrzeug-Fahrstreifen zum überqueren)."
 
-#: src/netbuild/NBNode.cpp:3087
+#: src/netbuild/NBNode.cpp:3089
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
@@ -7686,12 +7688,12 @@ msgstr ""
 "Ungültige Fußgängerfurt '%' am Knotenpunkt '%' mit Kanten [%] wird verworfen"
 " (ungültige Shape)."
 
-#: src/netbuild/NBNode.cpp:3128
+#: src/netbuild/NBNode.cpp:3130
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3244
+#: src/netbuild/NBNode.cpp:3246
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
@@ -7699,7 +7701,7 @@ msgstr ""
 "Ungültige Fußgänger-Topologie am Knotenpunkt '%'; Fußgängerfurt '%' zielt "
 "auf '%' und '%'."
 
-#: src/netbuild/NBNode.cpp:3270
+#: src/netbuild/NBNode.cpp:3272
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%'"
 " and '%'."
@@ -7707,7 +7709,7 @@ msgstr ""
 "Ungültige Fußgänger-Topologie am Knotenpunkt '%'; Fußgängerfurt '%' zielt "
 "durch '%' und '%'."
 
-#: src/netbuild/NBNode.cpp:3275
+#: src/netbuild/NBNode.cpp:3277
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at"
 " walkingarea '%'."
@@ -7715,20 +7717,20 @@ msgstr ""
 "Ungültige Fußgänger-Topologie am Knotenpunkt '%'; Fußgängerfurt '%' startet "
 "und endet an der walkingArea '%'."
 
-#: src/netbuild/NBNode.cpp:3535
+#: src/netbuild/NBNode.cpp:3537
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 "Ungültige Fußgänger-Topologie: Fußgängerfurt '%' über [%] hat kein Ziel."
 
-#: src/netbuild/NBNode.cpp:3874
+#: src/netbuild/NBNode.cpp:3876
 msgid "Request for unknown crossing '%'"
 msgstr "Anfrage nach einer unbekannten Fußgängerfurt '%'"
 
-#: src/netbuild/NBNode.cpp:3890
+#: src/netbuild/NBNode.cpp:3892
 msgid "Request for unknown crossing for the given Edges"
 msgstr "Anfrage nach einer unbekannten Fußgängerfurt für die gegebenen Kanten"
 
-#: src/netbuild/NBNode.cpp:3915
+#: src/netbuild/NBNode.cpp:3917
 msgid "Request for unknown walkingarea '%'."
 msgstr "Anfrage für unbekannte walkingArea '%'."
 
@@ -11605,7 +11607,7 @@ msgid "In order to prune the input on the net, you have to supply a network."
 msgstr ""
 "Um die Eingabe im Netz zu beschneiden, müssen Sie ein Netz bereitstellen."
 
-#: src/router/ROEdge.cpp:206
+#: src/router/ROEdge.cpp:224
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / max speed."
@@ -11613,7 +11615,7 @@ msgstr ""
 "Kein Intervall stimmt überein mit der Zeit=% in Kante '%'.\n"
 "  Kantenlänge / maximale Geschwindigkeit verwenden."
 
-#: src/router/ROEdge.cpp:232
+#: src/router/ROEdge.cpp:250
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / edge's speed."
@@ -11621,7 +11623,7 @@ msgstr ""
 "Kein Intervall stimmt überein mit der Zeit=% in Kante '%'.\n"
 "  Kantenlänge / Kantengeschwindigkeit verwenden."
 
-#: src/router/ROEdge.cpp:455
+#: src/router/ROEdge.cpp:473
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
@@ -11890,12 +11892,12 @@ msgstr "unbekannte Ausgangskante '%' in der Verbindung"
 msgid "unknown to-edge '%' in connection"
 msgstr "unbekannte Endkante '%' in Verbindung"
 
-#: src/router/RONetHandler.cpp:322
+#: src/router/RONetHandler.cpp:333
 #, c-format
 msgid "unknown via-edge '%' in connection"
 msgstr "unbekannte Zwischenkante '%' in Verbindung"
 
-#: src/router/RONetHandler.cpp:383
+#: src/router/RONetHandler.cpp:394
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
 msgstr ""
 "Ignoriere ungültigen Zugriff auf eine nicht für Fußgänger zugelassene Kante "
@@ -12173,7 +12175,7 @@ msgstr "Kein numerischer Eintrag in Zeile '%'."
 msgid "Writing map of '%' into '%'."
 msgstr "Schreibe Abbildung von '%' in '%'."
 
-#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:292
+#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:335
 #, c-format
 msgid "Could not open file '%' for writing."
 msgstr "Datei '%' kann nicht geöffnet werden zum Schreiben."
@@ -12311,7 +12313,7 @@ msgstr "Aus einer leeren Map kann kein Maximum gebildet werden."
 msgid "Mismatching data rows of % axis and % height values."
 msgstr "Nicht übereinstimmende Datenreihen aus % Achsen- und % Höhenwerten."
 
-#: src/utils/common/MapMatcher.h:61
+#: src/utils/common/MapMatcher.h:51
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
 "Geopositionen können nicht konvertiert werden, da das Netz keine Georeferenz"
@@ -12572,18 +12574,18 @@ msgid ""
 "and deviation %"
 msgstr ""
 
-#: src/utils/emissions/EnergyParams.cpp:81
+#: src/utils/emissions/EnergyParams.cpp:88
 msgid ""
 "Vehicle type '%' uses the emission class '%' which does not have proper "
-"defaults for its vehicle class. Please use a different emission class or "
+"defaults for its vehicle class. Please use a different emission model or "
 "complete the vType definition with further parameters."
 msgstr ""
 
-#: src/utils/emissions/EnergyParams.cpp:84
+#: src/utils/emissions/EnergyParams.cpp:91
 msgid " And also set a vehicle mass!"
 msgstr ""
 
-#: src/utils/emissions/EnergyParams.cpp:90
+#: src/utils/emissions/EnergyParams.cpp:97
 #, c-format
 msgid ""
 "Vehicle type '%' uses the Energy model parameter 'internalMomentOfInertia' "
@@ -13115,41 +13117,51 @@ msgstr ""
 msgid "Mixed parameter syntax in '%'."
 msgstr "Gemischte Parametersyntax in '%'."
 
-#: src/utils/router/AStarLookupTable.h:125
+#: src/utils/router/AStarLookupTable.h:126
 msgid "Could not load landmark-lookup-table from '%'."
 msgstr "Landmark-Nachschlagetabelle aus '%' konnte nicht geladen werden."
 
-#: src/utils/router/AStarLookupTable.h:139
+#: src/utils/router/AStarLookupTable.h:140
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
 msgstr "Doppelte Kante '%' in der Landmark-Datei."
 
-#: src/utils/router/AStarLookupTable.h:144
+#: src/utils/router/AStarLookupTable.h:145
+#: src/utils/router/AStarLookupTable.h:170
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
 msgstr "Landmark-Kante '%' existiert nicht im Netz."
 
-#: src/utils/router/AStarLookupTable.h:155
-#: src/utils/router/AStarLookupTable.h:168
+#: src/utils/router/AStarLookupTable.h:165
+msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
+msgstr ""
+
+#: src/utils/router/AStarLookupTable.h:177
+#, c-format
+msgid "Broken landmark file, could not parse '%' as coordinates"
+msgstr ""
+
+#: src/utils/router/AStarLookupTable.h:184
+#: src/utils/router/AStarLookupTable.h:197
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
 msgstr "Unbekannte oder untergeordnete Kante '%' in der Landmark-Datei."
 
-#: src/utils/router/AStarLookupTable.h:165
+#: src/utils/router/AStarLookupTable.h:194
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
 msgstr ""
 "Gebrochene Landmark-Datei, unerwartete Anzahl von Einträgen (%) für die "
 "Kante '%'."
 
-#: src/utils/router/AStarLookupTable.h:188
+#: src/utils/router/AStarLookupTable.h:217
 msgid "Calculating new lookup table."
 msgstr "Berechnen einer neuen Nachschlagetabelle."
 
-#: src/utils/router/AStarLookupTable.h:195
+#: src/utils/router/AStarLookupTable.h:224
 msgid "No lookup table for landmark edge '%', recalculating."
 msgstr "Keine Nachschlagetabelle für die Landmark-Kante '%', neu berechnen."
 
-#: src/utils/router/AStarLookupTable.h:197
+#: src/utils/router/AStarLookupTable.h:226
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'."
@@ -13157,7 +13169,14 @@ msgstr ""
 "Nicht alle Netz-Kanten wurden in der Nachschlagetabelle '%' für die "
 "Landmark-Kante '%' gefunden."
 
-#: src/utils/router/AStarLookupTable.h:294
+#: src/utils/router/AStarLookupTable.h:317
+#, c-format
+msgid ""
+"Landmark % is not reachable from % edges and is unable to reach % out of % "
+"total edges."
+msgstr ""
+
+#: src/utils/router/AStarLookupTable.h:337
 msgid "Saving new matrix to '%'."
 msgstr "Speicher neue Matrix in '%'."
 
@@ -13212,11 +13231,11 @@ msgstr ""
 "Linie '%' des öffentlichens Verkehrs wird nicht für die Routen von Personen "
 "verwendet. Sie hat weniger als zwei nutzbare Halte."
 
-#: src/utils/router/IntermodalRouter.h:198
+#: src/utils/router/IntermodalRouter.h:199
 msgid "No connection between % '%' and % '%' found."
 msgstr "Keine Verbindung zwischen % '%' und % '%' gefunden."
 
-#: src/utils/router/IntermodalRouter.h:226
+#: src/utils/router/IntermodalRouter.h:227
 #: src/utils/router/PedestrianRouter.h:126
 msgid "Do not use this method"
 msgstr "Benutzen Sie nicht diese Methode"
