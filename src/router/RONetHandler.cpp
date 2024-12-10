@@ -325,10 +325,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         }
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], dummyVia);
         from->addSuccessor(to, nullptr, dir);
-        if (to->isCrossing()) {
-            to->setTimePenalty(myTLSPenalty);
-        }
-    }  else {
+    } else {
         ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
             throw ProcessError(TLF("unknown via-edge '%' in connection", viaID));
@@ -345,10 +342,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         }
         if (tlID != "") {
             via->setTimePenalty(myTLSPenalty);
-            if (to->isCrossing()) {
-                to->setTimePenalty(myTLSPenalty);
-            }
         }
+    }
+    if (to->isCrossing()) {
+        to->setTimePenalty(myTLSPenalty);
     }
 }
 
