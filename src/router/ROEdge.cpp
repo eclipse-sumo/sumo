@@ -84,10 +84,10 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 }
 
 
-ROEdge::ROEdge(const std::string& id, SVCPermissions p) :
+ROEdge::ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCPermissions p) :
     Named(id),
-    myFromJunction(nullptr),
-    myToJunction(nullptr),
+    myFromJunction(const_cast<RONode*>(from)),
+    myToJunction(const_cast<RONode*>(to)),
     myIndex(-1),
     myPriority(0),
     mySpeed(std::numeric_limits<double>::max()),
