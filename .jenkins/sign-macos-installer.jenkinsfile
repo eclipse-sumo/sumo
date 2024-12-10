@@ -1,0 +1,115 @@
+pipeline {
+  agent {
+    kubernetes {
+      inheritFrom 'my-agent-pod'
+      yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: jnlp
+    resources:
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+  - name: ubuntu-sumo
+    image: ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
+    tty: true
+    resources:
+      limits:
+        memory: "2Gi"
+        cpu: "1"
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+    command:
+    - cat
+    env:
+    - name: "MAVEN_OPTS"
+      value: "-Duser.home=/home/jenkins"
+    volumeMounts:
+    - name: settings-xml
+      mountPath: /home/jenkins/.m2/settings.xml
+      subPath: settings.xml
+      readOnly: true
+    - name: settings-security-xml
+      mountPath: /home/jenkins/.m2/settings-security.xml
+      subPath: settings-security.xml
+      readOnly: true
+    - name: m2-repo
+      mountPath: /home/jenkins/.m2/repository
+  volumes:
+  - name: settings-xml
+    secret:
+      secretName: m2-secret-dir
+      items:
+      - key: settings.xml
+        path: settings.xml
+  - name: settings-security-xml
+    secret:
+      secretName: m2-secret-dir
+      items:
+      - key: settings-security.xml
+        path: settings-security.xml
+  - name: m2-repo
+    emptyDir: {}
+"""
+    }
+  }
+  environment {
+    GITHUB_TOKEN = env.GH_TOKEN
+    REPO_OWNER = "eclipse-sumo"
+    REPO_NAME = "sumo"
+    WORKFLOW_ID = "build-macos.yml"
+    ARTIFACT_NAME = "macos-14-installer-unsigned"
+  }
+  stages {
+    stage('Download macOS Installer Artifact') {
+      steps {
+        container('ubuntu-sumo') {
+          script {
+            // Step 1: Find the last successful workflow run
+            def workflowRunsResponse = sh(
+              script: """
+                curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s \
+                "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/runs?status=success"
+              """,
+              returnStdout: true
+            ).trim()
+            def workflowRuns = readJSON text: workflowRunsResponse
+            if (!workflowRuns.workflow_runs || workflowRuns.workflow_runs.size() == 0) {
+              error("No successful workflow runs found for workflow: ${WORKFLOW_ID}")
+            }
+            def lastRunId = workflowRuns.workflow_runs[0].id
+
+            // Step 2: Get the artifact list for the last successful run
+            def artifactsResponse = sh(
+              script: """
+                curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s \
+                "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/${lastRunId}/artifacts"
+              """,
+              returnStdout: true
+            ).trim()
+            def artifacts = readJSON text: artifactsResponse
+            def artifact = artifacts.artifacts.find { it.name == ARTIFACT_NAME }
+            if (!artifact) {
+              error("Artifact '${ARTIFACT_NAME}' not found for run ID: ${lastRunId}")
+            }
+
+            // Step 3: Download the artifact
+            sh """
+              curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -L \
+              "${artifact.archive_download_url}" --output ${ARTIFACT_NAME}.zip
+            """
+
+            // Step 4: Extract the artifact
+            sh "unzip -o ${ARTIFACT_NAME}.zip -d artifact"
+          }
+        }
+      }
+    }
+  }
+}
