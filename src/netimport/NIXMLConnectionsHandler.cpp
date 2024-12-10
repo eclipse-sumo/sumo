@@ -208,7 +208,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (allow == "" && disallow == "") {
             permissions = SVC_UNSPECIFIED;
         } else {
-            permissions = parseVehicleClasses(attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, ""), attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, ""));
+            permissions = parseVehicleClasses(allow, disallow);
         }
         SVCPermissions changeLeft = SVC_UNSPECIFIED;
         SVCPermissions changeRight = SVC_UNSPECIFIED;
