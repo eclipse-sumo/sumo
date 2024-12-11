@@ -2126,8 +2126,8 @@ void
 GNENet::clearDataElements(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("clear data elements"));
     // clear data sets
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        deleteDataSet(dataSet.second, undoList);
+    while (myAttributeCarriers->getDataSets().size() > 0) {
+        deleteDataSet(myAttributeCarriers->getDataSets().begin()->second, undoList);
     }
     undoList->end();
 }

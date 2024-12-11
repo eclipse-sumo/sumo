@@ -4108,7 +4108,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // begin undoList operation
     myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements from '") + dataFile + "'");
     // clear data elements
-    myNet->clearDemandElements(myUndoList);
+    myNet->clearDataElements(myUndoList);
     // Run data parser
     if (!dataHandler.parse()) {
         WRITE_ERROR(TL("Reloading of data file failed: ") + dataFile);
