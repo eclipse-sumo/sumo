@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-10 17:05+0100\n"
-"PO-Revision-Date: 2024-12-11 12:11+0000\n"
+"PO-Revision-Date: 2024-12-11 13:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -799,7 +799,7 @@ msgstr ""
 #: src/duarouter/duarouter_main.cpp:108
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
-msgstr ""
+msgstr "L'algoritmo di instradamento '%' non supporta parametri di restrizione"
 
 #: src/duarouter/duarouter_main.cpp:166 src/marouter/marouter_main.cpp:180
 #: src/duarouter/duarouter_main.cpp:164 src/duarouter/duarouter_main.cpp:152
@@ -817,6 +817,8 @@ msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
 msgstr ""
+"Instradamento (itinerario più breve e calcolo delL'equilibrio dinamico "
+"dell'utente) per la simulazione del traffico microscopica e multimodale SUMO."
 
 #: src/jtrrouter/ROJTREdge.cpp:64
 #, c-format
@@ -857,6 +859,9 @@ msgid ""
 "sinks is set, the upstream flow is limited to the value of the source flow "
 "and the remaining part terminates."
 msgstr ""
+"Sottrai i flussi a monte quando si inserisce un flusso nuovo. Se l'opzione "
+"--sources-are-sinks è stata impostata, i flussi a monte sono limitati al "
+"valore del flusso di sorgente mentre la parte di troppo termina li."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:68
 msgid ""
