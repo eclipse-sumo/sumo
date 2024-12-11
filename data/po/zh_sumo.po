@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-10 17:05+0100\n"
-"PO-Revision-Date: 2024-09-02 03:09+0000\n"
-"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
-"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hans/>\n"
+"PO-Revision-Date: 2024-12-11 12:11+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1434,7 +1435,7 @@ msgstr "路口'%'和'%'之间有模糊的可叠加路段。"
 #: src/microsim/MSEdge.cpp:1425
 #, c-format
 msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
-msgstr "路段'%s'和bidi路段'%s'没有匹配的bidi车道"
+msgstr "路段'%'和bidi路段'%'没有匹配的bidi车道"
 
 #: src/microsim/MSFrame.cpp:78
 msgid "Load road network description from FILE"
