@@ -126,6 +126,8 @@ errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
 errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
+errors:avx512er{LINES 1}
+errors:avx512pf{LINES 1}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:\\{REPLACE /}
 log:Discarding invalid crossing{LINES 1}
