@@ -203,7 +203,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     print(" - Copying proj.db files")
     proj_dir = "/opt/homebrew/Cellar/proj"
     proj_file_list = ["GL27", "ITRF2000", "ITRF2008", "ITRF2014", "nad.lst", "nad27", "nad83", "other.extra", "proj.db",
-                      "proj.ini", "projjson.schema.json", "triangulation.schema.json", "world", "CH", "deformation_model.schema.json"]
+                      "proj.ini", "projjson.schema.json", "triangulation.schema.json", "world", "CH", "deformation_model.schema.json"]  # noqa
     dest_dir = os.path.join(version_dir, name, "share", "proj")
     if os.path.exists(proj_dir):
         first_dir = next(iter(os.listdir(proj_dir)), None)

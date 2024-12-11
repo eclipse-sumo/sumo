@@ -18,7 +18,7 @@
 
 """
 Create a landmark table input file for generating a full table duarouter options
---astar.landmark-distances --astar.save-landmark-distances 
+--astar.landmark-distances --astar.save-landmark-distances
 for a given netfile and with a given number of landmarks
 The landmarks are somewhat evenly spaced around the rim of the network
 """
@@ -110,7 +110,7 @@ def main(options):
             edgeDistances.append(edgeAngles[i][1:])
             i += 1
         if edgeDistances:
-            edgeDistances.sort(key=lambda x:x[0])
+            edgeDistances.sort(key=lambda x: x[0])
             landmarks.append(edgeDistances[-1][1])
         else:
             print("Found no edges between angles %.0f and %0.f" % (degrees(aPrev), degrees(a)), file=sys.stderr)

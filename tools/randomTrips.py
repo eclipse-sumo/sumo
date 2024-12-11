@@ -57,7 +57,7 @@ def get_options(args=None):
                     help="loads probabilities for being source, destination and via-edge from the files named " +
                     "'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml")
     op.add_argument("--edge-type-file", category="input", dest="typeFactorFile",
-                    help="Load a file that defines probability factors for specific edge types (each line with 'TYPE FLOAT')")
+                    help="Load a file that defines probability factors for specific edge types (each line with 'TYPE FLOAT')")  # noqa
     # output
     op.add_argument("-o", "--output-trip-file", category="output", dest="tripfile", type=op.route_file,
                     default="trips.trips.xml",
@@ -286,8 +286,7 @@ def get_options(args=None):
         except ValueError:
             raise ValueError("--fringe-factor argument must be a float or 'max'.")
 
-    
-    options.typeFactors = defaultdict(lambda : 1.0)
+    options.typeFactors = defaultdict(lambda: 1.0)
     if options.typeFactorFile:
         with open(options.typeFactorFile) as tff:
             for line in tff:
@@ -901,8 +900,8 @@ def main(options):
                 if option[0] not in routerargs:
                     routerargs += option
                 else:
-                    raise ValueError("The argument '%s' has already been passed without the %s prefix." % (option[0], router))
-
+                    raise ValueError("The argument '%s' has already been passed without the %s prefix." % (
+                                     option[0], router))
 
     if options.routefile:
         args2 = (maargs if options.marouter else duargs)[:]
