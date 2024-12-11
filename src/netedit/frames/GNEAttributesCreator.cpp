@@ -253,6 +253,10 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
         if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
             showAttribute = false;
         }
+        // avoid selected and row (temporal, until unification with attributesEditor)
+        if ((attribute.getAttr() == GNE_ATTR_SELECTED) || (attribute.getAttr() == GNE_ATTR_FRONTELEMENT)) {
+            showAttribute = false;
+        }
         // check if attribute must stay hidden
         if (std::find(myHiddenAttributes.begin(), myHiddenAttributes.end(), attribute.getAttr()) != myHiddenAttributes.end()) {
             showAttribute = false;
