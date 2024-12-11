@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-10 17:05+0100\n"
-"PO-Revision-Date: 2024-12-09 14:14+0000\n"
+"PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -694,11 +694,11 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:143 src/duarouter/RODUAFrame.cpp:136
 msgid "The probability of keeping the old route"
-msgstr ""
+msgstr "La probabilità di mantenere il vecchio itinerario"
 
 #: src/duarouter/RODUAFrame.cpp:146 src/duarouter/RODUAFrame.cpp:139
 msgid "Route all public transport input"
-msgstr ""
+msgstr "Definisci itinerari per ogni trasporto pubblico"
 
 #: src/duarouter/RODUAFrame.cpp:149 src/marouter/ROMAFrame.cpp:202
 #: src/duarouter/RODUAFrame.cpp:142
