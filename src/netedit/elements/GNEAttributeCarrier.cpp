@@ -5530,7 +5530,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
-                                      conflicts, icon, xmlTag, TL("Tranship: edges"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("Tranship"), TL("edges")), parents, color);
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
         fillTranshipCommonAttributes(myTagProperties[currentTag]);
@@ -6210,7 +6210,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_EDGE,
-                                      conflicts, icon, xmlTag, TL("ContainerStop: edge"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("ContainerStop"), TL("edge")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -6221,7 +6221,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_BUSSTOP,
-                                      conflicts, icon, xmlTag, TL("ContainerStop: busStop"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("ContainerStop"), TL("busStop")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -6232,7 +6232,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_TRAINSTOP,
-                                      conflicts, icon, xmlTag, TL("ContainerStop: trainStop"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("ContainerStop"), TL("trainStop")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -6243,7 +6243,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
-                                      conflicts, icon, xmlTag, TL("ContainerStop: containerStop"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("ContainerStop"), TL("containerStop")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -6253,7 +6253,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
     {
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CHARGINGSTATION,
-                                      conflicts, icon, xmlTag, TL("ContainerStop: chargingStation"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("ContainerStop"), TL("chargingStation")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -6264,7 +6264,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_PARKINGAREA,
-                                      conflicts, icon, xmlTag, TL("ContainerStop: parkingArea"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("ContainerStop"), TL("parkingArea")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -6968,7 +6968,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
-                                      conflicts, icon, xmlTag, TL("Walk: edges"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("Walk"), TL("edges")), parents, color);
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
         fillWalkCommonAttributes(myTagProperties[currentTag]);
@@ -6978,7 +6978,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_ROUTE,
-                                      conflicts, icon, xmlTag, TL("Walk: route"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("Walk"), TL("route")), parents, color);
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
         fillWalkCommonAttributes(myTagProperties[currentTag]);
@@ -8328,7 +8328,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_EDGE,
-                                      conflicts, icon, xmlTag, TL("PersonStop: edge"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("PersonStop"), TL("edge")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -8339,7 +8339,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_BUSSTOP,
-                                      conflicts, icon, xmlTag, TL("PersonStop: busStop"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("PersonStop"), TL("busStop")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -8350,7 +8350,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_TRAINSTOP,
-                                      conflicts, icon, xmlTag, TL("PersonStop: trainStop"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("PersonStop"), TL("trainStop")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -8361,7 +8361,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
-                                      conflicts, icon, xmlTag, TL("PersonStop: containerStop"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("PersonStop"), TL("containerStop")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -8371,7 +8371,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
     {
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CHARGINGSTATION,
-                                      conflicts, icon, xmlTag, TL("PersonStop: chargingStation"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("PersonStop"), TL("chargingStation")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);
@@ -8382,7 +8382,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_PARKINGAREA,
-                                      conflicts, icon, xmlTag, TL("PersonStop: parkingArea"), parents, color);
+                                      conflicts, icon, xmlTag, StringUtils::format("%: %", TL("PersonStop"), TL("parkingArea")), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(myTagProperties[currentTag]);

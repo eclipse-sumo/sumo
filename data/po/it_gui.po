@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-12 12:15+0100\n"
+"POT-Creation-Date: 2024-12-12 13:37+0100\n"
 "PO-Revision-Date: 2024-12-03 14:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -7033,6 +7033,7 @@ msgid "additional"
 msgstr "addizionale"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:435
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6981
 msgid "route"
 msgstr "itinerario"
 
@@ -7752,6 +7753,12 @@ msgstr "La lunghezza dell'accesso in metri da percorrere"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1922
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6204
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6213
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6224
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6235
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6246
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6256
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6267
 msgid "ContainerStop"
 msgstr "Fermata per contenitori"
 
@@ -9341,6 +9348,7 @@ msgstr "Spedizione"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5949
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6030
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6111
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6213
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6301
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6311
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6321
@@ -9383,6 +9391,7 @@ msgstr "Spedizione"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8067
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8148
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8229
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8331
 #: src/utils/gui/div/GUIMessageWindow.cpp:71
 msgid "edge"
 msgstr ""
@@ -9574,6 +9583,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5979
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6060
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6141
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6224
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6331
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6412
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6493
@@ -9619,6 +9629,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8097
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8178
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8259
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8342
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
 msgstr ""
@@ -9653,6 +9664,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5989
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6070
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6151
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6235
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6341
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6422
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6503
@@ -9698,6 +9710,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8107
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8188
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8269
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8353
 #: src/utils/gui/div/GUIMessageWindow.cpp:78
 msgid "trainStop"
 msgstr ""
@@ -9732,6 +9745,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6019
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6080
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6161
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6246
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6351
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6432
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6513
@@ -9777,6 +9791,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8137
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8198
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8279
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8364
 #: src/utils/gui/div/GUIMessageWindow.cpp:79
 msgid "containerStop"
 msgstr ""
@@ -9811,6 +9826,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6090
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6100
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6171
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6256
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6361
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6442
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6523
@@ -9856,6 +9872,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8208
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8218
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8289
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8374
 #: src/utils/gui/div/GUIMessageWindow.cpp:80
 msgid "chargingStation"
 msgstr ""
@@ -9890,6 +9907,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6161
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6171
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6181
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6267
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6371
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6452
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6533
@@ -9935,11 +9953,13 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8279
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8289
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8299
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8385
 #: src/utils/gui/div/GUIMessageWindow.cpp:82
 msgid "parkingArea"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5524
+#: src/netedit/elements/GNEAttributeCarrier.cpp:5533
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5544
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5554
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5564
@@ -10008,31 +10028,8 @@ msgid "Tranship"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5533
-msgid "Tranship: edges"
-msgstr "Trasbordo: archi"
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6213
-msgid "ContainerStop: edge"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6224
-msgid "ContainerStop: busStop"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6235
-msgid "ContainerStop: trainStop"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6246
-msgid "ContainerStop: containerStop"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6256
-msgid "ContainerStop: chargingStation"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6267
-msgid "ContainerStop: parkingArea"
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6971
+msgid "edges"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6292
@@ -10105,6 +10102,8 @@ msgid "PersonTrip"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6962
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6971
+#: src/netedit/elements/GNEAttributeCarrier.cpp:6981
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6992
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7002
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7012
@@ -10170,14 +10169,6 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7619
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7629
 msgid "Walk"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6971
-msgid "Walk: edges"
-msgstr ""
-
-#: src/netedit/elements/GNEAttributeCarrier.cpp:6981
-msgid "Walk: route"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7662
@@ -10248,31 +10239,13 @@ msgid "Ride"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8322
-msgid "PersonStop"
-msgstr ""
-
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8331
-msgid "PersonStop: edge"
-msgstr ""
-
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8342
-msgid "PersonStop: busStop"
-msgstr ""
-
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8353
-msgid "PersonStop: trainStop"
-msgstr ""
-
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8364
-msgid "PersonStop: containerStop"
-msgstr ""
-
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8374
-msgid "PersonStop: chargingStation"
-msgstr ""
-
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8385
-msgid "PersonStop: parkingArea"
+msgid "PersonStop"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8400
@@ -17814,6 +17787,9 @@ msgstr "(nessuna proiezione definita)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1713
 msgid "Could not convert coordinates in %."
 msgstr "Non è stato possibile convertire le coordinate in %."
+
+#~ msgid "Tranship: edges"
+#~ msgstr "Trasbordo: archi"
 
 #~ msgid "Additional dialog"
 #~ msgstr "Dialogo di elementi addizionali"
