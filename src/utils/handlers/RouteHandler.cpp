@@ -289,7 +289,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                               obj->getVehicleParameter(),
                               obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
                               obj->getStringAttribute(SUMO_ATTR_TO_TAZ));
-            } else {
+            } else if ((obj->getSumoBaseObjectChildren().size() == 0) ||
+                       (obj->getSumoBaseObjectChildren().front()->getTag() != SUMO_TAG_ROUTE)) {
                 // build flow with from-to edges
                 buildFlow(obj,
                           obj->getVehicleParameter(),
