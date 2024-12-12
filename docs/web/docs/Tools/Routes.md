@@ -438,27 +438,6 @@ python library function sumolib.route.mapTrace.
 !!! caution
     Geographic coordinates have to be provided in the lon/lat form (first coordinate is the longitude, second the latitude)!
 
-# tlsCycleAdaptation.py
-
-This script is to adapt the cycle lengths of the signalized
-intersections according to a given network and route file. The Webster's
-equation is used to optimize the cycle length and the green times of the
-traffic lights. Only one hour traffic volume is considered and PCE is
-used instead of the number of vehicles when calculating traffic volumes.
-The output will be saved in a xml-file and can be directly used as
-additional file in SUMO. The call is
-
-```
-python tools/tlsCycleAdaptation.py -n <net-file> -r <route-file> -b <begin>
-```
-
-The signalization parameters, such as minimal green time, lost time,
-yellow time, maximal and minimal cycles, can be adjusted with the use of
-options. Option R is to restrict the maximal cycle length as the given
-one, while Option u is to use the calculated max cycle length as the
-cycle length for all intersections. With Option e only the green time
-splits will be adapted.
-
 # implausibleRoutes.py
 
 This tool analyzes a give route file and computes a implausibility score for each route.

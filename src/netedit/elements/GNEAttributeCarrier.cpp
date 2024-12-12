@@ -3245,7 +3245,7 @@ GNEAttributeCarrier::fillShapeElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
-                                              TL("Toogle close or open shape"));
+                                              TL("Toggle close or open shape"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
@@ -3666,7 +3666,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
-                                              TL("Toogle close or open walkable area shape"));
+                                              TL("Toggle close or open walkable area shape"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
@@ -3697,7 +3697,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
-                                              TL("Toogle close or open obstacle shape"));
+                                              TL("Toggle close or open obstacle shape"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
@@ -8397,11 +8397,11 @@ GNEAttributeCarrier::fillCommonAttributes(GNETagProperties& tagProperties) {
     if (tagProperties.isDrawable()) {
         auto frontElementAttrProperty = GNEAttributeProperties(GNE_ATTR_FRONTELEMENT,
                                         GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
-                                        TL("Toogle front element"));
+                                        TL("Toggle front element"));
         tagProperties.addAttribute(frontElementAttrProperty);
         auto selectAttrProperty = GNEAttributeProperties(GNE_ATTR_SELECTED,
                                   GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
-                                  TL("Toogle select element"));
+                                  TL("Toggle select element"));
         tagProperties.addAttribute(selectAttrProperty);
     }
     // check if element can be reparent

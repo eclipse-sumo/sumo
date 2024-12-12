@@ -337,7 +337,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("e2.friendlyPos.automatic", "Netedit", TL("If the lane is shorter than the additional, automatically enable friendlyPos"));
 
     neteditOptions.doRegister("force-saving", new Option_Bool(false));
-    neteditOptions.addDescription("force-saving", "Netedit", TL("If enabled, elements will be saved regardless if elements was edited or not"));
+    neteditOptions.addDescription("force-saving", "Netedit", TL("If enabled, elements will be saved regardless of whether they have been edited or not"));
 
     // network prefixes
 

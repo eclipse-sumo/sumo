@@ -40,6 +40,8 @@ This would generate the file *newTLS.add.xml* which can be loaded into
 sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
 ```
 
+The signalization parameters, such as minimal green time, lost time, yellow time, maximal and minimal cycles, can be adjusted with the use of options. Option **-R** is to restrict the maximal cycle length as the given one, while Option **-u** is to use the calculated max cycle length as the cycle length for all intersections. With Option **-e** only the green time splits will be adapted.
+
 !!! caution
     The route input must contain `<vehicle>`s with `<route>`-child-elements. Flows and trips are not supported. Vehicles with departure time = 'triggered' are not considered.
 

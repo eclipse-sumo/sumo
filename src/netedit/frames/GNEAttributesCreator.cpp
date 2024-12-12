@@ -254,7 +254,9 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
             showAttribute = false;
         }
         // avoid selected and row (temporal, until unification with attributesEditor)
-        if ((attribute.getAttr() == GNE_ATTR_SELECTED) || (attribute.getAttr() == GNE_ATTR_FRONTELEMENT)) {
+        if ((attribute.getAttr() == GNE_ATTR_SELECTED) ||
+                (attribute.getAttr() == GNE_ATTR_FRONTELEMENT) ||
+                (attribute.getAttr() == GNE_ATTR_PARENT)) {
             showAttribute = false;
         }
         // check if attribute must stay hidden
