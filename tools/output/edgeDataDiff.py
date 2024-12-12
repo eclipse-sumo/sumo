@@ -60,7 +60,7 @@ def write_diff(options):
         tmp = [[], []]
         for i, a in enumerate(options.attributes):
             tmp[i % 2].append(a)
-        attrList = zip(*tmp)
+        attrList = list(zip(*tmp))
 
     with open(options.out, 'w') as f:
         f.write("<meandata>\n")
@@ -84,8 +84,8 @@ def write_diff(options):
                     if attr == 'id':
                         continue
                     try:
-                        val_new = float(getattr(edge_new, attr))
-                        val_old = float(getattr(edge_old, attr2))
+                        val_new = float(getattr(edge_new, attr2))
+                        val_old = float(getattr(edge_old, attr))
                         delta = val_new - val_old
                         if not options.no_statistics and attr.startswith('std_'):
                             delta = math.sqrt(val_new**2 + val_old**2)
