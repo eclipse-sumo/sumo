@@ -150,7 +150,7 @@ GNEPythonTool::getCommand() const {
                     }
                     arguments += " ";
                 } else {
-                    arguments += ("\"" + option.second->getValueString() + "\" ");
+                    arguments += ("\"" + StringUtils::escapeShell(option.second->getValueString()) + "\" ");
                 }
             }
         }
@@ -209,7 +209,7 @@ GNEPythonTool::saveConfiguration(const std::string& file) const {
             if (option.second->isBool()) {
                 command += ("--" + option.first + " ");
             } else {
-                command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+                command += ("--" + option.first + " \"" + StringUtils::escapeShell(option.second->getValueString()) + "\" ");
             }
         }
     }

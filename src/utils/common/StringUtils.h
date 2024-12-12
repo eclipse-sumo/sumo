@@ -82,6 +82,11 @@ public:
      */
     static std::string escapeXML(const std::string& orig, const bool maskDoubleHyphen = false);
 
+    /**
+     * @brief Escape special characters with backslash
+     */
+    static std::string escapeShell(const std::string& orig);
+
     /// @brief An empty string
     static std::string emptyString;
 

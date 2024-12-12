@@ -247,6 +247,13 @@ StringUtils::escapeXML(const std::string& orig, const bool maskDoubleHyphen) {
 
 
 std::string
+StringUtils::escapeShell(const std::string& orig) {
+    std::string result = replace(orig, "\"", "\\\"");
+    return result;
+}
+
+
+std::string
 StringUtils::urlEncode(const std::string& toEncode, const std::string encodeWhich) {
     std::ostringstream out;
 
