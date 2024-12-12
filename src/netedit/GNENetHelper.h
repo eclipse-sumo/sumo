@@ -79,6 +79,7 @@ struct GNENetHelper {
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEDataHandler;
+        friend class GNEMeanDataHandler;
         friend class GNEJunction;
         friend class GNEEdge;
         friend class GNEDataSet;
