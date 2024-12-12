@@ -9639,7 +9639,7 @@ msgstr "Kante"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8158
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8239
 msgid "taz"
-msgstr ""
+msgstr "Verkehrsumlegungszone"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4882
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4963
@@ -10192,12 +10192,12 @@ msgstr "Parkplatz"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6171
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6181
 msgid "Tranship"
-msgstr ""
+msgstr "Umladung"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5533
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6971
 msgid "edges"
-msgstr ""
+msgstr "Kanten"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6292
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6301
@@ -10336,7 +10336,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7619
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7629
 msgid "Walk"
-msgstr ""
+msgstr "Fußweg"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7662
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7672
@@ -10403,7 +10403,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8289
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8299
 msgid "Ride"
-msgstr ""
+msgstr "Mitfahrt"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8322
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8331
