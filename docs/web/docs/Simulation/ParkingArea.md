@@ -126,7 +126,7 @@ they are modeled using a separate permission system from the vehicle classes. Th
 
 - The parking area defines a set of accepted badges (keywords) which model single access rights in the attribute **acceptedBadges**, e.g. `acceptedBadges="clients_supermarket employees_supermarket"`
 - The vehicles or vehicle types define the set of owned badges which give them access, e.g. `parkingBadges="employees_supermarket home_johndoe"`
-- Any parking area which is not restricted (empty *acceptedBadges** attribute) or where at least one of the accepted badges is present in the vehicle or vehicle type definition can be accessed
+- Any parking area which is not restricted (empty **acceptedBadges** attribute) or where at least one of the accepted badges is present in the vehicle or vehicle type definition can be accessed
 
 !!! caution
     Parking badges defined in the vehicle definition override vehicle type settings.
