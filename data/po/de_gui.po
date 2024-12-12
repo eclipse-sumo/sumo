@@ -4582,6 +4582,8 @@ msgstr "In Sumo-Konfigurationsdateien referenzierte Routenelemente ignorieren"
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
+"Aktiviere friendlyPos automatisch, falls der Fahrstreifen kürzer als das "
+"weitere Element ist"
 
 #: src/netedit/GNELoadThread.cpp:340
 msgid ""
@@ -18388,6 +18390,11 @@ msgstr ""
 #: src/netedit/GNELoadThread.cpp:337
 msgid ""
 "If the lane is smaller than the additional, automatically enable friendlyPos"
+msgstr ""
+
+#: src/netedit/GNELoadThread.cpp:340
+msgid ""
+"If enabled, elements will be saved regardless if elements was edited or not"
 msgstr ""
 
 #~ msgid "Additional dialog"
