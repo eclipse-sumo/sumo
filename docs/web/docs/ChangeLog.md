@@ -33,10 +33,13 @@ title: ChangeLog
   - Fixed bug wehre a collision between vehicles back and pedestrian on crossing was not detected #15847
   - Fixed unsafe driving at prioritized crossing #15848
   - Fixed invalid lanechanging state ahead of roundabout which could cause lane changing to fail in dense traffic #15854
-  - Fixed lanechanging deadlock involving 3 vehicles #15857 
+  - Fixed lanechanging deadlock involving 3 vehicles #15857
+  - Stops at chargingStation with attribute parkingArea will now always park #15815
+  - Fixed lane-changing deadlock on junction #15887 
   
 
 - netedit
+  - Fixed crash when moving a big selection #15132 (regression in 1.16.0)
   - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.19.0)
   - E2 multilane detectors can be moved avain #15551 (regression in 1.20.0)
   - Fixed invalid rectangle selection when zoomed out #15766 (regression in 1.20.0)
@@ -70,7 +73,15 @@ title: ChangeLog
   - Fixed invalid use of taz information when coordinates are defined for a trip #15765
   - Fixed crash when using "split junction and reconnect" #15786
   - Attribute input by pasting with ctrl+V is now working #6018
-  - Short edges are now clickable in crossing mode #15795 
+  - Short edges are now clickable in crossing mode #15795
+  - Delete mode now ignores walkingareas #15794
+  - Move mode now ignores crossings #15410
+  - Fixed invalid file creation when saving .sumocfg #15838, #15270
+  - File are no longer written if the objects are unchanged #15271
+  - Fixed invalid vType attribute style when inspecting a selection of vehicles #12719
+  - Fixed invalid rendering in route creation mode for elevated networks #13992
+  - Fixed crash when entering invalid programID in traffic traffic light mode #15491
+  - Fixed crash reloading data files #15845 
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -91,7 +102,10 @@ title: ChangeLog
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
   - Fixed invalid use of taz information when coordinates are defined for a trip #15768
- 
+
+- marouter
+  - Fixed invalid route involving vClass-restricted connection #15883
+    
 - meso
   - Fixed crash when using **--mapmatch.junctions** in a network with internal edges #15741
   - Fixed crash when using **--time-to-teleport.disconnected** #15751
@@ -113,7 +127,8 @@ title: ChangeLog
   - generateBidiDistricts.py: Option **--radius** now takes effect regardless of edge length #15758
   - countEdgeUsage.py: Fixed misleading warning message #15790
   - sumolib: Fixed invalid result by `net.getShortestPath(..., ignoreDirection=True)` #15789
-  - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799 
+  - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799
+  - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876 
     
 ### Enhancements
 
@@ -133,7 +148,8 @@ title: ChangeLog
   - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
   - personTrip now supports geo-coordinates #15739
   - Added option **--mapmatch.taz** which works similar to **--mapmatch.junctions** but uses arbitrary TAZ definitions #15748
-  - Added warning if IDM internal stepping is configured too large #15836 
+  - Added warning if IDM internal stepping is configured too large #15836
+  - Battery device now includes info about total energy consumption in tripinfo #15800 
   - railways
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
@@ -156,7 +172,9 @@ title: ChangeLog
  
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
-  - The lane parameter dialog provide information on driveway/foes that prevent train insertion #15823 
+  - The lane parameter dialog provide information on driveway/foes that prevent train insertion #15823
+  - A selection file loaded with **--selection-file** will now cause vehicles, persons and containers to be selected as soon as they are loaded #5427, #14093
+  - Improved layering of chargingStation and parkingArea #15826 
  
 - netconvert
   - Added support for zipped shape files #15623
@@ -167,10 +185,15 @@ title: ChangeLog
 
 - meso
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
+ 
+- duarouter
+  - The input file for ALT-landmarks can now be defined with geo-coordinates #15855
+  - Option **--scale** can now be used for scaling traffic #8353 
      
 - TraCI
   - stationfinder device parameters can now be modified at runtime #15622
   - Added `traci.parkingArea.setAcceptedBadges` and `traci.parkingArea.getAcceptedBadges`  #14807
+  - Function `person.appendStage` now supports type `STAGE_TRIP` (`stage.line` is interpreted a `modes` and `stage.intended` as `group`) #15154 
  
 - Tools
   - matsim_importPlans.py: Added options **-no-bikes** and **--no-rides** for filtering different modes of traffic. #15738
@@ -178,9 +201,14 @@ title: ChangeLog
   - osmWebWizard.py: optionally can write output to existing folders #15783
   - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
   - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812
-  - Added new tool driveways2poly.py for visualizing train driveways #15027
+  - driveways2poly.py: Added new tool for visualizing train driveways #15027
   - dxf2jupedsim.py: now supports projection 'none'
-  - scaleTimeline.py: This is a new tool for modifying the ammound of traffic defined in a route file based on a time line #10498 
+  - scaleTimeline.py: This is a new tool for modifying the ammound of traffic defined in a route file based on a time line #10498
+  - generateLandmarks.py: New tool for generating ALT-landmark input along the network rim #15864
+  - cutRoutes.py: now writes standard header #15875
+  - randomTrips.py: now includes total weight in weight-output file #15878
+  - randomTrips.py: Added option **--edge-type-file** for affecting probabilities by edge type #15877
+  - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881 
 
 ### Miscellaneous
 
