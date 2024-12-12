@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-12 11:12+0100\n"
+"POT-Creation-Date: 2024-12-12 12:15+0100\n"
 "PO-Revision-Date: 2024-09-02 03:09+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -8274,7 +8274,7 @@ msgid "The shape of the polygon"
 msgstr "多边形物件的形狀"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3248
-msgid "Toogle close or open shape"
+msgid "Toggle close or open shape"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3253
@@ -8497,7 +8497,7 @@ msgid "The shape of the walkable area"
 msgstr "可步行区域的形状"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3669
-msgid "Toogle close or open walkable area shape"
+msgid "Toggle close or open walkable area shape"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3674
@@ -8517,7 +8517,7 @@ msgid "The shape of the obstacle"
 msgstr "障碍物的形状"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3700
-msgid "Toogle close or open obstacle shape"
+msgid "Toggle close or open obstacle shape"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3705
@@ -10049,11 +10049,11 @@ msgid "PersonStop: parkingArea"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8400
-msgid "Toogle front element"
+msgid "Toggle front element"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8404
-msgid "Toogle select element"
+msgid "Toggle select element"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8411

@@ -59,7 +59,7 @@ public:
     long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
     /// @brief called when user press the checkBox for toogle enable/disable attribute
-    long onCmdToogleEnableAttribute(FXObject*, FXSelector, void*);
+    long onCmdToggleEnableAttribute(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "edit color" dialog
     long onCmdOpenColorDialog(FXObject*, FXSelector, void*);
@@ -89,7 +89,7 @@ protected:
     const std::string getAttributeValue(const bool enabled) const;
 
     /// @brief show attribute toogle enable
-    void showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
+    void showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
 
     /// @brief show attribute reparent
     void showAttributeReparent(const bool enabled);
@@ -135,7 +135,7 @@ private:
     MFXLabelTooltip* myAttributeLabel = nullptr;
 
     /// @brief pointer to attribute menu check
-    FXCheckButton* myAttributeToogleEnableCheckButton = nullptr;
+    FXCheckButton* myAttributeToggleEnableCheckButton = nullptr;
 
     /// @brief pointer to attribute reparent button
     MFXButtonTooltip* myAttributeReparentButton = nullptr;

@@ -36,7 +36,7 @@
 
 FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,           GNEAttributesEditorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE,  GNEAttributesEditorRow::onCmdToogleEnableAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE,  GNEAttributesEditorRow::onCmdToggleEnableAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,        GNEAttributesEditorRow::onCmdOpenColorDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,       GNEAttributesEditorRow::onCmdOpenAllowDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_REPARENT,               GNEAttributesEditorRow::onCmdReparent),
@@ -71,9 +71,9 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
     myAttributeLabel = new MFXLabelTooltip(this, tooltipMenu, "Label", nullptr, GUIDesignLabelThickedFixed(100));
     myAttributeLabel->hide();
     // create lef boolean checkBox for enable/disable attributes
-    myAttributeToogleEnableCheckButton = new FXCheckButton(this, "Enable/Disable attribute checkBox", this,
-            MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE, GUIDesignCheckButtonAttribute);
-    myAttributeToogleEnableCheckButton->hide();
+    myAttributeToggleEnableCheckButton = new FXCheckButton(this, "Enable/Disable attribute checkBox", this,
+            MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myAttributeToggleEnableCheckButton->hide();
     // create left button for reparent
     myAttributeReparentButton = new MFXButtonTooltip(this, tooltipMenu, "Reparent", nullptr, this,
             MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
@@ -179,7 +179,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     }
     // show elements depending of attribute properties
     if (attrProperty.isActivatable()) {
-        showAttributeToogleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+        showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
     } else if ((myAttribute == GNE_ATTR_PARENT)) {
         showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
@@ -382,8 +382,8 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 
 long
-GNEAttributesEditorRow::onCmdToogleEnableAttribute(FXObject*, FXSelector, void*) {
-    myAttributeTable->toggleEnableAttribute(myAttribute, myAttributeToogleEnableCheckButton->getCheck() == TRUE);
+GNEAttributesEditorRow::onCmdToggleEnableAttribute(FXObject*, FXSelector, void*) {
+    myAttributeTable->toggleEnableAttribute(myAttribute, myAttributeToggleEnableCheckButton->getCheck() == TRUE);
     return 0;
 }
 
@@ -421,16 +421,16 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
 
 
 void
-GNEAttributesEditorRow::showAttributeToogleEnable(const GNEAttributeProperties& attrProperty, const bool value,
+GNEAttributesEditorRow::showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value,
         const bool enabled) {
-    myAttributeToogleEnableCheckButton->setText(attrProperty.getAttrStr().c_str());
-    myAttributeToogleEnableCheckButton->setCheck(value);
+    myAttributeToggleEnableCheckButton->setText(attrProperty.getAttrStr().c_str());
+    myAttributeToggleEnableCheckButton->setCheck(value);
     if (enabled) {
-        myAttributeToogleEnableCheckButton->enable();
+        myAttributeToggleEnableCheckButton->enable();
     } else {
-        myAttributeToogleEnableCheckButton->disable();
+        myAttributeToggleEnableCheckButton->disable();
     }
-    myAttributeToogleEnableCheckButton->show();
+    myAttributeToggleEnableCheckButton->show();
     // hide other elements
     myAttributeLabel->hide();
     myAttributeReparentButton->hide();
@@ -451,7 +451,7 @@ GNEAttributesEditorRow::showAttributeReparent(const bool enabled) {
     // hide other elements
     myAttributeInspectParentButton->hide();
     myAttributeLabel->hide();
-    myAttributeToogleEnableCheckButton->hide();
+    myAttributeToggleEnableCheckButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
 }
@@ -471,7 +471,7 @@ GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties&
     // hide other elements
     myAttributeReparentButton->hide();
     myAttributeLabel->hide();
-    myAttributeToogleEnableCheckButton->hide();
+    myAttributeToggleEnableCheckButton->hide();
     myAttributeVClassButton->hide();
     myAttributeColorButton->hide();
 }
@@ -490,7 +490,7 @@ GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties& attrPr
     myAttributeVClassButton->show();
     // hide other elements
     myAttributeLabel->hide();
-    myAttributeToogleEnableCheckButton->hide();
+    myAttributeToggleEnableCheckButton->hide();
     myAttributeReparentButton->hide();
     myAttributeInspectParentButton->hide();
     myAttributeColorButton->hide();
@@ -509,7 +509,7 @@ GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties& attrPro
     }
     // hide other elements
     myAttributeLabel->hide();
-    myAttributeToogleEnableCheckButton->hide();
+    myAttributeToggleEnableCheckButton->hide();
     myAttributeReparentButton->hide();
     myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
@@ -521,7 +521,7 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties& attrPro
     myAttributeLabel->setText(attrProperty.getAttrStr().c_str());
     myAttributeLabel->show();
     // hide other elements
-    myAttributeToogleEnableCheckButton->hide();
+    myAttributeToggleEnableCheckButton->hide();
     myAttributeReparentButton->hide();
     myAttributeInspectParentButton->hide();
     myAttributeVClassButton->hide();
@@ -740,7 +740,7 @@ GNEAttributesEditorRow::enableElements(const GNEAttributeProperties& attrPropert
         enableElements = true;
     }
     if (!enableElements) {
-        myAttributeToogleEnableCheckButton->disable();
+        myAttributeToggleEnableCheckButton->disable();
         myAttributeReparentButton->disable();
         myAttributeInspectParentButton->disable();
         myAttributeVClassButton->disable();
