@@ -932,6 +932,8 @@ There are several reasons why a counter-lane-change-deadlock can happen:
   (not a proper junction) make sure to use the [zipper type](Networks/PlainXML.md#node_types). If you want to change the way vehicles behave
   for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) value.
 
+  In cases where one lane has multiple target lanes on the next edge, vehicles will prefer the rightmost continuation lane by default. This can be changed with vType-attribute [lcContRight](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models).
+
 ### How do I get high flows/vehicle densities?
 
 By default, insertion flow is [limited by the time resolution of the simulation](Simulation/VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) (vehicles are only inserted every full second) and by the default insertion speed of 0.
