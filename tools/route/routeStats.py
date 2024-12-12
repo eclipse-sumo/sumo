@@ -16,10 +16,13 @@
 # @date    2014-12-18
 
 """
-compute statistics on route lengths for a single route or
+Compute statistics on route lengths for a single route or
 for the length-difference between two sets of routes.
 Routes must be children of <vehicle> elements and when comparing two sets of
 routes, the same vehicle ids must appear.
+
+If option --edges is given, all edge ids from that file are retrieved and a
+statistic is conducted on how many of these edges appear per route
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -44,6 +47,8 @@ def get_options():
                          default=False, help="Use fast xml parser (does not work with length and numEdges)")
     optParser.add_option("-n", "--network",
                          help="The network file to use with attribute 'length'")
+    optParser.add_option("-e", "--edges-file", dest="edgesFile",
+                         help="The edges file (.edg.xml or edgedata) for retrieving relevant edge ids")
     optParser.add_option("-a", "--attribute", default="length",
                          help="attribute to analyze [length,depart,numEdges,duration,routeLength,speed,speedKmh]")
     optParser.add_option("-b", "--binwidth", type=float,
@@ -62,6 +67,11 @@ def get_options():
         options.routeFile = args[0]
     if len(args) == 2:
         options.routeFile2 = args[1]
+    if options.edgesFile:
+        options.attribute = "edge visit"
+    if options.attribute == "length" and not options.network:
+        print("Option --network must be set when computing length statistics", file=sys.stderr)
+        sys.exit(1)
 
     return options
 
@@ -69,9 +79,12 @@ def get_options():
 def main():
     options = get_options()
     net = None
-    if options.attribute == "length":
+    if options.edgesFile:
+        edgeSet = set([e.id for e in sumolib.xml.parse_fast(options.edgesFile, 'edge', ['id'])])
+        def attribute_retriever(vehicle):
+            return len([e for e in vehicle.route[0].edges.split() if e in edgeSet])
+    elif options.attribute == "length":
         net = sumolib.net.readNet(options.network)
-
         def attribute_retriever(vehicle):
             return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
     elif options.attribute == "depart":
