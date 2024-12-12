@@ -334,7 +334,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("ignore.routeelements", "Netedit", TL("Ignore route elements during loading of sumo-configs"));
 
     neteditOptions.doRegister("e2.friendlyPos.automatic", new Option_Bool(true));
-    neteditOptions.addDescription("e2.friendlyPos.automatic", "Netedit", TL("If the lane is smaller than the additional, automatically enable friendlyPos"));
+    neteditOptions.addDescription("e2.friendlyPos.automatic", "Netedit", TL("If the lane is shorter than the additional, automatically enable friendlyPos"));
 
     neteditOptions.doRegister("force-saving", new Option_Bool(false));
     neteditOptions.addDescription("force-saving", "Netedit", TL("If enabled, elements will be saved regardless if elements was edited or not"));

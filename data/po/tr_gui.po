@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-10 17:06+0100\n"
+"POT-Creation-Date: 2024-12-12 09:23+0100\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -193,8 +194,7 @@ msgstr "Görselleştirmeyi Düzenle"
 #: src/gui/GUIApplicationWindow.cpp:515
 #: src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
-"Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
+msgstr "Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
 
 #: src/gui/GUIApplicationWindow.cpp:518
 #: src/netedit/GNEApplicationWindowHelper.cpp:1298
@@ -647,8 +647,8 @@ msgstr "\tAdım\tBir Simülasyon Adımı Çalıştır."
 
 #: src/gui/GUIApplicationWindow.cpp:700
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr ""
 "Zaman:\tDüzenler Arasında Geçiş Yap\tSaniye ve Saat:Dakika:Saniye Düzenleri "
 "Arasında Geçiş Yap."
@@ -1050,11 +1050,10 @@ msgstr "Eclipse SUMO sumo-gui hakkında"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation"
-" SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
 msgstr ""
-"Mikroskobik, çok modlu trafik simülasyonu SUMO için grafik kullanıcı "
-"arayüzü."
+"Mikroskobik, çok modlu trafik simülasyonu SUMO için grafik kullanıcı arayüzü."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
 msgid "Includes JuPedSim %.%.%"
@@ -1062,8 +1061,7 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAbout.cpp:67
-msgid ""
-"This application is based on code provided by the Eclipse SUMO project."
+msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
 "Bu uygulama, Eclipse SUMO projesi tarafından sağlanan koda dayanmaktadır."
 
@@ -1854,8 +1852,7 @@ msgstr "çift şeritli"
 #: src/guisim/GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
 msgstr ""
-"Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden "
-"geçirin.\n"
+"Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden geçirin.\n"
 
 #: src/guisim/GUINet.cpp:470 src/netedit/GNENet.cpp:181
 msgid "Copy view geo-boundary to clipboard"
@@ -3065,8 +3062,8 @@ msgstr "Birleştirilmiş Kavşakları Kaydet..."
 #: src/netedit/GNEApplicationWindowHelper.cpp:254
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
-"Birleştirilmiş kavşakların günlüğünü kaydet (birleştirmelerin çoğaltılmasına"
-" izin verir)."
+"Birleştirilmiş kavşakların günlüğünü kaydet (birleştirmelerin çoğaltılmasına "
+"izin verir)."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:261
 msgid "Reload"
@@ -3197,8 +3194,7 @@ msgid "Save TLS Programs As..."
 msgstr "TIS Programlarını Farklı Kaydet..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:409
-msgid ""
-"Save all traffic light programs of the current network to another file."
+msgid "Save all traffic light programs of the current network to another file."
 msgstr "Mevcut ağdaki tüm trafik ışık programlarını başka bir dosyaya kaydet."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:415
@@ -4354,8 +4350,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Geçersiz giriş ağı seçeneği. sumo/netedit/netconvert yapılandırması ile veya"
-" -new seçeneği ile yükle"
+"Geçersiz giriş ağı seçeneği. sumo/netedit/netconvert yapılandırması ile veya "
+"-new seçeneği ile yükle"
 
 #: src/netedit/GNELoadThread.cpp:136
 msgid "Invalid Options. Nothing loaded"
@@ -4437,8 +4433,8 @@ msgstr "Öznitelik yardımını dosyaya yaz"
 #: src/netedit/GNELoadThread.cpp:328
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
-"Geri al-yinele'de süpermodlar arasında geçiş yaparken soru iletişim kutusunu"
-" yok sayma"
+"Geri al-yinele'de süpermodlar arasında geçiş yaparken soru iletişim kutusunu "
+"yok sayma"
 
 #: src/netedit/GNELoadThread.cpp:331
 msgid "Ignore additional elements during loading of sumo-configs"
@@ -4450,7 +4446,7 @@ msgstr "Sumo-config'lerin yüklenmesi sırasında rota öğelerini yok sayma"
 
 #: src/netedit/GNELoadThread.cpp:337
 msgid ""
-"If the lane is smaller than the additional, automatically enable friendlyPos"
+"If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:340
@@ -4787,8 +4783,7 @@ msgstr "Birleştirilmiş kavşağın konumu"
 
 #: src/netedit/GNENet.cpp:1597
 msgid ""
-"There is another unselected junction in the same position of joined "
-"junction."
+"There is another unselected junction in the same position of joined junction."
 msgstr ""
 "Birleştirilmiş kavşağın aynı konumunda seçilmemiş başka bir kavşak var."
 
@@ -5482,8 +5477,8 @@ msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
 msgstr ""
-"Izgarayı göster ve ızgaraya hareketi kısıtla - görselleştirme seçeneklerinde"
-" ızgara boyutunu tanımla. (Ctrl+G)"
+"Izgarayı göster ve ızgaraya hareketi kısıtla - görselleştirme seçeneklerinde "
+"ızgara boyutunu tanımla. (Ctrl+G)"
 
 #: src/netedit/GNEViewNetHelper.cpp:2590 src/netedit/GNEViewNetHelper.cpp:2874
 #: src/netedit/GNEViewNetHelper.cpp:3146
@@ -5586,11 +5581,10 @@ msgid "Edge chain mode"
 msgstr "Kesim zinciri modu"
 
 #: src/netedit/GNEViewNetHelper.cpp:2679
-msgid ""
-"Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
-"Tek bir tıklamayla ardışık kesimler oluştur (zinciri iptal etmek için ESC'ye"
-" basın)."
+"Tek bir tıklamayla ardışık kesimler oluştur (zinciri iptal etmek için ESC'ye "
+"basın)."
 
 #: src/netedit/GNEViewNetHelper.cpp:2686
 msgid "Edge opposite direction"
@@ -6690,11 +6684,11 @@ msgstr "- Parametreler Bir Anahtar ve Değere Göre Tanımlanmıştır.\n"
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:402
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:397
 msgid ""
-"- In Netedit can be defined using format "
-"key1=parameter1|key2=parameter2|...\n"
+"- In Netedit can be defined using format key1=parameter1|"
+"key2=parameter2|...\n"
 msgstr ""
-"- Netedit'te Format Kullanılarak Tanımlanabilir "
-"key1=parameter1|key2=parameter2|...\n"
+"- Netedit'te Format Kullanılarak Tanımlanabilir key1=parameter1|"
+"key2=parameter2|...\n"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:403
@@ -7250,8 +7244,8 @@ msgstr "SUMO kesim tipi dosyası içindeki bir tipin adı"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1339
 msgid ""
-"If the shape is given it should start and end with the positions of the "
-"from-node and to-node"
+"If the shape is given it should start and end with the positions of the from-"
+"node and to-node"
 msgstr ""
 "Şekil verilmişse, düğümden gelen ve düğüme giden konumlarıyla başlamalı ve "
 "bitmelidir"
@@ -7313,8 +7307,8 @@ msgstr "Şerit Kimliği (Otomatik, düzenlenemez)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1427
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
-" is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
+"is the leftmost one)"
 msgstr ""
 "Şeridin numaralandırma indeksi (0 en sağdaki şerittir, <NUMBER_LANES>-1 en "
 "soldaki şerittir)"
@@ -7437,8 +7431,8 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1625
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
-" worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
+"worry about blocking the intersection"
 msgstr ""
 "false olarak ayarlanırsa, bu (şeritten şeride) bağlantıyı geçen araçlar "
 "kavşağı engelleme konusunda endişelenmeyecektir"
@@ -7570,10 +7564,8 @@ msgstr "Otobüs durağının adı (busStop)"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4489
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4635
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9593
-msgid ""
-"If set, no error will be reported if element is placed behind the lane."
-msgstr ""
-"Ayarlanırsa, eleman şeridin arkasına yerleştirilirse hata bildirilmez."
+msgid "If set, no error will be reported if element is placed behind the lane."
+msgstr "Ayarlanırsa, eleman şeridin arkasına yerleştirilirse hata bildirilmez."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1782
 msgid ""
@@ -7610,14 +7602,14 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
-"Bu otobüs durağında duran otobüs hatlarının adları anlamına gelir. Bu sadece"
-" görselleştirme amacıyla kullanılır"
+"Bu otobüs durağında duran otobüs hatlarının adları anlamına gelir. Bu sadece "
+"görselleştirme amacıyla kullanılır"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1794
 #: src/netedit/elements/GNEAttributeCarrier.cpp:1861
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the"
-" sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the "
+"sidewalk"
 msgstr ""
 "İçeri girmeye çalışan çok sayıda kişi kaldırımda sıkışıklık yaratacaktır"
 
@@ -7775,8 +7767,8 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2045
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station,"
-" before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station, "
+"before the energy transfer (charging) begins"
 msgstr ""
 "Araçlar şarj istasyonuna ulaştıktan / durduktan sonra, enerji aktarımı "
 "(şarj) başlamadan önce zaman gecikmesi"
@@ -7826,8 +7818,7 @@ msgstr " Yol kenarı park için park yeri sayısı"
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr ""
-"Ayarlanırsa, araçlar yol şeridine park edecek ve böylece kapasite "
-"azalacaktır"
+"Ayarlanırsa, araçlar yol şeridine park edecek ve böylece kapasite azalacaktır"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2136
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2182
@@ -7836,11 +7827,11 @@ msgstr "Yol kenarındaki park yerlerinin genişliği"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2142
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) /"
-" roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) / "
+"roadsideCapacity"
 msgstr ""
-"Yol kenarı park alanlarının uzunluğu. Varsayılan olarak (endPos - startPos) "
-"/ roadsideCapacity"
+"Yol kenarı park alanlarının uzunluğu. Varsayılan olarak (endPos - "
+"startPos) / roadsideCapacity"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2148
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2192
@@ -7885,8 +7876,8 @@ msgstr "E1'in kimliği"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2594
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2629
 msgid ""
-"The id of the lane the detector shall be laid on. The lane must be a part of"
-" the network used"
+"The id of the lane the detector shall be laid on. The lane must be a part of "
+"the network used"
 msgstr ""
 "Dedektörün yerleştirileceği şeridin kimliği. Şerit, kullanılan ağın bir "
 "parçası olmalıdır"
@@ -7935,8 +7926,8 @@ msgstr "Dikkate alınacak araç türü kimliklerinin boşlukla ayrılmış liste
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2517
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2654
 msgid ""
-"List of edge ids that must all be part of the future route of the vehicle to"
-" qualify for detection"
+"List of edge ids that must all be part of the future route of the vehicle to "
+"qualify for detection"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2256
@@ -8280,8 +8271,8 @@ msgstr "Aracın yeniden yönlendirilme olasılığı (0-1)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2999
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting"
-" (default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting "
+"(default -1 which disables the threshold)"
 msgstr ""
 "Yeniden yönlendirmeyi etkinleştirmek için ulaşılması gereken bekleme süresi "
 "eşiği (s cinsinden) (varsayılan -1 eşiği devre dışı bırakır)"
@@ -8364,8 +8355,8 @@ msgstr "Park Alanı Kimliği (ID)"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3156
 msgid "Enable or disable visibility for parking area reroutes"
 msgstr ""
-"Park alanı yeniden yönlendirmeleri için görünürlüğü etkinleştirme veya devre"
-" dışı bırakma"
+"Park alanı yeniden yönlendirmeleri için görünürlüğü etkinleştirme veya devre "
+"dışı bırakma"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3168
 msgid "RouteProbabilityReroute"
@@ -8439,8 +8430,8 @@ msgstr "Bu çokgeni işlemek için kullanılacak bir bitmap"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8470
 msgid "Enable or disable use image file as a relative path"
 msgstr ""
-"Görüntü dosyasını göreli yol olarak kullanmayı etkinleştirin veya devre dışı"
-" bırakın"
+"Görüntü dosyasını göreli yol olarak kullanmayı etkinleştirin veya devre dışı "
+"bırakın"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3300
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8476
@@ -8611,16 +8602,15 @@ msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3629
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp"
-" is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp "
+"is connected"
 msgstr ""
 "Havai kablo kelepçesinin ucuna bağlı olduğu havai kablo segmentinin kimliği "
 "(ID)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3634
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
-"Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp) (ID)"
+msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp) (ID)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3654
 msgid "JuPedSim WalkableArea"
@@ -8669,8 +8659,8 @@ msgstr "Rota'nın kimliği"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3740
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3791
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using"
-" spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using "
+"spaces"
 msgstr ""
 "Aracın üzerinde ilerleyeceği kesimler, boşluklarla ayrılmış kimlikleri "
 "olarak verilir"
@@ -8748,16 +8738,14 @@ msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
 msgstr ""
-"Şerit hız sınırları için aracın beklenen çarpanı (veya bir dağıtım "
-"belirteci)"
+"Şerit hız sınırları için aracın beklenen çarpanı (veya bir dağıtım belirteci)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3867
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr "Aracın istenen maksimum hızı (HızFactor ile etkileşim halindedir)."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3868
-msgid ""
-"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 "Hız sınırı olmadığında uygulanabilir (bisikletler, bazı otoyollar) [m/s]"
 
@@ -8783,8 +8771,8 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3902
 msgid ""
-"Image file for rendering vehicles of this type (should be grayscale to allow"
-" functional coloring)"
+"Image file for rendering vehicles of this type (should be grayscale to allow "
+"functional coloring)"
 msgstr ""
 "Bu tip araçların işlenmesi için görüntü dosyası (işlevsel renklendirmeye "
 "izin vermek için gri tonlamalı olmalıdır)"
@@ -9110,8 +9098,7 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr "Yol ara noktasının bulunacağı şeridin adı"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4643
-msgid ""
-"The lateral offset on the named lane at which the vehicle must waypoint"
+msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 "Aracın yol ara noktası olması gereken, adlandırılmış şeritteki yanal sapma"
 
@@ -10271,8 +10258,8 @@ msgstr "Aracın ağdan ayrılacağı hız"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8531
 msgid ""
-"A string specifying the id of a public transport line which can be used when"
-" specifying person rides"
+"A string specifying the id of a public transport line which can be used when "
+"specifying person rides"
 msgstr ""
 "Kişi yolculuklarını belirtirken kullanılabilecek bir toplu taşıma hattının "
 "kimliğini belirten bir dize"
@@ -10362,8 +10349,8 @@ msgstr "Bu tip araçların yavaşlama kabiliyeti [m/s^2]"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8653
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model "
-"[m/s^2]"
+"The apparent deceleration of the vehicle as used by the standard model [m/"
+"s^2]"
 msgstr ""
 "Standart model tarafından kullanılan aracın görünür yavaşlaması [m/s^2]"
 
@@ -10434,10 +10421,9 @@ msgstr "EIDM maksimum sarsıntı parametresi [m/s^3]"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8760
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) "
-"[m/s^2]"
-msgstr ""
-"EIDM iki Eylem Noktası arasındaki maksimum negatif ivme (eşik) [m/s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
+"s^2]"
+msgstr "EIDM iki Eylem Noktası arasındaki maksimum negatif ivme (eşik) [m/s^2]"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8766
 msgid ""
@@ -10456,8 +10442,8 @@ msgstr "EIDM Başlangıç/kalkış eğrisinin kaydırma parametresi [-]"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8784
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration"
-" calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration "
+"calculation [0/1]"
 msgstr ""
 "Modelin hızlanma hesabına araç dinamiklerini dahil etmesi gerekiyorsa EIDM "
 "parametresi [0/1]"
@@ -10546,16 +10532,16 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8941
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red"
-" phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red "
+"phase is lower than the given threshold."
 msgstr ""
 "Bu değer, kırmızı fazın süresi verilen eşikten düşükse araçların kırmızı "
 "ışık ihlali yapmasına neden olur."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8947
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
-" violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
+"violating a red light."
 msgstr ""
 "Bu değer, jmDriveAfterRedTime tarafından etkilenen araçların kırmızı ışık "
 "ihlali yaparken yavaşlamasına neden olur."
@@ -10628,8 +10614,8 @@ msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
-"Sağda kalma zorunluluğunu takip etme isteği. Daha yüksek değerler daha erken"
-" şerit değiştirmeye neden olur."
+"Sağda kalma zorunluluğunu takip etme isteği. Daha yüksek değerler daha erken "
+"şerit değiştirmeye neden olur."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9015
 msgid ""
@@ -10686,8 +10672,8 @@ msgstr "Saniye başına maksimum yanal ivme."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9064
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the"
-" left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the "
+"left is necessary (relative to right lookahead)."
 msgstr ""
 "Sola doğru bir değişiklik gerektiğinde (sağ önden görüşe göre) stratejik "
 "önden bakış mesafesini yapılandırma faktörü."
@@ -10714,8 +10700,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9088
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the "
-"alignment"
+"Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
 "Araç güzergahında, hizalamanın altında kalan yaklaşan bir dönüşe olan mesafe"
 
@@ -10828,8 +10813,8 @@ msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
-"Bu durağa ulaşıldığında araçta ayarlanacak yeni hat niteliği (döngüsel toplu"
-" taşıma rotası için)"
+"Bu durağa ulaşıldığında araçta ayarlanacak yeni hat niteliği (döngüsel toplu "
+"taşıma rotası için)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9248
 msgid "Speed to be kept while driving between startPos and endPos"
@@ -10837,8 +10822,7 @@ msgstr "StartPos ve endPos arasında sürüş sırasında korunacak hız"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9254
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or "
-"disembark"
+"Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
 "Hiçbir yolcunun binmek veya inmek istememesi durumunda durağın atlanıp "
 "atlanamayacağı"
@@ -10974,8 +10958,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9478
 msgid "list of vehicle alternatives to take for the person trip"
-msgstr ""
-"Yolcu seyahati̇ i̇çi̇n alınabi̇lecek araç alternati̇fleri̇ni̇n li̇stesi̇"
+msgstr "Yolcu seyahati̇ i̇çi̇n alınabi̇lecek araç alternati̇fleri̇ni̇n li̇stesi̇"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9483
 msgid "Walk factor"
@@ -11101,8 +11084,8 @@ msgid ""
 "If set to true, edges/lanes which were not used by a vehicle during this "
 "period will not be written"
 msgstr ""
-"Doğru olarak ayarlanırsa, bu süre zarfında bir araç tarafından kullanılmayan"
-" kesimler/şeritler yazılmayacaktır"
+"Doğru olarak ayarlanırsa, bu süre zarfında bir araç tarafından kullanılmayan "
+"kesimler/şeritler yazılmayacaktır"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9785
 msgid "If set, junction internal edges/lanes will be written as well"
@@ -11113,8 +11096,8 @@ msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr ""
-"Yalnızca çok küçük hareketlerin meydana gelmesi durumunda yazmak için saniye"
-" cinsinden maksimum seyahat süresi"
+"Yalnızca çok küçük hareketlerin meydana gelmesi durumunda yazmak için saniye "
+"cinsinden maksimum seyahat süresi"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9797
 msgid ""
@@ -11161,8 +11144,8 @@ msgstr "Çıktıyı dosyada verilen kesimlerin listesiyle kısıtlayın"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9840
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single"
-" value"
+"Whether the traffic statistic of all edges shall be aggregated into a single "
+"value"
 msgstr ""
 "Tüm kesimlerin trafik istatistiğinin tek bir değerde toplanıp toplanmayacağı"
 
@@ -11356,8 +11339,8 @@ msgstr "park alanı ekle '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:371
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute width cannot be parse to "
+"float."
 msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik genişliği ondalıklı olarak "
 "ayrıştırılamıyor."
@@ -11372,8 +11355,8 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:375
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute angle cannot be parse to "
+"float."
 msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik açısı ondalıklı olarak "
 "ayrıştırılamıyor."
@@ -11407,8 +11390,8 @@ msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
-"Netedit'te ID '%' ile şerit alanı dedektörü oluşturulamadı; Şeritler ardışık"
-" değil."
+"Netedit'te ID '%' ile şerit alanı dedektörü oluşturulamadı; Şeritler ardışık "
+"değil."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:619
 msgid "add entry-exit detector '"
@@ -11497,8 +11480,7 @@ msgstr "' içine VSS Adımı ekle"
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
-"Netedit'te '%' ID'li Buharlaştırıcı oluşturulamadı; başlangıç bitişten "
-"büyük."
+"Netedit'te '%' ID'li Buharlaştırıcı oluşturulamadı; başlangıç bitişten büyük."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1281
 msgid "add vaporizer in '"
@@ -11604,7 +11586,7 @@ msgstr "Netedit'te % '%' oluşturulamadı"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2130
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2148
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:116
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:132
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:134
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2245
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2256
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2286
@@ -11897,7 +11879,7 @@ msgstr "meanDataLane ekle"
 msgid "Edge doesn't exist."
 msgstr "Kesim diye bir şey yok."
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:132
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:134
 #, c-format
 msgid "Attribute '%' doesn't exist."
 msgstr "'%' özniteliği mevcut değil."
@@ -13138,8 +13120,7 @@ msgid "Netedit Parameters Help"
 msgstr "Netedit Parametreleri Yardım"
 
 #: src/netedit/frames/GNENeteditAttributes.cpp:380
-msgid ""
-"- Reference point: Mark the initial position of the additional element."
+msgid "- Reference point: Mark the initial position of the additional element."
 msgstr "- Referans Noktası: Ek Elemanın Başlangıç Pozisyonunu İşaretle."
 
 #: src/netedit/frames/GNENeteditAttributes.cpp:381
@@ -13197,8 +13178,7 @@ msgid "  the mouse. This option can be modified inspecting element."
 msgstr "  fare. Bu seçenek eleman incelenerek değiştirilebilir."
 
 #: src/netedit/frames/GNENeteditAttributes.cpp:393
-msgid ""
-"- Center view: if is enabled, view will be center over created element."
+msgid "- Center view: if is enabled, view will be center over created element."
 msgstr ""
 "- Merkez Görünüm: Eğer Aktifse, Görünüm Oluşturulmuş Elemanları Ortalayacak."
 
@@ -13735,8 +13715,8 @@ msgstr "Bilinmeyen set"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:272
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are"
-" then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are "
+"then applied to the current selection\n"
 msgstr ""
 "- 'Eşleştirme Özelliği' kontrolleri, daha sonra geçerli seçime uygulanacak "
 "bir dizi nesnenin belirlenmesine olanak tanır\n"
@@ -13762,8 +13742,8 @@ msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
-"     3. Üçüncü giriş kutusuna bir 'eşleşme ifadesi' girin ve <return> tuşuna"
-" basın\n"
+"     3. Üçüncü giriş kutusuna bir 'eşleşme ifadesi' girin ve <return> tuşuna "
+"basın\n"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:278
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:460
@@ -13773,8 +13753,8 @@ msgstr "- Boş ifade tüm nesnelerle eşleşir\n"
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:279
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:461
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison"
-" operator ('<', '>', '=') and a number.\n"
+"- For numerical attributes the match expression must consist of a comparison "
+"operator ('<', '>', '=') and a number.\n"
 msgstr ""
 "- Sayısal öznitelikler için eşleşme ifadesi bir karşılaştırma operatörü "
 "('<', '>', '=') ve bir sayıdan oluşmalıdır.\n"
@@ -13829,8 +13809,7 @@ msgstr "- Örnekler:\n"
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:289
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:471
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
-"id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
 "     Kavşak; Kimliği; 'foo' -> kimliklerinde 'foo' bulunan tüm kavşaklarla "
 "eşleşir\n"
@@ -13842,8 +13821,7 @@ msgid ""
 "but not of type 'priority_stop'\n"
 msgstr ""
 "     Kavşak; tür; '=priority' -> 'priority' türündeki tüm kavşaklarla "
-"eşleşir, ancak 'priority_stop' türündeki tüm kavşaklarla eşleşmezse "
-"eşleşir\n"
+"eşleşir, ancak 'priority_stop' türündeki tüm kavşaklarla eşleşmezse eşleşir\n"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:291
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:473
@@ -13919,8 +13897,7 @@ msgstr "Kaydırma değerini uygula"
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
 msgstr ""
-"Seçilen tüm kesimler için kesim geometrisini sürüş yönüne dikey olarak "
-"kaydır"
+"Seçilen tüm kesimler için kesim geometrisini sürüş yönüne dikey olarak kaydır"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:279
 msgid "Change Z in selection"
@@ -13976,8 +13953,7 @@ msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
 msgstr ""
-"Seçilen tüm şekiller için şekil geometrisini sürüş yönüne dikey olarak "
-"kaydır"
+"Seçilen tüm şekiller için şekil geometrisini sürüş yönüne dikey olarak kaydır"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:643
 msgid "Click over edge to create or edit geometry point."
@@ -14820,8 +14796,8 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:313
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
-" nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
+"nodes or with incompatible permissions)"
 msgstr ""
 "Çakışan bağlantılar oluşturmak için tıklarken <CTRL> tuşunu basılı tutun "
 "(örn. fermuar düğümlerinde veya uyumsuz izinlerle)"
@@ -14988,8 +14964,7 @@ msgstr "Kesim Oluştur"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:692
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or "
-"template"
+"Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 "Varsayılan kesimTürü veya kısa kenar ya da özel bir kesimTürü veya şablon "
 "seçin"
@@ -15051,8 +15026,8 @@ msgid ""
 "There is already another crossing with the same edges in the junction; "
 "Duplicated crossing aren't allowed."
 msgstr ""
-"Kavşakta aynı kesimlere sahip başka bir geçit zaten var; Yinelenen geçitlere"
-" izin verilmez."
+"Kavşakta aynı kesimlere sahip başka bir geçit zaten var; Yinelenen geçitlere "
+"izin verilmez."
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:512
 msgid "Click over junction to mark candidate edges."
@@ -15747,8 +15722,7 @@ msgid "Clean unused states from all phase"
 msgstr "Kullanılmayan evreleri tüm fazlardan temizle"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1957
-msgid ""
-"Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 "Kullanılmayan evreleri tüm fazlardan temizle. (Birden fazla program için "
 "izin verilmez)"
@@ -16184,8 +16158,7 @@ msgid "Invalid vClass"
 msgstr "Geçersiz Araç Sınıfı (vClass)"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
-msgid ""
-"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
 "'value' niteliği kesme noktaları için kullanımdan kaldırılmıştır. Lütfen "
 "'time' kullanın."
@@ -17568,8 +17541,7 @@ msgstr "Görünüm Araç İpuçlarını Değiştir"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:138
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
-"Görünümdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
+msgstr "Görünümdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:160
 msgid "Edit Coloring Schemes"
@@ -17687,8 +17659,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:419
 msgid ""
-"For the Debug build you might also need to set the LANG environment "
-"variable."
+"For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 "Hata Ayıklama derlemesi için LANG ortam değişkenini de ayarlamanız "
 "gerekebilir."
