@@ -39,15 +39,28 @@ def get_options(args=None):
     optParser.add_option("--geh", action="store_true", default=False,
                          help="write geh value instead of absolute differences")
     optParser.add_option("--undefined", type=float, default=-1001, help="value to use if the difference is undefined")
+    optParser.add_option("--attributes", help="compare list of custom attributes (A1,A2,B1,B2,C1,C2,...)")
     optParser.add_option("--no-statistics", action="store_true", default=False,
                          help="otherwise: handle attributes starting with 'std_' as standard"
                          + "deviation and calculate propagated error")
-    return optParser.parse_args(args)
+    options = optParser.parse_args(args)
+    if options.attributes:
+        options.attributes = options.attributes.split(',')
+        if len(options.attributes) % 2 != 0:
+            print("Option --attributes requires an even-number list of attribute names")
+            sys.exit(1)
+    return options
 
 
 def write_diff(options):
 
     diffStats = defaultdict(Statistics)
+    attrList = None
+    if options.attributes:
+        tmp = [[], []]
+        for i, a in enumerate(options.attributes):
+            tmp[i % 2].append(a)
+        attrList = zip(*tmp)
 
     with open(options.out, 'w') as f:
         f.write("<meandata>\n")
@@ -65,12 +78,14 @@ def write_diff(options):
                     continue
                 assert edge_old.id == edge_new.id
                 f.write('        <edge id="%s"' % edge_old.id)
-                for attr in edge_old._fields:
+                if not options.attributes:
+                    attrList = zip(edge_old._fields, edge_old._fields)
+                for attr, attr2 in attrList:
                     if attr == 'id':
                         continue
                     try:
                         val_new = float(getattr(edge_new, attr))
-                        val_old = float(getattr(edge_old, attr))
+                        val_old = float(getattr(edge_old, attr2))
                         delta = val_new - val_old
                         if not options.no_statistics and attr.startswith('std_'):
                             delta = math.sqrt(val_new**2 + val_old**2)
