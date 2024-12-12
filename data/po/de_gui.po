@@ -5031,7 +5031,7 @@ msgstr "Rückgängig: LSA ersetzen"
 
 #: src/netedit/GNEUndoList.cpp:470
 msgid "Disabled undo"
-msgstr ""
+msgstr "Rückgängig deaktiviert"
 
 #: src/netedit/GNEUndoList.cpp:472 src/netedit/GNEUndoList.cpp:474
 msgid "Cannot Undo in the middle of "
@@ -5039,7 +5039,7 @@ msgstr "Rückgängig inmitten dieses Vorgangs nicht möglich: "
 
 #: src/netedit/GNEUndoList.cpp:521
 msgid "Disabled redo"
-msgstr ""
+msgstr "Wiederholen deaktiviert"
 
 #: src/netedit/GNEUndoList.cpp:523 src/netedit/GNEUndoList.cpp:525
 msgid "Cannot Redo in the middle of "
@@ -5341,11 +5341,11 @@ msgstr "Innerhalb des Polygonumrisses auswählen"
 #: src/netedit/GNEViewNet.cpp:2841 src/netedit/GNEViewNet.cpp:2858
 #: src/netedit/GNEViewNet.cpp:2875 src/netedit/GNEViewNet.cpp:2890
 msgid "simplify edited shape"
-msgstr ""
+msgstr "bearbeiteten Shape vereinfachen"
 
 #: src/netedit/GNEViewNet.cpp:2811
 msgid "straigthen edited shape"
-msgstr ""
+msgstr "bearbeiteten Shape begradigen"
 
 #: src/netedit/GNEViewNet.cpp:2925
 #, c-format
@@ -6356,7 +6356,7 @@ msgstr "Auf vorherige Werte zurücksetzen"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:54
 msgid "Edit vClasses of attribute '%'"
-msgstr ""
+msgstr "Fahrzeugklassen aus Attribute '%' bearbeiten"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:200
 msgid "Selection options"
@@ -8157,6 +8157,8 @@ msgid ""
 "List of edge ids that must all be part of the future route of the vehicle to "
 "qualify for detection"
 msgstr ""
+"Liste an Kanten-IDs, welche alle Teil der zukünftigen Route des Fahrzeugs "
+"sein müssen, um für die Erfassung geeignet zu sein"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2256
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2334
@@ -8164,7 +8166,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2522
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2659
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
-msgstr ""
+msgstr "Personen statt Fahrzeugen erfassen (Fußgänger und Passagiere)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2277
 msgid "E2 LaneAreaDetector"
@@ -8227,7 +8229,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2367
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2468
 msgid "Show detector in sumo-gui"
-msgstr ""
+msgstr "Detektor in sumo-gui anzeigen"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2379
 msgid "E2 MultiLaneAreaDetector"
@@ -8276,6 +8278,8 @@ msgid ""
 "If set to true, no error will be reported if vehicles leave the detector "
 "without first entering it"
 msgstr ""
+"Falls aktiviert, wird kein Fehler ausgegeben, falls Fahrzeuge den Detektor "
+"verlassen, ohne ihn zuerst betreten zu haben"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2535
 msgid ""
@@ -18395,6 +18399,26 @@ msgstr ""
 #: src/netedit/GNELoadThread.cpp:340
 msgid ""
 "If enabled, elements will be saved regardless if elements was edited or not"
+msgstr ""
+
+#: src/netedit/elements/GNEAttributeCarrier.cpp:3248
+msgid "Toogle close or open shape"
+msgstr ""
+
+#: src/netedit/elements/GNEAttributeCarrier.cpp:3669
+msgid "Toogle close or open walkable area shape"
+msgstr ""
+
+#: src/netedit/elements/GNEAttributeCarrier.cpp:3700
+msgid "Toogle close or open obstacle shape"
+msgstr ""
+
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8400
+msgid "Toogle front element"
+msgstr ""
+
+#: src/netedit/elements/GNEAttributeCarrier.cpp:8404
+msgid "Toogle select element"
 msgstr ""
 
 #~ msgid "Additional dialog"
