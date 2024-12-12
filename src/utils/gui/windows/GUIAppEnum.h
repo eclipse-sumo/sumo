@@ -1045,7 +1045,7 @@ enum {
     /// @brief set attribute (string, bool, etc.) in attributes editor row
     MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,
     /// @brief toogle enable attribute in attributes editor row
-    MID_GNE_ATTRIBUTESEDITORROW_TOOGLEENABLEATTRIBUTE,
+    MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE,
     /// @brief open color dialog in attributes editor row
     MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,
     /// @brief open allow dialog in attributes editor row
