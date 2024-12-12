@@ -157,6 +157,8 @@ python tools/route/routeStats.py <net-file> <route-file>
 When setting option **--attribute depart** a histogram on departure times (or departure time
 differences) is generated instead.
 
+When setting option **edges-file**, all `<edge>` elements in the file will be read and the set of their ids stored. For every route, the number of edges within the set is counted.
+
 # routecompare.py
 
 This script compares two route sets by calculating
