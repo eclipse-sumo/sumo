@@ -4590,6 +4590,7 @@ msgid ""
 "If enabled, elements will be saved regardless of whether they have been "
 "edited or not"
 msgstr ""
+"Falls aktiviert, werden Elemente unabhängig von ihrer Bearbeitung gespeichert"
 
 #: src/netedit/GNELoadThread.cpp:345
 msgid "Prefix for node naming"
@@ -8636,7 +8637,7 @@ msgstr "Die Shape vom Polygon"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3248
 msgid "Toggle close or open shape"
-msgstr ""
+msgstr "Umschalten zwischen Shape schließen oder öffnen"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3253
 msgid "The RGBA color with which the polygon shall be displayed"
@@ -8678,11 +8679,11 @@ msgstr "Winkel des gerenderten Bildes in Grad"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3306
 msgid "Enable or disable GEO attributes"
-msgstr ""
+msgstr "(De)Aktivieren der Geo-Attribute"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3312
 msgid "A custom geo shape for this polygon"
-msgstr ""
+msgstr "Ein individueller Geo-Shape für dieses Polygon"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3324
 msgid "PointOfInterest"
@@ -8871,6 +8872,7 @@ msgstr "Der Shape der Fußgängerfläche"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3669
 msgid "Toggle close or open walkable area shape"
 msgstr ""
+"Umschalten zwischen schließen oder öffnen des Shape der Fußgängerfläche"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3674
 msgid "Walkable area's name"
@@ -8890,7 +8892,7 @@ msgstr "Der Shape des Hindernis"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3700
 msgid "Toggle close or open obstacle shape"
-msgstr ""
+msgstr "Umschalten zwischen schließen oder öffnen eines Hindernis-Shape"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3705
 msgid "Obstacle's name"
@@ -10425,7 +10427,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8411
 msgid "Change element parent"
-msgstr ""
+msgstr "Elementeltern ändern"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8422
 msgid "The color with which the POI shall be displayed"
@@ -10998,7 +11000,7 @@ msgstr "Die Farbe dieses Container"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9169
 msgid "The position at which the container shall enter the net"
-msgstr ""
+msgstr "Die Eintrittsposition des Container in das Netz"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9182
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9573
@@ -11118,11 +11120,11 @@ msgstr "Container-Haltepunkt-ID"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9337
 msgid "Charging station ID"
-msgstr ""
+msgstr "Ladestations-ID"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9343
 msgid "Parking area ID"
-msgstr ""
+msgstr "Parkplatz-ID"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9350
 msgid "Edge start ID"
