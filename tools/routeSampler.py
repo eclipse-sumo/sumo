@@ -38,7 +38,7 @@ except ImportError:
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime, humanReadableTime  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime, Benchmarker  # noqa
 from sumolib.statistics import setPrecision  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
@@ -103,6 +103,8 @@ def get_options(args=None):
                     help="tell me what you are doing")
     op.add_argument("-V", "--verbose.histograms", category="output", dest="verboseHistogram", action="store_true",
                     default=False, help="print histograms of edge numbers and detector passing count")
+    op.add_argument("--verbose.timing", category="output", dest="verboseTiming", action="store_true",
+                    default=False, help="print time performance information")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="",
                     help="prefix for the vehicle ids")
@@ -738,11 +740,11 @@ def initTotalCounts(options, routes, intervals, b, e):
                              " or match the number of data intervals (%s)" % len(intervals))
             sys.exit()
 
-
 def main(options):
     rng = np.random.RandomState(options.seed)
 
-    routes = Routes(options.routeFiles, options.keepStops, rng)
+    with Benchmarker(options.verboseTiming, "Loading routes"):
+        routes = Routes(options.routeFiles, options.keepStops, rng)
 
     intervals = getIntervals(options)
     if len(intervals) == 0:
@@ -752,7 +754,8 @@ def main(options):
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
     e = intervals[-1][-1]
-    countData = parseCounts(options, routes, b, e, True)
+    with Benchmarker(options.verboseTiming, "Loading counts"):
+        countData = parseCounts(options, routes, b, e, True)
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -799,7 +802,7 @@ def main(options):
     inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
     usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
 
-    with open(options.out, 'w') as outf:
+    with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         if options.threads > 1:
             # call the multiprocessing function
