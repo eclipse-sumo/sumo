@@ -434,6 +434,7 @@
             <xsd:element name="new-network" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="attribute-help-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-supermode-question" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="force-saving" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore.additionalelements" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore.routeelements" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="node-prefix" type="strOptionType" minOccurs="0"/>
