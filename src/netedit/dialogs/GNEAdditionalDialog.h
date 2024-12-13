@@ -104,7 +104,7 @@ protected:
 
 private:
     /// @brief accept button
-    FXButton* myAcceptButton;
+    FXButton* myKeepOldButton;
 
     /// @brief cancel button
     FXButton* myCancelButton;

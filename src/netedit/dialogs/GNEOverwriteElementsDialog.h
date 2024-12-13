@@ -71,13 +71,13 @@ protected:
     FOX_CONSTRUCTOR(GNEOverwriteElementsDialog)
 
     /// @brief button for accept
-    FXButton* myAcceptButton = nullptr;
+    FXButton* myKeepOldButton = nullptr;
 
     /// @brief button for cancel
     FXButton* myCancelButton = nullptr;
 
     /// @brief button for overwrite
-    FXButton* myOverwriteButton = nullptr;
+    FXButton* myKeepNewButton = nullptr;
 
     /// @brief result (by default cancel)
     Result myResult = Result::CANCEL;

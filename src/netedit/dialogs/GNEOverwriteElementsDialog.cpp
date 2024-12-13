@@ -46,22 +46,25 @@ FXIMPLEMENT(GNEOverwriteElementsDialog, FXDialogBox, GNEOverwriteElementsDialogM
 // ---------------------------------------------------------------------------
 
 GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
-    FXDialogBox(applicationWindow->getApp(), ("Overwrite " + elementType + " elements").c_str(), GUIDesignDialogBoxExplicit(310, 90)) {
+    FXDialogBox(applicationWindow->getApp(), ("Keep " + elementType + " elements").c_str(), GUIDesignDialogBoxExplicit(400, 100)) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create label
-    new FXLabel(mainFrame, ("Selected " + elementType + " file was already loaded.\n Continue or overwrite elements?").c_str(), nullptr, GUIDesignLabelOverwrite);
+    new FXLabel(mainFrame, ("Selected " + elementType + " file was already loaded.\n Keep new or old elements?").c_str(), nullptr, GUIDesignLabelKeepElements);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("load elements"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_SELECT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("cancel"), "", TL("cancel loading of elements"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonCancel);
-    myOverwriteButton = GUIDesigns::buildFXButton(buttonsFrame, TL("overwrite"), "", TL("overwrite elements"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_SELECT, GUIDesignButtonOverwrite);
+    myKeepNewButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep news elements"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT),  this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
+    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep old"), "", TL("Keep old elements"),  GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("cancel loading of elements"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Dialog
     create();
+    // set focus in keep news
+    myKeepNewButton->setFocus();
+    // set accept as
     // show in the given position
     show(PLACEMENT_SCREEN);
     // refresh APP
@@ -83,9 +86,9 @@ GNEOverwriteElementsDialog::getResult() const {
 
 long
 GNEOverwriteElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    if (obj == myAcceptButton) {
+    if (obj == myKeepOldButton) {
         myResult = Result::ACCEPT;
-    } else if (obj == myOverwriteButton) {
+    } else if (obj == myKeepNewButton) {
         myResult = Result::OVERWRITE;
     }
     // Stop Modal
