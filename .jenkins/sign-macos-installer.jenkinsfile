@@ -75,10 +75,7 @@ spec:
           script {
             // Step 1: Find the last successful workflow run
             def workflowRunsResponse = sh(
-              script: """
-                // curl -H "Authorization: Bearer \$GITHUB_TOKEN" -s \
-                "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/runs?status=success"
-              """,
+              script: 'curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/runs?status=success"',
               returnStdout: true
             ).trim()
 
@@ -87,14 +84,12 @@ spec:
             if (!workflowRuns.workflow_runs || workflowRuns.workflow_runs.size() == 0) {
               error("No successful workflow runs found for workflow: ${WORKFLOW_ID}")
             }
+
             def lastRunId = workflowRuns.workflow_runs[0].id
 
             // Step 2: Get the artifact list for the last successful run
             def artifactsResponse = sh(
-              script: """
-                curl -H "Authorization: Bearer \$GITHUB_TOKEN" -s \
-                "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/${lastRunId}/artifacts"
-              """,
+              script: 'curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/' + "${lastRunId}" + '/artifacts"',
               returnStdout: true
             ).trim()
 
@@ -106,10 +101,7 @@ spec:
             }
 
             // Step 3: Download the artifact
-            sh """
-              curl -H "Authorization: Bearer \$GITHUB_TOKEN" -L \
-              "${artifact.archive_download_url}" --output ${ARTIFACT_NAME}.zip
-            """
+            sh 'curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -L "' + "${artifact.archive_download_url}" + '" --output ${ARTIFACT_NAME}.zip'
 
             // Step 4: Extract the artifact
             sh "unzip -o ${ARTIFACT_NAME}.zip -d artifact"
