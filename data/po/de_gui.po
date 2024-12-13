@@ -11216,7 +11216,7 @@ msgstr "Liste der Fahrzeugalternativen für die Personenfahrt"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9483
 msgid "Walk factor"
-msgstr ""
+msgstr "Gehgeschwindigkeitsfaktor"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9489
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9525
