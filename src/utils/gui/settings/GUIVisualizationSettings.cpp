@@ -1718,7 +1718,6 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         edgeScheme.addColor(2, 10.);
         edgeScheme.addColor(5, 100.);
         edgeScheme.addColor(10, 1000.);
-        edgeScaler.addScheme(edgeScheme);
         edgeScheme.setAllowsNegativeValues(true);
         edgeScaler.addScheme(edgeScheme);
     }
