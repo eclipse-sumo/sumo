@@ -16,6 +16,7 @@
     <keep-stops value="False" type="bool" help="Preserve stops from the input routes" category="output"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="output"/>
     <verbose.histograms value="False" type="bool" help="print histograms of edge numbers and detector passing count" category="output"/>
+    <verbose.timing value="False" type="bool" help="print time performance information" category="output"/>
     <prefix value="" type="string" help="prefix for the vehicle ids" category="attributes"/>
     <attributes value="" type="string" help="additional vehicle attributes" category="attributes"/>
     <write-flows value="None" type="string" help="write flows with the give style instead of vehicles [number|probability|poisson]" category="attributes"/>
