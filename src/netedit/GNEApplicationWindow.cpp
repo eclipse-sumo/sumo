@@ -24,7 +24,7 @@
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEFixNetworkElements.h>
-#include <netedit/dialogs/GNEOverwriteElementsDialog.h>
+#include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
 #include <netedit/dialogs/options/GNEOptionsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -3665,12 +3665,12 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // check if open question dialog box
         if (additionalFile == neteditOptions.getString("additional-files")) {
             // open overwrite dialog
-            GNEOverwriteElementsDialog overwriteDialog(this, "additional");
+            GNEKeepElementsDialog keepElementsDialog(this, "additional");
             // continue depending of result
-            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
                 // abort load
                 return 0;
-            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
                 // enable overwriteElements
                 overwriteElements = true;
             }
@@ -3871,12 +3871,12 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // check if open question dialog box
         if (routeFile == neteditOptions.getString("route-files")) {
             // open overwrite dialog
-            GNEOverwriteElementsDialog overwriteDialog(this, "route");
+            GNEKeepElementsDialog keepElementsDialog(this, "route");
             // continue depending of result
-            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
                 // abort load
                 return 0;
-            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
                 // enable overwriteElements
                 overwriteElements = true;
             }
@@ -4044,12 +4044,12 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // check if open question dialog box
         if (dataFile == neteditOptions.getString("data-files")) {
             // open overwrite dialog
-            GNEOverwriteElementsDialog overwriteDialog(this, "data");
+            GNEKeepElementsDialog keepElementsDialog(this, "data");
             // continue depending of result
-            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
                 // abort load
                 return 0;
-            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
                 // enable overwriteElements
                 overwriteElements = true;
             }
@@ -4222,12 +4222,12 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         // check if open question dialog box
         if (meanDataFile == neteditOptions.getString("meandata-files")) {
             // open overwrite dialog
-            GNEOverwriteElementsDialog overwriteDialog(this, "meanData");
+            GNEKeepElementsDialog keepElementsDialog(this, "meanData");
             // continue depending of result
-            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
                 // abort load
                 return 0;
-            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
                 // enable overwriteElements
                 overwriteElements = true;
             }

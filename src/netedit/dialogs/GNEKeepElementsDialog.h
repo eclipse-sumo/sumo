@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOverwriteElementsDialog.h
+/// @file    GNEKeepElementsDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
@@ -32,12 +32,12 @@ class GNEApplicationWindow;
 // ===========================================================================
 
 /**
- * @class GNEOverwriteElementsDialog
+ * @class GNEKeepElementsDialog
  * @brief Dialog for edit rerouters
  */
-class GNEOverwriteElementsDialog : public FXDialogBox {
+class GNEKeepElementsDialog : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEOverwriteElementsDialog)
+    FXDECLARE(GNEKeepElementsDialog)
 
 public:
     /// @brief result
@@ -48,10 +48,10 @@ public:
     };
 
     /// @brief Constructor
-    GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType);
+    GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType);
 
     /// @brief destructor
-    ~GNEOverwriteElementsDialog();
+    ~GNEKeepElementsDialog();
 
     /// @brief get result
     Result getResult() const;
@@ -68,7 +68,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEOverwriteElementsDialog)
+    FOX_CONSTRUCTOR(GNEKeepElementsDialog)
 
     /// @brief button for accept
     FXButton* myKeepOldButton = nullptr;
@@ -84,8 +84,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEOverwriteElementsDialog(const GNEOverwriteElementsDialog&) = delete;
+    GNEKeepElementsDialog(const GNEKeepElementsDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEOverwriteElementsDialog& operator=(const GNEOverwriteElementsDialog&) = delete;
+    GNEKeepElementsDialog& operator=(const GNEKeepElementsDialog&) = delete;
 };

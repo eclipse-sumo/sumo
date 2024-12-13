@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOverwriteElementsDialog.cpp
+/// @file    GNEKeepElementsDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 ///
@@ -22,30 +22,30 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNEApplicationWindow.h>
 
-#include "GNEOverwriteElementsDialog.h"
+#include "GNEKeepElementsDialog.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEOverwriteElementsDialog) GNEOverwriteElementsDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEOverwriteElementsDialog::onCmdSelectOption),
-    FXMAPFUNC(SEL_CLOSE,    0,               GNEOverwriteElementsDialog::onCmdCancel),
+FXDEFMAP(GNEKeepElementsDialog) GNEKeepElementsDialogMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEKeepElementsDialog::onCmdSelectOption),
+    FXMAPFUNC(SEL_CLOSE,    0,               GNEKeepElementsDialog::onCmdCancel),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEOverwriteElementsDialog, FXDialogBox, GNEOverwriteElementsDialogMap, ARRAYNUMBER(GNEOverwriteElementsDialogMap))
+FXIMPLEMENT(GNEKeepElementsDialog, FXDialogBox, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEOverwriteElementsDialog - methods
+// GNEKeepElementsDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
+GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
     FXDialogBox(applicationWindow->getApp(), ("Keep " + elementType + " elements").c_str(), GUIDesignDialogBoxExplicit(400, 100)) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
@@ -74,18 +74,18 @@ GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* app
 }
 
 
-GNEOverwriteElementsDialog::~GNEOverwriteElementsDialog() {
+GNEKeepElementsDialog::~GNEKeepElementsDialog() {
 }
 
 
-GNEOverwriteElementsDialog::Result
-GNEOverwriteElementsDialog::getResult() const {
+GNEKeepElementsDialog::Result
+GNEKeepElementsDialog::getResult() const {
     return myResult;
 }
 
 
 long
-GNEOverwriteElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+GNEKeepElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     if (obj == myKeepOldButton) {
         myResult = Result::ACCEPT;
     } else if (obj == myKeepNewButton) {
@@ -97,7 +97,7 @@ GNEOverwriteElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) 
 }
 
 long
-GNEOverwriteElementsDialog::onCmdClose(FXObject*, FXSelector, void*) {
+GNEKeepElementsDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
