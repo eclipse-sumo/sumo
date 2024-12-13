@@ -226,10 +226,10 @@ class CountData:
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
-            if self.routePasses(edges) is not None:
+            if self.routePasses(edges, allRoutes.uniqueSets[routeIndex]) is not None:
                 self.routeSet.add(routeIndex)
 
-    def routePasses(self, edges):
+    def routePasses(self, edges, edgeSet):
         if self.isTaz:
             if (inTaz(self.options, edges[0], self.edgeTuple[0], True) and
                     inTaz(self.options, edges[-1], self.edgeTuple[-1], False)):
@@ -243,16 +243,24 @@ class CountData:
                 return None
             else:
                 return 0 if self.isOrigin else len(edges) - 1
-        i = None
-        try:
-            i = edges.index(self.edgeTuple[0])
+        firstEdge = self.edgeTuple[0]
+        if firstEdge in edgeSet:
+            i = edges.index(firstEdge)
             maxDelta = self.options.turnMaxGap + 1
             for edge in self.edgeTuple[1:]:
-                i2 = edges.index(edge, i)
-                if i2 - i > maxDelta:
+                if edge in edgeSet:
+                    try:
+                        i2 = edges.index(edge, i)
+                        if i2 - i > maxDelta:
+                            return None
+                        i = i2
+                    except ValueError:
+                        # other edge came earlier in route
+                        return None
+                else:
+                    # other edge not in route
                     return None
-                i = i2
-        except ValueError:
+        else:
             # first edge not in route
             return None
         return i
@@ -611,6 +619,7 @@ class Routes:
                     self.routeStops[edges].append(list(r.stop))
 
         self.unique = sorted(list(self.edgeProbs.keys()))
+        self.uniqueSets = [set(edges) for edges in self.unique]
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
         if len(self.unique) == 0:
