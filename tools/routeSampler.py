@@ -423,7 +423,12 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                     value *= overlap
                     if not isRatio:
                         value = int(value)
-                    locations[edges].addCount(value)
+                    if value < 0:
+                        if warn:
+                            print("Ingnoring negative count %s for edge(s) '%s'" % (
+                                value, " ".join(edges)), file=sys.stderr)
+                    else:
+                        locations[edges].addCount(value)
     return result
 
 
