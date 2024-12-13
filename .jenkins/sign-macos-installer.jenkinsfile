@@ -76,38 +76,24 @@ spec:
             // Step 1: Find the last successful workflow run
             def workflowRunsResponse = sh(
               script: """
-                curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s \
-                "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/runs?status=success"
+                curl -H "Authorization: Bearer \$GITHUB_TOKEN" -s \
+                "https://api.github.com/repos/\$REPO_OWNER/\$REPO_NAME/actions/workflows/\$WORKFLOW_ID/runs?status=success"
               """,
               returnStdout: true
             ).trim()
-
-            // Parse workflow runs JSON response using JsonSlurper
-            def workflowRuns = new JsonSlurper().parseText(workflowRunsResponse)
-            if (!workflowRuns.workflow_runs || workflowRuns.workflow_runs.size() == 0) {
-              error("No successful workflow runs found for workflow: ${WORKFLOW_ID}")
-            }
-            def lastRunId = workflowRuns.workflow_runs[0].id
 
             // Step 2: Get the artifact list for the last successful run
             def artifactsResponse = sh(
               script: """
-                curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -s \
-                "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/${lastRunId}/artifacts"
+                curl -H "Authorization: Bearer \$GITHUB_TOKEN" -s \
+                "https://api.github.com/repos/\$REPO_OWNER/\$REPO_NAME/actions/runs/${lastRunId}/artifacts"
               """,
               returnStdout: true
             ).trim()
 
-            // Parse artifacts JSON response using JsonSlurper
-            def artifacts = new JsonSlurper().parseText(artifactsResponse)
-            def artifact = artifacts.artifacts.find { it.name == ARTIFACT_NAME }
-            if (!artifact) {
-              error("Artifact '${ARTIFACT_NAME}' not found for run ID: ${lastRunId}")
-            }
-
             // Step 3: Download the artifact
             sh """
-              curl -H "Authorization: Bearer ${GITHUB_TOKEN}" -L \
+              curl -H "Authorization: Bearer \$GITHUB_TOKEN" -L \
               "${artifact.archive_download_url}" --output ${ARTIFACT_NAME}.zip
             """
 
