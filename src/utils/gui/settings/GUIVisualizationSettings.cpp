@@ -2098,7 +2098,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     laneColorer.save(dev);
     laneScaler.save(dev);
     edgeColorer.save(dev, "meso:");
-    edgeScaler.save(dev);
+    edgeScaler.save(dev, "meso:");
     dev.closeTag();
     // vehicles
     dev.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
