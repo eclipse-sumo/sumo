@@ -425,7 +425,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                         value = int(value)
                     if value < 0:
                         if warn:
-                            print("Ingnoring negative count %s for edge(s) '%s'" % (
+                            print("Ignoring negative count %s for edge(s) '%s'" % (
                                 value, " ".join(edges)), file=sys.stderr)
                     else:
                         locations[edges].addCount(value)
