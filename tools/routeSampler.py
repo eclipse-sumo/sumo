@@ -125,6 +125,8 @@ def get_options(args=None):
                     help="custom end time (seconds or H:M:S)")
     op.add_argument("-i", "--interval", category="time",
                     help="custom aggregation interval (seconds or H:M:S)")
+    op.add_argument("--depart-distribution", category="time", dest="departDistVals",
+                    help="load list of densities that cover [begin, end] to customize departure time probabilities")
     # processing
     op.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
                     help="Allow at most a gap of INT edges between from-edge and to-edge")
@@ -208,7 +210,53 @@ def get_options(args=None):
         if options.totalCount != PRESERVE_INPUT_COUNT:
             options.totalCount = list(map(int, options.totalCount.split(',')))
 
+    if options.departDistVals:
+        sep = ',' if ',' in options.departDistVals else None
+        options.departDistVals = list(map(float, options.departDistVals.split(sep)))
+
     return options
+
+
+class DepartDist:
+    def __init__(self, vals, begin, end):
+        self.begin = begin
+        self.end = end
+        # normalize vals
+        s = sum(vals)
+        vals = [v / s for v in vals]
+        # prepare CDF
+        binWidth = (end - begin) / len(vals)
+        self.cdf_x = [begin + i * binWidth for i in range(len(vals) + 1)]
+        self.cdf_y = [0]
+        for v in vals:
+            self.cdf_y.append(self.cdf_y[-1] + v)
+
+    def sample(self, rng, n, begin, end):
+        """sample n values between begin and end"""
+        left, right = np.interp([begin, end], self.cdf_x, self.cdf_y)
+        # construct inverse CDF truncated to left and right
+        icdf_x = [left]
+        icdf_y = [begin]
+        for x, y in zip(self.cdf_y, self.cdf_x):
+            if y > begin and y < end:
+                icdf_x.append(x)
+                icdf_y.append(y)
+        icdf_x.append(right)
+        icdf_y.append(end)
+
+        # obtain n random variables between left and right
+        scale = right - left
+        r = [left + v * scale for v in rng.random(n)]
+
+        #print("cdf_x", self.cdf_x)
+        #print("cdf_y", self.cdf_y)
+        #print("begin", begin, "end", end)
+        #print("icdf_x", icdf_x)
+        #print("icdf_y", icdf_y)
+        #print("scale", scale, "left", left, "right", right)
+
+        # evaluate icdf
+        return np.interp(r, icdf_x, icdf_y)
 
 
 class CountData:
@@ -350,6 +398,12 @@ def getIntervals(options):
         end = parseTime(options.end)
     if options.interval is not None:
         interval = parseTime(options.interval)
+
+    # init departDist after begin and end are known, store in options for
+    # easier handover to solveInterval
+    options.departDist = None
+    if options.departDistVals:
+        options.departDist = DepartDist(options.departDistVals, begin, end)
 
     result = []
     while begin < end:
@@ -1059,7 +1113,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeID = options.writeRouteDist
 
         if options.writeFlows is None:
-            departs = [rng.uniform(begin, end) for ri in usedRoutes]
+            if options.departDist:
+                departs = options.departDist.sample(rng, len(usedRoutes), begin, end)
+            else:
+                departs = [rng.uniform(begin, end) for ri in usedRoutes]
             departs.sort()
             for i, routeIndex in enumerate(usedRoutes):
                 if options.writeRouteIDs:
