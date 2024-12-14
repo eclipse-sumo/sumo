@@ -105,6 +105,57 @@ spec:
 
             // Step 4: Extract the artifact
             sh "unzip -o ${ARTIFACT_NAME}.zip -d artifact"
+
+            // Step 5: Create the entitlements file
+            def entitlementsFile = "sumo.entitlement"
+            writeFile file: entitlementsFile, text: '''
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+</dict>
+</plist>'''
+
+            // Step 6: Extract the .dmg file name dynamically
+            def dmgFile = sh(
+                script: "ls artifact/*.dmg",
+                returnStdout: true
+            ).trim()
+
+            if (!dmgFile) {
+                error("No .dmg file found in artifact directory")
+            }
+
+            // Extract the base name of the .dmg file (without the extension)
+            def baseName = dmgFile.replaceAll(/\.dmg$/, "")
+
+            // Define the signed DMG file name
+            def signedDmgFile = "${baseName}-signed.dmg"
+
+            // Step 7: Upload for signing
+            sh """
+            curl -o ${signedDmgFile} -F file=@${dmgFile} -F entitlements=@${entitlementsFile} \
+                https://cbi.eclipse.org/macos/codesign/sign
+            """
+
+            // Verify signed file
+            if (!fileExists(signedDmgFile)) {
+                error("Signed DMG file not created: ${signedDmgFile}")
+            }
+
+            echo "Signed DMG file created successfully: ${signedDmgFile}"
           }
         }
       }
