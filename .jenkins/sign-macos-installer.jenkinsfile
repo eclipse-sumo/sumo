@@ -156,6 +156,81 @@ spec:
             }
 
             echo "Signed DMG file created successfully: ${signedDmgFile}"
+
+            // Step 8: Notarize the signed DMG
+            def notarizedZip = "macos-14-installer.zip"
+            def primaryBundleId = "org.eclipse.sumo"
+
+            // Regular expressions to extract UUID and status
+            def uuidRegex = /"uuid"\s*:\s*"([^"]+)"/
+            def statusRegex = /"status"\s*:\s*"([^"]+)"/
+
+            echo "Starting notarization process for ${signedDmgFile}"
+
+            // Initiate notarization
+            def response = sh(
+                script: """
+                    curl -X POST -F file=@${signedDmgFile} \
+                    -F 'options={"primaryBundleId": "${primaryBundleId}", "staple": true};type=application/json' \
+                    https://cbi.eclipse.org/macos/xcrun/notarize
+                """,
+                returnStdout: true
+            ).trim()
+
+            // Extract UUID and status from the response
+            def uuidMatch = (response =~ uuidRegex)
+            def statusMatch = (response =~ statusRegex)
+
+            if (!uuidMatch || !statusMatch) {
+                error("Failed to extract UUID or status from notarization response: ${response}")
+            }
+
+            def uuid = uuidMatch[0][1]
+            def status = statusMatch[0][1]
+
+            echo "Notarization initiated with UUID: ${uuid}, initial status: ${status}"
+
+            // Polling notarization status
+            while (status == "IN_PROGRESS") {
+                sleep 60
+                def pollResponse = sh(
+                    script: "curl -s https://cbi.eclipse.org/macos/xcrun/${uuid}/status",
+                    returnStdout: true
+                ).trim()
+
+                statusMatch = (pollResponse =~ statusRegex)
+                if (!statusMatch) {
+                    error("Failed to extract status from notarization polling response: ${pollResponse}")
+                }
+                status = statusMatch[0][1]
+                echo "Notarization progress: ${pollResponse}"
+            }
+
+            if (status != "COMPLETE") {
+                error("Notarization failed: ${response}")
+            }
+
+            // Download the notarized result
+            sh """
+                curl -o ${notarizedZip} https://cbi.eclipse.org/macos/xcrun/${uuid}/download
+            """
+
+            echo "Notarization completed. Downloaded notarized ZIP: ${notarizedZip}"
+
+            // Step 9: Upload notarized ZIP back to the GitHub Actions workflow
+            def uploadUrl = "https://uploads.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/${lastRunId}/artifacts"
+            def artifactName = "macos-14-installer"
+
+            // Upload the artifact
+            sh """
+            curl -X POST -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+                -H "Content-Type: application/json" \
+                -F name=${artifactName} \
+                -F file=@${notarizedZip} \
+                ${uploadUrl}
+            """
+
+            echo "Uploaded notarized artifact '${notarizedZip}' as '${artifactName}' to GitHub Actions workflow: ${lastRunId}"
           }
         }
       }
