@@ -24,6 +24,9 @@ totalCount
 
 # test origin destination inputs
 OD
+
+# load a custom  distribution for depart times
+departtime_dist
 verbose
 
 # save configuration file

@@ -26,6 +26,7 @@
     <begin value="None" type="string" help="custom begin time (seconds or H:M:S)" category="time"/>
     <end value="None" type="string" help="custom end time (seconds or H:M:S)" category="time"/>
     <interval value="None" type="string" help="custom aggregation interval (seconds or H:M:S)" category="time"/>
+    <depart-distribution value="None" type="string" help="load list of densities that cover [begin, end] to customize departure time probabilities" category="time"/>
     <turn-max-gap value="0" type="int" help="Allow at most a gap of INT edges between from-edge and to-edge" category="processing"/>
     <total-count value="None" type="string" help="Set a total count that should be reached (either as single value that is split  proportionally among all intervals or as a list of counts per interval). Setting the value 'input' preserves input vehicle counts in each interval." category="processing"/>
     <extra-od value="False" type="bool" help="Permit traffic between OD-pairs that did not occur in the input" category="processing"/>
