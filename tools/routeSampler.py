@@ -402,7 +402,7 @@ def getIntervals(options):
     # init departDist after begin and end are known, store in options for
     # easier handover to solveInterval
     options.departDist = None
-    if options.departDistVals:
+    if hasattr(options, "departDistVals") and options.departDistVals:
         options.departDist = DepartDist(options.departDistVals, begin, end)
 
     result = []
