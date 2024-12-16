@@ -4,6 +4,9 @@ gtfs2pt_fcd_empty
 # import public transport using routes from osm and repairing them with duarouter
 gtfs2pt_osm_repair
 
+# import public transport using routes from osm and repairing them with duarouter, using a GTFS archive without optional direction_id column
+gtfs2pt_osm_repair_noDirection
+
 # import public transport using routes from osm without repairing them with duarouter
 gtfs2pt_osm_no_repair
 
