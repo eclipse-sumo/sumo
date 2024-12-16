@@ -1,0 +1,184 @@
+vehicle_id;route_edges
+horizontal.0;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.1;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.0;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.1;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.2;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.3;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.4;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.5;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.6;3fi 3si 4o 4fi 4si 3o 3fi
+horizontal.2;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.3;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.4;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.5;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.6;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.7;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.8;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.9;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.10;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.7;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.8;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.9;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.10;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.11;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.12;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.13;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.14;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.15;3fi 3si 4o 4fi 4si 3o 3fi
+horizontal.11;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.12;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.13;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.14;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.15;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.16;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.17;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.18;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.19;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.20;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.16;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.17;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.18;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.19;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.20;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.21;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.22;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.23;3fi 3si 4o 4fi 4si 3o 3fi
+horizontal.21;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.22;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.23;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.24;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.25;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.26;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.27;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.28;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.24;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.25;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.26;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.27;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.28;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.29;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.30;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.0;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.1;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.2;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+vertical.31;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.3;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_right.0;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.29;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.1;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.30;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.2;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.31;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.3;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.32;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.4;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.33;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.5;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.34;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.6;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.35;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.36;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.32;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.33;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.34;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.35;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.36;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.37;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.38;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.39;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.4;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.5;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+vertical.40;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.6;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.7;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.8;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.9;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_right.7;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.37;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.8;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+always_right.9;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.38;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.10;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.39;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.11;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.40;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.12;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.41;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.13;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.42;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.14;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.43;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.15;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.44;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.45;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.46;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.41;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.42;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.43;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.44;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.45;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.46;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.47;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.48;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.10;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+vertical.49;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.11;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.12;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.13;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.14;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.15;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.16;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_right.16;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+always_right.17;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.47;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.48;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.18;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.49;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.19;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.50;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.20;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+always_right.21;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.51;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.22;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+always_right.23;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.52;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.53;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.54;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.50;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.51;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.52;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.53;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.54;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.17;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+vertical.55;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.18;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.19;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.20;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.21;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.22;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_right.24;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.55;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.25;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.56;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.26;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.57;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.27;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.58;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.28;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.59;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.29;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.60;2fi 2si 1o 1fi 1si 2o 2fi
+always_right.30;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+always_right.31;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+horizontal.61;2fi 2si 1o 1fi 1si 2o 2fi
+horizontal.62;2fi 2si 1o 1fi 1si 2o 2fi
+vertical.56;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.57;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.58;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.59;3fi 3si 4o 4fi 4si 3o 3fi
+vertical.60;3fi 3si 4o 4fi 4si 3o 3fi
+always_left.23;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.24;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.25;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+always_left.26;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
