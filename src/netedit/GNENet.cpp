@@ -2185,7 +2185,7 @@ GNENet::removeExplicitTurnaround(std::string id) {
 }
 
 
-void
+bool
 GNENet::saveAdditionals() {
     // obtain invalid additionals depending of number of their parent lanes
     std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
@@ -2203,28 +2203,31 @@ GNENet::saveAdditionals() {
     }
     // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
+        // set focus again in net
+        myViewNet->setFocus();
         // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
         if (fixAdditionalElementsDialog.execute() == 0) {
             // show debug information
             WRITE_DEBUG("Additionals saving aborted");
+            return false;
         } else {
             saveAdditionalsConfirmed();
             // show debug information
             WRITE_DEBUG("Additionals saved after dialog");
+            return true;
         }
-        // set focus again in net
-        myViewNet->setFocus();
     } else {
         saveAdditionalsConfirmed();
         // show debug information
         WRITE_DEBUG("Additionals saved");
+        return true;
     }
 }
 
 
-void
+bool
 GNENet::saveJuPedSimElements(const std::string& file) {
     OutputDevice& device = OutputDevice::getDevice(file);
     // open header
@@ -2235,10 +2238,15 @@ GNENet::saveJuPedSimElements(const std::string& file) {
     writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
     // close device
     device.close();
+    // set focus again in net
+    myViewNet->setFocus();
+    // show debug information
+    WRITE_DEBUG("JuPedSim elements saved");
+    return true;
 }
 
 
-void
+bool
 GNENet::saveDemandElements() {
     // first recompute demand elements
     computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
@@ -2257,35 +2265,41 @@ GNENet::saveDemandElements() {
     }
     // if there are invalid demand elements, open GNEFixDemandElements
     if (invalidSingleLaneDemandElements.size() > 0) {
+        // set focus again in net
+        myViewNet->setFocus();
         // 0 -> Canceled Saving, with or without selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
         if (fixDemandElementsDialog.execute() == 0) {
             // show debug information
             WRITE_DEBUG("demand elements saving aborted");
+            return false;
         } else {
             saveDemandElementsConfirmed();
             // show debug information
             WRITE_DEBUG("demand elements saved after dialog");
+            return true;
         }
-        // set focus again in net
-        myViewNet->setFocus();
     } else {
         saveDemandElementsConfirmed();
         // show debug information
         WRITE_DEBUG("demand elements saved");
+        return true;
     }
 }
 
 
-void
+bool
 GNENet::saveDataElements() {
     // first recompute data sets
     computeDataElements(myViewNet->getViewParent()->getGNEAppWindows());
     // save data elements
     saveDataElementsConfirmed();
+    // set focus again in net
+    myViewNet->setFocus();
     // show debug information
     WRITE_DEBUG("data sets saved");
+    return true;
 }
 
 
@@ -2323,16 +2337,21 @@ GNENet::getDataSetIntervalMaximumEnd() const {
 }
 
 
-void
+bool
 GNENet::saveMeanDatas() {
     saveMeanDatasConfirmed();
+    // set focus again in net
+    myViewNet->setFocus();
     // show debug information
     WRITE_DEBUG("MeanDatas saved");
+    return true;
 }
 
 
 void
 GNENet::saveAdditionalsConfirmed() {
+    // Start saving additionals
+    getApp()->beginWaitCursor();
     OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("additional-files"));
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
@@ -2388,11 +2407,15 @@ GNENet::saveAdditionalsConfirmed() {
     device.close();
     // mark additionals as saved
     mySavingStatus->additionalsSaved();
+    // end saving additionals
+    getApp()->endWaitCursor();
 }
 
 
 void
 GNENet::saveDemandElementsConfirmed() {
+    // Start saving additionals
+    getApp()->beginWaitCursor();
     OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("route-files"));
     // open header
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
@@ -2426,11 +2449,15 @@ GNENet::saveDemandElementsConfirmed() {
     device.close();
     // mark demand elements as saved
     mySavingStatus->demandElementsSaved();
+    // end saving additionals
+    getApp()->endWaitCursor();
 }
 
 
 void
 GNENet::saveDataElementsConfirmed() {
+    // Start saving additionals
+    getApp()->beginWaitCursor();
     OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("data-files"));
     device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
     // write all data sets
@@ -2441,11 +2468,15 @@ GNENet::saveDataElementsConfirmed() {
     device.close();
     // mark data element as saved
     mySavingStatus->dataElementsSaved();
+    // end saving additionals
+    getApp()->endWaitCursor();
 }
 
 
 void
 GNENet::saveMeanDatasConfirmed() {
+    // Start saving additionals
+    getApp()->beginWaitCursor();
     OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("meandata-files"));
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
@@ -2459,6 +2490,8 @@ GNENet::saveMeanDatasConfirmed() {
     device.close();
     // mark mean datas as saved
     mySavingStatus->meanDatasSaved();
+    // end saving additionals
+    getApp()->endWaitCursor();
 }
 
 

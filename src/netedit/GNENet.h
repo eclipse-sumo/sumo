@@ -426,16 +426,16 @@ public:
     void removeExplicitTurnaround(std::string id);
 
     /// @brief save additional elements
-    void saveAdditionals();
+    bool saveAdditionals();
 
     /// @brief save JuPedSim elements
-    void saveJuPedSimElements(const std::string& file);
+    bool saveJuPedSimElements(const std::string& file);
 
     /// @brief save demand element elements of the network
-    void saveDemandElements();
+    bool saveDemandElements();
 
     /// @brief save data set elements of the network
-    void saveDataElements();
+    bool saveDataElements();
 
     /// @brief get minimum interval
     double getDataSetIntervalMinimumBegin() const;
@@ -444,7 +444,7 @@ public:
     double getDataSetIntervalMaximumEnd() const;
 
     /// @brief save meanData elements of the network
-    void saveMeanDatas();
+    bool saveMeanDatas();
 
     /**@brief save TLS Programs elements of the network
      * @param[in] filename name of the file in which save TLS Programs
