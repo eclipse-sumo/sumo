@@ -714,6 +714,9 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
         }
         myContainerDevice->addTransportable(transportable);
     }
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setTransportableMass(myEnergyParams->getTransportableMass() + transportable->getVehicleType().getMass());
+    }
 }
 
 
@@ -2215,6 +2218,9 @@ MSBaseVehicle::removeTransportable(MSTransportable* t) {
     }
     if (myContainerDevice != nullptr) {
         myContainerDevice->removeTransportable(t);
+    }
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setTransportableMass(myEnergyParams->getTransportableMass() - t->getVehicleType().getMass());
     }
 }
 
