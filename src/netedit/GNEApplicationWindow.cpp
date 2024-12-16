@@ -3769,6 +3769,8 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
         // choose file to save
         return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {
+        // always recompute before saving
+        myNet->computeNetwork(this);
         // Start saving additionals
         getApp()->beginWaitCursor();
         try {
@@ -3974,11 +3976,11 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     if (neteditOptions.getString("route-files").empty()) {
         return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
+        // always recompute before saving
+        myNet->computeNetwork(this);
         // Start saving demand elements
         getApp()->beginWaitCursor();
         try {
-            // compute before saving
-            myNet->computeNetwork(this);
             // save demand elements
             myNet->saveDemandElements();
             // show info
