@@ -73,6 +73,18 @@ public:
     /// @brief check if mark TAZs with dotted contours
     bool markTAZs() const;
 
+    /// @brief update junction colors
+    void updateJunctionColors();
+
+    /// @brief update edge colors
+    void updateEdgeColors();
+
+    /// @brief clear junction colors
+    void clearJunctionColors();
+
+    /// @brief clear edge colors
+    void clearEdgeColors();
+
     /// @name FOX-callbacks
     /// @{
 

@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNENet.h>
 #include <netedit/elements/additional/GNEAccess.h>
 #include <netedit/elements/additional/GNEBusStop.h>
 #include <netedit/elements/additional/GNECalibrator.h>
@@ -130,12 +131,16 @@ GNEPlanSelector::~GNEPlanSelector() {
 void
 GNEPlanSelector::showPlanSelector() {
     show();
+    updateEdgeColors();
+    updateJunctionColors();
 }
 
 
 void
 GNEPlanSelector::hidePlanSelector() {
     hide();
+    clearEdgeColors();
+    clearJunctionColors();
 }
 
 
@@ -221,6 +226,69 @@ GNEPlanSelector::markTAZs() const {
                myCurrentPlanTemplate.first.planToTAZ();
     } else {
         return false;
+    }
+}
+
+
+void
+GNEPlanSelector::updateJunctionColors() {
+    // clear junction colors
+    clearJunctionColors();
+    // we assume that all junctions don't support pedestrians
+    for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        junction.second->setInvalidCandidate(true);
+    }
+    // mark junctions that supports pedestrian as candidates
+    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (int i = 0; i < (int)edge.second->getLanes().size(); i++) {
+            if (edge.second->getNBEdge()->getLanes().at(i).permissions & SVC_PEDESTRIAN) {
+                edge.second->getFromJunction()->setPossibleCandidate(true);
+                edge.second->getToJunction()->setPossibleCandidate(true);
+            }
+        }
+    }
+    // update view net
+    myFrameParent->getViewNet()->updateViewNet();
+}
+
+
+void
+GNEPlanSelector::updateEdgeColors() {
+    // clear edge colors
+    clearEdgeColors();
+    // mark edges that supports pedestrian as candidates
+    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        bool allowPedestrian = false;
+        for (int i = 0; i < (int)edge.second->getLanes().size(); i++) {
+            if (edge.second->getNBEdge()->getLanes().at(i).permissions & SVC_PEDESTRIAN) {
+                allowPedestrian = true;
+            }
+        }
+        if (allowPedestrian) {
+            edge.second->setPossibleCandidate(true);
+        } else {
+            edge.second->setInvalidCandidate(true);
+        }
+    }
+    // update view net
+    myFrameParent->getViewNet()->updateViewNet();
+}
+
+
+void
+GNEPlanSelector::clearJunctionColors() {
+    // reset all junction flags
+    for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        junction.second->resetCandidateFlags();
+    }
+}
+
+
+void
+GNEPlanSelector::clearEdgeColors() {
+    // reset all junction flags
+    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
     }
 }
 
