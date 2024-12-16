@@ -426,6 +426,17 @@ GNEViewNetHelper::ViewObjectsSelector::filterCrossings() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::filterWalkingAreas() {
+    // get all walkingAreas to filter
+    std::vector<const GUIGlObject*> walkingAreas;
+    for (const auto& walkingArea : myViewObjects.walkingAreas) {
+        walkingAreas.push_back(walkingArea);
+    }
+    myViewObjects.filterElements(walkingAreas);
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterShapes() {
     // get all elements to filter
     std::vector<const GUIGlObject*> shapes;

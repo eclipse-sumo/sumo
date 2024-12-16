@@ -344,6 +344,9 @@ struct GNEViewNetHelper {
         /// @brief filter (remove) crossings
         void filterCrossings();
 
+        /// @brief filter (remove) walkingAreas
+        void filterWalkingAreas();
+
         /// @brief filter (remove) polys and POIs
         void filterShapes();
 
