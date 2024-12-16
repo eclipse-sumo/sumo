@@ -12,6 +12,7 @@
 
 # @file    gtfs2osm.py
 # @author  Giuliana Armellini
+# @author  Mirko Barthauer
 # @date    2021-02-18
 
 """
@@ -27,6 +28,8 @@ import math
 import io
 import re
 from collections import defaultdict
+import hashlib
+
 # from pprint import pprint
 
 import pandas as pd
@@ -105,6 +108,10 @@ for i in range(900, 907):
 # }
 
 
+def md5hash(s):
+    return hashlib.md5(s.encode('utf-8')).hexdigest()
+
+
 @benchmark
 def import_gtfs(options, gtfsZip):
     """
@@ -124,7 +131,7 @@ def import_gtfs(options, gtfsZip):
     if 'trip_headsign' not in trips:
         trips['trip_headsign'] = ''
     if 'direction_id' not in trips:
-        trips['direction_id'] = ''
+        trips = discover_direction(routes, trips, stop_times)
     if 'route_short_name' not in routes:
         routes['route_short_name'] = routes['route_long_name']
 
@@ -197,6 +204,20 @@ def import_gtfs(options, gtfsZip):
         print("Warning! No GTFS data found for the given date %s." % options.date)
 
     return routes, trips_on_day, shapes, stops, stop_times
+
+
+@benchmark
+def discover_direction(routes, trips, stop_times):
+    """
+    Sets the direction value if it is not present in the GTFS data to identify separate
+    directions of the same PT line.
+    """
+    # create a direction_id identifier from the stop sequence
+    enhancedStopTimes = pd.merge(stop_times, pd.merge(trips, routes, on='route_id', how='left'), on='trip_id')
+    groupedStopTimes = enhancedStopTimes.groupby(["trip_id"], as_index=False).agg({'stop_id': ' '.join})
+    groupedStopTimes['direction_id'] = groupedStopTimes['stop_id'].apply(md5hash)
+    # copy the direction_id back to the trips file / join the DataFrame
+    return pd.merge(trips, groupedStopTimes[['trip_id', 'direction_id']], on='trip_id', how='left')
 
 
 @benchmark
