@@ -417,7 +417,12 @@ void
 GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     // update fields
     myComboBoxVehicleType->setCurrentItem(myComboBoxVehicleType->findItem(myEditedAdditional->getAttribute(SUMO_ATTR_TYPE).c_str()));
-    myComboBoxRoute->setCurrentItem(myComboBoxVehicleType->findItem(myEditedAdditional->getAttribute(SUMO_ATTR_ROUTE).c_str()));
+    const int routeIndex = myComboBoxVehicleType->findItem(myEditedAdditional->getAttribute(SUMO_ATTR_ROUTE).c_str());
+    if (routeIndex == -1) {
+        myComboBoxRoute->setCurrentItem(0);
+    } else {
+        myComboBoxRoute->setCurrentItem(routeIndex);
+    }
     myTextFieldVehsPerHour->setText(myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).c_str());
     myTextFieldSpeed->setText(myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).c_str());
     myTextFieldColor->setText(myEditedAdditional->getAttribute(SUMO_ATTR_COLOR).c_str());
