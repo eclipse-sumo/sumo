@@ -49,13 +49,15 @@ import os
 import sys
 import glob
 from collections import namedtuple
+from collections import defaultdict
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.statistics import Statistics
 
-Route = namedtuple('Route', ['vehID', 'cost', 'used', 'edges'])
+Route = namedtuple('Route', ['vehID', 'cost', 'index', 'used', 'depart', 'edges'])
 StringDict = {}
+ReverseStringDict = {}
 
 def npindex(array, x):
     i = np.where(array == x)
@@ -77,6 +79,11 @@ def stringToNumber(string):
         StringDict[string] = len(StringDict)
     return StringDict[string]
 
+def numberToString(n):
+    if not ReverseStringDict:
+        ReverseStringDict.update(((v, k) for k, v in StringDict.items()))
+    return ReverseStringDict[n]
+
 def load(baseDir, iterations, suffix="gz"):
     """iterations is an iterable that gives the iteration numberes to load
     """
@@ -93,12 +100,20 @@ def load(baseDir, iterations, suffix="gz"):
             last = int(vehicle.routeDistribution[0].last)
             for ri, route in enumerate(vehicle.routeDistribution[0].route):
                 edges = np.array(list(map(stringToNumber, route.edges.split())), dtype=np.uint32)
-                stepRoutes.append(Route(vehicle.id, float(route.cost), ri == last, edges))
+                stepRoutes.append(Route(vehicle.id, float(route.cost), ri, ri == last, vehicle.depart, edges))
         result.append((step, stepRoutes))
     return result
 
 
-def filter(iterations, origin=None, dest=None, via=None, forbidden=None):
+def filter(iterations, origin=None, dest=None, via=None, forbidden=None, cutVia=False):
+    """Filter given routes according to origin, destination, via-edges or forbidden edges
+    If cutVia is set, the route will be truncated by the first and last via-edge and it's cost set to -1
+    """
+    if cutVia:
+        if not via:
+            print("ignoring cutVia because via is not set", sys.stderr)
+        if len(via) == 1 and not origin and not dest:
+            print("cannot cutVia because only a single edge is given without origin or dest", sys.stderr)
     result = []
     if origin:
         origin = stringToNumber(origin)
@@ -117,19 +132,51 @@ def filter(iterations, origin=None, dest=None, via=None, forbidden=None):
                 continue
             if via or forbidden:
                 edgeSet = set(r.edges)
-                if forbidden and not edgeSet.disjoint(forbidden):
+                if forbidden and not edgeSet.isdisjoint(forbidden):
                     continue
                 if via and not (edgeSet.issuperset(via) and hasSequence(r.edges, via)):
                     continue
-            routes2.append(r)
+            if cutVia and via:
+                iStart = npindex(r.edges, via[0])
+                if len(via) == 1:
+                    if origin:
+                        iStart = 0
+                        iEnd = iStart
+                    elif dest:
+                        iEnd = edges.size - 1
+                    else:
+                        iEnd = iStart
+                else:
+                    iEnd = npindex(r.edges, via[-1])
+                routes2.append(Route(r.vehID, -1, r.index, False, r.depart, r.edges[iStart:iEnd + 1]))
+            else:
+                routes2.append(r)
         result.append((step, routes2))
     return result
 
 def costs(iterations):
+    """Compute statistics on costs computed by duarouter for the provided routes"""
     for step, routes in iterations:
         s = Statistics("%s Costs" % step)
         for r in routes:
             s.add(r.cost, r.vehID)
         print(s)
+
+def distinct(iterations):
+    """Count the number of occurences for each distinct route"""
+    for step, routes in iterations:
+        counts = {} # edges -> (count, info)
+        for r in routes:
+            etup = tuple(r.edges)
+            if etup in counts:
+                counts[etup][0] += 1
+            else:
+                # store information sufficient for identifying the route
+                counts[etup] = [1, (r.vehID, r.index)]
+        print("Route usage counts in step %s (Count vehID routeIndex)" % step)
+        rcounts = [(v, k) for k, v in counts.items()]
+        for (count, info), edges in sorted(rcounts):
+            print(count, info)
+        print("Total distinct routes: %s" % len(counts))
 
 
