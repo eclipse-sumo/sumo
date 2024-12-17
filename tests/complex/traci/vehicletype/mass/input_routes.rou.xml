@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" mass="1234" sigma="0"/>
+    <vType id="t1" mass="2345" sigma="0" />
+    <vType id="t2" emissionClass="Energy/default"/>
+    <vType id="t3" vClass="truck" emissionClass="Energy/default"/>
+    <route id="r1" edges="1fi 1si"/>
+    <vehicle id="veh0" depart="0" route="r1"/>
+    <vehicle id="veh1" type="t1" depart="10" route="r1"/>
+    <vehicle id="veh2" type="t2" depart="20" route="r1"/>
+    <vehicle id="veh3" type="t3" depart="30" route="r1"/>
+</routes>
