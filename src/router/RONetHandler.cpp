@@ -318,6 +318,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         if (allow == "" && disallow == "") {
             permissions = SVC_UNSPECIFIED;
         } else {
+            myNet.setPermissionsFound();
             // dummyVia is only needed to hold permissions
             permissions = parseVehicleClasses(allow, disallow);
             dummyVia = new ROEdge("dummyVia_" + from->getLanes()[fromLane]->getID() + "->" + to->getLanes()[toLane]->getID(),
