@@ -202,166 +202,212 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     switch (obj->getTag()) {
         // vTypes
         case SUMO_TAG_VTYPE:
-            buildVType(obj,
-                       obj->getVehicleTypeParameter());
+            if (buildVType(obj,
+                           obj->getVehicleTypeParameter())) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
-            buildVTypeDistribution(obj,
-                                   obj->getStringAttribute(SUMO_ATTR_ID),
-                                   obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC),
-                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                   obj->getDoubleListAttribute(SUMO_ATTR_PROBS));
+            if (buildVTypeDistribution(obj,
+                                       obj->getStringAttribute(SUMO_ATTR_ID),
+                                       obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC),
+                                       obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                       obj->getDoubleListAttribute(SUMO_ATTR_PROBS))) {
+                obj->markAsCreated();
+            }
             break;
         // route
         case SUMO_TAG_ROUTE:
             if (obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
-                buildEmbeddedRoute(obj,
+                if (buildEmbeddedRoute(obj,
                                    obj->getStringListAttribute(SUMO_ATTR_EDGES),
                                    obj->getColorAttribute(SUMO_ATTR_COLOR),
                                    obj->getIntAttribute(SUMO_ATTR_REPEAT),
                                    obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                                   obj->getParameters());
+                                   obj->getParameters())) {
+                    obj->markAsCreated();
+                }
             } else {
-                buildRoute(obj,
-                           obj->getStringAttribute(SUMO_ATTR_ID),
-                           obj->getVClass(),
-                           obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                           obj->getColorAttribute(SUMO_ATTR_COLOR),
-                           obj->getIntAttribute(SUMO_ATTR_REPEAT),
-                           obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                           obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                           obj->getParameters());
+                if (buildRoute(obj,
+                               obj->getStringAttribute(SUMO_ATTR_ID),
+                               obj->getVClass(),
+                               obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                               obj->getColorAttribute(SUMO_ATTR_COLOR),
+                               obj->getIntAttribute(SUMO_ATTR_REPEAT),
+                               obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                               obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                               obj->getParameters())) {
+                    obj->markAsCreated();
+                }
             }
             break;
         case SUMO_TAG_ROUTE_DISTRIBUTION:
-            buildRouteDistribution(obj,
-                                   obj->getStringAttribute(SUMO_ATTR_ID),
-                                   obj->getStringListAttribute(SUMO_ATTR_ROUTES),
-                                   obj->getDoubleListAttribute(SUMO_ATTR_PROBS));
+            if (buildRouteDistribution(obj,
+                                       obj->getStringAttribute(SUMO_ATTR_ID),
+                                       obj->getStringListAttribute(SUMO_ATTR_ROUTES),
+                                       obj->getDoubleListAttribute(SUMO_ATTR_PROBS))) {
+                obj->markAsCreated();
+            }
             break;
         // vehicles
         case SUMO_TAG_TRIP:
             if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                    obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
                 // build trip with from-to junctions
-                buildTripJunctions(obj,
-                                   obj->getVehicleParameter(),
-                                   obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                   obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION));
+                if (buildTripJunctions(obj,
+                                       obj->getVehicleParameter(),
+                                       obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                       obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                    obj->markAsCreated();
+                }
             } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
                        obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
                 // build trip with from-to TAZs
-                buildTripTAZs(obj,
-                              obj->getVehicleParameter(),
-                              obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                              obj->getStringAttribute(SUMO_ATTR_TO_TAZ));
+                if (buildTripTAZs(obj,
+                                  obj->getVehicleParameter(),
+                                  obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                  obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
+                    obj->markAsCreated();
+                }
             } else {
                 // build trip with from-to edges
-                buildTrip(obj,
-                          obj->getVehicleParameter(),
-                          obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                          obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "");
+                if (buildTrip(obj,
+                              obj->getVehicleParameter(),
+                              obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                              obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
+                    obj->markAsCreated();
+                }
             }
             break;
         case SUMO_TAG_VEHICLE:
             if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                buildVehicleOverRoute(obj,
-                                      obj->getVehicleParameter());
+                if (buildVehicleOverRoute(obj,
+                                          obj->getVehicleParameter())) {
+                    obj->markAsCreated();
+                }
             }
             break;
         // flows
         case SUMO_TAG_FLOW:
             if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
                 // build flow over route
-                buildFlowOverRoute(obj,
-                                   obj->getVehicleParameter());
+                if (buildFlowOverRoute(obj,
+                                       obj->getVehicleParameter())) {
+                    obj->markAsCreated();
+                }
             } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
                        obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
                 // build flow with from-to junctions
-                buildFlowJunctions(obj,
-                                   obj->getVehicleParameter(),
-                                   obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                   obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION));
+                if (buildFlowJunctions(obj,
+                                       obj->getVehicleParameter(),
+                                       obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                       obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                    obj->markAsCreated();
+                }
             } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
                        obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
                 // build flow with from-to TAZs
-                buildFlowTAZs(obj,
-                              obj->getVehicleParameter(),
-                              obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                              obj->getStringAttribute(SUMO_ATTR_TO_TAZ));
+                if (buildFlowTAZs(obj,
+                                  obj->getVehicleParameter(),
+                                  obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                  obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
+                    obj->markAsCreated();
+                }
             } else if ((obj->getSumoBaseObjectChildren().size() == 0) ||
                        (obj->getSumoBaseObjectChildren().front()->getTag() != SUMO_TAG_ROUTE)) {
                 // build flow with from-to edges
-                buildFlow(obj,
-                          obj->getVehicleParameter(),
-                          obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                          obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "");
+                if (buildFlow(obj,
+                              obj->getVehicleParameter(),
+                              obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                              obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
+                    obj->markAsCreated();
+                }
             }
             break;
         // persons
         case SUMO_TAG_PERSON:
-            buildPerson(obj,
-                        obj->getVehicleParameter());
+            if (buildPerson(obj,
+                            obj->getVehicleParameter())) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_PERSONFLOW:
-            buildPersonFlow(obj,
-                            obj->getVehicleParameter());
+            if (buildPersonFlow(obj,
+                                obj->getVehicleParameter())) {
+                obj->markAsCreated();
+            }
             break;
         // person plans
         case SUMO_TAG_PERSONTRIP:
-            buildPersonTrip(obj,
-                            obj->getPlanParameters(),
-                            obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                            obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                            obj->getStringListAttribute(SUMO_ATTR_MODES),
-                            obj->getStringListAttribute(SUMO_ATTR_LINES),
-                            obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
-                            obj->getStringAttribute(SUMO_ATTR_GROUP));
+            if (buildPersonTrip(obj,
+                                obj->getPlanParameters(),
+                                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                obj->getStringListAttribute(SUMO_ATTR_MODES),
+                                obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
+                                obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_RIDE:
-            buildRide(obj,
-                      obj->getPlanParameters(),
-                      obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                      obj->getStringListAttribute(SUMO_ATTR_LINES),
-                      obj->getStringAttribute(SUMO_ATTR_GROUP));
+            if (buildRide(obj,
+                          obj->getPlanParameters(),
+                          obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                          obj->getStringListAttribute(SUMO_ATTR_LINES),
+                          obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_WALK:
-            buildWalk(obj,
-                      obj->getPlanParameters(),
-                      obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                      obj->getDoubleAttribute(SUMO_ATTR_SPEED),
-                      obj->getTimeAttribute(SUMO_ATTR_DURATION));
+            if (buildWalk(obj,
+                          obj->getPlanParameters(),
+                          obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                          obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                          obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
+                obj->markAsCreated();
+            }
             break;
         // container
         case SUMO_TAG_CONTAINER:
-            buildContainer(obj,
-                           obj->getVehicleParameter());
+            if (buildContainer(obj,
+                              obj->getVehicleParameter())) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_CONTAINERFLOW:
-            buildContainerFlow(obj,
-                               obj->getVehicleParameter());
+            if (buildContainerFlow(obj,
+                                   obj->getVehicleParameter())) {
+                obj->markAsCreated();
+            }
             break;
         // container plans
         case SUMO_TAG_TRANSPORT:
-            buildTransport(obj,
-                           obj->getPlanParameters(),
-                           obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                           obj->getStringListAttribute(SUMO_ATTR_LINES),
-                           obj->getStringAttribute(SUMO_ATTR_GROUP));
+            if (buildTransport(obj,
+                               obj->getPlanParameters(),
+                               obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                               obj->getStringListAttribute(SUMO_ATTR_LINES),
+                               obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_TRANSHIP:
-            buildTranship(obj,
-                          obj->getPlanParameters(),
-                          obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                          obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
-                          obj->getDoubleAttribute(SUMO_ATTR_SPEED),
-                          obj->getTimeAttribute(SUMO_ATTR_DURATION));
+            if (buildTranship(obj,
+                              obj->getPlanParameters(),
+                              obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                              obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
+                              obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                              obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
+                obj->markAsCreated();
+            }
             break;
-        // stopss
+        // stops
         case SUMO_TAG_STOP:
-            buildStop(obj,
-                      obj->getPlanParameters(),
-                      obj->getStopParameter());
+            if (buildStop(obj,
+                          obj->getPlanParameters(),
+                          obj->getStopParameter())) {
+                obj->markAsCreated();
+            }
             break;
         default:
             break;
@@ -380,10 +426,11 @@ RouteHandler::isErrorCreatingElement() const {
 }
 
 
-void
+bool
 RouteHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
     myErrorCreatingElement = true;
+    return false;
 }
 
 
@@ -428,9 +475,9 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
     if (parsedOk) {
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            writeErrorInvalidID(SUMO_TAG_VTYPE_DISTRIBUTION, id);
+            return writeErrorInvalidID(SUMO_TAG_VTYPE_DISTRIBUTION, id);
         } else if (vTypes.size() != probabilities.size()) {
-            writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
+            return writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
@@ -497,9 +544,9 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
     if (parsedOk) {
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            writeErrorInvalidID(SUMO_TAG_ROUTE_DISTRIBUTION, id);
+            return writeErrorInvalidID(SUMO_TAG_ROUTE_DISTRIBUTION, id);
         } else if (routes.size() != probabilities.size()) {
-            writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
+            return writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
@@ -940,7 +987,7 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
     } else if (myHardFail) {
         throw ProcessError(TL("Invalid parsing embedded VType"));
     } else {
-        writeError(TL("Invalid parsing embedded VType"));
+        return writeError(TL("Invalid parsing embedded VType"));
     }
     return false;
 }
@@ -1023,8 +1070,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, stop.busstop);
     // check errors
     if (!stop.edge.empty() && !stop.lane.empty()) {
-        writeError(TL("A stop must be defined either with an edge or with an lane, not both"));
-        return false;
+        return writeError(TL("A stop must be defined either with an edge or with an lane, not both"));
     }
     // stopping places
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
@@ -1039,11 +1085,9 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     const int numStoppingPlaces = !stop.busstop.empty() + !stop.chargingStation.empty() + !stop.overheadWireSegment.empty() +
                                   !stop.containerstop.empty() + !stop.parkingarea.empty();
     if (numStoppingPlaces > 1) {
-        writeError(TL("A stop must be defined only in a StoppingPlace"));
-        return false;
+        return writeError(TL("A stop must be defined only in a StoppingPlace"));
     } else if ((numStoppingPlaces == 0) && stop.edge.empty() && stop.lane.empty()) {
-        writeError(TL("A stop must be defined in an edge, a lane, or in a StoppingPlace"));
-        return false;
+        return writeError(TL("A stop must be defined in an edge, a lane, or in a StoppingPlace"));
     }
     // declare error suffix
     std::string errorSuffix;
@@ -1065,7 +1109,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     // speed for counting as stopped
     stop.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, 0);
     if (stop.speed < 0) {
-        writeError("Speed cannot be negative for stop" + errorSuffix);
+        return writeError("Speed cannot be negative for stop" + errorSuffix);
         return false;
     }
     // get the standing duration
@@ -1083,7 +1127,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
     stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
     if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
-        writeError("Invalid duration or end time is given for a stop" + errorSuffix);
+        return writeError("Invalid duration or end time is given for a stop" + errorSuffix);
         return false;
     }
     stop.extension = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EXTENSION, nullptr, ok, -1);
@@ -1094,7 +1138,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
         stop.parking = ParkingType::OFFROAD;
     }
     if (!ok) {
-        writeError("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
+        return writeError("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
         return false;
     }
     // expected persons
@@ -1132,7 +1176,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     } else {
         stop.index = attrs.get<int>(SUMO_ATTR_INDEX, nullptr, ok);
         if (!ok || stop.index < 0) {
-            writeError("Invalid 'index' for stop" + errorSuffix);
+            return writeError("Invalid 'index' for stop" + errorSuffix);
             return false;
         }
     }

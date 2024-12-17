@@ -955,7 +955,7 @@ GNEVType::getACParametersMap() const {
 }
 
 
-void
+bool
 GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwrite all values of default VType
     undoList->begin(vType, "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
@@ -1300,6 +1300,7 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     // close undo list
     undoList->end();
+    return true;
 }
 
 // ===========================================================================
