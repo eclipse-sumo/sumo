@@ -92,46 +92,48 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     // switch tag
     switch (obj->getTag()) {
         case SUMO_TAG_MEANDATA_EDGE:
-            buildEdgeMeanData(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getStringAttribute(SUMO_ATTR_FILE),
-                              obj->getTimeAttribute(SUMO_ATTR_PERIOD),
-                              obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                              obj->getTimeAttribute(SUMO_ATTR_END),
-                              obj->getBoolAttribute(SUMO_ATTR_TRACK_VEHICLES),
-                              obj->getStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES),
-                              obj->getBoolAttribute(SUMO_ATTR_AGGREGATE),
-                              obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                              obj->getStringAttribute(SUMO_ATTR_EDGESFILE),
-                              obj->getStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY),
-                              obj->getBoolAttribute(SUMO_ATTR_WITH_INTERNAL),
-                              obj->getStringListAttribute(SUMO_ATTR_DETECT_PERSONS),
-                              obj->getDoubleAttribute(SUMO_ATTR_MIN_SAMPLES),
-                              obj->getDoubleAttribute(SUMO_ATTR_MAX_TRAVELTIME),
-                              obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                              obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD));
-
-
+            if (buildEdgeMeanData(obj,
+                                      obj->getStringAttribute(SUMO_ATTR_ID),
+                                  obj->getStringAttribute(SUMO_ATTR_FILE),
+                                  obj->getTimeAttribute(SUMO_ATTR_PERIOD),
+                                  obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                  obj->getTimeAttribute(SUMO_ATTR_END),
+                                  obj->getBoolAttribute(SUMO_ATTR_TRACK_VEHICLES),
+                                  obj->getStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES),
+                                  obj->getBoolAttribute(SUMO_ATTR_AGGREGATE),
+                                  obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                                  obj->getStringAttribute(SUMO_ATTR_EDGESFILE),
+                                  obj->getStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY),
+                                  obj->getBoolAttribute(SUMO_ATTR_WITH_INTERNAL),
+                                  obj->getStringListAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                  obj->getDoubleAttribute(SUMO_ATTR_MIN_SAMPLES),
+                                  obj->getDoubleAttribute(SUMO_ATTR_MAX_TRAVELTIME),
+                                  obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                  obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD))) {
+                obj->markAsCreated();
+            };
             break;
         case SUMO_TAG_MEANDATA_LANE:
-            buildLaneMeanData(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getStringAttribute(SUMO_ATTR_FILE),
-                              obj->getTimeAttribute(SUMO_ATTR_PERIOD),
-                              obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                              obj->getTimeAttribute(SUMO_ATTR_END),
-                              obj->getBoolAttribute(SUMO_ATTR_TRACK_VEHICLES),
-                              obj->getStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES),
-                              obj->getBoolAttribute(SUMO_ATTR_AGGREGATE),
-                              obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                              obj->getStringAttribute(SUMO_ATTR_EDGESFILE),
-                              obj->getStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY),
-                              obj->getBoolAttribute(SUMO_ATTR_WITH_INTERNAL),
-                              obj->getStringListAttribute(SUMO_ATTR_DETECT_PERSONS),
-                              obj->getDoubleAttribute(SUMO_ATTR_MIN_SAMPLES),
-                              obj->getDoubleAttribute(SUMO_ATTR_MAX_TRAVELTIME),
-                              obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                              obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD));
+            if (buildLaneMeanData(obj,
+                                  obj->getStringAttribute(SUMO_ATTR_ID),
+                                  obj->getStringAttribute(SUMO_ATTR_FILE),
+                                  obj->getTimeAttribute(SUMO_ATTR_PERIOD),
+                                  obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                  obj->getTimeAttribute(SUMO_ATTR_END),
+                                  obj->getBoolAttribute(SUMO_ATTR_TRACK_VEHICLES),
+                                  obj->getStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES),
+                                  obj->getBoolAttribute(SUMO_ATTR_AGGREGATE),
+                                  obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                                  obj->getStringAttribute(SUMO_ATTR_EDGESFILE),
+                                  obj->getStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY),
+                                  obj->getBoolAttribute(SUMO_ATTR_WITH_INTERNAL),
+                                  obj->getStringListAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                  obj->getDoubleAttribute(SUMO_ATTR_MIN_SAMPLES),
+                                  obj->getDoubleAttribute(SUMO_ATTR_MAX_TRAVELTIME),
+                                  obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                  obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD))) {
+                obj->markAsCreated();
+            }
             break;
         default:
             break;
@@ -150,10 +152,11 @@ MeanDataHandler::isErrorCreatingElement() const {
 }
 
 
-void
+bool
 MeanDataHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
     myErrorCreatingElement = true;
+    return false;
 }
 
 

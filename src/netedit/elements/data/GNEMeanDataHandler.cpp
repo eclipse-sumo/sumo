@@ -48,7 +48,7 @@ GNEMeanDataHandler::GNEMeanDataHandler(GNENet* net, const bool allowUndoRedo, co
 GNEMeanDataHandler::~GNEMeanDataHandler() {}
 
 
-void
+bool
 GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
                                       const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                       const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
@@ -62,6 +62,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_EDGE, ID, false) != nullptr) {
         writeError(TL("Could not build meanDataEdge; ") + TLF("% already exists", ID));
+        return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -74,11 +75,14 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
             myNet->getAttributeCarriers()->insertMeanData(edgeMeanData);
             edgeMeanData->incRef("buildEdgeMeanData");
         }
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void
+bool
 GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
                                       const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                       const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
@@ -91,7 +95,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_LANE, writtenAttributes);
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_LANE, ID, false) != nullptr) {
-        writeError(TL("Could not build meanDataLane; ") + TLF("% already exists", ID));
+        return writeError(TL("Could not build meanDataLane; ") + TLF("% already exists", ID));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -104,6 +108,9 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
             myNet->getAttributeCarriers()->insertMeanData(edgeMeanData);
             edgeMeanData->incRef("buildEdgeMeanData");
         }
+        return true;
+    } else {
+        return false;
     }
 }
 

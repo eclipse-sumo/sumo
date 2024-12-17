@@ -56,7 +56,7 @@ public:
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData
-    virtual void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    virtual bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
                                    const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                    const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edges,
                                    const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -64,7 +64,7 @@ public:
                                    const std::vector<std::string>& vTypes, const double speedThreshold) = 0;
 
     /// @brief Builds laneMeanData
-    virtual void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    virtual bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
                                    const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                    const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edges,
                                    const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -78,7 +78,7 @@ public:
 
 protected:
     /// @brief write error and enable error creating element
-    void writeError(const std::string& error);
+    bool writeError(const std::string& error);
 
 private:
     /// @brief common XML Structure
