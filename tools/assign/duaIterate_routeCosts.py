@@ -105,7 +105,7 @@ def load(baseDir, iterations, suffix="gz"):
     return result
 
 
-def filter(iterations, origin=None, dest=None, via=None, forbidden=None, cutVia=False):
+def filter(stepRoutes, origin=None, dest=None, via=None, forbidden=None, cutVia=False):
     """Filter given routes according to origin, destination, via-edges or forbidden edges
     If cutVia is set, the route will be truncated by the first and last via-edge and it's cost set to -1
     """
@@ -123,7 +123,7 @@ def filter(iterations, origin=None, dest=None, via=None, forbidden=None, cutVia=
         via = list(map(stringToNumber, via))
     if forbidden:
         forbidden = list(map(stringToNumber, forbidden))
-    for step, routes in iterations:
+    for step, routes in stepRoutes:
         routes2 = []
         for r in routes:
             if origin and r.edges[0] != origin:
@@ -154,17 +154,17 @@ def filter(iterations, origin=None, dest=None, via=None, forbidden=None, cutVia=
         result.append((step, routes2))
     return result
 
-def costs(iterations):
+def costs(stepRoutes):
     """Compute statistics on costs computed by duarouter for the provided routes"""
-    for step, routes in iterations:
+    for step, routes in stepRoutes:
         s = Statistics("%s Costs" % step)
         for r in routes:
             s.add(r.cost, r.vehID)
         print(s)
 
-def distinct(iterations):
+def distinct(stepRoutes):
     """Count the number of occurences for each distinct route"""
-    for step, routes in iterations:
+    for step, routes in stepRoutes:
         counts = {} # edges -> (count, info)
         for r in routes:
             etup = tuple(r.edges)
@@ -178,5 +178,4 @@ def distinct(iterations):
         for (count, info), edges in sorted(rcounts):
             print(count, info)
         print("Total distinct routes: %s" % len(counts))
-
 
