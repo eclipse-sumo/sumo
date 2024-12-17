@@ -148,11 +148,17 @@ public:
         /// @brief set SumoBaseObject tag
         void setTag(const SumoXMLTag tag);
 
+        /// @brief mark as successfully created
+        void markAsCreated();
+
         /// @name get functions
         /// @{
 
         /// @brief get XML myTag
         SumoXMLTag getTag() const;
+
+        /// @brief check if the object was successfully created in build<...> function
+        bool wasCreated() const;
 
         /// @brief get pointer to mySumoBaseObjectParent SumoBaseObject (if is null, then is the root)
         SumoBaseObject* getParentSumoBaseObject() const;
@@ -309,7 +315,10 @@ public:
         SumoBaseObject* mySumoBaseObjectParent;
 
         /// @brief XML myTag
-        SumoXMLTag myTag;
+        SumoXMLTag myTag = SUMO_TAG_NOTHING;
+
+        /// @brief flag to check if object was created in build<..> function (by default false)
+        bool myWasCreated = false;
 
         /// @brief string attributes
         std::map<const SumoXMLAttr, std::string> myStringAttributes;
@@ -348,7 +357,7 @@ public:
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
 
         /// @brief vehicle class
-        SUMOVehicleClass myVClass;
+        SUMOVehicleClass myVClass = SVC_IGNORING;
 
         /// @brief vehicle type parameter
         SUMOVTypeParameter myVehicleTypeParameter;
@@ -370,13 +379,13 @@ public:
 
     private:
         /// @brief flag for defined vehicle type parameter
-        bool myDefinedVehicleTypeParameter;
+        bool myDefinedVehicleTypeParameter = false;
 
         /// @brief @brief flag for defined vehicle parameter
-        bool myDefinedVehicleParameter;
+        bool myDefinedVehicleParameter = false;
 
         /// @brief @brief flag for defined stop parameter
-        bool myDefinedStopParameter;
+        bool myDefinedStopParameter = false;
 
         /// @brief handle attribute error
         void handleAttributeError(const SumoXMLAttr attr, const std::string& type) const;

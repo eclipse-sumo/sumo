@@ -260,12 +260,7 @@ CommonXMLStructure::PlanParameters::writeIgnoringMessage(const CommonXMLStructur
 
 CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent) :
     mySumoBaseObjectParent(parent),
-    myTag(SUMO_TAG_NOTHING),
-    myVClass(SVC_IGNORING),
-    myVehicleTypeParameter(""),
-    myDefinedVehicleTypeParameter(false),
-    myDefinedVehicleParameter(false),
-    myDefinedStopParameter(false) {
+    myVehicleTypeParameter("") {
     // add this SumoBaseObject into parent children
     if (mySumoBaseObjectParent) {
         mySumoBaseObjectParent->addSumoBaseObjectChild(this);
@@ -321,9 +316,21 @@ CommonXMLStructure::SumoBaseObject::setTag(const SumoXMLTag tag) {
 }
 
 
+void
+CommonXMLStructure::SumoBaseObject::markAsCreated() {
+    myWasCreated = true;
+}
+
+
 SumoXMLTag
 CommonXMLStructure::SumoBaseObject::getTag() const {
     return myTag;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::wasCreated() const {
+    return myWasCreated;
 }
 
 
