@@ -731,9 +731,6 @@ protected:
     /// @brief check if given ID correspond to a duplicated additionals
     bool checkDuplicatedID(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief remove overwritten additional
-    void overwriteAdditional();
-
     /// @brief struct for Netedit parameters
     struct NeteditParameters {
         /// @brief parameter constructor
@@ -768,9 +765,6 @@ private:
 
     /// @brief check if overwrite
     const bool myOverwrite;
-
-    /// @brief additional to overwrite (using undor-redo
-    GNEAdditional* myAdditionalToOverwrite = nullptr;
 
     /// @brief invalidate default constructo
     GNEAdditionalHandler();
