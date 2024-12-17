@@ -51,27 +51,35 @@ DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     switch (obj->getTag()) {
         // Stopping Places
         case SUMO_TAG_INTERVAL:
-            buildDataInterval(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
-                              obj->getDoubleAttribute(SUMO_ATTR_END));
+            if (buildDataInterval(obj,
+                                  obj->getStringAttribute(SUMO_ATTR_ID),
+                                  obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                  obj->getDoubleAttribute(SUMO_ATTR_END))) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_EDGE:
-            buildEdgeData(obj,
-                          obj->getStringAttribute(SUMO_ATTR_ID),
-                          obj->getParameters());
+            if (buildEdgeData(obj,
+                              obj->getStringAttribute(SUMO_ATTR_ID),
+                              obj->getParameters())) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_EDGEREL:
-            buildEdgeRelationData(obj,
-                                  obj->getStringAttribute(SUMO_ATTR_FROM),
-                                  obj->getStringAttribute(SUMO_ATTR_TO),
-                                  obj->getParameters());
+            if (buildEdgeRelationData(obj,
+                                      obj->getStringAttribute(SUMO_ATTR_FROM),
+                                      obj->getStringAttribute(SUMO_ATTR_TO),
+                                      obj->getParameters())) {
+                obj->markAsCreated();
+            }
             break;
         case SUMO_TAG_TAZREL:
-            buildTAZRelationData(obj,
-                                 obj->getStringAttribute(SUMO_ATTR_FROM),
-                                 obj->getStringAttribute(SUMO_ATTR_TO),
-                                 obj->getParameters());
+            if (buildTAZRelationData(obj,
+                                     obj->getStringAttribute(SUMO_ATTR_FROM),
+                                     obj->getStringAttribute(SUMO_ATTR_TO),
+                                     obj->getParameters())) {
+                obj->markAsCreated();
+            }
             break;
         default:
             break;
@@ -151,10 +159,11 @@ DataHandler::isErrorCreatingElement() const {
 }
 
 
-void
+bool
 DataHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
     myErrorCreatingElement = true;
+    return false;
 }
 
 

@@ -60,7 +60,7 @@ public:
      * @param[in] begin interval begin
      * @param[in] end interval end
      */
-    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
+    virtual bool buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
                                    const double begin, const double end) = 0;
 
     /**@brief Builds edgeData
@@ -68,7 +68,7 @@ public:
      * @param[in] edgeID edge ID
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
+    virtual bool buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                                const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds edgeRelationData
@@ -77,7 +77,7 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+    virtual bool buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
                                        const std::string& toEdgeID, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds TAZRelationData
@@ -86,7 +86,7 @@ public:
      * @param[in] toTAZ TAZ to
      * @param[in] parameters parameters map
      */
-    virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+    virtual bool buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
                                       const std::string& toTAZID, const Parameterised::Map& parameters) = 0;
     /// @}
 
@@ -95,7 +95,7 @@ public:
 
 protected:
     /// @brief write error and enable error creating element
-    void writeError(const std::string& error);
+    bool writeError(const std::string& error);
 
 private:
     /// @brief common XML Structure
