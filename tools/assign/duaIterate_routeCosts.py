@@ -48,6 +48,7 @@ from __future__ import print_function
 import os
 import sys
 import glob
+import subprocess
 from collections import namedtuple
 from collections import defaultdict
 import numpy as np
@@ -95,13 +96,17 @@ def load(baseDir, iterations, suffix="gz"):
         if step not in iterations:
             continue
         print("loading step %s, file %s" % (step, file))
-        stepRoutes = []
-        for vehicle in sumolib.xml.parse(file, ['vehicle']):
-            last = int(vehicle.routeDistribution[0].last)
-            for ri, route in enumerate(vehicle.routeDistribution[0].route):
-                edges = np.array(list(map(stringToNumber, route.edges.split())), dtype=np.uint32)
-                stepRoutes.append(Route(vehicle.id, float(route.cost), ri, ri == last, vehicle.depart, edges))
-        result.append((step, stepRoutes))
+        result.append((step, loadRoutes(file)))
+    return result
+
+
+def loadRoutes(file):
+    result = []
+    for vehicle in sumolib.xml.parse(file, ['vehicle']):
+        last = int(vehicle.routeDistribution[0].last)
+        for ri, route in enumerate(vehicle.routeDistribution[0].route):
+            edges = np.array(list(map(stringToNumber, route.edges.split())), dtype=np.uint32)
+            result.append(Route(vehicle.id, float(route.cost), ri, ri == last, vehicle.depart, edges))
     return result
 
 
@@ -162,20 +167,63 @@ def costs(stepRoutes):
             s.add(r.cost, r.vehID)
         print(s)
 
-def distinct(stepRoutes):
-    """Count the number of occurences for each distinct route"""
+def distinct(stepRoutes, verbose=True):
+    """Count the number of occurences for each distinct route and return distinct routes"""
+    result = []
     for step, routes in stepRoutes:
+        routes2 = []
         counts = {} # edges -> (count, info)
         for r in routes:
             etup = tuple(r.edges)
             if etup in counts:
                 counts[etup][0] += 1
+                routes2.append(r)
             else:
                 # store information sufficient for identifying the route
                 counts[etup] = [1, (r.vehID, r.index)]
-        print("Route usage counts in step %s (Count vehID routeIndex)" % step)
-        rcounts = [(v, k) for k, v in counts.items()]
-        for (count, info), edges in sorted(rcounts):
-            print(count, info)
-        print("Total distinct routes: %s" % len(counts))
+        result.append((step, routes2))
+        if verbose:
+            print("Route usage counts in step %s (Count vehID routeIndex)" % step)
+            rcounts = [(v, k) for k, v in counts.items()]
+            for (count, info), edges in sorted(rcounts):
+                print(count, info)
+            print("Total distinct routes: %s" % len(counts))
+    return result;
+
+
+def recompute_costs(baseDir, stepRoutes, netfile=None, tmpfileprefix="tmp"):
+    """Recompute costs for all routes and all edgeData intervals"""
+    DUAROUTER = sumolib.checkBinary('duarouter')
+    tmp_input = tmpfileprefix + ".rou.gz"
+    tmp_output = tmpfileprefix + "_out.rou.gz"
+    tmp_output_alt = tmpfileprefix + "_out.rou.alt.gz"
+    dumpfiles = glob.glob(os.path.join(baseDir, "**/dump_*.xml"))
+    duarcfgs = glob.glob(os.path.join(baseDir, "**/*.duarcfg"))
+    dumpDict = dict([(int(os.path.basename(os.path.dirname(f))), f) for f in dumpfiles])
+    duarDict = dict([(int(os.path.basename(os.path.dirname(f))), f) for f in duarcfgs])
+    result = []
+    for step, routes in stepRoutes:
+        dumpfile = dumpDict[step]
+        with open(tmp_input, 'w') as tf:
+            tf.write('<routes>\n')
+            for interval in sumolib.xml.parse_fast(dumpfile, "interval", ["begin"]):
+                for r in routes:
+                    vehID = "%s_%s_%s" % (r.vehID, r.index, interval.begin)
+                    tf.write('    <vehicle id="%s" depart="%s">\n' % (vehID, interval.begin))
+                    tf.write('        <route edges="%s"/>\n' % ' '.join(map(numberToString, r.edges)))
+                    tf.write('    </vehicle>\n')
+            tf.write('</routes>\n')
+
+        args = [DUAROUTER, '-c', duarDict[step],
+                '--weight-files', dumpfile,
+                '--skip-new-routes',
+                '-r', tmp_input,
+                '-o', tmp_output]
+        if netfile:
+            args += ['-n', netfile]
+        subprocess.call(args)
+        result.append((step, loadRoutes(tmp_output_alt)))
+    return result
+
+
 
