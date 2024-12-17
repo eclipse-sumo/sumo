@@ -11152,15 +11152,15 @@ msgstr "ID des Ausgangscontainerhaltepunkts"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9386
 msgid "ChargingStation start ID"
-msgstr ""
+msgstr "ID der Ausgangsladestation"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9392
 msgid "ParkingArea start ID"
-msgstr ""
+msgstr "ID des Ausgangsparkplatzes"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9399
 msgid "Edge end ID"
-msgstr ""
+msgstr "ID der Ausgangskante"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9406
 msgid "The position at which the tranship shall enter the net"
@@ -11172,31 +11172,31 @@ msgstr "Ankunftsposition auf der Zielkante"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9419
 msgid "TAZ end ID"
-msgstr ""
+msgstr "ID der Zielverkehrsumlegungszone"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9425
 msgid "Junction end ID"
-msgstr ""
+msgstr "ID des Zielknotenpunkts"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9431
 msgid "BuStop end ID"
-msgstr ""
+msgstr "ID der Zielbushaltestelle"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9437
 msgid "TrainStop end ID"
-msgstr ""
+msgstr "ID des Zielbahnhaltepunkts"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9443
 msgid "ContainerStop end ID"
-msgstr ""
+msgstr "ID des Zielcontainerhaltepunkts"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9449
 msgid "ChargingStation end ID"
-msgstr ""
+msgstr "ID der Zielladestation"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9455
 msgid "ParkingArea end ID"
-msgstr ""
+msgstr "ID des Zielparkplatzes"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9468
 msgid "List of possible vehicle types to take"
