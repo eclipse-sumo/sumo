@@ -69,4 +69,8 @@ ticket15883
 
 # invalid route via prohibited connection
 # 
+ticket15922
+
+# invalid route via prohibited connection
+# 
 ticket15925
