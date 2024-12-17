@@ -1317,6 +1317,8 @@ void
 GNENet::saveNetwork() {
     auto& neteditOptions = OptionsCont::getOptions();
     auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSumoOptions();
+    // begin save network
+    getApp()->beginWaitCursor();
     // set output file in SUMO and netedit options
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", neteditOptions.getString("net-file"));
@@ -1344,6 +1346,8 @@ GNENet::saveNetwork() {
     neteditOptions.resetDefault("output-file");
     // mark network as saved
     mySavingStatus->networkSaved();
+    // end save network
+    getApp()->endWaitCursor();
 }
 
 
@@ -1422,7 +1426,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         }
     }
     // start recomputing
-    window->getApp()->beginWaitCursor();
+    getApp()->beginWaitCursor();
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
@@ -1480,7 +1484,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // clear myEdgesAndNumberOfLanes after reload additionals
     myEdgesAndNumberOfLanes.clear();
     // end recomputing
-    window->getApp()->endWaitCursor();
+    getApp()->endWaitCursor();
     // update status bar
     window->setStatusBarText(TL("Finished computing junctions."));
 }

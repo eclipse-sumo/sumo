@@ -3219,8 +3219,6 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
                     WRITE_DEBUG("network elements saved after dialog");
                 }
             } else {
-                // begin save network
-                getApp()->beginWaitCursor();
                 // Save network
                 myNet->saveNetwork();
                 saved = true;
@@ -3235,8 +3233,6 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
-        // end save network
-        getApp()->endWaitCursor();
         if (saved) {
             // write info
             WRITE_MESSAGE(TL("Network saved in '") + neteditOptions.getString("net-file") + "'.");
@@ -3824,8 +3820,6 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
             FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
-            // end saving additionals
-            getApp()->endWaitCursor();
         }
         return 0;
     }
@@ -4034,8 +4028,6 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
             FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
-            // end saving additionals
-            getApp()->endWaitCursor();
         }
     }
     return 0;
@@ -4199,8 +4191,6 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     if (neteditOptions.getString("data-files").empty()) {
         return onCmdSaveDataElementsAs(sender, sel, ptr);
     } else {
-        // Start saving data elements
-        getApp()->beginWaitCursor();
         try {
             // save data elements
             const bool savingResult = myNet->saveDataElements();
@@ -4219,8 +4209,6 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
             FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
-            // end saving additionals
-            getApp()->endWaitCursor();
         }
     }
     return 0;
@@ -4375,8 +4363,6 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
     if (neteditOptions.getString("meandata-files").empty()) {
         return onCmdSaveMeanDatasAs(sender, sel, ptr);
     } else {
-        // Start saving demand elements
-        getApp()->beginWaitCursor();
         try {
             // compute before saving
             myNet->computeNetwork(this);
@@ -4397,8 +4383,6 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
             FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
-            // end saving additionals
-            getApp()->endWaitCursor();
         }
     }
     return 0;
