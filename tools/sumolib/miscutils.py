@@ -29,12 +29,35 @@ import random
 import gzip
 import codecs
 import io
+from types import ModuleType, FunctionType
+from gc import get_referents
 try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
+
+
+_BLACKLIST = type, ModuleType, FunctionType
+def get_size(obj):
+    """sum size of object & members.
+    lifted from https://stackoverflow.com/a/30316760
+    """
+    if isinstance(obj, (_BLACKLIST)):
+        raise TypeError('getsize() does not take argument of type: '+ str(type(obj)))
+    seen_ids = set()
+    size = 0
+    objects = [obj]
+    while objects:
+        need_referents = []
+        for obj in objects:
+            if not isinstance(obj, BLACKLIST) and id(obj) not in seen_ids:
+                seen_ids.add(id(obj))
+                size += sys.getsizeof(obj)
+                need_referents.append(obj)
+        objects = get_referents(*need_referents)
+    return size
 
 
 def benchmark(func):
@@ -361,3 +384,5 @@ def short_names(filenames, noEmpty):
         base = os.path.basename(prefix)
         shortened = [base + f for f in shortened]
     return shortened
+
+
