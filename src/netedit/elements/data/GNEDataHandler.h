@@ -100,6 +100,9 @@ protected:
     /// @brief check if overwrite
     const bool myOverwrite;
 
+    /// @brief check if given ID correspond to a duplicated dataSet
+    bool checkDuplicatedDataSet(const std::string& id);
+
     /// @brief write error "duplicated data"
     bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 

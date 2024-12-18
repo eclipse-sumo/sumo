@@ -56,7 +56,7 @@ GNEDataHandler::~GNEDataHandler() {}
 bool
 GNEDataHandler::buildDataSet(const std::string& dataSetID) {
     // first check if dataSet exist
-    if (myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false) == nullptr) {
+    if (checkDuplicatedDataSet(dataSetID)) {
         GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(dataSet, TL("add data set"));
@@ -252,6 +252,30 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
         }
     } else {
         return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATASET);
+    }
+}
+
+
+bool
+GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
+    // retrieve data set
+    auto dataSet = myNet->getAttributeCarriers()->retrieveDataSet(id, false);
+    // if demand exist, check if overwrite (delete)
+    if (dataSet) {
+        if (!myAllowUndoRedo) {
+            // only overwrite if allow undo-redo
+            return false;
+        } else if (myOverwrite) {
+            // delete demand element (and all of their childrens)
+            myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
+            return true;
+        } else {
+            // duplicated dataSet
+            return false;
+        }
+    } else {
+        // demand with these id doesn't exist, then all ok
+        return true;
     }
 }
 
