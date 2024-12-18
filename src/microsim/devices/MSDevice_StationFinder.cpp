@@ -634,7 +634,7 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
             EnergyParams* const params = myHolder.getEmissionParameters();
             PollutantsInterface::EmissionType emType = myBattery->tracksFuel() ? PollutantsInterface::FUEL : PollutantsInterface::ELEC;
             expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), emType,
-                                  speed, 0., 0., params) * (remainingTime - passedTime);
+                                  speed * 0.8, 0., 0., params) * (remainingTime - passedTime);
         }
         if (includeEmptySoC) {
             expectedConsumption += MAX2(0., myEmptySoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
