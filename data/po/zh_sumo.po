@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-18 13:06+0100\n"
+"POT-Creation-Date: 2024-12-18 15:15+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -9819,7 +9819,11 @@ msgstr "在路网中嵌入 的分区(TAZ)数据已不适用。 使用选项 --ta
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的双向连接线 (bidi-connection)"
 
-#: src/netwrite/NWWriter_XML.cpp:88 src/polyconvert/PCPolyContainer.cpp:105
+#: src/netwrite/NWWriter_XML.cpp:107 src/utils/options/OptionsCont.cpp:673
+msgid "Could not save configuration to '%'"
+msgstr "无法将设定(configuration)保存到 '%'"
+
+#: src/netwrite/NWWriter_XML.cpp:120 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr "忽略选项 \"proj.plain-geo\", 因为沒有定义地理坐标转换"
@@ -11366,27 +11370,27 @@ msgstr "尝试減去不同长度的 PositionVectors。"
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:978
+#: src/utils/handlers/AdditionalHandler.cpp:964
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1125
+#: src/utils/handlers/AdditionalHandler.cpp:1111
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1127
+#: src/utils/handlers/AdditionalHandler.cpp:1113
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1431
+#: src/utils/handlers/AdditionalHandler.cpp:1417
 msgid "Calibrators need either an edge or a lane"
 msgstr "校估器需要一个路段或一个车道"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1478
+#: src/utils/handlers/AdditionalHandler.cpp:1464
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -11394,67 +11398,141 @@ msgstr ""
 "校估流量(CalibratorFlows)需要属性 每小时车辆数(vehsPerHour) 或 速度(speed)或"
 "类型(type) (或这些属性的任意組合)"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1619
-#: src/utils/handlers/AdditionalHandler.cpp:1645
-#: src/utils/handlers/AdditionalHandler.cpp:1670
+#: src/utils/handlers/AdditionalHandler.cpp:1605
+#: src/utils/handlers/AdditionalHandler.cpp:1631
+#: src/utils/handlers/AdditionalHandler.cpp:1656
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
 msgstr "机率 % 必须大于或等于 0"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1858
+#: src/utils/handlers/AdditionalHandler.cpp:1844
 msgid "X and Y must be be defined together in POIs"
 msgstr "X 和 Y 必须一起定义于兴趣点(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1864
+#: src/utils/handlers/AdditionalHandler.cpp:1850
 msgid "lane and position must be defined together in POIs"
 msgstr "车道和位置必须一起定义于兴趣点(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1870
+#: src/utils/handlers/AdditionalHandler.cpp:1856
 msgid "lon and lat must be be defined together in POIs"
 msgstr "经度(lon)和纬度(lat)必须一起定义于兴趣点(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1897
+#: src/utils/handlers/AdditionalHandler.cpp:1883
 #: src/utils/shapes/ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1985
+#: src/utils/handlers/AdditionalHandler.cpp:1971
 msgid "Parameters must be defined within an object."
 msgstr "参数必须定义于一个物件(object)內。"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1987
-#: src/utils/handlers/RouteHandler.cpp:954
+#: src/utils/handlers/AdditionalHandler.cpp:1973
+#: src/utils/handlers/RouteHandler.cpp:936
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "参数无法定义于附加文件(additional file)的根(root)中內。"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1989
-#: src/utils/handlers/RouteHandler.cpp:956
+#: src/utils/handlers/AdditionalHandler.cpp:1975
+#: src/utils/handlers/RouteHandler.cpp:938
 msgid "Parameters cannot be defined within another parameter."
 msgstr "参数无法定义于其它参数內。"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1997
+#: src/utils/handlers/AdditionalHandler.cpp:1983
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty."
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)不可以是空的。"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1999
+#: src/utils/handlers/AdditionalHandler.cpp:1985
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters."
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)含有无效的字元。"
 
-#: src/utils/handlers/AdditionalHandler.cpp:2018
-msgid "'%' must be defined within the definition of a '%'."
-msgstr ""
-
-#: src/utils/handlers/AdditionalHandler.cpp:2020
-msgid "'%' must be defined within the definition of a '%' (found % '%')."
-msgstr ""
-
-#: src/utils/handlers/AdditionalHandler.cpp:2032
+#: src/utils/handlers/AdditionalHandler.cpp:2000
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:63
+msgid "'%' must be defined within the definition of a %."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:66
+msgid "'%' must be defined within the definition of a '%' (found % '%')."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:69
+msgid "'%' must be defined within the definition of a '%' (found %)."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:81
+msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:92
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % cannot be negative."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:98
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % must be greather than "
+"zero."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:110
+#: src/utils/handlers/CommonHandler.cpp:128
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:116
+#: src/utils/handlers/CommonHandler.cpp:134
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % must be greather than "
+"zero (%)."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:147
+msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:162
+msgid ""
+"Could not build % with ID '%' in netedit; ID contains invalid characters."
+msgstr "无法在 netedit 中构建 % (其识别名(ID)为 '%'); ID 含有无效字元。"
+
+#: src/utils/handlers/CommonHandler.cpp:168
+msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:174
+msgid "Could not build % with ID '%' in netedit; Declared twice."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:180
+msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:186
+msgid ""
+"Could not build % with ID '%' in netedit; Distinct number of distribution "
+"values and probabilities."
+msgstr "无法在netedit中生成编号 (ID) 为 '%' 的 %；分布值和概率的数量不同。"
+
+#: src/utils/handlers/CommonHandler.cpp:192
+msgid ""
+"Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:198
+#, c-format
+msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:204
+#, c-format
+msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 
 #: src/utils/handlers/DataHandler.cpp:119
@@ -11465,59 +11543,51 @@ msgstr "数据元素(data elements)无法载入属性作为参数（params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均数据(MeanData)无法载入属性作为参数(params)"
 
-#: src/utils/handlers/RouteHandler.cpp:439
-msgid ""
-"Could not build % with ID '%' in netedit; ID contains invalid characters."
-msgstr "无法在 netedit 中构建 % (其识别名(ID)为 '%'); ID 含有无效字元。"
-
-#: src/utils/handlers/RouteHandler.cpp:446
-msgid ""
-"Could not build % with ID '%' in netedit; Distinct number of distribution "
-"values and probabilities."
-msgstr "无法在netedit中生成编号 (ID) 为 '%' 的 %；分布值和概率的数量不同。"
-
-#: src/utils/handlers/RouteHandler.cpp:500
+#: src/utils/handlers/RouteHandler.cpp:472
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr "路径必须定义于一个车辆/流量內, 或是用一个识别名(ID)属性"
 
-#: src/utils/handlers/RouteHandler.cpp:518
+#: src/utils/handlers/RouteHandler.cpp:490
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "周期时间(cycleTime) % 必须大于或等于 0"
 
-#: src/utils/handlers/RouteHandler.cpp:571
-#: src/utils/handlers/RouteHandler.cpp:649
+#: src/utils/handlers/RouteHandler.cpp:543
+#: src/utils/handlers/RouteHandler.cpp:621
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "属性 'from'、'fromJunction '和 'fromTaz '不能一起定义"
 
-#: src/utils/handlers/RouteHandler.cpp:573
-#: src/utils/handlers/RouteHandler.cpp:651
+#: src/utils/handlers/RouteHandler.cpp:545
+#: src/utils/handlers/RouteHandler.cpp:623
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "属性 'to'、'toJunction '和 'toTaz '不能一起定义"
 
-#: src/utils/handlers/RouteHandler.cpp:805
-#: src/utils/handlers/RouteHandler.cpp:907
+#: src/utils/handlers/RouteHandler.cpp:779
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:952
+#: src/utils/handlers/RouteHandler.cpp:887
+msgid "Speed and duration attributes cannot be defined together in tranships"
+msgstr ""
+
+#: src/utils/handlers/RouteHandler.cpp:934
 msgid "Parameters must be defined within an object"
 msgstr "参数必须定义在一个物件(object)內"
 
-#: src/utils/handlers/RouteHandler.cpp:964
+#: src/utils/handlers/RouteHandler.cpp:946
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)不可以是空的"
 
-#: src/utils/handlers/RouteHandler.cpp:966
+#: src/utils/handlers/RouteHandler.cpp:948
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)含有无效的字元"
 
-#: src/utils/handlers/RouteHandler.cpp:980
+#: src/utils/handlers/RouteHandler.cpp:962
 #: src/utils/vehicle/SUMORouteHandler.cpp:205
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -11526,22 +11596,22 @@ msgstr ""
 "在车辆类型(vType) '%' 的鸟巢状元素(nested element)內定义的跟车参数已不适用改"
 "用属性(attributes)!"
 
-#: src/utils/handlers/RouteHandler.cpp:988
-#: src/utils/handlers/RouteHandler.cpp:990
+#: src/utils/handlers/RouteHandler.cpp:970
+#: src/utils/handlers/RouteHandler.cpp:972
 #: src/utils/vehicle/SUMORouteHandler.cpp:208
 #: src/utils/vehicle/SUMORouteHandler.cpp:210
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)车辆类型(vType)无效"
 
-#: src/utils/handlers/RouteHandler.cpp:1073
+#: src/utils/handlers/RouteHandler.cpp:1055
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必要须定义在一个路段或是一个车道, 而不是用两者来定义"
 
-#: src/utils/handlers/RouteHandler.cpp:1088
+#: src/utils/handlers/RouteHandler.cpp:1070
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定义在一个可停下的地方(StoppingPlace)"
 
-#: src/utils/handlers/RouteHandler.cpp:1090
+#: src/utils/handlers/RouteHandler.cpp:1072
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必须要定义在一个路段, 一个车道或是一个可停下的地方(StoppingPlace)"
@@ -11645,10 +11715,6 @@ msgstr ""
 #: src/utils/options/OptionsCont.cpp:626
 msgid " Use --help to get the list of options."
 msgstr " 使用 --求助 获取选项清单。"
-
-#: src/utils/options/OptionsCont.cpp:673
-msgid "Could not save configuration to '%'"
-msgstr "无法将设定(configuration)保存到 '%'"
 
 #: src/utils/options/OptionsCont.cpp:677
 msgid "Written configuration to '%'"
@@ -12134,25 +12200,25 @@ msgid ""
 msgstr ""
 "无效的转运选项'%'。必须是'parkingAreas'、'ptStops'和'allJunctions'中的一个"
 
-#: src/utils/xml/CommonXMLStructure.cpp:250
+#: src/utils/xml/CommonXMLStructure.cpp:252
 msgid ""
 "Ignoring from % '%' used in % '%' and using instead the previous end element "
 "% '%'"
 msgstr ""
 
-#: src/utils/xml/CommonXMLStructure.cpp:518
+#: src/utils/xml/CommonXMLStructure.cpp:520
 msgid "Undefined vehicleType parameter"
 msgstr "未定义的车辆类型(vehicleType)参数"
 
-#: src/utils/xml/CommonXMLStructure.cpp:528
+#: src/utils/xml/CommonXMLStructure.cpp:530
 msgid "Undefined vehicle parameter"
 msgstr "未定义的车辆参数"
 
-#: src/utils/xml/CommonXMLStructure.cpp:538
+#: src/utils/xml/CommonXMLStructure.cpp:540
 msgid "Undefined stop parameter"
 msgstr "未定义的停靠点参数(stop parameter)"
 
-#: src/utils/xml/CommonXMLStructure.cpp:783
+#: src/utils/xml/CommonXMLStructure.cpp:785
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr "尝试在 SUMOBaseObject '%' 中得到未定义的 % 属性 '%'"
 

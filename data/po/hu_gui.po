@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-18 13:06+0100\n"
+"POT-Creation-Date: 2024-12-18 15:15+0100\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -10660,7 +10660,7 @@ msgid "Junction start ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9368
-msgid "BuStop start ID"
+msgid "BusStop start ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9374
@@ -10700,7 +10700,7 @@ msgid "Junction end ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9431
-msgid "BuStop end ID"
+msgid "BusStop end ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9437
@@ -11116,259 +11116,204 @@ msgid "add induction loop '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:493
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:561
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:555
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:517
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:579
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:511
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:573
 msgid "add lane area detector '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:552
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:546
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:626
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:620
 msgid "add entry-exit detector '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:661
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:655
 msgid "add entry detector in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:696
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:690
 msgid "add exit detector in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:735
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:729
 msgid "add instant induction loop '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:785
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:779
 msgid "add lane calibrator '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:839
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:833
 msgid "add calibrator '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:880
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:874
 msgid "add calibrator flow in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:937
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:931
 msgid "add rerouter '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:978
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:972
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:986
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:980
 msgid "add rerouter interval in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:994
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:988
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1017
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1011
 msgid "add closing lane reroute in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1045
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1039
 msgid "add closing reroute in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1072
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1066
 msgid "add dest prob reroute in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1100
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1094
 msgid "add parking area reroute in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1128
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1122
 msgid "add route prob reroute in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1166
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1160
 msgid "add route probe '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1212
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1206
 msgid "add Variable Speed Sign '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1255
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1249
 msgid "add VSS Step in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1286
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1280
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1292
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1286
 msgid "add vaporizer in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1345
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1339
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1356
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1350
 msgid "add TAZ '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1417
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1511
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1411
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1505
 msgid "add TAZ Sink in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1440
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1489
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1434
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1483
 msgid "add TAZ Source in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1451
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1445
 msgid "update TAZ Source in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1522
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1516
 msgid "update TAZ Sink in '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1551
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1545
 msgid "add traction substation '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1583
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1577
 #, c-format
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1595
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1589
 msgid "add overhead wire '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1647
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1641
 msgid "add polygon '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1681
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1766
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1675
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1720
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1760
 msgid "add POI '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1758
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1752
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1758
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1752
 msgid "Network requires a geo projection."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1796
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1790
 msgid "add jps walkable area '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1824
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1818
 msgid "add jps obstacle '"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2032
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2038
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2044
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2067
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2073
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2079
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2085
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2542
-msgid "Could not build % with ID '%' in netedit"
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2032
-msgid "ID contains invalid characters."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2038
-msgid "Invalid position over lane."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2044
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2542
-msgid "Declared twice."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2052
-msgid "Could not build % '%' in netedit"
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2054
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2140
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2158
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2064
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2082
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:132
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:150
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2299
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2310
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2340
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2418
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2548
 #, c-format
 msgid "Could not build % in netedit"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2057
-#: src/netedit/elements/data/GNEDataHandler.cpp:304
-msgid "% '%' doesn't exist."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2059
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2140
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2158
-#: src/netedit/elements/data/GNEDataHandler.cpp:298
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2064
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2082
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2299
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2310
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2340
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2418
 #, c-format
 msgid "% doesn't exist."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2067
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2548
-#, c-format
-msgid "Attribute % cannot be negative."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2073
-msgid "List of VTypes isn't valid."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2079
-msgid "Filename is invalid."
-msgstr ""
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2085
-msgid "List of lanes isn't valid."
 msgstr ""
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:216
@@ -11550,19 +11495,6 @@ msgstr ""
 #: src/netedit/elements/data/GNEDataHandler.cpp:234
 #: src/netedit/elements/data/GNEDataHandler.cpp:246
 msgid "add TAZ rel"
-msgstr ""
-
-#: src/netedit/elements/data/GNEDataHandler.cpp:292
-msgid "Could not build % with ID '%'"
-msgstr ""
-
-#: src/netedit/elements/data/GNEDataHandler.cpp:292
-msgid "declared twice."
-msgstr ""
-
-#: src/netedit/elements/data/GNEDataHandler.cpp:298
-#: src/netedit/elements/data/GNEDataHandler.cpp:304
-msgid "Could not build %"
 msgstr ""
 
 #: src/netedit/elements/data/GNEDataInterval.cpp:221

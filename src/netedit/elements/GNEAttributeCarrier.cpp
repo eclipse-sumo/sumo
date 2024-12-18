@@ -9365,7 +9365,7 @@ GNEAttributeCarrier::fillPlanParentAttributes(GNETagProperties& tagProperties) {
     if (tagProperty.planFromBusStop()) {
         attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_BUSSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("BuStop start ID"));
+                                              TL("BusStop start ID"));
         tagProperties.addAttribute(attrProperty);
     }
     if (tagProperty.planFromTrainStop()) {
@@ -9428,7 +9428,7 @@ GNEAttributeCarrier::fillPlanParentAttributes(GNETagProperties& tagProperties) {
     if (tagProperty.planToBusStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("BuStop end ID"));
+                                              TL("BusStop end ID"));
         tagProperties.addAttribute(attrProperty);
     }
     if (tagProperty.planToTrainStop()) {

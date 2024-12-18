@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-18 13:06+0100\n"
+"POT-Creation-Date: 2024-12-18 15:15+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -10464,7 +10464,11 @@ msgstr ""
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
 
-#: src/netwrite/NWWriter_XML.cpp:88 src/polyconvert/PCPolyContainer.cpp:105
+#: src/netwrite/NWWriter_XML.cpp:107 src/utils/options/OptionsCont.cpp:673
+msgid "Could not save configuration to '%'"
+msgstr "Yapılandırma '%' olarak kaydedilemedi"
+
+#: src/netwrite/NWWriter_XML.cpp:120 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr ""
@@ -12083,27 +12087,27 @@ msgstr "Farklı Uzunluklardaki PositionVectors Çıkarmaya Çalışılıyor."
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:978
+#: src/utils/handlers/AdditionalHandler.cpp:964
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr "'%' şarj istasyonunda tanımlanmış geçersiz '%' şarj tipi."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1125
+#: src/utils/handlers/AdditionalHandler.cpp:1111
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1127
+#: src/utils/handlers/AdditionalHandler.cpp:1113
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1431
+#: src/utils/handlers/AdditionalHandler.cpp:1417
 msgid "Calibrators need either an edge or a lane"
 msgstr "Kalibratörler ya bir kenara ya da bir şeride ihtiyaç duyar"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1478
+#: src/utils/handlers/AdditionalHandler.cpp:1464
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -12111,52 +12115,52 @@ msgstr ""
 "Kalibratör Akışları ya Saat Başına Araç ya hız ya da tür (veya bunların "
 "herhangi bir kombinasyonu) özniteliğine ihtiyaç duyar"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1619
-#: src/utils/handlers/AdditionalHandler.cpp:1645
-#: src/utils/handlers/AdditionalHandler.cpp:1670
+#: src/utils/handlers/AdditionalHandler.cpp:1605
+#: src/utils/handlers/AdditionalHandler.cpp:1631
+#: src/utils/handlers/AdditionalHandler.cpp:1656
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
 msgstr "Olasılık %'si 0'a eşit veya 0'dan büyük olmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1858
+#: src/utils/handlers/AdditionalHandler.cpp:1844
 msgid "X and Y must be be defined together in POIs"
 msgstr "POI'lerde X ve Y birlikte tanımlanmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1864
+#: src/utils/handlers/AdditionalHandler.cpp:1850
 msgid "lane and position must be defined together in POIs"
 msgstr "POI'lerde şerit ve konum birlikte tanımlanmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1870
+#: src/utils/handlers/AdditionalHandler.cpp:1856
 msgid "lon and lat must be be defined together in POIs"
 msgstr "POI'lerde enlem ve boylam birlikte tanımlanmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1897
+#: src/utils/handlers/AdditionalHandler.cpp:1883
 #: src/utils/shapes/ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr "POI '%' için geçersiz % simgesi, varsayılanı kullanıyor"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1985
+#: src/utils/handlers/AdditionalHandler.cpp:1971
 msgid "Parameters must be defined within an object."
 msgstr "Parametreler bir nesne içinde tanımlanmalıdır."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1987
-#: src/utils/handlers/RouteHandler.cpp:954
+#: src/utils/handlers/AdditionalHandler.cpp:1973
+#: src/utils/handlers/RouteHandler.cpp:936
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "Parametreler ek dosyanın kök dizininde tanımlanamaz."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1989
-#: src/utils/handlers/RouteHandler.cpp:956
+#: src/utils/handlers/AdditionalHandler.cpp:1975
+#: src/utils/handlers/RouteHandler.cpp:938
 msgid "Parameters cannot be defined within another parameter."
 msgstr "Parametreler başka bir parametre içinde tanımlanamaz."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1997
+#: src/utils/handlers/AdditionalHandler.cpp:1983
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty."
 msgstr ""
 "Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar boş "
 "olamaz."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1999
+#: src/utils/handlers/AdditionalHandler.cpp:1985
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters."
@@ -12164,18 +12168,95 @@ msgstr ""
 "Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar "
 "geçersiz karakterler içeriyor."
 
-#: src/utils/handlers/AdditionalHandler.cpp:2018
-msgid "'%' must be defined within the definition of a '%'."
-msgstr ""
-
-#: src/utils/handlers/AdditionalHandler.cpp:2020
-msgid "'%' must be defined within the definition of a '%' (found % '%')."
-msgstr ""
-
-#: src/utils/handlers/AdditionalHandler.cpp:2032
+#: src/utils/handlers/AdditionalHandler.cpp:2000
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:63
+msgid "'%' must be defined within the definition of a %."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:66
+msgid "'%' must be defined within the definition of a '%' (found % '%')."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:69
+msgid "'%' must be defined within the definition of a '%' (found %)."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:81
+msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:92
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % cannot be negative."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:98
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % must be greather than "
+"zero."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:110
+#: src/utils/handlers/CommonHandler.cpp:128
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:116
+#: src/utils/handlers/CommonHandler.cpp:134
+msgid ""
+"Could not build % with ID '%' in netedit; Attribute % must be greather than "
+"zero (%)."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:147
+msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:162
+msgid ""
+"Could not build % with ID '%' in netedit; ID contains invalid characters."
+msgstr ""
+"netedit'te '%' ID'li % oluşturulamadı; ID geçersiz karakterler içeriyor."
+
+#: src/utils/handlers/CommonHandler.cpp:168
+msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:174
+msgid "Could not build % with ID '%' in netedit; Declared twice."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:180
+msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:186
+msgid ""
+"Could not build % with ID '%' in netedit; Distinct number of distribution "
+"values and probabilities."
+msgstr ""
+"Netedit'te '%' ID'li % oluşturulamadı; Farklı sayıda dağılım değeri ve "
+"olasılığı."
+
+#: src/utils/handlers/CommonHandler.cpp:192
+msgid ""
+"Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:198
+#, c-format
+msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:204
+#, c-format
+msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 
 #: src/utils/handlers/DataHandler.cpp:119
@@ -12186,59 +12267,48 @@ msgstr "Veri Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "MeanData Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 
-#: src/utils/handlers/RouteHandler.cpp:439
-msgid ""
-"Could not build % with ID '%' in netedit; ID contains invalid characters."
-msgstr ""
-"netedit'te '%' ID'li % oluşturulamadı; ID geçersiz karakterler içeriyor."
-
-#: src/utils/handlers/RouteHandler.cpp:446
-msgid ""
-"Could not build % with ID '%' in netedit; Distinct number of distribution "
-"values and probabilities."
-msgstr ""
-"Netedit'te '%' ID'li % oluşturulamadı; Farklı sayıda dağılım değeri ve "
-"olasılığı."
-
-#: src/utils/handlers/RouteHandler.cpp:500
+#: src/utils/handlers/RouteHandler.cpp:472
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 "bir rota ya bir araç/akış içinde ya da bir ID niteliği ile tanımlanmalıdır"
 
-#: src/utils/handlers/RouteHandler.cpp:518
+#: src/utils/handlers/RouteHandler.cpp:490
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "'nin döngü süresi 0'a eşit veya 0'dan büyük olmalıdır"
 
-#: src/utils/handlers/RouteHandler.cpp:571
-#: src/utils/handlers/RouteHandler.cpp:649
+#: src/utils/handlers/RouteHandler.cpp:543
+#: src/utils/handlers/RouteHandler.cpp:621
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "'dan', 'danBağlantı' ve 'danTaz' öznitelikleri birlikte tanımlanamaz"
 
-#: src/utils/handlers/RouteHandler.cpp:573
-#: src/utils/handlers/RouteHandler.cpp:651
+#: src/utils/handlers/RouteHandler.cpp:545
+#: src/utils/handlers/RouteHandler.cpp:623
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "'-e', '-eBağlantı' ve '-eTaz' öznitelikleri birlikte tanımlanamaz"
 
-#: src/utils/handlers/RouteHandler.cpp:805
-#: src/utils/handlers/RouteHandler.cpp:907
+#: src/utils/handlers/RouteHandler.cpp:779
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:952
+#: src/utils/handlers/RouteHandler.cpp:887
+msgid "Speed and duration attributes cannot be defined together in tranships"
+msgstr ""
+
+#: src/utils/handlers/RouteHandler.cpp:934
 msgid "Parameters must be defined within an object"
 msgstr "Parametreler bir nesne içinde tanımlanmalıdır"
 
-#: src/utils/handlers/RouteHandler.cpp:964
+#: src/utils/handlers/RouteHandler.cpp:946
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 "Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar boş "
 "olamaz"
 
-#: src/utils/handlers/RouteHandler.cpp:966
+#: src/utils/handlers/RouteHandler.cpp:948
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
@@ -12246,7 +12316,7 @@ msgstr ""
 "Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar "
 "geçersiz karakterler içeriyor"
 
-#: src/utils/handlers/RouteHandler.cpp:980
+#: src/utils/handlers/RouteHandler.cpp:962
 #: src/utils/vehicle/SUMORouteHandler.cpp:205
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -12255,24 +12325,24 @@ msgstr ""
 "İç içe geçmiş bir öğede araç takip parametrelerinin tanımlanması vTürü '%'de "
 "kullanımdan kaldırılmıştır, bunun yerine öznitelikleri kullanın!"
 
-#: src/utils/handlers/RouteHandler.cpp:988
-#: src/utils/handlers/RouteHandler.cpp:990
+#: src/utils/handlers/RouteHandler.cpp:970
+#: src/utils/handlers/RouteHandler.cpp:972
 #: src/utils/vehicle/SUMORouteHandler.cpp:208
 #: src/utils/vehicle/SUMORouteHandler.cpp:210
 msgid "Invalid parsing embedded VType"
 msgstr "Geçersiz Ayrıştırma Tümleşik VType"
 
-#: src/utils/handlers/RouteHandler.cpp:1073
+#: src/utils/handlers/RouteHandler.cpp:1055
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 "Bir durak ya bir kenarla ya da bir şeritle tanımlanmalıdır, ikisi birden "
 "değil"
 
-#: src/utils/handlers/RouteHandler.cpp:1088
+#: src/utils/handlers/RouteHandler.cpp:1070
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "Bir durak yalnızca bir DurakYeri içinde tanımlanmalıdır"
 
-#: src/utils/handlers/RouteHandler.cpp:1090
+#: src/utils/handlers/RouteHandler.cpp:1072
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "Bir durak bir kenarda, bir şeritte veya bir DurakYerinde tanımlanmalıdır"
@@ -12380,10 +12450,6 @@ msgstr ""
 #: src/utils/options/OptionsCont.cpp:626
 msgid " Use --help to get the list of options."
 msgstr " Seçenekler Listesine Ulaşmak İçin --help İfadesini Kullanın."
-
-#: src/utils/options/OptionsCont.cpp:673
-msgid "Could not save configuration to '%'"
-msgstr "Yapılandırma '%' olarak kaydedilemedi"
 
 #: src/utils/options/OptionsCont.cpp:677
 msgid "Written configuration to '%'"
@@ -12900,25 +12966,25 @@ msgstr ""
 "Geçersiz transfer seçeneği '%'. 'parkAlanları', 'ptDurakları' ve "
 "'tümKavşaklar' seçeneklerinden biri olmalıdır"
 
-#: src/utils/xml/CommonXMLStructure.cpp:250
+#: src/utils/xml/CommonXMLStructure.cpp:252
 msgid ""
 "Ignoring from % '%' used in % '%' and using instead the previous end element "
 "% '%'"
 msgstr ""
 
-#: src/utils/xml/CommonXMLStructure.cpp:518
+#: src/utils/xml/CommonXMLStructure.cpp:520
 msgid "Undefined vehicleType parameter"
 msgstr "Tanımlanmamış araçTürü parametresi"
 
-#: src/utils/xml/CommonXMLStructure.cpp:528
+#: src/utils/xml/CommonXMLStructure.cpp:530
 msgid "Undefined vehicle parameter"
 msgstr "Tanımlanmamış araç parametresi"
 
-#: src/utils/xml/CommonXMLStructure.cpp:538
+#: src/utils/xml/CommonXMLStructure.cpp:540
 msgid "Undefined stop parameter"
 msgstr "Tanımlanmamış durdurma parametresi"
 
-#: src/utils/xml/CommonXMLStructure.cpp:783
+#: src/utils/xml/CommonXMLStructure.cpp:785
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr ""
 "SUMOBaseObject '%' içinde tanımlanmamış % özniteliği '%' alınmaya çalışılıyor"

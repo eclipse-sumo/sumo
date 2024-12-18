@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-18 13:06+0100\n"
+"POT-Creation-Date: 2024-12-18 15:15+0100\n"
 "PO-Revision-Date: 2024-09-02 03:09+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -10698,7 +10698,7 @@ msgid "Junction start ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9368
-msgid "BuStop start ID"
+msgid "BusStop start ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9374
@@ -10738,7 +10738,7 @@ msgid "Junction end ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9431
-msgid "BuStop end ID"
+msgid "BusStop end ID"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9437
@@ -11154,7 +11154,7 @@ msgid "add induction loop '"
 msgstr "添加感应线圈 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:493
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:561
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:555
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
@@ -11163,229 +11163,192 @@ msgstr ""
 "无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；无效的交通信号灯编号 "
 "(ID)。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:517
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:579
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:511
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:573
 msgid "add lane area detector '"
 msgstr "添加车道区域检测器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:552
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:546
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr "无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；车道不连续。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:626
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:620
 msgid "add entry-exit detector '"
 msgstr "添加进入-退出检测器'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:661
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:655
 msgid "add entry detector in '"
 msgstr "在''添加进入检测器"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:696
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:690
 msgid "add exit detector in '"
 msgstr "在''添加出去检测器"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:735
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:729
 msgid "add instant induction loop '"
 msgstr "添加即时感应线圈"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:785
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:779
 msgid "add lane calibrator '"
 msgstr "添加车道校准器'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:839
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:833
 msgid "add calibrator '"
 msgstr "添加校准器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:880
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:874
 msgid "add calibrator flow in '"
 msgstr "在''中加入流量校准器"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:937
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:931
 msgid "add rerouter '"
 msgstr "添加掉头'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:978
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:972
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr "无法在 netedit 中创建编号 (ID)为 \"%\" 的区间； 开始时刻大于结束时刻。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:986
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:980
 msgid "add rerouter interval in '"
 msgstr "在''中添加掉头间隔时间"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:994
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:988
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
 "由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1017
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1011
 msgid "add closing lane reroute in '"
 msgstr "在''添加关闭的车道改道"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1045
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1039
 msgid "add closing reroute in '"
 msgstr "在''中添加关闭掉头"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1072
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1066
 msgid "add dest prob reroute in '"
 msgstr "在''中添加目的地可能的重新路由"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1100
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1094
 msgid "add parking area reroute in '"
 msgstr "在''添加停车区''改变路线"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1128
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1122
 msgid "add route prob reroute in '"
 msgstr "在''添加路线可能会改变路线"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1166
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1160
 msgid "add route probe '"
 msgstr "添加路线探针 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1212
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1206
 msgid "add Variable Speed Sign '"
 msgstr "添加可变速度标志 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1255
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1249
 msgid "add VSS Step in '"
 msgstr "在''中添加VSS步骤"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1286
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1280
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr "无法在netedit中创建编号 (ID)为 '%' 的蒸发器；开始时间大于结束时间。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1292
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1286
 msgid "add vaporizer in '"
 msgstr "在''添加汽化器"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1345
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1339
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr "无法在 netedit 中创建编号 (ID) 为 \"%\" 的交通小区 (TAZ)； 形状无效。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1356
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1350
 msgid "add TAZ '"
 msgstr "添加 交通分区（TAZ）"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1417
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1511
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1411
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1505
 msgid "add TAZ Sink in '"
 msgstr "在''中加入交通分区（TAZ）沉入其中"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1440
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1489
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1434
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1483
 msgid "add TAZ Source in '"
 msgstr "在''添加交通分区（TAZ）来源"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1451
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1445
 msgid "update TAZ Source in '"
 msgstr "更新交通分区（TAZ）来源，在''中"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1522
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1516
 msgid "update TAZ Sink in '"
 msgstr "更新交通分区（TAZ）沉入其中''"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1551
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1545
 msgid "add traction substation '"
 msgstr "添加行动分站 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1583
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1577
 #, c-format
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr "无法在 netedit 中创建编号 (ID) 为 \"%\" 的架空电线；车道不是连续的。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1595
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1589
 msgid "add overhead wire '"
 msgstr "添加高架线 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1647
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1641
 msgid "add polygon '"
 msgstr "添加多边形 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1681
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1766
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1675
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1720
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1760
 msgid "add POI '"
 msgstr "添加兴趣点'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1758
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1752
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
 msgstr "无法在 netedit 中创建编号 (ID)为 '%' 的兴趣点 (POI)"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1758
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1752
 msgid "Network requires a geo projection."
 msgstr "路网需要地理投影。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1796
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1790
 msgid "add jps walkable area '"
 msgstr "添加 jps (JuPedSim) 可步行区域 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1824
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1818
 msgid "add jps obstacle '"
 msgstr "添加 jps (JuPedSim) 障碍物 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2032
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2038
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2044
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2067
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2073
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2079
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2085
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2542
-msgid "Could not build % with ID '%' in netedit"
-msgstr "无法在 netedit 中创建编号 (ID) 为 '%' 的 %"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2032
-msgid "ID contains invalid characters."
-msgstr "编号 (ID) 中包含无效字符。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2038
-msgid "Invalid position over lane."
-msgstr "车道上的位置无效。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2044
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2542
-msgid "Declared twice."
-msgstr "重复声明。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2052
-msgid "Could not build % '%' in netedit"
-msgstr "无法在 netedit 中创建 % '%'"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2054
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2140
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2158
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2064
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2082
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:132
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:150
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2299
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2310
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2340
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2418
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2548
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "无法在 netedit 中创建 %"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2057
-#: src/netedit/elements/data/GNEDataHandler.cpp:304
-msgid "% '%' doesn't exist."
-msgstr "% '%' 不存在。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2059
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2140
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2158
-#: src/netedit/elements/data/GNEDataHandler.cpp:298
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2064
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2082
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2299
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2310
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2340
@@ -11393,24 +11356,6 @@ msgstr "% '%' 不存在。"
 #, c-format
 msgid "% doesn't exist."
 msgstr "% 不存在。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2067
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2548
-#, c-format
-msgid "Attribute % cannot be negative."
-msgstr "属性 % 不能为负值。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2073
-msgid "List of VTypes isn't valid."
-msgstr "交通实体类型 (VTypes) 的列表无效。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2079
-msgid "Filename is invalid."
-msgstr "文件名无效。"
-
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2085
-msgid "List of lanes isn't valid."
-msgstr "车道列表无效。"
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:216
 msgid "Both edges and lanes aren't defined"
@@ -11594,19 +11539,6 @@ msgstr "在 '%' 中已有交通小区关系 (TAZ rel) 定义。"
 #: src/netedit/elements/data/GNEDataHandler.cpp:246
 msgid "add TAZ rel"
 msgstr "添加交通分区关联（ TAZ rel）"
-
-#: src/netedit/elements/data/GNEDataHandler.cpp:292
-msgid "Could not build % with ID '%'"
-msgstr "无法以编号 (ID) '%' 创建 %"
-
-#: src/netedit/elements/data/GNEDataHandler.cpp:292
-msgid "declared twice."
-msgstr "重复声明。"
-
-#: src/netedit/elements/data/GNEDataHandler.cpp:298
-#: src/netedit/elements/data/GNEDataHandler.cpp:304
-msgid "Could not build %"
-msgstr "无法创建 %"
 
 #: src/netedit/elements/data/GNEDataInterval.cpp:221
 msgid "GenericData was already inserted"
@@ -17385,6 +17317,46 @@ msgstr "(未定義投影方式)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1713
 msgid "Could not convert coordinates in %."
 msgstr "无法转换以%为单位的坐标。"
+
+#~ msgid "Could not build % with ID '%' in netedit"
+#~ msgstr "无法在 netedit 中创建编号 (ID) 为 '%' 的 %"
+
+#~ msgid "ID contains invalid characters."
+#~ msgstr "编号 (ID) 中包含无效字符。"
+
+#~ msgid "Invalid position over lane."
+#~ msgstr "车道上的位置无效。"
+
+#~ msgid "Declared twice."
+#~ msgstr "重复声明。"
+
+#~ msgid "Could not build % '%' in netedit"
+#~ msgstr "无法在 netedit 中创建 % '%'"
+
+#~ msgid "% '%' doesn't exist."
+#~ msgstr "% '%' 不存在。"
+
+#, c-format
+#~ msgid "Attribute % cannot be negative."
+#~ msgstr "属性 % 不能为负值。"
+
+#~ msgid "List of VTypes isn't valid."
+#~ msgstr "交通实体类型 (VTypes) 的列表无效。"
+
+#~ msgid "Filename is invalid."
+#~ msgstr "文件名无效。"
+
+#~ msgid "List of lanes isn't valid."
+#~ msgstr "车道列表无效。"
+
+#~ msgid "Could not build % with ID '%'"
+#~ msgstr "无法以编号 (ID) '%' 创建 %"
+
+#~ msgid "declared twice."
+#~ msgstr "重复声明。"
+
+#~ msgid "Could not build %"
+#~ msgstr "无法创建 %"
 
 #~ msgid "load elements"
 #~ msgstr "载入要素"
