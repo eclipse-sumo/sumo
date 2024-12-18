@@ -1,5 +1,9 @@
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
 Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Invalid rate parameter for exponentially distributed period in the definition of personFlow 'p_3'.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Invalid rate parameter for exponentially distributed period in the definition of personFlow 'p_4'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140610.4103/netedit.gui/elements/demands/personflow/load/poisson/routes.rou.xml failed.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/personflow/load/poisson/routes.rou.xml failed.
