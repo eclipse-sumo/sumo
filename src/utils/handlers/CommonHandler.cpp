@@ -127,6 +127,16 @@ CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const 
 
 
 bool
+CommonHandler::checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string &value) {
+    if (SUMOXMLDefinitions::isValidFilename(value)) {
+        return true;
+    } else {
+        return writeError(TLF("Could not build % with ID '%' in netedit; % is invalid % ()", toString(tag), id, toString(attribute), value));
+    }
+}
+
+
+bool
 CommonHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
     myErrorCreatingElement = true;
@@ -149,11 +159,6 @@ CommonHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string
 bool
 CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
     return writeError(TLF("Could not build % with ID '%' in netedit; Declared twice.", toString(tag), id));
-}
-
-bool
-CommonHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Filename is invalid.", toString(tag), id));
 }
 
 

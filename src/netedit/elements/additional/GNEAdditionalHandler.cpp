@@ -436,8 +436,8 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             return writeErrorInvalidPosition(SUMO_TAG_INDUCTION_LOOP, id);
         } else if (!checkNegative(SUMO_TAG_INDUCTION_LOOP, id, SUMO_ATTR_PERIOD, period, true)) {
             return false;
-        } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
-            return writeErrorInvalidFilename(SUMO_TAG_INDUCTION_LOOP, id);
+        } else if (!checkFileName(SUMO_TAG_INDUCTION_LOOP, id, SUMO_ATTR_FILE, file)) {
+            return false;
         } else if (!checkListOfVehicleTypes(SUMO_TAG_INDUCTION_LOOP, id, vehicleTypes)) {
             return false;
         } else {
@@ -497,8 +497,8 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
                 return false;
             } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
                 return false;
-            } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-                return writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
+            } else if (!checkFileName(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_FILE, filename)) {
+                return false;
             } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
                 return false;
             } else {
@@ -559,8 +559,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 return false;
             } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
                 return false;
-            } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-                return writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
+            } else if (!checkFileName(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_FILE, filename)) {
+                return false;
             } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
                 return false;
             } else {
@@ -605,8 +605,8 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         return false;
     } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
         return false;
-    } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-        return writeErrorInvalidFilename(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
+    } else if (!checkFileName(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_FILE, filename)) {
+        return false;
     } else if (!checkListOfVehicleTypes(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, vehicleTypes)) {
         return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_ENTRY_EXIT_DETECTOR}, id)) {
@@ -716,8 +716,8 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
         // check lane
         if (lane == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_INDUCTION_LOOP, id, SUMO_TAG_LANE, laneID);
-        } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-            return writeErrorInvalidFilename(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
+        } else if (!checkFileName(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, SUMO_ATTR_FILE, filename)) {
+            return false;
         } else if (!checkLanePosition(pos, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             return writeErrorInvalidPosition(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
         } else {
@@ -1150,8 +1150,8 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
             return false;
         } else if (!checkNegative(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_BEGIN, begin, true)) {
             return false;
-        } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
-            return writeErrorInvalidFilename(SUMO_TAG_ROUTEPROBE, id);
+        } else if (!checkFileName(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_FILE, file)) {
+            return false;
         } else {
             // build route probe
             GNEAdditional* routeProbe = new GNERouteProbe(id, myNet, edge, period, name, file, begin, vTypes, parameters);
@@ -1663,8 +1663,8 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
         return false;
-    } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
-        return writeErrorInvalidFilename(SUMO_TAG_POI, id);
+    } else if (!checkFileName(SUMO_TAG_POI, id, SUMO_ATTR_IMGFILE, imgFile)) {
+        return false;
     } else if (checkDuplicatedAdditional(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1699,8 +1699,8 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
         return false;
-    } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
-        return writeErrorInvalidFilename(SUMO_TAG_POI, id);
+    } else if (!checkFileName(SUMO_TAG_POI, id, SUMO_ATTR_IMGFILE, imgFile)) {
+        return false;
     } else if (checkDuplicatedAdditional(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1746,8 +1746,8 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
         return false;
-    } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
-        return writeErrorInvalidFilename(SUMO_TAG_POI, id);
+    } else if (!checkFileName(SUMO_TAG_POI, id, SUMO_ATTR_IMGFILE, imgFile)) {
+        return false;
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
         return writeError(TLF("Could not build POI with ID '%' in netedit", id) + std::string("; ") + TL("Network requires a geo projection."));
     } else if (checkDuplicatedAdditional(NamespaceIDs::POIs, id)) {

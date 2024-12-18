@@ -53,20 +53,27 @@ protected:
     /// @brief flag for mark if a element wasn't created
     bool myErrorCreatingElement = false;
 
+    /// @name check functions
+    /// @{
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
 
-    /// @brief check negative int value
+    /// @brief check if the given int value is NOT negative
     bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero);
 
-    /// @brief check negative double value
+    /// @brief check if the given double value is NOT negative
     bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const double value, const bool canBeZero);
 
-    /// @brief check negative time value
+    /// @brief check if the given SUMOTime value is NOT negative
     bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const SUMOTime value, const bool canBeZero);
+
+    /// @brief check if the given filename is valid
+    bool checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string &value);
+
+    /// @}
 
     /// @brief write error and enable error creating element
     bool writeError(const std::string& error);
@@ -80,16 +87,11 @@ protected:
     /// @brief write error "duplicated additional"
     bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief write error "invalid filename"
-    bool writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id);
-
     /// @brief write error "invalid list of lanes"
     bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid distribution"
     bool writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
-
-
 
     /// @brief write error "invalid parent element" giving ids of current and parent element
     bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID);
