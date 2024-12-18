@@ -4761,6 +4761,8 @@ msgid ""
 "State of charge below which the vehicle may look for charging opportunities "
 "along its planned stops"
 msgstr ""
+"Ladestand, bei dessen Unterschreitung das Fahrzeug nach Ladegelegenheiten an "
+"geplanten Halten sucht"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:90
 msgid ""
@@ -4788,7 +4790,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:135
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
-msgstr ""
+msgstr "Ungültiger Parameter device.stationfinder.chargingStrategy '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:145
 msgid "Invalid device.stationfinder.rescueAction '%'."
@@ -4807,6 +4809,8 @@ msgid ""
 "Vehicle '%' won't do opportunistic charging as the threshold % is too close "
 "to the regular one %."
 msgstr ""
+"Das Fahrzeug '%' wird kein Gelegenheitsladen durchführen, da der zugehörige "
+"Schwellwert % zu nah am regulären (%) ist."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:208
 msgid ""
@@ -4861,10 +4865,13 @@ msgstr ""
 #: src/microsim/devices/MSDevice_StationFinder.cpp:775
 msgid "Setting parameter '%' requires a number for device of type '%'"
 msgstr ""
+"Für den Parameter '%' von Einrichtungen des Typs '%' muss eine Zahl "
+"angegeben werden"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:790
 msgid "Setting parameter '%' is not supported for device of type '%'"
 msgstr ""
+"Der Parameter '%' wird von Einrichtungen des Typs '%' nicht unterstützt"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:86
 msgid ""
