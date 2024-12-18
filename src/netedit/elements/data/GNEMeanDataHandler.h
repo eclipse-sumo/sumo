@@ -78,6 +78,9 @@ protected:
     /// @brief parse attributes
     std::vector<SumoXMLAttr> parseAttributes(const SumoXMLTag tag, const std::vector<std::string>& attrStrs);
 
+    /// @brief check if given ID correspond to a duplicated mean data element
+    bool checkDuplicatedMeanDataElement(const SumoXMLTag tag, const std::string& id);
+
 private:
     /// @brief invalidate copy constructor
     GNEMeanDataHandler(const GNEMeanDataHandler& s) = delete;

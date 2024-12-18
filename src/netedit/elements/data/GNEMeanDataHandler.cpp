@@ -60,8 +60,8 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     // parse edges
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_EDGE, writtenAttributes);
     // check if meanData edge exists
-    if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_EDGE, ID, false) != nullptr) {
-        writeError(TL("Could not build meanDataEdge; ") + TLF("% already exists", ID));
+    if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_EDGE, ID)) {
+        writeError(TLF("Could not build meanDataEdge; % already exists", ID));
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
@@ -94,8 +94,8 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     // parse edges
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_LANE, writtenAttributes);
     // check if meanData edge exists
-    if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_LANE, ID, false) != nullptr) {
-        return writeError(TL("Could not build meanDataLane; ") + TLF("% already exists", ID));
+    if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_LANE, ID)) {
+        return writeError(TLF("Could not build meanDataLane; % already exists", ID));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -146,6 +146,30 @@ GNEMeanDataHandler::parseAttributes(const SumoXMLTag tag, const std::vector<std:
         }
     }
     return attrs;
+}
+
+
+bool
+GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const std::string& id) {
+    // retrieve meanData element
+    auto meanDataElement = myNet->getAttributeCarriers()->retrieveMeanData(tag, id, false);
+    // if meanData exist, check if overwrite (delete)
+    if (meanDataElement) {
+        if (!myAllowUndoRedo) {
+            // only overwrite if allow undo-redo
+            return false;
+        } else if (myOverwrite) {
+            // delete meanData element (and all of their childrens)
+            myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
+            return true;
+        } else {
+            // duplicated demand
+            return false;
+        }
+    } else {
+        // demand with these id doesn't exist, then all ok
+        return true;
+    }
 }
 
 /****************************************************************************/
