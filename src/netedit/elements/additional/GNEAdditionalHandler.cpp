@@ -89,8 +89,8 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
                                    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
                                    const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_BUS_STOP, id);
+    if (!checkValidAdditionalID(SUMO_TAG_BUS_STOP, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -133,8 +133,8 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
                                      const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
                                      const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_TRAIN_STOP, id);
+    if (!checkValidAdditionalID(SUMO_TAG_TRAIN_STOP, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_TRAIN_STOP, SUMO_TAG_BUS_STOP}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -235,8 +235,8 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
         const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, const int containerCapacity,
         const double parkingLength, const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_CONTAINER_STOP, id);
+    if (!checkValidAdditionalID(SUMO_TAG_CONTAINER_STOP, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_CONTAINER_STOP}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -279,8 +279,8 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
         const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
         const SUMOTime waitingTime, const bool friendlyPosition, const std::string& /* parkingAreaID */, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_CHARGING_STATION, id);
+    if (!checkValidAdditionalID(SUMO_TAG_CHARGING_STATION, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_CHARGING_STATION}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -324,8 +324,8 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
                                        const std::vector<std::string>& badges, const bool friendlyPosition, const int roadSideCapacity, const bool onRoad,
                                        const double width, const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_PARKING_AREA, id);
+    if (!checkValidAdditionalID(SUMO_TAG_PARKING_AREA, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_PARKING_AREA}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -422,8 +422,8 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
                                       const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                                       const bool friendlyPos, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_INDUCTION_LOOP, id);
+    if (!checkValidDetectorID(SUMO_TAG_INDUCTION_LOOP, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_INDUCTION_LOOP}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -469,8 +469,8 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
         const bool friendlyPos, const bool show, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_LANE_AREA_DETECTOR, id);
+    if (!checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -532,8 +532,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
         const bool friendlyPos, const bool show, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_LANE_AREA_DETECTOR, id);
+    if (!checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -597,8 +597,8 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
                                       const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                       const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
+    if (!checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
+        return false;
     } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
@@ -706,8 +706,8 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
+    if (!checkValidDetectorID(SUMO_TAG_INSTANT_INDUCTION_LOOP, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_INSTANT_INDUCTION_LOOP}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -751,8 +751,8 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
     // get routeProbe
     GNEAdditional* routeProbe = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_CALIBRATOR, id);
+    if (!checkValidAdditionalID(SUMO_TAG_CALIBRATOR, id)) {
+        return false;
     } else if (!checkDuplicatedAdditional({SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE}, id)) {
         return writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
@@ -806,8 +806,8 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
     // get routeProbe
     GNEAdditional* routeProbe = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_CALIBRATOR, id);
+    if (!checkValidAdditionalID(SUMO_TAG_CALIBRATOR, id)) {
+        return false;
     } else if (!checkDuplicatedAdditional({SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE}, id)) {
         return writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
@@ -891,8 +891,8 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
                                     const bool off, const bool optional, const SUMOTime timeThreshold,
                                     const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_REROUTER, id);
+    if (!checkValidAdditionalID(SUMO_TAG_REROUTER, id)) {
+        return false;
     } else if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB, prob, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
@@ -1136,8 +1136,8 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
                                       const std::string& name, const std::string& file, const SUMOTime begin, const std::vector<std::string>& vTypes,
                                       const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_ROUTEPROBE, id);
+    if (!checkValidAdditionalID(SUMO_TAG_ROUTEPROBE, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_ROUTEPROBE}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1181,8 +1181,8 @@ bool
 GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
         const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) {
     /// check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_VSS, id);
+    if (!checkValidAdditionalID(SUMO_TAG_VSS, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_VSS}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1262,8 +1262,8 @@ bool
 GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const SUMOTime beginTime,
                                      const SUMOTime endTime, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(edgeID)) {
-        return writeErrorInvalidID(SUMO_TAG_VAPORIZER, edgeID);
+    if (!checkValidAdditionalID(SUMO_TAG_VAPORIZER, edgeID)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_VAPORIZER}, edgeID)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1331,8 +1331,8 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         TAZShape = TAZBoundary.getShape(true);
     }
     // check TAZ
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_TAZ, id);
+    if (!checkValidAdditionalID(SUMO_TAG_TAZ, id)) {
+        return false;
     } else if (!checkDuplicatedAdditional(NamespaceIDs::polygons, id)) {
         return writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (TAZShape.size() == 0) {
@@ -1529,8 +1529,8 @@ bool
 GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_TRACTION_SUBSTATION, id);
+    if (!checkValidAdditionalID(SUMO_TAG_TRACTION_SUBSTATION, id)) {
+        return false;
     } else if (!checkNegative(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_VOLTAGE, voltage, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_CURRENTLIMIT, currentLimit, true)) {
@@ -1561,8 +1561,8 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
                                         const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                                         const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_OVERHEAD_WIRE_SECTION, id);
+    if (!checkValidAdditionalID(SUMO_TAG_OVERHEAD_WIRE_SECTION, id)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_OVERHEAD_WIRE_SECTION}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1625,8 +1625,8 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         return buildJpsWalkableArea(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (type == "jupedsim.obstacle") {
         return buildJpsObstacle(sumoBaseObject, id, shape, geo, name, parameters);
-    } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_POLY, id);
+    } else if (!checkValidAdditionalID(SUMO_TAG_POLY, id)) {
+        return false;
     } else if (!checkDuplicatedAdditional(NamespaceIDs::polygons, id)) {
         return writeErrorDuplicated(SUMO_TAG_POLY, id);
     } else if (!checkNegative(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH, lineWidth, true)) {
@@ -1657,8 +1657,8 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
                                const std::string& imgFile, bool relativePath, double width, double height, const std::string& name,
                                const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_POI, id);
+    if (!checkValidAdditionalID(SUMO_TAG_POI, id)) {
+        return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
@@ -1693,8 +1693,8 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
                                    const std::string& icon, double layer, double angle, const std::string& imgFile, bool relativePath, double width,
                                    double height, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_POI, id);
+    if (!checkValidAdditionalID(SUMO_TAG_POI, id)) {
+        return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
@@ -1740,8 +1740,8 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
                                   double angle, const std::string& imgFile, bool relativePath, double width, double height,
                                   const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(SUMO_TAG_POI, id);
+    if (!checkValidAdditionalID(SUMO_TAG_POI, id)) {
+        return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
@@ -1776,8 +1776,8 @@ bool
 GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
         bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(GNE_TAG_JPS_WALKABLEAREA, id);
+    if (!checkValidAdditionalID(GNE_TAG_JPS_WALKABLEAREA, id)) {
+        return false;
     } else if (!checkDuplicatedAdditional(NamespaceIDs::polygons, id)) {
         return writeErrorDuplicated(GNE_TAG_JPS_WALKABLEAREA, id);
     } else {
@@ -1804,8 +1804,8 @@ bool
 GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                        bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        return writeErrorInvalidID(GNE_TAG_JPS_OBSTACLE, id);
+    if (!checkValidAdditionalID(GNE_TAG_JPS_OBSTACLE, id)) {
+        return false;
     } else if (!checkDuplicatedAdditional(NamespaceIDs::polygons, id)) {
         return writeErrorDuplicated(GNE_TAG_JPS_OBSTACLE, id);
     } else {

@@ -73,13 +73,19 @@ protected:
     /// @brief check if the given filename is valid
     bool checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string &value);
 
+    /// @brief check if the given additional ID is valid
+    bool checkValidAdditionalID(const SumoXMLTag tag, const std::string& value);
+
+    /// @brief check if the given detector ID is valid
+    bool checkValidDetectorID(const SumoXMLTag tag, const std::string& value);
+
+    /// @brief check if the given demand elmement ID is valid
+    bool checkValidDemandElementID(const SumoXMLTag tag, const std::string& value);
+
     /// @}
 
     /// @brief write error and enable error creating element
     bool writeError(const std::string& error);
-
-    /// @brief write error "invalid id"
-    bool writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid position"
     bool writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);

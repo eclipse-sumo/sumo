@@ -445,10 +445,8 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const int deterministic = attrs.getOpt<int>(SUMO_ATTR_DETERMINISTIC, id.c_str(), parsedOk, -1);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    if (parsedOk) {
-        if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            writeErrorInvalidID(SUMO_TAG_VTYPE_DISTRIBUTION, id);
-        } else if (vTypes.size() != probabilities.size()) {
+    if (parsedOk && checkValidDemandElementID(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
+        if (vTypes.size() != probabilities.size()) {
             writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
         } else {
             // set tag
@@ -483,10 +481,8 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
         const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
         const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 0);
-        if (parsedOk) {
-            if (!id.empty() && !SUMOXMLDefinitions::isValidVehicleID(id)) {
-                writeErrorInvalidID(SUMO_TAG_ROUTE, id);
-            } else if (cycleTime < 0) {
+        if (parsedOk && checkValidDemandElementID(SUMO_TAG_ROUTE, id)) {
+            if (cycleTime < 0) {
                 writeError(TLF("cycleTime of % must be equal or greater than 0", toString(SUMO_TAG_DEST_PROB_REROUTE)));
             } else {
                 // set tag
@@ -514,10 +510,8 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const std::vector<std::string> routes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ROUTES, id.c_str(), parsedOk);
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    if (parsedOk) {
-        if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            writeErrorInvalidID(SUMO_TAG_ROUTE_DISTRIBUTION, id);
-        } else if (routes.size() != probabilities.size()) {
+    if (parsedOk && checkValidDemandElementID(SUMO_TAG_ROUTE_DISTRIBUTION, id)) {
+        if (routes.size() != probabilities.size()) {
             writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
         } else {
             // set tag

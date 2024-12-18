@@ -150,16 +150,46 @@ CommonHandler::checkFileName(const SumoXMLTag tag, const std::string& id, const 
 
 
 bool
-CommonHandler::writeError(const std::string& error) {
-    WRITE_ERROR(error);
-    myErrorCreatingElement = true;
-    return false;
+CommonHandler::checkValidAdditionalID(const SumoXMLTag tag, const std::string& value) {
+    if (value.empty()) {
+        return writeError(TLF("Could not build %; ID cannot be empty", toString(tag)));
+    } else if (!SUMOXMLDefinitions::isValidVehicleID(value)) {
+        return writeError(TLF("Could not build % with ID '%' in netedit; ID contains invalid characters.", toString(tag), value));
+    } else {
+        return true;
+    }
 }
 
 
 bool
-CommonHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; ID contains invalid characters.", toString(tag), id));
+CommonHandler::checkValidDetectorID(const SumoXMLTag tag, const std::string& value) {
+    if (value.empty()) {
+        return writeError(TLF("Could not build %; ID cannot be empty", toString(tag)));
+    } else if (!SUMOXMLDefinitions::isValidDetectorID(value)) {
+        return writeError(TLF("Could not build % with ID '%' in netedit; detector ID contains invalid characters.", toString(tag), value));
+    } else {
+        return true;
+    }
+}
+
+
+bool
+CommonHandler::checkValidDemandElementID(const SumoXMLTag tag, const std::string& value) {
+    if (value.empty()) {
+        return writeError(TLF("Could not build %; ID cannot be empty", toString(tag)));
+    } else if (!SUMOXMLDefinitions::isValidVehicleID(value)) {
+        return writeError(TLF("Could not build % with ID '%' in netedit; ID contains invalid characters.", toString(tag), value));
+    } else {
+        return true;
+    }
+}
+
+
+bool
+CommonHandler::writeError(const std::string& error) {
+    WRITE_ERROR(error);
+    myErrorCreatingElement = true;
+    return false;
 }
 
 
