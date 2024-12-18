@@ -742,10 +742,10 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         return writeError(TL("invalid person parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
-    } else if (speed < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_SPEED);
-    } else if (duration < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_DURATION);
+    } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_SPEED, speed, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
+        return false;
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
         GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
@@ -910,10 +910,10 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         return writeError(TL("invalid container parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
-    } else if (speed < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_SPEED);
-    } else if (duration < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_DURATION);
+    } else if (!checkNegative(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_SPEED, speed, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
+        return false;
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build tranship
         GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,

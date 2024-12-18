@@ -101,10 +101,10 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
             return writeErrorInvalidParent(SUMO_TAG_BUS_STOP, id, SUMO_TAG_LANE, laneID);
         } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_BUS_STOP, id);
-        } else if (personCapacity < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
-        } else if (parkingLength < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PARKING_LENGTH);
+        } else if (!checkNegative(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PERSON_CAPACITY, personCapacity, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PARKING_LENGTH, parkingLength, true)) {
+            return false;
         } else {
             // build busStop
             GNEAdditional* busStop = GNEBusStop::buildBusStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity,
@@ -145,10 +145,10 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
             return writeErrorInvalidParent(SUMO_TAG_TRAIN_STOP, id, SUMO_TAG_LANE, laneID);
         } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_TRAIN_STOP, id);
-        } else if (personCapacity < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
-        } else if (parkingLength < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PARKING_LENGTH);
+        } else if (!checkNegative(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PERSON_CAPACITY, personCapacity, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PARKING_LENGTH, parkingLength, true)) {
+            return false;
         } else {
             // build trainStop
             GNEAdditional* trainStop = GNEBusStop::buildTrainStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity,
@@ -205,8 +205,8 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         return writeErrorInvalidParent(SUMO_TAG_ACCESS, "", SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     } else if (!validPos) {
         return writeErrorInvalidPosition(SUMO_TAG_ACCESS, busStop->getID());
-    } else if ((length != -1) && (length < 0)) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_ACCESS, busStop->getID(), SUMO_ATTR_LENGTH);
+    } else if ((length != -1) && !checkNegative(SUMO_TAG_ACCESS, busStop->getID(), SUMO_ATTR_LENGTH, length, true)) {
+        return false;
     } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
         return writeError(TL("Could not build access in netedit; busStop parent already owns an access in the edge '") + lane->getParentEdge()->getID() + "'");
     } else if (!lane->allowPedestrians()) {
@@ -247,10 +247,10 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
             return writeErrorInvalidParent(SUMO_TAG_CONTAINER_STOP, id, SUMO_TAG_LANE, laneID);
         } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_CONTAINER_STOP, id);
-        } else if (containerCapacity < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_CONTAINER_CAPACITY);
-        } else if (parkingLength < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_PARKING_LENGTH);
+        } else if (!checkNegative(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_CONTAINER_CAPACITY, containerCapacity, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_PARKING_LENGTH, parkingLength, true)) {
+            return false;
         } else {
             // build containerStop
             GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, containerCapacity, parkingLength,
@@ -291,10 +291,10 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
             return writeErrorInvalidParent(SUMO_TAG_CHARGING_STATION, id, SUMO_TAG_LANE, laneID);
         } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_CHARGING_STATION, id);
-        } else if (chargingPower < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGINGPOWER);
-        } else if (chargeDelay < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGEDELAY);
+        } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGINGPOWER, chargingPower, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGEDELAY, chargeDelay, true)) {
+            return false;
         } else {
             // build chargingStation
             GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit,
@@ -338,12 +338,12 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
             return writeErrorInvalidParent(SUMO_TAG_PARKING_AREA, id, SUMO_TAG_LANE, laneID);
         } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_PARKING_AREA, id);
-        } else if (roadSideCapacity < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_ROADSIDE_CAPACITY);
-        } else if (width < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_WIDTH);
-        } else if (length < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_LENGTH);
+        } else if (!checkNegative(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_ROADSIDE_CAPACITY, roadSideCapacity, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_WIDTH, width, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_LENGTH, length, true)) {
+            return false;
         } else if ((departPosDouble < 0) || (departPosDouble > lane->getParentEdge()->getNBEdge()->getFinalLength())) {
             return writeError(TLF("Could not build parking area with ID '%' in netedit; Invalid departPos over lane.", id));
         } else {
@@ -391,10 +391,10 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
         // check lane
         if (parkingArea == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_PARKING_SPACE, "", SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-        } else if (widthDouble < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH);
-        } else if (lengthDouble < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH);
+        } else if (!checkNegative(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH, widthDouble, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH, lengthDouble, true)) {
+            return false;
         } else {
             // build parkingSpace
             GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, Position(x, y, z), width, length, angle, slope, name, parameters);
@@ -434,8 +434,8 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             return writeErrorInvalidParent(SUMO_TAG_INDUCTION_LOOP, id, SUMO_TAG_LANE, laneID);
         } else if (!checkLanePosition(position, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             return writeErrorInvalidPosition(SUMO_TAG_INDUCTION_LOOP, id);
-        } else if (period < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_INDUCTION_LOOP, id, SUMO_ATTR_PERIOD);
+        } else if (!checkNegative(SUMO_TAG_INDUCTION_LOOP, id, SUMO_ATTR_PERIOD, period, true)) {
+            return false;
         } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
             return writeErrorInvalidFilename(SUMO_TAG_INDUCTION_LOOP, id);
         } else if (!checkListOfVehicleTypes(SUMO_TAG_INDUCTION_LOOP, id, vehicleTypes)) {
@@ -484,25 +484,19 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             const bool friendlyPosCheck = checkFriendlyPosSmallLanes(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
             if (!checkLanePosition(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosCheck)) {
                 return writeErrorInvalidPosition(SUMO_TAG_LANE_AREA_DETECTOR, id);
-            } else if (length < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH);
-            } else if ((period != -1) && (period < 0)) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD);
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH, length, true)) {
+                return false;
+            } else if ((period != -1) && !checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
+                return false;
             } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
                 // temporal
                 return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
-            } else if (timeThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-            } else if (speedThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-            } else if (jamThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-            } else if (timeThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-            } else if (speedThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-            } else if (jamThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
+                return false;
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
+                return false;
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
+                return false;
             } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
                 return writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
             } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
@@ -554,17 +548,17 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                            pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                            endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 return writeErrorInvalidPosition(SUMO_TAG_LANE_AREA_DETECTOR, id);
-            } else if ((period != -1) && (period < 0)) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD);
+            } else if ((period != -1) && !checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
+                return false;
             } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
                 // temporal
                 return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
-            } else if (timeThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-            } else if (speedThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-            } else if (jamThreshold < 0) {
-                return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
+                return false;
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
+                return false;
+            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
+                return false;
             } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
                 return writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
             } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
@@ -605,12 +599,12 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         return writeErrorInvalidID(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
-    } else if (period < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_PERIOD);
-    } else if (timeThreshold < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-    } else if (speedThreshold < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
+    } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
+        return false;
     } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
         return writeErrorInvalidFilename(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
     } else if (!checkListOfVehicleTypes(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, vehicleTypes)) {
@@ -771,10 +765,10 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
         // check lane
         if (!checkLanePosition(pos, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             return writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
-        } else if (period < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD);
-        } else if (jamThreshold < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
+        } else if (!checkNegative(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD, period, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
+            return false;
         } else {
             // build Calibrator
             GNEAdditional* calibrator = (routeProbe == nullptr) ?
@@ -825,10 +819,10 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
         NeteditParameters neteditParameters(sumoBaseObject);
         if (!checkLanePosition(pos, 0, edge->getLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             return writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
-        } else if (period < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD);
-        } else if (jamThreshold < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
+        } else if (!checkNegative(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD, period, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
+            return false;
         } else {
             // build Calibrator
             GNEAdditional* calibrator = (routeProbe == nullptr) ?
@@ -899,10 +893,10 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         return writeErrorInvalidID(SUMO_TAG_REROUTER, id);
-    } else if (prob < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB);
-    } else if (timeThreshold < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
+    } else if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB, prob, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
+        return false;
     } else if (!checkListOfVehicleTypes(SUMO_TAG_REROUTER, id, vTypes)) {
         return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_REROUTER}, id)) {
@@ -970,10 +964,10 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
     // check if rerouter exist
     if (rerouter == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_INTERVAL, "", SUMO_TAG_REROUTER, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-    } else if (begin < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_BEGIN);
-    } else if (end < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_END);
+    } else if (!checkNegative(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_BEGIN, begin, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_END, end, true)) {
+        return false;
     } else if (end < begin) {
         return writeError(TLF("Could not build interval with ID '%' in netedit; begin is greater than end.", rerouter->getID()));
     } else {
@@ -1152,10 +1146,10 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
         // check lane
         if (edge == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_ROUTEPROBE, id, SUMO_TAG_EDGE, edgeID);
-        } else if (period < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_PERIOD);
-        } else if (begin < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_BEGIN);
+        } else if (!checkNegative(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_PERIOD, period, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_BEGIN, begin, true)) {
+            return false;
         } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
             return writeErrorInvalidFilename(SUMO_TAG_ROUTEPROBE, id);
         } else {
@@ -1245,8 +1239,8 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
     // check lane
     if (VSS == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_STEP, "", SUMO_TAG_VSS, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-    } else if (time < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_STEP, VSS->getID(), SUMO_ATTR_BEGIN);
+    } else if (!checkNegative(SUMO_TAG_STEP, VSS->getID(), SUMO_ATTR_TIME, time, true)) {
+        return false;
     } else {
         // create Variable Speed Sign
         GNEAdditional* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSS, time, speed);
@@ -1278,10 +1272,10 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
         // check lane
         if (edge == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VAPORIZER, "", SUMO_TAG_EDGE, edgeID);
-        } else if (beginTime < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_BEGIN);
-        } else if (endTime < 0) {
-            return writeErrorInvalidNegativeValue(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_END);
+        } else if (!checkNegative(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_BEGIN, beginTime, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_END, endTime, true)) {
+            return false;
         } else if (endTime < beginTime) {
             return writeError(TLF("Could not build Vaporizer with ID '%' in netedit; begin is greater than end.", edge->getID()));
         } else {
@@ -1537,10 +1531,10 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         return writeErrorInvalidID(SUMO_TAG_TRACTION_SUBSTATION, id);
-    } else if (voltage < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_VOLTAGE);
-    } else if (currentLimit < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_CURRENTLIMIT);
+    } else if (!checkNegative(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_VOLTAGE, voltage, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_CURRENTLIMIT, currentLimit, true)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_TRACTION_SUBSTATION}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1635,8 +1629,8 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         return writeErrorInvalidID(SUMO_TAG_POLY, id);
     } else if (!checkDuplicatedAdditional(NamespaceIDs::polygons, id)) {
         return writeErrorDuplicated(SUMO_TAG_POLY, id);
-    } else if (lineWidth < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
+    } else if (!checkNegative(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH, lineWidth, true)) {
+        return false;
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1665,10 +1659,10 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         return writeErrorInvalidID(SUMO_TAG_POI, id);
-    } else if (width < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
-    } else if (height < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
+    } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
+        return false;
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         return writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (checkDuplicatedAdditional(NamespaceIDs::POIs, id)) {
@@ -1701,10 +1695,10 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         return writeErrorInvalidID(SUMO_TAG_POI, id);
-    } else if (width < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
-    } else if (height < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
+    } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
+        return false;
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         return writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (checkDuplicatedAdditional(NamespaceIDs::POIs, id)) {
@@ -1748,10 +1742,10 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         return writeErrorInvalidID(SUMO_TAG_POI, id);
-    } else if (width < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
-    } else if (height < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
+    } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT, height, true)) {
+        return false;
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         return writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {

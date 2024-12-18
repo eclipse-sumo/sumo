@@ -43,6 +43,89 @@ CommonHandler::isErrorCreatingElement() const {
 }
 
 
+void
+CommonHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
+    // check that parent SUMOBaseObject's tag is the parentTag
+    CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+    if ((parent != nullptr) &&
+            (parentTags.size() > 0) &&
+            (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
+        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
+        if (id.empty()) {
+            writeError(TLF("'%' must be defined within the definition of a '%'.", toString(currentTag), toString(parentTags.front())));
+        } else {
+            writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), toString(parentTags.front()), toString(parent->getTag()), id));
+        }
+        ok = false;
+    }
+}
+
+
+bool
+CommonHandler::checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs) {
+    for (const auto& vTypeID : vTypeIDs) {
+        if (!SUMOXMLDefinitions::isValidTypeID(vTypeID)) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; '%' ist not a valid vType ID.", toString(tag), id, vTypeID));
+        }
+    }
+    return true;
+}
+
+
+bool
+CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero) {
+    if (canBeZero) {
+        if (value < 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % cannot be negative.", toString(tag), id, toString(attribute)));
+        } else {
+            return true;
+        }
+    } else {
+        if (value <= 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % must be greather than zero.", toString(tag), id, toString(attribute)));
+        } else {
+            return true;
+        }
+    }
+}
+
+
+bool
+CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const double value, const bool canBeZero) {
+    if (canBeZero) {
+        if (value < 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % cannot be negative (%).", toString(tag), id, toString(attribute), toString(value)));
+        } else {
+            return true;
+        }
+    } else {
+        if (value <= 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % must be greather than zero (%).", toString(tag), id, toString(attribute), toString(value)));
+        } else {
+            return true;
+        }
+    }
+}
+
+
+bool
+CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const SUMOTime value, const bool canBeZero) {
+    if (canBeZero) {
+        if (value < 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % cannot be negative (%).", toString(tag), id, toString(attribute), time2string(value)));
+        } else {
+            return true;
+        }
+    } else {
+        if (value <= 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % must be greather than zero (%).", toString(tag), id, toString(attribute), time2string(value)));
+        } else {
+            return true;
+        }
+    }
+}
+
+
 bool
 CommonHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
@@ -69,12 +152,6 @@ CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id)
 }
 
 bool
-CommonHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % cannot be negative.", toString(tag), id, toString(attribute)));
-}
-
-
-bool
 CommonHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) {
     return writeError(TLF("Could not build % with ID '%' in netedit; Filename is invalid.", toString(tag), id));
 }
@@ -89,17 +166,6 @@ CommonHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& i
 bool
 CommonHandler::writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id) {
     return writeError(TLF("Could not build % with ID '%' in netedit; Distinct number of distribution values and probabilities.", toString(tag), id));
-}
-
-
-bool
-CommonHandler::checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs) {
-    for (const auto& vTypeID : vTypeIDs) {
-        if (!SUMOXMLDefinitions::isValidTypeID(vTypeID)) {
-            return writeError(TLF("Could not build % with ID '%' in netedit; '%' ist not a valid vType ID.", toString(tag), id, vTypeID));
-        }
-    }
-    return true;
 }
 
 
@@ -119,25 +185,5 @@ bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag) {
     return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTag)));
 }
-
-
-void
-CommonHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
-    // check that parent SUMOBaseObject's tag is the parentTag
-    CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    if ((parent != nullptr) &&
-            (parentTags.size() > 0) &&
-            (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
-        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
-        if (id.empty()) {
-            writeError(TLF("'%' must be defined within the definition of a '%'.", toString(currentTag), toString(parentTags.front())));
-        } else {
-            writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), toString(parentTags.front()), toString(parent->getTag()), id));
-        }
-        ok = false;
-    }
-}
-
-
 
 /****************************************************************************/

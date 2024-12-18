@@ -43,15 +43,30 @@ public:
     /// @brief Destructor
     virtual ~CommonHandler();
 
-    /// @brief get flag for check if a element wasn't created
+    /// @brief get flag for mark if a element wasn't created
     bool isErrorCreatingElement() const;
 
 protected:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
 
-    /// @brief flag for check if a element wasn't created
+    /// @brief flag for mark if a element wasn't created
     bool myErrorCreatingElement = false;
+
+    /// @brief check parents
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
+
+    /// @brief check list of IDs
+    bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
+
+    /// @brief check negative int value
+    bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero);
+
+    /// @brief check negative double value
+    bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const double value, const bool canBeZero);
+
+    /// @brief check negative time value
+    bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const SUMOTime value, const bool canBeZero);
 
     /// @brief write error and enable error creating element
     bool writeError(const std::string& error);
@@ -65,9 +80,6 @@ protected:
     /// @brief write error "duplicated additional"
     bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief write error "invalid negative element"
-    bool writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute);
-
     /// @brief write error "invalid filename"
     bool writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id);
 
@@ -77,8 +89,7 @@ protected:
     /// @brief write error "invalid distribution"
     bool writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief check list of IDs
-    bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
+
 
     /// @brief write error "invalid parent element" giving ids of current and parent element
     bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID);
@@ -89,8 +100,7 @@ protected:
     /// @brief write error "invalid parent element" without giving IDs
     bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag);
 
-    /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
+
 
 private:
     /// @brief invalidate copy constructor
