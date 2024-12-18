@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-18 13:06+0100\n"
-"PO-Revision-Date: 2024-12-11 13:21+0000\n"
+"PO-Revision-Date: 2024-12-18 13:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.9.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -794,6 +794,8 @@ msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
 msgstr ""
+"L'opzione --write-trips.junctions non produce alcun effetto se --write-trips "
+"è disattivata."
 
 #: src/duarouter/duarouter_main.cpp:110 src/duarouter/duarouter_main.cpp:109
 #: src/duarouter/duarouter_main.cpp:108
@@ -867,6 +869,7 @@ msgstr ""
 msgid ""
 "The turn-file format with elements %, % is deprecated, please use % instead."
 msgstr ""
+"Il formato per svolte con gli elementi %,% non si usa più. Invece usa %."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:87 src/jtrrouter/jtrrouter_main.cpp:143
 #, c-format
@@ -875,7 +878,7 @@ msgstr "L'arco '%' dichiarato come scarico è sconosciuto."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
-msgstr ""
+msgstr "Flusso '%' senza 'from' viene ignorato"
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:128
 #, c-format
@@ -911,6 +914,7 @@ msgstr "L'arco '%' è sconosciuto."
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
 msgstr ""
+"'probability' deve essere positiva (nella relazione di archi tra '%' e '%')."
 
 #: src/jtrrouter/jtrrouter_main.cpp:94
 msgid ""
@@ -1023,7 +1027,7 @@ msgstr ""
 
 #: src/libsumo/Vehicle.cpp:1283 src/libsumo/Vehicle.cpp:1418
 msgid "Unsupported parameter '%'"
-msgstr ""
+msgstr "Parametro '%' non supportato"
 
 #: src/libsumo/Vehicle.cpp:1363
 msgid "Waypoint (speed = %) at index % does not support triggers"
@@ -1052,12 +1056,17 @@ msgid ""
 "in other vehicle or flow definitions. Please remove all references to route "
 "'%' in case it is internal."
 msgstr ""
+"Gli itinerari interni ricevono un codice identificativo che inizia con '!' e "
+"non devono essere referenzati da altri veicoli o definizioni di flussi. "
+"Rimuovi tutte le referenze all'itinerario '%' nel caso sia interno."
 
 #: src/libsumo/Vehicle.cpp:1625
 #, c-format
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr ""
+"L'ora di partenza del veicolo '%' è già passata; quindi va usata l'ora "
+"attuale."
 
 #: src/libsumo/Vehicle.cpp:2006 src/microsim/MSBaseVehicle.cpp:471
 msgid "Invalid route replacement for vehicle '%'. %"
