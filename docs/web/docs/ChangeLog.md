@@ -41,6 +41,8 @@ title: ChangeLog
 - netedit
   - Fixed crash when moving a big selection #15132 (regression in 1.16.0)
   - Fixed crash when loading a more than 20k vehicles. #15680 (regression in 1.19.0)
+  - Fixed crash when creating Calibrator flow #15906 (regression in 1.19.0)
+  - Fixed candidate edge coloring in pedestrian mode #15888 (regression in 1.19.0)
   - E2 multilane detectors can be moved avain #15551 (regression in 1.20.0)
   - Fixed invalid rectangle selection when zoomed out #15766 (regression in 1.20.0)
   - Loaded containers starting from stops are now drawn #15567
@@ -81,15 +83,20 @@ title: ChangeLog
   - Fixed invalid vType attribute style when inspecting a selection of vehicles #12719
   - Fixed invalid rendering in route creation mode for elevated networks #13992
   - Fixed crash when entering invalid programID in traffic traffic light mode #15491
-  - Fixed crash reloading data files #15845 
-
+  - Fixed crash reloading data files #15845
+  - Fixed invalid handling of quotation marks in toolcfg #15899
+  - Walkingareas no longer intercept clicks in in crossing mode #15916
+  - Stop saving sumo/netedit config if a fix element dialog is opened #15918 
+  
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
   - Fixed missing elements in settings dialog when switching to another viewing scheme while the dialog is open #15637
   - Hotkey ALT no longer has the effect of rendering all POIs and polygons at layer 0. Instead, the layer can be customized in the settings dialog #15558
   - Fixed invalid breakpoints when clicking time stamps on messages in meso #15780
   - Fixed invalid travel time when computing pedestrian reachability in a non-pedestrian network #15792
-  - Fixed invalid travel times when computing pedestrian and bicycle reachability #15793 
+  - Fixed invalid travel times when computing pedestrian and bicycle reachability #15793
+  - Saving and loading of meso edge scaling scheme is now working #15902
+  - edgedata-file parsing no longer aborts after encountering a single non-numerical attribute #15903 
 
 - netconvert 
   - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624
@@ -102,6 +109,7 @@ title: ChangeLog
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
   - Fixed invalid use of taz information when coordinates are defined for a trip #15768
+  - Fixed invalid route in a network with connection permissions but no other permissions #15925 
 
 - marouter
   - Fixed invalid route involving vClass-restricted connection #15883
@@ -128,7 +136,9 @@ title: ChangeLog
   - countEdgeUsage.py: Fixed misleading warning message #15790
   - sumolib: Fixed invalid result by `net.getShortestPath(..., ignoreDirection=True)` #15789
   - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799
-  - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876 
+  - sumolib.xml: Fixed bug where parse_fast retrieves wrong attribute if one attribute is the end-suffix of another attribute #15901 
+  - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876
+  - routeSampler.py: fixed crash when loading negative counts #15908 
     
 ### Enhancements
 
@@ -208,7 +218,13 @@ title: ChangeLog
   - cutRoutes.py: now writes standard header #15875
   - randomTrips.py: now includes total weight in weight-output file #15878
   - randomTrips.py: Added option **--edge-type-file** for affecting probabilities by edge type #15877
-  - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881 
+  - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881
+  - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
+  - routeStats.py: Added option **--edges-file** for counting the number of times per route that a specific edge (i.e. a counting) location was passed) #15900
+  - routeSampler.py: Added option **--verbose.timing** to print wall-clock-time performance statistics #15910
+  - routeSampler.py: Major increase in processing speed for long routes #15911
+  - routeSampler.py: Added option **--depart-distribution** to distribute departures within the counting data intervals #15909
+  - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915 
 
 ### Miscellaneous
 
