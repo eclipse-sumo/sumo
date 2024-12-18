@@ -1757,6 +1757,8 @@ msgid ""
 "Write aggregated charging event data for vehicles which have not arrived at "
 "simulation end"
 msgstr ""
+"Schreibe aggregierte Ladevorgangsdaten von zum Simulationsende noch nicht "
+"angekommenen Fahrzeugen"
 
 #: src/microsim/MSFrame.cpp:159
 msgid "Write data of overhead wire segments"
@@ -1960,6 +1962,8 @@ msgstr "Bahnsignalblöcke in FILE speichern"
 #: src/microsim/MSFrame.cpp:288
 msgid "Record entry and exit times of vehicles for railsignal blocks into FILE"
 msgstr ""
+"Schreibe Ein- und Ausfahrtszeiten von Fahrzeugen in Blockabschnitten nach "
+"FILE"
 
 #: src/microsim/MSFrame.cpp:291
 msgid ""
@@ -2020,7 +2024,7 @@ msgstr "Gesamtstatistiken in FILE schreiben"
 
 #: src/microsim/MSFrame.cpp:323
 msgid "Write reports on deadlocks FILE"
-msgstr ""
+msgstr "Berichte über Verklemmungen nach FILE schreiben"
 
 #: src/microsim/MSFrame.cpp:327
 msgid "Save movereminder states of selected vehicles into FILE"
@@ -2280,6 +2284,8 @@ msgid ""
 "The waiting time after which vehicles in a rail-signal based deadlock are "
 "teleported"
 msgstr ""
+"Die Wartezeit, nach der Fahrzeuge in einer durch Bahnsignale begründeten "
+"Verklemmung teleportiert werden"
 
 #: src/microsim/MSFrame.cpp:458
 msgid ""
