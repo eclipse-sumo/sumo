@@ -175,17 +175,8 @@ public:
     /// @brief duplicate given plan in new parent
     void duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandElement* newParent);
 
-    /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
-    bool isVehicleIdDuplicated(const std::string& id);
-
     /// @brief check if via attribute is valid
     bool isViaAttributeValid(const std::vector<std::string>& via);
-
-    /// @brief check if there is already a person (Person or PersonFlow) with the given ID
-    bool isPersonIdDuplicated(const std::string& id);
-
-    /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
-    bool isContainerIdDuplicated(const std::string& id);
 
     /// @brief transform vehicle functions
     /// @{
@@ -291,7 +282,10 @@ protected:
                                  std::vector<const GNEDemandElement*>& elements);
 
     /// @brief check if given ID correspond to a duplicated demand element
-    bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);
+    bool checkDuplicatedDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id);
+
+    /// @brief write error "duplicated"
+    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid negative element"
     bool writeErrorInvalidNegativeValue(const SumoXMLTag tag, const SumoXMLAttr attribute);
@@ -309,6 +303,12 @@ private:
     /// @brief check if overwrite
     const bool myOverwrite;
 
-    /// @brief demand to overwrite (using undo-redo
-    GNEDemandElement* myDemandToOverwrite = nullptr;
+    /// @brief vehicle tags
+    static const std::vector<SumoXMLTag> myVehicleTags;
+
+    /// @brief person tags
+    static const std::vector<SumoXMLTag> myPersonTags;
+
+    /// @brief container tags
+    static const std::vector<SumoXMLTag> myContainerTags;
 };

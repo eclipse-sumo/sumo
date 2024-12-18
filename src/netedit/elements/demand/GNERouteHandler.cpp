@@ -45,6 +45,28 @@
 #include "GNEStopPlan.h"
 
 // ===========================================================================
+// static definitions
+// ===========================================================================
+
+const std::vector<SumoXMLTag> GNERouteHandler::myVehicleTags = {
+    SUMO_TAG_TRIP, SUMO_TAG_FLOW,                       // over edges
+    SUMO_TAG_VEHICLE, GNE_TAG_FLOW_ROUTE,               // over route
+    GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE,  // over embedded routes
+    GNE_TAG_TRIP_TAZS, GNE_TAG_FLOW_TAZS,               // over TAZs
+    GNE_TAG_TRIP_JUNCTIONS, GNE_TAG_FLOW_JUNCTIONS      // over junctions
+};
+
+const std::vector<SumoXMLTag> GNERouteHandler::myPersonTags = {
+    SUMO_TAG_PERSON,
+    SUMO_TAG_PERSONFLOW
+};
+
+const std::vector<SumoXMLTag> GNERouteHandler::myContainerTags = {
+    SUMO_TAG_CONTAINER,
+    SUMO_TAG_CONTAINERFLOW
+};
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -68,7 +90,7 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
         // overwrite default vehicle type
         return GNEVType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
-    } else if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id)) {
+    } else if (!checkDuplicatedDemandElement({SUMO_TAG_VTYPE}, vTypeParameter.id)) {
         return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VTYPE), vTypeParameter.id));
     } else {
         // create vType/pType using myCurrentVType
@@ -103,7 +125,7 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
     // declare vector with vType and their probabilities
     std::vector<const GNEDemandElement*> vTypes;
     // first check conditions
-    if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
+    if (!checkDuplicatedDemandElement({SUMO_TAG_VTYPE_DISTRIBUTION}, id)) {
         return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VTYPE)));
     } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_VTYPE, vTypeIDs, probabilities, vTypes)) {
         // create distributions
@@ -138,7 +160,7 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check conditions
-    if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE, id)) {
+    if (!checkDuplicatedDemandElement({SUMO_TAG_ROUTE}, id)) {
         return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_ROUTE), id));
     } else if (edges.size() > 0) {
         // create GNERoute
@@ -183,7 +205,9 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
     // parse route edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check if ID is duplicated
-    if ((edges.size() > 0) && !isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (edges.size() > 0) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -227,7 +251,7 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
     // declare vector with route and their probabilities
     std::vector<const GNEDemandElement*> routes;
     // first check conditions
-    if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, id)) {
+    if (!checkDuplicatedDemandElement({SUMO_TAG_ROUTE_DISTRIBUTION}, id)) {
         return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_ROUTE)));
     } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_ROUTE, routeIDs, probabilities, routes)) {
         // create distributions
@@ -258,7 +282,9 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
 bool
 GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
-    if (!isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else {
         // obtain routes and vtypes
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters.routeid, false);
@@ -286,8 +312,6 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             }
             return true;
         }
-    } else {
-        return false;
     }
 }
 
@@ -295,7 +319,9 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
 bool
 GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
-    if (!isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else {
         // obtain routes and vtypes
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters.routeid, false);
@@ -323,8 +349,6 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
             }
             return true;
         }
-    } else {
-        return false;
     }
 }
 
@@ -340,7 +364,9 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
     }
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromEdge && toEdge && !isVehicleIdDuplicated(vehicleParameters.id) && isViaAttributeValid(vehicleParameters.via)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (fromEdge && toEdge && isViaAttributeValid(vehicleParameters.via)) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -380,7 +406,9 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
     const auto fromJunction = parseJunction(SUMO_TAG_TRIP, fromJunctionID);
     const auto toJunction = parseJunction(SUMO_TAG_TRIP, toJunctionID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromJunction && toJunction && !isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (fromJunction && toJunction) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -420,7 +448,9 @@ GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
     const auto fromTAZ = parseTAZ(SUMO_TAG_TRIP, fromTAZID);
     const auto toTAZ = parseTAZ(SUMO_TAG_TRIP, toTAZID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromTAZ && toTAZ && !isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (fromTAZ && toTAZ) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -464,7 +494,9 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
     }
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromEdge && toEdge && !isVehicleIdDuplicated(vehicleParameters.id) && isViaAttributeValid(vehicleParameters.via)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (fromEdge && toEdge && isViaAttributeValid(vehicleParameters.via)) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -504,7 +536,9 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
     const auto fromJunction = parseJunction(SUMO_TAG_TRIP, fromJunctionID);
     const auto toJunction = parseJunction(SUMO_TAG_TRIP, toJunctionID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromJunction && toJunction && !isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (fromJunction && toJunction) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -544,7 +578,9 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
     const auto fromTAZ = parseTAZ(SUMO_TAG_TRIP, fromTAZID);
     const auto toTAZ = parseTAZ(SUMO_TAG_TRIP, toTAZID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromTAZ && toTAZ && !isVehicleIdDuplicated(vehicleParameters.id)) {
+    if (!checkDuplicatedDemandElement(myVehicleTags, vehicleParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), vehicleParameters.id));
+    } else if (fromTAZ && toTAZ) {
         // obtain  type
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         if (type == nullptr) {
@@ -580,7 +616,9 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
 bool
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
     // first check if ID is duplicated
-    if (!isPersonIdDuplicated(personParameters.id)) {
+    if (!checkDuplicatedDemandElement(myPersonTags, personParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), personParameters.id));
+    } else {
         // obtain  type
         GNEDemandElement* type = getType(personParameters.vtypeid);
         if (type == nullptr) {
@@ -600,8 +638,6 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
             }
             return true;
         }
-    } else {
-        return false;
     }
 }
 
@@ -609,7 +645,9 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
 bool
 GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
     // first check if ID is duplicated
-    if (!isPersonIdDuplicated(personFlowParameters.id)) {
+    if (!checkDuplicatedDemandElement(myPersonTags, personFlowParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VEHICLE), personFlowParameters.id));
+    } else {
         // obtain  type
         GNEDemandElement* type = getType(personFlowParameters.vtypeid);
         if (type == nullptr) {
@@ -629,8 +667,6 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
             }
             return true;
         }
-    } else {
-        return false;
     }
 }
 
@@ -746,7 +782,9 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 bool
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
     // first check if ID is duplicated
-    if (!isContainerIdDuplicated(containerParameters.id)) {
+    if (!checkDuplicatedDemandElement(myContainerTags, containerParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_CONTAINER_STOP), containerParameters.id));
+    } else {
         // obtain  type
         GNEDemandElement* type = getType(containerParameters.vtypeid);
         if (type == nullptr) {
@@ -766,8 +804,6 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
             }
             return true;
         }
-    } else {
-        return false;
     }
 }
 
@@ -775,7 +811,9 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
 bool
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
     // first check if ID is duplicated
-    if (!isContainerIdDuplicated(containerFlowParameters.id)) {
+    if (!checkDuplicatedDemandElement(myContainerTags, containerFlowParameters.id)) {
+        return writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_CONTAINER_STOP), containerFlowParameters.id));
+    } else {
         // obtain  type
         GNEDemandElement* type = getType(containerFlowParameters.vtypeid);
         if (type == nullptr) {
@@ -795,8 +833,6 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
             }
             return true;
         }
-    } else {
-        return false;
     }
 }
 
@@ -1419,27 +1455,6 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
 
 
 bool
-GNERouteHandler::isVehicleIdDuplicated(const std::string& id) {
-    // declare vehicle tags vector
-    const std::vector<SumoXMLTag> vehicleTags = {
-        SUMO_TAG_VEHICLE, GNE_TAG_FLOW_ROUTE,
-        SUMO_TAG_TRIP, SUMO_TAG_FLOW,                       // over edges
-        SUMO_TAG_VEHICLE, GNE_TAG_FLOW_ROUTE,               // over route
-        GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE,  // over embedded routes
-        GNE_TAG_TRIP_TAZS, GNE_TAG_FLOW_TAZS,               // over TAZs
-        GNE_TAG_TRIP_JUNCTIONS, GNE_TAG_FLOW_JUNCTIONS      // over junctions
-    };
-    for (const auto& vehicleTag : vehicleTags) {
-        if (!checkDuplicatedDemandElement(vehicleTag, id)) {
-            return writeError(TLF("There is another % with the same ID='%'.", toString(vehicleTag), id));
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
 GNERouteHandler::isViaAttributeValid(const std::vector<std::string>& via) {
     for (const auto& edgeID : via) {
         if (myNet->getAttributeCarriers()->retrieveEdge(edgeID, false) == nullptr) {
@@ -1447,32 +1462,6 @@ GNERouteHandler::isViaAttributeValid(const std::vector<std::string>& via) {
         }
     }
     return true;
-}
-
-
-bool
-GNERouteHandler::isPersonIdDuplicated(const std::string& id) {
-    const std::vector<SumoXMLTag> personTags = std::vector<SumoXMLTag>({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-    for (const auto& personTag : personTags) {
-        if (!checkDuplicatedDemandElement(personTag, id)) {
-            return writeError(TLF("There is another % with the same ID='%'.", toString(personTag), id));
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNERouteHandler::isContainerIdDuplicated(const std::string& id) {
-    const std::vector<SumoXMLTag> containerTags = std::vector<SumoXMLTag>({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
-    for (const auto& containerTag : containerTags) {
-        if (!checkDuplicatedDemandElement(containerTag, id)) {
-            return writeError(TLF("There is another % with the same ID='%'.", toString(containerTag), id));
-            return true;
-        }
-    }
-    return false;
 }
 
 
@@ -2499,26 +2488,31 @@ GNERouteHandler::getDistributionElements(const CommonXMLStructure::SumoBaseObjec
 
 
 bool
-GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id) {
-    // retrieve demand element
-    auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
-    // if demand exist, check if overwrite (delete)
-    if (demandElement) {
-        if (!myAllowUndoRedo) {
-            // only overwrite if allow undo-redo
-            return false;
-        } else if (myOverwrite) {
-            // delete demand element (and all of their childrens)
-            myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
-            return true;
-        } else {
-            // duplicated demand
-            return false;
+GNERouteHandler::checkDuplicatedDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id) {
+    for (const auto &tag : tags) {
+        // retrieve demand element
+        auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
+        // if demand exist, check if overwrite (delete)
+        if (demandElement) {
+            if (!myAllowUndoRedo) {
+                // only overwrite if allow undo-redo
+                return false;
+            } else if (myOverwrite) {
+                // delete demand element (and all of their childrens)
+                myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
+            } else {
+                // duplicated demand
+                return false;
+            }
         }
-    } else {
-        // demand with these id doesn't exist, then all ok
-        return true;
     }
+    return true;
+}
+
+
+bool
+GNERouteHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Declared twice."));
 }
 
 
