@@ -1,3 +1,5 @@
 Error: Attribute 'color' in definition of personFlow 'p_1' Invalid color definition ''.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Attribute 'color' in definition of personFlow 'p_2' Invalid color definition 'dummycolor'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140610.4103/netedit.gui/elements/demands/personflow/load/color/routes.rou.xml failed.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/personflow/load/color/routes.rou.xml failed.

@@ -1,6 +1,11 @@
 Error: Attribute 'number' in definition of containerFlow 'c_0' Invalid Number Format (long long integer format) 23.00.
+Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'number' in definition of containerFlow 'c_1' is empty.
+Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'number' in definition of containerFlow 'c_2' Invalid Number Format (long long integer format) dummy.
+Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'number' in definition of containerFlow 'c_3' Invalid Number Format (long long integer format) -23.00.
+Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'number' in definition of containerFlow 'c_4' Invalid Number Format (long long integer format) 12.5.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.02Sep133440.11012/netedit.gui/elements/demands/containerflow/load/flow_attributes/number/routes.rou.xml failed.
+Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/containerflow/load/flow_attributes/number/routes.rou.xml failed.

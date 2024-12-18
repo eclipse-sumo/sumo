@@ -1,6 +1,56 @@
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
 Error: Attribute 'period' in definition of personFlow 'p_1' is not a valid time value.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
 Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Invalid repetition rate in the definition of personFlow 'p_3'.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
 Error: Invalid repetition rate in the definition of personFlow 'p_4'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140610.4103/netedit.gui/elements/demands/personflow/load/period/routes.rou.xml failed.
+Error: 'personTrip' must be defined within the definition of a 'person or personFlow' (found rootFile).
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/personflow/load/period/routes.rou.xml failed.
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)
+'-avx512er' is not a recognized feature for this target (ignoring feature)
+'-avx512pf' is not a recognized feature for this target (ignoring feature)

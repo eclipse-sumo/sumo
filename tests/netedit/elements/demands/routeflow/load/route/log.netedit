@@ -1,3 +1,5 @@
+Error: Could not build flow with ID 'flow_0' in netedit; edge parent with ID '' doesn't exist.
+Error: Could not build flow with ID 'flow_0' in netedit; edge parent with ID '' doesn't exist.
 Error: Attribute 'route' in definition of flow 'flow_1' is empty.
-Error: Invalid route 'route with invalid characters' used in flow 'flow_2'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140600.3807/netedit.gui/elements/demands/routeflow/load/route/routes.rou.xml failed.
+Error: Could not build flowRoute with ID 'flow_2' in netedit; route parent with ID 'route with invalid characters' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/routeflow/load/route/routes.rou.xml failed.
