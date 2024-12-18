@@ -70,7 +70,6 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     if (!checkValidAdditionalID(SUMO_TAG_MEANDATA_EDGE, id)) {
         return false;
     } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_EDGE, id)) {
-        writeError(TLF("Could not build meanDataEdge; % already exists", id));
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, id, file, period, begin, end,
@@ -106,7 +105,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     if (!checkValidAdditionalID(SUMO_TAG_MEANDATA_LANE, id)) {
         return false;
     } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_LANE, id)) {
-        return writeError(TLF("Could not build meanDataLane; % already exists", id));
+        return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, id, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -168,19 +167,16 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
     if (meanDataElement) {
         if (!myAllowUndoRedo) {
             // only overwrite if allow undo-redo
-            return false;
+            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         } else if (myOverwrite) {
             // delete meanData element (and all of their childrens)
             myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
-            return true;
         } else {
             // duplicated demand
-            return false;
+            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         }
-    } else {
-        // demand with these id doesn't exist, then all ok
-        return true;
     }
+    return true;
 }
 
 /****************************************************************************/
