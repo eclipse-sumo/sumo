@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-12-18 13:06+0100\n"
-"PO-Revision-Date: 2024-12-18 13:51+0000\n"
+"PO-Revision-Date: 2024-12-18 13:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1769,45 +1769,51 @@ msgstr "Salva i valori di batteria di ogni veicolo"
 
 #: src/microsim/MSFrame.cpp:142
 msgid "Write battery values with the given precision (default 2)"
-msgstr ""
+msgstr "Scrivi i valori di batteria con la precisione indicata (per difetto 2)"
 
 #: src/microsim/MSFrame.cpp:145
 msgid "Save the elecHybrid values of each vehicle"
-msgstr ""
+msgstr "Salva i valori elecHybrid di ogni veicolo"
 
 #: src/microsim/MSFrame.cpp:147
 msgid "Write elecHybrid values with the given precision (default 2)"
-msgstr ""
+msgstr "Scrivi i valori elecHybrid con la precisione indicata (per difetto 2)"
 
 #: src/microsim/MSFrame.cpp:149
 msgid "Write elecHybrid values into one aggregated file"
-msgstr ""
+msgstr "Scrivi i valori elecHybrid in un file aggregato"
 
 #: src/microsim/MSFrame.cpp:152
 msgid "Write data of charging stations"
-msgstr ""
+msgstr "Scrivi dati di stazioni di ricarica"
 
 #: src/microsim/MSFrame.cpp:154
 msgid "Write aggregated charging event data instead of single time steps"
 msgstr ""
+"Scrivi dati aggregati di eventi di ricarica invece di singoli passi di "
+"simulazioni"
 
 #: src/microsim/MSFrame.cpp:156
 msgid ""
 "Write aggregated charging event data for vehicles which have not arrived at "
 "simulation end"
 msgstr ""
+"Scrivi dati aggregati di eventi di ricarica anche per gli veicoli non ancora "
+"giunti a destinazione alla fine della simulazione"
 
 #: src/microsim/MSFrame.cpp:159 src/microsim/MSFrame.cpp:157
 msgid "Write data of overhead wire segments"
-msgstr ""
+msgstr "Scrivi dati di segmenti di catenaria"
 
 #: src/microsim/MSFrame.cpp:162 src/microsim/MSFrame.cpp:160
 msgid "Write data of electrical substation stations"
-msgstr ""
+msgstr "Scrivi dati di sottostazioni elettriche"
 
 #: src/microsim/MSFrame.cpp:164 src/microsim/MSFrame.cpp:162
 msgid "Write substation values with the given precision (default 2)"
 msgstr ""
+"Scrivi i valori di sottostazioni elettriche con la precisione indicata (per "
+"difetto 2)"
 
 #: src/microsim/MSFrame.cpp:167 src/microsim/MSFrame.cpp:165
 msgid "Save the Floating Car Data"
