@@ -420,27 +420,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
-bool
-RouteHandler::isErrorCreatingElement() const {
-    return myErrorCreatingElement;
-}
-
-
-bool
-RouteHandler::writeError(const std::string& error) {
-    WRITE_ERROR(error);
-    myErrorCreatingElement = true;
-    return false;
-}
-
-
-void
-RouteHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) {
-    WRITE_ERRORF(TL("Could not build % with ID '%' in netedit; ID contains invalid characters."), toString(tag), id);
-    myErrorCreatingElement = true;
-}
-
-
 void
 RouteHandler::writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id) {
     WRITE_ERRORF(TL("Could not build % with ID '%' in netedit; Distinct number of distribution values and probabilities."), toString(tag), id);
@@ -1205,29 +1184,6 @@ RouteHandler::isEmbeddedRoute(const SUMOSAXAttributes& attrs) const {
         return true;
     } else {
         return false;
-    }
-}
-
-
-void
-RouteHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
-    // check that parent SUMOBaseObject's tag is the parentTag
-    const CommonXMLStructure::SumoBaseObject* parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    // set parent string
-    std::string parentStrings;
-    for (const auto& tag : parentTags) {
-        if (tag == parentTags.back()) {
-            parentStrings.append(toString(tag));
-        } else {
-            parentStrings.append(toString(tag) + ", ");
-        }
-    }
-    if ((parent != nullptr) &&
-            (parentTags.size() > 0) &&
-            (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
-        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
-        writeError("'" + toString(currentTag) + "' must be defined within the definition of a '" + parentStrings + "' (found '" + toString(parent->getTag()) + "'" + id + ").");
-        ok = false;
     }
 }
 

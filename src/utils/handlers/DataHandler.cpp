@@ -153,20 +153,6 @@ DataHandler::myEndElement(int element) {
 }
 
 
-bool
-DataHandler::isErrorCreatingElement() const {
-    return myErrorCreatingElement;
-}
-
-
-bool
-DataHandler::writeError(const std::string& error) {
-    WRITE_ERROR(error);
-    myErrorCreatingElement = true;
-    return false;
-}
-
-
 void
 DataHandler::parseInterval(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag

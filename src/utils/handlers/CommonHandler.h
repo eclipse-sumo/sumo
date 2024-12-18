@@ -23,7 +23,6 @@
 #include <utils/xml/CommonXMLStructure.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -48,13 +47,22 @@ public:
     bool isErrorCreatingElement() const;
 
 protected:
-    /// @brief write error and enable error creating element
-    bool writeError(const std::string& error);
+    /// @brief common XML Structure
+    CommonXMLStructure myCommonXMLStructure;
 
-private:
     /// @brief flag for check if a element wasn't created
     bool myErrorCreatingElement = false;
 
+    /// @brief write error and enable error creating element
+    bool writeError(const std::string& error);
+
+    /// @brief write error "invalid id"
+    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief check parents
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
+
+private:
     /// @brief invalidate copy constructor
     CommonHandler(const CommonHandler& s) = delete;
 

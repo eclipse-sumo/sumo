@@ -20,14 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <utils/xml/CommonXMLStructure.h>
-
+#include "CommonHandler.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class RouteHandler {
+class RouteHandler : public CommonHandler {
 
 public:
     /**@brief Constructor
@@ -144,13 +143,6 @@ public:
 
     /// @}
 
-    /// @brief get flag for check if a element wasn't created
-    bool isErrorCreatingElement() const;
-
-protected:
-    /// @brief write error and enable error creating element
-    bool writeError(const std::string& error);
-
 private:
     /// @brief filename (needed for parsing vTypes)
     const std::string myFilename;
@@ -163,15 +155,6 @@ private:
 
     /// @brief The default value for flow ends
     SUMOTime myFlowEndDefault;
-
-    /// @brief common XML Structure
-    CommonXMLStructure myCommonXMLStructure;
-
-    /// @brief flag for check if a element wasn't created
-    bool myErrorCreatingElement = false;
-
-    /// @brief write error "invalid id"
-    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid distribution"
     void writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
@@ -246,9 +229,6 @@ private:
 
     /// @brief check embedded route
     bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
-
-    /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief invalidate copy constructor
     RouteHandler(const RouteHandler& s) = delete;

@@ -20,14 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <utils/xml/CommonXMLStructure.h>
-
+#include "CommonHandler.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class AdditionalHandler {
+class AdditionalHandler : public CommonHandler {
 
 public:
     /// @brief Constructor
@@ -626,20 +625,7 @@ public:
 
     /// @}
 
-    /// @brief get flag for check if a element wasn't created
-    bool isErrorCreatingElement() const;
-
-protected:
-    /// @brief write error and enable error creating element
-    bool writeError(const std::string& error);
-
 private:
-    /// @brief common XML Structure
-    CommonXMLStructure myCommonXMLStructure;
-
-    /// @brief flag for check if a element wasn't created
-    bool myErrorCreatingElement = false;
-
     /// @name parse additional attributes
     /// @{
     /// @brief parse busStop attributes
@@ -754,9 +740,6 @@ private:
     void parseParameters(const SUMOSAXAttributes& attrs);
 
     /// @}
-
-    /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief check detect persons
     bool checkDetectPersons(const SumoXMLTag currentTag, const std::string& id, const std::string& detectPersons);

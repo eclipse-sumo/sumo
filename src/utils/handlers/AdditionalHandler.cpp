@@ -808,20 +808,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
 }
 
 
-bool
-AdditionalHandler::isErrorCreatingElement() const {
-    return myErrorCreatingElement;
-}
-
-
-bool
-AdditionalHandler::writeError(const std::string& error) {
-    WRITE_ERROR(error);
-    myErrorCreatingElement = true;
-    return false;
-}
-
-
 void
 AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
@@ -2002,24 +1988,6 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
             // insert parameter in SumoBaseObjectParent
             SumoBaseObjectParent->addParameter(key, value);
         }
-    }
-}
-
-
-void
-AdditionalHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
-    // check that parent SUMOBaseObject's tag is the parentTag
-    CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    if ((parent != nullptr) &&
-            (parentTags.size() > 0) &&
-            (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
-        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
-        if (id.empty()) {
-            writeError(TLF("'%' must be defined within the definition of a '%'.", toString(currentTag), toString(parentTags.front())));
-        } else {
-            writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), toString(parentTags.front()), toString(parent->getTag()), id));
-        }
-        ok = false;
     }
 }
 

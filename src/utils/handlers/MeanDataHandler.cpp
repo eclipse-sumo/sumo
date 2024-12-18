@@ -146,20 +146,6 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
-bool
-MeanDataHandler::isErrorCreatingElement() const {
-    return myErrorCreatingElement;
-}
-
-
-bool
-MeanDataHandler::writeError(const std::string& error) {
-    WRITE_ERROR(error);
-    myErrorCreatingElement = true;
-    return false;
-}
-
-
 void
 MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
