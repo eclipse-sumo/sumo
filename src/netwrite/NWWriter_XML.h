@@ -74,6 +74,12 @@ public:
     static void writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec);
 
 private:
+    /** @brief Writes the configuration file for assempling the network from plain-xml files
+     * @param[in] oc The options to use
+     * @param[in] prefix The file name prefix
+     */
+    static void writeConfig(const OptionsCont& oc, const std::string& prefix, bool haveTypes);
+
     /** @brief Writes the nodes file
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
