@@ -1320,6 +1320,8 @@ msgid ""
 "Teleporting vehicle '%'; waited too long%, from edge '%':% to edge '%':%, "
 "time=%."
 msgstr ""
+"Teleportiertes Fahrzeug '%'; hat zu lange gewartet%, von Kante '%':% nach "
+"Kante '%':%, zur Zeit=%."
 
 #: src/mesosim/METriggeredCalibrator.cpp:129
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -1748,7 +1750,7 @@ msgstr "Daten der Ladestationen schreiben"
 
 #: src/microsim/MSFrame.cpp:154
 msgid "Write aggregated charging event data instead of single time steps"
-msgstr ""
+msgstr "Schreibe aggregierte Ladevorgangsdaten anstatt einzelner Zeitschritte"
 
 #: src/microsim/MSFrame.cpp:156
 msgid ""
