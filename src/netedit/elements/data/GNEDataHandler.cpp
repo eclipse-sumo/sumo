@@ -61,10 +61,12 @@ GNEDataHandler::postParserTasks() {
 
 
 bool
-GNEDataHandler::buildDataSet(const std::string& dataSetID) {
+GNEDataHandler::buildDataSet(const std::string& id) {
     // first check if dataSet exist
-    if (checkDuplicatedDataSet(dataSetID)) {
-        GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
+    if (!checkValidAdditionalID(SUMO_TAG_DATASET, id)) {
+        return false;
+    } else if (checkDuplicatedDataSet(id)) {
+        GNEDataSet* dataSet = new GNEDataSet(myNet, id);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(dataSet, TL("add data set"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
@@ -76,7 +78,7 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
         }
         return true;
     } else {
-        return writeErrorDuplicated(SUMO_TAG_DATASET, dataSetID);
+        return writeErrorDuplicated(SUMO_TAG_DATASET, id);
     }
 }
 

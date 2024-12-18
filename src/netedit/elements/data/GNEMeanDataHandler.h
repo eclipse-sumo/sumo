@@ -48,7 +48,7 @@ public:
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData
-    bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                            const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                            const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                            const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -56,7 +56,7 @@ public:
                            const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Builds laneMeanData
-    bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                            const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                            const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                            const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,

@@ -55,7 +55,7 @@ public:
     /**@brief Builds DataSet (exclusive of netedit)
      * @param[in] dataSetID new dataSet
      */
-    bool buildDataSet(const std::string& dataSetID);
+    bool buildDataSet(const std::string& id);
 
     /**@brief Builds DataInterval
      * @param[in] sumoBaseObject sumo base object used for build

@@ -56,7 +56,7 @@ GNEMeanDataHandler::postParserTasks() {
 
 
 bool
-GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
+GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                       const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                       const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                                       const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -67,11 +67,13 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     // parse edges
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_EDGE, writtenAttributes);
     // check if meanData edge exists
-    if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_EDGE, ID)) {
-        writeError(TLF("Could not build meanDataEdge; % already exists", ID));
+    if (!checkValidAdditionalID(SUMO_TAG_MEANDATA_EDGE, id)) {
+        return false;
+    } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_EDGE, id)) {
+        writeError(TLF("Could not build meanDataEdge; % already exists", id));
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
+        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, id, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
@@ -90,7 +92,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
 
 
 bool
-GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
+GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                       const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                       const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                                       const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -101,10 +103,12 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     // parse edges
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_LANE, writtenAttributes);
     // check if meanData edge exists
-    if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_LANE, ID)) {
-        return writeError(TLF("Could not build meanDataLane; % already exists", ID));
+    if (!checkValidAdditionalID(SUMO_TAG_MEANDATA_LANE, id)) {
+        return false;
+    } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_LANE, id)) {
+        return writeError(TLF("Could not build meanDataLane; % already exists", id));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
+        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, id, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
