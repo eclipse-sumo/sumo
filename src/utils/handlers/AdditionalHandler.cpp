@@ -889,7 +889,7 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", parsedOk, -1.00); /* in future updates, INVALID_DOUBLE */
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
-    checkParent(SUMO_TAG_ACCESS, {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, parsedOk);
+    checkParsedParent(SUMO_TAG_ACCESS, {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1046,7 +1046,7 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
     const std::string angle = attrs.getOpt<std::string>(SUMO_ATTR_ANGLE, "", parsedOk, "");
     const double slope = attrs.getOpt<double>(SUMO_ATTR_SLOPE, "", parsedOk, 0);
     // check parent
-    checkParent(SUMO_TAG_PARKING_SPACE, {SUMO_TAG_PARKING_AREA}, parsedOk);
+    checkParsedParent(SUMO_TAG_PARKING_SPACE, {SUMO_TAG_PARKING_AREA}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1223,7 +1223,7 @@ AdditionalHandler::parseEntryAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
-    checkParent(SUMO_TAG_DET_ENTRY, {SUMO_TAG_E3DETECTOR}, parsedOk);
+    checkParsedParent(SUMO_TAG_DET_ENTRY, {SUMO_TAG_E3DETECTOR}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1246,7 +1246,7 @@ AdditionalHandler::parseExitAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
-    checkParent(SUMO_TAG_DET_EXIT, {SUMO_TAG_E3DETECTOR}, parsedOk);
+    checkParsedParent(SUMO_TAG_DET_EXIT, {SUMO_TAG_E3DETECTOR}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1329,7 +1329,7 @@ AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk);
     // check parent
-    checkParent(SUMO_TAG_TAZSOURCE, {SUMO_TAG_TAZ}, parsedOk);
+    checkParsedParent(SUMO_TAG_TAZSOURCE, {SUMO_TAG_TAZ}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1349,7 +1349,7 @@ AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk);
     // check parent
-    checkParent(SUMO_TAG_TAZSINK, {SUMO_TAG_TAZ}, parsedOk);
+    checkParsedParent(SUMO_TAG_TAZSINK, {SUMO_TAG_TAZ}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1395,7 +1395,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     // optional attributes
     const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "");
     // check parent
-    checkParent(SUMO_TAG_STEP, {SUMO_TAG_VSS}, parsedOk);
+    checkParsedParent(SUMO_TAG_STEP, {SUMO_TAG_VSS}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1532,7 +1532,7 @@ AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attr
     const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk);
     const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk);
     // check parent
-    checkParent(SUMO_TAG_INTERVAL, {SUMO_TAG_REROUTER}, parsedOk);
+    checkParsedParent(SUMO_TAG_INTERVAL, {SUMO_TAG_REROUTER}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1554,7 +1554,7 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "");
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, !disallow.size() ? "authority" : "");
     // check parent
-    checkParent(SUMO_TAG_CLOSING_LANE_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
+    checkParsedParent(SUMO_TAG_CLOSING_LANE_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1577,7 +1577,7 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "");
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, !disallow.size() ? "authority" : "");
     // check parent
-    checkParent(SUMO_TAG_CLOSING_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
+    checkParsedParent(SUMO_TAG_CLOSING_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1598,7 +1598,7 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
     // check parent
-    checkParent(SUMO_TAG_DEST_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
+    checkParsedParent(SUMO_TAG_DEST_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
@@ -1624,7 +1624,7 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     // optional attributes
     const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, false);
     // check parent
-    checkParent(SUMO_TAG_PARKING_AREA_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
+    checkParsedParent(SUMO_TAG_PARKING_AREA_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
@@ -1649,7 +1649,7 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
     // check parent
-    checkParent(SUMO_TAG_ROUTE_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
+    checkParsedParent(SUMO_TAG_ROUTE_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {

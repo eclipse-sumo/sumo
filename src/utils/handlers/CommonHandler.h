@@ -55,8 +55,8 @@ protected:
 
     /// @name check functions
     /// @{
-    /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
+    /// @brief check parsed parents
+    void checkParsedParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);

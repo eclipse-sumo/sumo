@@ -686,12 +686,12 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // get parents
     std::vector<SumoXMLTag> stopParents;
-    stopParents.insert(stopParents.end(), NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end());
     stopParents.insert(stopParents.end(), NamespaceIDs::routes.begin(), NamespaceIDs::routes.end());
+    stopParents.insert(stopParents.end(), NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end());
     stopParents.insert(stopParents.end(), NamespaceIDs::persons.begin(), NamespaceIDs::persons.end());
     stopParents.insert(stopParents.end(), NamespaceIDs::containers.begin(), NamespaceIDs::containers.end());
     //  check parents
-    checkParent(SUMO_TAG_STOP, stopParents, parsedOk);
+    checkParsedParent(SUMO_TAG_STOP, stopParents, parsedOk);
     // parse stop
     if (parsedOk && parseStopParameters(stop, attrs)) {
         // set tag
@@ -755,6 +755,8 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING(dummyError);
         modes.clear();
     }
+    // check parents
+    checkParsedParent(SUMO_TAG_PERSONTRIP, NamespaceIDs::persons, parsedOk);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PERSONTRIP);
@@ -785,6 +787,8 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
         const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 1.39);
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "", parsedOk, 0);
+        // check parents
+        checkParsedParent(SUMO_TAG_WALK, NamespaceIDs::persons, parsedOk);
         if (parsedOk) {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_WALK);
@@ -809,6 +813,8 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
     const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, "", parsedOk, "");
+    // check parents
+    checkParsedParent(SUMO_TAG_RIDE, NamespaceIDs::persons, parsedOk);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_RIDE);
@@ -861,6 +867,8 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
     const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, "", parsedOk, "");
+    // check parents
+    checkParsedParent(SUMO_TAG_TRANSPORT, NamespaceIDs::containers, parsedOk);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRANSPORT);
@@ -876,7 +884,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && attrs.hasAttribute(SUMO_ATTR_DURATION)) {
-        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in walks"));
+        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in tranships"));
     } else {
         // declare Ok Flag
         bool parsedOk = true;
@@ -887,6 +895,8 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
         const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 1.39);
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "", parsedOk, 0);
+        // check parents
+        checkParsedParent(SUMO_TAG_TRANSHIP, NamespaceIDs::containers, parsedOk);
         if (parsedOk) {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRANSHIP);

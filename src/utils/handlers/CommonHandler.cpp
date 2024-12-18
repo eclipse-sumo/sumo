@@ -44,19 +44,32 @@ CommonHandler::isErrorCreatingElement() const {
 
 
 void
-CommonHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
-    // check that parent SUMOBaseObject's tag is the parentTag
-    CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    if ((parent != nullptr) &&
-            (parentTags.size() > 0) &&
-            (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
-        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
-        if (id.empty()) {
-            writeError(TLF("'%' must be defined within the definition of a '%'.", toString(currentTag), toString(parentTags.front())));
-        } else {
-            writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), toString(parentTags.front()), toString(parent->getTag()), id));
+CommonHandler::checkParsedParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
+    if (parentTags.size() > 0) {
+        std::string tagsStr;
+        for (auto it = parentTags.begin(); it != parentTags.end(); it++) {
+            tagsStr.append(toString(*it));
+            if ((it+1) != parentTags.end()) {
+                if ((it+2) != parentTags.end()) {
+                    tagsStr.append(", ");
+                } else {
+                    tagsStr.append(" or ");
+                }
+            }
         }
-        ok = false;
+        // obtain parent
+        CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+        if (parent == nullptr) {
+            ok = writeError(TLF("'%' must be defined within the definition of a %.", toString(currentTag), tagsStr));
+        } else if (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end()) {
+            if (parent->hasStringAttribute(SUMO_ATTR_ID)) {
+                ok = writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), tagsStr,
+                                    toString(parent->getTag()), parent->getStringAttribute(SUMO_ATTR_ID)));
+            } else {
+                ok = writeError(TLF("'%' must be defined within the definition of a '%' (found %).", toString(currentTag), tagsStr,
+                                    toString(parent->getTag())));
+            }
+        }
     }
 }
 
