@@ -212,23 +212,31 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             }
         }
         break;
-        case SUMO_TAG_SCALINGSCHEME:
+        case SUMO_TAG_SCALINGSCHEME: {
             myCurrentScheme = nullptr;
             myCurrentScaleScheme = nullptr;
+            const std::string name = attrs.getStringSecure(SUMO_ATTR_NAME, "");
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
-                myCurrentScaleScheme = mySettings.laneScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                if (StringUtils::startsWith(name, "meso:")) {
+                    // see edgeScaler.save() in GUIVisualizationSettings::save
+                    myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(name.substr(5));
+                } else {
+                    myCurrentScaleScheme = mySettings.laneScaler.getSchemeByName(name);
+                }
                 if (myCurrentScaleScheme == nullptr) {
-                    myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                    // legacy: meso schemes without prefix
+                    myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(name);
                 }
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
-                myCurrentScaleScheme = mySettings.vehicleScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScaleScheme = mySettings.vehicleScaler.getSchemeByName(name);
             }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
                 myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScaleScheme->clear();
             }
-            break;
+        }
+        break;
         case SUMO_TAG_ENTRY:
             if (myCurrentScheme != nullptr) {
                 RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, nullptr, ok);

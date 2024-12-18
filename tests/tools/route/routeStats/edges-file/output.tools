@@ -1,0 +1,2 @@
+route edge visits: count 100, min 0.00 (2), max 3.00 (0), mean 0.70, Q1 0.00, median 0.00, Q3 1.00
+ histogram: [(0.0, 58), (1.0, 19), (2.0, 18), (3.0, 5)]

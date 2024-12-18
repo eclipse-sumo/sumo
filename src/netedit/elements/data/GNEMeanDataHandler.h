@@ -42,10 +42,13 @@ public:
     /// @brief Destructor
     virtual ~GNEMeanDataHandler();
 
+    /// @brief run post parser tasks
+    bool postParserTasks();
+
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData
-    void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                            const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                            const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                            const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -53,7 +56,7 @@ public:
                            const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Builds laneMeanData
-    void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                            const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                            const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                            const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -77,6 +80,9 @@ protected:
 
     /// @brief parse attributes
     std::vector<SumoXMLAttr> parseAttributes(const SumoXMLTag tag, const std::vector<std::string>& attrStrs);
+
+    /// @brief check if given ID correspond to a duplicated mean data element
+    bool checkDuplicatedMeanDataElement(const SumoXMLTag tag, const std::string& id);
 
 private:
     /// @brief invalidate copy constructor

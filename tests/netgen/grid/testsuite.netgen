@@ -74,5 +74,8 @@ randomize_type
 # split geometry to add extra nodes
 split
 
+# generate plain xml
+plain_output
+
 # Tests processing of errors in input
 errors

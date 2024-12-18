@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-18 08:58:19 by Eclipse SUMO sumo Version v1_21_0+1414-ecd7e15422b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
+    </output>
+
+    <routing>
+        <persontrip.transfer.taxi-walk value="ptStops"/>
+        <persontrip.transfer.walk-taxi value="ptStops"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-period value="30"/>
+    </taxi_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="42.00" waitingTime="7.00" timeLoss="0.00" traveltime="35.00">
+        <stop duration="0.00" arrival="0.00" arrivalPos="50.87" actType="waiting"/>
+        <ride waitingTime="7.00" vehicle="t_0" depart="7.00" arrival="42.00" arrivalPos="0.00" duration="35.00" routeLength="487.20" timeLoss="0.00"/>
+    </personinfo>
+</tripinfos>

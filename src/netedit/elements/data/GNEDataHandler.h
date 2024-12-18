@@ -47,12 +47,15 @@ public:
     /// @brief Destructor
     ~GNEDataHandler();
 
+    /// @brief run post parser tasks
+    bool postParserTasks();
+
     /// @name build functions
     /// @{
     /**@brief Builds DataSet (exclusive of netedit)
      * @param[in] dataSetID new dataSet
      */
-    void buildDataSet(const std::string& dataSetID);
+    bool buildDataSet(const std::string& id);
 
     /**@brief Builds DataInterval
      * @param[in] sumoBaseObject sumo base object used for build
@@ -60,7 +63,7 @@ public:
      * @param[in] begin interval begin
      * @param[in] end interval end
      */
-    void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
+    bool buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
                            const double begin, const double end);
 
     /**@brief Builds edgeData
@@ -68,7 +71,7 @@ public:
      * @param[in] edgeID edge ID
      * @param[in] parameters parameters map
      */
-    void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
+    bool buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                        const Parameterised::Map& parameters);
 
     /**@brief Builds edgeRelationData
@@ -77,7 +80,7 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+    bool buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
                                const std::string& toEdgeID, const Parameterised::Map& parameters);
 
     /**@brief Builds TAZRelationData
@@ -86,7 +89,7 @@ public:
      * @param[in] toTAZ TAZ to
      * @param[in] parameters parameters map
      */
-    void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+    bool buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
                               const std::string& toTAZID, const Parameterised::Map& parameters);
     /// @}
 
@@ -100,14 +103,8 @@ protected:
     /// @brief check if overwrite
     const bool myOverwrite;
 
-    /// @brief write error "duplicated additional"
-    void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid parent element"
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
-
-    /// @brief write error "invalid parent element" giving ID
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id);
+    /// @brief check if given ID correspond to a duplicated dataSet
+    bool checkDuplicatedDataSet(const std::string& id);
 
 private:
     /// @brief invalidate copy constructor

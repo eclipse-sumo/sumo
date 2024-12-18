@@ -1280,7 +1280,13 @@ GUILane::getColorValueForTracker() const {
     if (myCachedGUISettings != nullptr) {
         const GUIVisualizationSettings& s = *myCachedGUISettings;
         const GUIColorer& c = s.laneColorer;
-        return getColorValueWithFunctional(s, c.getActive());
+        double val = getColorValueWithFunctional(s, c.getActive());
+        if (val == GUIVisualizationSettings::MISSING_DATA) {
+            // blowing up the dialog or plot isn't helpful. At least 0 may be understood as neutral
+            return 0;
+        } else {
+            return val;
+        }
     } else {
         return 0;
     }

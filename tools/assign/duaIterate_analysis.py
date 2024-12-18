@@ -18,6 +18,15 @@
 # @author  Mirko Barthauer
 # @date    2012-09-06
 
+"""
+Parses the log outputs from duaIterate.py.
+By default, the concatenaded log of sumo outputs (named dua.log by default) is
+parsed to obtain statistics on the following quantities:
+inserted, teleports, waiting, loaded and running.
+Optionally, the stdout.log is parsed as well to obtain statistics on
+routingMinutes, simMinutes and absAvgError
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 import os

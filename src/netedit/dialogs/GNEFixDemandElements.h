@@ -241,7 +241,7 @@ protected:
 
     private:
         /// @brief accept button
-        FXButton* myAcceptButton = nullptr;
+        FXButton* myKeepOldButton = nullptr;
 
         /// @brief cancel button
         FXButton* myCancelButton = nullptr;

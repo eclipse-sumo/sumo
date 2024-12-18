@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:18:42.210303 by gtfs2pt.py v1_13_0+1343-240e5d48340
+  options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>repair <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>verbose
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus"/>
+</additional>

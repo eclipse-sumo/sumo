@@ -5773,6 +5773,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_CROSSING: {
+            // filter elements over junctions
+            myViewObjectsSelector.filterCrossings();
+            myViewObjectsSelector.filterWalkingAreas();
+            myViewObjectsSelector.filterConnections();
             // call function addCrossing from crossing frame
             myViewParent->getCrossingFrame()->addCrossing(myViewObjectsSelector);
             // process click

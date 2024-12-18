@@ -1685,8 +1685,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
 #endif
             resumeFromStopping();
-            if (isRailway(getVClass())
-                    && hasStops()) {
+            if (isRail() && hasStops()) {
                 // stay on the current lane in case of a double stop
                 const MSStop& nextStop = getNextStop();
                 if (nextStop.edge == myCurrEdge) {
@@ -2203,7 +2202,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
     const double vMinComfortable = cfModel.minNextSpeed(getSpeed(), this);
     double lateralShift = 0;
-    if (isRailway((SVCPermissions)getVehicleType().getVehicleClass())) {
+    if (isRail()) {
         // speed limits must hold for the whole length of the train
         for (MSLane* l : myFurtherLanes) {
             laneMaxV = MIN2(laneMaxV, l->getVehicleMaxSpeed(this));
@@ -2275,7 +2274,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const MSLane* lane = opposite ? myLane->getParallelOpposite() : myLane;
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
-    bool foundRailSignal = !isRailway(getVClass());
+    bool foundRailSignal = !isRail();
     bool planningToStop = false;
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].start();
@@ -2575,7 +2574,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // (except for trains that make use of further link-approach registration for safety purposes)
                     if (!isWaypoint) {
                         planningToStop = true;
-                        if (!isRailway(getVClass())) {
+                        if (!isRail()) {
                             lfLinks.emplace_back(v, stopDist);
                             foundRealStop = true;
                             break;
@@ -2669,7 +2668,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         double laneStopOffset;
         const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getVehicleStopOffset(this));
         // override low desired decel at yellow and red
-        const double stopDecel = yellowOrRed && !isRailway(getVClass()) ? MAX2(MIN2(MSGlobals::gTLSYellowMinDecel, cfModel.getEmergencyDecel()), cfModel.getMaxDecel()) : cfModel.getMaxDecel();
+        const double stopDecel = yellowOrRed && !isRail() ? MAX2(MIN2(MSGlobals::gTLSYellowMinDecel, cfModel.getEmergencyDecel()), cfModel.getMaxDecel()) : cfModel.getMaxDecel();
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, stopDecel, 0);
         const bool canBrakeBeforeLaneEnd = seen >= brakeDist;
         const bool canBrakeBeforeStopLine = seen - lane->getVehicleStopOffset(this) >= brakeDist;
@@ -2720,7 +2719,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                       << "' is " << laneStopOffset << " (-> stopDist=" << stopDist << ")" << std::endl;
         }
 #endif
-        if (isRailway(getVClass())
+        if (isRail()
                 && !lane->isInternal()) {
             // check for train direction reversal
             if (lane->getBidiLane() != nullptr
@@ -4184,7 +4183,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                                   << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
                                   << " speedThreshold=" << speedThreshold
                                   << " seen=" << seen
-                                  << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
+                                  << " isRail=" << isRail()
                                   << " speedOk=" << (getPreviousSpeed() <= speedThreshold)
                                   << " posOK=" << (myState.myPos <= myLane->getLength())
                                   << " normal=" << !myLane->isInternal()
@@ -4663,7 +4662,7 @@ MSVehicle::executeMove() {
         }
 #endif
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
-        if (passedLanes.size() > 1 && isRailway(getVClass())) {
+        if (passedLanes.size() > 1 && isRail()) {
             for (auto pi = passedLanes.rbegin(); pi != passedLanes.rend(); ++pi) {
                 MSLane* pLane = *pi;
                 if (pLane != myLane && std::find(myFurtherLanes.begin(), myFurtherLanes.end(), pLane) == myFurtherLanes.end()) {
@@ -5352,7 +5351,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                                        dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTimeFor(dpi.myLink), dpi.myDistance, getLateralPositionOnLane());
         }
     }
-    if (isRailway(getVClass())) {
+    if (isRail()) {
         for (DriveProcessItem& dpi : myLFLinkLanes) {
             if (dpi.myLink != nullptr && dpi.myLink->getTLLogic() != nullptr && dpi.myLink->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
                 MSRailSignalControl::getInstance().notifyApproach(dpi.myLink);

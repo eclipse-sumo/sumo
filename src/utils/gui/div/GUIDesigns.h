@@ -168,7 +168,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignButtonAdvanced             (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief overwrite Button
-#define GUIDesignButtonOverwrite            (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignButtonKeepElements         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 120, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Focus Button
 #define GUIDesignButtonFocus                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_NONE), 0, 0, 0, 0, 0, 0, 0, 0
@@ -258,7 +258,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelOverwrite             (JUSTIFY_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+#define GUIDesignLabelKeepElements          (JUSTIFY_CENTER_X | LAYOUT_FILL_X | LAYOUT_FILL_Y | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to center
 #define GUIDesignLabelAboutInfoCenter       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0

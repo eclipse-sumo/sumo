@@ -663,6 +663,9 @@ public:
     /// @brief get begin adresses iterator
     std::vector<std::pair<std::string, Option*> >::const_iterator end() const;
 
+    /// @brief make a copy of this OptionsCont instance
+    OptionsCont* clone() const;
+
 private:
     /** @brief Returns the named option
      *

@@ -246,6 +246,8 @@
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="edgesFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="aggregate" type="boolType" use="optional"/>
+        <xsd:attribute name="minSamples" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="speedThreshold" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timedEventType">

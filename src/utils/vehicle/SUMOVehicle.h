@@ -367,6 +367,10 @@ public:
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 
+    /* @brief Return whether this vehicle must be treated like a railway vehicle
+     * either due to its vClass or the vClass of it's edge */
+    virtual bool isRail() const = 0;
+
     virtual SUMOTime getLastActionTime() const = 0;
 
     /// @brief get bounding rectangle

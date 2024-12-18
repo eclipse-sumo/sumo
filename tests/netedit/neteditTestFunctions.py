@@ -818,7 +818,7 @@ def openNetworkAs(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("config.net.xml")
+    pasteIntoTextField("net.net.xml")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -856,6 +856,22 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
+def openAdditionalsAs(waitTime=2):
+    """
+    @brief load additional using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'a')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("additionals.add.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
 def saveAdditionals(referencePosition, clickOverReference=False):
     """
     @brief save additionals
@@ -866,6 +882,22 @@ def saveAdditionals(referencePosition, clickOverReference=False):
         leftClick(referencePosition, 0, 0)
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'a')
+
+
+def openDemandElementsAs(waitTime=2):
+    """
+    @brief load demand elements using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'd')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("routes.rou.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
 
 
 def saveRoutes(referencePosition, clickOverReference=True):
@@ -880,6 +912,22 @@ def saveRoutes(referencePosition, clickOverReference=True):
     typeThreeKeys('ctrl', 'shift', 'd')
 
 
+def openDataElementsAs(waitTime=2):
+    """
+    @brief load data elements using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'b')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("datas.dat.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
 def saveDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
     """
     @brief save datas
@@ -890,6 +938,39 @@ def saveDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
         leftClick(referencePosition, positions.reference, offsetX, offsetY)
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'b')
+
+
+def openMeanDataElementsAs(waitTime=2):
+    """
+    @brief load mean data elements using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('alt', 'f')
+    for _ in range(17):
+        typeDown()
+    typeSpace()
+    typeDown()
+    typeSpace()
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("datas.med.add.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def saveMeanDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
+    """
+    @brief save mean datas
+    """
+    # check if clickOverReference is enabled
+    if clickOverReference:
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, positions.reference, offsetX, offsetY)
+    # save datas using hotkey
+    typeThreeKeys('ctrl', 'shift', 'm')
 
 
 def fixDemandElements(solution):
@@ -954,6 +1035,22 @@ def openNeteditConfigShortcut(waitTime=2):
     typeEnter()
     # wait for loading
     time.sleep(waitTime)
+
+
+def saveNeteditConfigNew(waitTime=2):
+    """
+    @brief save netedit config after opening a new network
+    """
+    # save netedit config using hotkey
+    typeThreeKeys('ctrl', 'shift', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    typeEnter()
+    pasteIntoTextField("saveConfigAs.netecfg")
+    typeEnter()
+    typeEnter()
+    # wait for saving
+    time.sleep(DELAY_SAVING)
 
 
 def saveNeteditConfigAs(referencePosition, waitTime=2):

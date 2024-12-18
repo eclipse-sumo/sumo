@@ -20,12 +20,7 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <utils/xml/SUMOSAXHandler.h>
-
 
 // ===========================================================================
 // class definitions
@@ -51,6 +46,9 @@ private:
 
     /// @brief end element
     virtual void endTag() = 0;
+
+    /// @brief run post parser tasks
+    virtual bool postParserTasks() = 0;
 
     /// @name inherited from SUMOSAXHandler
     /// @{

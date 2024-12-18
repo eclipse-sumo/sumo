@@ -32,6 +32,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -1885,6 +1886,10 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     mySecondaryShape = new FXCheckButton(matrixLanes, TL("Secondary shape"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySecondaryShape->setCheck(mySettings->secondaryShape);
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+    if (!OptionsCont::getOptions().exists("alternative-net-file") ||
+        !OptionsCont::getOptions().isSet("alternative-net-file")) {
+        mySecondaryShape->disable();
+    }
 
     FXMatrix* tmp0 = new FXMatrix(matrixLanes, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(tmp0, TL("Exaggerate width by"), nullptr, GUIDesignViewSettingsLabel1);

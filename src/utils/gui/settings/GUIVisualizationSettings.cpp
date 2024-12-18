@@ -1718,7 +1718,6 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         edgeScheme.addColor(2, 10.);
         edgeScheme.addColor(5, 100.);
         edgeScheme.addColor(10, 1000.);
-        edgeScaler.addScheme(edgeScheme);
         edgeScheme.setAllowsNegativeValues(true);
         edgeScaler.addScheme(edgeScheme);
     }
@@ -2099,7 +2098,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     laneColorer.save(dev);
     laneScaler.save(dev);
     edgeColorer.save(dev, "meso:");
-    edgeScaler.save(dev);
+    edgeScaler.save(dev, "meso:");
     dev.closeTag();
     // vehicles
     dev.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);

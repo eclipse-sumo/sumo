@@ -141,6 +141,9 @@ public:
         /// @brief Information whether the attribute has been found for the current edge
         bool myHadAttribute;
 
+        /// @brief Information whether the attribute was found to contain non-numerical data (for any edge)
+        bool myHadNonNumeric;
+
     private:
         /// @brief Invalidated copy constructor.
         ToRetrieveDefinition(const ToRetrieveDefinition&) = delete;

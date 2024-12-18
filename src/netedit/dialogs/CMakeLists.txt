@@ -44,8 +44,8 @@ set(netedit_dialogs_SRCS
    GNEGeometryPointDialog.cpp
    GNEUndoListDialog.h
    GNEUndoListDialog.cpp
-   GNEOverwriteElementsDialog.h
-   GNEOverwriteElementsDialog.cpp
+   GNEKeepElementsDialog.h
+   GNEKeepElementsDialog.cpp
    GNEVTypeDistributionsDialog.h
    GNEVTypeDistributionsDialog.cpp
    )

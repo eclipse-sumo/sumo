@@ -855,7 +855,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
     double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-    const bool isRail = isRailway(aVehicle->getVClass());
+    const bool isRail = aVehicle->isRail();
     if (isRail && insertionChecks != (int)InsertionCheck::NONE
             && aVehicle->getParameter().departProcedure != DepartDefinition::SPLIT) {
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
@@ -1772,7 +1772,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     }
                     for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
                         // self-collisions might legitemately occur when a long train loops back on itself
-                        if (*veh == *veh2 && !isRailway((*veh)->getVClass())) {
+                        if (*veh == *veh2 && !(*veh)->isRail()) {
                             continue;
                         }
                         if ((*veh)->getLane() == (*veh2)->getLane() ||

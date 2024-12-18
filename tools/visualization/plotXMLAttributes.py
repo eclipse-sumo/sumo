@@ -17,11 +17,20 @@
 # @date    2021-11-05
 
 """
-This script plots arbitrary xml attributes from xml files
-Individual trajectories can be clicked in interactive mode to print the data Id on the console
+This script plots arbitrary xml attributes from xml files.
 
-selects two attributes for x and y axis and a third (id-attribute) for grouping
-of data points into lines
+Options -x, -y, -i select attributes for the x and y axis and an id
+for grouping of data points into lines  (-i @NONE creates one group)
+The following special attributes are also supported
+  @INDEX: the index of the other value within the input file is used.
+  @RANK: the index of the other value within the sorted (descending) list of values is used
+  @COUNT: the number of occurrences of the other value is used.
+          Together with option --barplot or -hbarplot this gives a histogram. Binning size can be set via options --xbin and --ybin.
+  @DENSITY: the number of occurrences of the other value is used, normalized by the total number of values.
+  @BOX: one or more box plots of the other value are drawn. The --idattr is used for grouping and there will be one box plot per id
+  @FILE: the (shortened) input file name is used (useful when plotting one value per file)
+
+Individual trajectories can be clicked in interactive mode to print the data Id on the console.
 
 """
 from __future__ import absolute_import
@@ -62,13 +71,8 @@ NON_DATA_ATTRS = SYMBOLIC_ATTRS + [NONE_ATTR]
 
 def getOptions(args=None):
     optParser = ArgumentParser(
-        description='Plot arbitrary attributes from xml files',
-        epilog='Individual trajectories can be clicked in interactive mode to print the data Id on the console\n'
-        'selects two attributs for x and y axis and optionally a third (id-attribute)\n'
-        'for grouping of data points into lines\n\n'
-        'Example\n'
-        '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
-        '    plots passengers over time for vehicles from SUMO stop output',
+        description=__doc__.split('\n')[1],
+        epilog=__doc__,
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
     optParser.add_option("files", nargs='+', category="input", type=optParser.file_list,

@@ -53,6 +53,7 @@ plain_edges:plain.edg.xml
 plain_connections:plain.con.xml
 plain_tllogic:plain.tll.xml
 plain_types:plain.typ.xml
+plain_cfg:plain.netccfg
 foreign:foreign.net
 cfg:config.cfg
 log:log.txt
@@ -76,6 +77,7 @@ plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
 plain_types:<!--{[->]}-->
+plain_cfg:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
 topology:<!--{[->]}-->
 net:<!--{[->]}-->

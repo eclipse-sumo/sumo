@@ -163,6 +163,7 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
                 continue
             route = vehicle.route[0]
             edges = tuple(route.edges.split())
+            edgeSet = set(edges)
 
             exitTimes = []
             if route.exitTimes:
@@ -172,7 +173,7 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
 
             numPassedDets = 0
             for cd in countData:
-                i = cd.routePasses(edges)
+                i = cd.routePasses(edges, edgeSet)
                 if i is not None:
                     numPassedDets += 1
                     et = exitTimes[i]

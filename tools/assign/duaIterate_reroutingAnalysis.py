@@ -16,6 +16,11 @@
 # @author  Jakob Erdmann
 # @date    2022-02-28
 
+"""
+Extract fraction of vehicles that changed their route in a duaIterate.py run by
+parsing the rou.alt.xml files
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 import os

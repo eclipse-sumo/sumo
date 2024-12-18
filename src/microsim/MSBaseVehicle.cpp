@@ -714,6 +714,9 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
         }
         myContainerDevice->addTransportable(transportable);
     }
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setTransportableMass(myEnergyParams->getTransportableMass() + transportable->getVehicleType().getMass());
+    }
 }
 
 
@@ -873,6 +876,11 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
     }
 }
 
+
+bool
+MSBaseVehicle::isRail() const {
+    return isRailway(getVClass()) || isRailway(getCurrentEdge()->getPermissions());
+}
 
 void
 MSBaseVehicle::calculateArrivalParams(bool onInit) {
@@ -2215,6 +2223,9 @@ MSBaseVehicle::removeTransportable(MSTransportable* t) {
     }
     if (myContainerDevice != nullptr) {
         myContainerDevice->removeTransportable(t);
+    }
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setTransportableMass(myEnergyParams->getTransportableMass() - t->getVehicleType().getMass());
     }
 }
 

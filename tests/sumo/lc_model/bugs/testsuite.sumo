@@ -56,3 +56,6 @@ ticket15857
 
 # deadlock on junction
 ticket15887
+
+# collision on junction
+ticket15927

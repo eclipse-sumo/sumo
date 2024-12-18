@@ -1,6 +1,8 @@
 set(utils_handlers_STAT_SRCS
    AdditionalHandler.h
    AdditionalHandler.cpp
+   CommonHandler.h
+   CommonHandler.cpp
    DataHandler.h
    DataHandler.cpp
    GeneralHandler.h

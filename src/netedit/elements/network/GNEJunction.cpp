@@ -281,7 +281,11 @@ GNEJunction::checkDrawOverContour() const {
     if (viewObjectsSelector.getJunctionFront() != this) {
         return false;
     } else {
-        if (modes.isCurrentSupermodeDemand()) {
+        if (modes.isCurrentSupermodeNetwork()) {
+            if (modes.networkEditMode == NetworkEditMode::NETWORK_CROSSING) {
+                return (viewObjectsSelector.getJunctionFront() == this);
+            }
+        } else if (modes.isCurrentSupermodeDemand()) {
             // get current plan selector
             GNEPlanSelector* planSelector = nullptr;
             if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {

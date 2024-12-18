@@ -8576,14 +8576,14 @@ GNEAttributeCarrier::fillCommonFlowAttributes(GNETagProperties& tagProperties, S
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_FLOW_TERMINATE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
-                                          TL("Criterium for terminate flow"),
+                                          TL("Criterion for flow termination"),
                                           toString(SUMO_ATTR_END));
     attrProperty.setDiscreteValues({toString(SUMO_ATTR_END), toString(SUMO_ATTR_NUMBER), toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)});
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_FLOW_SPACING,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
-                                          TL("Criterium for spacing flow"),
+                                          TL("Criterion for flow spacing"),
                                           toString(perHour));
     attrProperty.setDiscreteValues({toString(perHour), toString(SUMO_ATTR_PERIOD), toString(SUMO_ATTR_PROB), toString(GNE_ATTR_POISSON)});
     tagProperties.addAttribute(attrProperty);
@@ -9365,7 +9365,7 @@ GNEAttributeCarrier::fillPlanParentAttributes(GNETagProperties& tagProperties) {
     if (tagProperty.planFromBusStop()) {
         attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_BUSSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("BuStop start ID"));
+                                              TL("BusStop start ID"));
         tagProperties.addAttribute(attrProperty);
     }
     if (tagProperty.planFromTrainStop()) {
@@ -9428,7 +9428,7 @@ GNEAttributeCarrier::fillPlanParentAttributes(GNETagProperties& tagProperties) {
     if (tagProperty.planToBusStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("BuStop end ID"));
+                                              TL("BusStop end ID"));
         tagProperties.addAttribute(attrProperty);
     }
     if (tagProperty.planToTrainStop()) {

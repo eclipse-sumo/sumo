@@ -66,9 +66,13 @@ def validate(root, f):
                 # remove everything before (and including) the filename
                 s = s[s.find(f.replace('\\', '/')) + len(f):]
                 print(normalized + s, file=sys.stderr)
-    except Exception:
+    except Exception as e:
         print("Error on parsing '%s'!" % normalized, file=sys.stderr)
-        traceback.print_exc()
+        if haveLxml and type(e) == etree.XMLSyntaxError:
+            # we expect to encounter such errors and don't need a full strack trace
+            print(e, file=sys.stderr)
+        else:
+            traceback.print_exc()
 
 
 def main(srcRoot, toCheck, err):

@@ -53,11 +53,22 @@ GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool 
 GNEDataHandler::~GNEDataHandler() {}
 
 
-void
-GNEDataHandler::buildDataSet(const std::string& dataSetID) {
+bool
+GNEDataHandler::postParserTasks() {
+    // nothing to do
+    return true;
+}
+
+
+bool
+GNEDataHandler::buildDataSet(const std::string& id) {
     // first check if dataSet exist
-    if (myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false) == nullptr) {
-        GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
+    if (!checkValidAdditionalID(SUMO_TAG_DATASET, id)) {
+        return false;
+    } else if (!checkDuplicatedDataSet(id)) {
+        return false;
+    } else {
+        GNEDataSet* dataSet = new GNEDataSet(myNet, id);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(dataSet, TL("add data set"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
@@ -67,13 +78,12 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
             myNet->getAttributeCarriers()->insertDataSet(dataSet);
             dataSet->incRef("buildDataSet");
         }
-    } else {
-        writeErrorDuplicated(SUMO_TAG_DATASET, dataSetID);
+        return true;
     }
 }
 
 
-void
+bool
 GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */,
                                   const std::string& dataSetID, const double begin, const double end) {
     // get dataSet
@@ -96,6 +106,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }
+        return true;
     } else if (dataSet->retrieveInterval(begin, end) == nullptr) {
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
@@ -107,11 +118,14 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void
+bool
 GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                               const Parameterised::Map& parameters) {
     // get dataSet
@@ -135,19 +149,20 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                     edge->addChildElement(edgeData);
                     edgeData->incRef("buildEdgeData");
                 }
+                return true;
             } else {
-                writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_EDGE);
+                return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_EDGE);
             }
         } else {
-            writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATAINTERVAL);
+            return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATAINTERVAL);
         }
     } else {
-        writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATASET);
+        return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATASET);
     }
 }
 
 
-void
+bool
 GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
                                       const std::string& toEdgeID, const Parameterised::Map& parameters) {
     // get dataSet
@@ -162,13 +177,13 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
             GNEEdge* const fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
             GNEEdge* const toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
             if (fromEdge == nullptr) {
-                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, fromEdgeID);
+                return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, fromEdgeID);
             } else if (toEdge == nullptr) {
-                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, toEdgeID);
+                return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, toEdgeID);
             } else {
                 // avoid duplicated edgeRel in the same interval
                 if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
-                    writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
+                    return writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
                 } else {
                     GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
                     if (myAllowUndoRedo) {
@@ -181,18 +196,19 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                         toEdge->addChildElement(edgeData);
                         edgeData->incRef("buildEdgeRelationData");
                     }
+                    return true;
                 }
             }
         } else {
-            writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATAINTERVAL);
+            return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATAINTERVAL);
         }
     } else {
-        writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATASET);
+        return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATASET);
     }
 }
 
 
-void
+bool
 GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
                                      const std::string& toTAZID, const Parameterised::Map& parameters) {
     // get dataSet
@@ -207,13 +223,13 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
             GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
             GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
             if (fromTAZ == nullptr) {
-                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
+                return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
             } else if (toTAZ == nullptr) {
-                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
+                return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
             } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
-                writeError(TLF("There is already a TAZ rel defined between '%' and '%'.", fromTAZID, toTAZID));
+                return writeError(TLF("There is already a TAZ rel defined between '%' and '%'.", fromTAZID, toTAZID));
             } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
-                writeError(TLF("There is already a TAZ rel defined in '%'.", toTAZID));
+                return writeError(TLF("There is already a TAZ rel defined in '%'.", toTAZID));
             } else if (fromTAZ == toTAZ) {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
                 if (myAllowUndoRedo) {
@@ -225,6 +241,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                     fromTAZ->addChildElement(edgeData);
                     edgeData->incRef("buildTAZRelationData");
                 }
+                return true;
             } else {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
                 if (myAllowUndoRedo) {
@@ -237,31 +254,35 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                     toTAZ->addChildElement(edgeData);
                     edgeData->incRef("buildTAZRelationData");
                 }
+                return true;
             }
         } else {
-            writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATAINTERVAL);
+            return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATAINTERVAL);
         }
     } else {
-        writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATASET);
+        return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATASET);
     }
 }
 
 
-void
-GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    writeError(TLF("Could not build % with ID '%'", toString(tag), id) + std::string("; ") + TL("declared twice."));
-}
-
-
-void
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
-    writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
-}
-
-
-void
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id) {
-    writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% '%' doesn't exist.", toString(parent), id));
+bool
+GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
+    // retrieve data set
+    auto dataSet = myNet->getAttributeCarriers()->retrieveDataSet(id, false);
+    // if demand exist, check if overwrite (delete)
+    if (dataSet) {
+        if (!myAllowUndoRedo) {
+            // only overwrite if allow undo-redo
+            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+        } else if (myOverwrite) {
+            // delete demand element (and all of their childrens)
+            myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
+        } else {
+            // duplicated dataSet
+            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+        }
+    }
+    return true;
 }
 
 /****************************************************************************/

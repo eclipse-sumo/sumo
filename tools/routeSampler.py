@@ -38,7 +38,7 @@ except ImportError:
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime, humanReadableTime  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime, Benchmarker  # noqa
 from sumolib.statistics import setPrecision  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
@@ -103,6 +103,8 @@ def get_options(args=None):
                     help="tell me what you are doing")
     op.add_argument("-V", "--verbose.histograms", category="output", dest="verboseHistogram", action="store_true",
                     default=False, help="print histograms of edge numbers and detector passing count")
+    op.add_argument("--verbose.timing", category="output", dest="verboseTiming", action="store_true",
+                    default=False, help="print time performance information")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="",
                     help="prefix for the vehicle ids")
@@ -123,6 +125,8 @@ def get_options(args=None):
                     help="custom end time (seconds or H:M:S)")
     op.add_argument("-i", "--interval", category="time",
                     help="custom aggregation interval (seconds or H:M:S)")
+    op.add_argument("--depart-distribution", category="time", dest="departDistVals",
+                    help="load list of densities that cover [begin, end] to customize departure time probabilities")
     # processing
     op.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
                     help="Allow at most a gap of INT edges between from-edge and to-edge")
@@ -206,7 +210,53 @@ def get_options(args=None):
         if options.totalCount != PRESERVE_INPUT_COUNT:
             options.totalCount = list(map(int, options.totalCount.split(',')))
 
+    if options.departDistVals:
+        sep = ',' if ',' in options.departDistVals else None
+        options.departDistVals = list(map(float, options.departDistVals.split(sep)))
+
     return options
+
+
+class DepartDist:
+    def __init__(self, vals, begin, end):
+        self.begin = begin
+        self.end = end
+        # normalize vals
+        s = sum(vals)
+        vals = [v / s for v in vals]
+        # prepare CDF
+        binWidth = (end - begin) / len(vals)
+        self.cdf_x = [begin + i * binWidth for i in range(len(vals) + 1)]
+        self.cdf_y = [0]
+        for v in vals:
+            self.cdf_y.append(self.cdf_y[-1] + v)
+
+    def sample(self, rng, n, begin, end):
+        """sample n values between begin and end"""
+        left, right = np.interp([begin, end], self.cdf_x, self.cdf_y)
+        # construct inverse CDF truncated to left and right
+        icdf_x = [left]
+        icdf_y = [begin]
+        for x, y in zip(self.cdf_y, self.cdf_x):
+            if y > begin and y < end:
+                icdf_x.append(x)
+                icdf_y.append(y)
+        icdf_x.append(right)
+        icdf_y.append(end)
+
+        # obtain n random variables between left and right
+        scale = right - left
+        r = [left + v * scale for v in rng.random(n)]
+
+        #print("cdf_x", self.cdf_x)
+        #print("cdf_y", self.cdf_y)
+        #print("begin", begin, "end", end)
+        #print("icdf_x", icdf_x)
+        #print("icdf_y", icdf_y)
+        #print("scale", scale, "left", left, "right", right)
+
+        # evaluate icdf
+        return np.interp(r, icdf_x, icdf_y)
 
 
 class CountData:
@@ -224,10 +274,10 @@ class CountData:
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
-            if self.routePasses(edges) is not None:
+            if self.routePasses(edges, allRoutes.uniqueSets[routeIndex]) is not None:
                 self.routeSet.add(routeIndex)
 
-    def routePasses(self, edges):
+    def routePasses(self, edges, edgeSet):
         if self.isTaz:
             if (inTaz(self.options, edges[0], self.edgeTuple[0], True) and
                     inTaz(self.options, edges[-1], self.edgeTuple[-1], False)):
@@ -241,16 +291,24 @@ class CountData:
                 return None
             else:
                 return 0 if self.isOrigin else len(edges) - 1
-        i = None
-        try:
-            i = edges.index(self.edgeTuple[0])
+        firstEdge = self.edgeTuple[0]
+        if firstEdge in edgeSet:
+            i = edges.index(firstEdge)
             maxDelta = self.options.turnMaxGap + 1
             for edge in self.edgeTuple[1:]:
-                i2 = edges.index(edge, i)
-                if i2 - i > maxDelta:
+                if edge in edgeSet:
+                    try:
+                        i2 = edges.index(edge, i)
+                        if i2 - i > maxDelta:
+                            return None
+                        i = i2
+                    except ValueError:
+                        # other edge came earlier in route
+                        return None
+                else:
+                    # other edge not in route
                     return None
-                i = i2
-        except ValueError:
+        else:
             # first edge not in route
             return None
         return i
@@ -341,6 +399,12 @@ def getIntervals(options):
     if options.interval is not None:
         interval = parseTime(options.interval)
 
+    # init departDist after begin and end are known, store in options for
+    # easier handover to solveInterval
+    options.departDist = None
+    if hasattr(options, "departDistVals") and options.departDistVals:
+        options.departDist = DepartDist(options.departDistVals, begin, end)
+
     result = []
     while begin < end:
         result.append((begin, begin + interval))
@@ -423,7 +487,12 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                     value *= overlap
                     if not isRatio:
                         value = int(value)
-                    locations[edges].addCount(value)
+                    if value < 0:
+                        if warn:
+                            print("Ignoring negative count %s for edge(s) '%s'" % (
+                                value, " ".join(edges)), file=sys.stderr)
+                    else:
+                        locations[edges].addCount(value)
     return result
 
 
@@ -604,6 +673,7 @@ class Routes:
                     self.routeStops[edges].append(list(r.stop))
 
         self.unique = sorted(list(self.edgeProbs.keys()))
+        self.uniqueSets = [set(edges) for edges in self.unique]
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
         if len(self.unique) == 0:
@@ -733,11 +803,11 @@ def initTotalCounts(options, routes, intervals, b, e):
                              " or match the number of data intervals (%s)" % len(intervals))
             sys.exit()
 
-
 def main(options):
     rng = np.random.RandomState(options.seed)
 
-    routes = Routes(options.routeFiles, options.keepStops, rng)
+    with Benchmarker(options.verboseTiming, "Loading routes"):
+        routes = Routes(options.routeFiles, options.keepStops, rng)
 
     intervals = getIntervals(options)
     if len(intervals) == 0:
@@ -747,7 +817,8 @@ def main(options):
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
     e = intervals[-1][-1]
-    countData = parseCounts(options, routes, b, e, True)
+    with Benchmarker(options.verboseTiming, "Loading counts"):
+        countData = parseCounts(options, routes, b, e, True)
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -794,7 +865,7 @@ def main(options):
     inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
     usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
 
-    with open(options.out, 'w') as outf:
+    with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         if options.threads > 1:
             # call the multiprocessing function
@@ -1042,7 +1113,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeID = options.writeRouteDist
 
         if options.writeFlows is None:
-            departs = [rng.uniform(begin, end) for ri in usedRoutes]
+            if options.departDist:
+                departs = options.departDist.sample(rng, len(usedRoutes), begin, end)
+            else:
+                departs = [rng.uniform(begin, end) for ri in usedRoutes]
             departs.sort()
             for i, routeIndex in enumerate(usedRoutes):
                 if options.writeRouteIDs:

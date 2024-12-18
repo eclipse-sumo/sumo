@@ -68,11 +68,11 @@ GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::vecto
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // set focus in accept button
-    myAcceptButton->setFocus();
+    myKeepOldButton->setFocus();
 }
 
 

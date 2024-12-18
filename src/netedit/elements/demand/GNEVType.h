@@ -185,7 +185,7 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
     /// @brief overwrite all values of GNEVType with a SUMOVTypeParameter
-    static void overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList);
+    static bool overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList);
 
 protected:
     /// @brief flag to check if this GNEVType is a default vehicle Type (For Vehicles, Pedestrians...)

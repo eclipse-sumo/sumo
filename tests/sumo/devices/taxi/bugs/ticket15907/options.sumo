@@ -1,0 +1,9 @@
+{CLEAR}
+--no-step-log --no-duration-log --net-file=net.net.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml
+--device.taxi.dispatch-period 30
+--tripinfo-output tripinfos.xml
+--railsignal-vehicle-output railsignal_vehicles.xml
+--persontrip.transfer.taxi-walk ptStops
+--persontrip.transfer.walk-taxi ptStops
