@@ -44,6 +44,20 @@ GNEGeneralHandler::~GNEGeneralHandler() {}
 
 
 bool
+GNEGeneralHandler::postParserTasks() {
+    if (isAdditionalFile()) {
+        return myAdditionalHandler.postParserTasks();
+    } else if (isRouteFile()) {
+        return myDemandHandler.postParserTasks();
+    } else if (isMeanDataFile()) {
+        return myMeanDataHandler.postParserTasks();
+    } else {
+        return true;
+    }
+}
+
+
+bool
 GNEGeneralHandler::isErrorCreatingElement() const {
     return (myAdditionalHandler.isErrorCreatingElement() ||
             myDemandHandler.isErrorCreatingElement() ||

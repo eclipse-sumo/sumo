@@ -47,6 +47,9 @@ public:
     /// @brief Destructor
     ~GNEAdditionalHandler();
 
+    /// @brief run post parser tasks
+    bool postParserTasks();
+
     /// @name build functions
     /// @{
     /**@brief Builds a bus stop

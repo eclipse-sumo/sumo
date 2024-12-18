@@ -61,6 +61,9 @@ public:
     /// @brief Destructor
     virtual ~GNERouteHandler();
 
+    /// @brief run post parser tasks
+    bool postParserTasks();
+
     /// @name build functions
     /// @{
 
@@ -296,6 +299,9 @@ private:
 
     /// @brief pointer for person and container plans
     CommonXMLStructure::SumoBaseObject* myPlanObject;
+
+    /// @brief demand element parentplans (person and containers, used in postParserTasks)
+    std::set<GNEDemandElement*> myParentPlanElements;
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;

@@ -42,6 +42,9 @@ public:
     /// @brief Destructor
     virtual ~GNEMeanDataHandler();
 
+    /// @brief run post parser tasks
+    bool postParserTasks();
+
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData

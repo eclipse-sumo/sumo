@@ -85,6 +85,25 @@ GNERouteHandler::~GNERouteHandler() {
 
 
 bool
+GNERouteHandler::postParserTasks() {
+    // clear all parent plan elements without children
+    for (const auto &parentPlanElement : myParentPlanElements) {
+        if (parentPlanElement->getChildDemandElements().empty()) {
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(parentPlanElement, TLF("delete % '%'", parentPlanElement->getTagStr(), parentPlanElement->getID()));
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(parentPlanElement, false), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                parentPlanElement->decRef("postParserTasks");
+                myNet->getAttributeCarriers()->deleteDemandElement(parentPlanElement, false);
+            }
+        }
+    }
+    return true;
+}
+
+
+bool
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) {
     // check if loaded type is a default type
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
@@ -636,6 +655,8 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
                 type->addChildElement(person);
                 person->incRef("buildPerson");
             }
+            // save in parent plan elements
+            myParentPlanElements.insert(person);
             return true;
         }
     }
@@ -665,6 +686,8 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
                 type->addChildElement(personFlow);
                 personFlow->incRef("buildPersonFlow");
             }
+            // save in parent plan elements
+            myParentPlanElements.insert(personFlow);
             return true;
         }
     }
@@ -802,6 +825,8 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
                 type->addChildElement(container);
                 container->incRef("buildContainer");
             }
+            // save in parent plan elements
+            myParentPlanElements.insert(container);
             return true;
         }
     }
@@ -831,6 +856,8 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
                 type->addChildElement(containerFlow);
                 containerFlow->incRef("buildContainerFlow");
             }
+            // save in parent plan elements
+            myParentPlanElements.insert(containerFlow);
             return true;
         }
     }

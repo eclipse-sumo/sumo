@@ -77,6 +77,13 @@ GNEAdditionalHandler::~GNEAdditionalHandler() {
 
 
 bool
+GNEAdditionalHandler::postParserTasks() {
+    // nothing to do
+    return true;
+}
+
+
+bool
 GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                    const std::string& laneID, const double startPos, const double endPos, const std::string& name,
                                    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,

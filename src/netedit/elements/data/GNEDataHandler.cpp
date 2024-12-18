@@ -54,6 +54,13 @@ GNEDataHandler::~GNEDataHandler() {}
 
 
 bool
+GNEDataHandler::postParserTasks() {
+    // nothing to do
+    return true;
+}
+
+
+bool
 GNEDataHandler::buildDataSet(const std::string& dataSetID) {
     // first check if dataSet exist
     if (checkDuplicatedDataSet(dataSetID)) {

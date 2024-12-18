@@ -49,6 +49,13 @@ GNEMeanDataHandler::~GNEMeanDataHandler() {}
 
 
 bool
+GNEMeanDataHandler::postParserTasks() {
+    // nothing to do
+    return true;
+}
+
+
+bool
 GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
                                       const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                       const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
