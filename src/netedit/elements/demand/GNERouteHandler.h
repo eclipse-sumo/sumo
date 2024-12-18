@@ -287,12 +287,6 @@ protected:
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief write error "duplicated"
-    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid negative element"
-    bool writeErrorInvalidNegativeValue(const SumoXMLTag tag, const SumoXMLAttr attribute);
-
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;

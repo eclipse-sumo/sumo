@@ -286,22 +286,4 @@ GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
     }
 }
 
-
-bool
-GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%'", toString(tag), id) + std::string("; ") + TL("declared twice."));
-}
-
-
-bool
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
-    return writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
-}
-
-
-bool
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id) {
-    return writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% '%' doesn't exist.", toString(parent), id));
-}
-
 /****************************************************************************/

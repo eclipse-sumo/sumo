@@ -743,9 +743,9 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
     } else if (speed < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_WALK, SUMO_ATTR_SPEED);
+        return writeErrorInvalidNegativeValue(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_SPEED);
     } else if (duration < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_WALK, SUMO_ATTR_DURATION);
+        return writeErrorInvalidNegativeValue(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_DURATION);
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
         GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
@@ -911,9 +911,9 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
     } else if (speed < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, SUMO_ATTR_SPEED);
+        return writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_SPEED);
     } else if (duration < 0) {
-        return writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, SUMO_ATTR_DURATION);
+        return writeErrorInvalidNegativeValue(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_DURATION);
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build tranship
         GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
@@ -2534,18 +2534,6 @@ GNERouteHandler::checkDuplicatedDemandElement(const std::vector<SumoXMLTag> tags
         }
     }
     return true;
-}
-
-
-bool
-GNERouteHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Declared twice."));
-}
-
-
-bool
-GNERouteHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const SumoXMLAttr attribute) {
-    return writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("Attribute % cannot be negative.", toString(attribute)));
 }
 
 /****************************************************************************/

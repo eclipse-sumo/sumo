@@ -106,15 +106,6 @@ protected:
     /// @brief check if given ID correspond to a duplicated dataSet
     bool checkDuplicatedDataSet(const std::string& id);
 
-    /// @brief write error "duplicated data"
-    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid parent element"
-    bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
-
-    /// @brief write error "invalid parent element" giving ID
-    bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id);
-
 private:
     /// @brief invalidate copy constructor
     GNEDataHandler(const GNEDataHandler& s) = delete;

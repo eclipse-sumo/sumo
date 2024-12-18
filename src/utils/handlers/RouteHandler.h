@@ -156,9 +156,6 @@ private:
     /// @brief The default value for flow ends
     SUMOTime myFlowEndDefault;
 
-    /// @brief write error "invalid distribution"
-    void writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
-
     /// @name parse route element attributes
     /// @{
     /// @brief parse vType

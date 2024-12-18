@@ -692,33 +692,6 @@ public:
     static void fixMultiLanePosition(double fromPos, const double fromLaneLength, double toPos, const double tolaneLength);
 
 protected:
-    /// @brief write invalid id
-    bool writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid position"
-    bool writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "duplicated additional"
-    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid parent element"
-    bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parent, const std::string& parentID);
-
-    /// @brief write error "invalid negative element"
-    bool writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute);
-
-    /// @brief write error "invalid list of vehicle types"
-    bool writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid filename"
-    bool writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error "invalid list of lanes"
-    bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief check list of IDs
-    bool checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const;
-
     /// @brief get additional parent
     GNEAdditional* getAdditionalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag tag) const;
 

@@ -421,13 +421,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 
 
 void
-RouteHandler::writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id) {
-    WRITE_ERRORF(TL("Could not build % with ID '%' in netedit; Distinct number of distribution values and probabilities."), toString(tag), id);
-    myErrorCreatingElement = true;
-}
-
-
-void
 RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
     // parse vehicleType
     SUMOVTypeParameter* vehicleTypeParameter = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, myFilename);
@@ -454,9 +447,9 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
     if (parsedOk) {
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            return writeErrorInvalidID(SUMO_TAG_VTYPE_DISTRIBUTION, id);
+            writeErrorInvalidID(SUMO_TAG_VTYPE_DISTRIBUTION, id);
         } else if (vTypes.size() != probabilities.size()) {
-            return writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
+            writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
@@ -523,9 +516,9 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
     if (parsedOk) {
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
-            return writeErrorInvalidID(SUMO_TAG_ROUTE_DISTRIBUTION, id);
+            writeErrorInvalidID(SUMO_TAG_ROUTE_DISTRIBUTION, id);
         } else if (routes.size() != probabilities.size()) {
-            return writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
+            writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);

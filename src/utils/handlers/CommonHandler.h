@@ -57,7 +57,37 @@ protected:
     bool writeError(const std::string& error);
 
     /// @brief write error "invalid id"
-    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
+    bool writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "invalid position"
+    bool writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "duplicated additional"
+    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "invalid negative element"
+    bool writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute);
+
+    /// @brief write error "invalid filename"
+    bool writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "invalid list of lanes"
+    bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "invalid distribution"
+    bool writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief check list of IDs
+    bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
+
+    /// @brief write error "invalid parent element" giving ids of current and parent element
+    bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID);
+
+    /// @brief write error "invalid parent element" giving only the id of parent element
+    bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag, const std::string& parentID);
+
+    /// @brief write error "invalid parent element" without giving IDs
+    bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag);
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);

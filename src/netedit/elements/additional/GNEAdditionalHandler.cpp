@@ -438,8 +438,8 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             return writeErrorInvalidNegativeValue(SUMO_TAG_INDUCTION_LOOP, id, SUMO_ATTR_PERIOD);
         } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
             return writeErrorInvalidFilename(SUMO_TAG_INDUCTION_LOOP, id);
-        } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-            return writeErrorInvalidVTypes(SUMO_TAG_INDUCTION_LOOP, id);
+        } else if (!checkListOfVehicleTypes(SUMO_TAG_INDUCTION_LOOP, id, vehicleTypes)) {
+            return false;
         } else {
             // build E1
             GNEAdditional* detectorE1 = new GNEInductionLoopDetector(id, lane, myNet, position, period, file, vehicleTypes,
@@ -505,8 +505,8 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
                 return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
             } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
                 return writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
-            } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-                return writeErrorInvalidVTypes(SUMO_TAG_LANE_AREA_DETECTOR, id);
+            } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
+                return false;
             } else {
                 // build E2 single lane
                 GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, lane, myNet, pos, length, period, trafficLight, filename,
@@ -567,8 +567,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 return writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
             } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
                 return writeErrorInvalidFilename(SUMO_TAG_LANE_AREA_DETECTOR, id);
-            } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-                return writeErrorInvalidVTypes(SUMO_TAG_LANE_AREA_DETECTOR, id);
+            } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
+                return false;
             } else {
                 // build E2 multilane detector
                 GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, lanes, myNet, pos, endPos, period, trafficLight, filename,
@@ -613,8 +613,8 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         return writeErrorInvalidNegativeValue(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
     } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
         return writeErrorInvalidFilename(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
-    } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-        return writeErrorInvalidVTypes(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
+    } else if (!checkListOfVehicleTypes(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, vehicleTypes)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_ENTRY_EXIT_DETECTOR}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -903,8 +903,8 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
         return writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB);
     } else if (timeThreshold < 0) {
         return writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-    } else if (!vTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vTypes)) {
-        return writeErrorInvalidVTypes(SUMO_TAG_REROUTER, id);
+    } else if (!checkListOfVehicleTypes(SUMO_TAG_REROUTER, id, vTypes)) {
+        return false;
     } else if (checkDuplicatedAdditional({SUMO_TAG_REROUTER}, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1197,8 +1197,8 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
         // check lane
         if (lanes.size() > 0) {
             // check vTypes
-            if (!vTypes.empty() && !checkListOfVehicleTypes(vTypes)) {
-                return writeErrorInvalidVTypes(SUMO_TAG_VSS, id);
+            if (!checkListOfVehicleTypes(SUMO_TAG_VSS, id, vTypes)) {
+                return false;
             } else {
                 // create VSS
                 GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, myNet, pos, name, vTypes, parameters);
@@ -2024,76 +2024,6 @@ GNEAdditionalHandler::fixMultiLanePosition(double fromPos, const double fromLane
     double length = 0;
     fixLanePosition(fromPos, length, fromLaneLength);
     fixLanePosition(toPos, length, tolaneLength);
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("ID contains invalid characters."));
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Invalid position over lane."));
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Declared twice."));
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parent, const std::string& parentID) {
-    std::string first, second;
-    if (id.size() > 0) {
-        first = TLF("Could not build % '%' in netedit", toString(tag), id);
-    } else {
-        first = TLF("Could not build % in netedit", toString(tag));
-    }
-    if (parentID.size() > 0) {
-        second = TLF("% '%' doesn't exist.", toString(parent), parentID);
-    } else {
-        second = TLF("% doesn't exist.", toString(parent));
-    }
-    return writeError(first + std::string("; ") + second);
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TLF("Attribute % cannot be negative.", toString(attribute)));
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("List of VTypes isn't valid."));
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Filename is invalid."));
-}
-
-
-bool
-GNEAdditionalHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("List of lanes isn't valid."));
-}
-
-
-bool
-GNEAdditionalHandler::checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const {
-    for (const auto& vTypeID : vTypeIDs) {
-        if (!SUMOXMLDefinitions::isValidTypeID(vTypeID)) {
-            return false;
-        }
-    }
-    return true;
 }
 
 

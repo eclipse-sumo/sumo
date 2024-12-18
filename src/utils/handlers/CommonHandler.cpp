@@ -51,10 +51,73 @@ CommonHandler::writeError(const std::string& error) {
 }
 
 
-void
+bool
 CommonHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) {
-    WRITE_ERRORF(TL("Could not build % with ID '%' in netedit; ID contains invalid characters."), toString(tag), id);
-    myErrorCreatingElement = true;
+    return writeError(TLF("Could not build % with ID '%' in netedit; ID contains invalid characters.", toString(tag), id));
+}
+
+
+bool
+CommonHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Invalid position over lane.", toString(tag), id));
+}
+
+
+bool
+CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Declared twice.", toString(tag), id));
+}
+
+bool
+CommonHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Attribute % cannot be negative.", toString(tag), id, toString(attribute)));
+}
+
+
+bool
+CommonHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Filename is invalid.", toString(tag), id));
+}
+
+
+bool
+CommonHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; List of lanes isn't valid.", toString(tag), id));
+}
+
+
+bool
+CommonHandler::writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Distinct number of distribution values and probabilities.", toString(tag), id));
+}
+
+
+bool
+CommonHandler::checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs) {
+    for (const auto& vTypeID : vTypeIDs) {
+        if (!SUMOXMLDefinitions::isValidTypeID(vTypeID)) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; '%' ist not a valid vType ID.", toString(tag), id, vTypeID));
+        }
+    }
+    return true;
+}
+
+
+bool
+CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist.", toString(tag), id, toString(parentTag), parentID));
+}
+
+
+bool
+CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag, const std::string& parentID) {
+    return writeError(TLF("Could not build % in netedit; % parent with ID '%' doesn't exist.", toString(tag), toString(parentTag), parentID));
+}
+
+
+bool
+CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag) {
+    return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTag)));
 }
 
 
