@@ -554,6 +554,9 @@ public:
         return myType->getLength();
     }
 
+    /* @brief Return whether this vehicle must be treated like a railway vehicle
+     * either due to its vClass or the vClass of it's edge */
+    bool isRail() const;
 
     /** @brief Returns the vehicle's width
      * @return vehicle's width

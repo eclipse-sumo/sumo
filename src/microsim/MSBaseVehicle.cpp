@@ -877,6 +877,11 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
 }
 
 
+bool
+MSBaseVehicle::isRail() const {
+    return isRailway(getVClass()) || isRailway(getCurrentEdge()->getPermissions());
+}
+
 void
 MSBaseVehicle::calculateArrivalParams(bool onInit) {
     if (myRoute->getLastEdge()->isTazConnector()) {

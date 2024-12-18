@@ -79,7 +79,7 @@ MSRailSignalControl::~MSRailSignalControl() {
 
 void
 MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
-    if (isRailway(vehicle->getVClass())) {
+    if (vehicle->isRail()) {
         std::string dummyMsg;
         if ((to == MSNet::VehicleState::BUILT && (!vehicle->getParameter().wasSet(VEHPARS_FORCE_REROUTE) || vehicle->hasValidRoute(dummyMsg)))
                 || (!vehicle->hasDeparted() && to == MSNet::VehicleState::NEWROUTE)) {
