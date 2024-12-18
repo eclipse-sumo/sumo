@@ -8576,14 +8576,14 @@ GNEAttributeCarrier::fillCommonFlowAttributes(GNETagProperties& tagProperties, S
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_FLOW_TERMINATE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
-                                          TL("Criterium for terminate flow"),
+                                          TL("Criterion for flow termination"),
                                           toString(SUMO_ATTR_END));
     attrProperty.setDiscreteValues({toString(SUMO_ATTR_END), toString(SUMO_ATTR_NUMBER), toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)});
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_FLOW_SPACING,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOW,
-                                          TL("Criterium for spacing flow"),
+                                          TL("Criterion for flow spacing"),
                                           toString(perHour));
     attrProperty.setDiscreteValues({toString(perHour), toString(SUMO_ATTR_PERIOD), toString(SUMO_ATTR_PROB), toString(GNE_ATTR_POISSON)});
     tagProperties.addAttribute(attrProperty);
