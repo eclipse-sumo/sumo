@@ -200,8 +200,8 @@ CommonHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string
 
 
 bool
-CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Declared twice.", toString(tag), id));
+CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
 }
 
 

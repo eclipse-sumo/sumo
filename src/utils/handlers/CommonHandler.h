@@ -91,7 +91,7 @@ protected:
     bool writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "duplicated additional"
-    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
+    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);
 
     /// @brief write error "invalid list of lanes"
     bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
