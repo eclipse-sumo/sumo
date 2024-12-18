@@ -293,9 +293,6 @@ protected:
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief remove overwritten demand element
-    void overwriteDemandElement();
-
     /// @brief write error "invalid negative element"
     bool writeErrorInvalidNegativeValue(const SumoXMLTag tag, const SumoXMLAttr attribute);
 

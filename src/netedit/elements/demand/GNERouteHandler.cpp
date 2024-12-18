@@ -80,7 +80,6 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
         }
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(vType, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
             if (vTypeDistribution) {
                 vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB), myNet->getViewNet()->getUndoList());
@@ -111,7 +110,6 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
         GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
             // add all distributions
             for (int i = 0; i < (int)vTypes.size(); i++) {
@@ -152,7 +150,6 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
         }
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(route, TL("add ") + route->getTagStr() + " '" + id + "'");
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
             if (routeDistribution) {
                 routeDistribution->addDistributionKey(route, probability, myNet->getViewNet()->getUndoList());
@@ -202,7 +199,6 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
             GNEDemandElement* route = new GNERoute(myNet, vehicle, edges, color, repeat, cycleTime, routeParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(route, TL("add ") + route->getTagStr() + " in '" + vehicle->getID() + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -238,7 +234,6 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
         GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(routeDistribution, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
             // add all distributions
             for (int i = 0; i < (int)routes.size(); i++) {
@@ -280,7 +275,6 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             GNEDemandElement* vehicle = new GNEVehicle(SUMO_TAG_VEHICLE, myNet, type, route, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(vehicle, TL("add ") + vehicle->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -318,7 +312,6 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_ROUTE, myNet, type, route, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -361,7 +354,6 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* trip = new GNEVehicle(SUMO_TAG_TRIP, myNet, type, fromEdge, toEdge, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(trip, TL("add ") + trip->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -402,7 +394,6 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_JUNCTIONS, myNet, type, fromJunction, toJunction, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -443,7 +434,6 @@ GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_TAZS, myNet, type, fromTAZ, toTAZ, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -488,7 +478,6 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* flow = new GNEVehicle(SUMO_TAG_FLOW, myNet, type, fromEdge, toEdge, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -529,7 +518,6 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_JUNCTIONS, myNet, type, fromJunction, toJunction, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -570,7 +558,6 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_TAZS, myNet, type, fromTAZ, toTAZ, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -603,7 +590,6 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
             GNEDemandElement* person = new GNEPerson(SUMO_TAG_PERSON, myNet, type, personParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(person, TL("add ") + person->getTagStr() + " '" + personParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -633,7 +619,6 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
             GNEDemandElement* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, myNet, type, personFlowParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(personFlow, TL("add ") + personFlow->getTagStr() + " '" + personFlowParameters.id + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -670,7 +655,6 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(personTrip, TLF("add % in '%'", personTrip->getTagStr(), personParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -709,7 +693,6 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -744,7 +727,6 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(ride, TLF("add % in '%'", ride->getTagStr(), personParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -774,7 +756,6 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
             GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, myNet, type, containerParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(container, TL("add ") + container->getTagStr() + " '" + container->getID() + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(container, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -804,7 +785,6 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
             GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, myNet, type, containerFlowParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(containerFlow, TL("add ") + containerFlow->getTagStr() + " '" + containerFlow->getID() + "'");
-                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -839,7 +819,6 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(transport, TLF("add % in '%'", transport->getTagStr(), containerParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -879,7 +858,6 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -916,7 +894,6 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), personParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopPlan, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -953,7 +930,6 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), containerParent->getID()));
-            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopPlan, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -1092,7 +1068,6 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
-                    overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -1108,7 +1083,6 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
-                    overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -2534,8 +2508,8 @@ GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::s
             // only overwrite if allow undo-redo
             return false;
         } else if (myOverwrite) {
-            // update demand to overwrite
-            myDemandToOverwrite = demandElement;
+            // delete demand element (and all of their childrens)
+            myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
             return true;
         } else {
             // duplicated demand
@@ -2544,17 +2518,6 @@ GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::s
     } else {
         // demand with these id doesn't exist, then all ok
         return true;
-    }
-}
-
-
-void
-GNERouteHandler::overwriteDemandElement() {
-    if (myDemandToOverwrite) {
-        // remove element
-        myNet->deleteDemandElement(myDemandToOverwrite, myNet->getViewNet()->getUndoList());
-        // reset pointer
-        myDemandToOverwrite = nullptr;
     }
 }
 
