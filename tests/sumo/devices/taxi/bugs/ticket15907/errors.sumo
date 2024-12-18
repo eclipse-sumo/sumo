@@ -1,5 +1,1 @@
-Warning: Teleporting vehicle 't_0'; waited too long (yield), lane='E1_0', time=327.00.
-Warning: Vehicle 't_0' ends teleporting on edge 'E2', time=327.00.
-Warning: Teleporting vehicle 't_0'; waited too long (yield), lane='E5_0', time=665.00.
-Warning: Vehicle 't_0' ends teleporting on edge 'E6', time=665.00.
 Warning: Vehicle 't_0' aborted waiting for a person that will never come.
