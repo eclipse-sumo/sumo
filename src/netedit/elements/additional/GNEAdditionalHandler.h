@@ -728,8 +728,8 @@ protected:
     /// @brief parse lanes
     std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs);
 
-    /// @brief check if given ID correspond to a duplicated additionals
-    bool checkDuplicatedID(const std::vector<SumoXMLTag> tags, const std::string& id);
+    /// @brief check if given ID correspond to a duplicated additional
+    bool checkDuplicatedAdditional(const std::vector<SumoXMLTag> tags, const std::string& id);
 
     /// @brief struct for Netedit parameters
     struct NeteditParameters {
