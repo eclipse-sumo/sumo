@@ -429,7 +429,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
 bool
 MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
     double expectedConsumption = MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
-    if (myBattery->getActualBatteryCapacity() < expectedConsumption) {
+    if (myBattery->getActualBatteryCapacity() < expectedConsumption + myEmptySoC * myBattery->getMaximumBatteryCapacity()) {
         myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         StoppingPlaceParamMap_t scores = {};
@@ -634,7 +634,7 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
             EnergyParams* const params = myHolder.getEmissionParameters();
             PollutantsInterface::EmissionType emType = myBattery->tracksFuel() ? PollutantsInterface::FUEL : PollutantsInterface::ELEC;
             expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), emType,
-                                  speed * 0.8, 0., 0., params) * (remainingTime - passedTime);
+                                  speed, 0., 0., params) * (remainingTime - passedTime);
         }
         if (includeEmptySoC) {
             expectedConsumption += MAX2(0., myEmptySoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
