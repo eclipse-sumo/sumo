@@ -738,6 +738,9 @@ private:
 
     /// @}
 
+    /// @brief check calibrator flow parents
+    bool checkCalibratorFlowParents();
+
     /// @brief check detect persons
     bool checkDetectPersons(const SumoXMLTag currentTag, const std::string& id, const std::string& detectPersons);
 

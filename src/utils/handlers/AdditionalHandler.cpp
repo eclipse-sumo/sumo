@@ -1497,8 +1497,7 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
     // declare Ok Flag
     bool parsedOk = true;
     // check parent
-    if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
-        myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
+    if (checkCalibratorFlowParents()) {
         // check that frecuency and trafficLight aren't defined together
         if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
             writeError(TL("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)"));
@@ -2037,6 +2036,24 @@ AdditionalHandler::parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+    }
+}
+
+
+bool
+AdditionalHandler::checkCalibratorFlowParents() {
+    const auto parentCalibrator = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+    if (parentCalibrator == nullptr) {
+        return false;
+    }
+    const auto parentRootFile = parentCalibrator->getParentSumoBaseObject();
+    if (parentRootFile != nullptr) {
+        return false;
+    }
+    if ((parentCalibrator->getTag() == SUMO_TAG_CALIBRATOR) || (parentCalibrator->getTag() == GNE_TAG_CALIBRATOR_LANE)){
+        return true;
+    } else {
+        return writeError(TLF("Calibrator Flows has to be defined within of a %.", toString(SUMO_TAG_CALIBRATOR)));
     }
 }
 
