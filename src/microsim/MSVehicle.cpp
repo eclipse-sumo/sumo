@@ -5983,6 +5983,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     bool progress = true;
     // bestLanes must cover the braking distance even when at the very end of the current lane to avoid unecessary slow down
     const double maxBrakeDist = startLane->getLength() + getCarFollowModel().getHeadwayTime() * getMaxSpeed() + getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
+    const double lookahead = getLaneChangeModel().getStrategicLookahead();
     for (MSRouteIterator ce = myCurrEdge; progress;) {
         std::vector<LaneQ> currentLanes;
         const std::vector<MSLane*>* allowed = nullptr;
@@ -6027,8 +6028,12 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
-        progress &= (seen <= 4 || seenLength < MAX2(maxBrakeDist, 3000.0)); // motorway
-        progress &= (seen <= 8 || seenLength < MAX2(maxBrakeDist, 200.0) || isRailway(getVClass()));  // urban
+        if (lookahead >= 0) {
+            progress &= (seen <= 2 || seenLength < lookahead); // custom (but we need to look at least one edge ahead)
+        } else {
+            progress &= (seen <= 4 || seenLength < MAX2(maxBrakeDist, 3000.0)); // motorway
+            progress &= (seen <= 8 || seenLength < MAX2(maxBrakeDist, 200.0) || isRailway(getVClass()));  // urban
+        }
         progress &= ce != myRoute->end();
         /*
         if(progress) {

@@ -963,6 +963,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcOpposite",                 SUMO_ATTR_LCA_OPPOSITE_PARAM },
     { "lcPushy",                    SUMO_ATTR_LCA_PUSHY },
     { "lcPushyGap",                 SUMO_ATTR_LCA_PUSHYGAP },
+    { "lcStrategicLookahead",       SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD },
     { "lcAssertive",                SUMO_ATTR_LCA_ASSERTIVE },
     { "lcImpatience",               SUMO_ATTR_LCA_IMPATIENCE },
     { "lcTimeToImpatience",         SUMO_ATTR_LCA_TIME_TO_IMPATIENCE },
