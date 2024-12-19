@@ -220,15 +220,25 @@ def onpick(event):
     mevent = event.mouseevent
     print("dataID=%s x=%d y=%d" % (event.artist.get_label(), mevent.xdata, mevent.ydata))
 
-def makeSplitter(splitx, ds_fun):
+def makeSplitter(splitx, otherIsIndex, ds_fun):
     def splitter(file):
+        indexOffset = 0
         for dataID, x, y in ds_fun(file):
             if splitx:
-                for x2 in x.split():
+                xlist = x.split()
+                if otherIsIndex:
+                    indexOffset = 1 / len(xlist)
+                for i, x2 in enumerate(xlist):
                     yield dataID, x2, y
+                    y += indexOffset
             else:
-                for y2 in y.split():
+                ylist = y.split()
+                if otherIsIndex:
+                    indexOffset = 1 / len(ylist)
+                for i, y2 in enumerate(ylist):
                     yield dataID, x, y2
+                    x += indexOffset
+
     return splitter
 
 def getDataStream(options):
@@ -373,9 +383,9 @@ def getDataStream(options):
                 print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
 
         if options.splitx:
-            datastream = makeSplitter(True, datastream)
+            datastream = makeSplitter(True, options.yattr == INDEX_ATTR, datastream)
         if options.splity:
-            datastream = makeSplitter(False, datastream)
+            datastream = makeSplitter(False, options.xattr == INDEX_ATTR, datastream)
 
         return datastream
 
