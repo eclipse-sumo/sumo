@@ -191,6 +191,8 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_MAX_TRAVELTIME, maxTravel);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -240,6 +242,8 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_MAX_TRAVELTIME, maxTravel);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 

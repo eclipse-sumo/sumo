@@ -61,7 +61,7 @@ CommonHandler::checkParsedParent(const SumoXMLTag currentTag, const std::vector<
         CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
         if (parent == nullptr) {
             ok = writeError(TLF("'%' must be defined within the definition of a %.", toString(currentTag), tagsStr));
-        } else if (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end()) {
+        } else if ((parent->getTag() != SUMO_TAG_NOTHING) && std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end()) {
             if (parent->hasStringAttribute(SUMO_ATTR_ID)) {
                 ok = writeError(TLF("'%' must be defined within the definition of a '%' (found % '%').", toString(currentTag), tagsStr,
                                     toString(parent->getTag()), parent->getStringAttribute(SUMO_ATTR_ID)));

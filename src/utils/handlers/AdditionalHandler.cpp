@@ -839,6 +839,8 @@ AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -874,6 +876,8 @@ AdditionalHandler::parseTrainStopAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -899,6 +903,8 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_POSITION, position);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -934,6 +940,8 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -983,6 +991,8 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_WAITINGTIME, waitingTime);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_PARKING_AREA, parkingAreaID);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1027,6 +1037,8 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_LEFTHAND, lefthand);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1060,6 +1072,8 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SLOPE, slope);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1095,6 +1109,8 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_NEXT_EDGES, nextEdges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DETECT_PERSONS, detectPersons);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1109,8 +1125,10 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // check attributes
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) > 2)) {
         writeError(TL("'pos', 'endPos' and 'length' cannot be defined together in a single lane area detector."));
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) < 2)) {
         writeError(TL("A single lane area detector requires two parameters of those 'pos', 'endPos' and 'length'."));
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     } else {
         // needed attributes
         const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
@@ -1169,6 +1187,8 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_SHOW_DETECTOR, show);
+        } else {
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         }
     }
 }
@@ -1209,6 +1229,8 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_OPEN_ENTRY, openEntry);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL, expectedArrival);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1232,6 +1254,8 @@ AdditionalHandler::parseEntryAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1255,6 +1279,8 @@ AdditionalHandler::parseExitAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1288,6 +1314,8 @@ AdditionalHandler::parseE1InstantAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DETECT_PERSONS, detectPersons);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1317,6 +1345,8 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1337,6 +1367,8 @@ AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WEIGHT, weight);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1357,6 +1389,8 @@ AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WEIGHT, weight);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1382,6 +1416,8 @@ AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& att
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1403,6 +1439,8 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1448,6 +1486,8 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OUTPUT, output);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1458,35 +1498,42 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
     bool parsedOk = true;
     // check parent
     if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
-            myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
         // check that frecuency and trafficLight aren't defined together
         if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
             writeError(TL("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)"));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+        } else {
+            SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_FLOW, attrs, false, true, true);
+            if (flowParameter) {
+                // set VPH and speed
+                if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+                    flowParameter->repetitionOffset = TIME2STEPS(3600. / attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk));
+                    flowParameter->parametersSet |= VEHPARS_VPH_SET;
+                }
+                if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+                    flowParameter->calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk);
+                    flowParameter->parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+                }
+                // set begin and end
+                flowParameter->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk);
+                flowParameter->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk);
+                if (parsedOk) {
+                    // set tag
+                    myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+                    // set vehicle parameters
+                    myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
+                    // delete flow parameter (because in XMLStructure we have a copy)
+                    delete flowParameter;
+                } else {
+                    myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+                }
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+            }
         }
-        // first parse flow
-        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_FLOW, attrs, false, true, true);
-        if (flowParameter) {
-            // set VPH and speed
-            if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-                flowParameter->repetitionOffset = TIME2STEPS(3600. / attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk));
-                flowParameter->parametersSet |= VEHPARS_VPH_SET;
-            }
-            if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-                flowParameter->calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk);
-                flowParameter->parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
-            }
-            // set begin and end
-            flowParameter->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk);
-            flowParameter->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk);
-            if (parsedOk) {
-                // set tag
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
-                // set vehicle parameters
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
-                // delete flow parameter (because in XMLStructure we have a copy)
-                delete flowParameter;
-            }
-        }
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1506,6 +1553,10 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
     const bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), parsedOk, false);
     const bool optional = attrs.getOpt<bool>(SUMO_ATTR_OPTIONAL, id.c_str(), parsedOk, false);
+    // check attributes
+    if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB , probability, true)) {
+        parsedOk = false;
+    }
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1520,6 +1571,8 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_OFF, off);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_OPTIONAL, optional);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1540,6 +1593,8 @@ AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attr
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1563,6 +1618,8 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, laneID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ALLOW, allow);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DISALLOW, disallow);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1586,6 +1643,8 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ALLOW, allow);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DISALLOW, disallow);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1597,19 +1656,21 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
+    // check attributes
+    if (!checkNegative(SUMO_TAG_DEST_PROB_REROUTE, edgeID, SUMO_ATTR_PROB, probability, true)) {
+        parsedOk = false;
+    }
     // check parent
     checkParsedParent(SUMO_TAG_DEST_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
-        if (probability < 0) {
-            writeError(TLF("Probability of % must be equal or greater than 0", toString(SUMO_TAG_DEST_PROB_REROUTE)));
-        } else {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_DEST_PROB_REROUTE);
-            // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-        }
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_DEST_PROB_REROUTE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1621,22 +1682,24 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     // needed attributes
     const std::string parkingAreaID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
+    // check attributes
+    if (!checkNegative(SUMO_TAG_PARKING_AREA_REROUTE, parkingAreaID, SUMO_ATTR_PROB, probability, true)) {
+        parsedOk = false;
+    }
     // optional attributes
     const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, false);
     // check parent
     checkParsedParent(SUMO_TAG_PARKING_AREA_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
-        if (probability < 0) {
-            writeError(TLF("Probability of % must be equal or greater than 0", toString(SUMO_TAG_PARKING_AREA_REROUTE)));
-        } else {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PARKING_AREA_REROUTE);
-            // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, parkingAreaID);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_VISIBLE, visible);
-        }
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PARKING_AREA_REROUTE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, parkingAreaID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_VISIBLE, visible);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1648,19 +1711,21 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     // needed attributes
     const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
+    // check attributes
+    if (!checkNegative(SUMO_TAG_ROUTE_PROB_REROUTE, routeID, SUMO_ATTR_PROB, probability, true)) {
+        parsedOk = false;
+    }
     // check parent
     checkParsedParent(SUMO_TAG_ROUTE_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
-        if (probability < 0) {
-            writeError(TLF("Probability of % must be equal or greater than 0", toString(SUMO_TAG_ROUTE_PROB_REROUTE)));
-        } else {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_PROB_REROUTE);
-            // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, routeID);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-        }
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_PROB_REROUTE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, routeID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1690,6 +1755,8 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1713,6 +1780,8 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1736,6 +1805,8 @@ AdditionalHandler::parseTractionSubstation(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_VOLTAGE, voltage);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_CURRENTLIMIT, currentLimit);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1765,6 +1836,8 @@ AdditionalHandler::parseOverheadWire(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, forbiddenInnerLanes);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1791,6 +1864,8 @@ AdditionalHandler::parseOverheadWireClamp(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART, wireClampLaneStart);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_END, wireClampEnd);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND, wireClampLaneEnd);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1830,6 +1905,8 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1912,6 +1989,8 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1933,6 +2012,8 @@ AdditionalHandler::parseJpsWalkableAreaAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1954,6 +2035,8 @@ AdditionalHandler::parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -1973,7 +2056,7 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         writeError(TL("Parameters cannot be defined in the additional file's root."));
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
         writeError(TL("Parameters cannot be defined within another parameter."));
-    } else if (parsedOk) {
+    } else if ((SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) && parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
         // circumventing empty string value

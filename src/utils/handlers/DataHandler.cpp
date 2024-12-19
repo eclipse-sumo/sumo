@@ -169,6 +169,8 @@ DataHandler::parseInterval(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_END, end);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -187,6 +189,8 @@ DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_EDGE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -207,6 +211,8 @@ DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -227,6 +233,8 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
