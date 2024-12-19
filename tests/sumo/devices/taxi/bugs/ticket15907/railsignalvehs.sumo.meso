@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-18 08:58:19 by Eclipse SUMO sumo Version v1_21_0+1414-ecd7e15422b
+<!-- generated on 2024-12-19 13:18:19 by Eclipse SUMO sumo Version v1_21_0+1443-eacf6376ad0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -42,4 +42,13 @@
     <railSignal id="J6">
         <link linkIndex="0" from="E5_0" to="E6_0"/>
     </railSignal>
+    <departJunction id="J0">
+        <driveWay id="J0.d0">
+            <entry id="t_0" time="0.00" reason="departed"/>
+            <exit id="t_0" time="7.00" reason="junction"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J1">
+        <driveWay id="J1.d0"/>
+    </departJunction>
 </railsignal-vehicle-output>

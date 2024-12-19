@@ -40,14 +40,12 @@ jobs:
         python3 -m build -o ../wheelhouse
 
     - name: Building SUMO / libsumo Python wheels (latest manylinux docker)
-      # if: github.repository == 'DLR-TS/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
         entrypoint: tools/build_config/build_wheels.sh
 
     # the next two steps are only needed when we debug the manylinux build
     # - name: Building Python wheels (fixed manylinux docker)
-    #   if: github.repository == 'eclipse-sumo/sumo'
     #   uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
     #   with:
     #     entrypoint: tools/build_config/build_wheels.sh
@@ -98,7 +96,6 @@ jobs:
         testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
-      if: github.repository == 'DLR-TS/sumo'
       run: |
         source testenv/bin/activate
         python3 -m pip install -r tools/req_ci.txt -r tools/requirements.txt
@@ -133,7 +130,7 @@ jobs:
   # publishing wheels
   ###################
   publish-wheels:
-    if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags')
     needs: [test-wheels]
     runs-on: ubuntu-latest
     permissions:
@@ -142,13 +139,6 @@ jobs:
     steps:
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v4
-
-    - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        packages-dir: manylinux-wheels/
-        repository-url: https://test.pypi.org/legacy/
-        skip-existing: true
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')

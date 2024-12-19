@@ -100,7 +100,7 @@ jobs:
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
-      if: matrix.build_type == 'extra' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'extra'
       run: |
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
         cd sumo/build_msvc
@@ -112,14 +112,14 @@ jobs:
         ctest --build-config Release --verbose
 
     - name: Compressing test results
-      if: failure() && github.repository == 'DLR-TS/sumo'
+      if: failure()
       run: |
         dir d:\texttest
         Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
         dir d:\texttest
 
     - name: Uploading test results
-      if: failure() && github.repository == 'DLR-TS/sumo'
+      if: failure()
       uses: actions/upload-artifact@v4
       with:
         name: texttesttmp-${{ matrix.build_type }}

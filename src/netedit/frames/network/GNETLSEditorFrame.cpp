@@ -123,8 +123,8 @@ GNETLSEditorFrame::GNETLSEditorFrame(GNEViewParent* viewParent, GNEViewNet* view
     GNEFrame(viewParent, viewNet, TL("Edit Traffic Light")),
     myEditedDef(nullptr) {
 
-    // Create Overlapped Inspection module
-    myOverlappedInspection = new GNEOverlappedInspection(this, SUMO_TAG_JUNCTION);
+    // Create Overlapped Inspection module only for junctions
+    myOverlappedInspection = new GNEOverlappedInspection(this, true);
 
     // create TLSJunction module
     myTLSJunction = new GNETLSEditorFrame::TLSJunction(this);
@@ -164,7 +164,7 @@ GNETLSEditorFrame::frameWidthUpdated() {
 
 
 void
-GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNETLSEditorFrame::editTLS(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {
         // show objects under cursor

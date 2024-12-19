@@ -147,11 +147,11 @@ public:
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         std::vector<const E*> fromEdgesAsVector(fromEdges.begin(), fromEdges.end());
         init(fromEdgesAsVector, vehicle, msTime);
-        int num_visited = 0;
         size_t numberOfVisitedFromEdges = 0;
         bool minIsFromEdge = false;
 #ifdef CSPT_DEBUG_LEVEL_0
         size_t numberOfTouchedSupercellEdges = 0;
+        int num_visited = 0;
 #endif
 #ifdef _DEBUG
         const Cell* supercell = cell->getSupercell();
@@ -159,7 +159,9 @@ public:
         const bool mayRevisit = true;
 
         while (!myFrontierList.empty()) {
+#ifdef CSPT_DEBUG_LEVEL_0
             num_visited += 1;
+#endif
             // use the edge with the minimal length
             typename SUMOAbstractRouter<E, V>::EdgeInfo* minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;

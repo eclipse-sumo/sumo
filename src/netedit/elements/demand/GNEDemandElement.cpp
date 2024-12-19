@@ -172,7 +172,21 @@ GNEDemandElement::checkDrawToContour() const {
 
 bool
 GNEDemandElement::checkDrawRelatedContour() const {
-    return false;
+    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        // check if inspected parent is inspected
+        for (const auto &inspectedAC : myNet->getViewNet()->getInspectedElements().getACs()) {
+            if (inspectedAC->getTagProperty().vehicleRouteEmbedded()) {
+                const auto demandElement = dynamic_cast<GNEDemandElement*>(inspectedAC);
+                if (demandElement && (demandElement->getChildDemandElements().size() > 0) &&
+                    (demandElement->getChildDemandElements().at(0) == this)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } else {
+        return false;
+    }
 }
 
 
@@ -509,15 +523,16 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
 
 
 void
-GNEDemandElement::drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
+GNEDemandElement::drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation,
+                                 const double width, const double length, const double exaggeration) const {
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     GLHelper::pushMatrix();
     // Traslate to  top
-    glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
+    glTranslated(position.x(), position.y(), GLO_VEHICLELABELS);
     glRotated(rotation, 0, 0, -1);
-    glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration), 0, 0);
+    glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration) + 0.05, 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
     GLHelper::drawBoxLine(Position(), 0, (length * exaggeration), 0.3 * exaggeration);

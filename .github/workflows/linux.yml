@@ -45,7 +45,7 @@ jobs:
         pipx install texttest
 
     - name: Validate CITATION.cff
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: dieghernan/cff-validator@v3
       with:
         install-r: true
@@ -88,11 +88,11 @@ jobs:
         make traas
 
     - name: Setting up SonarQube
-      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v8
 
     - name: Building SUMO with SonarQube wrapper
-      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       run: |
         cd sumo/cmake-build
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
@@ -102,14 +102,13 @@ jobs:
         sonar-scanner -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.compile-commands=cmake-build/bw-output/compile_commands.json
 
     - name: Building and Installing SUMO
-      if: matrix.build_type != 'full' || github.repository != 'eclipse-sumo/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
       run: |
         cd sumo/cmake-build
         make -j4
         sudo make install
 
     - name: Building Examples and Tests
-      if: matrix.build_type == 'full' && (github.repository == 'DLR-TS/sumo' || matrix.compiler == 'gcc')
+      if: matrix.build_type == 'full'
       # need to explicitly uninstall matplotlib below because pandas pulls it in but we need a newer version for test stability
       # having both installed confuses matplotlib https://github.com/matplotlib/matplotlib/issues/26827
       # the pipdeptree below is also just for debugging but often comes handy so keep it enabled

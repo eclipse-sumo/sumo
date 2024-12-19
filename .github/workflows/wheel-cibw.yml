@@ -112,7 +112,6 @@ jobs:
         python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
-      if: github.repository == 'DLR-TS/sumo'
       run: |
         if [[ "${{ matrix.python_version }}" != "3.12" ]]; then python3 -m pip install -r tools/requirements.txt; fi
         tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert

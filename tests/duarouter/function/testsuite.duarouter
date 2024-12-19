@@ -29,3 +29,6 @@ skip_routing
 
 # keep some or all of the old routes
 keep_routes
+
+# test options that affect estimated travel times
+penalty

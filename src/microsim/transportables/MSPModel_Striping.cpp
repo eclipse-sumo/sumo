@@ -104,6 +104,7 @@ const double MSPModel_Striping::SQUEEZE(0.7);
 double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR;
 double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
 double MSPModel_Striping::RESERVE_FOR_ONCOMING_MAX;
+bool MSPModel_Striping::USE_NET_SPEEDS(false);
 const double MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const double MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
@@ -129,6 +130,8 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) {
     RESERVE_FOR_ONCOMING_FACTOR = oc.getFloat("pedestrian.striping.reserve-oncoming");
     RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS = oc.getFloat("pedestrian.striping.reserve-oncoming.junctions");
     RESERVE_FOR_ONCOMING_MAX = oc.getFloat("pedestrian.striping.reserve-oncoming.max");
+    // beginning with 1.20.0, sensible default speeds were set for crossings and walkingareas
+    USE_NET_SPEEDS = net->getNetworkVersion() >= MMVersion(1, 20);
 
     jamTime = string2time(oc.getString("pedestrian.striping.jamtime"));
     if (jamTime <= 0) {
@@ -1085,7 +1088,13 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         const MSLane* nextLane = p.myNLI.lane;
         const MSLink* link = p.myNLI.link;
         const double dist = p.distToLaneEnd();
-        const double speed = p.getStage()->getMaxSpeed(p.getPerson());
+        const double speed (p.getStage()->getConfiguredSpeed() >= 0
+                ? p.getStage()->getConfiguredSpeed()
+                : ((nextLane != nullptr && (USE_NET_SPEEDS || nextLane->isNormal() || nextLane->isInternal()))
+                    ? nextLane->getVehicleMaxSpeed(p.getPerson())
+                    : p.getStage()->getMaxSpeed(p.getPerson())));
+
+
         if (nextLane != nullptr && dist <= LOOKAHEAD_ONCOMING_DIST) {
             const double currentLength = (p.myWalkingAreaPath == nullptr ? lane->getLength() : p.myWalkingAreaPath->length);
             const Obstacles& nextObs = getNextLaneObstacles(
@@ -1898,7 +1907,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // (speed limits on crossings and walkingareas ignored due to #11527)
     const double vMax = (myStage->getConfiguredSpeed() >= 0
                          ? myStage->getConfiguredSpeed()
-                         : (myLane->isNormal() || myLane->isInternal()
+                         : (USE_NET_SPEEDS || myLane->isNormal() || myLane->isInternal()
                             ? myLane->getVehicleMaxSpeed(myPerson)
                             : myStage->getMaxSpeed(myPerson)));
     // ultimate goal is to choose the preferred stripe (chosen)

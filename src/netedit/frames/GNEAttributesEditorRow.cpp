@@ -180,7 +180,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     // show elements depending of attribute properties
     if (attrProperty.isActivatable()) {
         showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
-    } else if ((myAttribute == GNE_ATTR_PARENT)) {
+    } else if (myAttribute == GNE_ATTR_PARENT) {
         showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
         showAttributeInspectParent(attrProperty, attributeEnabled);

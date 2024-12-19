@@ -1,0 +1,10 @@
+<routes>
+
+    <vType id="t0" lcSigma="0.9"/>
+    <route id="r0" edges="beg end"/>
+    <vehicle id="blocker" type="t0" depart="0" route="r0" departLane="1">
+        <stop lane="beg_1" duration="10"/>
+    </vehicle>
+    <flow id="veh" type="t0" begin="0" period="2" number="5" route="r0" departLane="1"/>
+
+</routes>

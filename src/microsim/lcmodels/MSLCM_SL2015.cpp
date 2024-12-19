@@ -63,8 +63,6 @@
 #define TURN_LANE_DIST 200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 #define GAIN_PERCEPTION_THRESHOLD 0.05 // the minimum relative speed gain which affects the behavior
 
-#define SPEED_GAIN_MIN_SECONDS 20.0
-
 #define ARRIVALPOS_LAT_THRESHOLD 100.0
 
 // the speed at which the desired lateral gap grows now further
@@ -147,6 +145,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myLaneDiscipline(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LANE_DISCIPLINE, 0.0)),
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 5)),
+    mySpeedGainRemainTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME, 20)),
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
@@ -1799,7 +1798,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
         // make changing on the right more attractive on bidi edges
         if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight * bidiRightFactor, mySpeedGainProbabilityLeft)
-                && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) {
+                && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret | getLCA(ret, latDist), laneOffset)) {
                 int blockedFully = 0;
@@ -1837,7 +1836,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (latDist > 0 && mySpeedGainProbabilityLeft > myChangeProbThresholdLeft &&
                 // if we leave our lane, we should be able to stay in the new
                 // lane for some time
-                (stayInLane || neighDist / MAX2(.1, myVehicle.getSpeed()) > SPEED_GAIN_MIN_SECONDS)) {
+                (stayInLane || neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime)) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret + getLCA(ret, latDist), laneOffset)) {
                 int blockedFully = 0;
@@ -3784,6 +3783,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myOvertakeDeltaSpeedFactor);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
+        return toString(mySpeedGainRemainTime);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
@@ -3867,6 +3868,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myOvertakeDeltaSpeedFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
+        mySpeedGainRemainTime = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         myRoundaboutBonus = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {

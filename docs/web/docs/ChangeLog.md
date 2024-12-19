@@ -1599,6 +1599,7 @@ title: ChangeLog
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
   - Walkingarea shapes for pure pedestrian intersections now match the junction shape. Issue #12377
   - Added option **--plain-output.lanes** to include all lane attributes in plain-xml output. Issue #12443
+  - Added options **--default.crossing-speed** and **--default.walkingarea-speed** to configure a default maximum speed on pedestrian infrastructure. Issue #11527
 
 - netedit
   - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
