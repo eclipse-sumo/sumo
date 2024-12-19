@@ -374,7 +374,7 @@ protected:
 
     /// @brief draw stack label
     void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation,
-                        const double width, const double length, const double exaggeration, const bool contour) const;
+                        const double width, const double length, const double exaggeration) const;
 
     /// @name replace parent elements
     /// @{

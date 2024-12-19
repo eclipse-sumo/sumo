@@ -46,21 +46,17 @@ GNEDemandElementFlow::~GNEDemandElementFlow() {}
 
 
 void
-GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotation, const double width, const double length,
-                                    const double exaggeration, const bool contour) const {
+GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotation, const double width,
+                                    const double length, const double exaggeration) const {
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     GLHelper::pushMatrix();
     // Traslate to  bot
-    glTranslated(position.x(), position.y(), GLO_PERSONFLOW + 0.1);
+    glTranslated(position.x(), position.y(), GLO_VEHICLELABELS);
     // glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW + 0.1);
     glRotated(rotation, 0, 0, -1);
-    if (contour) {
-        glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)) - 0.4, 0, 0);
-    } else {
-        glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
-    }
+    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)) - 0.05, 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
     GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);

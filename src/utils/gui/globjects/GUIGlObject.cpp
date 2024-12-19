@@ -145,6 +145,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"frontElement",            GLO_FRONTELEMENT},
     {"geometryPoint",           GLO_GEOMETRYPOINT},
     {"dottedContour",           GLO_DOTTEDCONTOUR},
+    {"vehicleLabels",           GLO_VEHICLELABELS},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},
     {"testElement",             GLO_TESTELEMENT},

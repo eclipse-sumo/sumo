@@ -273,6 +273,9 @@ enum GUIGlObjectType {
     /// @brief dotted contour (used in netedit)
     GLO_DOTTEDCONTOUR = 1040,
 
+    /// @brief stack and flow labels (used in netedit)
+    GLO_VEHICLELABELS = 1045,
+
     /// @brief temporal shape (used in netedit)
     GLO_TEMPORALSHAPE = 1050,
 

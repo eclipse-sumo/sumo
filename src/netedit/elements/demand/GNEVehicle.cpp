@@ -933,16 +933,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), vehiclePosition, exaggeration);
-                // draw dotted contour
-                const bool dottedContorDrawn = myVehicleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel(myStackedLabelNumber, "Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration, dottedContorDrawn);
+                    drawStackLabel(myStackedLabelNumber, "Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // draw flow label
                 if (myTagProperty.isFlow()) {
-                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration, dottedContorDrawn);
+                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
+                // draw dotted contour
+                myVehicleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
             // draw squared shape
             myVehicleContour.calculateContourRectangleShape(s, d, this, vehiclePosition, length * 0.5, width * 0.5, getType(),
