@@ -734,8 +734,8 @@ private:
     /// @brief A map from deprecated options to a bool indicating whether we warned about deprecation
     mutable std::map<std::string, bool> myDeprecatedSynonymes;
 
-    /// @brief invalid copy constructor
-    OptionsCont(const OptionsCont& s) = delete;
+    /// @brief default copy constructor, but private
+    OptionsCont(const OptionsCont& s) = default;
 
     /// @brief invalid assignment operator
     OptionsCont& operator=(const OptionsCont& s) = delete;

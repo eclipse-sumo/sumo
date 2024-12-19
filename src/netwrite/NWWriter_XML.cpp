@@ -89,7 +89,6 @@ NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool
         return;
     }
     OptionsCont* tmp = oc.clone();
-    tmp->resetWritable();
     tmp->set("node-files", prefix + ".nod.xml");
     tmp->set("edge-files", prefix + ".edg.xml");
     tmp->set("connection-files", prefix + ".con.xml");

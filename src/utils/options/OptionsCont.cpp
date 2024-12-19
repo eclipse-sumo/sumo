@@ -1052,28 +1052,16 @@ OptionsCont::isInStringVector(const std::string& optionName,
     return false;
 }
 
+
 OptionsCont*
 OptionsCont::clone() const {
     // build a clone to call writeConfiguration on
     // (with the possibility of changing a few settings and not affecting the original)
-    OptionsCont* oc = new OptionsCont();
-    for (auto item : mySubTopicEntries) {
-        oc->addOptionSubTopic(item.first);
-        oc->mySubTopicEntries[item.first] = item.second;
-        for (const std::string& name : item.second) {
-            Option* o = getSecure(name);
-            if (o->isBool()) {
-                // we only give special treatment for bools because the option
-                // "write-license" is checked in writeConfiguration
-                oc->doRegister(name, new Option_Bool(o->getBool()));
-            } else {
-                oc->doRegister(name, new Option_String());
-            }
-            if (o->isSet() && !o->isDefault()) {
-                oc->set(name, o->getValueString());
-            }
-        }
-    }
+    OptionsCont* oc = new OptionsCont(*this);
+    oc->resetWritable();
+    oc->myAddresses.clear();
     return oc;
 }
+
+
 /****************************************************************************/
