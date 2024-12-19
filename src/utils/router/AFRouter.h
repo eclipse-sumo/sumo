@@ -162,7 +162,7 @@ public:
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
         myBuilder(new AFBuilder<E, N, V, M>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
-                                         flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
+                                            flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
         myType("arcFlagRouter"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -209,7 +209,7 @@ public:
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
         myBuilder(new AFBuilder<E, N, V, M>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
-                                         flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
+                                            flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
         myType("arcFlagRouter"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -423,9 +423,11 @@ public:
         this->myAmClean = false;
         // loop
         int num_visited = 0;
+#ifdef AFRO_DEBUG_LEVEL_1
         int numberOfFollowers = 0;
         int numberOfAvoidedFollowers = 0;
         int numberOfEmptyFlagVectors = 0;
+#endif
         const bool mayRevisit = myLookupTable != nullptr && !myLookupTable->consistent();
         const double speed = vehicle == nullptr ? myMaxSpeed : MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
 
@@ -469,10 +471,12 @@ public:
                 if (followerInfo.prohibited || this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
+#ifdef AFRO_DEBUG_LEVEL_1
                 numberOfFollowers++;
                 if (followerFlagInfo->arcFlags.empty()) {
                     numberOfEmptyFlagVectors++;
                 }
+#endif
 #ifdef AFRO_DEBUG_LEVEL_2
                 myFlagContextStartTime = SysUtils::getCurrentMillis();
 #endif
@@ -482,7 +486,9 @@ public:
                 myFlagContextTimeSum += (SysUtils::getCurrentMillis() - myFlagContextStartTime);
 #endif
                 if (!flag(followerFlagInfo, flagContext)) {
+#ifdef AFRO_DEBUG_LEVEL_1
                     numberOfAvoidedFollowers++;
+#endif
                     continue;
                 }
 
