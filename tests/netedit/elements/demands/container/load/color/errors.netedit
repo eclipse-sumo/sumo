@@ -5,10 +5,8 @@
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 Error: Attribute 'color' in definition of container 'c_1' Invalid color definition ''.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'color' in definition of container 'c_2' Invalid color definition 'dummycolor'.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/container/load/color/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.demands.containers.19Dec113136.2397/netedit.daily.elements.demands.containers/elements/demands/container/load/color/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)

@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Dec102310.26944\netedit.gui\basic\configs\netecfg\open\network
+/home/palcraft/.texttest/tmp/netedit.daily.basic.19Dec113136.2377/netedit.daily.basic/basic/configs/netecfg/open/basic/network
 net.net.xml
 saveConfigAs.netecfg
 TestFunctions: Netedit closed successfully

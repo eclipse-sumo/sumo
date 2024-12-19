@@ -1,5 +1,5 @@
-Error: Cannot read file 'C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Dec091641.23688\netedit.gui\basic\configs\netecfg\invalid_inputs\meandatas\dummy.med.add.xml'!
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Dec091641.23688\netedit.gui\basic\configs\netecfg\invalid_inputs\meandatas\dummy.med.add.xml failed.
+Error: Cannot read file '/home/palcraft/.texttest/tmp/netedit.daily.basic.19Dec113136.2377/netedit.daily.basic/basic/configs/netecfg/load/invalid/meandatas/dummy.med.add.xml'!
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.basic.19Dec113136.2377/netedit.daily.basic/basic/configs/netecfg/load/invalid/meandatas/dummy.med.add.xml failed.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
