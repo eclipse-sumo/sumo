@@ -120,7 +120,7 @@ public:
                               const GNEAttributeCarrier* AC) const;
 
     /// @brief draw dotted contours (basics, select, delete, inspect...)
-    void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+    bool drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                             const GNEAttributeCarrier* AC, const double lineWidth, const bool addOffset) const;
 
     /// @brief draw dotted contour for geometry points
@@ -133,7 +133,7 @@ public:
                                 const PositionVector& shape, const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour (call out of this class only in special cases, for example in WalkingAreas)
-    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+    bool drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                            const double lineWidth, const bool addOffset) const;
     /// @}
 
