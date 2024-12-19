@@ -143,6 +143,9 @@ public:
     static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
     static double RESERVE_FOR_ONCOMING_MAX;
 
+    /// @brief whether to use speed limits embedded in the network
+    static bool USE_NET_SPEEDS;
+
     /// @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;
 
