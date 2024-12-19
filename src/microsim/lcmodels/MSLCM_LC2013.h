@@ -231,6 +231,8 @@ protected:
     double myAssertive;
     // @brief lookahead for speedGain in seconds
     double mySpeedGainLookahead;
+    // @brief the minimum time to spent driving without lane change after a speed-gain change
+    double mySpeedGainRemainTime;
     // @brief bounus factor staying on the inside of multi-lane roundabout
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment

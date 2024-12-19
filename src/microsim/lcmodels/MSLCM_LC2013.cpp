@@ -110,6 +110,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 0)),
+    mySpeedGainRemainTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME, 20)),
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
@@ -1818,7 +1819,7 @@ MSLCM_LC2013::_wantsChange(
 #endif
 
         if (mySpeedGainProbability < -myChangeProbThresholdRight
-                && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) { //./MAX2( .1, myVehicle.getSpeed())) { // -.1
+                && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) { //./MAX2( .1, myVehicle.getSpeed())) { // -.1
             req = ret | lca | LCA_SPEEDGAIN;
             if (!cancelRequest(req, laneOffset)) {
                 return ret | req;
@@ -1865,7 +1866,7 @@ MSLCM_LC2013::_wantsChange(
 
         if (mySpeedGainProbability > myChangeProbThresholdLeft
                 && (relativeGain > NUMERICAL_EPS || changeLeftToAvoidOvertakeRight)
-                && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) { // .1
+                && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
             if (!cancelRequest(req, laneOffset)) {
                 return ret | req;
@@ -2111,6 +2112,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myOvertakeDeltaSpeedFactor);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
+        return toString(mySpeedGainRemainTime);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
@@ -2176,6 +2179,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myOvertakeDeltaSpeedFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
+        mySpeedGainRemainTime = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         myRoundaboutBonus = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
