@@ -2041,40 +2041,6 @@ AdditionalHandler::parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs) {
 }
 
 
-void
-AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // get key
-    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, parsedOk);
-    // get SumoBaseObject parent
-    CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    // check parent
-    if (SumoBaseObjectParent == nullptr) {
-        writeError(TL("Parameters must be defined within an object."));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
-        writeError(TL("Parameters cannot be defined in the additional file's root."));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
-        writeError(TL("Parameters cannot be defined within another parameter."));
-    } else if ((SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) && parsedOk) {
-        // get tag str
-        const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
-        // circumventing empty string value
-        const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        // show warnings if values are invalid
-        if (key.empty()) {
-            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key cannot be empty."), parentTagStr);
-        } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key contains invalid characters."), parentTagStr);
-        } else {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
-            // insert parameter in SumoBaseObjectParent
-            SumoBaseObjectParent->addParameter(key, value);
-        }
-    }
-}
-
-
 bool
 AdditionalHandler::checkDetectPersons(const SumoXMLTag currentTag, const std::string& id, const std::string& detectPersons) {
     if (detectPersons.empty() || SUMOXMLDefinitions::PersonModeValues.hasString(detectPersons)) {

@@ -810,7 +810,7 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && attrs.hasAttribute(SUMO_ATTR_DURATION)) {
-        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in walks"));
+        writeError(TL("Speed and duration attributes cannot be defined together in walks"));
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     } else {
         // declare Ok Flag
@@ -929,7 +929,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && attrs.hasAttribute(SUMO_ATTR_DURATION)) {
-        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in tranships"));
+        writeError(TL("Speed and duration attributes cannot be defined together in tranships"));
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     } else {
         // declare Ok Flag
@@ -969,43 +969,8 @@ RouteHandler::parseInterval(const SUMOSAXAttributes& attrs) {
 }
 
 
-void
-RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // get key
-    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, parsedOk);
-    // get SumoBaseObject parent
-    CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    // check parent
-    if (SumoBaseObjectParent == nullptr) {
-        writeError(TL("Parameters must be defined within an object"));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
-        writeError(TL("Parameters cannot be defined in the additional file's root."));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
-        writeError(TL("Parameters cannot be defined within another parameter."));
-    } else if (parsedOk) {
-        // get tag str
-        const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
-        // circumventing empty string value
-        const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        // show warnings if values are invalid
-        if (key.empty()) {
-            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key cannot be empty"), parentTagStr);
-        } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key contains invalid characters"), parentTagStr);
-        } else {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
-            // insert parameter in SumoBaseObjectParent
-            SumoBaseObjectParent->addParameter(key, value);
-        }
-    }
-}
-
-
 bool
-RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs,
-                             CommonXMLStructure::SumoBaseObject* vTypeObject) {
+RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs, CommonXMLStructure::SumoBaseObject* vTypeObject) {
     // write warning info
     WRITE_WARNINGF(TL("Defining car-following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
     // get vType to modify it

@@ -212,17 +212,14 @@ private:
     /// @brief parse interval
     void parseInterval(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse generic parameters
-    void parseParameters(const SUMOSAXAttributes& attrs);
-
     /// @brief parse nested CarFollowingModel
     bool parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs,
                         CommonXMLStructure::SumoBaseObject* vTypeObject);
 
-    /// @}
-
     /// @brief parse stop parameters
     bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
+
+    /// @}
 
     /// @brief check embedded route
     bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;

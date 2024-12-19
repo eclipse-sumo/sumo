@@ -736,9 +736,6 @@ private:
     /// @brief parse juPedSim obstacle attributes
     void parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse generic parameters
-    void parseParameters(const SUMOSAXAttributes& attrs);
-
     /// @}
 
     /// @brief check detect persons
