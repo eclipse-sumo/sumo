@@ -13,7 +13,6 @@ jobs:
   # building the documentation
   ############################
   build-and-internal-link-check:
-    if: github.repository == 'eclipse-sumo/sumo'
     runs-on: ubuntu-latest
 
     steps:
