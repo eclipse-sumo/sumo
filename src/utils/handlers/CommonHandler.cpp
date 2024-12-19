@@ -52,10 +52,8 @@ CommonHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // get SumoBaseObject parent
     CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // check parent
-    if (SumoBaseObjectParent == nullptr) {
+    if ((SumoBaseObjectParent == nullptr) || (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE)) {
         writeError(TL("Parameters must be defined within an object"));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
-        writeError(TL("Parameters cannot be defined in the additional file's root."));
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
         writeError(TL("Parameters cannot be defined within another parameter."));
     } else if ((SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) && parsedOk) {
