@@ -5,18 +5,12 @@
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 Error: Invalid repetition probability in the definition of containerFlow 'c_0'.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'probability' in definition of containerFlow 'c_1' Invalid Number Format (double) dummyProb.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Attribute 'probability' in definition of containerFlow 'c_2' is empty.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Invalid repetition probability in the definition of containerFlow 'c_3'.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Invalid repetition probability in the definition of containerFlow 'c_4'.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
 Error: Invalid repetition probability in the definition of containerFlow 'c_5'.
-Error: 'tranship' must be defined within the definition of a 'container or containerFlow' (found rootFile).
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/containerflow/load/flow_attributes/probability/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.demands.containers.19Dec113136.2397/netedit.daily.elements.demands.containers/elements/demands/containerflow/load/flow_attributes/probability/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 16:34:55 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
+<!-- generated on 2024-12-19 14:09:07 by Eclipse SUMO netedit Version v1_21_0+1495-8a1daeff034
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- TAZs -->
-    <taz id="taz_0" shape="12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00" center="0.00,0.00" color="blue">
+    <taz id="taz_0" shape="12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00" color="blue">
         <tazSource id="Edge2" weight="1.00"/>
         <tazSink id="Edge2" weight="1.00"/>
         <tazSource id="Edge3" weight="1.00"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-02 13:50:23 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
+<!-- generated on 2024-12-19 11:02:00 by Eclipse SUMO netedit Version v1_21_0+1495-8a1daeff034
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,11 +23,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="bs_0" lane="-E0_0" startPos="45.00" endPos="55.00" friendlyPos="true"/>
     <trainStop id="ts_0" lane="-E0_1" startPos="40.00" endPos="50.00" friendlyPos="true"/>
     <containerStop id="ct_0" lane="-E0_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
-    <chargingStation id="cs_0" lane="-E0_0" startPos="15.00" endPos="25.00" friendlyPos="true"/>
     <parkingArea id="pa_0" lane="-E0_0" startPos="5.00" endPos="15.00" friendlyPos="true">
         <space x="-30.00" y="20.00"/>
         <space x="30.00" y="20.00"/>
     </parkingArea>
+    <chargingStation id="cs_0" lane="-E0_0" startPos="15.00" endPos="25.00" friendlyPos="true"/>
     <!-- Detectors -->
     <inductionLoop id="e1_0" lane="-E0_2" pos="50.00" period="300.00" file="e1_0.xml" friendlyPos="1"/>
     <instantInductionLoop id="e1i_0" lane="-E0_2" pos="30.00" file="e1i_0.xml" friendlyPos="1"/>
