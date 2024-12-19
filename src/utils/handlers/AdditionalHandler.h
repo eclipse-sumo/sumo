@@ -736,10 +736,10 @@ private:
     /// @brief parse juPedSim obstacle attributes
     void parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse generic parameters
-    void parseParameters(const SUMOSAXAttributes& attrs);
-
     /// @}
+
+    /// @brief check calibrator flow parents
+    bool checkCalibratorFlowParents();
 
     /// @brief check detect persons
     bool checkDetectPersons(const SumoXMLTag currentTag, const std::string& id, const std::string& detectPersons);

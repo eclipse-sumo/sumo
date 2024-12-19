@@ -238,7 +238,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
     } else {
         // parse route edges
         const auto edges = parseEdges(SUMO_TAG_ROUTE, vehicleParameters.id, edgeIDs);
-        if (edges.size() > 0) {
+        if (edges.empty()) {
             return false;
         } else {
             // obtain  type

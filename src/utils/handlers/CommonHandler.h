@@ -53,6 +53,9 @@ protected:
     /// @brief flag for mark if a element wasn't created
     bool myErrorCreatingElement = false;
 
+    /// @brief parse generic parameters
+    void parseParameters(const SUMOSAXAttributes& attrs);
+
     /// @name check functions
     /// @{
     /// @brief check parsed parents

@@ -97,6 +97,10 @@ def getOptions(args=None):
                          help="if --xattr is a list concatenate the values")
     optParser.add_option("--join-y", action="store_true", dest="joiny", default=False,
                          help="if --yattr is a list concatenate the values")
+    optParser.add_option("--split-x", action="store_true", dest="splitx", default=False,
+                         help="interpret the x value as a list of values")
+    optParser.add_option("--split-y", action="store_true", dest="splity", default=False,
+                         help="interpret the y value as a list of values")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--xbin", help="binning size for x-data", type=float)
@@ -216,6 +220,16 @@ def onpick(event):
     mevent = event.mouseevent
     print("dataID=%s x=%d y=%d" % (event.artist.get_label(), mevent.xdata, mevent.ydata))
 
+def makeSplitter(splitx, ds_fun):
+    def splitter(file):
+        for dataID, x, y in ds_fun(file):
+            if splitx:
+                for x2 in x.split():
+                    yield dataID, x2, y
+            else:
+                for y2 in y.split():
+                    yield dataID, x, y2
+    return splitter
 
 def getDataStream(options):
     # determine elements and nesting for the given attributes
@@ -357,6 +371,11 @@ def getDataStream(options):
                     count, attr), file=sys.stderr)
             if missingParents:
                 print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
+
+        if options.splitx:
+            datastream = makeSplitter(True, datastream)
+        if options.splity:
+            datastream = makeSplitter(False, datastream)
 
         return datastream
 

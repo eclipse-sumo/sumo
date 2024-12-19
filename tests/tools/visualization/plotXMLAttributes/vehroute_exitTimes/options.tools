@@ -1,0 +1,3 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x @INDEX -y exitTimes --split-y
+tools/visualization/plotXMLAttributes.py

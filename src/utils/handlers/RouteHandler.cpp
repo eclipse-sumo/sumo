@@ -431,6 +431,8 @@ RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleTypeParameter(vehicleTypeParameter);
         // delete vehicleType parameter (because in XMLStructure we have a copy)
         delete vehicleTypeParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -445,18 +447,20 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const int deterministic = attrs.getOpt<int>(SUMO_ATTR_DETERMINISTIC, id.c_str(), parsedOk, -1);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
+    // check distribution
+    if (vTypes.size() != probabilities.size()) {
+        parsedOk = writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
+    }
     if (parsedOk) {
-        if (vTypes.size() != probabilities.size()) {
-            writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
-        } else {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
-            // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_DETERMINISTIC, deterministic);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
-        }
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_DETERMINISTIC, deterministic);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -481,21 +485,23 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
         const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
         const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 0);
+        // check attributes
+        if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
+            parsedOk = false;
+        }
         if (parsedOk) {
-            if (cycleTime < 0) {
-                writeError(TLF("cycleTime of % must be equal or greater than 0", toString(SUMO_TAG_DEST_PROB_REROUTE)));
-            } else {
-                // set tag
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
-                // add all attributes
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-            }
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+        } else {
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         }
     }
 }
@@ -510,17 +516,19 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const std::vector<std::string> routes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ROUTES, id.c_str(), parsedOk);
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
+    // check distribution
+    if (routes.size() != probabilities.size()) {
+        parsedOk = writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
+    }
     if (parsedOk) {
-        if (routes.size() != probabilities.size()) {
-            writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
-        } else {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-            // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_ROUTES, routes);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
-        }
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_ROUTES, routes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -535,8 +543,10 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
         // check from/to edge/junction
         if ((attrs.hasAttribute(SUMO_ATTR_FROM) + attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) > 1) {
             writeError(TL("Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         } else if ((attrs.hasAttribute(SUMO_ATTR_TO) + attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) > 1) {
             writeError(TL("Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) && attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION)) {
             // from-to attributes
             const std::string fromJunction = attrs.get<std::string>(SUMO_ATTR_FROM_JUNCTION, tripParameter->id.c_str(), parsedOk);
@@ -549,6 +559,8 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, fromJunction);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_JUNCTION, toJunction);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
             // from-to attributes
@@ -562,6 +574,8 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_TAZ, fromJunction);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_TAZ, toJunction);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         } else {
             // from-to attributes
@@ -578,10 +592,14 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         }
         // delete trip parameter (because in XMLStructure we have a copy)
         delete tripParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -597,6 +615,8 @@ RouteHandler::parseVehicle(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(vehicleParameter);
         // delete vehicle parameter (because in XMLStructure we have a copy)
         delete vehicleParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -613,8 +633,10 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
         // check from/to edge/junction
         if ((attrs.hasAttribute(SUMO_ATTR_FROM) + attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) > 1) {
             writeError(TL("Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         } else if ((attrs.hasAttribute(SUMO_ATTR_TO) + attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) > 1) {
             writeError(TL("Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             // from-to attributes
             const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, flowParameter->id.c_str(), parsedOk);
@@ -628,6 +650,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) && attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION)) {
             // from-to attributes
@@ -639,6 +663,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, fromJunction);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_JUNCTION, toJunction);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
             // from-to attributes
@@ -650,6 +676,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_TAZ, fromJunction);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_TAZ, toJunction);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         } else if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
             // from-to attributes
@@ -659,6 +687,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
+            } else {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
             }
         } else {
             // set tag
@@ -666,6 +696,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
         }
         // delete flow parameter (because in XMLStructure we have a copy)
         delete flowParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -693,6 +725,8 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
         // add stop attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->setPlanParameters(planParameters);
         myCommonXMLStructure.getCurrentSumoBaseObject()->setStopParameter(stop);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -708,6 +742,8 @@ RouteHandler::parsePerson(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(personParameter);
         // delete person parameter (because in XMLStructure we have a copy)
         delete personParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -723,6 +759,8 @@ RouteHandler::parsePersonFlow(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(personFlowParameter);
         // delete person flow parameter (because in XMLStructure we have a copy)
         delete personFlowParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -763,6 +801,8 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WALKFACTOR, walkFactor);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_GROUP, group);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -770,7 +810,8 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && attrs.hasAttribute(SUMO_ATTR_DURATION)) {
-        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in walks"));
+        writeError(TL("Speed and duration attributes cannot be defined together in walks"));
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     } else {
         // declare Ok Flag
         bool parsedOk = true;
@@ -792,6 +833,8 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_DURATION, duration);
+        } else {
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         }
     }
 }
@@ -817,6 +860,8 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_GROUP, group);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -832,6 +877,8 @@ RouteHandler::parseContainer(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(containerParameter);
         // delete container parameter (because in XMLStructure we have a copy)
         delete containerParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -847,6 +894,8 @@ RouteHandler::parseContainerFlow(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(containerFlowParameter);
         // delete container flow parameter (because in XMLStructure we have a copy)
         delete containerFlowParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -871,6 +920,8 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_GROUP, group);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
 }
 
@@ -878,7 +929,8 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && attrs.hasAttribute(SUMO_ATTR_DURATION)) {
-        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in tranships"));
+        writeError(TL("Speed and duration attributes cannot be defined together in tranships"));
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     } else {
         // declare Ok Flag
         bool parsedOk = true;
@@ -900,6 +952,8 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_DURATION, duration);
+        } else {
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         }
     }
 }
@@ -915,43 +969,8 @@ RouteHandler::parseInterval(const SUMOSAXAttributes& attrs) {
 }
 
 
-void
-RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // get key
-    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, parsedOk);
-    // get SumoBaseObject parent
-    CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    // check parent
-    if (SumoBaseObjectParent == nullptr) {
-        writeError(TL("Parameters must be defined within an object"));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
-        writeError(TL("Parameters cannot be defined in the additional file's root."));
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
-        writeError(TL("Parameters cannot be defined within another parameter."));
-    } else if (parsedOk) {
-        // get tag str
-        const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
-        // circumventing empty string value
-        const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        // show warnings if values are invalid
-        if (key.empty()) {
-            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key cannot be empty"), parentTagStr);
-        } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key contains invalid characters"), parentTagStr);
-        } else {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
-            // insert parameter in SumoBaseObjectParent
-            SumoBaseObjectParent->addParameter(key, value);
-        }
-    }
-}
-
-
 bool
-RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs,
-                             CommonXMLStructure::SumoBaseObject* vTypeObject) {
+RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs, CommonXMLStructure::SumoBaseObject* vTypeObject) {
     // write warning info
     WRITE_WARNINGF(TL("Defining car-following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
     // get vType to modify it
