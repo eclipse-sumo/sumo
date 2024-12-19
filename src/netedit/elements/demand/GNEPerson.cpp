@@ -381,7 +381,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // draw stack label
             if (myStackedLabelNumber > 0) {
-                drawStackLabel(myStackedLabelNumber, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
+                drawStackLabel(myStackedLabelNumber, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s), false);
             } else if ((getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
                        (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
                 // declare counter for stacked persons over stops
@@ -402,12 +402,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // if we have more than two stacked elements, draw label
                 if (stackedCounter > 1) {
-                    drawStackLabel(stackedCounter, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
+                    drawStackLabel(stackedCounter, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s), false);
                 }
             }
             // draw flow label
             if (myTagProperty.isFlow()) {
-                drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
+                drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s), false);
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);

@@ -931,18 +931,18 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if ((getParentJunctions().size() > 0) && !myNet->getDemandPathManager()->isPathValid(this)) {
                     drawJunctionLine(this);
                 }
-                // draw stack label
-                if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel(myStackedLabelNumber, "Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration);
-                }
-                // draw flow label
-                if (myTagProperty.isFlow()) {
-                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
-                }
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), vehiclePosition, exaggeration);
                 // draw dotted contour
-                myVehicleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                const bool dottedContorDrawn = myVehicleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                // draw stack label
+                if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
+                    drawStackLabel(myStackedLabelNumber, "Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration, dottedContorDrawn);
+                }
+                // draw flow label
+                if (myTagProperty.isFlow()) {
+                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration, dottedContorDrawn);
+                }
             }
             // draw squared shape
             myVehicleContour.calculateContourRectangleShape(s, d, this, vehiclePosition, length * 0.5, width * 0.5, getType(),
@@ -1139,10 +1139,10 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
         }
         // calculate contour and draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
-            segment->getContour()->calculateContourExtrudedShape(s, d, this, vehicleGeometry.getShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
+            segment->getContour()->calculateContourExtrudedShape(s, d, this, vehicleGeometry.getShape(), getType(), width, 1, false, segment->isLastSegment(),
                     0, segment, segment->getLane()->getParentEdge());
         } else {
-            segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getLane()->getLaneShape(), getType(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
+            segment->getContour()->calculateContourExtrudedShape(s, d, this, segment->getLane()->getLaneShape(), getType(), width, 1, false, segment->isLastSegment(),
                     0, segment, segment->getLane()->getParentEdge());
         }
         // check if add this path element to redraw buffer

@@ -390,7 +390,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw stack label
             if (myStackedLabelNumber > 0) {
-                drawStackLabel(myStackedLabelNumber, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+                drawStackLabel(myStackedLabelNumber, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s), false);
             } else if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
                 // declare counter for stacked containers over stops
                 int stackedCounter = 0;
@@ -409,12 +409,12 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // if we have more than two stacked elements, draw label
                 if (stackedCounter > 1) {
-                    drawStackLabel(stackedCounter, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+                    drawStackLabel(stackedCounter, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s), false);
                 }
             }
             // draw flow label
             if (myTagProperty.isFlow()) {
-                drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s));
+                drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s), false);
             }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);

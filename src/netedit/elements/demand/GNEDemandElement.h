@@ -373,7 +373,8 @@ protected:
     void drawJunctionLine(const GNEDemandElement* element) const;
 
     /// @brief draw stack label
-    void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+    void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation,
+                        const double width, const double length, const double exaggeration, const bool contour) const;
 
     /// @name replace parent elements
     /// @{
