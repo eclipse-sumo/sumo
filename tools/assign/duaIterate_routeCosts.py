@@ -12,7 +12,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    duaIterate_reroutingAnalysis.py
+# @file    duaIterate_routeCosts.py
 # @author  Jakob Erdmann
 # @date    2024-12-16
 
@@ -20,7 +20,7 @@
 Analyze the evolving travel time (cost) of routes over the iterations of
 duaIterate.py based on edgeData output, rou.alt.xml and tripinfos
 - user-defined routes
-- occuring routes filtered by 
+- occuring routes filtered by
   - origin/destination
   - intermediate edges that must have been passed
   - edges that must have been avoided
@@ -39,7 +39,7 @@ Example sessions:
 49 Costs: count 1124, min 898.51 (126868_8.1), max 1958.68 (225725_1), mean 1355.00, Q1 1257.93, median 1323.39, Q3 1434.92
 
 Implementation Note:
-    edgeIDs are mapped to numbers in a numpy array to conserve memory 
+    edgeIDs are mapped to numbers in a numpy array to conserve memory
     (because strings have a large fixed memory overhead this reduces memory consumption by a factor of 10)
 """
 
@@ -50,15 +50,15 @@ import sys
 import glob
 import subprocess
 from collections import namedtuple
-from collections import defaultdict
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.statistics import Statistics
+from sumolib.statistics import Statistics  # noqa
 
 Route = namedtuple('Route', ['vehID', 'cost', 'index', 'used', 'depart', 'edges'])
 StringDict = {}
 ReverseStringDict = {}
+
 
 def npindex(array, x):
     i = np.where(array == x)
@@ -67,23 +67,27 @@ def npindex(array, x):
     else:
         return None
 
+
 def hasSequence(array, via):
     i = npindex(array, via[0])
     for edge in via[1:]:
         i = npindex(array, edge)
         if i == None:
-            return False;
+            return False
     return True
+
 
 def stringToNumber(string):
     if string not in StringDict:
         StringDict[string] = len(StringDict)
     return StringDict[string]
 
+
 def numberToString(n):
     if not ReverseStringDict:
         ReverseStringDict.update(((v, k) for k, v in StringDict.items()))
     return ReverseStringDict[n]
+
 
 def load(baseDir, iterations, suffix="gz"):
     """iterations is an iterable that gives the iteration numberes to load
@@ -159,6 +163,7 @@ def filter(stepRoutes, origin=None, dest=None, via=None, forbidden=None, cutVia=
         result.append((step, routes2))
     return result
 
+
 def costs(stepRoutes):
     """Compute statistics on costs computed by duarouter for the provided routes"""
     for step, routes in stepRoutes:
@@ -167,12 +172,13 @@ def costs(stepRoutes):
             s.add(r.cost, r.vehID)
         print(s)
 
+
 def distinct(stepRoutes, verbose=True):
     """Count the number of occurences for each distinct route and return distinct routes"""
     result = []
     for step, routes in stepRoutes:
         routes2 = []
-        counts = {} # edges -> (count, info)
+        counts = {}  # edges -> (count, info)
         for r in routes:
             etup = tuple(r.edges)
             if etup in counts:
@@ -188,7 +194,7 @@ def distinct(stepRoutes, verbose=True):
             for (count, info), edges in sorted(rcounts):
                 print(count, info)
             print("Total distinct routes: %s" % len(counts))
-    return result;
+    return result
 
 
 def recompute_costs(baseDir, stepRoutes, netfile=None, tmpfileprefix="tmp"):
@@ -228,6 +234,3 @@ def recompute_costs(baseDir, stepRoutes, netfile=None, tmpfileprefix="tmp"):
         subprocess.call(args)
         result.append((step, loadRoutes(tmp_output_alt)))
     return result
-
-
-
