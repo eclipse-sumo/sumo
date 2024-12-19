@@ -46,3 +46,5 @@ long_siding_occupied_advance
 
 # a loop that reverses on itself can create a deadlock with 3 vehicles
 loop_3veh
+siding_oneSide
+siding_oneSide_slow
