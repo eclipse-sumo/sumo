@@ -1,5 +1,5 @@
 <routes>
-    <route id="r" edges="beg middle end"/>
+    <route id="r" edges="beg beg2 middle end"/>
     <!--
     the vehicle should start moving to the rightmost lane becausee the left lanes are all dead ends
     -->
