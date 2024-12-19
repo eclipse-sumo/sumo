@@ -56,7 +56,7 @@ CommonHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         writeError(TL("Parameters must be defined within an object"));
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
         writeError(TL("Parameters cannot be defined within another parameter."));
-    } else if ((SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) && parsedOk) {
+    } else if ((SumoBaseObjectParent->getTag() != SUMO_TAG_NOTHING) && parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
         // circumventing empty string value
