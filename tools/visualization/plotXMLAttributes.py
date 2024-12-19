@@ -222,22 +222,19 @@ def onpick(event):
 
 def makeSplitter(splitx, otherIsIndex, ds_fun):
     def splitter(file):
-        indexOffset = 0
         for dataID, x, y in ds_fun(file):
             if splitx:
-                xlist = x.split()
-                if otherIsIndex:
-                    indexOffset = 1 / len(xlist)
-                for i, x2 in enumerate(xlist):
-                    yield dataID, x2, y
-                    y += indexOffset
+                for i, x2 in enumerate(x.split()):
+                    if otherIsIndex:
+                        yield dataID, x2, i
+                    else:
+                        yield dataID, x2, y
             else:
-                ylist = y.split()
-                if otherIsIndex:
-                    indexOffset = 1 / len(ylist)
-                for i, y2 in enumerate(ylist):
-                    yield dataID, x, y2
-                    x += indexOffset
+                for i, y2 in enumerate(y.split()):
+                    if otherIsIndex:
+                        yield dataID, i, y2
+                    else:
+                        yield dataID, x, y2
 
     return splitter
 
