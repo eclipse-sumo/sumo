@@ -588,7 +588,7 @@ public:
      * @param[in] clickedPosition clicked position
      * @param[in] viewObjects The clicked objects under cursor
      */
-    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    void editTLS(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief check if modifications in TLS was saved
     bool isTLSSaved();

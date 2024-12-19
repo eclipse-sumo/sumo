@@ -37,17 +37,14 @@ class GNEOverlappedInspection : public MFXGroupBoxModule {
     FXDECLARE(GNEOverlappedInspection)
 
 public:
-    /// @brief constructor
-    GNEOverlappedInspection(GNEFrame* frameParent);
-
     /// @brief constructor (used for filter objects under cusor
-    GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag);
+    GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions);
 
     /// @brief destructor
     ~GNEOverlappedInspection();
 
     /// @brief show overlapped inspection
-    void showOverlappedInspection(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
+    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
 
     /// @brief show template editor
     void refreshOverlappedInspection();
@@ -93,9 +90,6 @@ protected:
     /// @brief FOX needs this
     GNEOverlappedInspection();
 
-    /// @brief build Fox Toolkit elemements
-    void buildFXElements();
-
 private:
     /// @brief current frame parent
     GNEFrame* myFrameParent;
@@ -115,8 +109,8 @@ private:
     /// @brief button for help
     FXButton* myHelpButton;
 
-    /// @brief filtered tag
-    const SumoXMLTag myFilteredTag;
+    /// @brief flag to indicate that this modul is only for junctions
+    const bool myOnlyJunctions;
 
     /// @brief objects under cursor
     std::vector<GNEAttributeCarrier*> myOverlappedACs;

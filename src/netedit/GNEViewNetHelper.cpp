@@ -382,6 +382,33 @@ GNEViewNetHelper::ViewObjectsSelector::updateObjects() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::filterBySuperMode() {
+    if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        filterDemandElements(true);
+        filterDataElements();
+    } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        filterNetworkElements(true);
+        filterAdditionals(true, true);
+        filterDataElements();
+    } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+        filterNetworkElements(true);
+        filterDemandElements(true);
+    }
+}
+
+
+void
+GNEViewNetHelper::ViewObjectsSelector::filterJunctions() {
+    // get all edges to filter
+    std::vector<const GUIGlObject*> junctions;
+    for (const auto& junction : myViewObjects.junctions) {
+        junctions.push_back(junction);
+    }
+    myViewObjects.filterElements(junctions);
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterEdges() {
     // get all edges to filter
     std::vector<const GUIGlObject*> edges;
@@ -468,6 +495,22 @@ GNEViewNetHelper::ViewObjectsSelector::filterAdditionals(const bool includeStopp
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::filterNetworkElements(const bool includeJunctions) {
+    // get all elements to filter
+    std::vector<const GUIGlObject*> networkElements;
+    for (const auto& networkElement : myViewObjects.networkElements) {
+        if (!includeJunctions && (networkElement->getType() == GLO_JUNCTION)) {
+            continue;
+        } else {
+            networkElements.push_back(networkElement);
+        }
+        networkElements.push_back(networkElement);
+    }
+    myViewObjects.filterElements(networkElements);
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterDemandElements(const bool includeRoutes) {
     // get all elements to filter
     std::vector<const GUIGlObject*> demandElements;
@@ -479,6 +522,24 @@ GNEViewNetHelper::ViewObjectsSelector::filterDemandElements(const bool includeRo
         }
     }
     myViewObjects.filterElements(demandElements);
+}
+
+
+void
+GNEViewNetHelper::ViewObjectsSelector::filterDataElements() {
+    // get all elements to filter
+    std::vector<const GUIGlObject*> datadElements;
+    for (const auto& datadElement : myViewObjects.edgeDatas) {
+        datadElements.push_back(datadElement);
+    }
+    for (const auto& datadElement : myViewObjects.edgeRelDatas) {
+        datadElements.push_back(datadElement);
+    }
+    for (const auto& datadElement : myViewObjects.TAZRelDatas) {
+        datadElements.push_back(datadElement);
+    }
+    myViewObjects.filterElements(datadElements);
+
 }
 
 

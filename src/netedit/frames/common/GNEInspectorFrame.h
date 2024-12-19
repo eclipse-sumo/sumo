@@ -201,7 +201,7 @@ protected:
     FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
+    void inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
 
 private:
     /// @brief Overlapped Inspection

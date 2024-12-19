@@ -248,7 +248,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myBackButton->hide();
 
     // Create Overlapped Inspection module
-    myOverlappedInspection = new GNEOverlappedInspection(this);
+    myOverlappedInspection = new GNEOverlappedInspection(this, false);
 
     // Create Attributes Editor module
     myAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"), GNEAttributesEditor::EditorOptions::BASIC_ATTRIBUTES);
@@ -576,7 +576,7 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 
 void
-GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
+GNEInspectorFrame::inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
     // get front unlocked AC
     const auto AC = viewObjects.getAttributeCarrierFront();
     // check if selection is blocked

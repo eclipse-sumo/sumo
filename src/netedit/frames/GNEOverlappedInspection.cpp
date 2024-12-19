@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -48,23 +49,24 @@ FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInsp
 // method definitions
 // ===========================================================================
 
-GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Overlapped elements")),
+GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions) :
+    MFXGroupBoxModule(frameParent, myOnlyJunctions? TL("Overlapped junctions") : TL("Overlapped elements")),
     myFrameParent(frameParent),
-    myFilteredTag(SUMO_TAG_NOTHING),
+    myOnlyJunctions(onlyJunctions),
     myItemIndex(0) {
-    // build elements
-    buildFXElements();
-}
-
-
-GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
-    MFXGroupBoxModule(frameParent, (TL("Overlapped ") + toString(filteredTag) + "s").c_str()),
-    myFrameParent(frameParent),
-    myFilteredTag(filteredTag),
-    myItemIndex(0) {
-    // build elements
-    buildFXElements();
+    FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // Create previous Item Button
+    myPreviousElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonRectangular);
+    // create current index button
+    myCurrentIndexButton = GUIDesigns::buildFXButton(frameButtons, "", "", "", nullptr, this, MID_GNE_OVERLAPPED_SHOWLIST, GUIDesignButton);
+    // Create next Item Button
+    myNextElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonRectangular);
+    // Create list of overlapped elements (by default hidden)
+    myOverlappedElementList = new FXList(getCollapsableFrame(), this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListFixedHeight);
+    // by default list of overlapped elements is hidden)
+    myOverlappedElementList->hide();
+    // Create help button
+    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -72,45 +74,20 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 
 void
-GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
+GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
     myOverlappedACs.clear();
     mySavedClickedPosition = clickedPosition;
-    auto clickedACs = viewObjects.getAttributeCarriers();
-    // check if filter edges
-    if ((clickedACs.size() > 0) && (clickedACs.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-        // iterate over clickedAcs and remove edges
-        auto it = clickedACs.begin();
-        while (it != clickedACs.end()) {
-            if ((*it)->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                it = clickedACs.erase(it);
-            } else {
-                it++;
-            }
-        }
+    // filtger edges if we clicked over a lane
+    if (viewObjects.getAttributeCarrierFront() && viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
+        viewObjects.filterEdges();
     }
-    // reserve
-    myOverlappedACs.reserve(clickedACs.size());
-    // iterate over objects under cursor
-    for (const auto& AC : clickedACs) {
-        bool insert = true;
-        // check supermode demand
-        if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                !AC->getTagProperty().isDemandElement()) {
-            insert = false;
-        }
-        // check supermode data
-        if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData() &&
-                !AC->getTagProperty().isGenericData()) {
-            insert = false;
-        }
-        // check filter
-        if ((myFilteredTag != SUMO_TAG_NOTHING) && (AC->getTagProperty().getTag() != myFilteredTag)) {
-            insert = false;
-        }
-        if (insert) {
-            myOverlappedACs.push_back(AC);
-        }
+    // filter depending of supermode
+    viewObjects.filterBySuperMode();
+    // check if filter all except junctions
+    if (myOnlyJunctions) {
+        viewObjects.filterNetworkElements(false);
     }
+    myOverlappedACs = viewObjects.getAttributeCarriers();
     refreshOverlappedInspection();
 }
 
@@ -314,26 +291,8 @@ GNEOverlappedInspection::GNEOverlappedInspection() :
     myNextElement(nullptr),
     myOverlappedElementList(nullptr),
     myHelpButton(nullptr),
-    myFilteredTag(SUMO_TAG_NOTHING),
+    myOnlyJunctions(false),
     myItemIndex(0) {
-}
-
-
-void
-GNEOverlappedInspection::buildFXElements() {
-    FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    // Create previous Item Button
-    myPreviousElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonRectangular);
-    // create current index button
-    myCurrentIndexButton = GUIDesigns::buildFXButton(frameButtons, "", "", "", nullptr, this, MID_GNE_OVERLAPPED_SHOWLIST, GUIDesignButton);
-    // Create next Item Button
-    myNextElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonRectangular);
-    // Create list of overlapped elements (by default hidden)
-    myOverlappedElementList = new FXList(getCollapsableFrame(), this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListFixedHeight);
-    // by default list of overlapped elements is hidden)
-    myOverlappedElementList->hide();
-    // Create help button
-    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 /****************************************************************************/

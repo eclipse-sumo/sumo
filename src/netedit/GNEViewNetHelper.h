@@ -332,6 +332,12 @@ struct GNEViewNetHelper {
         /// @brief update objects (using gViewObjectsHandler)
         void updateObjects();
 
+        /// @brief filter by supermode
+        void filterBySuperMode();
+
+        /// @brief filter (remove) junctions
+        void filterJunctions();
+
         /// @brief filter (remove) edges
         void filterEdges();
 
@@ -353,8 +359,14 @@ struct GNEViewNetHelper {
         /// @brief filter (remove) additionals
         void filterAdditionals(const bool includeStoppigPlaces, const bool includeTAZs);
 
+        /// @brief filter (remove) network elements
+        void filterNetworkElements(const bool includeJunctions);
+
         /// @brief filter (remove) demand elements
         void filterDemandElements(const bool includeRoutes);
+
+        /// @brief filter (remove) datga elements
+        void filterDataElements();
 
         /// @brief filter locked elements (except the ignoreFilter)
         void filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter = {});
