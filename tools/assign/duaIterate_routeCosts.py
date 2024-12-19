@@ -177,10 +177,10 @@ def distinct(stepRoutes, verbose=True):
             etup = tuple(r.edges)
             if etup in counts:
                 counts[etup][0] += 1
-                routes2.append(r)
             else:
                 # store information sufficient for identifying the route
                 counts[etup] = [1, (r.vehID, r.index)]
+                routes2.append(r)
         result.append((step, routes2))
         if verbose:
             print("Route usage counts in step %s (Count vehID routeIndex)" % step)
@@ -208,15 +208,19 @@ def recompute_costs(baseDir, stepRoutes, netfile=None, tmpfileprefix="tmp"):
             tf.write('<routes>\n')
             for interval in sumolib.xml.parse_fast(dumpfile, "interval", ["begin"]):
                 for r in routes:
+                    # write a routeID for easier plotting
                     vehID = "%s_%s_%s" % (r.vehID, r.index, interval.begin)
+                    routeID = "%s_%s" % (r.vehID, r.index)
                     tf.write('    <vehicle id="%s" depart="%s">\n' % (vehID, interval.begin))
                     tf.write('        <route edges="%s"/>\n' % ' '.join(map(numberToString, r.edges)))
+                    tf.write('        <param key="routeID" value="%s"/>\n' % routeID)
                     tf.write('    </vehicle>\n')
             tf.write('</routes>\n')
 
         args = [DUAROUTER, '-c', duarDict[step],
                 '--weight-files', dumpfile,
                 '--skip-new-routes',
+                '--exit-times',
                 '-r', tmp_input,
                 '-o', tmp_output]
         if netfile:
