@@ -187,7 +187,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
         showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
         showAttributeInspectParent(attrProperty, attributeEnabled);
-    } else if (myAttribute == SUMO_ATTR_ALLOW) {
+    } else if (attrProperty.isVClass() && (myAttribute != SUMO_ATTR_DISALLOW)) {
         showAttributeVClass(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_COLOR) {
         showAttributeColor(attrProperty, attributeEnabled);
@@ -197,7 +197,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     // continue depending of type of attribute
     if (attrProperty.isBool()) {
         showValueCheckButton(value, attributeEnabled, computedAttribute);
-    } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
+    } else if (!attrProperty.isVClass() && (attrProperty.isDiscrete() || attrProperty.isVType())) {
         showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
     } else {
         showValueString(value, attributeEnabled, computedAttribute);
