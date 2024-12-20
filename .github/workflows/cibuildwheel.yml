@@ -1,19 +1,22 @@
 name: cibuildwheel
 
 on:
-  push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder
-      - 'docs/**'
-      - 'src/gui*/**'
-      - 'src/netedit/**'
-      - 'tests/netedit/**'
-    branches:
-      - '**'
-    tags:
-      - '*'
-  pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder
-      - 'docs/**'
+  # push:            # run on push events
+  #   paths-ignore:  # but ignore everything in the docs subfolder
+  #     - 'docs/**'
+  #     - 'src/gui*/**'
+  #     - 'src/netedit/**'
+  #     - 'tests/netedit/**'
+  #   branches:
+  #     - '**'
+  #   tags:
+  #     - '*'
+  # pull_request:    # run on pull requests
+  #   paths-ignore:  # but ignore everything in the docs subfolder
+  #     - 'docs/**'
+  workflow_dispatch:
+  schedule:
+    - cron:  '25 1 * * *'
 
 jobs:
   build-wheels:
@@ -60,6 +63,7 @@ jobs:
           output-dir: wheelhouse
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
+          CIBW_BUILD: cp3*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
