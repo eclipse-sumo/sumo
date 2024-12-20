@@ -434,6 +434,7 @@ GNEInspectorFrame::refreshInspection() {
         }
     } else {
         getFrameHeaderLabel()->setText(TL("Inspect"));
+        myOverlappedInspection->hiderOverlappedInspection();
     }
     // update frame width
     setFrameWidth(myViewNet->getViewParent()->getFrameAreaWidth());
@@ -481,11 +482,7 @@ GNEInspectorFrame::onCmdInspectPreviousElement(FXObject*, FXSelector, void*) {
 
 void
 GNEInspectorFrame::updateFrameAfterUndoRedo() {
-    myAttributesEditor->refreshAttributesEditor();
-    myFlowAttributesEditor->refreshAttributesEditor();
-    myGEOAttributesEditor->refreshAttributesEditor();
-    myParametersEditor->refreshParametersEditor();
-    myHierarchicalElementTree->refreshHierarchicalElementTree();
+    refreshInspection();
 }
 
 

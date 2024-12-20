@@ -115,6 +115,11 @@ GNEOverlappedInspection::clearOverlappedInspection() {
 
 
 void
+GNEOverlappedInspection::hiderOverlappedInspection() {
+    hide();
+}
+
+void
 GNEOverlappedInspection::refreshOverlappedInspection() {
     // show modul depending of number of overlapped elements
     if (myOverlappedACs.size() > 1) {
