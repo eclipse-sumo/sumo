@@ -9,14 +9,23 @@ intermediate_pedestrians
 pedestrians
 pedestrians_flow
 
+# Copy of pedestrians_flow
+pedestrians_flow_binomial
+
 # generate random persontrips
 persontrips
+
+# generate random flows of persontrips
+persontrips_flow
 
 # walks between junctions
 pedestrians_junctionTaz
 
 # generate random persontrips between junctions
 persontrips_junctionTaz
+
+# generate random persontrips between junctions
+persontrips_junctionTaz_flow
 
 # generate random taxi rides
 taxirides
