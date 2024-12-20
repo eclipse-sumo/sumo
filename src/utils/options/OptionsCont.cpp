@@ -1059,7 +1059,9 @@ OptionsCont::clone() const {
     // (with the possibility of changing a few settings and not affecting the original)
     OptionsCont* oc = new OptionsCont(*this);
     oc->resetWritable();
-    oc->myAddresses.clear();
+    for (auto& addr : oc->myAddresses) {
+        addr.second = addr.second->clone();
+    }
     return oc;
 }
 
