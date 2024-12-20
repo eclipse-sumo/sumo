@@ -1,4 +1,4 @@
-name: wheel-cibw
+name: cibuildwheel
 
 on:
   push:            # run on push events
@@ -43,8 +43,10 @@ jobs:
           output-dir: wheelhouse
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
+          CIBW_BUILD: cp39-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
+          SKBUILD_WHEEL_PY_API: "py2.py3"
 
       - name: Preparing wheel libsumo
         run: |
