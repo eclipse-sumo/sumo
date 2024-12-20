@@ -117,4 +117,7 @@ verge_left
 
 # test for #15161
 verge_left2
+
+# test for #15943
+turn_lane_bike
 ramps
