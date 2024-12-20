@@ -72,7 +72,7 @@ public:
      */
     MSTriggeredRerouter(const std::string& id, const MSEdgeVector& edges,
                         double prob, bool off, bool optional, SUMOTime timeThreshold,
-                        const std::string& vTypes, const Position& pos);
+                        const std::string& vTypes, const Position& pos, const double radius);
 
 
     /** @brief Destructor */
@@ -282,6 +282,9 @@ protected:
 
     /// Where are we located in the network
     Position myPosition;
+
+    /// At which distance are we activated
+    double myRadius;
 
     // @brief waiting time threshold for activation
     SUMOTime myTimeThreshold;

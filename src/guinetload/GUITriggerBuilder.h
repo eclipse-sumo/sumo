@@ -91,7 +91,7 @@ protected:
     MSTriggeredRerouter* buildRerouter(MSNet& net,
                                        const std::string& id, MSEdgeVector& edges,
                                        double prob, bool off, bool optional, SUMOTime timeThreshold,
-                                       const std::string& vTypes, const Position& pos) override;
+                                       const std::string& vTypes, const Position& pos, const double radius) override;
 
 
     /** @brief Builds a bus stop

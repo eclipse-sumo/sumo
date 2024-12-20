@@ -76,7 +76,7 @@ std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const MSEdgeVector& edges, double prob, bool off, bool optional,
-        SUMOTime timeThreshold, const std::string& vTypes, const Position& pos) :
+        SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius) :
     Named(id),
     MSMoveReminder(id),
     MSStoppingPlaceRerouter(SUMO_TAG_PARKING_AREA, "parking"),
@@ -86,6 +86,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myAmInUserMode(false),
     myAmOptional(optional),
     myPosition(pos),
+    myRadius(radius),
     myTimeThreshold(timeThreshold),
     myHaveParkProbs(false) {
     myInstances[id] = this;

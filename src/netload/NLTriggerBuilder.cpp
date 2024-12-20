@@ -724,6 +724,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     const SUMOTime timeThreshold = TIME2STEPS(attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, 0));
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string pos = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, id.c_str(), ok, "");
+    const double radius = attrs.getOpt<double>(SUMO_ATTR_RADIUS, id.c_str(), ok, std::numeric_limits<double>::max());
     Position p = Position::INVALID;
     if (pos != "") {
         const std::vector<std::string> posSplit = StringTokenizer(pos, ",").getVector();
@@ -740,7 +741,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw InvalidArgument("Could not parse rerouter '" + id + "'.");
     }
-    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, off, optional, timeThreshold, vTypes, p);
+    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, off, optional, timeThreshold, vTypes, p, radius);
     // read in the trigger description
     trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
 }
@@ -795,8 +796,8 @@ NLTriggerBuilder::buildCalibrator(const std::string& id,
 MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
                                 MSEdgeVector& edges, double prob, bool off, bool optional,
-                                SUMOTime timeThreshold, const std::string& vTypes, const Position& pos) {
-    return new MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos);
+                                SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius) {
+    return new MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos, radius);
 }
 
 

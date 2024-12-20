@@ -56,7 +56,8 @@ public:
      * @param[in] off Whether the rerouter is off (not working) initially
      */
     GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
-                         bool off, bool optional, SUMOTime timeThreshold, const std::string& vTypes, const Position& pos,
+                         bool off, bool optional, SUMOTime timeThreshold,
+                         const std::string& vTypes, const Position& pos, const double radius,
                          SUMORTree& rtree);
 
 
