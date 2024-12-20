@@ -12,6 +12,9 @@ pedestrians_flow
 # Copy of pedestrians_flow
 pedestrians_flow_binomial
 
+# Copy of pedestrians_flow
+pedestrians_flow_poisson
+
 # generate random persontrips
 persontrips
 

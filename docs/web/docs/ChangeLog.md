@@ -35,7 +35,10 @@ title: ChangeLog
   - Fixed invalid lanechanging state ahead of roundabout which could cause lane changing to fail in dense traffic #15854
   - Fixed lanechanging deadlock involving 3 vehicles #15857
   - Stops at chargingStation with attribute parkingArea will now always park #15815
-  - Fixed lane-changing deadlock on junction #15887 
+  - Fixed lane-changing deadlock on junction #15887
+  - Fixed inconsistent statistics on bike departDelay #13142
+  - Fixed bug where vehicles with bluelight device slowed down before entering a rescue lane #12067
+  - Fixed invalid right-of-way when turning right-on-red and there is a pedestrian crossing #15939 
   
 
 - netedit
@@ -86,7 +89,9 @@ title: ChangeLog
   - Fixed crash reloading data files #15845
   - Fixed invalid handling of quotation marks in toolcfg #15899
   - Walkingareas no longer intercept clicks in in crossing mode #15916
-  - Stop saving sumo/netedit config if a fix element dialog is opened #15918 
+  - Stop saving sumo/netedit config if a fix element dialog is opened #15918
+  - Fixed Invalid behavior after loading demand elements with keep old enabled #15904
+  - Dotted contour no longer hides flow label and vehicle stack label #15929 
   
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -98,18 +103,21 @@ title: ChangeLog
   - Saving and loading of meso edge scaling scheme is now working #15902
   - edgedata-file parsing no longer aborts after encountering a single non-numerical attribute #15903 
 
-- netconvert 
+- netconvert
+  - Fixed invalid extra connections from edge where input specifies "no connections" #15944 (regression in 1.2.0)
   - Fixed invalid sign of geo-coordinate offset in OpenDRIVE input and output #15624
   - Fixed bug where right-of-way rules could create deadlock at a traffic light #15150
   - Fixed bug when removing narrow lanes during import #15718
   - No longer generating invalid signal plan when giving invalid argument **--tls.green.time** #15719
   - Fixed invalid linkState for left turns from the major road at junction type `allway_stop` #15737
-  - Fixed invalid tlLogic after processing net with **--keep-edges** #15798 
+  - Fixed invalid tlLogic after processing net with **--keep-edges** #15798
+  - No longer building bicyle left turns from a straight-only vehicle lane (starting from a left-turn lane instead) #15943 
 
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
   - Fixed invalid use of taz information when coordinates are defined for a trip #15768
-  - Fixed invalid route in a network with connection permissions but no other permissions #15925 
+  - Fixed invalid route in a network with connection permissions but no other permissions #15925
+  - Fixed invalid precision with **--write-costs** #15938 
 
 - marouter
   - Fixed invalid route involving vClass-restricted connection #15883
@@ -138,6 +146,7 @@ title: ChangeLog
   - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799
   - sumolib.xml: Fixed bug where parse_fast retrieves wrong attribute if one attribute is the end-suffix of another attribute #15901 
   - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876
+  - randomTrips.py: Options **--random-departpos** and **--random-arrivalpos** now take effect for persons #15946 
   - routeSampler.py: fixed crash when loading negative counts #15908 
     
 ### Enhancements
@@ -149,17 +158,21 @@ title: ChangeLog
   - Added option **--pedestrian.striping.jamfactor** to configure the speed of jammed pedestrians (default 0.25) #15610
   - GLOSA Device now looks several phases into the future and can also take queues into account #15614
   - Added new vType attributes `jmAdvance` and `jmExtraGap` to configure the behavior on junctions for crossing and merging streams of traffic #15654
+  - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
+  - vType attriubte `jmStopLineGap` now applies to allway_stop #15448  
+  - Added new vType attribute `lcStrategicLookahead`  for configuring the lookahead distance when computing strategic best lanes #14718
+  - Added new vType attribute `lcSpeedGainRemainTime` which controls the minimum time a vehicle can drive on the new lane after a tactical lane change (formerly hard-coded to 20s) #12109 
   - Added new insertion behavior `departLane="best_prob"` to increase throughput on multi-lane roads #15661
   - Stationfinder device now supports state saving and loading #15607
   - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
   - Traffic lights of type `actuated` can now use the `next` attribute to switch into fixed-duration phases (and the corresponding lanes will obtain detectors to trigger the switch) #15714
   - Traffic lights of type `actuated` can now react to a pedestrian crossing #1746
-  - vType attriubte `jmStopLineGap` now applies to allway_stop #15448
-  - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
   - personTrip now supports geo-coordinates #15739
   - Added option **--mapmatch.taz** which works similar to **--mapmatch.junctions** but uses arbitrary TAZ definitions #15748
   - Added warning if IDM internal stepping is configured too large #15836
-  - Battery device now includes info about total energy consumption in tripinfo #15800 
+  - Battery device now includes info about total energy consumption in tripinfo #15800
+  - Pedestrian speeds are now affected by speed limits on crossings and walkingareas (starting with network version 1.20.0) #11527
+  - Loaded route files are no logged in **--verbose** mode #13875 
   - railways
     - major rewrite of signal logic #7578
     - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
@@ -178,20 +191,23 @@ title: ChangeLog
   - Removed "invert edges" from GNECrossingFrame #15129
   - Undo-redo functionality can now optionally be disabled to improve operational speed #15663
   - Undo-redo functionality can now be temporary disabled while loading a file to improve loading speed #15668
-  - Improved visibility of short edges #15592 
+  - Improved visibility of short edges #15592
+  - The route for inspected vehicles is now highlighted #15930 
  
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
   - The lane parameter dialog provide information on driveway/foes that prevent train insertion #15823
   - A selection file loaded with **--selection-file** will now cause vehicles, persons and containers to be selected as soon as they are loaded #5427, #14093
-  - Improved layering of chargingStation and parkingArea #15826 
+  - Improved layering of chargingStation and parkingArea #15826
+  - Disabled 'secondary shape' controls if no alternative net is loaded #12653 
  
 - netconvert
   - Added support for zipped shape files #15623
   - street-sign-output now sets the sign angle corresponding to road geometry #15671
   - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
   - Actuated pedestrian crossings are now actuated by pedestrians rather than vehicles #7637
-  - Pedestrian crossings created by option **--crossings.guess** are now given priority. The old behavior can be obtained by setting option **--crossings.guess.roundabout-priority false** #15833 
+  - Pedestrian crossings created by option **--crossings.guess** are now given priority. The old behavior can be obtained by setting option **--crossings.guess.roundabout-priority false** #15833
+  - Option **--plain-output-prefix** now also saves a *.netccfg*-file for rebuilding the network from plain-xml files #12998 
 
 - meso
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
@@ -219,12 +235,15 @@ title: ChangeLog
   - randomTrips.py: now includes total weight in weight-output file #15878
   - randomTrips.py: Added option **--edge-type-file** for affecting probabilities by edge type #15877
   - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881
+  - randomTrips.py: option **--flows** can now be used together with **--pedestrians** or **--persontrips** to create personFlows #12791
+  - randomTrips.py: Added option **--poisson** to generate poisson-distributed flows (with option **--flows**) #13178 
   - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
   - routeStats.py: Added option **--edges-file** for counting the number of times per route that a specific edge (i.e. a counting) location was passed) #15900
   - routeSampler.py: Added option **--verbose.timing** to print wall-clock-time performance statistics #15910
   - routeSampler.py: Major increase in processing speed for long routes #15911
   - routeSampler.py: Added option **--depart-distribution** to distribute departures within the counting data intervals #15909
-  - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915 
+  - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915
+  - plotXMLAttributes.py: Added options **--split-x** and **--split-y** for plotting attributes with list values #15934 
 
 ### Miscellaneous
 
