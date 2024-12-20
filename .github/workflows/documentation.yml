@@ -1,9 +1,9 @@
 name: documentation
 
 on:
-  # push:            # run on push events in the docs subfolder
-  #  paths:
-  #    - 'docs/**'
+  push:            # run on push events in the docs subfolder
+   paths:
+     - 'docs/**'
   workflow_dispatch:
   schedule:
   - cron: '30 1 * * *' # daily at 01:30 UTC
@@ -45,6 +45,7 @@ jobs:
   # checking external links
   ############################
   external-link-check:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
 
     steps:
