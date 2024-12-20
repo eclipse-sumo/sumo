@@ -247,6 +247,7 @@ output:function .* called at .*
 output:function .* finished after .*
 output:optional arguments:{REPLACE options:}
 output:succeeded after .*{REPLACE succeeded after TIME}
+output:usage: {LINES 1000}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
@@ -273,7 +274,7 @@ deleted_shapes:<!-- generated on{[->]}-->
 changed_shapes:<!-- generated on{[->]}-->
 aggregatebattery:<!-- generated on{[->]}-->
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:lxml.etree.XMLSyntaxError{REPLACE XMLSyntaxError}
@@ -305,6 +306,7 @@ errors:something strange happend{REPLACE something strange happened}
 errors:LinAlgWarning: Ill-conditioned matrix
 errors:= opt.linprog(
 errors:return sp.linalg.solve
+errors:usage: {->}error:
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
