@@ -680,13 +680,19 @@ def main(options):
 
     def generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
         label = "%s%s" % (options.tripprefix, idx)
-        combined_attrs = options.tripattrs
+        if options.pedestrians:
+            combined_attrs = ""
+        else:
+            combined_attrs = options.tripattrs
+        arrivalPos = ""
         if options.randomDepartPos:
             randomPosition = samplePosition(origin)
             combined_attrs += ' departPos="%.2f"' % randomPosition
         if options.randomArrivalPos:
             randomPosition = samplePosition(destination)
-            combined_attrs += ' arrivalPos="%.2f"' % randomPosition
+            arrivalPos = ' arrivalPos="%.2f"' % randomPosition
+            if not options.pedestrians:
+                combined_attrs += arrivalPos
         if options.fringeattrs and origin.is_fringe(
                 origin._incoming, checkJunctions=options.fringeJunctions):
             combined_attrs += " " + options.fringeattrs
@@ -706,11 +712,11 @@ def main(options):
                 [e.getID() for e in intermediate])
             if options.validate:
                 vias[label] = via
-        return label, combined_attrs, attrFrom, attrTo, via
+        return label, combined_attrs, attrFrom, attrTo, via, arrivalPos
 
-    def generate_one_plan(combined_attrs, attrFrom, attrTo, intermediate, options):
+    def generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options):
         element = "walk"
-        attrs = otherattrs
+        attrs = otherattrs + arrivalPos
         if options.fromStops:
             fouttrips.write('        <stop%s duration="0"/>\n' % attrFrom)
             attrFrom = ''
@@ -727,10 +733,10 @@ def main(options):
         else:
             fouttrips.write('        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
 
-    def generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options):
+    def generate_one_person(label, combined_attrs, attrFrom, attrTo, arrivalPos, departureTime, intermediate, options):
         fouttrips.write(
-            '    <person id="%s" depart="%.2f"%s>\n' % (label, departureTime, personattrs))
-        generate_one_plan(combined_attrs, attrFrom, attrTo, intermediate, options)
+            '    <person id="%s" depart="%.2f"%s%s>\n' % (label, departureTime, personattrs, combined_attrs))
+        generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options)
         fouttrips.write('    </person>\n')
 
     def generate_one_flow(label, combined_attrs, departureTime, arrivalTime, period, options, timeIdx):
@@ -745,7 +751,7 @@ def main(options):
             fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
                 label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
 
-    def generate_one_personflow(label, combined_attrs, attrFrom, attrTo, departureTime, arrivalTime, period, options, timeIdx):
+    def generate_one_personflow(label, combined_attrs, attrFrom, attrTo, arrivalPos, departureTime, arrivalTime, period, options, timeIdx):
         if len(options.period) > 1:
             label = label + "#%s" % timeIdx
         if options.binomial:
@@ -753,12 +759,12 @@ def main(options):
                 fouttrips.write(('    <personFlow id="%s#%s" begin="%s" end="%s" probability="%.2f"%s>\n') % (
                     label, j, departureTime, arrivalTime, 1.0 / period / options.binomial,
                     combined_attrs))
-                generate_one_plan(combined_attrs, attrFrom, attrTo, intermediate, options)
+                generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options)
                 fouttrips.write('    </personFlow>\n')
         else:
             fouttrips.write(('    <personFlow id="%s" begin="%s" end="%s" period="%s"%s>\n') % (
                 label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
-            generate_one_plan(combined_attrs, attrFrom, attrTo, intermediate, options)
+            generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options)
             fouttrips.write('    </personFlow>\n')
 
     def generate_one_trip(label, combined_attrs, departureTime):
@@ -767,14 +773,16 @@ def main(options):
 
     def generate_one(idx, departureTime, arrivalTime, period, origin, destination, intermediate, timeIdx=None):
         try:
-            label, combined_attrs, attrFrom, attrTo, via = generate_attributes(
+            label, combined_attrs, attrFrom, attrTo, via, arrivalPos = generate_attributes(
                 idx, departureTime, arrivalTime, origin, destination, intermediate, options)
 
             if options.pedestrians:
                 if options.flows > 0:
-                    generate_one_personflow(label, combined_attrs, attrFrom, attrTo, departureTime, arrivalTime, period, options, timeIdx)
+                    generate_one_personflow(label, combined_attrs, attrFrom, attrTo, arrivalPos,
+                                            departureTime, arrivalTime, period, options, timeIdx)
                 else:
-                    generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options)
+                    generate_one_person(label, combined_attrs, attrFrom, attrTo, arrivalPos,
+                                        departureTime, intermediate, options)
             else:
                 if options.jtrrouter:
                     attrTo = ''
