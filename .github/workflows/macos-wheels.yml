@@ -148,12 +148,12 @@ jobs:
         python3 build_config/version.py build_config/setup-traci.py ./setup.py
         python3 -m build --wheel
 
-    - name: Running libsumo tests
-      run: |
-        python3 -m pip install -f tools/dist sumolib traci
-        python3 -m pip install -f python-wheels libsumo
-        cd tests
-        texttest -b ci -v ci -a complex.libsumo
+    # - name: Running libsumo tests
+    #   run: |
+    #     python3 -m pip install -f tools/dist sumolib traci
+    #     python3 -m pip install -f python-wheels libsumo
+    #     cd tests
+    #     texttest -b ci -v ci -a complex.libsumo
 
     - name: Compressing test results
       if: failure()

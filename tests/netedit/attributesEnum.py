@@ -377,12 +377,12 @@ class crossing:
         edges = 1
         priority = 2
         width = 3
-        button = 10
+        button = 9
 
     class createTLS:
         edges = 1
         width = 2
-        button = 10
+        button = 9
 
     class inspect:
         edges = 1
@@ -412,8 +412,8 @@ class crossing:
         linkIndex2 = 4
         parameters = 7
 
-    clearEdges = 3
-    firstField = 4
+    useSelectedEdges = 3
+    firstField = 3
 
 
 # TLS
