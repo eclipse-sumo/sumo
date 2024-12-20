@@ -5,9 +5,7 @@
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 Error: Attribute 'expectArrival' in definition of entryExitDetector 'entryExitDetector_1' Invalid Bool Format dummy.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found rootFile).
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found rootFile).
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/additionals/e3detector/load/expectArrival/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.additionals.detectors.19Dec113136.2381/netedit.daily.elements.additionals.detectors/elements/additionals/e3detector/load/expectArrival/additionals.add.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)
