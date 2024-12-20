@@ -189,6 +189,8 @@ def get_options(args=None):
                        "(alternative to the period option).")
     op.add_argument("--flows", category="flow", default=0, type=int,
                     help="generates INT flows that together output vehicles with the specified period")
+    op.add_argument("--poisson", default=False, action="store_true",
+                    help="Flows will use poisson distributed departures")
     op.add_argument("--random-depart", category="flow", action="store_true", dest="randomDepart", default=False,
                     help="Distribute departures randomly between begin and end")
     op.add_argument("--binomial",  category="flow", metavar="N", type=int,
@@ -747,6 +749,9 @@ def main(options):
                 fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%.2f"%s/>\n') % (
                     label, j, departureTime, arrivalTime, 1.0 / period / options.binomial,
                     combined_attrs))
+        elif options.poisson:
+            fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="exp(%s)"%s/>\n') % (
+                label, departureTime, arrivalTime, 1 / (period * options.flows), combined_attrs))
         else:
             fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
                 label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
@@ -762,8 +767,12 @@ def main(options):
                 generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options)
                 fouttrips.write('    </personFlow>\n')
         else:
-            fouttrips.write(('    <personFlow id="%s" begin="%s" end="%s" period="%s"%s>\n') % (
-                label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
+            if options.poisson:
+                fouttrips.write(('    <personFlow id="%s" begin="%s" end="%s" period="exp(%s)"%s>\n') % (
+                    label, departureTime, arrivalTime, 1 / (period * options.flows), combined_attrs))
+            else:
+                fouttrips.write(('    <personFlow id="%s" begin="%s" end="%s" period="%s"%s>\n') % (
+                    label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
             generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options)
             fouttrips.write('    </personFlow>\n')
 
