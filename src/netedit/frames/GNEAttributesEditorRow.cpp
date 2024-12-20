@@ -339,7 +339,7 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 
         // first check if set default value
-        if (myValueTextField->getText().empty() && attrProperties.hasDefaultValue()) {
+        if (myValueTextField->getText().empty() && attrProperties.hasDefaultValue() && !attrProperties.isVClass()) {
             // update text field without notify
             myValueTextField->setText(attrProperties.getDefaultValue().c_str(), FALSE);
         }
