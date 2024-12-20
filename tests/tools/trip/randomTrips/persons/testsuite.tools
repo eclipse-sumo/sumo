@@ -7,6 +7,7 @@ vehicle_class_persontrips
 # test pedestrian trips with intermediate waypoints
 intermediate_pedestrians
 pedestrians
+pedestrians_flow
 
 # generate random persontrips
 persontrips
