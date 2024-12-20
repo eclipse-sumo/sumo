@@ -1394,7 +1394,7 @@ NBNode::computeLanes2Lanes() {
             for (NBEdge* e : myIncomingEdges) {
                 const std::vector<NBEdge::Connection>& elv = e->getConnections();
                 for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                    std::cout << "  " << e->getID() << "_" << (*k).fromLane << " -> " << (*k).toEdge->getID() << "_" << (*k).toLane << "\n";
+                    std::cout << "  " << e->getID() << "_" << (*k).fromLane << " -> " << Named::getIDSecure((*k).toEdge) << "_" << (*k).toLane << "\n";
                 }
             }
         }
@@ -1486,7 +1486,7 @@ NBNode::computeLanes2Lanes() {
         for (NBEdge* e : myIncomingEdges) {
             const std::vector<NBEdge::Connection>& elv = e->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                std::cout << "  " << e->getID() << "_" << (*k).fromLane << " -> " << (*k).toEdge->getID() << "_" << (*k).toLane << "\n";
+                std::cout << "  " << e->getID() << "_" << (*k).fromLane << " -> " << Named::getIDSecure((*k).toEdge) << "_" << (*k).toLane << "\n";
             }
         }
     }
