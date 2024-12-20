@@ -1520,6 +1520,25 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                 }
 #endif
                 int fromLane = 0;
+                // first attempt: try to use a dedicated fromLane
+                while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
+                    if (incoming->getPermissions(fromLane) == unsatisfied) {
+                        unsatisfied = findToLaneForPermissions(currentOutgoing, fromLane, incoming, unsatisfied);
+                    }
+                    fromLane++;
+                }
+                // second attempt: try to re-use a fromLane that already connects to currentOutgoing
+                // (because we don't wont to create extra turn lanes)
+                fromLane = 0;
+                while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
+                    if ((incoming->getPermissions(fromLane) & unsatisfied) != 0
+                            && incoming->getConnectionsFromLane(fromLane, currentOutgoing, -1).size() > 0) {
+                        unsatisfied = findToLaneForPermissions(currentOutgoing, fromLane, incoming, unsatisfied);
+                    }
+                    fromLane++;
+                }
+                // third attempt: use any possible fromLane
+                fromLane = 0;
                 while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
                     if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
                         unsatisfied = findToLaneForPermissions(currentOutgoing, fromLane, incoming, unsatisfied);
