@@ -95,6 +95,9 @@ prohibit_changing
 # some edges are disconnected explicitly
 unconnected
 
+# test for #15944
+unconnected_all
+
 # make sure that parallel left turns all use the same curve
 parallel_left_turns
 
