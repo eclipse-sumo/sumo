@@ -111,5 +111,5 @@ private:
     std::vector<GNEAttributeCarrier*> myOverlappedACs;
 
     /// @brief current index item
-    size_t myItemIndex = 0;
+    int myItemIndex = 0;
 };

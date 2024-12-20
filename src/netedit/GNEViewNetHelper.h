@@ -332,6 +332,9 @@ struct GNEViewNetHelper {
         /// @brief update objects (using gViewObjectsHandler)
         void updateObjects();
 
+        /// @brief filter all elements except the given GLO type
+        void filterAllExcept(GUIGlObjectType exception);
+
         /// @brief filter by supermode
         void filterBySuperMode();
 
@@ -360,7 +363,7 @@ struct GNEViewNetHelper {
         void filterAdditionals(const bool includeStoppigPlaces, const bool includeTAZs);
 
         /// @brief filter (remove) network elements
-        void filterNetworkElements(const bool includeJunctions);
+        void filterNetworkElements();
 
         /// @brief filter (remove) demand elements
         void filterDemandElements(const bool includeRoutes);

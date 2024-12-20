@@ -382,16 +382,29 @@ GNEViewNetHelper::ViewObjectsSelector::updateObjects() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::filterAllExcept(GUIGlObjectType exception) {
+    // get all elements to filter
+    std::vector<const GUIGlObject*> glElements;
+    for (const auto& glElement : myViewObjects.GUIGlObjects) {
+        if (glElement->getType() != exception) {
+            glElements.push_back(glElement);
+        }
+    }
+    myViewObjects.filterElements(glElements);
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterBySuperMode() {
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         filterDemandElements(true);
         filterDataElements();
     } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        filterNetworkElements(true);
+        filterNetworkElements();
         filterAdditionals(true, true);
         filterDataElements();
     } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-        filterNetworkElements(true);
+        filterNetworkElements();
         filterDemandElements(true);
     }
 }
@@ -495,15 +508,10 @@ GNEViewNetHelper::ViewObjectsSelector::filterAdditionals(const bool includeStopp
 
 
 void
-GNEViewNetHelper::ViewObjectsSelector::filterNetworkElements(const bool includeJunctions) {
+GNEViewNetHelper::ViewObjectsSelector::filterNetworkElements() {
     // get all elements to filter
     std::vector<const GUIGlObject*> networkElements;
     for (const auto& networkElement : myViewObjects.networkElements) {
-        if (!includeJunctions && (networkElement->getType() == GLO_JUNCTION)) {
-            continue;
-        } else {
-            networkElements.push_back(networkElement);
-        }
         networkElements.push_back(networkElement);
     }
     myViewObjects.filterElements(networkElements);

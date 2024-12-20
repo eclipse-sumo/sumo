@@ -356,8 +356,8 @@ GNEInspectorFrame::inspectElements(const std::vector<GNEAttributeCarrier*>& ACs,
 
 void
 GNEInspectorFrame::clearInspection() {
-    myViewNet->getInspectedElements().clearInspectedElements();
-    refreshInspection();
+    // simply clear overlapped inspection (it refresh inspector frame)
+    myOverlappedInspection->clearOverlappedInspection();
 }
 
 

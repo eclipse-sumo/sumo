@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInsp
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions) :
-    MFXGroupBoxModule(frameParent, myOnlyJunctions? TL("Overlapped junctions") : TL("Overlapped elements")),
+    MFXGroupBoxModule(frameParent, onlyJunctions? TL("Overlapped junctions") : TL("Overlapped elements")),
     myFrameParent(frameParent),
     myOnlyJunctions(onlyJunctions) {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -66,6 +66,8 @@ GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bo
     myOverlappedElementList->hide();
     // Create help button
     myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    // by default hidden
+    hide();
 }
 
 
@@ -74,15 +76,16 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 void
 GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed) {
-    // filtger edges if we clicked over a lane
-    if (viewObjects.getAttributeCarrierFront() && viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
-        viewObjects.filterEdges();
-    }
-    // filter by supermode
-    viewObjects.filterBySuperMode();
     // check if filter all except junctions
     if (myOnlyJunctions) {
-        viewObjects.filterNetworkElements(false);
+        viewObjects.filterAllExcept(GLO_JUNCTION);
+    } else {
+        // filter by supermode
+        viewObjects.filterBySuperMode();
+        // filtger edges if we clicked over a lane
+        if (viewObjects.getAttributeCarrierFront() && viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
+            viewObjects.filterEdges();
+        }
     }
     // in this point, check if we want to iterate over existent overlapped inspection, or we want to inspet a new set of elements
     if ((myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 1)) {
@@ -94,6 +97,7 @@ GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsS
     } else {
         myOverlappedACs = viewObjects.getAttributeCarriers();
         myItemIndex = 0;
+        myOverlappedElementList->hide();
     }
     // update clicked position and refresh overlapped inspection
     myClickedPosition = clickedPosition;
@@ -159,7 +163,7 @@ GNEOverlappedInspection::onCmdInspectPreviousElement(FXObject*, FXSelector, void
         if (myItemIndex > 0) {
             myItemIndex--;
         } else {
-            myItemIndex = (myOverlappedACs.size() - 1);
+            myItemIndex = ((int)myOverlappedACs.size() - 1);
         }
         refreshOverlappedInspection();
     }
@@ -225,7 +229,7 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     // "OK"
     GUIDesigns::buildFXButton(helpDialog, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
-    helpDialog->show();
+    helpDialog->show(PLACEMENT_SCREEN);
     return 1;
 }
 
