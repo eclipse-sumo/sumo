@@ -5606,8 +5606,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
             } else {
-                // process left click in Inspector Frame
-                myViewParent->getInspectorFrame()->processClick(myViewObjectsSelector);
+                // inspect clicked elements
+                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             }
             // process click
             processClick(eventData);
@@ -5749,7 +5749,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_TLS: {
             if (myViewObjectsSelector.getJunctionFront() || myViewObjectsSelector.getAdditionalFront()) {
                 // edit TLS in TLSEditor frame
-                myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myViewObjectsSelector);
+                myViewParent->getTLSEditorFrame()->editTLS(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
                 updateViewNet();
             }
             // process click
@@ -5923,8 +5923,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_INSPECT: {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
-            // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processClick(myViewObjectsSelector);
+                // inspect clicked elements
+                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             // process click
             processClick(eventData);
             break;
@@ -6125,7 +6125,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectElement(AC);
             } else {
-                myViewParent->getInspectorFrame()->processClick(myViewObjectsSelector);
+                // inspect clicked elements
+                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             }
             // process click
             processClick(eventData);

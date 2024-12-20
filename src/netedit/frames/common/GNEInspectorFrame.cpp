@@ -243,7 +243,8 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     GNEFrame(viewParent, viewNet, "Inspector") {
 
     // Create back button
-    myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonRectangular);
+    myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT),
+                                             this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonRectangular);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
@@ -294,7 +295,8 @@ GNEInspectorFrame::hide() {
 
 
 bool
-GNEInspectorFrame::processClick(GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEInspectorFrame::inspectClickedElements(GNEViewNetHelper::ViewObjectsSelector& viewObjects,
+        const Position &clickedPosition, const bool shiftKeyPressed) {
     // get unlocked attribute carrier front
     auto AC = viewObjects.getAttributeCarrierFront();
     // first check if we have clicked over an Attribute Carrier
@@ -308,8 +310,8 @@ GNEInspectorFrame::processClick(GNEViewNetHelper::ViewObjectsSelector& viewObjec
                 AC->selectAttributeCarrier();
             }
         } else {
-            // inspect attribute carrier, (or multiselection if AC is selected)
-            inspectClickedElement(viewObjects, myViewNet->getMouseButtonKeyPressed().shiftKeyPressed());
+            // show Overlapped Inspection module
+            myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition, shiftKeyPressed);
             // focus upper element of inspector frame
             focusUpperElement();
         }
@@ -375,8 +377,6 @@ GNEInspectorFrame::refreshInspection() {
     myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-    // resfresh overlapped modul
-    myOverlappedInspection->refreshOverlappedInspection();
     // Hide other moduls
     myParametersEditor->hideParametersEditor();
     myTemplateEditor->hideTemplateEditor();
@@ -494,20 +494,6 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     inspectElement(AC);
     // update view (due dotted contour)
     myViewNet->updateViewNet();
-}
-
-
-void
-GNEInspectorFrame::inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const bool shiftKey) {
-    // get front unlocked AC
-    const auto AC = viewObjects.getAttributeCarrierFront();
-    // check if selection is blocked
-    if (AC) {
-        // show Overlapped Inspection module
-        myOverlappedInspection->showOverlappedInspection(viewObjects);
-        // inspect front element
-        inspectElement(AC);
-    }
 }
 
 /****************************************************************************/

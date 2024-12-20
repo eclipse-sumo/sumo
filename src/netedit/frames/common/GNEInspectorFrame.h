@@ -139,7 +139,8 @@ public:
      * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processClick(GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    bool inspectClickedElements(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition,
+                                const bool shiftKeyPressed);
 
     /// @brief Inspect a single element
     void inspectElement(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousInspectedAC = nullptr);
@@ -184,9 +185,6 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEInspectorFrame)
-
-    /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const bool shiftKey);
 
 private:
     /// @brief Overlapped Inspection

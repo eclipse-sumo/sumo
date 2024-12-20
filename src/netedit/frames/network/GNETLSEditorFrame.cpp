@@ -164,11 +164,11 @@ GNETLSEditorFrame::frameWidthUpdated() {
 
 
 void
-GNETLSEditorFrame::editTLS(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed) {
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {
         // show objects under cursor
-        myOverlappedInspection->showOverlappedInspection(viewObjects);
+        myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition, shiftKeyPressed);
         // hide if we inspect only one junction
         if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
             myOverlappedInspection->clearOverlappedInspection();
@@ -280,7 +280,10 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
 
 void
 GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
-    editJunction(dynamic_cast<GNEJunction*>(AC));
+    auto junction = dynamic_cast<GNEJunction*>(AC);
+    if (junction) {
+        editJunction(junction);
+    }
 }
 
 
