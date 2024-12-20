@@ -27,6 +27,3 @@ priority
 
 # check clear button
 button_clear
-
-# check invert button
-button_invert
