@@ -89,7 +89,7 @@ protected:
     const std::string getAttributeValue(const bool enabled) const;
 
     /// @brief show attribute toogle enable
-    void showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value, const bool enabled);
+    void showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value);
 
     /// @brief show attribute reparent
     void showAttributeReparent(const bool enabled);

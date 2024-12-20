@@ -132,5 +132,9 @@ Warning: Person 'ped122' is jammed on edge ':1828018040_c0', time=639.00.
 Warning: Vehicle 'pt_tram_12:0.1' performs emergency braking on lane ':98973667_3_0' with decel=7.00, wished=3.00, severity=1.00, time=755.00.
 Warning: Person 'ped67' aborted waiting for M5:3 at busStop '30731481'.
 Warning: Person 'ped94' aborted waiting for N2:0 at busStop '2915590925'.
+Warning: Person 'ped145' aborted waiting for N42:0 at busStop '2915590925'.
+Warning: Person 'ped157' aborted waiting for N42:1 at busStop '3867910439'.
+Warning: Person 'ped136' aborted waiting for N42:1 at busStop '3867910439'.
+Warning: Person 'ped155' aborted waiting for N42:1 at busStop '3867910439'.
 Warning: Person 'ped59' aborted waiting for M5:0 at busStop '1633759766'.
 Warning: Person 'ped47' aborted waiting for TXL:0 at busStop '3869306771'.

@@ -182,12 +182,12 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     }
     // show elements depending of attribute properties
     if (attrProperty.isActivatable()) {
-        showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+        showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute));
     } else if (myAttribute == GNE_ATTR_PARENT) {
         showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
         showAttributeInspectParent(attrProperty, attributeEnabled);
-    } else if (myAttribute == SUMO_ATTR_ALLOW) {
+    } else if (attrProperty.isVClass() && (myAttribute != SUMO_ATTR_DISALLOW)) {
         showAttributeVClass(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_COLOR) {
         showAttributeColor(attrProperty, attributeEnabled);
@@ -197,7 +197,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     // continue depending of type of attribute
     if (attrProperty.isBool()) {
         showValueCheckButton(value, attributeEnabled, computedAttribute);
-    } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
+    } else if (!attrProperty.isVClass() && (attrProperty.isDiscrete() || attrProperty.isVType())) {
         showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
     } else {
         showValueString(value, attributeEnabled, computedAttribute);
@@ -339,7 +339,7 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 
         // first check if set default value
-        if (myValueTextField->getText().empty() && attrProperties.hasDefaultValue()) {
+        if (myValueTextField->getText().empty() && attrProperties.hasDefaultValue() && !attrProperties.isVClass()) {
             // update text field without notify
             myValueTextField->setText(attrProperties.getDefaultValue().c_str(), FALSE);
         }
@@ -427,15 +427,10 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
 
 
 void
-GNEAttributesEditorRow::showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value,
-        const bool enabled) {
+GNEAttributesEditorRow::showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value) {
     myAttributeToggleEnableCheckButton->setText(attrProperty.getAttrStr().c_str());
     myAttributeToggleEnableCheckButton->setCheck(value);
-    if (enabled) {
-        myAttributeToggleEnableCheckButton->enable();
-    } else {
-        myAttributeToggleEnableCheckButton->disable();
-    }
+    myAttributeToggleEnableCheckButton->enable();
     myAttributeToggleEnableCheckButton->show();
     // hide other elements
     myAttributeLabel->hide();

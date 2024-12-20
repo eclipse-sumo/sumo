@@ -1390,7 +1390,7 @@ NBNode::computeLanes2Lanes() {
         }
 #ifdef DEBUG_CONNECTION_GUESSING
         if (DEBUGCOND) {
-            std::cout << "l2l node=" << getID() << " bresenham:\n";
+            std::cout << "l2l node=" << getID() << " outgoing=" << currentOutgoing->getID() << " bresenham:\n";
             for (NBEdge* e : myIncomingEdges) {
                 const std::vector<NBEdge::Connection>& elv = e->getConnections();
                 for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
@@ -1428,6 +1428,11 @@ NBNode::computeLanes2Lanes() {
                             // find incoming lane for neighboring outgoing
                             for (int i = 0; i < toLane; i++) {
                                 if (outToIn.count(i) != 0) {
+#ifdef DEBUG_CONNECTION_GUESSING
+                                    if (DEBUGCOND) {
+                                        std::cout << "l2l node=" << getID() << " from=" << incoming->getID() << " to " << currentOutgoing->getLaneID(toLane) << " (changeProhibited, secondTarget)\n";
+                                    }
+#endif
                                     incoming->setConnection(outToIn[i], currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED);
                                     added = true;
                                     break;
@@ -1436,6 +1441,11 @@ NBNode::computeLanes2Lanes() {
                             if (!added) {
                                 for (int i = toLane; i < currentOutgoing->getNumLanes(); i++) {
                                     if (outToIn.count(i) != 0) {
+#ifdef DEBUG_CONNECTION_GUESSING
+                                        if (DEBUGCOND) {
+                                            std::cout << "l2l node=" << getID() << " from=" << incoming->getID() << " to " << currentOutgoing->getLaneID(toLane) << " (changeProhibited, newTarget)\n";
+                                        }
+#endif
                                         incoming->setConnection(outToIn[i], currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED);
                                         added = true;
                                         break;
@@ -1570,6 +1580,11 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                     // find a dedicated bike lane as target
                     if (bikeLaneTarget >= 0) {
                         incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
+#ifdef DEBUG_CONNECTION_GUESSING
+                        if (DEBUGCOND) {
+                            std::cout << "  extra bike connection from=" << incoming->getLaneID(i) << " (bikelane) to=" << currentOutgoing->getLaneID(bikeLaneTarget)  << "\n";
+                        }
+#endif
                         builtConnection = true;
                     } else {
                         // use any lane that allows bicycles
@@ -1579,6 +1594,11 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                                 const bool allowDouble = (incoming->getPermissions(i) == SVC_BICYCLE
                                                           && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
                                 incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
+#ifdef DEBUG_CONNECTION_GUESSING
+                                if (DEBUGCOND) {
+                                    std::cout << "  extra bike connection from=" << incoming->getLaneID(i) << " to=" << currentOutgoing->getLaneID(i2)  << "\n";
+                                }
+#endif
                                 builtConnection = true;
                                 break;
                             }
@@ -1599,6 +1619,11 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                 for (int i = start; i < end; i += inc) {
                     if ((incoming->getPermissions(i) & SVC_BICYCLE) != 0) {
                         incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
+#ifdef DEBUG_CONNECTION_GUESSING
+                        if (DEBUGCOND) {
+                            std::cout << "  extra bike connection from=" << incoming->getLaneID(i) << " (final) to=" << currentOutgoing->getLaneID(bikeLaneTarget)  << "\n";
+                        }
+#endif
                         break;
                     }
                 }
