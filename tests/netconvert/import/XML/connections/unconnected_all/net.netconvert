@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-20 10:25:35 by Eclipse SUMO netconvert Version v1_21_0+1522-8cbae08792c
+<!-- generated on 2024-12-20 11:54:29 by Eclipse SUMO netconvert Version v1_21_0+1533-63f07eb042e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -131,33 +131,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
 
-    <tlLogic id="GS_25662542" type="actuated" programID="0" offset="0">
-        <phase duration="42" state="rGGGGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rGyyGGG"/>
-        <phase duration="42" state="GGrrGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yGrrGGG"/>
-    </tlLogic>
-
     <junction id="2055804552" type="dead_end" x="0.00" y="37.72" incLanes="4402014#0_0 4402014#0_1 4402014#0_2" intLanes="" shape="0.00,37.72 -0.85,47.08 0.00,37.72"/>
-    <junction id="25662542" type="traffic_light" x="31.49" y="40.60" incLanes="4588217#3_0 4588217#3_1 -4588220#2_0 -4588220#2_1 -4588220#2_2 -4402014#2_0 -4402014#2_1 -4402014#2_2 326116286#0_0 326116286#0_1 326116286#0_2 326116286#0_3" intLanes="" shape="39.91,46.57 40.83,36.21 40.06,35.50 39.84,34.67 39.72,33.53 39.72,32.08 39.82,30.27 23.03,28.88 22.66,29.71 22.26,29.95 21.72,30.11 21.04,30.16 20.21,30.13 18.50,48.85 19.31,49.09 19.59,49.33 19.77,49.64 19.85,50.02 19.85,50.48 37.87,52.19 38.34,49.01 38.66,47.91 39.02,47.14 39.44,46.69">
-        <request index="0" response="0000100" foes="0000100"/>
-        <request index="1" response="0000000" foes="0000000"/>
-        <request index="2" response="0000000" foes="0000001"/>
-        <request index="3" response="0000000" foes="0000000"/>
-        <request index="4" response="0000000" foes="0000000"/>
-        <request index="5" response="0000000" foes="0000000"/>
-        <request index="6" response="0000000" foes="0000000"/>
-    </junction>
+    <junction id="25662542" type="dead_end" x="31.49" y="40.60" incLanes="4588217#3_0 4588217#3_1 -4588220#2_0 -4588220#2_1 -4588220#2_2 -4402014#2_0 -4402014#2_1 -4402014#2_2 326116286#0_0 326116286#0_1 326116286#0_2 326116286#0_3" intLanes="" shape="39.91,46.57 40.83,36.21 40.06,35.50 39.84,34.67 39.72,33.53 39.72,32.08 39.82,30.27 23.03,28.88 22.66,29.71 22.26,29.95 21.72,30.11 21.04,30.16 20.21,30.13 18.50,48.85 19.31,49.09 19.59,49.33 19.77,49.64 19.85,50.02 19.85,50.48 37.87,52.19 38.34,49.01 38.66,47.91 39.02,47.14 39.44,46.69"/>
     <junction id="2882465305" type="dead_end" x="137.74" y="49.97" incLanes="-4588217#5_0 -4588217#5_1" intLanes="" shape="137.74,49.97 138.20,44.79 137.74,49.97"/>
     <junction id="3327334153" type="dead_end" x="26.78" y="90.25" incLanes="-326116286#2_0 -326116286#2_1 -326116286#2_2" intLanes="" shape="26.78,90.25 34.20,90.95 26.78,90.25"/>
     <junction id="5148507741" type="dead_end" x="34.84" y="0.00" incLanes="4588220#0_0 4588220#0_1 4588220#0_2" intLanes="" shape="34.84,-0.00 25.47,-0.78 34.84,0.00"/>
-
-    <connection from="-4588220#2" to="-4588217#5" fromLane="1" toLane="1" tl="GS_25662542" linkIndex="1" dir="r" state="O"/>
-    <connection from="-4588220#2" to="-326116286#2" fromLane="1" toLane="1" tl="GS_25662542" linkIndex="2" dir="s" state="O"/>
-    <connection from="-4588220#2" to="-326116286#2" fromLane="2" toLane="2" tl="GS_25662542" linkIndex="3" dir="s" state="O"/>
-    <connection from="326116286#0" to="4402014#0" fromLane="1" toLane="1" tl="GS_25662542" linkIndex="4" dir="r" state="O"/>
-    <connection from="326116286#0" to="4588220#0" fromLane="1" toLane="1" tl="GS_25662542" linkIndex="5" dir="s" state="O"/>
-    <connection from="326116286#0" to="4588220#0" fromLane="2" toLane="2" tl="GS_25662542" linkIndex="6" dir="s" state="O"/>
-    <connection from="4588217#3" to="-326116286#2" fromLane="1" toLane="1" tl="GS_25662542" linkIndex="0" dir="r" state="o"/>
 
 </net>
