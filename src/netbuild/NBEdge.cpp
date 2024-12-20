@@ -1107,6 +1107,7 @@ NBEdge::addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval, SVCPermission
     if (dest == nullptr) {
         invalidateConnections();
         myConnections.push_back(Connection(-1, dest, -1));
+        myStep = EdgeBuildingStep::LANES2LANES_USER;
     } else if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest)) == myConnections.end()) {
         myConnections.push_back(Connection(-1, dest, -1));
         myConnections.back().permissions = permissions;
