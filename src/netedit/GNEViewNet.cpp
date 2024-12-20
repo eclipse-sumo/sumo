@@ -629,7 +629,6 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             GUIGlObject* overlappedElement = nullptr;
             // we need to check if we're inspecting a overlapping element
             if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
-                    myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                     myInspectedElements.getFirstAC()) {
                 overlappedElement = myInspectedElements.getFirstAC()->getGUIGlObject();
                 filteredGLObjects.push_back(overlappedElement);
@@ -5607,8 +5606,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
             } else {
-                // process left click in Inspector Frame
-                myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myViewObjectsSelector);
+                // inspect clicked elements
+                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             }
             // process click
             processClick(eventData);
@@ -5750,7 +5749,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_TLS: {
             if (myViewObjectsSelector.getJunctionFront() || myViewObjectsSelector.getAdditionalFront()) {
                 // edit TLS in TLSEditor frame
-                myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myViewObjectsSelector);
+                myViewParent->getTLSEditorFrame()->editTLS(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
                 updateViewNet();
             }
             // process click
@@ -5924,8 +5923,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_INSPECT: {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
-            // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myViewObjectsSelector);
+                // inspect clicked elements
+                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             // process click
             processClick(eventData);
             break;
@@ -6126,7 +6125,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectElement(AC);
             } else {
-                myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myViewObjectsSelector);
+                // inspect clicked elements
+                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             }
             // process click
             processClick(eventData);

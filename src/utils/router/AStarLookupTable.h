@@ -173,8 +173,8 @@ public:
                     myFromLandmarkDists.push_back(std::vector<double>(0));
                     myToLandmarkDists.push_back(std::vector<double>(0));
                     landmarks.push_back(edges[it->second + myFirstNonInternal]);
-                } catch (NumberFormatException& e) {
-                    throw ProcessError(TLF("Broken landmark file, could not parse '%' as coordinates", line));
+                } catch (const NumberFormatException&) {
+                    throw ProcessError(TLF("Broken landmark file, could not parse '%' as coordinates.", line));
                 }
             } else if (st.size() == 4) {
                 // legacy style landmark table

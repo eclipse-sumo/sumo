@@ -2110,6 +2110,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myKeepRightAcceptanceTime);
     } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR)) {
         return toString(myOvertakeDeltaSpeedFactor);
+    } else if (key == toString(SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD)) {
+        return toString(myStrategicLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
@@ -2177,6 +2179,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myKeepRightAcceptanceTime = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR)) {
         myOvertakeDeltaSpeedFactor = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD)) {
+        myStrategicLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {

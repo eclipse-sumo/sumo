@@ -42,8 +42,8 @@ client_args = [os.path.join(binaryDir, client), "-def",
 serverProcess = subprocess.Popen(
     server_args, stdout=sys.stdout, stderr=sys.stderr)
 success = False
-for retry in range(7):
-    time.sleep(retry)
+for retry in range(10):
+    time.sleep(retry * 0.1)
     clientProcess = subprocess.Popen(
         client_args, stdout=sys.stdout, stderr=sys.stderr)
     if serverProcess.poll() is not None and clientProcess.poll() is None:

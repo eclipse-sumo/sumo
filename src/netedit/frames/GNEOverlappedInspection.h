@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/geom/Position.h>
 
 // ===========================================================================
 // class declaration
@@ -44,7 +45,7 @@ public:
     ~GNEOverlappedInspection();
 
     /// @brief show overlapped inspection
-    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
+    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed);
 
     /// @brief show template editor
     void refreshOverlappedInspection();
@@ -58,23 +59,14 @@ public:
     /// @brief get number of overlapped ACSs
     int getNumberOfOverlappedACs() const;
 
-    /// @brief check if given position is near to saved position
-    bool checkSavedPosition(const Position& clickedPosition) const;
-
-    /// @brief try to go to next element if clicked position is near to saved position
-    bool nextElement(const Position& clickedPosition);
-
-    /// @brief try to go to previous element if clicked position is near to saved position
-    bool previousElement(const Position& clickedPosition);
-
     /// @name FOX-callbacks
     /// @{
 
     /// @brief Inspect next Element (from top to bot)
-    long onCmdNextElement(FXObject*, FXSelector, void*);
+    long onCmdInspectNextElement(FXObject*, FXSelector, void*);
 
     /// @brief Inspect previous element (from top to bot)
-    long onCmdPreviousElement(FXObject*, FXSelector, void*);
+    long onCmdInspectPreviousElement(FXObject*, FXSelector, void*);
 
     /// @brief show list of overlapped elements
     long onCmdShowList(FXObject*, FXSelector, void*);
@@ -92,32 +84,32 @@ protected:
 
 private:
     /// @brief current frame parent
-    GNEFrame* myFrameParent;
+    GNEFrame* myFrameParent = nullptr;
 
     /// @brief Previous element button
-    FXButton* myPreviousElement;
+    FXButton* myPreviousElement = nullptr;
 
     /// @brief Button for current index
-    FXButton* myCurrentIndexButton;
+    FXButton* myCurrentIndexButton = nullptr;
 
     /// @brief Next element button
-    FXButton* myNextElement;
+    FXButton* myNextElement = nullptr;
 
     /// @brief list of overlapped elements
-    FXList* myOverlappedElementList;
+    FXList* myOverlappedElementList = nullptr;
 
     /// @brief button for help
-    FXButton* myHelpButton;
+    FXButton* myHelpButton = nullptr;
+
+    /// @brief clicked position
+    Position myClickedPosition = Position::INVALID;
 
     /// @brief flag to indicate that this modul is only for junctions
-    const bool myOnlyJunctions;
+    const bool myOnlyJunctions = false;
 
     /// @brief objects under cursor
     std::vector<GNEAttributeCarrier*> myOverlappedACs;
 
     /// @brief current index item
-    size_t myItemIndex;
-
-    /// @brief saved clicked position
-    Position mySavedClickedPosition;
+    int myItemIndex = 0;
 };

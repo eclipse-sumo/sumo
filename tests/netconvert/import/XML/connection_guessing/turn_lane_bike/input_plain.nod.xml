@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-20 10:11:06 by Eclipse SUMO netedit Version v1_21_0+1522-8cbae08792c
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-389562.46,-5817979.56" convBoundary="888.83,1574.61,1026.57,1664.86" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2055804552" x="888.83" y="1612.33" type="dead_end"/>
+    <node id="25662542" x="920.32" y="1615.21" type="traffic_light" tl="GS_25662542" tlType="actuated"/>
+    <node id="2882465305" x="1026.57" y="1624.58" type="dead_end"/>
+    <node id="3327334153" x="915.61" y="1664.86" type="dead_end"/>
+    <node id="5148507741" x="923.67" y="1574.61" type="dead_end"/>
+</nodes>

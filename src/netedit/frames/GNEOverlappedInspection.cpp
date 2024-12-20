@@ -33,8 +33,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEOverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEOverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEOverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEOverlappedInspection::onCmdInspectNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEOverlappedInspection::onCmdInspectPreviousElement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEOverlappedInspection::onCmdShowList),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEOverlappedInspection::onCmdListItemSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEOverlappedInspection::onCmdOverlappingHelp)
@@ -50,10 +50,9 @@ FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInsp
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions) :
-    MFXGroupBoxModule(frameParent, myOnlyJunctions? TL("Overlapped junctions") : TL("Overlapped elements")),
+    MFXGroupBoxModule(frameParent, onlyJunctions? TL("Overlapped junctions") : TL("Overlapped elements")),
     myFrameParent(frameParent),
-    myOnlyJunctions(onlyJunctions),
-    myItemIndex(0) {
+    myOnlyJunctions(onlyJunctions) {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
     myPreviousElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonRectangular);
@@ -67,6 +66,8 @@ GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bo
     myOverlappedElementList->hide();
     // Create help button
     myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    // by default hidden
+    hide();
 }
 
 
@@ -74,20 +75,32 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 
 void
-GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
-    myOverlappedACs.clear();
-    mySavedClickedPosition = clickedPosition;
-    // filtger edges if we clicked over a lane
-    if (viewObjects.getAttributeCarrierFront() && viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
-        viewObjects.filterEdges();
-    }
-    // filter depending of supermode
-    viewObjects.filterBySuperMode();
+GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed) {
     // check if filter all except junctions
     if (myOnlyJunctions) {
-        viewObjects.filterNetworkElements(false);
+        viewObjects.filterAllExcept(GLO_JUNCTION);
+    } else {
+        // filter by supermode
+        viewObjects.filterBySuperMode();
+        // filtger edges if we clicked over a lane
+        if (viewObjects.getAttributeCarrierFront() && viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
+            viewObjects.filterEdges();
+        }
     }
-    myOverlappedACs = viewObjects.getAttributeCarriers();
+    // in this point, check if we want to iterate over existent overlapped inspection, or we want to inspet a new set of elements
+    if ((myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 1)) {
+        if (shiftKeyPressed) {
+            onCmdInspectPreviousElement(nullptr, 0, nullptr);
+        } else {
+            onCmdInspectNextElement(nullptr, 0, nullptr);
+        }
+    } else {
+        myOverlappedACs = viewObjects.getAttributeCarriers();
+        myItemIndex = 0;
+        myOverlappedElementList->hide();
+    }
+    // update clicked position and refresh overlapped inspection
+    myClickedPosition = clickedPosition;
     refreshOverlappedInspection();
 }
 
@@ -95,31 +108,35 @@ GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsS
 void
 GNEOverlappedInspection::clearOverlappedInspection() {
     myOverlappedACs.clear();
+    myItemIndex = 0;
+    myOverlappedElementList->hide();
     refreshOverlappedInspection();
 }
 
 
 void
 GNEOverlappedInspection::refreshOverlappedInspection() {
-    // continue depending of number of myOverlappedACs
+    // show modul depending of number of overlapped elements
     if (myOverlappedACs.size() > 1) {
-        // by default we inspect first element
-        myItemIndex = 0;
         // update text of current index button
-        myCurrentIndexButton->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
+        myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
         // clear and fill list again
         myOverlappedElementList->clearItems();
         for (int i = 0; i < (int)myOverlappedACs.size(); i++) {
             myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getACIcon());
         }
-        // set first element as selected element
-        myOverlappedElementList->getItem(0)->setSelected(TRUE);
-        // by default list hidden
-        myOverlappedElementList->hide();
-        // show GNEOverlappedInspection modul
+        // select current item
+        myOverlappedElementList->getItem(myItemIndex)->setSelected(TRUE);
+        // show modul
         show();
+        // call selectedOverlappedElement 
+        myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
     } else {
-        // hide GNEOverlappedInspection modul
+        if (myOverlappedACs.size() > 0) {
+            myFrameParent->selectedOverlappedElement(myOverlappedACs.front());
+        } else {
+            myFrameParent->selectedOverlappedElement(nullptr);
+        }
         hide();
     }
 }
@@ -138,91 +155,29 @@ GNEOverlappedInspection::getNumberOfOverlappedACs() const {
 }
 
 
-bool
-GNEOverlappedInspection::checkSavedPosition(const Position& clickedPosition) const {
-    return (mySavedClickedPosition.distanceSquaredTo2D(clickedPosition) < 0.25);
-}
-
-
-bool
-GNEOverlappedInspection::nextElement(const Position& clickedPosition) {
-    // first check if GNEOverlappedInspection is shown
-    if (shown()) {
-        // check if given position is near saved position
-        if (checkSavedPosition(clickedPosition)) {
-            // inspect next element
-            onCmdNextElement(0, 0, 0);
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEOverlappedInspection::previousElement(const Position& clickedPosition) {
-    // first check if GNEOverlappedInspection is shown
-    if (shown()) {
-        // check if given position is near saved position
-        if (checkSavedPosition(clickedPosition)) {
-            // inspect previousElement
-            onCmdPreviousElement(0, 0, 0);
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
 long
-GNEOverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdInspectPreviousElement(FXObject*, FXSelector, void*) {
     // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
-        // unselect current list element
-        myOverlappedElementList->getItem((int)myItemIndex)->setSelected(FALSE);
         // set index (it works as a ring)
         if (myItemIndex > 0) {
             myItemIndex--;
         } else {
-            myItemIndex = (myOverlappedACs.size() - 1);
+            myItemIndex = ((int)myOverlappedACs.size() - 1);
         }
-        // selected current list element
-        myOverlappedElementList->getItem((int)myItemIndex)->setSelected(TRUE);
-        myOverlappedElementList->update();
-        // update current index button
-        myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
-        // inspect overlapped attribute carrier
-        myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
-        // show GNEOverlappedInspection again (because it's hidden in inspectSingleElement)
-        show();
+        refreshOverlappedInspection();
     }
     return 1;
 }
 
 
 long
-GNEOverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+GNEOverlappedInspection::onCmdInspectNextElement(FXObject*, FXSelector, void*) {
     // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
-        // unselect current list element
-        myOverlappedElementList->getItem((int)myItemIndex)->setSelected(FALSE);
         // set index (it works as a ring)
         myItemIndex = (myItemIndex + 1) % myOverlappedACs.size();
-        // selected current list element
-        myOverlappedElementList->getItem((int)myItemIndex)->setSelected(TRUE);
-        myOverlappedElementList->update();
-        // update current index button
-        myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
-        // inspect overlapped attribute carrier
-        myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
-        // show GNEOverlappedInspection again (because it's hidden in inspectSingleElement)
-        show();
+        refreshOverlappedInspection();
     }
     return 1;
 }
@@ -252,12 +207,7 @@ GNEOverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myOverlappedElementList->getNumItems(); i++) {
         if (myOverlappedElementList->getItem(i)->isSelected()) {
             myItemIndex = i;
-            // update current index button
-            myCurrentIndexButton->setText((toString(myItemIndex + 1) + " / " + toString(myOverlappedACs.size())).c_str());
-            // inspect overlapped attribute carrier
-            myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
-            // show GNEOverlappedInspection again (because it's hidden in inspectSingleElement)
-            show();
+            refreshOverlappedInspection();
             return 1;
         }
     }
@@ -279,20 +229,11 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     // "OK"
     GUIDesigns::buildFXButton(helpDialog, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
-    helpDialog->show();
+    helpDialog->show(PLACEMENT_SCREEN);
     return 1;
 }
 
 
-GNEOverlappedInspection::GNEOverlappedInspection() :
-    myFrameParent(nullptr),
-    myPreviousElement(nullptr),
-    myCurrentIndexButton(nullptr),
-    myNextElement(nullptr),
-    myOverlappedElementList(nullptr),
-    myHelpButton(nullptr),
-    myOnlyJunctions(false),
-    myItemIndex(0) {
-}
+GNEOverlappedInspection::GNEOverlappedInspection() {}
 
 /****************************************************************************/

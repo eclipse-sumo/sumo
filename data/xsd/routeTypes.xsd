@@ -61,6 +61,7 @@
         <xsd:attribute name="lcOpposite" type="floatType"/>
         <xsd:attribute name="lcPushy" type="floatType"/>
         <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcStrategicLookahead" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAssertive" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLookaheadLeft" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainRight" type="nonNegativeFloatType"/>

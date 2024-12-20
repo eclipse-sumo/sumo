@@ -87,7 +87,7 @@ The following extensions are managed and supported by other parties.
 
 ## Other
 
-- [TraCI4Matlab](https://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
+- [TraCI4Matlab](https://mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
 
     A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
 

@@ -60,6 +60,7 @@ bool MSAbstractLaneChangeModel::myLCStartedOutput(false);
 bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
 bool MSAbstractLaneChangeModel::myLCXYOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
+const double MSAbstractLaneChangeModel::UNDEFINED_LOOKAHEAD(-1);
 
 #define LC_ASSUMED_DECEL 1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
 
@@ -134,6 +135,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLastFollowerSpeed(0),
     myLastOrigLeaderSpeed(0),
     myDontResetLCGaps(false),
+    myStrategicLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD, UNDEFINED_LOOKAHEAD)),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myMaxDistLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXDISTLATSTANDING,

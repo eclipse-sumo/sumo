@@ -127,6 +127,9 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
 
 bool
 GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrProperty, const bool forceDisable) {
+    if (myAttributeTable->myEditedACs.empty()) {
+        return false;
+    }
     myAttribute = attrProperty.getAttr();
     const auto& tagProperty = attrProperty.getTagPropertyParent();
     const auto firstEditedAC = myAttributeTable->myEditedACs.front();
@@ -298,6 +301,9 @@ GNEAttributesEditorRow::onCmdMoveLaneDown(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    if (myAttributeTable->myEditedACs.empty()) {
+        return 0;
+    }
     const auto& editedAC = myAttributeTable->myEditedACs.front();
     const auto& attrProperties = editedAC->getTagProperty().getAttributeProperties(myAttribute);
     // continue depending of clicked object

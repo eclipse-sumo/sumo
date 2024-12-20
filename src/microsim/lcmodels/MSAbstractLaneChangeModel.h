@@ -598,6 +598,10 @@ public:
         return myAccelerationLat;
     }
 
+    double getStrategicLookahead() const {
+        return myStrategicLookahead;
+    }
+
     /// @brief set the lateral speed and update lateral acceleraton
     void setSpeedLat(double speedLat);
 
@@ -641,6 +645,7 @@ public:
     }
 
     static const double NO_NEIGHBOR;
+    static const double UNDEFINED_LOOKAHEAD;
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
@@ -776,6 +781,7 @@ protected:
     ///        in the case of continuous LC.
     bool myDontResetLCGaps;
 
+    double myStrategicLookahead;
     // @brief the maximum lateral speed for non-strategic changes when standing
     double myMaxSpeedLatStanding;
     // @brief the factor of maximum lateral speed to longitudinal speed for non-strategic changes

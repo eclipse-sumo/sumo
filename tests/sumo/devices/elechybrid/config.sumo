@@ -17,3 +17,6 @@ overheadwires_out:<!--{[->]}-->
 overheadwires_out:-nan(ind){REPLACE nan}
 substation_out:<!--{[->]}-->
 substation_out:-nan(ind){REPLACE nan}
+
+[floating_point_tolerance]
+elechybrid_out:0.001
