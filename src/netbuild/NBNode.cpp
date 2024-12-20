@@ -1522,38 +1522,7 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                 int fromLane = 0;
                 while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
                     if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
-                        for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
-                            const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
-                            if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
-                                if (incoming->hasConnectionTo(currentOutgoing, toLane)
-                                        && unsatisfied == SVC_TRAM
-                                        && incoming->getPermissions(fromLane) == currentOutgoing->getPermissions(toLane)) {
-                                    // avoid double tram connection by shifting an existing connection
-                                    for (auto con : incoming->getConnections()) {
-                                        if (con.toEdge == currentOutgoing && con.toLane == toLane) {
-#ifdef DEBUG_CONNECTION_GUESSING
-                                            if (DEBUGCOND) {
-                                                std::cout << "  shifting connection from=" << con.fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << ": newFromLane=" << fromLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
-                                            }
-#endif
-                                            incoming->getConnectionRef(con.fromLane, con.toEdge, toLane).fromLane = fromLane;
-                                            unsatisfied &= ~satisfied;
-                                            break;
-                                        }
-                                    }
-                                } else {
-                                    // other modes (i.e. bus) can fix lane permissions NBPTLineCont::fixPermissions but do not wish to create parallel tram tracks here
-                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM || (unsatisfied & SVC_PASSENGER) != 0;
-                                    incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
-#ifdef DEBUG_CONNECTION_GUESSING
-                                    if (DEBUGCOND) {
-                                        std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
-                                    }
-#endif
-                                    unsatisfied &= ~satisfied;
-                                }
-                            }
-                        }
+                        unsatisfied = findToLaneForPermissions(currentOutgoing, fromLane, incoming, unsatisfied);
                     }
                     fromLane++;
                 }
@@ -1639,6 +1608,44 @@ NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& in
     inEnd = in->getFirstNonPedestrianLaneIndex(BACKWARD, true) + 1;
     outEnd = out->getFirstNonPedestrianLaneIndex(BACKWARD, true) + 1;
     reduction = (inEnd - inOffset) - (outEnd - outOffset);
+}
+
+
+SVCPermissions
+NBNode::findToLaneForPermissions(NBEdge* currentOutgoing, int fromLane, NBEdge* incoming, SVCPermissions unsatisfied) {
+    for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
+        const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
+        if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
+            if (incoming->hasConnectionTo(currentOutgoing, toLane)
+                    && unsatisfied == SVC_TRAM
+                    && incoming->getPermissions(fromLane) == currentOutgoing->getPermissions(toLane)) {
+                // avoid double tram connection by shifting an existing connection
+                for (auto con : incoming->getConnections()) {
+                    if (con.toEdge == currentOutgoing && con.toLane == toLane) {
+#ifdef DEBUG_CONNECTION_GUESSING
+                        if (DEBUGCOND) {
+                            std::cout << "  shifting connection from=" << con.fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << ": newFromLane=" << fromLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                        }
+#endif
+                        incoming->getConnectionRef(con.fromLane, con.toEdge, toLane).fromLane = fromLane;
+                        unsatisfied &= ~satisfied;
+                        break;
+                    }
+                }
+            } else {
+                // other modes (i.e. bus) can fix lane permissions NBPTLineCont::fixPermissions but do not wish to create parallel tram tracks here
+                bool mayUseSameDestination = unsatisfied == SVC_TRAM || (unsatisfied & SVC_PASSENGER) != 0;
+                incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
+#ifdef DEBUG_CONNECTION_GUESSING
+                if (DEBUGCOND) {
+                    std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                }
+#endif
+                unsatisfied &= ~satisfied;
+            }
+        }
+    }
+    return unsatisfied;
 }
 
 
