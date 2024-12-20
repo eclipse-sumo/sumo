@@ -44,7 +44,7 @@ public:
     ~GNEOverlappedInspection();
 
     /// @brief show overlapped inspection
-    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
+    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief show template editor
     void refreshOverlappedInspection();
@@ -58,14 +58,11 @@ public:
     /// @brief get number of overlapped ACSs
     int getNumberOfOverlappedACs() const;
 
-    /// @brief check if given position is near to saved position
-    bool checkSavedPosition(const Position& clickedPosition) const;
-
     /// @brief try to go to next element if clicked position is near to saved position
-    bool nextElement(const Position& clickedPosition);
+    bool nextElement();
 
     /// @brief try to go to previous element if clicked position is near to saved position
-    bool previousElement(const Position& clickedPosition);
+    bool previousElement();
 
     /// @name FOX-callbacks
     /// @{
@@ -117,7 +114,4 @@ private:
 
     /// @brief current index item
     size_t myItemIndex;
-
-    /// @brief saved clicked position
-    Position mySavedClickedPosition;
 };

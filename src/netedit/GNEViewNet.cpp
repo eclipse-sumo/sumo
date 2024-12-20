@@ -629,7 +629,6 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             GUIGlObject* overlappedElement = nullptr;
             // we need to check if we're inspecting a overlapping element
             if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
-                    myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                     myInspectedElements.getFirstAC()) {
                 overlappedElement = myInspectedElements.getFirstAC()->getGUIGlObject();
                 filteredGLObjects.push_back(overlappedElement);

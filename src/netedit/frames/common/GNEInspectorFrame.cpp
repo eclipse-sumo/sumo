@@ -310,11 +310,11 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
         } else {
             // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
-                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                if (!myOverlappedInspection->previousElement()) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(viewObjects, clickedPosition);
                 }
-            } else if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else if (!myOverlappedInspection->nextElement()) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(viewObjects, clickedPosition);
             }
@@ -345,11 +345,11 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
         } else {
             // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
-                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                if (!myOverlappedInspection->previousElement()) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(viewObjects, clickedPosition);
                 }
-            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else  if (!myOverlappedInspection->nextElement()) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(viewObjects, clickedPosition);
             }
@@ -380,11 +380,11 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
         } else {
             // first check if we clicked over a GNEOverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
-                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                if (!myOverlappedInspection->previousElement()) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(viewObjects, clickedPosition);
                 }
-            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else  if (!myOverlappedInspection->nextElement()) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(viewObjects, clickedPosition);
             }
@@ -582,7 +582,7 @@ GNEInspectorFrame::inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& 
     // check if selection is blocked
     if (AC) {
         // show Overlapped Inspection module
-        myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
+        myOverlappedInspection->showOverlappedInspection(viewObjects);
         // inspect front element
         inspectElement(AC);
     }

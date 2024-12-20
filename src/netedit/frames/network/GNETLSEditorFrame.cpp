@@ -168,7 +168,7 @@ GNETLSEditorFrame::editTLS(const Position& clickedPosition, GNEViewNetHelper::Vi
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {
         // show objects under cursor
-        myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
+        myOverlappedInspection->showOverlappedInspection(viewObjects);
         // hide if we inspect only one junction
         if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
             myOverlappedInspection->clearOverlappedInspection();

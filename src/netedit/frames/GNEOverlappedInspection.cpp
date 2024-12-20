@@ -74,9 +74,8 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 
 void
-GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
+GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     myOverlappedACs.clear();
-    mySavedClickedPosition = clickedPosition;
     // filtger edges if we clicked over a lane
     if (viewObjects.getAttributeCarrierFront() && viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) {
         viewObjects.filterEdges();
@@ -139,23 +138,12 @@ GNEOverlappedInspection::getNumberOfOverlappedACs() const {
 
 
 bool
-GNEOverlappedInspection::checkSavedPosition(const Position& clickedPosition) const {
-    return (mySavedClickedPosition.distanceSquaredTo2D(clickedPosition) < 0.25);
-}
-
-
-bool
-GNEOverlappedInspection::nextElement(const Position& clickedPosition) {
+GNEOverlappedInspection::nextElement() {
     // first check if GNEOverlappedInspection is shown
     if (shown()) {
-        // check if given position is near saved position
-        if (checkSavedPosition(clickedPosition)) {
-            // inspect next element
-            onCmdNextElement(0, 0, 0);
-            return true;
-        } else {
-            return false;
-        }
+        // inspect next element
+        onCmdNextElement(0, 0, 0);
+        return true;
     } else {
         return false;
     }
@@ -163,17 +151,11 @@ GNEOverlappedInspection::nextElement(const Position& clickedPosition) {
 
 
 bool
-GNEOverlappedInspection::previousElement(const Position& clickedPosition) {
+GNEOverlappedInspection::previousElement() {
     // first check if GNEOverlappedInspection is shown
     if (shown()) {
-        // check if given position is near saved position
-        if (checkSavedPosition(clickedPosition)) {
-            // inspect previousElement
-            onCmdPreviousElement(0, 0, 0);
-            return true;
-        } else {
-            return false;
-        }
+        // inspect previousElement
+        onCmdPreviousElement(0, 0, 0);
     } else {
         return false;
     }
