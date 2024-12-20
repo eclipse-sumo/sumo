@@ -182,7 +182,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     }
     // show elements depending of attribute properties
     if (attrProperty.isActivatable()) {
-        showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute), attributeEnabled);
+        showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute));
     } else if (myAttribute == GNE_ATTR_PARENT) {
         showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
@@ -427,15 +427,10 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
 
 
 void
-GNEAttributesEditorRow::showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value,
-        const bool enabled) {
+GNEAttributesEditorRow::showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value) {
     myAttributeToggleEnableCheckButton->setText(attrProperty.getAttrStr().c_str());
     myAttributeToggleEnableCheckButton->setCheck(value);
-    if (enabled) {
-        myAttributeToggleEnableCheckButton->enable();
-    } else {
-        myAttributeToggleEnableCheckButton->disable();
-    }
+    myAttributeToggleEnableCheckButton->enable();
     myAttributeToggleEnableCheckButton->show();
     // hide other elements
     myAttributeLabel->hide();
