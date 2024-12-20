@@ -57,6 +57,7 @@
     <insertion-rate value="None" type="string" help="How much vehicles arrive in the simulation per hour (alternative to the period option)." category="flow" listSeparator=" "/>
     <insertion-density value="None" type="string" help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow" listSeparator=" "/>
     <flows value="0" type="int" help="generates INT flows that together output vehicles with the specified period" category="flow"/>
+    <poisson value="False" type="bool" help="Flows will use poisson distributed departures" category="processing"/>
     <random-depart value="False" type="bool" help="Distribute departures randomly between begin and end" category="flow"/>
     <binomial value="None" type="int" help="If this is set, the number of departures per second will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period" category="flow"/>
 </configuration>

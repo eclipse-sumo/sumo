@@ -69,6 +69,7 @@ flows
 # create flows for jtrrouter (no to)
 flows_jtrrouter
 flows_binomial
+flows_poisson
 
 # use fromJunction and toJunction
 junctionTaz
