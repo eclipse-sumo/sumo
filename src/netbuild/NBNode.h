@@ -887,6 +887,9 @@ private:
     /// @brief get the reduction in driving lanes at this junction
     void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& inEnd, int& outOffset, int& outEnd, int& reduction) const;
 
+    /// @brief helper function to add connections for unsatisfied modes
+    SVCPermissions findToLaneForPermissions(NBEdge* currentOutgoing, int fromLane, NBEdge* incoming, SVCPermissions unsatisfied);
+
     /// @brief check whether this edge has extra lanes on the right side
     int addedLanesRight(NBEdge* out, int addedLanes) const;
 

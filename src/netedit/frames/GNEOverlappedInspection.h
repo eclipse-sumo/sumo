@@ -53,6 +53,9 @@ public:
     /// @brief clear overlapped inspection
     void clearOverlappedInspection();
 
+    /// @brief hide overlapped inspection
+    void hiderOverlappedInspection();
+
     /// @brief check if overlappedInspection modul is shown
     bool overlappedInspectionShown() const;
 

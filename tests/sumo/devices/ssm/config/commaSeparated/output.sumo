@@ -1,4 +1,5 @@
-Loading net-file from 'net.net.xml' ... done (3ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'.
@@ -8,13 +9,13 @@ Vehicle 'ego' does not supply vehicle parameter 'device.ssm.geo'. Using default 
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.exclude-conflict-types'. Using default of ''.
-Simulation version v1_14_1+7429-9c2360ceab0 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 16.10.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 392.683
- UPS: 7073.170732
+ Duration: 0.00s
+ Real time factor: 8050
+ UPS: 145000.000000
 Vehicles:
  Inserted: 2
  Running: 0

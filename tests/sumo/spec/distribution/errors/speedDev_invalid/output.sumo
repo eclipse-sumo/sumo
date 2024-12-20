@@ -1,2 +1,3 @@
-Loading net-file from 'net.net.xml' ... done (2ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.

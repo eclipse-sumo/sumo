@@ -278,9 +278,17 @@ NLBuilder::build() {
     // routes from FCD files
     MSDevice_FCDReplay::init();
     // load routes
-    if (myOptions.isSet("route-files") && string2time(myOptions.getString("route-steps")) <= 0) {
-        if (!load("route-files")) {
-            return false;
+    if (myOptions.isSet("route-files")) {
+        if (string2time(myOptions.getString("route-steps")) <= 0) {
+            // incremental loading is disabled. Load route files fully
+            if (!load("route-files")) {
+                return false;
+            }
+        } else {
+            // message must come after additional-files have been loaded (but buildRouteLoaderControl was called earlier)
+            for (std::string file : myOptions.getStringVector("route-files")) {
+                WRITE_MESSAGE(TLF("Loading route-files incrementally from '%'", file));
+            }
         }
     }
     // optionally switch off traffic lights
