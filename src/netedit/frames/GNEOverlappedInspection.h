@@ -58,12 +58,6 @@ public:
     /// @brief get number of overlapped ACSs
     int getNumberOfOverlappedACs() const;
 
-    /// @brief try to go to next element if clicked position is near to saved position
-    bool nextElement();
-
-    /// @brief try to go to previous element if clicked position is near to saved position
-    bool previousElement();
-
     /// @name FOX-callbacks
     /// @{
 

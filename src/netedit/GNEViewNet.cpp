@@ -5607,7 +5607,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
             } else {
                 // process left click in Inspector Frame
-                myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myViewObjectsSelector);
+                myViewParent->getInspectorFrame()->processClick(myViewObjectsSelector);
             }
             // process click
             processClick(eventData);
@@ -5924,7 +5924,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
             // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myViewObjectsSelector);
+            myViewParent->getInspectorFrame()->processClick(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
@@ -6125,7 +6125,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectElement(AC);
             } else {
-                myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myViewObjectsSelector);
+                myViewParent->getInspectorFrame()->processClick(myViewObjectsSelector);
             }
             // process click
             processClick(eventData);

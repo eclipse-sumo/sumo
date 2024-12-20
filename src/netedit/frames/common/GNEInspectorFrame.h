@@ -135,26 +135,11 @@ public:
     /// @brief hide inspector frame
     void hide();
 
-    /**@brief process click over Viewnet in Supermode Network
-     * @param[in] clickedPosition clicked position over ViewNet
+    /**@brief process click over Viewnet
      * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
-
-    /**@brief process click over Viewnet in Supermode Demand
-     * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] viewObjects objects under cursors
-     * @return true if something was sucefully done
-     */
-    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
-
-    /**@brief process click over Viewnet in Supermode Data
-     * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] viewObjects objects under cursors
-     * @return true if something was sucefully done
-     */
-    bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    bool processClick(GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief Inspect a single element
     void inspectElement(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousInspectedAC = nullptr);
@@ -201,7 +186,7 @@ protected:
     FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
+    void inspectClickedElement(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const bool shiftKey);
 
 private:
     /// @brief Overlapped Inspection

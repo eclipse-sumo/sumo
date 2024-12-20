@@ -137,31 +137,6 @@ GNEOverlappedInspection::getNumberOfOverlappedACs() const {
 }
 
 
-bool
-GNEOverlappedInspection::nextElement() {
-    // first check if GNEOverlappedInspection is shown
-    if (shown()) {
-        // inspect next element
-        onCmdNextElement(0, 0, 0);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEOverlappedInspection::previousElement() {
-    // first check if GNEOverlappedInspection is shown
-    if (shown()) {
-        // inspect previousElement
-        onCmdPreviousElement(0, 0, 0);
-    } else {
-        return false;
-    }
-}
-
-
 long
 GNEOverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
     // check if there is items
