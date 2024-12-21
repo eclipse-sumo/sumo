@@ -79,6 +79,7 @@
                         <xsd:attribute name="duration" use="required" type="timeType"/>
                         <xsd:attribute name="waitingTime" use="required" type="timeType"/>
                         <xsd:attribute name="timeLoss" use="required" type="timeType"/>
+                        <xsd:attribute name="departDelay" use="required" type="timeType"/>
                         <xsd:attribute name="totalTravelTime" use="required" type="timeType"/>
                     </xsd:complexType>
                 </xsd:element>

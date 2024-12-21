@@ -315,6 +315,7 @@
             <xsd:element name="sidewalks.guess.exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="crossings.guess.roundabout-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
