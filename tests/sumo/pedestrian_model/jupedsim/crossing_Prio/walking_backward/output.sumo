@@ -3,14 +3,14 @@ Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Generating initial JuPedSim geometry for pedestrian network ...
  done.
-Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation version v1_20_0+0890-9635231af2a started with time: 0.00.
 Simulation ended at time: 2000.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 1.02s
- Real time factor: 1960.78
- UPS: 12986.274510
- UPS-Persons: 4882.352941
+ Duration: 3.31s
+ Real time factor: 604.412
+ UPS: 4003.022061
+ UPS-Persons: 1504.986401
 Vehicles:
  Inserted: 43
  Running: 0
