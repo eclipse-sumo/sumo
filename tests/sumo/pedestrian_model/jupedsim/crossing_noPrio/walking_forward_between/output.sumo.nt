@@ -1,15 +1,16 @@
-Loading net-file from 'net3.net.xml' ... done (3ms).
+Loading net-file from 'net3.net.xml' ... done (2ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Generating initial JuPedSim geometry for pedestrian network ...
  done.
-Simulation version v1_20_0+1408-37921332ab6 started with time: 0.00.
+Simulation version v1_21_0+1580-fb7788156ae started with time: 0.00.
 Simulation ended at time: 2000.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 43.45s
- Real time factor: 46.032
- UPS: 72.017124
- UPS-Persons: 562.580556
+ Duration: 22.61s
+ Real time factor: 88.4721
+ UPS: 138.414580
+ UPS-Persons: 1081.261612
 Vehicles:
  Inserted: 43
  Running: 0
