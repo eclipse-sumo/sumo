@@ -28,7 +28,7 @@ Warning: 11 total messages of type: Converting invalid rail_crossing to priority
 Warning: 12 total messages of type: Found angle of % degrees at edge '%', segment %.
 Warning: 20 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 4 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
-Warning: 6 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: 11 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: Shape for junction '246767394' has distance 84.10 to its given position.
 Warning: Converting invalid rail_crossing to priority junction '296020222'.
 Warning: Lane '-22956462_0' is not connected from any incoming edge at junction '247340717'.
