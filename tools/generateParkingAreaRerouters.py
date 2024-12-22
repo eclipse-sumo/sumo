@@ -453,4 +453,6 @@ def main(cmd_args):
 
 
 if __name__ == "__main__":
+    # see default start method 'fork' is unsafe and raises DeprecationWarning starting in Pythoon 3.12
+    multiprocessing.set_start_method('spawn')
     main(sys.argv[1:])
