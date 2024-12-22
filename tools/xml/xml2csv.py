@@ -129,7 +129,7 @@ class AttrFinder(NestingHandler):
                 return
             # collect attributes
             for a in sorted(list(attrs.keys())):
-                if self.keepAttrs is not None and not a in self.keepAttrs:
+                if self.keepAttrs is not None and a not in self.keepAttrs:
                     continue
                 if a not in self.tagAttrs[name] and ":" not in a:
                     self.tagAttrs[name][a] = xsd.XmlAttribute(a)

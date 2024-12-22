@@ -25,9 +25,11 @@ The following special attributes are also supported
   @INDEX: the index of the other value within the input file is used.
   @RANK: the index of the other value within the sorted (descending) list of values is used
   @COUNT: the number of occurrences of the other value is used.
-          Together with option --barplot or -hbarplot this gives a histogram. Binning size can be set via options --xbin and --ybin.
+          Together with option --barplot or -hbarplot this gives a histogram.
+          Binning size can be set via options --xbin and --ybin.
   @DENSITY: the number of occurrences of the other value is used, normalized by the total number of values.
-  @BOX: one or more box plots of the other value are drawn. The --idattr is used for grouping and there will be one box plot per id
+  @BOX: one or more box plots of the other value are drawn. 
+        The --idattr is used for grouping and there will be one box plot per id
   @FILE: the (shortened) input file name is used (useful when plotting one value per file)
 
 Individual trajectories can be clicked in interactive mode to print the data Id on the console.
@@ -220,6 +222,7 @@ def onpick(event):
     mevent = event.mouseevent
     print("dataID=%s x=%d y=%d" % (event.artist.get_label(), mevent.xdata, mevent.ydata))
 
+
 def makeSplitter(splitx, otherIsIndex, ds_fun):
     def splitter(file):
         for dataID, x, y in ds_fun(file):
@@ -235,8 +238,8 @@ def makeSplitter(splitx, otherIsIndex, ds_fun):
                         yield dataID, i, y2
                     else:
                         yield dataID, x, y2
-
     return splitter
+
 
 def getDataStream(options):
     # determine elements and nesting for the given attributes

@@ -68,7 +68,7 @@ def validate(root, f):
                 print(normalized + s, file=sys.stderr)
     except Exception as e:
         print("Error on parsing '%s'!" % normalized, file=sys.stderr)
-        if haveLxml and type(e) == etree.XMLSyntaxError:
+        if haveLxml and type(e) is etree.XMLSyntaxError:
             # we expect to encounter such errors and don't need a full strack trace
             print(e, file=sys.stderr)
         else:

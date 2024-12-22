@@ -34,9 +34,9 @@ Example sessions:
 >>> import duaIterate_routeCosts as rc
 >>> r = rc.load('.', range(47, 50))                  # load iteration numbers 47,48,49
 >>> f = rc.filter(r, via=['531478184','25483415'])   # filter routes that pass both edges
-47 Costs: count 1124, min 896.14 (126868_8), max 1960.17 (225725_1), mean 1355.41, Q1 1257.53, median 1325.86, Q3 1434.97
-48 Costs: count 1124, min 896.47 (126868_8.1), max 1993.74 (225725_1), mean 1355.02, Q1 1257.32, median 1323.68, Q3 1434.09
-49 Costs: count 1124, min 898.51 (126868_8.1), max 1958.68 (225725_1), mean 1355.00, Q1 1257.93, median 1323.39, Q3 1434.92
+47 Costs: count 1124, min 896.14 (veh0), max 1960.17 (veh1), mean 1355.41, Q1 1257.53, median 1325.86, Q3 1434.97
+48 Costs: count 1124, min 896.47 (veh0), max 1993.74 (veh2), mean 1355.02, Q1 1257.32, median 1323.68, Q3 1434.09
+49 Costs: count 1124, min 898.51 (veh3), max 1958.68 (veh1), mean 1355.00, Q1 1257.93, median 1323.39, Q3 1434.92
 
 Implementation Note:
     edgeIDs are mapped to numbers in a numpy array to conserve memory
@@ -72,7 +72,7 @@ def hasSequence(array, via):
     i = npindex(array, via[0])
     for edge in via[1:]:
         i = npindex(array, edge)
-        if i == None:
+        if i is None:
             return False
     return True
 
@@ -92,7 +92,6 @@ def numberToString(n):
 def load(baseDir, iterations, suffix="gz"):
     """iterations is an iterable that gives the iteration numberes to load
     """
-    iteration = set(iterations)
     result = []
     files = glob.glob(os.path.join(baseDir, "**/*.rou.alt.%s" % suffix))
     files = [(int(os.path.basename(os.path.dirname(f))), f) for f in files]
@@ -152,7 +151,7 @@ def filter(stepRoutes, origin=None, dest=None, via=None, forbidden=None, cutVia=
                         iStart = 0
                         iEnd = iStart
                     elif dest:
-                        iEnd = edges.size - 1
+                        iEnd = r.edges.size - 1
                     else:
                         iEnd = iStart
                 else:

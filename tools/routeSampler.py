@@ -248,13 +248,6 @@ class DepartDist:
         scale = right - left
         r = [left + v * scale for v in rng.random(n)]
 
-        #print("cdf_x", self.cdf_x)
-        #print("cdf_y", self.cdf_y)
-        #print("begin", begin, "end", end)
-        #print("icdf_x", icdf_x)
-        #print("icdf_y", icdf_y)
-        #print("scale", scale, "left", left, "right", right)
-
         # evaluate icdf
         return np.interp(r, icdf_x, icdf_y)
 
@@ -802,6 +795,7 @@ def initTotalCounts(options, routes, intervals, b, e):
             sys.stderr.write("Error: --total-count must be a single value" +
                              " or match the number of data intervals (%s)" % len(intervals))
             sys.exit()
+
 
 def main(options):
     rng = np.random.RandomState(options.seed)

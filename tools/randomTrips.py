@@ -756,7 +756,8 @@ def main(options):
             fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
                 label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
 
-    def generate_one_personflow(label, combined_attrs, attrFrom, attrTo, arrivalPos, departureTime, arrivalTime, period, options, timeIdx):
+    def generate_one_personflow(label, combined_attrs, attrFrom, attrTo, arrivalPos,
+                                departureTime, arrivalTime, period, options, timeIdx):
         if len(options.period) > 1:
             label = label + "#%s" % timeIdx
         if options.binomial:
