@@ -46,7 +46,7 @@ def _readLinks(result):
         length = result.readDouble()
         links.append((approachedLane, hasPrio, isOpen, hasFoe,
                       approachedInternal, state, direction, length))
-    return links
+    return tuple(links)
 
 
 _RETURN_VALUE_FUNC = {tc.LANE_LINKS: _readLinks}

@@ -28,6 +28,7 @@ import warnings
 from ._vehicletype import VTypeDomain
 from . import constants as tc
 from .exceptions import TraCIException, deprecated, alias_param
+from ._lane import _readLinks
 
 
 _legacyGetLeader = True
@@ -204,32 +205,6 @@ def _readNextStops(result):
     return tuple(nextStop)
 
 
-def _readNextLinks(result):
-    result.read("!Bi")  # Type Compound, Length
-    nbLinks = result.readInt()
-    links = []
-    for _ in range(nbLinks):
-        result.read("!B")                           # Type String
-        approachedLane = result.readString()
-        result.read("!B")                           # Type String
-        approachedInternal = result.readString()
-        result.read("!B")                           # Type Byte
-        hasPrio = bool(result.read("!B")[0])
-        result.read("!B")                           # Type Byte
-        isOpen = bool(result.read("!B")[0])
-        result.read("!B")                           # Type Byte
-        hasFoe = bool(result.read("!B")[0])
-        result.read("!B")                           # Type String
-        state = result.readString()
-        result.read("!B")                           # Type String
-        direction = result.readString()
-        result.read("!B")                           # Type Float
-        length = result.readDouble()
-        links.append((approachedLane, hasPrio, isOpen, hasFoe,
-                      approachedInternal, state, direction, length))
-    return tuple(links)
-
-
 def _readJunctionFoes(result):
     result.read("!Bi")
     nbJunctionFoes = result.readInt()
@@ -265,7 +240,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
-                      tc.VAR_NEXT_LINKS: _readNextLinks,
+                      tc.VAR_NEXT_LINKS: _readLinks,
                       tc.VAR_NEXT_STOPS2: _readStopData,
                       tc.VAR_FOES: _readJunctionFoes,
                       # ignore num compounds and type int

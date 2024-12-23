@@ -233,18 +233,18 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::vector<libsumo::TraCIConnection> {
-    $result = PyList_New($1.size());
+    $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyList_SetItem($result, index++, Py_BuildValue("(sNNNsssd)",
-                                                       iter->approachedLane.c_str(),
-                                                       PyBool_FromLong(iter->hasPrio),
-                                                       PyBool_FromLong(iter->isOpen),
-                                                       PyBool_FromLong(iter->hasFoe),
-                                                       iter->approachedInternal.c_str(),
-                                                       iter->state.c_str(),
-                                                       iter->direction.c_str(),
-                                                       iter->length));
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sNNNsssd)",
+                                                        iter->approachedLane.c_str(),
+                                                        PyBool_FromLong(iter->hasPrio),
+                                                        PyBool_FromLong(iter->isOpen),
+                                                        PyBool_FromLong(iter->hasFoe),
+                                                        iter->approachedInternal.c_str(),
+                                                        iter->state.c_str(),
+                                                        iter->direction.c_str(),
+                                                        iter->length));
     }
 };
 
