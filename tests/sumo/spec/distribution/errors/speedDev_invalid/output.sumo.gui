@@ -1,4 +1,5 @@
 Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Simulation ended at time: 0.00.
 Reason: All vehicles have left the simulation.
