@@ -25,6 +25,7 @@ import subprocess
 import sys
 import time
 import math
+import multiprocessing
 from multiprocessing import Process
 
 if "SUMO_HOME" in os.environ:
@@ -99,6 +100,7 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr):
 
 
 if __name__ == '__main__':
+    multiprocessing.set_start_method('spawn')
     runNr = 2
     clientRange = [4]
     steplengths = [0.1, 1.0, 1.7, 2.0]
