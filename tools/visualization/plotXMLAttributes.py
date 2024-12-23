@@ -28,7 +28,7 @@ The following special attributes are also supported
           Together with option --barplot or -hbarplot this gives a histogram.
           Binning size can be set via options --xbin and --ybin.
   @DENSITY: the number of occurrences of the other value is used, normalized by the total number of values.
-  @BOX: one or more box plots of the other value are drawn. 
+  @BOX: one or more box plots of the other value are drawn.
         The --idattr is used for grouping and there will be one box plot per id
   @FILE: the (shortened) input file name is used (useful when plotting one value per file)
 
