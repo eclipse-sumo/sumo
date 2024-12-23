@@ -1,5 +1,5 @@
 Success.
-Building scenario in '/home/micha/.texttest/tmp/complex.perf.06Nov195221.188820/complex.perf/gtfs_mitte/plain/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/complex.perf.23Dec090309.925212/complex.perf/gtfs_mitte/plain/test'.
 generating trips...
 Skipping line '1231708' because it only drives at night
 Skipping line '2194813' because it only drives at night
@@ -38,8 +38,8 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Wed, 06 Nov 2024 19:52:51 +0000
-function import_gtfs finished after 8.470430 seconds
+function import_gtfs called at Mon, 23 Dec 2024 09:03:39 +0000
+function import_gtfs finished after 4.707175 seconds
 Success.
 Success.
 Success.
