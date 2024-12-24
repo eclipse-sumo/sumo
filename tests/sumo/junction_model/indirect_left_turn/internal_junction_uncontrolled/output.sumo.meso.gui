@@ -1,12 +1,13 @@
 Loading net-file from 'net.net.xml' ... done (2ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Simulation started with time: 0.00.
-Simulation ended at time: 0.00
-Performance: 
- Duration: 0.16s
+Simulation ended at time: 0.00.
+Performance:
+ Duration: 0.32s
  Real time factor: 0
  UPS: 0.000000
-Vehicles: 
+Vehicles:
  Inserted: 0 (Loaded: 1)
  Running: 0
  Waiting: 1
@@ -17,4 +18,3 @@ Statistics (avg of 0):
  WaitingTime: 0.00
  TimeLoss: 0.00
  DepartDelay: 0.00
-
