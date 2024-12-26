@@ -24,7 +24,7 @@ import os
 import subprocess
 import sys
 import time
-from multiprocessing import Process
+import multiprocessing
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -77,7 +77,8 @@ def runSingle(sumoEndTime, traciEndTime, numClients, orderOdd=False):
     sumoProcess = subprocess.Popen(
         "%s -v --num-clients %s -c used.sumocfg -S -Q --remote-port %s" %
         (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)  # Alternate ordering
-    procs = [Process(target=traciLoop, args=(PORT, traciEndTime, i + 1, orderOdd)) for i in range(numClients)]
+    procs = [multiprocessing.Process(target=traciLoop, args=(PORT, traciEndTime, i + 1, orderOdd))
+             for i in range(numClients)]
     for p in procs:
         p.start()
     for p in procs:
@@ -87,6 +88,7 @@ def runSingle(sumoEndTime, traciEndTime, numClients, orderOdd=False):
 
 
 if __name__ == '__main__':
+    multiprocessing.set_start_method('spawn')
     print("----------- Warning Test -----------")
     print(" Run 1")
     sys.stdout.flush()
