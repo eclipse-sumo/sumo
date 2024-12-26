@@ -29,6 +29,7 @@
 #include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/common/MapMatcher.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/router/ReversedEdge.h>
 #include <utils/router/SUMOAbstractRouter.h>
 
