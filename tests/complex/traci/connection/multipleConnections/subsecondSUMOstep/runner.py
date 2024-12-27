@@ -88,7 +88,8 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr, SUMOste
         (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)
     # Alternate ordering
     indexRange = range(numClients) if (runNr % 2 == 0) else list(reversed(range(numClients)))
-    procs = [multiprocessing.Process(target=traciLoop, args=(PORT, traciEndTime, i + 1, SUMOsteplength, steplengths[indexRange[i]]))
+    procs = [multiprocessing.Process(target=traciLoop,
+                                     args=(PORT, traciEndTime, i + 1, SUMOsteplength, steplengths[indexRange[i]]))
              for i in range(numClients)]
     for p in procs:
         p.start()
