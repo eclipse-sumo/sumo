@@ -27,6 +27,7 @@
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIParkingArea.h>
 #include <guisim/GUIVehicle.h>
+#include <mesogui/GUIMEVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
@@ -192,7 +193,11 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
         myLane.getVehiclesSecure();
         for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
-            static_cast<const GUIVehicle*>(v)->drawGL(s);
+            if (MSGlobals::gUseMesoSim) {
+                static_cast<const GUIMEVehicle*>(v)->drawGL(s);
+            } else {
+                static_cast<const GUIVehicle*>(v)->drawGL(s);
+            }
         }
         myLane.releaseVehicles();
     }
