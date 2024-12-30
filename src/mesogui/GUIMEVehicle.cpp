@@ -28,6 +28,8 @@
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <microsim/MSStop.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/devices/MSVehicleDevice.h>
@@ -304,5 +306,19 @@ GUIMEVehicle::getCenteringBoundary() const {
     return b;
 }
 
+Position
+GUIMEVehicle::getVisualPosition(bool s2, const double offset) const {
+    if (isParking()) {
+        // meso vehicles do not enter/leave parkingAreas so we cannot call
+        // myStops.begin()->parkingarea->getVehiclePosition(*this);
+
+        // position beside the road
+        const MSLane* first = getEdge()->getLanes()[0];
+        PositionVector shp = first->getShape(s2);
+        shp.move2side(SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1));
+        return shp.positionAtOffset((getPositionOnLane() + offset) * first->getLengthGeometryFactor(s2));
+    }
+    return MEVehicle::getPosition(offset);
+}
 
 /****************************************************************************/
