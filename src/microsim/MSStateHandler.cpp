@@ -305,6 +305,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 // vehicle could be removed due to options
                 if (v != nullptr) {
                     vehs.push_back(v);
+                    myArrived.erase(v);
                 }
             }
             if (MSGlobals::gUseMesoSim) {
