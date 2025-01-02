@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 10:26+0100\n"
-"PO-Revision-Date: 2024-12-18 13:59+0000\n"
+"PO-Revision-Date: 2025-01-02 10:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1614,23 +1614,23 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:78
 msgid "Load road network description from FILE"
-msgstr ""
+msgstr "Carica descrizione della rete stradale da FILE"
 
 #: src/microsim/MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
-msgstr ""
+msgstr "Carica descrizioni di itinerari da uno o più FILE"
 
 #: src/microsim/MSFrame.cpp:87
 msgid "Load further descriptions from FILE(s)"
-msgstr ""
+msgstr "Carica più descrizioni da uno o più FILE"
 
 #: src/microsim/MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
-msgstr ""
+msgstr "Caria pesi di archi/corsie per l'instradamento in linea da FILE"
 
 #: src/microsim/MSFrame.cpp:94 src/router/ROFrame.cpp:108
 msgid "Name of the xml attribute which gives the edge weight"
-msgstr ""
+msgstr "Nome dell'attributo che contiene il peso di arco"
 
 #: src/microsim/MSFrame.cpp:97
 msgid "Loads a network state from FILE"
@@ -9878,7 +9878,7 @@ msgstr "Carica del stato da '%'"
 
 #: src/netload/NLBuilder.cpp:290
 msgid "Loading route-files incrementally from '%'"
-msgstr ""
+msgstr "Carica dei file di itinerari da '%' in modo graduale"
 
 #: src/netload/NLBuilder.cpp:298
 msgid "Loading done."
@@ -9908,10 +9908,12 @@ msgid ""
 "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
 msgstr ""
+"Il tipo di stato di rete 'hbefa' non si usa più. Invece utilizza il tipo "
+"'emissions'."
 
 #: src/netload/NLEdgeControlBuilder.cpp:199
 msgid "Asymmetrical neigh lane '%' for lane '%'"
-msgstr ""
+msgstr "Corsia vicina '%' asimmetrica pre rispetto a corsia '%'"
 
 #: src/netload/NLEdgeControlBuilder.cpp:218
 #, c-format
@@ -9919,14 +9921,16 @@ msgid ""
 "Internal edge '%' is not properly connected (probably a manually modified "
 "net.xml)."
 msgstr ""
+"L'arco interno '%' non è collegata correttamente (probabilmente dovuto a un "
+"file net.xml modificato manualmente)."
 
 #: src/netload/NLHandler.cpp:396
 msgid "Unknown from-node '%' for edge '%'."
-msgstr ""
+msgstr "Il nodo iniziale '%' dell'arco '%' è sconosciuto."
 
 #: src/netload/NLHandler.cpp:400
 msgid "Unknown to-node '%' for edge '%'."
-msgstr ""
+msgstr "Il nodo terminale '%' dell'arco '%' è sconosciuto."
 
 #: src/netload/NLHandler.cpp:541
 #, c-format
@@ -9945,10 +9949,12 @@ msgstr "Esiste un'altra corsia con il codice identificativo '%'."
 #: src/netload/NLHandler.cpp:633
 msgid "An unknown lane ('%') was tried to be set as incoming to junction '%'."
 msgstr ""
+"Si cercò di impostare una corsia sconosciuta ('%') come corsia entrante "
+"all'incrocio '%'."
 
 #: src/netload/NLHandler.cpp:787
 msgid "Traffic light '%' has unknown type '%'."
-msgstr ""
+msgstr "Il semaforo '%' tiene un tipo sconosciuto '%'."
 
 #: src/netload/NLHandler.cpp:791
 #, c-format
@@ -9956,10 +9962,14 @@ msgid ""
 "Traffic light type '%' cannot be used in mesoscopic simulation. Using '%' as "
 "fallback."
 msgstr ""
+"Il tipo di semaforo '%' non può essere usato nella simulazione mesoscopica. "
+"Verrà usato '%' come alternativa."
 
 #: src/netload/NLHandler.cpp:882
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
 msgstr ""
+"maxDur % non dovrebbe essere minore di minDir % nella fase della logica di "
+"semaforo %"
 
 #: src/netload/NLHandler.cpp:897
 msgid "Duplicate condition '%' in tlLogic '%'"
