@@ -68,6 +68,9 @@ enum class MSStageType {
 */
 class MSStage : public Parameterised {
 public:
+    /// @brief sentinel value
+    static const double ARRIVALPOS_UNSPECIFIED;
+
     /// constructor
     MSStage(const MSStageType type, const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos,
             const double arrivalPosLat = 0.0, const std::string& group = "");
@@ -94,6 +97,9 @@ public:
     virtual double getArrivalPos() const {
         return myArrivalPos;
     }
+
+    bool unspecifiedArrivalPos() const;
+
 
     virtual double getArrivalPosLat() const {
         return myArrivalPosLat;

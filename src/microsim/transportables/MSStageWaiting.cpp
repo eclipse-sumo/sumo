@@ -95,6 +95,9 @@ void
 MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     myStopEndTime = MAX3(now, now + myWaitingDuration, myWaitingUntil);
+    if (unspecifiedArrivalPos()) {
+        myArrivalPos = previous->getArrivalPos();
+    }
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);
         myStopWaitPos = myDestinationStop->getWaitPosition(transportable);

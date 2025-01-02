@@ -35,8 +35,8 @@
 /* -------------------------------------------------------------------------
 * static member definitions
 * ----------------------------------------------------------------------- */
+const double MSStage::ARRIVALPOS_UNSPECIFIED(std::numeric_limits<double>::infinity());
 const double MSStage::ROADSIDE_OFFSET(3);
-
 
 // ===========================================================================
 // method definitions
@@ -193,6 +193,12 @@ MSStage::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestSt
         myArrivalPos = (newDestStop->getBeginLanePosition() + newDestStop->getEndLanePosition()) / 2;
     }
 }
+
+bool
+MSStage::unspecifiedArrivalPos() const {
+    return myArrivalPos == ARRIVALPOS_UNSPECIFIED;
+}
+
 
 
 /****************************************************************************/

@@ -476,12 +476,6 @@ MSStageDriving::getArrivalPos() const {
 }
 
 
-bool
-MSStageDriving::unspecifiedArrivalPos() const {
-    return myArrivalPos == std::numeric_limits<double>::infinity();
-}
-
-
 const std::string
 MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived) {
     MSStage::setArrived(net, transportable, now, vehicleArrived);

@@ -1370,7 +1370,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     } else { // use end of movement before definied as lane/edge
                         edge = myActiveTransportablePlan->back()->getDestination();
                         stop.lane = edge->getLanes()[0]->getID();
-                        stop.endPos = myActiveTransportablePlan->back()->getArrivalPos();
+                        stop.endPos = myActiveTransportablePlan->back()->unspecifiedArrivalPos() ?
+                            MSStage::ARRIVALPOS_UNSPECIFIED : myActiveTransportablePlan->back()->getArrivalPos();
                         stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                     }
                 } else {
@@ -1428,7 +1429,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
             double pos = (stop.startPos + stop.endPos) / 2.;
             if (!myActiveTransportablePlan->empty()) {
-                pos = myActiveTransportablePlan->back()->getArrivalPos();
+                pos = myActiveTransportablePlan->back()->unspecifiedArrivalPos() ?
+                    MSStage::ARRIVALPOS_UNSPECIFIED : myActiveTransportablePlan->back()->getArrivalPos();
             }
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false));
             result = myActiveTransportablePlan->back();
