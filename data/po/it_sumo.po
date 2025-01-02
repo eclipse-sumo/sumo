@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 10:26+0100\n"
-"PO-Revision-Date: 2025-01-02 10:25+0000\n"
+"PO-Revision-Date: 2025-01-02 10:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1639,10 +1639,13 @@ msgstr "Carica uno stato di rete da FILE"
 #: src/microsim/MSFrame.cpp:99
 msgid "Shifts all times loaded from a saved state by the given offset"
 msgstr ""
+"Sposta ogni indicazione temporale caricata dallo stato salvato del valore "
+"indicato"
 
 #: src/microsim/MSFrame.cpp:101
 msgid "Removes vehicles with the given IDs from the loaded state"
 msgstr ""
+"Rimuovi i veicoli con i codici identificativi nominati dallo stato caricato"
 
 #: src/microsim/MSFrame.cpp:104 src/router/ROFrame.cpp:134
 msgid ""
