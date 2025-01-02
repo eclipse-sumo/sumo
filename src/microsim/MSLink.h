@@ -699,6 +699,9 @@ public:
     /// @brief get the closest vehicle approaching this link
     std::pair<const SUMOVehicle* const, const ApproachingVehicleInformation> getClosest() const;
 
+    inline bool hasFoeCrossing() const {
+        return myHavePedestrianCrossingFoe;
+    }
 
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
