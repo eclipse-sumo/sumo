@@ -241,8 +241,7 @@ class Connection(StepManager):
                                   (response >= tc.RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE and
                                    response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
-        if not isVariableSubscription:
-            result.read("!B")  # domain
+        contextDomain = 0 if isVariableSubscription else result.read("!B")[0]
         numVars = result.read("!B")[0]
         if isVariableSubscription:
             while numVars > 0:
@@ -257,17 +256,19 @@ class Connection(StepManager):
                 numVars -= 1
         else:
             objectNo = result.read("!i")[0]
-            self._subscriptionMapping[response].addContext(objectID)
+            subsMap = self._subscriptionMapping[response]
+            subsMap.addContext(objectID)
             for _ in range(objectNo):
                 oid = result.readString()
                 if numVars == 0:
-                    self._subscriptionMapping[response].addContext(objectID, oid)
+                    subsMap.addContext(objectID, oid)
                 for __ in range(numVars):
                     varID, status = result.read("!BB")
                     if status:
                         print("Error!", result.readTypedString())
-                    elif response in self._subscriptionMapping:
-                        self._subscriptionMapping[response].addContext(objectID, oid, varID, result)
+                    elif contextDomain in self._subscriptionMapping:
+                        subsMap.addContext(objectID, oid, varID,
+                                           self._subscriptionMapping[contextDomain].parse(varID, result))
                     else:
                         raise FatalTraCIError(
                             "Cannot handle subscription response %02x for %s." % (response, objectID))

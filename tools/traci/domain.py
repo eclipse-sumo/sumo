@@ -82,20 +82,23 @@ class SubscriptionResults:
     def add(self, refID, varID, data):
         if refID not in self._results:
             self._results[refID] = {}
-        self._results[refID][varID] = _parse(self._valueFunc, varID, data)
+        self._results[refID][varID] = self.parse(varID, data)
 
     def get(self, refID=None):
         if refID is None:
             return self._results
         return self._results.get(refID, {})
 
-    def addContext(self, refID, objectID=None, varID=None, data=None):
+    def addContext(self, refID, objectID=None, varID=None, value=None):
         if refID not in self._contextResults:
             self._contextResults[refID] = {}
         if objectID is not None and objectID not in self._contextResults[refID]:
             self._contextResults[refID][objectID] = {}
-        if varID is not None and data is not None:
-            self._contextResults[refID][objectID][varID] = _parse(self._valueFunc, varID, data)
+        if varID is not None and value is not None:
+            self._contextResults[refID][objectID][varID] = value
+
+    def parse(self, varID=None, data=None):
+        return _parse(self._valueFunc, varID, data)
 
     def getContext(self, refID=None):
         if refID is None:
