@@ -151,7 +151,7 @@ public:
      * @param[in] brakePos the first position on the stop lane that the vehicle can stop at
      * @return The last free position of this bus stop
      */
-    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
+    virtual double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /// @brief return whether the given vehicle fits at the given position
     bool fits(double pos, const SUMOVehicle& veh) const;
