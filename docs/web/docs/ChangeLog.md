@@ -11,6 +11,7 @@ title: ChangeLog
   - Fixed platform specific taxi behavior related to pre-booking #15698 (regression in 1.20.0)
   - Fixed crash involving pedestrians at pedestrian crossing #15807 (regression in 1.21.0)
   - Fixed reduced simulation speed of pedestrians (~ factor 5) #15825 (regression in 1.21.0)
+  - Fixed bug that caused parkingAreaReroute to assigns an invalid route #15960 (regression in 1.21.0)
   - Fixed rerouting error on the last route edge with a stop #15552
   - Fixed routing error on departure #15563
   - Fixed invalid warnings regarding inconsistent loaded stop times #15602
@@ -38,8 +39,11 @@ title: ChangeLog
   - Fixed lane-changing deadlock on junction #15887
   - Fixed inconsistent statistics on bike departDelay #13142
   - Fixed bug where vehicles with bluelight device slowed down before entering a rescue lane #12067
-  - Fixed invalid right-of-way when turning right-on-red and there is a pedestrian crossing #15939 
-  
+  - Fixed invalid right-of-way when turning right-on-red and there is a pedestrian crossing #15939
+  - Fixed invalid gap in person movement when a ride without arrivalPos is followed by a stop #8468
+  - Vehicles are no longer inserted on used pedestrian crossing #15843
+  - Fixed crash when loading state for vehicles with random arrivalPos #13110
+  - Fixed inconsisent arrivalPos when loading state #15961 
 
 - netedit
   - Fixed crash when moving a big selection #15132 (regression in 1.16.0)
@@ -111,7 +115,8 @@ title: ChangeLog
   - No longer generating invalid signal plan when giving invalid argument **--tls.green.time** #15719
   - Fixed invalid linkState for left turns from the major road at junction type `allway_stop` #15737
   - Fixed invalid tlLogic after processing net with **--keep-edges** #15798
-  - No longer building bicyle left turns from a straight-only vehicle lane (starting from a left-turn lane instead) #15943 
+  - No longer building bicyle left turns from a straight-only vehicle lane (starting from a left-turn lane instead) #15943
+  - Fixed invalid handling of negative stop position in ptstop-files #12183 
 
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
@@ -125,7 +130,8 @@ title: ChangeLog
 - meso
   - Fixed crash when using **--mapmatch.junctions** in a network with internal edges #15741
   - Fixed crash when using **--time-to-teleport.disconnected** #15751
-  - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777 
+  - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777
+  - Fixed crash when rendering vehicle at parkingArea #15956 
 
 - activitygen
   - fixed crash when attribute is not set #15782 
