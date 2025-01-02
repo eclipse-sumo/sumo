@@ -91,6 +91,9 @@ three_trainStops_at_one_edge
 # person rides and then stops
 ride_and_stop
 
+# a person rides to an unspecified arrivalPos and this must be reflected in the position of the subsequent stop.
+ride_unspecifiedArrival_and_stop
+
 # person rides and exits the vehicle with some tolerance
 ride_and_stop_tolerance
 

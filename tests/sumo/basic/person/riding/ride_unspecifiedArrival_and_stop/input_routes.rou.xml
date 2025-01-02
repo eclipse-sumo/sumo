@@ -1,0 +1,13 @@
+<routes>
+    <vehicle id="car" depart="0">
+        <route edges="SC CN"/>
+        <stop edge="CN" endPos="-50" duration="5"/>
+    </vehicle>
+
+    <person id="person0" depart="triggered">
+        <ride from="SC" to="CN" lines="car"/>
+        <stop duration="0"/>
+        <walk to="NC"/>
+    </person>
+
+</routes>
