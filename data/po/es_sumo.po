@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-18 15:15+0100\n"
+"POT-Creation-Date: 2025-01-02 10:26+0100\n"
 "PO-Revision-Date: 2024-12-11 12:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1368,17 +1368,17 @@ msgstr "Eliminando el vehículo '%' que no tiene ruta válida."
 msgid "No route for vehicle '%' found."
 msgstr "No se encontró ninguna ruta para el vehículo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:496
+#: src/microsim/MSBaseVehicle.cpp:501
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "la arista actual '%' no fue encontrada en la nueva ruta"
 
-#: src/microsim/MSBaseVehicle.cpp:509
+#: src/microsim/MSBaseVehicle.cpp:514
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr ""
 "El vehículo está en una arista interna del cruce que conduce a otra parte"
 
-#: src/microsim/MSBaseVehicle.cpp:522
+#: src/microsim/MSBaseVehicle.cpp:527
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
@@ -1386,97 +1386,97 @@ msgstr ""
 "El vehículo se está moviendo más allá del cruce e ingresará a una arista "
 "sucesora"
 
-#: src/microsim/MSBaseVehicle.cpp:602
+#: src/microsim/MSBaseVehicle.cpp:607
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:753
+#: src/microsim/MSBaseVehicle.cpp:758
 msgid "No connection between edge '%' and edge '%'."
 msgstr "No hay conexión entre la arista '%' y la arista '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:763
+#: src/microsim/MSBaseVehicle.cpp:768
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "La arista '%' lo prohibe."
 
-#: src/microsim/MSBaseVehicle.cpp:775
+#: src/microsim/MSBaseVehicle.cpp:780
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 "La velocidad de salida del vehículo '%' es demasiado alta para el tipo de "
 "vehículo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:784
+#: src/microsim/MSBaseVehicle.cpp:789
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 "Al vehículo '%' no se le permite arrancar desde ningún carril de la arista "
 "'%'."
 
-#: src/microsim/MSBaseVehicle.cpp:814
+#: src/microsim/MSBaseVehicle.cpp:819
 msgid "Vehicle '%' has no valid route. %"
 msgstr "El vehículo '%' no tiene una ruta válida. %"
 
-#: src/microsim/MSBaseVehicle.cpp:892
+#: src/microsim/MSBaseVehicle.cpp:897
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:906
+#: src/microsim/MSBaseVehicle.cpp:911
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "¡El vehículo '%' no podrá llegar a la posición indicada!"
 
-#: src/microsim/MSBaseVehicle.cpp:926
+#: src/microsim/MSBaseVehicle.cpp:931
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "¡El vehículo '%' no podrá llegar al carril indicado '%_%'!"
 
-#: src/microsim/MSBaseVehicle.cpp:938 src/microsim/MSBaseVehicle.cpp:950
+#: src/microsim/MSBaseVehicle.cpp:943 src/microsim/MSBaseVehicle.cpp:955
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr ""
 "El vehículo '%' no tiene carril de llegada utilizable en la arista '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:962
+#: src/microsim/MSBaseVehicle.cpp:967
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "¡El vehículo '%' no podrá llegar a la velocidad indicada!"
 
-#: src/microsim/MSBaseVehicle.cpp:978
+#: src/microsim/MSBaseVehicle.cpp:983
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1665
+#: src/microsim/MSBaseVehicle.cpp:1670
 msgid "Invalid stop index % (has % stops)."
 msgstr "Índice de parada no válido % (tiene % paradas)."
 
-#: src/microsim/MSBaseVehicle.cpp:1745 src/microsim/MSBaseVehicle.cpp:1868
-#: src/microsim/MSBaseVehicle.cpp:1977
+#: src/microsim/MSBaseVehicle.cpp:1750 src/microsim/MSBaseVehicle.cpp:1873
+#: src/microsim/MSBaseVehicle.cpp:1982
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr "nextStopIndex % no válido para % paradas restantes"
 
-#: src/microsim/MSBaseVehicle.cpp:1749
+#: src/microsim/MSBaseVehicle.cpp:1754
 msgid "cannot replace reached stop"
 msgstr "no se puede reemplazar la parada actualmente alcanzada"
 
-#: src/microsim/MSBaseVehicle.cpp:1764
+#: src/microsim/MSBaseVehicle.cpp:1769
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 "el vehículo '%' no tiene la credencial adecuada para acceder a la zona de "
 "estacionamiento '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
+#: src/microsim/MSBaseVehicle.cpp:1782 src/microsim/MSBaseVehicle.cpp:1994
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1796 src/microsim/MSBaseVehicle.cpp:1890
-#: src/microsim/MSBaseVehicle.cpp:2017
+#: src/microsim/MSBaseVehicle.cpp:1801 src/microsim/MSBaseVehicle.cpp:1895
+#: src/microsim/MSBaseVehicle.cpp:2022
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 "no se encontró una ruta desde la arista '%' hacia la arista de parada '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
+#: src/microsim/MSBaseVehicle.cpp:1810 src/microsim/MSBaseVehicle.cpp:2031
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 "no se encontró una ruta desde la arista de parada '%' hacia la arista '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
+#: src/microsim/MSBaseVehicle.cpp:1822 src/microsim/MSBaseVehicle.cpp:2045
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
@@ -1484,83 +1484,83 @@ msgstr ""
 "La simulación mesoscópica no permite detenerse en la arista interna '%' al "
 "vehículo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:1872
+#: src/microsim/MSBaseVehicle.cpp:1877
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1953
+#: src/microsim/MSBaseVehicle.cpp:1958
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1981
+#: src/microsim/MSBaseVehicle.cpp:1986
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 "no se puede insertar una parada antes de la parada actualmente alcanzada"
 
-#: src/microsim/MSBaseVehicle.cpp:1997
+#: src/microsim/MSBaseVehicle.cpp:2002
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 "El vehículo '%' no tiene la credencial adecuada para acceder a la zona de "
 "estacionamiento '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2297
+#: src/microsim/MSBaseVehicle.cpp:2302
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr "no se admite la creación del dispositivo de tipo '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
+#: src/microsim/MSBaseVehicle.cpp:2315 src/microsim/MSBaseVehicle.cpp:2327
 #, c-format
 msgid "no device of type '%' exists"
 msgstr "no existe ningún dispositivo de tipo '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2333
+#: src/microsim/MSBaseVehicle.cpp:2338
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr "El vehículo '%' no admite el parámetro de modelo de cruce '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2379
+#: src/microsim/MSBaseVehicle.cpp:2384
 msgid "could not interpret routing.mode '%'"
 msgstr "no se pudo interpretar el routing.mode '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2462
+#: src/microsim/MSBaseVehicle.cpp:2467
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr "Parámetro de dispositivo '%' no válido para el vehículo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2468
+#: src/microsim/MSBaseVehicle.cpp:2473
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr "El vehículo '%' no admite el parámetro de dispositivo '%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2478
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 "El vehículo mesoscópico '%' no admite parámetros de modelo de cambio de "
 "carril."
 
-#: src/microsim/MSBaseVehicle.cpp:2480
+#: src/microsim/MSBaseVehicle.cpp:2485
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 "El vehículo '%' no admite el parámetro de modelo de cambio de carril '%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2485
+#: src/microsim/MSBaseVehicle.cpp:2490
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 "El vehículo mesoscópico '%' no admite parámetros de modelo de seguimiento "
 "vehicular."
 
-#: src/microsim/MSBaseVehicle.cpp:2492
+#: src/microsim/MSBaseVehicle.cpp:2497
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 "El vehículo '%' no admite el parámetro de modelo de seguimiento vehicular "
 "'%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2498
+#: src/microsim/MSBaseVehicle.cpp:2503
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 "Comprobación no válida para el dispositivo. El formato esperado es 'has."
 "DEVICENAME.device'."
 
-#: src/microsim/MSBaseVehicle.cpp:2525
+#: src/microsim/MSBaseVehicle.cpp:2530
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr "Parámetro de estacionamiento no admitido '%' para el vehículo '%'."
 
@@ -3159,7 +3159,7 @@ msgstr ""
 "TraCI y desencadenantes no pueden utilizar el algoritmo de enrutamiento '%'. "
 "Usando 'astar' en su lugar."
 
-#: src/microsim/MSNet.cpp:1666 src/netload/NLBuilder.cpp:432
+#: src/microsim/MSNet.cpp:1666 src/netload/NLBuilder.cpp:440
 #: src/router/ROLoader.cpp:237 src/tools/emissionsDrivingCycle_main.cpp:221
 #: src/tools/emissionsMap_main.cpp:75
 #, c-format
@@ -3563,11 +3563,11 @@ msgstr "El vehículo '%' cancela la parada."
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "El vehículo '%' se salta la parada en el carril '%' tiempo=%."
 
-#: src/microsim/MSVehicle.cpp:7643
+#: src/microsim/MSVehicle.cpp:7648
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "Error: ¡Vehículos en estado no válidos (puede ser un estado meso)!"
 
-#: src/microsim/MSVehicle.cpp:7681
+#: src/microsim/MSVehicle.cpp:7686
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr ""
 "Los pasos de acción no están sincronizados para el vehículo cargado '%'."
@@ -5043,14 +5043,14 @@ msgstr ""
 msgid "Unknown tag '%' while parsing."
 msgstr "Etiqueta desconocida '%' durante el análisis."
 
-#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:83
+#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:84
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
 msgstr ""
 "El modelo de cambio de carril '%' no es compatible con la simulación de "
 "subcarril"
 
-#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:101
+#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:102
 #, c-format
 msgid "Lane change model '%' not implemented"
 msgstr "Modelo de cambio de carril '%' no implementado"
@@ -5376,7 +5376,7 @@ msgid "Error while adding waypoint for person '%': %"
 msgstr "Error al agregar punto de referencia para la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:242
-#: src/microsim/transportables/MSPModel_Striping.cpp:172
+#: src/microsim/transportables/MSPModel_Striping.cpp:175
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
 msgstr "La persona '%' no pudo encontrar la acera en la arista '%', tiempo=%."
 
@@ -5484,7 +5484,7 @@ msgstr "Error al crear el modelo peatonal: %"
 msgid "Error creating the simulation: %"
 msgstr "Error al crear la simulación: %"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:123
+#: src/microsim/transportables/MSPModel_Striping.cpp:124
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:920
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
@@ -5493,26 +5493,26 @@ msgstr ""
 "En el tipo de vehículo Peatón '%' su ancho % es mayor que pedestrian."
 "striping.stripe-width y esto puede causar colisiones con vehículos."
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:345
+#: src/microsim/transportables/MSPModel_Striping.cpp:348
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
 msgstr "La área peatonal no válida '%' no permite la continuación."
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1528
+#: src/microsim/transportables/MSPModel_Striping.cpp:1537
 msgid " between edge '%' and edge '%'"
 msgstr " entre la arista '%' y la arista '%'"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1530
+#: src/microsim/transportables/MSPModel_Striping.cpp:1539
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
 "La persona '%' que camina desde la arista '%' hacia la arista '%' tiene una "
 "desconexión%, tiempo=%."
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1833
+#: src/microsim/transportables/MSPModel_Striping.cpp:1842
 msgid "Disconnected walk for person '%'."
 msgstr "Caminata desconectada para la persona '%'."
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:2040
+#: src/microsim/transportables/MSPModel_Striping.cpp:2049
 msgid "Person '%' is jammed on edge '%', time=%."
 msgstr "La persona '%' está atascada en la arista '%', tiempo=%."
 
@@ -5718,74 +5718,74 @@ msgstr "Valor no válido '%' para el parámetro de vehículo '%'"
 msgid "Invalid value '%' for vType parameter '%'"
 msgstr "Valor no válido '%' para el parámetro de tipo de vehículo '%'"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:125
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:126
 msgid "rerouter '%': interval end % is not after begin %."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:135
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:136
 msgid "rerouter '%': destProbReroute has no destination edge id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:144
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:145
 msgid "rerouter '%': Destination edge '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:154
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:155
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:165
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:166
 msgid "rerouter '%': Edge '%' to close is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:179
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:180
 msgid "rerouter '%': Lane '%' to close is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:198
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:199
 msgid "rerouter '%': routeProbReroute has no alternative route id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:202
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:203
 msgid "rerouter '%': Alternative route '%' does not exist."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:212
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:213
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:221
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:222
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:225
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:226
 msgid "rerouter '%': parkingArea '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:234
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:235
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:246
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid "rerouter '%': No via edge id given."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:250
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:251
 msgid "rerouter '%': Via Edge '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:259
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:260
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:529
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:530
 #, c-format
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
@@ -5794,7 +5794,7 @@ msgstr ""
 "No se puede mantener la arista destino '%' para el vehículo '%' debido a "
 "aristas cerradas. Terminando la ruta."
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:806
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:807
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
@@ -6021,15 +6021,15 @@ msgstr "final"
 msgid "Found sharp turn with radius % at the % of edge '%'."
 msgstr "Se encontró un giro brusco con radio % en el % de la arista '%'."
 
-#: src/netbuild/NBEdge.cpp:1223
+#: src/netbuild/NBEdge.cpp:1224
 msgid "Could not set connection from '%' to '%'."
 msgstr "No se pudo establecer la conexión de '%' a '%'."
 
-#: src/netbuild/NBEdge.cpp:1742
+#: src/netbuild/NBEdge.cpp:1743
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr "La conexión '% _% ->% _%' es solo %m corta."
 
-#: src/netbuild/NBEdge.cpp:1844
+#: src/netbuild/NBEdge.cpp:1845
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
@@ -6037,7 +6037,7 @@ msgstr ""
 "Intersección de giros a la izquierda en el cruce '%' del carril '%' y del "
 "carril '%' (aumente el radio del cruce para evitar esto)."
 
-#: src/netbuild/NBEdge.cpp:1949
+#: src/netbuild/NBEdge.cpp:1950
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
@@ -6045,104 +6045,104 @@ msgstr ""
 "Velocidad de % conexión '%' reducida en % debido al radio de giro de % "
 "(longitud=%, ángulo=%)."
 
-#: src/netbuild/NBEdge.cpp:2291
+#: src/netbuild/NBEdge.cpp:2292
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr "En el carril '%': no se pudo determinar la forma del carril (%)."
 
-#: src/netbuild/NBEdge.cpp:2304
+#: src/netbuild/NBEdge.cpp:2305
 msgid "In lane '%': Could not build shape (%)."
 msgstr "En el carril '%': No se pudo construir la forma (%)."
 
-#: src/netbuild/NBEdge.cpp:2734
+#: src/netbuild/NBEdge.cpp:2735
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:2775
+#: src/netbuild/NBEdge.cpp:2776
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:2792
+#: src/netbuild/NBEdge.cpp:2793
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:2798
+#: src/netbuild/NBEdge.cpp:2799
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:2825
+#: src/netbuild/NBEdge.cpp:2826
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3080
+#: src/netbuild/NBEdge.cpp:3081
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr "La arista '%' no está conectada a aristas salientes en el cruce '%'."
 
-#: src/netbuild/NBEdge.cpp:3094
+#: src/netbuild/NBEdge.cpp:3095
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr ""
 "El carril '%' no está conectado a ninguna arista entrante en el cruce '%'."
 
-#: src/netbuild/NBEdge.cpp:3111
+#: src/netbuild/NBEdge.cpp:3112
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3114
+#: src/netbuild/NBEdge.cpp:3115
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3776
+#: src/netbuild/NBEdge.cpp:3777
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr "El carril '%' en la arista '%' ya tenía un semáforo."
 
-#: src/netbuild/NBEdge.cpp:3782
+#: src/netbuild/NBEdge.cpp:3783
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr ""
 "No se pudo establecer ninguna señal de lógica semafórica '%' (grupo "
 "desconocido)."
 
-#: src/netbuild/NBEdge.cpp:4271
+#: src/netbuild/NBEdge.cpp:4272
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:4280
+#: src/netbuild/NBEdge.cpp:4281
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:4286
+#: src/netbuild/NBEdge.cpp:4287
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:4550
+#: src/netbuild/NBEdge.cpp:4551
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr "La arista % permite peatones en todos sus carriles"
 
-#: src/netbuild/NBEdge.cpp:4608
+#: src/netbuild/NBEdge.cpp:4609
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
 "La arista '%' ya tiene un carril exclusivo para %s. No se agregará otro."
 
-#: src/netbuild/NBEdge.cpp:4648
+#: src/netbuild/NBEdge.cpp:4649
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
 "La arista '%' no tiene un carril exclusivo para %s. No se puede restaurar."
 
-#: src/netbuild/NBEdge.cpp:4696
+#: src/netbuild/NBEdge.cpp:4697
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr ""
 
@@ -7328,11 +7328,11 @@ msgstr "La forma del cruce '%' tiene una distancia % a su posición dada."
 msgid "For junction '%': could not compute shape."
 msgstr "Para el cruce '%': no se pudo calcular la forma."
 
-#: src/netbuild/NBNode.cpp:1893
+#: src/netbuild/NBNode.cpp:1944
 msgid "Something went wrong during the building of a connection..."
 msgstr "Algo salió mal durante la construcción de una conexión..."
 
-#: src/netbuild/NBNode.cpp:2904
+#: src/netbuild/NBNode.cpp:2955
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
@@ -7340,7 +7340,7 @@ msgstr ""
 "Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] "
 "(no se encontró área peatonal)."
 
-#: src/netbuild/NBNode.cpp:3070
+#: src/netbuild/NBNode.cpp:3121
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
@@ -7348,7 +7348,7 @@ msgstr ""
 "Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] "
 "(no hay carriles para vehículos a cruzar)."
 
-#: src/netbuild/NBNode.cpp:3089
+#: src/netbuild/NBNode.cpp:3140
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
@@ -7356,42 +7356,42 @@ msgstr ""
 "Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] "
 "(forma no válida)."
 
-#: src/netbuild/NBNode.cpp:3130
+#: src/netbuild/NBNode.cpp:3181
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3246
+#: src/netbuild/NBNode.cpp:3297
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3272
+#: src/netbuild/NBNode.cpp:3323
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3277
+#: src/netbuild/NBNode.cpp:3328
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3537
+#: src/netbuild/NBNode.cpp:3588
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3876
+#: src/netbuild/NBNode.cpp:3927
 msgid "Request for unknown crossing '%'"
 msgstr "Solicitud de cruce desconocido '%'"
 
-#: src/netbuild/NBNode.cpp:3892
+#: src/netbuild/NBNode.cpp:3943
 msgid "Request for unknown crossing for the given Edges"
 msgstr "Solicitud de cruce desconocido para las aristas dadas"
 
-#: src/netbuild/NBNode.cpp:3917
+#: src/netbuild/NBNode.cpp:3968
 msgid "Request for unknown walkingarea '%'."
 msgstr "Solicitud de área peatonal desconocida '%'."
 
@@ -10092,23 +10092,27 @@ msgid "Loading state from '%'"
 msgstr "Cargando estado desde '%'"
 
 #: src/netload/NLBuilder.cpp:290
+msgid "Loading route-files incrementally from '%'"
+msgstr ""
+
+#: src/netload/NLBuilder.cpp:298
 msgid "Loading done."
 msgstr "Carga finalizada."
 
-#: src/netload/NLBuilder.cpp:395
+#: src/netload/NLBuilder.cpp:403
 msgid "Wrong number of state file names!"
 msgstr "¡Número incorrecto de nombres de archivos de estado!"
 
-#: src/netload/NLBuilder.cpp:430
+#: src/netload/NLBuilder.cpp:438
 msgid "Loading % from '%'"
 msgstr "Cargando % desde '%'"
 
-#: src/netload/NLBuilder.cpp:450
+#: src/netload/NLBuilder.cpp:458
 #, c-format
 msgid "The route file '%' is not accessible."
 msgstr "No se puede acceder al archivo de ruta '%'."
 
-#: src/netload/NLBuilder.cpp:466
+#: src/netload/NLBuilder.cpp:474
 msgid ""
 "LaneData requested for mesoscopic simulation but --meso-lane-queue is not "
 "active. Falling back to edgeData."
@@ -10583,11 +10587,11 @@ msgstr ""
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "No se pudo encontrar una conexión bidireccional para la arista '%'"
 
-#: src/netwrite/NWWriter_XML.cpp:107 src/utils/options/OptionsCont.cpp:673
+#: src/netwrite/NWWriter_XML.cpp:106 src/utils/options/OptionsCont.cpp:673
 msgid "Could not save configuration to '%'"
 msgstr "No se pudo guardar la configuración en '%'"
 
-#: src/netwrite/NWWriter_XML.cpp:120 src/polyconvert/PCPolyContainer.cpp:105
+#: src/netwrite/NWWriter_XML.cpp:119 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr ""
@@ -11670,7 +11674,7 @@ msgstr "Entrada no numérica en la línea '%'."
 msgid "Writing map of '%' into '%'."
 msgstr "Escribiendo el mapa de '%' en '%'."
 
-#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:335
+#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:336
 #, c-format
 msgid "Could not open file '%' for writing."
 msgstr "No se pudo abrir el archivo '%' para escribir."
@@ -12229,11 +12233,11 @@ msgstr "Intentando restar vectores de posición de diferentes longitudes."
 msgid "Trying to add PositionVectors of different lengths."
 msgstr "Intentando sumar vectores de posición de diferentes longitudes."
 
-#: src/utils/handlers/AdditionalHandler.cpp:964
+#: src/utils/handlers/AdditionalHandler.cpp:972
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr "Tipo de carga '%' no válido definido en la estación de carga '%'."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1111
+#: src/utils/handlers/AdditionalHandler.cpp:1127
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
@@ -12241,7 +12245,7 @@ msgstr ""
 "'pos', 'endPos' y 'length' no se pueden definir juntos en un solo detector "
 "de área de carril."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1113
+#: src/utils/handlers/AdditionalHandler.cpp:1130
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
@@ -12249,11 +12253,11 @@ msgstr ""
 "Un detector de área de carril requiere dos de los siguientes parámetros: "
 "'pos', 'endPos' y 'length'."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1417
+#: src/utils/handlers/AdditionalHandler.cpp:1455
 msgid "Calibrators need either an edge or a lane"
 msgstr "Calibradores necesitan una arista o un carril"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1464
+#: src/utils/handlers/AdditionalHandler.cpp:1503
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -12261,126 +12265,131 @@ msgstr ""
 "CalibratorFlows necesita alguno de los atributos vehsPerHour, speed o type "
 "(o cualquier combinación de estos)"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1605
-#: src/utils/handlers/AdditionalHandler.cpp:1631
-#: src/utils/handlers/AdditionalHandler.cpp:1656
-#, c-format
-msgid "Probability of % must be equal or greater than 0"
-msgstr "La probabilidad de % debe ser mayor o igual a 0"
-
-#: src/utils/handlers/AdditionalHandler.cpp:1844
+#: src/utils/handlers/AdditionalHandler.cpp:1920
 msgid "X and Y must be be defined together in POIs"
 msgstr "X e Y deben definirse juntos en los puntos de interés"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1850
+#: src/utils/handlers/AdditionalHandler.cpp:1926
 msgid "lane and position must be defined together in POIs"
 msgstr "carril y posición deben definirse juntos en los puntos de interés"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1856
+#: src/utils/handlers/AdditionalHandler.cpp:1932
 msgid "lon and lat must be be defined together in POIs"
 msgstr "longitud y latitud deben definirse juntos en los puntos de interés"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1883
+#: src/utils/handlers/AdditionalHandler.cpp:1959
 #: src/utils/shapes/ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 "Icono no válido % para el punto de interés '%', usando el predeterminado"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1971
-msgid "Parameters must be defined within an object."
-msgstr "Los parámetros deben definirse dentro de un objeto."
-
-#: src/utils/handlers/AdditionalHandler.cpp:1973
-#: src/utils/handlers/RouteHandler.cpp:936
-msgid "Parameters cannot be defined in the additional file's root."
-msgstr "Los parámetros no se pueden definir en la raíz del archivo adicional."
-
-#: src/utils/handlers/AdditionalHandler.cpp:1975
-#: src/utils/handlers/RouteHandler.cpp:938
-msgid "Parameters cannot be defined within another parameter."
-msgstr "Los parámetros no se pueden definir dentro de otro parámetro."
-
-#: src/utils/handlers/AdditionalHandler.cpp:1983
-#, c-format
-msgid "Error parsing key from % generic parameter. Key cannot be empty."
+#: src/utils/handlers/AdditionalHandler.cpp:2056
+msgid "Calibrator Flows has to be defined within of a %."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1985
-#, c-format
-msgid ""
-"Error parsing key from % generic parameter. Key contains invalid characters."
-msgstr ""
-
-#: src/utils/handlers/AdditionalHandler.cpp:2000
+#: src/utils/handlers/AdditionalHandler.cpp:2066
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:63
+#: src/utils/handlers/CommonHandler.cpp:56
+msgid "Parameters must be defined within an object"
+msgstr "Los parámetros deben definirse dentro de un objeto"
+
+#: src/utils/handlers/CommonHandler.cpp:58
+msgid "Parameters cannot be defined within another parameter."
+msgstr "Los parámetros no se pueden definir dentro de otro parámetro."
+
+#: src/utils/handlers/CommonHandler.cpp:66
+#, c-format
+msgid "Error parsing key from % generic parameter. Key cannot be empty"
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:68
+#, c-format
+msgid ""
+"Error parsing key from % generic parameter. Key contains invalid characters"
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:95
 msgid "'%' must be defined within the definition of a %."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:66
+#: src/utils/handlers/CommonHandler.cpp:98
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:69
+#: src/utils/handlers/CommonHandler.cpp:101
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:81
+#: src/utils/handlers/CommonHandler.cpp:113
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:92
+#: src/utils/handlers/CommonHandler.cpp:124
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:98
+#: src/utils/handlers/CommonHandler.cpp:130
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:110
-#: src/utils/handlers/CommonHandler.cpp:128
+#: src/utils/handlers/CommonHandler.cpp:142
+#: src/utils/handlers/CommonHandler.cpp:160
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:116
-#: src/utils/handlers/CommonHandler.cpp:134
+#: src/utils/handlers/CommonHandler.cpp:148
+#: src/utils/handlers/CommonHandler.cpp:166
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:147
+#: src/utils/handlers/CommonHandler.cpp:179
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:162
+#: src/utils/handlers/CommonHandler.cpp:187
+#: src/utils/handlers/CommonHandler.cpp:199
+#: src/utils/handlers/CommonHandler.cpp:211
+msgid "Could not build %; ID cannot be empty"
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:189
+#: src/utils/handlers/CommonHandler.cpp:213
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 "No se pudo generar % con ID '%' en netedit; El ID contiene caracteres no "
 "válidos."
 
-#: src/utils/handlers/CommonHandler.cpp:168
+#: src/utils/handlers/CommonHandler.cpp:201
+msgid ""
+"Could not build % with ID '%' in netedit; detector ID contains invalid "
+"characters."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:230
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:174
-msgid "Could not build % with ID '%' in netedit; Declared twice."
+#: src/utils/handlers/CommonHandler.cpp:236
+msgid ""
+"Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:180
+#: src/utils/handlers/CommonHandler.cpp:242
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:186
+#: src/utils/handlers/CommonHandler.cpp:248
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
@@ -12388,17 +12397,17 @@ msgstr ""
 "No se pudo generar % con ID '%' en netedit; Número distinto de valores de "
 "distribución y probabilidades."
 
-#: src/utils/handlers/CommonHandler.cpp:192
+#: src/utils/handlers/CommonHandler.cpp:254
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:198
+#: src/utils/handlers/CommonHandler.cpp:260
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:204
+#: src/utils/handlers/CommonHandler.cpp:266
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
@@ -12411,53 +12420,33 @@ msgstr "Los elementos de datos no pueden cargar atributos como parámetros"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "Los elementos MeanData no pueden cargar atributos como parámetros"
 
-#: src/utils/handlers/RouteHandler.cpp:472
+#: src/utils/handlers/RouteHandler.cpp:474
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 "una ruta debe definirse dentro de un vehículo/flujo o con un atributo de ID"
 
-#: src/utils/handlers/RouteHandler.cpp:490
-#, c-format
-msgid "cycleTime of % must be equal or greater than 0"
-msgstr "el cycleTime de % debe ser igual o mayor que 0"
-
-#: src/utils/handlers/RouteHandler.cpp:543
-#: src/utils/handlers/RouteHandler.cpp:621
+#: src/utils/handlers/RouteHandler.cpp:545
+#: src/utils/handlers/RouteHandler.cpp:635
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 "Los atributos 'from', 'fromJunction' y 'fromTaz' no se pueden definir juntos"
 
-#: src/utils/handlers/RouteHandler.cpp:545
-#: src/utils/handlers/RouteHandler.cpp:623
+#: src/utils/handlers/RouteHandler.cpp:548
+#: src/utils/handlers/RouteHandler.cpp:638
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "Los atributos 'to', 'toJunction' y 'toTaz' no se pueden definir juntos"
 
-#: src/utils/handlers/RouteHandler.cpp:779
+#: src/utils/handlers/RouteHandler.cpp:813
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:887
+#: src/utils/handlers/RouteHandler.cpp:932
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:934
-msgid "Parameters must be defined within an object"
-msgstr "Los parámetros deben definirse dentro de un objeto"
-
-#: src/utils/handlers/RouteHandler.cpp:946
-#, c-format
-msgid "Error parsing key from % generic parameter. Key cannot be empty"
-msgstr ""
-
-#: src/utils/handlers/RouteHandler.cpp:948
-#, c-format
-msgid ""
-"Error parsing key from % generic parameter. Key contains invalid characters"
-msgstr ""
-
-#: src/utils/handlers/RouteHandler.cpp:962
+#: src/utils/handlers/RouteHandler.cpp:975
 #: src/utils/vehicle/SUMORouteHandler.cpp:205
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -12466,23 +12455,23 @@ msgstr ""
 "La definición de parámetros de seguimiento vehicular en un elemento anidado "
 "está obsoleta en el tipo de vehículo '%', ¡use atributos en su lugar!"
 
-#: src/utils/handlers/RouteHandler.cpp:970
-#: src/utils/handlers/RouteHandler.cpp:972
+#: src/utils/handlers/RouteHandler.cpp:983
+#: src/utils/handlers/RouteHandler.cpp:985
 #: src/utils/vehicle/SUMORouteHandler.cpp:208
 #: src/utils/vehicle/SUMORouteHandler.cpp:210
 msgid "Invalid parsing embedded VType"
 msgstr "Análisis no válido del tipo de vehículo incrustado"
 
-#: src/utils/handlers/RouteHandler.cpp:1055
+#: src/utils/handlers/RouteHandler.cpp:1068
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 "Una parada debe definirse ya sea con una arista o con un carril, no con ambos"
 
-#: src/utils/handlers/RouteHandler.cpp:1070
+#: src/utils/handlers/RouteHandler.cpp:1083
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1072
+#: src/utils/handlers/RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "Una parada debe definirse en una arista, un carril o en un StoppingPlace"
@@ -12650,63 +12639,63 @@ msgstr ""
 msgid "Mixed parameter syntax in '%'."
 msgstr "Sintaxis de parámetros mixtos en '%'."
 
-#: src/utils/router/AStarLookupTable.h:126
+#: src/utils/router/AStarLookupTable.h:127
 msgid "Could not load landmark-lookup-table from '%'."
 msgstr ""
 "No se pudo cargar la tabla de búsqueda de puntos de referencia desde '%'."
 
-#: src/utils/router/AStarLookupTable.h:140
+#: src/utils/router/AStarLookupTable.h:141
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
 msgstr "Arista duplicada '%' en el archivo de referencia."
 
-#: src/utils/router/AStarLookupTable.h:145
-#: src/utils/router/AStarLookupTable.h:170
+#: src/utils/router/AStarLookupTable.h:146
+#: src/utils/router/AStarLookupTable.h:171
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:165
+#: src/utils/router/AStarLookupTable.h:166
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:177
+#: src/utils/router/AStarLookupTable.h:178
 #, c-format
-msgid "Broken landmark file, could not parse '%' as coordinates"
+msgid "Broken landmark file, could not parse '%' as coordinates."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:184
-#: src/utils/router/AStarLookupTable.h:197
+#: src/utils/router/AStarLookupTable.h:185
+#: src/utils/router/AStarLookupTable.h:198
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:194
+#: src/utils/router/AStarLookupTable.h:195
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:217
+#: src/utils/router/AStarLookupTable.h:218
 msgid "Calculating new lookup table."
 msgstr "Calculando una nueva tabla de búsqueda."
 
-#: src/utils/router/AStarLookupTable.h:224
+#: src/utils/router/AStarLookupTable.h:225
 msgid "No lookup table for landmark edge '%', recalculating."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:226
+#: src/utils/router/AStarLookupTable.h:227
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:317
+#: src/utils/router/AStarLookupTable.h:318
 #, c-format
 msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of "
 "% total edges."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:337
+#: src/utils/router/AStarLookupTable.h:338
 msgid "Saving new matrix to '%'."
 msgstr "Guardando matriz nueva en '%'."
 
@@ -13048,54 +13037,54 @@ msgstr ""
 "Atributo % de modelo de seguimiento vehicular no válido. Solo se admiten "
 "valores entre [0-1]"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1589
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1591
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr ""
 "Atributo no válido del modelo de cambio de carril %. No se puede leer como "
 "float"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1606
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1608
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
 "Atributo no válido del modelo de cambio de carril %. Debe ser igual o mayor "
 "a 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1617
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1619
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
 msgstr ""
 "Atributo no válido del modelo de cambio de carril %. Debe ser mayor a 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1628
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1630
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr ""
 "Atributo no válido del modelo de cambio de carril %. Debe estar entre -1 y 1"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1660
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1662
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr "Atributo no válido del modelo de cruce %. No se puede leer como float"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1669
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1671
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
 "Atributo no válido del modelo de cruce %. Sólo se permiten valores entre "
 "[0-1]"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1675
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1677
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
 msgstr "Atributo no válido del modelo de cruce %. Debe ser igual o mayor a 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1705
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1707
 msgid "The vehicle class '%' for % '%' is not known."
 msgstr "Se desconoce la clase de vehículo '%' para % '%'."
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1723
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1725
 msgid "The shape '%' for % '%' is not known."
 msgstr "Se desconoce la forma '%' para % '%'."
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1786
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1817
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1788
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1804
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1819
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
@@ -13214,3 +13203,18 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Se produjo un error no especificado al analizar '%'"
+
+#, c-format
+#~ msgid "Probability of % must be equal or greater than 0"
+#~ msgstr "La probabilidad de % debe ser mayor o igual a 0"
+
+#~ msgid "Parameters must be defined within an object."
+#~ msgstr "Los parámetros deben definirse dentro de un objeto."
+
+#~ msgid "Parameters cannot be defined in the additional file's root."
+#~ msgstr ""
+#~ "Los parámetros no se pueden definir en la raíz del archivo adicional."
+
+#, c-format
+#~ msgid "cycleTime of % must be equal or greater than 0"
+#~ msgstr "el cycleTime de % debe ser igual o mayor que 0"

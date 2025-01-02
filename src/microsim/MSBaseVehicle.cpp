@@ -485,6 +485,11 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
 
 bool
 MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
+
+    if (myID == "fl_11_159.0") {
+        bool stopit = true;
+    }
+
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // rebuild in-vehicle route information
     if (onInit) {

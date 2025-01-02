@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-12-18 15:15+0100\n"
+"POT-Creation-Date: 2025-01-02 10:26+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -1271,47 +1271,47 @@ msgstr "移除沒有有效路徑的車輛 '%'。"
 msgid "No route for vehicle '%' found."
 msgstr "無法為車輛 '%' 找到路徑。"
 
-#: src/microsim/MSBaseVehicle.cpp:496
+#: src/microsim/MSBaseVehicle.cpp:501
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "在新路徑中找不到目前的路段 '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:509
+#: src/microsim/MSBaseVehicle.cpp:514
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "車輛在路口內銜接到其他路段的內部路段"
 
-#: src/microsim/MSBaseVehicle.cpp:522
+#: src/microsim/MSBaseVehicle.cpp:527
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "車輛正駛過路口並將移動到另一個後續路段"
 
-#: src/microsim/MSBaseVehicle.cpp:602
+#: src/microsim/MSBaseVehicle.cpp:607
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr "車輛 '%' 無法指派到停靠點'%',其發生在重新導引路徑 (%) 後,; 時間=% 。"
 
-#: src/microsim/MSBaseVehicle.cpp:753
+#: src/microsim/MSBaseVehicle.cpp:758
 msgid "No connection between edge '%' and edge '%'."
 msgstr "路段 '%' 和路段 '%' 之間未連接。"
 
-#: src/microsim/MSBaseVehicle.cpp:763
+#: src/microsim/MSBaseVehicle.cpp:768
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "禁止使用路段 '%'。"
 
-#: src/microsim/MSBaseVehicle.cpp:775
+#: src/microsim/MSBaseVehicle.cpp:780
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:784
+#: src/microsim/MSBaseVehicle.cpp:789
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:814
+#: src/microsim/MSBaseVehicle.cpp:819
 msgid "Vehicle '%' has no valid route. %"
 msgstr "車輛 '%' 無有效路徑。 %"
 
-#: src/microsim/MSBaseVehicle.cpp:892
+#: src/microsim/MSBaseVehicle.cpp:897
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1319,127 +1319,127 @@ msgstr ""
 "車輛 '%' 忽略屬性抵達路段(arrivalEdge)= % 其發生在時間=% 的重新導引路徑後（路"
 "段長度(routeLength)=%）"
 
-#: src/microsim/MSBaseVehicle.cpp:906
+#: src/microsim/MSBaseVehicle.cpp:911
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "車輛 '%' 將無法抵達給定的位置!"
 
-#: src/microsim/MSBaseVehicle.cpp:926
+#: src/microsim/MSBaseVehicle.cpp:931
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "車輛 '%' 將無法抵達給定的車道 '%_%'!"
 
-#: src/microsim/MSBaseVehicle.cpp:938 src/microsim/MSBaseVehicle.cpp:950
+#: src/microsim/MSBaseVehicle.cpp:943 src/microsim/MSBaseVehicle.cpp:955
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "車輛 '%' 在路段 '%' 上沒有可使用的抵達車道(arrivalLane)。"
 
-#: src/microsim/MSBaseVehicle.cpp:962
+#: src/microsim/MSBaseVehicle.cpp:967
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "車輛 '%' 將無法以給定的速度抵達!"
 
-#: src/microsim/MSBaseVehicle.cpp:978
+#: src/microsim/MSBaseVehicle.cpp:983
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
-#: src/microsim/MSBaseVehicle.cpp:1665
+#: src/microsim/MSBaseVehicle.cpp:1670
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1745 src/microsim/MSBaseVehicle.cpp:1868
-#: src/microsim/MSBaseVehicle.cpp:1977
+#: src/microsim/MSBaseVehicle.cpp:1750 src/microsim/MSBaseVehicle.cpp:1873
+#: src/microsim/MSBaseVehicle.cpp:1982
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1749
+#: src/microsim/MSBaseVehicle.cpp:1754
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1764
+#: src/microsim/MSBaseVehicle.cpp:1769
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
+#: src/microsim/MSBaseVehicle.cpp:1782 src/microsim/MSBaseVehicle.cpp:1994
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1796 src/microsim/MSBaseVehicle.cpp:1890
-#: src/microsim/MSBaseVehicle.cpp:2017
+#: src/microsim/MSBaseVehicle.cpp:1801 src/microsim/MSBaseVehicle.cpp:1895
+#: src/microsim/MSBaseVehicle.cpp:2022
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
+#: src/microsim/MSBaseVehicle.cpp:1810 src/microsim/MSBaseVehicle.cpp:2031
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
+#: src/microsim/MSBaseVehicle.cpp:1822 src/microsim/MSBaseVehicle.cpp:2045
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1872
+#: src/microsim/MSBaseVehicle.cpp:1877
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1953
+#: src/microsim/MSBaseVehicle.cpp:1958
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1981
+#: src/microsim/MSBaseVehicle.cpp:1986
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1997
+#: src/microsim/MSBaseVehicle.cpp:2002
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2297
+#: src/microsim/MSBaseVehicle.cpp:2302
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
+#: src/microsim/MSBaseVehicle.cpp:2315 src/microsim/MSBaseVehicle.cpp:2327
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2333
+#: src/microsim/MSBaseVehicle.cpp:2338
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2379
+#: src/microsim/MSBaseVehicle.cpp:2384
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2462
+#: src/microsim/MSBaseVehicle.cpp:2467
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2468
+#: src/microsim/MSBaseVehicle.cpp:2473
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2478
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2480
+#: src/microsim/MSBaseVehicle.cpp:2485
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2485
+#: src/microsim/MSBaseVehicle.cpp:2490
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2492
+#: src/microsim/MSBaseVehicle.cpp:2497
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2498
+#: src/microsim/MSBaseVehicle.cpp:2503
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2525
+#: src/microsim/MSBaseVehicle.cpp:2530
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
@@ -2920,7 +2920,7 @@ msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr "TraCI和觸發器(triggers)不能使用選路演算法 '%'。 改用'astar'方法。"
 
-#: src/microsim/MSNet.cpp:1666 src/netload/NLBuilder.cpp:432
+#: src/microsim/MSNet.cpp:1666 src/netload/NLBuilder.cpp:440
 #: src/router/ROLoader.cpp:237 src/tools/emissionsDrivingCycle_main.cpp:221
 #: src/tools/emissionsMap_main.cpp:75
 #, c-format
@@ -3294,11 +3294,11 @@ msgstr "車輛 '%' 放棄停靠。"
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "車輛 '%'跳過停靠站(位於車道'%', 時間為%)."
 
-#: src/microsim/MSVehicle.cpp:7643
+#: src/microsim/MSVehicle.cpp:7648
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "錯誤：狀態中的無效車輛 （可能是中觀(meso)狀態）！"
 
-#: src/microsim/MSVehicle.cpp:7681
+#: src/microsim/MSVehicle.cpp:7686
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "已載入的車輛'%'的操作步驟(action steps)不同步調."
 
@@ -4570,12 +4570,12 @@ msgstr "無效的動力機能圖類型(engine map type)。 目前只支援 \"pol
 msgid "Unknown tag '%' while parsing."
 msgstr "解析(parsing)時出現未知的標記 '%' 。"
 
-#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:83
+#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:84
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
 msgstr "車道變換模式 '%' 與子車道(sublane)模擬不兼容"
 
-#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:101
+#: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:102
 #, c-format
 msgid "Lane change model '%' not implemented"
 msgstr "車道變換模式 '%' 尚未構建"
@@ -4919,7 +4919,7 @@ msgid "Error while adding waypoint for person '%': %"
 msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:242
-#: src/microsim/transportables/MSPModel_Striping.cpp:172
+#: src/microsim/transportables/MSPModel_Striping.cpp:175
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
 msgstr "人員 '%' 無法在路段 '%' 上發現人行道, 時間=%。"
 
@@ -5016,7 +5016,7 @@ msgstr ""
 msgid "Error creating the simulation: %"
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:123
+#: src/microsim/transportables/MSPModel_Striping.cpp:124
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:920
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
@@ -5025,24 +5025,24 @@ msgstr ""
 "行人類型(vType) '%' 寬度 % 大於 pedestrian.striping.stripe-width, 這可能會導"
 "致與車輛發生碰撞。"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:345
+#: src/microsim/transportables/MSPModel_Striping.cpp:348
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
 msgstr "無效的行走區域 '%' 不允許繼續。"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1528
+#: src/microsim/transportables/MSPModel_Striping.cpp:1537
 msgid " between edge '%' and edge '%'"
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1530
+#: src/microsim/transportables/MSPModel_Striping.cpp:1539
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1833
+#: src/microsim/transportables/MSPModel_Striping.cpp:1842
 msgid "Disconnected walk for person '%'."
 msgstr "人員 '%' 有不連接的步行。"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:2040
+#: src/microsim/transportables/MSPModel_Striping.cpp:2049
 msgid "Person '%' is jammed on edge '%', time=%."
 msgstr "人員 '%' 在路段 '%' 上被壅塞住，時間=%。"
 
@@ -5224,81 +5224,81 @@ msgstr "無效的值 '%'; 車輛參數為 '%'"
 msgid "Invalid value '%' for vType parameter '%'"
 msgstr "無效的值 '%'; 車輛類型(vType)參數為 '%'"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:125
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:126
 msgid "rerouter '%': interval end % is not after begin %."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:135
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:136
 msgid "rerouter '%': destProbReroute has no destination edge id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:144
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:145
 msgid "rerouter '%': Destination edge '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:154
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:155
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:165
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:166
 msgid "rerouter '%': Edge '%' to close is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:179
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:180
 msgid "rerouter '%': Lane '%' to close is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:198
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:199
 msgid "rerouter '%': routeProbReroute has no alternative route id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:202
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:203
 msgid "rerouter '%': Alternative route '%' does not exist."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:212
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:213
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:221
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:222
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:225
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:226
 msgid "rerouter '%': parkingArea '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:234
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:235
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:246
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid "rerouter '%': No via edge id given."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:250
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:251
 msgid "rerouter '%': Via Edge '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:259
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:260
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:529
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:530
 #, c-format
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
 msgstr "由於路段封閉, 無法保留目標路段 '%', 其為車輛 '%' 的目的地。 終止路線。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:806
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:807
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
@@ -5514,15 +5514,15 @@ msgstr ""
 msgid "Found sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1223
+#: src/netbuild/NBEdge.cpp:1224
 msgid "Could not set connection from '%' to '%'."
 msgstr "無法從 '%' 到 '%' 設定連接線(connection)。"
 
-#: src/netbuild/NBEdge.cpp:1742
+#: src/netbuild/NBEdge.cpp:1743
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr "接線(connection) '%_%->%_%' 只有 % 米短。"
 
-#: src/netbuild/NBEdge.cpp:1844
+#: src/netbuild/NBEdge.cpp:1845
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
@@ -5530,7 +5530,7 @@ msgstr ""
 "在路口 '%' 上, 從車道 '%' 和車道 '%' 與左轉交會 (增加路口半徑以避免這種情"
 "況)。"
 
-#: src/netbuild/NBEdge.cpp:1949
+#: src/netbuild/NBEdge.cpp:1950
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
@@ -5538,22 +5538,22 @@ msgstr ""
 "速度 % 在連接線(connection) '%' 上降低了 %, 其是由於轉彎半徑為 % (長度=%，角"
 "度=%)。"
 
-#: src/netbuild/NBEdge.cpp:2291
+#: src/netbuild/NBEdge.cpp:2292
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr "在車道 '%':無法確定車道形狀 (%)。"
 
-#: src/netbuild/NBEdge.cpp:2304
+#: src/netbuild/NBEdge.cpp:2305
 msgid "In lane '%': Could not build shape (%)."
 msgstr "在車道 '%':無法建立形狀 (%)。"
 
-#: src/netbuild/NBEdge.cpp:2734
+#: src/netbuild/NBEdge.cpp:2735
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
 "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,但只有 % 的目標(targets)"
 
-#: src/netbuild/NBEdge.cpp:2775
+#: src/netbuild/NBEdge.cpp:2776
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
@@ -5561,13 +5561,13 @@ msgstr ""
 "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,但只有 % 的目標(targets)(目"
 "標修剪後)"
 
-#: src/netbuild/NBEdge.cpp:2792
+#: src/netbuild/NBEdge.cpp:2793
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr "無法於路段 '%' 使用轉彎標誌訊息, 因為目標路段 '%'沒有合適的車道"
 
-#: src/netbuild/NBEdge.cpp:2798
+#: src/netbuild/NBEdge.cpp:2799
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
@@ -5575,68 +5575,68 @@ msgstr ""
 "無法在路段 '%' 上應用轉彎標誌資訊,因為有具有 '%' 方向的 % 連接線,但目標路段 "
 "'%' 只有 % 合適的車道"
 
-#: src/netbuild/NBEdge.cpp:2825
+#: src/netbuild/NBEdge.cpp:2826
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
 "無法在路段 '%' 上應用轉向標誌資訊,因為無法為方向 '%' 確定足夠的目標車道"
 
-#: src/netbuild/NBEdge.cpp:3080
+#: src/netbuild/NBEdge.cpp:3081
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr "路段 '%' 在路口 '%' 處未與任何離開(outgoing)路段連接。"
 
-#: src/netbuild/NBEdge.cpp:3094
+#: src/netbuild/NBEdge.cpp:3095
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr "車道 '%' 在路口 '%' 處未與任何進入(incoming)路段連接。"
 
-#: src/netbuild/NBEdge.cpp:3111
+#: src/netbuild/NBEdge.cpp:3112
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的禁止換到左方車道(changeLeft)以避免造成死結(dead-end)"
 
-#: src/netbuild/NBEdge.cpp:3114
+#: src/netbuild/NBEdge.cpp:3115
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的禁止換到右方車道(changeRight)以避免造成死結(dead-end)"
 
-#: src/netbuild/NBEdge.cpp:3776
+#: src/netbuild/NBEdge.cpp:3777
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr "車道 '%' (位於路段 '%') 已經有交通號誌。"
 
-#: src/netbuild/NBEdge.cpp:3782
+#: src/netbuild/NBEdge.cpp:3783
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr "無法設定號誌邏輯(tlLogic) '%' 的任何信號 （未知群組）。"
 
-#: src/netbuild/NBEdge.cpp:4271
+#: src/netbuild/NBEdge.cpp:4272
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr "忽略路段 '%' 的無效 stopOffset （負偏移值(offset)）。"
 
-#: src/netbuild/NBEdge.cpp:4280
+#: src/netbuild/NBEdge.cpp:4281
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr "忽略車道 '%' 的無效 stopOffset （負偏移值(offset)）。"
 
-#: src/netbuild/NBEdge.cpp:4286
+#: src/netbuild/NBEdge.cpp:4287
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr "忽略車道 '%' 的無效 stopOffset （無效的車道索引）。"
 
-#: src/netbuild/NBEdge.cpp:4550
+#: src/netbuild/NBEdge.cpp:4551
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr "路段 '%' 允許行人在所有車道上"
 
-#: src/netbuild/NBEdge.cpp:4608
+#: src/netbuild/NBEdge.cpp:4609
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr "路段 '%' 已經有用於 %s 的專用車道。不再增加另一個。"
 
-#: src/netbuild/NBEdge.cpp:4648
+#: src/netbuild/NBEdge.cpp:4649
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr "路段 '%' 沒有用於 %s 的專用車道。無法恢復。"
 
-#: src/netbuild/NBEdge.cpp:4696
+#: src/netbuild/NBEdge.cpp:4697
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr "無法避免在節點 '%' (位於路段 '%') 上重疊形狀(shape)。"
 
@@ -6791,49 +6791,49 @@ msgstr "路口 '%' 的形狀與其給定位置的距離為 %。"
 msgid "For junction '%': could not compute shape."
 msgstr "路口 '%': 無法計算形狀。"
 
-#: src/netbuild/NBNode.cpp:1893
+#: src/netbuild/NBNode.cpp:1944
 msgid "Something went wrong during the building of a connection..."
 msgstr "建立連接線(connection)時,發生了問題..."
 
-#: src/netbuild/NBNode.cpp:2904
+#: src/netbuild/NBNode.cpp:2955
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr "廢除無效穿越道 '%' （未找到步行區域）, 其位於路口 '%' (具有路段 [%])。"
 
-#: src/netbuild/NBNode.cpp:3070
+#: src/netbuild/NBNode.cpp:3121
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr "廢除無效的人行道 '%' （無車道可穿越）, 其位於路口 '%' (具有路段 [%])。"
 
-#: src/netbuild/NBNode.cpp:3089
+#: src/netbuild/NBNode.cpp:3140
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 "廢除無效的人行道 '%' (無效的形狀(shape)), 其位於路口 '%' (具有路段 [%])。"
 
-#: src/netbuild/NBNode.cpp:3130
+#: src/netbuild/NBNode.cpp:3181
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3246
+#: src/netbuild/NBNode.cpp:3297
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 "路口 '%' 處的行人拓撲結構(topology)無效； 穿越道 '%' 以 '%' 和 '%' 為目標。"
 
-#: src/netbuild/NBNode.cpp:3272
+#: src/netbuild/NBNode.cpp:3323
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 "路口 '%' 處的行人拓撲結構(topology)無效； 穿越道 '%' 是 '%' 和 '%' 的目標。"
 
-#: src/netbuild/NBNode.cpp:3277
+#: src/netbuild/NBNode.cpp:3328
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
@@ -6841,19 +6841,19 @@ msgstr ""
 "路口 '%' 處的行人拓撲結構(topology)無效；穿越道 '%' 的起點和終點都在步行區域 "
 "'%'。"
 
-#: src/netbuild/NBNode.cpp:3537
+#: src/netbuild/NBNode.cpp:3588
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr "無效的行人拓撲結構(topology): 人行穿越道 '%' (跨越 [%]) 沒有目標。"
 
-#: src/netbuild/NBNode.cpp:3876
+#: src/netbuild/NBNode.cpp:3927
 msgid "Request for unknown crossing '%'"
 msgstr "請求未知人行穿越道 '%'"
 
-#: src/netbuild/NBNode.cpp:3892
+#: src/netbuild/NBNode.cpp:3943
 msgid "Request for unknown crossing for the given Edges"
 msgstr "請求給定路段的未知人行穿越道"
 
-#: src/netbuild/NBNode.cpp:3917
+#: src/netbuild/NBNode.cpp:3968
 msgid "Request for unknown walkingarea '%'."
 msgstr ""
 
@@ -9407,23 +9407,27 @@ msgid "Loading state from '%'"
 msgstr ""
 
 #: src/netload/NLBuilder.cpp:290
+msgid "Loading route-files incrementally from '%'"
+msgstr ""
+
+#: src/netload/NLBuilder.cpp:298
 msgid "Loading done."
 msgstr "載入完成。"
 
-#: src/netload/NLBuilder.cpp:395
+#: src/netload/NLBuilder.cpp:403
 msgid "Wrong number of state file names!"
 msgstr "狀態檔案數量錯誤!"
 
-#: src/netload/NLBuilder.cpp:430
+#: src/netload/NLBuilder.cpp:438
 msgid "Loading % from '%'"
 msgstr "載入 % (從 '%')"
 
-#: src/netload/NLBuilder.cpp:450
+#: src/netload/NLBuilder.cpp:458
 #, c-format
 msgid "The route file '%' is not accessible."
 msgstr "路徑檔案 '%' 無法讀取。"
 
-#: src/netload/NLBuilder.cpp:466
+#: src/netload/NLBuilder.cpp:474
 msgid ""
 "LaneData requested for mesoscopic simulation but --meso-lane-queue is not "
 "active. Falling back to edgeData."
@@ -9883,11 +9887,11 @@ msgstr "在路網中嵌入 的分區(TAZ)資料已不適用。 使用選項 --ta
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的雙向連接線 (bidi-connection)"
 
-#: src/netwrite/NWWriter_XML.cpp:107 src/utils/options/OptionsCont.cpp:673
+#: src/netwrite/NWWriter_XML.cpp:106 src/utils/options/OptionsCont.cpp:673
 msgid "Could not save configuration to '%'"
 msgstr "無法將設定(configuration)保存到 '%'"
 
-#: src/netwrite/NWWriter_XML.cpp:120 src/polyconvert/PCPolyContainer.cpp:105
+#: src/netwrite/NWWriter_XML.cpp:119 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr "忽略選項 \"proj.plain-geo\", 因為沒有定義地理坐標轉換"
@@ -10913,7 +10917,7 @@ msgstr "在列 '%' 沒有數值輸入項(entry)。"
 msgid "Writing map of '%' into '%'."
 msgstr "將 '%' 的映成表(map)寫入 '%'。"
 
-#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:335
+#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:336
 #, c-format
 msgid "Could not open file '%' for writing."
 msgstr "無法開啟檔案 '%' 進行寫入。"
@@ -11435,27 +11439,27 @@ msgstr "嘗試減去不同長度的 PositionVectors。"
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:964
+#: src/utils/handlers/AdditionalHandler.cpp:972
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1111
+#: src/utils/handlers/AdditionalHandler.cpp:1127
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1113
+#: src/utils/handlers/AdditionalHandler.cpp:1130
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1417
+#: src/utils/handlers/AdditionalHandler.cpp:1455
 msgid "Calibrators need either an edge or a lane"
 msgstr "校估器需要一個路段或一個車道"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1464
+#: src/utils/handlers/AdditionalHandler.cpp:1503
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -11463,139 +11467,144 @@ msgstr ""
 "校估流量(CalibratorFlows)需要屬性 每小時車輛數(vehsPerHour) 或 速度(speed)或"
 "類型(type) (或這些屬性的任意組合)"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1605
-#: src/utils/handlers/AdditionalHandler.cpp:1631
-#: src/utils/handlers/AdditionalHandler.cpp:1656
-#, c-format
-msgid "Probability of % must be equal or greater than 0"
-msgstr "機率 % 必須大於或等於 0"
-
-#: src/utils/handlers/AdditionalHandler.cpp:1844
+#: src/utils/handlers/AdditionalHandler.cpp:1920
 msgid "X and Y must be be defined together in POIs"
 msgstr "X 和 Y 必須一起定義於興趣點(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1850
+#: src/utils/handlers/AdditionalHandler.cpp:1926
 msgid "lane and position must be defined together in POIs"
 msgstr "車道和位置必須一起定義於興趣點(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1856
+#: src/utils/handlers/AdditionalHandler.cpp:1932
 msgid "lon and lat must be be defined together in POIs"
 msgstr "經度(lon)和緯度(lat)必須一起定義於興趣點(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1883
+#: src/utils/handlers/AdditionalHandler.cpp:1959
 #: src/utils/shapes/ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1971
-msgid "Parameters must be defined within an object."
-msgstr "參數必須定義於一個物件(object)內。"
+#: src/utils/handlers/AdditionalHandler.cpp:2056
+msgid "Calibrator Flows has to be defined within of a %."
+msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1973
-#: src/utils/handlers/RouteHandler.cpp:936
-msgid "Parameters cannot be defined in the additional file's root."
-msgstr "參數無法定義於附加檔案(additional file)的根(root)中內。"
-
-#: src/utils/handlers/AdditionalHandler.cpp:1975
-#: src/utils/handlers/RouteHandler.cpp:938
-msgid "Parameters cannot be defined within another parameter."
-msgstr "參數無法定義於其它參數內。"
-
-#: src/utils/handlers/AdditionalHandler.cpp:1983
-#, c-format
-msgid "Error parsing key from % generic parameter. Key cannot be empty."
-msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的。"
-
-#: src/utils/handlers/AdditionalHandler.cpp:1985
-#, c-format
-msgid ""
-"Error parsing key from % generic parameter. Key contains invalid characters."
-msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元。"
-
-#: src/utils/handlers/AdditionalHandler.cpp:2000
+#: src/utils/handlers/AdditionalHandler.cpp:2066
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:63
+#: src/utils/handlers/CommonHandler.cpp:56
+msgid "Parameters must be defined within an object"
+msgstr "參數必須定義在一個物件(object)內"
+
+#: src/utils/handlers/CommonHandler.cpp:58
+msgid "Parameters cannot be defined within another parameter."
+msgstr "參數無法定義於其它參數內。"
+
+#: src/utils/handlers/CommonHandler.cpp:66
+#, c-format
+msgid "Error parsing key from % generic parameter. Key cannot be empty"
+msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的"
+
+#: src/utils/handlers/CommonHandler.cpp:68
+#, c-format
+msgid ""
+"Error parsing key from % generic parameter. Key contains invalid characters"
+msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元"
+
+#: src/utils/handlers/CommonHandler.cpp:95
 msgid "'%' must be defined within the definition of a %."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:66
+#: src/utils/handlers/CommonHandler.cpp:98
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:69
+#: src/utils/handlers/CommonHandler.cpp:101
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:81
+#: src/utils/handlers/CommonHandler.cpp:113
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:92
+#: src/utils/handlers/CommonHandler.cpp:124
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:98
+#: src/utils/handlers/CommonHandler.cpp:130
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:110
-#: src/utils/handlers/CommonHandler.cpp:128
+#: src/utils/handlers/CommonHandler.cpp:142
+#: src/utils/handlers/CommonHandler.cpp:160
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:116
-#: src/utils/handlers/CommonHandler.cpp:134
+#: src/utils/handlers/CommonHandler.cpp:148
+#: src/utils/handlers/CommonHandler.cpp:166
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:147
+#: src/utils/handlers/CommonHandler.cpp:179
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:162
+#: src/utils/handlers/CommonHandler.cpp:187
+#: src/utils/handlers/CommonHandler.cpp:199
+#: src/utils/handlers/CommonHandler.cpp:211
+msgid "Could not build %; ID cannot be empty"
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:189
+#: src/utils/handlers/CommonHandler.cpp:213
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr "無法在 netedit 中構建 % (其識別名(ID)為 '%'); ID 含有無效字元。"
 
-#: src/utils/handlers/CommonHandler.cpp:168
+#: src/utils/handlers/CommonHandler.cpp:201
+msgid ""
+"Could not build % with ID '%' in netedit; detector ID contains invalid "
+"characters."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:230
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:174
-msgid "Could not build % with ID '%' in netedit; Declared twice."
+#: src/utils/handlers/CommonHandler.cpp:236
+msgid ""
+"Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:180
+#: src/utils/handlers/CommonHandler.cpp:242
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:186
+#: src/utils/handlers/CommonHandler.cpp:248
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr "無法在netedit內建立% (ID為 '%'); 不同數量的分佈值和機率。"
 
-#: src/utils/handlers/CommonHandler.cpp:192
+#: src/utils/handlers/CommonHandler.cpp:254
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:198
+#: src/utils/handlers/CommonHandler.cpp:260
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:204
+#: src/utils/handlers/CommonHandler.cpp:266
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
@@ -11608,51 +11617,31 @@ msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均資料(MeanData)無法載入屬性作為參數(params)"
 
-#: src/utils/handlers/RouteHandler.cpp:472
+#: src/utils/handlers/RouteHandler.cpp:474
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr "路徑必須定義於一個車輛/流量內, 或是用一個識別名(ID)屬性"
 
-#: src/utils/handlers/RouteHandler.cpp:490
-#, c-format
-msgid "cycleTime of % must be equal or greater than 0"
-msgstr "週期時間(cycleTime) % 必須大於或等於 0"
-
-#: src/utils/handlers/RouteHandler.cpp:543
-#: src/utils/handlers/RouteHandler.cpp:621
+#: src/utils/handlers/RouteHandler.cpp:545
+#: src/utils/handlers/RouteHandler.cpp:635
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "屬性 'from', 'fromJunction' 和 'fromTaz' 無法一起定義"
 
-#: src/utils/handlers/RouteHandler.cpp:545
-#: src/utils/handlers/RouteHandler.cpp:623
+#: src/utils/handlers/RouteHandler.cpp:548
+#: src/utils/handlers/RouteHandler.cpp:638
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "屬性 'to', 'toJunction' 和 'toTaz' 無法一起定義"
 
-#: src/utils/handlers/RouteHandler.cpp:779
+#: src/utils/handlers/RouteHandler.cpp:813
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:887
+#: src/utils/handlers/RouteHandler.cpp:932
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:934
-msgid "Parameters must be defined within an object"
-msgstr "參數必須定義在一個物件(object)內"
-
-#: src/utils/handlers/RouteHandler.cpp:946
-#, c-format
-msgid "Error parsing key from % generic parameter. Key cannot be empty"
-msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的"
-
-#: src/utils/handlers/RouteHandler.cpp:948
-#, c-format
-msgid ""
-"Error parsing key from % generic parameter. Key contains invalid characters"
-msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元"
-
-#: src/utils/handlers/RouteHandler.cpp:962
+#: src/utils/handlers/RouteHandler.cpp:975
 #: src/utils/vehicle/SUMORouteHandler.cpp:205
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -11661,22 +11650,22 @@ msgstr ""
 "在車輛類型(vType) '%' 的巢狀元素(nested element)內定義的跟車參數已不適用改用"
 "屬性(attributes)!"
 
-#: src/utils/handlers/RouteHandler.cpp:970
-#: src/utils/handlers/RouteHandler.cpp:972
+#: src/utils/handlers/RouteHandler.cpp:983
+#: src/utils/handlers/RouteHandler.cpp:985
 #: src/utils/vehicle/SUMORouteHandler.cpp:208
 #: src/utils/vehicle/SUMORouteHandler.cpp:210
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)車輛類型(vType)無效"
 
-#: src/utils/handlers/RouteHandler.cpp:1055
+#: src/utils/handlers/RouteHandler.cpp:1068
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必須要定義在一個路段或是一個車道, 不可以兩者"
 
-#: src/utils/handlers/RouteHandler.cpp:1070
+#: src/utils/handlers/RouteHandler.cpp:1083
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定義在一個可停下的地方(StoppingPlace)"
 
-#: src/utils/handlers/RouteHandler.cpp:1072
+#: src/utils/handlers/RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必須要定義在一個路段, 一個車道或是一個可停下的地方(StoppingPlace)"
@@ -11839,62 +11828,62 @@ msgstr ""
 msgid "Mixed parameter syntax in '%'."
 msgstr "'%' 中有混合參數語法(syntax)。"
 
-#: src/utils/router/AStarLookupTable.h:126
+#: src/utils/router/AStarLookupTable.h:127
 msgid "Could not load landmark-lookup-table from '%'."
 msgstr "無法從 '%' 載入地標對照表。"
 
-#: src/utils/router/AStarLookupTable.h:140
+#: src/utils/router/AStarLookupTable.h:141
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
 msgstr "在地標檔案內有重複的路段 '%'。"
 
-#: src/utils/router/AStarLookupTable.h:145
-#: src/utils/router/AStarLookupTable.h:170
+#: src/utils/router/AStarLookupTable.h:146
+#: src/utils/router/AStarLookupTable.h:171
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
 msgstr "地標路段 '%' 不存在於路網內。"
 
-#: src/utils/router/AStarLookupTable.h:165
+#: src/utils/router/AStarLookupTable.h:166
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:177
+#: src/utils/router/AStarLookupTable.h:178
 #, c-format
-msgid "Broken landmark file, could not parse '%' as coordinates"
+msgid "Broken landmark file, could not parse '%' as coordinates."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:184
-#: src/utils/router/AStarLookupTable.h:197
+#: src/utils/router/AStarLookupTable.h:185
+#: src/utils/router/AStarLookupTable.h:198
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
 msgstr "地標檔案內有未知或是未排序的路段 '%'。"
 
-#: src/utils/router/AStarLookupTable.h:194
+#: src/utils/router/AStarLookupTable.h:195
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
 msgstr "地標檔案損壞, 路段 '%' 有超出預期的登錄項目數量 (%)。"
 
-#: src/utils/router/AStarLookupTable.h:217
+#: src/utils/router/AStarLookupTable.h:218
 msgid "Calculating new lookup table."
 msgstr "正在計算新的對照表。"
 
-#: src/utils/router/AStarLookupTable.h:224
+#: src/utils/router/AStarLookupTable.h:225
 msgid "No lookup table for landmark edge '%', recalculating."
 msgstr "地標路段 '%' 沒有對照表, 重新計算中。"
 
-#: src/utils/router/AStarLookupTable.h:226
+#: src/utils/router/AStarLookupTable.h:227
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'."
 msgstr "並非所有路網路段都在對照表 '%' 內找到 (針對地標路段 '%')。"
 
-#: src/utils/router/AStarLookupTable.h:317
+#: src/utils/router/AStarLookupTable.h:318
 #, c-format
 msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of "
 "% total edges."
 msgstr ""
 
-#: src/utils/router/AStarLookupTable.h:337
+#: src/utils/router/AStarLookupTable.h:338
 msgid "Saving new matrix to '%'."
 msgstr "將新的矩陣存入 '%'。"
 
@@ -12219,46 +12208,46 @@ msgid ""
 "allowed"
 msgstr "無效的跟車模式屬性 %。 只允許 [0-1] 之間的值"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1589
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1591
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr "無效的車道變換模式屬性 %。 無法解析為浮點數"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1606
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1608
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr "無效的車道變換模式屬性 %。必須等於或是大於 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1617
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1619
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
 msgstr "無效的車道變換模式屬性 %。 必須大於 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1628
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1630
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr "無效的車道變換模式屬性 %。 必須在 -1 與 1 之間"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1660
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1662
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr "無效的路口模式屬性 %。 無法解析為浮點數"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1669
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1671
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr "無效的路口模式屬性 %。 只允許 [0-1] 之間的值"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1675
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1677
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
 msgstr "無效的路口模式屬性 %。 必須等於或大於 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1705
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1707
 msgid "The vehicle class '%' for % '%' is not known."
 msgstr "% '%' 的車輛類別(vehicle class)未知。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1723
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1725
 msgid "The shape '%' for % '%' is not known."
 msgstr "% '%' 的形狀(shape)未知。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1786
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1817
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1788
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1804
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1819
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
@@ -12374,3 +12363,27 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "當解析'%'時,發生未指定的錯誤"
+
+#, c-format
+#~ msgid "Probability of % must be equal or greater than 0"
+#~ msgstr "機率 % 必須大於或等於 0"
+
+#~ msgid "Parameters must be defined within an object."
+#~ msgstr "參數必須定義於一個物件(object)內。"
+
+#~ msgid "Parameters cannot be defined in the additional file's root."
+#~ msgstr "參數無法定義於附加檔案(additional file)的根(root)中內。"
+
+#, c-format
+#~ msgid "Error parsing key from % generic parameter. Key cannot be empty."
+#~ msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的。"
+
+#, c-format
+#~ msgid ""
+#~ "Error parsing key from % generic parameter. Key contains invalid "
+#~ "characters."
+#~ msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元。"
+
+#, c-format
+#~ msgid "cycleTime of % must be equal or greater than 0"
+#~ msgstr "週期時間(cycleTime) % 必須大於或等於 0"
