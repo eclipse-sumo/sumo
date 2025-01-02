@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:16 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2025-01-02 11:24:13 by Eclipse SUMO sumo Version v1_21_0+1611-67b57041229
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </personinfo>
     <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="129.00" waitingTime="10.40" timeLoss="0.00" traveltime="17.60">
         <ride waitingTime="10.40" vehicle="v1" depart="10.40" arrival="28.00" arrivalPos="0.00" duration="17.60" routeLength="500.00" timeLoss="0.00"/>
-        <stop duration="101.00" arrival="129.00" arrivalPos="1000.00" actType="waiting"/>
+        <stop duration="101.00" arrival="129.00" arrivalPos="0.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p3" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="129.00" waitingTime="10.40" timeLoss="0.00" traveltime="17.60">
         <ride waitingTime="10.40" vehicle="v1" depart="10.40" arrival="28.00" arrivalPos="0.00" duration="17.60" routeLength="500.00" timeLoss="0.00"/>
