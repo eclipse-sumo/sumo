@@ -607,6 +607,11 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myBlockTime;
     myDepartPos /= 1000.; // was stored as mm
 
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
+        bool ok;
+        myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);
+    }
+
     // load stops
     myStops.clear();
     addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);

@@ -766,6 +766,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "departEdge",             SUMO_ATTR_DEPARTEDGE },
     { "arrivalLane",            SUMO_ATTR_ARRIVALLANE },
     { "arrivalPos",             SUMO_ATTR_ARRIVALPOS },
+    { "arrivalPosRandomized",   SUMO_ATTR_ARRIVALPOS_RANDOMIZED },
     { "arrivalPosLat",          SUMO_ATTR_ARRIVALPOS_LAT },
     { "arrivalSpeed",           SUMO_ATTR_ARRIVALSPEED },
     { "arrivalEdge",            SUMO_ATTR_ARRIVALEDGE },

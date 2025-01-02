@@ -109,6 +109,7 @@
         <xsd:attribute name="arrivalEdge" type="routeIndexType"/>
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
+        <xsd:attribute name="arrivalPosRandomized" type="nonNegativeFloatType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="departPosLat" type="departPosLatType"/>
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>

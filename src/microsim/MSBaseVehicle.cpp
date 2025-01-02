@@ -1021,6 +1021,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     std::ostringstream os;
     os << myOdometer << " " << myNumberReroutes;
     out.writeAttr(SUMO_ATTR_DISTANCE, os.str());
+    if (myParameter->arrivalPosProcedure == ArrivalPosDefinition::RANDOM) {
+        out.writeAttr(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, myArrivalPos);
+    }
     if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
         const int precision = out.precision();
         out.setPrecision(MAX2(gPrecisionRandom, precision));

@@ -7662,6 +7662,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> stopped;
     bis >> pastStops;
 
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
+        bool ok;
+        myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);
+    }
     // load stops
     myStops.clear();
     addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
