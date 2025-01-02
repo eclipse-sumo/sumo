@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-02 10:25+0000\n"
+"PO-Revision-Date: 2025-01-02 16:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2255,6 +2255,8 @@ msgid ""
 "Whether rail-signal-constraint based deadlocks shall be cleared by removing "
 "a constraint"
 msgstr ""
+"Ob durch Bahnsignale und zugehörige Einschränkungen bedingte Blockaden durch "
+"Aufhebung einer Einschränkung aufgelöst werden können"
 
 #: src/microsim/MSFrame.cpp:449
 msgid ""
@@ -2320,7 +2322,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:476
 msgid "Override default value for vehicle attribute insertionChecks"
-msgstr ""
+msgstr "Standardwert des Fahrzeugattributs insertionChecks überschreiben"
 
 #: src/microsim/MSFrame.cpp:479
 msgid ""
@@ -2370,6 +2372,8 @@ msgstr "Gleissignale standardmäßig im Moving-Block-Modus betreiben"
 #: src/microsim/MSFrame.cpp:509
 msgid "Do not build blocks longer than FLOAT and issue a warning instead"
 msgstr ""
+"Keine Streckenblöcke länger denn FLOAT erstellen und ansonsten eine Warnung "
+"ausgeben"
 
 #: src/microsim/MSFrame.cpp:512
 msgid ""
@@ -2527,7 +2531,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:572
 msgid "Factor for reducing speed of pedestrian in jammed state"
-msgstr ""
+msgstr "Faktor zur Absenkung der Gehgeschwindigkeit im blockierten Zustand"
 
 #: src/microsim/MSFrame.cpp:575
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
@@ -2630,7 +2634,7 @@ msgstr "Ordnet Positionen Knotenpunkten statt Kanten zu"
 
 #: src/microsim/MSFrame.cpp:622 src/router/ROFrame.cpp:169
 msgid "Match positions to taz instead of edges"
-msgstr ""
+msgstr "Ordnet Positionen Verkehrsumlegungszonen statt Kanten zu"
 
 #: src/microsim/MSFrame.cpp:633
 msgid ""
@@ -3559,6 +3563,8 @@ msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
 msgstr ""
+"Inkonsistente Umladung von Container '%' - benötigt entweder: 'edges', 'to', "
+"'containerStop' (oder jeglicher andere Haltepunkt)"
 
 #: src/microsim/MSRouteHandler.cpp:1816
 msgid "No edges to tranship container '%'."
@@ -4159,19 +4165,19 @@ msgstr "Zu lesende FCD-Datei"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown edge '%' in fcd replay file for person '%'."
-msgstr ""
+msgstr "Unbekannte Kante '%' von Person '%' in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown lane '%' in fcd replay file for vehicle '%'."
-msgstr ""
+msgstr "Unbekannter Fahrstreifen '%' von Fahrzeug '%' in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
-msgstr ""
+msgstr "Keine Kante von Person '%' zur Zeit % in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:358
 msgid "No lane in fcd replay file for vehicle '%' at time %."
-msgstr ""
+msgstr "Keine Kante von Fahrzeug '%' zur Zeit % in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -4211,7 +4217,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:63
 msgid "Use queue in front of the tls for GLOSA calculation"
-msgstr ""
+msgstr "Warteschlange stromaufwärts der LSA für GLOSA-Berechnung nutzen"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:66
 msgid ""
