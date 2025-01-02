@@ -60,7 +60,6 @@ save_flow50
 load_flow_state_only
 save_parking
 save_parking_busStop
-
 save_rng
 save_routeDistribution
 
@@ -110,6 +109,9 @@ stops_looped
 
 # vehicle passes an edge twice but stops on the second pass
 stops_looped2
+
+# see #13110
+arrivalPos_random
 
 # two vehicles saved and reloaded
 replay
