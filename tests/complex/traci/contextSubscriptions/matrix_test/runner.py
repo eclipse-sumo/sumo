@@ -57,16 +57,18 @@ def runSingle(viewRange, domain, domain2, varIDs):
 
 
 #  main
-traci.start([sumolib.checkBinary(sys.argv[1]),
-             '-Q', "-c", "sumo.sumocfg",
-             '-a', 'input_additional.add.xml'])
-traci.simulationStep()
+try:
+    traci.start([sumolib.checkBinary(sys.argv[1]),
+                '-Q', "-c", "sumo.sumocfg",
+                 '-a', 'input_additional.add.xml'])
+    traci.simulationStep()
 
-varIDs = None if "--defaults" in sys.argv else [traci.constants.TRACI_ID_LIST]
-for domain in traci.DOMAINS:
-    for domain2 in traci.DOMAINS:
-        try:
-            runSingle(100, domain, domain2, varIDs)
-        except traci.TraCIException:
-            pass
-traci.close()
+    varIDs = None if "--defaults" in sys.argv else [traci.constants.TRACI_ID_LIST]
+    for domain in traci.DOMAINS:
+        for domain2 in traci.DOMAINS:
+            try:
+                runSingle(100, domain, domain2, varIDs)
+            except traci.TraCIException:
+                pass
+finally:
+    traci.close()

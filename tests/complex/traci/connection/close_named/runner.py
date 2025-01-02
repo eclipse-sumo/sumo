@@ -28,14 +28,16 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-traci.start([sumoBinary, "-c", "sumo.sumocfg"])
-conn = traci.getConnection('default')
-conn.simulationStep()
-conn.close()
-traci.start([sumoBinary, "-c", "sumo.sumocfg"])
-traci.close()
-traci.start([sumoBinary, "-c", "sumo.sumocfg"], label="2nd")
-traci.close()
-traci.start([sumoBinary, "-c", "sumo.sumocfg"], label="2nd")
-traci.close()
+try:
+    sumoBinary = sumolib.checkBinary('sumo')
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"])
+    conn = traci.getConnection('default')
+    conn.simulationStep()
+    conn.close()
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"])
+    traci.close()
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"], label="2nd")
+    traci.close()
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"], label="2nd")
+finally:
+    traci.close()

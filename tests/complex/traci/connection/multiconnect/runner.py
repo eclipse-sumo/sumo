@@ -31,27 +31,30 @@ import sumolib  # noqa
 sumoBinary = sumolib.checkBinary('sumo')
 conns = []
 sumoProcess = []
-for i in range(2):
-    traci.start([sumoBinary, "-c", "sumo.sumocfg"], label=str(i))
-    conns.append(traci.getConnection(str(i)))
-for c in conns:
-    for step in range(3):
-        print("step", step)
-        c.simulationStep()
-for c in conns:
-    print("routes", c.route.getIDList())
-    print("route count", c.route.getIDCount())
-    routeID = "horizontal"
-    print("examining", routeID)
-    print("edges", c.route.getEdges(routeID))
-    c.route.subscribe(routeID)
-for c in conns:
-    print(c.route.getSubscriptionResults(routeID))
-    for step in range(3, 6):
-        print("step", step)
-        c.simulationStep(step)
+try:
+    for i in range(2):
+        traci.start([sumoBinary, "-c", "sumo.sumocfg"], label=str(i))
+        conns.append(traci.getConnection(str(i)))
+    for c in conns:
+        for step in range(3):
+            print("step", step)
+            c.simulationStep()
+    for c in conns:
+        print("routes", c.route.getIDList())
+        print("route count", c.route.getIDCount())
+        routeID = "horizontal"
+        print("examining", routeID)
+        print("edges", c.route.getEdges(routeID))
+        c.route.subscribe(routeID)
+    for c in conns:
         print(c.route.getSubscriptionResults(routeID))
-    c.route.add("h2", ["1o"])
-    print("routes", c.route.getIDList())
-    print("edges", c.route.getEdges("h2"))
-    c.close()
+        for step in range(3, 6):
+            print("step", step)
+            c.simulationStep(step)
+            print(c.route.getSubscriptionResults(routeID))
+        c.route.add("h2", ["1o"])
+        print("routes", c.route.getIDList())
+        print("edges", c.route.getEdges("h2"))
+        c.close()
+except:
+    traci.close()
