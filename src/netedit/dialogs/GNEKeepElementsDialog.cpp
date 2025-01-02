@@ -56,9 +56,9 @@ GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWi
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myKeepNewButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep news elements"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT),  this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
+    myKeepNewButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep new elements"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT),  this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
     myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep old"), "", TL("Keep old elements"),  GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("cancel loading of elements"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel loading of elements"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonKeepElements);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Dialog
     create();
