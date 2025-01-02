@@ -791,17 +791,14 @@ MESegment::clearState() {
 }
 
 void
-MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
+MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const int queIdx) {
     Queue& q = myQueues[queIdx];
-    for (const std::string& id : vehIds) {
-        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(id));
-        // vehicle could be removed due to options
-        if (v != nullptr) {
-            assert(v->getSegment() == this);
-            q.getModifiableVehicles().push_back(v);
-            myNumVehicles++;
-            q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
-        }
+    for (SUMOVehicle* veh : vehs) {
+        MEVehicle* v = static_cast<MEVehicle*>(veh);
+        assert(v->getSegment() == this);
+        q.getModifiableVehicles().push_back(v);
+        myNumVehicles++;
+        q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
     }
     if (q.size() != 0) {
         // add the last vehicle of this queue
@@ -809,7 +806,7 @@ MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& v
         MEVehicle* veh = q.getVehicles().back();
         MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh));
     }
-    q.setBlockTime(block);
+    q.setBlockTime(blockTime);
     q.setOccupancy(MIN2(q.getOccupancy(), myQueueCapacity));
 }
 

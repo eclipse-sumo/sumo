@@ -31,6 +31,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class SUMOVehicle;
 class MSEdge;
 class MSLink;
 class MSDetectorFileOutput;
@@ -419,14 +420,13 @@ public:
      *  edge are filled the same way. Then, the departure of last vehicles onto the next
      *  edge are restored.
      *
-     * @param[in] vehIDs The vehicle ids for the current que
-     * @param[in] vc The vehicle control to retrieve references vehicles from
+     * @param[in] vehs The vehicles for the current que
      * @param[in] blockTime The time the last vehicle left the que
      * @param[in] queIdx The index of the current que
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
+    void loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const int queIdx);
     /// @}
 
 

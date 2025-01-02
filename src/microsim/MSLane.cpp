@@ -3680,19 +3680,16 @@ MSLane::clearState() {
 }
 
 void
-MSLane::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc) {
-    for (const std::string& id : vehIds) {
-        MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(id));
-        // vehicle could be removed due to options
-        if (v != nullptr) {
-            v->updateBestLanes(false, this);
-            // incorporateVehicle resets the lastActionTime (which has just been loaded from state) so we must restore it
-            const SUMOTime lastActionTime = v->getLastActionTime();
-            incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
-                               MSMoveReminder::NOTIFICATION_LOAD_STATE);
-            v->resetActionOffset(lastActionTime - MSNet::getInstance()->getCurrentTimeStep());
-            v->processNextStop(v->getSpeed());
-        }
+MSLane::loadState(const std::vector<SUMOVehicle*>& vehs) {
+    for (SUMOVehicle* veh : vehs) {
+        MSVehicle* v = dynamic_cast<MSVehicle*>(veh);
+        v->updateBestLanes(false, this);
+        // incorporateVehicle resets the lastActionTime (which has just been loaded from state) so we must restore it
+        const SUMOTime lastActionTime = v->getLastActionTime();
+        incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
+                           MSMoveReminder::NOTIFICATION_LOAD_STATE);
+        v->resetActionOffset(lastActionTime - MSNet::getInstance()->getCurrentTimeStep());
+        v->processNextStop(v->getSpeed());
     }
 }
 

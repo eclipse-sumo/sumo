@@ -1309,12 +1309,11 @@ public:
      *  Every vehicle is retrieved from the given MSVehicleControl and added to this
      *  lane.
      *
-     * @param[in] vehIDs The vehicle ids for the current que
-     * @param[in] vc The vehicle control to retrieve references vehicles from
+     * @param[in] vehs The vehicles for the current lane
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc);
+    void loadState(const std::vector<SUMOVehicle*>& vehs);
 
 
     /* @brief helper function for state saving: checks whether any outgoing

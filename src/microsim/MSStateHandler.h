@@ -136,6 +136,9 @@ private:
     /// @brief rail signal for which constraints are being loaded
     MSRailSignal* myConstrainedSignal;
 
+    /// @brief vehicles that have arrived
+    std::set<SUMOVehicle* > myArrived;
+
 private:
     /// @brief save the state of random number generators
     static void saveRNGs(OutputDevice& out);

@@ -298,12 +298,21 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_VIEWSETTINGS_VEHICLES: {
             bool ok;
             const std::vector<std::string>& vehIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_VALUE, nullptr, ok, false);
-            if (MSGlobals::gUseMesoSim) {
-                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
-            } else {
-                myCurrentLane->loadState(vehIDs, MSNet::getInstance()->getVehicleControl());
+            std::vector<SUMOVehicle*> vehs;
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+            for (const std::string& id : vehIDs) {
+                SUMOVehicle* v = vc.getVehicle(id);
+                // vehicle could be removed due to options
+                if (v != nullptr) {
+                    vehs.push_back(v);
+                }
             }
-            myQueIndex++;
+            if (MSGlobals::gUseMesoSim) {
+                mySegment->loadState(vehs, StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
+                myQueIndex++;
+            } else {
+                myCurrentLane->loadState(vehs);
+            }
             break;
         }
         case SUMO_TAG_LINK: {
@@ -447,6 +456,10 @@ MSStateHandler::myEndElement(int element) {
                 WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);
             }
+            for (SUMOVehicle* v : myArrived) {
+                // state was created with active option --keep-after-arrival
+                vc.deleteKeptVehicle(v);
+            }
             break;
         }
         default:
@@ -488,8 +501,7 @@ MSStateHandler::closeVehicle() {
             }
             vc.handleTriggeredDepart(v, false);
             if (v->hasArrived()) {
-                // state was created with active option --keep-after-arrival
-                vc.deleteKeptVehicle(v);
+                myArrived.insert(v);
             }
         }
         while (!myDeviceAttrs.empty()) {
