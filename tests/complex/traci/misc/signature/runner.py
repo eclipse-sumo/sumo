@@ -52,7 +52,8 @@ if not traci.isLibsumo():
     try:
         traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
         traci.simulationStep()
-        traci.vehicle.setLaneChangeMode("horiz", lcm=0)
+        if not traci.isLibtraci():
+            traci.vehicle.setLaneChangeMode("horiz", lcm=0)
         traci.vehicle.setParameter(objectID="horiz", key="blub", value="blubber")
         traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
         traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
