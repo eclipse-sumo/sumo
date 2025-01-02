@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 10:07+0100\n"
+"POT-Creation-Date: 2025-01-02 15:02+0100\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -6595,7 +6595,7 @@ msgid "Keep new"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
-msgid "Keep news elements"
+msgid "Keep new elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
@@ -6607,7 +6607,7 @@ msgid "Keep old elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
-msgid "cancel loading of elements"
+msgid "Cancel loading of elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286

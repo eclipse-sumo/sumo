@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 10:07+0100\n"
+"POT-Creation-Date: 2025-01-02 15:02+0100\n"
 "PO-Revision-Date: 2024-09-02 03:09+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -6612,7 +6612,7 @@ msgid "Keep new"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
-msgid "Keep news elements"
+msgid "Keep new elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
@@ -6624,8 +6624,8 @@ msgid "Keep old elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
-msgid "cancel loading of elements"
-msgstr "取消载入要素"
+msgid "Cancel loading of elements"
+msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:283
@@ -17244,6 +17244,9 @@ msgstr "(未定義投影方式)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1713
 msgid "Could not convert coordinates in %."
 msgstr "无法转换以%为单位的坐标。"
+
+#~ msgid "cancel loading of elements"
+#~ msgstr "取消载入要素"
 
 #, c-format
 #~ msgid "% doesn't exist."

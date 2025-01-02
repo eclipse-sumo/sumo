@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 10:07+0100\n"
+"POT-Creation-Date: 2025-01-02 15:02+0100\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -6659,7 +6659,7 @@ msgid "Keep new"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
-msgid "Keep news elements"
+msgid "Keep new elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
@@ -6671,8 +6671,8 @@ msgid "Keep old elements"
 msgstr ""
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
-msgid "cancel loading of elements"
-msgstr "elemanların yüklenmesini iptal et"
+msgid "Cancel loading of elements"
+msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:283
@@ -17561,6 +17561,9 @@ msgstr "(Projeksiyon tanımlanmadı)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1713
 msgid "Could not convert coordinates in %."
 msgstr "Koordinatlar % cinsinden dönüştürülemedi."
+
+#~ msgid "cancel loading of elements"
+#~ msgstr "elemanların yüklenmesini iptal et"
 
 #, c-format
 #~ msgid "% doesn't exist."

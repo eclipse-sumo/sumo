@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 10:26+0100\n"
+"POT-Creation-Date: 2025-01-02 15:02+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1355,49 +1355,49 @@ msgstr "Geçerli Rotası Olmayan '%' Aracı Kaldırılıyor."
 msgid "No route for vehicle '%' found."
 msgstr "'%' Aracı İçin Rota Bulunamadı."
 
-#: src/microsim/MSBaseVehicle.cpp:501
+#: src/microsim/MSBaseVehicle.cpp:496
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "Geçerli Kesim '%' Yeni Rotada Bulunamadı"
 
-#: src/microsim/MSBaseVehicle.cpp:514
+#: src/microsim/MSBaseVehicle.cpp:509
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "Araç Başka Bir Yere Yönlenen Kavşağın İç Kenarında"
 
-#: src/microsim/MSBaseVehicle.cpp:527
+#: src/microsim/MSBaseVehicle.cpp:522
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "Araç Kavşaktan Hareket Ediyor ve Başka Bir Ardıl Kesime Geçmeye İşli"
 
-#: src/microsim/MSBaseVehicle.cpp:607
+#: src/microsim/MSBaseVehicle.cpp:602
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
 "Araç '%', % Zamanda Yeniden Rota Belirlendikten (%) Sonra '%' Durağını "
 "Atayamadı."
 
-#: src/microsim/MSBaseVehicle.cpp:758
+#: src/microsim/MSBaseVehicle.cpp:753
 msgid "No connection between edge '%' and edge '%'."
 msgstr "'%' Kesimi ve '%' Kesimi Arasında Bağlantı Yok."
 
-#: src/microsim/MSBaseVehicle.cpp:768
+#: src/microsim/MSBaseVehicle.cpp:763
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "Kesim '%' Yasaklar."
 
-#: src/microsim/MSBaseVehicle.cpp:780
+#: src/microsim/MSBaseVehicle.cpp:775
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:789
+#: src/microsim/MSBaseVehicle.cpp:784
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:819
+#: src/microsim/MSBaseVehicle.cpp:814
 msgid "Vehicle '%' has no valid route. %"
 msgstr "'%' Aracının Geçerli Bir Rotası Yok. %"
 
-#: src/microsim/MSBaseVehicle.cpp:897
+#: src/microsim/MSBaseVehicle.cpp:892
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1405,127 +1405,127 @@ msgstr ""
 "'%' Aracı % Zamanda Yeniden Rotalama Yapıldıktan Sonra arrivalEdge=% "
 "Özniteliğini Yok Sayar (routeLength=%)"
 
-#: src/microsim/MSBaseVehicle.cpp:911
+#: src/microsim/MSBaseVehicle.cpp:906
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "Araç '%' verilen konuma ulaşamayacaktır!"
 
-#: src/microsim/MSBaseVehicle.cpp:931
+#: src/microsim/MSBaseVehicle.cpp:926
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "Araç '%', verilen '%_%' şeridine varamayacaktır!"
 
-#: src/microsim/MSBaseVehicle.cpp:943 src/microsim/MSBaseVehicle.cpp:955
+#: src/microsim/MSBaseVehicle.cpp:938 src/microsim/MSBaseVehicle.cpp:950
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "'%' aracının '%' kesiminde kullanılabilir bir varışŞeridi yok."
 
-#: src/microsim/MSBaseVehicle.cpp:967
+#: src/microsim/MSBaseVehicle.cpp:962
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "Araç '%' verilen hız ile varamayacaktır!"
 
-#: src/microsim/MSBaseVehicle.cpp:983
+#: src/microsim/MSBaseVehicle.cpp:978
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "Rota kesimleri % olan '%' aracı için kalkışKesimi % yok sayılıyor"
 
-#: src/microsim/MSBaseVehicle.cpp:1670
+#: src/microsim/MSBaseVehicle.cpp:1665
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1750 src/microsim/MSBaseVehicle.cpp:1873
-#: src/microsim/MSBaseVehicle.cpp:1982
+#: src/microsim/MSBaseVehicle.cpp:1745 src/microsim/MSBaseVehicle.cpp:1868
+#: src/microsim/MSBaseVehicle.cpp:1977
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1754
+#: src/microsim/MSBaseVehicle.cpp:1749
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1769
+#: src/microsim/MSBaseVehicle.cpp:1764
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1782 src/microsim/MSBaseVehicle.cpp:1994
+#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1801 src/microsim/MSBaseVehicle.cpp:1895
-#: src/microsim/MSBaseVehicle.cpp:2022
+#: src/microsim/MSBaseVehicle.cpp:1796 src/microsim/MSBaseVehicle.cpp:1890
+#: src/microsim/MSBaseVehicle.cpp:2017
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1810 src/microsim/MSBaseVehicle.cpp:2031
+#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1822 src/microsim/MSBaseVehicle.cpp:2045
+#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1877
+#: src/microsim/MSBaseVehicle.cpp:1872
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1958
+#: src/microsim/MSBaseVehicle.cpp:1953
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1986
+#: src/microsim/MSBaseVehicle.cpp:1981
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2002
+#: src/microsim/MSBaseVehicle.cpp:1997
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2302
+#: src/microsim/MSBaseVehicle.cpp:2297
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2315 src/microsim/MSBaseVehicle.cpp:2327
+#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2338
+#: src/microsim/MSBaseVehicle.cpp:2333
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2384
+#: src/microsim/MSBaseVehicle.cpp:2379
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2467
+#: src/microsim/MSBaseVehicle.cpp:2462
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2468
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2478
+#: src/microsim/MSBaseVehicle.cpp:2473
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2485
+#: src/microsim/MSBaseVehicle.cpp:2480
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2490
+#: src/microsim/MSBaseVehicle.cpp:2485
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2497
+#: src/microsim/MSBaseVehicle.cpp:2492
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2503
+#: src/microsim/MSBaseVehicle.cpp:2498
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2530
+#: src/microsim/MSBaseVehicle.cpp:2525
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
@@ -3026,7 +3026,7 @@ msgstr ""
 msgid "Invalid % '%'."
 msgstr "Geçersiz % '%'."
 
-#: src/microsim/MSLane.cpp:4558
+#: src/microsim/MSLane.cpp:4589
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -3285,7 +3285,7 @@ msgstr "Bir durak için şerit '%'si bilinmiyor%."
 msgid "Could not map stop position '%' to the network%."
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1377
+#: src/microsim/MSRouteHandler.cpp:1378
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
@@ -3294,19 +3294,19 @@ msgstr ""
 "konteynerDurağı, bir parkAlanı, bir kenar veya bir şerit% üzerine "
 "yerleştirilmelidir."
 
-#: src/microsim/MSRouteHandler.cpp:1388
+#: src/microsim/MSRouteHandler.cpp:1389
 msgid "Deprecated attribute 'pos' in description of stop%."
 msgstr "Dur% açıklamasındaki 'Konum' niteliği kullanımdan kaldırıldı."
 
-#: src/microsim/MSRouteHandler.cpp:1396
+#: src/microsim/MSRouteHandler.cpp:1397
 msgid "Invalid start or end position for stop on %'%."
 msgstr "'% üzerinde durdurma için geçersiz başlangıç veya bitiş konumu."
 
-#: src/microsim/MSRouteHandler.cpp:1413
+#: src/microsim/MSRouteHandler.cpp:1414
 msgid "Disconnected plan for % '%' (%!=%)."
 msgstr "'%' (%!=%) için plan bağlantısı kesildi."
 
-#: src/microsim/MSRouteHandler.cpp:1424
+#: src/microsim/MSRouteHandler.cpp:1425
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
@@ -3314,11 +3314,11 @@ msgstr ""
 "'%' için plan bağlantısı kesildi (durak aralığı %-% önceki varış konumu %'yi "
 "kapsamıyor)."
 
-#: src/microsim/MSRouteHandler.cpp:1459
+#: src/microsim/MSRouteHandler.cpp:1461
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr "'%' için 'via' özniteliğinde '%' durdurma kesimi eksik."
 
-#: src/microsim/MSRouteHandler.cpp:1480 src/router/RORouteHandler.cpp:1112
+#: src/microsim/MSRouteHandler.cpp:1482 src/router/RORouteHandler.cpp:1112
 #: src/router/RORouteHandler.cpp:1231
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
@@ -3328,38 +3328,38 @@ msgstr ""
 "Özelliğini, Önceki Adımdaki arrivalPos Özelliğini veya Açık Durakları "
 "Kullanın."
 
-#: src/microsim/MSRouteHandler.cpp:1506
+#: src/microsim/MSRouteHandler.cpp:1508
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
 "Verilen '%' durağının dışında olduğu için % için varışPoz yok sayılıyor."
 
-#: src/microsim/MSRouteHandler.cpp:1512 src/router/RORouteHandler.cpp:1133
+#: src/microsim/MSRouteHandler.cpp:1514 src/router/RORouteHandler.cpp:1133
 msgid "No destination edge for %."
 msgstr "% için hedef kenar yok."
 
-#: src/microsim/MSRouteHandler.cpp:1531 src/microsim/MSRouteHandler.cpp:1621
+#: src/microsim/MSRouteHandler.cpp:1533 src/microsim/MSRouteHandler.cpp:1623
 msgid "Cannot define person stage without person."
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1545 src/router/RORouteHandler.cpp:1153
+#: src/microsim/MSRouteHandler.cpp:1547 src/router/RORouteHandler.cpp:1153
 msgid "Start edge not defined for person '%'."
 msgstr "Başlangıç kenarı '%' kişisi için tanımlanmamış."
 
-#: src/microsim/MSRouteHandler.cpp:1556 src/microsim/MSRouteHandler.cpp:1630
+#: src/microsim/MSRouteHandler.cpp:1558 src/microsim/MSRouteHandler.cpp:1632
 #: src/router/RORouteHandler.cpp:1164 src/router/RORouteHandler.cpp:1222
 msgid "Non-positive walking duration for '%'."
 msgstr "'%' için pozitif olmayan yürüme süresi."
 
-#: src/microsim/MSRouteHandler.cpp:1588 src/microsim/MSRouteHandler.cpp:1636
+#: src/microsim/MSRouteHandler.cpp:1590 src/microsim/MSRouteHandler.cpp:1638
 #: src/router/RORouteHandler.cpp:1226
 msgid "Non-positive walking speed for '%'."
 msgstr "'%' için pozitif olmayan yürüme hızı."
 
-#: src/microsim/MSRouteHandler.cpp:1661
+#: src/microsim/MSRouteHandler.cpp:1663
 msgid "No edges to walk for person '%'."
 msgstr "'%' kişisi için yürünecek kesim yok."
 
-#: src/microsim/MSRouteHandler.cpp:1699
+#: src/microsim/MSRouteHandler.cpp:1701
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
@@ -3367,30 +3367,30 @@ msgstr ""
 "kalkışPozBoy yorumlanırken '%' kişisinin yürüyüşü için kalkış şeridi "
 "bulunamadı"
 
-#: src/microsim/MSRouteHandler.cpp:1733
+#: src/microsim/MSRouteHandler.cpp:1735
 msgid "The type '%' for % '%' is not known."
 msgstr "'%' için '%' türü bilinmiyor."
 
-#: src/microsim/MSRouteHandler.cpp:1756
+#: src/microsim/MSRouteHandler.cpp:1758
 msgid "Could not read tranship speed for container '%'."
 msgstr "Konteyner '%' için aktarma hızı okunamadı."
 
-#: src/microsim/MSRouteHandler.cpp:1764
+#: src/microsim/MSRouteHandler.cpp:1766
 msgid "Non-positive tranship speed for container '%'."
 msgstr "'%' konteyner için pozitif olmayan aktarma hızı."
 
-#: src/microsim/MSRouteHandler.cpp:1790
+#: src/microsim/MSRouteHandler.cpp:1792
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr "'%' konteynerinin başlangıç kenarı bilinmiyor."
 
-#: src/microsim/MSRouteHandler.cpp:1807
+#: src/microsim/MSRouteHandler.cpp:1809
 msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1814
+#: src/microsim/MSRouteHandler.cpp:1816
 msgid "No edges to tranship container '%'."
 msgstr "'%' konteynerini aktarmak için kesim yok."
 
@@ -9656,33 +9656,33 @@ msgstr "'%' durağı için '%' kenarı bulunamadı"
 msgid "Lane '%' for stop '%' not found"
 msgstr "'%' durağı için '%' şeridi bulunamadı"
 
-#: src/netimport/NIXMLPTHandler.cpp:179
+#: src/netimport/NIXMLPTHandler.cpp:185
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr "Toplu taşıma durağı '%' eklenemedi (zaten var)"
 
-#: src/netimport/NIXMLPTHandler.cpp:198
+#: src/netimport/NIXMLPTHandler.cpp:204
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
 msgstr "'%' durağına erişim için '%' kenarı bulunamadı"
 
-#: src/netimport/NIXMLPTHandler.cpp:234
+#: src/netimport/NIXMLPTHandler.cpp:240
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
 
-#: src/netimport/NIXMLPTHandler.cpp:275
+#: src/netimport/NIXMLPTHandler.cpp:281
 msgid "Found route outside line definition"
 msgstr "Hat Tanımı Dışında Rota Bulundu"
 
-#: src/netimport/NIXMLPTHandler.cpp:285 src/netimport/NIXMLPTHandler.cpp:305
+#: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
 msgstr "'%' satırının rotasındaki '%' kenarı bulunamadı"
 
-#: src/netimport/NIXMLPTHandler.cpp:324
+#: src/netimport/NIXMLPTHandler.cpp:330
 msgid "Stop '%' within line '%' not found"
 msgstr "'%' satırı içindeki '%' durağı bulunamadı"
 
-#: src/netimport/NIXMLPTHandler.cpp:340
+#: src/netimport/NIXMLPTHandler.cpp:346
 msgid "Stop '%' within route '%' not found"
 msgstr "'%' rotası içinde '%' durağı bulunamadı"
 

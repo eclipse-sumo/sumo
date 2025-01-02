@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 10:26+0100\n"
+"POT-Creation-Date: 2025-01-02 15:02+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -1242,47 +1242,47 @@ msgstr "移除没有有效路径的车辆'%'。"
 msgid "No route for vehicle '%' found."
 msgstr "移除没有有效路径的车辆'%'。"
 
-#: src/microsim/MSBaseVehicle.cpp:501
+#: src/microsim/MSBaseVehicle.cpp:496
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "在新路径中没有找到当前的路段'%'"
 
-#: src/microsim/MSBaseVehicle.cpp:514
+#: src/microsim/MSBaseVehicle.cpp:509
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "车辆在交叉口--内侧路段领先于其他地方"
 
-#: src/microsim/MSBaseVehicle.cpp:527
+#: src/microsim/MSBaseVehicle.cpp:522
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "车辆正驶过交叉口处，并致力于移动到另一个继任路段"
 
-#: src/microsim/MSBaseVehicle.cpp:607
+#: src/microsim/MSBaseVehicle.cpp:602
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr "车辆'%'在时间=%的情况下，改道(%)后无法分配停车'%'。"
 
-#: src/microsim/MSBaseVehicle.cpp:758
+#: src/microsim/MSBaseVehicle.cpp:753
 msgid "No connection between edge '%' and edge '%'."
 msgstr "路段'%'和路段'%'之间没有联系。"
 
-#: src/microsim/MSBaseVehicle.cpp:768
+#: src/microsim/MSBaseVehicle.cpp:763
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "路段'%'禁止使用。"
 
-#: src/microsim/MSBaseVehicle.cpp:780
+#: src/microsim/MSBaseVehicle.cpp:775
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr "车辆 '%' 的出发速度对车辆类型 '%' 来说太高。"
 
-#: src/microsim/MSBaseVehicle.cpp:789
+#: src/microsim/MSBaseVehicle.cpp:784
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr "车辆 '%' 不被允许在路段 '%' 的任何一条车道上出发。"
 
-#: src/microsim/MSBaseVehicle.cpp:819
+#: src/microsim/MSBaseVehicle.cpp:814
 msgid "Vehicle '%' has no valid route. %"
 msgstr "车辆'%'没有有效的路径。%"
 
-#: src/microsim/MSBaseVehicle.cpp:897
+#: src/microsim/MSBaseVehicle.cpp:892
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1290,127 +1290,127 @@ msgstr ""
 "车辆 '%' 忽略属性抵达路段(arrivalEdge)= % 其发生在时间=% 的重新引导路径后（路"
 "段长度(routeLength)=%）"
 
-#: src/microsim/MSBaseVehicle.cpp:911
+#: src/microsim/MSBaseVehicle.cpp:906
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "车辆'%'将无法到达给定的位置!"
 
-#: src/microsim/MSBaseVehicle.cpp:931
+#: src/microsim/MSBaseVehicle.cpp:926
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "车辆'%'将无法到达指定的车道'%_%'!"
 
-#: src/microsim/MSBaseVehicle.cpp:943 src/microsim/MSBaseVehicle.cpp:955
+#: src/microsim/MSBaseVehicle.cpp:938 src/microsim/MSBaseVehicle.cpp:950
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "车辆'%'在路段%'没有可用的到达车道。"
 
-#: src/microsim/MSBaseVehicle.cpp:967
+#: src/microsim/MSBaseVehicle.cpp:962
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "车辆'%'将无法以给定的速度到达！"
 
-#: src/microsim/MSBaseVehicle.cpp:983
+#: src/microsim/MSBaseVehicle.cpp:978
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略有当前路线车辆超出边缘"
 
-#: src/microsim/MSBaseVehicle.cpp:1670
+#: src/microsim/MSBaseVehicle.cpp:1665
 msgid "Invalid stop index % (has % stops)."
 msgstr "无效的停靠点索引 % （共计 % 个停靠点）。"
 
-#: src/microsim/MSBaseVehicle.cpp:1750 src/microsim/MSBaseVehicle.cpp:1873
-#: src/microsim/MSBaseVehicle.cpp:1982
+#: src/microsim/MSBaseVehicle.cpp:1745 src/microsim/MSBaseVehicle.cpp:1868
+#: src/microsim/MSBaseVehicle.cpp:1977
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr "对于剩余的 %个停靠点，无效的后续停靠点索引（nextStopIndex） %"
 
-#: src/microsim/MSBaseVehicle.cpp:1754
+#: src/microsim/MSBaseVehicle.cpp:1749
 msgid "cannot replace reached stop"
 msgstr "无法替换已到达的停靠点"
 
-#: src/microsim/MSBaseVehicle.cpp:1769
+#: src/microsim/MSBaseVehicle.cpp:1764
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr "车辆 '%' 没有路权行驶至停车场 '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1782 src/microsim/MSBaseVehicle.cpp:1994
+#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
 msgid "disallowed stop lane '%'"
 msgstr "车道 '%' 禁止停车"
 
-#: src/microsim/MSBaseVehicle.cpp:1801 src/microsim/MSBaseVehicle.cpp:1895
-#: src/microsim/MSBaseVehicle.cpp:2022
+#: src/microsim/MSBaseVehicle.cpp:1796 src/microsim/MSBaseVehicle.cpp:1890
+#: src/microsim/MSBaseVehicle.cpp:2017
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr "未找到从路段 '%' 到停靠路段 '%' 的路径"
 
-#: src/microsim/MSBaseVehicle.cpp:1810 src/microsim/MSBaseVehicle.cpp:2031
+#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr "未找到从停靠路段 '%' 到路段 '%'的路径"
 
-#: src/microsim/MSBaseVehicle.cpp:1822 src/microsim/MSBaseVehicle.cpp:2045
+#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr "中观仿真不允许车辆 '%' 在内部路段 '%' 上停靠。"
 
-#: src/microsim/MSBaseVehicle.cpp:1877
+#: src/microsim/MSBaseVehicle.cpp:1872
 msgid "cannot reroute towards reached stop"
 msgstr "无法更改路径前往已到达的停靠点"
 
-#: src/microsim/MSBaseVehicle.cpp:1958
+#: src/microsim/MSBaseVehicle.cpp:1953
 msgid "unable to replace stop with teleporting"
 msgstr "停止不能用传送代替"
 
-#: src/microsim/MSBaseVehicle.cpp:1986
+#: src/microsim/MSBaseVehicle.cpp:1981
 msgid "cannot insert stop before the currently reached stop"
 msgstr "无法在当前已到达的停靠点前再插入停靠点"
 
-#: src/microsim/MSBaseVehicle.cpp:2002
+#: src/microsim/MSBaseVehicle.cpp:1997
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr "车辆 '%' 没有路权行驶至停车场 '%'。"
 
-#: src/microsim/MSBaseVehicle.cpp:2302
+#: src/microsim/MSBaseVehicle.cpp:2297
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr "无法创建类型为 '%' 的设备"
 
-#: src/microsim/MSBaseVehicle.cpp:2315 src/microsim/MSBaseVehicle.cpp:2327
+#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
 #, c-format
 msgid "no device of type '%' exists"
 msgstr "类型为 '%' 的设备不存在"
 
-#: src/microsim/MSBaseVehicle.cpp:2338
+#: src/microsim/MSBaseVehicle.cpp:2333
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr "车辆 '%' 不支持交叉口模型（junctionModel）参数 '%'。"
 
-#: src/microsim/MSBaseVehicle.cpp:2384
+#: src/microsim/MSBaseVehicle.cpp:2379
 msgid "could not interpret routing.mode '%'"
 msgstr "无法解析路由模式（routing.mode） '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2467
+#: src/microsim/MSBaseVehicle.cpp:2462
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr "车辆 '%' 的设备参数 '%' 无效。"
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2468
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr "车辆 '%' 不支持设备参数 '%' (%)。"
 
-#: src/microsim/MSBaseVehicle.cpp:2478
+#: src/microsim/MSBaseVehicle.cpp:2473
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr "中观车辆 '%' 不支持换道模型（laneChangeModel）参数。"
 
-#: src/microsim/MSBaseVehicle.cpp:2485
+#: src/microsim/MSBaseVehicle.cpp:2480
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr "车辆 '%' 不支持换道模型（laneChangeModel）参数 '%' (%)。"
 
-#: src/microsim/MSBaseVehicle.cpp:2490
+#: src/microsim/MSBaseVehicle.cpp:2485
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr "中观车辆 '%' 不支持跟驰模型（carFollowModel）参数。"
 
-#: src/microsim/MSBaseVehicle.cpp:2497
+#: src/microsim/MSBaseVehicle.cpp:2492
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr "车辆 '%' 不支持跟驰模型（carFollowModel）参数 '%' (%)。"
 
-#: src/microsim/MSBaseVehicle.cpp:2503
+#: src/microsim/MSBaseVehicle.cpp:2498
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr "对设备的检查无效。预期的格式为 'has.DEVICENAME.device'。"
 
-#: src/microsim/MSBaseVehicle.cpp:2530
+#: src/microsim/MSBaseVehicle.cpp:2525
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr "车辆 '%' 的停靠参数 '%' 不受支持。"
 
@@ -2803,7 +2803,7 @@ msgstr "车道'%'从路段'%'多次接近。这可能导致碰撞。"
 msgid "Invalid % '%'."
 msgstr "无效 % '%'。"
 
-#: src/microsim/MSLane.cpp:4558
+#: src/microsim/MSLane.cpp:4589
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -3040,7 +3040,7 @@ msgstr "停靠点%所在车道“%”未知。"
 msgid "Could not map stop position '%' to the network%."
 msgstr "不能将停靠位置 '%' 映射到路网%。"
 
-#: src/microsim/MSRouteHandler.cpp:1377
+#: src/microsim/MSRouteHandler.cpp:1378
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
@@ -3048,29 +3048,29 @@ msgstr ""
 "停靠点必须设置在公共汽车站、充电站、高架线路段、集装箱站、停车区、道路或车道%"
 "上。"
 
-#: src/microsim/MSRouteHandler.cpp:1388
+#: src/microsim/MSRouteHandler.cpp:1389
 msgid "Deprecated attribute 'pos' in description of stop%."
 msgstr "停靠点%的描述中，属性 'pos' 已不适用。"
 
-#: src/microsim/MSRouteHandler.cpp:1396
+#: src/microsim/MSRouteHandler.cpp:1397
 msgid "Invalid start or end position for stop on %'%."
 msgstr "停靠点%'%上的起始或终止位置无效。"
 
-#: src/microsim/MSRouteHandler.cpp:1413
+#: src/microsim/MSRouteHandler.cpp:1414
 msgid "Disconnected plan for % '%' (%!=%)."
 msgstr "%'%'的计划已断开（%!=%）。"
 
-#: src/microsim/MSRouteHandler.cpp:1424
+#: src/microsim/MSRouteHandler.cpp:1425
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr "%'%'的计划已断开连接（停止范围%-%不包含先前的到达位置%）。"
 
-#: src/microsim/MSRouteHandler.cpp:1459
+#: src/microsim/MSRouteHandler.cpp:1461
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr "%'%' 的属性 “via” 中缺少停靠边。"
 
-#: src/microsim/MSRouteHandler.cpp:1480 src/router/RORouteHandler.cpp:1112
+#: src/microsim/MSRouteHandler.cpp:1482 src/router/RORouteHandler.cpp:1112
 #: src/router/RORouteHandler.cpp:1231
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
@@ -3079,66 +3079,66 @@ msgstr ""
 "对于步行，不再支持departPos属性，请使用人的属性、上一步的到达位置"
 "（ arrivalPos）或明确的停靠。"
 
-#: src/microsim/MSRouteHandler.cpp:1506
+#: src/microsim/MSRouteHandler.cpp:1508
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr "忽略%的到达位置（arrivationPos），因为它在给定站点'%'之外。"
 
-#: src/microsim/MSRouteHandler.cpp:1512 src/router/RORouteHandler.cpp:1133
+#: src/microsim/MSRouteHandler.cpp:1514 src/router/RORouteHandler.cpp:1133
 msgid "No destination edge for %."
 msgstr "没有目的地路段的%。"
 
-#: src/microsim/MSRouteHandler.cpp:1531 src/microsim/MSRouteHandler.cpp:1621
+#: src/microsim/MSRouteHandler.cpp:1533 src/microsim/MSRouteHandler.cpp:1623
 msgid "Cannot define person stage without person."
 msgstr "缺少人员，无法定义人员阶段。"
 
-#: src/microsim/MSRouteHandler.cpp:1545 src/router/RORouteHandler.cpp:1153
+#: src/microsim/MSRouteHandler.cpp:1547 src/router/RORouteHandler.cpp:1153
 msgid "Start edge not defined for person '%'."
 msgstr "没有为'%'的人定义起始路段。"
 
-#: src/microsim/MSRouteHandler.cpp:1556 src/microsim/MSRouteHandler.cpp:1630
+#: src/microsim/MSRouteHandler.cpp:1558 src/microsim/MSRouteHandler.cpp:1632
 #: src/router/RORouteHandler.cpp:1164 src/router/RORouteHandler.cpp:1222
 msgid "Non-positive walking duration for '%'."
 msgstr "为'%'没有正的行走时间。"
 
-#: src/microsim/MSRouteHandler.cpp:1588 src/microsim/MSRouteHandler.cpp:1636
+#: src/microsim/MSRouteHandler.cpp:1590 src/microsim/MSRouteHandler.cpp:1638
 #: src/router/RORouteHandler.cpp:1226
 msgid "Non-positive walking speed for '%'."
 msgstr "为'%'没有正的行走速度。"
 
-#: src/microsim/MSRouteHandler.cpp:1661
+#: src/microsim/MSRouteHandler.cpp:1663
 msgid "No edges to walk for person '%'."
 msgstr "为人'%'没有步行的路段。"
 
-#: src/microsim/MSRouteHandler.cpp:1699
+#: src/microsim/MSRouteHandler.cpp:1701
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr "在解释出发侧向位置(departPosLat)时,找不到人员'%' 步行的出发巷道"
 
-#: src/microsim/MSRouteHandler.cpp:1733
+#: src/microsim/MSRouteHandler.cpp:1735
 msgid "The type '%' for % '%' is not known."
 msgstr "%'%' 的类型 '%' 未知。"
 
-#: src/microsim/MSRouteHandler.cpp:1756
+#: src/microsim/MSRouteHandler.cpp:1758
 msgid "Could not read tranship speed for container '%'."
 msgstr "无法读取货箱'%'的转运速度。"
 
-#: src/microsim/MSRouteHandler.cpp:1764
+#: src/microsim/MSRouteHandler.cpp:1766
 msgid "Non-positive tranship speed for container '%'."
 msgstr "为货箱\"%\"没有正的转运速度。"
 
-#: src/microsim/MSRouteHandler.cpp:1790
+#: src/microsim/MSRouteHandler.cpp:1792
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr "货箱'%'的起始路段未知。"
 
-#: src/microsim/MSRouteHandler.cpp:1807
+#: src/microsim/MSRouteHandler.cpp:1809
 msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1814
+#: src/microsim/MSRouteHandler.cpp:1816
 msgid "No edges to tranship container '%'."
 msgstr "没有路段来转运货箱'%'。"
 
@@ -9061,33 +9061,33 @@ msgstr "找不到路段 '%' 给停靠点 '%'"
 msgid "Lane '%' for stop '%' not found"
 msgstr "找不到车道(lane) '%' 给停靠点'%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:179
+#: src/netimport/NIXMLPTHandler.cpp:185
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr "无法增加大众运输停靠站 '%' (已经存在)"
 
-#: src/netimport/NIXMLPTHandler.cpp:198
+#: src/netimport/NIXMLPTHandler.cpp:204
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
 msgstr "找不到连接通道(access)相接的路段 '%' 到停靠点 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:234
+#: src/netimport/NIXMLPTHandler.cpp:240
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
 
-#: src/netimport/NIXMLPTHandler.cpp:275
+#: src/netimport/NIXMLPTHandler.cpp:281
 msgid "Found route outside line definition"
 msgstr "找到路径外界线(route outside line)的定义"
 
-#: src/netimport/NIXMLPTHandler.cpp:285 src/netimport/NIXMLPTHandler.cpp:305
+#: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
 msgstr "路径中路段 '%' 无法找到; 路线(line)为 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:324
+#: src/netimport/NIXMLPTHandler.cpp:330
 msgid "Stop '%' within line '%' not found"
 msgstr "停靠点 '%' 无法找到; 路线(line)为 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:340
+#: src/netimport/NIXMLPTHandler.cpp:346
 msgid "Stop '%' within route '%' not found"
 msgstr "停靠点 '%' 无法找到; 路径(route)为 '%'"
 
