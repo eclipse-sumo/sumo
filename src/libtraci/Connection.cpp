@@ -392,7 +392,7 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     into[objectID][variableID] = std::make_shared<libsumo::TraCIInt>(inMsg.readInt());
                     break;
                 case libsumo::TYPE_STRINGLIST: {
-                    auto sl = std::make_shared<libsumo::TraCIStringList>();
+                    auto sl = std::make_shared<libsumo::TraCIStringVectorWrapped>();
                     int n = inMsg.readInt();
                     for (int i = 0; i < n; ++i) {
                         sl->value.push_back(inMsg.readString());
@@ -401,26 +401,29 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                 }
                 break;
                 case libsumo::TYPE_COMPOUND: {
-                    int n = inMsg.readInt();
+                    const int n = inMsg.readInt();
                     if (n == 2) {
-                        inMsg.readUnsignedByte();
-                        const std::string s = inMsg.readString();
-                        const int secondType = inMsg.readUnsignedByte();
-                        if (secondType == libsumo::TYPE_DOUBLE) {
-                            auto r = std::make_shared<libsumo::TraCIRoadPosition>();
-                            r->edgeID = s;
-                            r->pos = inMsg.readDouble();
-                            into[objectID][variableID] = r;
-                        } else if (secondType == libsumo::TYPE_STRING) {
-                            auto sl = std::make_shared<libsumo::TraCIStringList>();
-                            sl->value.push_back(s);
-                            sl->value.push_back(inMsg.readString());
-                            into[objectID][variableID] = sl;
+                        const int firstType = inMsg.readUnsignedByte();
+                        if (firstType == libsumo::TYPE_STRING) {
+                            const std::string s = inMsg.readString();
+                            const int secondType = inMsg.readUnsignedByte();
+                            if (secondType == libsumo::TYPE_DOUBLE) {
+                                auto r = std::make_shared<libsumo::TraCIRoadPosition>();
+                                r->edgeID = s;
+                                r->pos = inMsg.readDouble();
+                                into[objectID][variableID] = r;
+                                break;
+                            } else if (secondType == libsumo::TYPE_STRING) {
+                                auto sl = std::make_shared<libsumo::TraCIStringVectorWrapped>();
+                                sl->value.push_back(s);
+                                sl->value.push_back(inMsg.readString());
+                                into[objectID][variableID] = sl;
+                                break;
+                            }
                         }
                     }
                 }
-                break;
-
+                FALLTHROUGH;
                 // TODO Other data types
 
                 default:

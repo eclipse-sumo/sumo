@@ -262,6 +262,7 @@ public:
     /// @name VariableWrapper interface
     /// @{
     void initWrapper(const int domainID, const int variable, const std::string& objID);
+    bool wrapConnectionVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIConnection>& value);
     bool wrapDouble(const std::string& objID, const int variable, const double value);
     bool wrapInt(const std::string& objID, const int variable, const int value);
     bool wrapString(const std::string& objID, const int variable, const std::string& value);

@@ -156,6 +156,7 @@ public:
     SubscriptionHandler handle;
     virtual void setContext(const std::string* const /* refID */) {}
     virtual void clear() {}
+    virtual bool wrapConnectionVector(const std::string& objID, const int variable, const std::vector<TraCIConnection>& value) = 0;
     virtual bool wrapDouble(const std::string& objID, const int variable, const double value) = 0;
     virtual bool wrapInt(const std::string& objID, const int variable, const int value) = 0;
     virtual bool wrapString(const std::string& objID, const int variable, const std::string& value) = 0;

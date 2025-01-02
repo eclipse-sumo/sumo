@@ -389,7 +389,7 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                     into[objectID][variableID] = std::make_shared<libsumo::TraCIInt>(inMsg.readInt());
                     break;
                 case libsumo::TYPE_STRINGLIST: {
-                    auto sl = std::make_shared<libsumo::TraCIStringList>();
+                    auto sl = std::make_shared<libsumo::TraCIStringVectorWrapped>();
                     int n = inMsg.readInt();
                     for (int i = 0; i < n; ++i) {
                         sl->value.push_back(inMsg.readString());

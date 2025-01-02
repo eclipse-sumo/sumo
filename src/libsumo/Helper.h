@@ -211,6 +211,7 @@ public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
         void setContext(const std::string* const refID);
         void clear();
+        bool wrapConnectionVector(const std::string& objID, const int variable, const std::vector<TraCIConnection>& value);
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);
         bool wrapString(const std::string& objID, const int variable, const std::string& value);

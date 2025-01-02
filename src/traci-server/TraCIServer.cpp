@@ -118,6 +118,54 @@ TraCIServer::initWrapper(const int domainID, const int variable, const std::stri
 
 
 bool
+TraCIServer::wrapConnectionVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIConnection>& value) {
+    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    tcpip::Storage tempContent;
+    int cnt = 0;
+    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    tempContent.writeInt((int)value.size());
+    ++cnt;
+    for (const libsumo::TraCIConnection& con : value) {
+        // approached non-internal lane (if any)
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.approachedLane);
+        ++cnt;
+        // approached "via", internal lane (if any)
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.approachedInternal);
+        ++cnt;
+        // priority
+        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        tempContent.writeUnsignedByte(con.hasPrio);
+        ++cnt;
+        // opened
+        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        tempContent.writeUnsignedByte(con.isOpen);
+        ++cnt;
+        // approaching foe
+        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        tempContent.writeUnsignedByte(con.hasFoe);
+        ++cnt;
+        // state (not implemented yet)
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.state);
+        ++cnt;
+        // direction
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.direction);
+        ++cnt;
+        // length
+        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        tempContent.writeDouble(con.length);
+        ++cnt;
+    }
+    myWrapperStorage.writeInt(cnt);
+    myWrapperStorage.writeStorage(tempContent);
+    return true;
+}
+
+
+bool
 TraCIServer::wrapDouble(const std::string& /* objID */, const int /* variable */, const double value) {
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     myWrapperStorage.writeDouble(value);

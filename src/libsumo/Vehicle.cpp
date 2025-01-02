@@ -2891,6 +2891,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapStringList(objID, variable, getRoute(objID));
         case VAR_SIGNALS:
             return wrapper->wrapInt(objID, variable, getSignals(objID));
+        case VAR_NEXT_LINKS:
+            return wrapper->wrapConnectionVector(objID, variable, getNextLinks(objID));
         case VAR_STOPSTATE:
             return wrapper->wrapInt(objID, variable, getStopState(objID));
         case VAR_DISTANCE:

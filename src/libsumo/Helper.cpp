@@ -1864,6 +1864,15 @@ Helper::SubscriptionWrapper::clear() {
 
 
 bool
+Helper::SubscriptionWrapper::wrapConnectionVector(const std::string& objID, const int variable, const std::vector<TraCIConnection>& value) {
+    auto sl = std::make_shared<TraCIConnectionVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapDouble(const std::string& objID, const int variable, const double value) {
     (*myActiveResults)[objID][variable] = std::make_shared<TraCIDouble>(value);
     return true;
@@ -1886,7 +1895,7 @@ Helper::SubscriptionWrapper::wrapString(const std::string& objID, const int vari
 
 bool
 Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) {
-    auto sl = std::make_shared<TraCIStringList>();
+    auto sl = std::make_shared<TraCIStringVectorWrapped>();
     sl->value = value;
     (*myActiveResults)[objID][variable] = sl;
     return true;
@@ -1895,7 +1904,7 @@ Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int 
 
 bool
 Helper::SubscriptionWrapper::wrapDoubleList(const std::string& objID, const int variable, const std::vector<double>& value) {
-    auto sl = std::make_shared<TraCIDoubleList>();
+    auto sl = std::make_shared<TraCIDoubleVectorWrapped>();
     sl->value = value;
     (*myActiveResults)[objID][variable] = sl;
     return true;
@@ -1932,7 +1941,7 @@ Helper::SubscriptionWrapper::wrapStringDoublePair(const std::string& objID, cons
 
 bool
 Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
-    auto sl = std::make_shared<TraCIStringList>();
+    auto sl = std::make_shared<TraCIStringVectorWrapped>();
     sl->value.push_back(value.first);
     sl->value.push_back(value.second);
     (*myActiveResults)[objID][variable] = sl;
