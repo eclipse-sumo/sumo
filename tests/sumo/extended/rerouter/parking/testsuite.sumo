@@ -70,3 +70,6 @@ reroute_on_junction
 
 # test what happens if brakeGap prevents the vehicle from taken the first free space.
 brakeGap_beyond_firstSpace
+
+# 3 parkingareas on one edge
+3same_edge
