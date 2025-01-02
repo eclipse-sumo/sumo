@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-02 14:50:48 by Eclipse SUMO sumo Version v1_21_0+1626-a687a18afd4
+<!-- generated on 2025-01-02 15:07:35 by Eclipse SUMO sumo Version v1_21_0+1627-5e1d29dfd6f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,3 +23,7 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="f.8" depart="17.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="20.00" arrivalLane="SC_0" arrivalPos="4.18" arrivalSpeed="5.00" duration="3.00" routeLength="-0.92" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.76" rerouteNo="0" devices="vehroute_f.8 tripinfo_f.8" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <tripinfo id="f.4" depart="8.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="SC_0" arrivalPos="81.93" arrivalSpeed="5.00" duration="17.00" routeLength="76.83" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.24" rerouteNo="0" devices="vehroute_f.4 tripinfo_f.4" vType="DEFAULT_VEHTYPE" speedFactor="1.03" vaporized=""/>
+    <tripinfo id="f.6" depart="12.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="SC_0" arrivalPos="65.51" arrivalSpeed="5.00" duration="13.00" routeLength="60.41" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.48" rerouteNo="0" devices="vehroute_f.6 tripinfo_f.6" vType="DEFAULT_VEHTYPE" speedFactor="1.05" vaporized=""/>
+    <tripinfo id="f.9" depart="20.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="29.00" arrivalLane="SC_0" arrivalPos="45.19" arrivalSpeed="5.00" duration="9.00" routeLength="40.09" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.48" rerouteNo="0" devices="vehroute_f.9 tripinfo_f.9" vType="DEFAULT_VEHTYPE" speedFactor="0.86" vaporized=""/>
+</tripinfos>

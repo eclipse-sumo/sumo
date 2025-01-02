@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-02 14:50:48 by Eclipse SUMO sumo Version v1_21_0+1626-a687a18afd4
+<!-- generated on 2025-01-02 15:07:35 by Eclipse SUMO sumo Version v1_21_0+1627-5e1d29dfd6f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,3 +19,23 @@
     </report>
 
 </sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="f.8" depart="17.00" arrivalPos="random" arrival="20.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.4" depart="8.00" arrivalPos="random" arrival="25.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.6" depart="12.00" arrivalPos="random" arrival="25.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.9" depart="20.00" arrivalPos="random" arrival="29.00">
+        <route edges="SC"/>
+    </vehicle>
+
+</routes>
