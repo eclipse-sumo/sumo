@@ -15,3 +15,4 @@ filter_ptline
 
 # load ptstops and ptlines and then patch a ptline period
 patch_ptline
+negative_stop_pos
