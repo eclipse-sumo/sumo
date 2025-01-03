@@ -991,11 +991,11 @@ msgstr ""
 "Konnte die Position auf Fahrstreifen '%' an seitlicher Position % nicht "
 "bestimmen."
 
-#: src/libsumo/Simulation.cpp:138
+#: src/libsumo/Simulation.cpp:138 src/libsumo/Simulation.cpp:105
 msgid "Simulation version % started via libsumo with time: %."
 msgstr "Simulationsversion % startet über libsumo mit der Zeit: %"
 
-#: src/libsumo/Simulation.cpp:738
+#: src/libsumo/Simulation.cpp:738 src/libsumo/Simulation.cpp:702
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
@@ -1483,38 +1483,43 @@ msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
 "Die Abfahrtskante % von Fahrzeug % wird ignoriert (% Kanten auf seiner Route)"
 
-#: src/microsim/MSBaseVehicle.cpp:1668
+#: src/microsim/MSBaseVehicle.cpp:1668 src/microsim/MSBaseVehicle.cpp:1665
 msgid "Invalid stop index % (has % stops)."
 msgstr "Ungültiger Halteindex % (hat % Halte)."
 
 #: src/microsim/MSBaseVehicle.cpp:1748 src/microsim/MSBaseVehicle.cpp:1871
-#: src/microsim/MSBaseVehicle.cpp:1980
+#: src/microsim/MSBaseVehicle.cpp:1980 src/microsim/MSBaseVehicle.cpp:1745
+#: src/microsim/MSBaseVehicle.cpp:1868 src/microsim/MSBaseVehicle.cpp:1977
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr "ungültiger Halteindex % bei % verbleibenden Halten"
 
-#: src/microsim/MSBaseVehicle.cpp:1752
+#: src/microsim/MSBaseVehicle.cpp:1752 src/microsim/MSBaseVehicle.cpp:1749
 msgid "cannot replace reached stop"
 msgstr "erreichter Halt kann nicht ersetzt werden"
 
-#: src/microsim/MSBaseVehicle.cpp:1767
+#: src/microsim/MSBaseVehicle.cpp:1767 src/microsim/MSBaseVehicle.cpp:1764
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 "Fahrzeug '%' hat nicht die Berechtigung, um den Parkplart '%' zu befahren"
 
 #: src/microsim/MSBaseVehicle.cpp:1780 src/microsim/MSBaseVehicle.cpp:1992
+#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
 msgid "disallowed stop lane '%'"
 msgstr "gesperrter Haltefahrstreifen '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1799 src/microsim/MSBaseVehicle.cpp:1893
-#: src/microsim/MSBaseVehicle.cpp:2020
+#: src/microsim/MSBaseVehicle.cpp:2020 src/microsim/MSBaseVehicle.cpp:1796
+#: src/microsim/MSBaseVehicle.cpp:1890 src/microsim/MSBaseVehicle.cpp:2017
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr "keine Route von Kante '%' zur Haltekante '%' gefunden"
 
 #: src/microsim/MSBaseVehicle.cpp:1808 src/microsim/MSBaseVehicle.cpp:2029
+#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr "keine Route von Haltekante '%' zu Kante '%' gefunden"
 
 #: src/microsim/MSBaseVehicle.cpp:1820 src/microsim/MSBaseVehicle.cpp:2043
+#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
@@ -1522,80 +1527,81 @@ msgstr ""
 "Die mesoskopische Simulation erlaubt keinen Halt auf der internen Kante '%' "
 "Für Fahrzeug '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:1875
+#: src/microsim/MSBaseVehicle.cpp:1875 src/microsim/MSBaseVehicle.cpp:1872
 msgid "cannot reroute towards reached stop"
 msgstr "kann nicht erreichten Halt anfahren"
 
-#: src/microsim/MSBaseVehicle.cpp:1956
+#: src/microsim/MSBaseVehicle.cpp:1956 src/microsim/MSBaseVehicle.cpp:1953
 msgid "unable to replace stop with teleporting"
 msgstr "Halt kann nicht mittels Teleport ersetzt werden"
 
-#: src/microsim/MSBaseVehicle.cpp:1984
+#: src/microsim/MSBaseVehicle.cpp:1984 src/microsim/MSBaseVehicle.cpp:1981
 msgid "cannot insert stop before the currently reached stop"
 msgstr "kann keinen Halt vor dem aktuell erreichten einfügen"
 
-#: src/microsim/MSBaseVehicle.cpp:2000
+#: src/microsim/MSBaseVehicle.cpp:2000 src/microsim/MSBaseVehicle.cpp:1997
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 "Das Fahrzeug '%' hat nicht die richtigen Zugangsrechte für Parkplatz '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2300
+#: src/microsim/MSBaseVehicle.cpp:2300 src/microsim/MSBaseVehicle.cpp:2297
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr "die Einrichtung '%' kann nicht erstellt werden"
 
 #: src/microsim/MSBaseVehicle.cpp:2313 src/microsim/MSBaseVehicle.cpp:2325
+#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
 #, c-format
 msgid "no device of type '%' exists"
 msgstr "es gibt keine Einrichtung des Typs '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2336
+#: src/microsim/MSBaseVehicle.cpp:2336 src/microsim/MSBaseVehicle.cpp:2333
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr "Das Fahrzeug '%' unterstützt den Knotenpunktmodellparameter '%' nicht."
 
-#: src/microsim/MSBaseVehicle.cpp:2382
+#: src/microsim/MSBaseVehicle.cpp:2382 src/microsim/MSBaseVehicle.cpp:2379
 msgid "could not interpret routing.mode '%'"
 msgstr "der Wert '%' von routing.mode konnte nicht interpretiert werden"
 
-#: src/microsim/MSBaseVehicle.cpp:2465
+#: src/microsim/MSBaseVehicle.cpp:2465 src/microsim/MSBaseVehicle.cpp:2462
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr "Ungültiger Einrichtungsparameter '%' für Fahrzeug '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2471
+#: src/microsim/MSBaseVehicle.cpp:2471 src/microsim/MSBaseVehicle.cpp:2468
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr "Das Fahrzeug '%' unterstützt den Einrichtungsparameter '%' (%) nicht."
 
-#: src/microsim/MSBaseVehicle.cpp:2476
+#: src/microsim/MSBaseVehicle.cpp:2476 src/microsim/MSBaseVehicle.cpp:2473
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 "Das mesoskopische Fahrzeug '%' erlaubt keine "
 "Fahrstreifenwechselmodellparameter."
 
-#: src/microsim/MSBaseVehicle.cpp:2483
+#: src/microsim/MSBaseVehicle.cpp:2483 src/microsim/MSBaseVehicle.cpp:2480
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 "Das Fahrzeug ''%' erlaubt den Fahrstreifenwechselmodellparameter '%' (%) "
 "nicht."
 
-#: src/microsim/MSBaseVehicle.cpp:2488
+#: src/microsim/MSBaseVehicle.cpp:2488 src/microsim/MSBaseVehicle.cpp:2485
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 "Das mesoskopische Fahrzeug '%' erlaubt keine Fahrzeugfolgemodellparameter."
 
-#: src/microsim/MSBaseVehicle.cpp:2495
+#: src/microsim/MSBaseVehicle.cpp:2495 src/microsim/MSBaseVehicle.cpp:2492
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 "Das Fahrzeug '%' erlaubt den Fahrzeugfolgemodellparameter '%' (%) nicht."
 
-#: src/microsim/MSBaseVehicle.cpp:2501
+#: src/microsim/MSBaseVehicle.cpp:2501 src/microsim/MSBaseVehicle.cpp:2498
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 "Ungültige Abfrage nach einer Einrichtung. Das erwartete Format lautet 'has."
 "DEVICENAME.device'."
 
-#: src/microsim/MSBaseVehicle.cpp:2528
+#: src/microsim/MSBaseVehicle.cpp:2528 src/microsim/MSBaseVehicle.cpp:2525
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr "Nicht unterstützter Parkparameter '%' bei Fahrzeug '%'."
 
@@ -3190,11 +3196,11 @@ msgstr ""
 "Der Fahrstreifen '%' wird mehrfach von der Kante '%' angesteuert. Dadurch "
 "kann es zu Kollisionen kommen."
 
-#: src/microsim/MSLane.cpp:4418
+#: src/microsim/MSLane.cpp:4418 src/microsim/MSLane.cpp:4421
 msgid "Invalid % '%'."
 msgstr "% '%' ist ungültig."
 
-#: src/microsim/MSLane.cpp:4586
+#: src/microsim/MSLane.cpp:4586 src/microsim/MSLane.cpp:4589
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -3591,20 +3597,20 @@ msgstr "Stand wurde mit sumo-Version % geschrieben (jetzt:%)!"
 msgid "Unknown lane '%' in loaded state."
 msgstr "Unbekannter Fahrstreifen '%' in der geladenen Stand."
 
-#: src/microsim/MSStateHandler.cpp:413
+#: src/microsim/MSStateHandler.cpp:413 src/microsim/MSStateHandler.cpp:403
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
 msgstr "Programm '%' für die LSA '%' wird im geladenen Stand ignoriert"
 
-#: src/microsim/MSStateHandler.cpp:448
+#: src/microsim/MSStateHandler.cpp:448 src/microsim/MSStateHandler.cpp:438
 msgid "Could not load vehicle control state"
 msgstr "Fahrzeugsteuerungsstand konnte nicht geladen werden"
 
-#: src/microsim/MSStateHandler.cpp:457
+#: src/microsim/MSStateHandler.cpp:457 src/microsim/MSStateHandler.cpp:447
 msgid "Removed % vehicles while loading state."
 msgstr "% Fahrzeuge beim Laden des Stands entfernt."
 
-#: src/microsim/MSStateHandler.cpp:487
+#: src/microsim/MSStateHandler.cpp:487 src/microsim/MSStateHandler.cpp:473
 #, c-format
 msgid "Could not load vehicle '%' from state"
 msgstr "Fahrzeug '%' vom Stand kann nicht geladen werden"
@@ -3661,8 +3667,8 @@ msgstr " aus unbekannten Gründen"
 
 #: src/microsim/MSVehicle.cpp:4646
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
-"%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
+"offset=%), time=%."
 msgstr ""
 "Fahrzeug '%' führt einen Nothalt am Ende des Fahrstreifens '%'% durch "
 "(Verzögerung=%, Versatz=%), zur Zeit=%."
@@ -3678,8 +3684,8 @@ msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
-"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit Verzögerung="
-"%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
+"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit "
+"Verzögerung=%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
 
 #: src/microsim/MSVehicle.cpp:5738
 #, c-format
@@ -3694,7 +3700,7 @@ msgstr "Fahrzeug '%' lässt Halt auf Fahrstreifen '%' aus (Zeit=%)."
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "Fehler: Ungültige Fahrzeuge im Zustand (kann ein Meso-Zustand sein)!"
 
-#: src/microsim/MSVehicle.cpp:7690
+#: src/microsim/MSVehicle.cpp:7690 src/microsim/MSVehicle.cpp:7686
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "Aktionsschritte sind im geladenen Fahrzeug '%' nicht synchronisiert."
 
@@ -4274,7 +4280,7 @@ msgstr "Zonen (Bezirke) als Routing-Start- und Endpunkte verwenden"
 #: src/microsim/devices/MSDevice_Routing.cpp:77
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:51
 msgid "Set routing flags (8 ignores temporary blockages)"
-msgstr ""
+msgstr "Routing-Marker setzen (bei 8 werden temporäre Blockaden ignoriert)"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:80
 msgid ""
@@ -5388,7 +5394,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:973
 msgid "Found circular block after % (% edges, length %)"
-msgstr ""
+msgstr "Zirkuläre BLockade nach % gefunden (% Kanten, Länge %)"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2003
 msgid "Unknown driveWay '%' with route '%'"
@@ -5587,6 +5593,8 @@ msgstr "Person '%' konnte auf der Kante '%' keinen Fußweg finden, zur Zeit=%."
 #, c-format
 msgid "FromTaz '%' for person '%' has no shape information."
 msgstr ""
+"Die Quellverkehrsumlegungszone '%' von Person '%' besitzt keine Shape-"
+"Information."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:307
 msgid "No waiting set for crossing at %."
@@ -5726,8 +5734,8 @@ msgstr "Person '%' klemmt auf der Kante '%', Zeit=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:248
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
-"%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
+"time=%"
 msgstr ""
 "Das Fahrzeug '%' wird über die maximale Belegung % hinaus mit der erzeugten "
 "Person '%' beladen (zur Zeit %)"
@@ -5857,6 +5865,8 @@ msgstr "Die Ladestation mit ID='%' hat keine gültige Position (% < %)."
 #: src/microsim/trigger/MSChargingStation.h:69
 msgid "Encountered an unknown charge type. Assuming charge type 'normal'."
 msgstr ""
+"Unbekannter Ladetyp gefunden. Es wird stattdessen der Ladetyp 'normal' "
+"angenommen."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -5914,8 +5924,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:497
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at time="
-"%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at "
+"time=%."
 msgstr ""
 "Ungültige Entfernungsberechnung für Fahrzeug '%' ausgehend vom Haltepunkt "
 "'%' zur Zeit %."
@@ -5930,21 +5940,23 @@ msgstr "Ungültiger Wert '%' für Fahrzeugtypparameter '%'"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:126
 msgid "rerouter '%': interval end % is not after begin %."
-msgstr ""
+msgstr "Rerouter '%': Das Intervallende % liegt nicht nach dem Beginn %."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:136
 msgid "rerouter '%': destProbReroute has no destination edge id."
-msgstr ""
+msgstr "Rerouter '%': destProbReroute hat keine Zielkanten-ID."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:145
 msgid "rerouter '%': Destination edge '%' is not known."
-msgstr ""
+msgstr "Rerouter '%': Die Zielkante '%' ist unbekannt."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:155
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr ""
+"Rerouter '%': Das Attribut 'probability' des Ziels '%' ist (verbotenerweise) "
+"negativ ."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:166
 msgid "rerouter '%': Edge '%' to close is not known."
@@ -5956,7 +5968,7 @@ msgstr "Rerouter '%': Unbekannter zu sperrender Fahrstreifen '%'."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:199
 msgid "rerouter '%': routeProbReroute has no alternative route id."
-msgstr ""
+msgstr "Rerouter '%': routeProbReroute hat keine alternative Routen-ID."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:203
 msgid "rerouter '%': Alternative route '%' does not exist."
@@ -5988,16 +6000,18 @@ msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid "rerouter '%': No via edge id given."
-msgstr ""
+msgstr "Rerouter '%': Keine Zwischenkanten-ID angegeben."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:251
 msgid "rerouter '%': Via Edge '%' is not known."
-msgstr ""
+msgstr "Rerouter '%': Zwischenkante '%' ist unbekannt."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:260
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
+"Rerouter '%': Das Attribut 'probability' der Zwischenkante '%' ist "
+"(verbotenerweise) negativ ."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:530
 #, c-format
@@ -12223,24 +12237,24 @@ msgstr "Die Emissionsklasse (-e) muss gegeben sein."
 msgid "The output file (-o) must be given."
 msgstr "Die Ausgabedatei (-o) muss gegeben sein."
 
-#: src/traci-server/TraCIServer.cpp:362
+#: src/traci-server/TraCIServer.cpp:362 src/traci-server/TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
 msgstr "Starte TraCI ohne Verwendung interne Fahrstreifen!"
 
-#: src/traci-server/TraCIServer.cpp:368
+#: src/traci-server/TraCIServer.cpp:368 src/traci-server/TraCIServer.cpp:320
 msgid "***Starting server on port % ***"
 msgstr "***Starte Server am Anschluss % ***"
 
-#: src/traci-server/TraCIServer.cpp:371
+#: src/traci-server/TraCIServer.cpp:371 src/traci-server/TraCIServer.cpp:323
 #, c-format
 msgid "  waiting for % clients..."
 msgstr "  warte auf % Clienten..."
 
-#: src/traci-server/TraCIServer.cpp:395
+#: src/traci-server/TraCIServer.cpp:395 src/traci-server/TraCIServer.cpp:347
 msgid "  client connected"
 msgstr "  Client verbunden"
 
-#: src/traci-server/TraCIServer.cpp:528
+#: src/traci-server/TraCIServer.cpp:528 src/traci-server/TraCIServer.cpp:480
 msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
@@ -13102,10 +13116,13 @@ msgstr ""
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
+#: src/utils/options/OptionsParser.cpp:127
+#: src/utils/options/OptionsParser.cpp:134
 msgid "Missing value for parameter '%'."
 msgstr "Fehlender Wert für den Parameter '%'."
 
 #: src/utils/options/OptionsParser.cpp:155
+#: src/utils/options/OptionsParser.cpp:146
 #, c-format
 msgid ""
 "The parameter '%' is not allowed in this context.\n"
@@ -13115,6 +13132,7 @@ msgstr ""
 "Es wird ein Schalter oder Parametername erwartet."
 
 #: src/utils/options/OptionsParser.cpp:159
+#: src/utils/options/OptionsParser.cpp:150
 msgid "Mixed parameter syntax in '%'."
 msgstr "Gemischte Parametersyntax in '%'."
 
@@ -13713,6 +13731,10 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
+
+#: src/utils/handlers/AdditionalHandler.cpp:2056
+msgid "Calibrator Flows has to be defined within of a %."
+msgstr ""
 
 #, c-format
 #~ msgid "Probability of % must be equal or greater than 0"
