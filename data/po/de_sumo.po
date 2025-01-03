@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-02 16:49+0000\n"
+"PO-Revision-Date: 2025-01-03 09:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4741,6 +4741,8 @@ msgid ""
 "Only stops with a predicted duration of at least the given threshold are "
 "considered for opportunistic charging."
 msgstr ""
+"Nur Halte mit einer voraussichtlichen Dauer von mindestens diesem "
+"Schwellwert werden für opportunistische Ladevorgänge herangezogen ."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:84
 msgid "Target state of charge after which the vehicle stops charging"
@@ -4931,11 +4933,11 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:514
 msgid "Could not add taxi stop, time=%, error=%"
-msgstr ""
+msgstr "Es konnte kein Taxihalt hinzugefügt werden; zur Zeit=%, Fehler=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:550
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
-msgstr ""
+msgstr "Taxi '%' gibt Warten auf Kunden auf: % zur Zeit=%."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:739
 msgid "Taxi '%' reaches scheduled end of service at time=%."
@@ -5817,6 +5819,8 @@ msgid ""
 "Either 'vehsPerHour', 'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
 msgstr ""
+"Entweder 'vehsPerHour', 'speed' oder 'type' muss in der Flussdefinition des "
+"Calibrator '%' gesetzt werden."
 
 #: src/microsim/trigger/MSCalibrator.cpp:249
 msgid "Type calibration is not supported in meso for calibrator '%'."
@@ -5944,11 +5948,11 @@ msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:166
 msgid "rerouter '%': Edge '%' to close is not known."
-msgstr ""
+msgstr "Rerouter '%': Unbekannte zu sperrende Kante '%'."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:180
 msgid "rerouter '%': Lane '%' to close is not known."
-msgstr ""
+msgstr "Rerouter '%': Unbekannter zu sperrender Fahrstreifen '%'."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:199
 msgid "rerouter '%': routeProbReroute has no alternative route id."
@@ -5956,27 +5960,31 @@ msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:203
 msgid "rerouter '%': Alternative route '%' does not exist."
-msgstr ""
+msgstr "Rerouter '%': Die Alternativroute '%' existiert nicht."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:213
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
+"Rerouter '%': Das Attribut 'probability' der Alternativroute '%' ist "
+"(verbotenerweise) negativ ."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:222
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
-msgstr ""
+msgstr "Rerouter '%': parkingAreaReroute benötigt die ID eines Parkplatz."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:226
 msgid "rerouter '%': parkingArea '%' is not known."
-msgstr ""
+msgstr "Rerouter '%': Unbekannter Parkplatz '%'."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:235
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
+"Rerouter '%': Das Attribut 'probability' des Parkplatzes '%' ist "
+"(verbotenerweise) negativ ."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid "rerouter '%': No via edge id given."
